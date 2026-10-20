@@ -1,0 +1,197 @@
+{
+  "id": "visits",
+  "order": 16,
+  "title": {
+    "en": "Visits",
+    "ar": "الزيارات"
+  },
+  "intent": "Planning an in-person site visit to a hotel or hall (ADR 0033 D9): choose a slot, send the request, and land in a dedicated three-way group chat with the hotel representative and Ghazal support to confirm the appointment and the arrival. Visits are free and independent of the voucher. The group chat has exactly three roles with visible role chips, member-only visibility and read-only closing after the visit. Governmental facilities and providers do not offer visits in the MVP (A-10).",
+  "screens": [
+    {
+      "id": "CL-VIST-01",
+      "slug": "book-visit",
+      "title": {
+        "en": "Book a visit",
+        "ar": "احجزوا زيارة"
+      },
+      "kind": "sheet",
+      "purpose": "Choose a visit slot at a hotel or hall: date, arrival window, number of visitors and an optional note. Opened from the venue detail, the booking-confirmed screen and Booking detail. No voucher is needed. Guests are gated at Send.",
+      "requirementIds": [
+        "CA-VIS-01",
+        "CA-VIS-02",
+        "CA-AUTH-10"
+      ],
+      "states": [
+        "default",
+        "no-slots-this-week",
+        "slot-taken",
+        "sending",
+        "guest-gate",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Date strip of the next 14 days showing only days with visit slots (from the venue's visit hours), then 30-minute arrival windows as chips; a day with no slots shows the next day that has them",
+        "Visitors stepper (1 to 6) and an optional one-line note (dir=auto) such as \"Mother and sister, ladies hall\"; the venue name and hall sit at the top",
+        "Primary \"Request visit\" sends the request, creates the group chat and opens CL-VIST-02; guests see the sign-in sheet with the context line \"to book a visit\" and return with the slot intact",
+        "A slot taken meanwhile turns its chip into an inline \"Taken\" state with the next slots offered; sending is never queued offline"
+      ],
+      "contentNotes": "Heading «احجزوا زيارة» / \"Book a visit\". Example: Aurelia Gulf Hotel, Sat 14 Nov 2026, window 5:00 PM - 5:30 PM, 2 visitors (illustrative). Helper: «ستفتح لكم محادثة مع الفندق ودعم غزل لتأكيد الموعد.» / \"A chat opens with the hotel and Ghazal support to confirm your visit.\" Venue hours are shown in Kuwait time, 12-hour clock.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-VIST-02",
+        "CL-AUTH-01",
+        "CL-VENU-01"
+      ]
+    },
+    {
+      "id": "CL-VIST-02",
+      "slug": "visit-requested",
+      "title": {
+        "en": "Visit requested",
+        "ar": "تم طلب الزيارة"
+      },
+      "kind": "screen",
+      "purpose": "Confirmation of the visit request that redirects into the group chat: what was requested, who is in the chat and what happens next. The redirect is the owner's rule: the client confirms the appointment arrival inside the chat.",
+      "requirementIds": [
+        "CA-VIS-02",
+        "CA-VIS-03",
+        "CA-NOTI-02"
+      ],
+      "states": [
+        "default",
+        "auto-redirecting",
+        "offline"
+      ],
+      "interactions": [
+        "Summary card: venue, date, arrival window, visitors, status chip \"Requested\"; the three chat members shown as role chips (You, Hotel representative, Ghazal support)",
+        "Primary \"Open the chat\" opens CL-VIST-03 (auto-redirect after two seconds unless reduced motion or the client taps Stay); secondary \"Back to the venue\"",
+        "After the first booking or visit request the OS notification pre-prompt appears as a sheet before the system dialog; never at launch"
+      ],
+      "contentNotes": "Heading «تم طلب الزيارة» / \"Visit requested\". Body: «ننتظر تأكيد الفندق. تابعوا الموعد في المحادثة.» / \"We are waiting for the hotel to confirm. Follow the appointment in the chat.\" No celebratory language (the one warm moment of a flow stays at booking confirmation).",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-VIST-03",
+        "CL-VENU-01",
+        "CL-VIST-04"
+      ]
+    },
+    {
+      "id": "CL-VIST-03",
+      "slug": "visit-group-chat",
+      "title": {
+        "en": "Visit chat",
+        "ar": "محادثة الزيارة"
+      },
+      "kind": "screen",
+      "purpose": "The dedicated three-way group chat of one visit: the client, a hotel representative and a Ghazal support representative. A pinned card carries the slot, status and the arrival actions; messages show the sender's role chip. It uses the shared chat component with real-time delivery, photos, documents and optional voice. Closes read-only 24 hours after the slot.",
+      "requirementIds": [
+        "CA-VIS-03",
+        "CA-VIS-05",
+        "CA-VIS-06",
+        "CA-CHAT-06",
+        "CA-CHAT-07",
+        "CA-CHAT-08",
+        "CA-CHAT-11"
+      ],
+      "states": [
+        "requested",
+        "confirmed",
+        "reschedule-proposed",
+        "day-of",
+        "arrived",
+        "completed-read-only",
+        "declined",
+        "cancelled",
+        "missed",
+        "sending",
+        "failed",
+        "offline-queued",
+        "loading",
+        "error"
+      ],
+      "interactions": [
+        "Pinned visit card under the header: venue, date and arrival window, status chip, and actions by state: \"Confirm this time\" (when the hotel proposes another), \"We are on our way\" and \"We have arrived\" on the day (the representative then marks the arrival), \"Change or cancel\" (CL-VIST-05)",
+        "Header shows the three members as role chips (You, Hotel representative with the venue name, Ghazal support); tapping opens the member list in a sheet (names as monograms, roles, no phone numbers shared by default)",
+        "Messages: each bubble carries its sender role chip (Hotel, Support) and aligns by its own first strong character (dir=auto); system messages mark request, confirmation, arrival and close; the composer matches CL-MSGS-02 (text, attach, voice); chat may queue offline but arrival taps are disabled offline with a plain reason",
+        "Read-only after closing: the composer is replaced by \"This chat is closed. Message the venue\" with a link to the venue thread; report and block follow CL-MSGS-03, and support members cannot be blocked"
+      ],
+      "contentNotes": "Header example: «زيارة فندق أوريليا الخليج» / \"Visit to Aurelia Gulf Hotel\" and the three chips «أنتم» You, «ممثل الفندق» Hotel representative, «دعم غزل» Ghazal support. System line: «فُتحت محادثة الزيارة مع ممثل الفندق ودعم غزل.» / \"The visit chat is open with the hotel representative and Ghazal support.\" Arrival buttons AR: «في الطريق إليكم» (neutral plural, \"on our way to you\") and «وصلنا». Fixture: venue rep Amal Al-Balushi (Reception) as the hotel member; support member shown as \"Ghazal support\". No avatars of people: monograms only.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-VIST-05",
+        "CL-VIST-04",
+        "CL-VENU-01",
+        "CL-MSGS-02",
+        "CL-MSGS-03"
+      ]
+    },
+    {
+      "id": "CL-VIST-04",
+      "slug": "my-visits",
+      "title": {
+        "en": "My visits",
+        "ar": "زياراتي"
+      },
+      "kind": "screen",
+      "purpose": "The list of the client's visits by state (Upcoming, Past) with status chips and a way into each chat. Reached from Profile and My Wedding.",
+      "requirementIds": [
+        "CA-VIS-04",
+        "CA-PROF-12"
+      ],
+      "states": [
+        "default",
+        "empty",
+        "guest",
+        "loading",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Segmented control Upcoming | Past; rows show venue thumbnail or monogram, venue name, \"Sat 14 Nov 2026 · 5:00 PM\" and a status chip (Requested, Confirmed, Arrived, Completed, Declined, Cancelled, Missed); tapping opens the chat (CL-VIST-03)",
+        "Empty: \"No visits yet. Book a visit from a venue page.\" with \"See halls\" (CL-DISC-03); guests see a sign-in teaser",
+        "A \"Book another visit\" action is not offered here (visits start from a venue)"
+      ],
+      "contentNotes": "Demo rows (illustrative): Aurelia Gulf Hotel, Sat 14 Nov 2026, 5:00 PM, Confirmed; Lumi Marina Hotel, Wed 4 Nov 2026, Completed.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-VIST-03",
+        "CL-DISC-03",
+        "CL-AUTH-01",
+        "CL-PROF-01"
+      ]
+    },
+    {
+      "id": "CL-VIST-05",
+      "slug": "visit-change",
+      "title": {
+        "en": "Change or cancel visit",
+        "ar": "تغيير الزيارة أو إلغاؤها"
+      },
+      "kind": "sheet",
+      "purpose": "Ask the hotel for another time or cancel a visit, with the consequence stated: nothing is charged and nothing is lost, and the chat records the change.",
+      "requirementIds": [
+        "CA-VIS-04",
+        "CA-VIS-03"
+      ],
+      "states": [
+        "default",
+        "ask-other-time",
+        "cancel-confirm",
+        "success",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Two rows: \"Ask for another time\" (opens a compact slot picker like CL-VIST-01 and posts a system message in the chat) and \"Cancel the visit\" (reason chips: Plans changed, Found another venue, Other; explicit confirm)",
+        "Cancelling closes the chat to read-only and notifies the hotel; there is no fee and no voucher effect"
+      ],
+      "contentNotes": "Copy: «لا رسوم على إلغاء الزيارة.» / \"There is no fee for cancelling a visit.\" Offline disables both actions in place.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-VIST-03",
+        "CL-VIST-04"
+      ]
+    }
+  ]
+}

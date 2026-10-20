@@ -1,0 +1,256 @@
+{
+  "id": "profile",
+  "order": 14,
+  "title": {
+    "en": "Profile and settings",
+    "ar": "الحساب والإعدادات"
+  },
+  "intent": "Everything personal and every setting, kept shallow: the hub reaches language in three taps from the tab bar (Profile tab, Language row, choose; ADR 0007 D7) and account deletion in three. Wedding information is the same Brief form with names added and propagates to countdown, budget and recommendations. Notification preferences separate transactional messages (always delivered) from opt-in marketing. Account deletion is always initiated in-app and never becomes a dead end when a booking is active (ADR 0007 D12).",
+  "screens": [
+    {
+      "id": "CL-PROF-01",
+      "slug": "profile",
+      "title": {
+        "en": "Profile",
+        "ar": "حسابكم"
+      },
+      "kind": "tab-root",
+      "purpose": "Hub of the Profile tab: monogram identity header and a short list of rows grouped by purpose. Also the guest view with only sign-in, language and legal pages.",
+      "requirementIds": [
+        "CA-PROF-01",
+        "CA-PROF-02",
+        "CA-PROF-03",
+        "CA-PROF-04",
+        "CA-PROF-05",
+        "CA-PROF-07",
+        "CA-PROF-10",
+        "CA-PROF-11",
+        "CA-PROF-12",
+        "CA-VCH-06"
+      ],
+      "states": [
+        "default",
+        "guest",
+        "loading",
+        "offline",
+        "sign-out-confirm"
+      ],
+      "interactions": [
+        "Header: 56px monogram (first letter in its own script), name, verified phone; no avatar upload, no photo",
+        "Sign out asks for confirmation, then clears caches and returns to the language-aware Home as a guest",
+        "Guest view: a Sign in card (CL-AUTH-01), Language, Terms and Privacy; saved hearts and the Brief stay on the device",
+        "Rows: Wedding info (CL-PROF-02), Personal info (CL-PROF-03), Bookings (CL-BKNG-01), My vouchers (CL-VCHR-02, value hint \"1 ready\"), Visits (CL-VIST-04), Receipts (CL-BKNG-05), Saved (CL-SAVD-01), Notifications (CL-PROF-04), Settings (CL-PROF-05), Support (CL-MSGS-02); the Rewards row is removed with CL-RVRW-03"
+      ],
+      "contentNotes": "Demo: monogram «ر», «ريم الدوسري» / Reem Al-Dosari, '+965 5000 0012' in an LTR isolate (display only, not tappable in the prototype), 'Wedding Thu 14 Jan 2027' subtitle on the Wedding info row. Rows carry value hints: Bookings '1 pending', Payments 'KD 5,460.000 paid' (once confirmed), Rewards '1,250 points', Language 'العربية'. The Language row opens a two-option sheet (language reached in three taps: Profile tab, Language row, choose); the Digits option appears only while the interface is Arabic. App version in a muted footer. Sign-out dialog copy: 'Sign out? Your saved halls and Brief stay on your account.' Tab bar visible. Voucher model (ADR 0033): row hints become Bookings \"1 pending\", My vouchers \"1 ready\", Receipts \"KD 2.000 paid\"; \"Rewards 1,250 points\" and \"KD 5,460.000 paid\" above are superseded.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-PROF-02",
+        "CL-PROF-03",
+        "CL-PROF-04",
+        "CL-PROF-05",
+        "CL-BKNG-01",
+        "CL-BKNG-05",
+        "CL-SAVD-01",
+        "CL-MSGS-02",
+        "CL-AUTH-01",
+        "CL-VCHR-02",
+        "CL-VIST-04"
+      ]
+    },
+    {
+      "id": "CL-PROF-02",
+      "slug": "wedding-info",
+      "title": {
+        "en": "Wedding info",
+        "ar": "بيانات الزفاف"
+      },
+      "kind": "screen",
+      "purpose": "View and edit the wedding file: role, names, date, guests, budget and areas. The same pickers as the Brief; every field is optional and editable at any time. Edits flow into the countdown, budget and recommendations.",
+      "requirementIds": [
+        "CA-PROF-02",
+        "CA-ONB-07",
+        "CA-ONB-09",
+        "CA-ONB-03",
+        "CA-ONB-04",
+        "CA-ONB-05",
+        "CA-ONB-06",
+        "CA-TOOL-17"
+      ],
+      "states": [
+        "default",
+        "editing",
+        "saving",
+        "date-differs-from-booking",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Fields: I am (Bride, Groom, Family member, Wedding planner), my name, partner's name, wedding date (single-date calendar with Not decided and Flexible month), guests (ladies and men separately), venue-and-catering budget, preferred areas; each opens the shared picker sheet used by the Brief (CL-DISC-02)",
+        "Autosave per field with a quiet saved toast; no big Save button",
+        "If a booking exists on a different date, a banner says so and offers 'Use the booking date'",
+        "Link row 'Total wedding budget' opens the Budget (CL-WEDD-03), because the Brief budget and the total wedding budget are different numbers"
+      ],
+      "contentNotes": "Demo values: Bride, «ريم الدوسري», partner «فهد الشمري» / Fahad Al-Shammari, Thu 14 Jan 2027 («6 شعبان 1448 هـ» in the Arabic summary), guests Ladies 350 and Men 400, budget «من 20,000 إلى 35,000 د.ك» under the label «ميزانية القاعة والضيافة», areas Salmiya and Sharq. Date mismatch banner: 'Your booking at Aurelia Gulf Hotel is on Thu 14 Jan 2027. Use this date?' Planners and family members are first-class answers. Hint: 'Changes here update your countdown, budget and recommendations.' Tab bar visible.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-DISC-02",
+        "CL-WEDD-03",
+        "CL-PROF-01"
+      ]
+    },
+    {
+      "id": "CL-PROF-03",
+      "slug": "personal-info",
+      "title": {
+        "en": "Personal info",
+        "ar": "البيانات الشخصية"
+      },
+      "kind": "screen",
+      "purpose": "Name, verified phone and optional email, plus the sign-in methods linked to the account. Changing the number re-verifies by WhatsApp.",
+      "requirementIds": [
+        "CA-PROF-01",
+        "CA-AUTH-05"
+      ],
+      "states": [
+        "default",
+        "editing",
+        "validation-error",
+        "saving",
+        "phone-change-otp",
+        "success",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Full name (dir=auto, no first and last split) with a live monogram preview; email field (LTR) with an optional note",
+        "Phone row shows the verified number with 'Change number': a new number is verified with a WhatsApp code (CL-AUTH-02) before it replaces the old one",
+        "Linked sign-in methods listed (WhatsApp number, Apple, Google); a hidden Apple relay email is shown as 'Hidden email'",
+        "A short note on who can see the number: venues see it only for bookings with them"
+      ],
+      "contentNotes": "Demo: «ريم الدوسري», '+965 5000 0012', email empty. Accounts are never merged by email; identities link only through a verified phone number (ADR 0028). Error copy blameless: 'Check the number: it needs 8 digits'. No photo upload anywhere. Tab bar visible.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-AUTH-02",
+        "CL-PROF-01"
+      ]
+    },
+    {
+      "id": "CL-PROF-04",
+      "slug": "notification-preferences",
+      "title": {
+        "en": "Notification preferences",
+        "ar": "تفضيلات الإشعارات"
+      },
+      "kind": "screen",
+      "purpose": "Choose what reaches the user. Transactional messages (bookings, payments, messages) are always delivered; reminders are on by default; marketing (offers, price drops, new venues) is opt-in. Shows the OS permission state.",
+      "requirementIds": [
+        "CA-PROF-06",
+        "CA-NOTI-02",
+        "CA-NOTI-03",
+        "CA-NOTI-04",
+        "CA-NOTI-05",
+        "CA-NOTI-07",
+        "CA-NOTI-08"
+      ],
+      "states": [
+        "default",
+        "os-denied",
+        "saving",
+        "error",
+        "offline-disabled"
+      ],
+      "interactions": [
+        "Always-on group (booking updates, payments, messages) with an explanatory label instead of a toggle",
+        "Reminders group (balance due, countdown milestones) toggles on by default",
+        "Marketing group (offers, price drops, new venues) off until the user opts in; choose channels per group (push, WhatsApp, email)",
+        "Quiet-hours row and an honest frequency note; OS permission row opens system settings when notifications are denied"
+      ],
+      "contentNotes": "Marketing quiet hours default 10:00 PM – 9:00 AM, at most two a week, none in the final seven days before the wedding; booking and payment alerts still arrive and are silent between 11:00 PM and 8:00 AM (the two quiet-hour windows in ADR 0007 and ADR 0015 are reconciled here for owner confirmation). Opt-in line: «العروض وانخفاض الأسعار والقاعات الجديدة تصلكم فقط إذا فعّلتموها.» Price drops fire for wishlisted or compared venues on the user's date; new-venue alerts follow preferred areas. Denied state: 'Notifications are off in your phone settings. Updates still appear in the app.' Tab bar visible. Voucher model (ADR 0033): Always-on group: booking updates, voucher updates, visit messages. Reminders group (default on): confirm within 24 hours, voucher expiring, visit reminders, countdown milestones; \"balance due\" is removed.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-PROF-01",
+        "CL-MSGS-04"
+      ]
+    },
+    {
+      "id": "CL-PROF-05",
+      "slug": "settings",
+      "title": {
+        "en": "Settings",
+        "ar": "الإعدادات"
+      },
+      "kind": "screen",
+      "purpose": "App preferences: language and digits, biometric unlock, permissions, usage data, legal pages, version, sign out, and the entry to account deletion in its own section. Switching language applies immediately without a restart and keeps scroll and open sheets.",
+      "requirementIds": [
+        "CA-PROF-07",
+        "CA-PROF-08",
+        "CA-PROF-10",
+        "CA-PROF-11",
+        "CA-AUTH-08",
+        "CA-PROF-09"
+      ],
+      "states": [
+        "default",
+        "language-sheet",
+        "digits-sheet-arabic-only",
+        "biometric-unavailable",
+        "legal-reader",
+        "sign-out-confirm",
+        "offline"
+      ],
+      "interactions": [
+        "Language row opens a two-option sheet (العربية, English); the layout mirrors in place and the sheet stays open; the choice persists per account and per device for guests",
+        "Digits row «الأرقام» / Digits appears only while the UI is Arabic, with options '0 1 2 3' (default) and '٠ ١ ٢ ٣' shown together once; the choice converts every rendered number except phones, codes, references and PDFs",
+        "Biometric unlock toggle with a platform-specific label (Face ID, Touch ID, fingerprint) and a disabled state with the reason when none is enrolled",
+        "Permissions overview (notifications, location), 'Share usage data' toggle (default on), Terms of Use and Privacy Policy open an in-app reader, app version",
+        "Delete account sits in a separate section and opens CL-PROF-06; Sign out asks for confirmation"
+      ],
+      "contentNotes": "Digits sheet title «الأرقام» with the sample «١٢٣» next to «123»; never asked in onboarding and never inferred from the device. The legal reader shows the owner-supplied Terms of Use and Privacy Policy served from the Super Admin CMS (placeholder headings in the prototype) and is the same reader linked from CL-AUTH-03. Biometric label follows the platform; the unlock screen is CL-AUTH-05. Account deletion is reachable in three taps (Profile, Settings, Delete). Tab bar visible.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-PROF-06",
+        "CL-PROF-04",
+        "CL-AUTH-05",
+        "CL-PROF-01"
+      ]
+    },
+    {
+      "id": "CL-PROF-06",
+      "slug": "delete-account",
+      "title": {
+        "en": "Delete account",
+        "ar": "حذف الحساب"
+      },
+      "kind": "screen",
+      "purpose": "In-app account deletion required by the app stores. It lists the consequences, re-authenticates by WhatsApp code and confirms. If a future booking is awaiting a deposit or confirmed, deletion is paused with a way forward, never a dead end.",
+      "requirementIds": [
+        "CA-PROF-09"
+      ],
+      "states": [
+        "default",
+        "blocked-active-booking",
+        "scheduled-after-event",
+        "otp-reauth",
+        "confirm",
+        "deleting",
+        "success",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Consequences list: personal data is anonymised; invoices and ledger records are kept as the law requires; saved halls, checklist, budget and points are removed; Sign in with Apple access is revoked",
+        "Blocked variant: names the booking and offers 'Cancel under the policy' (CL-BKNG-02), 'Request deletion after Thu 14 Jan 2027' and 'Contact Support' (CL-MSGS-02)",
+        "Re-authentication by a WhatsApp code (CL-AUTH-02), then a destructive confirm button with icon and text, never colour alone",
+        "Success shows a plain confirmation and returns to the language screen (CL-ONBD-01)"
+      ],
+      "contentNotes": "Blocked copy: «حذف الحساب متوقف مؤقتًا لوجود حجز فعّال في فندق أوريليا الخليج بتاريخ الخميس 14 يناير 2027. يمكنكم الإلغاء وفق السياسة، أو طلب الحذف بعد تاريخ الحفل.» / 'Deletion is paused while your booking at Aurelia Gulf Hotel on Thu 14 Jan 2027 is active. Cancel under the policy, or request deletion after the event.' Scheduled variant: 'We will delete your account after Thu 14 Jan 2027 and tell you when it is done.' The Google Play web deletion page uses the same flow outside the app. Tab bar hidden. Voucher model (ADR 0033): deletion pauses while a request is approved (confirm or cancel first) or a confirmed booking is in the future; a ready voucher is offered for refund before deletion; ledger and receipt records are retained as the law requires; \"points\" and event \"invoices\" no longer exist.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-AUTH-02",
+        "CL-BKNG-02",
+        "CL-MSGS-02",
+        "CL-ONBD-01"
+      ]
+    }
+  ]
+}

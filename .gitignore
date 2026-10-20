@@ -1,0 +1,41 @@
+# OS / editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Dependencies & build output
+node_modules/
+dist/
+build/
+.vite/
+coverage/
+*.tsbuildinfo
+
+# Local env & secrets (never commit)
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.keystore
+service-account*.json
+
+# Generated screenshots / review artefacts (regenerate with `pnpm shots` once the foundation PR lands; today: `node design/scripts/snap.mjs`)
+design/.shots/
+# design/.review/*.mjs are hand-written audit scripts (contrast, font metrics): tracked. Only images and generated output are ignored.
+design/.review/**/*.png
+design/.review/**/*.jpg
+
+# Third-party archives dropped in the repo root — NOT part of the project (see AGENTS.md "Hard rules")
+*.rar
+*.zip
+*.7z
+
+# Generated, reproducible: responsive photo variants (node design/scripts/images.mjs); originals are committed
+design/public/images/_v/
+
+# Screenshot / review scratch folders at any level
+.shots/
+.review/

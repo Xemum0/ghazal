@@ -1,0 +1,164 @@
+{
+  "id": "planner",
+  "order": 10,
+  "title": {
+    "en": "Wedding planner",
+    "ar": "تنسيق الأعراس"
+  },
+  "intent": "Ghazal's differentiator: after a venue is booked (or any time from My Wedding and Services) the couple can see three planner packages, request a consultation, follow the request, meet the assigned planner in chat and pick a meeting slot. The offer appears once after a booking event and never again as an interruption; dismissing it has no penalty (CA-PLAN-02). There is no planner directory or profile browse: assignment is by Ghazal admin, and the planner works through ordinary chat. The three tiers are shown with one, two or three thread marks, never metal colours.",
+  "screens": [
+    {
+      "id": "CL-PLAN-01",
+      "slug": "planner-packages",
+      "title": {
+        "en": "Wedding planner packages",
+        "ar": "باقات تنسيق الأعراس"
+      },
+      "kind": "screen",
+      "purpose": "Compare the three planner tiers and choose one. Reached from the one-time 'Need a wedding planner?' card (after Request sent or Confirmed), the planner module in My Wedding, and the Services hub. Browsing is open to guests; the account is requested only when sending the consultation request.",
+      "requirementIds": [
+        "CA-PLAN-01",
+        "CA-PLAN-02",
+        "CA-PLAN-03",
+        "CA-PLAN-04",
+        "CA-PLAN-09"
+      ],
+      "states": [
+        "default",
+        "from-booking",
+        "from-my-wedding",
+        "compare-table",
+        "loading",
+        "error",
+        "offline",
+        "guest"
+      ],
+      "interactions": [
+        "Sticky segmented control Silver | Gold | Royal («الفضية» «الذهبية» «الملكية»); one full-width card below with from-price, who it suits, up to six inclusions and a 1, 2 or 3 thread mark",
+        "'Compare packages' switches the screen to a three-column table built from the same data-driven column component as Compare venues (CL-SAVD-04)",
+        "Selecting a tier arms the sticky CTA 'Request consultation' / «طلب استشارة» that opens CL-PLAN-02; 'Not now' dismisses with no penalty and leaves the planner reachable from My Wedding and Services",
+        "Entry from a booking shows a context line with the venue and date; no 'Most popular' tag unless it is true and measurable; no blocking interstitial",
+        "A line under the tiers links to \"Event planning and coordination providers\" (CL-SERV-02, primary category) for planners who list their own voucher prices (CA-SVC-13); the Silver, Gold and Royal packages remain the Ghazal consultation (OQ-P-19)"
+      ],
+      "contentNotes": "Tiers (from-prices, deposit 25% arranged with the planner after the consultation; no in-app planner checkout is designed because the payment model is undefined): Silver «الفضية» 'Day-of coordination' / «تنسيق يوم الحفل» from KD 650; Gold «الذهبية» 'Planning and styling' / «تخطيط وتنسيق» from KD 1,900; Royal «الملكية» 'Full design and production' / «تصميم وإنتاج متكامل» from KD 5,500. Placeholder inclusions (configured in Super Admin, so labelled seed): Silver: coordinator on the day, run-of-show timeline, vendor arrival checks, venue walkthrough; Gold: everything in Silver, planning from the booking date, vendor shortlist and quotes, styling concept and moodboard, two planning meetings; Royal: everything in Gold, bespoke kosha and decor design, production management, vendor contracting, a dedicated planner team. 'Suits' lines state criteria, for example 'Couples who have planned everything and want a calm day'. Entry copy after booking: «هل تحتاجون إلى منسّقة أعراس؟» / 'Need a wedding planner?' Imagery shows empty rooms and decor details only; no people. Tier names are never used for venues. Tab bar visible. Voucher model (ADR 0033): \"deposit 25% arranged with the planner\" remains a planner-side arrangement; Ghazal collects nothing for planner packages.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-PLAN-02",
+        "CL-WEDD-01",
+        "CL-SERV-01",
+        "CL-AUTH-01",
+        "CL-SERV-02"
+      ]
+    },
+    {
+      "id": "CL-PLAN-02",
+      "slug": "request-consultation",
+      "title": {
+        "en": "Request consultation",
+        "ar": "طلب استشارة"
+      },
+      "kind": "screen",
+      "purpose": "A short form to request a consultation: chosen package, preferred time windows and notes. Hard-gated: the sign-in sheet opens at Send and resumes here with everything typed.",
+      "requirementIds": [
+        "CA-PLAN-05",
+        "CA-PLAN-04",
+        "CA-AUTH-10"
+      ],
+      "states": [
+        "default",
+        "validation-error",
+        "sending",
+        "success",
+        "error",
+        "offline",
+        "guest-gate",
+        "open-request-exists"
+      ],
+      "interactions": [
+        "Package chip with a change action (Silver, Gold, Royal); venue and date are prefilled from the wedding file",
+        "Preferred time windows: pick up to three combinations of day and window (morning, afternoon, evening) from the next 14 days; time zone label 'Kuwait time'",
+        "Preferred way to be reached: in-app chat, WhatsApp or phone call; notes field (dir=auto)",
+        "Send request: a hard gate; on success the user lands on the status screen (CL-PLAN-03); an existing open request opens its status instead of creating a second one"
+      ],
+      "contentNotes": "Demo: Gold «الذهبية», Aurelia Gulf Hotel, «الخميس 14 يناير 2027», windows 'Sun 15 Nov · evening' and 'Mon 16 Nov · afternoon', note «نحتاج مساعدة في تصميم الكوشة والتنسيق مع الفندق». Whether the consultation itself is free is an open product question (SA-PLNR), so the form makes no price claim beyond the package from-price. Success copy: «تم استلام طلبكم. سنخبركم هنا وبإشعار عند تعيين المنسّقة.» / 'Request received. We will tell you here and by notification when a planner is assigned.' Validation blameless: 'Choose at least one time window'. Tab bar hidden.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-PLAN-03",
+        "CL-AUTH-01",
+        "CL-PLAN-01"
+      ]
+    },
+    {
+      "id": "CL-PLAN-03",
+      "slug": "planner-status",
+      "title": {
+        "en": "Your planner",
+        "ar": "منسّقتكم"
+      },
+      "kind": "screen",
+      "purpose": "Request status and, once assigned, the planner's name, role, package and ways to reach her. Shows the three states of the request (requested, assigned, meeting scheduled) on the thread and the next meeting. No planner directory.",
+      "requirementIds": [
+        "CA-PLAN-07",
+        "CA-PLAN-08",
+        "CA-CHAT-03"
+      ],
+      "states": [
+        "requested-waiting",
+        "assigned",
+        "meeting-scheduled",
+        "meeting-day",
+        "loading",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Status thread: Requested (timestamp), Assigned, Meeting scheduled, with absolute times and the next step in one sentence",
+        "Assigned planner card: monogram, name, role, package chip; Message opens the planner thread (CL-MSGS-02); a phone number is shown only if the planner shares it",
+        "'Schedule meeting' opens the slot picker (CL-PLAN-04); a scheduled meeting shows as a card with Add to calendar and Change time",
+        "Edit or cancel the request while it is still unassigned; also reachable from the chat header and the My Wedding planner card"
+      ],
+      "contentNotes": "Demo (assigned): «نوف العتيبي» / Nouf Al-Otaibi, role «منسّقة أعراس» / Wedding planner, package «الذهبية» Gold, request sent Thu 12 Nov 2026, assigned Fri 13 Nov 2026, meeting 'Sun 15 Nov, 7:30 PM · video call · Kuwait time'. Waiting state: 'Your request is with the planning team. We will let you know here and by notification.' (no promised response time until the owner sets one). The planner's side has no Ghazal product; she replies through admin tooling and chat, so the screen never shows presence or typing for her beyond ordinary chat state. Monogram «ن»; no photograph.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-PLAN-04",
+        "CL-MSGS-02",
+        "CL-WEDD-01",
+        "CL-PLAN-01"
+      ]
+    },
+    {
+      "id": "CL-PLAN-04",
+      "slug": "schedule-meeting",
+      "title": {
+        "en": "Schedule a meeting",
+        "ar": "تحديد موعد الاجتماع"
+      },
+      "kind": "sheet",
+      "purpose": "Pick a slot from the assigned planner's availability. Opens from the status screen and from inside the planner chat; confirming drops a meeting card into the thread.",
+      "requirementIds": [
+        "CA-PLAN-06"
+      ],
+      "states": [
+        "default",
+        "loading-slots",
+        "no-slots",
+        "confirming",
+        "success",
+        "slot-taken",
+        "offline-disabled"
+      ],
+      "interactions": [
+        "Day chips for the next 14 days (Sunday-first), then 30-minute slots in Kuwait time; unavailable slots are hidden, not greyed",
+        "Meeting type: Video call or Phone call ('In person' only after the owner defines it)",
+        "Confirm creates the meeting card in chat and updates the status thread; Add to calendar uses the OS share of an event",
+        "A slot taken in the meantime shows an inline message and refreshes the list"
+      ],
+      "contentNotes": "Slots for Sun 15 Nov 2026: 5:00 PM, 5:30 PM, 7:30 PM, 8:00 PM («5:00 م» in Arabic). Confirmation line: 'Video call with Nouf Al-Otaibi on Sun 15 Nov at 7:30 PM, Kuwait time.' No slots: 'No free slots in the next 14 days. Send a message to your planner.' Times are always 12-hour with the AM/PM suffix; digits Western. Tab bar hidden.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-PLAN-03",
+        "CL-MSGS-02"
+      ]
+    }
+  ]
+}

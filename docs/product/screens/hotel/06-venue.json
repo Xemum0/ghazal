@@ -1,0 +1,265 @@
+{
+  "id": "venue",
+  "order": 6,
+  "title": {
+    "en": "My venue",
+    "ar": "قاعتي"
+  },
+  "intent": "Everything the venue edits about its listing from a phone, reached from More > My venue (ADR 0008 D11): photos and videos, packages and extras, halls with capacity and amenities, policies and booking rules. The app edits what is safe on a phone: base package prices, per-guest rate, minimum and maximum guests, extras and the active toggle. Season, holiday and special-date price grids, menus and custom cancellation tiers are read-only here with 'Edit on dashboard', because a money grid on a phone invites costly errors (ADR 0004 D8). Every text field is bilingual and shows per-language completeness; a venue cannot publish a field in only one language (HA-VMGT-09, PL-CORE-08). Roles: Admin and Manager edit everything; Marketing edits media only; Reception and Accountant do not see these screens.",
+  "screens": [
+    {
+      "id": "HL-VENU-01",
+      "slug": "media-manager",
+      "title": {
+        "en": "Photos and videos",
+        "ar": "الصور والفيديو"
+      },
+      "kind": "screen",
+      "purpose": "Upload, reorder, set the cover for and delete the listing's photos and videos, with the cultural rule built into the upload itself: empty rooms and details only, tagged by zone. Large video uploads continue in the background.",
+      "requirementIds": [
+        "HA-VMGT-01",
+        "HA-VMGT-02",
+        "HA-VMGT-09",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "uploading",
+        "upload-failed",
+        "under-review",
+        "moderation-rejected",
+        "reorder-mode",
+        "offline",
+        "error"
+      ],
+      "interactions": [
+        "Segmented control 'Photos (24)' / 'Videos (2)'; photos in a three-column 4:5 grid, the first image carries a 'Cover' marker; each tile shows its zone tag and a status marker (Live, Under review, Rejected)",
+        "Add opens the upload sheet: Camera or Library, then a required zone tag (Hall, Stage and Kosha, Bridal suite, Buffet, Outdoors, Entrance and valet, Layouts), suggested bilingual alt text naming the zone and the venue, and the line 'Empty-room photos only'",
+        "Face check: when a face is detected the sheet warns before upload and offers Retake or Crop; images with people are rejected by moderation with a stated reason shown on the tile",
+        "Reorder mode (text button): drag handles with long-press, plus 'Move earlier / Move later' buttons as the accessible alternative; no swipe actions",
+        "Tile menu: Set as cover, Edit zone and alt text (Arabic and English), Delete (confirm: 'Delete this photo? It disappears from the listing.')",
+        "Video: upload up to 60 seconds and 100 MB (OQ-T-15 working assumption; the server transcodes to 720p H.264 and derives a muted loop of at most 15 seconds for cards and hero), played only on tap with a static poster; uploads are resumable and continue in the background with a per-item progress line; offline queues the upload and says so",
+        "Marketing may manage media; Admin and Manager may too; other roles do not see this screen"
+      ],
+      "contentNotes": "Aurelia Gulf Hotel, 24 photos: Hall 8, Stage and Kosha 5, Bridal suite 3, Buffet 3, Entrance and valet 2, Layouts 3, Outdoors 0 (shown as a quiet empty tag). Two photos 'Under review' (visible only to the venue until approved; whether edits go live at once or after Super Admin review is an open gap, SA-VAPP-01, so both chips are designed). One rejected tile: «مرفوضة: يظهر شخص في الصورة» / 'Rejected: a person is visible' with a Replace action. Videos: «جولة في قاعة الدانة» / 'Danah Ballroom walkthrough' 0:14 and «تجهيز الكوشة» / 'Kosha set-up' 0:09, muted, no people. Alt text example: «قاعة الدانة · الكوشة والمنصة» / 'Danah Ballroom - stage and kosha'. Upload sheet copy: «صور القاعات الفارغة فقط. لا يمكن نشر صور يظهر فيها أشخاص.» / 'Empty-room photos only. Photos showing people cannot be published.' Seed photography is generic: no signage, no recognisable real landmarks or real hotel identity. Language-completeness chip on alt text: 'AR complete - EN 3 missing'. Resumable upload copy: «يستمر الرفع في الخلفية» / 'Uploading continues in the background'.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-SETT-01"
+      ]
+    },
+    {
+      "id": "HL-VENU-02",
+      "slug": "packages",
+      "title": {
+        "en": "Packages and extras",
+        "ar": "الباقات والإضافات"
+      },
+      "kind": "screen",
+      "purpose": "The list of what the venue sells: packages with their prices per guest and limits, and the extras couples can add. Active toggles and archiving are one tap; editing opens the package editor.",
+      "requirementIds": [
+        "HA-VMGT-03",
+        "HA-VMGT-04",
+        "HA-VMGT-05",
+        "HA-VMGT-09",
+        "HA-AUTH-02",
+        "HA-VMGT-11",
+        "HA-VMGT-12"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "archived-section",
+        "extra-editor"
+      ],
+      "interactions": [
+        "Segmented control Packages / Extras; each package row shows name (Arabic primary in the Arabic UI), audience tag, weekday and weekend per-guest prices, minimum and maximum guests, an active switch and a language chip (complete or what is missing)",
+        "Tapping a package opens the editor; 'New package' is the single primary at the bottom; an archived section is collapsed at the end with a Restore action",
+        "Active switch hides the package from couples immediately and states 'Existing bookings are not affected' (prices and policy are frozen in each booking's snapshot)",
+        "Extras segment: rows with name, price, unit (per event, per hour, per guest, per unit) and an active switch; tapping a row or 'Add extra' opens an extra editor sheet with Arabic and English names, price, unit, short description and active",
+        "A footer note 'Seasonal and holiday prices - Edit on dashboard' opens a read-only explanation; the app never edits tier grids",
+        "Names may not reuse the planner tier names الفضية / الذهبية / الملكية (Silver, Gold, Royal); the editors block them with an inline reason",
+        "Each package row shows two prices on the same basis (\"Standard KD 52 · Voucher KD 44 per guest\"), the pricing structure chip (Per person or Package) and a \"No voucher price\" tag when the voucher column is empty; the footer note reads \"Seasonal and holiday prices - Edit on dashboard\" and \"Time-boxed voucher prices - Voucher prices\" (opens HL-GROW-01)"
+      ],
+      "contentNotes": "Packages at Aurelia Gulf Hotel (browse format, units always shown): 1) الحفل النسائي · أيام الأسبوع / Ladies' Reception, Weekday - KD 46 per guest, min 200, max 650, active. 2) الحفل النسائي · نهاية الأسبوع / Ladies' Reception, Weekend - KD 52 per guest, min 200, max 650, active. 3) الحفل النسائي المتكامل / Ladies' Signature Evening - KD 50 weekday, KD 55 weekend per guest, min 300, max 650, includes kosha design, zaffa entrance, bridal suite and a suite night, EN description missing (language chip). 4) الحفل الرجالي / Men's Reception - KD 32 per guest, min 300, max 650. 5) غداء الرجال / Men's Lunch - KD 30 per guest, min 300, inactive. 6) ليلة الزفاف المتكاملة / Full-Night Package - ladies KD 52 plus men KD 32 per guest across two halls. Extras: الكوشة المخصصة / Bespoke kosha from KD 1,800 (up to 6,500); الزهور الطبيعية / Fresh florals from KD 900 (up to 4,000); مصوّرة / Female photographer KD 550 per event; شاشات LED / LED screens KD 600; فرقة الزفّة / Zaffa troupe KD 650; كيكة العرض / Show cake KD 320; ساعة إضافية / Extra hour KD 400 per hour. Empty state: «لا توجد باقات بعد» / 'No packages yet' with 'New package'. Role-limited: hidden for Reception and Accountant. Voucher model (ADR 0033): illustrative seed: Ladies' Reception, Weekday - standard KD 46, voucher KD 40 per guest; Weekend - standard KD 52, voucher KD 44 per guest. Packages without a voucher price are not offered a voucher to clients.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-VENU-03",
+        "HL-SETT-01",
+        "HL-GROW-01"
+      ]
+    },
+    {
+      "id": "HL-VENU-03",
+      "slug": "package-editor",
+      "title": {
+        "en": "Edit package",
+        "ar": "تعديل الباقة"
+      },
+      "kind": "screen",
+      "purpose": "Create or edit one package: bilingual name and inclusions, the weekday and weekend per-guest price, minimum and maximum guests, halls and active state, with a live preview of what couples will see. Everything the app does not edit is stated as read-only.",
+      "requirementIds": [
+        "HA-VMGT-03",
+        "HA-VMGT-04",
+        "HA-VMGT-09",
+        "HA-AUTH-02",
+        "HA-VMGT-11",
+        "HA-VMGT-12",
+        "HA-VMGT-13"
+      ],
+      "states": [
+        "default",
+        "new",
+        "validation",
+        "loading",
+        "success",
+        "error",
+        "offline",
+        "unsaved-guard",
+        "voucher-higher-than-standard",
+        "saving-below-voucher-fee"
+      ],
+      "interactions": [
+        "Name in Arabic and English (both required before publishing, each with a completeness marker); audience chips (Ladies, Men; Mixed last and never preselected); halls the package applies to (chips, only shown for multi-hall venues)",
+        "Minimum and maximum guests as steppers with preset chips (100, 150, 200, 300, 400, 500, 650, 800, 1,000+; hard cap 1,500) and a guest step; the maximum cannot exceed the hall capacity",
+        "Inclusions as bilingual chips from the amenity taxonomy plus free entries; active switch; 'Archive package' as a quiet destructive action with a confirm dialog",
+        "Live preview card 'What couples see' updates as fields change, using the same card grammar as the client app",
+        "Read-only block 'Seasonal, holiday and special-date prices, menus and tier grids - Edit on dashboard'",
+        "Sticky 'Save changes' sits above the tab bar; leaving with edits opens the guard 'Discard changes?'; offline disables Save in place",
+        "Pricing structure segmented control: Per person or Package; Package reveals the basis (Flat, Flat plus per guest); \"Available on\" rows for Weekday (Sun-Wed) and Weekend (Thu-Sat), each with two fields: Standard price and Voucher price (voucher must be less than or equal to standard, else an inline reason); when the saving is less than the KD 2 voucher fee the row says \"Clients will not be offered a voucher for this package\"",
+        "Live preview card \"What couples see\" shows the voucher price as the headline, the standard price beneath and the saving chip, using the card grammar of the client app"
+      ],
+      "contentNotes": "Demo: Ladies' Reception, Weekend. Name AR «الحفل النسائي · نهاية الأسبوع»; EN 'Ladies' Reception, Weekend'. Weekend row on at KD 52 per guest, weekday row off, minimum 200, maximum 650, halls Danah Ballroom and Majlis Hall. Preview shows the grammar of ADR 0004: with a date and guests, 'KD 18,200 for 350 guests - Thu 14 Jan - Free'; guests only, 'From KD 18,200 for 350 guests - weekend'; neither, 'From KD 10,400 for 200 guests (minimum)' (200 x 52). Validation copy: reserved name «هذا الاسم محجوز لباقات التنسيق.» / 'This name is reserved for planner packages.'; «الحد الأقصى أقل من الحد الأدنى.» / 'The maximum is lower than the minimum.' Service charge: 'None declared' (read-only; declared on the dashboard). Complimentary guests and menu tiers are read-only. Prices shown in the editor use the exact precision (three decimals when any fils exist). Voucher model (ADR 0033): demo values (illustrative): weekend standard KD 52, voucher KD 44; preview «15,400 د.ك بالكوبون لعدد 350 ضيفًا · السعر العادي 18,200 د.ك». The single \"KD 52 per guest\" price above becomes the Standard field.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-VENU-02"
+      ]
+    },
+    {
+      "id": "HL-VENU-04",
+      "slug": "halls-amenities",
+      "title": {
+        "en": "Halls, capacity and amenities",
+        "ar": "القاعات والسعة والمرافق"
+      },
+      "kind": "screen",
+      "purpose": "Define each bookable hall (capacity bounds, allowed audiences, setting, session) and state its facilities and per-section facts as plain Included / Extra / Not offered rows, so couples and families find the answers they actually ask for. A single-hall venue skips the hall list and lands directly in the editor.",
+      "requirementIds": [
+        "HA-VMGT-06",
+        "HA-VMGT-07",
+        "HA-VMGT-09",
+        "HA-CAL-09",
+        "HA-AUTH-02",
+        "HA-VMGT-12"
+      ],
+      "states": [
+        "default",
+        "single-hall",
+        "loading",
+        "validation",
+        "success",
+        "error",
+        "offline",
+        "unsaved-guard"
+      ],
+      "interactions": [
+        "Hall list (multi-hall venues only): hall name in both languages, capacity, audiences, session; tapping opens the hall editor",
+        "Capacity: maximum guests and minimum per audience as steppers with preset chips (hard cap 1,500); validation keeps minimum below maximum",
+        "Audiences allowed: Ladies, Men, Mixed as chips; Mixed is last and never the default; setting chips Indoor / Outdoor / Mixed",
+        "Sessions: the hall's session templates (name in both languages, start, end, setup and teardown buffers); platform presets Afternoon 12:00 PM - 4:00 PM, Evening and Full day; 'One wedding per day' switch (exclusive day) hides the session picker for couples",
+        "Amenities as three-state rows, each icon plus label: Parking, Valet, Bridal suite, Groom room, Decoration, Buffet, Stage and kosha, Lighting, Sound, Prayer room, Abaya cloakroom, Separate entrance, Female security, Outside catering, Outside decor, Bukhoor, Indoor backup (outdoor halls)",
+        "Per-section facts, one block per allowed audience: photography (female photographers only / none / allowed), music (DJ or band / live / duff and nasheed only / none) shown as plain facts with no judgement words",
+        "Sticky 'Save changes' above the tab bar; unsaved guard; offline disables Save",
+        "Venue profile block at the top: venue type chips (Private Hall, Hotel; Governmental Facility is managed by Ghazal and is not selectable), governorate and area; the type drives the client filter (CA-FLT-02) and is verified by Ghazal"
+      ],
+      "contentNotes": "Hall 1: قاعة الدانة / Danah Ballroom - capacity 650, minimum 300 for ladies and men, indoor, audiences Ladies and Men, Evening session 9:00 PM - 2:00 AM with setup before and teardown after, one wedding per day on. Hall 2: قاعة المجلس / Majlis Hall - capacity 450, minimum 200 for ladies and 300 for men, Evening session 8:30 PM - 1:00 AM. Amenities (Danah): Parking Included, Valet Included, Bridal suite Included, Groom room Extra, Decoration Extra, Buffet Included, Prayer room Included, Abaya cloakroom Included, Separate entrance Included (ladies), Female security Included (ladies), Outside catering Not offered, Outside decor Extra, Bukhoor Included. Section facts: Ladies - photography 'Female photographers only', music 'DJ or band'; Men - photography 'Allowed', music 'Duff and nasheed only' (AR «الموسيقى: دفوف وأناشيد فقط»). Arabic labels follow the glossary: «جناح العروس» «غرفة العريس» «الكوشة» «مدخل منفصل». Changes do not alter existing bookings (each keeps its snapshot). Fixture note (resolved 2026-10-12): Majlis Hall holds 450 in every file, so Abdullah Al-Hajri's 450-guest men's section and Fahad's men's reception of 400 fit.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-VENU-06",
+        "HL-SETT-01"
+      ]
+    },
+    {
+      "id": "HL-VENU-05",
+      "slug": "policies",
+      "title": {
+        "en": "Policies",
+        "ar": "السياسات"
+      },
+      "kind": "screen",
+      "purpose": "The venue's own terms in plain words, shown to couples as written, plus the children policy, dress code and house rules. Ghazal does not collect or refund event money, so there are no cancellation tiers, no cooling-off and no refund settings: the venue states its payment and cancellation terms itself and settles them directly with the client.",
+      "requirementIds": [
+        "HA-VMGT-08",
+        "HA-VMGT-09",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "success",
+        "error",
+        "offline",
+        "unsaved-guard",
+        "custom-tiers-web-only"
+      ],
+      "interactions": [
+        "Live example uses a sample booking date and shows absolute dates for each tier: free until a date, then the forfeit percentage per date range",
+        "Read-only info lines: the 48-hour cooling-off with a full refund when the event is 30 or more days away (platform rule, not removable), and that a venue-cancelled booking is refunded in full",
+        "Reschedule allowance: one free client reschedule when requested at least N days ahead (stepper, default 60); more options and custom tiers are 'Edit on dashboard'",
+        "Children and boys' age rule per section (Ladies, Men) as option chips with an age stepper; dress code as bilingual free text with completeness markers",
+        "Sticky 'Save changes' above the tab bar; unsaved guard; offline disables Save; Admin and Manager only",
+        "Terms editor: one bilingual text block \"Payment and cancellation terms\" (both languages required before publishing) shown on the client venue detail; a helper says \"You agree these terms directly with the client\"; no template picker, no tier table, no cooling-off or reschedule fields"
+      ],
+      "contentNotes": "Standard (default): free until the 60-day mark, 25% from 59 to 30 days, 50% from 29 to 15 days, 75% from 14 to 7 days, 100% inside 7 days (amounts are a share of the booking total, capped at what was paid). Example for a booking on Thu 14 Jan 2027: 'Free cancellation until Sun 15 Nov 2026', 25% Mon 16 Nov - Tue 15 Dec, 50% Wed 16 Dec - Wed 30 Dec, 75% Thu 31 Dec - Thu 7 Jan, 100% from Fri 8 Jan. Flexible: free until 45 days, 25% 44-30, 50% 29-14, 100% inside 14. Strict: deposit non-refundable from 60 days, 50% 59-30, 75% 29-15, 100% inside 15. Copy for a booking inside the free window reads 'No free cancellation (event within 60 days)'. Children and boys: Ladies 'Boys up to 8 years may attend', Men 'No age limit'. Dress code: «لباس رسمي مناسب لحفل زفاف» / 'Formal attire suitable for a wedding'. Policy values are proposed defaults awaiting owner confirmation (OQ-B-04, OQ-B-05); the design must not hard-code them. Voucher model (ADR 0033): ADR 0006 is superseded; the cancellation template, tier bar preview, cooling-off minimum and reschedule settings in the notes above no longer exist.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-VENU-06",
+        "HL-SETT-01"
+      ]
+    },
+    {
+      "id": "HL-VENU-06",
+      "slug": "booking-rules",
+      "title": {
+        "en": "Booking rules",
+        "ar": "قواعد الحجز"
+      },
+      "kind": "screen",
+      "purpose": "Set how requests work for each hall: the reply window, the minimum notice, and the link to visit availability and voucher prices. There is no instant booking, no deposit, no pay window, no balance, no cash and no payout verification (ADR 0033).",
+      "requirementIds": [
+        "HA-VMGT-10",
+        "HA-DASH-04",
+        "HA-AUTH-02",
+        "HA-VIS-05"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "validation",
+        "success",
+        "error",
+        "offline",
+        "unsaved-guard"
+      ],
+      "interactions": [
+        "Booking mode is fixed to \"Request to book\" and shown as read-only information with one line explaining that clients send a request with a Ghazal voucher and confirm within 24 hours after approval",
+        "Response window chips 12h / 24h (default) / 48h; a note states that within 14 days of the event the window is forced to 4h and the request is flagged Urgent",
+        "Confirm window: \"24 hours, fixed\" as a read-only line (the owner's rule); minimum notice between request and event as a stepper",
+        "Link rows: \"Voucher prices\" (HL-GROW-01), \"Visit availability\" (HL-VIST-05), \"Open the calendar\" (HL-CALN-01)",
+        "Live \"What couples see\" timeline: Request, Reply within 24 hours, Confirm within 24 hours, Pay the venue directly, computed for a sample booking"
+      ],
+      "contentNotes": "Hall Danah Ballroom: Request to book, reply window 24h, minimum notice 2 days. Timeline AR: «الطلب · رد خلال 24 ساعة · تأكيد خلال 24 ساعة · الدفع للقاعة مباشرةً» / \"Request · Reply within 24 hours · Confirm within 24 hours · Pay the venue directly\". Superseded by ADR 0033: instant booking eligibility, pay window chips, deposit percentage, balance and guest-lock days, cash on balance, payout verification and the points of the old timeline.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-CALN-01",
+        "HL-GROW-01",
+        "HL-VIST-05",
+        "HL-SETT-01"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+* text=auto eol=lf
+
+# Generated, never hand-edited (docs/engineering/generated-files.md)
+packages/design-tokens/dist/** linguist-generated=true -diff
+pnpm-lock.yaml linguist-generated=true -diff
+packages/contracts/openapi.json linguist-generated=true
+packages/api-client-ts/src/generated/** linguist-generated=true
+packages/ghazal_ui/lib/src/tokens/generated/** linguist-generated=true
+apps/*/lib/l10n/generated/** linguist-generated=true
+apps/*/lib/l10n/app_*.arb linguist-generated=true
+design/.shots/** linguist-generated=true
+packages/i18n/dist/** linguist-generated=true
+
+# Binary
+*.png binary
+*.jpg binary
+*.webp binary
+*.woff2 binary
+*.ttf binary
+*.pdf binary

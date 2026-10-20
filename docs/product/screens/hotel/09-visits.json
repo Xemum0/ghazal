@@ -1,0 +1,203 @@
+{
+  "id": "visits",
+  "order": 9,
+  "title": {
+    "en": "Visits",
+    "ar": "الزيارات"
+  },
+  "intent": "Site-visit requests from couples (hotels and halls only, A-10): a list inside Needs-you and More, a visit detail with confirm, propose another time and decline, the three-way group chat with the client and Ghazal support, the arrival confirmation and the venue's visit availability. Visits are free; they create no voucher effect. The chat has exactly three roles and is member-only (ADR 0033 D9).",
+  "screens": [
+    {
+      "id": "HL-VIST-01",
+      "slug": "visit-requests",
+      "title": {
+        "en": "Visit requests",
+        "ar": "طلبات الزيارة"
+      },
+      "kind": "screen",
+      "purpose": "All visits by state: Requested (needs a reply), Upcoming and Past, ordered by the nearest slot. The place the hotel representative works from; also reachable from Today > Needs you.",
+      "requirementIds": [
+        "HA-VIS-01",
+        "HA-VIS-02",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "empty",
+        "loading",
+        "error",
+        "offline",
+        "role-read-only"
+      ],
+      "interactions": [
+        "Segmented control Requested (2) / Upcoming / Past; each card shows client first name, date, arrival window, visitors, note preview and the time since the request; Requested cards carry \"Confirm\" and \"Propose another time\" inline",
+        "Tapping a card opens the visit detail (HL-VIST-02); a badge on More counts requested visits; no swipe actions",
+        "Empty: \"No visit requests. Clients can book a visit from your venue page.\""
+      ],
+      "contentNotes": "Cards (illustrative): ريم الدوسري / Reem Al-Dosari, Sat 14 Nov 2026, 5:00 PM - 5:30 PM, 2 visitors, note «الحفل النسائي، مع الوالدة»; نورة العلي, Sun 15 Nov, 6:00 PM. Roles: Admin, Manager and Reception reply; Accountant and Marketing do not see the screen.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-VIST-02",
+        "HL-VIST-05",
+        "HL-TODY-02"
+      ]
+    },
+    {
+      "id": "HL-VIST-02",
+      "slug": "visit-detail",
+      "title": {
+        "en": "Visit",
+        "ar": "الزيارة"
+      },
+      "kind": "screen",
+      "purpose": "One visit: who, when, how many, what they asked, with the representative's actions (confirm, propose another time, decline), the assigned representative and the link into the group chat. Variant per status.",
+      "requirementIds": [
+        "HA-VIS-02",
+        "HA-VIS-03",
+        "HA-VIS-04",
+        "HA-VIS-06"
+      ],
+      "states": [
+        "requested",
+        "confirmed",
+        "reschedule-proposed",
+        "day-of",
+        "arrived",
+        "completed",
+        "declined",
+        "cancelled",
+        "missed",
+        "loading",
+        "error",
+        "offline",
+        "role-limited"
+      ],
+      "interactions": [
+        "Sticky bar by status: Requested shows \"Confirm\" (gold), \"Propose another time\" and \"Decline\"; Confirmed shows \"Open chat\" and, on the day, \"Mark arrived\" (HL-VIST-04); Arrived shows \"Complete visit\"; Past shows none",
+        "Sections: client (first name, monogram, no phone unless shared), slot and visitors, the client's note, the assigned representative (editable by Admin and Manager), the three chat members as role chips, and a timeline of the visit",
+        "Decline asks for a reason chip (Not available, Venue closed, Other) and tells the client in the chat; confirming or proposing posts a system message in the group chat",
+        "Offline disables all decisions in place with a plain reason"
+      ],
+      "contentNotes": "Header «زيارة · السبت 14 نوفمبر، 5:00 م» / \"Visit · Sat 14 Nov, 5:00 PM\". Assigned representative: Amal Al-Balushi (Reception). Missed can be flagged within 24 hours after the slot. A visit has no money.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-VIST-03",
+        "HL-VIST-04",
+        "HL-VIST-01",
+        "HL-BOOK-04"
+      ]
+    },
+    {
+      "id": "HL-VIST-03",
+      "slug": "visit-group-chat",
+      "title": {
+        "en": "Visit chat",
+        "ar": "محادثة الزيارة"
+      },
+      "kind": "screen",
+      "purpose": "The dedicated group chat for the visit, seen by the hotel representative: the client, the hotel representative (you or a colleague with the visit permission) and a Ghazal support representative. Same chat component as the client (CL-VIST-03), with the representative's actions on the pinned card.",
+      "requirementIds": [
+        "HA-VIS-03",
+        "HA-VIS-06",
+        "HA-MSG-02",
+        "HA-MSG-03",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "confirmed",
+        "day-of",
+        "arrived",
+        "closed-read-only",
+        "declined",
+        "sending",
+        "failed",
+        "offline-queued",
+        "loading",
+        "error",
+        "role-read-only"
+      ],
+      "interactions": [
+        "Pinned visit card with slot and status and the actions \"Confirm\", \"Propose another time\", \"Mark arrived\" by state; role chips for the three members in the header (member list in a sheet)",
+        "Messages carry the sender role chip (Client, Hotel, Support); the composer matches HL-TODY-05 (text, attach, voice); quick replies \"We confirm your visit\", \"Please use the main entrance\", \"Parking is at the front\"",
+        "Closes read-only 24 hours after the slot or immediately on decline or cancel; Admin and Manager can read every visit chat of the venue, other staff only those they are assigned to; support members cannot be removed or blocked"
+      ],
+      "contentNotes": "System lines AR / EN mirror the client: «فُتحت محادثة الزيارة مع العميل ودعم غزل.» / \"The visit chat is open with the client and Ghazal support.\" Participants are shown as monograms with role chips; no photos of people.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-VIST-02",
+        "HL-VIST-04",
+        "HL-TODY-05"
+      ]
+    },
+    {
+      "id": "HL-VIST-04",
+      "slug": "arrival",
+      "title": {
+        "en": "Mark arrival",
+        "ar": "تأكيد الوصول"
+      },
+      "kind": "sheet",
+      "purpose": "On the day, confirm that the client arrived (or flag that they did not): the representative's half of the arrival confirmation that the client starts in the chat.",
+      "requirementIds": [
+        "HA-VIS-04",
+        "CA-VIS-05"
+      ],
+      "states": [
+        "default",
+        "client-on-the-way",
+        "arrived-confirmed",
+        "flag-missed",
+        "success",
+        "offline",
+        "error"
+      ],
+      "interactions": [
+        "Two options: \"Mark arrived\" (posts \"Welcome, {name}\" system message and sets Arrived) and \"Client did not arrive\" (available from 30 minutes after the slot, flags Missed and informs support); the sheet shows the client's \"on our way\" status when sent",
+        "Missed can be corrected by Admin or Manager within 24 hours; completing the visit later closes the chat 24 hours after the slot"
+      ],
+      "contentNotes": "Copy AR: «تأكيد وصول العميل» / \"Mark client arrival\"; «لم يحضر العميل» / \"Client did not arrive\". No penalty is applied to a client for a missed visit in the MVP.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-VIST-03",
+        "HL-VIST-02"
+      ]
+    },
+    {
+      "id": "HL-VIST-05",
+      "slug": "visit-availability",
+      "title": {
+        "en": "Visit availability",
+        "ar": "مواعيد الزيارة"
+      },
+      "kind": "screen",
+      "purpose": "Set when visits can be requested: days, hours, slot length and a switch to turn visits off. Drives the slots clients see in CL-VIST-01. Admin and Manager only.",
+      "requirementIds": [
+        "HA-VIS-05",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "visits-off",
+        "validation",
+        "success",
+        "error",
+        "offline",
+        "unsaved-guard",
+        "role-hidden"
+      ],
+      "interactions": [
+        "Master switch \"Accept visit requests\" (off hides Book a visit on the client venue detail); weekday rows with open and close times (Sunday-first, 12-hour clock) and a slot length chip (30 min default)",
+        "Optional \"Assigned representative by default\" picker from staff with the visit permission; \"Blackout dates\" opens the custom date sheet",
+        "Sticky \"Save changes\"; unsaved guard; offline disables Save in place"
+      ],
+      "contentNotes": "Defaults (illustrative): Sun - Thu 10:00 AM - 6:00 PM, Fri and Sat 4:00 PM - 8:00 PM, 30-minute slots. Business hours (HL-SETT-05) are the outer bound.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-VIST-01",
+        "HL-SETT-05",
+        "HL-SETT-01"
+      ]
+    }
+  ]
+}

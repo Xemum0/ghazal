@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(pnpm:*)",
+      "Bash(node:*)",
+      "Bash(npx playwright:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx stylelint:*)",
+      "Bash(./tools/*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(rg:*)",
+      "Bash(ls:*)",
+      "Bash(lsof:*)",
+      "Bash(ps:*)",
+      "Read(/**)",
+      "Edit(/**)",
+      "Write(/**)"
+    ],
+    "ask": [
+      "Bash(git commit:*)",
+      "Bash(git tag:*)"
+    ],
+    "deny": [
+      "Read(**/*Nulled*)",
+      "Read(**/*.rar)",
+      "Edit(**/*Nulled*)",
+      "Edit(**/*.rar)",
+      "Write(**/*Nulled*)",
+      "Write(**/*.rar)",
+      "Bash(*Nulled*)",
+      "Bash(*.rar*)",
+      "Bash(unrar:*)",
+      "Bash(7z:*)",
+      "Bash(7za:*)",
+      "Bash(rm -rf:*)",
+      "Bash(rm -fr:*)",
+      "Bash(rm -Rf:*)",
+      "Bash(git push:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean:*)",
+      "Bash(kill:*)",
+      "Bash(pkill:*)",
+      "Bash(killall:*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Edit(/project.md)",
+      "Edit(/Ghazal_PRD_EN.pdf)",
+      "Write(/project.md)",
+      "Write(/Ghazal_PRD_EN.pdf)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && node tools/ports.mjs check design 2>&1; exit 0"
+          }
+        ]
+      }
+    ]
+  }
+}

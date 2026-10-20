@@ -1,0 +1,197 @@
+{
+  "id": "payment",
+  "order": 7,
+  "title": {
+    "en": "Payment",
+    "ar": "الدفع"
+  },
+  "intent": "Paying the deposit (a second session after the venue approves, or straight after Review for instant halls), paying the balance later, and every outcome: success, 'confirming with your bank', failed, hold expired. The gateway is hosted (KNET redirect, Apple Pay, Google Pay, cards): no card form ever exists in Ghazal. The webhook is truth; the app polls then reassures (ADR 0005, ADR 0027). Calm, outcome-first copy: money status second, next step third; no exclamation marks, no urgency words.",
+  "screens": [
+    {
+      "id": "CL-PAYM-01",
+      "slug": "pay",
+      "title": {
+        "en": "Pay for your voucher",
+        "ar": "دفع قيمة الكوبون"
+      },
+      "kind": "screen",
+      "purpose": "One pay screen for the KD 2 voucher: shows what the voucher is bound to, the amount, what happens next and the methods in platform order. The gateway is hosted (KNET, Apple Pay, Google Pay, cards); no card form exists in Ghazal. This is the only payment a client makes inside Ghazal (ADR 0033).",
+      "requirementIds": [
+        "CA-PAY-01",
+        "CA-PAY-02",
+        "CA-PAY-03",
+        "CA-PAY-04",
+        "CA-PAY-05",
+        "CA-VCH-05",
+        "CA-VCH-14"
+      ],
+      "states": [
+        "default",
+        "last-60-seconds-of-checkout",
+        "loading-session",
+        "session-error",
+        "offline",
+        "checkout-expired"
+      ],
+      "interactions": [
+        "Amount hero \"KD 2.000\" in exact three decimals and the bound target (\"Voucher for Aurelia Gulf Hotel · Thu 14 Jan 2027 · Danah Ballroom\"); no Deposit | Pay in full toggle exists",
+        "Three answers in 12 words or fewer: what it buys (\"Lets you request this hall at the voucher price\"), what it does not (\"The hall price is paid to the venue, not to Ghazal\"), what if plans change (\"Declined or unanswered requests give you your voucher back\")",
+        "Methods in platform order from the server: iOS Apple Pay, KNET, Visa/Mastercard; Android KNET, Google Pay (only if the gateway enables it), Visa/Mastercard; selecting one opens the gateway (CL-PAYM-02); after one failed KNET attempt Apple Pay or a card is recommended first",
+        "Checkout lifetime 30 minutes shown as an absolute time; the mm:ss counter appears only in the last 60 seconds; an expired checkout opens CL-PAYM-04; Back is always safe",
+        "Offline: \"Offline. Reconnect to pay.\" and the methods are disabled in place"
+      ],
+      "contentNotes": "Heading «دفع قيمة الكوبون» / \"Pay for your voucher\". Amount «2.000 د.ك» in an LTR isolate / \"KD 2.000\". Reassurance «تدفعون للقاعة مباشرةً بعد تأكيد الحجز» / \"You pay the venue directly after you confirm your booking.\" Clients pay no processing fee; \"No booking fee\" stays unused until OQ-B-15. Methods drawn from the gateway as icon plus name; sensitive data never touches Ghazal. Tab bar hidden. Superseded by ADR 0033: deposit, balance, pay-in-full, cash, instant hold, pay window and the 48 hour cancel line.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-PAYM-02",
+        "CL-PAYM-04",
+        "CL-VCHR-03",
+        "CL-VCHR-01"
+      ]
+    },
+    {
+      "id": "CL-PAYM-02",
+      "slug": "gateway",
+      "title": {
+        "en": "Secure payment",
+        "ar": "الدفع الآمن"
+      },
+      "kind": "screen",
+      "purpose": "Ghazal's chrome around the gateway-hosted page (KNET bank redirect, card page, Apple Pay or Google Pay sheet), opened in the system in-app browser session (ASWebAuthenticationSession or Custom Tab, ADR 0027 D2) with a deep-link return. The return URL is never trusted: the app always fetches the payment state from the API afterwards.",
+      "requirementIds": [
+        "CA-PAY-01",
+        "CA-PAY-02",
+        "CA-PAY-03",
+        "CA-PAY-04",
+        "CA-PAY-05"
+      ],
+      "states": [
+        "redirecting",
+        "bank-page",
+        "cancelled-by-user",
+        "connection-lost",
+        "returned"
+      ],
+      "interactions": [
+        "Brief interstitial 'Taking you to KNET' under one second with an OS-standard activity indicator (the only looping element), then the hosted page",
+        "Top bar: Close (inline-start) and a lock-and-name title 'Secure payment · KNET'; closing asks 'Leave payment? Nothing is charged until you finish.' unless the page already reported success",
+        "Return arrives through an HTTPS link; the app moves straight to the verifying screen (CL-PAYM-03); a cancelled return goes back to CL-PAYM-01 with 'Payment cancelled. No amount was charged.'",
+        "Apple Pay and Google Pay sheets appear natively over the hosted flow; Back never leaves the user in a blank state"
+      ],
+      "contentNotes": "The hosted page itself is third-party and not designed; the prototype shows a neutral placeholder bank page with the amount 'KD 5,460.000' to demonstrate the frame. KNET works with Kuwaiti bank cards only and may have daily limits below a large deposit. Amounts display through the shared formatter; the gateway hand-off and receipts may say KWD while consumer surfaces say KD. Connection lost mid-payment shows 'Connection lost. We are checking your payment' and goes to the verifying screen rather than offering a second payment. Tab bar hidden (payment web view). Voucher model (ADR 0033): the placeholder bank page shows \"KD 2.000\" and \"Ghazal voucher\"; the \"KD 5,460.000\" deposit example above is superseded. The daily-KNET-limit note no longer applies at this amount.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-PAYM-03",
+        "CL-PAYM-01",
+        "CL-PAYM-04"
+      ]
+    },
+    {
+      "id": "CL-PAYM-03",
+      "slug": "confirming",
+      "title": {
+        "en": "Confirming with your bank",
+        "ar": "التأكيد مع البنك"
+      },
+      "kind": "screen",
+      "purpose": "The pending-bank-confirmation state: a determinate-style thread line while the server verifies, an honest long-wait message after about 30 seconds, and a clear 'safe to leave'. Prevents double payment.",
+      "requirementIds": [
+        "CA-PAY-10",
+        "CA-NOTI-07"
+      ],
+      "states": [
+        "polling",
+        "long-wait",
+        "offline",
+        "success",
+        "failed"
+      ],
+      "interactions": [
+        "A 2px thread line fills while the status is polled for about 30 seconds with backoff; amount and method are shown",
+        "After about 30 seconds the copy changes to 'We are confirming. You can leave; we will notify you.' with two actions: 'Keep waiting' and 'Go to my bookings'",
+        "Success draws the check once and continues to CL-PAYM-05; failure continues to CL-PAYM-04; leaving never cancels the payment",
+        "Offline: 'You are offline. Your payment is being confirmed and we will notify you.'"
+      ],
+      "contentNotes": "Heading «جارٍ التأكيد مع البنك» / 'Confirming with your bank'. Reassurance line: «لا حاجة للدفع مرة أخرى. سنخبركم فور وصول التأكيد.» / 'No need to pay again. We will tell you the moment it is confirmed.' Summary 'KD 5,460.000 · KNET · Aurelia Gulf Hotel, Thu 14 Jan 2027'. A push (payment confirmed or failed) arrives if the user leaves; its landing is the receipt or the pay sheet. Tab bar hidden. Voucher model (ADR 0033): summary line reads \"KD 2.000 · KNET · Voucher for Aurelia Gulf Hotel\"; success continues to CL-PAYM-05 (Your voucher is ready).",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-PAYM-05",
+        "CL-PAYM-04",
+        "CL-BKNG-02"
+      ]
+    },
+    {
+      "id": "CL-PAYM-04",
+      "slug": "not-completed",
+      "title": {
+        "en": "Payment not completed",
+        "ar": "تعذّر إتمام الدفع"
+      },
+      "kind": "screen",
+      "purpose": "One outcome layout for every failure: outcome first, money status second, next step third, never blaming. Covers declined or cancelled payments, KNET limits, an expired instant hold, an expired pay window, and a late payment that could not be honoured.",
+      "requirementIds": [
+        "CA-PAY-10",
+        "CA-PAY-01"
+      ],
+      "states": [
+        "declined",
+        "knet-limit",
+        "cancelled-by-user",
+        "checkout-expired",
+        "late-payment-activated",
+        "offline"
+      ],
+      "interactions": [
+        "Primary \"Try again\" reuses the same payment attempt key; \"Use another method\" returns to the list; after a first KNET failure Apple Pay or a card is suggested first",
+        "Checkout expired: \"Start again\" creates a new checkout for the same quote; if the quote changed meanwhile the screen offers the updated price first",
+        "A payment that succeeded after the checkout lapsed still activates the voucher (the client paid): the screen reads \"Your voucher is ready\" and continues to CL-PAYM-05; if the quote no longer holds, the voucher is active and bound to the venue, and the client is offered a new date",
+        "Support is one tap away (CL-MSGS-02)"
+      ],
+      "contentNotes": "Declined: «تعذّر إتمام الدفع. لم يُخصم أي مبلغ.» / 'The payment could not be completed. No amount was charged.' KNET limit: 'Some banks set a daily KNET limit below this amount. Apple Pay or a Visa/Mastercard card may work better.' Hold expired: 'The hold on Thu 14 Jan ended at 4:15 PM. Nothing was charged.' Late payment refunded: 'Your payment arrived after the date was taken. We are refunding KD 5,460.000 in full, with no fees to you. KNET refunds usually arrive in 1 to 3 working days.' (card refunds: up to 10 working days; wording stays soft until the gateway confirms). Alternatives reuse the BOOK-07 rails. No religious phrases in payment or error copy. Tab bar hidden. Voucher model (ADR 0033): declined copy «تعذّر إتمام الدفع. لم يُخصم أي مبلغ.» / \"The payment could not be completed. No amount was charged.\" stays. Superseded: hold expired, slot lost, pay-window expired and refund-after-late-payment variants (no hold exists at this step).",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-PAYM-01",
+        "CL-PAYM-05",
+        "CL-VENU-01",
+        "CL-MSGS-02"
+      ]
+    },
+    {
+      "id": "CL-PAYM-05",
+      "slug": "confirmed",
+      "title": {
+        "en": "Your voucher is ready",
+        "ar": "كوبونكم جاهز"
+      },
+      "kind": "screen",
+      "purpose": "Success of the KD 2 payment: the voucher with its single-use code and QR, what it is bound to, its validity and the next step. The one celebratory moment of the voucher purchase is small (no confetti, one success haptic); the booking-confirmed celebration lives in CL-BOOK-09.",
+      "requirementIds": [
+        "CA-BOOK-13",
+        "CA-NOTI-07",
+        "CA-VCH-05",
+        "CA-VCH-07",
+        "CA-VCH-14"
+      ],
+      "states": [
+        "voucher-ready",
+        "voucher-ready-late-payment",
+        "offline"
+      ],
+      "interactions": [
+        "Success moment inside the 640 ms success token: the check draws and the voucher card settles; one success haptic, no confetti",
+        "Voucher card: code GV-2611-K7QM (LTR isolate, copyable), QR, bound venue, date, hall and package, \"Valid until Fri 8 Jan 2027\" (60 days), saving \"You save KD 2,800.000 at the venue\"",
+        "Primary \"Send request at the voucher price\" opens the booking flow prefilled (CL-BOOK-01); secondary \"View in My vouchers\" opens CL-VCHR-02; \"View receipt\" opens the receipt viewer in CL-BKNG-05",
+        "A one-line reminder explains refund and reuse; \"Done\" returns to the venue detail"
+      ],
+      "contentNotes": "Heading «كوبونكم جاهز» / \"Your voucher is ready\". Single calm line: «الكوبون مربوط بفندق أوريليا الخليج وبهذه الباقة.» / \"Your voucher is bound to Aurelia Gulf Hotel and this package.\" Receipt: \"Voucher · KNET · Thu 12 Nov 2026 · KD 2.000\". Superseded by ADR 0033: deposit and balance confirmation, planner card, checklist and countdown lines (they move to CL-BOOK-09).",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BOOK-01",
+        "CL-VCHR-02",
+        "CL-BKNG-05",
+        "CL-VENU-01",
+        "CL-MSGS-02"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "id": "services",
+  "order": 11,
+  "title": {
+    "en": "Wedding services",
+    "ar": "خدمات الزفاف"
+  },
+  "intent": "The services marketplace is browse, save and enquire only in the MVP (ADR 0007, journeys-ia): categories, vendor lists, a vendor profile, and a structured quote request that opens a vendor chat. There is no vendor checkout, payment or availability calendar. Vendor imagery never shows people (equipment, decor details, hand patterns, palettes). Reached through the Venues | Services switch on Discover Home and the My Wedding tools row.",
+  "screens": [
+    {
+      "id": "CL-SERV-01",
+      "slug": "services-hub",
+      "title": {
+        "en": "Additional services",
+        "ar": "الخدمات الإضافية"
+      },
+      "kind": "screen",
+      "purpose": "The Additional services hub for post-venue needs: five primary categories (Hospitality and catering, Buffet services, Floral arrangements, Event styling and decor, Event planning and coordination) as large tiles, then \"More services\" (the secondary categories) as a compact list, a planner entry card and a way back to venues. Also where the governmental-facility \"Find catering and decor\" link lands.",
+      "requirementIds": [
+        "CA-SVC-01",
+        "CA-SVC-02",
+        "CA-SVC-03",
+        "CA-SVC-04",
+        "CA-SVC-05",
+        "CA-SVC-06",
+        "CA-SVC-07",
+        "CA-SVC-08",
+        "CA-PLAN-02",
+        "CA-PLAN-09",
+        "CA-SVC-13",
+        "CA-SVC-16"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "offline",
+        "category-without-vendors",
+        "primary-categories",
+        "secondary-categories"
+      ],
+      "interactions": [
+        "Planner card 'Wedding planner, from KD 650' opens the packages (CL-PLAN-01); a 'Saved vendors' row opens Saved > Services",
+        "Heart count and a quiet 'Add to budget' hint appear on vendor cards later, not here",
+        "Venues | Additional services switch at the top returns to Home; five 4:5 primary tiles (image with a subtle scrim and a text label, no coloured chips) open the category list (CL-SERV-02); \"More services\" lists the secondary categories (photography and videography, cake, DJ and MC, henna and makeup, dress and suit rental, cars, invitations, travel) as hairline rows",
+        "Each primary tile shows the count of approved providers and \"Voucher prices available\"; categories render from data (Super Admin managed), so a new category needs no new screen"
+      ],
+      "contentNotes": "Groups (AR / EN): «التصوير والفيديو» Photography and video; «الورد والكيك» Flowers and cake; «الدي جي والمذيع والموسيقى الحية» DJ, MC and live music; «الحناء ومكياج العروس» Henna and bridal makeup; «فستان الزفاف وتأجير البدلات» Wedding dress and suit rental; «السيارات الفاخرة وبطاقات الدعوة» Luxury cars and invitations; «الفنادق والسفر وشهر العسل» Hotels, travel and honeymoon (hotels here means guest or bridal-suite accommodation, not wedding venues). Imagery: camera equipment on a table, floral arrangement, speakers and instruments, henna patterns on hands only, a dress on a hanger, a classic car, a suitcase; no faces. A category with no vendors yet reads 'No vendors yet' instead of hiding. Government hall links arrive with the line 'Find catering and decor for a hall-only booking'. Vendor decoration, catering and entertainment companies beyond the PRD list are deferred (CA-SVC-12). Tab bar visible. Voucher model (ADR 0033): primary labels AR / EN: «الضيافة والتموين» Hospitality and catering; «خدمات البوفيه» Buffet services; «تنسيق الورد» Floral arrangements; «التنسيق والديكور» Event styling and decor; «تخطيط المناسبات والتنسيق» Event planning and coordination. The seven groups of the earlier hub become the secondary list. CA-SVC-12 is un-deferred.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-SERV-02",
+        "CL-PLAN-01",
+        "CL-SAVD-01",
+        "CL-DISC-01"
+      ]
+    },
+    {
+      "id": "CL-SERV-02",
+      "slug": "category-list",
+      "title": {
+        "en": "Vendors",
+        "ar": "مقدّمو الخدمة"
+      },
+      "kind": "screen",
+      "purpose": "Vendors in one category with name, rating, starting price and photos, plus area, price and rating filters and sort.",
+      "requirementIds": [
+        "CA-SVC-09",
+        "CA-SVC-02",
+        "CA-SVC-03",
+        "CA-SVC-04",
+        "CA-SVC-05",
+        "CA-SVC-06",
+        "CA-SVC-07",
+        "CA-SVC-08",
+        "CA-TOOL-02",
+        "CA-VCH-02",
+        "CA-SVC-17"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "no-results",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Category header with sibling categories as hairline chips; filter chips for Area, Price and Rating plus a Sort button",
+        "Filtered-empty state offers 'Clear filters'; a category with no vendors reads 'No vendors yet' and points to sibling categories",
+        "Pull to refresh; position kept when returning",
+        "Provider card: 4:5 cover (work, never a face), name, area, rating with count, price line \"Voucher from KD 400 · Standard from KD 450\" with the unit, heart (saves to Saved > Services); \"Sponsored\" label only on paid placements; tap opens the profile (CL-SERV-03); only approved, active listings appear"
+      ],
+      "contentNotes": "Photography list: «استوديو لمحة للتصوير» / Lamha Photography Studio, Salmiya, 4.7 (58), 'From KD 450'; «عدسة الخليج للتصوير» / Gulf Lens Studio, Jabriya, 4.5 (31), 'From KD 600'; «ضوء للإنتاج المرئي» / Daw Video Production, Shuwaikh, 4.6 (44), 'From KD 700' (videography); a new vendor shows «جديد» / New. Price anchors by category: photography 450 – 900, videography 400 – 900, bridal makeup 150 – 450, henna 80 – 250, cake 150 – 600, DJ 250 – 600, MC 200 – 500, luxury cars 120 – 400, invitations from KD 0.800 per card (price units always stated). A 'female photographer for ladies' halls' tag appears as a plain fact on relevant vendors. Tab bar visible. Voucher model (ADR 0033): list prices become voucher and standard pairs (illustrative seed, fixtures request pending); providers without a voucher price show one price.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-SERV-03",
+        "CL-SERV-01"
+      ]
+    },
+    {
+      "id": "CL-SERV-03",
+      "slug": "vendor-profile",
+      "title": {
+        "en": "Vendor profile",
+        "ar": "ملف مقدّم الخدمة"
+      },
+      "kind": "screen",
+      "purpose": "Description, portfolio, packages with prices, reviews and an honest availability line for one vendor. Actions: Request quote, Save, Add to budget.",
+      "requirementIds": [
+        "CA-SVC-10",
+        "CA-SVC-11",
+        "CA-TOOL-02",
+        "CA-TOOL-03",
+        "CA-TOOL-10",
+        "CA-SVC-14",
+        "CA-SVC-15",
+        "CA-SVC-18",
+        "CA-VCH-01"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "offline",
+        "no-reviews",
+        "guest"
+      ],
+      "interactions": [
+        "Portfolio gallery opens the shared photo viewer; bilingual description; packages as rows with name, inclusions and price",
+        "Availability line: 'Availability is confirmed by the vendor in chat' with an 'Ask about Thu 14 Jan' chip that pre-fills the quote request (there is no vendor calendar in the MVP)",
+        "Reviews show only when they exist; a new vendor shows «جديد» / New",
+        "Packages as rows with name, inclusions and two prices (Standard, Voucher) on the same unit; sticky bar: primary \"Get voucher · KD 2\" (opens CL-VCHR-01 bound to the package), secondary \"Request a quote\" (CL-SERV-04, no voucher needed), tertiary \"Contact\" (browse-only path: chat for registered users); heart saves; \"Add to budget\" opens the add-expense sheet"
+      ],
+      "contentNotes": "Demo: Lamha Photography Studio. Packages: 'Wedding-day coverage · 6 hours' KD 450; '8 hours + album' KD 650; 'Full day + album + highlight video' KD 900; each states what is included and the unit (per event). Portfolio shows hall details, decor, table settings and equipment; no identifiable faces, no alcohol. Female-photographer note: 'Female photographers available for ladies' halls.' Guests may browse everything; the sign-in sheet opens at Request quote with 'to request a quote'. Tab bar visible.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-SERV-04",
+        "CL-WEDD-04",
+        "CL-SERV-02",
+        "CL-VENU-02",
+        "CL-VCHR-01"
+      ]
+    },
+    {
+      "id": "CL-SERV-04",
+      "slug": "request-quote",
+      "title": {
+        "en": "Request a quote",
+        "ar": "طلب عرض سعر"
+      },
+      "kind": "sheet",
+      "purpose": "A short structured enquiry that becomes a card in a new vendor chat thread. Hard-gated, with everything typed preserved through sign-in.",
+      "requirementIds": [
+        "CA-SVC-11",
+        "CA-CHAT-04",
+        "CA-AUTH-10",
+        "CA-SVC-15",
+        "CA-SVC-18"
+      ],
+      "states": [
+        "default",
+        "validation-error",
+        "sending",
+        "success",
+        "error",
+        "offline",
+        "guest-gate",
+        "thread-exists"
+      ],
+      "interactions": [
+        "Prefilled chips: service or package, event date, venue, guests; one free-text note (dir=auto)",
+        "Send creates (or reopens) the vendor thread with a structured request card and lands in it (CL-MSGS-02)",
+        "Guests see the sign-in sheet at Send with the context line 'to request a quote'",
+        "Success copy states that replies arrive in Messages",
+        "An optional line \"Attach your voucher\" shows when the client holds a ready voucher for this provider; attaching turns the enquiry into a request at the voucher price (the provider answers Accept, Decline or Propose another date)"
+      ],
+      "contentNotes": "Example: Lamha Photography Studio, 'Wedding-day coverage · 6 hours', «الخميس 14 يناير 2027», Aurelia Gulf Hotel, 350 guests (ladies' hall), note «نحتاج مصوّرة فقط للحفل النسائي». Success: 'Request sent to Lamha Photography Studio. Replies arrive in Messages.' Vendors have no checkout in the MVP. Tab bar hidden while the sheet is open.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-MSGS-02",
+        "CL-AUTH-01",
+        "CL-VCHR-04"
+      ]
+    }
+  ]
+}

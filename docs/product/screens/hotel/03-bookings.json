@@ -1,0 +1,312 @@
+{
+  "id": "bookings",
+  "order": 3,
+  "title": {
+    "en": "Bookings",
+    "ar": "الحجوزات"
+  },
+  "intent": "One booking, seen from the venue's side. The Bookings tab opens on Pending when there is anything pending (otherwise Upcoming), so the persistent pending indicator is one tap away from every screen (ADR 0008 D2). Pending shows the triage card, the most important surface in the app; Upcoming and Past carry compact rows; Booking detail is a single canonical screen with status variants that mirrors the client's Booking detail and its Booking Thread; the Contact sheet and the invoice finish the job. Decisions themselves (Accept, Decline, Propose, Cancel, Cash) live in the Decisions flow.",
+  "screens": [
+    {
+      "id": "HL-BOOK-01",
+      "slug": "pending-requests",
+      "title": {
+        "en": "Pending requests",
+        "ar": "الطلبات المعلقة"
+      },
+      "kind": "tab-root",
+      "purpose": "Triage. Every request waiting for a reply as a decision-ready card, ordered by nearest deadline, with one gold Accept and two quiet alternatives. The staff member should be able to decide without opening the booking.",
+      "requirementIds": [
+        "HA-BOOK-01",
+        "HA-BOOK-03",
+        "HA-BOOK-04",
+        "HA-BOOK-06",
+        "HA-BOOK-07",
+        "HA-DASH-03",
+        "HA-DASH-04",
+        "HA-NOTI-01",
+        "HA-AUTH-02",
+        "HA-VCH-03",
+        "PA-LST-06"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "danger-sla",
+        "conflict",
+        "role-read-only",
+        "new-arrival",
+        "search-active"
+      ],
+      "interactions": [
+        "Header: title 'Bookings', search icon (opens the search state described in HL-BOOK-02), segmented control Pending 5 / Upcoming / Past with the same count as the tab badge",
+        "Tapping the card body opens Booking detail; Accept runs HL-DCSN-01 (2 taps, 8-second Undo) or its confirm sheet when competing requests, an event within 14 days or a non-default pay window apply; Decline runs HL-DCSN-02; Propose another date runs HL-DCSN-03",
+        "Chat opens the thread for this booking; Call opens the Contact sheet",
+        "A request arriving while this screen is open slides in at the top over 320 ms, the badge scales in, and a light haptic fires; the card order re-sorts by deadline",
+        "Conflict (the date was held for another couple in the meantime): the card shows an inline 'Date held for another couple' line and Accept is disabled; Decline and Propose stay enabled",
+        "No swipe actions; pull to refresh",
+        "Triage card, top to bottom: time-left line with a 2px depleting hairline; headline weekday and date; hall, session and audience icon; three facts (guests, package, the voucher price with the standard price struck through); the voucher chip with the code last four; one gold Accept and two quiet alternatives (Propose another date, Decline); no \"You receive\" payout line and no commission",
+        "Accept is never blocked by payout verification (it no longer exists); offline disables Accept in place with \"Offline. Reconnect to accept.\""
+      ],
+      "contentNotes": "Five cards at NOW (Thu 12 Nov 2026, 4:00 PM), nearest deadline first. 1) دانة الشمري / Dana Al-Shammari: Sun 17 Jan 2027, Majlis Hall, evening 8:30 PM, ladies' icon, 250 guests, الحفل النسائي · أيام الأسبوع / Ladies' Reception, Weekday, KD 11,500.000 (250 x 46), received Wed 11 Nov 7:00 PM, 3h left, danger state with the hairline almost empty, first booking. 2) عبدالله الهاجري / Abdullah Al-Hajri: Fri 5 Feb 2027, full night (ladies 380 and men 450, two sections), KD 34,160.000 (19,760.000 + 14,400.000), 15h left, special requests «نرغب بكوشة مخصصة وزفّة عند الدخول.» 3) مريم الكندري / Maryam Al-Kandari: Thu 28 Jan 2027, Danah Ballroom, 300 guests, Ladies' Reception, Weekend, KD 15,600.000, 17h left. 4) فيصل الرشيدي / Faisal Al-Rasheedi: Fri 22 Jan 2027, Danah Ballroom, men's icon, 400 guests, الحفل الرجالي / Men's Reception, KD 12,800.000, 19h left, Chat only (no number shared). 5) ريم الدوسري / Reem Al-Dosari: Thu 14 Jan 2027, Danah Ballroom, evening 9:00 PM, ladies, 350 guests, Ladies' Reception, Weekend, KD 18,200.000, 20h 40m left, no competing-request row (no other request is pending for Thu 14 Jan), verified phone, special requests «نحتاج مدخلًا منفصلًا لكبار السن ومكانًا مخصصًا للعبايات.» / 'We need a separate entrance for elders and a cloakroom for abayas.' Reem's booking is the shared story booking: reference GZ-2611-0147 must match the client app seed. SLA states: neutral below 50% elapsed, gold from 50%, danger from 80% or under 1 hour left, always with words; the 'Urgent' tag (event within 14 days) is separate and not present at NOW. Time-left copy: 'Reply by Fri 13 Nov, 12:40 PM - 20h 40m left' / «الرد قبل الجمعة 13 نوفمبر 12:40 م · باقي 20 س 40 د». Audience icons are text-and-line only (never gendered pictograms). Empty state: «لا توجد طلبات معلقة» / 'No pending requests' with the next upcoming event. Bookings tab badge reads 5, danger-tinted with text, capped at 9+. Voucher model (ADR 0033): amounts on the cards are voucher totals (illustrative: Reem Al-Dosari KD 15,400.000, standard KD 18,200.000); the \"kyc-pending\" state, payout preview and \"Payout setup needed before approving\" line above are superseded.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-BOOK-03",
+        "HL-BOOK-02",
+        "HL-BOOK-04",
+        "HL-DCSN-01",
+        "HL-DCSN-02",
+        "HL-DCSN-03",
+        "HL-TODY-05"
+      ]
+    },
+    {
+      "id": "HL-BOOK-02",
+      "slug": "upcoming-and-past",
+      "title": {
+        "en": "Upcoming and past",
+        "ar": "القادمة والسابقة"
+      },
+      "kind": "screen",
+      "purpose": "Everything that is no longer waiting for a decision. Upcoming is sectioned Awaiting deposit (with the hold timer) then Confirmed; Past carries a chip row so all six PRD statuses are reachable in two taps. This screen also hosts search and the date filter for the whole tab.",
+      "requirementIds": [
+        "HA-BOOK-01",
+        "HA-BOOK-11",
+        "HA-DASH-01",
+        "HA-VCH-03"
+      ],
+      "states": [
+        "default",
+        "past",
+        "loading",
+        "empty",
+        "no-results",
+        "error",
+        "offline",
+        "search-active",
+        "date-filter"
+      ],
+      "interactions": [
+        "Segmented control Pending / Upcoming / Past shares the header with HL-BOOK-01; Upcoming is the default when nothing is pending",
+        "Search field (opens from the header icon): client name in either script, booking reference, or a typed date such as '14 Jan' / «14 يناير»; results replace the list with matched text emphasised; recent searches are listed under the empty field",
+        "Date filter sheet: custom Sunday-first range calendar (no native picker) filtering by event date or request date; applied range shows as a removable chip",
+        "Tapping a row opens Booking detail; compact 96px rows, no inline decision buttons",
+        "Upcoming sections: \"Awaiting client\" (rows show the 24 hour confirm timer and the confirm-by time), \"Confirmed\" (rows show \"Voucher not yet redeemed\") and \"Redeemed\" (rows show the redemption date and who redeemed); no deposit or balance states",
+        "Past chip row: All, Completed, Cancelled, Declined, Expired; Refunded is removed (refunds belong to the client voucher)"
+      ],
+      "contentNotes": "Awaiting deposit: هيا المطيري / Haya Al-Mutairi, Thu 10 Dec 2026, Danah Ballroom, ladies, 320 guests, Ladies' Reception, Weekend, KD 16,640.000, deposit KD 4,995.000 due, 'Pay by 7:30 PM today - 3h 30m left' with a hatched hold marker. Confirmed: سلمان الحربي / Salman Al-Harbi, today 8:30 PM, Majlis Hall, men, 310 guests, KD 9,920.000, paid in full; نجلاء البدر / Najla Al-Badr, today 9:00 PM, Danah Ballroom, ladies, 420 guests, KD 21,840.000, paid in full; منيرة الخالد / Munira Al-Khaled, Sat 21 Nov, Danah Ballroom, 330 guests, KD 17,160.000, 'Balance overdue 5 days - KD 12,010.000' in danger text with an icon; لولوة الصالح / Lulwa Al-Saleh, Sat 12 Dec, Danah Ballroom, 340 guests, KD 17,680.000, 'Deposit received - balance KD 12,375.000 due Sat 28 Nov'. Past examples: نورة الفهد / Nora Al-Fahad, Fri 6 Nov, 360 guests, KD 18,720.000, Completed; هدى الشايع / Huda Al-Shaya, Fri 20 Nov, Cancelled by client (deposit KD 4,370.000 kept under the policy, so no refund); فاطمة العازمي / Fatima Al-Azmi, Sat 30 Jan, Refunded KD 4,680.000 (cooling-off); ملك الحمدان / Malak Al-Hamdan, Sat 14 Nov, Declined, 'Date unavailable'; بدر العتيبي / Badr Al-Otaibi, men, Fri 4 Dec, Missed (no reply within 24h). Status chips always carry an icon and a label (ADR 0003 D7). Empty segments have specific copy, for example Past/Refunded «لا توجد حجوزات مستردة» / 'No refunded bookings'. No-results copy names what was searched. Money in rows uses exact three decimals when any row in the list has fils, otherwise the browse format; one precision per list. Voucher model (ADR 0033): the awaiting-deposit, deposit-received and balance-due rows above become Awaiting client, Confirmed and Redeemed; hold timers count the 24 hour confirm window.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-BOOK-03",
+        "HL-BOOK-01"
+      ]
+    },
+    {
+      "id": "HL-BOOK-03",
+      "slug": "booking-detail",
+      "title": {
+        "en": "Booking detail",
+        "ar": "تفاصيل الحجز"
+      },
+      "kind": "screen",
+      "purpose": "The canonical request screen for the partner: who, when, what, the voucher price and what happens next, with one set of sections and a variant per status. The voucher panel (code last four, state, bound quote, redeemed by and when) replaces the money panel; there is no payment, cash, invoice or payout section. The sticky bar changes with the status and carries Redeem voucher once the request is confirmed.",
+      "requirementIds": [
+        "HA-BOOK-02",
+        "HA-BOOK-03",
+        "HA-BOOK-04",
+        "HA-BOOK-06",
+        "HA-BOOK-07",
+        "HA-BOOK-10",
+        "HA-BOOK-11",
+        "HA-AUTH-02",
+        "HA-VCH-01",
+        "HA-VCH-03",
+        "HA-VCH-05"
+      ],
+      "states": [
+        "pending",
+        "pending-danger",
+        "awaiting-client-confirmation",
+        "confirmed",
+        "redeemed",
+        "counter-offer-sent",
+        "completed",
+        "declined",
+        "expired-missed",
+        "expired-lapsed",
+        "cancelled-by-client",
+        "cancelled-by-venue",
+        "issue-reported",
+        "loading",
+        "error",
+        "offline",
+        "conflict",
+        "role-limited"
+      ],
+      "interactions": [
+        "Sticky bar by status: Pending shows Accept (gold) plus Decline and Propose another date; Awaiting client shows Call, Chat and \"Revoke approval\" (Admin or Manager, reason required, reliability strike); Confirmed shows \"Redeem voucher\" (gold, opens HL-BOOK-06 with the code prefilled), Call, Chat; Redeemed shows Call and Chat; Past statuses show none",
+        "Icon row under the header, 44px targets: Call (Contact sheet), Chat (opens or creates the thread for this client, HA-BOOK-07); there is no Invoice icon",
+        "Voucher panel: voucher chip and code last four, state (Bound, Redeemed), the bound quote (date, hall, package, guests, standard price, voucher price, saving) and \"Redeemed by Amal Al-Balushi, Mon 4 Jan 2027\" once used; actions: Redeem voucher (Admin, Manager, Reception)",
+        "Booking Thread timeline Request - Approval - Confirmation - Redemption - Day, absolute times on past nodes, at most two faint future nodes; a changed status draws the new node over 320 ms",
+        "\"Mark as completed\" appears once the event end has passed (otherwise it completes automatically 12 hours after the event ends); \"Report an issue\" is a client action only; the venue sees \"Client reported an issue\" with a link to Support",
+        "Audit trail lists who did what and when (accepted by, revoked by, redeemed by); long-press on a value copies it",
+        "Role rules: Reception can Accept, Decline, Propose and Redeem but never Cancel; Accountant sees the voucher panel read-only; Marketing has no access"
+      ],
+      "contentNotes": "Header: reference GZ-2611-0147 inside an LTR isolate, status chip with icon and label (Pending, Awaiting client, Confirmed, Voucher redeemed, Declined, Missed or Lapsed, Cancelled, Completed; AR: «بانتظار الرد» «بانتظار تأكيد العميل» «مؤكد» «تم استخدام الكوبون» «تم الاعتذار» «انتهت المهلة» «ملغي» «مكتمل»). Voucher panel example (illustrative): code last four K7QM, \"Voucher price KD 15,400.000 · Standard KD 18,200.000\". The venue collects the event price directly from the client at the voucher price after redemption; the app never shows a payment status. Superseded by ADR 0033: money panel, deposit, balance, cash recording, refund state, invoice, payout and commission lines, reschedule, no-show, KYC.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-DCSN-01",
+        "HL-DCSN-02",
+        "HL-DCSN-03",
+        "HL-DCSN-04",
+        "HL-BOOK-04",
+        "HL-BOOK-06",
+        "HL-TODY-05"
+      ]
+    },
+    {
+      "id": "HL-BOOK-04",
+      "slug": "contact-sheet",
+      "title": {
+        "en": "Contact client",
+        "ar": "التواصل مع العميل"
+      },
+      "kind": "sheet",
+      "purpose": "A small bottom sheet that turns 'reach this client' into one tap: call the contact person, message in the app, or open WhatsApp. It respects the privacy rule that a number is shown only once the client shared it.",
+      "requirementIds": [
+        "HA-BOOK-06",
+        "HA-BOOK-07",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "number-not-shared",
+        "role-limited",
+        "offline"
+      ],
+      "interactions": [
+        "Rows at 56px: Call (tel: link to the contact number), Chat in the app (opens the booking thread), WhatsApp (opens the wa.me link; flagged OQ-B-12 as outside the PRD text)",
+        "When no number was shared, the Call and WhatsApp rows are replaced by one line explaining that the client has not shared a contact number yet (OQ-B-19), and Chat stays available",
+        "Drag down or tap the scrim to dismiss; the handle is centred; the title sits at inline-start and the close at inline-end"
+      ],
+      "contentNotes": "Title line: «ريم الدوسري» / Reem Al-Dosari with the subline 'Contact person for Thu 14 Jan 2027'. Number shown as +965 5000 0012 inside an LTR isolate, 4+4 grouping, display-only fixture (in the prototype Call and WhatsApp show a toast instead of leaving the app). Privacy note: «تظهر هذه الأرقام لهذا الحجز فقط.» / 'This number is shown for this booking only.' Accountant: sheet is not offered (the icons are hidden). Call and WhatsApp targets are 44px+; real links use tel:+965XXXXXXXX and https://wa.me/965XXXXXXXX (digits only). Voucher model (ADR 0033): the privacy note adds that the client's voucher code is shown only through redemption.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-TODY-05",
+        "HL-BOOK-03"
+      ]
+    },
+    {
+      "id": "HL-BOOK-05",
+      "slug": "invoice",
+      "title": {
+        "en": "Invoice",
+        "ar": "الفاتورة"
+      },
+      "kind": "screen",
+      "purpose": "View and share the booking invoice as a bilingual PDF, with the receipt for each payment and the credit note after a refund. Available from confirmation onward and updated as payments land.",
+      "requirementIds": [
+        "HA-BOOK-08",
+        "HA-BOOK-09"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "offline",
+        "not-yet-available",
+        "refunded"
+      ],
+      "interactions": [
+        "PDF preview of the invoice (pinch to zoom, vertical scroll) with an Arabic or English page switch; the document itself is generated server-side in both languages",
+        "Receipts list under the preview: one row per payment (deposit, balance, cash recorded) and a credit note row after a refund",
+        "Share opens the OS share sheet with the PDF; 'Save to Files' is part of that sheet; the file name uses the invoice number",
+        "Before the deposit is paid (Pending, Awaiting deposit) the screen explains that the invoice becomes available once the deposit is received",
+        "Offline shows the cached copy with its generated time, or an explanation if none exists"
+      ],
+      "contentNotes": "Invoice for Lulwa Al-Saleh: invoice no. INV-0001284, booking reference GZ-2611-2P8R, issued Wed 11 Nov 2026. Line: Ladies' Reception, Weekend, Danah Ballroom, Sat 12 Dec 2026, 340 guests x KWD 52.000 = KWD 17,680.000. Total KWD 17,680.000; received KWD 5,305.000 (deposit, Wed 11 Nov 2026); balance KWD 12,375.000 due Sat 28 Nov 2026. No VAT or tax line (none exists in Kuwait); a service-charge line only if the venue declares one. Generated documents say KWD and keep Western digits even when the Eastern-digit setting is on (ADR 0010). Issuer wording is a placeholder pending legal review (OQ-B-06): 'Issued by Aurelia Gulf Hotel via Ghazal' (the one placeholder wording, OQ-B-06). Credit note example for the refunded Fatima Al-Azmi booking: KWD 4,680.000. PDF is bilingual: Arabic page RTL, English page LTR, amounts isolated.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-BOOK-03"
+      ],
+      "deprecated": true,
+      "deprecatedReason": "Superseded by ADR 0033: Ghazal issues no event invoice or per-payment receipt for partners (the event is paid to the venue directly). Receipts exist only for the client voucher and the partner's listing plan (HL-SETT-04 Billing and fees)."
+    },
+    {
+      "id": "HL-BOOK-06",
+      "slug": "redeem-voucher",
+      "title": {
+        "en": "Redeem a voucher",
+        "ar": "استخدام كوبون"
+      },
+      "kind": "screen",
+      "purpose": "Redeem a client voucher at the venue: scan the QR or type the code, see the bound quote and confirm. Checks that the code belongs to this partner, that the request is confirmed and that it was not used before, with specific calm errors. Reachable from Today (quick action), Bookings and the Booking detail sticky bar.",
+      "requirementIds": [
+        "HA-VCH-01",
+        "HA-VCH-02",
+        "HA-VCH-05",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "scanner",
+        "manual-code",
+        "checking",
+        "ready-to-redeem",
+        "wrong-venue",
+        "not-confirmed-yet",
+        "already-used",
+        "expired-or-refunded",
+        "camera-denied",
+        "role-hidden",
+        "offline",
+        "error"
+      ],
+      "interactions": [
+        "Camera scanner with a square frame and a torch toggle; a \"Type the code\" toggle swaps to a code field (LTR, uppercase, GV- prefix fixed, grouped by 4); camera denial falls back to the code field with the reason",
+        "Result card shows the bound quote (client first name, date, hall, package, guests, \"Voucher price KD 15,400.000\", \"Standard KD 18,200.000\", saving) and the request status; the single gold primary is \"Redeem voucher\" (Admin, Manager, Reception)",
+        "Specific errors: \"This voucher belongs to another venue\" (no detail about the other party), \"Not confirmed yet. The client has until 4:00 PM to confirm\", \"Already used on Mon 4 Jan 2027\", \"This voucher expired or was refunded\"; none reveal client data",
+        "Redeeming is never queued offline: disabled in place with \"Offline. Reconnect to redeem.\"; success opens HL-BOOK-07"
+      ],
+      "contentNotes": "Heading «استخدام كوبون» / \"Redeem a voucher\". Code field example GV-2611-K7QM. Error AR: «هذا الكوبون يخص جهة أخرى» / \"This voucher belongs to another venue\"; «لم يؤكد العميل الحجز بعد» / \"The client has not confirmed yet\". Redemption cannot be undone by the partner; support can adjust (HA-VCH-05). Providers use the same screen for their listings.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-BOOK-07",
+        "HL-BOOK-03",
+        "HL-TODY-01"
+      ]
+    },
+    {
+      "id": "HL-BOOK-07",
+      "slug": "voucher-redeemed",
+      "title": {
+        "en": "Voucher redeemed",
+        "ar": "تم استخدام الكوبون"
+      },
+      "kind": "sheet",
+      "purpose": "Confirmation after redemption: the request is now Redeemed, the voucher used, and the venue's next step is simply to honour the voucher price it showed. Shows who redeemed and when, and offers the booking.",
+      "requirementIds": [
+        "HA-VCH-01",
+        "HA-VCH-05",
+        "HA-VCH-03"
+      ],
+      "states": [
+        "default",
+        "offline-cached"
+      ],
+      "interactions": [
+        "Summary: client first name, date, hall, package, \"Voucher price KD 15,400.000\", redeemed by Amal Al-Balushi at 4:12 PM; a short success moment (check, one haptic, no confetti)",
+        "Primary \"Done\" returns to the scanner or Today; secondary \"View booking\" opens HL-BOOK-03"
+      ],
+      "contentNotes": "Line: «تم استخدام الكوبون. يُحاسَب العميل بسعر الكوبون.» / \"Voucher redeemed. Charge the client the voucher price.\" Payment to the venue happens off-app; Ghazal shows no amount due.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-BOOK-03",
+        "HL-BOOK-06",
+        "HL-TODY-01"
+      ]
+    }
+  ]
+}

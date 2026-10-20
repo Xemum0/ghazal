@@ -1,0 +1,222 @@
+{
+  "id": "vouchers",
+  "order": 15,
+  "title": {
+    "en": "Vouchers",
+    "ar": "الكوبونات"
+  },
+  "intent": "The KD 2 voucher (ADR 0033): what it is, binding it to one venue or provider and quote, holding it in a wallet with its single-use code and QR, attaching it to a request, and what happens to it when a request is declined, lapses or is cancelled (reuse for 60 days or refund). The payment itself is the repurposed payment flow (CL-PAYM-*). Calm and plain: the voucher is a key, not a purchase of the hall; the event is paid to the venue directly. Guests see that a voucher exists and are gated at Get voucher.",
+  "screens": [
+    {
+      "id": "CL-VCHR-01",
+      "slug": "voucher-explainer",
+      "title": {
+        "en": "How the voucher works",
+        "ar": "كيف يعمل الكوبون"
+      },
+      "kind": "sheet",
+      "purpose": "The explainer and binding confirmation shown before the first purchase and on every Get voucher: what the voucher is, what it is bound to (this venue, date, hall, package, guests), the KD 2 price, the saving, and the refund and reuse rules in plain words. One primary continues to payment.",
+      "requirementIds": [
+        "CA-VCH-01",
+        "CA-VCH-02",
+        "CA-VCH-03",
+        "CA-VCH-04",
+        "CA-VCH-10",
+        "CA-VCH-12"
+      ],
+      "states": [
+        "default",
+        "guest-gated",
+        "already-owned",
+        "saving-too-small",
+        "quote-changed",
+        "loading",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Top: the bound quote card (venue, date, hall, package, guests) with \"Voucher price KD 15,400.000\", \"Standard KD 18,200.000\" struck through and \"You save KD 2,800.000 at the venue\"",
+        "Three plain rows with icons: \"Pay KD 2 to Ghazal now\" (online), \"Request this hall at the voucher price\" (the venue answers within 24 hours; you confirm within 24 hours of approval), \"Pay the venue directly\" (off-app, show your code); a fourth row summarises refund and reuse in two lines with \"Read the voucher terms\"",
+        "Primary \"Continue to payment\" opens CL-PAYM-01; guests see the sign-in sheet with the context line \"to get your voucher\" first (CL-AUTH-01) and return here with the quote intact; \"Maybe later\" dismisses; \"Contact the venue instead\" is the browse-only path",
+        "Already owned: if a ready voucher exists for this venue and quote the sheet shows it and offers \"Send request\" instead of a second purchase; saving-too-small is never shown (the Get voucher action is not offered in that case)"
+      ],
+      "contentNotes": "Heading «كيف يعمل الكوبون» / \"How the voucher works\". Rows AR: «ادفعوا 2 د.ك لغزل الآن» / \"Pay KD 2 to Ghazal now\"; «اطلبوا القاعة بسعر الكوبون» / \"Request the hall at the voucher price\"; «ادفعوا للقاعة مباشرةً» / \"Pay the venue directly\". Terms line: «يعود الكوبون لكم إذا اعتذرت القاعة أو لم ترد، ويمكنكم استخدامه مجددًا أو استرداده.» / \"If the venue declines or does not reply, your voucher comes back: use it again or refund it.\" The word «كوبون» is used in Arabic UI copy; «قسيمة» is avoided because in Kuwait it also means a land plot (glossary note). Illustrative seed prices.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-PAYM-01",
+        "CL-AUTH-01",
+        "CL-VCHR-03",
+        "CL-BOOK-01",
+        "CL-VENU-01",
+        "CL-MSGS-02"
+      ]
+    },
+    {
+      "id": "CL-VCHR-02",
+      "slug": "my-vouchers",
+      "title": {
+        "en": "My vouchers",
+        "ar": "كوبوناتي"
+      },
+      "kind": "screen",
+      "purpose": "The vouchers wallet: every voucher by state with its target, saving and validity. Three segments (Ready to use, In a request, History). Reached from Profile, Booking detail and the voucher-ready screen. Guests see a sign-in teaser.",
+      "requirementIds": [
+        "CA-VCH-06",
+        "CA-VCH-13",
+        "CA-PROF-12",
+        "CA-VCH-11"
+      ],
+      "states": [
+        "default",
+        "empty-ready",
+        "empty-history",
+        "expiring-soon",
+        "guest",
+        "loading",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Segmented control Ready to use | In a request | History; each voucher is a ticket-shaped card: venue thumbnail or monogram, venue name, date and package, \"Saves KD 2,800.000\", validity as an absolute date, state chip (icon plus label); a ready voucher offers \"Send request\"; an expiring voucher (within 7 days) shows a gold-ink \"Expires Fri 8 Jan\" line",
+        "Tapping a card opens the voucher detail (CL-VCHR-03); a released voucher with a reuse window shows \"Reusable until {date}\" and a \"Refund\" text action when eligible (opens CL-VCHR-05)",
+        "Empty Ready: \"No vouchers yet. Find a hall and get one from its page.\" with \"See halls\"; History lists used, expired and refunded vouchers; no swipe actions",
+        "Guest: sign-in teaser with \"Sign in to see your vouchers\" (CL-AUTH-01)"
+      ],
+      "contentNotes": "Demo wallet (illustrative): 1) Aurelia Gulf Hotel, Thu 14 Jan 2027, Ready or In a request (switches with the story request), code GV-2611-K7QM; 2) Lumi Marina Hotel, History, Expired (venue did not reply; voucher released, refundable), «انتهت المهلة»; chips AR: «جاهز للاستخدام» Ready to use, «ضمن طلب» In a request, «مستخدم» Used, «منتهي» Expired, «تم الاسترداد» Refunded. Counts via the formatter.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-VCHR-03",
+        "CL-VCHR-05",
+        "CL-BOOK-01",
+        "CL-DISC-03",
+        "CL-AUTH-01",
+        "CL-PROF-01"
+      ]
+    },
+    {
+      "id": "CL-VCHR-03",
+      "slug": "voucher-detail",
+      "title": {
+        "en": "Voucher",
+        "ar": "الكوبون"
+      },
+      "kind": "screen",
+      "purpose": "One voucher: the single-use code and QR the venue scans, what it is bound to, its validity, its status and its history, with the actions that fit its state (send request, show to the venue, refund). The QR view raises screen brightness and stays awake.",
+      "requirementIds": [
+        "CA-VCH-07",
+        "CA-VCH-08",
+        "CA-VCH-11",
+        "CA-VCH-14",
+        "CA-STAT-13"
+      ],
+      "states": [
+        "ready",
+        "in-request-pending",
+        "in-request-approved",
+        "in-request-confirmed",
+        "redeemed",
+        "released-reusable",
+        "expired",
+        "refunded",
+        "offline-cached",
+        "loading",
+        "error"
+      ],
+      "interactions": [
+        "Voucher card: venue, date, hall, package and guests (the bound quote), the code GV-2611-K7QM (LTR isolate, tap to copy), a QR (tap for the full-screen view with brightness raised), validity \"Valid until Fri 8 Jan 2027\", saving \"Saves KD 2,800.000 at the venue\"",
+        "State block by status: Ready \"Send your request at the voucher price\" (opens CL-BOOK-01); In a request links to Booking detail (CL-BKNG-02); Confirmed \"Show this code to the venue when you pay\" ; Redeemed \"Used on Mon 4 Jan 2027\" ; Released \"Back with you until {date}\" with Use again and Refund (CL-VCHR-05); Expired and Refunded explain what happened",
+        "History timeline of the voucher (paid, attached to request, released, redeemed) with absolute timestamps; \"View receipt\" opens the receipt viewer (CL-BKNG-05); the QR and code are available offline once the voucher is ready (cached)",
+        "Support link \"Problem with this voucher\" opens the support thread (CL-MSGS-02)"
+      ],
+      "contentNotes": "The code is never shown to anyone but the owner; the partner sees only the bound quote after scanning. Arabic: «رمز الكوبون» / \"Voucher code\"; «صالح حتى الخميس 8 يناير 2027». Statuses follow voucher-model section 4.2. Superseded: none; new screen.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BOOK-01",
+        "CL-BKNG-02",
+        "CL-VCHR-05",
+        "CL-BKNG-05",
+        "CL-MSGS-02",
+        "CL-VCHR-02"
+      ]
+    },
+    {
+      "id": "CL-VCHR-04",
+      "slug": "voucher-for-request",
+      "title": {
+        "en": "Voucher for this request",
+        "ar": "كوبون هذا الطلب"
+      },
+      "kind": "sheet",
+      "purpose": "The voucher-bound request summary as a sheet, opened from Review (CL-BOOK-05) and the booking steps: shows which voucher is attached, whether it still matches the quote (standard price, voucher price, saving), lets the client choose among matching ready vouchers, or get one when none exists. One voucher, one request.",
+      "requirementIds": [
+        "CA-VCH-08",
+        "CA-VCH-09",
+        "CA-VCH-10",
+        "CA-VCH-03"
+      ],
+      "states": [
+        "attached",
+        "choose-voucher",
+        "no-voucher",
+        "quote-changed-still-valid",
+        "quote-changed-invalid",
+        "loading",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Attached state: voucher card (code last four, bound venue) and the price summary \"Standard KD 18,200.000 · Voucher KD 15,400.000 · You save KD 2,800.000\" with \"Use this voucher\"",
+        "Choose state: a single-choice list of ready vouchers bound to this venue; vouchers for other venues are not listed; \"Get another voucher\" opens CL-VCHR-01 (one voucher per request, so a second request needs a second voucher)",
+        "Quote changed: if the client edited date, hall, package or guests the sheet re-runs the saving test; still valid keeps the voucher bound with the new totals; invalid says the voucher no longer fits and offers to restore the quote or release the voucher binding",
+        "No voucher: \"A request needs a voucher\" with the primary \"Get voucher\" (CL-VCHR-01)"
+      ],
+      "contentNotes": "Heading «كوبون هذا الطلب» / \"Voucher for this request\". Calm copy: «كوبون واحد لكل طلب.» / \"One voucher per request.\" Quote-invalid: «لم تعد التعديلات مناسبة للكوبون. يمكنكم استعادة الاختيار السابق.» / \"These changes no longer fit your voucher. You can restore the earlier choice.\"",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-BOOK-05",
+        "CL-VCHR-01",
+        "CL-BOOK-01"
+      ]
+    },
+    {
+      "id": "CL-VCHR-05",
+      "slug": "voucher-refund-reuse",
+      "title": {
+        "en": "Use again or refund",
+        "ar": "استخدام مجددًا أو استرداد"
+      },
+      "kind": "sheet",
+      "purpose": "What happened to a released voucher and the choices that apply: use it again at the same venue until the reuse date, refund the KD 2 to the original payment method (venue-fault cases), or understand why neither is available. Also the refund status once requested.",
+      "requirementIds": [
+        "CA-VCH-11",
+        "CA-VCH-14",
+        "CA-VCH-05"
+      ],
+      "states": [
+        "reuse-or-refund",
+        "reuse-only",
+        "consumed-no-refund",
+        "refund-confirm",
+        "refund-processing",
+        "refunded",
+        "refund-failed",
+        "offline",
+        "error"
+      ],
+      "interactions": [
+        "Outcome line explains why the voucher is back (\"Aurelia Gulf Hotel did not reply in time\") and the two choices as equal rows: \"Use again at Aurelia Gulf Hotel, until Fri 8 Jan 2027\" (opens CL-BOOK-01 prefilled) and \"Refund KD 2.000 to your KNET card\" (needs confirm)",
+        "Reuse-only (client-caused release): only the reuse row, with one line why a refund is not available; consumed (cancelled after confirmation): no actions and the reason",
+        "Refund confirm: \"You get KD 2.000 back to the original method; arrival 1 to 3 working days for KNET, up to 10 for cards\"; the refund status tracker (submitted, processing, completed) appears afterwards and the receipt row (credit note) lands in CL-BKNG-05",
+        "A refunded voucher cannot be reused; the confirm sheet says so"
+      ],
+      "contentNotes": "Arabic: «كوبونكم عاد إليكم لأن الفندق لم يرد في الوقت المحدد.» / \"Your voucher is back because the hotel did not reply in time.\" Rows: «استخدام مجددًا في القاعة نفسها حتى الجمعة 8 يناير 2027»; «استرداد 2.000 د.ك إلى بطاقة كي نت». Rules in voucher-model section 4.4 (A-03, OQ-V-03). Gateway timings stay soft until confirmed (OQ-B-02).",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BOOK-01",
+        "CL-BKNG-05",
+        "CL-VCHR-03",
+        "CL-VCHR-02"
+      ]
+    }
+  ]
+}

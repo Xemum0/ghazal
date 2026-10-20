@@ -1,0 +1,314 @@
+{
+  "id": "venue",
+  "order": 4,
+  "title": {
+    "en": "Venue details",
+    "ar": "تفاصيل القاعة"
+  },
+  "intent": "Everything a couple and her mother need to judge one hall in a single scroll: photographs first, then a 'Your date' strip that answers 'free on our date, and what will it cost?', packages, facilities in a three-state model, per-section hall rules, policies in plain words and a sticky price-and-action bar. Gallery, calendar, package and policy detail are focused sheets or viewers. Government halls get their own variant because they have no packages, no checkout and no live availability (ADR 0002 D10).",
+  "screens": [
+    {
+      "id": "CL-VENU-01",
+      "slug": "venue-detail",
+      "title": {
+        "en": "Venue detail",
+        "ar": "تفاصيل القاعة"
+      },
+      "kind": "screen",
+      "purpose": "The canonical screen for one venue (pushed, tab bar visible). One scroll with a sticky bar. Works fully for guests (they see both prices and that a voucher exists); the account is requested at Get voucher. Brief date and guests drive the date strip, package prices and availability. The three paths of the voucher model are all one tap away: Get voucher (voucher path), Book a visit (visit path) and Contact the venue (browse-only path).",
+      "requirementIds": [
+        "CA-VDET-04",
+        "CA-VDET-05",
+        "CA-VDET-06",
+        "CA-VDET-07",
+        "CA-VDET-08",
+        "CA-VDET-09",
+        "CA-VDET-10",
+        "CA-VDET-11",
+        "CA-VDET-12",
+        "CA-VDET-13",
+        "CA-VDET-14",
+        "CA-VDET-15",
+        "CA-VDET-16",
+        "CA-VDET-17",
+        "CA-VDET-18",
+        "CA-VDET-19",
+        "CA-VDET-20",
+        "CA-VDET-21",
+        "CA-VDET-22",
+        "CA-VDET-23",
+        "CA-VDET-24",
+        "CA-VDET-25",
+        "CA-VDET-26",
+        "CA-BOOK-01",
+        "CA-CMP-01",
+        "CA-TOOL-01",
+        "CA-CHAT-02",
+        "CA-AUTH-09",
+        "CA-VCH-01",
+        "CA-VCH-02",
+        "CA-VCH-03",
+        "CA-VCH-04",
+        "CA-VCH-10",
+        "CA-VCH-12",
+        "CA-VIS-01"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "offline",
+        "date-available",
+        "date-held",
+        "date-unavailable",
+        "no-date",
+        "offer-active",
+        "no-reviews",
+        "delisted",
+        "guest",
+        "voucher-available",
+        "voucher-locked-guest",
+        "voucher-already-owned",
+        "no-voucher-price",
+        "visit-available",
+        "visit-unavailable",
+        "browse-only-contact"
+      ],
+      "interactions": [
+        "Gallery hero 390x480 with counter '3 / 24' and zone label opens the full-screen viewer (CL-VENU-02) through a shared-element expansion; header carries back, share (OS sheet with a universal link), a compare toggle and the heart; the Compare tray is replaced here by a header badge so it never covers the sticky bar",
+        "Hall switcher appears only when more than one hall fits the Brief; session chips only when more than one session is free that day (Aurelia's Danah Ballroom is exclusive-day, so none)",
+        "Location block: pre-rendered brand-styled static map tile, address as Area · Block · Street, drive time, and 'Open in Maps' that offers Google Maps, Apple Maps (iOS only) and Waze",
+        "Reviews summary with two preview reviews and 'See all 212' opens CL-RVRW-01; 'Message venue' opens the chat (guest sees the sign-in sheet only when sending)",
+        "A dead universal link lands on a 'This venue is no longer listed' state with similar venues",
+        "\"Your date\" strip (sticky once scrolled) shows availability and the two prices for the Brief (\"Voucher price KD 15,400 · Standard KD 18,200 · for 350 guests\"); tapping it opens the calendar sheet (CL-VENU-03); the old deposit line is removed",
+        "Package cards show two rows (Standard price, Voucher price) on the same basis with the saving; a venue states its pricing structure (\"Per person\" or \"Package\"); cards open the package sheet (CL-VENU-04); facilities rows use Included / Extra / Not offered; \"Hall rules\" and \"Terms\" open CL-VENU-05; accordions for FAQ and house rules",
+        "A \"How the voucher works\" row (one line: KD 2, bound to this venue, you pay the venue directly) opens CL-VCHR-01; venue type and governorate sit under the venue name (Hotel · Sharq, Capital)",
+        "Similar venues rail prefers halls free on the same date; sticky bar by state and account: primary \"Get voucher · KD 2\" (registered or guest; guests are gated at tap), secondary \"Book a visit\" (CL-VIST-01), tertiary text action \"Contact the venue\" (chat for registered users; the venue phone for guests) for the browse-only path; with no voucher price the primary becomes \"Contact the venue\"; with a ready voucher for this venue the primary becomes \"Send request\" (opens CL-BOOK-01 prefilled); \"Choose a date\" and \"See free dates\" remain for no-date and unavailable states; the old \"Request to book\" and \"Book\" labels are removed"
+      ],
+      "contentNotes": "Demo venue: «فندق أوريليا الخليج» / Aurelia Gulf Hotel, 5-star hotel, luxury level «فاخر» Prestige, «شرق · قطعة 4 · شارع الخليج» / 'Sharq · Block 4 · Gulf Street', rating 4.8 (212), halls Danah Ballroom «قاعة الدانة» (650) and Majlis Hall «قاعة المجلس» (450). Your date strip: «الخميس 14 يناير 2027 · متاح» / 'Thu 14 Jan 2027 · Available', 'Est. KD 18,200 for 350 guests', 'Deposit KD 5,460.000'. Packages: «الحفل النسائي · نهاية الأسبوع» Ladies' Reception, Weekend 'KD 52 per guest · minimum 300 guests'; «الحفل النسائي المتكامل» Ladies' Signature Evening 'KD 55 per guest' (kosha design, zaffa entrance, bridal suite, one suite night); «الحفل الرجالي» Men's Reception 'KD 32 per guest · minimum 300 guests'. Facilities: valet, bridal suite, show cake, mocktails Included; bespoke kosha «الكوشة» Extra 'from KD 1,800'; female photographer «مصوّرة» Extra 'from KD 450'; groom's room Not offered. Cancellation summary line always visible: «إلغاء مجاني حتى الأحد 15 نوفمبر 2026» / 'Free cancellation until Sun 15 Nov 2026'; inside 60 days it reads 'No free cancellation (event within 60 days)'. Review preview: «قاعة راقية والتنظيم ممتاز...» by «نورة ع.» with owner reply. Instant-eligible variant (Wasl Convention and Wedding Centre, Mishref) shows the Instant booking badge, 'Book' in the bar and 'Pay deposit KD 3,255.000 on the next steps'. Date-held variant: calm chip 'Date held by another couple' with 'You can still send a request' and no count of other couples. Date-unavailable variant offers three nearest free dates and similar venues free that day; 'Notify me if this date opens' is flagged (OQ-B-13). Facility taxonomy and per-section rules come from ADR 0015: negative or moralising wording is forbidden. 360-degree tours have no UI (deferred, CA-VDET-03). Offline shows cached content with the stamp and a disabled CTA 'Reconnect to request'. Voucher model (ADR 0033): the Your date strip reads «الخميس 14 يناير 2027 · متاح» / \"Thu 14 Jan 2027 · Available\", «سعر الكوبون 15,400 د.ك · السعر العادي 18,200 د.ك لعدد 350 ضيفًا» / \"Voucher price KD 15,400 · Standard KD 18,200 for 350 guests\" (illustrative seed values, fixtures request pending). The \"Deposit KD 5,460.000\" line and every deposit or instant mention in the notes above are superseded. CTA labels: «احصلوا على الكوبون · 2 د.ك» / \"Get voucher · KD 2\", «احجزوا زيارة» / \"Book a visit\", «تواصلوا مع القاعة» / \"Contact the venue\".",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-VENU-02",
+        "CL-VENU-03",
+        "CL-VENU-04",
+        "CL-VENU-05",
+        "CL-RVRW-01",
+        "CL-BOOK-01",
+        "CL-MSGS-02",
+        "CL-SAVD-02",
+        "CL-AUTH-01",
+        "CL-DISC-02",
+        "CL-VCHR-01",
+        "CL-VCHR-03",
+        "CL-VIST-01"
+      ]
+    },
+    {
+      "id": "CL-VENU-02",
+      "slug": "gallery",
+      "title": {
+        "en": "Photos and videos",
+        "ar": "الصور والفيديو"
+      },
+      "kind": "screen",
+      "purpose": "Full-screen photo tour with zone chips, pinch zoom and inline video playback. Empty rooms and details only; seating-layout plans are first-class photos for 300, 500 and 800 guests.",
+      "requirementIds": [
+        "CA-VDET-01",
+        "CA-VDET-02",
+        "CA-CARD-02"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "offline",
+        "video-playing",
+        "zoomed"
+      ],
+      "interactions": [
+        "Shared-element expansion from the card or hero image over 480 ms with the corner radius morphing from 12 to 0; swipe down or pinch out shrinks it back",
+        "Zone chips as a photo tour: Hall, Stage and Kosha, Bridal suite, Buffet, Outdoors, Entrance and valet, Layouts, Video; the first image sits at the right in Arabic and swipes advance leftwards",
+        "Pinch to zoom and double-tap; counter reads '3 / 24' with LTR digits",
+        "Video starts only on tap from a poster frame (muted, with a scrubber that stays LTR and a captions line); no autoplay anywhere"
+      ],
+      "contentNotes": "Zone label on the current image, for example «القاعة · قاعة الدانة» / 'Hall · Danah Ballroom'. Bilingual alt text names the zone and venue. Viewer background is the deepest Ink token, never pure black. Imagery never contains people, alcohol, royal or state emblems; videos are short muted H.264 clips under 15 seconds on 4G. Layout plans are titled «ترتيب الجلسات لـ 350 ضيفًا» / 'Seating for 350 guests'. A venue with no photos shows a branded empty frame and the line 'Photos coming soon'. Tab bar hidden.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-VENU-01"
+      ]
+    },
+    {
+      "id": "CL-VENU-03",
+      "slug": "availability-calendar",
+      "title": {
+        "en": "Dates and prices",
+        "ar": "التواريخ والأسعار"
+      },
+      "kind": "sheet",
+      "purpose": "Live availability calendar for one venue, with an Availability | Prices switch. Selecting a date updates the sticky CTA and can start booking. Also reused in booking step 1, Compare ('See dates') and the cancel flow's 'Change the date instead'.",
+      "requirementIds": [
+        "CA-VDET-22",
+        "CA-BOOK-01",
+        "CA-BOOK-02",
+        "CA-BOOK-14",
+        "CA-CARD-08",
+        "CA-CMP-08"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "offline-stale",
+        "no-availability-this-month",
+        "prices-view",
+        "guests-missing",
+        "date-held",
+        "date-unavailable"
+      ],
+      "interactions": [
+        "Custom calendar only (no native picker): Sunday-first, Thu-Sat peak band as one Rose-tint block at the inline-end edge, month arrows that mirror, 12-month jump sheet with availability density",
+        "Day states by shape, never colour alone: Available (plain), Held (corner mark; requests still allowed), Unavailable (struck-through number), Closed (past, inside minimum lead time or out of season, 32% ink without strike)",
+        "Prices view shows the lowest eligible package total for the current guests and audience as whole KD with a thousands separator, small glyphs for weekend, holiday and special-date tiers; no 'k' abbreviations",
+        "Occasion markers: a 2px gold-ink underline across the date range plus a legend chip",
+        "Selecting an unavailable date opens an inline reason and three nearest free dates plus similar venues free that day",
+        "Focus summary card under the grid shows weekday and full date, the voucher price and the standard price for the current guests, session and a primary that depends on state: \"Get voucher\" (opens CL-VCHR-01 with the date applied), \"Send request\" when a ready voucher exists for this venue (opens CL-BOOK-01), or \"Continue\" inside the booking flow; the deposit line is removed"
+      ],
+      "contentNotes": "Header «يناير 2027» / 'January 2027'; weekday header «أحد اثنين ثلاثاء أربعاء خميس جمعة سبت» at 13px with full names as accessible labels. Focus card: «الخميس 14 يناير 2027» with the muted Hijri line «6 شعبان 1448 هـ» (Arabic UI only), 'Evening · 9:00 PM – 2:00 AM' only when the hall has more than one session (Danah Ballroom is exclusive-day, so the line is omitted), 'Est. KD 18,200 for 350 guests', 'Deposit KD 5,460.000'. Prices view weekday cell 16,100 (350 x 46) versus weekend cell 18,200 (350 x 52). Markers: Isra and Miraj Tue 5 Jan 2027 (approx.), Ramadan 1448 from Mon 8 Feb 2027 with chip «رمضان 1448 (تقريبي)» / 'Ramadan 1448 (approx.)', National Day Thu 25 Feb and Liberation Day Fri 26 Feb. No scarcity or urgency wording and no counters of any kind (glossary section 9: no 'only N left'); the grid shows state only. Offline shows 'Updated 3:42 PM' on the grid. Held-date chip reads 'Date held by another couple' and never reveals counts. Unavailable dates do not say why. Never ليلة plus a weekday; use «مساء الخميس 14 يناير». Voucher model (ADR 0033): \"Deposit KD 5,460.000\" in the focus card is superseded by the two-price line; the Prices view shows the lowest eligible voucher total as whole KD (the standard total when the venue has no voucher price), still without a \"k\".",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BOOK-01",
+        "CL-VENU-01",
+        "CL-DISC-03",
+        "CL-VCHR-01"
+      ]
+    },
+    {
+      "id": "CL-VENU-04",
+      "slug": "package-detail",
+      "title": {
+        "en": "Package",
+        "ar": "الباقة"
+      },
+      "kind": "sheet",
+      "purpose": "Everything one package includes and what it costs for the Brief: inclusions, in-house menu summary, per-guest rate, guest limits and the date-dependent rate. Selecting continues into booking with the package carried over.",
+      "requirementIds": [
+        "CA-VDET-07",
+        "CA-VDET-08",
+        "CA-VDET-12",
+        "CA-VDET-13",
+        "CA-VDET-14",
+        "CA-BOOK-04",
+        "CA-BOOK-14",
+        "CA-VCH-02",
+        "CA-VCH-03"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "below-minimum-guests",
+        "over-capacity",
+        "unavailable-on-date",
+        "offline"
+      ],
+      "interactions": [
+        "Inclusions as an icon-plus-label list; menu summary expands; extras you can add later are linked, not priced into the headline",
+        "Guest limits per hall: 'Minimum 300 · maximum 650 guests (Danah Ballroom)'; when the Brief is below the minimum the price is shown for the minimum and says so",
+        "Rate block shows both columns with their basis: \"Standard KD 52 per guest\" and \"Voucher KD 44 per guest\" with the tier line (\"Thu 14 Jan is a weekend rate; weekdays Sun-Wed are KD 46 standard, KD 40 voucher\") and the line \"You save KD 2,800 with a KD 2 voucher\"; the pricing structure chip reads \"Per person\" or \"Package\"",
+        "Primary \"Get voucher\" opens CL-VCHR-01 bound to this package, or \"Send request\" when a ready voucher exists; secondary \"Book a visit\"; \"Save package\" heart stores it in Saved > Packages"
+      ],
+      "contentNotes": "Package «الحفل النسائي · نهاية الأسبوع» / Ladies' Reception, Weekend: 'KD 52 per guest', 350 x 52 = KD 18,200 for 350 guests. Includes: buffet dinner with hot and cold stations, Arabic coffee and dates reception, valet for guests, bridal suite on the day, one suite night, show cake, mocktails and fresh juices (welcome drinks are never alcoholic). Menu: in-house catering only, outside catering not allowed. Below minimum example: 'Priced for 300 guests (minimum): KD 15,600'. Rates, inclusions and prices are seed content; names never use Silver, Gold or Royal (reserved for planner tiers). Prices state their unit and guest basis; a bare 'From KD X' is not allowed.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-BOOK-01",
+        "CL-VENU-01",
+        "CL-SAVD-01",
+        "CL-VCHR-01",
+        "CL-VIST-01"
+      ]
+    },
+    {
+      "id": "CL-VENU-05",
+      "slug": "policies",
+      "title": {
+        "en": "Policies and hall rules",
+        "ar": "السياسات وقواعد القاعة"
+      },
+      "kind": "sheet",
+      "purpose": "Plain-language terms with absolute dates where relevant, plus the per-section facts families actually ask about (photography, music, cloakroom, entrances). Three segments: Terms, Hall rules by section, Good to know. The earlier cancellation tier bar and cooling-off are retired (there is no event payment in the app).",
+      "requirementIds": [
+        "CA-VDET-06",
+        "CA-VDET-15",
+        "CA-VDET-17",
+        "CA-VDET-18",
+        "CA-VDET-19",
+        "CA-VDET-26",
+        "CA-SRCH-12",
+        "CA-SRCH-13"
+      ],
+      "states": [
+        "default",
+        "single-section",
+        "loading",
+        "offline"
+      ],
+      "interactions": [
+        "Hall rules segment: a Ladies | Men segmented control (hidden for single-section venues) listing each section's facts as icon plus plain label",
+        "Good to know segment: children policy, dress code, working hours and house rules",
+        "'Send request' is not offered here; a quiet 'Back to venue' returns to the detail",
+        "Terms segment: the venue's own terms in plain words (set by the venue, shown as written, \"You settle these directly with the venue\"), then the voucher terms: what the KD 2 is, one voucher per request, when the voucher is reusable or refundable, the 24 hour confirm window; no tier bar and no cooling-off line"
+      ],
+      "contentNotes": "Standard tier bar for Thu 14 Jan 2027: until Sun 15 Nov 2026 nothing is kept; 16 Nov – 15 Dec 25%; 16 – 30 Dec 50%; 31 Dec – 7 Jan 75%; from 8 Jan 100% of the total, never more than what was paid. Cooling-off: 'Within 48 hours of paying you get everything back when the event is 30 or more days away.' Line shown above the bar: «إلغاء مجاني حتى الأحد 15 نوفمبر 2026». Template numbers are proposed pending the owner (ADR 0006). Hall rules, Ladies' reception (Danah Ballroom): Photography: female photographers only; Music: DJ or band; Abaya cloakroom: Yes; Separate entrance: Yes; Female security: Yes; Prayer room: Yes; Boys: up to 8 years; Outside catering: Not allowed; Outside decor: Allowed with approval; Bukhoor: Allowed; Cut-off: 2:00 AM, extra hour KD 450. Men's reception (Majlis Hall): Photography: allowed; Music: duff only. Domain assumptions for these facts are flagged for validation with venue managers. Dress code is bilingual free text («لباس رسمي محتشم» / 'Formal, modest dress'); working hours (same as HL-SETT-05) «الأحد – الخميس: من 9:00 ص إلى 10:00 م، الجمعة والسبت: من 4:00 م إلى 1:00 ص» / 'Sun – Thu 9:00 AM – 10:00 PM; Fri and Sat 4:00 PM – 1:00 AM'. Every fact is an icon plus a plain label; no judgement words. Voucher model (ADR 0033): the Standard tier bar, the cooling-off line and «إلغاء مجاني حتى الأحد 15 نوفمبر 2026» are superseded; the Terms segment instead says «تتفقون مع القاعة مباشرةً على شروط الدفع والإلغاء» / \"You agree payment and cancellation terms directly with the venue.\" and links the voucher terms. CA-VDET-16 is amended: it shows venue terms, not a tier schedule.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-VENU-01"
+      ]
+    },
+    {
+      "id": "CL-VENU-06",
+      "slug": "government-hall",
+      "title": {
+        "en": "Government hall",
+        "ar": "قاعة حكومية"
+      },
+      "kind": "screen",
+      "purpose": "Distinct detail variant for a Governmental Facility (venue type): an honest listing with the official fee schedule and rules, and a hand-off to the official channel. No voucher, no Ghazal request, no visit, no instant tag, no availability claim and no reviews (A-13).",
+      "requirementIds": [
+        "CA-VDET-04",
+        "CA-VDET-07",
+        "CA-VDET-08",
+        "CA-VDET-09",
+        "CA-VDET-10",
+        "CA-VDET-22",
+        "CA-HOME-07",
+        "CA-HOME-08",
+        "CA-CMP-10",
+        "CA-TOOL-17"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "offline",
+        "error",
+        "self-reported",
+        "no-voucher-explained"
+      ],
+      "interactions": [
+        "Fee schedule replaces packages: rental fee and refundable security deposit, with the line 'Hall only: bring your own decor and catering'",
+        "Rules that matter in a short list: dates cannot be changed, payment is due within 3 days or the booking is cancelled automatically, payment by KNET",
+        "Availability is informational: 'Check the official app'; no calendar claims",
+        "Primary 'Book via official channel' leaves Ghazal after a short 'You are leaving Ghazal' confirmation and opens the ministry flow; secondary 'Find catering and decor' opens Services (CL-SERV-01)",
+        "Optional 'I booked this hall' self-report (date and fee) feeds Budget, Checklist and Countdown only; it is not a Ghazal booking",
+        "Directions chooser as on other halls (Google Maps, Apple Maps on iOS, Waze); heart works; Compare shows 'Official channel' instead of a Book button",
+        "A quiet row \"Why no voucher?\" explains in one line that governmental halls have fixed official fees, so there is no Ghazal price to unlock; Book a visit is not offered (the official channel handles visits)"
+      ],
+      "contentNotes": "Demo: «قاعة الأفراح الحكومية، حطين» / Government Wedding Hall, Hateen, Hawalli, capacity 400, tag «قاعة حكومية» / Government. Price line «رسوم الإيجار 100 د.ك» / 'KD 100 rental fee'; security deposit shown as a placeholder 'KD 50, refundable' pending the official schedule. Hall-only note: «القاعة فقط: الديكور والضيافة على حسابكم». Eligibility and fee details are reported, not verified (OQ-B-10), so the screen says 'Check the official site for eligibility'. Self-report sheet fields: date «الخميس 14 يناير 2027», fee paid KD 100.000. No reviews block, no instant badge, no similar-venues claim of availability. Excluded from the Instant filter. Copy is calm and never implies Ghazal guarantees the booking. Voucher model (ADR 0033): venue-type chip «منشأة حكومية» / \"Governmental facility\" (the filter label); every deposit, commission and instant mention above is superseded; there is no Ghazal money for this venue type.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-SERV-01",
+        "CL-VENU-02",
+        "CL-DISC-03",
+        "CL-WEDD-01"
+      ]
+    }
+  ]
+}

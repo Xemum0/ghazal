@@ -1,0 +1,181 @@
+{
+  "id": "reviews-rewards",
+  "order": 13,
+  "title": {
+    "en": "Reviews and rewards",
+    "ar": "التقييمات والمكافآت"
+  },
+  "intent": "The loop after the wedding and the credit loop around it. Reviews are read by anyone and written only after a Completed booking, with photo rules that keep people out of the frame; owner replies appear inline. Rewards (points, coupons, referral) live behind sign-in and meet the booking at the Review step through one apply sheet. Earn rules, point value, referral amounts and stacking are open owner decisions, so every number here is a labelled placeholder.",
+  "screens": [
+    {
+      "id": "CL-RVRW-01",
+      "slug": "reviews-list",
+      "title": {
+        "en": "Reviews",
+        "ar": "التقييمات"
+      },
+      "kind": "screen",
+      "purpose": "All reviews for one venue: rating summary with the four categories, filters, review cards with owner replies and a report control on every review. Reached from the Venue detail reviews block.",
+      "requirementIds": [
+        "CA-VDET-20",
+        "CA-REV-05",
+        "CA-REV-06",
+        "CA-CARD-03",
+        "CA-CARD-04"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "new-venue-empty",
+        "filtered-empty",
+        "error",
+        "offline",
+        "report-sheet",
+        "reported"
+      ],
+      "interactions": [
+        "Summary: overall score and count, plus bars for venue, food, service and value",
+        "Filter chips: With photos, 5 stars, 4 stars, 3 and below; sort Most recent, Highest, Lowest",
+        "Review card: monogram, first name plus initial or 'Anonymous', date, score, text (dir=auto), photo strip of venue, decor or food (no people), a 'Verified wedding' tag, and the venue's reply nested below",
+        "Overflow on every review opens a short report sheet (reason list, confirm toast); photos open the shared viewer",
+        "'Write a review' appears only for a user whose booking is Completed (CL-RVRW-02); everyone else sees an explanation instead of a button"
+      ],
+      "contentNotes": "Aurelia Gulf Hotel 4.8 (212). Review fixtures: «قاعة راقية والتنظيم ممتاز. فريق القاعة النسائية كان متعاونًا جدًا من لحظة الدخول حتى نهاية الحفل، والبوفيه مرتب ومتنوع.» by «نورة ع.» (4.8) / 'Refined hall, excellent organisation; the ladies' hall team were helpful from arrival to the very end and the buffet was varied and well kept.'; critical 3.5: «الموقع ممتاز لكن الدخول للمواقف كان مزدحمًا بعد العاشرة، ونتمنى زيادة عدد الموظفين في الفاليه.» with the owner reply «شكرًا لكم على ملاحظاتكم القيّمة. تمت زيادة فريق الفاليه في الليالي المزدحمة، ويسعدنا استضافتكم مجددًا.» Cold start: 'New' / «جديد», never 0.0, with 'Be the first to review after your event'. Reviewers show first name plus initial. Report reasons: abusive, not about this venue, contains people, other. Owner replies are written on the venue dashboard; the hotel app can only reply once and report abuse. Tab bar visible.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-VENU-01",
+        "CL-RVRW-02",
+        "CL-VENU-02"
+      ]
+    },
+    {
+      "id": "CL-RVRW-02",
+      "slug": "write-review",
+      "title": {
+        "en": "Write a review",
+        "ar": "كتابة تقييم"
+      },
+      "kind": "screen",
+      "purpose": "Rate a completed booking: overall stars, four category scores, a comment, and optional photos or videos that follow the no-people rule. Reached from the morning-after prompt, the Completed Booking detail and the My Wedding post-event card.",
+      "requirementIds": [
+        "CA-REV-01",
+        "CA-REV-02",
+        "CA-REV-03",
+        "CA-REV-04",
+        "CA-STAT-07",
+        "CA-TOOL-19",
+        "CA-AUTH-10"
+      ],
+      "states": [
+        "default",
+        "ineligible",
+        "uploading",
+        "photo-rejected-people",
+        "submitting",
+        "success",
+        "media-under-review",
+        "error",
+        "offline-draft",
+        "already-reviewed"
+      ],
+      "interactions": [
+        "Overall 1 to 5 stars (row fills from the inline-start side), four category scores (venue, food, service, value), comment field with a gentle character guide",
+        "Photo and video picker states the rule up front; subjects allowed: venue, decor, food, details; uploads show progress and enter an 'under review' state visible only to the author until moderation passes",
+        "Name display: first name plus initial with an 'Anonymous' toggle; the draft autosaves and survives going offline",
+        "Submit: text publishes after an automated check; success shows an understated confirmation; ineligible users see when reviews open (after the event) and a way back"
+      ],
+      "contentNotes": "Rule text: «لا يمكن نشر الصور أو المقاطع التي يظهر فيها أشخاص.» / 'Photos and videos showing people can't be published.' Ineligible: 'Reviews open after your event on Thu 14 Jan 2027.' Prompt copy the morning after the event: 'How was Aurelia Gulf Hotel?' / «كيف كانت تجربتكم في فندق أوريليا الخليج؟». Display name «ريم د.» / 'Reem D.'. Success: «شكرًا لكم. سيظهر تقييمكم بعد مراجعة سريعة.» Venue, planner and vendor reviews share this composer; vendor and planner eligibility is an open question. Report an issue within 72 hours of the event is a separate action on Booking detail. Tab bar hidden.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BKNG-02",
+        "CL-RVRW-01",
+        "CL-AUTH-01"
+      ]
+    },
+    {
+      "id": "CL-RVRW-03",
+      "slug": "rewards",
+      "title": {
+        "en": "Rewards",
+        "ar": "المكافآت"
+      },
+      "kind": "screen",
+      "purpose": "One rewards hub with three segments: Points (balance, how to earn, history), Coupons (wallet with conditions and expiry) and Invite (referral code and share). Hard-gated behind sign-in. Pushed from Profile.",
+      "requirementIds": [
+        "CA-LOY-01",
+        "CA-LOY-02",
+        "CA-LOY-03",
+        "CA-LOY-04",
+        "CA-LOY-06",
+        "CA-LOY-07",
+        "CA-AUTH-10"
+      ],
+      "states": [
+        "default-with-points",
+        "empty-no-points",
+        "coupons-empty",
+        "coupon-expired",
+        "invite",
+        "loading",
+        "error",
+        "offline",
+        "guest-gate"
+      ],
+      "interactions": [
+        "Points segment: balance hero with its KD value, 'How you earn' list and history rows; 'Use at review' explains that points are applied during booking (CL-RVRW-04)",
+        "Coupons segment: cards with the code in an LTR isolate, the condition and the expiry in absolute dates; expired coupons are listed last and marked; tapping a valid coupon explains where to apply it",
+        "Invite segment: personal code, 'Share on WhatsApp' (OS share sheet, no emoji) and what the referrer and the invited couple receive after the invited couple's first completed booking",
+        "Guests see the sign-in sheet with the context line 'to see your rewards'"
+      ],
+      "contentNotes": "Placeholders pending the owner (earn rules, value, funding, abuse limits are undefined): balance '1,250 points · worth KD 12.500' (100 points = KD 1); earn: completed booking, written review; coupon GHAZAL10 (Latin uppercase in both languages) '10% off, up to KD 100.000, on bookings from KD 5,000, valid until Sun 31 Jan 2027, one per booking'; referral code REEM2027 and 'KD 10 credit for each of you after their first completed booking'. Empty: 'Points arrive after your first completed booking.' Platform credit is funded by Ghazal, applies after any venue offer and never reduces the venue's payout (ADR 0004). Tab bar visible.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-RVRW-04",
+        "CL-AUTH-01",
+        "CL-PROF-01"
+      ],
+      "deprecated": true,
+      "deprecatedReason": "Superseded by ADR 0033: loyalty points, coupons wallet and referral rewards are replaced by the KD 2 voucher (CA-LOY-01..07 superseded). The coupons wallet role moves to My vouchers (CL-VCHR-02). Referral rewards are an open question (OQ-V-16)."
+    },
+    {
+      "id": "CL-RVRW-04",
+      "slug": "apply-credit",
+      "title": {
+        "en": "Coupon or points",
+        "ar": "الكوبون أو النقاط"
+      },
+      "kind": "sheet",
+      "purpose": "Apply a coupon code, a wallet coupon or points at the Review step. Shows the effect on the total before applying and explains caps and ineligibility without blame.",
+      "requirementIds": [
+        "CA-LOY-05",
+        "CA-LOY-03",
+        "CA-LOY-04"
+      ],
+      "states": [
+        "default",
+        "validating",
+        "applied",
+        "invalid-code",
+        "expired",
+        "ineligible",
+        "points-redeem",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Segments Code | Wallet | Points; code field is LTR, Latin uppercase, with an Apply button; wallet coupons show eligibility and a reason when disabled",
+        "Points: stepper up to the cap with the KD equivalent; a preview line shows the new total in exact three decimals",
+        "Applying returns to Review with a credit line after any venue offer; Remove is one tap",
+        "One credit at a time (stacking is an open owner decision)"
+      ],
+      "contentNotes": "Examples: GHAZAL10 on KD 18,200.000 gives a credit capped at KD 100.000 (placeholder; OQ-B-14), new total KD 18,100.000; error copy calm: «هذا الرمز غير صالح لهذا الحجز» / 'This code is not valid for this booking.' Ineligible: 'Needs a booking of KD 5,000 or more.' Points: '500 points = KD 5.000'. The credit lowers the client total and Ghazal's commission, never the venue's payout. Venue coupons appear here too if the venue funds them. Tab bar hidden.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-BOOK-05",
+        "CL-RVRW-03"
+      ],
+      "deprecated": true,
+      "deprecatedReason": "Superseded by ADR 0033: there is no coupon, points or platform credit at the booking step; the voucher is attached through CL-VCHR-04 (CA-LOY-05 superseded)."
+    }
+  ]
+}

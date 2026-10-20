@@ -1,0 +1,168 @@
+{
+  "id": "access",
+  "order": 1,
+  "title": {
+    "en": "Access and account status",
+    "ar": "الدخول وحالة الحساب"
+  },
+  "intent": "Venue staff are invited, never self-registered (HA-AUTH-01, CF-25 working call). They sign in with a Kuwait mobile number and a password, prove a new device with a WhatsApp code (venue admins add an authenticator code), accept an invitation by setting a password, and see a calm, specific screen whenever the account or venue is not active. There is no guest mode, no Apple or Google sign-in and no SMS fallback (ADR 0028). Every screen here hides the tab bar. First-run permission prompts (notifications, biometric lock) are not separate screens: they appear as two quiet sheets on Today after the first successful sign-in (see HL-TODY-01).",
+  "screens": [
+    {
+      "id": "HL-ACCS-01",
+      "slug": "sign-in",
+      "title": {
+        "en": "Sign in",
+        "ar": "تسجيل الدخول"
+      },
+      "kind": "screen",
+      "purpose": "The single entry for venue staff: Kuwait mobile number plus password. Staff are multinational, so the language can be flipped before signing in. A returning user on a trusted device goes straight to Today.",
+      "requirementIds": [
+        "HA-AUTH-01",
+        "HA-SET-05",
+        "PA-ACC-01",
+        "PA-ACC-02"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "locked",
+        "offline"
+      ],
+      "interactions": [
+        "Compound phone field: fixed non-interactive +965 chip, then eight digits, LTR visual order in both languages, numeric keypad; Eastern-Arabic and Persian digits are normalised on entry (ADR 0012)",
+        "Password field with show and hide; 'Sign in' / «تسجيل الدخول» is the one gold primary (52px, deep-ink label), disabled until the 8-digit shape check passes",
+        "Language chip at the top inline-end flips the whole screen in place without a restart; first launch preselects the device language, else Arabic; after sign-in the user's own language setting takes over",
+        "Text link 'Forgot password' opens the WhatsApp code screen in reset mode",
+        "Quiet link 'I have an invitation' / «لدي دعوة» opens a short explanation sheet: the invitation arrives as a WhatsApp link from the venue admin and opens Set password; there is no self sign-up",
+        "Known device: success goes to Today. New device: success goes to the verification screen first. Suspended, under-review or deactivated accounts go to the status screen",
+        "Quiet tagline becomes \"For hotels, halls and service providers\"; a new partner invited without a type is routed after sign-in to the account type chooser (HL-PROV-01); a known partner goes to Today, whose content follows the account type (PA-ACC-02)",
+        "A partner with both account types (A-06) sees a type switch in More after sign-in, never here"
+      ],
+      "contentNotes": "Calm Off-White canvas, wordmark غزل in the Arabic UI and Ghazal in the English UI, with the quiet line «لفرق القاعات والفنادق» / 'For venue teams'. One empty-ballroom photograph (long table setting, no people) in a 160px strip above the form, 12px radius. Demo account: Hind Al-Enezi / هند العنزي, Manager at Aurelia Gulf Hotel, +965 5000 0040 (fixture, display-only, never a tel: link). Error copy leads with the outcome, does not blame and does not reveal whether the number exists: «رقم الهاتف أو كلمة المرور غير صحيح. لم يتم تسجيل الدخول.» / 'The phone number or password is not correct. You are not signed in.' Locked after 5 failed attempts: «تم إيقاف المحاولات مؤقتًا. يمكنكم المحاولة بعد 4:15 م بتوقيت الكويت.» / 'Attempts are paused. Try again after 4:15 PM Kuwait time.' Offline: «يلزم الاتصال بالإنترنت لتسجيل الدخول.» / 'An internet connection is needed to sign in.' Labels are noun phrases, with no exclamation marks and no greeting banner. Tab bar hidden. Voucher model (ADR 0033): tagline «لفرق القاعات والفنادق ومقدمي الخدمات» / \"For hotels, halls and service providers\" replaces «لفرق القاعات والفنادق». Invitation arrives as a WhatsApp link from the account admin or Ghazal.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-ACCS-02",
+        "HL-ACCS-03",
+        "HL-ACCS-04",
+        "HL-TODY-01",
+        "HL-PROV-01"
+      ]
+    },
+    {
+      "id": "HL-ACCS-02",
+      "slug": "verify-code",
+      "title": {
+        "en": "Verify with WhatsApp",
+        "ar": "التحقق عبر واتساب"
+      },
+      "kind": "screen",
+      "purpose": "One reusable code screen for four moments: first sign-in on a new device, password reset, the step-up check before high-risk actions (bank information, inviting or removing staff), and the authenticator code that venue admins add on a new device (ADR 0028 D5-D6).",
+      "requirementIds": [
+        "HA-AUTH-01",
+        "HA-SET-03",
+        "HA-SET-01"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "expired",
+        "cooldown",
+        "delivery-failed",
+        "authenticator-step",
+        "success",
+        "offline"
+      ],
+      "interactions": [
+        "Six code boxes in LTR order in both languages (digit 1 on the left), paste and one-time-code autofill, Eastern-Arabic digits normalised on paste; the sixth digit submits automatically",
+        "Resend unlocks after a 60 second countdown (the only live timer on this screen); the code is valid for 5 minutes and allows 5 attempts",
+        "'Open WhatsApp' link jumps to the chat that carries the code",
+        "Authenticator step (venue admins on a new device only): a second six-digit field for the TOTP code, same component, headline changes to 'Authenticator code'",
+        "On success the device is trusted for 30 days; the user lands on Today (sign-in), Set password (reset) or the original sheet (step-up)",
+        "Back is always safe and returns to the entry point without losing typed values; delivery failure offers Resend, Contact support and nothing else (no SMS fallback)"
+      ],
+      "contentNotes": "Headline «أدخلوا الرمز المرسل إلى واتساب» / 'Enter the code sent to WhatsApp' with the masked number shown as +965 •••• 0040 inside an LTR isolate. Helper: «الرمز صالح لمدة 5 دقائق.» / 'The code is valid for 5 minutes.' Step-up variant headline: «تأكيد هويتكم قبل المتابعة» / 'Confirm it is you before continuing', with one line naming the action («تعديل بيانات الحساب البنكي» / 'Changing bank information'); the biometric prompt may sit in front of this on the device but never replaces it. Wrong code: «الرمز غير صحيح. لم يتم تغيير أي شيء.» / 'That code is not correct. Nothing was changed.' Expired: «انتهت صلاحية الرمز. يمكن طلب رمز جديد.» / 'The code has expired. A new one can be requested.' Delivery failed: «تعذّر إرسال الرمز عبر واتساب.» / 'The code could not be sent on WhatsApp.' Reduced motion: boxes fill without animation. Tab bar hidden.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-TODY-01",
+        "HL-ACCS-03",
+        "HL-ACCS-01"
+      ]
+    },
+    {
+      "id": "HL-ACCS-03",
+      "slug": "set-password",
+      "title": {
+        "en": "Set your password",
+        "ar": "تعيين كلمة المرور"
+      },
+      "kind": "screen",
+      "purpose": "Landing for the WhatsApp invitation link and for password reset. A new staff member sees who invited them and in which role, picks a password and a language, and continues to device verification.",
+      "requirementIds": [
+        "HA-AUTH-01",
+        "HA-AUTH-02",
+        "HA-SET-05"
+      ],
+      "states": [
+        "default",
+        "reset-mode",
+        "weak-password",
+        "loading",
+        "error",
+        "invite-expired",
+        "invite-used",
+        "success",
+        "offline"
+      ],
+      "interactions": [
+        "Invitation card (read-only): venue, role chip, inviter and the number that was invited; the phone number is prefilled and cannot be edited",
+        "New password and Confirm password fields with show and hide; strength is stated in words ('Weak' / 'Fair' / 'Strong'), never by colour alone",
+        "Language choice as two chips (Arabic, English); selecting one re-renders the screen at once and becomes this user's language setting",
+        "Single gold primary 'Save and continue' / «حفظ ومتابعة»; on success it goes to the verification screen (new device) and then Today",
+        "Expired or already-used invitation: the form is replaced by a message and one action, 'Ask the venue admin for a new invitation'"
+      ],
+      "contentNotes": "Demo invitation: «فندق أوريليا الخليج» / Aurelia Gulf Hotel invites أمل البلوشي / Amal Al-Balushi as Reception («الاستقبال»), invited by Khalid Al-Otaibi (Admin) on Wed 11 Nov 2026, valid until Sat 14 Nov 2026. A one-line role summary uses plain facts, not lock icons: «الاستقبال: الطلبات والتقويم والرسائل» / 'Reception: requests, calendar and messages'. Password rule shown as helper text (at least 10 characters with letters and digits; exact rule to confirm with security). No email field and no Terms checkbox (account creation for staff is by invitation). Expired copy: «انتهت صلاحية الدعوة.» / 'This invitation has expired.' Reset mode drops the invitation card and shows 'Choose a new password'. Tab bar hidden.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-ACCS-02",
+        "HL-ACCS-01"
+      ]
+    },
+    {
+      "id": "HL-ACCS-04",
+      "slug": "account-status",
+      "title": {
+        "en": "Account status",
+        "ar": "حالة الحساب"
+      },
+      "kind": "screen",
+      "purpose": "A specific, calm screen for every moment the app cannot open normally: venue under review, venue suspended, staff member deactivated, session ended by an admin, and a deep link to something the role may not open. Never a dead end: each variant has exactly one next step.",
+      "requirementIds": [
+        "HA-AUTH-02",
+        "HA-AUTH-04"
+      ],
+      "states": [
+        "under-review",
+        "suspended",
+        "deactivated",
+        "session-revoked",
+        "no-access",
+        "offline"
+      ],
+      "interactions": [
+        "One primary action per variant: under review and suspended 'Contact Ghazal Support'; deactivated 'Contact the venue admin'; session revoked 'Sign in again'; no access 'Back to Today'. Activation of an under-review venue is announced by WhatsApp automatically, so no notify-me control is needed",
+        "Secondary 'Sign out' text button on the full-screen variants; 'Switch venue' appears only when the account belongs to more than one venue",
+        "No-access variant renders inside the app shell (tab bar visible) after a push or deep link to a forbidden object; the other variants are full screen with the tab bar hidden",
+        "Contact support opens the Ghazal Support thread (HL-TODY-05) when the session is still valid; otherwise it shows the support WhatsApp number as plain text"
+      ],
+      "contentNotes": "Under review: «فندق أوريليا الخليج قيد المراجعة. سنخبركم عبر واتساب عند التفعيل.» / 'Aurelia Gulf Hotel is under review. We will tell you on WhatsApp when it is active.' Suspended: «تم إيقاف هذه القاعة مؤقتًا. للاستفسار يمكن التواصل مع دعم غزل.» / 'This venue is suspended. Contact Ghazal Support.' Deactivated: «تم إيقاف وصولكم إلى هذه القاعة.» / 'Your access to this venue has been turned off.' Session revoked (an admin ended it, HA-AUTH-04): «أنهى مدير القاعة هذه الجلسة. يلزم تسجيل الدخول مجددًا.» / 'A venue admin ended this session. Sign in again.' No access (ADR 0008 D1): «لا تملكون صلاحية الوصول. يمكنكم مراجعة مدير القاعة.» / 'You do not have access. Ask your manager.' Each variant has a single line-icon (clock, pause, user-x, log-out, shield), no illustration, no red fill. Support contact shown as a fixture: +965 5000 0001, display-only. Voucher model (ADR 0033): under review now reads «حسابكم قيد المراجعة. سنخبركم عبر واتساب عند التفعيل.» / \"Your account is under review. We will tell you on WhatsApp when it is active.\" for hotels, halls and service providers; a provider whose first listing awaits moderation sees HL-PROV-06 instead of this screen.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-TODY-05",
+        "HL-ACCS-01",
+        "HL-TODY-01"
+      ]
+    }
+  ]
+}

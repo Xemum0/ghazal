@@ -1,0 +1,428 @@
+{
+  "id": "booking",
+  "order": 6,
+  "title": {
+    "en": "Booking request",
+    "ar": "طلب الحجز"
+  },
+  "intent": "Five merged steps (PRD order kept) from a prefilled Brief to 'Request sent' or, for instant halls, to payment. One set of screens serves both modes: only the Review CTA and the outcome differ (ADR 0001). A thread line shows 'Step 2 of 5'; Back is always safe and the draft autosaves; progressive disclosure hides hall, session and audience choices when there is nothing to choose (ADR 0002). Guests browse steps 1 to 3 freely and are asked for an account right before personal data; they return to the exact step.",
+  "screens": [
+    {
+      "id": "CL-BOOK-01",
+      "slug": "your-event",
+      "title": {
+        "en": "Your event",
+        "ar": "مناسبتكم"
+      },
+      "kind": "screen",
+      "purpose": "Step 1 of 5. Confirm date, what is being hosted, guests and (only if there is a real choice) hall and session. Guests move here because price and capacity validity depend on them. Starts from a card, Venue detail, a calendar date or the Compare table.",
+      "requirementIds": [
+        "CA-BOOK-01",
+        "CA-BOOK-02",
+        "CA-BOOK-03",
+        "CA-BOOK-06",
+        "CA-BOOK-14",
+        "CA-VDET-22",
+        "CA-CMP-10",
+        "CA-VCH-09"
+      ],
+      "states": [
+        "default",
+        "loading-price",
+        "error",
+        "offline",
+        "guests-below-minimum",
+        "guests-over-capacity",
+        "both-sections",
+        "session-picker",
+        "date-just-taken",
+        "voucher-bound-locked-fields",
+        "no-voucher-redirect"
+      ],
+      "interactions": [
+        "Prefilled from the Brief; only unanswered fields expand. Date row opens the calendar sheet (CL-VENU-03) and shows the weekday and full date; the selected-date confirmation adds the muted Hijri line in the Arabic UI only",
+        "Session chips appear only when more than one session is free that day; exclusive-day ballrooms with kosha setup (Danah Ballroom) show none",
+        "'What are you hosting?' chips (Ladies' reception, Men's reception, Both) appear only if the venue sells more than one audience; the default follows the active filter, otherwise Ladies' reception; Mixed is always last and never preselected; 'Both' adds a second section with its own hall, guests and package",
+        "Hall switcher only when more than one hall fits; guests stepper 'Guests in this hall' stepping by the package guest step, with preset chips and live validation against package and hall limits",
+        "Optional Occasion chip (wedding, milka, henna night, engagement, other), flagged OQ-B-11; sticky footer shows 'Est. KD 18,200' and the primary 'Continue'",
+        "Thread line 'Step 1 of 5'; the close button asks 'Leave? Your draft is saved' with Keep editing and Leave; an unavailable date at any point opens CL-BOOK-07",
+        "When the flow starts from a voucher the date, hall, session, audience and package are prefilled and shown with a small lock and \"From your voucher\"; changing them opens CL-VCHR-04 (the voucher stays bound only if the saving test still passes); guests count may change within the voucher quote range. Reaching this screen without a voucher shows an inline \"Get your voucher first\" that opens CL-VCHR-01 (there is no request without a voucher)",
+        "Footer shows \"Voucher price KD 15,400 (est.)\" and the primary \"Continue\"; the instant-booking variant is removed"
+      ],
+      "contentNotes": "Demo: Aurelia Gulf Hotel, Danah Ballroom, «الخميس 14 يناير 2027» / 'Thursday 14 January 2027' (63 days away), hosting «الحفل النسائي» / Ladies' reception, 'Guests in this hall' 350 («350 ضيفًا»), minimum 300 and maximum 650. Mode line under the date for request halls: 'The venue replies within 24 hours. Nothing is charged until they approve.' / «ترد القاعة خلال 24 ساعة. لا يُخصم أي مبلغ قبل موافقتها.» For instant-eligible halls (Wasl Convention and Wedding Centre): 'Instant booking. Your date is held for 10 minutes while you pay.'; when the event is under 30 days away it falls back silently to a request with one explanatory line. Event within 14 days: 'The venue is asked to reply within 4 hours.' Below minimum: 'Minimum 300 guests. Priced for 300.' Over capacity: 'This hall holds up to 650 guests.' The Arabic count uses ICU plurals (ضيفان, 3 ضيوف, 11 ضيفًا). The estimate is labelled 'Est.' until a package is chosen. Tab bar hidden. Never ليلة plus a weekday. Voucher model (ADR 0033): mode line under the date reads «ترد القاعة خلال 24 ساعة. كوبونكم مرفق بالطلب.» / \"The venue replies within 24 hours. Your voucher is attached to the request.\" (replaces the \"Nothing is charged until they approve\" line). The instant-eligible variant described above is removed.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BOOK-02",
+        "CL-VENU-03",
+        "CL-BOOK-07",
+        "CL-VENU-01",
+        "CL-VCHR-01",
+        "CL-VCHR-04"
+      ]
+    },
+    {
+      "id": "CL-BOOK-02",
+      "slug": "package",
+      "title": {
+        "en": "Package",
+        "ar": "الباقة"
+      },
+      "kind": "screen",
+      "purpose": "Step 2 of 5. Choose exactly one package priced for the date and guests; in a two-section booking a Ladies | Men tab pair appears so each section gets its own package.",
+      "requirementIds": [
+        "CA-BOOK-04",
+        "CA-BOOK-06",
+        "CA-BOOK-14",
+        "CA-VDET-07",
+        "CA-VCH-02"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "offline",
+        "single-package",
+        "both-sections",
+        "none-fits-guests"
+      ],
+      "interactions": [
+        "Ladies | Men tabs (two-section bookings only); a section without a package blocks Continue with a clear marker",
+        "Changing the guest count back in step 1 re-prices every card instantly (cross-fade, numbers never roll)",
+        "Package cards as a single-choice list (ink border plus check on selection): each shows the voucher price per guest or per package, the voucher total for the Brief with the standard total beneath, the saving and three headline inclusions; \"Details\" opens the package sheet; a package without a voucher price is marked \"Not covered by a voucher\" and cannot be chosen while a voucher is bound",
+        "Sticky footer keeps a running voucher total with an expandable breakdown showing both columns and \"Continue\""
+      ],
+      "contentNotes": "Ladies: «الحفل النسائي · نهاية الأسبوع» 'KD 52 per guest' = KD 18,200 for 350 guests (selected for the demo); «الحفل النسائي المتكامل» 'KD 55 per guest' = KD 19,250 (kosha design, zaffa entrance, bridal suite, one suite night). Men (Majlis Hall, two-section variant): «الحفل الرجالي» 'KD 32 per guest' x 400 guests = KD 12,800, with the summed total KD 31,000 shown in the footer. A bare 'From KD X' never appears; each price states its unit. None-fits state: 'No package fits 700 guests in this hall. Change guests or choose another hall.' Package names never use Silver, Gold or Royal. Tab bar hidden.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BOOK-03",
+        "CL-VENU-04",
+        "CL-BOOK-01"
+      ]
+    },
+    {
+      "id": "CL-BOOK-03",
+      "slug": "extras",
+      "title": {
+        "en": "Extras",
+        "ar": "الإضافات"
+      },
+      "kind": "screen",
+      "purpose": "Step 3 of 5. Optional add-ons priced separately, with a running total. Also the second entry point for adding a men's reception. For a guest, Continue triggers the account sheet before any personal data is asked.",
+      "requirementIds": [
+        "CA-BOOK-05",
+        "CA-BOOK-14",
+        "CA-VDET-13",
+        "CA-AUTH-10"
+      ],
+      "states": [
+        "default",
+        "none-offered",
+        "loading",
+        "error",
+        "offline",
+        "extras-selected",
+        "guest-gate"
+      ],
+      "interactions": [
+        "Extras as rows with a stepper or option picker (flat, per guest or per unit pricing stated on each row); no price changes after this step",
+        "'Add a men's reception' card (only if the venue has a suitable second hall) returns to step 2 with the Men tab active; it is the same state as the step-1 'Both' chip",
+        "'No extras' skips explicitly; Continue is never disabled",
+        "Guest: Continue opens the sign-in sheet with the context line 'to send your request' (CL-AUTH-01); after authentication the user lands on step 4 with every selection intact"
+      ],
+      "contentNotes": "Extras with real Kuwait ranges: bespoke kosha «الكوشة» KD 1,800 – 6,500 (three designs); florals KD 900 – 4,000; female photographer «مصوّرة» KD 450 – 700; zaffa troupe «الزفّة» KD 350 – 900; extra hour KD 250 – 600; Arabic coffee station KD 150 – 350; kids' corner KD 200 – 450. Demo state selected: kosha classic design KD 1,800.000 and female photographer KD 450.000, running total KD 20,450.000; the shared storyline skips extras so the booking stays KD 18,200.000. Items included in the package are shown as Included, not priced. Men's reception card: 'Add a men's reception on the same day in Majlis Hall' / «إضافة الحفل الرجالي في اليوم نفسه (قاعة المجلس)». Tab bar hidden. Voucher model (ADR 0033): extras without a voucher price are billed at their standard price in both columns; the running total is the voucher total. Footer note: «الإضافات تُسدَّد للقاعة مباشرةً» / \"Extras are settled directly with the venue.\" Guest gate context line is now \"to send your request\" only after a voucher exists; otherwise \"to get your voucher\".",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-AUTH-01",
+        "CL-BOOK-04",
+        "CL-BOOK-02"
+      ]
+    },
+    {
+      "id": "CL-BOOK-04",
+      "slug": "your-details",
+      "title": {
+        "en": "Your details",
+        "ar": "بياناتكم"
+      },
+      "kind": "screen",
+      "purpose": "Step 4 of 5. Contact person, who the booking is for, special requests, and inline phone verification. A verified phone is required to send a request; users who signed in with Apple, Google or email verify here by WhatsApp without leaving the step.",
+      "requirementIds": [
+        "CA-BOOK-07",
+        "CA-BOOK-08",
+        "CA-AUTH-05",
+        "CA-AUTH-06",
+        "CA-AUTH-10"
+      ],
+      "states": [
+        "default",
+        "validation-error",
+        "phone-unverified",
+        "phone-verified",
+        "loading",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Prefilled name (dir=auto) and phone with the fixed +965 chip and eight LTR digits; unverified numbers show a 'Verify with WhatsApp' action that opens the code sheet (CL-AUTH-02) titled 'Verify your number to send the request'",
+        "Optional email (LTR); 'Booking for': Myself or Someone else (name and relation: bride, groom, family member, planner), because the payer is often not the booker",
+        "Special requests: free text (dir=auto) with suggestion chips such as 'Female photographer only', 'Kosha team access from 12:00 PM', 'Wheelchair access'",
+        "Clear note on who sees what, then Continue to Review"
+      ],
+      "contentNotes": "Demo: «ريم الدوسري» / Reem Al-Dosari, +965 5000 0012 (display only, never a tappable link in the prototype), email optional. Privacy line: «يظهر اسمكم ورقم هاتفكم لفندق أوريليا الخليج لهذا الطلب فقط» / 'Aurelia Gulf Hotel sees your name and phone for this request only.' (CA-BOOK-07 requires saying who sees the number). Civil ID is not collected in the MVP. 'Send a payment link to the payer' is not designed (outside the PRD). Errors blameless and specific: 'Check the number: it needs 8 digits'. Tab bar hidden; thread line 'Step 4 of 5'. Voucher model (ADR 0033): the privacy line adds «ويظهر رمز كوبونكم للقاعة عند الاستخدام فقط» / \"The venue sees your voucher code only when you redeem it.\" There is no payer or payment field in this flow (the event is paid to the venue directly).",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BOOK-05",
+        "CL-AUTH-02",
+        "CL-BOOK-03"
+      ]
+    },
+    {
+      "id": "CL-BOOK-05",
+      "slug": "review",
+      "title": {
+        "en": "Review",
+        "ar": "المراجعة"
+      },
+      "kind": "screen",
+      "purpose": "Step 5 of 5. The last screen before commitment: the itemised price in both columns, the saving, the attached voucher (code last four, state) and consent. The primary reads \"Send request at the voucher price\". There is no deposit, no payment schedule, no coupon or points field and no instant mode. The summary states the model plainly: \"Nothing more to pay Ghazal. After you confirm, you pay the venue directly.\"",
+      "requirementIds": [
+        "CA-BOOK-09",
+        "CA-BOOK-10",
+        "CA-BOOK-14",
+        "CA-BOOK-17",
+        "CA-VDET-16",
+        "CA-VCH-08",
+        "CA-VCH-09"
+      ],
+      "states": [
+        "default",
+        "two-sections",
+        "voucher-attached",
+        "voucher-missing",
+        "voucher-quote-changed",
+        "consent-unchecked",
+        "phone-unverified",
+        "open-requests-limit",
+        "loading",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Summary blocks with Edit links back to each step (a two-section booking shows two blocks and summed totals); the price snapshot (both columns) is frozen when the request is sent",
+        "Itemised price in exact three decimals in two columns: package, extras, service charge only if the venue declares one, Standard total (struck through), Voucher total, \"You save\"; no tax lines, no platform credit, no coupon field",
+        "Voucher card: \"Voucher GV-2611-K7QM\" (LTR isolate), bound to this venue and quote, with \"Change voucher\" opening CL-VCHR-04; if no ready voucher matches the quote, the card shows \"Get your voucher\" that opens CL-VCHR-01 and the primary is disabled with that reason",
+        "Reply line: \"Expected reply by Fri 13 Nov, 4:00 PM\" and \"If approved, you will have 24 hours to confirm\" (absolute times, no timer)",
+        "Consent checkbox for the venue terms, the voucher terms and the platform terms (links to CL-VENU-05); the CTA stays disabled until checked",
+        "Send request creates status pending, binds the voucher and moves no money and no calendar claim; a taken date opens CL-BOOK-07; the open-requests limit shows \"3 of 3 open requests\" before sending"
+      ],
+      "contentNotes": "Demo request (illustrative seed values): Aurelia Gulf Hotel, Danah Ballroom, Ladies' reception, «الخميس 14 يناير 2027» (AR with the muted line «6 شعبان 1448 هـ»), 350 guests, package «الحفل النسائي · نهاية الأسبوع». Price: Standard 350 x KD 52 = KD 18,200.000 (struck through); Voucher 350 x KD 44 = KD 15,400.000; You save KD 2,800.000. Voucher card: GV-2611-K7QM, valid until 60 days after purchase. Line: «لا يُسدَّد أي مبلغ إضافي لغزل. بعد التأكيد تدفعون للقاعة مباشرةً.» / \"Nothing more to pay Ghazal. After you confirm, you pay the venue directly.\" Primary «إرسال الطلب بسعر الكوبون» / \"Send request at the voucher price\". Ghazal never shows a payment schedule here; the venue sets its own payment terms in the venue terms. Superseded by ADR 0033: deposit card, balance schedule, free-cancellation line, coupon field, \"Use points\", instant mode and the CA-BOOK-11 payment hand-off.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BOOK-06",
+        "CL-VCHR-01",
+        "CL-VCHR-04",
+        "CL-BOOK-07",
+        "CL-VENU-05",
+        "CL-AUTH-02",
+        "CL-BOOK-01"
+      ]
+    },
+    {
+      "id": "CL-BOOK-06",
+      "slug": "request-sent",
+      "title": {
+        "en": "Request sent",
+        "ar": "تم إرسال الطلب"
+      },
+      "kind": "screen",
+      "purpose": "Outcome of request mode and the most important screen nobody screenshots: it keeps the valley between request and reply calm. It shows the Booking Thread, an absolute expected-reply time, what is and is not happening to money and the date, and one-time offers.",
+      "requirementIds": [
+        "CA-BOOK-10",
+        "CA-BOOK-12",
+        "CA-STAT-03",
+        "CA-PLAN-01",
+        "CA-NOTI-02",
+        "CA-CHAT-02"
+      ],
+      "states": [
+        "default",
+        "date-held-chip",
+        "urgent-event",
+        "notification-pre-prompt",
+        "offline"
+      ],
+      "interactions": [
+        "Success moment: the thread completes its first node and the check draws within 640 ms with one success haptic; no confetti",
+        "Summary card with reference, venue, date, hall, guests and total; 'View request' opens Booking detail (CL-BKNG-02); 'Message venue' opens the chat (CL-MSGS-02)",
+        "Planner card 'Need a wedding planner?' with Yes (CL-PLAN-01) and Not now; shown once here, then only in My Wedding",
+        "After the first request the OS notification pre-prompt appears as a sheet ('Turn on booking updates') before the system dialog; never at launch",
+        "Secondary 'Back to Discover' (CL-DISC-01) or 'Go to My Wedding' (CL-WEDD-01)",
+        "Booking Thread: Request done (timestamp), Approval (expected reply by an absolute time), Confirmation (you confirm within 24 hours of approval), Redemption (at the venue), Day; at most two faint future nodes; never a ticking timer"
+      ],
+      "contentNotes": "Heading «تم إرسال طلبكم» / 'Request sent'. Body: 'Nothing is charged and nothing is held yet. If Aurelia Gulf Hotel approves, we hold the date for you for 24 hours.' / «لم يُخصم أي مبلغ ولم يُحجز التاريخ بعد. إذا وافق فندق أوريليا الخليج، نثبّت لكم الموعد 24 ساعة.» Expected reply: 'Expected reply by Fri 13 Nov, 4:00 PM' for a request sent now; the seeded shared booking was sent Thu 12 Nov, 12:40 PM with the reply expected by Fri 13 Nov, 12:40 PM. Reference format GZ-2611-0147 (owned by the fixtures author so both apps match). Event within 14 days adds 'The venue is asked to reply within 4 hours.' A competing request on a held date shows the calm chip 'Date held by another couple' without any count. Withdrawing is free until payment. One celebratory line is reserved for confirmation, so this screen carries none. Tab bar visible after dismissing the flow. Voucher model (ADR 0033): body reads «لم يُحجز التاريخ بعد. إذا وافق فندق أوريليا الخليج، نثبّته لكم 24 ساعة لتؤكدوا الحجز. كوبونكم مرفق بالطلب.» / \"The date is not held yet. If Aurelia Gulf Hotel approves, we hold it for 24 hours so you can confirm. Your voucher is attached to the request.\" The \"Nothing is charged\" and \"Deposit\" nodes above are superseded; a \"View my voucher\" link opens CL-VCHR-03.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BKNG-02",
+        "CL-MSGS-02",
+        "CL-PLAN-01",
+        "CL-DISC-01",
+        "CL-WEDD-01",
+        "CL-VCHR-03"
+      ]
+    },
+    {
+      "id": "CL-BOOK-07",
+      "slug": "date-taken",
+      "title": {
+        "en": "That date is no longer available",
+        "ar": "لم يعد هذا التاريخ متاحًا"
+      },
+      "kind": "sheet",
+      "purpose": "Recovery sheet for the moment a date or session is taken during checkout. Told before payment, never a dead end: nearest free dates for the same hall, the same date at similar halls, or a new date.",
+      "requirementIds": [
+        "CA-BOOK-16",
+        "CA-VDET-22"
+      ],
+      "states": [
+        "default",
+        "loading-alternatives",
+        "no-alternatives",
+        "session-taken",
+        "hold-expired"
+      ],
+      "interactions": [
+        "Three nearest free dates for the same hall and session, each re-quoted for the current guests (tap re-opens step 1 with the date applied)",
+        "Rail of similar halls free on the same date (opens Venue detail with the Brief applied)",
+        "'Choose another date' opens the calendar sheet (CL-VENU-03); 'Back to results' opens CL-DISC-03",
+        "Reason codes drive the opening line: date_taken, session_taken, confirm_window_ended; every variant says the voucher is still valid and a new request can use it (same venue, 60 days)"
+      ],
+      "contentNotes": "Heading «لم يعد هذا التاريخ متاحًا» with 'Thu 14 Jan is no longer available at Aurelia Gulf Hotel. Nothing was charged.' / «لم يُخصم أي مبلغ». Alternatives: Thu 21 Jan 2027 'KD 18,200 for 350 guests', Fri 22 Jan 2027, Sat 23 Jan 2027; similar halls free on Thu 14 Jan: Lumi Marina Hotel 'KD 13,300 for 350 guests'. Calm, blameless, passive copy; no urgency words. Rejection, expiry and a lost slot never refund anything because no money moved before approval (ADR 0001 D4). Voucher model (ADR 0033): «لم يُخصم أي مبلغ» is replaced by «كوبونكم ما زال صالحًا» / \"Your voucher is still valid\"; alternatives re-bind the voucher only while the saving test passes.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BOOK-01",
+        "CL-VENU-03",
+        "CL-VENU-01",
+        "CL-DISC-03"
+      ]
+    },
+    {
+      "id": "CL-BOOK-08",
+      "slug": "confirm-booking",
+      "title": {
+        "en": "Confirm your booking",
+        "ar": "تأكيد الحجز"
+      },
+      "kind": "screen",
+      "purpose": "The official confirmation the owner requires within 24 hours of approval. Shows what the venue approved (date, hall, package, voucher price), the absolute deadline and, in the last hour, a live countdown, then one primary \"Confirm booking\". After confirming, the hold becomes a booking and the voucher code and QR are shown. If the window lapses the screen turns into the lapsed state (CL-BOOK-10).",
+      "requirementIds": [
+        "CA-STAT-11",
+        "CA-STAT-12",
+        "CA-STAT-13",
+        "CA-VCH-08",
+        "CA-BOOK-17"
+      ],
+      "states": [
+        "default",
+        "last-60-minutes",
+        "confirming",
+        "success",
+        "lapsed",
+        "date-taken",
+        "already-updated",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Summary of the approved request in exact three decimals: venue, date (Arabic adds the muted Hijri line), hall, guests, package, \"Voucher price KD 15,400.000\", \"You save KD 2,800.000\", the attached voucher (code last four)",
+        "Deadline line \"Confirm by Fri 13 Nov, 4:00 PM\" (absolute time); a live mm:ss countdown appears only in the final 60 minutes, gold-ink in the last 60 seconds, no alarm animation; reduced motion keeps the number static",
+        "Consent checkbox for the venue terms and the voucher terms (links to CL-VENU-05); the primary \"Confirm booking\" is disabled until it is checked; confirming is never queued offline (disabled in place with \"Offline. Reconnect to confirm.\")",
+        "Success moves to CL-BOOK-09; if the venue revoked the approval or the window ended meanwhile the sheet \"Already updated\" explains and opens CL-BOOK-10; secondary \"Cancel request\" opens CL-BKNG-03 and \"Message venue\" opens the thread"
+      ],
+      "contentNotes": "Heading «تأكيد الحجز» / \"Confirm your booking\". Body: «وافق فندق أوريليا الخليج وثبّت لكم الموعد حتى الجمعة 13 نوفمبر، 4:00 م.» / \"Aurelia Gulf Hotel approved and is holding the date until Fri 13 Nov, 4:00 PM.\" Reassurance: «لا مبلغ يُدفع هنا. تدفعون للقاعة مباشرةً بعد التأكيد.» / \"Nothing is paid here. You pay the venue directly after you confirm.\" One screen of the confirm flow carries the celebratory moment (CL-BOOK-09), not this one. Tab bar hidden.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BOOK-09",
+        "CL-BOOK-10",
+        "CL-BKNG-03",
+        "CL-VENU-05",
+        "CL-MSGS-02",
+        "CL-BKNG-02"
+      ]
+    },
+    {
+      "id": "CL-BOOK-09",
+      "slug": "booking-confirmed",
+      "title": {
+        "en": "Booking confirmed",
+        "ar": "تم تأكيد الحجز"
+      },
+      "kind": "screen",
+      "purpose": "The one celebratory moment of the booking flow: the booking is confirmed, the date is booked at the voucher price, and the voucher code and QR are ready for the venue. Explains the next step plainly: pay the venue directly and show the code. Surfaces calendar, directions, visit and planner offers.",
+      "requirementIds": [
+        "CA-BOOK-12",
+        "CA-STAT-13",
+        "CA-VCH-07",
+        "CA-TOOL-16",
+        "CA-TOOL-17",
+        "CA-PLAN-01",
+        "CA-NOTI-07"
+      ],
+      "states": [
+        "default",
+        "offline",
+        "planner-card-seen"
+      ],
+      "interactions": [
+        "Success moment within the 640 ms success token: the Booking Thread completes the Confirmation node and the check draws, one success haptic, no confetti",
+        "Summary card: reference, venue, hall, date (Arabic adds the muted Hijri line), guests, \"Voucher price KD 15,400.000\"; voucher card with code and QR (opens CL-VCHR-03) and the instruction \"Pay Aurelia Gulf Hotel directly, then show this code at the venue\"",
+        "Actions: Add to calendar (OS), Share (OS sheet, no emoji), Directions chooser (Google Maps, Apple Maps on iOS only, Waze), \"Book a visit\" (CL-VIST-01), \"Call the venue\"",
+        "Planner card shown once if not already seen (CL-PLAN-01); a line confirms \"Venue marked done in your checklist\" and, when the wedding date differs, offers \"Set your wedding date to this date\"; \"Done\" returns to My Wedding (CL-WEDD-01)"
+      ],
+      "contentNotes": "Single warm line: «مبروك مقدمًا، تم تأكيد حجزكم.» / \"Congratulations in advance, your booking is confirmed.\" (the only celebratory line of the flow). Voucher line: «أظهروا هذا الرمز للقاعة عند الدفع.» / \"Show this code to the venue when you pay.\" Reference GZ-2611-0147. No deposit, balance or receipt lines.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BKNG-02",
+        "CL-VCHR-03",
+        "CL-VIST-01",
+        "CL-PLAN-01",
+        "CL-WEDD-01",
+        "CL-MSGS-02"
+      ]
+    },
+    {
+      "id": "CL-BOOK-10",
+      "slug": "confirm-window-ended",
+      "title": {
+        "en": "Confirmation window ended",
+        "ar": "انتهت مهلة التأكيد"
+      },
+      "kind": "screen",
+      "purpose": "The calm outcome when the 24 hour confirm window lapses (or the venue revoked the approval): what lapsed, what happened to the date and what happens to the voucher, with a clear way forward. Never blaming, never a dead end.",
+      "requirementIds": [
+        "CA-STAT-12",
+        "CA-VCH-11",
+        "CA-BOOK-16"
+      ],
+      "states": [
+        "lapsed-client",
+        "revoked-by-venue",
+        "date-taken-meanwhile",
+        "offline"
+      ],
+      "interactions": [
+        "Outcome first: \"The 24-hour window ended. The hold on Thu 14 Jan was released.\" then the voucher: \"Your voucher is back with you and can be used again at Aurelia Gulf Hotel until Fri 8 Jan 2027\" (client lapse: reusable, not refundable); a venue revoke says it is refundable too",
+        "Primary \"Send a new request\" opens CL-BOOK-01 with the voucher re-bound; secondary \"See free dates\" (CL-VENU-03) and \"Message venue\"; for a venue revoke a \"Refund voucher\" link opens CL-VCHR-05",
+        "Three similar halls free on the date as a rail"
+      ],
+      "contentNotes": "Heading «انتهت مهلة التأكيد» / \"Confirmation window ended\". Body AR: «انتهت مهلة الـ 24 ساعة، وتم تحرير الموعد. كوبونكم ما زال لكم.» / EN as above. Calm passive copy; no urgency words.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BOOK-01",
+        "CL-VENU-03",
+        "CL-VCHR-05",
+        "CL-MSGS-02",
+        "CL-VENU-01"
+      ]
+    }
+  ]
+}

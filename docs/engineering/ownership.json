@@ -1,0 +1,15 @@
+{
+  "$comment": "Authoritative role to write-glob map (ADR 0029 D7). Single writer: integrator. Not enforced by a hook yet: the task text lists owned paths and the integrator diffs afterwards. Updated 2026-10-14: design/src/shell/** is integrator-maintained during the design pass (ADR 0031), as ownership.md says.",
+  "roles": {
+    "integrator": ["design/src/shell/**", "design/src/main.tsx", "design/scripts/**", "design/vite/**", "design/stylelint*", "design/stylelint/**", "design/README.md", "package.json", "pnpm-workspace.yaml", "pnpm-lock.yaml", ".github/**", ".claude/**", "tools/**", "AGENTS.md", "CLAUDE.md", "docs/engineering/**", "docs/decisions/**", "infra/**"],
+    "tokens-owner": ["packages/design-tokens/src/**"],
+    "system-owner": ["design/src/system/**", "design/specs/components/**", "design/specs/*.schema.json"],
+    "screens-<app>-<flow>": ["design/src/screens/<app>/<flow>/**", "design/specs/screens/<app>/<flow>/**", "packages/i18n/messages/{en,ar}/<app>-<flow>.json"],
+    "copy-owner": ["packages/i18n/messages/{en,ar}/common.json", "packages/i18n/messages/{en,ar}/*-shell.json", "packages/i18n/messages/{en,ar}/server.json", "packages/i18n/src/**", "design/src/i18n/**"],
+    "fixtures-owner": ["packages/contracts/seed/**", "packages/contracts/fixtures/**", "packages/contracts/src/**", "design/src/mock/**"],
+    "docs-author": ["docs/product/**", "docs/design/**", "docs/architecture/**"],
+    "flutter-<feature>": ["apps/<app>/lib/features/<feature>/**"],
+    "api-<module>": ["apps/api/src/<module>/**"]
+  },
+  "singleWriter": ["AGENTS.md", ".claude/**", ".github/**", "packages/design-tokens/src/**", "design/src/system/**", "pnpm-lock.yaml", "docs/engineering/ownership.json"]
+}

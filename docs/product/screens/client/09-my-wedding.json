@@ -1,0 +1,242 @@
+{
+  "id": "my-wedding",
+  "order": 9,
+  "title": {
+    "en": "My Wedding and planning tools",
+    "ar": "زفافكم وأدوات التخطيط"
+  },
+  "intent": "The tab couples return to for six to eighteen months. My Wedding is phase-aware (no date, shopping for a venue, request pending, approved, confirmed, wedding week, day-of, after the wedding), puts Bookings on top as the canonical card, and hosts the three planning tools: countdown (a hero state, not a screen), checklist and budget. Everything is rules-based, no AI. A guest can look at a sample structure and is asked to sign in at the first write (ADR 0007 D8).",
+  "screens": [
+    {
+      "id": "CL-WEDD-01",
+      "slug": "my-wedding",
+      "title": {
+        "en": "My Wedding",
+        "ar": "زفافكم"
+      },
+      "kind": "tab-root",
+      "purpose": "Phase-aware home of the wedding file: countdown hero with milestone states, up to three 'Next up' actions, the Bookings card, the planner offer or assigned planner, and a tools row. Becomes the launch tab as soon as a booking is awaiting a deposit, has a balance due, or is confirmed.",
+      "requirementIds": [
+        "CA-TOOL-17",
+        "CA-TOOL-18",
+        "CA-TOOL-19",
+        "CA-TOOL-16",
+        "CA-STAT-01",
+        "CA-PLAN-02",
+        "CA-PLAN-09",
+        "CA-PROF-02",
+        "CA-ONB-09",
+        "CA-NOTI-08",
+        "CA-AUTH-10",
+        "CA-STAT-11",
+        "CA-VCH-06"
+      ],
+      "states": [
+        "no-date",
+        "pre-venue",
+        "request-pending",
+        "confirmed",
+        "wedding-week",
+        "day-of",
+        "post-event",
+        "guest-teaser",
+        "loading",
+        "error",
+        "offline",
+        "request-approved-confirm-window",
+        "voucher-ready"
+      ],
+      "interactions": [
+        "Countdown hero: whole days only (no seconds), the date, the venue; a 2px thread with ticks at 365, 180, 30, 7, 1 and 0 draws in reading direction (from the right in Arabic) and a single line draws under the number at each milestone",
+        "Bookings card (top, one per booking with a status chip and its next money step) opens Booking detail (CL-BKNG-02); 'All bookings' opens CL-BKNG-01",
+        "Planner module: the 'Need a wedding planner?' offer until dismissed or after a booking event, then only here; once assigned it becomes the planner card (CL-PLAN-03) with Message",
+        "Tools row: Checklist (percentage), Budget (remaining), Saved, Services; a dot on the tab appears only when a deposit or balance action is due",
+        "A confirmed booking offers to set the wedding date to the booking date when they differ; notification bell opens CL-MSGS-04",
+        "Day-of mode swaps the hero for Directions, Call venue and Message planner; marketing is silent in the final seven days",
+        "\"Next up\" shows at most three actions, due first (for example \"Confirm your booking by Fri 13 Nov, 4:00 PM\", \"Send your request at the voucher price\", \"Book a visit\", \"Book a photographer\", \"Add your partner's name\"); each opens its destination; there are no payment or balance actions",
+        "Launch tab rule: My Wedding becomes the launch tab when any request is approved and waiting for confirmation, a voucher is ready with no request yet, or a booking is confirmed; the tab dot appears only when a confirmation is due within 24 hours or a voucher is about to expire"
+      ],
+      "contentNotes": "Demo (confirmed variant): hero «باقي 63 يومًا» / '63 days to go', «الخميس 14 يناير 2027» (no Hijri line here: it appears only on date confirmations and booking summaries), Aurelia Gulf Hotel. Milestone copy: 365 «باقي سنة على الزفاف», 180 «باقي 6 أشهر», 30 «باقي 30 يومًا», 7 «باقي 7 أيام», tomorrow «غدًا زفافكم», today «اليوم زفافكم، مبروك». Next up: 'Pay the balance KD 12,740.000 by Thu 31 Dec 2026'; 'Choose a photographer' (opens Services); 'Update your guest count before Thu 7 Jan 2027'. Bookings card shows 'Aurelia Gulf Hotel · Confirmed · balance due Thu 31 Dec'. Tools row: 'Checklist 11%', 'Budget: KD 41,800 remaining', 'Saved 5', 'Services'. Pending variant shows 'Waiting for Aurelia Gulf Hotel, reply expected by Fri 13 Nov, 12:40 PM'; awaiting-deposit shows 'Pay KD 5,460.000 by Fri 13 Nov, 4:00 PM'. Post-event: countdown resolves into a completed state with 'How was Aurelia Gulf Hotel?' that opens the review composer (CL-RVRW-02). Guest teaser shows the structure with sample values and 'Sign in to save'. No tab-bar reordering; the countdown never gets its own screen. Voucher model (ADR 0033): Next up and card copy: approved «أكدوا حجزكم قبل الجمعة 13 نوفمبر، 4:00 م» / \"Confirm your booking by Fri 13 Nov, 4:00 PM\"; confirmed «فندق أوريليا الخليج · مؤكد · أظهروا الكوبون عند القاعة» / \"Aurelia Gulf Hotel · Confirmed · show your voucher at the venue\". The \"Pay the balance\" and \"Pay KD 5,460\" lines above are superseded.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BKNG-01",
+        "CL-BKNG-02",
+        "CL-WEDD-02",
+        "CL-WEDD-03",
+        "CL-SAVD-01",
+        "CL-SERV-01",
+        "CL-PLAN-01",
+        "CL-PLAN-03",
+        "CL-PROF-02",
+        "CL-RVRW-02",
+        "CL-MSGS-04",
+        "CL-DISC-02",
+        "CL-AUTH-01",
+        "CL-VCHR-02",
+        "CL-VIST-04"
+      ]
+    },
+    {
+      "id": "CL-WEDD-02",
+      "slug": "checklist",
+      "title": {
+        "en": "Checklist",
+        "ar": "قائمة المهام"
+      },
+      "kind": "screen",
+      "purpose": "Rules-based checklist with the PRD defaults, due dates derived from the wedding date, custom items, a completion percentage and deep links into Services. The Venue item completes automatically when a booking is confirmed.",
+      "requirementIds": [
+        "CA-TOOL-12",
+        "CA-TOOL-13",
+        "CA-TOOL-14",
+        "CA-TOOL-15",
+        "CA-TOOL-16",
+        "CA-AUTH-10"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty-no-date",
+        "all-complete",
+        "guest-sample",
+        "offline-read-only",
+        "error"
+      ],
+      "interactions": [
+        "Header progress '1 of 9 · 11%' with the thread filling; rows grouped by countdown band (more than 6 months, 1 to 6 months, final month, final week) and a Completed group",
+        "Row: 44px check target, title, due chip, and a deep link such as 'Browse photographers' that opens the Services category (CL-SERV-02); the Venue row links to the booking",
+        "Completion: a 160 ms check draw, then the row moves to Completed after about 600 ms with an Undo snackbar; no confetti; completing everything shows one understated line",
+        "Add item opens a sheet (title, optional due date, category); edit and delete through a long-press menu or the row's edit control, never swipe",
+        "While a booking is only approved, the Venue row shows 'In progress'; it completes at confirmed",
+        "A guest sees the sample list and is asked to sign in at the first change (CL-AUTH-01)"
+      ],
+      "contentNotes": "Default items (PRD): invitation, dress, venue, photographer, cake, music, flowers, transportation, with due dates for Thu 14 Jan 2027: Venue done (auto), Photographer 'Due Sun 15 Nov', Dress 'Due Thu 19 Nov', Invitations, Cake and Music 'Due Thu 3 Dec', Flowers 'Due Thu 17 Dec', Transportation 'Due Thu 24 Dec'; one custom item «طلب البخور» / 'Order bukhoor'. Dates are short form without year for the current year. Extra Kuwait presets (contract date, henna night, zaffa, favours) are not designed until the owner approves them. Empty (no date): 'Add your wedding date to see due dates' with a Set date action (CL-DISC-02). Smart or AI checklists are Phase 3 and absent. Offline shows the list read-only with a stamp. Tab bar visible.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-SERV-02",
+        "CL-BKNG-02",
+        "CL-WEDD-01",
+        "CL-AUTH-01",
+        "CL-DISC-02"
+      ]
+    },
+    {
+      "id": "CL-WEDD-03",
+      "slug": "budget",
+      "title": {
+        "en": "Budget",
+        "ar": "الميزانية"
+      },
+      "kind": "screen",
+      "purpose": "Budget manager built around committed versus paid versus remaining. A hero figure, one segmented bar, ranked category rows with meters, automatic rows from Ghazal bookings and payments, manual expenses and calm alerts at 80% and 100%.",
+      "requirementIds": [
+        "CA-TOOL-05",
+        "CA-TOOL-06",
+        "CA-TOOL-07",
+        "CA-TOOL-08",
+        "CA-TOOL-09",
+        "CA-TOOL-11",
+        "CA-ONB-04",
+        "CA-AUTH-10"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty-no-budget",
+        "alert-80",
+        "over-budget",
+        "guest-sample",
+        "offline-read-only",
+        "error"
+      ],
+      "interactions": [
+        "Hero: 'Remaining KD 41,800' (whole dinars when fils are zero); over budget reads 'Over by KD 420' with an icon and text",
+        "One horizontal segmented bar: Paid (ink), Committed (gold, booked but unpaid), Remaining (rose-tint track), with a legend that always shows the values",
+        "Category rows ranked by spend: name, '1,200 / 1,500', a 6px meter; at 80% a calm gold-ink alert, at 100% a functional danger state with icon and text ('KD 120 over')",
+        "'Add expense' opens CL-WEDD-04; 'Edit budget' opens CL-WEDD-05; an 'Add to budget' shortcut exists on vendor profiles",
+        "Guest sees a sample and 'Sign in to save' at the first write",
+        "A confirmed booking posts one linked, read-only row at its voucher price as Committed (the client pays the venue directly, and can mark it \"Paid to the venue\" manually); the KD 2 voucher posts as a Paid row in \"Venue and catering\"; tapping a linked row opens Booking detail"
+      ],
+      "contentNotes": "Demo numbers: total wedding budget KD 60,000; paid KD 5,460 (Aurelia deposit); committed KD 12,740 (balance due Thu 31 Dec 2026); remaining KD 41,800. Categories and allocations (venue and catering are merged because Kuwaiti packages price them per guest together): Venue and catering 18,200 / 32,000 (57%, auto-linked); Photography and video 0 / 4,000; Flowers and decoration 0 / 6,000; Attire (dress and suit) 0 / 7,000; Makeup and henna 0 / 2,500; Cars 0 / 1,500; Invitations 0 / 1,000; Music 0 / 3,000; Honeymoon 0 / 3,000. The onboarding budget is the venue-and-catering band (KD 20,000 – 35,000); the total wedding budget is asked here, so the two are never confused. Alert example: Flowers and decoration at 82%. Amounts follow browse precision (18,200, never 18.2). Rules-based only; AI budget optimisation is Phase 3 (CA-REC-04, parked). Hijri and Eastern digits follow the shared formatter. Tab bar visible. Voucher model (ADR 0033): demo numbers become: paid KD 2 (voucher); committed KD 15,400 (voucher price payable to Aurelia Gulf Hotel); the deposit and balance figures above are superseded. Ghazal does not know when the client pays the venue, so \"Paid\" for the venue row is a manual toggle.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-WEDD-04",
+        "CL-WEDD-05",
+        "CL-BKNG-02",
+        "CL-SERV-01",
+        "CL-AUTH-01",
+        "CL-WEDD-01"
+      ]
+    },
+    {
+      "id": "CL-WEDD-04",
+      "slug": "add-expense",
+      "title": {
+        "en": "Add expense",
+        "ar": "إضافة مصروف"
+      },
+      "kind": "sheet",
+      "purpose": "Record a purchase made outside Ghazal, or a planned one, against a category. Also the edit and delete sheet for manual expenses; automatic rows are read-only.",
+      "requirementIds": [
+        "CA-TOOL-10",
+        "CA-TOOL-11"
+      ],
+      "states": [
+        "default",
+        "validation-error",
+        "saving",
+        "edit",
+        "delete-confirm",
+        "success",
+        "guest-gate",
+        "offline-disabled"
+      ],
+      "interactions": [
+        "Amount field with numeric keypad (accepts Eastern-Arabic digits and normalises), category picker, label, date, and a Paid | Planned toggle",
+        "Save closes the sheet and animates the new row into the budget with an Undo snackbar",
+        "Edit and Delete for manual rows; automatic rows explain 'Added automatically from your booking'",
+        "A guest is sent to the sign-in sheet at Save and returns with the typed values intact"
+      ],
+      "contentNotes": "Example entry: «فنانة حناء» / 'Henna artist deposit', Makeup and henna, KD 80.000, Paid, Sun 8 Nov 2026. Amounts accept up to three decimals; labels use dir=auto. Validation is blameless: 'Enter an amount to save'. Vendor profiles pre-fill the category and a suggested amount when 'Add to budget' is used. Tab bar hidden while the sheet is open. Voucher model (ADR 0033): automatic rows read «أُضيف تلقائيًا من حجزكم» / \"Added automatically from your booking\" for the voucher (KD 2, paid) and the venue price (committed).",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-WEDD-03",
+        "CL-AUTH-01"
+      ]
+    },
+    {
+      "id": "CL-WEDD-05",
+      "slug": "budget-setup",
+      "title": {
+        "en": "Set budget",
+        "ar": "تحديد الميزانية"
+      },
+      "kind": "sheet",
+      "purpose": "Set or edit the total wedding budget (asked here; onboarding only gives the venue and catering band, which appears as a reference on that category) and allocate it across categories; shows the unallocated remainder and explains the alerts.",
+      "requirementIds": [
+        "CA-TOOL-05",
+        "CA-TOOL-08",
+        "CA-TOOL-09",
+        "CA-ONB-04"
+      ],
+      "states": [
+        "default",
+        "over-allocated",
+        "saving",
+        "error",
+        "offline-disabled"
+      ],
+      "interactions": [
+        "Total budget field (KD) with presets as suggestions (KD 40,000, 60,000, 80,000), not derived from the Brief; category rows with steppers; a live 'Unallocated KD 0' line",
+        "Over-allocation shows a calm warning and still allows saving",
+        "Info row: 'We will let you know at 80% and 100% of a category or the total'",
+        "Save returns to Budget with the bar re-drawn once"
+      ],
+      "contentNotes": "Demo: total KD 60,000 against allocations summing to KD 60,000 (32,000 + 4,000 + 6,000 + 7,000 + 2,500 + 1,500 + 1,000 + 3,000 + 3,000). Venue and catering is prefilled inside the onboarding band (KD 20,000 – 35,000). Alerts are delivered in-app and by push (CA-NOTI-08 family) and are rules-based. Tab bar hidden.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-WEDD-03"
+      ]
+    }
+  ]
+}

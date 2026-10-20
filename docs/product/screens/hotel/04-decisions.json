@@ -1,0 +1,204 @@
+{
+  "id": "decisions",
+  "order": 4,
+  "title": {
+    "en": "Accept, decline and change",
+    "ar": "القبول والاعتذار والتعديل"
+  },
+  "intent": "The five decisions a venue makes on a booking, designed as fast, reversible and honest about consequences (ADR 0008 D6-D7, ADR 0006 D10). Accept is two taps with an 8-second Undo; Decline needs a reason that powers the client's recovery path; Propose another date is the preferred alternative to declining; Cancel on a confirmed booking shows the money consequence before the final tap; Record cash closes the balance for cash-friendly venues. All five are sheets over Today, Bookings, Booking detail or the thread. None is ever queued offline.",
+  "screens": [
+    {
+      "id": "HL-DCSN-01",
+      "slug": "accept",
+      "title": {
+        "en": "Accept request",
+        "ar": "قبول الطلب"
+      },
+      "kind": "sheet",
+      "purpose": "Approve a pending request in two taps. The server applies the approval at once and creates the hold; an 8-second Undo window delays the client's push and WhatsApp. A compact confirm sheet appears only when approving has side effects the manager must see.",
+      "requirementIds": [
+        "HA-BOOK-03",
+        "HA-DASH-03",
+        "HA-DASH-04",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "confirm-sheet",
+        "loading",
+        "success",
+        "undo",
+        "conflict",
+        "offline",
+        "error",
+        "already-updated",
+        "voucher-released-elsewhere"
+      ],
+      "interactions": [
+        "Inline path (the usual one): tap Accept on a triage card or the Booking detail bar; the button resolves to 'Accepted' and a toast reads 'Accepted - Undo' with an 8-second depleting bar and a success haptic",
+        "Undo returns the booking to Pending and releases the hold; if the app is killed inside the window nothing is lost because dispatch to the client is server-side after 8 seconds",
+        "Conflict: the date became held for another couple; the inline state 'Date held for another couple' appears and Accept is disabled; with a lost race the sheet 'This booking was already updated' shows the current status and a single 'Refresh' action",
+        "Confirm sheet path (3 taps): shown when competing requests exist or the event is within 14 days; it states the one fixed rule \"The client has 24 hours to confirm; the date is held until then\"; there are no pay-window chips",
+        "\"Approve at a lower voucher price\" is collapsed by default: a lower KD amount only (never higher than the quoted voucher price); the sheet shows the new voucher total and the new saving",
+        "Accept is never blocked by payout verification; while offline it is disabled in place with \"Offline. Reconnect to accept.\""
+      ],
+      "contentNotes": "Demo: Reem Al-Dosari, Thu 14 Jan 2027, Danah Ballroom, 350 guests, KD 18,200.000, no competing request in the base seed (so Accept is 2 taps; the 3-tap sheet below is the variant the prototype shows with the flag `simulateCompeting`, or for an event within 14 days or a non-default pay window). Sheet title «قبول طلب ريم الدوسري» / 'Accept Reem Al-Dosari's request'. Consequence line: «هذا يحجز الخميس 14 يناير لريم لمدة 24 ساعة.» / 'This holds Thu 14 Jan for Reem for 24h.', and in the competing variant «سينتظر طلب واحد آخر.» / '1 other request will wait.' (the Arabic string needs ICU forms for 0, 1, 2, few, many and other waiting requests). Money lines in exact three decimals: deposit KD 5,460.000 (30%), balance KD 12,740.000 due Thu 31 Dec 2026. The client will see an absolute pay-by time: 'Approved. Pay the deposit by Fri 13 Nov, 4:00 PM.' Toast text «تم القبول · تراجع» / 'Accepted - Undo'. Discount example: KD 400.000 off, new total KD 17,800.000, new deposit KD 5,340.000. Primary button is gold with a deep-ink label (48px); Cancel is a text button; one primary per sheet. Reception may accept unless an Admin has switched that off; Accountant and Marketing never see the control. Response time is recorded for the venue's response rate. Voucher model (ADR 0033): toast «تمت الموافقة · أمام العميل 24 ساعة للتأكيد» / \"Approved · the client has 24 hours to confirm\", with the 8 second Undo. The pay-window, deposit, bank and KYC text above is superseded.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-BOOK-03",
+        "HL-DCSN-03"
+      ]
+    },
+    {
+      "id": "HL-DCSN-02",
+      "slug": "decline",
+      "title": {
+        "en": "Decline request",
+        "ar": "الاعتذار عن الطلب"
+      },
+      "kind": "sheet",
+      "purpose": "Decline with a required reason in three taps. The reason is what lets the couple recover: the client sees a gentle category and three alternatives that are free on their date. The sheet hands off to 'Propose another date' by default because suggesting a nearby date is the most natural Kuwaiti reply.",
+      "requirementIds": [
+        "HA-BOOK-04",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "validation",
+        "loading",
+        "success",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Single-choice reason chips (required): Date unavailable, Capacity does not fit, Package not offered, Other; 'Other' reveals a note field that becomes required and is shown to the client",
+        "Toggle 'Suggest other dates' is on by default; when on the primary reads 'Next: choose dates' and opens Propose another date, when off it reads 'Decline request'",
+        "Confirming returns to the list with a toast 'Declined'; there is no Undo for a decline (Undo applies to Accept only)",
+        "Offline disables the primary in place with 'Offline. Reconnect to decline.'; Cancel closes the sheet without changes"
+      ],
+      "contentNotes": "Title «الاعتذار عن الطلب» / 'Decline request'; subtitle shows who and what: «ريم الدوسري · الخميس 14 يناير» / 'Reem Al-Dosari - Thu 14 Jan'. Reason chips AR: «التاريخ غير متاح» «السعة لا تناسب» «الباقة غير متوفرة» «سبب آخر». Helper under the toggle: «سيظهر للعميل اعتذار لطيف مع قاعات متاحة في التاريخ نفسه.» / 'The couple will see a gentle message and venues that are free on the same date.' The alternatives are system-generated from venues that are free on the same date. The primary button is Ink (not red and not gold) because decline is a normal business action; labels are 'اعتذار عن الطلب' / 'Decline request'. Tab bar is covered by the sheet; the handle is centred and the sheet drags vertically only. Voucher model (ADR 0033): helper under the toggle adds «سيعود كوبون العميل إليه» / \"The client's voucher goes back to them.\" A decline never has a payment consequence.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-DCSN-03",
+        "HL-BOOK-01",
+        "HL-BOOK-02"
+      ]
+    },
+    {
+      "id": "HL-DCSN-03",
+      "slug": "propose-date",
+      "title": {
+        "en": "Propose another date",
+        "ar": "اقتراح موعد آخر"
+      },
+      "kind": "sheet",
+      "purpose": "Offer the couple one to three other dates for the same hall and session, instead of declining a request or when the venue itself needs to move a confirmed booking. One component serves both: a counter-offer on a Pending request (the client has 48 hours) and a venue-initiated reschedule of a confirmed booking (72 hours, Admin and Manager only).",
+      "requirementIds": [
+        "HA-BOOK-04",
+        "HA-CAL-09",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "no-open-dates",
+        "loading",
+        "selected",
+        "success",
+        "error",
+        "offline",
+        "date-taken",
+        "role-limited"
+      ],
+      "interactions": [
+        "A compact custom month calendar (Sunday-first, no native picker) showing only the hall's free dates for the same session; busy dates are struck through; pick one to three dates with a selection tick haptic",
+        "Each picked date lists its re-quoted price and the difference from the original; if a date falls in a higher price tier a switch 'Keep the original price' appears (always on for a venue-initiated reschedule of a confirmed booking)",
+        "Optional price note (one line, dir=auto) and an optional hall switcher only when the venue has more than one suitable hall",
+        "Primary 'Send proposal' creates the counter-offer card; the original request stays Pending with a 'Counter-offer sent' overlay, and the venue sees 'Awaiting Reem - answer due Sat 14 Nov, 4:00 PM'",
+        "If a picked date is taken while the sheet is open, that chip turns into an inline 'Date taken' state and the primary stays disabled until it is replaced",
+        "Counter-offer only: the original request stays Pending with a \"Counter-offer sent\" overlay; if the client accepts, the request becomes Approved with a new 24 hour confirm window; a higher-tier date holds the voucher price (the venue absorbs it) and says so"
+      ],
+      "contentNotes": "Counter-offer demo for Reem Al-Dosari (Danah Ballroom, evening 9:00 PM - 2:00 AM, ladies, 350 guests, original Thu 14 Jan KD 18,200.000): Thu 7 Jan 2027 KD 18,200.000 (same tier, no change), Sun 10 Jan KD 16,100.000 (weekday tier, 350 x 46, lower by KD 2,100.000), Wed 13 Jan KD 16,100.000, Thu 21 Jan KD 18,200.000. Price-hold example: Dana Al-Shammari asked for Sun 17 Jan (250 x 46 = KD 11,500.000); proposing Thu 21 Jan re-quotes KD 13,000.000 (250 x 52) and the venue can keep KD 11,500.000. After sending: toast «تم إرسال الاقتراح. أمام ريم حتى السبت 14 نوفمبر 4:00 م للرد.» / 'Proposal sent. Reem has until Sat 14 Nov, 4:00 PM to reply.' The client sees one card, 'Venue proposed another date', for both counter-offers and reschedules; weekday and date are always absolute, never 'next Thursday'. Empty state: «لا توجد تواريخ متاحة خلال 90 يومًا لهذه القاعة.» / 'No free dates in the next 90 days for this hall.' with a link to the calendar. Hijri is not shown in this sheet. Voucher model (ADR 0033): \"Reschedule mode (confirmed booking)\" is superseded; changing a confirmed booking is agreed in chat and, if the date moves, the client may need a new request (A-05).",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-BOOK-03",
+        "HL-BOOK-01",
+        "HL-CALN-01"
+      ]
+    },
+    {
+      "id": "HL-DCSN-04",
+      "slug": "cancel-booking",
+      "title": {
+        "en": "Cancel booking",
+        "ar": "إلغاء الحجز"
+      },
+      "kind": "sheet",
+      "purpose": "Cancel a confirmed booking with the consequence shown first. Venue-caused cancellations refund the client in full and carry costs for the venue; cancelling for non-payment follows the client's policy. Admin and Manager only. A softer alternative, proposing another date, is offered before the destructive path.",
+      "requirementIds": [
+        "HA-BOOK-10",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "validation",
+        "loading",
+        "success",
+        "error",
+        "offline",
+        "role-hidden"
+      ],
+      "interactions": [
+        "Primary 'Cancel booking' is a danger-outline button; a final confirmation dialog repeats the booking, the refund amount and has Back and Cancel booking",
+        "Offline disables the primary in place; Reception never sees the control; refund issuing and goodwill refunds are web-only",
+        "Consequence panel: \"Lulwa's voucher goes back to her and she can refund it or use it again; a reliability strike is recorded\"; no refund amount and no gateway-fee line",
+        "Reason chips (required): Hall unavailable, Safety or maintenance, Other (note required); \"Balance not paid\" is removed with balances"
+      ],
+      "contentNotes": "Venue-caused demo: لولوة الصالح / Lulwa Al-Saleh, Sat 12 Dec 2026, deposit KD 5,305.000 paid. Panel: «ستسترد لولوة 5,305.000 د.ك (100%). تتحمل القاعة رسوم بوابة الدفع. سيتم تسجيل مؤشر موثوقية.» / 'Lulwa will get back KD 5,305.000 (100%). The venue bears the gateway fee. A reliability strike is recorded.' Gateway fee amount comes from the payment record (placeholder KD 26.525); strike and fee rules are owner-set (OQ-B-18) so the numbers are placeholders. Support offers the couple rebooking help. Balance-default demo: منيرة الخالد / Munira Al-Khaled, Sat 21 Nov 2026, total KD 17,160.000, deposit KD 5,150.000 paid, balance KD 12,010.000 overdue 5 days: under the Standard policy 75% of the total applies at 7-14 days, which exceeds the amount paid, so the deposit is kept and the refund is KD 0.000; no strike. Dialog copy: «إلغاء هذا الحجز؟» / 'Cancel this booking?'. Success toast and the Booking detail change to Cancelled by venue; the date reopens in the calendar and Booking detail shows 'Date is free again. Create an offer?'. Exact three decimals everywhere on this sheet. Voucher model (ADR 0033): panel copy «سيعود كوبون لولوة إليها ويمكنها استرداده أو استخدامه مجددًا. سيُسجَّل مؤشر موثوقية.» / \"Lulwa's voucher goes back to her; she can refund it or use it again. A reliability strike is recorded.\" Superseded: 100% refund amount, gateway fees borne by the venue, balance-default cancel.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-BOOK-03",
+        "HL-DCSN-03",
+        "HL-GROW-02"
+      ]
+    },
+    {
+      "id": "HL-DCSN-05",
+      "slug": "record-cash",
+      "title": {
+        "en": "Record cash received",
+        "ar": "تسجيل مبلغ نقدي مستلم"
+      },
+      "kind": "sheet",
+      "purpose": "For venues that accept cash on the balance: record what was received at the venue so the booking shows the true balance. The deposit is never cash. The client acknowledges with one tap; a mismatch opens a support case. Ghazal does not collect or enforce cash.",
+      "requirementIds": [
+        "HA-BOOK-09",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "validation",
+        "loading",
+        "success",
+        "awaiting-acknowledgement",
+        "mismatch",
+        "error",
+        "offline",
+        "cash-off"
+      ],
+      "interactions": [
+        "Amount field in exact three decimals (numeric keypad, Eastern digits normalised) prefilled with the balance due; partial amounts are allowed, an amount above the balance is rejected inline",
+        "Received on: today by default, adjustable to an earlier day with the custom date sheet; optional one-line note",
+        "Primary 'Record KD 12,375.000'; success shows the new balance and the state 'Waiting for Lulwa to acknowledge'",
+        "Roles: Admin, Manager, Reception and Accountant may record; the control is hidden for Marketing; when the venue has not enabled cash in Booking rules the row is hidden for staff and explained to Admin as 'Cash is off in Booking rules'",
+        "A mismatch reported by the client turns the booking row into 'Cash disputed' and links to Support"
+      ],
+      "contentNotes": "Demo: Lulwa Al-Saleh, Sat 12 Dec 2026, balance KD 12,375.000 due Sat 28 Nov; the staff member records the full amount received at the front desk on Tue 24 Nov. Title «تسجيل مبلغ نقدي مستلم» / 'Record cash received'. Helper: «يمكن تسجيل النقد للمبلغ المتبقي فقط. العربون يُدفع إلكترونيًا.» / 'Cash can be recorded for the balance only. The deposit is paid online.' After success the Booking Thread gains a 'Balance - cash recorded' node with the absolute time and the staff member's name; the ledger shows 'Cash recorded' with a plus sign and no commission effect unless the commission rule says otherwise. Copy never uses urgency or religious phrases. Amount, date and name are written to the audit trail.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-BOOK-03"
+      ],
+      "deprecated": true,
+      "deprecatedReason": "Superseded by ADR 0033: no cash or any event payment is recorded in the app; the client pays the venue directly off-app (CA-PAY-06 superseded)."
+    }
+  ]
+}

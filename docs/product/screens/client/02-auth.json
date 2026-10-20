@@ -1,0 +1,201 @@
+{
+  "id": "auth",
+  "order": 2,
+  "title": {
+    "en": "Sign in and account",
+    "ar": "تسجيل الدخول والحساب"
+  },
+  "intent": "One identity entry, phone-first and WhatsApp-native, used both as the reusable guest-gate sheet and as the plain sign-in. It never loses a draft: after authentication the exact screen, selections and scroll are restored (ADR 0007 D9). Password, biometric unlock and password recovery are tertiary paths.",
+  "screens": [
+    {
+      "id": "CL-AUTH-01",
+      "slug": "sign-in-sheet",
+      "title": {
+        "en": "Sign in or continue",
+        "ar": "تسجيل الدخول أو المتابعة"
+      },
+      "kind": "sheet",
+      "purpose": "The single identity entry (no separate Sign up and Login) and the reusable guest-gate sheet. A context line says why the account is needed; after auth the interrupted intent resumes exactly.",
+      "requirementIds": [
+        "CA-AUTH-03",
+        "CA-AUTH-04",
+        "CA-AUTH-05",
+        "CA-AUTH-09",
+        "CA-AUTH-10",
+        "CA-VCH-04",
+        "CA-AUTH-12"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error-invalid-number",
+        "error-not-on-whatsapp",
+        "offline",
+        "resume"
+      ],
+      "interactions": [
+        "Compound phone field: fixed non-interactive +965 chip plus eight digits, numeric keypad, LTR in both languages, loose shape check; primary gold button 'Continue with WhatsApp' / «المتابعة عبر واتساب» sends the code",
+        "Secondary buttons: 'Continue with Apple' (iOS only) and 'Continue with Google'; tertiary text link 'Use a password' / «استخدام كلمة المرور»",
+        "Context line variants by trigger: to send your request, to pay, to send a message, to write a review, to request a consultation, to request a quote, to see your rewards, to keep your shortlist on every device",
+        "On success the sheet closes and resumes the stored guest intent (route, step, selections, scroll position); a verified phone is mandatory before the first request, payment or message",
+        "Sign-up nudge: appears once after the third heart, with the context 'Keep your shortlist on every device' / «حفظ المفضلة على كل أجهزتكم»; Not now dismisses it for good",
+        "Voucher-era context lines for the gate: \"to get your voucher\", \"to send your request\", \"to book a visit\"; after sign-in the exact quote, scroll and selected package are restored (ADR 0007 D8)",
+        "A quiet footer line \"Hotel or service provider? Use the Ghazal Partner app\" explains that this sheet creates a Client account only (CA-AUTH-12); there is no account-type chooser in the client app"
+      ],
+      "contentNotes": "Title «تسجيل الدخول أو المتابعة» / 'Sign in or continue'. Small print under the buttons links Terms and Privacy (acceptance happens at account creation in CL-AUTH-03). Phone display uses the formatter: +965 5000 0012 inside an LTR isolate, never a tappable tel: link in the prototype. Error copy is calm and blameless: «تحققوا من الرقم: يجب أن يتكون من 8 أرقام» / 'Check the number: it needs 8 digits'; not on WhatsApp: 'We could not send a code to this number on WhatsApp' with Apple, Google and Support offered (there is no SMS fallback, ADR 0028). Apple private-relay email handled silently. If the signed-in identity already holds a different Brief, the Brief merge sheet (CL-DISC-02, merge variant) appears after resume. Guests keep hearts, Compare set and the Brief on the device until merge (ADR 0007 D10).",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-AUTH-02",
+        "CL-AUTH-03",
+        "CL-AUTH-04",
+        "CL-AUTH-05",
+        "CL-DISC-02"
+      ]
+    },
+    {
+      "id": "CL-AUTH-02",
+      "slug": "whatsapp-otp",
+      "title": {
+        "en": "WhatsApp code",
+        "ar": "رمز التحقق عبر واتساب"
+      },
+      "kind": "screen",
+      "purpose": "Verify the phone with a six-digit code delivered over WhatsApp. Also reused inline in the booking Details step and for password reset and phone change.",
+      "requirementIds": [
+        "CA-AUTH-05",
+        "CA-AUTH-06"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "wrong-code",
+        "expired-code",
+        "resend-cooldown",
+        "locked",
+        "delivery-failed",
+        "offline",
+        "success"
+      ],
+      "interactions": [
+        "Six boxes in LTR order in both languages (digit 1 at the left), paste and one-time-code autofill, Eastern digits normalised on paste",
+        "Resend after a 60-second countdown; 'Open WhatsApp' link; 'Change number' returns to the sheet",
+        "Five attempts, then a temporary lock state; code lives 5 minutes",
+        "Delivery-failed state offers resend, Apple, Google and Support (no SMS fallback)",
+        "Success draws the check once (success haptic) and continues: new account to name and terms, existing account straight to the resumed intent"
+      ],
+      "contentNotes": "Heading is a noun phrase, not an imperative: «رمز التحقق المرسل إلى +965 5000 0012» / 'Code sent to +965 5000 0012' with the number in an LTR isolate. Wrong code, passive and calm: «الرمز غير صحيح، يمكنكم المحاولة مرة أخرى» / 'That code is not right. You can try again'. Expired: 'This code has expired. A new one is on its way when you tap Resend'. Locked: 'Too many attempts. Please try again later or contact Support'. In the booking flow the same component appears as a sheet titled 'Verify your number to send the request' without leaving the step. Store-review demo account is a production flag, never visible in the UI.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-AUTH-03",
+        "CL-AUTH-05",
+        "CL-DISC-02",
+        "CL-AUTH-01"
+      ]
+    },
+    {
+      "id": "CL-AUTH-03",
+      "slug": "name-terms",
+      "title": {
+        "en": "Name and terms",
+        "ar": "الاسم والموافقة على الشروط"
+      },
+      "kind": "screen",
+      "purpose": "Final step for a brand-new account: confirm the name and accept the Terms of Use and Privacy Policy. Onboarding answers held on the device attach to the account here.",
+      "requirementIds": [
+        "CA-AUTH-11",
+        "CA-ONB-08"
+      ],
+      "states": [
+        "default",
+        "error-terms-unchecked",
+        "error-name-required",
+        "loading",
+        "success"
+      ],
+      "interactions": [
+        "Full name field (dir=auto, prefilled from onboarding when present) and optional email field (LTR, email keyboard)",
+        "Checkbox 'I accept the Terms of Use and Privacy Policy' with two links that open the legal pages in-app; required before Create account",
+        "Primary 'Continue' / «متابعة» creates the account, attaches the local Brief, hearts and Compare set, then resumes the intent",
+        "Live monogram preview in the first letter of the name"
+      ],
+      "contentNotes": "Legal texts are supplied by the owner and served from the Super Admin CMS; placeholder headings only in the prototype. Name example «ريم الدوسري», email optional 'reem@example.com'. Acceptance is logged once per account. The Arabic checkbox label is a statement of acceptance, not an imperative: «أوافق على شروط الاستخدام وسياسة الخصوصية». Tab bar hidden. Voucher model (ADR 0033): the terms link now lists the platform terms and the voucher terms in one reader; the voucher terms say in plain words that the KD 2 is paid to Ghazal, that the event price is paid to the venue directly, and when a voucher is reusable or refundable.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-AUTH-05",
+        "CL-DISC-02"
+      ]
+    },
+    {
+      "id": "CL-AUTH-04",
+      "slug": "password",
+      "title": {
+        "en": "Password",
+        "ar": "كلمة المرور"
+      },
+      "kind": "screen",
+      "purpose": "Tertiary path for people who prefer a password: sign in, create a password account, and recover a forgotten password, as modes of one screen.",
+      "requirementIds": [
+        "CA-AUTH-01",
+        "CA-AUTH-02",
+        "CA-AUTH-07"
+      ],
+      "states": [
+        "sign-in",
+        "create-account",
+        "forgot-request",
+        "forgot-sent",
+        "reset",
+        "error-invalid-credentials",
+        "locked",
+        "loading",
+        "offline",
+        "success"
+      ],
+      "interactions": [
+        "Sign in: identifier (Kuwait mobile with the fixed +965 chip; no email sign-in) and password with show/hide; 'Forgot password?' link",
+        "Create account: verified mobile number first through the WhatsApp code, then a new password with live strength and rules; the account is created once the number is verified",
+        "Forgot password: request a WhatsApp code to the verified number (email link only where a verified email exists), enter the code, then set a new password",
+        "Mode switch link at the bottom: 'New here? Create an account' / «حساب جديد» and 'Back to WhatsApp sign-in'"
+      ],
+      "contentNotes": "Identifier rule: The Kuwait mobile number behind the fixed non-interactive +965 chip is the only identifier, as in CL-AUTH-01; no other country codes in the MVP (a foreign number signs in with Apple or Google, OQ-L-14); email is optional and never an identifier (ADR 0012 D1, ADR 0028). Passwords are never shown in analytics or logs. Error copy is blameless: «بيانات الدخول غير صحيحة» / 'Those details do not match an account'. Locked state names the wait, not the cause. Reset success returns to sign-in with the identifier prefilled.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-AUTH-02",
+        "CL-AUTH-03",
+        "CL-AUTH-05"
+      ]
+    },
+    {
+      "id": "CL-AUTH-05",
+      "slug": "biometric",
+      "title": {
+        "en": "Biometric unlock",
+        "ar": "الفتح بالبصمة أو الوجه"
+      },
+      "kind": "screen",
+      "purpose": "Optional app lock: a pre-prompt sheet after the first sign-in and the unlock screen shown on launch to returning users. Biometrics unlock a stored session; they never replace first login.",
+      "requirementIds": [
+        "CA-AUTH-08"
+      ],
+      "states": [
+        "pre-prompt",
+        "unlock",
+        "failed-fallback",
+        "unavailable",
+        "enabled"
+      ],
+      "interactions": [
+        "Pre-prompt sheet: 'Unlock Ghazal with Face ID' (wording follows the platform: Face ID, Touch ID or fingerprint) with Turn on and Not now",
+        "Unlock screen: monogram, name and a single 'Unlock' button; the system prompt opens automatically once",
+        "After a failed attempt the fallback is the WhatsApp code or password; three failures never lock the account, only the shortcut",
+        "The same toggle lives in Settings (CL-PROF-05)"
+      ],
+      "contentNotes": "Unlock screen shows monogram «ر», 'Reem Al-Dosari' and the quiet line 'Unlock to continue' / «الفتح للمتابعة». Never a security-theatre lock icon larger than the monogram. Face ID usage description is localised in Info.plist strings. Unavailable state (no biometrics enrolled) hides the pre-prompt entirely and shows a disabled Settings row with the reason.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-DISC-01",
+        "CL-PROF-05"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,383 @@
+{
+  "id": "discover",
+  "order": 3,
+  "title": {
+    "en": "Discover: Home, Brief and results",
+    "ar": "استكشاف القاعات"
+  },
+  "intent": "The Discover tab. The Brief (date, guests, area, budget) is global context: it prefills the hero card on Home, sits as an editable pill on Results, and makes every card date-aware and guest-aware ('KD 18,200 for 350 guests', 'Available Thu 14 Jan'). Home is image-led and shelf-based; Results is a list with a map alternative and a single filters sheet. A guest sees all of it without an account (ADR 0007 D8).",
+  "screens": [
+    {
+      "id": "CL-DISC-01",
+      "slug": "home",
+      "title": {
+        "en": "Home",
+        "ar": "الرئيسية"
+      },
+      "kind": "tab-root",
+      "purpose": "Root of the Discover tab and the default launch tab until a booking needs attention. A hero 'brief card' (editable summary of the Brief), one urgency-ranked status card, six category tiles, then Brief-aware shelves. Shelves load independently to meet the 2-second budget.",
+      "requirementIds": [
+        "CA-HOME-01",
+        "CA-HOME-02",
+        "CA-HOME-03",
+        "CA-HOME-04",
+        "CA-HOME-05",
+        "CA-HOME-06",
+        "CA-HOME-07",
+        "CA-HOME-08",
+        "CA-HOME-09",
+        "CA-HOME-10",
+        "CA-HOME-11",
+        "CA-HOME-12",
+        "CA-HOME-13",
+        "CA-HOME-14",
+        "CA-HOME-15",
+        "CA-HOME-16",
+        "CA-ONB-08",
+        "CA-VCH-02",
+        "CA-VCH-12",
+        "CA-FLT-06",
+        "CA-SVC-13"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "guest",
+        "status-card-variants"
+      ],
+      "interactions": [
+        "Hero brief card: each of the four rows (Date, Area and Guests side by side, Budget) is a button that opens the Brief sheet on that row (CL-DISC-02); no free-text field on the hero",
+        "Gold 52px CTA with live count: 'Show 3 halls' / «عرض 3 قاعات»; with no network or no count yet 'Show halls' / «عرض القاعات»; opens Results with the Brief as removable chips (CL-DISC-03)",
+        "Six 4:5 category tiles (Luxury Hotels, Wedding Halls, Government Halls, Beach Venues, Outdoor Venues, VIP Venues) open Results with that category preset; no coloured chips",
+        "Rail cards snap to 72% viewport width so the next card peeks at inline-end; heart, compare toggle and card tap behave as on Results; every shelf header has 'See all' that opens Results with the equivalent filters",
+        "Venues | Services switch under the header: Services opens the Services hub (CL-SERV-01); notification bell (dot when unread) opens CL-MSGS-04; a 'Your shortlist' module appears once something is saved and opens Saved or the Compare table",
+        "Third heart as a guest raises the once-only sign-up nudge sheet (CL-AUTH-01); the Compare tray (CL-SAVD-02) is shown here after the first add",
+        "Status card (one at a time, by urgency): no date > \"Set your date\"; Brief set > \"3 halls free on Thu 14 Jan\"; voucher ready and no request yet > \"Send your request at the voucher price\"; Pending > \"Waiting for Aurelia Gulf Hotel, reply expected by Fri 13 Nov, 12:40 PM\"; Approved > \"Confirm by Fri 13 Nov, 4:00 PM\" (opens CL-BKNG-02, the Confirm booking action); Confirmed > \"Show your voucher code at the venue\" (opens CL-VCHR-03); a booked visit within 24 hours > \"Your visit to Aurelia Gulf Hotel is tomorrow\" (opens CL-VIST-03)",
+        "Shelves: the old Special Offers shelf becomes \"Voucher prices\" (venues whose voucher saving beats the KD 2 fee, ordered by saving) and Last-Minute Deals is removed (venue offers and flash sales no longer exist, ADR 0033 D4); Available This Week, Trending, Nearby and Recommended stay; every card carries the voucher price with the standard price beneath",
+        "Venues | Services switch label becomes \"Venues | Additional services\"; the Services side opens the five primary categories first (CL-SERV-01)"
+      ],
+      "contentNotes": "Greeting at most once, no pronoun: «أهلاً وسهلاً، ريم» / 'Hello, Reem' (never 'welcome back'). Hero is a photograph of an empty ballroom with a kosha floral arch, no people. Brief card values for the demo persona: Date «الخميس 14 يناير 2027» / 'Thu 14 Jan 2027'; Area «السالمية، شرق» / 'Salmiya, Sharq'; Guests «350 ضيفًا» / '350 guests' (Ladies); Budget «من 20,000 إلى 35,000 د.ك» / 'KD 20,000 – 35,000' under the label «ميزانية القاعة والضيافة» / 'Venue and catering budget'. At 844px height a hint of the first shelf remains visible below the card. Shelf order: 1 'Free on Thu 14 Jan' (lead shelf, hidden without a date; e.g. Aurelia Gulf Hotel 'KD 18,200 for 350 guests', Lumi Marina Hotel 'KD 13,300 for 350 guests'); 2 Your shortlist (if any); 3 Featured (one large card, labelled «مميز» / Featured, plus «إعلان» / Sponsored on paid placements); 4 Special offers; 5 'Coming up' / «قريبًا» (free dates in the next 30 days with any offers, one shelf, hidden when empty; deliberately not called last-minute: that word is only the venue offer type at 14 days or less, ADR 0004 D4, OQ-P-16 resolved); 6 Recommended for you (rules-based on area, capacity, budget band and past views; no AI label); 7 Trending (ranking by saves and requests, wording flagged); 8 Nearby (device location when granted, otherwise the preferred area, with a 'Use my location' row that asks permission in context). Offer example: Qasr Al-Nakheel Ladies' reception on Thu 3 Dec at KD 28 per guest. Category names follow CF-15: PDF categories differ from Super Admin categories, so tiles render from CMS data. Empty state when no hall is free on the Brief date: calm line plus nearest free dates and a 'Widen the date' action. Tab bar visible. Every price goes through the shared formatter and states its basis.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-DISC-02",
+        "CL-DISC-03",
+        "CL-VENU-01",
+        "CL-VENU-06",
+        "CL-SAVD-01",
+        "CL-SAVD-02",
+        "CL-SAVD-04",
+        "CL-BKNG-02",
+        "CL-WEDD-01",
+        "CL-SERV-01",
+        "CL-MSGS-04",
+        "CL-AUTH-01",
+        "CL-VCHR-03",
+        "CL-VIST-03",
+        "CL-DISC-06",
+        "CL-DISC-07"
+      ]
+    },
+    {
+      "id": "CL-DISC-02",
+      "slug": "brief-sheet",
+      "title": {
+        "en": "Your Brief",
+        "ar": "تفاصيل زفافكم"
+      },
+      "kind": "sheet",
+      "purpose": "The single editor of the global Brief, opened from the Home hero card, the Results pill, Compare ('Set your date') and Saved. Changing a row updates price and availability on visible cards in place. Also hosts the one-time merge variant shown when a signed-in account already holds a different Brief.",
+      "requirementIds": [
+        "CA-HOME-02",
+        "CA-HOME-03",
+        "CA-HOME-04",
+        "CA-HOME-05",
+        "CA-HOME-06",
+        "CA-ONB-08",
+        "CA-ONB-09",
+        "CA-FLT-01"
+      ],
+      "states": [
+        "default",
+        "date-not-decided",
+        "flexible-month",
+        "merge-conflict",
+        "loading",
+        "offline"
+      ],
+      "interactions": [
+        "Four 64px rows open focused pickers inside the sheet: Date (single-date custom calendar, 'Not decided yet', 'Flexible month'; reuses CL-ONBD-04), Area (governorate-grouped multi-select with search; reuses CL-ONBD-06), Guests (preset chips plus stepper, with the 'Separate ladies and men receptions' toggle; reuses CL-ONBD-05), Budget (bands plus slider with a mirrored histogram)",
+        "Sticky gold CTA carries the live count and applies the Brief: 'Show 3 halls' / «عرض 3 قاعات»; 'Clear Brief' text link resets all rows",
+        "Merge variant: one sheet shows 'On this phone' and 'In your account' Briefs side by side with two choices, 'Keep this phone's' and 'Keep my account's'; shown once after sign-in",
+        "Dismiss by dragging down or tapping the scrim keeps unsaved edits discarded; nothing is requested from the user that the Brief does not need",
+        "Area row is a two-level picker: governorate (six) then areas under it, plus a \"Search a region\" field that opens CL-DISC-07; the Brief stores governorates and areas separately so Results can filter by either (CA-FLT-01)"
+      ],
+      "contentNotes": "Budget row label is «ميزانية القاعة والضيافة» / 'Venue and catering budget' with bands under 5,000 | 5,000 - 10,000 | 10,000 - 20,000 | 20,000 - 35,000 | 35,000+ and the helper 'Venue price for your date' so it is never confused with total wedding spend (the total lives in Budget, CL-WEDD-03). 'Not decided' and 'Flexible month' answers show muted text ('Not decided yet' / «لم نحدد بعد») and switch cards to 'From' prices with the guest basis and no availability line. Guests row shows the section the venue is searched for: Ladies 350, Men 400. Merge example: phone Brief Thu 14 Jan 2027, 350 guests, Salmiya and Sharq versus account Brief Thu 28 Jan 2027, 300 guests, Mishref. Skipped answers keep placeholders («اختيار التاريخ» / 'Choose date'). In the Arabic UI the date picker's selected-date confirmation carries the muted Hijri line «6 شعبان 1448 هـ» (Hijri never appears on the Brief row itself). Guests persist on the device; the account copy replaces it only after sign-in. Tab bar hidden while the sheet is open.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-DISC-01",
+        "CL-DISC-03",
+        "CL-ONBD-04",
+        "CL-ONBD-06",
+        "CL-DISC-07"
+      ]
+    },
+    {
+      "id": "CL-DISC-03",
+      "slug": "results",
+      "title": {
+        "en": "Results",
+        "ar": "نتائج البحث"
+      },
+      "kind": "screen",
+      "purpose": "The venue list for the Brief plus filters and sort, with the canonical venue card (ADR 0018) now showing two prices: the voucher price as the headline and the standard price beneath, with a saving chip when the saving beats the KD 2 voucher. Shows only venues matching the selected region and preferences, with a result count and removable chips. Deals with the three price grammars, availability lines, one-badge rule, sponsored disclosure and the governmental-facility variant (browse-only, no voucher).",
+      "requirementIds": [
+        "CA-SRCH-01",
+        "CA-SRCH-14",
+        "CA-SRCH-16",
+        "CA-SRCH-17",
+        "CA-SRCH-20",
+        "CA-SRCH-21",
+        "CA-HOME-06",
+        "CA-HOME-08",
+        "CA-HOME-16",
+        "CA-CARD-01",
+        "CA-CARD-02",
+        "CA-CARD-03",
+        "CA-CARD-04",
+        "CA-CARD-05",
+        "CA-CARD-06",
+        "CA-CARD-07",
+        "CA-CARD-08",
+        "CA-CARD-09",
+        "CA-CARD-10",
+        "CA-CARD-11",
+        "CA-CARD-12",
+        "CA-CARD-13",
+        "CA-TOOL-01",
+        "CA-CMP-01",
+        "CA-FLT-01",
+        "CA-FLT-02",
+        "CA-FLT-03",
+        "CA-FLT-04",
+        "CA-FLT-05",
+        "CA-FLT-06",
+        "CA-FLT-07",
+        "CA-VCH-02",
+        "CA-VCH-10"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "no-results",
+        "error",
+        "offline",
+        "searching",
+        "guest",
+        "voucher-price-filter-on",
+        "guest-voucher-locked",
+        "venue-type-governmental-card",
+        "region-filter-on"
+      ],
+      "interactions": [
+        "Top: back, Brief pill ('Thu 14 Jan · 350 guests · Salmiya, Sharq') that opens CL-DISC-02, and a name search field with typeahead (recent searches, area suggestions, venue names; Arabic normalisation so «مشرف» finds Mishref)",
+        "Chip row of applied filters, each removable, with 'Clear all' at the end; a Filters button with a count opens CL-DISC-04; a Sort button opens a small sheet (Recommended, Rating, Newest, Price low to high, Price high to low, Distance); a List | Map switch opens CL-DISC-05",
+        "Card: whole card opens Venue detail (CL-VENU-01); heart top-end saves locally; compare toggle top-start adds to the tray (a fourth add opens CL-SAVD-03); play affordance plays a muted 15-second preview in place, never autoplay",
+        "Held halls show a calm 'On hold' line and still allow a request; booked halls show 'Booked on Thu 14 Jan' and offer 'See free dates' (CL-VENU-03)",
+        "Pull to refresh; scroll position and filters survive returning from Venue detail; the Compare tray appears above the tab bar after the first add",
+        "Card price block: headline \"KD 15,400 voucher price for 350 guests\" with \"Standard KD 18,200\" beneath in the secondary style and a saving chip \"Save KD 2,798\" (saving minus the KD 2 voucher) only when the saving beats the fee; a venue without a voucher price shows one price; guests see the same block with a lock glyph on the voucher line and the line \"Register to unlock\"",
+        "Trailing 44px text action on the availability line (date set and hall free): \"Get voucher\" for voucher-eligible venues (opens CL-VCHR-01 with the quote), otherwise \"View\" (opens the detail); the old \"Request\" and \"Book\" actions are removed with instant booking",
+        "Filter chips (removable, Clear all at the end) now include governorate or area, venue type (Private Hall, Governmental Facility, Hotel), capacity range, pricing structure (Per person, Packages), date availability, voucher price; Sort gains \"Voucher price, low to high\"; the Date chip opens CL-DISC-06; the Region chip opens CL-DISC-07",
+        "Governmental Facility cards show the rental fee, no voucher and \"Official channel\"; Compare and Saved treat them the same way (CL-VENU-06)"
+      ],
+      "contentNotes": "Header count: «3 قاعات» / '3 halls'. Card anatomy (unframed, 4:5 image, 24px between cards): name wrapped to two lines before truncating with rating pinned at the end as separate items (star, 4.8, (212)); 'Area · guest range' (EN 'Sharq · 200 – 650 guests', AR «شرق · من 200 إلى 650 ضيفًا»); non-interactive section tags «نسائي» «رجالي»; price line with figures role; availability line with icon plus label. Demo cards: 1) فندق أوريليا الخليج / Aurelia Gulf Hotel, 4.8 (212), 'KD 18,200 for 350 guests', 'Available Thu 14 Jan', badge Offer or none; 2) فندق لومي مارينا / Lumi Marina Hotel, 4.5 (138), Salmiya · 200 – 500 guests, 'KD 13,300 for 350 guests', Available; 3) قصر جوهرة السالمية للأفراح / Jawharat Al-Salmiya Palace, 4.6 (224), 'KD 11,550 for 350 guests', 'On hold'. A venue with no reviews shows «جديد» / New, never 0.0. Price grammar switches with the Brief: date and guests > 'KD 18,200 for 350 guests'; guests only > 'From KD 16,100 for 350 guests · weekday'; neither > 'From KD 2,100 · min 200 guests'. One badge only, priority offer (-15%), then Instant booking, then Featured; paid placements add «إعلان» / Sponsored as muted text at the end of the meta line. Government card variant (Government Wedding Hall, Hateen / قاعة الأفراح الحكومية، حطين): single tag «قاعة حكومية», price «رسوم الإيجار 100 د.ك» / 'KD 100 rental fee', availability replaced by «الحجز عبر وزارة الشؤون الاجتماعية», no Book action; excluded when the Instant filter is on. No-results state: «لا توجد قاعات مطابقة لخياراتكم. جرّبوا توسيع التاريخ أو المنطقة.» with a relax-filter suggestion and nearest free dates. Skeleton is a static 4:5 block plus four text blocks (no shimmer). Compact whole-dinar price mode: 18,200 stays 18,200 and 18.5 is never shown (18.500). Search events fire after 800 ms debounce (ADR 0019). Voucher model (ADR 0033): illustrative seed prices (fixtures request pending): Aurelia Gulf Hotel voucher \"KD 15,400 for 350 guests\", standard \"KD 18,200\", chip «وفّروا 2,798 د.ك» / \"Save KD 2,798\". Arabic card line «15,400 د.ك بالكوبون لعدد 350 ضيفًا» with «السعر العادي 18,200 د.ك» beneath. Guest line «سجّلوا لفتح سعر الكوبون» / \"Register to unlock\". Header count adds the type: «3 قاعات» / \"3 halls\". The \"Instant booking\" badge, \"Book\" action and the offer badges (percent-off, flash) are retired; the Featured and Sponsored disclosure stays.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-VENU-01",
+        "CL-VENU-06",
+        "CL-DISC-02",
+        "CL-DISC-04",
+        "CL-DISC-05",
+        "CL-SAVD-03",
+        "CL-SAVD-02",
+        "CL-VENU-03",
+        "CL-AUTH-01",
+        "CL-VCHR-01",
+        "CL-DISC-06",
+        "CL-DISC-07"
+      ]
+    },
+    {
+      "id": "CL-DISC-04",
+      "slug": "filters",
+      "title": {
+        "en": "Filters",
+        "ar": "التصفية"
+      },
+      "kind": "sheet",
+      "purpose": "One 90% sheet with every PRD filter grouped by what couples decide first, a live result count within 200 ms of each change, and a sticky footer. Sort is a separate small sheet so it never mixes with filtering.",
+      "requirementIds": [
+        "CA-SRCH-02",
+        "CA-SRCH-03",
+        "CA-SRCH-04",
+        "CA-SRCH-05",
+        "CA-SRCH-06",
+        "CA-SRCH-07",
+        "CA-SRCH-08",
+        "CA-SRCH-09",
+        "CA-SRCH-10",
+        "CA-SRCH-11",
+        "CA-SRCH-12",
+        "CA-SRCH-13",
+        "CA-SRCH-14",
+        "CA-SRCH-16",
+        "CA-SRCH-18",
+        "CA-SRCH-19",
+        "CA-SRCH-20",
+        "CA-FLT-01",
+        "CA-FLT-02",
+        "CA-FLT-03",
+        "CA-FLT-04",
+        "CA-FLT-05",
+        "CA-FLT-06"
+      ],
+      "states": [
+        "default",
+        "loading-count",
+        "zero-results",
+        "error",
+        "offline",
+        "group-collapsed"
+      ],
+      "interactions": [
+        "Collapsed groups show their selection as a summary line; chips and options never resize on selection (200 ms border and check fade)",
+        "Footer: 'Clear all' text button and gold CTA 'Show 3 halls' / «عرض 3 قاعات» with the count updating live; zero results disables the CTA and names the filter to relax",
+        "Applying returns to Results with removable chips and preserved scroll position",
+        "Group order: 1 Region (governorate then areas, with counts and a region search); 2 Venue type (Private Hall, Governmental Facility, Hotel; multi-select); 3 Hall arrangement (Ladies, Men, Mixed event; Mixed last, never preselected); 4 Capacity (a two-handle range, minimum to maximum guests, steps of 50, pre-set from the Brief); 5 Pricing structure (Per person, Packages, Either); 6 Date and availability (opens CL-DISC-06); 7 Voucher price (toggle \"Only venues with a voucher price\", and a price range on the voucher price); 8 Price range; 9 Setting (indoor, outdoor, indoor and outdoor); 10 Facilities (parking, valet, bridal room, buffet, decoration, photography allowed); 11 Rating, luxury level and hotel brand. The Instant booking row is removed (CA-SRCH-15 is superseded)"
+      ],
+      "contentNotes": "Labels distinguish the two meanings of Mixed: setting «مختلط (داخلي وخارجي)» / 'Indoor and outdoor' versus attendance «حفل مختلط» / 'Mixed event' (CF-21). Attendance chips read «الحفل النسائي» «الحفل الرجالي» «حفل مختلط»; 'Women only' matches venues with at least one hall allowing it. Price group states 'Starting price for your date' and shows KD ranges such as «من 22 إلى 52 د.ك للضيف» / 'KD 22 – 52 per guest'. Photography filter text 'Photography allowed' with the per-section detail on Venue detail (CL-VENU-05). Luxury levels: «فاخر» Prestige, «راقٍ» Signature, «كلاسيكي» Classic, «قاعة حكومية» Government (never Silver, Gold or Royal, which are planner tiers). Instant booking toggle shows its live count (for example 4 halls on day one, via the Super Admin instant-verified flag) and excludes government halls. Hotel brand options use fictional brands: Aurelia, Madar, Lumi, Rawnaq. Available on my date is on by default when the Brief has a date. CA-SRCH-17 (Newest) and Rating sorting live in the separate Sort sheet, not here. Tab bar hidden.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-DISC-03",
+        "CL-ONBD-06",
+        "CL-DISC-06",
+        "CL-DISC-07"
+      ]
+    },
+    {
+      "id": "CL-DISC-05",
+      "slug": "results-map",
+      "title": {
+        "en": "Map",
+        "ar": "الخريطة"
+      },
+      "kind": "screen",
+      "purpose": "Full-screen map alternative to the list: price-label pins for the Brief date and a card carousel. The only place a live interactive map is used in browse (never inside lists).",
+      "requirementIds": [
+        "CA-SRCH-01",
+        "CA-SRCH-02",
+        "CA-HOME-14"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "location-denied",
+        "no-results-in-view",
+        "offline",
+        "error"
+      ],
+      "interactions": [
+        "Pins show a compact whole-dinar price for the Brief ('13,300'); the selected pin fills ink and shows its card in a bottom carousel (cards 72% wide, peeking at inline-end)",
+        "Zoomed-out clusters show a count; tap to zoom; dragging the map offers 'Search this area' only if the list is area-bound",
+        "'My location' button asks permission when-in-use and in context; denial falls back to the preferred area with the line 'Showing halls near Salmiya'",
+        "Brief pill and filter count stay at the top; List | Map switch returns to CL-DISC-03; tapping a carousel card opens Venue detail"
+      ],
+      "contentNotes": "Pins for the demo: Sharq (Aurelia Gulf Hotel), Salmiya cluster of two (Lumi Marina Hotel, Jawharat Al-Salmiya Palace). Distance chips use drive time with distance ('12 min · 9 km') because Kuwait venues sit 10 to 45 minutes apart. Map style is brand-toned, labels follow the UI language, digits Western. Offline shows 'The map needs a connection. The list is still available.' with a switch back to the list. Tab bar hidden (full-screen map). Voucher model (ADR 0033): pins show the whole-dinar voucher price when the venue is voucher-eligible and the standard price otherwise (pin shape differs: a ticket notch for voucher pins, so colour is never the only cue); carousel cards use the two-price block of CL-DISC-03; governmental facilities show a rental-fee pin without a notch.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-DISC-03",
+        "CL-VENU-01",
+        "CL-DISC-02"
+      ]
+    },
+    {
+      "id": "CL-DISC-06",
+      "slug": "date-filter",
+      "title": {
+        "en": "Dates for your search",
+        "ar": "تواريخ البحث"
+      },
+      "kind": "sheet",
+      "purpose": "A filterable availability calendar for search (not tied to one venue): pick a date or a short range and Results shows only venues with an available hall on it. It is the filter-capable sibling of the venue calendar (CL-VENU-03) and writes the Brief date.",
+      "requirementIds": [
+        "CA-FLT-05",
+        "CA-SRCH-14",
+        "CA-HOME-02",
+        "CA-FLT-07"
+      ],
+      "states": [
+        "default",
+        "loading-density",
+        "range-selected",
+        "flexible-month",
+        "no-venues-on-date",
+        "offline",
+        "error"
+      ],
+      "interactions": [
+        "Custom calendar only (no native picker): Sunday-first, Thu-Sat peak band at the inline-end edge, month arrows that mirror; each day shows a small availability density mark (many, few, none) by shape and never by colour alone",
+        "Tap a date for a single day or drag to extend to a short range (up to 7 days); \"Flexible month\" and \"Not decided yet\" options mirror the Brief sheet",
+        "Sticky footer shows the live count \"Show 3 halls free on Thu 14 Jan\" and applies the date to the Brief and the filter; \"Clear date\" resets",
+        "A day with no available venue offers the three nearest dates with free halls"
+      ],
+      "contentNotes": "Header «يناير 2027» / \"January 2027\"; footer «عرض 3 قاعات متاحة يوم الخميس 14 يناير» / \"Show 3 halls free on Thu 14 Jan\". Density legend: many, few, none, with icons plus labels. The same prototype clock applies (Thu 12 Nov 2026, 4:00 PM).",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-DISC-03",
+        "CL-DISC-04",
+        "CL-DISC-02"
+      ]
+    },
+    {
+      "id": "CL-DISC-07",
+      "slug": "region-search",
+      "title": {
+        "en": "Search by region",
+        "ar": "البحث حسب المنطقة"
+      },
+      "kind": "screen",
+      "purpose": "Region, governorate and location search: a typeahead over governorates, areas and venue names (Arabic-normalised) above a governorate-grouped area list with venue counts. Selecting writes the Brief area and the Results filter.",
+      "requirementIds": [
+        "CA-FLT-01",
+        "CA-SRCH-03",
+        "CA-SRCH-02",
+        "CA-FLT-07",
+        "CA-HOME-03"
+      ],
+      "states": [
+        "default",
+        "typing",
+        "no-match",
+        "location-denied",
+        "loading",
+        "offline",
+        "error"
+      ],
+      "interactions": [
+        "Search field with typeahead: recent searches, governorates, areas and venue names; Arabic normalisation (alef variants, ta marbuta, diacritics) and common transliteration aliases match",
+        "Six governorates as expandable groups (Capital, Hawalli, Farwaniya, Ahmadi, Jahra, Mubarak Al-Kabeer) with the areas under each, venue counts and multi-select checkboxes; selecting a governorate selects all its areas",
+        "\"Near me\" row (needs location, asked in context; denial falls back to the preferred area) shows distance filtering as drive time",
+        "Primary \"Show 3 halls\" applies the selection to Results; the selection is also shown as removable chips on Results"
+      ],
+      "contentNotes": "Groups AR / EN: «العاصمة» Capital, «حولي» Hawalli, «الفروانية» Farwaniya, «الأحمدي» Ahmadi, «الجهراء» Jahra, «مبارك الكبير» Mubarak Al-Kabeer; area examples from the glossary: Salmiya, Sharq, Mishref, Jabriya. Counts via the formatter. Empty: «لا توجد نتائج لهذه المنطقة. جرّبوا منطقة قريبة.» / \"No results for this region. Try a nearby area.\"",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-DISC-03",
+        "CL-DISC-02",
+        "CL-DISC-04"
+      ]
+    }
+  ]
+}

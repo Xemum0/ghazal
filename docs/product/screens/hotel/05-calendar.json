@@ -1,0 +1,185 @@
+{
+  "id": "calendar",
+  "order": 5,
+  "title": {
+    "en": "Calendar and availability",
+    "ar": "التقويم والتوفر"
+  },
+  "intent": "The venue's source of truth for dates. Month, Week and Day views show what is booked, held, blocked, requested and open without relying on colour (shape, hatch and strike carry the meaning), with hall lanes only when the venue has more than one hall. The most frequent urgent job, blocking a date just sold by phone or WhatsApp, takes at most three taps from anywhere and supports range select. Changes reach the couples' availability calendar within seconds (HA-CAL-08). Requests never claim a date; only approval, instant checkout, confirmation and venue blocks do (ADR 0001 D5, ADR 0002 D9).",
+  "screens": [
+    {
+      "id": "HL-CALN-01",
+      "slug": "month",
+      "title": {
+        "en": "Month calendar",
+        "ar": "التقويم الشهري"
+      },
+      "kind": "tab-root",
+      "purpose": "The month at a glance with the selected day's agenda beneath it. Entry point for blocking, reopening, range select and soft-date mode (the unsold weekend dates worth an offer).",
+      "requirementIds": [
+        "HA-CAL-01",
+        "HA-CAL-04",
+        "HA-CAL-05",
+        "HA-CAL-06",
+        "HA-CAL-07",
+        "HA-CAL-09",
+        "HA-DASH-07"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "range-select",
+        "soft-date-mode",
+        "hall-filter",
+        "calendar-nudge"
+      ],
+      "interactions": [
+        "Segmented control Month / Week / Day at the top; month arrows (mirrored in RTL) and a 'Today' text button; weeks start on Sunday and the Thu-Sat peak band sits at the inline-end edge, shaded with a Rose-tint wash",
+        "Hall filter chips 'All halls / Danah Ballroom / Majlis Hall' appear only because the venue has more than one hall; a single-hall venue sees no chips",
+        "Tapping a day selects it and fills the agenda strip below the grid (hall, session, client, guests, status chip); tapping an agenda row opens Booking detail; 'Open day' opens the Day view; 'Create offer for this date' opens the offer stepper with the date prefilled",
+        "Block in three taps: Calendar, tap the date, 'Block' (default reason 'Booked offline'). A fully booked or confirmed day shows Block disabled with the reason 'A confirmed booking cannot be blocked. Cancel it first.'",
+        "Range select: long-press a day, drag to extend with a tick haptic per day, or turn on 'Select dates' for tap-to-extend (accessible alternative); drag direction mirrors with the week; a bottom action bar shows 'N dates' with Block, Open and Offer",
+        "Soft-date mode (opened from the Today strip caption): unsold weekend dates in the next 60 days are outlined and a bottom bar offers 'Create offer for 6 dates'",
+        "Weekly nudge card 'Confirm your calendar is up to date' (OQ-B-22) with a single 'Confirm' action, shared with Needs-you",
+        "Offline: the grid is read-only with the stamp 'Offline - updated 4:00 PM' and Block, Open and Offer are disabled in place with 'Offline. Reconnect to block.'"
+      ],
+      "contentNotes": "November 2026 opens on Thu 12 Nov. Day cell marks (never colour alone): booked = solid bar or dot; held for an approved booking awaiting its deposit = hatched with a corner mark and a timer in the agenda; blocked = struck-through number plus hatch; requested = gold dot, informational only (no claim); open = plain number; past = 32% ink without strike. One stacked mark per hall (Danah, Majlis). Fixture for Nov: Thu 12 both halls booked; Fri 13 Danah booked; Sat 14 both booked; Wed 18 Majlis booked; Thu 19 both booked; Fri 20 open again (freed by a client cancellation); Sat 21 Danah booked (Munira Al-Khaled, balance overdue); Mon 23 blocked both halls, reason 'Maintenance'; Thu 26 Danah booked; Fri 27 both booked; Sat 28 Danah booked. December shows Thu 10 held for Haya Al-Mutairi (hatched, 'Pay by 7:30 PM today') and Sat 12 booked (Lulwa Al-Saleh). January shows gold requested dots on Thu 14 (Reem), Sun 17, Fri 22 and Thu 28 (February adds Fri 5); the Isra and Miraj marker Tue 5 Jan 2027 and, further on, Ramadan 1448 as a 2px gold-ink underline from Mon 8 Feb with the legend chip «رمضان 1448 (تقريبي)» / 'Ramadan 1448 (approx.)'. Weekday header: EN 'Sun Mon Tue Wed Thu Fri Sat'; AR full article-less words «أحد اثنين ثلاثاء أربعاء خميس جمعة سبت» at 13px. Selected day Thu 12 Nov agenda: Majlis Hall 8:30 PM, men, 310 guests, Salman Al-Harbi, Confirmed; Danah Ballroom 9:00 PM, ladies, 420 guests, Najla Al-Badr, Confirmed. Soft-date set: Fri 20 Nov, Thu 3 Dec, Sat 5 Dec, Fri 18 Dec, Fri 8 Jan, Sat 9 Jan. Optional Hijri line only under the selected date in the Arabic UI. Reception, Manager and Admin may block and open; Accountant sees the calendar read-only; Marketing sees it with Offer only. Voucher model (ADR 0033): the hatched Held cell with a timer is for an approved request awaiting the client's confirmation (24 hours); booked = confirmed or redeemed; every deposit or balance mark in the notes above is superseded. Provider accounts do not see this tab (their Calendar slot is Listings, HL-PROV-02).",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-CALN-02",
+        "HL-CALN-03",
+        "HL-CALN-04",
+        "HL-BOOK-03",
+        "HL-GROW-02"
+      ]
+    },
+    {
+      "id": "HL-CALN-02",
+      "slug": "week",
+      "title": {
+        "en": "Week view",
+        "ar": "العرض الأسبوعي"
+      },
+      "kind": "screen",
+      "purpose": "Seven day rows for planning the week: for each day what each hall is doing, so the manager sees gaps and clashes faster than in the month grid.",
+      "requirementIds": [
+        "HA-CAL-02",
+        "HA-CAL-06",
+        "HA-CAL-07",
+        "HA-CAL-09"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "hall-filter"
+      ],
+      "interactions": [
+        "Vertical list of seven day rows (Sunday first); each row shows weekday and date, one line per hall with a shape icon plus short label (Booked, Held, Blocked, Requested, Open) and the client or reason",
+        "Tapping a row opens the Day view for that date; tapping a booking line opens Booking detail; long-press a row to begin range select, 'Select dates' offers the accessible tap mode",
+        "Week arrows move one week (mirrored in RTL); the segmented control switches to Month or Day; hall filter chips appear only for multi-hall venues",
+        "Open lines carry a quiet inline 'Block' and, on Thu-Sat, 'Create offer' text actions"
+      ],
+      "contentNotes": "Week Sun 8 - Sat 14 Nov 2026. Sun 8 (past, 32% ink): Majlis Hall completed. Mon 9 and Tue 10: both halls open. Wed 11: Majlis booked, ladies, 220 guests. Thu 12 (today ring): Majlis Hall 8:30 PM men 310, Danah Ballroom 9:00 PM ladies 420, both Confirmed. Fri 13: Danah booked, ladies 480 guests; Majlis open with 'Create offer'. Sat 14: both halls booked. Thu, Fri and Sat rows carry the Rose-tint peak wash at the inline-end edge of the row header. Date format in rows: weekday then date, 'Thu 12 Nov' / «الخميس 12 نوفمبر», never numeric-only. Counters read '1 of 7' style with LTR digits where used.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-CALN-03",
+        "HL-CALN-01",
+        "HL-BOOK-03",
+        "HL-CALN-04"
+      ]
+    },
+    {
+      "id": "HL-CALN-03",
+      "slug": "day",
+      "title": {
+        "en": "Day view",
+        "ar": "العرض اليومي"
+      },
+      "kind": "screen",
+      "purpose": "One date in operational detail: for every hall, the prep, event and teardown timeline, the booking card with its money state, and what can be done with the date. This is where 'tap a date opens its day agenda and the related booking' lands.",
+      "requirementIds": [
+        "HA-CAL-03",
+        "HA-CAL-06",
+        "HA-CAL-07",
+        "HA-CAL-09",
+        "HA-DASH-01"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "held",
+        "blocked",
+        "open-day",
+        "requested-info"
+      ],
+      "interactions": [
+        "Per hall section: hall name and capacity, a business-day timeline bar (06:00 to 06:00) with hatched prep and teardown segments and a solid event segment, then the booking card (client, package, guests, status chip, payment state); the time axis runs in reading direction, so it runs right to left in Arabic",
+        "Previous and next day arrows (mirrored); 'Today' text button; hall chips only when there is more than one hall",
+        "Booking card opens Booking detail; icon row Call, Chat opens the Contact sheet or thread",
+        "Open halls show 'Open - Block / Create offer'; a held hall shows the hatched bar with the pay-by timer and a Call / Chat row; a blocked hall shows the reason, who blocked it and 'Open this date'",
+        "Pending requests for the date appear as a single informational line 'Pending request - no claim on the date' with the client's name and a link to the request"
+      ],
+      "contentNotes": "Thu 12 Nov 2026 (today). Majlis Hall (capacity 450, evening session 8:30 PM - 1:00 AM): setup 4:30 PM - 8:30 PM, event 8:30 PM - 1:00 AM (men, 310 guests, Salman Al-Harbi, Confirmed, paid in full), teardown 1:00 AM - 3:00 AM with a 'Fri 13 Nov' divider at midnight. Danah Ballroom (capacity 650, evening session 9:00 PM - 2:00 AM): setup 5:00 PM - 9:00 PM, event 9:00 PM - 2:00 AM (ladies, 420 guests, Najla Al-Badr, Confirmed, paid in full), teardown 2:00 AM - 4:00 AM. Event label 'Starts in 4h 30m' is allowed because this is an operational venue-side countdown. Times are 12-hour with Kuwait time implied: AR «من 9:00 م إلى 2:00 ص». Held example: Thu 10 Dec, Danah Ballroom, Haya Al-Mutairi, 'Pay by 7:30 PM today - 3h 30m left', hatched bar. Blocked example: Mon 23 Nov, both halls, 'Maintenance - blocked by Hind Al-Enezi'. The booking card repeats the status chip with icon and label. Exclusive-day halls show a single timeline without session chips. Voucher model (ADR 0033): rows show the voucher chip and \"Confirm by 4:00 PM\" for awaiting-client rows; \"Pay by\" is removed.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-BOOK-03",
+        "HL-BOOK-04",
+        "HL-CALN-04",
+        "HL-GROW-02",
+        "HL-CALN-01"
+      ]
+    },
+    {
+      "id": "HL-CALN-04",
+      "slug": "block-dates",
+      "title": {
+        "en": "Block or open dates",
+        "ar": "إغلاق التواريخ أو فتحها"
+      },
+      "kind": "sheet",
+      "purpose": "Take dates off sale (offline sales, maintenance, private events) or put them back on sale, for one date or a range, scoped by hall. It states exactly what couples will see and warns about pending requests before anything changes.",
+      "requirementIds": [
+        "HA-CAL-04",
+        "HA-CAL-05",
+        "HA-CAL-08",
+        "HA-CAL-09",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "open-variant",
+        "conflict-confirmed",
+        "conflict-pending",
+        "loading",
+        "success",
+        "partial-fail",
+        "offline",
+        "error"
+      ],
+      "interactions": [
+        "Summary line with the picked dates ('Thu 24 Dec - Sat 26 Dec - 3 dates'); the dates are editable by tapping the summary, which reopens the range calendar",
+        "Scope chips by hall (All halls, Danah Ballroom, Majlis Hall); session chips appear only for halls with more than one session",
+        "Reason chips: Booked offline (default), Maintenance, Private event, Other (one-line note); an offline sale recorded as a block carries no payment and no commission",
+        "Range shortcuts 'Ramadan 1448 (approx.)', 'Eid al-Fitr (approx.)', 'Eid al-Adha (approx.)' fill adjustable ranges, never fixed dates (flagged)",
+        "Block over a confirmed booking is refused with a link to the cancel flow; blocking over pending requests warns with the count and states they will be marked unavailable",
+        "Primary 'Block 3 dates' resolves to a toast 'Hidden from couples now - Undo' (8 seconds) and the calendar updates in place; Open variant lists blocked dates with reasons, primary 'Open 2 dates', toast 'Open for booking now - Undo'",
+        "Offline disables the primary in place: 'Offline. Reconnect to block.'; a partly successful range lists which dates were skipped and why"
+      ],
+      "contentNotes": "Demo: Thu 24 Dec - Sat 26 Dec 2026 for All halls with reason 'Booked offline' (deliberately not Thu 3 Dec or Sat 5 Dec, which are the open soft dates used by the flash-sale demo in HL-GROW-02). Arabic: title «إغلاق التواريخ» / 'Block dates'; reason chips «حجز خارج غزل» «صيانة» «مناسبة خاصة» «أخرى»; the hint «الحجز خارج غزل لا يتضمن أي دفعة أو عمولة.» / 'An offline booking carries no payment and no commission.'; confirmation «مخفية عن الأزواج الآن · تراجع» / 'Hidden from couples now - Undo'. Warning example: «لدى الخميس 14 يناير طلب معلق واحد. سيتم وضعه غير متاح.» / 'Thu 14 Jan has 1 pending request. It will be marked unavailable.' Conflict copy: «لا يمكن إغلاق تاريخ عليه حجز مؤكد. يلزم إلغاء الحجز أولًا.» / 'A date with a confirmed booking cannot be blocked. Cancel the booking first.' Blocked dates use the glossary term «تواريخ مغلقة». Reception, Manager and Admin may block and open; the control is hidden for Accountant and Marketing. The change reaches the client availability calendar within seconds. Voucher model (ADR 0033): the commission note is removed; blocking over a confirmed booking is still refused.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-CALN-01",
+        "HL-BOOK-03"
+      ]
+    }
+  ]
+}

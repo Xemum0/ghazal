@@ -1,0 +1,293 @@
+{
+  "id": "provider",
+  "order": 10,
+  "title": {
+    "en": "Provider and listings",
+    "ar": "مقدّم الخدمة والإعلانات"
+  },
+  "intent": "The partner account types and the listing module (ADR 0033 D7 and D8): choosing Hotel or wedding hall versus Service provider, creating and editing a listing with a standard and a voucher price, choosing a weekly, monthly or annual advertising plan (rates TBD, major hotels exempt), paying, and following the manual review through pending, approved or rejected with reasons. Listings are never published on payment; a moderator approves each one. Also listing performance. Service providers use the same Partner app shell with Listings in the slot of Calendar.",
+  "screens": [
+    {
+      "id": "HL-PROV-01",
+      "slug": "account-type",
+      "title": {
+        "en": "Choose your account type",
+        "ar": "اختاروا نوع الحساب"
+      },
+      "kind": "screen",
+      "purpose": "First-run onboarding for a new partner: choose Hotel or wedding hall, or Service provider, then complete the profile (business name in both languages, categories for providers, contact) and submit for review. Existing venue accounts skip it; a person with both types switches in More.",
+      "requirementIds": [
+        "PA-ACC-01",
+        "PA-ACC-02",
+        "PA-ACC-03",
+        "PA-REV-01"
+      ],
+      "states": [
+        "chooser",
+        "venue-profile",
+        "provider-profile",
+        "categories",
+        "submitted-under-review",
+        "validation",
+        "loading",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Two large choice cards, each with an icon, a title and one line: \"Hotel or wedding hall\" (halls, packages with two prices, calendar, requests, visits) and \"Service provider\" (listings in the five categories and more, requests); one choice then \"Continue\"",
+        "Provider profile: business name (Arabic and English, both required), up to three categories (the five primary first, then the rest), contact phone with the +965 chip, optional logo (a monogram is generated otherwise)",
+        "Venue profile: venue type (Private Hall or Hotel), governorate and area; Governmental Facility is not selectable",
+        "Submit shows \"Under review\" (HL-ACCS-04) and tells the partner that the first listing is reviewed before it goes live; the choice can be changed until review starts"
+      ],
+      "contentNotes": "Cards AR / EN: «فندق أو قاعة أفراح» / \"Hotel or wedding hall\"; «مقدّم خدمة» / \"Service provider\". Category labels from CL-SERV-01. Demo: a new provider \"Zahra Floral Studio\" (fictional) choosing Floral arrangements. Fee exemption is never chosen here (Ghazal sets it).",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-PROV-03",
+        "HL-ACCS-04",
+        "HL-TODY-01"
+      ]
+    },
+    {
+      "id": "HL-PROV-02",
+      "slug": "my-listings",
+      "title": {
+        "en": "My listings",
+        "ar": "إعلاناتي"
+      },
+      "kind": "tab-root",
+      "purpose": "The provider's home for listings (the slot of the Calendar tab for service providers; More for hotels that also list services): every listing with its lifecycle status, plan period and a clear next action. Create a listing from here.",
+      "requirementIds": [
+        "PA-LST-01",
+        "PA-LST-03",
+        "PA-LST-04",
+        "PA-ADS-05",
+        "PA-REV-02"
+      ],
+      "states": [
+        "default",
+        "empty",
+        "loading",
+        "error",
+        "offline",
+        "expiring-plan",
+        "rejected-needs-changes",
+        "fee-exempt",
+        "role-limited"
+      ],
+      "interactions": [
+        "Cards by status chip (Draft, Waiting for payment, In review, Approved, Rejected, Live, Expired, Paused) with category, title in the UI language, plan and \"until\" date, and the next action (\"Choose a plan\", \"Fix and resubmit\", \"Renew\")",
+        "Primary \"New listing\" opens the editor (HL-PROV-03); tapping a card opens the editor or the review status (HL-PROV-06) by state; Live cards link to performance (HL-PROV-07)",
+        "A banner shows plan expiry at -7 days; for major hotels the banner reads \"No listing fees\" and the payment steps are absent"
+      ],
+      "contentNotes": "Demo (illustrative): «تنسيق ورد الأفراح» Floral arrangements, Live until Fri 11 Dec 2026; «بوفيه الضيافة الذهبي» Buffet services, In review; a draft. Chips AR: «مسودة» «بانتظار الدفع» «قيد المراجعة» «معتمد» «مرفوض» «منشور» «منتهي» «متوقف».",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-PROV-03",
+        "HL-PROV-06",
+        "HL-PROV-07",
+        "HL-PROV-04"
+      ]
+    },
+    {
+      "id": "HL-PROV-03",
+      "slug": "listing-editor",
+      "title": {
+        "en": "Listing",
+        "ar": "الإعلان"
+      },
+      "kind": "screen",
+      "purpose": "Create or edit a listing: category, bilingual title and description, photos, and packages each with a standard price and a voucher price on the same basis (per person or package). Saves as a draft; \"Continue\" chooses the plan. Editing a live listing returns it to review while the approved version stays live (A-09).",
+      "requirementIds": [
+        "PA-LST-01",
+        "PA-LST-02",
+        "PA-LST-03",
+        "PA-LST-07",
+        "HA-VMGT-09"
+      ],
+      "states": [
+        "new",
+        "draft",
+        "editing-live",
+        "validation",
+        "saving",
+        "saved",
+        "saving-below-fee",
+        "unsaved-guard",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Category picker (five primary first, then more); title and description in Arabic and English with completeness markers (both required before submitting); photos from the shared uploader (empty rooms, plates, arrangements, no faces)",
+        "Packages: name, inclusions, pricing structure (Per person or Package), Standard price and Voucher price (voucher at or below standard; a saving below the KD 2 fee shows the line \"Clients will not be offered a voucher for this package\"); live preview \"What couples see\"",
+        "Contact options for the browse-only path (chat on, phone shown or hidden); \"Save draft\" and the primary \"Continue\" (opens the plan chooser, or submits straight to review for a fee-exempt partner)",
+        "Leaving with edits opens the guard \"Discard changes?\"; editing a live listing shows \"Your approved version stays live until the new one is approved\""
+      ],
+      "contentNotes": "Demo: Floral arrangements, «تنسيق ورد الأفراح», package «كوشة وورد الطاولات» per package, Standard KD 1,200, Voucher KD 1,000 (illustrative, fixtures request pending). Categories AR: «الضيافة والتموين» «خدمات البوفيه» «تنسيق الورد» «التنسيق والديكور» «تخطيط المناسبات والتنسيق». Names may not reuse the planner tier names (Silver, Gold, Royal).",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-PROV-04",
+        "HL-PROV-02",
+        "HL-PROV-06"
+      ]
+    },
+    {
+      "id": "HL-PROV-04",
+      "slug": "ad-plan",
+      "title": {
+        "en": "Choose a plan",
+        "ar": "اختاروا الباقة"
+      },
+      "kind": "screen",
+      "purpose": "Choose the advertising or listing plan: Weekly, Monthly or Annual, with a short list of what each includes. Rates are not decided: while they are not set every card says \"Rates announced soon\" and the continue action is disabled with that reason. Major hotels see an explanation instead of plans and go straight to review.",
+      "requirementIds": [
+        "PA-ADS-01",
+        "PA-ADS-03",
+        "PA-ADS-04",
+        "PA-ADS-05",
+        "PA-ADS-06"
+      ],
+      "states": [
+        "plans",
+        "rates-not-announced",
+        "rates-set-sample",
+        "fee-exempt-major-hotel",
+        "renewal",
+        "loading",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Three single-choice plan cards (Weekly, Monthly, Annual) in the shared card style, each showing the cycle length and either the admin-configured price through the formatter or \"Rates announced soon\"; the Annual card never shows a made-up saving percentage",
+        "A note under the cards: \"Your listing goes live only after Ghazal reviews and approves it. The plan period starts at approval.\"",
+        "Primary \"Continue to payment\" (opens HL-PROV-05) is disabled until a rate exists with the reason \"Payment opens when rates are announced\"; with rates set it needs a chosen plan",
+        "Fee-exempt variant: \"Major hotel · no listing fees. Your listing still needs review.\" with the primary \"Submit for review\""
+      ],
+      "contentNotes": "No price number appears anywhere in this design: the prototype's \"rates-set-sample\" state shows a clearly labelled \"Sample\" amount from a fixture marked not-for-release. Copy AR: «الأسعار تُعلن قريبًا» / \"Rates announced soon\"; «تبدأ مدة الباقة عند الاعتماد» / \"The plan period starts when your listing is approved.\" Owner decision: rates (OQ-V-07).",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-PROV-05",
+        "HL-PROV-06",
+        "HL-PROV-03"
+      ]
+    },
+    {
+      "id": "HL-PROV-05",
+      "slug": "ad-payment",
+      "title": {
+        "en": "Pay for the plan",
+        "ar": "دفع الباقة"
+      },
+      "kind": "screen",
+      "purpose": "Pay for the chosen plan through the gateway (same hosted methods as the client voucher) and see every outcome. Payment moves the listing to review; it never publishes it. Rates not set means the screen cannot be reached.",
+      "requirementIds": [
+        "PA-ADS-02",
+        "PA-ADS-03",
+        "PA-ADS-07",
+        "PA-REV-01"
+      ],
+      "states": [
+        "summary",
+        "methods",
+        "redirecting",
+        "confirming-with-bank",
+        "paid-submitted-for-review",
+        "failed",
+        "cancelled",
+        "rates-not-announced",
+        "offline",
+        "error"
+      ],
+      "interactions": [
+        "Summary: listing, plan and period, amount through the formatter (never a literal), and the line \"Payment does not publish your listing; Ghazal reviews it first\"; methods in platform order from the server as for CL-PAYM-01; the gateway frame and pending-bank state behave as CL-PAYM-02 and CL-PAYM-03",
+        "Success: \"Payment received. Your listing is in review.\" with a receipt link and a primary \"View review status\" (HL-PROV-06); failure: \"The payment could not be completed. No amount was charged.\" with retry and switch method",
+        "Refund note: \"If your listing is rejected you keep your plan for 14 days to fix and resubmit; after that it is refunded in full\""
+      ],
+      "contentNotes": "Receipts are plan invoices (KWD on the document). Amounts in the prototype come from the sample fixture only. A SUCCESS arriving after a lapsed checkout still records the payment. Offline: \"Offline. Reconnect to pay.\"",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-PROV-06",
+        "HL-PROV-04",
+        "HL-SETT-04"
+      ]
+    },
+    {
+      "id": "HL-PROV-06",
+      "slug": "review-status",
+      "title": {
+        "en": "Review status",
+        "ar": "حالة المراجعة"
+      },
+      "kind": "screen",
+      "purpose": "Where a listing is in manual review: Pending (what to expect), Approved (when it goes live) or Rejected with reason codes and a note, and the way to edit and resubmit. Moderators check content compliance and correct category placement; exempt partners are reviewed too.",
+      "requirementIds": [
+        "PA-REV-01",
+        "PA-REV-02",
+        "PA-REV-03",
+        "PA-REV-04",
+        "PA-REV-05",
+        "PA-ADS-07"
+      ],
+      "states": [
+        "pending",
+        "pending-long-wait",
+        "approved",
+        "live",
+        "rejected",
+        "rejected-plan-retained",
+        "rejected-refunded",
+        "changes-requested",
+        "offline",
+        "error"
+      ],
+      "interactions": [
+        "Timeline: Submitted, Payment received (absent for exempt partners), In review, Decision, Live; absolute timestamps; a long-wait line after 48 hours with \"Contact Ghazal support\"",
+        "Rejected: reason chips (Content not compliant, Wrong category, Missing details, Unclear pricing, Other) and the moderator's note in the provider's language; primary \"Edit and resubmit\" (HL-PROV-03); the retained-plan line shows the remaining days of the 14 day retention and the refund that follows",
+        "Approved: \"Your listing goes live now; your plan runs until Fri 11 Dec 2026\" and a link to performance; a push and an in-app notice arrive on every decision"
+      ],
+      "contentNotes": "Reasons AR: «محتوى غير مطابق للشروط» «تصنيف غير صحيح» «بيانات ناقصة» «أسعار غير واضحة» «سبب آخر». Rejected copy: «لم نتمكن من اعتماد الإعلان. عدّلوا الملاحظات أدناه وأعيدوا الإرسال.» / \"We could not approve your listing. Fix the notes below and resubmit.\" Status chip colours follow the functional set with icon plus label. Decision source: web Super Admin review queue (SA-REV).",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-PROV-03",
+        "HL-PROV-07",
+        "HL-PROV-04",
+        "HL-TODY-05"
+      ]
+    },
+    {
+      "id": "HL-PROV-07",
+      "slug": "listing-performance",
+      "title": {
+        "en": "Listing performance",
+        "ar": "أداء الإعلان"
+      },
+      "kind": "screen",
+      "purpose": "How a listing is doing: views, saves, vouchers purchased for it and requests, for a date range, with a table twin for every chart. The provider counterpart of venue analytics.",
+      "requirementIds": [
+        "PA-LST-05",
+        "HA-ANLY-08",
+        "HA-ANLY-07"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "insufficient-data",
+        "date-range-sheet",
+        "offline",
+        "error"
+      ],
+      "interactions": [
+        "Range chips This month (default), Last 30 days, Last 90 days, Custom (the Sunday-first range calendar sheet); KPI tiles Views, Saves, Vouchers purchased, Requests, Redeemed with deltas",
+        "Funnel Views - Saves - Vouchers - Requests - Redeemed as horizontal bars from the inline-start edge, each with a \"View as table\" twin; top packages ranked list",
+        "Live listings only; an expired listing shows the last period and \"Renew\" (HL-PROV-04)"
+      ],
+      "contentNotes": "Demo (illustrative): Views 640, Saves 58, Vouchers purchased 17, Requests 14, Redeemed 6. No revenue figures: the provider is paid by the client directly and Ghazal does not see it.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-PROV-04",
+        "HL-PROV-02",
+        "HL-GROW-04"
+      ]
+    }
+  ]
+}

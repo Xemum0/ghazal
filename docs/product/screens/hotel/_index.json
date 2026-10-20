@@ -1,0 +1,139 @@
+{
+  "app": "hotel",
+  "navigation": {
+    "tabs": [
+      {
+        "id": "today",
+        "title": {
+          "en": "Today",
+          "ar": "اليوم"
+        },
+        "icon": "layout-dashboard",
+        "rootScreen": "HL-TODY-01"
+      },
+      {
+        "id": "bookings",
+        "title": {
+          "en": "Bookings",
+          "ar": "الحجوزات"
+        },
+        "icon": "clipboard-list",
+        "rootScreen": "HL-BOOK-01"
+      },
+      {
+        "id": "calendar",
+        "title": {
+          "en": "Calendar",
+          "ar": "التقويم"
+        },
+        "icon": "calendar-days",
+        "rootScreen": "HL-CALN-01"
+      },
+      {
+        "id": "messages",
+        "title": {
+          "en": "Messages",
+          "ar": "الرسائل"
+        },
+        "icon": "message-circle",
+        "rootScreen": "HL-TODY-04"
+      },
+      {
+        "id": "more",
+        "title": {
+          "en": "More",
+          "ar": "المزيد"
+        },
+        "icon": "ellipsis",
+        "rootScreen": "HL-SETT-01"
+      }
+    ],
+    "notes": "Five tabs, labels always visible, order mirrors in RTL, identical for every role (ADR 0008 D1); content is role-aware and navigation is not. The Bookings tab opens on Pending (HL-BOOK-01) when the pending count is above zero, otherwise on Upcoming (HL-BOOK-02), and carries the count badge (capped 9+, danger-tinted with text when any request is in the danger SLA state). The Messages tab root lives in the Today flow (HL-TODY-04) because the inbox, the thread and the notification centre are one communication surface; the More root lives in the Settings flow (HL-SETT-01). The tab bar stays visible on every pushed screen so the pending badge is always one tap away; it is hidden only on the access screens (HL-ACCS-*), while the chat composer is open (HL-TODY-05), and in the two-step offer stepper (HL-GROW-02, HL-GROW-03, now the voucher price window). Sticky save bars sit above the tab bar. Sheets documented as part of a host screen rather than as their own ID because they are small variants of it: first-run notification and biometric prompts (HL-TODY-01), booking search and date-filter sheet (HL-BOOK-02), attach and voice-note recorder (HL-TODY-05), media upload sheet (HL-VENU-01), extra editor sheet (HL-VENU-02), voucher price window actions sheet (HL-GROW-01), review reply and report sheets (HL-GROW-06), language sheet, venue switcher sheet and log-out dialog (HL-SETT-01), staff invite and edit sheets (HL-SETT-03), mark-completed confirmation (HL-BOOK-03). Role-limited Today variants for Reception, Accountant and Marketing are states of HL-TODY-01. Deliberately not designed in this pass: swipe actions of any kind, venue-initiated bulk cancellation after an authority order (P2), a revenue screen of any kind (superseded), quick-reply management (defaults only), notification of marketing offers (the venue app sends transactional alerts only), tier-level price editing and menus (web only), permission-matrix editing (web only). Prototype P0 spine (ADR 0008 as amended by ADR 0033): HL-ACCS-01, HL-TODY-01, HL-BOOK-01, HL-BOOK-03, HL-BOOK-06, HL-BOOK-07, HL-DCSN-01, HL-DCSN-02, HL-DCSN-03, HL-BOOK-04, HL-CALN-01, HL-CALN-04, HL-VIST-01..03, HL-PROV-01..06, HL-TODY-04, HL-TODY-05.",
+    "voucherModel": "The Partner app (the former hotel app) serves two account types (ADR 0033 D7): Hotel or wedding hall (the tabs above) and Service provider. A service provider has the same five tabs, but the Calendar tab slot is \"Listings\" (rootScreen HL-PROV-02), Today shows listing and request tiles, and Bookings holds requests at the voucher price. Everyone gets Redeem voucher (HL-BOOK-06) from Today and Bookings, Visits (hotels and halls) from More, and Billing and fees in More (HL-SETT-04). Major hotels (fee_exempt, set by Ghazal) see no plan or payment steps but are still reviewed.",
+    "variants": {
+      "service_provider": {
+        "tabs": [
+          {
+            "id": "today",
+            "rootScreen": "HL-TODY-01"
+          },
+          {
+            "id": "bookings",
+            "rootScreen": "HL-BOOK-01"
+          },
+          {
+            "id": "listings",
+            "title": {
+              "en": "Listings",
+              "ar": "الإعلانات"
+            },
+            "icon": "layout-list",
+            "rootScreen": "HL-PROV-02",
+            "replaces": "calendar"
+          },
+          {
+            "id": "messages",
+            "rootScreen": "HL-TODY-04"
+          },
+          {
+            "id": "more",
+            "rootScreen": "HL-SETT-01"
+          }
+        ]
+      }
+    }
+  },
+  "flowOrder": [
+    "access",
+    "today",
+    "bookings",
+    "decisions",
+    "calendar",
+    "venue",
+    "grow",
+    "settings",
+    "visits",
+    "provider"
+  ],
+  "parkedRequirements": [
+    {
+      "id": "HA-DASH-02",
+      "reason": "Superseded by ADR 0033: no revenue exists in the app. Today shows requests, vouchers redeemed and open dates."
+    },
+    {
+      "id": "HA-SET-03",
+      "reason": "Superseded by ADR 0033: no bank information for partners; replaced by Billing and fees (HA-SET-06)."
+    },
+    {
+      "id": "HA-OFFR-04",
+      "reason": "Superseded by ADR 0033: venue coupon codes are removed; the voucher price is the only reduction."
+    }
+  ],
+  "globalRules": [
+    "No guest mode and no self sign-up: staff are invited and sign in with +965 phone plus password; a new device needs a WhatsApp code and venue admins add an authenticator code (HA-AUTH-01, ADR 0028). High-risk actions (bank information, invite or remove staff) require a fresh WhatsApp code or password.",
+    "Role gating hides, never locks: Admin (owner, includes Manager) all; Manager all except staff and bank information; Reception accepts, declines and proposes dates, blocks and opens dates, records cash, reads and writes messages; Accountant reads bookings, records cash, sees revenue and bank information masked, reads messages; Marketing manages offers, media and sees analytics. Cancelling or rescheduling a confirmed booking is Admin and Manager only. A deep link to a forbidden object shows 'You do not have access. Ask your manager.' (HL-ACCS-04). Voucher model: Admin and Manager redeem vouchers, handle visits, manage listings and see Billing and fees; Reception redeems vouchers, replies to requests and visits; Accountant sees Billing and receipts read-only; Marketing manages voucher prices, listings and analytics. Bank information and revenue permissions no longer exist.",
+    "Booking requests never claim the calendar and never move money. Only approval (a 24 hour hold) and the client's confirmation change the calendar; the client confirms within 24 hours or the approval lapses and the hold is released. No money for an event moves through Ghazal at any point: the client pays the venue directly after confirming and the partner marks the client's Ghazal voucher redeemed by scanning its code or QR (ADR 0033).",
+    "SLA rule shared by the bar, the badge and escalation: neutral below 50% elapsed, gold from 50%, danger from 80% elapsed or under 1 hour left, always with text such as '2h 10m left'. The 'Urgent' tag is separate and means the event is 14 days away or less. Default response window 24h (12/24/48h, forced 4h within 14 days); pay window after approval 24h (12/24/48/72h, forced 6h within 14 days); counter-offer validity 48h; venue-proposed reschedule 72h.",
+    "Accept is 2 taps from a push or Needs-you row with an 8-second Undo toast; the client is notified only after the 8 seconds; a confirm sheet (3 taps) appears only for competing requests, events within 14 days or a non-default pay window. Decline is 3 taps with a required reason. Undo applies to Accept only. No swipe actions anywhere; every action is a visible control or a long-press menu.",
+    "Offline: the shell and last-known data are cached with a stamp ('Offline - updated 4:00 PM'). Accept, Decline, Propose, Block, Open and Cancel are never queued: they are disabled in place with a reason ('Offline. Reconnect to accept.'). Chat messages and media uploads may queue.",
+    "Payout gate removed (ADR 0033): there are no payouts, KYC or bank information. Accept is never blocked by payment setup. The only partner payments are listing or advertising plans (service providers and non-exempt partners), paid through the gateway; major hotels are exempt from fees but every listing is reviewed manually before it goes live.",
+    "Statuses (ADR 0033, replacing ADR 0003): Pending, Awaiting client (approved, 24 h to confirm), Confirmed, Voucher redeemed, Declined, Expired (Missed or Lapsed), Cancelled, Completed. AR chips: «بانتظار الرد» «بانتظار تأكيد العميل» «مؤكد» «تم استخدام الكوبون» «تم الاعتذار» «انتهت المهلة» «ملغي» «مكتمل». The PRD six map as in docs/architecture/booking-state-machine.md section 3.",
+    "Money: integer fils; browse format (whole dinars when fils are zero, else three decimals) on Today tiles, offers and lists; exact three decimals on Booking detail, payments, ledgers and sheets that move money; one precision per list. A price always states its unit. Currency token sits visually left of the number in both languages (KD in English, د.ك in Arabic); KWD appears only on invoices, bank and payout settings. 'You receive' amounts appear only when a commission rule exists and never to Reception. No VAT lines. Deposit 30% rounded up to the next KD 5; balance due 14 days before; Standard cancellation policy. Voucher model: partners see the voucher price and the standard price side by side on request cards; there are no revenue, payable, commission or payout figures anywhere.",
+    "Dates and time: Gregorian, weekday plus date always, never numeric-only dates and never 'ليلة' plus a weekday; 12-hour Kuwait time ('9:00 PM' / '9:00 م'); relative words only Today and Tomorrow; weeks start on Sunday with the Thu-Sat peak band at the inline-end edge; Hijri only as a muted line in Arabic summaries (6 شعبان 1448 هـ) and as approximate occasion markers. Operational countdowns in compact form ('3h left' / 'باقي 3 س') are allowed in this app only. Fixed NOW is Thu 12 Nov 2026, 4:00 PM, Asia/Kuwait.",
+    "Numerals and identifiers: Western digits in both languages through the shared formatter only (never hand-typed prices); phone numbers, booking references (GZ-2611-0147), coupon codes, IBAN and invoice numbers are LTR isolates. Fixture phones use +965 5000 00NN, are display-only and never tappable. Eastern digits only through the Settings switch.",
+    "RTL: logical properties only; back chevrons, progress, sliders, steppers, calendar grids and tab order mirror; clocks, check, plus, play triangle and phone handset never mirror; time axes in charts run in reading direction (right to left in Arabic), value axes never flip, every chart has a table twin and labels its first and last date.",
+    "Copy: Arabic is clear modern Arabic with possessive كم and verbal-noun CTAs (قبول، اعتذار، اقتراح موعد آخر، إغلاق، فتح، إرسال), gender-neutral, passive for system messages, Khaleeji only in staff-typed chat; English is British, calm and precise; no exclamation marks, no emoji, no urgency words, no 'Welcome back'. Banned: مدعو / مدعوات, حريمي, اختر / اختاري, بالرفاء والبنين, حيّاك الله, dialect words in labels, religious phrases in payment, error or discount text.",
+    "Imagery and avatars: empty rooms and details only, no identifiable faces, no alcohol, no royal or state emblems; avatars are one-letter monograms in the letter's own script; media uploads require a zone tag and warn when a face is detected.",
+    "Motion: 120/200/320/480 ms tokens, 640 ms only for the one success moment per flow; Undo toast bar depletes over 8 seconds; the thread draws on over 320 ms; money and counts never roll or count up; reduced motion removes spatial transitions and keeps all information.",
+    "Venue-authored text is bilingual: both languages are required before a venue publishes and the app shows per-language completeness; nothing is machine-translated silently.",
+    "Fixture caveats for the fixtures owner: (1) Resolved 2026-10-12: Majlis Hall capacity is 450 in every file, so Abdullah Al-Hajri's 450-guest men's section fits. (2) Fixture times: Danah Ballroom Evening 9:00 PM - 2:00 AM, Majlis Hall Evening 8:30 PM - 1:00 AM, so Today's 9:00 PM and 8:30 PM events are the session starts. (3) Reem Al-Dosari's request carries reference GZ-2611-0147 in both apps (decided 2026-10-12); Reem is the only pending request for Thu 14 Jan, so there is no competing-request row in the base seed; the block-dates demo uses Thu 24 Dec - Sat 26 Dec, not the flash-sale soft dates. (4) Pending-request order by nearest deadline is Dana, Abdullah, Maryam, Faisal, Reem, which differs from the research list order. (5) Placeholder commission 8% and gateway fee figures are not owner-approved (OQ-B-16, OQ-B-18). (6) Persona Hind Al-Enezi is a Manager, but Staff (HL-SETT-03) and Bank information (HL-SETT-04) are Admin-only: the prototype adds a role switcher (Admin: Khalid Al-Otaibi) and the Manager sees 'Ask your owner to finish payout setup' on the payout banner instead of a link.",
+    "Visits (ADR 0033 D9): hotels and halls receive free visit requests; each visit opens a three-role group chat (client, hotel representative, Ghazal support); Admin and Manager can read every visit chat of the venue, other staff only the visits they are assigned to; the chat is read-only 24 hours after the slot.",
+    "Listings (ADR 0033 D8): listings are never published automatically on payment; each needs manual moderator approval (the review queue lives in the web Super Admin). Rejections carry reason codes; the paid plan is kept for 14 days for a resubmission. Plan rates are admin-configured and undecided: show \"Rates announced soon\", never a number."
+  ],
+  "notes": [
+    "Business model: the voucher marketplace (ADR 0033, docs/product/voucher-model.md). Per-flow impact: docs/product/voucher-model-changes.json.",
+    "Deprecated screens (kept, never renumbered): HL-BOOK-05 (invoice), HL-DCSN-05 (record cash), HL-GROW-05 (revenue).",
+    "Repurposed screens keep their ids: HL-GROW-01..03 are the voucher price windows (formerly offers); HL-SETT-04 is Billing and fees (formerly bank information).",
+    "Listing advertising plan rates are not decided: screens say \"Rates announced soon\" and show no number."
+  ]
+}

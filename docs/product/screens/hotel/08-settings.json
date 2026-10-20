@@ -1,0 +1,245 @@
+{
+  "id": "settings",
+  "order": 8,
+  "title": {
+    "en": "More and settings",
+    "ar": "المزيد والإعدادات"
+  },
+  "intent": "The More tab and everything the venue configures about itself and its team (ADR 0008 D11): a two-level grouped list with the listing status on top, notification preferences limited by role, staff and roles, bank information with re-authentication, and business hours. Content is role-aware and navigation is not: rows a role cannot use are hidden, never locked. Language is a per-user setting because venue teams are multinational. High-risk changes (bank information, inviting or removing staff) always require a fresh WhatsApp code or password, with the biometric prompt only a convenience in front of it (ADR 0028 D6).",
+  "screens": [
+    {
+      "id": "HL-SETT-01",
+      "slug": "more-root",
+      "title": {
+        "en": "More",
+        "ar": "المزيد"
+      },
+      "kind": "tab-root",
+      "purpose": "The root of everything that is not the daily loop. Top card shows the listing status, language completeness and payout status; below it the groups My venue, Grow, Notifications, Business and Account, at most two levels deep.",
+      "requirementIds": [
+        "HA-AUTH-02",
+        "HA-AUTH-03",
+        "HA-AUTH-04",
+        "HA-SET-05",
+        "HA-VMGT-09",
+        "HA-VMGT-10",
+        "HA-MSG-05",
+        "PA-ACC-02",
+        "PA-ACC-04",
+        "PA-ACC-05",
+        "HA-SET-06",
+        "HA-VIS-05"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "offline",
+        "role-reception",
+        "role-accountant",
+        "role-marketing",
+        "venue-under-review",
+        "language-sheet",
+        "venue-switcher-sheet",
+        "logout-dialog",
+        "role-provider",
+        "fee-exempt-badge",
+        "account-type-switch-sheet"
+      ],
+      "interactions": [
+        "Listing card: venue name in the UI language, status chip (Live or Under review), language completeness ('Arabic 100% - English 92%'), and the link 'Preview as couples see it' that opens the client venue page in preview mode",
+        "My venue group: Photos and videos, Packages and prices, Capacity and halls, Amenities, Policies, Booking rules, plus shortcut rows Offers and Availability that link to the canonical Offers list and the Calendar (HA-VMGT-10)",
+        "Language row opens a two-option sheet (العربية / English); selecting one flips direction and text immediately without a restart, keeps the scroll position and saves the choice to the user's account",
+        "Switch venue opens a sheet listing the venues with the user's role and the pending count for each; choosing one reloads the app shell for that venue (the active venue is also reachable from the Today header chip)",
+        "Log out asks 'Sign out of this device?' and clears cached data; an admin ending a session from the staff screen signs the device out remotely",
+        "Billing row (replaces the payout row) shows the plan or \"Major hotel · no listing fees\" badge and opens Billing and fees (HL-SETT-04); the More tab shows a dot only when a plan is about to expire or a listing needs changes",
+        "Grow group: Voucher prices, Analytics, Reviews; Visits group (hotels and halls): Visit requests, Visit availability; Listings group (providers): My listings, Performance; Notifications row opens preferences",
+        "Business group: Staff, Billing and fees, Business hours, Language; Account group adds \"Switch account type\" when the person holds both types (A-06)"
+      ],
+      "contentNotes": "Demo user Hind Al-Enezi, Manager. Listing card: «فندق أوريليا الخليج» / Aurelia Gulf Hotel, Live, 'Arabic 100% - English 92%' (English descriptions missing for one package and three photos), payouts Verified. Groups use glossary labels: «صور وفيديو» «الباقات والأسعار» «القاعات والسعة» «المرافق» «السياسات» «قواعد الحجز»; «العروض» «التحليلات» «التقييمات»; «الإشعارات»; «الموظفون» «بيانات الحساب البنكي» «ساعات العمل» «اللغة»; «القفل الحيوي» «الدعم» «تبديل القاعة» «تسجيل الخروج». Role views: Reception sees Notifications, Language and Account only; Accountant sees Revenue (link), Bank information (masked, read-only), Notifications and Account; Marketing sees Photos and videos, Offers, Analytics, Notifications and Account; Admin sees everything including Staff and Bank information; no lock icons anywhere. Venue switcher demo (state only, not part of the 21-venue roster): a sister venue «قاعة أوريليا المارينا» / Aurelia Marina Hall, Salmiya, role Reception, 2 pending. Under-review venue shows the listing chip 'Under review' and disables Preview. Version and legal links sit at the bottom. Tab bar visible. Voucher model (ADR 0033): the payout status row (Verified, Pending review, Action needed) and the revenue shortcut above are removed; a major hotel sees «فندق رئيسي · بلا رسوم إدراج» / \"Major hotel · no listing fees\".",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-VENU-01",
+        "HL-VENU-02",
+        "HL-VENU-04",
+        "HL-VENU-05",
+        "HL-VENU-06",
+        "HL-GROW-01",
+        "HL-GROW-04",
+        "HL-GROW-06",
+        "HL-SETT-02",
+        "HL-SETT-03",
+        "HL-SETT-04",
+        "HL-SETT-05",
+        "HL-TODY-05",
+        "HL-CALN-01",
+        "HL-ACCS-01",
+        "HL-VIST-01",
+        "HL-VIST-05",
+        "HL-PROV-02",
+        "HL-PROV-07",
+        "HL-PROV-01"
+      ]
+    },
+    {
+      "id": "HL-SETT-02",
+      "slug": "notification-prefs",
+      "title": {
+        "en": "Notification preferences",
+        "ar": "تفضيلات الإشعارات"
+      },
+      "kind": "screen",
+      "purpose": "Choose which notification types this person receives, limited by role, and hear what the new-request alert sounds like. Critical alerts for the roles that act on requests cannot be switched off.",
+      "requirementIds": [
+        "HA-NOTI-08",
+        "HA-NOTI-01",
+        "HA-NOTI-02",
+        "HA-NOTI-03",
+        "HA-NOTI-04",
+        "HA-NOTI-05",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "error",
+        "offline",
+        "push-denied",
+        "role-limited"
+      ],
+      "interactions": [
+        "Grouped switches by type: New booking requests, Cancelled bookings, Payments received, Balances overdue, New reviews, New messages, Offers ending, Account status; each row names its channel (push; WhatsApp is used by the system for time-critical escalations and is not a toggle)",
+        "New booking requests is shown as always on for Admin, Manager and Reception with the explanation; a 'Play sound' control previews the distinct alert",
+        "Types a role cannot receive are hidden; Accountant sees payments, balances and refunds, Marketing sees offers and reviews",
+        "If the OS permission is off, a card at the top explains the consequence and offers 'Open Settings'; nothing else on the screen is blocked",
+        "Changes save instantly with a quiet confirmation; offline queues nothing and disables the switches in place"
+      ],
+      "contentNotes": "Outcome-first copy: «ستصلكم تنبيهات الطلبات الجديدة دائمًا.» / 'New request alerts are always on for your role.' The note 'Outside business hours the alert is silent and still appears in your list' links to Business hours. New-request push is iOS time-sensitive with the badge equal to the pending count; the alert sound is distinct from every other sound. Message and review types belong to the MVP-P2 chat and review phase but are designed now. Venue alerts are transactional only: the venue app sends no marketing push. Voucher model (ADR 0033): categories: new requests (always on), client confirmations, visit requests and chat, voucher redemptions, listing review decisions, plan expiry; \"balance overdue\", \"refund\" and \"instant booking\" are removed.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-SETT-05",
+        "HL-SETT-01"
+      ]
+    },
+    {
+      "id": "HL-SETT-03",
+      "slug": "staff",
+      "title": {
+        "en": "Staff and roles",
+        "ar": "الموظفون والأدوار"
+      },
+      "kind": "screen",
+      "purpose": "Invite staff, assign a role, deactivate or remove a person and end their sessions. Admin only. A role is explained in one line so the owner knows what each person will see.",
+      "requirementIds": [
+        "HA-SET-01",
+        "HA-SET-02",
+        "HA-AUTH-04",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "invite-sheet",
+        "edit-sheet",
+        "invite-pending",
+        "invite-expired",
+        "step-up-required",
+        "role-hidden"
+      ],
+      "interactions": [
+        "List of staff: monogram, name (dir=auto), role chip, status (Active with last seen time, Invite pending with expiry, Deactivated); the owner row carries 'Owner' and cannot be changed here",
+        "'Invite staff' opens a sheet: full name, WhatsApp number (+965 chip then eight digits), role picker with one-line permission summaries (Manager, Reception, Accountant, Marketing), and for Reception a switch 'Can accept and decline requests'; the invitation is sent as a WhatsApp link",
+        "Tapping a person opens an edit sheet: change role, 'Sign out of all devices' (ends their sessions at once), Deactivate (reversible), Remove (confirm), Resend invitation for pending or expired invites",
+        "Inviting, removing and changing roles require step-up: a fresh WhatsApp code or password before the action completes, using the verification screen in step-up mode",
+        "Admin cannot be assigned from the app; transferring ownership is handled by Ghazal support",
+        "Nobody can remove or deactivate themselves from this list"
+      ],
+      "contentNotes": "Staff at Aurelia Gulf Hotel: Khalid Al-Otaibi / خالد العتيبي (Admin, owner; last seen Thu 12 Nov, 3:55 PM); Hind Al-Enezi / هند العنزي (Manager, you); Amal Al-Balushi / أمل البلوشي (Reception; Active); Mahmoud Saleh / محمود صالح (Accountant; English UI); Sara Al-Qattan / سارة القطان (Marketing; 'Invite pending - expires Sat 14 Nov'). Role summaries in plain words: Manager - everything except staff and bank information; Reception - requests, calendar and messages; Accountant - payments, revenue and invoices; Marketing - offers, analytics and photos. Arabic role names follow the glossary: «المدير» «الاستقبال» «المحاسب» «التسويق». Invitation copy sent on WhatsApp is localised in the invitee's language. Empty state when only the owner exists: «أنتم الوحيدون هنا حتى الآن» / 'Only you so far' with the Invite action. The permission matrix itself (editing what each role may do) stays on the dashboard. Voucher model (ADR 0033): role lines: Admin and Manager (everything incl. redeem, visits, listings, billing); Reception (requests, redeem, visits, chat); Accountant (billing and receipts, read-only requests); Marketing (voucher prices, listings, analytics). Bank, revenue and invoice permissions are removed; the permission `visit:manage` decides who can read a visit chat.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-ACCS-02",
+        "HL-ACCS-03",
+        "HL-SETT-01"
+      ]
+    },
+    {
+      "id": "HL-SETT-04",
+      "slug": "bank-info",
+      "title": {
+        "en": "Billing and fees",
+        "ar": "الفوترة والرسوم"
+      },
+      "kind": "screen",
+      "purpose": "Where a partner sees what Ghazal charges and what it has paid: the listing or advertising plan (weekly, monthly or annual), its period and renewal, receipts, and, for major hotels, the exemption badge. There is no bank information and no payout (partners are never paid through Ghazal).",
+      "requirementIds": [
+        "HA-AUTH-02",
+        "HA-BOOK-03",
+        "HA-SET-06",
+        "PA-ADS-04",
+        "PA-ADS-05"
+      ],
+      "states": [
+        "plan-active",
+        "plan-expiring",
+        "plan-expired",
+        "no-plan",
+        "rates-not-announced",
+        "fee-exempt-major-hotel",
+        "receipts",
+        "role-view-only",
+        "offline",
+        "error"
+      ],
+      "interactions": [
+        "Status card: Active plan with its period \"Monthly · until Fri 11 Dec 2026\", Expiring (reminders at -7 and -1 days), Expired (listing hidden), No plan, or Fee exempt: \"Major hotel · no listing fees\" with a one-line explanation that the listing is still reviewed",
+        "Plan row opens the plan chooser (HL-PROV-04); when rates are not announced the row reads \"Rates announced soon\" and no price appears",
+        "Receipts list (plan invoices and credit notes) opens the bilingual PDF viewer; amounts say KWD on the document",
+        "Accountant can view and download; Reception and Marketing do not see the screen"
+      ],
+      "contentNotes": "Exempt copy: «فندق رئيسي · بلا رسوم إدراج. تخضع قوائمكم للمراجعة قبل النشر.» / \"Major hotel · no listing fees. Your listings are still reviewed before they go live.\" Rates copy: «الأسعار تُعلن قريبًا» / \"Rates announced soon\". Superseded by ADR 0033: bank holder, bank, IBAN (mod-97), verification documents, payout delay banner and the KWD-in-settings exception.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-PROV-04",
+        "HL-SETT-01"
+      ]
+    },
+    {
+      "id": "HL-SETT-05",
+      "slug": "business-hours",
+      "title": {
+        "en": "Business hours",
+        "ar": "ساعات العمل"
+      },
+      "kind": "screen",
+      "purpose": "Set the hours the venue office is reachable, shown to couples as working hours, and the closures that apply. The same hours decide when a new-request alert makes a sound.",
+      "requirementIds": [
+        "HA-SET-04",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "validation",
+        "success",
+        "error",
+        "offline",
+        "unsaved-guard",
+        "role-view-only"
+      ],
+      "interactions": [
+        "Seven rows starting with Sunday: an open switch and from and to times chosen with a custom time sheet (12-hour clock, Western digits, no native picker); times past midnight are allowed and labelled with the next day",
+        "'Copy to all days' shortcut from any row; a live line 'Shown to couples as: ...' updates as hours change",
+        "Closures: add a date range with an optional label; Ramadan 1448 and the Eids are offered as adjustable, approximate ranges rather than fixed dates",
+        "Sticky 'Save' above the tab bar; unsaved guard; offline disables Save; Admin edits, Manager can view, other roles do not see it"
+      ],
+      "contentNotes": "Demo hours: Sunday to Thursday 9:00 AM - 10:00 PM; Friday and Saturday 4:00 PM - 1:00 AM (event nights). Preview line: «الأحد – الخميس: من 9:00 ص إلى 10:00 م» / 'Sun - Thu: 9:00 AM - 10:00 PM', then «الجمعة والسبت: من 4:00 م إلى 1:00 ص» / 'Fri and Sat: 4:00 PM - 1:00 AM'. Closure example: 'Ramadan 1448 (approx.) Mon 8 Feb - Mon 8 Mar 2027' with the approximate label until announced. Validation: «وقت الإغلاق يسبق وقت الفتح.» / 'The closing time is before the opening time.' Times follow Kuwait time with no device time-zone conversion. The explanation under the screen title: «يظهر هذا الوقت للأزواج كساعات عمل، ويحدد متى يصدر صوت تنبيه الطلبات الجديدة.» / 'Couples see this as working hours, and it decides when new-request alerts make a sound.'",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-SETT-01"
+      ]
+    }
+  ]
+}

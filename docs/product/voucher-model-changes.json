@@ -1,0 +1,604 @@
+{
+  "adr": "0033",
+  "date": "2026-10-14",
+  "basis": "docs/product/voucher-model.md",
+  "rules": [
+    "Screen ids are stable and never renumbered.",
+    "new: build from the flow JSON; changed: re-read the screen in the flow JSON (purpose, states, interactions, contentNotes, navigatesTo are updated); deprecated: do not build, keep the id reserved.",
+    "Prices in contentNotes are illustrative seed values; ad plan rates are undecided and must never be shown as numbers."
+  ],
+  "flows": [
+    {
+      "app": "client",
+      "flow": "onboarding",
+      "new": [],
+      "changed": [],
+      "deprecated": [],
+      "notes": "No change. Area selection already groups by governorate. Builders: nothing to do."
+    },
+    {
+      "app": "client",
+      "flow": "auth",
+      "new": [],
+      "changed": [
+        {
+          "id": "CL-AUTH-01",
+          "change": "Gate context lines for voucher moments; Client account only (providers use the Partner app)."
+        },
+        {
+          "id": "CL-AUTH-03",
+          "change": "Terms consent also covers the voucher terms (what the KD 2 buys, refund and reuse)."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Gate context lines gain voucher moments; Client account only (providers use the Partner app). Reuse the existing auth sheet; add the three new context strings to client-auth."
+    },
+    {
+      "app": "client",
+      "flow": "discover",
+      "new": [
+        "CL-DISC-06",
+        "CL-DISC-07"
+      ],
+      "changed": [
+        {
+          "id": "CL-DISC-01",
+          "change": "Status card follows the new statuses (confirm within 24 h, voucher ready); shelves show voucher prices; Special Offers and Last-Minute Deals become voucher-price shelves; Additional services entry."
+        },
+        {
+          "id": "CL-DISC-02",
+          "change": "Area row becomes governorate then area with a region text search; capacity is a range; the Brief keeps guests for pricing."
+        },
+        {
+          "id": "CL-DISC-03",
+          "change": "Cards show voucher price plus standard price and saving; Instant booking and the trailing Request/Book action are removed; new filter chips (governorate, venue type, capacity range, pricing structure, date, voucher price); sort by voucher price; governmental facility card is browse-only."
+        },
+        {
+          "id": "CL-DISC-04",
+          "change": "New groups: Region (governorate and area), Venue type, Capacity range, Pricing structure, Date and availability, Voucher price; Instant booking removed."
+        },
+        {
+          "id": "CL-DISC-05",
+          "change": "Map pins show the voucher price when eligible; carousel cards use the two-price block."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Largest filter change: add governorate/region, venue type, capacity range, pricing structure, date availability and voucher-price filters; cards show two prices; remove Instant and the Request/Book trailing action. New sheets CL-DISC-06 (date filter) and CL-DISC-07 (region search). Reuse the shared filter sheet and card components; add a TwoPrice block to the card (file a request in docs/engineering/requests.md)."
+    },
+    {
+      "app": "client",
+      "flow": "venue",
+      "new": [],
+      "changed": [
+        {
+          "id": "CL-VENU-01",
+          "change": "Two prices per package and in the date strip; primary action becomes Get voucher (registered) with Book a visit and Contact the venue beside it; deposit and instant states removed; governorate and venue type shown."
+        },
+        {
+          "id": "CL-VENU-03",
+          "change": "Prices view shows the voucher price when eligible; focus card shows both prices and no deposit; Continue becomes Get voucher or Send request."
+        },
+        {
+          "id": "CL-VENU-04",
+          "change": "Package sheet shows standard and voucher rate blocks and the saving; primary becomes Get voucher; pricing structure stated."
+        },
+        {
+          "id": "CL-VENU-05",
+          "change": "Cancellation tier bar and cooling-off retired; segment becomes Terms (venue terms and the voucher terms)."
+        },
+        {
+          "id": "CL-VENU-06",
+          "change": "Governmental Facility: browse-only, no voucher, no visit; the old commission and deposit mentions removed; shows venue type chip."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Two prices per package and in the date strip; Get voucher, Book a visit and Contact the venue replace Request/Book; CL-VENU-05 becomes Terms; CL-VENU-06 Governmental Facility is browse-only with no voucher or visit."
+    },
+    {
+      "app": "client",
+      "flow": "saved-compare",
+      "new": [],
+      "changed": [
+        {
+          "id": "CL-SAVD-01",
+          "change": "Rows show voucher price with standard price; price-drop badge replaced by voucher-saving; guest line unchanged."
+        },
+        {
+          "id": "CL-SAVD-04",
+          "change": "Compare shows both price rows and a savings row; footer actions become Get voucher / See dates / Official; no Book or deposit rows."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Rows and Compare columns carry both price rows plus savings; footer actions Get voucher / See dates / Official."
+    },
+    {
+      "app": "client",
+      "flow": "booking",
+      "new": [
+        "CL-BOOK-08",
+        "CL-BOOK-09",
+        "CL-BOOK-10"
+      ],
+      "changed": [
+        {
+          "id": "CL-BOOK-01",
+          "change": "Prefilled from the bound voucher quote (locked fields); instant fallback removed; mode line says the venue replies in 24 h and the voucher is attached."
+        },
+        {
+          "id": "CL-BOOK-02",
+          "change": "Package cards show standard and voucher prices; footer total is the voucher total; instant wording removed."
+        },
+        {
+          "id": "CL-BOOK-03",
+          "change": "Extras are priced in both columns (standard when the venue has no voucher price); copy says extras are settled with the venue; gate context line."
+        },
+        {
+          "id": "CL-BOOK-04",
+          "change": "Privacy line also names the voucher; no payment fields."
+        },
+        {
+          "id": "CL-BOOK-05",
+          "change": "Review becomes the voucher-bound request summary: standard price struck through, voucher price, savings, attached voucher, response time; payment schedule, deposit card, coupon field, credit sheet and instant mode removed."
+        },
+        {
+          "id": "CL-BOOK-06",
+          "change": "Request sent: voucher attached, 24 h confirm window explained, Thread nodes Request/Approval/Confirmation/Redemption/Day; copy no longer mentions deposit or payment."
+        },
+        {
+          "id": "CL-BOOK-07",
+          "change": "Recovery sheet says the voucher is still the client's; reasons date_taken, session_taken, hold_expired become date_taken, session_taken, confirm_window_ended; no payment wording."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Five-step flow stays, prefilled from the bound voucher quote; Review (CL-BOOK-05) is the voucher-bound request summary; deposit schedule, coupon, points and instant mode removed. New CL-BOOK-08 Confirm your booking (24 h), CL-BOOK-09 Booking confirmed (the one celebration), CL-BOOK-10 Confirmation window ended."
+    },
+    {
+      "app": "client",
+      "flow": "payment",
+      "new": [],
+      "changed": [
+        {
+          "id": "CL-PAYM-01",
+          "change": "Repurposed: Pay for your voucher (KD 2) with the method list; deposit, balance, pay-in-full, cash, instant hold and pay-window variants removed."
+        },
+        {
+          "id": "CL-PAYM-02",
+          "change": "Same gateway chrome; amount is KD 2.000 and the placeholder bank page shows the voucher."
+        },
+        {
+          "id": "CL-PAYM-03",
+          "change": "Same pending-bank state; summary line is the voucher."
+        },
+        {
+          "id": "CL-PAYM-04",
+          "change": "Repurposed for the voucher: declined, cancelled, checkout expired, late payment activated; hold and pay-window variants removed."
+        },
+        {
+          "id": "CL-PAYM-05",
+          "change": "Repurposed: Your voucher is ready (code and QR, bound venue and quote); the booking-confirmed celebration moves to CL-BOOK-09."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Repurposed in place: the flow pays the KD 2 voucher only. CL-PAYM-01 Pay for your voucher, -02 gateway frame, -03 confirming, -04 not completed, -05 Your voucher is ready. Remove deposit, balance, cash, pay-in-full, instant hold and pay-window states."
+    },
+    {
+      "app": "client",
+      "flow": "bookings",
+      "new": [],
+      "changed": [
+        {
+          "id": "CL-BKNG-01",
+          "change": "Needs-you section now holds approved requests with a confirm-by time; Past chips updated; counter and chips follow the new statuses; amount is the voucher price."
+        },
+        {
+          "id": "CL-BKNG-02",
+          "change": "Rewritten for the request machine: 24 h confirm countdown, Confirm booking, voucher card with code and QR, pay-the-venue-directly instruction; money panel, refund calculator, balance, deposit, reschedule, invoice and no-show variants removed."
+        },
+        {
+          "id": "CL-BKNG-03",
+          "change": "Repurposed: cancel shows the voucher outcome (reusable, consumed, refundable) instead of a refund calculator; IBAN, cooling-off, tier and refund tracker removed."
+        },
+        {
+          "id": "CL-BKNG-04",
+          "change": "Counter-offer only (voucher price held); accepting starts the 24 h confirm window; reschedule-on-confirmed and refund exit removed."
+        },
+        {
+          "id": "CL-BKNG-05",
+          "change": "Repurposed: Receipts (voucher payments and voucher refunds, listing nothing else); payments strip, scheduled rows and invoices removed."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Statuses and detail rewritten for the request machine: 24 h confirm countdown, Confirm booking, voucher card with code and QR, pay the venue directly. CL-BKNG-03 is Cancel request (voucher outcome), CL-BKNG-05 is Receipts. No refund calculator, IBAN, invoice or balance anywhere."
+    },
+    {
+      "app": "client",
+      "flow": "my-wedding",
+      "new": [],
+      "changed": [
+        {
+          "id": "CL-WEDD-01",
+          "change": "Launch-tab rule, Next up and Bookings card follow the new states (confirm within 24 h, voucher ready, pay the venue directly); balance and deposit actions removed."
+        },
+        {
+          "id": "CL-WEDD-03",
+          "change": "Booking payments no longer post automatically: a confirmed booking adds a committed row at the voucher price (to be paid to the venue) and the KD 2 voucher posts as a paid row."
+        },
+        {
+          "id": "CL-WEDD-04",
+          "change": "Automatic rows explanation mentions vouchers instead of deposits."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Launch-tab rule, Next up and Bookings card follow the new states; budget rows no longer auto-post event payments (voucher paid, venue price committed)."
+    },
+    {
+      "app": "client",
+      "flow": "planner",
+      "new": [],
+      "changed": [
+        {
+          "id": "CL-PLAN-01",
+          "change": "Planner packages stay information-only; planning is also a service-provider category reachable through the voucher request path."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Information only; one link to Event planning and coordination providers."
+    },
+    {
+      "app": "client",
+      "flow": "services",
+      "new": [],
+      "changed": [
+        {
+          "id": "CL-SERV-01",
+          "change": "Hub restructured: five primary Additional services categories first, secondary categories after; planner card kept."
+        },
+        {
+          "id": "CL-SERV-02",
+          "change": "Provider cards show voucher price with standard price; only approved listings; Sponsored label for paid placement; filters unchanged."
+        },
+        {
+          "id": "CL-SERV-03",
+          "change": "Packages show two prices; sticky bar becomes Get voucher / Contact; availability line unchanged."
+        },
+        {
+          "id": "CL-SERV-04",
+          "change": "Quote request stays (browse-only path) and gains an optional \"I have a voucher\" attachment."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Becomes the Additional services hub: five primary categories first; provider cards and profiles show standard and voucher prices; Get voucher, Request a quote and Contact are the three paths."
+    },
+    {
+      "app": "client",
+      "flow": "messages",
+      "new": [],
+      "changed": [
+        {
+          "id": "CL-MSGS-01",
+          "change": "Inbox gains Visit group chats (role chips) and a Visits filter."
+        },
+        {
+          "id": "CL-MSGS-02",
+          "change": "Conversation variants: booking bar uses the new statuses; empty-enquiry chips include \"Ask about the voucher price\"; visit group variant is a separate screen (CL-VIST-03)."
+        },
+        {
+          "id": "CL-MSGS-04",
+          "change": "Notification landings: deposit/balance/reschedule rows replaced by confirm-within-24h, voucher ready, voucher redeemed, visit and listing items."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Inbox gains visit group chats; notification landings follow the new events; the group chat screen itself is CL-VIST-03."
+    },
+    {
+      "app": "client",
+      "flow": "reviews-rewards",
+      "new": [],
+      "changed": [],
+      "deprecated": [
+        {
+          "id": "CL-RVRW-03",
+          "reason": "Superseded by ADR 0033: loyalty points, coupons wallet and referral rewards are replaced by the KD 2 voucher (CA-LOY-01..07 superseded). The coupons wallet role moves to My vouchers (CL-VCHR-02). Referral rewards are an open question (OQ-V-16)."
+        },
+        {
+          "id": "CL-RVRW-04",
+          "reason": "Superseded by ADR 0033: there is no coupon, points or platform credit at the booking step; the voucher is attached through CL-VCHR-04 (CA-LOY-05 superseded)."
+        }
+      ],
+      "notes": "Reviews (CL-RVRW-01, -02) unchanged. Rewards and Coupon or points are deprecated (loyalty, coupons and credits superseded by the voucher). Do not build CL-RVRW-03 or CL-RVRW-04."
+    },
+    {
+      "app": "client",
+      "flow": "profile",
+      "new": [],
+      "changed": [
+        {
+          "id": "CL-PROF-01",
+          "change": "Rows: My vouchers and Visits added; Payments becomes Receipts; Rewards removed."
+        },
+        {
+          "id": "CL-PROF-04",
+          "change": "Always-on group now lists booking and voucher updates and visit messages; Reminders group lists voucher expiry and visit reminders instead of balance due."
+        },
+        {
+          "id": "CL-PROF-06",
+          "change": "Deletion is paused only for an approved request or a future confirmed booking; ready vouchers are refunded on request first; points and invoices wording removed."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Rows: My vouchers, Visits, Receipts added or renamed, Rewards removed; notification groups and delete-account wording updated."
+    },
+    {
+      "app": "client",
+      "flow": "vouchers",
+      "new": [
+        "CL-VCHR-01",
+        "CL-VCHR-02",
+        "CL-VCHR-03",
+        "CL-VCHR-04",
+        "CL-VCHR-05"
+      ],
+      "changed": [],
+      "deprecated": [],
+      "notes": "NEW flow (namespace client-vouchers, folder design/src/screens/client/vouchers). Entry points: Get voucher on venue and provider screens, Profile > My vouchers, Booking detail."
+    },
+    {
+      "app": "client",
+      "flow": "visits",
+      "new": [
+        "CL-VIST-01",
+        "CL-VIST-02",
+        "CL-VIST-03",
+        "CL-VIST-04",
+        "CL-VIST-05"
+      ],
+      "changed": [],
+      "deprecated": [],
+      "notes": "NEW flow (namespace client-visits, folder design/src/screens/client/visits). Entry points: Book a visit on the venue detail, Booking confirmed, Profile > Visits. The group chat reuses the shared chat component with three role chips."
+    },
+    {
+      "app": "hotel",
+      "flow": "access",
+      "new": [],
+      "changed": [
+        {
+          "id": "HL-ACCS-01",
+          "change": "The Partner app serves two account types (Hotel or hall, Service provider); tagline and invitation copy become partner-wide; first sign-in of a new partner routes to the account type chooser."
+        },
+        {
+          "id": "HL-ACCS-04",
+          "change": "Under-review variant covers both account types and a listing-review wait; no payout wording."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Tagline and routing for two account types; new partners go to the chooser (HL-PROV-01)."
+    },
+    {
+      "app": "hotel",
+      "flow": "today",
+      "new": [],
+      "changed": [
+        {
+          "id": "HL-TODY-01",
+          "change": "Money tiles, payout banner, revenue and KYC removed; tiles become requests, vouchers redeemed, open dates; Needs-you adds visits; provider variant added."
+        },
+        {
+          "id": "HL-TODY-02",
+          "change": "Balance-at-risk item removed; Money filter replaced by Visits (and Listing for providers)."
+        },
+        {
+          "id": "HL-TODY-03",
+          "change": "Notification types: voucher redeemed by you, visit requests and group-chat messages, listing review decisions; balance and deposit alerts removed."
+        },
+        {
+          "id": "HL-TODY-04",
+          "change": "Inbox includes visit group chats with role chips."
+        },
+        {
+          "id": "HL-TODY-05",
+          "change": "Quick replies no longer include payment reminder; context bar uses the new statuses."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Voucher tiles replace money tiles, no payout banner, Needs-you adds visits and listing decisions, provider variant."
+    },
+    {
+      "app": "hotel",
+      "flow": "bookings",
+      "new": [
+        "HL-BOOK-06",
+        "HL-BOOK-07"
+      ],
+      "changed": [
+        {
+          "id": "HL-BOOK-01",
+          "change": "Triage card shows the voucher chip and voucher price; payout preview, commission and KYC gating removed; Accept confirm sheet drops the pay window."
+        },
+        {
+          "id": "HL-BOOK-02",
+          "change": "Upcoming sections become Awaiting client (24 h timer), Confirmed, Redeemed; Past chips drop Refunded; money states replaced by voucher states."
+        },
+        {
+          "id": "HL-BOOK-03",
+          "change": "Booking detail rewritten for the request machine: voucher panel and Redeem action replace the money panel; invoice, cash, payout, reschedule, refund and no-show variants removed."
+        },
+        {
+          "id": "HL-BOOK-04",
+          "change": "Unchanged except the privacy line mentions the voucher."
+        }
+      ],
+      "deprecated": [
+        {
+          "id": "HL-BOOK-05",
+          "reason": "Superseded by ADR 0033: Ghazal issues no event invoice or per-payment receipt for partners (the event is paid to the venue directly). Receipts exist only for the client voucher and the partner's listing plan (HL-SETT-04 Billing and fees)."
+        }
+      ],
+      "notes": "Request lists and detail follow the request machine; Redeem voucher by code or QR (new HL-BOOK-06, HL-BOOK-07); invoice deprecated."
+    },
+    {
+      "app": "hotel",
+      "flow": "decisions",
+      "new": [],
+      "changed": [
+        {
+          "id": "HL-DCSN-01",
+          "change": "Accept starts the fixed 24 h confirm window; pay-window chips, KYC and bank links, deposit and discount-at-approval wording removed (an optional lower voucher price remains)."
+        },
+        {
+          "id": "HL-DCSN-02",
+          "change": "Decline copy tells the client the voucher is returned; otherwise unchanged."
+        },
+        {
+          "id": "HL-DCSN-03",
+          "change": "Reschedule mode removed (no reschedule of a confirmed booking); proposals hold the voucher price; accepted proposal starts the 24 h confirm window."
+        },
+        {
+          "id": "HL-DCSN-04",
+          "change": "Cancel shows the voucher consequence (client voucher returned and refundable; reliability strike) instead of a refund calculation and gateway fees."
+        }
+      ],
+      "deprecated": [
+        {
+          "id": "HL-DCSN-05",
+          "reason": "Superseded by ADR 0033: no cash or any event payment is recorded in the app; the client pays the venue directly off-app (CA-PAY-06 superseded)."
+        }
+      ],
+      "notes": "Accept starts the fixed 24 h confirm window; decline and cancel show the voucher consequence; propose-date is counter-offer only; record cash deprecated."
+    },
+    {
+      "app": "hotel",
+      "flow": "calendar",
+      "new": [],
+      "changed": [
+        {
+          "id": "HL-CALN-01",
+          "change": "Held cell now means approved and awaiting the client's 24 h confirmation; deposit and balance wording removed."
+        },
+        {
+          "id": "HL-CALN-03",
+          "change": "Day view agenda rows show request status and voucher chip, no pay-by time."
+        },
+        {
+          "id": "HL-CALN-04",
+          "change": "Block sheet copy no longer mentions commission."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Wording only: Held means awaiting the client's confirmation; no deposit or commission text. Providers see Listings in this tab slot."
+    },
+    {
+      "app": "hotel",
+      "flow": "venue",
+      "new": [],
+      "changed": [
+        {
+          "id": "HL-VENU-02",
+          "change": "Package rows show standard and voucher prices and the pricing structure; footer note covers voucher windows."
+        },
+        {
+          "id": "HL-VENU-03",
+          "change": "Package editor gains the voucher price per day type, pricing structure and validation voucher <= standard; preview shows both prices and the saving."
+        },
+        {
+          "id": "HL-VENU-04",
+          "change": "Venue type (Private Hall or Hotel) added to the venue profile section."
+        },
+        {
+          "id": "HL-VENU-05",
+          "change": "Policies become venue terms (free text per language) plus children, dress code and hours; cancellation tiers, cooling-off, reschedule and refund removed."
+        },
+        {
+          "id": "HL-VENU-06",
+          "change": "Booking rules: request mode only; reply window, visit availability link and voucher settings; instant booking, pay window, deposit, balance, guest lock, cash and KYC removed."
+        }
+      ],
+      "deprecated": [],
+      "notes": "Two prices per package (standard and voucher), venue type and pricing structure; terms replace cancellation policy; booking rules lose instant, deposit, balance, cash and KYC."
+    },
+    {
+      "app": "hotel",
+      "flow": "grow",
+      "new": [],
+      "changed": [
+        {
+          "id": "HL-GROW-01",
+          "change": "Repurposed: Voucher prices (time-boxed voucher-price windows replace offers, flash sales and coupon codes)."
+        },
+        {
+          "id": "HL-GROW-02",
+          "change": "Repurposed: Voucher price window, step 1 (which packages and the new voucher price); type cards and coupon removed."
+        },
+        {
+          "id": "HL-GROW-03",
+          "change": "Repurposed: Voucher price window, step 2 (dates and limits); coupon code and flash windows removed."
+        },
+        {
+          "id": "HL-GROW-04",
+          "change": "Analytics: revenue removed; vouchers purchased and redeemed and request funnel added."
+        }
+      ],
+      "deprecated": [
+        {
+          "id": "HL-GROW-05",
+          "reason": "Superseded by ADR 0033: Ghazal holds no event money, so there is no booked/received/payable ledger, payout or commission to show (HA-DASH-02, HA-ANLY-04, SA-COMM-* superseded). Vouchers redeemed live in HL-GROW-04 and Today."
+        }
+      ],
+      "notes": "Repurposed: offers become voucher price windows (HL-GROW-01..03); analytics show vouchers purchased and redeemed; revenue deprecated."
+    },
+    {
+      "app": "hotel",
+      "flow": "settings",
+      "new": [],
+      "changed": [
+        {
+          "id": "HL-SETT-01",
+          "change": "More: payout row becomes Billing and fees; Visits and (for providers) Listings added; Grow group renamed; account type switch."
+        },
+        {
+          "id": "HL-SETT-02",
+          "change": "Notification categories follow voucher and visit events; balance, refund and instant alerts removed."
+        },
+        {
+          "id": "HL-SETT-03",
+          "change": "Role summaries mention redemption and visits; bank and revenue wording removed."
+        },
+        {
+          "id": "HL-SETT-04",
+          "change": "Repurposed: Billing and fees (ad plans, receipts, major-hotel exemption badge); bank information, IBAN and payout verification removed."
+        }
+      ],
+      "deprecated": [],
+      "notes": "More root, notification categories and staff role lines updated; HL-SETT-04 is Billing and fees (ad plans, exemption badge) instead of bank information."
+    },
+    {
+      "app": "hotel",
+      "flow": "visits",
+      "new": [
+        "HL-VIST-01",
+        "HL-VIST-02",
+        "HL-VIST-03",
+        "HL-VIST-04",
+        "HL-VIST-05"
+      ],
+      "changed": [],
+      "deprecated": [],
+      "notes": "NEW flow (namespace hotel-visits, folder design/src/screens/hotel/visits). Visit requests, detail, group chat, arrival and availability."
+    },
+    {
+      "app": "hotel",
+      "flow": "provider",
+      "new": [
+        "HL-PROV-01",
+        "HL-PROV-02",
+        "HL-PROV-03",
+        "HL-PROV-04",
+        "HL-PROV-05",
+        "HL-PROV-06",
+        "HL-PROV-07"
+      ],
+      "changed": [],
+      "deprecated": [],
+      "notes": "NEW flow (namespace hotel-provider, folder design/src/screens/hotel/provider). Account type chooser, listings, editor, ad plan (rates TBD), payment, review status, performance."
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "id": "bookings",
+  "order": 8,
+  "title": {
+    "en": "Bookings and statuses",
+    "ar": "الحجوزات وحالاتها"
+  },
+  "intent": "One booking, seen from the couple's side with the same Booking Thread the hotel sees. The canonical home is My Wedding > Bookings; the Home status card, the Profile row and every booking notification are shortcuts to the same screens. There is one Booking detail with status variants, never one screen per status (ADR 0003). Cancelling, answering a venue's proposed new date and finding every payment document live in sheets and a payments screen.",
+  "screens": [
+    {
+      "id": "CL-BKNG-01",
+      "slug": "bookings-list",
+      "title": {
+        "en": "Bookings",
+        "ar": "الحجوزات"
+      },
+      "kind": "screen",
+      "purpose": "All of the user's bookings grouped by what needs attention, with venue, date, amount and a status chip (icon plus label). Pushed from the My Wedding Bookings card and the Profile row. The six PRD statuses are reachable in two taps.",
+      "requirementIds": [
+        "CA-STAT-01",
+        "CA-PROF-04",
+        "CA-STAT-03",
+        "CA-STAT-04",
+        "CA-STAT-05",
+        "CA-STAT-06",
+        "CA-STAT-07",
+        "CA-AUTH-10",
+        "CA-STAT-14"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "guest",
+        "open-requests-limit",
+        "approved-confirm-by",
+        "voucher-redeemed"
+      ],
+      "interactions": [
+        "Empty state offers 'See halls free on your date'; guests see a sign-in teaser instead of a list",
+        "Sections in order of urgency: \"Needs you\" (approved requests with a confirm-by time, a venue-proposed date), Pending, Confirmed (including Voucher redeemed), then Past with a chip row (All, Completed, Cancelled, Not accepted, Expired)",
+        "Row: venue thumbnail or monogram, name, \"Thu 14 Jan 2027 · Ladies' reception\", the voucher price in exact three decimals with a small voucher glyph, status chip and an absolute time line (\"Expected reply by Fri 13 Nov, 12:40 PM\" or \"Confirm by Fri 13 Nov, 4:00 PM\"); tap opens Booking detail (CL-BKNG-02)",
+        "Quiet counter \"Open requests 1 of 3\" (pending plus approved, across the wedding file) explains the limit before it blocks a new request; a \"My vouchers\" link row opens CL-VCHR-02"
+      ],
+      "contentNotes": "Seed rows: 1) فندق أوريليا الخليج / Aurelia Gulf Hotel, Ladies' reception, Thu 14 Jan 2027, 350 guests, KD 18,200.000, chip «بانتظار الرد» / Pending (the prototype switches this row through Pending, Approved, Confirmed to show the states); 2) فندق لومي مارينا / Lumi Marina Hotel, Ladies' reception, Thu 14 Jan 2027, 300 guests, KD 11,400.000, chip «انتهت المهلة» / Expired (the venue did not reply; nothing was charged). Status chips: Pending (gold tint, clock), Approved - deposit due (gold outline, hourglass), Confirmed (success, check), Completed (ink tint, double check), Not accepted (danger, x), Expired (neutral, clock-off), Cancelled (neutral, x), Refunded (rose tint, return arrow). Chips never rely on colour alone. Guests see «تسجيل الدخول لمتابعة طلباتكم» / 'Sign in to follow your requests'. Tab bar visible. Voucher model (ADR 0033): the seed row amounts are voucher totals (illustrative: KD 15,400.000 for the story request); chip words follow booking-state-machine section 3 (Pending, Approved - confirm within 24 h, Confirmed, Voucher redeemed, Not accepted, Expired, Cancelled, Completed); \"Refunded\" is no longer a booking chip.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BKNG-02",
+        "CL-DISC-03",
+        "CL-AUTH-01",
+        "CL-WEDD-01",
+        "CL-VCHR-02"
+      ]
+    },
+    {
+      "id": "CL-BKNG-02",
+      "slug": "booking-detail",
+      "title": {
+        "en": "Booking detail",
+        "ar": "تفاصيل الحجز"
+      },
+      "kind": "screen",
+      "purpose": "The canonical request/booking screen, one layout with status variants. The Booking Thread (Request, Approval, Confirmation, Redemption, Day) leads; below it the status block, the voucher card, event and sections, package and extras, price in two columns, venue terms and venue contact. The primary changes with the status: Confirm booking (approved), Show voucher (confirmed). There is no payment, balance, refund or invoice section: the event is paid to the venue directly (ADR 0033).",
+      "requirementIds": [
+        "CA-STAT-02",
+        "CA-STAT-03",
+        "CA-STAT-04",
+        "CA-STAT-05",
+        "CA-STAT-06",
+        "CA-STAT-07",
+        "CA-STAT-09",
+        "CA-STAT-10",
+        "CA-BOOK-12",
+        "CA-CHAT-02",
+        "CA-STAT-11",
+        "CA-STAT-12",
+        "CA-STAT-13",
+        "CA-STAT-14",
+        "CA-VCH-07",
+        "CA-VCH-11"
+      ],
+      "states": [
+        "pending",
+        "pending-date-held",
+        "approved-confirm-window",
+        "approved-last-hour",
+        "confirmed",
+        "voucher-redeemed",
+        "venue-proposed-date",
+        "declined",
+        "expired-venue-no-reply",
+        "expired-not-confirmed",
+        "cancelled-by-me",
+        "cancelled-by-venue",
+        "completed",
+        "issue-reported",
+        "loading",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Pending: \"Request sent. Your voucher is attached. Nothing is held yet.\" with \"Expected reply by {absolute time}\"; Edit request (reopens steps 1 to 5 prefilled; the reply clock keeps running) and Withdraw",
+        "Approved: \"Held for you until Fri 13 Nov, 4:00 PM. Confirm your booking now.\" with the primary \"Confirm booking\" (opens CL-BOOK-08) and the 24 hour window shown as an absolute time; a live mm:ss countdown appears only in the final 60 minutes (gold-ink, no alarm animation); secondary Cancel (CL-BKNG-03); the price is locked",
+        "Confirmed: voucher card with code and QR (CL-VCHR-03), \"Pay Aurelia Gulf Hotel directly, then show this code\", the venue phone, Add to calendar, Book a visit, Message, Cancel; policy dates and a refund calculator no longer exist",
+        "Voucher redeemed: \"Voucher redeemed on Mon 4 Jan 2027\" and the final venue price; Completed: review prompt the morning after (CL-RVRW-02) and \"Report an issue\" for 72 hours (venue would not honour the voucher price, voucher not redeemed)",
+        "Venue proposed another date: one card that opens CL-BKNG-04 (a landing from the push opens the response sheet immediately)",
+        "Not accepted: a gentle reason category, \"Your voucher is still yours\" with Use again or Refund (CL-VCHR-05) and a rail of three halls free on the date; Expired: reason (the venue did not reply, the 24 hours passed, the date was taken), the voucher outcome and \"Send to similar venues\"",
+        "Chat entry opens the venue thread with the booking context bar (CL-MSGS-02); the Thread highlights a changed node for 1.2 s on arrival from a push"
+      ],
+      "contentNotes": "Header: Aurelia Gulf Hotel · Danah Ballroom · «الحفل النسائي» / Ladies' reception · «الخميس 14 يناير 2027» (Arabic adds «6 شعبان 1448 هـ») · 350 guests · reference GZ-2611-0147. Price (illustrative seed): Standard 350 x KD 52 = KD 18,200.000, Voucher KD 15,400.000, You save KD 2,800.000. Approved copy «تمت الموافقة. أكدوا حجزكم قبل الجمعة 13 نوفمبر، 4:00 م.» / \"Approved. Confirm your booking by Fri 13 Nov, 4:00 PM.\" Confirmed copy «ادفعوا للقاعة مباشرةً، ثم أظهروا هذا الرمز.» / \"Pay the venue directly, then show this code.\" Expired not confirmed: «انتهت مهلة التأكيد (24 ساعة). كوبونكم عاد إليكم لاستخدامه مرة أخرى في القاعة نفسها.» / \"The 24-hour confirmation window ended. Your voucher is back with you for another request at the same venue.\" Superseded by ADR 0033: deposit, balance, guest-count lock, refund calculator, invoice section, reschedule, refund tracker and no-show variants.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BOOK-08",
+        "CL-BOOK-09",
+        "CL-VCHR-03",
+        "CL-VCHR-05",
+        "CL-BKNG-03",
+        "CL-BKNG-04",
+        "CL-BKNG-05",
+        "CL-VIST-01",
+        "CL-MSGS-02",
+        "CL-RVRW-02",
+        "CL-DISC-03",
+        "CL-VENU-01",
+        "CL-BOOK-01"
+      ]
+    },
+    {
+      "id": "CL-BKNG-03",
+      "slug": "cancel-booking",
+      "title": {
+        "en": "Cancel request",
+        "ar": "إلغاء الطلب"
+      },
+      "kind": "sheet",
+      "purpose": "A short sheet flow that shows the voucher consequence first: withdrawing a pending request or declining the approval returns the voucher for reuse at the same venue; cancelling a confirmed booking uses the voucher up. Then a reason and an explicit confirm. There is no refund amount, no IBAN and no arrival estimate because no event money moved through Ghazal (ADR 0033).",
+      "requirementIds": [
+        "CA-STAT-09",
+        "CA-STAT-06",
+        "CA-VCH-11"
+      ],
+      "states": [
+        "withdraw-pending",
+        "cancel-approved",
+        "cancel-confirmed-consumes-voucher",
+        "confirming",
+        "success",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Step 1 consequence panel: what happens to the date, and what happens to the voucher (\"Your voucher returns to you and can be used again at Aurelia Gulf Hotel until Fri 8 Jan 2027\" or \"Cancelling a confirmed booking uses your voucher; it cannot be refunded or reused\"); an alternative \"Message the venue instead\" opens the thread",
+        "Step 2 reason chips (Plans changed, Found another venue, Date changed, Budget, Other) with an optional note",
+        "Step 3 explicit confirm; the destructive action is text-plus-icon, never colour alone; done returns to Booking detail with the new status and the voucher outcome card"
+      ],
+      "contentNotes": "Pending: «سحب الطلب؟ كوبونكم يرجع إليكم ويمكنكم استخدامه في القاعة نفسها.» / \"Withdraw this request? Your voucher comes back and can be used at the same venue.\" Confirmed: «إلغاء الحجز المؤكد يستهلك الكوبون ولا يمكن استرداده.» / \"Cancelling a confirmed booking uses up your voucher; it cannot be refunded.\" Superseded by ADR 0033: refund preview, cooling-off, tier retention, destination IBAN step and refund tracker.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BKNG-02",
+        "CL-VCHR-05",
+        "CL-MSGS-02"
+      ]
+    },
+    {
+      "id": "CL-BKNG-04",
+      "slug": "venue-proposed-date",
+      "title": {
+        "en": "Venue proposed another date",
+        "ar": "اقتراح موعد آخر من المكان"
+      },
+      "kind": "sheet",
+      "purpose": "The client counterpart of the hotel's 'Propose another date': one card type for counter-offers (on a request) and reschedules (on a confirmed booking). The couple picks one of 1 to 3 dates or declines, with the price and consequences stated up front.",
+      "requirementIds": [
+        "CA-STAT-10",
+        "CA-STAT-02"
+      ],
+      "states": [
+        "counter-offer",
+        "accepting",
+        "accepted",
+        "declined-confirm",
+        "response-expired",
+        "date-taken-meanwhile",
+        "offline"
+      ],
+      "interactions": [
+        "Radio list of the proposed dates, each re-quoted for the same hall and session; the voucher price is held even if the new date is a higher tier",
+        "\"Accept this date\" moves the request to Approved with a new 24 hour confirm window (opens CL-BOOK-08); the response window is an absolute time (48 hours)",
+        "Decline closes the request and returns the voucher for reuse at the same venue; \"Message venue\" opens the thread"
+      ],
+      "contentNotes": "Counter-offer example: Aurelia Gulf Hotel cannot host Thu 14 Jan 2027 and proposes Thu 21 Jan, Fri 22 Jan or Sat 23 Jan 2027, each at the voucher price «15,400 د.ك لعدد 350 ضيفًا» (price held, illustrative), reply by Sat 14 Nov, 4:00 PM. Copy: «لا غرامة في حال الاعتذار. كوبونكم يبقى لكم.» / \"No penalty if you decline. Your voucher stays yours.\" Superseded by ADR 0033: reschedule of a confirmed booking (72 hours) and the full-refund exit; pay-by wording.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BKNG-02",
+        "CL-BOOK-08",
+        "CL-BKNG-03",
+        "CL-MSGS-02"
+      ]
+    },
+    {
+      "id": "CL-BKNG-05",
+      "slug": "payments",
+      "title": {
+        "en": "Receipts",
+        "ar": "الإيصالات"
+      },
+      "kind": "screen",
+      "purpose": "Every Ghazal receipt: the KD 2 voucher payments and voucher refunds (credit notes), with a bilingual PDF viewer. There are no scheduled payments, no balances and no event invoices. Opened from Profile > Receipts, My vouchers and the voucher-ready screen.",
+      "requirementIds": [
+        "CA-PROF-05",
+        "CA-NOTI-07",
+        "CA-VCH-14"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "receipt-viewer",
+        "refund-row",
+        "downloaded"
+      ],
+      "interactions": [
+        "Rows grouped by month: \"Voucher · KNET · Thu 12 Nov 2026 · KD 2.000 · Receipt\" and, after a refund, \"Refund · KD 2.000 · processing\" with its arrival estimate",
+        "Tapping a row opens the viewer sheet: bilingual PDF preview with Share (OS sheet), Download and Open in; receipt per voucher payment and credit note per refund",
+        "Each row links to its voucher (CL-VCHR-03); a quiet line says \"Event payments are between you and the venue and do not appear here\""
+      ],
+      "contentNotes": "Documents say KWD (receipts only) and use Western digits in both languages; screens say KD. Legal issuer wording is pending (OQ-B-06); Kuwait has no VAT so there are no tax lines. Superseded by ADR 0033: the Paid and Remaining strip, scheduled balance rows, booking invoice and deposit receipts.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-VCHR-03",
+        "CL-BKNG-02"
+      ]
+    }
+  ]
+}

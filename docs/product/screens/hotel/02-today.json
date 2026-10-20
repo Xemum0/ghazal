@@ -1,0 +1,265 @@
+{
+  "id": "today",
+  "order": 2,
+  "title": {
+    "en": "Today, alerts and messages",
+    "ar": "اليوم والتنبيهات والرسائل"
+  },
+  "intent": "The first screen is already the inbox. Today answers 'what needs me, and what is coming' in one glance (ADR 0008 D2-D4): a one-sentence status, a Needs-you queue ranked by nearest deadline, today's events, a 14-day availability strip and at most three money tiles. Around it sit the notification centre (the new-request alert must stand out from everything else) and the Messages tab: inbox and a chat thread that carries a pinned booking context bar. Role changes the content of Today, never the navigation.",
+  "screens": [
+    {
+      "id": "HL-TODY-01",
+      "slug": "today",
+      "title": {
+        "en": "Today",
+        "ar": "اليوم"
+      },
+      "kind": "tab-root",
+      "purpose": "Glance and decide. For Admin and Manager: status sentence, Needs-you cards (two expanded), today's events, 14-day availability strip with the soft-date shortcut, quick actions and three money tiles, then a messages preview and the latest notifications. Reception, Accountant and Marketing see the same screen with role-aware content instead of a different navigation.",
+      "requirementIds": [
+        "HA-DASH-01",
+        "HA-DASH-03",
+        "HA-DASH-04",
+        "HA-DASH-05",
+        "HA-DASH-06",
+        "HA-DASH-07",
+        "HA-AUTH-02",
+        "HA-AUTH-03",
+        "HA-VCH-01",
+        "HA-VIS-01",
+        "PA-ACC-02",
+        "PA-REV-02",
+        "HA-ANLY-08"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "role-reception",
+        "role-accountant",
+        "role-marketing",
+        "first-run",
+        "new-request-banner",
+        "role-provider",
+        "visit-request-banner",
+        "listing-review-banner",
+        "fee-exempt-badge"
+      ],
+      "interactions": [
+        "Status sentence, then Needs-you cards: the top two requests are expanded as the same triage card used in Bookings (HL-BOOK-01) with Accept, Propose another date and Decline; 'See all 9' opens the full queue",
+        "Accept from a Needs-you card is 2 taps from this screen (open, Accept) with the 8-second Undo toast; Decline is 3 taps (ADR 0008 D6-D7)",
+        "Quick actions row under the cards: 'Block a date' opens the date-pick then the Block sheet; 'New offer' opens the offer stepper",
+        "14-day availability strip: tap a day to open that day in the Calendar day view; the caption '6 open weekend dates in 60 days' opens the month calendar in soft-date mode",
+        "Bell at the header inline-end opens the notification centre and shows the unread count; the venue name chip opens the venue switcher sheet only when the account has more than one venue",
+        "Foreground arrival of a request: Bookings tab badge scales in, a 6-second non-modal banner slides from the top with a light haptic and the distinct new-request sound; tapping it opens Booking detail with the sticky Accept bar",
+        "First successful sign-in: two sheets in sequence, 'Allow notifications' (explains the time-sensitive new-request alert and the sound) then 'Use Face ID / fingerprint to lock the app' (can be skipped, can be turned on later in More)",
+        "Pull to refresh; offline shows a persistent stamp 'Offline - updated 4:00 PM' and every decision control is disabled in place with 'Offline. Reconnect to accept.'",
+        "Voucher tiles (read-only, no charts): hero \"Requests this month\" with \"vouchers redeemed\" beneath, \"Awaiting client confirmation\", \"Open dates, next 30 days\"; tapping a tile opens Bookings filtered to it; there are no revenue, payable or payout tiles and no revenue screen (HL-GROW-05 is deprecated)",
+        "Needs-you also lists visit requests (HL-VIST-01) and, for providers, a listing review decision; a \"Redeem voucher\" quick action opens HL-BOOK-06; the old \"payout banner\" and \"Payout setup needed\" prompts are removed",
+        "Service-provider variant: no hall availability strip or Block action; tiles become \"Requests this month\", \"Vouchers redeemed\" and \"Listing status\"; a status chip shows the listing lifecycle (HL-PROV-06)"
+      ],
+      "contentNotes": "NOW is Thu 12 Nov 2026, 4:00 PM, Kuwait time. Header: «فندق أوريليا الخليج» / Aurelia Gulf Hotel with the date line «الخميس 12 نوفمبر» / Thursday 12 November; persona Hind Al-Enezi, Manager. Status: «5 طلبات بانتظار ردكم · أولها خلال 3 س» / '5 requests need your reply - first in 3h'; the all-clear variant reads «لا شيء بانتظاركم الآن» / 'All clear' with a quiet check line-icon. Needs-you order is by nearest deadline: دانة الشمري / Dana Al-Shammari (ladies, Sun 17 Jan, Majlis Hall, 250 guests, KD 11,500.000, 3h left, danger state with text) then عبدالله الهاجري / Abdullah Al-Hajri (full night, Fri 5 Feb, 34,160.000, 15h left). SLA colours: neutral below 50% elapsed, gold from 50%, danger from 80% or under 1 hour left, always with text. Today's events (inserted after Needs-you to satisfy HA-DASH-01): 8:30 PM Majlis Hall, men's reception, 310 guests, سلمان الحربي / Salman Al-Harbi, Confirmed, paid in full, 'Starts in 4h 30m'; 9:00 PM Danah Ballroom, ladies' reception, 420 guests (420 x 52 = 21,840.000), نجلاء البدر / Najla Al-Badr, Confirmed, paid in full. Availability strip, Thu 12 to Wed 25 Nov, two stacked marks per day (Danah, Majlis) by shape not colour: Thu 12 both solid; Fri 13 Danah solid, Majlis open; Sat 14 both solid; Sun 15 to Tue 17 open; Wed 18 Majlis solid; Thu 19 both solid; Fri 20 open (freed by a cancellation); Sat 21 Danah solid; Sun 22 open; Mon 23 struck (blocked, maintenance); Tue 24 and Wed 25 open. Money tiles (browse precision, figures role): hero 'Booked this month' 214,600 د.ك (16 events) with sub-line 'KD 118,240 received'; 'Payable - next payout Sun 15 Nov' 38,420 د.ك; 'Open dates, next 30 days' 9. A 'You receive' preview appears only when a commission rule exists (OQ-B-16), and is hidden from Reception. Messages preview: one row, Reem Al-Dosari, 48 min unanswered. Latest notifications: three rows with an absolute time. Payout banner (ADR 0001): while supplier KYC is not approved a full-width banner reads 'Payouts: action needed. You can receive requests, but approving needs payout setup.' and links to Bank info; the demo venue is verified so the banner is a state. Role variants: Reception shows Needs-you, events and messages, no money tiles and no 'You receive'; Accountant shows money first (Booked, Received, Payable, balances due this week, payments received today) then events, with no request cards; Marketing shows active offers and an analytics glance (views, last 7 days) then Needs-you limited to reviews and offers ending. Weekly 'Confirm your calendar is up to date' nudge (OQ-B-22) appears inside Needs-you. Arabic status sentences use passive or noun forms, no gendered verbs. Tab bar visible; Bookings badge shows 5, danger-tinted because one request is in the danger state. Voucher model (ADR 0033): hero «12 طلبًا هذا الشهر · 5 كوبونات مستخدمة» / \"12 requests this month · 5 vouchers redeemed\" (illustrative seed). The \"Booked this month KD 214,600\" tile, the \"Payable - next payout\" tile and the commission and KYC states above are superseded; a major hotel sees the badge «فندق رئيسي · بلا رسوم إدراج» / \"Major hotel · no listing fees\" in More, not here.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-TODY-02",
+        "HL-TODY-03",
+        "HL-TODY-04",
+        "HL-BOOK-01",
+        "HL-BOOK-03",
+        "HL-DCSN-01",
+        "HL-DCSN-02",
+        "HL-DCSN-03",
+        "HL-CALN-01",
+        "HL-CALN-03",
+        "HL-CALN-04",
+        "HL-GROW-02",
+        "HL-BOOK-06",
+        "HL-VIST-01",
+        "HL-PROV-06"
+      ]
+    },
+    {
+      "id": "HL-TODY-02",
+      "slug": "needs-you",
+      "title": {
+        "en": "Needs you",
+        "ar": "بانتظاركم"
+      },
+      "kind": "screen",
+      "purpose": "The full queue behind 'See all N': everything that needs a person, ranked by nearest deadline, so nothing waits unseen. It mixes pending requests, unanswered messages, overdue balances, reviews awaiting a reply and the weekly calendar confirmation.",
+      "requirementIds": [
+        "HA-DASH-03",
+        "HA-DASH-04",
+        "HA-DASH-06",
+        "HA-NOTI-09",
+        "HA-VIS-01"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "filtered"
+      ],
+      "interactions": [
+        "Compact 96px rows; the chevron expands one request row at a time into the full triage card so Accept stays 2 taps from Today (expand, Accept)",
+        "Tapping a row opens its object: request to Booking detail, message to the thread, balance to Booking detail with 'Nudge client', review to the review with Reply, calendar nudge confirms in place",
+        "Emptying the queue collapses the list to the 'All clear' state with a 320 ms transition (instant with reduced motion)",
+        "No swipe actions anywhere; every action is a visible control (ADR 0014)",
+        "Filter chips with counts: All, Requests, Visits, Messages, Reviews, Calendar (Listing for providers); the Money chip and the \"balance at risk\" item are removed (no event payments in the app)"
+      ],
+      "contentNotes": "Nine items at NOW: five requests (Dana Al-Shammari 3h, Abdullah Al-Hajri 15h, Maryam Al-Kandari 17h, Faisal Al-Rasheedi 19h, Reem Al-Dosari 20h 40m), an unanswered message (Reem Al-Dosari, unanswered since 3:12 PM, older than 30 minutes), a balance at risk (منيرة الخالد / Munira Al-Khaled, ladies, Sat 21 Nov, balance KD 12,010.000 overdue 5 days, event in 9 days; the D+3 grace has passed so the venue decides), a review awaiting a reply for 11 days (منى س., 3.5 stars, about valet queues) and the calendar confirmation due Thu 12 Nov. Deadline text is absolute plus compact countdown, for example 'Reply by 7:00 PM today - 3h left' / «الرد قبل 7:00 م اليوم · باقي 3 س». Rows carry a type icon, never colour alone. The 'You receive' amount is omitted when no commission rule exists and always for Reception. Empty state copy: «لا شيء بانتظاركم الآن» / 'All clear', with the next event line below it. Voucher model (ADR 0033): Munira Al-Khaled's overdue balance row is removed; visit requests appear as rows \"Visit request · Sat 14 Nov, 5:00 PM\" opening HL-VIST-02.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-BOOK-03",
+        "HL-DCSN-01",
+        "HL-DCSN-02",
+        "HL-DCSN-03",
+        "HL-TODY-05",
+        "HL-GROW-06",
+        "HL-CALN-01",
+        "HL-VIST-02"
+      ]
+    },
+    {
+      "id": "HL-TODY-03",
+      "slug": "notifications",
+      "title": {
+        "en": "Notifications",
+        "ar": "الإشعارات"
+      },
+      "kind": "screen",
+      "purpose": "The in-app list of everything the system told the venue, with read and unread state. A new booking request is visually and audibly distinct from every other type. Each row opens its object with a rebuilt back stack.",
+      "requirementIds": [
+        "HA-NOTI-01",
+        "HA-NOTI-02",
+        "HA-NOTI-03",
+        "HA-NOTI-04",
+        "HA-NOTI-05",
+        "HA-NOTI-06",
+        "HA-NOTI-07",
+        "HA-DASH-05"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "unread-filter",
+        "new-request-banner",
+        "push-denied"
+      ],
+      "interactions": [
+        "Segmented 'All' and 'Unread (3)'; 'Mark all as read' text action at the header inline-end; gear icon opens notification preferences",
+        "Tapping a row marks it read and opens the landing in ADR 0008 D13: new request to Booking detail (Pending) with the sticky Accept bar; cancelled by client to Booking detail with 'Date is free again. Create an offer?'; payment received to Booking detail on Payments; balance overdue to Booking detail with 'Nudge client'; new review to the review with Reply; new message to the thread; account-status change to the status screen",
+        "The stack is rebuilt tab root, parent, target so Back makes sense; the edge-swipe back flips in RTL",
+        "New-request alert anatomy, shown here as a state: in-app banner (6 seconds, non-modal, light haptic, distinct sound) and the lock-screen push (iOS time-sensitive, badge equals pending count)",
+        "Push permission denied: a quiet inline card 'Turn on notifications to hear about new requests' with an 'Open Settings' action"
+      ],
+      "contentNotes": "Grouped by absolute day: 'Today' and then 'Wed 11 Nov' style headers, never 'Yesterday'. Rows (system voice, passive, no exclamation marks): Thu 12 Nov, 3:12 PM message «رسالة جديدة · ريم الدوسري»; 12:40 PM «طلب حجز جديد · ريم الدوسري · الحفل النسائي · الخميس 14 يناير · 350 ضيفًا» with gold-tint icon, 'Needs reply' tag and '20h 40m left'; 11:00 AM new request Faisal Al-Rasheedi; 10:20 AM «تم إلغاء حجز هدى الشايع · الجمعة 20 نوفمبر · التاريخ متاح مجددًا» / 'Huda Al-Shaya booking cancelled - Fri 20 Nov - date is free again'; 9:00 AM new request Maryam Al-Kandari; 7:00 AM new request Abdullah Al-Hajri; Wed 11 Nov, 7:00 PM new request Dana Al-Shammari; 6:15 PM «تم استلام عربون 5,305.000 د.ك · لولوة الصالح · السبت 12 ديسمبر» / 'Deposit KD 5,305.000 received - Lulwa Al-Saleh - Sat 12 Dec'; Sun 1 Nov «تقييم جديد · منى س. · 3.5» / 'New review - Mona S. - 3.5'. Unread rows use a semibold title and an ink dot; read rows are regular. Lock-screen text carries event type, date and guests only: no client phone, no amounts. Quiet hours: the new-request push follows the venue business-hours setting; outside it the push is silent and the item still lands here. Tab bar visible. Voucher model (ADR 0033): types: new request, client confirmed, client withdrew, visit requested, visit chat message, listing approved, listing rejected (with reasons), plan expiring. \"Deposit received\" and \"Balance overdue\" are removed. Listing decisions land on HL-PROV-06.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-BOOK-03",
+        "HL-TODY-05",
+        "HL-GROW-06",
+        "HL-ACCS-04",
+        "HL-SETT-02",
+        "HL-VIST-02",
+        "HL-PROV-06"
+      ]
+    },
+    {
+      "id": "HL-TODY-04",
+      "slug": "inbox",
+      "title": {
+        "en": "Messages",
+        "ar": "الرسائل"
+      },
+      "kind": "tab-root",
+      "purpose": "The shared inbox of client conversations with unread counts, booking context and a pinned Ghazal Support conversation. It answers 'who is waiting for me' and lets reception hand over to the manager without losing history.",
+      "requirementIds": [
+        "HA-MSG-01",
+        "HA-MSG-04",
+        "HA-MSG-05",
+        "HA-DASH-06",
+        "HA-NOTI-05"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "no-results",
+        "error",
+        "offline",
+        "role-read-only",
+        "role-support-only"
+      ],
+      "interactions": [
+        "Filter chips: All, Unread (2), Needs reply (1), Booking-linked, Enquiries; search by client name (dir=auto) or booking reference",
+        "Tapping a row opens the thread; a long-press menu offers Mark as read or unread; no swipe actions",
+        "The Ghazal Support row is pinned at the top and opens the same thread component in support mode",
+        "'Needs reply' is a text tag with the elapsed time, shown when a client message is older than 30 minutes and unanswered",
+        "Accountant sees conversations read-only; Marketing sees only the Support conversation with the line 'Client messages are handled by reception' (navigation stays constant, content adapts)",
+        "Visit group chats appear as rows with a group glyph, \"Visit · Sat 14 Nov, 5:00 PM\" and the three role chips; opening one goes to HL-VIST-03; a \"Visits\" filter chip is added"
+      ],
+      "contentNotes": "Rows: monogram (first letter in its own script, Rose-tint disk, ر ف ن), client name, one-line last message, absolute time (today shows '3:12 PM', earlier shows 'Wed 11 Nov'), unread count badge, and a booking chip with the same status chip as the booking. 1) ريم الدوسري, «السلام عليكم، هل يوم الخميس 14 يناير متاح للحفل النسائي؟ عدد الضيوف تقريبًا 350.», 3:12 PM, 1 unread, chip 'Thu 14 Jan - Pending', Needs reply since 3:12 PM. 2) فيصل الرشيدي, «هل تتوفر خدمة الفاليه لقاعة الرجال؟», 1:05 PM, 1 unread, chip 'Fri 22 Jan - Pending'. 3) نجلاء البدر, «هل يمكن إدخال الزهور من الساعة 5:00 م؟», 12:10 PM, answered, chip 'Today 9:00 PM - Confirmed'. 4) Enquiry without a booking: a thread opened from a venue page, labelled 'Enquiry'. Pinned: «دعم غزل» / Ghazal Support with the Ghazal monogram غ. Empty inbox: «لا توجد رسائل بعد. تظهر هنا محادثات الأزواج.» / 'No messages yet. Conversations with couples appear here.' The inbox is shared per venue (working call on the shared-versus-personal gap); the thread shows who handled it. Chat requires the real-time service (PL-CORE-01, MVP-P2) so every Messages control is a P2 build but is designed now.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-TODY-05",
+        "HL-VIST-03"
+      ]
+    },
+    {
+      "id": "HL-TODY-05",
+      "slug": "thread",
+      "title": {
+        "en": "Conversation",
+        "ar": "المحادثة"
+      },
+      "kind": "screen",
+      "purpose": "A real-time conversation with a couple (or with Ghazal Support) that always shows the booking it belongs to, so staff can answer and decide in one place. Text, photos, documents and voice notes.",
+      "requirementIds": [
+        "HA-MSG-02",
+        "HA-MSG-03",
+        "HA-MSG-04",
+        "HA-MSG-05",
+        "HA-BOOK-07",
+        "HA-BOOK-03",
+        "HA-BOOK-04"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "sending",
+        "failed",
+        "recording",
+        "attaching",
+        "support-mode",
+        "role-read-only"
+      ],
+      "interactions": [
+        "Pinned booking context bar under the header: date, hall, guests, status chip and, while the booking is Pending, Accept and Decline buttons that run the same flows as Booking detail; tapping the bar opens Booking detail",
+        "Header actions: Call (opens the Contact sheet, shown only when the client shared a number) and an overflow menu with Report (every chat media item also has Report)",
+        "Composer with dir=auto text, Attach (+) sheet (camera, photo library, document) and a hold-to-record voice button: slide toward inline-start to cancel, slide up to lock, haptic on start, cancel and lock; the play triangle never mirrors",
+        "Quick-reply chips above the composer (defaults only, bilingual): 'Availability', 'Price', 'Visit invitation', 'Payment reminder', 'Address'; on an overdue-balance booking a 'Nudge client' reminder is offered",
+        "Offline: new messages queue with a clock icon and send on reconnect; Accept and Decline in the context bar are disabled with 'Offline. Reconnect to accept.'",
+        "Tab bar is hidden while the composer is open, the one exception to the always-visible tab bar (ADR 0008 D2)"
+      ],
+      "contentNotes": "Header: monogram ر, «ريم الدوسري» / Reem Al-Dosari, small line 'Handled by Hind Al-Enezi'. Context bar: «الحفل النسائي · الخميس 14 يناير · 350 ضيفًا» with chip 'Pending' and '20h 40m left'. Messages are grouped by absolute day; own (venue) bubbles align to the inline-end and the tail follows; each bubble is its own dir=auto container. Fixture: client «السلام عليكم، هل يوم الخميس 14 يناير متاح للحفل النسائي؟ عدد الضيوف تقريبًا 350.» 3:12 PM; venue draft «وعليكم السلام، هلا فيكم. نعم التاريخ متاح، وتقدرون تثبتونه بعربون 30% خلال 24 ساعة.» (a human message, so Khaleeji is fine here); a voice note bubble 0:14 with play at inline-start and duration at inline-end; a document bubble 'Quotation.pdf' (13 KB). Photos in chat are empty-room layout shots only. Support mode swaps the header for the Ghazal monogram غ and removes the booking context bar. Timestamps carry 'Kuwait time' only when the device time zone differs. Accountant read-only state hides the composer and shows 'Messages are read-only for your role'. Voucher model (ADR 0033): quick replies: \"Availability\", \"Voucher price\", \"Visit invitation\", \"Address\"; \"Payment reminder\" is removed. The context bar chip uses the request statuses (Pending, Awaiting client, Confirmed, Redeemed).",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-BOOK-03",
+        "HL-BOOK-04",
+        "HL-DCSN-01",
+        "HL-DCSN-02"
+      ]
+    }
+  ]
+}

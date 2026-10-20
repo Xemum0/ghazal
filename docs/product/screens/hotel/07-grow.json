@@ -1,0 +1,252 @@
+{
+  "id": "grow",
+  "order": 7,
+  "title": {
+    "en": "Offers, analytics and reviews",
+    "ar": "العروض والتحليلات والتقييمات"
+  },
+  "intent": "The Grow group in More (ADR 0008 D11): fill soft dates with a venue-funded offer in a few taps, see what the listing earns, and answer what couples say. Offers are one stepper for flash sale, discount and coupon with a live preview of the client card; analytics answers views, clicks, bookings, revenue, conversion and top packages for a date range with a table twin for every chart; revenue detail is the ledger behind the Today money tile; reviews let the venue reply once and report abuse but never approve or hide a review (CF-24, OQ-B-25). Roles: Offers for Admin, Manager and Marketing; Analytics for Admin and Manager (Accountant sees revenue only, Marketing sees analytics only); Reviews for Admin and Manager (working call).",
+  "screens": [
+    {
+      "id": "HL-GROW-01",
+      "slug": "offers-list",
+      "title": {
+        "en": "Voucher prices",
+        "ar": "أسعار الكوبون"
+      },
+      "kind": "screen",
+      "purpose": "All the venue's voucher-price settings by state (Active, Scheduled, Ended): the standing voucher prices of each package and any time-boxed windows (for example a lower voucher price for open weekend dates). Replaces Offers, flash sales and venue coupon codes, which no longer exist (ADR 0033 D4).",
+      "requirementIds": [
+        "HA-OFFR-05",
+        "HA-OFFR-06",
+        "HA-OFFR-02",
+        "HA-OFFR-03",
+        "HA-AUTH-02",
+        "HA-VMGT-11"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "no-results",
+        "error",
+        "offline",
+        "window-actions-sheet",
+        "role-limited"
+      ],
+      "interactions": [
+        "Segmented control Active / Scheduled / Ended; each row shows the window title in the UI language, the packages it covers, the dates, the voucher price against the standard price and how it is doing (vouchers bought, requests); a standing price shows as \"Always on\"",
+        "Tapping a row opens the actions sheet: performance (vouchers bought, requests, confirmed), Pause or Resume, End now (confirm), Duplicate",
+        "Primary \"New voucher price window\" opens the two-step editor (HL-GROW-02); the empty state offers \"Lower the voucher price for these dates\", which opens it with the dates prefilled from the calendar",
+        "A quiet line explains that clients always see the standard price beside the voucher price and that the best applicable voucher price applies; Marketing, Manager and Admin see this screen"
+      ],
+      "contentNotes": "Active (illustrative): «سعر الكوبون الدائم» / Standing voucher prices (all packages); «أسبوع منخفض · ديسمبر» / Low-week window, Sun-Wed until Tue 29 Dec 2026 with a lower voucher price. Coupon codes, flash-sale countdowns and percent-off badges are retired. Roles as in ADR 0008 D12.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-GROW-02",
+        "HL-CALN-01",
+        "HL-VENU-02"
+      ]
+    },
+    {
+      "id": "HL-GROW-02",
+      "slug": "create-offer",
+      "title": {
+        "en": "Voucher price window: what",
+        "ar": "نافذة سعر الكوبون: التفاصيل"
+      },
+      "kind": "screen",
+      "purpose": "Step 1 of 2. Choose which packages and halls the window covers and the lower voucher price (a fixed KD amount per guest or per package, never higher than the standard price), with a live preview of the client card and the saving.",
+      "requirementIds": [
+        "HA-OFFR-01",
+        "HA-OFFR-02",
+        "HA-OFFR-03",
+        "HA-AUTH-02",
+        "HA-VMGT-11"
+      ],
+      "states": [
+        "default",
+        "validation",
+        "loading",
+        "error",
+        "offline",
+        "unsaved-guard",
+        "prefilled-from-calendar",
+        "saving-below-fee"
+      ],
+      "interactions": [
+        "Applies to: package chips (All packages or specific ones) and hall chips only for multi-hall venues",
+        "Voucher price field per package, numeric (three decimals), prefilled with the standing voucher price; validation keeps it at or below the standard price and warns when the saving would be below the KD 2 voucher fee",
+        "Live preview of the client venue card and the request price line updates as values change (no count-up animation)",
+        "Step indicator is the 2px thread \"Step 1 of 2\"; \"Next\" is the single gold primary; Back is always safe and the draft is kept"
+      ],
+      "contentNotes": "Demo: Low-week window on \"Ladies' Reception, Weekday\", voucher price KD 38 per guest against standard KD 46 (illustrative). Preview «13,300 د.ك بالكوبون لعدد 350 ضيفًا». Superseded: the three type cards (Flash sale, Discount, Coupon), percent mode and \"Quick flash\".",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-GROW-03",
+        "HL-GROW-01"
+      ]
+    },
+    {
+      "id": "HL-GROW-03",
+      "slug": "offer-schedule",
+      "title": {
+        "en": "Voucher price window: when",
+        "ar": "نافذة سعر الكوبون: المدة"
+      },
+      "kind": "screen",
+      "purpose": "Step 2 of 2. Set the event dates the window applies to and when it runs, then publish. Windows are dated (`valid_range` on the voucher price); there are no usage limits per code and no coupon codes.",
+      "requirementIds": [
+        "HA-OFFR-01",
+        "HA-OFFR-02",
+        "HA-OFFR-06",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "validation",
+        "overlap-warning",
+        "loading",
+        "success",
+        "error",
+        "offline",
+        "scheduled"
+      ],
+      "interactions": [
+        "Event dates: custom multi-select calendar (Sunday-first, no native picker); shortcuts \"Open weekend dates in the next 60 days\" and \"Weekdays\"",
+        "Window: start and end dates (or \"Until I end it\"); overlap check names an existing window that already gives a better voucher price on some dates because only the best applies",
+        "Preview card stays pinned; primary \"Publish window\" or \"Schedule window\"; success toast \"Voucher price published\" with a \"View\" action"
+      ],
+      "contentNotes": "Demo: event dates Sun-Wed until Tue 29 Dec 2026, window \"Until I end it\". Superseded: flash windows 6h to 48h, usage limit stepper, coupon type and code field.",
+      "priority": "core",
+      "navigatesTo": [
+        "HL-GROW-01",
+        "HL-GROW-02",
+        "HL-CALN-01"
+      ]
+    },
+    {
+      "id": "HL-GROW-04",
+      "slug": "analytics",
+      "title": {
+        "en": "Analytics",
+        "ar": "التحليلات"
+      },
+      "kind": "screen",
+      "purpose": "Answer 'is the listing working' in one screen: views, clicks, requests, confirmed bookings, revenue, conversion and top packages for a chosen period, with the funnel and a table twin for every chart.",
+      "requirementIds": [
+        "HA-ANLY-01",
+        "HA-ANLY-02",
+        "HA-ANLY-03",
+        "HA-ANLY-05",
+        "HA-ANLY-06",
+        "HA-ANLY-07",
+        "HA-AUTH-02",
+        "HA-ANLY-08",
+        "HA-VCH-04"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "insufficient-data",
+        "error",
+        "offline",
+        "date-range-sheet",
+        "role-analytics-only"
+      ],
+      "interactions": [
+        "Range chips This month (default), Last 30 days, Last 90 days, Custom; Custom opens the Sunday-first range calendar sheet; the selected range is always written in full ('Sun 1 Nov - Thu 12 Nov 2026')",
+        "Top packages: ranked list with a bar and the count of confirmed bookings, each row tappable to the package",
+        "Definition help ('i') on Clicks and Conversion explains the working definitions",
+        "KPI tiles for Views, Clicks, Vouchers purchased, Requests (and approved), Vouchers redeemed and Conversion (views to requests), each with a delta against the previous period; no revenue tile",
+        "Funnel Views - Clicks - Vouchers - Requests - Confirmed - Redeemed as horizontal bars growing from the inline-start edge; every chart has a \"View as table\" twin"
+      ],
+      "contentNotes": "Range 'This month', Sun 1 Nov - Thu 12 Nov 2026. Views 1,296 (+12%), Clicks 238, Requests 41, Confirmed 12, Revenue KD 214,600 booked with 'KD 118,240 received' as the sub-line (booked value counts events in the range by event month, received counts payments by date; definition pending the owner, OQ-L-12), Conversion 0.9% (12 confirmed divided by 1,296 views). Definitions per ADR 0019: Views are distinct identities per 30 minutes; Clicks are intent taps (Message, Call, Directions, Share) after a view; Conversion is Confirmed divided by Views over the same period, attributed to the last view within 30 days (this supersedes the matrix working note that divided requests by views). Funnel: 1,296 / 238 / 41 / 12. Top packages: Ladies' Reception, Weekend 5; Ladies' Reception, Weekday 3; Men's Reception 2; Ladies' Signature Evening 1; Full-Night Package 1. Digits are Western by default; if the Eastern-digit setting is on, tiles and axis labels convert while references and codes stay Western. Axis ticks use the compact form (18.4K / 18.4 ألف); tiles use the browse format. New venue state: «لا توجد بيانات بعد» / 'No data yet' with 'جديد' / 'New'. Premium analytics (MK-SUB-06) is deferred and not shown. Voucher model (ADR 0033): demo (illustrative): Views 1,296 (+12%), Clicks 238, Vouchers purchased 52, Requests 41, Confirmed 12, Redeemed 7; the \"Revenue KD 214,600 booked / KD 118,240 received\" tile is superseded. Provider accounts see listing performance in HL-PROV-07 instead.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-VENU-02"
+      ]
+    },
+    {
+      "id": "HL-GROW-05",
+      "slug": "revenue-detail",
+      "title": {
+        "en": "Revenue",
+        "ar": "الإيرادات"
+      },
+      "kind": "screen",
+      "purpose": "The ledger behind the Today money tile: what is booked, what has been received, what is still to collect and what is payable, with every deposit, balance, cash entry and refund linked to its booking. Built for the accountant's 'did that deposit land?' check.",
+      "requirementIds": [
+        "HA-DASH-02",
+        "HA-ANLY-04",
+        "HA-BOOK-09",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "role-accountant",
+        "kyc-pending"
+      ],
+      "interactions": [
+        "Month selector with arrows (mirrored in RTL), always written with the year; a period delta against the previous month",
+        "Summary block: Booked value, Received, Still to collect, Payable with the next payout date; filter chips All, Deposits, Balances, Cash, Refunds",
+        "Ledger rows in exact three decimals with a plus or a true minus sign (U+2212 inside the LTR isolate), booking reference and client; tapping a row opens Booking detail on Payments",
+        "Payout line links to Bank information; while payout verification is pending it shows 'Payouts: action needed'",
+        "Export is web-only and stated as such; there is no revenue privacy toggle in this design (flagged as outside the PRD)"
+      ],
+      "contentNotes": "November 2026: Booked value KD 214,600.000 across 16 events; Received KD 118,240.000; Still to collect KD 96,360.000; Payable KD 38,420.000, next payout Sun 15 Nov 2026 (payouts follow the ledger, deposits release about 7 days after payment). Commission shown as its own line only when a commission rule exists (placeholder 8%, OQ-B-16). Ledger sample: Thu 12 Nov 11:30 AM Refund -4,680.000, Fatima Al-Azmi, cooling-off within 48 hours; Thu 12 Nov 9:10 AM Balance received +9,460.000, Asmaa Al-Roumi, event Thu 26 Nov; Wed 11 Nov 6:15 PM Deposit received +5,305.000, Lulwa Al-Saleh, event Sat 12 Dec; Tue 10 Nov 1:20 PM Deposit received +4,680.000, Fatima Al-Azmi. Cash entries show 'Cash recorded' with the staff name. All amounts use the currency token left of the number (KD in English, د.ك in Arabic) and Western digits; KWD appears only on invoices and in bank and payout settings. Admin, Manager and Accountant see this screen; Reception and Marketing do not.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-BOOK-03",
+        "HL-SETT-04"
+      ],
+      "deprecated": true,
+      "deprecatedReason": "Superseded by ADR 0033: Ghazal holds no event money, so there is no booked/received/payable ledger, payout or commission to show (HA-DASH-02, HA-ANLY-04, SA-COMM-* superseded). Vouchers redeemed live in HL-GROW-04 and Today."
+    },
+    {
+      "id": "HL-GROW-06",
+      "slug": "reviews",
+      "title": {
+        "en": "Reviews",
+        "ar": "التقييمات"
+      },
+      "kind": "screen",
+      "purpose": "Read what couples wrote, reply once in the venue's voice and report abuse (HA-NOTI-09, an IMPLIED line pending owner approval, OQ-P-18; full review management is web, VD-REV-02/03). The venue never approves, edits or hides a review; Ghazal moderates (CF-24). This is also the landing for the new-review notification.",
+      "requirementIds": [
+        "HA-NOTI-04",
+        "HA-NOTI-07",
+        "HA-NOTI-09",
+        "HA-AUTH-02"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error",
+        "offline",
+        "reply-sheet",
+        "replied",
+        "report-sheet",
+        "reported"
+      ],
+      "interactions": [
+        "Summary header: overall rating with count and the four category averages (venue, food, service, value); filter chips All, Needs reply (1), Replied, Reported",
+        "Review card: reviewer first name and initial (or anonymous), stars, date, text in its own direction (dir=auto), booking month; no photos with people are ever shown",
+        "'Reply' opens a sheet with a text field (dir=auto) and the note that a reply is public, signed with the venue name and can be sent once; after sending, the reply appears under the review",
+        "'Report' opens a reason sheet (abusive language, not about this venue, personal data, other) and marks the review 'Reported - under review by Ghazal'",
+        "A notification tap lands here scrolled to the review with the reply sheet ready"
+      ],
+      "contentNotes": "Rating 4.8 from 212 reviews; categories: venue 4.8, food 4.7, service 4.9, value 4.6. Review 1: نورة ع., 4.8, «قاعة راقية والتنظيم ممتاز. فريق القاعة النسائية كان متعاونًا جدًا من لحظة الدخول حتى نهاية الحفل، والبوفيه مرتب ومتنوع.» / 'Refined hall, excellent organisation; the ladies' hall team were helpful from arrival to the very end and the buffet was varied and well kept.' Review 2 (needs reply, posted Sun 1 Nov 2026, 11 days ago): منى س., 3.5, «الموقع ممتاز لكن الدخول للمواقف كان مزدحمًا بعد العاشرة، ونتمنى زيادة عدد الموظفين في الفاليه.» Owner reply example: «شكرًا لكم على ملاحظاتكم القيّمة. تمت زيادة فريق الفاليه في الليالي المزدحمة، ويسعدنا استضافتكم مجددًا.» A venue with no reviews yet shows «جديد» / 'New', never 0.0, and this screen then shows the empty state. Whether Marketing may reply is unspecified in the role matrix (working call: read-only for Marketing).",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-TODY-03",
+        "HL-GROW-04"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "id": "saved-compare",
+  "order": 5,
+  "title": {
+    "en": "Saved and compare",
+    "ar": "المفضلة والمقارنة"
+  },
+  "intent": "The family's shared shortlist. Saved is a tab (venues, services, packages) with live availability on the Brief date; Compare is a quiet tray plus a pushed three-column table that fits 390px without horizontal scroll. Both work for a guest, including a mother who only opens a shared link (ADR 0007, ADR 0009). Compare is never a tab and never nags.",
+  "screens": [
+    {
+      "id": "CL-SAVD-01",
+      "slug": "saved",
+      "title": {
+        "en": "Saved",
+        "ar": "المفضلة"
+      },
+      "kind": "tab-root",
+      "purpose": "Wishlist tab with three segments (Venues, Services, Packages), live availability and price-drop badges against the Brief date, multi-select into Compare, and honest local-only behaviour for guests.",
+      "requirementIds": [
+        "CA-TOOL-01",
+        "CA-TOOL-02",
+        "CA-TOOL-03",
+        "CA-TOOL-04",
+        "CA-PROF-03",
+        "CA-CMP-01",
+        "CA-CMP-12",
+        "CA-NOTI-04",
+        "CA-AUTH-09",
+        "CA-AUTH-10",
+        "CA-VCH-02"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "empty-venues",
+        "empty-services",
+        "empty-packages",
+        "guest-local",
+        "select-mode",
+        "venue-unlisted",
+        "offline",
+        "error"
+      ],
+      "interactions": [
+        "Segmented control Venues | Services | Packages; each segment lists compact rows (72 x 88 thumbnail, name, area, price line, availability line) sorted with available halls first",
+        "Heart on a row removes it with an Undo snackbar; no swipe actions (every action has a visible control)",
+        "'Select' enters multi-select with a 'Compare (n/3)' bar; the fourth selection is blocked with the Replace sheet (CL-SAVD-03); 'Compare' opens the table (CL-SAVD-04)",
+        "Availability lines refresh against the Brief: 'Still free on Thu 14 Jan', 'On hold', 'Booked on Thu 14 Jan'; a price-drop badge appears when price or an offer changed for the Brief date",
+        "Guest banner: 'Saved on this phone. Sign in to keep them on every device' with a Sign in link (CL-AUTH-01); items merge into the account on sign-in",
+        "A row whose venue left the platform shows 'No longer listed' with a Remove action; rows open Venue detail, vendor profile or the planner packages",
+        "Rows show the voucher price as the price line with \"Standard KD X\" beneath; a \"Voucher ready\" tag appears when the client holds a ready voucher for that venue (opens CL-VCHR-03); the old offer-driven \"Price dropped\" badge is replaced by \"Saving changed\" when the voucher saving for the Brief date changed"
+      ],
+      "contentNotes": "Venues segment for the demo persona: 1) فندق أوريليا الخليج / Aurelia Gulf Hotel, 'Still free on Thu 14 Jan', 'KD 18,200 for 350 guests'; 2) فندق لومي مارينا / Lumi Marina Hotel, free, KD 13,300; 3) قصر جوهرة السالمية للأفراح / Jawharat Al-Salmiya Palace, 'On hold'; 4) قصر النخيل للأفراح / Qasr Al-Nakheel, badge 'Price dropped' with 'KD 10,850 for 350 guests' and the previous price struck through (KD 11,900, a real price from the last 28 days); 5) مركز وصل للمؤتمرات والأفراح / Wasl Convention and Wedding Centre, Instant booking badge. Services segment: «استوديو لمحة للتصوير» / Lamha Photography Studio 'From KD 450', «زهور النخيل» / Nakheel Blooms 'From KD 900'. Packages segment mixes venue packages («الحفل النسائي · نهاية الأسبوع») and the planner tier «الذهبية». Empty states are warm and short, for example «لم تحفظوا أي قاعة بعد. اضغطوا على القلب في أي بطاقة لحفظها هنا.» / 'Nothing saved yet. Tap the heart on any hall to keep it here.' A 'Your shortlist' module on Home mirrors the first three saved halls. Sign-up nudge appears once after the third heart. Tab bar visible; the Compare tray sits above it.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-VENU-01",
+        "CL-VENU-06",
+        "CL-SAVD-03",
+        "CL-SAVD-04",
+        "CL-SERV-03",
+        "CL-PLAN-01",
+        "CL-AUTH-01",
+        "CL-DISC-03"
+      ]
+    },
+    {
+      "id": "CL-SAVD-02",
+      "slug": "compare-tray",
+      "title": {
+        "en": "Compare tray",
+        "ar": "شريط المقارنة"
+      },
+      "kind": "sheet",
+      "purpose": "The anti-nag Compare tray: one component with five states that appears only after the first add and only on Home, Results and Saved. On Venue detail it becomes a header badge so it never covers the sticky price bar.",
+      "requirementIds": [
+        "CA-CMP-01",
+        "CA-CMP-03",
+        "CA-CMP-11",
+        "CA-CMP-12"
+      ],
+      "states": [
+        "hidden",
+        "one-venue",
+        "two-or-three-ready",
+        "collapsed-pill",
+        "header-badge-on-detail",
+        "full"
+      ],
+      "interactions": [
+        "Appears after the first add, above the tab bar, with three 40 x 40 slots; with one venue it reads 'Add one more to compare' and empty slots are hairline boxes (neutral, not actionable)",
+        "With two or three venues it reads 'Compare (2)' and is actionable: tapping opens the table (CL-SAVD-04)",
+        "Collapses to a 44px pill after 3 seconds idle and on scroll-down; returns on scroll-up; never re-prompts after 'Clear' in the same session",
+        "Remove a venue with the small x on its slot (44px target); a fourth add opens the Replace sheet (CL-SAVD-03)",
+        "Rises over 320 ms; the new thumbnail fades and scales from 0.9 over 200 ms with a light haptic; reduced motion cross-fades",
+        "Never shown inside booking, My Wedding, Messages or Profile; never triggers a push; the set persists locally for guests and merges on sign-in"
+      ],
+      "contentNotes": "Slots for the demo: Aurelia Gulf Hotel, Lumi Marina Hotel, Jawharat Al-Salmiya Palace. Copy: «إضافة قاعة أخرى للمقارنة» / 'Add one more to compare' and «مقارنة (2)» / 'Compare (2)'. The first venue added sits at inline-start (right in Arabic). Header badge on Venue detail shows only the count. CA-CMP-03 deviation recorded in ADR 0009: reachable from Saved at any time and from the tray or badge on every discovery surface rather than literally from anywhere.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-SAVD-04",
+        "CL-SAVD-03"
+      ]
+    },
+    {
+      "id": "CL-SAVD-03",
+      "slug": "replace-venue",
+      "title": {
+        "en": "Replace which one?",
+        "ar": "أي قاعة تستبدلون؟"
+      },
+      "kind": "sheet",
+      "purpose": "Shown on the fourth add: Compare holds three venues, so nothing is dropped silently and the user chooses which one to replace.",
+      "requirementIds": [
+        "CA-CMP-02",
+        "CA-CMP-01"
+      ],
+      "states": [
+        "default"
+      ],
+      "interactions": [
+        "Three rows (thumbnail, name, area, price for the Brief) each act as a radio; tapping one replaces it with the new venue and closes the sheet",
+        "Cancel keeps the set unchanged and leaves the new venue unsaved to Compare",
+        "Opened from the card toggle, the Venue detail header, Results and Saved multi-select"
+      ],
+      "contentNotes": "Title «أي قاعة تستبدلون؟» / 'Replace which one?'. Body: 'You can compare up to three halls. Choose one to swap for Qasr Al-Nakheel.' / «يمكن مقارنة 3 قاعات كحد أقصى. اختيار قاعة لاستبدالها بقصر النخيل للأفراح.» Rows: Aurelia Gulf Hotel 'KD 18,200 for 350 guests', Lumi Marina Hotel 'KD 13,300 for 350 guests', Jawharat Al-Salmiya Palace 'KD 11,550 for 350 guests' (the Brief has a date and guests, so no 'From': ADR 0004 D6). Selection is an ink border plus check, never gold alone.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "CL-SAVD-02",
+        "CL-SAVD-04"
+      ]
+    },
+    {
+      "id": "CL-SAVD-04",
+      "slug": "compare-table",
+      "title": {
+        "en": "Compare",
+        "ar": "المقارنة"
+      },
+      "kind": "screen",
+      "purpose": "The three-venue comparison on a 390px screen: full-bleed fluid thirds, label above values, differences only by default, best-in-row markers on objective rows, and a footer of three channel-aware actions aligned to the columns. Booking can start from here with date and guests carried over.",
+      "requirementIds": [
+        "CA-CMP-04",
+        "CA-CMP-05",
+        "CA-CMP-06",
+        "CA-CMP-07",
+        "CA-CMP-08",
+        "CA-CMP-09",
+        "CA-CMP-10",
+        "CA-CMP-11",
+        "CA-CMP-12",
+        "CA-BOOK-01",
+        "CA-VCH-02"
+      ],
+      "states": [
+        "default",
+        "loading",
+        "fewer-than-two",
+        "no-date",
+        "venue-unavailable",
+        "venue-unlisted",
+        "government-column",
+        "offline",
+        "error",
+        "shared-link-guest"
+      ],
+      "interactions": [
+        "Sticky header: 106 x 132 thumbnails with a remove control (24px icon in a 44px target), two-line names and area; collapses on scroll to 56px with 40px thumbnails",
+        "Row groups in order: Your date, Price, Capacity and layout, Facilities, Rating, Distance, Packages (expandable), Photos (three 106 x 80 strips that open the gallery)",
+        "'Differences only' segmented control, default on, with '7 matching rows hidden'; best-in-row dot (gold-ink) only on price (lowest for the Brief), distance (nearest), rating (highest with at least 5 reviews) and capacity 'best fit' (closest to your guests while at least your guests); never on subjective rows, never green or red",
+        "No date: the top group shows an inline 'Set your date' that opens the Brief sheet (CL-DISC-02) and price rows fall back to labelled 'From' prices",
+        "Share in the app bar opens the OS share sheet with the universal link /compare?ids=a,b,c and a generated preview image; a guest family member opens it without signing in (flagged OQ-B-12)",
+        "Price group has three rows: \"Voucher price\", \"Standard price\" and \"You save\" (best-in-row dot on the lowest voucher price); no deposit row",
+        "Footer: three 48px outline buttons aligned to the columns, labelled by state: \"Get voucher\" (voucher-eligible, date free), \"See dates\" (unavailable on the Brief date), \"Official\" (governmental facility); there is no \"Request\" or \"Book\" button"
+      ],
+      "contentNotes": "Columns: Aurelia Gulf Hotel | Lumi Marina Hotel | Jawharat Al-Salmiya Palace, widths 130 / 120 / 143 at 390 / 360 / 430 with 12px inner padding. Cell budget: 14 characters in English, 12 in Arabic; longer content sits behind expandable rows; mandatory QA at 360px in Arabic. Demo values for Thu 14 Jan, 350 guests: Availability 'Free' / 'Free' / 'On hold'; Price for your date 'KD 18,200' / 'KD 13,300' / 'KD 11,550' (best dot on the lowest); Deposit 'KD 5,460' / 'KD 3,990' / 'KD 3,465'; From per guest 'KD 46 / guest' / 'KD 34 / guest' / 'KD 29 / guest'; Max guests '650' / '500' (best fit for 350) / '700'; Valet 'Included' / 'Extra' / 'Not offered'; Photography 'Female only' / 'Allowed' / 'Female only'; Rating '4.8 (212)' / '4.5 (138)' / '4.6 (224)'; Distance from Salmiya '18 min' / '4 min' (nearest) / '6 min'; Packages '3 · from KD 46' / '2 · from KD 34' / '2 · from KD 29'. Origin of distance is the device location when granted, otherwise the preferred area. A venue that became unavailable shows 'Booked' in its cell while the header stays; one that left the platform shows 'No longer listed' with Remove; a government hall column shows a dash in booking-only rows and 'Official channel' above its footer button. Instant halls read 'Book', never 'Book now'. Lowest-package pricing labelled 'Est.' until a package is chosen. Tab bar hidden. The same data-driven column component renders the planner tiers (CL-PLAN-01). Voucher model (ADR 0033): demo values for Thu 14 Jan, 350 guests (illustrative seed): voucher price KD 15,400 / KD 11,350 / on hold; standard KD 18,200 / KD 13,300 / KD 11,550; the \"Deposit\" row of the notes above is removed.",
+      "priority": "core",
+      "navigatesTo": [
+        "CL-BOOK-01",
+        "CL-VENU-01",
+        "CL-VENU-02",
+        "CL-VENU-06",
+        "CL-DISC-02",
+        "CL-SAVD-01",
+        "CL-VENU-03",
+        "CL-VCHR-01"
+      ]
+    }
+  ]
+}

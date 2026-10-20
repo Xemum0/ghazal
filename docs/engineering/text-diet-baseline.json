@@ -1,0 +1,683 @@
+{
+ "generated": "see file mtime",
+ "langs": [
+  "en",
+  "ar"
+ ],
+ "screens": {
+  "CL-ONBD-01": {
+   "flow": "client/onboarding",
+   "en": 14,
+   "ar": 9
+  },
+  "CL-ONBD-02": {
+   "flow": "client/onboarding",
+   "en": 16,
+   "ar": 13
+  },
+  "CL-ONBD-03": {
+   "flow": "client/onboarding",
+   "en": 26,
+   "ar": 22
+  },
+  "CL-ONBD-04": {
+   "flow": "client/onboarding",
+   "en": 24,
+   "ar": 22
+  },
+  "CL-ONBD-05": {
+   "flow": "client/onboarding",
+   "en": 59,
+   "ar": 60
+  },
+  "CL-ONBD-06": {
+   "flow": "client/onboarding",
+   "en": 31,
+   "ar": 27
+  },
+  "CL-AUTH-01": {
+   "flow": "client/auth",
+   "en": 51,
+   "ar": 40
+  },
+  "CL-AUTH-02": {
+   "flow": "client/auth",
+   "en": 38,
+   "ar": 36
+  },
+  "CL-AUTH-03": {
+   "flow": "client/auth",
+   "en": 38,
+   "ar": 28
+  },
+  "CL-AUTH-04": {
+   "flow": "client/auth",
+   "en": 20,
+   "ar": 21
+  },
+  "CL-AUTH-05": {
+   "flow": "client/auth",
+   "en": 4,
+   "ar": 4
+  },
+  "CL-DISC-01": {
+   "flow": "client/discover",
+   "en": 481,
+   "ar": 503
+  },
+  "CL-DISC-02": {
+   "flow": "client/discover",
+   "en": 44,
+   "ar": 44
+  },
+  "CL-DISC-03": {
+   "flow": "client/discover",
+   "en": 74,
+   "ar": 78
+  },
+  "CL-DISC-04": {
+   "flow": "client/discover",
+   "en": 78,
+   "ar": 70
+  },
+  "CL-DISC-05": {
+   "flow": "client/discover",
+   "en": 38,
+   "ar": 39
+  },
+  "CL-DISC-06": {
+   "flow": "client/discover",
+   "en": 28,
+   "ar": 24
+  },
+  "CL-DISC-07": {
+   "flow": "client/discover",
+   "en": 24,
+   "ar": 20
+  },
+  "CL-VENU-01": {
+   "flow": "client/venue",
+   "en": 604,
+   "ar": 521
+  },
+  "CL-VENU-02": {
+   "flow": "client/venue",
+   "en": 11,
+   "ar": 10
+  },
+  "CL-VENU-03": {
+   "flow": "client/venue",
+   "en": 51,
+   "ar": 50
+  },
+  "CL-VENU-04": {
+   "flow": "client/venue",
+   "en": 147,
+   "ar": 132
+  },
+  "CL-VENU-05": {
+   "flow": "client/venue",
+   "en": 142,
+   "ar": 107
+  },
+  "CL-VENU-06": {
+   "flow": "client/venue",
+   "en": 167,
+   "ar": 133
+  },
+  "CL-SAVD-01": {
+   "flow": "client/saved-compare",
+   "en": 59,
+   "ar": 63
+  },
+  "CL-SAVD-02": {
+   "flow": "client/saved-compare",
+   "en": 27,
+   "ar": 26
+  },
+  "CL-SAVD-03": {
+   "flow": "client/saved-compare",
+   "en": 34,
+   "ar": 35
+  },
+  "CL-SAVD-04": {
+   "flow": "client/saved-compare",
+   "en": 72,
+   "ar": 69
+  },
+  "CL-BOOK-01": {
+   "flow": "client/booking",
+   "en": 41,
+   "ar": 38
+  },
+  "CL-BOOK-02": {
+   "flow": "client/booking",
+   "en": 68,
+   "ar": 61
+  },
+  "CL-BOOK-03": {
+   "flow": "client/booking",
+   "en": 124,
+   "ar": 95
+  },
+  "CL-BOOK-04": {
+   "flow": "client/booking",
+   "en": 51,
+   "ar": 48
+  },
+  "CL-BOOK-05": {
+   "flow": "client/booking",
+   "en": 178,
+   "ar": 158
+  },
+  "CL-BOOK-06": {
+   "flow": "client/booking",
+   "en": 103,
+   "ar": 81
+  },
+  "CL-BOOK-07": {
+   "flow": "client/booking",
+   "en": 73,
+   "ar": 69
+  },
+  "CL-BOOK-08": {
+   "flow": "client/booking",
+   "en": 105,
+   "ar": 89
+  },
+  "CL-BOOK-09": {
+   "flow": "client/booking",
+   "en": 123,
+   "ar": 116
+  },
+  "CL-BOOK-10": {
+   "flow": "client/booking",
+   "en": 69,
+   "ar": 58
+  },
+  "CL-PAYM-01": {
+   "flow": "client/payment",
+   "en": 96,
+   "ar": 82
+  },
+  "CL-PAYM-02": {
+   "flow": "client/payment",
+   "en": 34,
+   "ar": 33
+  },
+  "CL-PAYM-03": {
+   "flow": "client/payment",
+   "en": 27,
+   "ar": 24
+  },
+  "CL-PAYM-04": {
+   "flow": "client/payment",
+   "en": 34,
+   "ar": 30
+  },
+  "CL-PAYM-05": {
+   "flow": "client/payment",
+   "en": 92,
+   "ar": 77
+  },
+  "CL-BKNG-01": {
+   "flow": "client/bookings",
+   "en": 64,
+   "ar": 59
+  },
+  "CL-BKNG-02": {
+   "flow": "client/bookings",
+   "en": 174,
+   "ar": 161
+  },
+  "CL-BKNG-03": {
+   "flow": "client/bookings",
+   "en": 42,
+   "ar": 40
+  },
+  "CL-BKNG-04": {
+   "flow": "client/bookings",
+   "en": 56,
+   "ar": 50
+  },
+  "CL-BKNG-05": {
+   "flow": "client/bookings",
+   "en": 47,
+   "ar": 48
+  },
+  "CL-WEDD-01": {
+   "flow": "client/my-wedding",
+   "en": 61,
+   "ar": 54
+  },
+  "CL-WEDD-02": {
+   "flow": "client/my-wedding",
+   "en": 38,
+   "ar": 44
+  },
+  "CL-WEDD-03": {
+   "flow": "client/my-wedding",
+   "en": 63,
+   "ar": 59
+  },
+  "CL-WEDD-04": {
+   "flow": "client/my-wedding",
+   "en": 9,
+   "ar": 9
+  },
+  "CL-WEDD-05": {
+   "flow": "client/my-wedding",
+   "en": 54,
+   "ar": 45
+  },
+  "CL-PLAN-01": {
+   "flow": "client/planner",
+   "en": 66,
+   "ar": 49
+  },
+  "CL-PLAN-02": {
+   "flow": "client/planner",
+   "en": 73,
+   "ar": 61
+  },
+  "CL-PLAN-03": {
+   "flow": "client/planner",
+   "en": 54,
+   "ar": 55
+  },
+  "CL-PLAN-04": {
+   "flow": "client/planner",
+   "en": 27,
+   "ar": 27
+  },
+  "CL-SERV-01": {
+   "flow": "client/services",
+   "en": 114,
+   "ar": 110
+  },
+  "CL-SERV-02": {
+   "flow": "client/services",
+   "en": 26,
+   "ar": 28
+  },
+  "CL-SERV-03": {
+   "flow": "client/services",
+   "en": 238,
+   "ar": 204
+  },
+  "CL-SERV-04": {
+   "flow": "client/services",
+   "en": 25,
+   "ar": 26
+  },
+  "CL-MSGS-01": {
+   "flow": "client/messages",
+   "en": 117,
+   "ar": 118
+  },
+  "CL-MSGS-02": {
+   "flow": "client/messages",
+   "en": 42,
+   "ar": 41
+  },
+  "CL-MSGS-03": {
+   "flow": "client/messages",
+   "en": 58,
+   "ar": 57
+  },
+  "CL-MSGS-04": {
+   "flow": "client/messages",
+   "en": 311,
+   "ar": 294
+  },
+  "CL-RVRW-01": {
+   "flow": "client/reviews-rewards",
+   "en": 403,
+   "ar": 370
+  },
+  "CL-RVRW-02": {
+   "flow": "client/reviews-rewards",
+   "en": 75,
+   "ar": 67
+  },
+  "CL-PROF-01": {
+   "flow": "client/profile",
+   "en": 30,
+   "ar": 24
+  },
+  "CL-PROF-02": {
+   "flow": "client/profile",
+   "en": 35,
+   "ar": 34
+  },
+  "CL-PROF-03": {
+   "flow": "client/profile",
+   "en": 42,
+   "ar": 39
+  },
+  "CL-PROF-04": {
+   "flow": "client/profile",
+   "en": 148,
+   "ar": 115
+  },
+  "CL-PROF-05": {
+   "flow": "client/profile",
+   "en": 36,
+   "ar": 33
+  },
+  "CL-PROF-06": {
+   "flow": "client/profile",
+   "en": 77,
+   "ar": 58
+  },
+  "CL-VCHR-01": {
+   "flow": "client/vouchers",
+   "en": 134,
+   "ar": 117
+  },
+  "CL-VCHR-02": {
+   "flow": "client/vouchers",
+   "en": 23,
+   "ar": 22
+  },
+  "CL-VCHR-03": {
+   "flow": "client/vouchers",
+   "en": 67,
+   "ar": 63
+  },
+  "CL-VCHR-04": {
+   "flow": "client/vouchers",
+   "en": 27,
+   "ar": 25
+  },
+  "CL-VCHR-05": {
+   "flow": "client/vouchers",
+   "en": 43,
+   "ar": 41
+  },
+  "CL-VIST-01": {
+   "flow": "client/visits",
+   "en": 69,
+   "ar": 65
+  },
+  "CL-VIST-02": {
+   "flow": "client/visits",
+   "en": 84,
+   "ar": 66
+  },
+  "CL-VIST-03": {
+   "flow": "client/visits",
+   "en": 127,
+   "ar": 119
+  },
+  "CL-VIST-04": {
+   "flow": "client/visits",
+   "en": 21,
+   "ar": 15
+  },
+  "CL-VIST-05": {
+   "flow": "client/visits",
+   "en": 41,
+   "ar": 34
+  },
+  "HL-ACCS-01": {
+   "flow": "hotel/access",
+   "en": 13,
+   "ar": 11
+  },
+  "HL-ACCS-02": {
+   "flow": "hotel/access",
+   "en": 28,
+   "ar": 25
+  },
+  "HL-ACCS-03": {
+   "flow": "hotel/access",
+   "en": 35,
+   "ar": 38
+  },
+  "HL-ACCS-04": {
+   "flow": "hotel/access",
+   "en": 25,
+   "ar": 19
+  },
+  "HL-TODY-01": {
+   "flow": "hotel/today",
+   "en": 167,
+   "ar": 158
+  },
+  "HL-TODY-02": {
+   "flow": "hotel/today",
+   "en": 118,
+   "ar": 113
+  },
+  "HL-TODY-03": {
+   "flow": "hotel/today",
+   "en": 242,
+   "ar": 229
+  },
+  "HL-TODY-04": {
+   "flow": "hotel/today",
+   "en": 131,
+   "ar": 133
+  },
+  "HL-TODY-05": {
+   "flow": "hotel/today",
+   "en": 56,
+   "ar": 56
+  },
+  "HL-BOOK-01": {
+   "flow": "hotel/bookings",
+   "en": 154,
+   "ar": 173
+  },
+  "HL-BOOK-02": {
+   "flow": "hotel/bookings",
+   "en": 242,
+   "ar": 256
+  },
+  "HL-BOOK-03": {
+   "flow": "hotel/bookings",
+   "en": 107,
+   "ar": 105
+  },
+  "HL-BOOK-04": {
+   "flow": "hotel/bookings",
+   "en": 37,
+   "ar": 30
+  },
+  "HL-BOOK-06": {
+   "flow": "hotel/bookings",
+   "en": 35,
+   "ar": 31
+  },
+  "HL-BOOK-07": {
+   "flow": "hotel/bookings",
+   "en": 31,
+   "ar": 34
+  },
+  "HL-DCSN-01": {
+   "flow": "hotel/decisions",
+   "en": 86,
+   "ar": 67
+  },
+  "HL-DCSN-02": {
+   "flow": "hotel/decisions",
+   "en": 51,
+   "ar": 42
+  },
+  "HL-DCSN-03": {
+   "flow": "hotel/decisions",
+   "en": 61,
+   "ar": 54
+  },
+  "HL-DCSN-04": {
+   "flow": "hotel/decisions",
+   "en": 55,
+   "ar": 50
+  },
+  "HL-CALN-01": {
+   "flow": "hotel/calendar",
+   "en": 49,
+   "ar": 58
+  },
+  "HL-CALN-02": {
+   "flow": "hotel/calendar",
+   "en": 49,
+   "ar": 49
+  },
+  "HL-CALN-03": {
+   "flow": "hotel/calendar",
+   "en": 77,
+   "ar": 90
+  },
+  "HL-CALN-04": {
+   "flow": "hotel/calendar",
+   "en": 31,
+   "ar": 33
+  },
+  "HL-VENU-01": {
+   "flow": "hotel/venue",
+   "en": 61,
+   "ar": 52
+  },
+  "HL-VENU-02": {
+   "flow": "hotel/venue",
+   "en": 132,
+   "ar": 122
+  },
+  "HL-VENU-03": {
+   "flow": "hotel/venue",
+   "en": 236,
+   "ar": 234
+  },
+  "HL-VENU-04": {
+   "flow": "hotel/venue",
+   "en": 74,
+   "ar": 55
+  },
+  "HL-VENU-05": {
+   "flow": "hotel/venue",
+   "en": 206,
+   "ar": 171
+  },
+  "HL-VENU-06": {
+   "flow": "hotel/venue",
+   "en": 160,
+   "ar": 121
+  },
+  "HL-GROW-01": {
+   "flow": "hotel/grow",
+   "en": 88,
+   "ar": 87
+  },
+  "HL-GROW-02": {
+   "flow": "hotel/grow",
+   "en": 68,
+   "ar": 70
+  },
+  "HL-GROW-03": {
+   "flow": "hotel/grow",
+   "en": 115,
+   "ar": 102
+  },
+  "HL-GROW-04": {
+   "flow": "hotel/grow",
+   "en": 64,
+   "ar": 67
+  },
+  "HL-GROW-06": {
+   "flow": "hotel/grow",
+   "en": 397,
+   "ar": 394
+  },
+  "HL-SETT-01": {
+   "flow": "hotel/settings",
+   "en": 100,
+   "ar": 80
+  },
+  "HL-SETT-02": {
+   "flow": "hotel/settings",
+   "en": 157,
+   "ar": 140
+  },
+  "HL-SETT-03": {
+   "flow": "hotel/settings",
+   "en": 86,
+   "ar": 85
+  },
+  "HL-SETT-04": {
+   "flow": "hotel/settings",
+   "en": 41,
+   "ar": 37
+  },
+  "HL-SETT-05": {
+   "flow": "hotel/settings",
+   "en": 82,
+   "ar": 78
+  },
+  "HL-VIST-01": {
+   "flow": "hotel/visits",
+   "en": 21,
+   "ar": 21
+  },
+  "HL-VIST-02": {
+   "flow": "hotel/visits",
+   "en": 90,
+   "ar": 76
+  },
+  "HL-VIST-03": {
+   "flow": "hotel/visits",
+   "en": 77,
+   "ar": 69
+  },
+  "HL-VIST-04": {
+   "flow": "hotel/visits",
+   "en": 41,
+   "ar": 38
+  },
+  "HL-VIST-05": {
+   "flow": "hotel/visits",
+   "en": 88,
+   "ar": 83
+  },
+  "HL-PROV-01": {
+   "flow": "hotel/provider",
+   "en": 75,
+   "ar": 56
+  },
+  "HL-PROV-02": {
+   "flow": "hotel/provider",
+   "en": 76,
+   "ar": 73
+  },
+  "HL-PROV-03": {
+   "flow": "hotel/provider",
+   "en": 113,
+   "ar": 89
+  },
+  "HL-PROV-04": {
+   "flow": "hotel/provider",
+   "en": 76,
+   "ar": 60
+  },
+  "HL-PROV-05": {
+   "flow": "hotel/provider",
+   "en": 65,
+   "ar": 56
+  },
+  "HL-PROV-06": {
+   "flow": "hotel/provider",
+   "en": 100,
+   "ar": 79
+  },
+  "HL-PROV-07": {
+   "flow": "hotel/provider",
+   "en": 70,
+   "ar": 73
+  }
+ },
+ "total": {
+  "en": 11700,
+  "ar": 10733
+ }
+}
