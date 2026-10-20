@@ -1,0 +1,107 @@
+[
+  {
+    "venueId": "V05",
+    "hallId": "V05-marina",
+    "date": "2027-01-14",
+    "state": "available",
+    "reason": "story date, free"
+  },
+  {
+    "venueId": "V07",
+    "hallId": "V07-ladies",
+    "date": "2027-01-14",
+    "state": "held",
+    "reason": "story date, on hold for another couple"
+  },
+  {
+    "venueId": "V08",
+    "hallId": "V08-grand",
+    "date": "2027-01-14",
+    "state": "available",
+    "reason": "story date, free (instant)"
+  },
+  {
+    "venueId": "V08",
+    "hallId": "V08-hall-a",
+    "date": "2027-01-14",
+    "state": "available",
+    "reason": "story date, free (instant)"
+  },
+  {
+    "venueId": "V09",
+    "hallId": "V09-ladies",
+    "date": "2027-01-14",
+    "state": "available",
+    "reason": "story date, free (winter rate)"
+  },
+  {
+    "venueId": "V14",
+    "hallId": "V14-ladies",
+    "date": "2027-01-14",
+    "state": "available",
+    "reason": "story date, free (instant)"
+  },
+  {
+    "venueId": "V11",
+    "hallId": "V11-ladies",
+    "date": "2027-01-14",
+    "state": "available",
+    "reason": "story date, free (instant)"
+  },
+  {
+    "venueId": "V02",
+    "hallId": "V02-qamar",
+    "date": "2027-01-14",
+    "state": "available",
+    "reason": "story date, free"
+  },
+  {
+    "venueId": "V09",
+    "hallId": "V09-ladies",
+    "date": "2026-12-03",
+    "state": "available",
+    "reason": "date rate on offer"
+  },
+  {
+    "venueId": "V06",
+    "hallId": "V06-diwan",
+    "date": "2026-11-21",
+    "state": "available",
+    "reason": "last-minute offer"
+  },
+  {
+    "venueId": "V14",
+    "hallId": "V14-ladies",
+    "date": "2026-11-20",
+    "state": "available",
+    "reason": "last-minute offer"
+  },
+  {
+    "venueId": "V11",
+    "hallId": "V11-ladies",
+    "date": "2026-11-26",
+    "state": "available",
+    "reason": "last-minute offer"
+  },
+  {
+    "venueId": "V05",
+    "hallId": "V05-marina",
+    "date": "2027-01-21",
+    "state": "available",
+    "reason": "alternative date"
+  },
+  {
+    "venueId": "V05",
+    "hallId": "V05-marina",
+    "date": "2027-01-22",
+    "state": "available",
+    "reason": "alternative date"
+  },
+  {
+    "venueId": "V05",
+    "hallId": "V05-marina",
+    "date": "2027-01-23",
+    "state": "available",
+    "reason": "alternative date"
+  }
+]

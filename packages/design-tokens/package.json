@@ -1,0 +1,21 @@
+{
+  "name": "@gz/design-tokens",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Ghazal design tokens: DTCG source in src/tokens.json, generated CSS / TypeScript / flat JSON / Dart in dist/, the icon registry, the contrast gate. Single writer: tokens-owner (ADR 0029).",
+  "main": "./dist/index.ts",
+  "types": "./dist/index.ts",
+  "exports": {
+    ".": "./dist/index.ts",
+    "./tokens.css": "./dist/tokens.css",
+    "./flat": "./dist/tokens.flat.json",
+    "./icons/*": "./icons/*"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "contrast": "node scripts/build.mjs --contrast"
+  },
+  "files": ["dist", "icons", "src"]
+}

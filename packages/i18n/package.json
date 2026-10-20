@@ -1,0 +1,23 @@
+{
+  "name": "@gz/i18n",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Message JSON (ICU), shared formatters and the i18n lint for the Ghazal apps. Owner: i18n-owner.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@formatjs/icu-messageformat-parser": "^3.5.21",
+    "intl-messageformat": "^12.1.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.4"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "check": "node scripts/check.mjs"
+  }
+}

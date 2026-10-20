@@ -1,0 +1,637 @@
+{
+  "bookings": [
+    {
+      "id": "bk-GZ-2611-8S2K",
+      "ref": "GZ-2611-8S2K",
+      "seedRole": "story",
+      "targetType": "venue",
+      "venueId": "V01",
+      "providerId": null,
+      "clientId": "user-reem",
+      "clientName": "ريم الدوسري",
+      "weddingId": "wedding-reem",
+      "status": "expired",
+      "createdAt": "2026-11-08T10:00:00+03:00",
+      "eventDate": "2027-02-04",
+      "sections": [
+        {
+          "position": 1,
+          "hallId": "V01-danah",
+          "sessionId": "V01-danah-evening",
+          "audience": "women",
+          "guests": 350,
+          "billableGuests": 350,
+          "packageId": "V01-ladies-weekend",
+          "start": "21:00",
+          "end": "02:00"
+        }
+      ],
+      "service": null,
+      "lines": [
+        {
+          "kind": "package",
+          "section": 1,
+          "name": {
+            "en": "Ladies’ Reception, Weekend",
+            "ar": "الحفل النسائي · نهاية الأسبوع"
+          },
+          "qty": 350,
+          "unit": {
+            "fils": 44000,
+            "currency": "KWD"
+          },
+          "amount": {
+            "fils": 15400000,
+            "currency": "KWD"
+          },
+          "standardUnit": {
+            "fils": 52000,
+            "currency": "KWD"
+          },
+          "standardAmount": {
+            "fils": 18200000,
+            "currency": "KWD"
+          },
+          "ruleId": "V01-ladies-weekend-r1"
+        }
+      ],
+      "totals": {
+        "standardSubtotal": {
+          "fils": 18200000,
+          "currency": "KWD"
+        },
+        "standardServiceCharge": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "standardTotal": {
+          "fils": 18200000,
+          "currency": "KWD"
+        },
+        "voucherSubtotal": {
+          "fils": 15400000,
+          "currency": "KWD"
+        },
+        "venueDiscount": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "voucherServiceCharge": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "voucherTotal": {
+          "fils": 15400000,
+          "currency": "KWD"
+        },
+        "savings": {
+          "fils": 2800000,
+          "currency": "KWD"
+        },
+        "voucherFee": {
+          "fils": 2000,
+          "currency": "KWD"
+        },
+        "netSavings": 2798000
+      },
+      "voucherId": "vch-GV-2611-S8K2",
+      "respondBy": null,
+      "approvedAt": "2026-11-08T15:00:00+03:00",
+      "confirmBy": "2026-11-09T15:00:00+03:00",
+      "confirmedAt": null,
+      "redeemedAt": null,
+      "redeemedBy": null,
+      "completedAt": null,
+      "slaHours": 24,
+      "contact": {
+        "name": "ريم الدوسري",
+        "phone": "+96550000012",
+        "shared": true,
+        "bookingFor": "bride"
+      },
+      "specialRequests": null,
+      "firstBooking": false,
+      "verifiedPhone": true,
+      "thread": [
+        {
+          "node": "request",
+          "state": "done",
+          "at": "2026-11-08T10:00:00+03:00"
+        },
+        {
+          "node": "approval",
+          "state": "done",
+          "at": "2026-11-08T15:00:00+03:00"
+        },
+        {
+          "node": "confirmation",
+          "state": "closed",
+          "at": "2026-11-09T15:00:00+03:00"
+        },
+        {
+          "node": "redemption",
+          "state": "closed",
+          "at": null
+        },
+        {
+          "node": "day",
+          "state": "closed",
+          "at": null
+        }
+      ],
+      "events": [
+        {
+          "at": "2026-11-08T10:00:00+03:00",
+          "kind": "transition",
+          "from": null,
+          "to": "pending",
+          "actor": "client",
+          "actorName": "ريم الدوسري"
+        },
+        {
+          "at": "2026-11-08T15:00:00+03:00",
+          "kind": "transition",
+          "from": "pending",
+          "to": "approved",
+          "actor": "venue",
+          "actorName": "Hind Al-Enezi"
+        },
+        {
+          "at": "2026-11-09T15:00:00+03:00",
+          "kind": "transition",
+          "from": "approved",
+          "to": "expired",
+          "actor": "system"
+        }
+      ],
+      "cancelledBy": null,
+      "reasonCode": null,
+      "rejectReason": null,
+      "expiredReason": "client_no_confirmation",
+      "proposal": null,
+      "overlays": {},
+      "approvedDiscount": null
+    },
+    {
+      "id": "bk-GZ-2611-9P3M",
+      "ref": "GZ-2611-9P3M",
+      "seedRole": "story",
+      "targetType": "venue",
+      "venueId": "V01",
+      "providerId": null,
+      "clientId": "user-reem",
+      "clientName": "ريم الدوسري",
+      "weddingId": "wedding-reem",
+      "status": "expired",
+      "createdAt": "2026-11-04T10:00:00+03:00",
+      "eventDate": "2027-02-18",
+      "sections": [
+        {
+          "position": 1,
+          "hallId": "V01-danah",
+          "sessionId": "V01-danah-evening",
+          "audience": "women",
+          "guests": 350,
+          "billableGuests": 350,
+          "packageId": "V01-ladies-weekend",
+          "start": "21:00",
+          "end": "02:00"
+        }
+      ],
+      "service": null,
+      "lines": [
+        {
+          "kind": "package",
+          "section": 1,
+          "name": {
+            "en": "Ladies’ Reception, Weekend",
+            "ar": "الحفل النسائي · نهاية الأسبوع"
+          },
+          "qty": 350,
+          "unit": {
+            "fils": 44000,
+            "currency": "KWD"
+          },
+          "amount": {
+            "fils": 15400000,
+            "currency": "KWD"
+          },
+          "standardUnit": {
+            "fils": 52000,
+            "currency": "KWD"
+          },
+          "standardAmount": {
+            "fils": 18200000,
+            "currency": "KWD"
+          },
+          "ruleId": "V01-ladies-weekend-r1"
+        }
+      ],
+      "totals": {
+        "standardSubtotal": {
+          "fils": 18200000,
+          "currency": "KWD"
+        },
+        "standardServiceCharge": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "standardTotal": {
+          "fils": 18200000,
+          "currency": "KWD"
+        },
+        "voucherSubtotal": {
+          "fils": 15400000,
+          "currency": "KWD"
+        },
+        "venueDiscount": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "voucherServiceCharge": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "voucherTotal": {
+          "fils": 15400000,
+          "currency": "KWD"
+        },
+        "savings": {
+          "fils": 2800000,
+          "currency": "KWD"
+        },
+        "voucherFee": {
+          "fils": 2000,
+          "currency": "KWD"
+        },
+        "netSavings": 2798000
+      },
+      "voucherId": "vch-GV-2611-P3M9",
+      "respondBy": null,
+      "approvedAt": null,
+      "confirmBy": null,
+      "confirmedAt": null,
+      "redeemedAt": null,
+      "redeemedBy": null,
+      "completedAt": null,
+      "slaHours": 24,
+      "contact": {
+        "name": "ريم الدوسري",
+        "phone": "+96550000012",
+        "shared": true,
+        "bookingFor": "bride"
+      },
+      "specialRequests": null,
+      "firstBooking": false,
+      "verifiedPhone": true,
+      "thread": [
+        {
+          "node": "request",
+          "state": "done",
+          "at": "2026-11-04T10:00:00+03:00"
+        },
+        {
+          "node": "approval",
+          "state": "closed",
+          "at": "2026-11-05T15:00:00+03:00"
+        },
+        {
+          "node": "confirmation",
+          "state": "closed",
+          "at": null
+        },
+        {
+          "node": "redemption",
+          "state": "closed",
+          "at": null
+        },
+        {
+          "node": "day",
+          "state": "closed",
+          "at": null
+        }
+      ],
+      "events": [
+        {
+          "at": "2026-11-04T10:00:00+03:00",
+          "kind": "transition",
+          "from": null,
+          "to": "pending",
+          "actor": "client",
+          "actorName": "ريم الدوسري"
+        },
+        {
+          "at": "2026-11-05T15:00:00+03:00",
+          "kind": "transition",
+          "from": "pending",
+          "to": "expired",
+          "actor": "system"
+        }
+      ],
+      "cancelledBy": null,
+      "reasonCode": null,
+      "rejectReason": null,
+      "expiredReason": "slot_taken",
+      "proposal": null,
+      "overlays": {},
+      "approvedDiscount": null
+    },
+    {
+      "id": "bk-GZ-2611-4R7V",
+      "ref": "GZ-2611-4R7V",
+      "seedRole": "story",
+      "targetType": "venue",
+      "venueId": "V01",
+      "providerId": null,
+      "clientId": "user-reem",
+      "clientName": "ريم الدوسري",
+      "weddingId": "wedding-reem",
+      "status": "cancelled",
+      "createdAt": "2026-11-02T10:00:00+03:00",
+      "eventDate": "2027-02-11",
+      "sections": [
+        {
+          "position": 1,
+          "hallId": "V01-danah",
+          "sessionId": "V01-danah-evening",
+          "audience": "women",
+          "guests": 350,
+          "billableGuests": 350,
+          "packageId": "V01-ladies-weekend",
+          "start": "21:00",
+          "end": "02:00"
+        }
+      ],
+      "service": null,
+      "lines": [
+        {
+          "kind": "package",
+          "section": 1,
+          "name": {
+            "en": "Ladies’ Reception, Weekend",
+            "ar": "الحفل النسائي · نهاية الأسبوع"
+          },
+          "qty": 350,
+          "unit": {
+            "fils": 44000,
+            "currency": "KWD"
+          },
+          "amount": {
+            "fils": 15400000,
+            "currency": "KWD"
+          },
+          "standardUnit": {
+            "fils": 52000,
+            "currency": "KWD"
+          },
+          "standardAmount": {
+            "fils": 18200000,
+            "currency": "KWD"
+          },
+          "ruleId": "V01-ladies-weekend-r1"
+        }
+      ],
+      "totals": {
+        "standardSubtotal": {
+          "fils": 18200000,
+          "currency": "KWD"
+        },
+        "standardServiceCharge": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "standardTotal": {
+          "fils": 18200000,
+          "currency": "KWD"
+        },
+        "voucherSubtotal": {
+          "fils": 15400000,
+          "currency": "KWD"
+        },
+        "venueDiscount": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "voucherServiceCharge": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "voucherTotal": {
+          "fils": 15400000,
+          "currency": "KWD"
+        },
+        "savings": {
+          "fils": 2800000,
+          "currency": "KWD"
+        },
+        "voucherFee": {
+          "fils": 2000,
+          "currency": "KWD"
+        },
+        "netSavings": 2798000
+      },
+      "voucherId": "vch-GV-2611-R7V4",
+      "respondBy": null,
+      "approvedAt": null,
+      "confirmBy": null,
+      "confirmedAt": null,
+      "redeemedAt": null,
+      "redeemedBy": null,
+      "completedAt": null,
+      "slaHours": 24,
+      "contact": {
+        "name": "ريم الدوسري",
+        "phone": "+96550000012",
+        "shared": true,
+        "bookingFor": "bride"
+      },
+      "specialRequests": null,
+      "firstBooking": false,
+      "verifiedPhone": true,
+      "thread": [
+        {
+          "node": "request",
+          "state": "done",
+          "at": "2026-11-02T10:00:00+03:00"
+        },
+        {
+          "node": "approval",
+          "state": "closed",
+          "at": "2026-11-02T10:02:00+03:00"
+        },
+        {
+          "node": "confirmation",
+          "state": "closed",
+          "at": null
+        },
+        {
+          "node": "redemption",
+          "state": "closed",
+          "at": null
+        },
+        {
+          "node": "day",
+          "state": "closed",
+          "at": null
+        }
+      ],
+      "events": [
+        {
+          "at": "2026-11-02T10:00:00+03:00",
+          "kind": "transition",
+          "from": null,
+          "to": "pending",
+          "actor": "client",
+          "actorName": "ريم الدوسري"
+        },
+        {
+          "at": "2026-11-02T10:02:00+03:00",
+          "kind": "transition",
+          "from": "pending",
+          "to": "cancelled",
+          "actor": "client",
+          "actorName": "ريم الدوسري"
+        }
+      ],
+      "cancelledBy": "client",
+      "reasonCode": "withdrawn",
+      "rejectReason": null,
+      "expiredReason": null,
+      "proposal": null,
+      "overlays": {},
+      "approvedDiscount": null
+    }
+  ],
+  "vouchers": [
+    {
+      "id": "vch-GV-2611-S8K2",
+      "code": "GV-2611-S8K2",
+      "clientId": "user-reem",
+      "targetType": "venue",
+      "venueOrProviderId": "V01",
+      "hallId": "V01-danah",
+      "packageId": "V01-ladies-weekend",
+      "eventDate": "2027-02-04",
+      "guests": 350,
+      "quoteFils": {
+        "standard": 18200000,
+        "voucher": 15400000
+      },
+      "priceFils": 2000,
+      "status": "active",
+      "purchasedAt": "2026-11-08T09:48:00+03:00",
+      "validUntil": "2027-01-08T23:59:00+03:00",
+      "reuseUntil": "2027-01-08",
+      "qr": {
+        "payload": "gz:v1:GV-2611-S8K2:V01:01B4",
+        "version": 1
+      },
+      "bookingId": null,
+      "payment": {
+        "method": "knet",
+        "receiptNo": "RC-050170",
+        "amount": {
+          "fils": 2000,
+          "currency": "KWD"
+        },
+        "status": "succeeded",
+        "at": "2026-11-08T09:49:00+03:00"
+      },
+      "releasedAt": "2026-11-09T15:00:00+03:00",
+      "releaseReason": "client_no_confirmation",
+      "refundEligible": false,
+      "refundUntil": null,
+      "refund": null,
+      "usedAt": null,
+      "usedReason": null,
+      "redeemedBy": null
+    },
+    {
+      "id": "vch-GV-2611-P3M9",
+      "code": "GV-2611-P3M9",
+      "clientId": "user-reem",
+      "targetType": "venue",
+      "venueOrProviderId": "V01",
+      "hallId": "V01-danah",
+      "packageId": "V01-ladies-weekend",
+      "eventDate": "2027-02-18",
+      "guests": 350,
+      "quoteFils": {
+        "standard": 18200000,
+        "voucher": 15400000
+      },
+      "priceFils": 2000,
+      "status": "active",
+      "purchasedAt": "2026-11-04T09:50:00+03:00",
+      "validUntil": "2027-01-04T23:59:00+03:00",
+      "reuseUntil": "2027-01-04",
+      "qr": {
+        "payload": "gz:v1:GV-2611-P3M9:V01:A96D",
+        "version": 1
+      },
+      "bookingId": null,
+      "payment": {
+        "method": "google_pay",
+        "receiptNo": "RC-050171",
+        "amount": {
+          "fils": 2000,
+          "currency": "KWD"
+        },
+        "status": "succeeded",
+        "at": "2026-11-04T09:51:00+03:00"
+      },
+      "releasedAt": "2026-11-05T15:00:00+03:00",
+      "releaseReason": "slot_taken",
+      "refundEligible": true,
+      "refundUntil": "2027-02-03",
+      "refund": null,
+      "usedAt": null,
+      "usedReason": null,
+      "redeemedBy": null
+    },
+    {
+      "id": "vch-GV-2611-R7V4",
+      "code": "GV-2611-R7V4",
+      "clientId": "user-reem",
+      "targetType": "venue",
+      "venueOrProviderId": "V01",
+      "hallId": "V01-danah",
+      "packageId": "V01-ladies-weekend",
+      "eventDate": "2027-02-11",
+      "guests": 350,
+      "quoteFils": {
+        "standard": 18200000,
+        "voucher": 15400000
+      },
+      "priceFils": 2000,
+      "status": "active",
+      "purchasedAt": "2026-11-02T09:50:00+03:00",
+      "validUntil": "2027-01-01T23:59:00+03:00",
+      "reuseUntil": "2027-01-01",
+      "qr": {
+        "payload": "gz:v1:GV-2611-R7V4:V01:45F7",
+        "version": 1
+      },
+      "bookingId": null,
+      "payment": {
+        "method": "knet",
+        "receiptNo": "RC-050172",
+        "amount": {
+          "fils": 2000,
+          "currency": "KWD"
+        },
+        "status": "succeeded",
+        "at": "2026-11-02T09:51:00+03:00"
+      },
+      "releasedAt": "2026-11-02T10:02:00+03:00",
+      "releaseReason": "withdrawn",
+      "refundEligible": false,
+      "refundUntil": null,
+      "refund": null,
+      "usedAt": null,
+      "usedReason": null,
+      "redeemedBy": null
+    }
+  ],
+  "note": "Stress requests: a lapsed approval (client_no_confirmation), a request whose date another couple confirmed first (slot_taken) and a request withdrawn two minutes after sending."
+}

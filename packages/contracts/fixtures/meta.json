@@ -1,0 +1,137 @@
+{
+  "now": "2026-11-12T16:00:00+03:00",
+  "today": "2026-11-12",
+  "timezone": "Asia/Kuwait",
+  "availabilityWindow": {
+    "from": "2026-11-01",
+    "to": "2027-10-31"
+  },
+  "heroVenueIds": [
+    "V01",
+    "V05",
+    "V07",
+    "V08",
+    "V09"
+  ],
+  "hotelVenueId": "V01",
+  "clientUserId": "user-reem",
+  "hotelUserId": "user-hind",
+  "providerUserId": "user-zahra",
+  "providerId": "vendor-flowers-zahra",
+  "story": {
+    "bookingRef": "GZ-2611-0147",
+    "bookingId": "bk-GZ-2611-0147",
+    "voucherId": "vch-GV-2611-K7QM",
+    "voucherCode": "GV-2611-K7QM",
+    "venueId": "V01",
+    "clientId": "user-reem",
+    "statusAtNow": "pending"
+  },
+  "config": {
+    "voucherFeeFils": 2000,
+    "voucherValidityDays": 60,
+    "voucherReuseDays": 60,
+    "voucherCheckoutMinutes": 30,
+    "voucherRefundDaysAfterExpiry": 30,
+    "confirmWindowHours": 24,
+    "approvalUndoSeconds": 8,
+    "counterOfferValidityHours": 48,
+    "maxOpenRequests": 3,
+    "defaultReplyHours": 24,
+    "urgentLeadDays": 14,
+    "urgentReplyHours": 4,
+    "completionDelayHours": 12,
+    "issueReportHours": 72,
+    "visitChatReadonlyHours": 24,
+    "visitChatArchiveDays": 30,
+    "listingRejectedRetentionDays": 14,
+    "slaDangerPct": 80,
+    "slaGoldPct": 50,
+    "weekendTierDays": [
+      4,
+      5,
+      6
+    ],
+    "peakBandDays": [
+      4,
+      5,
+      6
+    ],
+    "seedVoucherDiscountBps": {
+      "min": 1500,
+      "max": 3500
+    }
+  },
+  "occasions": [
+    {
+      "id": "new-year",
+      "name": {
+        "en": "New Year’s Day",
+        "ar": "رأس السنة"
+      },
+      "from": "2027-01-01",
+      "to": "2027-01-01",
+      "approximate": false
+    },
+    {
+      "id": "isra-miraj",
+      "name": {
+        "en": "Isra and Miraj (approx.)",
+        "ar": "إسراء ومعراج (تقريبي)"
+      },
+      "from": "2027-01-05",
+      "to": "2027-01-05",
+      "approximate": true
+    },
+    {
+      "id": "ramadan-1448",
+      "name": {
+        "en": "Ramadan 1448 (approx.)",
+        "ar": "رمضان 1448 (تقريبي)"
+      },
+      "from": "2027-02-08",
+      "to": "2027-03-08",
+      "approximate": true
+    },
+    {
+      "id": "national-day",
+      "name": {
+        "en": "National Day",
+        "ar": "العيد الوطني"
+      },
+      "from": "2027-02-25",
+      "to": "2027-02-25",
+      "approximate": false
+    },
+    {
+      "id": "liberation-day",
+      "name": {
+        "en": "Liberation Day",
+        "ar": "يوم التحرير"
+      },
+      "from": "2027-02-26",
+      "to": "2027-02-26",
+      "approximate": false
+    },
+    {
+      "id": "eid-al-fitr",
+      "name": {
+        "en": "Eid al-Fitr (approx.)",
+        "ar": "عيد الفطر (تقريبي)"
+      },
+      "from": "2027-03-09",
+      "to": "2027-03-11",
+      "approximate": true
+    },
+    {
+      "id": "eid-al-adha",
+      "name": {
+        "en": "Eid al-Adha (approx.)",
+        "ar": "عيد الأضحى (تقريبي)"
+      },
+      "from": "2027-05-16",
+      "to": "2027-05-19",
+      "approximate": true
+    }
+  ]
+}

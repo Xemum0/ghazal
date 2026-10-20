@@ -1,0 +1,899 @@
+{
+  "$description": "Ghazal icon registry source. name = product name; source = Phosphor Icons (MIT) file stem; mirror = ADR 0014 flip in RTL (an icon without a flag fails the build).",
+  "source": {
+    "package": "@phosphor-icons/core",
+    "version": "2.1.1",
+    "licence": "MIT",
+    "url": "https://github.com/phosphor-icons/core"
+  },
+  "defaultWeight": "regular",
+  "icons": {
+    "back": {
+      "source": "caret-left",
+      "mirror": true,
+      "group": "nav"
+    },
+    "forward": {
+      "source": "caret-right",
+      "mirror": true,
+      "group": "nav"
+    },
+    "chevron-left": {
+      "source": "caret-left",
+      "mirror": true,
+      "group": "nav"
+    },
+    "chevron-right": {
+      "source": "caret-right",
+      "mirror": true,
+      "group": "nav"
+    },
+    "chevron-up": {
+      "source": "caret-up",
+      "mirror": false,
+      "group": "nav"
+    },
+    "chevron-down": {
+      "source": "caret-down",
+      "mirror": false,
+      "group": "nav"
+    },
+    "arrow-left": {
+      "source": "arrow-left",
+      "mirror": true,
+      "group": "nav"
+    },
+    "arrow-right": {
+      "source": "arrow-right",
+      "mirror": true,
+      "group": "nav"
+    },
+    "arrow-up": {
+      "source": "arrow-up",
+      "mirror": false,
+      "group": "nav"
+    },
+    "arrow-down": {
+      "source": "arrow-down",
+      "mirror": false,
+      "group": "nav"
+    },
+    "external-link": {
+      "source": "arrow-square-out",
+      "mirror": true,
+      "group": "nav"
+    },
+    "send": {
+      "source": "paper-plane-tilt",
+      "mirror": true,
+      "group": "nav"
+    },
+    "reply": {
+      "source": "arrow-bend-up-left",
+      "mirror": true,
+      "group": "nav"
+    },
+    "undo": {
+      "source": "arrow-u-up-left",
+      "mirror": true,
+      "group": "nav"
+    },
+    "sign-in": {
+      "source": "sign-in",
+      "mirror": true,
+      "group": "nav"
+    },
+    "sign-out": {
+      "source": "sign-out",
+      "mirror": true,
+      "group": "nav"
+    },
+    "menu": {
+      "source": "list",
+      "mirror": true,
+      "group": "nav"
+    },
+    "list": {
+      "source": "list-bullets",
+      "mirror": true,
+      "group": "nav"
+    },
+    "sort": {
+      "source": "sort-ascending",
+      "mirror": true,
+      "group": "nav"
+    },
+    "checklist": {
+      "source": "list-checks",
+      "mirror": true,
+      "group": "nav"
+    },
+    "notes": {
+      "source": "note-pencil",
+      "mirror": true,
+      "group": "nav"
+    },
+    "help": {
+      "source": "question",
+      "mirror": true,
+      "group": "nav"
+    },
+    "search": {
+      "source": "magnifying-glass",
+      "mirror": false,
+      "group": "action"
+    },
+    "close": {
+      "source": "x",
+      "mirror": false,
+      "group": "action"
+    },
+    "plus": {
+      "source": "plus",
+      "mirror": false,
+      "group": "action"
+    },
+    "minus": {
+      "source": "minus",
+      "mirror": false,
+      "group": "action"
+    },
+    "check": {
+      "source": "check",
+      "mirror": false,
+      "group": "action"
+    },
+    "check-circle": {
+      "source": "check-circle",
+      "mirror": false,
+      "group": "status"
+    },
+    "x-circle": {
+      "source": "x-circle",
+      "mirror": false,
+      "group": "status"
+    },
+    "info": {
+      "source": "info",
+      "mirror": false,
+      "group": "status"
+    },
+    "warning": {
+      "source": "warning",
+      "mirror": false,
+      "group": "status"
+    },
+    "warning-circle": {
+      "source": "warning-circle",
+      "mirror": false,
+      "group": "status"
+    },
+    "verified": {
+      "source": "seal-check",
+      "mirror": false,
+      "group": "status"
+    },
+    "filter": {
+      "source": "funnel",
+      "mirror": false,
+      "group": "action"
+    },
+    "sliders": {
+      "source": "sliders-horizontal",
+      "mirror": false,
+      "group": "action"
+    },
+    "more": {
+      "source": "dots-three",
+      "mirror": false,
+      "group": "action"
+    },
+    "more-vertical": {
+      "source": "dots-three-vertical",
+      "mirror": false,
+      "group": "action"
+    },
+    "edit": {
+      "source": "pencil-simple",
+      "mirror": false,
+      "group": "action"
+    },
+    "trash": {
+      "source": "trash",
+      "mirror": false,
+      "group": "action"
+    },
+    "copy": {
+      "source": "copy",
+      "mirror": false,
+      "group": "action"
+    },
+    "download": {
+      "source": "download-simple",
+      "mirror": false,
+      "group": "action"
+    },
+    "upload": {
+      "source": "upload-simple",
+      "mirror": false,
+      "group": "action"
+    },
+    "share": {
+      "source": "export",
+      "mirror": false,
+      "group": "action"
+    },
+    "link": {
+      "source": "link",
+      "mirror": false,
+      "group": "action"
+    },
+    "eye": {
+      "source": "eye",
+      "mirror": false,
+      "group": "action"
+    },
+    "eye-off": {
+      "source": "eye-slash",
+      "mirror": false,
+      "group": "action"
+    },
+    "refresh": {
+      "source": "arrows-clockwise",
+      "mirror": false,
+      "group": "action"
+    },
+    "swap": {
+      "source": "arrows-left-right",
+      "mirror": false,
+      "group": "action"
+    },
+    "settings": {
+      "source": "gear",
+      "mirror": false,
+      "group": "action"
+    },
+    "lock": {
+      "source": "lock",
+      "mirror": false,
+      "group": "security"
+    },
+    "fingerprint": {
+      "source": "fingerprint",
+      "mirror": false,
+      "group": "security"
+    },
+    "face-id": {
+      "source": "scan-smiley",
+      "mirror": false,
+      "group": "security"
+    },
+    "shield-check": {
+      "source": "shield-check",
+      "mirror": false,
+      "group": "security"
+    },
+    "key": {
+      "source": "key",
+      "mirror": false,
+      "group": "security"
+    },
+    "home": {
+      "source": "house",
+      "mirror": false,
+      "group": "venue"
+    },
+    "hall": {
+      "source": "buildings",
+      "mirror": false,
+      "group": "venue"
+    },
+    "venue": {
+      "source": "storefront",
+      "mirror": false,
+      "group": "venue"
+    },
+    "pin": {
+      "source": "map-pin",
+      "mirror": false,
+      "group": "venue"
+    },
+    "map": {
+      "source": "map-trifold",
+      "mirror": false,
+      "group": "venue"
+    },
+    "navigate": {
+      "source": "navigation-arrow",
+      "mirror": false,
+      "group": "venue"
+    },
+    "compare": {
+      "source": "scales",
+      "mirror": false,
+      "group": "venue"
+    },
+    "heart": {
+      "source": "heart",
+      "mirror": false,
+      "group": "venue"
+    },
+    "star": {
+      "source": "star",
+      "mirror": false,
+      "group": "venue"
+    },
+    "bookmark": {
+      "source": "bookmark-simple",
+      "mirror": false,
+      "group": "venue"
+    },
+    "camera": {
+      "source": "camera",
+      "mirror": false,
+      "group": "media"
+    },
+    "video": {
+      "source": "video-camera",
+      "mirror": false,
+      "group": "media"
+    },
+    "image": {
+      "source": "image",
+      "mirror": false,
+      "group": "media"
+    },
+    "gallery": {
+      "source": "images",
+      "mirror": false,
+      "group": "media"
+    },
+    "play": {
+      "source": "play",
+      "mirror": false,
+      "group": "media"
+    },
+    "user": {
+      "source": "user",
+      "mirror": false,
+      "group": "people"
+    },
+    "profile": {
+      "source": "user-circle",
+      "mirror": false,
+      "group": "people"
+    },
+    "guests": {
+      "source": "users",
+      "mirror": false,
+      "group": "people"
+    },
+    "staff": {
+      "source": "identification-badge",
+      "mirror": false,
+      "group": "people"
+    },
+    "team": {
+      "source": "users-three",
+      "mirror": false,
+      "group": "people"
+    },
+    "user-plus": {
+      "source": "user-plus",
+      "mirror": false,
+      "group": "people"
+    },
+    "user-minus": {
+      "source": "user-minus",
+      "mirror": false,
+      "group": "people"
+    },
+    "wallet": {
+      "source": "wallet",
+      "mirror": false,
+      "group": "money"
+    },
+    "money": {
+      "source": "money",
+      "mirror": false,
+      "group": "money"
+    },
+    "coins": {
+      "source": "coins",
+      "mirror": false,
+      "group": "money"
+    },
+    "card": {
+      "source": "credit-card",
+      "mirror": false,
+      "group": "money"
+    },
+    "bank": {
+      "source": "bank",
+      "mirror": false,
+      "group": "money"
+    },
+    "receipt": {
+      "source": "receipt",
+      "mirror": false,
+      "group": "money"
+    },
+    "offer": {
+      "source": "tag",
+      "mirror": false,
+      "group": "money"
+    },
+    "percent": {
+      "source": "percent",
+      "mirror": false,
+      "group": "money"
+    },
+    "gift": {
+      "source": "gift",
+      "mirror": false,
+      "group": "money"
+    },
+    "calendar": {
+      "source": "calendar-blank",
+      "mirror": false,
+      "group": "time"
+    },
+    "calendar-check": {
+      "source": "calendar-check",
+      "mirror": false,
+      "group": "time"
+    },
+    "calendar-plus": {
+      "source": "calendar-plus",
+      "mirror": false,
+      "group": "time"
+    },
+    "calendar-x": {
+      "source": "calendar-x",
+      "mirror": false,
+      "group": "time"
+    },
+    "calendar-dots": {
+      "source": "calendar-dots",
+      "mirror": false,
+      "group": "time"
+    },
+    "clock": {
+      "source": "clock",
+      "mirror": false,
+      "group": "time"
+    },
+    "countdown": {
+      "source": "clock-countdown",
+      "mirror": false,
+      "group": "time"
+    },
+    "hourglass": {
+      "source": "hourglass-medium",
+      "mirror": false,
+      "group": "time"
+    },
+    "bolt": {
+      "source": "lightning",
+      "mirror": false,
+      "group": "time"
+    },
+    "bell": {
+      "source": "bell",
+      "mirror": false,
+      "group": "comms"
+    },
+    "chat": {
+      "source": "chat-centered",
+      "mirror": false,
+      "group": "comms"
+    },
+    "chat-text": {
+      "source": "chat-centered-text",
+      "mirror": false,
+      "group": "comms"
+    },
+    "whatsapp": {
+      "source": "whatsapp-logo",
+      "mirror": false,
+      "group": "comms"
+    },
+    "phone": {
+      "source": "phone",
+      "mirror": false,
+      "group": "comms"
+    },
+    "call": {
+      "source": "phone-call",
+      "mirror": false,
+      "group": "comms"
+    },
+    "mail": {
+      "source": "envelope-simple",
+      "mirror": false,
+      "group": "comms"
+    },
+    "globe": {
+      "source": "globe",
+      "mirror": false,
+      "group": "comms"
+    },
+    "translate": {
+      "source": "translate",
+      "mirror": false,
+      "group": "comms"
+    },
+    "document": {
+      "source": "file-text",
+      "mirror": false,
+      "group": "docs"
+    },
+    "clipboard": {
+      "source": "clipboard-text",
+      "mirror": false,
+      "group": "docs"
+    },
+    "chart-line": {
+      "source": "chart-line",
+      "mirror": false,
+      "group": "chart"
+    },
+    "chart-bar": {
+      "source": "chart-bar",
+      "mirror": false,
+      "group": "chart"
+    },
+    "chart-up": {
+      "source": "chart-line-up",
+      "mirror": false,
+      "group": "chart"
+    },
+    "trend-up": {
+      "source": "trend-up",
+      "mirror": false,
+      "group": "chart"
+    },
+    "trend-down": {
+      "source": "trend-down",
+      "mirror": false,
+      "group": "chart"
+    },
+    "bed": {
+      "source": "bed",
+      "mirror": false,
+      "group": "service"
+    },
+    "door": {
+      "source": "door",
+      "mirror": false,
+      "group": "service"
+    },
+    "seating": {
+      "source": "armchair",
+      "mirror": false,
+      "group": "service"
+    },
+    "catering": {
+      "source": "fork-knife",
+      "mirror": false,
+      "group": "service"
+    },
+    "drinks": {
+      "source": "champagne",
+      "mirror": false,
+      "group": "service"
+    },
+    "flower": {
+      "source": "flower",
+      "mirror": false,
+      "group": "service"
+    },
+    "cake": {
+      "source": "cake",
+      "mirror": false,
+      "group": "service"
+    },
+    "music": {
+      "source": "music-notes",
+      "mirror": false,
+      "group": "service"
+    },
+    "dj": {
+      "source": "microphone-stage",
+      "mirror": false,
+      "group": "service"
+    },
+    "sound": {
+      "source": "speaker-high",
+      "mirror": false,
+      "group": "service"
+    },
+    "dress": {
+      "source": "dress",
+      "mirror": false,
+      "group": "service"
+    },
+    "suit": {
+      "source": "coat-hanger",
+      "mirror": false,
+      "group": "service"
+    },
+    "groom": {
+      "source": "gender-male",
+      "mirror": false,
+      "group": "service"
+    },
+    "car": {
+      "source": "car",
+      "mirror": false,
+      "group": "service"
+    },
+    "valet": {
+      "source": "car-profile",
+      "mirror": false,
+      "group": "service"
+    },
+    "decor": {
+      "source": "palette",
+      "mirror": false,
+      "group": "service"
+    },
+    "sparkle": {
+      "source": "sparkle",
+      "mirror": false,
+      "group": "service"
+    },
+    "offline": {
+      "source": "wifi-slash",
+      "mirror": false,
+      "group": "status"
+    },
+    "clock-off": {
+      "source": "hourglass-simple-low",
+      "mirror": false,
+      "group": "time"
+    },
+    "check-double": {
+      "source": "checks",
+      "mirror": false,
+      "group": "action"
+    },
+    "pause": {
+      "source": "pause",
+      "mirror": false,
+      "group": "media"
+    },
+    "drag-handle": {
+      "source": "dots-six",
+      "mirror": false,
+      "group": "action"
+    },
+    "prayer": {
+      "source": "hands-praying",
+      "mirror": false,
+      "group": "amenity"
+    },
+    "parking": {
+      "source": "letter-circle-p",
+      "mirror": false,
+      "group": "amenity"
+    },
+    "accessible": {
+      "source": "wheelchair",
+      "mirror": false,
+      "group": "amenity"
+    },
+    "incense": {
+      "source": "fire-simple",
+      "mirror": false,
+      "group": "amenity"
+    },
+    "stage": {
+      "source": "microphone-stage",
+      "mirror": false,
+      "group": "amenity"
+    },
+    "armchair": {
+      "source": "armchair",
+      "mirror": false,
+      "group": "amenity"
+    },
+    "ticket": {
+      "source": "ticket",
+      "mirror": false,
+      "group": "voucher"
+    },
+    "qr-code": {
+      "source": "qr-code",
+      "mirror": false,
+      "group": "voucher"
+    },
+    "scan": {
+      "source": "scan",
+      "mirror": false,
+      "group": "voucher"
+    },
+    "users-three": {
+      "source": "users-three",
+      "mirror": false,
+      "group": "people"
+    },
+    "crown": {
+      "source": "crown-simple",
+      "mirror": false,
+      "group": "status"
+    },
+    "mic": {
+      "source": "microphone",
+      "mirror": false,
+      "group": "chat"
+    },
+    "stop": {
+      "source": "stop-circle",
+      "mirror": false,
+      "group": "chat"
+    },
+    "flag": {
+      "source": "flag",
+      "mirror": false,
+      "group": "status"
+    },
+    "headset": {
+      "source": "headset",
+      "mirror": false,
+      "group": "people"
+    },
+    "megaphone": {
+      "source": "megaphone-simple",
+      "mirror": false,
+      "group": "venue"
+    },
+    "hotel": {
+      "source": "building-apartment",
+      "mirror": false,
+      "group": "venue"
+    },
+    "ruler": {
+      "source": "ruler",
+      "mirror": false,
+      "group": "people"
+    },
+    "area": {
+      "source": "frame-corners",
+      "mirror": false,
+      "group": "venue"
+    },
+    "sun": {
+      "source": "sun",
+      "mirror": false,
+      "group": "time"
+    },
+    "moon": {
+      "source": "moon",
+      "mirror": false,
+      "group": "time"
+    },
+    "sunset": {
+      "source": "sun-horizon",
+      "mirror": false,
+      "group": "time"
+    },
+    "timer": {
+      "source": "timer",
+      "mirror": false,
+      "group": "time"
+    },
+    "route": {
+      "source": "path",
+      "mirror": false,
+      "group": "venue"
+    },
+    "per-guest": {
+      "source": "user",
+      "mirror": false,
+      "group": "people"
+    },
+    "section-women": {
+      "source": "gender-female",
+      "mirror": false,
+      "group": "people"
+    },
+    "section-men": {
+      "source": "gender-male",
+      "mirror": false,
+      "group": "people"
+    },
+    "section-mixed": {
+      "source": "gender-intersex",
+      "mirror": false,
+      "group": "people"
+    },
+    "package": {
+      "source": "package",
+      "mirror": false,
+      "group": "money"
+    },
+    "buffet": {
+      "source": "cooking-pot",
+      "mirror": false,
+      "group": "service"
+    },
+    "lighting": {
+      "source": "lamp-pendant",
+      "mirror": false,
+      "group": "service"
+    },
+    "makeup": {
+      "source": "paint-brush-broad",
+      "mirror": false,
+      "group": "service"
+    },
+    "travel": {
+      "source": "airplane-tilt",
+      "mirror": false,
+      "group": "service"
+    },
+    "tent": {
+      "source": "tent",
+      "mirror": false,
+      "group": "venue"
+    },
+    "beach": {
+      "source": "tree-palm",
+      "mirror": false,
+      "group": "venue"
+    },
+    "garden": {
+      "source": "tree",
+      "mirror": false,
+      "group": "venue"
+    },
+    "apple": {
+      "source": "apple-logo",
+      "mirror": false,
+      "group": "brand"
+    },
+    "google": {
+      "source": "google-logo",
+      "mirror": false,
+      "group": "brand"
+    }
+  },
+  "fills": {
+    "heart-fill": {
+      "source": "heart-fill",
+      "mirror": false,
+      "group": "fill"
+    },
+    "star-fill": {
+      "source": "star-fill",
+      "mirror": false,
+      "group": "fill"
+    },
+    "bookmark-fill": {
+      "source": "bookmark-simple-fill",
+      "mirror": false,
+      "group": "fill"
+    },
+    "check-circle-fill": {
+      "source": "check-circle-fill",
+      "mirror": false,
+      "group": "fill"
+    },
+    "x-circle-fill": {
+      "source": "x-circle-fill",
+      "mirror": false,
+      "group": "fill"
+    },
+    "warning-circle-fill": {
+      "source": "warning-circle-fill",
+      "mirror": false,
+      "group": "fill"
+    },
+    "info-fill": {
+      "source": "info-fill",
+      "mirror": false,
+      "group": "fill"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "hotelShellTabBarLabel": "Main navigation",
+  "hotelShellTabToday": "Today",
+  "hotelShellTabBookings": "Bookings",
+  "hotelShellTabCalendar": "Calendar",
+  "hotelShellTabMessages": "Messages",
+  "hotelShellTabMore": "More",
+  "hotelShellBadgePending": "{count, plural, one{# request needs your reply} other{# requests need your reply}}",
+  "hotelShellBadgeOverflow": "{max, number}+",
+  "hotelShellBannerNewRequest": "New request",
+  "hotelShellGreeting": "Hello, {name}",
+  "hotelShellTodayNeedsReply": "{count, plural, one{# request needs your reply} other{# requests need your reply}}",
+  "hotelShellTodayFirstIn": "first in {time}",
+  "hotelShellTodayAllClear": "All clear",
+  "hotelShellNeedsYouTitle": "Needs your attention",
+  "hotelShellOfflineBanner": "You’re offline. Showing what was last loaded."
+}

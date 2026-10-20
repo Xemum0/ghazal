@@ -1,0 +1,5125 @@
+{
+  "triage": [
+    {
+      "conversationId": null,
+      "reviewId": null,
+      "visitId": null,
+      "voucherId": "vch-GV-2611-K7QM",
+      "voucherCode": "GV-2611-K7QM",
+      "slaHours": 24,
+      "dueAt": "2026-11-13T12:40:00+03:00",
+      "subtitle": null,
+      "bookingId": "bk-GZ-2611-0147",
+      "id": "triage-GZ-2611-0147",
+      "type": "request",
+      "venueId": "V01",
+      "raisedAt": "2026-11-12T12:40:00+03:00",
+      "title": {
+        "en": "ريم الدوسري",
+        "ar": "ريم الدوسري"
+      },
+      "order": 10
+    },
+    {
+      "conversationId": null,
+      "reviewId": null,
+      "visitId": null,
+      "voucherId": "vch-GV-2611-QHKY",
+      "voucherCode": "GV-2611-QHKY",
+      "slaHours": 24,
+      "dueAt": "2026-11-12T19:00:00+03:00",
+      "subtitle": null,
+      "bookingId": "bk-GZ-2611-3K8D",
+      "id": "triage-GZ-2611-3K8D",
+      "type": "request",
+      "venueId": "V01",
+      "raisedAt": "2026-11-11T19:00:00+03:00",
+      "title": {
+        "en": "دانة الشمري",
+        "ar": "دانة الشمري"
+      },
+      "order": 11
+    },
+    {
+      "conversationId": null,
+      "reviewId": null,
+      "visitId": null,
+      "voucherId": "vch-GV-2611-FK3Q",
+      "voucherCode": "GV-2611-FK3Q",
+      "slaHours": 24,
+      "dueAt": "2026-11-13T07:00:00+03:00",
+      "subtitle": null,
+      "bookingId": "bk-GZ-2611-5T2W",
+      "id": "triage-GZ-2611-5T2W",
+      "type": "request",
+      "venueId": "V01",
+      "raisedAt": "2026-11-12T07:00:00+03:00",
+      "title": {
+        "en": "عبدالله الهاجري",
+        "ar": "عبدالله الهاجري"
+      },
+      "order": 12
+    },
+    {
+      "conversationId": null,
+      "reviewId": null,
+      "visitId": null,
+      "voucherId": "vch-GV-2611-X2B6",
+      "voucherCode": "GV-2611-X2B6",
+      "slaHours": 24,
+      "dueAt": "2026-11-13T09:00:00+03:00",
+      "subtitle": null,
+      "bookingId": "bk-GZ-2611-6R9C",
+      "id": "triage-GZ-2611-6R9C",
+      "type": "request",
+      "venueId": "V01",
+      "raisedAt": "2026-11-12T09:00:00+03:00",
+      "title": {
+        "en": "مريم الكندري",
+        "ar": "مريم الكندري"
+      },
+      "order": 13
+    },
+    {
+      "conversationId": null,
+      "reviewId": null,
+      "visitId": null,
+      "voucherId": "vch-GV-2611-RK7V",
+      "voucherCode": "GV-2611-RK7V",
+      "slaHours": 24,
+      "dueAt": "2026-11-13T11:00:00+03:00",
+      "subtitle": null,
+      "bookingId": "bk-GZ-2611-7V4H",
+      "id": "triage-GZ-2611-7V4H",
+      "type": "request",
+      "venueId": "V01",
+      "raisedAt": "2026-11-12T11:00:00+03:00",
+      "title": {
+        "en": "فيصل الرشيدي",
+        "ar": "فيصل الرشيدي"
+      },
+      "order": 14
+    },
+    {
+      "conversationId": null,
+      "reviewId": null,
+      "visitId": null,
+      "voucherId": "vch-GV-2611-ZDTP",
+      "voucherCode": "GV-2611-ZDTP",
+      "slaHours": 24,
+      "dueAt": "2026-11-12T19:30:00+03:00",
+      "subtitle": {
+        "en": "Thu 10 Dec · the client confirms within 24 hours",
+        "ar": "الخميس 10 ديسمبر · يؤكد العميل خلال 24 ساعة"
+      },
+      "bookingId": "bk-GZ-2611-9H3D",
+      "id": "triage-await-GZ-2611-9H3D",
+      "type": "awaiting_client",
+      "venueId": "V01",
+      "raisedAt": "2026-11-11T19:30:00+03:00",
+      "title": {
+        "en": "Waiting for هيا المطيري to confirm",
+        "ar": "بانتظار تأكيد هيا المطيري"
+      },
+      "order": 20
+    },
+    {
+      "conversationId": "conv-aurelia-reem",
+      "reviewId": null,
+      "visitId": null,
+      "voucherId": null,
+      "voucherCode": null,
+      "slaHours": null,
+      "dueAt": null,
+      "subtitle": {
+        "en": "Thu 14 Jan · ladies’ reception",
+        "ar": "الخميس 14 يناير · الحفل النسائي"
+      },
+      "bookingId": "bk-GZ-2611-0147",
+      "id": "triage-msg-reem",
+      "type": "message",
+      "venueId": "V01",
+      "raisedAt": "2026-11-12T15:12:00+03:00",
+      "title": {
+        "en": "Unanswered message · Reem Al-Dosari",
+        "ar": "رسالة بانتظار الرد · ريم الدوسري"
+      },
+      "order": 30
+    },
+    {
+      "conversationId": "conv-visit-aurelia-rashed",
+      "reviewId": null,
+      "visitId": "visit-aurelia-rashed",
+      "voucherId": null,
+      "voucherCode": null,
+      "slaHours": null,
+      "dueAt": null,
+      "subtitle": {
+        "en": "Sat 21 Nov, 6:00 PM · 4 visitors",
+        "ar": "السبت 21 نوفمبر، 6:00 م · 4 زائرين"
+      },
+      "bookingId": null,
+      "id": "triage-visit-visit-aurelia-rashed",
+      "type": "visit_request",
+      "venueId": "V01",
+      "raisedAt": "2026-11-12T14:35:00+03:00",
+      "title": {
+        "en": "Visit request · Rashed Al-Ajmi",
+        "ar": "طلب زيارة · راشد العجمي"
+      },
+      "order": 35
+    },
+    {
+      "conversationId": null,
+      "reviewId": "rv-V01-02",
+      "visitId": null,
+      "voucherId": null,
+      "voucherCode": null,
+      "slaHours": null,
+      "dueAt": null,
+      "subtitle": {
+        "en": "3.5 stars · posted 11 days ago",
+        "ar": "3.5 نجوم · نُشر قبل 11 يومًا"
+      },
+      "bookingId": null,
+      "id": "triage-review-mona",
+      "type": "review_reply",
+      "venueId": "V01",
+      "raisedAt": "2026-11-01T11:00:00+03:00",
+      "title": {
+        "en": "Review awaiting a reply · Mona S.",
+        "ar": "تقييم بانتظار الرد · منى س."
+      },
+      "order": 40
+    },
+    {
+      "conversationId": null,
+      "reviewId": null,
+      "visitId": null,
+      "voucherId": null,
+      "voucherCode": null,
+      "slaHours": null,
+      "dueAt": null,
+      "subtitle": {
+        "en": "Weekly check",
+        "ar": "تأكيد أسبوعي"
+      },
+      "bookingId": null,
+      "id": "triage-calendar-confirm",
+      "type": "calendar_confirm",
+      "venueId": "V01",
+      "raisedAt": "2026-11-12T09:00:00+03:00",
+      "title": {
+        "en": "Confirm your calendar is up to date",
+        "ar": "تأكيد تحديث التقويم"
+      },
+      "order": 50
+    }
+  ],
+  "calendarClaims": [
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 300,
+      "clientName": "علياء الظفيري",
+      "bookingId": "bk-GZ-2608-7G4N",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-GZ-2608-7G4N-1",
+      "hallId": "V01-danah",
+      "date": "2026-10-31",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 360,
+      "clientName": "نورة الفهد",
+      "bookingId": "bk-GZ-2608-6N8F",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-GZ-2608-6N8F-1",
+      "hallId": "V01-danah",
+      "date": "2026-11-06",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 320,
+      "clientName": "ثامر المطوع",
+      "bookingId": "bk-GZ-2608-9J2H",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-GZ-2608-9J2H-1",
+      "hallId": "V01-majlis",
+      "date": "2026-11-08",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 220,
+      "clientName": "جود العجمي",
+      "bookingId": "bk-GZ-2608-4G1P",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-GZ-2608-4G1P-1",
+      "hallId": "V01-majlis",
+      "date": "2026-11-11",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 420,
+      "clientName": "نجلاء البدر",
+      "bookingId": "bk-GZ-2607-6M2J",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-GZ-2607-6M2J-1",
+      "hallId": "V01-danah",
+      "date": "2026-11-12",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 310,
+      "clientName": "سلمان الحربي",
+      "bookingId": "bk-GZ-2608-1F7G",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-GZ-2608-1F7G-1",
+      "hallId": "V01-majlis",
+      "date": "2026-11-12",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 480,
+      "clientName": "شيخة العنزي",
+      "bookingId": "bk-GZ-2608-8D4N",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-GZ-2608-8D4N-1",
+      "hallId": "V01-danah",
+      "date": "2026-11-13",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 400,
+      "clientName": "بشاير الظفيري",
+      "bookingId": "bk-GZ-2608-5E9Q",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-GZ-2608-5E9Q-1",
+      "hallId": "V01-danah",
+      "date": "2026-11-14",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 350,
+      "clientName": "جاسم الكندري",
+      "bookingId": "bk-GZ-2608-3C7V",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-GZ-2608-3C7V-1",
+      "hallId": "V01-majlis",
+      "date": "2026-11-14",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 250,
+      "clientName": "وضحى الرومي",
+      "bookingId": "bk-GZ-2609-7A2K",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-GZ-2609-7A2K-1",
+      "hallId": "V01-majlis",
+      "date": "2026-11-18",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 380,
+      "clientName": "مشاعل الصالح",
+      "bookingId": "bk-GZ-2609-2H8S",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-GZ-2609-2H8S-1",
+      "hallId": "V01-danah",
+      "date": "2026-11-19",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 300,
+      "clientName": "أحمد الحمد",
+      "bookingId": "bk-GZ-2609-9B3T",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-GZ-2609-9B3T-1",
+      "hallId": "V01-majlis",
+      "date": "2026-11-19",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 330,
+      "clientName": "منيرة الخالد",
+      "bookingId": "bk-GZ-2609-4Z6X",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-GZ-2609-4Z6X-1",
+      "hallId": "V01-danah",
+      "date": "2026-11-21",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": null,
+      "guests": null,
+      "clientName": null,
+      "bookingId": null,
+      "blockReason": "maintenance",
+      "blockNote": {
+        "en": "Maintenance",
+        "ar": "صيانة"
+      },
+      "blockedBy": "Hind Al-Enezi",
+      "holdUntil": null,
+      "start": null,
+      "end": null,
+      "id": "claim-block-2026-11-23-V01-danah",
+      "hallId": "V01-danah",
+      "date": "2026-11-23",
+      "kind": "block"
+    },
+    {
+      "venueId": "V01",
+      "audience": null,
+      "guests": null,
+      "clientName": null,
+      "bookingId": null,
+      "blockReason": "maintenance",
+      "blockNote": {
+        "en": "Maintenance",
+        "ar": "صيانة"
+      },
+      "blockedBy": "Hind Al-Enezi",
+      "holdUntil": null,
+      "start": null,
+      "end": null,
+      "id": "claim-block-2026-11-23-V01-majlis",
+      "hallId": "V01-majlis",
+      "date": "2026-11-23",
+      "kind": "block"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 260,
+      "clientName": "أسماء الرومي",
+      "bookingId": "bk-GZ-2609-0S3E",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-GZ-2609-0S3E-1",
+      "hallId": "V01-danah",
+      "date": "2026-11-26",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 340,
+      "clientName": "حصة المرزوق",
+      "bookingId": "bk-GZ-2609-6K1W",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-GZ-2609-6K1W-1",
+      "hallId": "V01-danah",
+      "date": "2026-11-27",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 320,
+      "clientName": "طلال الفيلكاوي",
+      "bookingId": "bk-GZ-2609-4M5Y",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-GZ-2609-4M5Y-1",
+      "hallId": "V01-majlis",
+      "date": "2026-11-27",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 310,
+      "clientName": "ميثاء الصايغ",
+      "bookingId": "bk-GZ-2610-1Q6B",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-GZ-2610-1Q6B-1",
+      "hallId": "V01-danah",
+      "date": "2026-11-28",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 360,
+      "clientName": "مي الخرافي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2026-12-04",
+      "hallId": "V01-danah",
+      "date": "2026-12-04",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 310,
+      "clientName": "ماجد التميمي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2026-12-04",
+      "hallId": "V01-majlis",
+      "date": "2026-12-04",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 470,
+      "clientName": "ميساء العثمان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2026-12-07",
+      "hallId": "V01-danah",
+      "date": "2026-12-07",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 320,
+      "clientName": "هيا المطيري",
+      "bookingId": "bk-GZ-2611-9H3D",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": "2026-11-12T19:30:00+03:00",
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-GZ-2611-9H3D-1",
+      "hallId": "V01-danah",
+      "date": "2026-12-10",
+      "kind": "hold"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 340,
+      "clientName": "مشعل الشمالي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2026-12-10",
+      "hallId": "V01-majlis",
+      "date": "2026-12-10",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 370,
+      "clientName": "إيمان الجاسم",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2026-12-11",
+      "hallId": "V01-danah",
+      "date": "2026-12-11",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 330,
+      "clientName": "ماجد التميمي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2026-12-11",
+      "hallId": "V01-majlis",
+      "date": "2026-12-11",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 340,
+      "clientName": "لولوة الصالح",
+      "bookingId": "bk-GZ-2611-2P8R",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-GZ-2611-2P8R-1",
+      "hallId": "V01-danah",
+      "date": "2026-12-12",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 310,
+      "clientName": "سعاد الحجي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2026-12-12",
+      "hallId": "V01-majlis",
+      "date": "2026-12-12",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 300,
+      "clientName": "حنان الدويسان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2026-12-17",
+      "hallId": "V01-danah",
+      "date": "2026-12-17",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 380,
+      "clientName": "سعود الهاجري",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2026-12-17",
+      "hallId": "V01-majlis",
+      "date": "2026-12-17",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 340,
+      "clientName": "مي الخرافي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2026-12-19",
+      "hallId": "V01-danah",
+      "date": "2026-12-19",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 300,
+      "clientName": "عبدالرحمن الخضر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2026-12-29",
+      "hallId": "V01-majlis",
+      "date": "2026-12-29",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 330,
+      "clientName": "نواف الصانع",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2026-12-30",
+      "hallId": "V01-majlis",
+      "date": "2026-12-30",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 470,
+      "clientName": "مي الخرافي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2026-12-31",
+      "hallId": "V01-danah",
+      "date": "2026-12-31",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 300,
+      "clientName": "سعود الهاجري",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2026-12-31",
+      "hallId": "V01-majlis",
+      "date": "2026-12-31",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 300,
+      "clientName": "أريج العوضي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-01-01",
+      "hallId": "V01-danah",
+      "date": "2027-01-01",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 340,
+      "clientName": "ميساء العثمان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-01-02",
+      "hallId": "V01-danah",
+      "date": "2027-01-02",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 330,
+      "clientName": "بشرى القلاف",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-01-02",
+      "hallId": "V01-majlis",
+      "date": "2027-01-02",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 200,
+      "clientName": "إيمان الجاسم",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-01-03",
+      "hallId": "V01-majlis",
+      "date": "2027-01-03",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 340,
+      "clientName": "منال الخالدي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-01-06",
+      "hallId": "V01-majlis",
+      "date": "2027-01-06",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 330,
+      "clientName": "عبير الدبوس",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-01-07",
+      "hallId": "V01-majlis",
+      "date": "2027-01-07",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 350,
+      "clientName": "ريم الدوسري",
+      "bookingId": "bk-GZ-2611-0147",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-req-GZ-2611-0147-1",
+      "hallId": "V01-danah",
+      "date": "2027-01-14",
+      "kind": "requested"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 380,
+      "clientName": "حمد المسعود",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-01-14",
+      "hallId": "V01-majlis",
+      "date": "2027-01-14",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 420,
+      "clientName": "ميساء العثمان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-01-15",
+      "hallId": "V01-danah",
+      "date": "2027-01-15",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 340,
+      "clientName": "حمد المسعود",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-01-15",
+      "hallId": "V01-majlis",
+      "date": "2027-01-15",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 450,
+      "clientName": "عبير الدبوس",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-01-16",
+      "hallId": "V01-danah",
+      "date": "2027-01-16",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 250,
+      "clientName": "دانة الشمري",
+      "bookingId": "bk-GZ-2611-3K8D",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-req-GZ-2611-3K8D-1",
+      "hallId": "V01-majlis",
+      "date": "2027-01-17",
+      "kind": "requested"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 360,
+      "clientName": "بشرى القلاف",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-01-19",
+      "hallId": "V01-danah",
+      "date": "2027-01-19",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 310,
+      "clientName": "حمد المسعود",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-01-19",
+      "hallId": "V01-majlis",
+      "date": "2027-01-19",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 340,
+      "clientName": "سعود الهاجري",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-01-21",
+      "hallId": "V01-majlis",
+      "date": "2027-01-21",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 400,
+      "clientName": "فيصل الرشيدي",
+      "bookingId": "bk-GZ-2611-7V4H",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-req-GZ-2611-7V4H-1",
+      "hallId": "V01-danah",
+      "date": "2027-01-22",
+      "kind": "requested"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 310,
+      "clientName": "محمد العدواني",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-01-22",
+      "hallId": "V01-majlis",
+      "date": "2027-01-22",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 360,
+      "clientName": "إيمان الجاسم",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-01-23",
+      "hallId": "V01-majlis",
+      "date": "2027-01-23",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 460,
+      "clientName": "زينب الكوت",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-01-25",
+      "hallId": "V01-danah",
+      "date": "2027-01-25",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 330,
+      "clientName": "شروق العلي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-01-26",
+      "hallId": "V01-majlis",
+      "date": "2027-01-26",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 450,
+      "clientName": "دلال الفضلي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-01-27",
+      "hallId": "V01-danah",
+      "date": "2027-01-27",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 300,
+      "clientName": "مريم الكندري",
+      "bookingId": "bk-GZ-2611-6R9C",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-req-GZ-2611-6R9C-1",
+      "hallId": "V01-danah",
+      "date": "2027-01-28",
+      "kind": "requested"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 240,
+      "clientName": "نجاة الشطي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-01-28",
+      "hallId": "V01-majlis",
+      "date": "2027-01-28",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 440,
+      "clientName": "سعاد الحجي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-01-29",
+      "hallId": "V01-danah",
+      "date": "2027-01-29",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 280,
+      "clientName": "عبير الدبوس",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-01-29",
+      "hallId": "V01-majlis",
+      "date": "2027-01-29",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 310,
+      "clientName": "لطيفة البحر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-01-30",
+      "hallId": "V01-danah",
+      "date": "2027-01-30",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 330,
+      "clientName": "راشد السلطان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-01-31",
+      "hallId": "V01-majlis",
+      "date": "2027-01-31",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 410,
+      "clientName": "سلوى الكوح",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-02-04",
+      "hallId": "V01-danah",
+      "date": "2027-02-04",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 380,
+      "clientName": "عبدالله الهاجري",
+      "bookingId": "bk-GZ-2611-5T2W",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-req-GZ-2611-5T2W-1",
+      "hallId": "V01-danah",
+      "date": "2027-02-05",
+      "kind": "requested"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 450,
+      "clientName": "عبدالله الهاجري",
+      "bookingId": "bk-GZ-2611-5T2W",
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-req-GZ-2611-5T2W-2",
+      "hallId": "V01-majlis",
+      "date": "2027-02-05",
+      "kind": "requested"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 310,
+      "clientName": "رغد الصقر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-02-06",
+      "hallId": "V01-danah",
+      "date": "2027-02-06",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 350,
+      "clientName": "سعود الهاجري",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-02-06",
+      "hallId": "V01-majlis",
+      "date": "2027-02-06",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 360,
+      "clientName": "أريج العوضي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-02-24",
+      "hallId": "V01-danah",
+      "date": "2027-02-24",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 350,
+      "clientName": "جنان الرفاعي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-03-10",
+      "hallId": "V01-danah",
+      "date": "2027-03-10",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 360,
+      "clientName": "عبدالرحمن الخضر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-03-11",
+      "hallId": "V01-majlis",
+      "date": "2027-03-11",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 390,
+      "clientName": "إيمان الجاسم",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-03-12",
+      "hallId": "V01-danah",
+      "date": "2027-03-12",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 320,
+      "clientName": "حمد المسعود",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-03-12",
+      "hallId": "V01-majlis",
+      "date": "2027-03-12",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 320,
+      "clientName": "نجاة الشطي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-03-13",
+      "hallId": "V01-danah",
+      "date": "2027-03-13",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 390,
+      "clientName": "مشعل الشمالي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-03-13",
+      "hallId": "V01-majlis",
+      "date": "2027-03-13",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 250,
+      "clientName": "حنان الدويسان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-03-14",
+      "hallId": "V01-majlis",
+      "date": "2027-03-14",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 410,
+      "clientName": "سلوى الكوح",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-03-17",
+      "hallId": "V01-danah",
+      "date": "2027-03-17",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 410,
+      "clientName": "رغد الصقر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-03-18",
+      "hallId": "V01-danah",
+      "date": "2027-03-18",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 370,
+      "clientName": "سعاد الحجي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-03-19",
+      "hallId": "V01-danah",
+      "date": "2027-03-19",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 360,
+      "clientName": "نواف الصانع",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-03-19",
+      "hallId": "V01-majlis",
+      "date": "2027-03-19",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 360,
+      "clientName": "نجاة الشطي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-03-20",
+      "hallId": "V01-danah",
+      "date": "2027-03-20",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 340,
+      "clientName": "سعود الهاجري",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-03-20",
+      "hallId": "V01-majlis",
+      "date": "2027-03-20",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 410,
+      "clientName": "بشرى القلاف",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-03-25",
+      "hallId": "V01-danah",
+      "date": "2027-03-25",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 310,
+      "clientName": "زينب الكوت",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-03-26",
+      "hallId": "V01-danah",
+      "date": "2027-03-26",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 270,
+      "clientName": "عبير الدبوس",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-03-26",
+      "hallId": "V01-majlis",
+      "date": "2027-03-26",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 470,
+      "clientName": "لطيفة البحر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-03-27",
+      "hallId": "V01-danah",
+      "date": "2027-03-27",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 300,
+      "clientName": "عبير الدبوس",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-03-27",
+      "hallId": "V01-majlis",
+      "date": "2027-03-27",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 300,
+      "clientName": "عذبة المنصور",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-04-01",
+      "hallId": "V01-majlis",
+      "date": "2027-04-01",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 480,
+      "clientName": "عذبة المنصور",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-02",
+      "hallId": "V01-danah",
+      "date": "2027-04-02",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 310,
+      "clientName": "ماجد التميمي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-04-02",
+      "hallId": "V01-majlis",
+      "date": "2027-04-02",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 340,
+      "clientName": "تهاني الغانم",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-03",
+      "hallId": "V01-danah",
+      "date": "2027-04-03",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 320,
+      "clientName": "رحاب النصف",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-04-03",
+      "hallId": "V01-majlis",
+      "date": "2027-04-03",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 210,
+      "clientName": "إيمان الجاسم",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-04-05",
+      "hallId": "V01-majlis",
+      "date": "2027-04-05",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 510,
+      "clientName": "دلال الفضلي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-08",
+      "hallId": "V01-danah",
+      "date": "2027-04-08",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 240,
+      "clientName": "جنان الرفاعي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-04-08",
+      "hallId": "V01-majlis",
+      "date": "2027-04-08",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 300,
+      "clientName": "رغد الصقر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-09",
+      "hallId": "V01-danah",
+      "date": "2027-04-09",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 340,
+      "clientName": "عبير الدبوس",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-04-09",
+      "hallId": "V01-majlis",
+      "date": "2027-04-09",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 300,
+      "clientName": "أريج العوضي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-10",
+      "hallId": "V01-danah",
+      "date": "2027-04-10",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 310,
+      "clientName": "سعاد الحجي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-11",
+      "hallId": "V01-danah",
+      "date": "2027-04-11",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 460,
+      "clientName": "سلوى الكوح",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-13",
+      "hallId": "V01-danah",
+      "date": "2027-04-13",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 490,
+      "clientName": "عبير الدبوس",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-15",
+      "hallId": "V01-danah",
+      "date": "2027-04-15",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 370,
+      "clientName": "ماجد التميمي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-04-15",
+      "hallId": "V01-majlis",
+      "date": "2027-04-15",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 450,
+      "clientName": "عذبة المنصور",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-16",
+      "hallId": "V01-danah",
+      "date": "2027-04-16",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 410,
+      "clientName": "عبير الدبوس",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-17",
+      "hallId": "V01-danah",
+      "date": "2027-04-17",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 390,
+      "clientName": "حمد المسعود",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-04-17",
+      "hallId": "V01-majlis",
+      "date": "2027-04-17",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 360,
+      "clientName": "ميساء العثمان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-18",
+      "hallId": "V01-danah",
+      "date": "2027-04-18",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 520,
+      "clientName": "نجاة الشطي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-22",
+      "hallId": "V01-danah",
+      "date": "2027-04-22",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 230,
+      "clientName": "نجاة الشطي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-04-22",
+      "hallId": "V01-majlis",
+      "date": "2027-04-22",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 360,
+      "clientName": "حنان الدويسان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-23",
+      "hallId": "V01-danah",
+      "date": "2027-04-23",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 360,
+      "clientName": "حمد المسعود",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-04-23",
+      "hallId": "V01-majlis",
+      "date": "2027-04-23",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 530,
+      "clientName": "عذبة المنصور",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-24",
+      "hallId": "V01-danah",
+      "date": "2027-04-24",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 350,
+      "clientName": "راشد السلطان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-04-24",
+      "hallId": "V01-majlis",
+      "date": "2027-04-24",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 380,
+      "clientName": "ميساء العثمان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-25",
+      "hallId": "V01-danah",
+      "date": "2027-04-25",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 510,
+      "clientName": "عذبة المنصور",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-29",
+      "hallId": "V01-danah",
+      "date": "2027-04-29",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 330,
+      "clientName": "راشد السلطان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-04-29",
+      "hallId": "V01-majlis",
+      "date": "2027-04-29",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 500,
+      "clientName": "عذبة المنصور",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-04-30",
+      "hallId": "V01-danah",
+      "date": "2027-04-30",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 390,
+      "clientName": "راشد السلطان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-04-30",
+      "hallId": "V01-majlis",
+      "date": "2027-04-30",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 340,
+      "clientName": "سلوى الكوح",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-05-01",
+      "hallId": "V01-danah",
+      "date": "2027-05-01",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 380,
+      "clientName": "عبدالرحمن الخضر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-05-01",
+      "hallId": "V01-majlis",
+      "date": "2027-05-01",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 510,
+      "clientName": "زينب الكوت",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-05-06",
+      "hallId": "V01-danah",
+      "date": "2027-05-06",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 260,
+      "clientName": "سلوى الكوح",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-05-06",
+      "hallId": "V01-majlis",
+      "date": "2027-05-06",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 430,
+      "clientName": "منال الخالدي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-05-07",
+      "hallId": "V01-danah",
+      "date": "2027-05-07",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 330,
+      "clientName": "راشد السلطان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-05-07",
+      "hallId": "V01-majlis",
+      "date": "2027-05-07",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 450,
+      "clientName": "دلال الفضلي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-05-08",
+      "hallId": "V01-danah",
+      "date": "2027-05-08",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 330,
+      "clientName": "ماجد التميمي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-05-08",
+      "hallId": "V01-majlis",
+      "date": "2027-05-08",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 400,
+      "clientName": "سلوى الكوح",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-05-09",
+      "hallId": "V01-danah",
+      "date": "2027-05-09",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 310,
+      "clientName": "جنان الرفاعي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-05-10",
+      "hallId": "V01-danah",
+      "date": "2027-05-10",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 510,
+      "clientName": "نجاة الشطي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-05-13",
+      "hallId": "V01-danah",
+      "date": "2027-05-13",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 320,
+      "clientName": "ميساء العثمان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-05-13",
+      "hallId": "V01-majlis",
+      "date": "2027-05-13",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 390,
+      "clientName": "دلال الفضلي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-05-14",
+      "hallId": "V01-danah",
+      "date": "2027-05-14",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 370,
+      "clientName": "مشعل الشمالي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-05-14",
+      "hallId": "V01-majlis",
+      "date": "2027-05-14",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 380,
+      "clientName": "حنان الدويسان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-05-15",
+      "hallId": "V01-danah",
+      "date": "2027-05-15",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 350,
+      "clientName": "نواف الصانع",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-05-15",
+      "hallId": "V01-majlis",
+      "date": "2027-05-15",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 420,
+      "clientName": "منال الخالدي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-05-19",
+      "hallId": "V01-danah",
+      "date": "2027-05-19",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 490,
+      "clientName": "أريج العوضي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-05-20",
+      "hallId": "V01-danah",
+      "date": "2027-05-20",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 420,
+      "clientName": "إيمان الجاسم",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-05-21",
+      "hallId": "V01-danah",
+      "date": "2027-05-21",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 350,
+      "clientName": "حنان الدويسان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-05-27",
+      "hallId": "V01-danah",
+      "date": "2027-05-27",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 430,
+      "clientName": "سلوى الكوح",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-05-29",
+      "hallId": "V01-danah",
+      "date": "2027-05-29",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 280,
+      "clientName": "تهاني الغانم",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-06-03",
+      "hallId": "V01-majlis",
+      "date": "2027-06-03",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 270,
+      "clientName": "عذبة المنصور",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-06-04",
+      "hallId": "V01-majlis",
+      "date": "2027-06-04",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 330,
+      "clientName": "زينب الكوت",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-06-11",
+      "hallId": "V01-majlis",
+      "date": "2027-06-11",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 320,
+      "clientName": "إيمان الجاسم",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-06-12",
+      "hallId": "V01-danah",
+      "date": "2027-06-12",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 300,
+      "clientName": "رغد الصقر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-06-17",
+      "hallId": "V01-danah",
+      "date": "2027-06-17",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 390,
+      "clientName": "ماجد التميمي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-06-17",
+      "hallId": "V01-majlis",
+      "date": "2027-06-17",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 310,
+      "clientName": "بشرى القلاف",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-06-19",
+      "hallId": "V01-danah",
+      "date": "2027-06-19",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 220,
+      "clientName": "نجاة الشطي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-06-19",
+      "hallId": "V01-majlis",
+      "date": "2027-06-19",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 300,
+      "clientName": "جنان الرفاعي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-06-20",
+      "hallId": "V01-danah",
+      "date": "2027-06-20",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 240,
+      "clientName": "حنان الدويسان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-06-26",
+      "hallId": "V01-majlis",
+      "date": "2027-06-26",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 310,
+      "clientName": "حمد المسعود",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-07-01",
+      "hallId": "V01-majlis",
+      "date": "2027-07-01",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 300,
+      "clientName": "ماجد التميمي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-07-02",
+      "hallId": "V01-majlis",
+      "date": "2027-07-02",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 320,
+      "clientName": "عبدالرحمن الخضر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-07-03",
+      "hallId": "V01-majlis",
+      "date": "2027-07-03",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 390,
+      "clientName": "حمد المسعود",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-07-06",
+      "hallId": "V01-majlis",
+      "date": "2027-07-06",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 360,
+      "clientName": "عذبة المنصور",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-07-07",
+      "hallId": "V01-danah",
+      "date": "2027-07-07",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 360,
+      "clientName": "سعود الهاجري",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-07-07",
+      "hallId": "V01-majlis",
+      "date": "2027-07-07",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 290,
+      "clientName": "نجاة الشطي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-07-08",
+      "hallId": "V01-majlis",
+      "date": "2027-07-08",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 480,
+      "clientName": "سعاد الحجي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-07-09",
+      "hallId": "V01-danah",
+      "date": "2027-07-09",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 220,
+      "clientName": "أريج العوضي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-07-13",
+      "hallId": "V01-majlis",
+      "date": "2027-07-13",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 510,
+      "clientName": "نجاة الشطي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-07-15",
+      "hallId": "V01-danah",
+      "date": "2027-07-15",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 460,
+      "clientName": "جنان الرفاعي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-07-17",
+      "hallId": "V01-danah",
+      "date": "2027-07-17",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 260,
+      "clientName": "سعاد الحجي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-07-17",
+      "hallId": "V01-majlis",
+      "date": "2027-07-17",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 390,
+      "clientName": "عذبة المنصور",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-07-22",
+      "hallId": "V01-danah",
+      "date": "2027-07-22",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 200,
+      "clientName": "لطيفة البحر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-07-22",
+      "hallId": "V01-majlis",
+      "date": "2027-07-22",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 280,
+      "clientName": "منال الخالدي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-07-29",
+      "hallId": "V01-majlis",
+      "date": "2027-07-29",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 390,
+      "clientName": "نواف الصانع",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-07-30",
+      "hallId": "V01-majlis",
+      "date": "2027-07-30",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 300,
+      "clientName": "عبير الدبوس",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-08-06",
+      "hallId": "V01-danah",
+      "date": "2027-08-06",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 360,
+      "clientName": "عبدالرحمن الخضر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-08-13",
+      "hallId": "V01-majlis",
+      "date": "2027-08-13",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 260,
+      "clientName": "تهاني الغانم",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-08-20",
+      "hallId": "V01-majlis",
+      "date": "2027-08-20",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 370,
+      "clientName": "محمد العدواني",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-08-21",
+      "hallId": "V01-majlis",
+      "date": "2027-08-21",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 310,
+      "clientName": "ميساء العثمان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-08-22",
+      "hallId": "V01-majlis",
+      "date": "2027-08-22",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 370,
+      "clientName": "راشد السلطان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-08-26",
+      "hallId": "V01-majlis",
+      "date": "2027-08-26",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 250,
+      "clientName": "شروق العلي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-08-28",
+      "hallId": "V01-majlis",
+      "date": "2027-08-28",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 390,
+      "clientName": "ماجد التميمي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-09-03",
+      "hallId": "V01-majlis",
+      "date": "2027-09-03",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 410,
+      "clientName": "نجاة الشطي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-09-04",
+      "hallId": "V01-danah",
+      "date": "2027-09-04",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 310,
+      "clientName": "ماجد التميمي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-09-04",
+      "hallId": "V01-majlis",
+      "date": "2027-09-04",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 400,
+      "clientName": "عبير الدبوس",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-09-11",
+      "hallId": "V01-danah",
+      "date": "2027-09-11",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 270,
+      "clientName": "بشرى القلاف",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-09-14",
+      "hallId": "V01-majlis",
+      "date": "2027-09-14",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 460,
+      "clientName": "دلال الفضلي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-09-16",
+      "hallId": "V01-danah",
+      "date": "2027-09-16",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 250,
+      "clientName": "نجاة الشطي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-09-17",
+      "hallId": "V01-majlis",
+      "date": "2027-09-17",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 370,
+      "clientName": "ماجد التميمي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-09-18",
+      "hallId": "V01-majlis",
+      "date": "2027-09-18",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 370,
+      "clientName": "ماجد التميمي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-09-19",
+      "hallId": "V01-majlis",
+      "date": "2027-09-19",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 300,
+      "clientName": "منال الخالدي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-09-21",
+      "hallId": "V01-majlis",
+      "date": "2027-09-21",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 530,
+      "clientName": "دلال الفضلي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-09-25",
+      "hallId": "V01-danah",
+      "date": "2027-09-25",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 420,
+      "clientName": "حنان الدويسان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-09-28",
+      "hallId": "V01-danah",
+      "date": "2027-09-28",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 350,
+      "clientName": "سعود الهاجري",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-09-28",
+      "hallId": "V01-majlis",
+      "date": "2027-09-28",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 390,
+      "clientName": "ميساء العثمان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-09-29",
+      "hallId": "V01-danah",
+      "date": "2027-09-29",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 240,
+      "clientName": "نجاة الشطي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-10-01",
+      "hallId": "V01-majlis",
+      "date": "2027-10-01",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 460,
+      "clientName": "منال الخالدي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-10-02",
+      "hallId": "V01-danah",
+      "date": "2027-10-02",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 330,
+      "clientName": "رغد الصقر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-10-04",
+      "hallId": "V01-danah",
+      "date": "2027-10-04",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 300,
+      "clientName": "إيمان الجاسم",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-10-04",
+      "hallId": "V01-majlis",
+      "date": "2027-10-04",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 380,
+      "clientName": "جنان الرفاعي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-10-07",
+      "hallId": "V01-danah",
+      "date": "2027-10-07",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 520,
+      "clientName": "سلوى الكوح",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-10-08",
+      "hallId": "V01-danah",
+      "date": "2027-10-08",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 480,
+      "clientName": "رحاب النصف",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-10-09",
+      "hallId": "V01-danah",
+      "date": "2027-10-09",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 350,
+      "clientName": "إيمان الجاسم",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-10-13",
+      "hallId": "V01-danah",
+      "date": "2027-10-13",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 400,
+      "clientName": "زينب الكوت",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-10-15",
+      "hallId": "V01-danah",
+      "date": "2027-10-15",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 410,
+      "clientName": "سلوى الكوح",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-10-20",
+      "hallId": "V01-danah",
+      "date": "2027-10-20",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 220,
+      "clientName": "عبير الدبوس",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-10-20",
+      "hallId": "V01-majlis",
+      "date": "2027-10-20",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 370,
+      "clientName": "نجاة الشطي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-10-21",
+      "hallId": "V01-danah",
+      "date": "2027-10-21",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 340,
+      "clientName": "حمد المسعود",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-10-21",
+      "hallId": "V01-majlis",
+      "date": "2027-10-21",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 420,
+      "clientName": "مي الخرافي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-10-22",
+      "hallId": "V01-danah",
+      "date": "2027-10-22",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 360,
+      "clientName": "دلال الفضلي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-10-22",
+      "hallId": "V01-majlis",
+      "date": "2027-10-22",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 400,
+      "clientName": "نجاة الشطي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-10-23",
+      "hallId": "V01-danah",
+      "date": "2027-10-23",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 450,
+      "clientName": "لطيفة البحر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-10-24",
+      "hallId": "V01-danah",
+      "date": "2027-10-24",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 490,
+      "clientName": "دلال الفضلي",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-10-28",
+      "hallId": "V01-danah",
+      "date": "2027-10-28",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 370,
+      "clientName": "راشد السلطان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-10-28",
+      "hallId": "V01-majlis",
+      "date": "2027-10-28",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 390,
+      "clientName": "عذبة المنصور",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "21:00",
+      "end": "02:00",
+      "id": "claim-bg-danah-2027-10-29",
+      "hallId": "V01-danah",
+      "date": "2027-10-29",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "men",
+      "guests": 360,
+      "clientName": "عبدالرحمن الخضر",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-10-29",
+      "hallId": "V01-majlis",
+      "date": "2027-10-29",
+      "kind": "booking"
+    },
+    {
+      "venueId": "V01",
+      "audience": "women",
+      "guests": 330,
+      "clientName": "ميساء العثمان",
+      "bookingId": null,
+      "blockReason": null,
+      "blockNote": null,
+      "blockedBy": null,
+      "holdUntil": null,
+      "start": "20:30",
+      "end": "01:00",
+      "id": "claim-bg-majlis-2027-10-30",
+      "hallId": "V01-majlis",
+      "date": "2027-10-30",
+      "kind": "booking"
+    }
+  ],
+  "softDates": [
+    "2026-11-20",
+    "2026-12-03",
+    "2026-12-05",
+    "2026-12-18",
+    "2027-01-08",
+    "2027-01-09"
+  ],
+  "softDateOptOut": [
+    "2026-12-24",
+    "2026-12-25",
+    "2026-12-26"
+  ],
+  "analytics": {
+    "venueId": "V01",
+    "range": {
+      "from": "2026-11-01",
+      "to": "2026-11-12",
+      "label": {
+        "en": "This month",
+        "ar": "هذا الشهر"
+      }
+    },
+    "window": {
+      "from": "2026-10-14",
+      "to": "2026-11-12"
+    },
+    "tiles": {
+      "views": {
+        "value": 1296,
+        "deltaPct": 12
+      },
+      "clicks": 238,
+      "requests": 41,
+      "approved": 22,
+      "confirmed": 12,
+      "vouchersBought": 38,
+      "vouchersRedeemed": 9,
+      "openDatesNext30Days": 9,
+      "conversionBps": 293
+    },
+    "funnel": {
+      "views": 1296,
+      "clicks": 238,
+      "requests": 41,
+      "confirmed": 12,
+      "redeemed": 9
+    },
+    "topPackages": [
+      {
+        "packageId": "V01-ladies-weekend",
+        "confirmed": 5
+      },
+      {
+        "packageId": "V01-ladies-weekday",
+        "confirmed": 3
+      },
+      {
+        "packageId": "V01-men-reception",
+        "confirmed": 2
+      },
+      {
+        "packageId": "V01-ladies-signature",
+        "confirmed": 1
+      },
+      {
+        "packageId": "V01-full-night",
+        "confirmed": 1
+      }
+    ],
+    "series": [
+      {
+        "id": "views",
+        "unit": "count",
+        "points": [
+          {
+            "date": "2026-10-14",
+            "value": 68
+          },
+          {
+            "date": "2026-10-15",
+            "value": 106
+          },
+          {
+            "date": "2026-10-16",
+            "value": 93
+          },
+          {
+            "date": "2026-10-17",
+            "value": 100
+          },
+          {
+            "date": "2026-10-18",
+            "value": 83
+          },
+          {
+            "date": "2026-10-19",
+            "value": 72
+          },
+          {
+            "date": "2026-10-20",
+            "value": 84
+          },
+          {
+            "date": "2026-10-21",
+            "value": 68
+          },
+          {
+            "date": "2026-10-22",
+            "value": 116
+          },
+          {
+            "date": "2026-10-23",
+            "value": 117
+          },
+          {
+            "date": "2026-10-24",
+            "value": 104
+          },
+          {
+            "date": "2026-10-25",
+            "value": 78
+          },
+          {
+            "date": "2026-10-26",
+            "value": 84
+          },
+          {
+            "date": "2026-10-27",
+            "value": 103
+          },
+          {
+            "date": "2026-10-28",
+            "value": 93
+          },
+          {
+            "date": "2026-10-29",
+            "value": 129
+          },
+          {
+            "date": "2026-10-30",
+            "value": 117
+          },
+          {
+            "date": "2026-10-31",
+            "value": 105
+          },
+          {
+            "date": "2026-11-01",
+            "value": 75
+          },
+          {
+            "date": "2026-11-02",
+            "value": 82
+          },
+          {
+            "date": "2026-11-03",
+            "value": 109
+          },
+          {
+            "date": "2026-11-04",
+            "value": 106
+          },
+          {
+            "date": "2026-11-05",
+            "value": 120
+          },
+          {
+            "date": "2026-11-06",
+            "value": 123
+          },
+          {
+            "date": "2026-11-07",
+            "value": 130
+          },
+          {
+            "date": "2026-11-08",
+            "value": 118
+          },
+          {
+            "date": "2026-11-09",
+            "value": 113
+          },
+          {
+            "date": "2026-11-10",
+            "value": 98
+          },
+          {
+            "date": "2026-11-11",
+            "value": 93
+          },
+          {
+            "date": "2026-11-12",
+            "value": 129
+          }
+        ]
+      },
+      {
+        "id": "clicks",
+        "unit": "count",
+        "points": [
+          {
+            "date": "2026-10-14",
+            "value": 13
+          },
+          {
+            "date": "2026-10-15",
+            "value": 24
+          },
+          {
+            "date": "2026-10-16",
+            "value": 16
+          },
+          {
+            "date": "2026-10-17",
+            "value": 13
+          },
+          {
+            "date": "2026-10-18",
+            "value": 17
+          },
+          {
+            "date": "2026-10-19",
+            "value": 19
+          },
+          {
+            "date": "2026-10-20",
+            "value": 12
+          },
+          {
+            "date": "2026-10-21",
+            "value": 14
+          },
+          {
+            "date": "2026-10-22",
+            "value": 16
+          },
+          {
+            "date": "2026-10-23",
+            "value": 22
+          },
+          {
+            "date": "2026-10-24",
+            "value": 16
+          },
+          {
+            "date": "2026-10-25",
+            "value": 16
+          },
+          {
+            "date": "2026-10-26",
+            "value": 18
+          },
+          {
+            "date": "2026-10-27",
+            "value": 15
+          },
+          {
+            "date": "2026-10-28",
+            "value": 16
+          },
+          {
+            "date": "2026-10-29",
+            "value": 15
+          },
+          {
+            "date": "2026-10-30",
+            "value": 24
+          },
+          {
+            "date": "2026-10-31",
+            "value": 20
+          },
+          {
+            "date": "2026-11-01",
+            "value": 17
+          },
+          {
+            "date": "2026-11-02",
+            "value": 19
+          },
+          {
+            "date": "2026-11-03",
+            "value": 23
+          },
+          {
+            "date": "2026-11-04",
+            "value": 16
+          },
+          {
+            "date": "2026-11-05",
+            "value": 25
+          },
+          {
+            "date": "2026-11-06",
+            "value": 25
+          },
+          {
+            "date": "2026-11-07",
+            "value": 17
+          },
+          {
+            "date": "2026-11-08",
+            "value": 15
+          },
+          {
+            "date": "2026-11-09",
+            "value": 20
+          },
+          {
+            "date": "2026-11-10",
+            "value": 20
+          },
+          {
+            "date": "2026-11-11",
+            "value": 16
+          },
+          {
+            "date": "2026-11-12",
+            "value": 25
+          }
+        ]
+      },
+      {
+        "id": "requests",
+        "unit": "count",
+        "points": [
+          {
+            "date": "2026-10-14",
+            "value": 3
+          },
+          {
+            "date": "2026-10-15",
+            "value": 4
+          },
+          {
+            "date": "2026-10-16",
+            "value": 3
+          },
+          {
+            "date": "2026-10-17",
+            "value": 4
+          },
+          {
+            "date": "2026-10-18",
+            "value": 2
+          },
+          {
+            "date": "2026-10-19",
+            "value": 3
+          },
+          {
+            "date": "2026-10-20",
+            "value": 3
+          },
+          {
+            "date": "2026-10-21",
+            "value": 2
+          },
+          {
+            "date": "2026-10-22",
+            "value": 3
+          },
+          {
+            "date": "2026-10-23",
+            "value": 3
+          },
+          {
+            "date": "2026-10-24",
+            "value": 3
+          },
+          {
+            "date": "2026-10-25",
+            "value": 3
+          },
+          {
+            "date": "2026-10-26",
+            "value": 2
+          },
+          {
+            "date": "2026-10-27",
+            "value": 3
+          },
+          {
+            "date": "2026-10-28",
+            "value": 3
+          },
+          {
+            "date": "2026-10-29",
+            "value": 3
+          },
+          {
+            "date": "2026-10-30",
+            "value": 3
+          },
+          {
+            "date": "2026-10-31",
+            "value": 3
+          },
+          {
+            "date": "2026-11-01",
+            "value": 4
+          },
+          {
+            "date": "2026-11-02",
+            "value": 3
+          },
+          {
+            "date": "2026-11-03",
+            "value": 2
+          },
+          {
+            "date": "2026-11-04",
+            "value": 4
+          },
+          {
+            "date": "2026-11-05",
+            "value": 4
+          },
+          {
+            "date": "2026-11-06",
+            "value": 4
+          },
+          {
+            "date": "2026-11-07",
+            "value": 4
+          },
+          {
+            "date": "2026-11-08",
+            "value": 3
+          },
+          {
+            "date": "2026-11-09",
+            "value": 3
+          },
+          {
+            "date": "2026-11-10",
+            "value": 3
+          },
+          {
+            "date": "2026-11-11",
+            "value": 3
+          },
+          {
+            "date": "2026-11-12",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "id": "vouchers_bought",
+        "unit": "count",
+        "points": [
+          {
+            "date": "2026-10-14",
+            "value": 3
+          },
+          {
+            "date": "2026-10-15",
+            "value": 2
+          },
+          {
+            "date": "2026-10-16",
+            "value": 4
+          },
+          {
+            "date": "2026-10-17",
+            "value": 3
+          },
+          {
+            "date": "2026-10-18",
+            "value": 3
+          },
+          {
+            "date": "2026-10-19",
+            "value": 2
+          },
+          {
+            "date": "2026-10-20",
+            "value": 2
+          },
+          {
+            "date": "2026-10-21",
+            "value": 3
+          },
+          {
+            "date": "2026-10-22",
+            "value": 3
+          },
+          {
+            "date": "2026-10-23",
+            "value": 3
+          },
+          {
+            "date": "2026-10-24",
+            "value": 2
+          },
+          {
+            "date": "2026-10-25",
+            "value": 2
+          },
+          {
+            "date": "2026-10-26",
+            "value": 3
+          },
+          {
+            "date": "2026-10-27",
+            "value": 3
+          },
+          {
+            "date": "2026-10-28",
+            "value": 2
+          },
+          {
+            "date": "2026-10-29",
+            "value": 3
+          },
+          {
+            "date": "2026-10-30",
+            "value": 3
+          },
+          {
+            "date": "2026-10-31",
+            "value": 3
+          },
+          {
+            "date": "2026-11-01",
+            "value": 3
+          },
+          {
+            "date": "2026-11-02",
+            "value": 3
+          },
+          {
+            "date": "2026-11-03",
+            "value": 3
+          },
+          {
+            "date": "2026-11-04",
+            "value": 3
+          },
+          {
+            "date": "2026-11-05",
+            "value": 3
+          },
+          {
+            "date": "2026-11-06",
+            "value": 4
+          },
+          {
+            "date": "2026-11-07",
+            "value": 4
+          },
+          {
+            "date": "2026-11-08",
+            "value": 3
+          },
+          {
+            "date": "2026-11-09",
+            "value": 3
+          },
+          {
+            "date": "2026-11-10",
+            "value": 3
+          },
+          {
+            "date": "2026-11-11",
+            "value": 2
+          },
+          {
+            "date": "2026-11-12",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "id": "vouchers_redeemed",
+        "unit": "count",
+        "points": [
+          {
+            "date": "2026-10-14",
+            "value": 0
+          },
+          {
+            "date": "2026-10-15",
+            "value": 1
+          },
+          {
+            "date": "2026-10-16",
+            "value": 1
+          },
+          {
+            "date": "2026-10-17",
+            "value": 1
+          },
+          {
+            "date": "2026-10-18",
+            "value": 1
+          },
+          {
+            "date": "2026-10-19",
+            "value": 1
+          },
+          {
+            "date": "2026-10-20",
+            "value": 1
+          },
+          {
+            "date": "2026-10-21",
+            "value": 0
+          },
+          {
+            "date": "2026-10-22",
+            "value": 1
+          },
+          {
+            "date": "2026-10-23",
+            "value": 1
+          },
+          {
+            "date": "2026-10-24",
+            "value": 0
+          },
+          {
+            "date": "2026-10-25",
+            "value": 0
+          },
+          {
+            "date": "2026-10-26",
+            "value": 1
+          },
+          {
+            "date": "2026-10-27",
+            "value": 0
+          },
+          {
+            "date": "2026-10-28",
+            "value": 0
+          },
+          {
+            "date": "2026-10-29",
+            "value": 1
+          },
+          {
+            "date": "2026-10-30",
+            "value": 1
+          },
+          {
+            "date": "2026-10-31",
+            "value": 1
+          },
+          {
+            "date": "2026-11-01",
+            "value": 1
+          },
+          {
+            "date": "2026-11-02",
+            "value": 1
+          },
+          {
+            "date": "2026-11-03",
+            "value": 1
+          },
+          {
+            "date": "2026-11-04",
+            "value": 1
+          },
+          {
+            "date": "2026-11-05",
+            "value": 1
+          },
+          {
+            "date": "2026-11-06",
+            "value": 1
+          },
+          {
+            "date": "2026-11-07",
+            "value": 1
+          },
+          {
+            "date": "2026-11-08",
+            "value": 1
+          },
+          {
+            "date": "2026-11-09",
+            "value": 0
+          },
+          {
+            "date": "2026-11-10",
+            "value": 0
+          },
+          {
+            "date": "2026-11-11",
+            "value": 0
+          },
+          {
+            "date": "2026-11-12",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "conversion",
+        "unit": "percent",
+        "points": [
+          {
+            "date": "2026-10-14",
+            "value": 441
+          },
+          {
+            "date": "2026-10-15",
+            "value": 189
+          },
+          {
+            "date": "2026-10-16",
+            "value": 430
+          },
+          {
+            "date": "2026-10-17",
+            "value": 300
+          },
+          {
+            "date": "2026-10-18",
+            "value": 361
+          },
+          {
+            "date": "2026-10-19",
+            "value": 278
+          },
+          {
+            "date": "2026-10-20",
+            "value": 238
+          },
+          {
+            "date": "2026-10-21",
+            "value": 441
+          },
+          {
+            "date": "2026-10-22",
+            "value": 259
+          },
+          {
+            "date": "2026-10-23",
+            "value": 256
+          },
+          {
+            "date": "2026-10-24",
+            "value": 192
+          },
+          {
+            "date": "2026-10-25",
+            "value": 256
+          },
+          {
+            "date": "2026-10-26",
+            "value": 357
+          },
+          {
+            "date": "2026-10-27",
+            "value": 291
+          },
+          {
+            "date": "2026-10-28",
+            "value": 215
+          },
+          {
+            "date": "2026-10-29",
+            "value": 233
+          },
+          {
+            "date": "2026-10-30",
+            "value": 256
+          },
+          {
+            "date": "2026-10-31",
+            "value": 286
+          },
+          {
+            "date": "2026-11-01",
+            "value": 400
+          },
+          {
+            "date": "2026-11-02",
+            "value": 366
+          },
+          {
+            "date": "2026-11-03",
+            "value": 275
+          },
+          {
+            "date": "2026-11-04",
+            "value": 283
+          },
+          {
+            "date": "2026-11-05",
+            "value": 250
+          },
+          {
+            "date": "2026-11-06",
+            "value": 325
+          },
+          {
+            "date": "2026-11-07",
+            "value": 308
+          },
+          {
+            "date": "2026-11-08",
+            "value": 254
+          },
+          {
+            "date": "2026-11-09",
+            "value": 265
+          },
+          {
+            "date": "2026-11-10",
+            "value": 306
+          },
+          {
+            "date": "2026-11-11",
+            "value": 215
+          },
+          {
+            "date": "2026-11-12",
+            "value": 310
+          }
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "venueId": "V01",
+    "hours": {
+      "rules": [
+        {
+          "days": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "open": "09:00",
+          "close": "22:00"
+        },
+        {
+          "days": [
+            5,
+            6
+          ],
+          "open": "16:00",
+          "close": "01:00"
+        }
+      ],
+      "closures": [
+        {
+          "label": {
+            "en": "Ramadan 1448 (approx.)",
+            "ar": "رمضان 1448 (تقريبي)"
+          },
+          "from": "2027-02-08",
+          "to": "2027-03-08",
+          "approximate": true
+        }
+      ]
+    },
+    "notificationPrefs": {
+      "newRequestAlwaysOn": true,
+      "messages": true,
+      "reviews": true,
+      "vouchers": true,
+      "visits": true
+    },
+    "listingCompleteness": {
+      "ar": 100,
+      "en": 92
+    },
+    "bookingRules": {
+      "responseSlaHours": 24,
+      "confirmWindowHours": 24,
+      "visitsEnabled": true
+    },
+    "billing": {
+      "feeExempt": true,
+      "majorHotel": true,
+      "plan": {
+        "cycle": null,
+        "endsOn": null
+      }
+    },
+    "sister": {
+      "id": "V-sister-marina",
+      "name": {
+        "en": "Aurelia Marina Hall",
+        "ar": "قاعة أوريليا المارينا"
+      },
+      "role": "reception",
+      "pending": 2
+    },
+    "reliabilityStrikes": 0
+  },
+  "memberships": [
+    {
+      "userId": "user-hind",
+      "venueId": "V01",
+      "role": "manager",
+      "pendingRequests": 5
+    },
+    {
+      "userId": "user-lumi-manager",
+      "venueId": "V05",
+      "role": "admin",
+      "pendingRequests": 0
+    }
+  ],
+  "notifications": [
+    {
+      "id": "ntf-h-01",
+      "audience": "hotel",
+      "userId": "user-hind",
+      "kind": "message",
+      "title": {
+        "en": "New message · Reem Al-Dosari",
+        "ar": "رسالة جديدة · ريم الدوسري"
+      },
+      "body": {
+        "en": "Is Thursday 14 January available for the ladies’ reception?",
+        "ar": "هل يوم الخميس 14 يناير متاح للحفل النسائي؟"
+      },
+      "params": {
+        "client": "ريم الدوسري"
+      },
+      "at": "2026-11-12T15:12:00+03:00",
+      "read": false,
+      "tone": "gold",
+      "tag": {
+        "en": "Needs reply",
+        "ar": "بانتظار الرد"
+      },
+      "bookingId": "bk-GZ-2611-0147",
+      "venueId": "V01",
+      "conversationId": "conv-aurelia-reem",
+      "channel": "transactional",
+      "voucherId": null,
+      "visitId": null
+    },
+    {
+      "id": "ntf-h-05",
+      "audience": "hotel",
+      "userId": "user-hind",
+      "kind": "visit_request",
+      "title": {
+        "en": "Visit request · Rashed Al-Ajmi",
+        "ar": "طلب زيارة · راشد العجمي"
+      },
+      "body": {
+        "en": "Sat 21 Nov, 6:00 PM · 4 visitors · a group chat is open with Ghazal support",
+        "ar": "السبت 21 نوفمبر، 6:00 م · 4 زائرين · محادثة جماعية مفتوحة مع دعم غزل"
+      },
+      "params": {
+        "client": "راشد العجمي",
+        "visitors": 4
+      },
+      "at": "2026-11-12T14:35:00+03:00",
+      "read": false,
+      "tone": "gold",
+      "tag": {
+        "en": "Needs reply",
+        "ar": "بانتظار الرد"
+      },
+      "bookingId": null,
+      "venueId": "V01",
+      "conversationId": "conv-visit-aurelia-rashed",
+      "channel": "transactional",
+      "voucherId": null,
+      "visitId": "visit-aurelia-rashed"
+    },
+    {
+      "id": "ntf-h-02",
+      "audience": "hotel",
+      "userId": "user-hind",
+      "kind": "new_request",
+      "title": {
+        "en": "New request · Reem Al-Dosari",
+        "ar": "طلب جديد · ريم الدوسري"
+      },
+      "body": {
+        "en": "Ladies’ reception · Thu 14 Jan · 350 guests · voucher attached",
+        "ar": "الحفل النسائي · الخميس 14 يناير · 350 ضيفًا · الكوبون مرفق"
+      },
+      "params": {
+        "client": "ريم الدوسري",
+        "eventDate": "2027-01-14",
+        "guests": 350
+      },
+      "at": "2026-11-12T12:40:00+03:00",
+      "read": false,
+      "tone": "gold",
+      "tag": {
+        "en": "Needs reply",
+        "ar": "بانتظار الرد"
+      },
+      "bookingId": "bk-GZ-2611-0147",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-K7QM",
+      "visitId": null
+    },
+    {
+      "id": "ntf-h-10",
+      "audience": "hotel",
+      "userId": "user-hind",
+      "kind": "booking_cancelled",
+      "title": {
+        "en": "Request cancelled · Fatima Al-Azmi",
+        "ar": "تم إلغاء طلب فاطمة العازمي"
+      },
+      "body": {
+        "en": "Sat 30 Jan · cancelled before confirming; the hold is released",
+        "ar": "السبت 30 يناير · أُلغي قبل التأكيد وتم تحرير الحجز المؤقت"
+      },
+      "params": {
+        "client": "فاطمة العازمي",
+        "eventDate": "2027-01-30"
+      },
+      "at": "2026-11-12T11:00:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": "bk-GZ-2611-8Y1T",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-71SH",
+      "visitId": null
+    },
+    {
+      "id": "ntf-h-03",
+      "audience": "hotel",
+      "userId": "user-hind",
+      "kind": "new_request",
+      "title": {
+        "en": "New request · Faisal Al-Rasheedi",
+        "ar": "طلب جديد · فيصل الرشيدي"
+      },
+      "body": {
+        "en": "Men’s reception · Fri 22 Jan · 400 guests · voucher attached",
+        "ar": "الحفل الرجالي · الجمعة 22 يناير · 400 ضيف · الكوبون مرفق"
+      },
+      "params": {
+        "client": "فيصل الرشيدي",
+        "eventDate": "2027-01-22",
+        "guests": 400
+      },
+      "at": "2026-11-12T11:00:00+03:00",
+      "read": false,
+      "tone": "gold",
+      "tag": {
+        "en": "Needs reply",
+        "ar": "بانتظار الرد"
+      },
+      "bookingId": "bk-GZ-2611-7V4H",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-RK7V",
+      "visitId": null
+    },
+    {
+      "id": "ntf-h-04",
+      "audience": "hotel",
+      "userId": "user-hind",
+      "kind": "booking_cancelled",
+      "title": {
+        "en": "Request cancelled · Huda Al-Shaya",
+        "ar": "تم إلغاء طلب هدى الشايع"
+      },
+      "body": {
+        "en": "Fri 20 Nov · the date is free again",
+        "ar": "الجمعة 20 نوفمبر · التاريخ متاح مجددًا"
+      },
+      "params": {
+        "client": "هدى الشايع",
+        "eventDate": "2026-11-20"
+      },
+      "at": "2026-11-12T10:20:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": "bk-GZ-2609-3A9P",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2609-FPNA",
+      "visitId": null
+    },
+    {
+      "id": "ntf-h-06",
+      "audience": "hotel",
+      "userId": "user-hind",
+      "kind": "new_request",
+      "title": {
+        "en": "New request · Maryam Al-Kandari",
+        "ar": "طلب جديد · مريم الكندري"
+      },
+      "body": {
+        "en": "Ladies’ reception · Thu 28 Jan · 300 guests · voucher attached",
+        "ar": "الحفل النسائي · الخميس 28 يناير · 300 ضيف · الكوبون مرفق"
+      },
+      "params": {
+        "client": "مريم الكندري",
+        "eventDate": "2027-01-28",
+        "guests": 300
+      },
+      "at": "2026-11-12T09:00:00+03:00",
+      "read": false,
+      "tone": "gold",
+      "tag": null,
+      "bookingId": "bk-GZ-2611-6R9C",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-X2B6",
+      "visitId": null
+    },
+    {
+      "id": "ntf-h-07",
+      "audience": "hotel",
+      "userId": "user-hind",
+      "kind": "new_request",
+      "title": {
+        "en": "New request · Abdullah Al-Hajri",
+        "ar": "طلب جديد · عبدالله الهاجري"
+      },
+      "body": {
+        "en": "Full night · Fri 5 Feb · 380 and 450 guests · voucher attached",
+        "ar": "ليلة كاملة · الجمعة 5 فبراير · 380 و450 ضيفًا · الكوبون مرفق"
+      },
+      "params": {
+        "client": "عبدالله الهاجري",
+        "eventDate": "2027-02-05"
+      },
+      "at": "2026-11-12T07:00:00+03:00",
+      "read": false,
+      "tone": "gold",
+      "tag": null,
+      "bookingId": "bk-GZ-2611-5T2W",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-FK3Q",
+      "visitId": null
+    },
+    {
+      "id": "ntf-h-08",
+      "audience": "hotel",
+      "userId": "user-hind",
+      "kind": "new_request",
+      "title": {
+        "en": "New request · Dana Al-Shammari",
+        "ar": "طلب جديد · دانة الشمري"
+      },
+      "body": {
+        "en": "Ladies’ reception · Sun 17 Jan · 250 guests · voucher attached",
+        "ar": "الحفل النسائي · الأحد 17 يناير · 250 ضيفًا · الكوبون مرفق"
+      },
+      "params": {
+        "client": "دانة الشمري",
+        "eventDate": "2027-01-17",
+        "guests": 250
+      },
+      "at": "2026-11-11T19:00:00+03:00",
+      "read": false,
+      "tone": "gold",
+      "tag": {
+        "en": "Needs reply",
+        "ar": "بانتظار الرد"
+      },
+      "bookingId": "bk-GZ-2611-3K8D",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-QHKY",
+      "visitId": null
+    },
+    {
+      "id": "ntf-h-09",
+      "audience": "hotel",
+      "userId": "user-hind",
+      "kind": "client_confirmed",
+      "title": {
+        "en": "Client confirmed · Lulwa Al-Saleh",
+        "ar": "أكّد العميل · لولوة الصالح"
+      },
+      "body": {
+        "en": "Sat 12 Dec is now a confirmed booking. The client settles with the hotel.",
+        "ar": "أصبح السبت 12 ديسمبر حجزًا مؤكدًا. تسدّد العميلة للفندق مباشرة."
+      },
+      "params": {
+        "client": "لولوة الصالح",
+        "eventDate": "2026-12-12"
+      },
+      "at": "2026-11-11T18:15:00+03:00",
+      "read": true,
+      "tone": "success",
+      "tag": null,
+      "bookingId": "bk-GZ-2611-2P8R",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-D47W",
+      "visitId": null
+    },
+    {
+      "id": "ntf-h-14",
+      "audience": "hotel",
+      "userId": "user-hind",
+      "kind": "invite",
+      "title": {
+        "en": "Invitation sent · Sara Al-Qattan",
+        "ar": "تم إرسال دعوة · سارة القطان"
+      },
+      "body": {
+        "en": "Marketing · valid until Sat 14 Nov",
+        "ar": "التسويق · صالحة حتى السبت 14 نوفمبر"
+      },
+      "params": {
+        "staff": "سارة القطان"
+      },
+      "at": "2026-11-11T11:00:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": null,
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": null,
+      "visitId": null
+    },
+    {
+      "id": "ntf-h-11",
+      "audience": "hotel",
+      "userId": "user-hind",
+      "kind": "client_lapsed",
+      "title": {
+        "en": "Confirm window ended · Amna Al-Kharafi",
+        "ar": "انتهت مهلة التأكيد · آمنة الخرافي"
+      },
+      "body": {
+        "en": "Thu 21 Jan · 24 hours passed without confirmation; the date is open again",
+        "ar": "الخميس 21 يناير · مرّت 24 ساعة دون تأكيد والتاريخ متاح مجددًا"
+      },
+      "params": {
+        "client": "آمنة الخرافي",
+        "eventDate": "2027-01-21"
+      },
+      "at": "2026-11-10T14:00:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": "bk-GZ-2611-3N7K",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-AVG0",
+      "visitId": null
+    },
+    {
+      "id": "ntf-h-12",
+      "audience": "hotel",
+      "userId": "user-hind",
+      "kind": "voucher_redeemed_by_you",
+      "title": {
+        "en": "Voucher redeemed by you",
+        "ar": "تم استخدام كوبون بواسطتكم"
+      },
+      "body": {
+        "en": "Ahmad Al-Hamad · Thu 19 Nov · redeemed by Amal Al-Balushi",
+        "ar": "أحمد الحمد · الخميس 19 نوفمبر · تم الاستخدام بواسطة أمل البلوشي"
+      },
+      "params": {
+        "client": "أحمد الحمد",
+        "staff": "Amal Al-Balushi"
+      },
+      "at": "2026-11-09T13:10:00+03:00",
+      "read": true,
+      "tone": "success",
+      "tag": null,
+      "bookingId": "bk-GZ-2609-9B3T",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2609-PDMQ",
+      "visitId": null
+    },
+    {
+      "id": "ntf-h-13",
+      "audience": "hotel",
+      "userId": "user-hind",
+      "kind": "review_received",
+      "title": {
+        "en": "New review · Mona S. · 3.5",
+        "ar": "تقييم جديد · منى س. · 3.5"
+      },
+      "body": {
+        "en": "The location is excellent, but car park entry was crowded after ten.",
+        "ar": "الموقع ممتاز لكن الدخول للمواقف كان مزدحمًا بعد العاشرة."
+      },
+      "params": {
+        "reviewer": "منى س.",
+        "rating": 3.5
+      },
+      "at": "2026-11-01T11:00:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": null,
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": null,
+      "visitId": null
+    }
+  ],
+  "variants": {
+    "competingRequest": {
+      "bookingId": "bk-GZ-2611-6X3M"
+    },
+    "priceHoldExample": {
+      "bookingId": "bk-GZ-2611-3K8D",
+      "proposedDate": "2027-01-21",
+      "requote": {
+        "fils": 11000000,
+        "currency": "KWD"
+      },
+      "held": {
+        "fils": 9750000,
+        "currency": "KWD"
+      }
+    },
+    "proposalCandidates": [
+      {
+        "eventDate": "2027-01-07",
+        "hallId": "V01-danah",
+        "sessionId": "V01-danah-evening",
+        "quotedTotal": {
+          "fils": 15400000,
+          "currency": "KWD"
+        },
+        "delta": {
+          "fils": 0,
+          "currency": "KWD"
+        }
+      },
+      {
+        "eventDate": "2027-01-10",
+        "hallId": "V01-danah",
+        "sessionId": "V01-danah-evening",
+        "quotedTotal": {
+          "fils": 13650000,
+          "currency": "KWD"
+        },
+        "delta": {
+          "fils": -1750000,
+          "currency": "KWD"
+        }
+      },
+      {
+        "eventDate": "2027-01-13",
+        "hallId": "V01-danah",
+        "sessionId": "V01-danah-evening",
+        "quotedTotal": {
+          "fils": 13650000,
+          "currency": "KWD"
+        },
+        "delta": {
+          "fils": -1750000,
+          "currency": "KWD"
+        }
+      },
+      {
+        "eventDate": "2027-01-21",
+        "hallId": "V01-danah",
+        "sessionId": "V01-danah-evening",
+        "quotedTotal": {
+          "fils": 15400000,
+          "currency": "KWD"
+        },
+        "delta": {
+          "fils": 0,
+          "currency": "KWD"
+        }
+      }
+    ]
+  }
+}

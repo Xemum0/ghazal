@@ -1,0 +1,1300 @@
+{
+  "weddingProfile": {
+    "id": "wedding-reem",
+    "userId": "user-reem",
+    "role": "bride",
+    "brideName": "ريم الدوسري",
+    "partnerName": "فهد الشمري",
+    "weddingDate": "2027-01-14",
+    "dateMode": "exact",
+    "guests": {
+      "women": 350,
+      "men": 400
+    },
+    "venueBudget": {
+      "min": {
+        "fils": 20000000,
+        "currency": "KWD"
+      },
+      "max": {
+        "fils": 35000000,
+        "currency": "KWD"
+      }
+    },
+    "totalBudget": {
+      "fils": 60000000,
+      "currency": "KWD"
+    },
+    "areaIds": [
+      "salmiya",
+      "sharq"
+    ],
+    "searching": [
+      "women"
+    ]
+  },
+  "budgetBands": [
+    {
+      "id": "band-under-5k",
+      "min": {
+        "fils": 0,
+        "currency": "KWD"
+      },
+      "max": {
+        "fils": 5000000,
+        "currency": "KWD"
+      }
+    },
+    {
+      "id": "band-5k-10k",
+      "min": {
+        "fils": 5000000,
+        "currency": "KWD"
+      },
+      "max": {
+        "fils": 10000000,
+        "currency": "KWD"
+      }
+    },
+    {
+      "id": "band-10k-20k",
+      "min": {
+        "fils": 10000000,
+        "currency": "KWD"
+      },
+      "max": {
+        "fils": 20000000,
+        "currency": "KWD"
+      }
+    },
+    {
+      "id": "band-20k-35k",
+      "min": {
+        "fils": 20000000,
+        "currency": "KWD"
+      },
+      "max": {
+        "fils": 35000000,
+        "currency": "KWD"
+      }
+    },
+    {
+      "id": "band-35k-plus",
+      "min": {
+        "fils": 35000000,
+        "currency": "KWD"
+      },
+      "max": null
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk-venue",
+      "group": "venue",
+      "title": {
+        "en": "Venue",
+        "ar": "اختيار القاعة"
+      },
+      "dueOn": null,
+      "done": false,
+      "doneAt": null,
+      "auto": true,
+      "custom": false,
+      "serviceCategoryId": null,
+      "bookingId": "bk-GZ-2611-0147"
+    },
+    {
+      "id": "chk-photographer",
+      "group": "photographer",
+      "title": {
+        "en": "Photographer",
+        "ar": "اختيار المصوّرة"
+      },
+      "dueOn": "2026-11-15",
+      "done": false,
+      "doneAt": null,
+      "auto": false,
+      "custom": false,
+      "serviceCategoryId": "photography",
+      "bookingId": null
+    },
+    {
+      "id": "chk-dress",
+      "group": "dress",
+      "title": {
+        "en": "Dress",
+        "ar": "فستان الزفاف"
+      },
+      "dueOn": "2026-11-19",
+      "done": false,
+      "doneAt": null,
+      "auto": false,
+      "custom": false,
+      "serviceCategoryId": "wedding_dress",
+      "bookingId": null
+    },
+    {
+      "id": "chk-invitations",
+      "group": "invitation",
+      "title": {
+        "en": "Invitations",
+        "ar": "بطاقات الدعوة"
+      },
+      "dueOn": "2026-12-03",
+      "done": false,
+      "doneAt": null,
+      "auto": false,
+      "custom": false,
+      "serviceCategoryId": "invitations",
+      "bookingId": null
+    },
+    {
+      "id": "chk-cake",
+      "group": "cake",
+      "title": {
+        "en": "Cake",
+        "ar": "كيكة العرض"
+      },
+      "dueOn": "2026-12-03",
+      "done": false,
+      "doneAt": null,
+      "auto": false,
+      "custom": false,
+      "serviceCategoryId": "cake",
+      "bookingId": null
+    },
+    {
+      "id": "chk-music",
+      "group": "music",
+      "title": {
+        "en": "Music",
+        "ar": "الموسيقى"
+      },
+      "dueOn": "2026-12-03",
+      "done": false,
+      "doneAt": null,
+      "auto": false,
+      "custom": false,
+      "serviceCategoryId": "dj",
+      "bookingId": null
+    },
+    {
+      "id": "chk-flowers",
+      "group": "flowers",
+      "title": {
+        "en": "Flowers",
+        "ar": "الزهور"
+      },
+      "dueOn": "2026-12-17",
+      "done": false,
+      "doneAt": null,
+      "auto": false,
+      "custom": false,
+      "serviceCategoryId": "flowers",
+      "bookingId": null
+    },
+    {
+      "id": "chk-transport",
+      "group": "transportation",
+      "title": {
+        "en": "Transportation",
+        "ar": "السيارات والتنقل"
+      },
+      "dueOn": "2026-12-24",
+      "done": false,
+      "doneAt": null,
+      "auto": false,
+      "custom": false,
+      "serviceCategoryId": "luxury_cars",
+      "bookingId": null
+    },
+    {
+      "id": "chk-bukhoor",
+      "group": "custom",
+      "title": {
+        "en": "Order bukhoor",
+        "ar": "طلب البخور"
+      },
+      "dueOn": null,
+      "done": false,
+      "doneAt": null,
+      "auto": false,
+      "custom": true,
+      "serviceCategoryId": null,
+      "bookingId": null
+    }
+  ],
+  "budget": {
+    "total": {
+      "fils": 60000000,
+      "currency": "KWD"
+    },
+    "categories": [
+      {
+        "id": "venue_catering",
+        "name": {
+          "en": "Venue and catering",
+          "ar": "القاعة والضيافة"
+        },
+        "allocated": {
+          "fils": 32000000,
+          "currency": "KWD"
+        },
+        "paid": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "committed": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "autoLinked": true,
+        "icon": "hall"
+      },
+      {
+        "id": "photo_video",
+        "name": {
+          "en": "Photography and video",
+          "ar": "التصوير والفيديو"
+        },
+        "allocated": {
+          "fils": 4000000,
+          "currency": "KWD"
+        },
+        "paid": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "committed": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "autoLinked": false,
+        "icon": "camera"
+      },
+      {
+        "id": "flowers_decor",
+        "name": {
+          "en": "Flowers and decoration",
+          "ar": "الزهور والديكور"
+        },
+        "allocated": {
+          "fils": 6000000,
+          "currency": "KWD"
+        },
+        "paid": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "committed": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "autoLinked": false,
+        "icon": "flower"
+      },
+      {
+        "id": "attire",
+        "name": {
+          "en": "Attire (dress and suit)",
+          "ar": "الملابس (الفستان والبدلة)"
+        },
+        "allocated": {
+          "fils": 7000000,
+          "currency": "KWD"
+        },
+        "paid": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "committed": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "autoLinked": false,
+        "icon": "dress"
+      },
+      {
+        "id": "makeup_henna",
+        "name": {
+          "en": "Makeup and henna",
+          "ar": "المكياج والحناء"
+        },
+        "allocated": {
+          "fils": 2500000,
+          "currency": "KWD"
+        },
+        "paid": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "committed": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "autoLinked": false,
+        "icon": "brush"
+      },
+      {
+        "id": "cars",
+        "name": {
+          "en": "Cars",
+          "ar": "السيارات"
+        },
+        "allocated": {
+          "fils": 1500000,
+          "currency": "KWD"
+        },
+        "paid": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "committed": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "autoLinked": false,
+        "icon": "car"
+      },
+      {
+        "id": "invitations",
+        "name": {
+          "en": "Invitations",
+          "ar": "بطاقات الدعوة"
+        },
+        "allocated": {
+          "fils": 1000000,
+          "currency": "KWD"
+        },
+        "paid": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "committed": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "autoLinked": false,
+        "icon": "mail"
+      },
+      {
+        "id": "music",
+        "name": {
+          "en": "Music",
+          "ar": "الموسيقى"
+        },
+        "allocated": {
+          "fils": 3000000,
+          "currency": "KWD"
+        },
+        "paid": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "committed": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "autoLinked": false,
+        "icon": "music"
+      },
+      {
+        "id": "honeymoon",
+        "name": {
+          "en": "Honeymoon",
+          "ar": "شهر العسل"
+        },
+        "allocated": {
+          "fils": 3000000,
+          "currency": "KWD"
+        },
+        "paid": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "committed": {
+          "fils": 0,
+          "currency": "KWD"
+        },
+        "autoLinked": false,
+        "icon": "palm"
+      }
+    ],
+    "expenses": []
+  },
+  "budgetVariants": {
+    "pending": {
+      "paid": {
+        "fils": 2000,
+        "currency": "KWD"
+      },
+      "committed": {
+        "fils": 0,
+        "currency": "KWD"
+      }
+    },
+    "confirmed": {
+      "paid": {
+        "fils": 2000,
+        "currency": "KWD"
+      },
+      "committed": {
+        "fils": 15400000,
+        "currency": "KWD"
+      }
+    },
+    "sampleExpense": {
+      "id": "exp-henna",
+      "categoryId": "makeup_henna",
+      "label": "فنانة حناء",
+      "amount": {
+        "fils": 80000,
+        "currency": "KWD"
+      },
+      "status": "paid",
+      "date": "2026-11-08",
+      "bookingId": null,
+      "vendorId": "vendor-henna-naqsh"
+    },
+    "flowersAt82": {
+      "categoryId": "flowers_decor",
+      "paid": {
+        "fils": 4920000,
+        "currency": "KWD"
+      }
+    }
+  },
+  "notificationPrefs": {
+    "userId": "user-reem",
+    "marketing": true,
+    "quietHours": {
+      "start": "22:00",
+      "end": "09:00"
+    },
+    "maxMarketingPerWeek": 2
+  },
+  "state": {
+    "userId": "user-reem",
+    "saved": [
+      {
+        "type": "venue",
+        "id": "V01",
+        "savedAt": "2026-10-26T19:40:00+03:00",
+        "lastSeenPrice": {
+          "fils": 18200000,
+          "currency": "KWD"
+        }
+      },
+      {
+        "type": "venue",
+        "id": "V05",
+        "savedAt": "2026-10-26T19:55:00+03:00",
+        "lastSeenPrice": {
+          "fils": 13300000,
+          "currency": "KWD"
+        }
+      },
+      {
+        "type": "venue",
+        "id": "V07",
+        "savedAt": "2026-10-27T21:10:00+03:00",
+        "lastSeenPrice": {
+          "fils": 11550000,
+          "currency": "KWD"
+        }
+      },
+      {
+        "type": "venue",
+        "id": "V09",
+        "savedAt": "2026-10-30T20:05:00+03:00",
+        "lastSeenPrice": {
+          "fils": 11900000,
+          "currency": "KWD"
+        }
+      },
+      {
+        "type": "venue",
+        "id": "V08",
+        "savedAt": "2026-11-02T18:30:00+03:00",
+        "lastSeenPrice": {
+          "fils": 10850000,
+          "currency": "KWD"
+        }
+      },
+      {
+        "type": "vendor",
+        "id": "vendor-photography-lamha",
+        "savedAt": "2026-11-05T17:20:00+03:00",
+        "lastSeenPrice": {
+          "fils": 450000,
+          "currency": "KWD"
+        }
+      },
+      {
+        "type": "vendor",
+        "id": "vendor-flowers-nakheel-blooms",
+        "savedAt": "2026-11-06T21:00:00+03:00",
+        "lastSeenPrice": {
+          "fils": 900000,
+          "currency": "KWD"
+        }
+      },
+      {
+        "type": "package",
+        "id": "V01-ladies-weekend",
+        "savedAt": "2026-10-26T19:42:00+03:00",
+        "lastSeenPrice": {
+          "fils": 18200000,
+          "currency": "KWD"
+        }
+      },
+      {
+        "type": "package",
+        "id": "planner-gold",
+        "savedAt": "2026-11-08T16:15:00+03:00",
+        "lastSeenPrice": {
+          "fils": 1900000,
+          "currency": "KWD"
+        }
+      }
+    ],
+    "compareVenueIds": [
+      "V01",
+      "V05",
+      "V07"
+    ],
+    "recentlyViewedVenueIds": [
+      "V01",
+      "V09",
+      "V08",
+      "V05",
+      "V07",
+      "V03"
+    ]
+  },
+  "plannerRequest": {
+    "id": "plannerreq-reem",
+    "clientId": "user-reem",
+    "tier": "gold",
+    "venueId": "V01",
+    "eventDate": "2027-01-14",
+    "windows": [
+      {
+        "date": "2026-11-15",
+        "part": "evening"
+      },
+      {
+        "date": "2026-11-16",
+        "part": "afternoon"
+      }
+    ],
+    "note": "نحتاج مساعدة في تصميم الكوشة والتنسيق مع الفندق",
+    "requestedAt": "2026-11-11T18:00:00+03:00",
+    "status": "meeting_scheduled",
+    "plannerId": "planner-nouf",
+    "assignedAt": "2026-11-12T11:00:00+03:00",
+    "meeting": {
+      "at": "2026-11-15T19:30:00+03:00",
+      "durationMin": 60,
+      "channel": "video_call"
+    },
+    "slots": [
+      {
+        "date": "2026-11-15",
+        "times": [
+          "17:00",
+          "17:30",
+          "19:30",
+          "20:00"
+        ]
+      }
+    ]
+  },
+  "vendorQuoteRequest": {
+    "id": "vquote-reem-lamha",
+    "clientId": "user-reem",
+    "vendorId": "vendor-photography-lamha",
+    "vendorPackageId": "vp-photography-lamha-1",
+    "eventDate": "2027-01-14",
+    "venueId": "V01",
+    "guests": 350,
+    "note": "نحتاج مصوّرة فقط للحفل النسائي",
+    "requestedAt": "2026-11-11T21:30:00+03:00",
+    "status": "replied"
+  },
+  "notifications": [
+    {
+      "id": "ntf-c-01",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "request_sent",
+      "title": {
+        "en": "Request sent",
+        "ar": "تم إرسال الطلب"
+      },
+      "body": {
+        "en": "Request sent to Aurelia Gulf Hotel at the voucher price for Thu 14 Jan. Expected reply by Fri 13 Nov, 12:40 PM.",
+        "ar": "تم إرسال طلبكم إلى فندق أوريليا الخليج بسعر الكوبون ليوم الخميس 14 يناير. الرد المتوقع قبل الجمعة 13 نوفمبر، 12:40 م."
+      },
+      "params": {
+        "venue": "V01",
+        "eventDate": "2027-01-14",
+        "replyBy": "2026-11-13T12:40:00+03:00"
+      },
+      "at": "2026-11-12T12:41:00+03:00",
+      "read": false,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": "bk-GZ-2611-0147",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-K7QM",
+      "visitId": null
+    },
+    {
+      "id": "ntf-c-02",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "voucher_ready",
+      "title": {
+        "en": "Your voucher is ready",
+        "ar": "كوبونكم جاهز"
+      },
+      "body": {
+        "en": "Voucher GV-2611-K7QM is bound to Aurelia Gulf Hotel. Send your request at the voucher price.",
+        "ar": "الكوبون GV-2611-K7QM مرتبط بفندق أوريليا الخليج. أرسلوا طلبكم بسعر الكوبون."
+      },
+      "params": {
+        "venue": "V01",
+        "code": "GV-2611-K7QM"
+      },
+      "at": "2026-11-12T12:31:00+03:00",
+      "read": false,
+      "tone": "success",
+      "tag": null,
+      "bookingId": null,
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-K7QM",
+      "visitId": null
+    },
+    {
+      "id": "ntf-c-03",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "planner_assigned",
+      "title": {
+        "en": "Planner assigned",
+        "ar": "تعيين منسّقة"
+      },
+      "body": {
+        "en": "Nouf Al-Otaibi is your wedding planner. Video call on Sun 15 Nov at 7:30 PM, Kuwait time.",
+        "ar": "نوف العتيبي هي منسّقة زفافكم. مكالمة الفيديو الأحد 15 نوفمبر الساعة 7:30 م بتوقيت الكويت."
+      },
+      "params": {
+        "planner": "planner-nouf",
+        "meetingAt": "2026-11-15T19:30:00+03:00"
+      },
+      "at": "2026-11-12T11:05:00+03:00",
+      "read": false,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": null,
+      "venueId": null,
+      "conversationId": "conv-planner-nouf",
+      "channel": "transactional",
+      "voucherId": null,
+      "visitId": null
+    },
+    {
+      "id": "ntf-c-04",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "checklist_due",
+      "title": {
+        "en": "Checklist",
+        "ar": "قائمة المهام"
+      },
+      "body": {
+        "en": "Photographer is due Sun 15 Nov. Review your checklist.",
+        "ar": "موعد اختيار المصوّرة الأحد 15 نوفمبر. راجعوا قائمة المهام."
+      },
+      "params": {
+        "item": "chk-photographer",
+        "dueOn": "2026-11-15"
+      },
+      "at": "2026-11-12T08:00:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": null,
+      "venueId": null,
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": null,
+      "visitId": null
+    },
+    {
+      "id": "ntf-c-05",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "visit_confirmed",
+      "title": {
+        "en": "Visit confirmed",
+        "ar": "تم تأكيد الزيارة"
+      },
+      "body": {
+        "en": "Your visit to Aurelia Gulf Hotel is confirmed for Sat 14 Nov at 5:00 PM. Ghazal support is in the group chat.",
+        "ar": "تم تأكيد زيارتكم لفندق أوريليا الخليج يوم السبت 14 نوفمبر الساعة 5:00 م. دعم غزل في المحادثة الجماعية."
+      },
+      "params": {
+        "venue": "V01",
+        "visit": "visit-aurelia-reem"
+      },
+      "at": "2026-11-11T09:41:00+03:00",
+      "read": false,
+      "tone": "success",
+      "tag": null,
+      "bookingId": null,
+      "venueId": "V01",
+      "conversationId": "conv-visit-aurelia-reem",
+      "channel": "transactional",
+      "voucherId": null,
+      "visitId": "visit-aurelia-reem"
+    },
+    {
+      "id": "ntf-c-06",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "voucher_released",
+      "title": {
+        "en": "Your voucher is still yours",
+        "ar": "كوبونكم ما زال لكم"
+      },
+      "body": {
+        "en": "Voucher GV-2611-R4TF is back in your wallet. Use it again at Lumi Marina Hotel until 9 Jan, or ask for the KD 2 back.",
+        "ar": "عاد الكوبون GV-2611-R4TF إلى محفظتكم. استخدموه مجددًا في فندق لومي مارينا حتى 9 يناير، أو اطلبوا استرداد الـ 2 د.ك."
+      },
+      "params": {
+        "venue": "V05",
+        "code": "GV-2611-R4TF",
+        "reuseUntil": "2027-01-09"
+      },
+      "at": "2026-11-10T10:06:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": null,
+      "venueId": "V05",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-R4TF",
+      "visitId": null
+    },
+    {
+      "id": "ntf-c-07",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "request_expired",
+      "title": {
+        "en": "Request expired",
+        "ar": "انتهت مهلة الطلب"
+      },
+      "body": {
+        "en": "Lumi Marina Hotel did not reply to your request for Thu 14 Jan in time. Nothing was lost: your voucher is still yours.",
+        "ar": "لم يردّ فندق لومي مارينا على طلبكم ليوم الخميس 14 يناير في الوقت المحدد. لم تخسروا شيئًا: كوبونكم ما زال لكم."
+      },
+      "params": {
+        "venue": "V05",
+        "eventDate": "2027-01-14"
+      },
+      "at": "2026-11-10T10:05:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": "bk-GZ-2611-0098",
+      "venueId": "V05",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-R4TF",
+      "visitId": null
+    },
+    {
+      "id": "ntf-c-08",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "request_sent",
+      "title": {
+        "en": "Request sent",
+        "ar": "تم إرسال الطلب"
+      },
+      "body": {
+        "en": "Request sent to Lumi Marina Hotel for Thu 14 Jan. Expected reply by Tue 10 Nov, 10:00 AM.",
+        "ar": "تم إرسال طلبكم إلى فندق لومي مارينا ليوم الخميس 14 يناير. الرد المتوقع قبل الثلاثاء 10 نوفمبر، 10:00 ص."
+      },
+      "params": {
+        "venue": "V05",
+        "eventDate": "2027-01-14"
+      },
+      "at": "2026-11-09T10:01:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": "bk-GZ-2611-0098",
+      "venueId": "V05",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-R4TF",
+      "visitId": null
+    },
+    {
+      "id": "ntf-c-09",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "new_venue",
+      "title": {
+        "en": "New near you",
+        "ar": "جديد قرب منطقتكم"
+      },
+      "body": {
+        "en": "Bayan Villa Estate has joined Ghazal, close to Salmiya.",
+        "ar": "انضمت فيلا بيان الخاصة إلى غزل، قريبًا من السالمية."
+      },
+      "params": {
+        "venue": "V04"
+      },
+      "at": "2026-11-08T10:00:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": null,
+      "venueId": "V04",
+      "conversationId": null,
+      "channel": "marketing",
+      "voucherId": null,
+      "visitId": null
+    },
+    {
+      "id": "ntf-c-10",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "voucher_refunded",
+      "title": {
+        "en": "Voucher refunded",
+        "ar": "تم استرداد الكوبون"
+      },
+      "body": {
+        "en": "KD 2 was returned to your KNET card for voucher GV-2610-H9XB.",
+        "ar": "أُعيد مبلغ 2 د.ك إلى بطاقة كي نت الخاصة بكم للكوبون GV-2610-H9XB."
+      },
+      "params": {
+        "code": "GV-2610-H9XB",
+        "amount": {
+          "fils": 2000,
+          "currency": "KWD"
+        }
+      },
+      "at": "2026-11-05T10:00:00+03:00",
+      "read": true,
+      "tone": "success",
+      "tag": null,
+      "bookingId": null,
+      "venueId": null,
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2610-H9XB",
+      "visitId": null
+    },
+    {
+      "id": "ntf-c-11",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "checklist_due",
+      "title": {
+        "en": "Checklist",
+        "ar": "قائمة المهام"
+      },
+      "body": {
+        "en": "Dress is due Thu 19 Nov. Review your checklist.",
+        "ar": "موعد اختيار الفستان الخميس 19 نوفمبر. راجعوا قائمة المهام."
+      },
+      "params": {
+        "item": "chk-dress",
+        "dueOn": "2026-11-19"
+      },
+      "at": "2026-11-05T09:00:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": null,
+      "venueId": null,
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": null,
+      "visitId": null
+    },
+    {
+      "id": "ntf-c-12",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "message",
+      "title": {
+        "en": "Ghazal Support",
+        "ar": "دعم غزل"
+      },
+      "body": {
+        "en": "Ghazal Support replied to your message.",
+        "ar": "ردّ دعم غزل على رسالتكم."
+      },
+      "params": {
+        "conversation": "conv-support-reem"
+      },
+      "at": "2026-11-03T20:10:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": null,
+      "venueId": null,
+      "conversationId": "conv-support-reem",
+      "channel": "transactional",
+      "voucherId": null,
+      "visitId": null
+    },
+    {
+      "id": "ntf-c-13",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "visit_reminder",
+      "title": {
+        "en": "Visit tomorrow",
+        "ar": "زيارة غدًا"
+      },
+      "body": {
+        "en": "Your visit to Lumi Marina Hotel is tomorrow, Wed 4 Nov, at 4:30 PM.",
+        "ar": "زيارتكم لفندق لومي مارينا غدًا الأربعاء 4 نوفمبر الساعة 4:30 م."
+      },
+      "params": {
+        "venue": "V05",
+        "visit": "visit-lumi-reem"
+      },
+      "at": "2026-11-03T16:30:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": null,
+      "venueId": "V05",
+      "conversationId": "conv-visit-lumi-reem",
+      "channel": "transactional",
+      "voucherId": null,
+      "visitId": "visit-lumi-reem"
+    },
+    {
+      "id": "ntf-c-14",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "request_declined",
+      "title": {
+        "en": "Not accepted",
+        "ar": "لم يُقبل الطلب"
+      },
+      "body": {
+        "en": "Qasr Al-Nakheel could not accept Fri 15 Jan. Your voucher is still yours: use it again or ask for the KD 2 back.",
+        "ar": "لم تتمكن قاعة قصر النخيل من قبول الجمعة 15 يناير. كوبونكم ما زال لكم: استخدموه مجددًا أو اطلبوا استرداد الـ 2 د.ك."
+      },
+      "params": {
+        "venue": "V09",
+        "eventDate": "2027-01-15"
+      },
+      "at": "2026-10-31T10:16:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": "bk-GZ-2610-5C8Y",
+      "venueId": "V09",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2610-H9XB",
+      "visitId": null
+    },
+    {
+      "id": "ntf-c-15",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "checklist_due",
+      "title": {
+        "en": "Checklist",
+        "ar": "قائمة المهام"
+      },
+      "body": {
+        "en": "Your checklist is ready. Venue comes first.",
+        "ar": "قائمة مهامكم جاهزة. اختيار القاعة أولًا."
+      },
+      "params": {
+        "item": "chk-venue"
+      },
+      "at": "2026-10-28T09:00:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": null,
+      "venueId": null,
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": null,
+      "visitId": null
+    },
+    {
+      "id": "ntf-c-16",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "countdown",
+      "title": {
+        "en": "Countdown",
+        "ar": "العد التنازلي"
+      },
+      "body": {
+        "en": "Your countdown has started. Thursday 14 January 2027.",
+        "ar": "بدأ العد التنازلي لزفافكم. الخميس 14 يناير 2027."
+      },
+      "params": {
+        "weddingDate": "2027-01-14"
+      },
+      "at": "2026-10-26T09:00:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": null,
+      "venueId": null,
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": null,
+      "visitId": null
+    },
+    {
+      "id": "ntf-c-17",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "message",
+      "title": {
+        "en": "Ghazal Support",
+        "ar": "دعم غزل"
+      },
+      "body": {
+        "en": "Hello, Reem. We are here for any question about requests or vouchers.",
+        "ar": "أهلاً وسهلاً، ريم. نحن هنا لأي سؤال عن الطلبات أو الكوبونات."
+      },
+      "params": {
+        "conversation": "conv-support-reem"
+      },
+      "at": "2026-10-25T20:15:00+03:00",
+      "read": true,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": null,
+      "venueId": null,
+      "conversationId": "conv-support-reem",
+      "channel": "transactional",
+      "voucherId": null,
+      "visitId": null
+    }
+  ],
+  "heroVariantNotifications": {
+    "approved": {
+      "id": "ntf-c-v-approved",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "request_approved",
+      "title": {
+        "en": "Approved: confirm within 24 hours",
+        "ar": "تمت الموافقة · أكدوا خلال 24 ساعة"
+      },
+      "body": {
+        "en": "Aurelia Gulf Hotel approved your request at the voucher price. Confirm your booking by Fri 13 Nov, 4:00 PM to keep the date.",
+        "ar": "وافق فندق أوريليا الخليج على طلبكم بسعر الكوبون. أكدوا حجزكم قبل الجمعة 13 نوفمبر، 4:00 م للحفاظ على التاريخ."
+      },
+      "params": {
+        "venue": "V01",
+        "confirmBy": "2026-11-13T16:00:00+03:00"
+      },
+      "at": "2026-11-12T16:00:00+03:00",
+      "read": false,
+      "tone": "gold",
+      "tag": null,
+      "bookingId": "bk-GZ-2611-0147",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-K7QM",
+      "visitId": null
+    },
+    "confirmReminder": {
+      "id": "ntf-c-v-reminder",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "confirm_reminder",
+      "title": {
+        "en": "Confirm within 3 hours",
+        "ar": "أكدوا خلال 3 ساعات"
+      },
+      "body": {
+        "en": "Your approval from Aurelia Gulf Hotel ends today at 4:00 PM. Confirm your booking to keep Thu 14 Jan.",
+        "ar": "تنتهي موافقة فندق أوريليا الخليج اليوم الساعة 4:00 م. أكدوا حجزكم للحفاظ على الخميس 14 يناير."
+      },
+      "params": {
+        "venue": "V01",
+        "confirmBy": "2026-11-13T16:00:00+03:00"
+      },
+      "at": "2026-11-13T13:00:00+03:00",
+      "read": false,
+      "tone": "gold",
+      "tag": null,
+      "bookingId": "bk-GZ-2611-0147",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-K7QM",
+      "visitId": null
+    },
+    "confirmed": {
+      "id": "ntf-c-v-confirmed",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "request_confirmed",
+      "title": {
+        "en": "Booking confirmed",
+        "ar": "تم تأكيد الحجز"
+      },
+      "body": {
+        "en": "Your booking at Aurelia Gulf Hotel on Thu 14 Jan is confirmed at the voucher price. Pay the hotel directly and show your voucher code.",
+        "ar": "تم تأكيد حجزكم في فندق أوريليا الخليج ليوم الخميس 14 يناير بسعر الكوبون. سدّدوا للفندق مباشرة وأظهروا رمز الكوبون."
+      },
+      "params": {
+        "venue": "V01",
+        "code": "GV-2611-K7QM"
+      },
+      "at": "2026-11-12T16:12:00+03:00",
+      "read": false,
+      "tone": "success",
+      "tag": null,
+      "bookingId": "bk-GZ-2611-0147",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-K7QM",
+      "visitId": null
+    },
+    "lapsed": {
+      "id": "ntf-c-v-lapsed",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "request_expired",
+      "title": {
+        "en": "The confirmation window ended",
+        "ar": "انتهت مهلة التأكيد"
+      },
+      "body": {
+        "en": "The date was released because the booking was not confirmed within 24 hours. Your voucher is still yours.",
+        "ar": "تم تحرير التاريخ لأن الحجز لم يُؤكَّد خلال 24 ساعة. كوبونكم ما زال لكم."
+      },
+      "params": {
+        "venue": "V01",
+        "eventDate": "2027-01-14"
+      },
+      "at": "2026-11-13T16:00:00+03:00",
+      "read": false,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": "bk-GZ-2611-0147",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-K7QM",
+      "visitId": null
+    },
+    "declined": {
+      "id": "ntf-c-v-declined",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "request_declined",
+      "title": {
+        "en": "Not accepted",
+        "ar": "لم يُقبل الطلب"
+      },
+      "body": {
+        "en": "Aurelia Gulf Hotel could not accept Thu 14 Jan. Your voucher is still yours: use it again or ask for the KD 2 back.",
+        "ar": "لم يتمكن فندق أوريليا الخليج من قبول الخميس 14 يناير. كوبونكم ما زال لكم: استخدموه مجددًا أو اطلبوا استرداد الـ 2 د.ك."
+      },
+      "params": {
+        "venue": "V01",
+        "eventDate": "2027-01-14"
+      },
+      "at": "2026-11-12T17:30:00+03:00",
+      "read": false,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": "bk-GZ-2611-0147",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-K7QM",
+      "visitId": null
+    },
+    "redeemed": {
+      "id": "ntf-c-v-redeemed",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "voucher_redeemed",
+      "title": {
+        "en": "Voucher redeemed",
+        "ar": "تم استخدام الكوبون"
+      },
+      "body": {
+        "en": "Aurelia Gulf Hotel redeemed voucher GV-2611-K7QM at the voucher price.",
+        "ar": "استخدم فندق أوريليا الخليج الكوبون GV-2611-K7QM بسعر الكوبون."
+      },
+      "params": {
+        "venue": "V01",
+        "code": "GV-2611-K7QM"
+      },
+      "at": "2027-01-03T12:20:00+03:00",
+      "read": false,
+      "tone": "success",
+      "tag": null,
+      "bookingId": "bk-GZ-2611-0147",
+      "venueId": "V01",
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": "vch-GV-2611-K7QM",
+      "visitId": null
+    },
+    "thirtyDays": {
+      "id": "ntf-c-v-30",
+      "audience": "client",
+      "userId": "user-reem",
+      "kind": "countdown",
+      "title": {
+        "en": "Countdown",
+        "ar": "العد التنازلي"
+      },
+      "body": {
+        "en": "30 days to your wedding. Review your checklist.",
+        "ar": "باقي 30 يومًا على زفافكم. راجعوا قائمة المهام."
+      },
+      "params": {
+        "days": 30
+      },
+      "at": "2026-12-15T09:00:00+03:00",
+      "read": false,
+      "tone": "neutral",
+      "tag": null,
+      "bookingId": null,
+      "venueId": null,
+      "conversationId": null,
+      "channel": "transactional",
+      "voucherId": null,
+      "visitId": null
+    }
+  }
+}

@@ -1,0 +1,812 @@
+{
+  "$description": "Every allowed foreground/background token pair (ADR 0023 D6). The contrast gate recomputes WCAG 2.x ratios from tokens.json and fails below threshold; `doc` is the figure printed in docs/design/01-direction.md 2.1 and must match within 0.02.",
+  "thresholds": {
+    "text": 4.5,
+    "ui": 3
+  },
+  "docTolerance": 0.02,
+  "pairs": [
+    {
+      "fg": "color.ref.ink.900",
+      "bg": "color.ref.neutral.canvas",
+      "kind": "text",
+      "doc": 14.26,
+      "use": "headings, labels"
+    },
+    {
+      "fg": "color.ref.ink.700",
+      "bg": "color.ref.neutral.canvas",
+      "kind": "text",
+      "doc": 7.88,
+      "use": "body text"
+    },
+    {
+      "fg": "color.ref.ink.700",
+      "bg": "color.ref.neutral.paper",
+      "kind": "text",
+      "doc": 8.1,
+      "use": "body text"
+    },
+    {
+      "fg": "color.ref.ink.700",
+      "bg": "color.ref.rose.100",
+      "kind": "text",
+      "doc": 6.9,
+      "use": "body text"
+    },
+    {
+      "fg": "color.ref.ink.600",
+      "bg": "color.ref.neutral.canvas",
+      "kind": "text",
+      "doc": 5.76,
+      "use": "muted text, captions"
+    },
+    {
+      "fg": "color.ref.ink.600",
+      "bg": "color.ref.neutral.paper",
+      "kind": "text",
+      "doc": 5.92,
+      "use": "muted text, captions"
+    },
+    {
+      "fg": "color.ref.ink.600",
+      "bg": "color.ref.rose.100",
+      "kind": "text",
+      "doc": 5.05,
+      "use": "muted text, captions"
+    },
+    {
+      "fg": "color.ref.ink.600",
+      "bg": "color.ref.ink.50",
+      "kind": "text",
+      "doc": 5.37,
+      "use": "muted text, captions"
+    },
+    {
+      "fg": "color.ref.ink.500",
+      "bg": "color.ref.neutral.canvas",
+      "kind": "ui",
+      "doc": 3.9,
+      "use": "control borders, open knot ring (non-text only)"
+    },
+    {
+      "fg": "color.ref.ink.500",
+      "bg": "color.ref.neutral.paper",
+      "kind": "ui",
+      "doc": 4.01,
+      "use": "control borders (non-text only)"
+    },
+    {
+      "fg": "color.ref.gold.700",
+      "bg": "color.ref.neutral.canvas",
+      "kind": "text",
+      "doc": 5.96,
+      "use": "gold text and icons"
+    },
+    {
+      "fg": "color.ref.gold.700",
+      "bg": "color.ref.neutral.paper",
+      "kind": "text",
+      "doc": 6.13,
+      "use": "gold text and icons"
+    },
+    {
+      "fg": "color.ref.gold.700",
+      "bg": "color.ref.rose.100",
+      "kind": "text",
+      "doc": 5.22,
+      "use": "gold text and icons"
+    },
+    {
+      "fg": "color.ref.gold.700",
+      "bg": "color.ref.gold.100",
+      "kind": "text",
+      "doc": 5.44,
+      "use": "pending pill"
+    },
+    {
+      "fg": "color.ref.gold.700",
+      "bg": "color.ref.rose.50",
+      "kind": "text",
+      "doc": 5.71,
+      "use": "gold text and icons"
+    },
+    {
+      "fg": "color.ref.gold.800",
+      "bg": "color.ref.gold.100",
+      "kind": "text",
+      "doc": 8.05,
+      "use": "pending pill alternative"
+    },
+    {
+      "fg": "color.ref.gold.650",
+      "bg": "color.ref.neutral.canvas",
+      "kind": "ui",
+      "doc": 3.53,
+      "use": "non-text state stroke"
+    },
+    {
+      "fg": "color.ref.gold.650",
+      "bg": "color.ref.rose.100",
+      "kind": "ui",
+      "doc": 3.1,
+      "use": "non-text state stroke"
+    },
+    {
+      "fg": "color.ref.ink.900",
+      "bg": "color.ref.gold.500",
+      "kind": "text",
+      "doc": 7.45,
+      "use": "primary label"
+    },
+    {
+      "fg": "color.ref.ink.900",
+      "bg": "color.ref.gold.550",
+      "kind": "text",
+      "doc": 6.04,
+      "use": "pressed primary label"
+    },
+    {
+      "fg": "color.ref.ink.900",
+      "bg": "color.ref.gold.400",
+      "kind": "text",
+      "doc": 8.75,
+      "use": "hover/alt primary label"
+    },
+    {
+      "fg": "color.ref.neutral.canvas",
+      "bg": "color.ref.ink.900",
+      "kind": "text",
+      "doc": 14.26,
+      "use": "text on dark panels"
+    },
+    {
+      "fg": "color.ref.neutral.canvas",
+      "bg": "color.ref.ink.800",
+      "kind": "text",
+      "doc": 11.56,
+      "use": "text on dark panels"
+    },
+    {
+      "fg": "color.ref.neutral.canvas",
+      "bg": "color.ref.ink.700",
+      "kind": "text",
+      "doc": 7.88,
+      "use": "text on dark panels, selected segment"
+    },
+    {
+      "fg": "color.ref.gold.500",
+      "bg": "color.ref.ink.900",
+      "kind": "ui",
+      "doc": 7.45,
+      "use": "thread and marks on dark"
+    },
+    {
+      "fg": "color.ref.gold.400",
+      "bg": "color.ref.ink.900",
+      "kind": "text",
+      "doc": 8.75,
+      "use": "gold text on dark"
+    },
+    {
+      "fg": "color.ref.gold.300",
+      "bg": "color.ref.ink.900",
+      "kind": "text",
+      "doc": 10.23,
+      "use": "gold text on dark"
+    },
+    {
+      "fg": "color.ref.ink.300",
+      "bg": "color.ref.ink.900",
+      "kind": "text",
+      "doc": 8.22,
+      "use": "muted text on dark"
+    },
+    {
+      "fg": "color.ref.ink.200",
+      "bg": "color.ref.ink.900",
+      "kind": "text",
+      "doc": 10.82,
+      "use": "muted text on dark"
+    },
+    {
+      "fg": "color.ref.success.700",
+      "bg": "color.ref.success.100",
+      "kind": "text",
+      "doc": 5.03,
+      "use": "confirmed pill"
+    },
+    {
+      "fg": "color.ref.success.700",
+      "bg": "color.ref.neutral.canvas",
+      "kind": "text",
+      "doc": 5.75,
+      "use": "ok line"
+    },
+    {
+      "fg": "color.ref.danger.700",
+      "bg": "color.ref.danger.100",
+      "kind": "text",
+      "doc": 5.1,
+      "use": "declined pill"
+    },
+    {
+      "fg": "color.ref.danger.700",
+      "bg": "color.ref.neutral.canvas",
+      "kind": "text",
+      "doc": 6.05,
+      "use": "error text"
+    },
+    {
+      "fg": "color.sys.text.strong",
+      "bg": "color.sys.surface.canvas",
+      "kind": "text",
+      "use": "headings, labels"
+    },
+    {
+      "fg": "color.sys.text.strong",
+      "bg": "color.sys.surface.raised",
+      "kind": "text",
+      "use": "headings, labels"
+    },
+    {
+      "fg": "color.sys.text.strong",
+      "bg": "color.sys.surface.tint",
+      "kind": "text",
+      "use": "headings, labels"
+    },
+    {
+      "fg": "color.sys.text.strong",
+      "bg": "color.sys.surface.quiet",
+      "kind": "text",
+      "use": "headings, labels"
+    },
+    {
+      "fg": "color.sys.text.primary",
+      "bg": "color.sys.surface.canvas",
+      "kind": "text",
+      "use": "body text"
+    },
+    {
+      "fg": "color.sys.text.primary",
+      "bg": "color.sys.surface.raised",
+      "kind": "text",
+      "use": "body text"
+    },
+    {
+      "fg": "color.sys.text.primary",
+      "bg": "color.sys.surface.tint",
+      "kind": "text",
+      "use": "body text"
+    },
+    {
+      "fg": "color.sys.text.primary",
+      "bg": "color.sys.surface.quiet",
+      "kind": "text",
+      "use": "body text"
+    },
+    {
+      "fg": "color.sys.text.secondary",
+      "bg": "color.sys.surface.canvas",
+      "kind": "text",
+      "use": "muted text, captions, hints"
+    },
+    {
+      "fg": "color.sys.text.secondary",
+      "bg": "color.sys.surface.raised",
+      "kind": "text",
+      "use": "muted text, captions, hints"
+    },
+    {
+      "fg": "color.sys.text.secondary",
+      "bg": "color.sys.surface.tint",
+      "kind": "text",
+      "use": "muted text, captions, hints"
+    },
+    {
+      "fg": "color.sys.text.secondary",
+      "bg": "color.sys.surface.quiet",
+      "kind": "text",
+      "use": "muted text, captions, hints"
+    },
+    {
+      "fg": "color.sys.text.gold-ink",
+      "bg": "color.sys.surface.canvas",
+      "kind": "text",
+      "use": "gold text and informative icons"
+    },
+    {
+      "fg": "color.sys.text.gold-ink",
+      "bg": "color.sys.surface.raised",
+      "kind": "text",
+      "use": "gold text and informative icons"
+    },
+    {
+      "fg": "color.sys.text.gold-ink",
+      "bg": "color.sys.surface.tint",
+      "kind": "text",
+      "use": "gold text and informative icons"
+    },
+    {
+      "fg": "color.sys.text.gold-ink",
+      "bg": "color.sys.surface.tint-soft",
+      "kind": "text",
+      "use": "gold text and informative icons"
+    },
+    {
+      "fg": "color.sys.text.gold-ink",
+      "bg": "color.sys.status.pending.bg",
+      "kind": "text",
+      "use": "gold text and informative icons"
+    },
+    {
+      "fg": "color.sys.text.on-gold",
+      "bg": "color.sys.action.primary.bg",
+      "kind": "text",
+      "use": "label on a gold fill"
+    },
+    {
+      "fg": "color.sys.text.on-gold",
+      "bg": "color.sys.action.primary.bg-pressed",
+      "kind": "text",
+      "use": "label on a gold fill"
+    },
+    {
+      "fg": "color.sys.text.on-gold",
+      "bg": "color.sys.mark.pressed",
+      "kind": "text",
+      "use": "label on a gold fill"
+    },
+    {
+      "fg": "color.sys.text.on-dark",
+      "bg": "color.sys.surface.dark",
+      "kind": "text",
+      "use": "text on dark panels and selected segments"
+    },
+    {
+      "fg": "color.sys.text.on-dark",
+      "bg": "color.sys.surface.dark-raised",
+      "kind": "text",
+      "use": "text on dark panels and selected segments"
+    },
+    {
+      "fg": "color.sys.text.on-dark",
+      "bg": "color.sys.action.selected.bg",
+      "kind": "text",
+      "use": "text on dark panels and selected segments"
+    },
+    {
+      "fg": "color.sys.text.on-dark-muted",
+      "bg": "color.sys.surface.dark",
+      "kind": "text",
+      "use": "muted text on dark"
+    },
+    {
+      "fg": "color.sys.text.on-dark-gold",
+      "bg": "color.sys.surface.dark",
+      "kind": "text",
+      "use": "gold text on dark (undo action)"
+    },
+    {
+      "fg": "color.sys.text.success",
+      "bg": "color.sys.surface.canvas",
+      "kind": "text",
+      "use": "ok line, confirmed pill"
+    },
+    {
+      "fg": "color.sys.text.success",
+      "bg": "color.sys.status.success.bg",
+      "kind": "text",
+      "use": "ok line, confirmed pill"
+    },
+    {
+      "fg": "color.sys.text.danger",
+      "bg": "color.sys.surface.canvas",
+      "kind": "text",
+      "use": "error text, declined pill"
+    },
+    {
+      "fg": "color.sys.text.danger",
+      "bg": "color.sys.status.danger.bg",
+      "kind": "text",
+      "use": "error text, declined pill"
+    },
+    {
+      "fg": "color.sys.text.danger",
+      "bg": "color.sys.surface.raised",
+      "kind": "text",
+      "use": "error text, declined pill"
+    },
+    {
+      "fg": "color.sys.action.primary.label",
+      "bg": "color.sys.action.primary.bg",
+      "kind": "text",
+      "use": "primary button label"
+    },
+    {
+      "fg": "color.sys.action.primary.label",
+      "bg": "color.sys.action.primary.bg-pressed",
+      "kind": "text",
+      "use": "primary button label"
+    },
+    {
+      "fg": "color.sys.action.secondary.label",
+      "bg": "color.sys.surface.canvas",
+      "kind": "text",
+      "use": "secondary button label"
+    },
+    {
+      "fg": "color.sys.action.secondary.label",
+      "bg": "color.sys.surface.raised",
+      "kind": "text",
+      "use": "secondary button label"
+    },
+    {
+      "fg": "color.sys.action.secondary.label",
+      "bg": "color.sys.action.secondary.bg-pressed",
+      "kind": "text",
+      "use": "secondary button label"
+    },
+    {
+      "fg": "color.sys.action.tertiary.label",
+      "bg": "color.sys.surface.canvas",
+      "kind": "text",
+      "use": "tertiary button label"
+    },
+    {
+      "fg": "color.sys.action.tertiary.label",
+      "bg": "color.sys.surface.raised",
+      "kind": "text",
+      "use": "tertiary button label"
+    },
+    {
+      "fg": "color.sys.action.tertiary.label",
+      "bg": "color.sys.surface.tint",
+      "kind": "text",
+      "use": "tertiary button label"
+    },
+    {
+      "fg": "color.sys.action.destructive.label",
+      "bg": "color.sys.action.destructive.bg",
+      "kind": "text",
+      "use": "destructive button label"
+    },
+    {
+      "fg": "color.sys.action.destructive.label",
+      "bg": "color.sys.action.destructive.bg-pressed",
+      "kind": "text",
+      "use": "destructive button label"
+    },
+    {
+      "fg": "color.sys.action.selected.label",
+      "bg": "color.sys.action.selected.bg",
+      "kind": "text",
+      "use": "selected segment / tab label"
+    },
+    {
+      "fg": "color.sys.action.selected.label",
+      "bg": "color.sys.action.selected.bg-pressed",
+      "kind": "text",
+      "use": "selected segment / tab label"
+    },
+    {
+      "fg": "color.sys.status.pending.text",
+      "bg": "color.sys.status.pending.bg",
+      "kind": "text",
+      "use": "pending pill"
+    },
+    {
+      "fg": "color.sys.status.success.text",
+      "bg": "color.sys.status.success.bg",
+      "kind": "text",
+      "use": "confirmed pill"
+    },
+    {
+      "fg": "color.sys.status.danger.text",
+      "bg": "color.sys.status.danger.bg",
+      "kind": "text",
+      "use": "declined pill"
+    },
+    {
+      "fg": "color.sys.status.neutral.text",
+      "bg": "color.sys.status.neutral.bg",
+      "kind": "text",
+      "use": "neutral pill"
+    },
+    {
+      "fg": "color.sys.icon.primary",
+      "bg": "color.sys.surface.canvas",
+      "kind": "text",
+      "use": "icons"
+    },
+    {
+      "fg": "color.sys.icon.primary",
+      "bg": "color.sys.surface.raised",
+      "kind": "text",
+      "use": "icons"
+    },
+    {
+      "fg": "color.sys.icon.primary",
+      "bg": "color.sys.surface.tint",
+      "kind": "text",
+      "use": "icons"
+    },
+    {
+      "fg": "color.sys.icon.primary",
+      "bg": "color.sys.surface.quiet",
+      "kind": "text",
+      "use": "icons"
+    },
+    {
+      "fg": "color.sys.icon.secondary",
+      "bg": "color.sys.surface.canvas",
+      "kind": "text",
+      "use": "muted icons"
+    },
+    {
+      "fg": "color.sys.icon.secondary",
+      "bg": "color.sys.surface.raised",
+      "kind": "text",
+      "use": "muted icons"
+    },
+    {
+      "fg": "color.sys.icon.secondary",
+      "bg": "color.sys.surface.tint",
+      "kind": "text",
+      "use": "muted icons"
+    },
+    {
+      "fg": "color.sys.icon.secondary",
+      "bg": "color.sys.surface.quiet",
+      "kind": "text",
+      "use": "muted icons"
+    },
+    {
+      "fg": "color.sys.icon.accent",
+      "bg": "color.sys.surface.canvas",
+      "kind": "text",
+      "use": "informative gold glyphs"
+    },
+    {
+      "fg": "color.sys.icon.accent",
+      "bg": "color.sys.surface.raised",
+      "kind": "text",
+      "use": "informative gold glyphs"
+    },
+    {
+      "fg": "color.sys.icon.accent",
+      "bg": "color.sys.surface.tint",
+      "kind": "text",
+      "use": "informative gold glyphs"
+    },
+    {
+      "fg": "color.sys.icon.success",
+      "bg": "color.sys.surface.canvas",
+      "kind": "text",
+      "use": "ok icons"
+    },
+    {
+      "fg": "color.sys.icon.success",
+      "bg": "color.sys.status.success.bg",
+      "kind": "text",
+      "use": "ok icons"
+    },
+    {
+      "fg": "color.sys.icon.danger",
+      "bg": "color.sys.surface.canvas",
+      "kind": "text",
+      "use": "error icons"
+    },
+    {
+      "fg": "color.sys.icon.danger",
+      "bg": "color.sys.status.danger.bg",
+      "kind": "text",
+      "use": "error icons"
+    },
+    {
+      "fg": "color.sys.icon.on-dark",
+      "bg": "color.sys.surface.dark",
+      "kind": "text",
+      "use": "icons on dark"
+    },
+    {
+      "fg": "color.sys.border.control",
+      "bg": "color.sys.surface.canvas",
+      "kind": "ui",
+      "use": "input and control boundaries (WCAG 1.4.11)"
+    },
+    {
+      "fg": "color.sys.border.control",
+      "bg": "color.sys.surface.raised",
+      "kind": "ui",
+      "use": "input and control boundaries (WCAG 1.4.11)"
+    },
+    {
+      "fg": "color.sys.border.focus",
+      "bg": "color.sys.surface.canvas",
+      "kind": "ui",
+      "use": "focused input border"
+    },
+    {
+      "fg": "color.sys.border.focus",
+      "bg": "color.sys.surface.raised",
+      "kind": "ui",
+      "use": "focused input border"
+    },
+    {
+      "fg": "color.sys.border.focus",
+      "bg": "color.sys.surface.tint",
+      "kind": "ui",
+      "use": "focused input border"
+    },
+    {
+      "fg": "color.sys.border.error",
+      "bg": "color.sys.surface.canvas",
+      "kind": "ui",
+      "use": "error input border"
+    },
+    {
+      "fg": "color.sys.border.error",
+      "bg": "color.sys.surface.raised",
+      "kind": "ui",
+      "use": "error input border"
+    },
+    {
+      "fg": "color.sys.focus-ring",
+      "bg": "color.sys.surface.canvas",
+      "kind": "ui",
+      "use": "keyboard focus ring"
+    },
+    {
+      "fg": "color.sys.focus-ring",
+      "bg": "color.sys.surface.raised",
+      "kind": "ui",
+      "use": "keyboard focus ring"
+    },
+    {
+      "fg": "color.sys.focus-ring",
+      "bg": "color.sys.surface.tint",
+      "kind": "ui",
+      "use": "keyboard focus ring"
+    },
+    {
+      "fg": "color.sys.focus-ring",
+      "bg": "color.sys.surface.quiet",
+      "kind": "ui",
+      "use": "keyboard focus ring"
+    },
+    {
+      "fg": "color.sys.mark.state",
+      "bg": "color.sys.surface.canvas",
+      "kind": "ui",
+      "use": "sole-carrier ring or bar (now knot, reply bar)"
+    },
+    {
+      "fg": "color.sys.mark.state",
+      "bg": "color.sys.surface.tint",
+      "kind": "ui",
+      "use": "sole-carrier ring or bar (now knot, reply bar)"
+    },
+    {
+      "fg": "color.sys.mark.state",
+      "bg": "color.sys.surface.raised",
+      "kind": "ui",
+      "use": "sole-carrier ring or bar (now knot, reply bar)"
+    },
+    {
+      "fg": "color.sys.mark.open",
+      "bg": "color.sys.surface.canvas",
+      "kind": "ui",
+      "use": "open knot ring"
+    },
+    {
+      "fg": "color.sys.mark.open",
+      "bg": "color.sys.surface.raised",
+      "kind": "ui",
+      "use": "open knot ring"
+    },
+    {
+      "fg": "color.sys.mark.khayt",
+      "bg": "color.sys.surface.dark",
+      "kind": "ui",
+      "use": "thread on dark panels"
+    },
+    {
+      "fg": "color.sys.control.toggle-knob",
+      "bg": "color.sys.control.toggle-on",
+      "kind": "ui",
+      "use": "toggle knob on its on-track"
+    },
+    {
+      "fg": "color.sys.control.toggle-check",
+      "bg": "color.sys.control.toggle-knob",
+      "kind": "ui",
+      "use": "toggle check on the knob"
+    },
+    {
+      "fg": "color.sys.control.chip-border-selected",
+      "bg": "color.sys.surface.canvas",
+      "kind": "ui",
+      "use": "selected chip boundary"
+    },
+    {
+      "fg": "color.sys.control.chip-border-selected",
+      "bg": "color.sys.surface.raised",
+      "kind": "ui",
+      "use": "selected chip boundary"
+    },
+    {
+      "fg": "color.sys.status.sla.warn",
+      "bg": "color.sys.surface.canvas",
+      "kind": "ui",
+      "use": "reply bar from 50%"
+    },
+    {
+      "fg": "color.sys.status.sla.warn",
+      "bg": "color.sys.surface.raised",
+      "kind": "ui",
+      "use": "reply bar from 50%"
+    },
+    {
+      "fg": "color.sys.status.sla.alert",
+      "bg": "color.sys.surface.canvas",
+      "kind": "ui",
+      "use": "reply bar from 80%"
+    },
+    {
+      "fg": "color.sys.status.sla.alert",
+      "bg": "color.sys.surface.raised",
+      "kind": "ui",
+      "use": "reply bar from 80%"
+    }
+  ],
+  "mustFail": [
+    {
+      "fg": "color.ref.gold.500",
+      "bg": "color.ref.neutral.canvas",
+      "below": 3,
+      "doc": 1.91,
+      "why": "gold-500 never carries text, icons or a sole boundary: fill, hairline, knot only"
+    },
+    {
+      "fg": "color.ref.gold.500",
+      "bg": "color.ref.rose.100",
+      "below": 3,
+      "doc": 1.68,
+      "why": "same, on rose"
+    },
+    {
+      "fg": "color.ref.ink.700",
+      "bg": "color.ref.gold.500",
+      "below": 4.5,
+      "doc": 4.12,
+      "why": "REJECTED for labels on gold (PRD pair); use ink-900"
+    },
+    {
+      "fg": "color.ref.ink.400",
+      "bg": "color.ref.neutral.canvas",
+      "below": 3,
+      "doc": 2.59,
+      "why": "disabled and decoration only"
+    },
+    {
+      "fg": "color.ref.gold.600",
+      "bg": "color.ref.neutral.canvas",
+      "below": 3,
+      "doc": 2.77,
+      "why": "decorative hairline only, never the sole carrier of a state"
+    }
+  ],
+  "exempt": [
+    {
+      "fg": "color.sys.text.disabled",
+      "bg": "color.sys.action.primary.bg-disabled",
+      "why": "disabled label"
+    },
+    {
+      "fg": "color.sys.action.secondary.label-disabled",
+      "bg": "color.sys.surface.canvas",
+      "why": "disabled label"
+    }
+  ]
+}

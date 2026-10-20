@@ -1,0 +1,1130 @@
+{
+  "governorates": [
+    {
+      "id": "capital",
+      "name": {
+        "en": "Capital",
+        "ar": "العاصمة"
+      }
+    },
+    {
+      "id": "hawalli",
+      "name": {
+        "en": "Hawalli",
+        "ar": "حولي"
+      }
+    },
+    {
+      "id": "farwaniya",
+      "name": {
+        "en": "Farwaniya",
+        "ar": "الفروانية"
+      }
+    },
+    {
+      "id": "ahmadi",
+      "name": {
+        "en": "Ahmadi",
+        "ar": "الأحمدي"
+      }
+    },
+    {
+      "id": "jahra",
+      "name": {
+        "en": "Jahra",
+        "ar": "الجهراء"
+      }
+    },
+    {
+      "id": "mubarak-al-kabeer",
+      "name": {
+        "en": "Mubarak Al-Kabeer",
+        "ar": "مبارك الكبير"
+      }
+    }
+  ],
+  "areas": [
+    {
+      "id": "sharq",
+      "governorateId": "capital",
+      "name": {
+        "en": "Sharq",
+        "ar": "شرق"
+      },
+      "geo": {
+        "lat": 29.383,
+        "lng": 47.993
+      }
+    },
+    {
+      "id": "bneid-al-qar",
+      "governorateId": "capital",
+      "name": {
+        "en": "Bneid Al-Qar",
+        "ar": "بنيد القار"
+      },
+      "geo": {
+        "lat": 29.3975,
+        "lng": 48.001
+      }
+    },
+    {
+      "id": "shuwaikh",
+      "governorateId": "capital",
+      "name": {
+        "en": "Shuwaikh",
+        "ar": "الشويخ"
+      },
+      "geo": {
+        "lat": 29.35,
+        "lng": 47.938
+      }
+    },
+    {
+      "id": "dasma",
+      "governorateId": "capital",
+      "name": {
+        "en": "Dasma",
+        "ar": "الدسمة"
+      },
+      "geo": {
+        "lat": 29.369,
+        "lng": 47.998
+      }
+    },
+    {
+      "id": "kaifan",
+      "governorateId": "capital",
+      "name": {
+        "en": "Kaifan",
+        "ar": "كيفان"
+      },
+      "geo": {
+        "lat": 29.355,
+        "lng": 47.963
+      }
+    },
+    {
+      "id": "shamiya",
+      "governorateId": "capital",
+      "name": {
+        "en": "Shamiya",
+        "ar": "الشامية"
+      },
+      "geo": {
+        "lat": 29.3648,
+        "lng": 47.9665
+      }
+    },
+    {
+      "id": "rawda",
+      "governorateId": "capital",
+      "name": {
+        "en": "Rawda",
+        "ar": "الروضة"
+      },
+      "geo": {
+        "lat": 29.334,
+        "lng": 47.9945
+      }
+    },
+    {
+      "id": "adailiya",
+      "governorateId": "capital",
+      "name": {
+        "en": "Adailiya",
+        "ar": "العديلية"
+      },
+      "geo": {
+        "lat": 29.34,
+        "lng": 47.968
+      }
+    },
+    {
+      "id": "qadsiya",
+      "governorateId": "capital",
+      "name": {
+        "en": "Qadsiya",
+        "ar": "القادسية"
+      },
+      "geo": {
+        "lat": 29.35,
+        "lng": 47.9715
+      }
+    },
+    {
+      "id": "mansouriya",
+      "governorateId": "capital",
+      "name": {
+        "en": "Mansouriya",
+        "ar": "المنصورية"
+      },
+      "geo": {
+        "lat": 29.359,
+        "lng": 47.989
+      }
+    },
+    {
+      "id": "surra",
+      "governorateId": "capital",
+      "name": {
+        "en": "Surra",
+        "ar": "السرة"
+      },
+      "geo": {
+        "lat": 29.317,
+        "lng": 47.995
+      }
+    },
+    {
+      "id": "yarmouk",
+      "governorateId": "capital",
+      "name": {
+        "en": "Yarmouk",
+        "ar": "اليرموك"
+      },
+      "geo": {
+        "lat": 29.306,
+        "lng": 47.965
+      }
+    },
+    {
+      "id": "sulaibikhat",
+      "governorateId": "capital",
+      "name": {
+        "en": "Sulaibikhat",
+        "ar": "الصليبيخات"
+      },
+      "geo": {
+        "lat": 29.349,
+        "lng": 47.9
+      }
+    },
+    {
+      "id": "abdullah-al-salem",
+      "governorateId": "capital",
+      "name": {
+        "en": "Abdullah Al-Salem",
+        "ar": "عبدالله السالم"
+      },
+      "geo": {
+        "lat": 29.352,
+        "lng": 47.99
+      }
+    },
+    {
+      "id": "doha",
+      "governorateId": "capital",
+      "name": {
+        "en": "Doha",
+        "ar": "الدوحة"
+      },
+      "geo": {
+        "lat": 29.3645,
+        "lng": 47.818
+      }
+    },
+    {
+      "id": "nuzha",
+      "governorateId": "capital",
+      "name": {
+        "en": "Nuzha",
+        "ar": "النزهة"
+      },
+      "geo": {
+        "lat": 29.349,
+        "lng": 47.978
+      }
+    },
+    {
+      "id": "daiya",
+      "governorateId": "capital",
+      "name": {
+        "en": "Daiya",
+        "ar": "الدعية"
+      },
+      "geo": {
+        "lat": 29.364,
+        "lng": 47.994
+      }
+    },
+    {
+      "id": "hawalli",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Hawalli",
+        "ar": "حولي"
+      },
+      "geo": {
+        "lat": 29.332,
+        "lng": 48.029
+      }
+    },
+    {
+      "id": "salmiya",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Salmiya",
+        "ar": "السالمية"
+      },
+      "geo": {
+        "lat": 29.334,
+        "lng": 48.076
+      }
+    },
+    {
+      "id": "jabriya",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Jabriya",
+        "ar": "الجابرية"
+      },
+      "geo": {
+        "lat": 29.317,
+        "lng": 48.031
+      }
+    },
+    {
+      "id": "bayan",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Bayan",
+        "ar": "بيان"
+      },
+      "geo": {
+        "lat": 29.3065,
+        "lng": 48.0435
+      }
+    },
+    {
+      "id": "mishref",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Mishref",
+        "ar": "مشرف"
+      },
+      "geo": {
+        "lat": 29.279,
+        "lng": 48.0525
+      }
+    },
+    {
+      "id": "rumaithiya",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Rumaithiya",
+        "ar": "الرميثية"
+      },
+      "geo": {
+        "lat": 29.325,
+        "lng": 48.06
+      }
+    },
+    {
+      "id": "salwa",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Salwa",
+        "ar": "سلوى"
+      },
+      "geo": {
+        "lat": 29.29,
+        "lng": 48.078
+      }
+    },
+    {
+      "id": "shaab",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Shaab",
+        "ar": "الشعب"
+      },
+      "geo": {
+        "lat": 29.351,
+        "lng": 48.039
+      }
+    },
+    {
+      "id": "salam",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Salam",
+        "ar": "السلام"
+      },
+      "geo": {
+        "lat": 29.334,
+        "lng": 48
+      }
+    },
+    {
+      "id": "hateen",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Hateen",
+        "ar": "حطين"
+      },
+      "geo": {
+        "lat": 29.305,
+        "lng": 48.005
+      }
+    },
+    {
+      "id": "zahra",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Zahra",
+        "ar": "الزهراء"
+      },
+      "geo": {
+        "lat": 29.32,
+        "lng": 48.025
+      }
+    },
+    {
+      "id": "siddeeq",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Siddeeq",
+        "ar": "الصديق"
+      },
+      "geo": {
+        "lat": 29.315,
+        "lng": 48.018
+      }
+    },
+    {
+      "id": "shuhada",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Shuhada",
+        "ar": "الشهداء"
+      },
+      "geo": {
+        "lat": 29.327,
+        "lng": 48.033
+      }
+    },
+    {
+      "id": "bidaa",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Bida’a",
+        "ar": "البدع"
+      },
+      "geo": {
+        "lat": 29.348,
+        "lng": 48.063
+      }
+    },
+    {
+      "id": "mubarak-al-abdullah",
+      "governorateId": "hawalli",
+      "name": {
+        "en": "Mubarak Al-Abdullah",
+        "ar": "مبارك العبدالله (غرب مشرف)"
+      },
+      "geo": {
+        "lat": 29.268,
+        "lng": 48.06
+      }
+    },
+    {
+      "id": "farwaniya",
+      "governorateId": "farwaniya",
+      "name": {
+        "en": "Farwaniya",
+        "ar": "الفروانية"
+      },
+      "geo": {
+        "lat": 29.278,
+        "lng": 47.958
+      }
+    },
+    {
+      "id": "khaitan",
+      "governorateId": "farwaniya",
+      "name": {
+        "en": "Khaitan",
+        "ar": "خيطان"
+      },
+      "geo": {
+        "lat": 29.283,
+        "lng": 47.982
+      }
+    },
+    {
+      "id": "jleeb-al-shuyoukh",
+      "governorateId": "farwaniya",
+      "name": {
+        "en": "Jleeb Al-Shuyoukh",
+        "ar": "جليب الشيوخ"
+      },
+      "geo": {
+        "lat": 29.262,
+        "lng": 47.934
+      }
+    },
+    {
+      "id": "ardiya",
+      "governorateId": "farwaniya",
+      "name": {
+        "en": "Ardiya",
+        "ar": "العارضية"
+      },
+      "geo": {
+        "lat": 29.34,
+        "lng": 47.88
+      }
+    },
+    {
+      "id": "andalus",
+      "governorateId": "farwaniya",
+      "name": {
+        "en": "Andalus",
+        "ar": "الأندلس"
+      },
+      "geo": {
+        "lat": 29.3,
+        "lng": 47.885
+      }
+    },
+    {
+      "id": "rabiya",
+      "governorateId": "farwaniya",
+      "name": {
+        "en": "Rabiya",
+        "ar": "الرابية"
+      },
+      "geo": {
+        "lat": 29.308,
+        "lng": 47.912
+      }
+    },
+    {
+      "id": "omariya",
+      "governorateId": "farwaniya",
+      "name": {
+        "en": "Omariya",
+        "ar": "العمرية"
+      },
+      "geo": {
+        "lat": 29.304,
+        "lng": 47.942
+      }
+    },
+    {
+      "id": "rehab",
+      "governorateId": "farwaniya",
+      "name": {
+        "en": "Rehab",
+        "ar": "الرحاب"
+      },
+      "geo": {
+        "lat": 29.264,
+        "lng": 47.983
+      }
+    },
+    {
+      "id": "sabah-al-nasser",
+      "governorateId": "farwaniya",
+      "name": {
+        "en": "Sabah Al-Nasser",
+        "ar": "صباح الناصر"
+      },
+      "geo": {
+        "lat": 29.248,
+        "lng": 47.953
+      }
+    },
+    {
+      "id": "ishbiliya",
+      "governorateId": "farwaniya",
+      "name": {
+        "en": "Ishbiliya",
+        "ar": "إشبيلية"
+      },
+      "geo": {
+        "lat": 29.244,
+        "lng": 47.945
+      }
+    },
+    {
+      "id": "ferdous",
+      "governorateId": "farwaniya",
+      "name": {
+        "en": "Ferdous",
+        "ar": "الفردوس"
+      },
+      "geo": {
+        "lat": 29.26,
+        "lng": 47.925
+      }
+    },
+    {
+      "id": "dajeej",
+      "governorateId": "farwaniya",
+      "name": {
+        "en": "Dajeej",
+        "ar": "الضجيج"
+      },
+      "geo": {
+        "lat": 29.28,
+        "lng": 47.92
+      }
+    },
+    {
+      "id": "abdullah-al-mubarak",
+      "governorateId": "farwaniya",
+      "name": {
+        "en": "Abdullah Al-Mubarak",
+        "ar": "عبدالله المبارك"
+      },
+      "geo": {
+        "lat": 29.247,
+        "lng": 47.899
+      }
+    },
+    {
+      "id": "al-rai",
+      "governorateId": "farwaniya",
+      "name": {
+        "en": "Al-Rai",
+        "ar": "الري"
+      },
+      "geo": {
+        "lat": 29.301,
+        "lng": 47.939
+      }
+    },
+    {
+      "id": "ahmadi",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Ahmadi",
+        "ar": "الأحمدي"
+      },
+      "geo": {
+        "lat": 29.077,
+        "lng": 48.083
+      }
+    },
+    {
+      "id": "fahaheel",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Fahaheel",
+        "ar": "الفحيحيل"
+      },
+      "geo": {
+        "lat": 29.083,
+        "lng": 48.13
+      }
+    },
+    {
+      "id": "mangaf",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Mangaf",
+        "ar": "المنقف"
+      },
+      "geo": {
+        "lat": 29.093,
+        "lng": 48.129
+      }
+    },
+    {
+      "id": "mahboula",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Mahboula",
+        "ar": "المهبولة"
+      },
+      "geo": {
+        "lat": 29.14,
+        "lng": 48.129
+      }
+    },
+    {
+      "id": "abu-halifa",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Abu Halifa",
+        "ar": "أبو حليفة"
+      },
+      "geo": {
+        "lat": 29.144,
+        "lng": 48.133
+      }
+    },
+    {
+      "id": "sabahiya",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Sabahiya",
+        "ar": "الصباحية"
+      },
+      "geo": {
+        "lat": 29.121,
+        "lng": 48.103
+      }
+    },
+    {
+      "id": "riqqa",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Riqqa",
+        "ar": "الرقة"
+      },
+      "geo": {
+        "lat": 29.133,
+        "lng": 48.095
+      }
+    },
+    {
+      "id": "fintas",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Fintas",
+        "ar": "الفنطاس"
+      },
+      "geo": {
+        "lat": 29.193,
+        "lng": 48.128
+      }
+    },
+    {
+      "id": "egaila",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Egaila",
+        "ar": "العقيلة"
+      },
+      "geo": {
+        "lat": 29.166,
+        "lng": 48.134
+      }
+    },
+    {
+      "id": "hadiya",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Hadiya",
+        "ar": "هدية"
+      },
+      "geo": {
+        "lat": 29.057,
+        "lng": 48.07
+      }
+    },
+    {
+      "id": "dhaher",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Dhaher",
+        "ar": "الظهر"
+      },
+      "geo": {
+        "lat": 29.099,
+        "lng": 48.075
+      }
+    },
+    {
+      "id": "wafra",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Wafra",
+        "ar": "الوفرة"
+      },
+      "geo": {
+        "lat": 28.635,
+        "lng": 47.933
+      }
+    },
+    {
+      "id": "zour",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Zour",
+        "ar": "الزور"
+      },
+      "geo": {
+        "lat": 28.715,
+        "lng": 48.29
+      }
+    },
+    {
+      "id": "khiran",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Khiran",
+        "ar": "الخيران"
+      },
+      "geo": {
+        "lat": 28.67,
+        "lng": 48.34
+      }
+    },
+    {
+      "id": "sabah-al-ahmad-sea-city",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Sabah Al-Ahmad Sea City",
+        "ar": "مدينة صباح الأحمد البحرية"
+      },
+      "geo": {
+        "lat": 28.716,
+        "lng": 48.256
+      }
+    },
+    {
+      "id": "ali-sabah-al-salem",
+      "governorateId": "ahmadi",
+      "name": {
+        "en": "Ali Sabah Al-Salem",
+        "ar": "علي صباح السالم"
+      },
+      "geo": {
+        "lat": 28.901,
+        "lng": 48.011
+      }
+    },
+    {
+      "id": "jahra",
+      "governorateId": "jahra",
+      "name": {
+        "en": "Jahra",
+        "ar": "الجهراء"
+      },
+      "geo": {
+        "lat": 29.338,
+        "lng": 47.674
+      }
+    },
+    {
+      "id": "qasr",
+      "governorateId": "jahra",
+      "name": {
+        "en": "Qasr",
+        "ar": "القصر"
+      },
+      "geo": {
+        "lat": 29.356,
+        "lng": 47.755
+      }
+    },
+    {
+      "id": "naeem",
+      "governorateId": "jahra",
+      "name": {
+        "en": "Naeem",
+        "ar": "النعيم"
+      },
+      "geo": {
+        "lat": 29.352,
+        "lng": 47.705
+      }
+    },
+    {
+      "id": "oyoun",
+      "governorateId": "jahra",
+      "name": {
+        "en": "Oyoun",
+        "ar": "العيون"
+      },
+      "geo": {
+        "lat": 29.345,
+        "lng": 47.685
+      }
+    },
+    {
+      "id": "waha",
+      "governorateId": "jahra",
+      "name": {
+        "en": "Waha",
+        "ar": "الواحة"
+      },
+      "geo": {
+        "lat": 29.361,
+        "lng": 47.7
+      }
+    },
+    {
+      "id": "taima",
+      "governorateId": "jahra",
+      "name": {
+        "en": "Taima",
+        "ar": "تيماء"
+      },
+      "geo": {
+        "lat": 29.376,
+        "lng": 47.726
+      }
+    },
+    {
+      "id": "saad-al-abdullah",
+      "governorateId": "jahra",
+      "name": {
+        "en": "Saad Al-Abdullah",
+        "ar": "سعد العبدالله"
+      },
+      "geo": {
+        "lat": 29.405,
+        "lng": 47.7
+      }
+    },
+    {
+      "id": "nasseem",
+      "governorateId": "jahra",
+      "name": {
+        "en": "Nasseem",
+        "ar": "النسيم"
+      },
+      "geo": {
+        "lat": 29.415,
+        "lng": 47.685
+      }
+    },
+    {
+      "id": "sulaibiya",
+      "governorateId": "jahra",
+      "name": {
+        "en": "Sulaibiya",
+        "ar": "الصليبية"
+      },
+      "geo": {
+        "lat": 29.243,
+        "lng": 47.8
+      }
+    },
+    {
+      "id": "kazma",
+      "governorateId": "jahra",
+      "name": {
+        "en": "Kazma",
+        "ar": "كاظمة"
+      },
+      "geo": {
+        "lat": 29.5,
+        "lng": 47.76
+      }
+    },
+    {
+      "id": "abdali",
+      "governorateId": "jahra",
+      "name": {
+        "en": "Abdali",
+        "ar": "العبدلي"
+      },
+      "geo": {
+        "lat": 30.02,
+        "lng": 47.75
+      }
+    },
+    {
+      "id": "mubarak-al-kabeer",
+      "governorateId": "mubarak-al-kabeer",
+      "name": {
+        "en": "Mubarak Al-Kabeer",
+        "ar": "مبارك الكبير"
+      },
+      "geo": {
+        "lat": 29.206,
+        "lng": 48.06
+      }
+    },
+    {
+      "id": "qurain",
+      "governorateId": "mubarak-al-kabeer",
+      "name": {
+        "en": "Qurain",
+        "ar": "القرين"
+      },
+      "geo": {
+        "lat": 29.241,
+        "lng": 48.064
+      }
+    },
+    {
+      "id": "adan",
+      "governorateId": "mubarak-al-kabeer",
+      "name": {
+        "en": "Adan",
+        "ar": "العدان"
+      },
+      "geo": {
+        "lat": 29.225,
+        "lng": 48.062
+      }
+    },
+    {
+      "id": "qusour",
+      "governorateId": "mubarak-al-kabeer",
+      "name": {
+        "en": "Qusour",
+        "ar": "القصور"
+      },
+      "geo": {
+        "lat": 29.229,
+        "lng": 48.072
+      }
+    },
+    {
+      "id": "messila",
+      "governorateId": "mubarak-al-kabeer",
+      "name": {
+        "en": "Messila",
+        "ar": "المسيلة"
+      },
+      "geo": {
+        "lat": 29.262,
+        "lng": 48.083
+      }
+    },
+    {
+      "id": "sabah-al-salem",
+      "governorateId": "mubarak-al-kabeer",
+      "name": {
+        "en": "Sabah Al-Salem",
+        "ar": "صباح السالم"
+      },
+      "geo": {
+        "lat": 29.249,
+        "lng": 48.06
+      }
+    },
+    {
+      "id": "abu-fatira",
+      "governorateId": "mubarak-al-kabeer",
+      "name": {
+        "en": "Abu Fatira",
+        "ar": "أبو فطيرة"
+      },
+      "geo": {
+        "lat": 29.22,
+        "lng": 48.07
+      }
+    },
+    {
+      "id": "abu-al-hasaniya",
+      "governorateId": "mubarak-al-kabeer",
+      "name": {
+        "en": "Abu Al-Hasaniya",
+        "ar": "أبو الحصانية"
+      },
+      "geo": {
+        "lat": 29.199,
+        "lng": 48.065
+      }
+    },
+    {
+      "id": "funaitees",
+      "governorateId": "mubarak-al-kabeer",
+      "name": {
+        "en": "Funaitees",
+        "ar": "الفنيطيس"
+      },
+      "geo": {
+        "lat": 29.185,
+        "lng": 48.1
+      }
+    },
+    {
+      "id": "masayel",
+      "governorateId": "mubarak-al-kabeer",
+      "name": {
+        "en": "Masayel",
+        "ar": "المسايل"
+      },
+      "geo": {
+        "lat": 29.254,
+        "lng": 48.07
+      }
+    }
+  ],
+  "referencePoints": [
+    {
+      "id": "ref-salmiya",
+      "name": {
+        "en": "Salmiya",
+        "ar": "السالمية"
+      },
+      "areaId": "salmiya",
+      "geo": {
+        "lat": 29.334,
+        "lng": 48.076
+      }
+    },
+    {
+      "id": "ref-sharq",
+      "name": {
+        "en": "Sharq",
+        "ar": "شرق"
+      },
+      "areaId": "sharq",
+      "geo": {
+        "lat": 29.383,
+        "lng": 47.993
+      }
+    },
+    {
+      "id": "ref-hawalli",
+      "name": {
+        "en": "Hawalli",
+        "ar": "حولي"
+      },
+      "areaId": "hawalli",
+      "geo": {
+        "lat": 29.332,
+        "lng": 48.029
+      }
+    },
+    {
+      "id": "ref-farwaniya",
+      "name": {
+        "en": "Farwaniya",
+        "ar": "الفروانية"
+      },
+      "areaId": "farwaniya",
+      "geo": {
+        "lat": 29.278,
+        "lng": 47.958
+      }
+    },
+    {
+      "id": "ref-jahra",
+      "name": {
+        "en": "Jahra",
+        "ar": "الجهراء"
+      },
+      "areaId": "jahra",
+      "geo": {
+        "lat": 29.338,
+        "lng": 47.674
+      }
+    },
+    {
+      "id": "ref-fahaheel",
+      "name": {
+        "en": "Fahaheel",
+        "ar": "الفحيحيل"
+      },
+      "areaId": "fahaheel",
+      "geo": {
+        "lat": 29.083,
+        "lng": 48.13
+      }
+    },
+    {
+      "id": "ref-airport",
+      "name": {
+        "en": "Kuwait International Airport",
+        "ar": "مطار الكويت الدولي"
+      },
+      "areaId": null,
+      "geo": {
+        "lat": 29.2266,
+        "lng": 47.9689
+      }
+    }
+  ]
+}

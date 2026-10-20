@@ -1,0 +1,7 @@
+{
+  "__PREFIX__ExampleTitle": "Screen title",
+  "__PREFIX__ExamplePrimaryCta": "Continue",
+  "__PREFIX__ExampleGuestsHeading": "{count, plural, =0{No guests} one{# guest} other{# guests}}",
+  "__PREFIX__ExamplePolicyNote": "Read the <link>cancellation policy</link> before you continue.",
+  "__PREFIX__ExampleDeadline": "Pay by {deadline}"
+}

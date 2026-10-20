@@ -1,0 +1,17 @@
+{
+  "hotelShellTabBarLabel": "التنقل الرئيسي",
+  "hotelShellTabToday": "اليوم",
+  "hotelShellTabBookings": "الحجوزات",
+  "hotelShellTabCalendar": "التقويم",
+  "hotelShellTabMessages": "الرسائل",
+  "hotelShellTabMore": "المزيد",
+  "hotelShellBadgePending": "{count, plural, =0{لا طلبات بانتظار ردكم} =1{طلب واحد بانتظار ردكم} =2{طلبان بانتظار ردكم} few{# طلبات بانتظار ردكم} many{# طلبًا بانتظار ردكم} other{# طلب بانتظار ردكم}}",
+  "hotelShellBadgeOverflow": "{max, number}+",
+  "hotelShellBannerNewRequest": "طلب حجز جديد",
+  "hotelShellGreeting": "أهلًا وسهلًا، {name}",
+  "hotelShellTodayNeedsReply": "{count, plural, =0{لا طلبات بانتظار ردكم} =1{طلب واحد بانتظار ردكم} =2{طلبان بانتظار ردكم} few{# طلبات بانتظار ردكم} many{# طلبًا بانتظار ردكم} other{# طلب بانتظار ردكم}}",
+  "hotelShellTodayFirstIn": "أقربها خلال {time}",
+  "hotelShellTodayAllClear": "لا شيء بانتظار ردكم",
+  "hotelShellNeedsYouTitle": "بحاجة إلى اهتمامكم",
+  "hotelShellOfflineBanner": "لا يوجد اتصال بالإنترنت. يتم عرض آخر ما تم تحميله."
+}

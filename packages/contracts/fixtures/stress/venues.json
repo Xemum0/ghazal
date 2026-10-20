@@ -1,0 +1,1668 @@
+{
+  "venues": [
+    {
+      "id": "S01",
+      "slug": "stress-long-name-regency",
+      "name": {
+        "en": "Al-Khaleej Grand International Palace Regency Hotel and Conference Centre",
+        "ar": "فندق قصر الخليج الكبير للمؤتمرات والأفراح الدولي Regency Hotel"
+      },
+      "type": "hotel",
+      "style": "hotel",
+      "tier": "prestige",
+      "stars": 5,
+      "channel": "ghazal_voucher",
+      "status": "published",
+      "partnerAccountId": "partner-S01",
+      "major": false,
+      "governorateId": "capital",
+      "areaId": "dasma",
+      "address": {
+        "block": "12",
+        "street": {
+          "en": "King’s Crossing Avenue, Convention District",
+          "ar": "جادة ملتقى القاعات، حي المؤتمرات"
+        }
+      },
+      "geo": {
+        "lat": 29.369,
+        "lng": 47.998
+      },
+      "tagline": {
+        "en": "A very long name that must wrap to two lines and then truncate",
+        "ar": "اسم طويل جدًا يجب أن يلتف إلى سطرين ثم يُقتطع"
+      },
+      "description": {
+        "en": "Stress fixture: long names, a 1,500-guest hall and extreme prices.",
+        "ar": "بيانات اختبار: أسماء طويلة وقاعة تتسع 1,500 ضيف وأسعار متطرفة."
+      },
+      "phone": "+96550000090",
+      "cover": {
+        "file": "ballrooms/ballrooms-13-gold-arabesque-grand-hall.jpg",
+        "width": 1800,
+        "height": 1140,
+        "orientation": "landscape",
+        "alt": {
+          "en": "Monumental Arabian-style grand hall with a gold arabesque ceiling, crystal chandeliers and long rows of seating along a patterned carpet",
+          "ar": "قاعة كبرى بطراز عربي بسقف ذهبي مزخرف بالأرابيسك وثريات كريستال وصفوف مقاعد طويلة على سجادة منقوشة"
+        }
+      },
+      "gallery": [
+        {
+          "file": "ballrooms/ballrooms-13-gold-arabesque-grand-hall.jpg",
+          "width": 1800,
+          "height": 1140,
+          "orientation": "landscape",
+          "alt": {
+            "en": "Al-Khaleej Grand International Palace Regency Hotel and Conference Centre, Hall: monumental Arabian-style grand hall with a gold arabesque ceiling, crystal chandeliers and long rows of seating along a patterned carpet",
+            "ar": "فندق قصر الخليج الكبير للمؤتمرات والأفراح الدولي Regency Hotel، القاعة: قاعة كبرى بطراز عربي بسقف ذهبي مزخرف بالأرابيسك وثريات كريستال وصفوف مقاعد طويلة على سجادة منقوشة"
+          },
+          "zone": "hall",
+          "hallId": "S01-expo"
+        }
+      ],
+      "hasVideo": false,
+      "halls": [
+        {
+          "id": "S01-expo",
+          "venueId": "S01",
+          "name": {
+            "en": "The Grand International Exhibition and Ballroom Hall",
+            "ar": "قاعة المعارض والاحتفالات الدولية الكبرى"
+          },
+          "setting": "indoor",
+          "capacity": {
+            "min": 300,
+            "max": 1500
+          },
+          "exclusiveDay": true,
+          "sessions": [
+            {
+              "id": "S01-expo-evening",
+              "name": {
+                "en": "Evening",
+                "ar": "الفترة المسائية"
+              },
+              "start": "19:00",
+              "end": "01:00",
+              "bufferBeforeMin": 300,
+              "bufferAfterMin": 120,
+              "weekdays": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "sections": [
+            {
+              "audience": "women",
+              "minGuests": 300,
+              "maxGuests": 1500,
+              "policy": {
+                "photography": "female_only",
+                "music": "dj_or_band",
+                "abayaCloakroom": true,
+                "prayerRoom": true,
+                "separateEntrance": true,
+                "femaleSecurity": true,
+                "boysMaxAge": 8,
+                "outsideCatering": "not_allowed",
+                "outsideDecor": "with_approval",
+                "bukhoor": "allowed",
+                "cutOff": "02:00",
+                "extraHour": {
+                  "fils": 450000,
+                  "currency": "KWD"
+                },
+                "indoorBackup": false
+              }
+            },
+            {
+              "audience": "men",
+              "minGuests": 300,
+              "maxGuests": 1500,
+              "policy": {
+                "photography": "allowed",
+                "music": "duff_only",
+                "abayaCloakroom": false,
+                "prayerRoom": true,
+                "separateEntrance": true,
+                "femaleSecurity": false,
+                "boysMaxAge": null,
+                "outsideCatering": "not_allowed",
+                "outsideDecor": "with_approval",
+                "bukhoor": "allowed",
+                "cutOff": "01:00",
+                "extraHour": {
+                  "fils": 450000,
+                  "currency": "KWD"
+                },
+                "indoorBackup": false
+              }
+            }
+          ],
+          "seasonMonths": null,
+          "description": {
+            "en": "Stress: capacity 1,500.",
+            "ar": "اختبار: سعة 1,500."
+          },
+          "cover": {
+            "file": "ballrooms/ballrooms-13-gold-arabesque-grand-hall.jpg",
+            "width": 1800,
+            "height": 1140,
+            "orientation": "landscape",
+            "alt": {
+              "en": "Monumental Arabian-style grand hall with a gold arabesque ceiling, crystal chandeliers and long rows of seating along a patterned carpet",
+              "ar": "قاعة كبرى بطراز عربي بسقف ذهبي مزخرف بالأرابيسك وثريات كريستال وصفوف مقاعد طويلة على سجادة منقوشة"
+            }
+          }
+        }
+      ],
+      "amenities": [
+        {
+          "amenityId": "valet",
+          "state": "included"
+        },
+        {
+          "amenityId": "parking",
+          "state": "included"
+        },
+        {
+          "amenityId": "bridal-suite",
+          "state": "included"
+        },
+        {
+          "amenityId": "groom-room",
+          "state": "extra",
+          "from": {
+            "fils": 250000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "buffet",
+          "state": "included"
+        },
+        {
+          "amenityId": "welcome-drinks",
+          "state": "included"
+        },
+        {
+          "amenityId": "gahwa-tea",
+          "state": "included"
+        },
+        {
+          "amenityId": "show-cake",
+          "state": "included",
+          "audience": "women"
+        },
+        {
+          "amenityId": "suite-night",
+          "state": "included",
+          "audience": "women"
+        },
+        {
+          "amenityId": "prayer-room",
+          "state": "included"
+        },
+        {
+          "amenityId": "abaya-cloakroom",
+          "state": "included",
+          "audience": "women"
+        },
+        {
+          "amenityId": "separate-entrance",
+          "state": "included",
+          "audience": "women"
+        },
+        {
+          "amenityId": "female-security",
+          "state": "included",
+          "audience": "women"
+        },
+        {
+          "amenityId": "sound-lighting",
+          "state": "included"
+        },
+        {
+          "amenityId": "basic-decor",
+          "state": "included"
+        },
+        {
+          "amenityId": "kosha",
+          "state": "extra",
+          "from": {
+            "fils": 1800000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "florals",
+          "state": "extra",
+          "from": {
+            "fils": 900000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "led-screens",
+          "state": "extra",
+          "from": {
+            "fils": 350000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "female-photographer",
+          "state": "extra",
+          "from": {
+            "fils": 450000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "zaffa",
+          "state": "extra",
+          "from": {
+            "fils": 350000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "bukhoor-service",
+          "state": "included"
+        },
+        {
+          "amenityId": "accessibility",
+          "state": "included"
+        },
+        {
+          "amenityId": "kids-corner",
+          "state": "extra",
+          "from": {
+            "fils": 200000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "outside-catering",
+          "state": "not_offered"
+        },
+        {
+          "amenityId": "outside-decor",
+          "state": "extra"
+        }
+      ],
+      "hours": {
+        "rules": [
+          {
+            "days": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "open": "09:00",
+            "close": "22:00"
+          },
+          {
+            "days": [
+              5,
+              6
+            ],
+            "open": "16:00",
+            "close": "01:00"
+          }
+        ],
+        "closures": []
+      },
+      "policies": {
+        "children": {
+          "women": {
+            "en": "Boys up to 8 years may attend",
+            "ar": "يُسمح بحضور الأولاد حتى عمر 8 سنوات"
+          },
+          "men": {
+            "en": "No age limit",
+            "ar": "لا يوجد حد للعمر"
+          }
+        },
+        "dressCode": {
+          "en": "Formal, modest dress",
+          "ar": "لباس رسمي محتشم"
+        },
+        "terms": {
+          "en": "Payment, schedule and any changes are agreed directly between you and the venue. Show your voucher code or QR at the venue to receive the voucher price.",
+          "ar": "يتم الاتفاق على الدفع والمواعيد وأي تعديل مباشرة بينكم وبين القاعة. أظهروا رمز الكوبون أو الـ QR في القاعة للحصول على سعر الكوبون."
+        },
+        "responseSlaHours": 24,
+        "serviceChargeBps": 0
+      },
+      "faq": [
+        {
+          "id": "S01-faq-how",
+          "question": {
+            "en": "How does booking work?",
+            "ar": "كيف يتم الحجز؟"
+          },
+          "answer": {
+            "en": "You get a voucher for KD 2 and send a request at the voucher price. The venue replies, and if it approves, the date is held for you for 24 hours while you confirm. You settle with the venue directly.",
+            "ar": "تحصلون على كوبون بـ 2 د.ك وترسلون طلبًا بسعر الكوبون. ترد القاعة، وعند الموافقة يُحجز التاريخ لكم 24 ساعة لتأكيد الحجز. وتسدّدون للقاعة مباشرة."
+          }
+        },
+        {
+          "id": "S01-faq-visit",
+          "question": {
+            "en": "Can we visit the hall before booking?",
+            "ar": "هل يمكن زيارة القاعة قبل الحجز؟"
+          },
+          "answer": {
+            "en": "Yes. Book a visit from this page: a chat opens with the venue and Ghazal support to confirm your arrival. No voucher is needed.",
+            "ar": "نعم. احجزوا زيارة من هذه الصفحة وتُفتح محادثة مع القاعة ودعم غزل لتأكيد وصولكم. لا حاجة إلى كوبون."
+          }
+        },
+        {
+          "id": "S01-faq-children",
+          "question": {
+            "en": "Are children allowed?",
+            "ar": "هل يُسمح بحضور الأطفال؟"
+          },
+          "answer": {
+            "en": "Children rules are listed per hall under Hall rules. Ladies’ receptions follow the boys’ age rule shown there.",
+            "ar": "تظهر قواعد الأطفال لكل قاعة ضمن قواعد القاعة. تتبع الحفلات النسائية الحد العمري للأولاد المذكور هناك."
+          }
+        },
+        {
+          "id": "S01-faq-parking",
+          "question": {
+            "en": "What is the parking and arrival like?",
+            "ar": "كيف هي المواقف والوصول؟"
+          },
+          "answer": {
+            "en": "Parking and valet details are listed under Facilities. A separate entrance for the ladies’ hall is shown where it is offered.",
+            "ar": "تفاصيل المواقف والفاليه ضمن المرافق. ويظهر المدخل المنفصل للقاعة النسائية حيثما يتوفر."
+          }
+        },
+        {
+          "id": "S01-faq-cut-off",
+          "question": {
+            "en": "What time does the event end?",
+            "ar": "متى ينتهي الحفل؟"
+          },
+          "answer": {
+            "en": "Each hall has a cut-off time, shown under Hall rules, with the price of an extra hour.",
+            "ar": "لكل قاعة وقت انتهاء ظاهر ضمن قواعد القاعة، مع سعر الساعة الإضافية."
+          }
+        }
+      ],
+      "rating": {
+        "average": 4,
+        "count": 12,
+        "categories": {
+          "venue": 4,
+          "food": 4,
+          "service": 4,
+          "value": 4
+        }
+      },
+      "distances": {
+        "ref-salmiya": {
+          "km": 11,
+          "minutes": 16
+        },
+        "ref-sharq": {
+          "km": 2,
+          "minutes": 3
+        },
+        "ref-hawalli": {
+          "km": 7,
+          "minutes": 10
+        },
+        "ref-farwaniya": {
+          "km": 14,
+          "minutes": 18
+        },
+        "ref-jahra": {
+          "km": 41,
+          "minutes": 35
+        },
+        "ref-fahaheel": {
+          "km": 45,
+          "minutes": 37
+        },
+        "ref-airport": {
+          "km": 21,
+          "minutes": 22
+        }
+      },
+      "officialFees": null,
+      "response": null,
+      "voucherEnabled": true,
+      "visitSlots": [
+        {
+          "days": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "from": "10:00",
+          "to": "20:00",
+          "slotMinutes": 30
+        },
+        {
+          "days": [
+            5,
+            6
+          ],
+          "from": "16:00",
+          "to": "21:00",
+          "slotMinutes": 30
+        }
+      ],
+      "flags": {
+        "featured": false,
+        "sponsored": false,
+        "isNew": false
+      },
+      "demand": 1,
+      "languages": [
+        "ar",
+        "en"
+      ]
+    },
+    {
+      "id": "S02",
+      "slug": "stress-no-photos",
+      "name": {
+        "en": "Hall Without Photos",
+        "ar": "قاعة بلا صور بعد"
+      },
+      "type": "private-hall",
+      "style": "hall",
+      "tier": "classic",
+      "stars": null,
+      "channel": "ghazal_voucher",
+      "status": "published",
+      "partnerAccountId": "partner-S02",
+      "major": false,
+      "governorateId": "farwaniya",
+      "areaId": "farwaniya",
+      "address": {
+        "block": "1",
+        "street": {
+          "en": "Test Street",
+          "ar": "شارع التجربة"
+        }
+      },
+      "geo": {
+        "lat": 29.278,
+        "lng": 47.958
+      },
+      "tagline": {
+        "en": "Photos coming soon",
+        "ar": "الصور قريبًا"
+      },
+      "description": {
+        "en": "Stress fixture: a venue with no photos.",
+        "ar": "بيانات اختبار: قاعة بلا صور."
+      },
+      "phone": "+96550000091",
+      "cover": null,
+      "gallery": [],
+      "hasVideo": false,
+      "halls": [
+        {
+          "id": "S02-hall",
+          "venueId": "S02",
+          "name": {
+            "en": "Main Hall",
+            "ar": "القاعة الرئيسية"
+          },
+          "setting": "indoor",
+          "capacity": {
+            "min": 100,
+            "max": 200
+          },
+          "exclusiveDay": true,
+          "sessions": [
+            {
+              "id": "S02-hall-evening",
+              "name": {
+                "en": "Evening",
+                "ar": "الفترة المسائية"
+              },
+              "start": "19:00",
+              "end": "01:00",
+              "bufferBeforeMin": 240,
+              "bufferAfterMin": 120,
+              "weekdays": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "sections": [
+            {
+              "audience": "women",
+              "minGuests": 100,
+              "maxGuests": 200,
+              "policy": {
+                "photography": "female_only",
+                "music": "dj_or_band",
+                "abayaCloakroom": true,
+                "prayerRoom": true,
+                "separateEntrance": true,
+                "femaleSecurity": true,
+                "boysMaxAge": 8,
+                "outsideCatering": "not_allowed",
+                "outsideDecor": "with_approval",
+                "bukhoor": "allowed",
+                "cutOff": "02:00",
+                "extraHour": {
+                  "fils": 450000,
+                  "currency": "KWD"
+                },
+                "indoorBackup": false
+              }
+            },
+            {
+              "audience": "men",
+              "minGuests": 100,
+              "maxGuests": 200,
+              "policy": {
+                "photography": "allowed",
+                "music": "duff_only",
+                "abayaCloakroom": false,
+                "prayerRoom": true,
+                "separateEntrance": true,
+                "femaleSecurity": false,
+                "boysMaxAge": null,
+                "outsideCatering": "not_allowed",
+                "outsideDecor": "with_approval",
+                "bukhoor": "allowed",
+                "cutOff": "01:00",
+                "extraHour": {
+                  "fils": 450000,
+                  "currency": "KWD"
+                },
+                "indoorBackup": false
+              }
+            }
+          ],
+          "seasonMonths": null,
+          "description": {
+            "en": "No photos.",
+            "ar": "بلا صور."
+          },
+          "cover": null
+        }
+      ],
+      "amenities": [
+        {
+          "amenityId": "valet",
+          "state": "extra",
+          "from": {
+            "fils": 150000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "parking",
+          "state": "included"
+        },
+        {
+          "amenityId": "bridal-suite",
+          "state": "included"
+        },
+        {
+          "amenityId": "groom-room",
+          "state": "included"
+        },
+        {
+          "amenityId": "buffet",
+          "state": "extra",
+          "from": {
+            "fils": 15000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "welcome-drinks",
+          "state": "extra",
+          "from": {
+            "fils": 2000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "gahwa-tea",
+          "state": "included"
+        },
+        {
+          "amenityId": "prayer-room",
+          "state": "included"
+        },
+        {
+          "amenityId": "abaya-cloakroom",
+          "state": "included",
+          "audience": "women"
+        },
+        {
+          "amenityId": "separate-entrance",
+          "state": "included"
+        },
+        {
+          "amenityId": "sound-lighting",
+          "state": "included"
+        },
+        {
+          "amenityId": "basic-decor",
+          "state": "included"
+        },
+        {
+          "amenityId": "kosha",
+          "state": "extra",
+          "from": {
+            "fils": 900000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "florals",
+          "state": "extra",
+          "from": {
+            "fils": 450000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "led-screens",
+          "state": "extra",
+          "from": {
+            "fils": 350000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "female-photographer",
+          "state": "extra",
+          "from": {
+            "fils": 450000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "zaffa",
+          "state": "extra",
+          "from": {
+            "fils": 350000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "accessibility",
+          "state": "included"
+        },
+        {
+          "amenityId": "outside-catering",
+          "state": "extra"
+        },
+        {
+          "amenityId": "outside-decor",
+          "state": "included"
+        }
+      ],
+      "hours": {
+        "rules": [
+          {
+            "days": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "open": "10:00",
+            "close": "22:00"
+          },
+          {
+            "days": [
+              5,
+              6
+            ],
+            "open": "16:00",
+            "close": "01:00"
+          }
+        ],
+        "closures": []
+      },
+      "policies": {
+        "children": {
+          "women": {
+            "en": "Boys up to 8 years may attend",
+            "ar": "يُسمح بحضور الأولاد حتى عمر 8 سنوات"
+          },
+          "men": {
+            "en": "No age limit",
+            "ar": "لا يوجد حد للعمر"
+          }
+        },
+        "dressCode": {
+          "en": "Formal, modest dress",
+          "ar": "لباس رسمي محتشم"
+        },
+        "terms": {
+          "en": "Payment, schedule and any changes are agreed directly between you and the venue. Show your voucher code or QR at the venue to receive the voucher price.",
+          "ar": "يتم الاتفاق على الدفع والمواعيد وأي تعديل مباشرة بينكم وبين القاعة. أظهروا رمز الكوبون أو الـ QR في القاعة للحصول على سعر الكوبون."
+        },
+        "responseSlaHours": 24,
+        "serviceChargeBps": 0
+      },
+      "faq": [
+        {
+          "id": "S02-faq-how",
+          "question": {
+            "en": "How does booking work?",
+            "ar": "كيف يتم الحجز؟"
+          },
+          "answer": {
+            "en": "You get a voucher for KD 2 and send a request at the voucher price. The venue replies, and if it approves, the date is held for you for 24 hours while you confirm. You settle with the venue directly.",
+            "ar": "تحصلون على كوبون بـ 2 د.ك وترسلون طلبًا بسعر الكوبون. ترد القاعة، وعند الموافقة يُحجز التاريخ لكم 24 ساعة لتأكيد الحجز. وتسدّدون للقاعة مباشرة."
+          }
+        },
+        {
+          "id": "S02-faq-visit",
+          "question": {
+            "en": "Can we visit the hall before booking?",
+            "ar": "هل يمكن زيارة القاعة قبل الحجز؟"
+          },
+          "answer": {
+            "en": "Yes. Book a visit from this page: a chat opens with the venue and Ghazal support to confirm your arrival. No voucher is needed.",
+            "ar": "نعم. احجزوا زيارة من هذه الصفحة وتُفتح محادثة مع القاعة ودعم غزل لتأكيد وصولكم. لا حاجة إلى كوبون."
+          }
+        },
+        {
+          "id": "S02-faq-children",
+          "question": {
+            "en": "Are children allowed?",
+            "ar": "هل يُسمح بحضور الأطفال؟"
+          },
+          "answer": {
+            "en": "Children rules are listed per hall under Hall rules. Ladies’ receptions follow the boys’ age rule shown there.",
+            "ar": "تظهر قواعد الأطفال لكل قاعة ضمن قواعد القاعة. تتبع الحفلات النسائية الحد العمري للأولاد المذكور هناك."
+          }
+        },
+        {
+          "id": "S02-faq-parking",
+          "question": {
+            "en": "What is the parking and arrival like?",
+            "ar": "كيف هي المواقف والوصول؟"
+          },
+          "answer": {
+            "en": "Parking and valet details are listed under Facilities. A separate entrance for the ladies’ hall is shown where it is offered.",
+            "ar": "تفاصيل المواقف والفاليه ضمن المرافق. ويظهر المدخل المنفصل للقاعة النسائية حيثما يتوفر."
+          }
+        },
+        {
+          "id": "S02-faq-cut-off",
+          "question": {
+            "en": "What time does the event end?",
+            "ar": "متى ينتهي الحفل؟"
+          },
+          "answer": {
+            "en": "Each hall has a cut-off time, shown under Hall rules, with the price of an extra hour.",
+            "ar": "لكل قاعة وقت انتهاء ظاهر ضمن قواعد القاعة، مع سعر الساعة الإضافية."
+          }
+        }
+      ],
+      "rating": {
+        "average": 4.2,
+        "count": 8,
+        "categories": {
+          "venue": 4.2,
+          "food": 4.2,
+          "service": 4.2,
+          "value": 4.2
+        }
+      },
+      "distances": {
+        "ref-salmiya": {
+          "km": 17,
+          "minutes": 20
+        },
+        "ref-sharq": {
+          "km": 16,
+          "minutes": 19
+        },
+        "ref-hawalli": {
+          "km": 12,
+          "minutes": 16
+        },
+        "ref-farwaniya": {
+          "km": 1,
+          "minutes": 3
+        },
+        "ref-jahra": {
+          "km": 37,
+          "minutes": 32
+        },
+        "ref-fahaheel": {
+          "km": 36,
+          "minutes": 32
+        },
+        "ref-airport": {
+          "km": 8,
+          "minutes": 11
+        }
+      },
+      "officialFees": null,
+      "response": null,
+      "voucherEnabled": true,
+      "visitSlots": [
+        {
+          "days": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "from": "10:00",
+          "to": "19:00",
+          "slotMinutes": 30
+        },
+        {
+          "days": [
+            5,
+            6
+          ],
+          "from": "16:00",
+          "to": "21:00",
+          "slotMinutes": 30
+        }
+      ],
+      "flags": {
+        "featured": false,
+        "sponsored": false,
+        "isNew": false
+      },
+      "demand": 1,
+      "languages": [
+        "ar",
+        "en"
+      ]
+    },
+    {
+      "id": "S03",
+      "slug": "stress-no-reviews",
+      "name": {
+        "en": "Pearl Courtyard",
+        "ar": "ساحة اللؤلؤ"
+      },
+      "type": "private-hall",
+      "style": "hall",
+      "tier": "signature",
+      "stars": null,
+      "channel": "ghazal_voucher",
+      "status": "published",
+      "partnerAccountId": "partner-S03",
+      "major": false,
+      "governorateId": "hawalli",
+      "areaId": "salwa",
+      "address": {
+        "block": "2",
+        "street": {
+          "en": "Pearl Road",
+          "ar": "طريق اللؤلؤ"
+        }
+      },
+      "geo": {
+        "lat": 29.29,
+        "lng": 48.078
+      },
+      "tagline": {
+        "en": "New on Ghazal",
+        "ar": "جديدة على غزل"
+      },
+      "description": {
+        "en": "Stress fixture: a new venue with no reviews yet.",
+        "ar": "بيانات اختبار: قاعة جديدة بلا تقييمات بعد."
+      },
+      "phone": "+96550000092",
+      "cover": {
+        "file": "outdoor/outdoor-32-qasr-garden-fountain-dome.jpg",
+        "width": 1800,
+        "height": 2700,
+        "orientation": "portrait",
+        "alt": {
+          "en": "A white domed palace facade with gold-patterned dome, fountain and clipped garden beds beside a date palm, Abu Dhabi",
+          "ar": "واجهة قصر أبيض بقبة مزخرفة بنقوش ذهبية ونافورة وأحواض حدائق مشذّبة بجانب نخلة في أبوظبي"
+        }
+      },
+      "gallery": [
+        {
+          "file": "outdoor/outdoor-32-qasr-garden-fountain-dome.jpg",
+          "width": 1800,
+          "height": 2700,
+          "orientation": "portrait",
+          "alt": {
+            "en": "Pearl Courtyard, Outdoors: a white domed palace facade with gold-patterned dome, fountain and clipped garden beds beside a date palm, Abu Dhabi",
+            "ar": "ساحة اللؤلؤ، المساحة الخارجية: واجهة قصر أبيض بقبة مزخرفة بنقوش ذهبية ونافورة وأحواض حدائق مشذّبة بجانب نخلة في أبوظبي"
+          },
+          "zone": "outdoors",
+          "hallId": "S03-hall"
+        },
+        {
+          "file": "halls/halls-27-arched-hall-palm-foyer.jpg",
+          "width": 1800,
+          "height": 2700,
+          "orientation": "portrait",
+          "alt": {
+            "en": "Pearl Courtyard, Entrance and valet: heritage hotel hall with Moorish arches, carved wooden doors, a central palm and a circular wooden bench on a patterned tile floor",
+            "ar": "ساحة اللؤلؤ، المدخل والفاليه: ردهة فندق تراثي بأقواس أندلسية وأبواب خشبية منحوتة ونخلة في الوسط ومقعد خشبي دائري فوق أرضية بلاط مزخرفة"
+          },
+          "zone": "entrance_valet"
+        }
+      ],
+      "hasVideo": false,
+      "halls": [
+        {
+          "id": "S03-hall",
+          "venueId": "S03",
+          "name": {
+            "en": "Courtyard Hall",
+            "ar": "قاعة الساحة"
+          },
+          "setting": "indoor",
+          "capacity": {
+            "min": 150,
+            "max": 400
+          },
+          "exclusiveDay": true,
+          "sessions": [
+            {
+              "id": "S03-hall-evening",
+              "name": {
+                "en": "Evening",
+                "ar": "الفترة المسائية"
+              },
+              "start": "19:00",
+              "end": "01:00",
+              "bufferBeforeMin": 240,
+              "bufferAfterMin": 120,
+              "weekdays": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "sections": [
+            {
+              "audience": "women",
+              "minGuests": 150,
+              "maxGuests": 400,
+              "policy": {
+                "photography": "female_only",
+                "music": "dj_or_band",
+                "abayaCloakroom": true,
+                "prayerRoom": true,
+                "separateEntrance": true,
+                "femaleSecurity": true,
+                "boysMaxAge": 8,
+                "outsideCatering": "not_allowed",
+                "outsideDecor": "with_approval",
+                "bukhoor": "allowed",
+                "cutOff": "02:00",
+                "extraHour": {
+                  "fils": 450000,
+                  "currency": "KWD"
+                },
+                "indoorBackup": false
+              }
+            },
+            {
+              "audience": "men",
+              "minGuests": 150,
+              "maxGuests": 400,
+              "policy": {
+                "photography": "allowed",
+                "music": "duff_only",
+                "abayaCloakroom": false,
+                "prayerRoom": true,
+                "separateEntrance": true,
+                "femaleSecurity": false,
+                "boysMaxAge": null,
+                "outsideCatering": "not_allowed",
+                "outsideDecor": "with_approval",
+                "bukhoor": "allowed",
+                "cutOff": "01:00",
+                "extraHour": {
+                  "fils": 450000,
+                  "currency": "KWD"
+                },
+                "indoorBackup": false
+              }
+            }
+          ],
+          "seasonMonths": null,
+          "description": {
+            "en": "A new hall.",
+            "ar": "قاعة جديدة."
+          },
+          "cover": {
+            "file": "halls/halls-27-arched-hall-palm-foyer.jpg",
+            "width": 1800,
+            "height": 2700,
+            "orientation": "portrait",
+            "alt": {
+              "en": "Heritage hotel hall with Moorish arches, carved wooden doors, a central palm and a circular wooden bench on a patterned tile floor",
+              "ar": "ردهة فندق تراثي بأقواس أندلسية وأبواب خشبية منحوتة ونخلة في الوسط ومقعد خشبي دائري فوق أرضية بلاط مزخرفة"
+            }
+          }
+        }
+      ],
+      "amenities": [
+        {
+          "amenityId": "valet",
+          "state": "extra",
+          "from": {
+            "fils": 150000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "parking",
+          "state": "included"
+        },
+        {
+          "amenityId": "bridal-suite",
+          "state": "included"
+        },
+        {
+          "amenityId": "groom-room",
+          "state": "included"
+        },
+        {
+          "amenityId": "buffet",
+          "state": "included"
+        },
+        {
+          "amenityId": "welcome-drinks",
+          "state": "included"
+        },
+        {
+          "amenityId": "gahwa-tea",
+          "state": "included"
+        },
+        {
+          "amenityId": "prayer-room",
+          "state": "included"
+        },
+        {
+          "amenityId": "abaya-cloakroom",
+          "state": "included",
+          "audience": "women"
+        },
+        {
+          "amenityId": "separate-entrance",
+          "state": "included"
+        },
+        {
+          "amenityId": "female-security",
+          "state": "included",
+          "audience": "women"
+        },
+        {
+          "amenityId": "sound-lighting",
+          "state": "included"
+        },
+        {
+          "amenityId": "basic-decor",
+          "state": "included"
+        },
+        {
+          "amenityId": "kosha",
+          "state": "extra",
+          "from": {
+            "fils": 1200000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "florals",
+          "state": "extra",
+          "from": {
+            "fils": 600000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "led-screens",
+          "state": "extra",
+          "from": {
+            "fils": 350000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "female-photographer",
+          "state": "extra",
+          "from": {
+            "fils": 450000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "zaffa",
+          "state": "extra",
+          "from": {
+            "fils": 350000,
+            "currency": "KWD"
+          }
+        },
+        {
+          "amenityId": "accessibility",
+          "state": "included"
+        },
+        {
+          "amenityId": "outside-catering",
+          "state": "not_offered"
+        },
+        {
+          "amenityId": "outside-decor",
+          "state": "extra"
+        }
+      ],
+      "hours": {
+        "rules": [
+          {
+            "days": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "open": "10:00",
+            "close": "22:00"
+          },
+          {
+            "days": [
+              5,
+              6
+            ],
+            "open": "16:00",
+            "close": "01:00"
+          }
+        ],
+        "closures": []
+      },
+      "policies": {
+        "children": {
+          "women": {
+            "en": "Boys up to 8 years may attend",
+            "ar": "يُسمح بحضور الأولاد حتى عمر 8 سنوات"
+          },
+          "men": {
+            "en": "No age limit",
+            "ar": "لا يوجد حد للعمر"
+          }
+        },
+        "dressCode": {
+          "en": "Formal, modest dress",
+          "ar": "لباس رسمي محتشم"
+        },
+        "terms": {
+          "en": "Payment, schedule and any changes are agreed directly between you and the venue. Show your voucher code or QR at the venue to receive the voucher price.",
+          "ar": "يتم الاتفاق على الدفع والمواعيد وأي تعديل مباشرة بينكم وبين القاعة. أظهروا رمز الكوبون أو الـ QR في القاعة للحصول على سعر الكوبون."
+        },
+        "responseSlaHours": 24,
+        "serviceChargeBps": 0
+      },
+      "faq": [
+        {
+          "id": "S03-faq-how",
+          "question": {
+            "en": "How does booking work?",
+            "ar": "كيف يتم الحجز؟"
+          },
+          "answer": {
+            "en": "You get a voucher for KD 2 and send a request at the voucher price. The venue replies, and if it approves, the date is held for you for 24 hours while you confirm. You settle with the venue directly.",
+            "ar": "تحصلون على كوبون بـ 2 د.ك وترسلون طلبًا بسعر الكوبون. ترد القاعة، وعند الموافقة يُحجز التاريخ لكم 24 ساعة لتأكيد الحجز. وتسدّدون للقاعة مباشرة."
+          }
+        },
+        {
+          "id": "S03-faq-visit",
+          "question": {
+            "en": "Can we visit the hall before booking?",
+            "ar": "هل يمكن زيارة القاعة قبل الحجز؟"
+          },
+          "answer": {
+            "en": "Yes. Book a visit from this page: a chat opens with the venue and Ghazal support to confirm your arrival. No voucher is needed.",
+            "ar": "نعم. احجزوا زيارة من هذه الصفحة وتُفتح محادثة مع القاعة ودعم غزل لتأكيد وصولكم. لا حاجة إلى كوبون."
+          }
+        },
+        {
+          "id": "S03-faq-children",
+          "question": {
+            "en": "Are children allowed?",
+            "ar": "هل يُسمح بحضور الأطفال؟"
+          },
+          "answer": {
+            "en": "Children rules are listed per hall under Hall rules. Ladies’ receptions follow the boys’ age rule shown there.",
+            "ar": "تظهر قواعد الأطفال لكل قاعة ضمن قواعد القاعة. تتبع الحفلات النسائية الحد العمري للأولاد المذكور هناك."
+          }
+        },
+        {
+          "id": "S03-faq-parking",
+          "question": {
+            "en": "What is the parking and arrival like?",
+            "ar": "كيف هي المواقف والوصول؟"
+          },
+          "answer": {
+            "en": "Parking and valet details are listed under Facilities. A separate entrance for the ladies’ hall is shown where it is offered.",
+            "ar": "تفاصيل المواقف والفاليه ضمن المرافق. ويظهر المدخل المنفصل للقاعة النسائية حيثما يتوفر."
+          }
+        },
+        {
+          "id": "S03-faq-cut-off",
+          "question": {
+            "en": "What time does the event end?",
+            "ar": "متى ينتهي الحفل؟"
+          },
+          "answer": {
+            "en": "Each hall has a cut-off time, shown under Hall rules, with the price of an extra hour.",
+            "ar": "لكل قاعة وقت انتهاء ظاهر ضمن قواعد القاعة، مع سعر الساعة الإضافية."
+          }
+        }
+      ],
+      "rating": {
+        "average": null,
+        "count": 0,
+        "categories": null
+      },
+      "distances": {
+        "ref-salmiya": {
+          "km": 6,
+          "minutes": 10
+        },
+        "ref-sharq": {
+          "km": 17,
+          "minutes": 20
+        },
+        "ref-hawalli": {
+          "km": 9,
+          "minutes": 13
+        },
+        "ref-farwaniya": {
+          "km": 15,
+          "minutes": 18
+        },
+        "ref-jahra": {
+          "km": 51,
+          "minutes": 42
+        },
+        "ref-fahaheel": {
+          "km": 31,
+          "minutes": 28
+        },
+        "ref-airport": {
+          "km": 17,
+          "minutes": 19
+        }
+      },
+      "officialFees": null,
+      "response": null,
+      "voucherEnabled": true,
+      "visitSlots": [
+        {
+          "days": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "from": "10:00",
+          "to": "19:00",
+          "slotMinutes": 30
+        },
+        {
+          "days": [
+            5,
+            6
+          ],
+          "from": "16:00",
+          "to": "21:00",
+          "slotMinutes": 30
+        }
+      ],
+      "flags": {
+        "featured": false,
+        "sponsored": false,
+        "isNew": true
+      },
+      "demand": 1,
+      "languages": [
+        "ar",
+        "en"
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "id": "S01-grand-night",
+      "venueId": "S01",
+      "hallIds": [
+        "S01-expo"
+      ],
+      "name": {
+        "en": "Grand Hall, Full Evening",
+        "ar": "القاعة الكبرى، أمسية كاملة"
+      },
+      "archetype": "hall_only",
+      "audiences": [
+        "women",
+        "men"
+      ],
+      "pricingBasis": "flat",
+      "priceStructure": "package",
+      "priceUnit": "flat",
+      "standardFils": 12500000,
+      "voucherFils": 8470000,
+      "voucherDiscountBps": 3224,
+      "minGuests": 300,
+      "maxGuests": 1500,
+      "guestStep": 50,
+      "complimentaryBps": 0,
+      "description": {
+        "en": "Stress: flat 12,500.000.",
+        "ar": "اختبار: سعر ثابت 12,500.000."
+      },
+      "inclusions": [],
+      "notes": [],
+      "components": null,
+      "active": true,
+      "sortOrder": 1
+    },
+    {
+      "id": "S02-ladies",
+      "venueId": "S02",
+      "hallIds": [
+        "S02-hall"
+      ],
+      "name": {
+        "en": "Ladies’ Reception",
+        "ar": "الحفل النسائي"
+      },
+      "archetype": "ladies_standard",
+      "audiences": [
+        "women"
+      ],
+      "pricingBasis": "per_guest",
+      "priceStructure": "per_person",
+      "priceUnit": "per_guest",
+      "standardFils": 500,
+      "voucherFils": 500,
+      "voucherDiscountBps": 0,
+      "minGuests": 100,
+      "maxGuests": 200,
+      "guestStep": 5,
+      "complimentaryBps": 0,
+      "description": {
+        "en": "Stress: priced at 0.500 per guest.",
+        "ar": "اختبار: 0.500 للضيف."
+      },
+      "inclusions": [],
+      "notes": [],
+      "components": null,
+      "active": true,
+      "sortOrder": 1
+    },
+    {
+      "id": "S03-ladies",
+      "venueId": "S03",
+      "hallIds": [
+        "S03-hall"
+      ],
+      "name": {
+        "en": "Ladies’ Reception",
+        "ar": "الحفل النسائي"
+      },
+      "archetype": "ladies_standard",
+      "audiences": [
+        "women"
+      ],
+      "pricingBasis": "per_guest",
+      "priceStructure": "per_person",
+      "priceUnit": "per_guest",
+      "standardFils": 28000,
+      "voucherFils": 19500,
+      "voucherDiscountBps": 3036,
+      "minGuests": 150,
+      "maxGuests": 400,
+      "guestStep": 5,
+      "complimentaryBps": 0,
+      "description": {
+        "en": "Introductory pricing.",
+        "ar": "تسعير تعريفي."
+      },
+      "inclusions": [],
+      "notes": [],
+      "components": null,
+      "active": true,
+      "sortOrder": 1
+    }
+  ],
+  "priceRules": [
+    {
+      "id": "S01-grand-night-r1",
+      "scope": "package",
+      "scopeId": "S01-grand-night",
+      "tier": "weekday",
+      "weekdays": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "specialDate": null,
+      "priority": 0,
+      "flat": {
+        "fils": 12500000,
+        "currency": "KWD"
+      },
+      "perGuest": null,
+      "voucherFlat": {
+        "fils": 8470000,
+        "currency": "KWD"
+      },
+      "voucherPerGuest": null
+    },
+    {
+      "id": "S01-grand-night-r2",
+      "scope": "package",
+      "scopeId": "S01-grand-night",
+      "tier": "weekend",
+      "weekdays": [
+        4,
+        5,
+        6
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "specialDate": null,
+      "priority": 0,
+      "flat": {
+        "fils": 12500000,
+        "currency": "KWD"
+      },
+      "perGuest": null,
+      "voucherFlat": {
+        "fils": 8470000,
+        "currency": "KWD"
+      },
+      "voucherPerGuest": null
+    },
+    {
+      "id": "S02-ladies-r1",
+      "scope": "package",
+      "scopeId": "S02-ladies",
+      "tier": "weekday",
+      "weekdays": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "specialDate": null,
+      "priority": 0,
+      "flat": null,
+      "perGuest": {
+        "fils": 500,
+        "currency": "KWD"
+      },
+      "voucherFlat": null,
+      "voucherPerGuest": {
+        "fils": 500,
+        "currency": "KWD"
+      }
+    },
+    {
+      "id": "S02-ladies-r2",
+      "scope": "package",
+      "scopeId": "S02-ladies",
+      "tier": "weekend",
+      "weekdays": [
+        4,
+        5,
+        6
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "specialDate": null,
+      "priority": 0,
+      "flat": null,
+      "perGuest": {
+        "fils": 500,
+        "currency": "KWD"
+      },
+      "voucherFlat": null,
+      "voucherPerGuest": {
+        "fils": 500,
+        "currency": "KWD"
+      }
+    },
+    {
+      "id": "S03-ladies-r1",
+      "scope": "package",
+      "scopeId": "S03-ladies",
+      "tier": "weekday",
+      "weekdays": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "specialDate": null,
+      "priority": 0,
+      "flat": null,
+      "perGuest": {
+        "fils": 28000,
+        "currency": "KWD"
+      },
+      "voucherFlat": null,
+      "voucherPerGuest": {
+        "fils": 19500,
+        "currency": "KWD"
+      }
+    },
+    {
+      "id": "S03-ladies-r2",
+      "scope": "package",
+      "scopeId": "S03-ladies",
+      "tier": "weekend",
+      "weekdays": [
+        4,
+        5,
+        6
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "specialDate": null,
+      "priority": 0,
+      "flat": null,
+      "perGuest": {
+        "fils": 32000,
+        "currency": "KWD"
+      },
+      "voucherFlat": null,
+      "voucherPerGuest": {
+        "fils": 22500,
+        "currency": "KWD"
+      }
+    }
+  ],
+  "extras": [
+    {
+      "id": "S01-x-favour",
+      "venueId": "S01",
+      "category": "favours",
+      "name": {
+        "en": "Favour card",
+        "ar": "بطاقة توزيعات"
+      },
+      "description": {
+        "en": "Stress: priced at 0.500 per guest.",
+        "ar": "اختبار: 0.500 للضيف."
+      },
+      "pricingUnit": "per_guest",
+      "price": {
+        "fils": 500,
+        "currency": "KWD"
+      },
+      "priceMin": null,
+      "priceMax": null,
+      "maxQty": 1,
+      "includedInPackageIds": [],
+      "audiences": [
+        "women",
+        "men"
+      ],
+      "unitLabel": {
+        "en": "per guest",
+        "ar": "للضيف"
+      },
+      "active": true
+    }
+  ],
+  "compareUnits": [
+    "V01",
+    "V04",
+    "V19"
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "venueTypes": [
+    {
+      "id": "private-hall",
+      "name": {
+        "en": "Private hall",
+        "ar": "قاعة خاصة"
+      },
+      "voucherEligible": true,
+      "visits": true
+    },
+    {
+      "id": "governmental",
+      "name": {
+        "en": "Governmental facility",
+        "ar": "مرفق حكومي"
+      },
+      "voucherEligible": false,
+      "visits": false
+    },
+    {
+      "id": "hotel",
+      "name": {
+        "en": "Hotel",
+        "ar": "فندق"
+      },
+      "voucherEligible": true,
+      "visits": true
+    }
+  ],
+  "capacityRange": {
+    "min": 50,
+    "max": 1500,
+    "step": 50
+  },
+  "capacityBands": [
+    {
+      "id": "cap-up-to-200",
+      "name": {
+        "en": "Up to 200 guests",
+        "ar": "حتى 200 ضيف"
+      },
+      "min": 0,
+      "max": 200
+    },
+    {
+      "id": "cap-200-350",
+      "name": {
+        "en": "200 to 350 guests",
+        "ar": "من 200 إلى 350 ضيفًا"
+      },
+      "min": 200,
+      "max": 350
+    },
+    {
+      "id": "cap-350-500",
+      "name": {
+        "en": "350 to 500 guests",
+        "ar": "من 350 إلى 500 ضيف"
+      },
+      "min": 350,
+      "max": 500
+    },
+    {
+      "id": "cap-500-800",
+      "name": {
+        "en": "500 to 800 guests",
+        "ar": "من 500 إلى 800 ضيف"
+      },
+      "min": 500,
+      "max": 800
+    },
+    {
+      "id": "cap-800-plus",
+      "name": {
+        "en": "800 guests or more",
+        "ar": "800 ضيف أو أكثر"
+      },
+      "min": 800,
+      "max": null
+    }
+  ],
+  "priceStructures": [
+    {
+      "id": "per_person",
+      "name": {
+        "en": "Per person",
+        "ar": "سعر للضيف"
+      }
+    },
+    {
+      "id": "package",
+      "name": {
+        "en": "Packages",
+        "ar": "باقات"
+      }
+    },
+    {
+      "id": "either",
+      "name": {
+        "en": "Either",
+        "ar": "الاثنان"
+      }
+    }
+  ],
+  "sorts": [
+    {
+      "id": "recommended",
+      "name": {
+        "en": "Recommended",
+        "ar": "الأنسب"
+      }
+    },
+    {
+      "id": "voucher_price",
+      "name": {
+        "en": "Voucher price",
+        "ar": "سعر الكوبون"
+      }
+    },
+    {
+      "id": "price",
+      "name": {
+        "en": "Standard price",
+        "ar": "السعر العادي"
+      }
+    },
+    {
+      "id": "rating",
+      "name": {
+        "en": "Rating",
+        "ar": "التقييم"
+      }
+    },
+    {
+      "id": "distance",
+      "name": {
+        "en": "Distance",
+        "ar": "المسافة"
+      }
+    },
+    {
+      "id": "newest",
+      "name": {
+        "en": "Newest",
+        "ar": "الأحدث"
+      }
+    }
+  ]
+}

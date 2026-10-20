@@ -1,0 +1,239 @@
+{
+  "packages": [
+    {
+      "id": "planner-silver",
+      "tier": "silver",
+      "name": {
+        "en": "Silver",
+        "ar": "الفضية"
+      },
+      "tagline": {
+        "en": "Day-of coordination",
+        "ar": "تنسيق يوم الحفل"
+      },
+      "marks": 1,
+      "from": {
+        "fils": 650000,
+        "currency": "KWD"
+      },
+      "inclusions": [
+        {
+          "en": "Coordinator on the day",
+          "ar": "منسّقة يوم الحفل"
+        },
+        {
+          "en": "Run-of-show timeline",
+          "ar": "جدول زمني لسير الحفل"
+        },
+        {
+          "en": "Vendor arrival checks",
+          "ar": "متابعة وصول الموردين"
+        },
+        {
+          "en": "Venue walkthrough",
+          "ar": "جولة تفقد في القاعة"
+        }
+      ],
+      "suits": {
+        "en": "Couples who have planned everything and want a calm day",
+        "ar": "لأزواج أنهوا كل التحضيرات ويريدون يومًا هادئًا"
+      },
+      "image": {
+        "file": "context/context-42-planner-phone-cream-surface-weekly.jpg",
+        "width": 1800,
+        "height": 1200,
+        "orientation": "landscape",
+        "alt": {
+          "en": "Weekly planner pad and smartphone on a cream surface with a tan charging cable",
+          "ar": "مفكرة أسبوعية وهاتف ذكي على سطح كريمي مع كابل شحن بلون بيج"
+        }
+      }
+    },
+    {
+      "id": "planner-gold",
+      "tier": "gold",
+      "name": {
+        "en": "Gold",
+        "ar": "الذهبية"
+      },
+      "tagline": {
+        "en": "Planning and styling",
+        "ar": "تخطيط وتنسيق"
+      },
+      "marks": 2,
+      "from": {
+        "fils": 1900000,
+        "currency": "KWD"
+      },
+      "inclusions": [
+        {
+          "en": "Everything in Silver",
+          "ar": "كل ما في الفضية"
+        },
+        {
+          "en": "Planning from the booking date",
+          "ar": "التخطيط من تاريخ الحجز"
+        },
+        {
+          "en": "Vendor shortlist and quotes",
+          "ar": "قائمة موردين وعروض أسعار"
+        },
+        {
+          "en": "Styling concept and moodboard",
+          "ar": "فكرة التنسيق ولوحة الإلهام"
+        },
+        {
+          "en": "Two planning meetings",
+          "ar": "اجتماعا تخطيط"
+        }
+      ],
+      "suits": {
+        "en": "Couples who want help choosing and styling, with a plan to follow",
+        "ar": "لأزواج يريدون مساعدة في الاختيار والتنسيق مع خطة واضحة"
+      },
+      "image": {
+        "file": "context/context-41-planner-phone-open-calendar-blush-marble.jpg",
+        "width": 1800,
+        "height": 2700,
+        "orientation": "portrait",
+        "alt": {
+          "en": "Smartphone resting on an open weekly planner on blush marble with two gold rings",
+          "ar": "هاتف ذكي فوق مخطط أسبوعي مفتوح على رخام وردي مع خاتمين ذهبيين"
+        }
+      }
+    },
+    {
+      "id": "planner-royal",
+      "tier": "royal",
+      "name": {
+        "en": "Royal",
+        "ar": "الملكية"
+      },
+      "tagline": {
+        "en": "Full design and production",
+        "ar": "تصميم وإنتاج متكامل"
+      },
+      "marks": 3,
+      "from": {
+        "fils": 5500000,
+        "currency": "KWD"
+      },
+      "inclusions": [
+        {
+          "en": "Everything in Gold",
+          "ar": "كل ما في الذهبية"
+        },
+        {
+          "en": "Bespoke kosha and decor design",
+          "ar": "تصميم مخصص للكوشة والديكور"
+        },
+        {
+          "en": "Production management",
+          "ar": "إدارة الإنتاج"
+        },
+        {
+          "en": "Vendor contracting",
+          "ar": "التعاقد مع الموردين"
+        },
+        {
+          "en": "A dedicated planner team",
+          "ar": "فريق تخطيط مخصص"
+        }
+      ],
+      "suits": {
+        "en": "Couples who want the whole wedding designed and produced for them",
+        "ar": "لأزواج يريدون تصميم الزفاف وإنتاجه بالكامل"
+      },
+      "image": {
+        "file": "context/context-53-hero-staircase-blush-roses-copper-lanterns.jpg",
+        "width": 1800,
+        "height": 2700,
+        "orientation": "portrait",
+        "alt": {
+          "en": "Staircase garlanded with blush roses, white orchids and copper lanterns",
+          "ar": "درج مزيّن بأكاليل ورد وردي وأوركيد أبيض وفوانيس نحاسية"
+        }
+      }
+    }
+  ],
+  "planners": [
+    {
+      "id": "planner-nouf",
+      "userId": "user-planner-nouf",
+      "name": {
+        "en": "Nouf Al-Otaibi",
+        "ar": "نوف العتيبي"
+      },
+      "role": {
+        "en": "Wedding planner",
+        "ar": "منسّقة أعراس"
+      },
+      "monogram": "ن",
+      "tiers": [
+        "silver",
+        "gold",
+        "royal"
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "about": {
+        "en": "Plans ladies’ receptions in five-star hotels, with a focus on kosha design and run-of-show.",
+        "ar": "تخطط للحفلات النسائية في الفنادق الكبرى مع تركيز على تصميم الكوشة وسير البرنامج."
+      },
+      "yearsExperience": 9
+    },
+    {
+      "id": "planner-shahd",
+      "userId": "user-planner-shahd",
+      "name": {
+        "en": "Shahd Al-Mutairi",
+        "ar": "شهد المطيري"
+      },
+      "role": {
+        "en": "Wedding planner",
+        "ar": "منسّقة أعراس"
+      },
+      "monogram": "ش",
+      "tiers": [
+        "silver",
+        "gold"
+      ],
+      "languages": [
+        "ar"
+      ],
+      "about": {
+        "en": "Day-of coordination and vendor management for family weddings.",
+        "ar": "تنسيق يوم الحفل وإدارة الموردين لأفراح العائلات."
+      },
+      "yearsExperience": 6
+    },
+    {
+      "id": "planner-mariam",
+      "userId": "user-planner-mariam",
+      "name": {
+        "en": "Mariam Al-Sabbagh",
+        "ar": "مريم الصباغ"
+      },
+      "role": {
+        "en": "Production planner",
+        "ar": "منسّقة إنتاج"
+      },
+      "monogram": "م",
+      "tiers": [
+        "gold",
+        "royal"
+      ],
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "about": {
+        "en": "Leads full design and production for large weddings.",
+        "ar": "تقود التصميم والإنتاج الكامل للأفراح الكبيرة."
+      },
+      "yearsExperience": 12
+    }
+  ]
+}

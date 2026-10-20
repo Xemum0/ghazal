@@ -1,0 +1,40 @@
+{
+  "lamAlef": [
+    "لا",
+    "لا يوجد",
+    "الألوان",
+    "قاعة الأفراح"
+  ],
+  "tashkeel": [
+    "الزفّة",
+    "مُؤكَّد",
+    "الكوبون المُستخدَم"
+  ],
+  "moneyInArabicSentence": {
+    "template": "تدفعون للقاعة {amount} مباشرة بعد تأكيد الحجز.",
+    "amount": {
+      "fils": 15400000,
+      "currency": "KWD"
+    }
+  },
+  "phoneInsideRtl": {
+    "template": "للتواصل: {phone}",
+    "phone": "+965 5000 0012"
+  },
+  "westernDigitsBesideArabic": [
+    "350 ضيفًا",
+    "14 يناير 2027",
+    "القاعة 2",
+    "5 من 24"
+  ],
+  "voucherCodeIsolate": "GV-2611-K7QM",
+  "bookingRefIsolate": "GZ-2611-0147",
+  "hijriLine": "6 شعبان 1448 هـ",
+  "mixedLatinInArabic": [
+    "فندق Regency الكبير",
+    "كوبون GV-2611-K7QM",
+    "شاشات LED"
+  ],
+  "longArabicWord": "الاستعدادات",
+  "veryLongTitle": "قاعة الأفراح الكبرى للمؤتمرات والمناسبات الخاصة في منطقة الخيران السياحية الجديدة"
+}

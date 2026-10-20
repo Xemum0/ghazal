@@ -1,0 +1,40 @@
+import { bil } from './lib.mjs'
+
+// Platform FAQ (Profile > Help). Plain, calm, no urgency words; every claim traces to ADR 0033 and docs/product/voucher-model.md.
+const q = (id, en, ar, aen, aar) => ({ id: `faq-${id}`, question: bil(en, ar), answer: bil(aen, aar) })
+
+export const platformFaq = [
+  q('voucher', 'What is the voucher?', 'ما هو الكوبون؟',
+    'A voucher costs KD 2 and lets you request a hall or a service at Ghazal’s lower voucher price. It is bound to one venue or provider and its quote, with one code and one QR.',
+    'الكوبون بقيمة 2 د.ك ويتيح لكم طلب قاعة أو خدمة بسعر غزل المخفّض. يرتبط بقاعة أو مزوّد واحد وعرضه، برمز واحد ورمز QR واحد.'),
+  q('request', 'What does “request at the voucher price” mean?', 'ماذا يعني «طلب بسعر الكوبون»؟',
+    'You send your date and details to the venue with your voucher attached. The venue approves or declines. If it approves, the date is held for you for 24 hours.',
+    'ترسلون التاريخ والتفاصيل إلى القاعة مع الكوبون. توافق القاعة أو تعتذر. وعند الموافقة يُحجز لكم التاريخ 24 ساعة.'),
+  q('confirm', 'Why must I confirm within 24 hours?', 'لماذا يجب التأكيد خلال 24 ساعة؟',
+    'The venue holds the date for you after approving. If you do not confirm within 24 hours, the date is released for other couples and your voucher returns to your wallet.',
+    'تحجز القاعة التاريخ لكم بعد الموافقة. إذا لم تؤكدوا خلال 24 ساعة يُفتح التاريخ لغيركم ويعود الكوبون إلى محفظتكم.'),
+  q('pay-venue', 'Who do I pay for the hall or the service?', 'لمن أدفع ثمن القاعة أو الخدمة؟',
+    'You pay the venue or provider directly, after you confirm, on their terms. Ghazal does not handle that payment. Show your voucher code or QR when you settle.',
+    'تدفعون للقاعة أو المزوّد مباشرة بعد التأكيد وبحسب شروطهم. لا تتولى غزل هذا الدفع. أظهروا رمز الكوبون أو الـ QR عند السداد.'),
+  q('no-voucher', 'Can I book without a voucher?', 'هل يمكن الحجز بدون كوبون؟',
+    'Yes. Browse, compare, visit and contact any venue, then pay the venue normally at the standard price. The voucher is what unlocks the lower price.',
+    'نعم. تصفحوا وقارنوا وزوروا وتواصلوا مع أي قاعة، ثم ادفعوا للقاعة بالسعر العادي. الكوبون هو ما يفتح السعر المخفّض.'),
+  q('refund', 'Can I get my KD 2 back?', 'هل يمكن استرداد الـ 2 د.ك؟',
+    'Yes in the cases where the venue was the reason: it declined, did not reply in time, or cancelled. If you withdraw or let the 24 hours pass, the voucher stays reusable at the same venue for 60 days.',
+    'نعم في الحالات التي كان سببها القاعة: اعتذرت أو لم تردّ في الوقت أو ألغت. وإذا سحبتم الطلب أو انتهت الـ 24 ساعة يبقى الكوبون صالحًا للاستخدام في القاعة نفسها 60 يومًا.'),
+  q('payment', 'How can I pay for the voucher?', 'كيف أدفع ثمن الكوبون؟',
+    'With KNET, Apple Pay, Google Pay or a Visa or Mastercard card, through a secure gateway. Ghazal never sees your card details.',
+    'عبر كي نت أو آبل باي أو جوجل باي أو بطاقة فيزا أو ماستركارد من خلال بوابة دفع آمنة. لا ترى غزل بيانات بطاقتكم.'),
+  q('visit', 'How do site visits work?', 'كيف تعمل زيارة القاعة؟',
+    'Book a visit from the venue page. A chat opens with the hotel representative and Ghazal support to confirm your arrival. A visit is free and needs no voucher.',
+    'احجزوا زيارة من صفحة القاعة. تُفتح محادثة مع ممثل الفندق ودعم غزل لتأكيد وصولكم. الزيارة مجانية ولا تحتاج كوبونًا.'),
+  q('government', 'Can I request government halls here?', 'هل يمكن طلب القاعات الحكومية هنا؟',
+    'Government halls are booked through the Ministry of Social Affairs. Ghazal shows the hall and fees and links to the official channel. There is no voucher for them.',
+    'تُحجز القاعات الحكومية عبر وزارة الشؤون الاجتماعية. تعرض غزل القاعة والرسوم وتربطكم بالقناة الرسمية. ولا يوجد كوبون لها.'),
+  q('reviews', 'Who can write a review?', 'من يمكنه كتابة تقييم؟',
+    'Couples whose event has taken place. Photos and videos showing people cannot be published.',
+    'الأزواج الذين أُقيم حفلهم. لا يمكن نشر الصور أو المقاطع التي يظهر فيها أشخاص.'),
+  q('language', 'Can I change the language?', 'هل يمكن تغيير اللغة؟',
+    'Yes, from Profile at any time, in Arabic or English.',
+    'نعم، من الحساب في أي وقت، بالعربية أو الإنجليزية.'),
+]

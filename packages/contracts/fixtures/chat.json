@@ -1,0 +1,1227 @@
+{
+  "conversations": [
+    {
+      "pinned": false,
+      "unread": {
+        "client": 0,
+        "hotel": 1
+      },
+      "handledBy": "Hind Al-Enezi",
+      "awaitingReplySince": "2026-11-12T15:12:00+03:00",
+      "usuallyRepliesHours": 2,
+      "plannerId": null,
+      "vendorId": null,
+      "bookingId": "bk-GZ-2611-0147",
+      "venueId": "V01",
+      "id": "conv-aurelia-reem",
+      "kind": "venue",
+      "title": {
+        "en": "Aurelia Gulf Hotel",
+        "ar": "فندق أوريليا الخليج"
+      },
+      "subtitle": {
+        "en": "Request · Thu 14 Jan",
+        "ar": "طلب · الخميس 14 يناير"
+      },
+      "monogram": "ف",
+      "clientId": "user-reem",
+      "clientName": "ريم الدوسري",
+      "lastMessageAt": "2026-11-12T15:12:00+03:00"
+    },
+    {
+      "pinned": false,
+      "unread": {
+        "client": 1,
+        "hotel": 0
+      },
+      "handledBy": null,
+      "awaitingReplySince": null,
+      "usuallyRepliesHours": null,
+      "plannerId": "planner-nouf",
+      "vendorId": null,
+      "bookingId": null,
+      "venueId": null,
+      "id": "conv-planner-nouf",
+      "kind": "planner",
+      "title": {
+        "en": "Nouf Al-Otaibi",
+        "ar": "نوف العتيبي"
+      },
+      "subtitle": {
+        "en": "Meeting Sun 15 Nov",
+        "ar": "اجتماع الأحد 15 نوفمبر"
+      },
+      "monogram": "ن",
+      "clientId": "user-reem",
+      "clientName": "ريم الدوسري",
+      "lastMessageAt": "2026-11-12T11:48:00+03:00"
+    },
+    {
+      "pinned": false,
+      "unread": {
+        "client": 1,
+        "hotel": 0
+      },
+      "handledBy": null,
+      "awaitingReplySince": null,
+      "usuallyRepliesHours": 2,
+      "plannerId": null,
+      "vendorId": "vendor-photography-lamha",
+      "bookingId": null,
+      "venueId": null,
+      "id": "conv-vendor-lamha",
+      "kind": "vendor",
+      "title": {
+        "en": "Lamha Photography Studio",
+        "ar": "استوديو لمحة للتصوير"
+      },
+      "subtitle": {
+        "en": "Quote request",
+        "ar": "طلب عرض سعر"
+      },
+      "monogram": "ل",
+      "clientId": "user-reem",
+      "clientName": "ريم الدوسري",
+      "lastMessageAt": "2026-11-12T13:05:00+03:00"
+    },
+    {
+      "pinned": true,
+      "unread": {
+        "client": 0,
+        "hotel": 0
+      },
+      "handledBy": null,
+      "awaitingReplySince": null,
+      "usuallyRepliesHours": null,
+      "plannerId": null,
+      "vendorId": null,
+      "bookingId": null,
+      "venueId": null,
+      "id": "conv-support-reem",
+      "kind": "support",
+      "title": {
+        "en": "Ghazal Support",
+        "ar": "دعم غزل"
+      },
+      "subtitle": {
+        "en": "Help with your booking",
+        "ar": "مساعدة بخصوص حجزكم"
+      },
+      "monogram": "غ",
+      "clientId": "user-reem",
+      "clientName": "ريم الدوسري",
+      "lastMessageAt": "2026-11-03T20:10:00+03:00"
+    },
+    {
+      "pinned": false,
+      "unread": {
+        "client": 0,
+        "hotel": 0
+      },
+      "handledBy": null,
+      "awaitingReplySince": null,
+      "usuallyRepliesHours": null,
+      "plannerId": null,
+      "vendorId": null,
+      "bookingId": "bk-GZ-2611-0098",
+      "venueId": "V05",
+      "id": "conv-lumi-reem",
+      "kind": "venue",
+      "title": {
+        "en": "Lumi Marina Hotel",
+        "ar": "فندق لومي مارينا"
+      },
+      "subtitle": {
+        "en": "Request · Thu 14 Jan",
+        "ar": "طلب · الخميس 14 يناير"
+      },
+      "monogram": "ف",
+      "clientId": "user-reem",
+      "clientName": "ريم الدوسري",
+      "lastMessageAt": "2026-11-09T10:05:00+03:00"
+    },
+    {
+      "pinned": false,
+      "unread": {
+        "client": 0,
+        "hotel": 0
+      },
+      "handledBy": null,
+      "awaitingReplySince": null,
+      "usuallyRepliesHours": 2,
+      "plannerId": null,
+      "vendorId": null,
+      "bookingId": null,
+      "venueId": "V07",
+      "id": "conv-jawharat-reem",
+      "kind": "enquiry",
+      "title": {
+        "en": "Jawharat Al-Salmiya Palace",
+        "ar": "قصر جوهرة السالمية للأفراح"
+      },
+      "subtitle": {
+        "en": "Enquiry",
+        "ar": "استفسار"
+      },
+      "monogram": "ق",
+      "clientId": "user-reem",
+      "clientName": "ريم الدوسري",
+      "lastMessageAt": "2026-11-11T10:42:00+03:00"
+    },
+    {
+      "pinned": false,
+      "unread": {
+        "client": 0,
+        "hotel": 1
+      },
+      "handledBy": null,
+      "awaitingReplySince": "2026-11-12T13:05:00+03:00",
+      "usuallyRepliesHours": null,
+      "plannerId": null,
+      "vendorId": null,
+      "bookingId": "bk-GZ-2611-7V4H",
+      "venueId": "V01",
+      "id": "conv-aurelia-faisal",
+      "kind": "venue",
+      "title": {
+        "en": "Faisal Al-Rasheedi",
+        "ar": "فيصل الرشيدي"
+      },
+      "subtitle": {
+        "en": "Fri 22 Jan · Pending",
+        "ar": "الجمعة 22 يناير · بانتظار الرد"
+      },
+      "monogram": "ف",
+      "clientId": "user-faisal-rasheedi",
+      "clientName": "فيصل الرشيدي",
+      "lastMessageAt": "2026-11-12T13:05:00+03:00"
+    },
+    {
+      "pinned": false,
+      "unread": {
+        "client": 0,
+        "hotel": 0
+      },
+      "handledBy": "Amal Al-Balushi",
+      "awaitingReplySince": null,
+      "usuallyRepliesHours": null,
+      "plannerId": null,
+      "vendorId": null,
+      "bookingId": "bk-GZ-2607-6M2J",
+      "venueId": "V01",
+      "id": "conv-aurelia-najla",
+      "kind": "venue",
+      "title": {
+        "en": "Najla Al-Badr",
+        "ar": "نجلاء البدر"
+      },
+      "subtitle": {
+        "en": "Today 9:00 PM · Confirmed",
+        "ar": "اليوم 9:00 م · مؤكد"
+      },
+      "monogram": "ن",
+      "clientId": "user-najla-badr",
+      "clientName": "نجلاء البدر",
+      "lastMessageAt": "2026-11-12T12:25:00+03:00"
+    },
+    {
+      "pinned": false,
+      "unread": {
+        "client": 0,
+        "hotel": 0
+      },
+      "handledBy": "Amal Al-Balushi",
+      "awaitingReplySince": null,
+      "usuallyRepliesHours": null,
+      "plannerId": null,
+      "vendorId": null,
+      "bookingId": null,
+      "venueId": "V01",
+      "id": "conv-aurelia-enquiry-shahad",
+      "kind": "enquiry",
+      "title": {
+        "en": "Shahad Al-Mutawa",
+        "ar": "شهد المطوع"
+      },
+      "subtitle": {
+        "en": "Enquiry",
+        "ar": "استفسار"
+      },
+      "monogram": "ش",
+      "clientId": "user-shahad-mutawa",
+      "clientName": "شهد المطوع",
+      "lastMessageAt": "2026-11-11T18:00:00+03:00"
+    },
+    {
+      "pinned": false,
+      "unread": {
+        "client": 1,
+        "hotel": 0
+      },
+      "handledBy": "Amal Al-Balushi",
+      "awaitingReplySince": null,
+      "usuallyRepliesHours": 2,
+      "plannerId": null,
+      "vendorId": null,
+      "bookingId": null,
+      "venueId": "V01",
+      "id": "conv-visit-aurelia-reem",
+      "kind": "visit_group",
+      "title": {
+        "en": "Site visit · Aurelia Gulf Hotel",
+        "ar": "زيارة · فندق أوريليا الخليج"
+      },
+      "subtitle": {
+        "en": "Sat 14 Nov · 5:00 PM · confirmed",
+        "ar": "السبت 14 نوفمبر · 5:00 م · مؤكدة"
+      },
+      "monogram": "ز",
+      "clientId": "user-reem",
+      "clientName": "ريم الدوسري",
+      "visitId": "visit-aurelia-reem",
+      "members": [
+        {
+          "userId": "user-reem",
+          "role": "client",
+          "name": "ريم الدوسري",
+          "nameLatin": "Reem Al-Dosari",
+          "monogram": "ر",
+          "chip": {
+            "en": "Client",
+            "ar": "العميل"
+          },
+          "organisation": null
+        },
+        {
+          "userId": "user-amal",
+          "role": "hotel_representative",
+          "name": "أمل البلوشي",
+          "nameLatin": "Amal Al-Balushi",
+          "monogram": "أ",
+          "chip": {
+            "en": "Hotel representative",
+            "ar": "ممثل الفندق"
+          },
+          "organisation": {
+            "en": "Aurelia Gulf Hotel",
+            "ar": "فندق أوريليا الخليج"
+          }
+        },
+        {
+          "userId": "user-support-lama",
+          "role": "support",
+          "name": "لمى الخالدي",
+          "nameLatin": "Lama Al-Khalidi",
+          "monogram": "ل",
+          "chip": {
+            "en": "Ghazal support",
+            "ar": "دعم غزل"
+          },
+          "organisation": null
+        }
+      ],
+      "readOnlyFrom": null,
+      "archiveOn": null,
+      "lastMessageAt": "2026-11-11T09:55:00+03:00"
+    },
+    {
+      "pinned": false,
+      "unread": {
+        "client": 0,
+        "hotel": 0
+      },
+      "handledBy": "Nadia Al-Failakawi",
+      "awaitingReplySince": null,
+      "usuallyRepliesHours": null,
+      "plannerId": null,
+      "vendorId": null,
+      "bookingId": null,
+      "venueId": "V05",
+      "id": "conv-visit-lumi-reem",
+      "kind": "visit_group",
+      "title": {
+        "en": "Site visit · Lumi Marina Hotel",
+        "ar": "زيارة · فندق لومي مارينا"
+      },
+      "subtitle": {
+        "en": "Wed 4 Nov · 4:30 PM · completed",
+        "ar": "الأربعاء 4 نوفمبر · 4:30 م · مكتملة"
+      },
+      "monogram": "ز",
+      "clientId": "user-reem",
+      "clientName": "ريم الدوسري",
+      "visitId": "visit-lumi-reem",
+      "members": [
+        {
+          "userId": "user-reem",
+          "role": "client",
+          "name": "ريم الدوسري",
+          "nameLatin": "Reem Al-Dosari",
+          "monogram": "ر",
+          "chip": {
+            "en": "Client",
+            "ar": "العميل"
+          },
+          "organisation": null
+        },
+        {
+          "userId": "user-lumi-rep",
+          "role": "hotel_representative",
+          "name": "نادية الفيلكاوي",
+          "nameLatin": "Nadia Al-Failakawi",
+          "monogram": "ن",
+          "chip": {
+            "en": "Hotel representative",
+            "ar": "ممثل الفندق"
+          },
+          "organisation": {
+            "en": "Lumi Marina Hotel",
+            "ar": "فندق لومي مارينا"
+          }
+        },
+        {
+          "userId": "user-support-lama",
+          "role": "support",
+          "name": "لمى الخالدي",
+          "nameLatin": "Lama Al-Khalidi",
+          "monogram": "ل",
+          "chip": {
+            "en": "Ghazal support",
+            "ar": "دعم غزل"
+          },
+          "organisation": null
+        }
+      ],
+      "readOnlyFrom": "2026-11-05T16:30:00+03:00",
+      "archiveOn": "2026-12-05",
+      "lastMessageAt": "2026-11-05T16:30:00+03:00"
+    },
+    {
+      "pinned": false,
+      "unread": {
+        "client": 0,
+        "hotel": 1
+      },
+      "handledBy": "Amal Al-Balushi",
+      "awaitingReplySince": "2026-11-12T14:36:00+03:00",
+      "usuallyRepliesHours": null,
+      "plannerId": null,
+      "vendorId": null,
+      "bookingId": null,
+      "venueId": "V01",
+      "id": "conv-visit-aurelia-rashed",
+      "kind": "visit_group",
+      "title": {
+        "en": "Site visit · Aurelia Gulf Hotel",
+        "ar": "زيارة · فندق أوريليا الخليج"
+      },
+      "subtitle": {
+        "en": "Sat 21 Nov · 6:00 PM · requested",
+        "ar": "السبت 21 نوفمبر · 6:00 م · بانتظار التأكيد"
+      },
+      "monogram": "ز",
+      "clientId": "user-rashed-ajmi",
+      "clientName": "راشد العجمي",
+      "visitId": "visit-aurelia-rashed",
+      "members": [
+        {
+          "userId": "user-rashed-ajmi",
+          "role": "client",
+          "name": "راشد العجمي",
+          "nameLatin": "Rashed Al-Ajmi",
+          "monogram": "ر",
+          "chip": {
+            "en": "Client",
+            "ar": "العميل"
+          },
+          "organisation": null
+        },
+        {
+          "userId": "user-amal",
+          "role": "hotel_representative",
+          "name": "أمل البلوشي",
+          "nameLatin": "Amal Al-Balushi",
+          "monogram": "أ",
+          "chip": {
+            "en": "Hotel representative",
+            "ar": "ممثل الفندق"
+          },
+          "organisation": {
+            "en": "Aurelia Gulf Hotel",
+            "ar": "فندق أوريليا الخليج"
+          }
+        },
+        {
+          "userId": "user-support-lama",
+          "role": "support",
+          "name": "لمى الخالدي",
+          "nameLatin": "Lama Al-Khalidi",
+          "monogram": "ل",
+          "chip": {
+            "en": "Ghazal support",
+            "ar": "دعم غزل"
+          },
+          "organisation": null
+        }
+      ],
+      "readOnlyFrom": null,
+      "archiveOn": null,
+      "lastMessageAt": "2026-11-12T14:42:00+03:00"
+    },
+    {
+      "pinned": true,
+      "unread": {
+        "client": 0,
+        "hotel": 0
+      },
+      "handledBy": null,
+      "awaitingReplySince": null,
+      "usuallyRepliesHours": null,
+      "plannerId": null,
+      "vendorId": null,
+      "bookingId": null,
+      "venueId": "V01",
+      "id": "conv-support-aurelia",
+      "kind": "support",
+      "title": {
+        "en": "Ghazal Support",
+        "ar": "دعم غزل"
+      },
+      "subtitle": {
+        "en": "For venue teams",
+        "ar": "لفرق القاعات"
+      },
+      "monogram": "غ",
+      "clientId": null,
+      "clientName": "دعم غزل",
+      "lastMessageAt": "2026-10-20T10:00:00+03:00"
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg-001",
+      "conversationId": "conv-aurelia-reem",
+      "from": "client",
+      "senderName": "ريم الدوسري",
+      "at": "2026-11-12T15:12:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Peace be upon you. Is Thursday 14 January available for the ladies’ reception? About 350 guests.",
+        "ar": "السلام عليكم، هل يوم الخميس 14 يناير متاح للحفل النسائي؟ عدد الضيوف تقريبًا 350."
+      },
+      "origin": "ar",
+      "status": "delivered",
+      "draft": false
+    },
+    {
+      "id": "msg-002",
+      "conversationId": "conv-aurelia-reem",
+      "from": "venue",
+      "senderName": "Hind Al-Enezi",
+      "at": "2026-11-12T16:05:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "And peace be upon you, welcome. Yes, the date is available, and once we approve your request you can confirm the booking within 24 hours.",
+        "ar": "وعليكم السلام ورحمة الله، هلا فيكم. نعم التاريخ متاح، ولما نوافق على طلبكم تقدرون تأكدون الحجز خلال 24 ساعة."
+      },
+      "origin": "ar",
+      "status": "sent",
+      "draft": true
+    },
+    {
+      "id": "msg-003",
+      "conversationId": "conv-aurelia-reem",
+      "from": "venue",
+      "senderName": "Hind Al-Enezi",
+      "at": "2026-11-12T16:06:00+03:00",
+      "kind": "voice",
+      "text": null,
+      "origin": "ar",
+      "status": "sent",
+      "draft": true,
+      "voice": {
+        "seconds": 14
+      }
+    },
+    {
+      "id": "msg-004",
+      "conversationId": "conv-aurelia-reem",
+      "from": "venue",
+      "senderName": "Hind Al-Enezi",
+      "at": "2026-11-12T16:07:00+03:00",
+      "kind": "document",
+      "text": null,
+      "origin": "ar",
+      "status": "sent",
+      "draft": true,
+      "document": {
+        "name": "Quotation.pdf",
+        "sizeKb": 13,
+        "mime": "application/pdf"
+      }
+    },
+    {
+      "id": "msg-005",
+      "conversationId": "conv-planner-nouf",
+      "from": "planner",
+      "senderName": "Nouf Al-Otaibi",
+      "at": "2026-11-12T11:10:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Hello Reem, I am Nouf from Ghazal’s planning team. I will be with you through the wedding preparations.",
+        "ar": "أهلًا ريم، أنا نوف من فريق التخطيط في غزل. سأكون معكم في تجهيزات الزفاف."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-006",
+      "conversationId": "conv-planner-nouf",
+      "from": "client",
+      "senderName": "ريم الدوسري",
+      "at": "2026-11-12T11:25:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Hello Nouf, we need help with the kosha design and coordinating with the hotel.",
+        "ar": "أهلًا نوف، نحتاج مساعدة في تصميم الكوشة والتنسيق مع الفندق."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-007",
+      "conversationId": "conv-planner-nouf",
+      "from": "planner",
+      "senderName": "Nouf Al-Otaibi",
+      "at": "2026-11-12T11:40:00+03:00",
+      "kind": "meeting_card",
+      "text": null,
+      "origin": "ar",
+      "status": "read",
+      "draft": false,
+      "card": {
+        "kind": "meeting",
+        "title": {
+          "en": "Video call",
+          "ar": "مكالمة فيديو"
+        },
+        "lines": [
+          {
+            "en": "Sun 15 Nov, 7:30 PM · Kuwait time",
+            "ar": "الأحد 15 نوفمبر، 7:30 م بتوقيت الكويت"
+          }
+        ],
+        "at": "2026-11-15T19:30:00+03:00",
+        "refId": "plannerreq-reem"
+      }
+    },
+    {
+      "id": "msg-008",
+      "conversationId": "conv-planner-nouf",
+      "from": "planner",
+      "senderName": "Nouf Al-Otaibi",
+      "at": "2026-11-12T11:48:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Glad to be in touch. Send me any kosha pictures you like before the meeting.",
+        "ar": "يسعدني التواصل. أرسلوا لي أي صور تعجبكم للكوشة قبل الاجتماع."
+      },
+      "origin": "ar",
+      "status": "delivered",
+      "draft": false
+    },
+    {
+      "id": "msg-009",
+      "conversationId": "conv-vendor-lamha",
+      "from": "client",
+      "senderName": "ريم الدوسري",
+      "at": "2026-11-11T21:30:00+03:00",
+      "kind": "quote_request_card",
+      "text": null,
+      "origin": "ar",
+      "status": "read",
+      "draft": false,
+      "card": {
+        "kind": "quote_request",
+        "title": {
+          "en": "Quote request",
+          "ar": "طلب عرض سعر"
+        },
+        "lines": [
+          {
+            "en": "Wedding-day coverage · 6 hours",
+            "ar": "تغطية يوم الزفاف · 6 ساعات"
+          },
+          {
+            "en": "Thu 14 Jan 2027 · Aurelia Gulf Hotel · 350 guests (ladies’ hall)",
+            "ar": "الخميس 14 يناير 2027 · فندق أوريليا الخليج · 350 ضيفًا (القاعة النسائية)"
+          },
+          {
+            "en": "We only need a female photographer for the ladies’ hall",
+            "ar": "نحتاج مصوّرة فقط للحفل النسائي"
+          }
+        ],
+        "refId": "vquote-reem-lamha"
+      }
+    },
+    {
+      "id": "msg-010",
+      "conversationId": "conv-vendor-lamha",
+      "from": "vendor",
+      "senderName": "Lamha Photography Studio",
+      "at": "2026-11-12T10:10:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Thank you for getting in touch. We have a female team available for that date and will send the quote today.",
+        "ar": "شكرًا لتواصلكم. يتوفر لدينا فريق نسائي لهذا التاريخ، وسنرسل عرض السعر خلال اليوم."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-011",
+      "conversationId": "conv-vendor-lamha",
+      "from": "vendor",
+      "senderName": "Lamha Photography Studio",
+      "at": "2026-11-12T13:05:00+03:00",
+      "kind": "document",
+      "text": null,
+      "origin": "ar",
+      "status": "delivered",
+      "draft": false,
+      "document": {
+        "name": "Quotation-Lamha.pdf",
+        "sizeKb": 38,
+        "mime": "application/pdf"
+      }
+    },
+    {
+      "id": "msg-012",
+      "conversationId": "conv-support-reem",
+      "from": "support",
+      "senderName": "Ghazal Support",
+      "at": "2026-10-25T20:15:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Hello, Reem. We are here for any question about booking or payment.",
+        "ar": "أهلاً وسهلاً، ريم. نحن هنا لأي سؤال عن الحجز أو الدفع."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-013",
+      "conversationId": "conv-support-reem",
+      "from": "client",
+      "senderName": "ريم الدوسري",
+      "at": "2026-11-03T19:40:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Can the men’s reception be added to the same request?",
+        "ar": "هل يمكن إضافة الحفل الرجالي إلى الطلب نفسه؟"
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-014",
+      "conversationId": "conv-support-reem",
+      "from": "support",
+      "senderName": "Ghazal Support",
+      "at": "2026-11-03T20:10:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Yes, the men’s reception can be added in the Extras step if the venue offers it on the same day.",
+        "ar": "نعم، يمكن إضافة الحفل الرجالي في خطوة الإضافات إذا كانت القاعة تقدّمه في اليوم نفسه."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-015",
+      "conversationId": "conv-lumi-reem",
+      "from": "client",
+      "senderName": "ريم الدوسري",
+      "at": "2026-11-09T10:05:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Peace be upon you. Is the hall available on Thursday 14 January?",
+        "ar": "السلام عليكم، هل القاعة متاحة يوم الخميس 14 يناير؟"
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-016",
+      "conversationId": "conv-jawharat-reem",
+      "from": "client",
+      "senderName": "ريم الدوسري",
+      "at": "2026-11-10T20:00:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Peace be upon you. What is the nearest available date after 14 January?",
+        "ar": "السلام عليكم، ما هو أقرب تاريخ متاح بعد 14 يناير؟"
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-017",
+      "conversationId": "conv-jawharat-reem",
+      "from": "venue",
+      "senderName": "Jawharat Al-Salmiya Palace",
+      "at": "2026-11-11T10:30:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Welcome. Thursday 21 January and Friday 22 January are available, and we will send you the offer in detail.",
+        "ar": "هلا والله. متاح الخميس 21 يناير والجمعة 22 يناير، ونرسل لكم العرض بالتفصيل."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-018",
+      "conversationId": "conv-jawharat-reem",
+      "from": "venue",
+      "senderName": "Jawharat Al-Salmiya Palace",
+      "at": "2026-11-11T10:41:00+03:00",
+      "kind": "image",
+      "text": null,
+      "origin": "ar",
+      "status": "read",
+      "draft": false,
+      "image": {
+        "file": "ballrooms/ballrooms-27-olive-columns-long-table-candlelight.jpg",
+        "alt": {
+          "en": "Seating layout for 350 guests",
+          "ar": "ترتيب الجلسات لـ 350 ضيفًا"
+        }
+      }
+    },
+    {
+      "id": "msg-019",
+      "conversationId": "conv-jawharat-reem",
+      "from": "venue",
+      "senderName": "Jawharat Al-Salmiya Palace",
+      "at": "2026-11-11T10:42:00+03:00",
+      "kind": "voice",
+      "text": null,
+      "origin": "ar",
+      "status": "read",
+      "draft": false,
+      "voice": {
+        "seconds": 21
+      }
+    },
+    {
+      "id": "msg-020",
+      "conversationId": "conv-aurelia-faisal",
+      "from": "client",
+      "senderName": "فيصل الرشيدي",
+      "at": "2026-11-12T13:05:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Is valet service available for the men’s hall?",
+        "ar": "هل تتوفر خدمة الفاليه لقاعة الرجال؟"
+      },
+      "origin": "ar",
+      "status": "delivered",
+      "draft": false
+    },
+    {
+      "id": "msg-021",
+      "conversationId": "conv-aurelia-najla",
+      "from": "client",
+      "senderName": "نجلاء البدر",
+      "at": "2026-11-12T12:10:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Can the flowers be brought in from 5:00 PM?",
+        "ar": "هل يمكن إدخال الزهور من الساعة 5:00 م؟"
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-022",
+      "conversationId": "conv-aurelia-najla",
+      "from": "venue",
+      "senderName": "Amal Al-Balushi",
+      "at": "2026-11-12T12:25:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Of course, the events team will be ready from 4:30 PM.",
+        "ar": "أكيد، فريق الفعاليات بيكون جاهز من الساعة 4:30 م."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-023",
+      "conversationId": "conv-aurelia-enquiry-shahad",
+      "from": "client",
+      "senderName": "شهد المطوع",
+      "at": "2026-11-11T17:20:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Peace be upon you. Could I know the packages available for a ladies’ reception in March?",
+        "ar": "السلام عليكم، ممكن أعرف الباقات المتوفرة للحفل النسائي في شهر مارس؟"
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-024",
+      "conversationId": "conv-aurelia-enquiry-shahad",
+      "from": "venue",
+      "senderName": "Amal Al-Balushi",
+      "at": "2026-11-11T18:00:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "And peace be upon you. The packages are on the venue page, and we can send details once you choose the date and guest count.",
+        "ar": "وعليكم السلام ورحمة الله. الباقات موجودة في صفحة القاعة، ونقدر نرسل لكم التفاصيل إذا حددتم التاريخ وعدد الضيوف."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-025",
+      "conversationId": "conv-support-aurelia",
+      "from": "support",
+      "senderName": "Ghazal Support",
+      "at": "2026-10-20T10:00:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Welcome to Ghazal for venue teams. We are here for any question about bookings or payments.",
+        "ar": "أهلاً بكم في غزل لفرق القاعات. نحن هنا لأي استفسار عن الحجوزات أو الدفعات."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-026",
+      "conversationId": "conv-visit-aurelia-reem",
+      "from": "system",
+      "senderName": null,
+      "at": "2026-11-10T20:15:00+03:00",
+      "kind": "system",
+      "text": {
+        "en": "A group chat opened for your visit on Sat 14 Nov: you, Aurelia Gulf Hotel and Ghazal support.",
+        "ar": "فُتحت محادثة جماعية لزيارتكم يوم السبت 14 نوفمبر: أنتم وفندق أوريليا الخليج ودعم غزل."
+      },
+      "origin": "en",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-027",
+      "conversationId": "conv-visit-aurelia-reem",
+      "from": "support",
+      "senderName": "Lama Al-Khalidi",
+      "at": "2026-11-10T20:16:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Hello Reem, I am Lama from Ghazal support. I am here with you and the hotel to confirm your arrival.",
+        "ar": "أهلاً ريم، أنا لمى من دعم غزل. أنا هنا معكم ومع الفندق لتأكيد موعد وصولكم."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-028",
+      "conversationId": "conv-visit-aurelia-reem",
+      "from": "client",
+      "senderName": "ريم الدوسري",
+      "at": "2026-11-10T20:20:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Peace be upon you. We would like to confirm our visit on Saturday at 5 PM, three of us.",
+        "ar": "السلام عليكم، نبي نأكد موعد زيارتنا السبت الساعة 5 مساءً، ونكون 3 أشخاص."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-029",
+      "conversationId": "conv-visit-aurelia-reem",
+      "from": "venue",
+      "senderName": "Amal Al-Balushi",
+      "at": "2026-11-11T09:40:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "And peace be upon you, Reem. Your visit is confirmed for Saturday 14 November at 5:00 PM, and we will meet you at the main entrance.",
+        "ar": "وعليكم السلام ورحمة الله، أهلاً ريم. موعدكم مؤكد السبت 14 نوفمبر الساعة 5:00 م، وبنستقبلكم عند المدخل الرئيسي."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-030",
+      "conversationId": "conv-visit-aurelia-reem",
+      "from": "system",
+      "senderName": null,
+      "at": "2026-11-11T09:41:00+03:00",
+      "kind": "visit_card",
+      "text": {
+        "en": "Visit confirmed",
+        "ar": "تم تأكيد الزيارة"
+      },
+      "origin": "en",
+      "status": "read",
+      "draft": false,
+      "card": {
+        "kind": "visit",
+        "title": {
+          "en": "Site visit confirmed",
+          "ar": "تم تأكيد زيارة القاعة"
+        },
+        "lines": [
+          {
+            "en": "Sat 14 Nov · 5:00 PM",
+            "ar": "السبت 14 نوفمبر · 5:00 م"
+          },
+          {
+            "en": "Aurelia Gulf Hotel · main entrance",
+            "ar": "فندق أوريليا الخليج · المدخل الرئيسي"
+          },
+          {
+            "en": "3 visitors",
+            "ar": "3 زائرين"
+          }
+        ],
+        "at": "2026-11-14T17:00:00+03:00",
+        "refId": "visit-aurelia-reem"
+      }
+    },
+    {
+      "id": "msg-031",
+      "conversationId": "conv-visit-aurelia-reem",
+      "from": "venue",
+      "senderName": "Amal Al-Balushi",
+      "at": "2026-11-11T09:55:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "A reminder to bring any kosha pictures you like so we can discuss them during the visit.",
+        "ar": "نذكّركم بإحضار أي صور للكوشة تعجبكم لنناقشها خلال الزيارة."
+      },
+      "origin": "ar",
+      "status": "delivered",
+      "draft": false
+    },
+    {
+      "id": "msg-032",
+      "conversationId": "conv-visit-lumi-reem",
+      "from": "system",
+      "senderName": null,
+      "at": "2026-11-02T11:00:00+03:00",
+      "kind": "system",
+      "text": {
+        "en": "A group chat opened for your visit on Wed 4 Nov: you, Lumi Marina Hotel and Ghazal support.",
+        "ar": "فُتحت محادثة جماعية لزيارتكم يوم الأربعاء 4 نوفمبر: أنتم وفندق لومي مارينا ودعم غزل."
+      },
+      "origin": "en",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-033",
+      "conversationId": "conv-visit-lumi-reem",
+      "from": "client",
+      "senderName": "ريم الدوسري",
+      "at": "2026-11-02T11:05:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Peace be upon you. We would like to visit the hall on Wednesday 4 November at 4:30 PM.",
+        "ar": "السلام عليكم، نرغب بزيارة القاعة الأربعاء 4 نوفمبر الساعة 4:30 مساءً."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-034",
+      "conversationId": "conv-visit-lumi-reem",
+      "from": "venue",
+      "senderName": "Nadia Al-Failakawi",
+      "at": "2026-11-02T14:10:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "And peace be upon you. Your visit is confirmed for Wednesday 4 November at 4:30 PM at reception.",
+        "ar": "وعليكم السلام ورحمة الله. موعدكم مؤكد الأربعاء 4 نوفمبر الساعة 4:30 م عند الاستقبال."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-035",
+      "conversationId": "conv-visit-lumi-reem",
+      "from": "support",
+      "senderName": "Lama Al-Khalidi",
+      "at": "2026-11-02T14:12:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Hello Reem, I am Lama from Ghazal support. I am with you for any question before the visit.",
+        "ar": "أهلاً ريم، أنا لمى من دعم غزل. أنا معكم لأي استفسار قبل الزيارة."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-036",
+      "conversationId": "conv-visit-lumi-reem",
+      "from": "client",
+      "senderName": "ريم الدوسري",
+      "at": "2026-11-04T16:32:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "We have arrived, we are at reception.",
+        "ar": "وصلنا، نحن عند الاستقبال."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-037",
+      "conversationId": "conv-visit-lumi-reem",
+      "from": "system",
+      "senderName": null,
+      "at": "2026-11-04T16:35:00+03:00",
+      "kind": "system",
+      "text": {
+        "en": "Arrival confirmed by the hotel representative.",
+        "ar": "أكّد ممثل الفندق وصولكم."
+      },
+      "origin": "en",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-038",
+      "conversationId": "conv-visit-lumi-reem",
+      "from": "system",
+      "senderName": null,
+      "at": "2026-11-04T17:20:00+03:00",
+      "kind": "system",
+      "text": {
+        "en": "The visit is complete.",
+        "ar": "اكتملت الزيارة."
+      },
+      "origin": "en",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-039",
+      "conversationId": "conv-visit-lumi-reem",
+      "from": "system",
+      "senderName": null,
+      "at": "2026-11-04T17:21:00+03:00",
+      "kind": "booking_card",
+      "text": {
+        "en": "Voucher",
+        "ar": "الكوبون"
+      },
+      "origin": "en",
+      "status": "read",
+      "draft": false,
+      "card": {
+        "kind": "voucher_offer",
+        "title": {
+          "en": "Get your voucher",
+          "ar": "احصلوا على الكوبون"
+        },
+        "lines": [
+          {
+            "en": "Request this hall at the voucher price",
+            "ar": "اطلبوا هذه القاعة بسعر الكوبون"
+          },
+          {
+            "en": "One voucher per request",
+            "ar": "كوبون واحد لكل طلب"
+          }
+        ],
+        "refId": "V05"
+      }
+    },
+    {
+      "id": "msg-040",
+      "conversationId": "conv-visit-lumi-reem",
+      "from": "system",
+      "senderName": null,
+      "at": "2026-11-05T16:30:00+03:00",
+      "kind": "system",
+      "text": {
+        "en": "This chat is now read-only.",
+        "ar": "أصبحت هذه المحادثة للقراءة فقط."
+      },
+      "origin": "en",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-041",
+      "conversationId": "conv-visit-aurelia-rashed",
+      "from": "system",
+      "senderName": null,
+      "at": "2026-11-12T14:35:00+03:00",
+      "kind": "system",
+      "text": {
+        "en": "A group chat opened for your visit on Sat 21 Nov: you, Aurelia Gulf Hotel and Ghazal support.",
+        "ar": "فُتحت محادثة جماعية لزيارتكم يوم السبت 21 نوفمبر: أنتم وفندق أوريليا الخليج ودعم غزل."
+      },
+      "origin": "en",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-042",
+      "conversationId": "conv-visit-aurelia-rashed",
+      "from": "client",
+      "senderName": "راشد العجمي",
+      "at": "2026-11-12T14:36:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Peace be upon you. We would like to visit the hall on Saturday the 21st at 6 PM with my mother and sisters.",
+        "ar": "السلام عليكم، نبي نزور القاعة يوم السبت 21 الساعة 6 مساءً مع الوالدة وأخواتي."
+      },
+      "origin": "ar",
+      "status": "delivered",
+      "draft": false
+    },
+    {
+      "id": "msg-043",
+      "conversationId": "conv-visit-aurelia-rashed",
+      "from": "support",
+      "senderName": "Lama Al-Khalidi",
+      "at": "2026-11-12T14:42:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Hello Rashed, I am Lama from Ghazal support. The visit request reached the hotel and we are waiting for the hotel representative to confirm.",
+        "ar": "أهلاً راشد، أنا لمى من دعم غزل. وصل طلب الزيارة للفندق وننتظر تأكيد ممثل الفندق."
+      },
+      "origin": "ar",
+      "status": "delivered",
+      "draft": false
+    }
+  ]
+}

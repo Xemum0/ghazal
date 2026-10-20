@@ -1,0 +1,24 @@
+{
+  "name": "ghazal",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Ghazal: premium wedding-venue marketplace for Kuwait. Monorepo root; scripts only.",
+  "packageManager": "pnpm@10.10.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm -F design dev",
+    "build": "pnpm -F design build",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "lint": "pnpm -F design lint",
+    "lint:css": "pnpm -F design lint:css",
+    "tokens": "node packages/design-tokens/scripts/build.mjs",
+    "tokens:check": "node packages/design-tokens/scripts/build.mjs --check",
+    "i18n:check": "node packages/i18n/scripts/check.mjs",
+    "shots": "node design/scripts/shots.mjs",
+    "contracts:check": "pnpm -F @gz/contracts check && pnpm -F @gz/contracts validate",
+    "verify": "pnpm typecheck && pnpm lint && pnpm tokens:check && pnpm i18n:check && pnpm contracts:check",
+    "ports": "node tools/ports.mjs"
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "_readme": "Per-key exceptions to i18n:check. Shape: { \"<key>\": [\"<rule>\", ...] }. Rules: digits, latin, arabic-in-en, left-right, banned, punctuation, plural, icu-format, length, tanween. Every entry needs a reason in _reasons. Keep this file nearly empty.",
+  "_reasons": {}
+}

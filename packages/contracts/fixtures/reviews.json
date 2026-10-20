@@ -1,0 +1,4359 @@
+[
+  {
+    "id": "rv-V01-02",
+    "venueId": "V01",
+    "author": {
+      "en": "Mona S.",
+      "ar": "منى س."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 3.5,
+    "categories": {
+      "venue": 4,
+      "food": 3.5,
+      "service": 3,
+      "value": 3.5
+    },
+    "text": {
+      "en": "The location is excellent, but getting into the car park was crowded after ten, and more valet staff would help.",
+      "ar": "الموقع ممتاز لكن الدخول للمواقف كان مزدحمًا بعد العاشرة، ونتمنى زيادة عدد الموظفين في الفاليه."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V01-danah",
+    "eventDate": "2026-10-30",
+    "postedAt": "2026-11-01T11:00:00+03:00",
+    "ownerReply": null,
+    "replyDraft": {
+      "en": "Thank you for your valuable feedback. The valet team has been increased on busy nights, and we would be glad to host you again.",
+      "ar": "شكرًا لكم على ملاحظاتكم القيّمة. تمت زيادة فريق الفاليه في الليالي المزدحمة، ويسعدنا استضافتكم مجددًا."
+    },
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V01-03",
+    "venueId": "V01",
+    "author": {
+      "en": "Maha K.",
+      "ar": "مها ك."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The kosha was better than we imagined and the lighting was soft. The team kept to the schedule and Danah Ballroom was ready before guests arrived.",
+      "ar": "الكوشة كانت أجمل مما توقعنا والإضاءة مريحة. الفريق التزم بالموعد وكانت قاعة الدانة جاهزة قبل وصول الضيوف."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V01-danah",
+    "eventDate": "2026-10-09",
+    "postedAt": "2026-10-12T09:40:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-10-13T10:00:00+03:00",
+      "by": "Hind Al-Enezi"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V01-04",
+    "venueId": "V01",
+    "author": {
+      "en": "Fahad S.",
+      "ar": "فهد ش."
+    },
+    "monogram": "ف",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The men’s reception was well organised, with coffee and dates at the entrance. Dinner arrived on time.",
+      "ar": "استقبال الرجال كان منظمًا، والقهوة والتمر عند المدخل بشكل مرتب. العشاء جاء في وقته."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V01-majlis",
+    "eventDate": "2026-09-24",
+    "postedAt": "2026-09-26T13:20:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V01-01",
+    "venueId": "V01",
+    "author": {
+      "en": "Noura A.",
+      "ar": "نورة ع."
+    },
+    "monogram": "ن",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "Refined hall, excellent organisation; the ladies’ hall team were helpful from arrival to the very end and the buffet was varied and well kept.",
+      "ar": "قاعة راقية والتنظيم ممتاز. فريق القاعة النسائية كان متعاونًا جدًا من لحظة الدخول حتى نهاية الحفل، والبوفيه مرتب ومتنوع."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V01-danah",
+    "eventDate": "2026-09-17",
+    "postedAt": "2026-09-20T10:15:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-09-21T11:00:00+03:00",
+      "by": "Hind Al-Enezi"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V01-05",
+    "venueId": "V01",
+    "author": {
+      "en": "Sara B.",
+      "ar": "سارة ب."
+    },
+    "monogram": "س",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The food was fresh and the buffet varied, and the show cake was lovely. Coordinating with the events manager was easy from the first message.",
+      "ar": "الأكل طازج والبوفيه متنوع، وكيكة العرض كانت جميلة. التنسيق مع مسؤولة الحفلات كان سهلًا من أول رسالة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V01-danah",
+    "eventDate": "2026-08-20",
+    "postedAt": "2026-08-23T12:05:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V01-06",
+    "venueId": "V01",
+    "author": {
+      "en": "Lulwa H.",
+      "ar": "لولوة ح."
+    },
+    "monogram": "ل",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The sound was clear without being loud, and the separate entrance put everyone at ease. I recommend it for a calm, well-run evening.",
+      "ar": "الصوت واضح دون إزعاج، والمدخل المنفصل أراح الجميع. أنصح بها لمن يبحث عن حفل هادئ ومنظم."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V01-danah",
+    "eventDate": "2026-07-16",
+    "postedAt": "2026-07-19T16:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for choosing us for your evening. Your note has been shared with the team.",
+        "ar": "شكرًا لاختياركم لنا في أمسيتكم. تمت مشاركة ملاحظتكم مع الفريق."
+      },
+      "repliedAt": "2026-07-20T09:30:00+03:00",
+      "by": "Hind Al-Enezi"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V01-07",
+    "venueId": "V01",
+    "author": {
+      "en": "Hind S.",
+      "ar": "هند ش."
+    },
+    "monogram": "ه",
+    "anonymous": false,
+    "rating": 4.4,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 4
+    },
+    "text": {
+      "en": "A beautiful hall and good service. The price is on the higher side, but you can see where it goes.",
+      "ar": "قاعة جميلة وخدمة جيدة. السعر في الجهة الأعلى لكن يمكن رؤية ما يقابله."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V01-danah",
+    "eventDate": "2026-06-12",
+    "postedAt": "2026-06-14T11:10:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V01-08",
+    "venueId": "V01",
+    "author": {
+      "en": "Yousef H.",
+      "ar": "يوسف ح."
+    },
+    "monogram": "ي",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The men’s hall is spacious with enough parking, and the team helped arrange the tables for our numbers.",
+      "ar": "قاعة الرجال واسعة والمواقف كافية، والفريق ساعدنا في ترتيب الطاولات حسب العدد."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V01-majlis",
+    "eventDate": "2026-05-08",
+    "postedAt": "2026-05-11T14:00:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V01-09",
+    "venueId": "V01",
+    "author": {
+      "en": "Amal D.",
+      "ar": "أمل ظ."
+    },
+    "monogram": "أ",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The bridal room was tidy and calm with everything needed before the zaffa. Thank you to the reception team.",
+      "ar": "غرفة العروس مرتبة وهادئة وفيها كل ما نحتاجه قبل الزفّة. شكرًا لفريق الاستقبال."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V01-danah",
+    "eventDate": "2026-03-27",
+    "postedAt": "2026-03-30T10:45:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-03-31T09:15:00+03:00",
+      "by": "Hind Al-Enezi"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V01-10",
+    "venueId": "V01",
+    "author": {
+      "en": "Shaikha F.",
+      "ar": "شيخة ف."
+    },
+    "monogram": "ش",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 4
+    },
+    "text": {
+      "en": "Beautiful venue and good food, though entry was a little slow after ten. More staff at the entrance would help.",
+      "ar": "المكان جميل والأكل جيد، لكن الدخول كان بطيئًا قليلًا بعد العاشرة. نتمنى زيادة عدد الموظفين عند المدخل."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V01-danah",
+    "eventDate": "2026-02-05",
+    "postedAt": "2026-02-08T12:00:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you. The entrance team has been informed and we will follow up on your point.",
+        "ar": "شكرًا لكم. تم إبلاغ فريق المدخل بملاحظتكم وسنتابع الأمر."
+      },
+      "repliedAt": "2026-02-09T10:30:00+03:00",
+      "by": "Hind Al-Enezi"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V01-11",
+    "venueId": "V01",
+    "author": {
+      "en": "Dana M.",
+      "ar": "دانة م."
+    },
+    "monogram": "د",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "It was an excellent evening and everyone was comfortable. Management answered all our questions before and after the event.",
+      "ar": "كانت أمسية ممتازة والجميع مرتاح. الإدارة ردّت على كل أسئلتنا قبل الحفل وبعده."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V01-danah",
+    "eventDate": "2026-01-15",
+    "postedAt": "2026-01-18T15:20:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V01-12",
+    "venueId": "V01",
+    "author": {
+      "en": "Reema N.",
+      "ar": "ريما ن."
+    },
+    "monogram": "ر",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The coffee and dates welcome at the entrance was well organised, and having female photographers only put the guests at ease.",
+      "ar": "استقبال القهوة والتمر عند المدخل كان مرتبًا، والتصوير بمصوّرات فقط أراح الضيفات."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V01-majlis",
+    "eventDate": "2025-12-12",
+    "postedAt": "2025-12-15T13:35:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V02-09",
+    "venueId": "V02",
+    "author": {
+      "en": "Sara B.",
+      "ar": "سارة ب."
+    },
+    "monogram": "س",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 4.5,
+      "value": 5
+    },
+    "text": {
+      "en": "The kosha was better than we imagined and the lighting was soft. The team kept to the schedule and Qamar Ballroom was ready before guests arrived.",
+      "ar": "الكوشة كانت أجمل مما توقعنا والإضاءة مريحة. الفريق التزم بالموعد وتجهيز قاعة القمر كان جاهزًا قبل وصول الضيوف."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V02-qamar",
+    "eventDate": "2026-10-08",
+    "postedAt": "2026-10-11T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-10-13T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V02-01",
+    "venueId": "V02",
+    "author": {
+      "en": "Asmaa K.",
+      "ar": "أسماء خ."
+    },
+    "monogram": "أ",
+    "anonymous": false,
+    "rating": 4.6,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The lighting with the kosha was perfectly matched and the hall looked even better than the photos.",
+      "ar": "الإضاءة مع الكوشة جاءت متناسقة تمامًا، والقاعة بدت أجمل من الصور."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V02-nujoum",
+    "eventDate": "2026-08-08",
+    "postedAt": "2026-08-10T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V02-02",
+    "venueId": "V02",
+    "author": {
+      "en": "Maitha D.",
+      "ar": "ميثاء د."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 4.4,
+    "categories": {
+      "venue": 4.5,
+      "food": 4,
+      "service": 5,
+      "value": 4
+    },
+    "text": {
+      "en": "The team helped arrange the tables and seat the guests, and the evening ended on time without any confusion.",
+      "ar": "الفريق ساعدنا في ترتيب الطاولات وتوزيع الضيوف، وانتهى الحفل في موعده دون أي ارتباك."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V02-nujoum",
+    "eventDate": "2026-07-16",
+    "postedAt": "2026-07-18T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V02-10",
+    "venueId": "V02",
+    "author": {
+      "en": "Joud A.",
+      "ar": "جود ع."
+    },
+    "monogram": "ج",
+    "anonymous": false,
+    "rating": 4.3,
+    "categories": {
+      "venue": 5,
+      "food": 4,
+      "service": 4,
+      "value": 4
+    },
+    "text": {
+      "en": "The space is generous for all our guests and the air conditioning was excellent. The staff were courteous and quick.",
+      "ar": "المكان واسع ويتسع لكل المعازيم، والتكييف ممتاز. الموظفات محترمات وسريعات في الخدمة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V02-qamar",
+    "eventDate": "2026-06-18",
+    "postedAt": "2026-06-20T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-06-22T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V02-03",
+    "venueId": "V02",
+    "author": {
+      "en": "Budoor Z.",
+      "ar": "بدور ز."
+    },
+    "monogram": "ب",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "It was an excellent evening and everyone was comfortable. Management answered all our questions before and after the event.",
+      "ar": "كانت أمسية ممتازة والجميع مرتاح. الإدارة ردّت على كل أسئلتنا قبل الحفل وبعده."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V02-qamar",
+    "eventDate": "2026-06-11",
+    "postedAt": "2026-06-12T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V02-05",
+    "venueId": "V02",
+    "author": {
+      "en": "Abdullah K.",
+      "ar": "عبدالله ك."
+    },
+    "monogram": "ع",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "Dinner was ready on time and the team was cooperative with arrivals and departures.",
+      "ar": "العشاء كان جاهزًا في وقته، والفريق متعاون في ترتيب الدخول والخروج."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V02-qamar",
+    "eventDate": "2026-03-13",
+    "postedAt": "2026-03-14T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V02-08",
+    "venueId": "V02",
+    "author": {
+      "en": "Salman R.",
+      "ar": "سلمان ر."
+    },
+    "monogram": "س",
+    "anonymous": false,
+    "rating": 4.1,
+    "categories": {
+      "venue": 4,
+      "food": 4.5,
+      "service": 4,
+      "value": 4
+    },
+    "text": {
+      "en": "The hall was tidy and the service quick, with coffee and dates offered at the door in good style.",
+      "ar": "القاعة مرتبة والخدمة سريعة، والقهوة والتمر قُدّما عند الباب بشكل لائق."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V02-nujoum",
+    "eventDate": "2026-02-05",
+    "postedAt": "2026-02-07T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-02-08T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V02-04",
+    "venueId": "V02",
+    "author": {
+      "en": "Badr A.",
+      "ar": "بدر ع."
+    },
+    "monogram": "ب",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The men’s reception was well organised, with coffee and dates at the entrance. Dinner arrived on time.",
+      "ar": "استقبال الرجال كان منظمًا، والقهوة والتمر عند المدخل بشكل مرتب. العشاء جاء في وقته."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V02-qamar",
+    "eventDate": "2025-12-25",
+    "postedAt": "2025-12-28T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2025-12-29T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V02-06",
+    "venueId": "V02",
+    "author": {
+      "en": "Dana M.",
+      "ar": "دانة م."
+    },
+    "monogram": "د",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 4.5,
+      "value": 4
+    },
+    "text": {
+      "en": "Hospitality was orderly and kept refreshed through the evening, and dinner was served without any delay.",
+      "ar": "الضيافة كانت مرتبة ومتجددة طوال الحفل، وما واجهنا أي تأخير في تقديم العشاء."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V02-nujoum",
+    "eventDate": "2025-12-11",
+    "postedAt": "2025-12-14T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V02-07",
+    "venueId": "V02",
+    "author": {
+      "en": "Fatima R.",
+      "ar": "فاطمة ر."
+    },
+    "monogram": "ف",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The bridal room was tidy and calm with everything needed before the zaffa. Thank you to the reception team.",
+      "ar": "غرفة العروس مرتبة وهادئة وفيها كل ما نحتاجه قبل الزفّة. شكرًا لفريق الاستقبال."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V02-qamar",
+    "eventDate": "2025-11-20",
+    "postedAt": "2025-11-23T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2025-11-25T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V03-05",
+    "venueId": "V03",
+    "author": {
+      "en": "Nasser F.",
+      "ar": "ناصر ف."
+    },
+    "monogram": "ن",
+    "anonymous": false,
+    "rating": 5,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The sea view is wonderful and the lawn was neatly set. The weather was kind and the indoor backup was ready.",
+      "ar": "الإطلالة على البحر رائعة والمرج مرتب. الجو كان لطيفًا والقاعة الداخلية البديلة جاهزة."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V03-seaview",
+    "eventDate": "2026-10-22",
+    "postedAt": "2026-10-25T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V03-02",
+    "venueId": "V03",
+    "author": {
+      "en": "Amal D.",
+      "ar": "أمل ظ."
+    },
+    "monogram": "أ",
+    "anonymous": false,
+    "rating": 4.3,
+    "categories": {
+      "venue": 4,
+      "food": 4.5,
+      "service": 4,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The sound was clear without being loud, and the separate entrance put everyone at ease. I recommend it for a calm, well-run evening.",
+      "ar": "الصوت واضح دون إزعاج، والمدخل المنفصل أراح الجميع. أنصح بها لمن يبحث عن حفل هادئ ومنظم."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V03-seaview",
+    "eventDate": "2026-06-11",
+    "postedAt": "2026-06-12T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-06-14T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V03-01",
+    "venueId": "V03",
+    "author": {
+      "en": "Shaikha F.",
+      "ar": "شيخة ف."
+    },
+    "monogram": "ش",
+    "anonymous": false,
+    "rating": 4.1,
+    "categories": {
+      "venue": 4,
+      "food": 4.5,
+      "service": 4,
+      "value": 4
+    },
+    "text": {
+      "en": "The kosha was better than we imagined and the lighting was soft. The team kept to the schedule and Seaview Hall was ready before guests arrived.",
+      "ar": "الكوشة كانت أجمل مما توقعنا والإضاءة مريحة. الفريق التزم بالموعد وتجهيز قاعة الواجهة البحرية كان جاهزًا قبل وصول الضيوف."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V03-seaview",
+    "eventDate": "2026-06-04",
+    "postedAt": "2026-06-06T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V03-03",
+    "venueId": "V03",
+    "author": {
+      "en": "Hind S.",
+      "ar": "هند ش."
+    },
+    "monogram": "ه",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The space is generous for all our guests and the air conditioning was excellent. The staff were courteous and quick.",
+      "ar": "المكان واسع ويتسع لكل المعازيم، والتكييف ممتاز. الموظفات محترمات وسريعات في الخدمة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V03-seaview",
+    "eventDate": "2026-05-21",
+    "postedAt": "2026-05-24T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V03-06",
+    "venueId": "V03",
+    "author": {
+      "en": "Lulwa H.",
+      "ar": "لولوة ح."
+    },
+    "monogram": "ل",
+    "anonymous": false,
+    "rating": 5,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "Welcoming guests felt refined from the entrance to the stage, and coordinating with the team made things much easier.",
+      "ar": "استقبال الضيوف كان راقيًا من الدخول إلى المنصة، والتنسيق مع الفريق سهّل علينا الكثير."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V03-seaview",
+    "eventDate": "2026-05-07",
+    "postedAt": "2026-05-09T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V03-04",
+    "venueId": "V03",
+    "author": {
+      "en": "Asmaa K.",
+      "ar": "أسماء خ."
+    },
+    "monogram": "أ",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "Hospitality was orderly and kept refreshed through the evening, and dinner was served without any delay.",
+      "ar": "الضيافة كانت مرتبة ومتجددة طوال الحفل، وما واجهنا أي تأخير في تقديم العشاء."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V03-lawn",
+    "eventDate": "2025-12-04",
+    "postedAt": "2025-12-07T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V04-06",
+    "venueId": "V04",
+    "author": {
+      "en": "Lulwa H.",
+      "ar": "لولوة ح."
+    },
+    "monogram": "ل",
+    "anonymous": false,
+    "rating": 4.1,
+    "categories": {
+      "venue": 4,
+      "food": 4.5,
+      "service": 4,
+      "value": 4
+    },
+    "text": {
+      "en": "The sound was clear without being loud, and the separate entrance put everyone at ease. I recommend it for a calm, well-run evening.",
+      "ar": "الصوت واضح دون إزعاج، والمدخل المنفصل أراح الجميع. أنصح بها لمن يبحث عن حفل هادئ ومنظم."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V04-majlis",
+    "eventDate": "2026-10-31",
+    "postedAt": "2026-11-01T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V04-04",
+    "venueId": "V04",
+    "author": {
+      "en": "Hind S.",
+      "ar": "هند ش."
+    },
+    "monogram": "ه",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4,
+      "food": 4.5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The bridal room was tidy and calm with everything needed before the zaffa. Thank you to the reception team.",
+      "ar": "غرفة العروس مرتبة وهادئة وفيها كل ما نحتاجه قبل الزفّة. شكرًا لفريق الاستقبال."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V04-majlis",
+    "eventDate": "2026-10-29",
+    "postedAt": "2026-10-30T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-11-01T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V04-05",
+    "venueId": "V04",
+    "author": {
+      "en": "Huda T.",
+      "ar": "هدى ت."
+    },
+    "monogram": "ه",
+    "anonymous": false,
+    "rating": 5,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The coffee and dates welcome at the entrance was well organised, and having female photographers only put the guests at ease.",
+      "ar": "استقبال القهوة والتمر عند المدخل كان مرتبًا، والتصوير بمصوّرات فقط أراح الضيفات."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V04-majlis",
+    "eventDate": "2026-07-30",
+    "postedAt": "2026-08-01T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V04-02",
+    "venueId": "V04",
+    "author": {
+      "en": "Shaikha F.",
+      "ar": "شيخة ف."
+    },
+    "monogram": "ش",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The food was fresh and the buffet varied, and the show cake was lovely. Coordinating with the events manager was easy from the first message.",
+      "ar": "الأكل طازج والبوفيه متنوع، وكيكة العرض كانت جميلة. التنسيق مع مسؤولة الحفلات كان سهلًا من أول رسالة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V04-majlis",
+    "eventDate": "2026-05-22",
+    "postedAt": "2026-05-24T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V04-09",
+    "venueId": "V04",
+    "author": {
+      "en": "Mishari Q.",
+      "ar": "مشاري ق."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The men’s hall is spacious with enough parking, and the team helped arrange the tables for our numbers.",
+      "ar": "قاعة الرجال واسعة والمواقف كافية، والفريق ساعدنا في ترتيب الطاولات حسب العدد."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V04-majlis",
+    "eventDate": "2026-05-07",
+    "postedAt": "2026-05-10T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-05-12T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V04-08",
+    "venueId": "V04",
+    "author": {
+      "en": "Yousef H.",
+      "ar": "يوسف ح."
+    },
+    "monogram": "ي",
+    "anonymous": false,
+    "rating": 4.3,
+    "categories": {
+      "venue": 4.5,
+      "food": 4,
+      "service": 4,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The hall was tidy and the service quick, with coffee and dates offered at the door in good style.",
+      "ar": "القاعة مرتبة والخدمة سريعة، والقهوة والتمر قُدّما عند الباب بشكل لائق."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V04-garden",
+    "eventDate": "2026-04-23",
+    "postedAt": "2026-04-25T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-04-26T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V04-03",
+    "venueId": "V04",
+    "author": {
+      "en": "Asmaa K.",
+      "ar": "أسماء خ."
+    },
+    "monogram": "أ",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 4.5,
+      "value": 5
+    },
+    "text": {
+      "en": "The space is generous for all our guests and the air conditioning was excellent. The staff were courteous and quick.",
+      "ar": "المكان واسع ويتسع لكل المعازيم، والتكييف ممتاز. الموظفات محترمات وسريعات في الخدمة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V04-garden",
+    "eventDate": "2026-02-05",
+    "postedAt": "2026-02-08T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V04-07",
+    "venueId": "V04",
+    "author": {
+      "en": "Dana M.",
+      "ar": "دانة م."
+    },
+    "monogram": "د",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "Welcoming guests felt refined from the entrance to the stage, and coordinating with the team made things much easier.",
+      "ar": "استقبال الضيوف كان راقيًا من الدخول إلى المنصة، والتنسيق مع الفريق سهّل علينا الكثير."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V04-garden",
+    "eventDate": "2026-01-22",
+    "postedAt": "2026-01-25T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-01-26T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V04-01",
+    "venueId": "V04",
+    "author": {
+      "en": "Maha K.",
+      "ar": "مها ك."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The team helped arrange the tables and seat the guests, and the evening ended on time without any confusion.",
+      "ar": "الفريق ساعدنا في ترتيب الطاولات وتوزيع الضيوف، وانتهى الحفل في موعده دون أي ارتباك."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V04-garden",
+    "eventDate": "2026-01-15",
+    "postedAt": "2026-01-17T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V05-07",
+    "venueId": "V05",
+    "author": {
+      "en": "Hind S.",
+      "ar": "هند ش."
+    },
+    "monogram": "ه",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The coffee and dates welcome at the entrance was well organised, and having female photographers only put the guests at ease.",
+      "ar": "استقبال القهوة والتمر عند المدخل كان مرتبًا، والتصوير بمصوّرات فقط أراح الضيفات."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V05-marina",
+    "eventDate": "2026-08-07",
+    "postedAt": "2026-08-09T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V05-05",
+    "venueId": "V05",
+    "author": {
+      "en": "Alya S.",
+      "ar": "علياء ص."
+    },
+    "monogram": "ع",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The lighting with the kosha was perfectly matched and the hall looked even better than the photos.",
+      "ar": "الإضاءة مع الكوشة جاءت متناسقة تمامًا، والقاعة بدت أجمل من الصور."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V05-terrace",
+    "eventDate": "2026-06-04",
+    "postedAt": "2026-06-05T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V05-06",
+    "venueId": "V05",
+    "author": {
+      "en": "Lulwa H.",
+      "ar": "لولوة ح."
+    },
+    "monogram": "ل",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4,
+      "food": 5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "Hospitality was orderly and kept refreshed through the evening, and dinner was served without any delay.",
+      "ar": "الضيافة كانت مرتبة ومتجددة طوال الحفل، وما واجهنا أي تأخير في تقديم العشاء."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V05-marina",
+    "eventDate": "2026-04-30",
+    "postedAt": "2026-05-03T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-05-04T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V05-03",
+    "venueId": "V05",
+    "author": {
+      "en": "Budoor Z.",
+      "ar": "بدور ز."
+    },
+    "monogram": "ب",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 5
+    },
+    "text": {
+      "en": "The voucher price was applied at the venue exactly as shown, and the team was clear about every detail. The hall matches the photos.",
+      "ar": "سعر الكوبون طُبّق في القاعة كما هو معروض، والفريق كان واضحًا في كل التفاصيل. القاعة كما في الصور."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V05-marina",
+    "eventDate": "2026-03-05",
+    "postedAt": "2026-03-08T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-03-09T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V05-02",
+    "venueId": "V05",
+    "author": {
+      "en": "Noura A.",
+      "ar": "نورة ع."
+    },
+    "monogram": "ن",
+    "anonymous": false,
+    "rating": 3.8,
+    "categories": {
+      "venue": 4,
+      "food": 3.5,
+      "service": 3.5,
+      "value": 4
+    },
+    "text": {
+      "en": "The hall is clean and the service good. The price is fair but setup ran about half an hour late.",
+      "ar": "القاعة نظيفة والخدمة جيدة. السعر مناسب لكن التجهيز تأخر نحو نصف ساعة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V05-terrace",
+    "eventDate": "2026-01-29",
+    "postedAt": "2026-02-01T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-02-03T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V05-04",
+    "venueId": "V05",
+    "author": {
+      "en": "Yousef H.",
+      "ar": "يوسف ح."
+    },
+    "monogram": "ي",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The men’s reception was well organised, with coffee and dates at the entrance. Dinner arrived on time.",
+      "ar": "استقبال الرجال كان منظمًا، والقهوة والتمر عند المدخل بشكل مرتب. العشاء جاء في وقته."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V05-marina",
+    "eventDate": "2026-01-08",
+    "postedAt": "2026-01-11T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-01-13T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V05-08",
+    "venueId": "V05",
+    "author": {
+      "en": "Wafa J.",
+      "ar": "وفاء ج."
+    },
+    "monogram": "و",
+    "anonymous": false,
+    "rating": 2.3,
+    "categories": {
+      "venue": 2.5,
+      "food": 2,
+      "service": 1.5,
+      "value": 3
+    },
+    "text": {
+      "en": "We expected faster service at the welcome and dinner arrived late. The hall itself is lovely.",
+      "ar": "توقعنا خدمة أسرع في الاستقبال، وتأخر وصول العشاء. القاعة نفسها جميلة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V05-marina",
+    "eventDate": "2025-10-16",
+    "postedAt": "2025-10-18T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "We appreciate your feedback. The buffet layout was adjusted so dishes are replenished better at peak times.",
+        "ar": "نقدّر ملاحظاتكم. عُدّل ترتيب البوفيه لتعويض الأطباق بشكل أفضل في أوقات الذروة."
+      },
+      "repliedAt": "2025-10-20T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V05-01",
+    "venueId": "V05",
+    "author": {
+      "en": "Amal D.",
+      "ar": "أمل ظ."
+    },
+    "monogram": "أ",
+    "anonymous": false,
+    "rating": 4.4,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 4
+    },
+    "text": {
+      "en": "Welcoming guests felt refined from the entrance to the stage, and coordinating with the team made things much easier.",
+      "ar": "استقبال الضيوف كان راقيًا من الدخول إلى المنصة، والتنسيق مع الفريق سهّل علينا الكثير."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V05-marina",
+    "eventDate": "2025-10-16",
+    "postedAt": "2025-10-18T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V06-01",
+    "venueId": "V06",
+    "author": {
+      "en": "Joud A.",
+      "ar": "جود ع."
+    },
+    "monogram": "ج",
+    "anonymous": false,
+    "rating": 4.3,
+    "categories": {
+      "venue": 4,
+      "food": 4,
+      "service": 4,
+      "value": 5
+    },
+    "text": {
+      "en": "The price is very reasonable for the numbers, and the hall is spacious and clean. A good fit for large families.",
+      "ar": "السعر مناسب جدًا للعدد، والقاعة واسعة ونظيفة. مناسبة للعائلات الكبيرة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V06-diwan",
+    "eventDate": "2026-10-08",
+    "postedAt": "2026-10-10T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-10-11T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V06-07",
+    "venueId": "V06",
+    "author": {
+      "en": "Maha K.",
+      "ar": "مها ك."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 4.5,
+      "value": 5
+    },
+    "text": {
+      "en": "The voucher price was applied at the venue exactly as shown, and the team was clear about every detail. The hall matches the photos.",
+      "ar": "سعر الكوبون طُبّق في القاعة كما هو معروض، والفريق كان واضحًا في كل التفاصيل. القاعة كما في الصور."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V06-diwan",
+    "eventDate": "2026-06-25",
+    "postedAt": "2026-06-28T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V06-03",
+    "venueId": "V06",
+    "author": {
+      "en": "Maitha D.",
+      "ar": "ميثاء د."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "Welcoming guests felt refined from the entrance to the stage, and coordinating with the team made things much easier.",
+      "ar": "استقبال الضيوف كان راقيًا من الدخول إلى المنصة، والتنسيق مع الفريق سهّل علينا الكثير."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V06-rawda",
+    "eventDate": "2026-02-26",
+    "postedAt": "2026-03-01T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-03-02T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V06-02",
+    "venueId": "V06",
+    "author": {
+      "en": "Yousef H.",
+      "ar": "يوسف ح."
+    },
+    "monogram": "ي",
+    "anonymous": false,
+    "rating": 4.1,
+    "categories": {
+      "venue": 4,
+      "food": 4,
+      "service": 4.5,
+      "value": 4
+    },
+    "text": {
+      "en": "Dinner was ready on time and the team was cooperative with arrivals and departures.",
+      "ar": "العشاء كان جاهزًا في وقته، والفريق متعاون في ترتيب الدخول والخروج."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V06-diwan",
+    "eventDate": "2026-02-20",
+    "postedAt": "2026-02-23T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V06-08",
+    "venueId": "V06",
+    "author": {
+      "en": "Fatima R.",
+      "ar": "فاطمة ر."
+    },
+    "monogram": "ف",
+    "anonymous": false,
+    "rating": 4.6,
+    "categories": {
+      "venue": 4.5,
+      "food": 4,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "A spacious hall priced fairly for a large group, and the team answers questions quickly.",
+      "ar": "قاعة واسعة وسعرها مناسب للعدد الكبير، والفريق يرد بسرعة على الاستفسارات."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V06-rawda",
+    "eventDate": "2026-01-31",
+    "postedAt": "2026-02-02T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V06-05",
+    "venueId": "V06",
+    "author": {
+      "en": "Budoor Z.",
+      "ar": "بدور ز."
+    },
+    "monogram": "ب",
+    "anonymous": false,
+    "rating": 4.4,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 4,
+      "value": 4
+    },
+    "text": {
+      "en": "Hospitality was orderly and kept refreshed through the evening, and dinner was served without any delay.",
+      "ar": "الضيافة كانت مرتبة ومتجددة طوال الحفل، وما واجهنا أي تأخير في تقديم العشاء."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V06-diwan",
+    "eventDate": "2026-01-23",
+    "postedAt": "2026-01-26T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V06-06",
+    "venueId": "V06",
+    "author": {
+      "en": "Reema N.",
+      "ar": "ريما ن."
+    },
+    "monogram": "ر",
+    "anonymous": false,
+    "rating": 5,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The food was fresh and the buffet varied, and the show cake was lovely. Coordinating with the events manager was easy from the first message.",
+      "ar": "الأكل طازج والبوفيه متنوع، وكيكة العرض كانت جميلة. التنسيق مع مسؤولة الحفلات كان سهلًا من أول رسالة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V06-diwan",
+    "eventDate": "2025-11-20",
+    "postedAt": "2025-11-23T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V06-04",
+    "venueId": "V06",
+    "author": {
+      "en": "Rana H.",
+      "ar": "رنا ه."
+    },
+    "monogram": "ر",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 4.5,
+      "value": 4
+    },
+    "text": {
+      "en": "A calm, organised evening, with a varied buffet of hot and cold dishes and refreshed desserts.",
+      "ar": "حفل هادئ ومنظم، والبوفيه كان متنوعًا مع أطباق ساخنة وباردة وحلويات متجددة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V06-rawda",
+    "eventDate": "2025-11-07",
+    "postedAt": "2025-11-10T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V07-09",
+    "venueId": "V07",
+    "author": {
+      "en": "Wafa J.",
+      "ar": "وفاء ج."
+    },
+    "monogram": "و",
+    "anonymous": false,
+    "rating": 4.6,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The food was fresh and the buffet varied, and the show cake was lovely. Coordinating with the events manager was easy from the first message.",
+      "ar": "الأكل طازج والبوفيه متنوع، وكيكة العرض كانت جميلة. التنسيق مع مسؤولة الحفلات كان سهلًا من أول رسالة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V07-ladies",
+    "eventDate": "2026-07-25",
+    "postedAt": "2026-07-28T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V07-03",
+    "venueId": "V07",
+    "author": {
+      "en": "Rana H.",
+      "ar": "رنا ه."
+    },
+    "monogram": "ر",
+    "anonymous": false,
+    "rating": 4.6,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 5
+    },
+    "text": {
+      "en": "We hired the hall only and brought our caterer. The cooperation was excellent and the hall was ready on time.",
+      "ar": "استأجرنا القاعة فقط وأحضرنا المتعهد. التعاون ممتاز والقاعة جاهزة في الوقت."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V07-ladies",
+    "eventDate": "2026-06-25",
+    "postedAt": "2026-06-28T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-06-29T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V07-06",
+    "venueId": "V07",
+    "author": {
+      "en": "Mishari Q.",
+      "ar": "مشاري ق."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 5,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "A spacious hall priced fairly for a large group, and the team answers questions quickly.",
+      "ar": "قاعة واسعة وسعرها مناسب للعدد الكبير، والفريق يرد بسرعة على الاستفسارات."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V07-men",
+    "eventDate": "2026-05-16",
+    "postedAt": "2026-05-18T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V07-02",
+    "venueId": "V07",
+    "author": {
+      "en": "Alya S.",
+      "ar": "علياء ص."
+    },
+    "monogram": "ع",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "A separate entrance and nearby parking put our families at ease. Thank you to the security team for the organisation.",
+      "ar": "مدخل منفصل ومواقف قريبة، وأهلنا ارتاحوا كثيرًا. شكرًا لفريق الأمن على التنظيم."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V07-ladies",
+    "eventDate": "2026-05-14",
+    "postedAt": "2026-05-16T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-05-18T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V07-07",
+    "venueId": "V07",
+    "author": {
+      "en": "Ghadeer Q.",
+      "ar": "غدير ق."
+    },
+    "monogram": "غ",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "It was an excellent evening and everyone was comfortable. Management answered all our questions before and after the event.",
+      "ar": "كانت أمسية ممتازة والجميع مرتاح. الإدارة ردّت على كل أسئلتنا قبل الحفل وبعده."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V07-ladies",
+    "eventDate": "2026-02-12",
+    "postedAt": "2026-02-14T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V07-05",
+    "venueId": "V07",
+    "author": {
+      "en": "Budoor Z.",
+      "ar": "بدور ز."
+    },
+    "monogram": "ب",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 4.5,
+      "value": 5
+    },
+    "text": {
+      "en": "The sound was clear without being loud, and the separate entrance put everyone at ease. I recommend it for a calm, well-run evening.",
+      "ar": "الصوت واضح دون إزعاج، والمدخل المنفصل أراح الجميع. أنصح بها لمن يبحث عن حفل هادئ ومنظم."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V07-ladies",
+    "eventDate": "2026-02-05",
+    "postedAt": "2026-02-06T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V07-01",
+    "venueId": "V07",
+    "author": {
+      "en": "Amal D.",
+      "ar": "أمل ظ."
+    },
+    "monogram": "أ",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The bridal room was tidy and calm with everything needed before the zaffa. Thank you to the reception team.",
+      "ar": "غرفة العروس مرتبة وهادئة وفيها كل ما نحتاجه قبل الزفّة. شكرًا لفريق الاستقبال."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V07-ladies",
+    "eventDate": "2026-02-05",
+    "postedAt": "2026-02-06T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V07-04",
+    "venueId": "V07",
+    "author": {
+      "en": "Hind S.",
+      "ar": "هند ش."
+    },
+    "monogram": "ه",
+    "anonymous": false,
+    "rating": 2.5,
+    "categories": {
+      "venue": 3.5,
+      "food": 2,
+      "service": 2,
+      "value": 2.5
+    },
+    "text": {
+      "en": "The food was ordinary for the price. The hall is beautiful but service needs improvement.",
+      "ar": "الأكل كان عاديًا ولم يكن بمستوى السعر. القاعة جميلة لكن الخدمة تحتاج تحسينًا."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V07-ladies",
+    "eventDate": "2025-12-11",
+    "postedAt": "2025-12-14T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for choosing us for your evening. Your note on parking has been shared with the team.",
+        "ar": "شكرًا لاختياركم لنا في أمسيتكم. تمت مشاركة ملاحظتكم حول المواقف مع الفريق."
+      },
+      "repliedAt": "2025-12-16T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V07-08",
+    "venueId": "V07",
+    "author": {
+      "en": "Badr A.",
+      "ar": "بدر ع."
+    },
+    "monogram": "ب",
+    "anonymous": false,
+    "rating": 3.4,
+    "categories": {
+      "venue": 3.5,
+      "food": 3.5,
+      "service": 3,
+      "value": 3.5
+    },
+    "text": {
+      "en": "A good hall, but the coffee was slow at the start. The rest of the service was fine.",
+      "ar": "قاعة جيدة لكن القهوة تأخرت في البداية. بقية الخدمة كانت على ما يرام."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V07-men",
+    "eventDate": "2025-10-16",
+    "postedAt": "2025-10-18T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you. The entrance team has been informed and we will follow up on your point.",
+        "ar": "شكرًا لكم. تم إبلاغ فريق المدخل بملاحظتكم وسنتابع الأمر."
+      },
+      "repliedAt": "2025-10-19T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V08-06",
+    "venueId": "V08",
+    "author": {
+      "en": "Asmaa K.",
+      "ar": "أسماء خ."
+    },
+    "monogram": "أ",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The bridal room was tidy and calm with everything needed before the zaffa. Thank you to the reception team.",
+      "ar": "غرفة العروس مرتبة وهادئة وفيها كل ما نحتاجه قبل الزفّة. شكرًا لفريق الاستقبال."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V08-hall-a",
+    "eventDate": "2026-09-03",
+    "postedAt": "2026-09-05T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-09-06T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V08-07",
+    "venueId": "V08",
+    "author": {
+      "en": "Maitha D.",
+      "ar": "ميثاء د."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 4.3,
+    "categories": {
+      "venue": 4.5,
+      "food": 4,
+      "service": 4.5,
+      "value": 4
+    },
+    "text": {
+      "en": "The sound was clear without being loud, and the separate entrance put everyone at ease. I recommend it for a calm, well-run evening.",
+      "ar": "الصوت واضح دون إزعاج، والمدخل المنفصل أراح الجميع. أنصح بها لمن يبحث عن حفل هادئ ومنظم."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V08-grand",
+    "eventDate": "2026-05-28",
+    "postedAt": "2026-05-30T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V08-05",
+    "venueId": "V08",
+    "author": {
+      "en": "Ghadeer Q.",
+      "ar": "غدير ق."
+    },
+    "monogram": "غ",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4.5,
+      "food": 4,
+      "service": 4.5,
+      "value": 5
+    },
+    "text": {
+      "en": "A spacious hall priced fairly for a large group, and the team answers questions quickly.",
+      "ar": "قاعة واسعة وسعرها مناسب للعدد الكبير، والفريق يرد بسرعة على الاستفسارات."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V08-grand",
+    "eventDate": "2026-05-21",
+    "postedAt": "2026-05-22T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V08-04",
+    "venueId": "V08",
+    "author": {
+      "en": "Rana H.",
+      "ar": "رنا ه."
+    },
+    "monogram": "ر",
+    "anonymous": false,
+    "rating": 3.6,
+    "categories": {
+      "venue": 4,
+      "food": 3,
+      "service": 3.5,
+      "value": 4
+    },
+    "text": {
+      "en": "The food was delicious but desserts were late to arrive. The rest was well organised.",
+      "ar": "الأكل لذيذ لكن الحلويات تأخرت في الوصول. بقية التفاصيل كانت منظمة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V08-hall-a",
+    "eventDate": "2026-04-23",
+    "postedAt": "2026-04-25T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-04-27T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V08-02",
+    "venueId": "V08",
+    "author": {
+      "en": "Alya S.",
+      "ar": "علياء ص."
+    },
+    "monogram": "ع",
+    "anonymous": false,
+    "rating": 3.8,
+    "categories": {
+      "venue": 3.5,
+      "food": 4,
+      "service": 3.5,
+      "value": 4
+    },
+    "text": {
+      "en": "The hall is clean and the service good. The price is fair but setup ran about half an hour late.",
+      "ar": "القاعة نظيفة والخدمة جيدة. السعر مناسب لكن التجهيز تأخر نحو نصف ساعة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V08-hall-a",
+    "eventDate": "2026-04-16",
+    "postedAt": "2026-04-19T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V08-01",
+    "venueId": "V08",
+    "author": {
+      "en": "Munira S.",
+      "ar": "منيرة ص."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 5,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The team helped arrange the tables and seat the guests, and the evening ended on time without any confusion.",
+      "ar": "الفريق ساعدنا في ترتيب الطاولات وتوزيع الضيوف، وانتهى الحفل في موعده دون أي ارتباك."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V08-hall-a",
+    "eventDate": "2026-03-28",
+    "postedAt": "2026-03-30T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V08-08",
+    "venueId": "V08",
+    "author": {
+      "en": "Joud A.",
+      "ar": "جود ع."
+    },
+    "monogram": "ج",
+    "anonymous": false,
+    "rating": 4.6,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The food was fresh and the buffet varied, and the show cake was lovely. Coordinating with the events manager was easy from the first message.",
+      "ar": "الأكل طازج والبوفيه متنوع، وكيكة العرض كانت جميلة. التنسيق مع مسؤولة الحفلات كان سهلًا من أول رسالة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V08-hall-a",
+    "eventDate": "2026-02-12",
+    "postedAt": "2026-02-14T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V08-03",
+    "venueId": "V08",
+    "author": {
+      "en": "Lulwa H.",
+      "ar": "لولوة ح."
+    },
+    "monogram": "ل",
+    "anonymous": false,
+    "rating": 4.4,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 4,
+      "value": 4.5
+    },
+    "text": {
+      "en": "Hospitality was orderly and kept refreshed through the evening, and dinner was served without any delay.",
+      "ar": "الضيافة كانت مرتبة ومتجددة طوال الحفل، وما واجهنا أي تأخير في تقديم العشاء."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V08-hall-a",
+    "eventDate": "2026-01-03",
+    "postedAt": "2026-01-04T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V08-10",
+    "venueId": "V08",
+    "author": {
+      "en": "Khalid M.",
+      "ar": "خالد م."
+    },
+    "monogram": "خ",
+    "anonymous": false,
+    "rating": 3.9,
+    "categories": {
+      "venue": 4,
+      "food": 3.5,
+      "service": 4,
+      "value": 4
+    },
+    "text": {
+      "en": "We hired the hall only and brought our caterer. The cooperation was excellent and the hall was ready on time.",
+      "ar": "استأجرنا القاعة فقط وأحضرنا المتعهد. التعاون ممتاز والقاعة جاهزة في الوقت."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V08-hall-a",
+    "eventDate": "2025-11-20",
+    "postedAt": "2025-11-22T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V08-09",
+    "venueId": "V08",
+    "author": {
+      "en": "Wafa J.",
+      "ar": "وفاء ج."
+    },
+    "monogram": "و",
+    "anonymous": false,
+    "rating": 4.4,
+    "categories": {
+      "venue": 4,
+      "food": 4.5,
+      "service": 4,
+      "value": 5
+    },
+    "text": {
+      "en": "The price is very reasonable for the numbers, and the hall is spacious and clean. A good fit for large families.",
+      "ar": "السعر مناسب جدًا للعدد، والقاعة واسعة ونظيفة. مناسبة للعائلات الكبيرة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V08-hall-a",
+    "eventDate": "2025-11-13",
+    "postedAt": "2025-11-14T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V09-01",
+    "venueId": "V09",
+    "author": {
+      "en": "Fatima R.",
+      "ar": "فاطمة ر."
+    },
+    "monogram": "ف",
+    "anonymous": false,
+    "rating": 4.4,
+    "categories": {
+      "venue": 4.5,
+      "food": 4,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "Welcoming guests felt refined from the entrance to the stage, and coordinating with the team made things much easier.",
+      "ar": "استقبال الضيوف كان راقيًا من الدخول إلى المنصة، والتنسيق مع الفريق سهّل علينا الكثير."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V09-ladies",
+    "eventDate": "2026-08-27",
+    "postedAt": "2026-08-29T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V09-03",
+    "venueId": "V09",
+    "author": {
+      "en": "Rana H.",
+      "ar": "رنا ه."
+    },
+    "monogram": "ر",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "It was an excellent evening and everyone was comfortable. Management answered all our questions before and after the event.",
+      "ar": "كانت أمسية ممتازة والجميع مرتاح. الإدارة ردّت على كل أسئلتنا قبل الحفل وبعده."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V09-ladies",
+    "eventDate": "2026-05-29",
+    "postedAt": "2026-06-01T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V09-07",
+    "venueId": "V09",
+    "author": {
+      "en": "Khalid M.",
+      "ar": "خالد م."
+    },
+    "monogram": "خ",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The men’s hall is spacious with enough parking, and the team helped arrange the tables for our numbers.",
+      "ar": "قاعة الرجال واسعة والمواقف كافية، والفريق ساعدنا في ترتيب الطاولات حسب العدد."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V09-men",
+    "eventDate": "2026-05-07",
+    "postedAt": "2026-05-08T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-05-10T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V09-02",
+    "venueId": "V09",
+    "author": {
+      "en": "Wafa J.",
+      "ar": "وفاء ج."
+    },
+    "monogram": "و",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The space is generous for all our guests and the air conditioning was excellent. The staff were courteous and quick.",
+      "ar": "المكان واسع ويتسع لكل المعازيم، والتكييف ممتاز. الموظفات محترمات وسريعات في الخدمة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V09-ladies",
+    "eventDate": "2026-03-19",
+    "postedAt": "2026-03-21T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-03-23T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V09-04",
+    "venueId": "V09",
+    "author": {
+      "en": "Asmaa K.",
+      "ar": "أسماء خ."
+    },
+    "monogram": "أ",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 5,
+      "food": 4,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The lighting with the kosha was perfectly matched and the hall looked even better than the photos.",
+      "ar": "الإضاءة مع الكوشة جاءت متناسقة تمامًا، والقاعة بدت أجمل من الصور."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V09-ladies",
+    "eventDate": "2026-02-21",
+    "postedAt": "2026-02-22T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V09-06",
+    "venueId": "V09",
+    "author": {
+      "en": "Budoor Z.",
+      "ar": "بدور ز."
+    },
+    "monogram": "ب",
+    "anonymous": false,
+    "rating": 4.3,
+    "categories": {
+      "venue": 4,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 4
+    },
+    "text": {
+      "en": "The sound was clear without being loud, and the separate entrance put everyone at ease. I recommend it for a calm, well-run evening.",
+      "ar": "الصوت واضح دون إزعاج، والمدخل المنفصل أراح الجميع. أنصح بها لمن يبحث عن حفل هادئ ومنظم."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V09-ladies",
+    "eventDate": "2025-11-06",
+    "postedAt": "2025-11-09T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2025-11-10T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V09-08",
+    "venueId": "V09",
+    "author": {
+      "en": "Lulwa H.",
+      "ar": "لولوة ح."
+    },
+    "monogram": "ل",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "A calm, organised evening, with a varied buffet of hot and cold dishes and refreshed desserts.",
+      "ar": "حفل هادئ ومنظم، والبوفيه كان متنوعًا مع أطباق ساخنة وباردة وحلويات متجددة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V09-ladies",
+    "eventDate": "2025-10-23",
+    "postedAt": "2025-10-24T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V09-05",
+    "venueId": "V09",
+    "author": {
+      "en": "Yousef H.",
+      "ar": "يوسف ح."
+    },
+    "monogram": "ي",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The voucher price was applied at the venue exactly as shown, and the team was clear about every detail. The hall matches the photos.",
+      "ar": "سعر الكوبون طُبّق في القاعة كما هو معروض، والفريق كان واضحًا في كل التفاصيل. القاعة كما في الصور."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V09-men",
+    "eventDate": "2025-10-23",
+    "postedAt": "2025-10-24T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V09-09",
+    "venueId": "V09",
+    "author": {
+      "en": "Amal D.",
+      "ar": "أمل ظ."
+    },
+    "monogram": "أ",
+    "anonymous": false,
+    "rating": 4.6,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "We hired the hall only and brought our caterer. The cooperation was excellent and the hall was ready on time.",
+      "ar": "استأجرنا القاعة فقط وأحضرنا المتعهد. التعاون ممتاز والقاعة جاهزة في الوقت."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V09-ladies",
+    "eventDate": "2025-10-03",
+    "postedAt": "2025-10-05T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V10-05",
+    "venueId": "V10",
+    "author": {
+      "en": "Asmaa K.",
+      "ar": "أسماء خ."
+    },
+    "monogram": "أ",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "A spacious hall priced fairly for a large group, and the team answers questions quickly.",
+      "ar": "قاعة واسعة وسعرها مناسب للعدد الكبير، والفريق يرد بسرعة على الاستفسارات."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V10-ladies",
+    "eventDate": "2026-07-16",
+    "postedAt": "2026-07-19T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-07-20T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V10-03",
+    "venueId": "V10",
+    "author": {
+      "en": "Wafa J.",
+      "ar": "وفاء ج."
+    },
+    "monogram": "و",
+    "anonymous": false,
+    "rating": 2.1,
+    "categories": {
+      "venue": 3,
+      "food": 1.5,
+      "service": 2,
+      "value": 2
+    },
+    "text": {
+      "en": "The food was ordinary for the price. The hall is beautiful but service needs improvement.",
+      "ar": "الأكل كان عاديًا ولم يكن بمستوى السعر. القاعة جميلة لكن الخدمة تحتاج تحسينًا."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V10-ladies",
+    "eventDate": "2026-05-21",
+    "postedAt": "2026-05-23T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for the note about the start. We reviewed the setup schedule with the team so the lighting is ready before guests arrive.",
+        "ar": "شكرًا على ملاحظتكم حول بداية الحفل. راجعنا جدول التجهيز مع الفريق ليكون كل شيء جاهزًا قبل وصول الضيوف."
+      },
+      "repliedAt": "2026-05-25T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V10-07",
+    "venueId": "V10",
+    "author": {
+      "en": "Abdullah K.",
+      "ar": "عبدالله ك."
+    },
+    "monogram": "ع",
+    "anonymous": false,
+    "rating": 3.5,
+    "categories": {
+      "venue": 3.5,
+      "food": 3.5,
+      "service": 3.5,
+      "value": 3.5
+    },
+    "text": {
+      "en": "A good hall, but the coffee was slow at the start. The rest of the service was fine.",
+      "ar": "قاعة جيدة لكن القهوة تأخرت في البداية. بقية الخدمة كانت على ما يرام."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V10-men",
+    "eventDate": "2026-04-23",
+    "postedAt": "2026-04-25T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for choosing us for your evening. Your note on parking has been shared with the team.",
+        "ar": "شكرًا لاختياركم لنا في أمسيتكم. تمت مشاركة ملاحظتكم حول المواقف مع الفريق."
+      },
+      "repliedAt": "2026-04-27T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V10-06",
+    "venueId": "V10",
+    "author": {
+      "en": "Fatima R.",
+      "ar": "فاطمة ر."
+    },
+    "monogram": "ف",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 4.5,
+      "value": 5
+    },
+    "text": {
+      "en": "The food was fresh and the buffet varied, and the show cake was lovely. Coordinating with the events manager was easy from the first message.",
+      "ar": "الأكل طازج والبوفيه متنوع، وكيكة العرض كانت جميلة. التنسيق مع مسؤولة الحفلات كان سهلًا من أول رسالة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V10-ladies",
+    "eventDate": "2026-01-22",
+    "postedAt": "2026-01-23T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V10-08",
+    "venueId": "V10",
+    "author": {
+      "en": "Alya S.",
+      "ar": "علياء ص."
+    },
+    "monogram": "ع",
+    "anonymous": false,
+    "rating": 4.3,
+    "categories": {
+      "venue": 4.5,
+      "food": 4,
+      "service": 4.5,
+      "value": 4
+    },
+    "text": {
+      "en": "A separate entrance and nearby parking put our families at ease. Thank you to the security team for the organisation.",
+      "ar": "مدخل منفصل ومواقف قريبة، وأهلنا ارتاحوا كثيرًا. شكرًا لفريق الأمن على التنظيم."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V10-ladies",
+    "eventDate": "2026-01-15",
+    "postedAt": "2026-01-17T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V10-02",
+    "venueId": "V10",
+    "author": {
+      "en": "Noura A.",
+      "ar": "نورة ع."
+    },
+    "monogram": "ن",
+    "anonymous": false,
+    "rating": 3.5,
+    "categories": {
+      "venue": 3.5,
+      "food": 3.5,
+      "service": 3.5,
+      "value": 3.5
+    },
+    "text": {
+      "en": "The food was delicious but desserts were late to arrive. The rest was well organised.",
+      "ar": "الأكل لذيذ لكن الحلويات تأخرت في الوصول. بقية التفاصيل كانت منظمة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V10-ladies",
+    "eventDate": "2025-11-06",
+    "postedAt": "2025-11-09T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you. The entrance team has been informed and we will follow up on your point.",
+        "ar": "شكرًا لكم. تم إبلاغ فريق المدخل بملاحظتكم وسنتابع الأمر."
+      },
+      "repliedAt": "2025-11-11T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V10-04",
+    "venueId": "V10",
+    "author": {
+      "en": "Reema N.",
+      "ar": "ريما ن."
+    },
+    "monogram": "ر",
+    "anonymous": false,
+    "rating": 5,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "It was an excellent evening and everyone was comfortable. Management answered all our questions before and after the event.",
+      "ar": "كانت أمسية ممتازة والجميع مرتاح. الإدارة ردّت على كل أسئلتنا قبل الحفل وبعده."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V10-ladies",
+    "eventDate": "2025-10-31",
+    "postedAt": "2025-11-02T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V10-01",
+    "venueId": "V10",
+    "author": {
+      "en": "Maha K.",
+      "ar": "مها ك."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 2.9,
+    "categories": {
+      "venue": 3,
+      "food": 3,
+      "service": 2.5,
+      "value": 3
+    },
+    "text": {
+      "en": "We expected faster service at the welcome and dinner arrived late. The hall itself is lovely.",
+      "ar": "توقعنا خدمة أسرع في الاستقبال، وتأخر وصول العشاء. القاعة نفسها جميلة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V10-ladies",
+    "eventDate": "2025-10-03",
+    "postedAt": "2025-10-05T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "We appreciate your feedback. The buffet layout was adjusted so dishes are replenished better at peak times.",
+        "ar": "نقدّر ملاحظاتكم. عُدّل ترتيب البوفيه لتعويض الأطباق بشكل أفضل في أوقات الذروة."
+      },
+      "repliedAt": "2025-10-07T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V11-05",
+    "venueId": "V11",
+    "author": {
+      "en": "Fahad S.",
+      "ar": "فهد ش."
+    },
+    "monogram": "ف",
+    "anonymous": false,
+    "rating": 3.6,
+    "categories": {
+      "venue": 4,
+      "food": 3.5,
+      "service": 3.5,
+      "value": 3.5
+    },
+    "text": {
+      "en": "A good hall, but the coffee was slow at the start. The rest of the service was fine.",
+      "ar": "قاعة جيدة لكن القهوة تأخرت في البداية. بقية الخدمة كانت على ما يرام."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V11-men",
+    "eventDate": "2026-10-29",
+    "postedAt": "2026-10-30T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V11-06",
+    "venueId": "V11",
+    "author": {
+      "en": "Salman R.",
+      "ar": "سلمان ر."
+    },
+    "monogram": "س",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4.5,
+      "food": 4,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "We hired the hall only and brought our caterer. The cooperation was excellent and the hall was ready on time.",
+      "ar": "استأجرنا القاعة فقط وأحضرنا المتعهد. التعاون ممتاز والقاعة جاهزة في الوقت."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V11-men",
+    "eventDate": "2026-10-15",
+    "postedAt": "2026-10-16T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V11-02",
+    "venueId": "V11",
+    "author": {
+      "en": "Dana M.",
+      "ar": "دانة م."
+    },
+    "monogram": "د",
+    "anonymous": false,
+    "rating": 3.8,
+    "categories": {
+      "venue": 3,
+      "food": 3.5,
+      "service": 4,
+      "value": 4.5
+    },
+    "text": {
+      "en": "Fair value for what was offered, though parking needs better organisation at peak times.",
+      "ar": "السعر مناسب مقابل ما قُدّم، والمواقف تحتاج تنظيمًا أفضل في الذروة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V11-ladies",
+    "eventDate": "2026-05-21",
+    "postedAt": "2026-05-22T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V11-08",
+    "venueId": "V11",
+    "author": {
+      "en": "Ghadeer Q.",
+      "ar": "غدير ق."
+    },
+    "monogram": "غ",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The coffee and dates welcome at the entrance was well organised, and having female photographers only put the guests at ease.",
+      "ar": "استقبال القهوة والتمر عند المدخل كان مرتبًا، والتصوير بمصوّرات فقط أراح الضيفات."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V11-ladies",
+    "eventDate": "2026-03-26",
+    "postedAt": "2026-03-29T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V11-04",
+    "venueId": "V11",
+    "author": {
+      "en": "Lulwa H.",
+      "ar": "لولوة ح."
+    },
+    "monogram": "ل",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The bridal room was tidy and calm with everything needed before the zaffa. Thank you to the reception team.",
+      "ar": "غرفة العروس مرتبة وهادئة وفيها كل ما نحتاجه قبل الزفّة. شكرًا لفريق الاستقبال."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V11-ladies",
+    "eventDate": "2026-02-28",
+    "postedAt": "2026-03-02T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V11-03",
+    "venueId": "V11",
+    "author": {
+      "en": "Maha K.",
+      "ar": "مها ك."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The sound was clear without being loud, and the separate entrance put everyone at ease. I recommend it for a calm, well-run evening.",
+      "ar": "الصوت واضح دون إزعاج، والمدخل المنفصل أراح الجميع. أنصح بها لمن يبحث عن حفل هادئ ومنظم."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V11-ladies",
+    "eventDate": "2026-02-05",
+    "postedAt": "2026-02-07T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V11-07",
+    "venueId": "V11",
+    "author": {
+      "en": "Hind S.",
+      "ar": "هند ش."
+    },
+    "monogram": "ه",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "Welcoming guests felt refined from the entrance to the stage, and coordinating with the team made things much easier.",
+      "ar": "استقبال الضيوف كان راقيًا من الدخول إلى المنصة، والتنسيق مع الفريق سهّل علينا الكثير."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V11-ladies",
+    "eventDate": "2026-01-29",
+    "postedAt": "2026-01-31T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V11-01",
+    "venueId": "V11",
+    "author": {
+      "en": "Nasser F.",
+      "ar": "ناصر ف."
+    },
+    "monogram": "ن",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 5
+    },
+    "text": {
+      "en": "The price is very reasonable for the numbers, and the hall is spacious and clean. A good fit for large families.",
+      "ar": "السعر مناسب جدًا للعدد، والقاعة واسعة ونظيفة. مناسبة للعائلات الكبيرة."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V11-men",
+    "eventDate": "2026-01-03",
+    "postedAt": "2026-01-06T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-01-08T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V11-09",
+    "venueId": "V11",
+    "author": {
+      "en": "Noura A.",
+      "ar": "نورة ع."
+    },
+    "monogram": "ن",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4,
+      "food": 5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "A calm, organised evening, with a varied buffet of hot and cold dishes and refreshed desserts.",
+      "ar": "حفل هادئ ومنظم، والبوفيه كان متنوعًا مع أطباق ساخنة وباردة وحلويات متجددة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V11-ladies",
+    "eventDate": "2025-10-16",
+    "postedAt": "2025-10-17T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V12-03",
+    "venueId": "V12",
+    "author": {
+      "en": "Huda T.",
+      "ar": "هدى ت."
+    },
+    "monogram": "ه",
+    "anonymous": false,
+    "rating": 4.6,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "A separate entrance and nearby parking put our families at ease. Thank you to the security team for the organisation.",
+      "ar": "مدخل منفصل ومواقف قريبة، وأهلنا ارتاحوا كثيرًا. شكرًا لفريق الأمن على التنظيم."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V12-majlis",
+    "eventDate": "2026-10-08",
+    "postedAt": "2026-10-09T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-10-11T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V12-02",
+    "venueId": "V12",
+    "author": {
+      "en": "Rana H.",
+      "ar": "رنا ه."
+    },
+    "monogram": "ر",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The coffee and dates welcome at the entrance was well organised, and having female photographers only put the guests at ease.",
+      "ar": "استقبال القهوة والتمر عند المدخل كان مرتبًا، والتصوير بمصوّرات فقط أراح الضيفات."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V12-majlis",
+    "eventDate": "2026-08-08",
+    "postedAt": "2026-08-10T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V12-07",
+    "venueId": "V12",
+    "author": {
+      "en": "Maha K.",
+      "ar": "مها ك."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 4.4,
+    "categories": {
+      "venue": 4,
+      "food": 4.5,
+      "service": 4,
+      "value": 5
+    },
+    "text": {
+      "en": "The price is very reasonable for the numbers, and the hall is spacious and clean. A good fit for large families.",
+      "ar": "السعر مناسب جدًا للعدد، والقاعة واسعة ونظيفة. مناسبة للعائلات الكبيرة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V12-majlis",
+    "eventDate": "2026-05-08",
+    "postedAt": "2026-05-10T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-05-11T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V12-09",
+    "venueId": "V12",
+    "author": {
+      "en": "Reema N.",
+      "ar": "ريما ن."
+    },
+    "monogram": "ر",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The sound was clear without being loud, and the separate entrance put everyone at ease. I recommend it for a calm, well-run evening.",
+      "ar": "الصوت واضح دون إزعاج، والمدخل المنفصل أراح الجميع. أنصح بها لمن يبحث عن حفل هادئ ومنظم."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V12-lawn",
+    "eventDate": "2026-02-07",
+    "postedAt": "2026-02-08T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V12-05",
+    "venueId": "V12",
+    "author": {
+      "en": "Ghadeer Q.",
+      "ar": "غدير ق."
+    },
+    "monogram": "غ",
+    "anonymous": false,
+    "rating": 3.8,
+    "categories": {
+      "venue": 3.5,
+      "food": 3.5,
+      "service": 4,
+      "value": 4
+    },
+    "text": {
+      "en": "Setup was good overall, though the bridal room is a little small for the number of companions.",
+      "ar": "التجهيز جيد بشكل عام، وغرفة العروس صغيرة قليلًا لعدد المرافقات."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V12-lawn",
+    "eventDate": "2026-01-22",
+    "postedAt": "2026-01-25T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V12-06",
+    "venueId": "V12",
+    "author": {
+      "en": "Shaikha F.",
+      "ar": "شيخة ف."
+    },
+    "monogram": "ش",
+    "anonymous": false,
+    "rating": 3.6,
+    "categories": {
+      "venue": 3.5,
+      "food": 4,
+      "service": 3,
+      "value": 4
+    },
+    "text": {
+      "en": "The hall is clean and the service good. The price is fair but setup ran about half an hour late.",
+      "ar": "القاعة نظيفة والخدمة جيدة. السعر مناسب لكن التجهيز تأخر نحو نصف ساعة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V12-lawn",
+    "eventDate": "2026-01-22",
+    "postedAt": "2026-01-23T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V12-08",
+    "venueId": "V12",
+    "author": {
+      "en": "Amal D.",
+      "ar": "أمل ظ."
+    },
+    "monogram": "أ",
+    "anonymous": false,
+    "rating": 4.4,
+    "categories": {
+      "venue": 4.5,
+      "food": 4,
+      "service": 5,
+      "value": 4
+    },
+    "text": {
+      "en": "The team helped arrange the tables and seat the guests, and the evening ended on time without any confusion.",
+      "ar": "الفريق ساعدنا في ترتيب الطاولات وتوزيع الضيوف، وانتهى الحفل في موعده دون أي ارتباك."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V12-lawn",
+    "eventDate": "2026-01-16",
+    "postedAt": "2026-01-19T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V12-01",
+    "venueId": "V12",
+    "author": {
+      "en": "Lulwa H.",
+      "ar": "لولوة ح."
+    },
+    "monogram": "ل",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The space is generous for all our guests and the air conditioning was excellent. The staff were courteous and quick.",
+      "ar": "المكان واسع ويتسع لكل المعازيم، والتكييف ممتاز. الموظفات محترمات وسريعات في الخدمة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V12-lawn",
+    "eventDate": "2025-11-27",
+    "postedAt": "2025-11-29T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2025-12-01T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V12-04",
+    "venueId": "V12",
+    "author": {
+      "en": "Joud A.",
+      "ar": "جود ع."
+    },
+    "monogram": "ج",
+    "anonymous": false,
+    "rating": 4.4,
+    "categories": {
+      "venue": 4.5,
+      "food": 4,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The sea view is wonderful and the lawn was neatly set. The weather was kind and the indoor backup was ready.",
+      "ar": "الإطلالة على البحر رائعة والمرج مرتب. الجو كان لطيفًا والقاعة الداخلية البديلة جاهزة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V12-lawn",
+    "eventDate": "2025-11-06",
+    "postedAt": "2025-11-07T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V13-09",
+    "venueId": "V13",
+    "author": {
+      "en": "Asmaa K.",
+      "ar": "أسماء خ."
+    },
+    "monogram": "أ",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "The bridal room was tidy and calm with everything needed before the zaffa. Thank you to the reception team.",
+      "ar": "غرفة العروس مرتبة وهادئة وفيها كل ما نحتاجه قبل الزفّة. شكرًا لفريق الاستقبال."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V13-pavilion",
+    "eventDate": "2026-10-29",
+    "postedAt": "2026-10-31T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V13-01",
+    "venueId": "V13",
+    "author": {
+      "en": "Maha K.",
+      "ar": "مها ك."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 5,
+      "value": 4
+    },
+    "text": {
+      "en": "The coffee and dates welcome at the entrance was well organised, and having female photographers only put the guests at ease.",
+      "ar": "استقبال القهوة والتمر عند المدخل كان مرتبًا، والتصوير بمصوّرات فقط أراح الضيفات."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V13-pavilion",
+    "eventDate": "2026-10-30",
+    "postedAt": "2026-10-31T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V13-03",
+    "venueId": "V13",
+    "author": {
+      "en": "Munira S.",
+      "ar": "منيرة ص."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "A separate entrance and nearby parking put our families at ease. Thank you to the security team for the organisation.",
+      "ar": "مدخل منفصل ومواقف قريبة، وأهلنا ارتاحوا كثيرًا. شكرًا لفريق الأمن على التنظيم."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V13-pavilion",
+    "eventDate": "2026-10-22",
+    "postedAt": "2026-10-24T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V13-05",
+    "venueId": "V13",
+    "author": {
+      "en": "Fatima R.",
+      "ar": "فاطمة ر."
+    },
+    "monogram": "ف",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "Welcoming guests felt refined from the entrance to the stage, and coordinating with the team made things much easier.",
+      "ar": "استقبال الضيوف كان راقيًا من الدخول إلى المنصة، والتنسيق مع الفريق سهّل علينا الكثير."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V13-pavilion",
+    "eventDate": "2026-02-19",
+    "postedAt": "2026-02-22T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V13-02",
+    "venueId": "V13",
+    "author": {
+      "en": "Huda T.",
+      "ar": "هدى ت."
+    },
+    "monogram": "ه",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "A spacious hall priced fairly for a large group, and the team answers questions quickly.",
+      "ar": "قاعة واسعة وسعرها مناسب للعدد الكبير، والفريق يرد بسرعة على الاستفسارات."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V13-pavilion",
+    "eventDate": "2026-02-12",
+    "postedAt": "2026-02-15T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-02-16T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V13-08",
+    "venueId": "V13",
+    "author": {
+      "en": "Fahad S.",
+      "ar": "فهد ش."
+    },
+    "monogram": "ف",
+    "anonymous": false,
+    "rating": 4,
+    "categories": {
+      "venue": 4,
+      "food": 4.5,
+      "service": 3.5,
+      "value": 4
+    },
+    "text": {
+      "en": "A good hall, but the coffee was slow at the start. The rest of the service was fine.",
+      "ar": "قاعة جيدة لكن القهوة تأخرت في البداية. بقية الخدمة كانت على ما يرام."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V13-pavilion",
+    "eventDate": "2026-01-08",
+    "postedAt": "2026-01-09T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V13-04",
+    "venueId": "V13",
+    "author": {
+      "en": "Salman R.",
+      "ar": "سلمان ر."
+    },
+    "monogram": "س",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 5
+    },
+    "text": {
+      "en": "The sea view is wonderful and the lawn was neatly set. The weather was kind and the indoor backup was ready.",
+      "ar": "الإطلالة على البحر رائعة والمرج مرتب. الجو كان لطيفًا والقاعة الداخلية البديلة جاهزة."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V13-pavilion",
+    "eventDate": "2025-12-18",
+    "postedAt": "2025-12-21T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V13-10",
+    "venueId": "V13",
+    "author": {
+      "en": "Dana M.",
+      "ar": "دانة م."
+    },
+    "monogram": "د",
+    "anonymous": false,
+    "rating": 4.1,
+    "categories": {
+      "venue": 4,
+      "food": 4,
+      "service": 4.5,
+      "value": 4
+    },
+    "text": {
+      "en": "It was an excellent evening and everyone was comfortable. Management answered all our questions before and after the event.",
+      "ar": "كانت أمسية ممتازة والجميع مرتاح. الإدارة ردّت على كل أسئلتنا قبل الحفل وبعده."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V13-pavilion",
+    "eventDate": "2025-10-30",
+    "postedAt": "2025-10-31T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2025-11-01T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V13-06",
+    "venueId": "V13",
+    "author": {
+      "en": "Alya S.",
+      "ar": "علياء ص."
+    },
+    "monogram": "ع",
+    "anonymous": false,
+    "rating": 4.8,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 4.5,
+      "value": 5
+    },
+    "text": {
+      "en": "The price is very reasonable for the numbers, and the hall is spacious and clean. A good fit for large families.",
+      "ar": "السعر مناسب جدًا للعدد، والقاعة واسعة ونظيفة. مناسبة للعائلات الكبيرة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V13-pavilion",
+    "eventDate": "2025-10-23",
+    "postedAt": "2025-10-25T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2025-10-26T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V13-07",
+    "venueId": "V13",
+    "author": {
+      "en": "Ghadeer Q.",
+      "ar": "غدير ق."
+    },
+    "monogram": "غ",
+    "anonymous": false,
+    "rating": 4.3,
+    "categories": {
+      "venue": 4,
+      "food": 4.5,
+      "service": 4,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The kosha was better than we imagined and the lighting was soft. The team kept to the schedule and Pavilion was ready before guests arrived.",
+      "ar": "الكوشة كانت أجمل مما توقعنا والإضاءة مريحة. الفريق التزم بالموعد وتجهيز الجناح كان جاهزًا قبل وصول الضيوف."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V13-pavilion",
+    "eventDate": "2025-10-11",
+    "postedAt": "2025-10-14T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2025-10-16T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V14-02",
+    "venueId": "V14",
+    "author": {
+      "en": "Wafa J.",
+      "ar": "وفاء ج."
+    },
+    "monogram": "و",
+    "anonymous": false,
+    "rating": 2.5,
+    "categories": {
+      "venue": 3,
+      "food": 2.5,
+      "service": 1.5,
+      "value": 3
+    },
+    "text": {
+      "en": "The start was delayed because the lighting was not ready. Management handled it kindly, but we would have preferred better readiness.",
+      "ar": "تأخر بدء الحفل لأن الإضاءة لم تكن جاهزة. تعاملت الإدارة معه بلطف لكننا كنا نفضّل جاهزية أفضل."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V14-ladies",
+    "eventDate": "2026-09-24",
+    "postedAt": "2026-09-25T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you. The entrance team has been informed and we will follow up on your point.",
+        "ar": "شكرًا لكم. تم إبلاغ فريق المدخل بملاحظتكم وسنتابع الأمر."
+      },
+      "repliedAt": "2026-09-27T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V14-04",
+    "venueId": "V14",
+    "author": {
+      "en": "Rana H.",
+      "ar": "رنا ه."
+    },
+    "monogram": "ر",
+    "anonymous": false,
+    "rating": 4.6,
+    "categories": {
+      "venue": 4,
+      "food": 4.5,
+      "service": 5,
+      "value": 5
+    },
+    "text": {
+      "en": "A spacious hall priced fairly for a large group, and the team answers questions quickly.",
+      "ar": "قاعة واسعة وسعرها مناسب للعدد الكبير، والفريق يرد بسرعة على الاستفسارات."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V14-ladies",
+    "eventDate": "2026-08-06",
+    "postedAt": "2026-08-08T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V14-05",
+    "venueId": "V14",
+    "author": {
+      "en": "Fatima R.",
+      "ar": "فاطمة ر."
+    },
+    "monogram": "ف",
+    "anonymous": false,
+    "rating": 3.6,
+    "categories": {
+      "venue": 3.5,
+      "food": 3,
+      "service": 4,
+      "value": 4
+    },
+    "text": {
+      "en": "The food was delicious but desserts were late to arrive. The rest was well organised.",
+      "ar": "الأكل لذيذ لكن الحلويات تأخرت في الوصول. بقية التفاصيل كانت منظمة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V14-ladies",
+    "eventDate": "2026-07-30",
+    "postedAt": "2026-07-31T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V14-03",
+    "venueId": "V14",
+    "author": {
+      "en": "Mishari Q.",
+      "ar": "مشاري ق."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 4.3,
+    "categories": {
+      "venue": 4.5,
+      "food": 4,
+      "service": 4.5,
+      "value": 4
+    },
+    "text": {
+      "en": "Dinner was ready on time and the team was cooperative with arrivals and departures.",
+      "ar": "العشاء كان جاهزًا في وقته، والفريق متعاون في ترتيب الدخول والخروج."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V14-men",
+    "eventDate": "2026-07-23",
+    "postedAt": "2026-07-26T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V14-01",
+    "venueId": "V14",
+    "author": {
+      "en": "Reema N.",
+      "ar": "ريما ن."
+    },
+    "monogram": "ر",
+    "anonymous": false,
+    "rating": 3.8,
+    "categories": {
+      "venue": 3,
+      "food": 4,
+      "service": 4,
+      "value": 4
+    },
+    "text": {
+      "en": "Organisation was good overall, though parking is a little far from the ladies’ entrance.",
+      "ar": "التنظيم جيد بشكل عام، والمواقف بعيدة قليلًا عن المدخل النسائي."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V14-ladies",
+    "eventDate": "2026-06-19",
+    "postedAt": "2026-06-21T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V14-07",
+    "venueId": "V14",
+    "author": {
+      "en": "Dana M.",
+      "ar": "دانة م."
+    },
+    "monogram": "د",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "It was an excellent evening and everyone was comfortable. Management answered all our questions before and after the event.",
+      "ar": "كانت أمسية ممتازة والجميع مرتاح. الإدارة ردّت على كل أسئلتنا قبل الحفل وبعده."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V14-ladies",
+    "eventDate": "2026-05-21",
+    "postedAt": "2026-05-23T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V14-06",
+    "venueId": "V14",
+    "author": {
+      "en": "Shaikha F.",
+      "ar": "شيخة ف."
+    },
+    "monogram": "ش",
+    "anonymous": false,
+    "rating": 4.3,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 4,
+      "value": 4
+    },
+    "text": {
+      "en": "The sound was clear without being loud, and the separate entrance put everyone at ease. I recommend it for a calm, well-run evening.",
+      "ar": "الصوت واضح دون إزعاج، والمدخل المنفصل أراح الجميع. أنصح بها لمن يبحث عن حفل هادئ ومنظم."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V14-ladies",
+    "eventDate": "2026-01-10",
+    "postedAt": "2026-01-13T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-01-15T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V14-08",
+    "venueId": "V14",
+    "author": {
+      "en": "Fahad S.",
+      "ar": "فهد ش."
+    },
+    "monogram": "ف",
+    "anonymous": false,
+    "rating": 4.6,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 4.5,
+      "value": 5
+    },
+    "text": {
+      "en": "The price is very reasonable for the numbers, and the hall is spacious and clean. A good fit for large families.",
+      "ar": "السعر مناسب جدًا للعدد، والقاعة واسعة ونظيفة. مناسبة للعائلات الكبيرة."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V14-men",
+    "eventDate": "2025-10-09",
+    "postedAt": "2025-10-12T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V17-08",
+    "venueId": "V17",
+    "author": {
+      "en": "Reema N.",
+      "ar": "ريما ن."
+    },
+    "monogram": "ر",
+    "anonymous": false,
+    "rating": 4.4,
+    "categories": {
+      "venue": 4,
+      "food": 4,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The team helped arrange the tables and seat the guests, and the evening ended on time without any confusion.",
+      "ar": "الفريق ساعدنا في ترتيب الطاولات وتوزيع الضيوف، وانتهى الحفل في موعده دون أي ارتباك."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V17-ladies",
+    "eventDate": "2026-10-29",
+    "postedAt": "2026-10-30T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V17-03",
+    "venueId": "V17",
+    "author": {
+      "en": "Munira S.",
+      "ar": "منيرة ص."
+    },
+    "monogram": "م",
+    "anonymous": false,
+    "rating": 4.5,
+    "categories": {
+      "venue": 4.5,
+      "food": 4.5,
+      "service": 5,
+      "value": 4
+    },
+    "text": {
+      "en": "Welcoming guests felt refined from the entrance to the stage, and coordinating with the team made things much easier.",
+      "ar": "استقبال الضيوف كان راقيًا من الدخول إلى المنصة، والتنسيق مع الفريق سهّل علينا الكثير."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V17-ladies",
+    "eventDate": "2026-04-23",
+    "postedAt": "2026-04-26T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-04-27T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V17-01",
+    "venueId": "V17",
+    "author": {
+      "en": "Sara B.",
+      "ar": "سارة ب."
+    },
+    "monogram": "س",
+    "anonymous": false,
+    "rating": 3.6,
+    "categories": {
+      "venue": 3.5,
+      "food": 3.5,
+      "service": 4,
+      "value": 3.5
+    },
+    "text": {
+      "en": "The food was delicious but desserts were late to arrive. The rest was well organised.",
+      "ar": "الأكل لذيذ لكن الحلويات تأخرت في الوصول. بقية التفاصيل كانت منظمة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V17-ladies",
+    "eventDate": "2026-02-19",
+    "postedAt": "2026-02-22T10:30:00+03:00",
+    "ownerReply": null,
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V17-05",
+    "venueId": "V17",
+    "author": {
+      "en": "Rana H.",
+      "ar": "رنا ه."
+    },
+    "monogram": "ر",
+    "anonymous": false,
+    "rating": 4.9,
+    "categories": {
+      "venue": 5,
+      "food": 5,
+      "service": 5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "A calm, organised evening, with a varied buffet of hot and cold dishes and refreshed desserts.",
+      "ar": "حفل هادئ ومنظم، والبوفيه كان متنوعًا مع أطباق ساخنة وباردة وحلويات متجددة."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V17-ladies",
+    "eventDate": "2026-01-10",
+    "postedAt": "2026-01-13T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2026-01-14T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V17-02",
+    "venueId": "V17",
+    "author": {
+      "en": "Abdullah K.",
+      "ar": "عبدالله ك."
+    },
+    "monogram": "ع",
+    "anonymous": false,
+    "rating": 4.4,
+    "categories": {
+      "venue": 4,
+      "food": 4,
+      "service": 4.5,
+      "value": 5
+    },
+    "text": {
+      "en": "A spacious hall priced fairly for a large group, and the team answers questions quickly.",
+      "ar": "قاعة واسعة وسعرها مناسب للعدد الكبير، والفريق يرد بسرعة على الاستفسارات."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V17-men",
+    "eventDate": "2025-12-11",
+    "postedAt": "2025-12-13T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2025-12-14T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V17-06",
+    "venueId": "V17",
+    "author": {
+      "en": "Salman R.",
+      "ar": "سلمان ر."
+    },
+    "monogram": "س",
+    "anonymous": false,
+    "rating": 4.3,
+    "categories": {
+      "venue": 4.5,
+      "food": 4,
+      "service": 4,
+      "value": 4.5
+    },
+    "text": {
+      "en": "The men’s reception was well organised, with coffee and dates at the entrance. Dinner arrived on time.",
+      "ar": "استقبال الرجال كان منظمًا، والقهوة والتمر عند المدخل بشكل مرتب. العشاء جاء في وقته."
+    },
+    "origin": "ar",
+    "audience": "men",
+    "hallId": "V17-men",
+    "eventDate": "2025-12-04",
+    "postedAt": "2025-12-07T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2025-12-09T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V17-07",
+    "venueId": "V17",
+    "author": {
+      "en": "Asmaa K.",
+      "ar": "أسماء خ."
+    },
+    "monogram": "أ",
+    "anonymous": false,
+    "rating": 3.5,
+    "categories": {
+      "venue": 3.5,
+      "food": 3.5,
+      "service": 3.5,
+      "value": 3.5
+    },
+    "text": {
+      "en": "A beautiful hall and good service, though the sound was a little loud at the start and was adjusted when we asked.",
+      "ar": "القاعة جميلة والخدمة جيدة، لكن الصوت كان مرتفعًا قليلًا في بداية الحفل وتم تعديله بعد طلبنا."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V17-ladies",
+    "eventDate": "2025-11-27",
+    "postedAt": "2025-11-28T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for the note about the start. We reviewed the setup schedule with the team so the lighting is ready before guests arrive.",
+        "ar": "شكرًا على ملاحظتكم حول بداية الحفل. راجعنا جدول التجهيز مع الفريق ليكون كل شيء جاهزًا قبل وصول الضيوف."
+      },
+      "repliedAt": "2025-11-30T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  },
+  {
+    "id": "rv-V17-04",
+    "venueId": "V17",
+    "author": {
+      "en": "Wafa J.",
+      "ar": "وفاء ج."
+    },
+    "monogram": "و",
+    "anonymous": false,
+    "rating": 4.6,
+    "categories": {
+      "venue": 4.5,
+      "food": 5,
+      "service": 4.5,
+      "value": 4.5
+    },
+    "text": {
+      "en": "Hospitality was orderly and kept refreshed through the evening, and dinner was served without any delay.",
+      "ar": "الضيافة كانت مرتبة ومتجددة طوال الحفل، وما واجهنا أي تأخير في تقديم العشاء."
+    },
+    "origin": "ar",
+    "audience": "women",
+    "hallId": "V17-ladies",
+    "eventDate": "2025-11-14",
+    "postedAt": "2025-11-17T10:30:00+03:00",
+    "ownerReply": {
+      "text": {
+        "en": "Thank you for your kind words. We would be glad to host you again.",
+        "ar": "نشكركم على كلماتكم الطيبة، ويسعدنا استضافتكم مجددًا في مناسباتكم القادمة."
+      },
+      "repliedAt": "2025-11-19T10:30:00+03:00",
+      "by": "Venue team"
+    },
+    "replyDraft": null,
+    "verifiedBooking": true,
+    "photos": []
+  }
+]

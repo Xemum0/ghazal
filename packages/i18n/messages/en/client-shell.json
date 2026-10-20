@@ -1,0 +1,23 @@
+{
+  "clientShellTabBarLabel": "Main navigation",
+  "clientShellTabDiscover": "Discover",
+  "clientShellTabSaved": "Saved",
+  "clientShellTabMyWedding": "My Wedding",
+  "clientShellTabMessages": "Messages",
+  "clientShellTabProfile": "Profile",
+  "clientShellTabUnread": "{count, plural, one{# unread message} other{# unread messages}}",
+  "clientShellGreeting": "Hello, {name}",
+  "clientShellGreetingAnonymous": "Hello",
+  "clientShellBriefTitle": "Your brief",
+  "clientShellBriefEditLabel": "Edit date, guests, area and budget",
+  "clientShellBriefDate": "Date",
+  "clientShellBriefGuests": "Guests",
+  "clientShellBriefArea": "Area",
+  "clientShellBriefBudget": "Venue and catering budget",
+  "clientShellBriefNotDecided": "Not decided",
+  "clientShellBriefFlexibleMonth": "Flexible month",
+  "clientShellSwitchVenues": "Venues",
+  "clientShellSwitchServices": "Services",
+  "clientShellSwitchPackages": "Packages",
+  "clientShellCompareTray": "Compare ({pair})"
+}

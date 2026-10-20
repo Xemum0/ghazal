@@ -1,0 +1,15 @@
+{
+  "name": "@gz/contracts",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Types, pricing engine and bilingual fixtures shared by the prototype and (later) the Flutter tests. Owner: fixtures-owner.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "validate": "node scripts/validate.mjs",
+    "typecheck": "node ../../design/node_modules/typescript/bin/tsc --noEmit -p tsconfig.json"
+  }
+}
