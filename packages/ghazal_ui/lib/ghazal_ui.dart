@@ -23,3 +23,19 @@ export 'src/tokens/generated/gz_colors.g.dart' hide GzRefColors;
 export 'src/tokens/generated/gz_dimensions.g.dart';
 export 'src/tokens/generated/gz_motion.g.dart';
 export 'src/tokens/generated/gz_type.g.dart';
+
+// Component groups (F2). One barrel each; code inside a group imports ../foundation.dart.
+export 'src/foundation.dart';
+export 'src/app/gz_host.dart';
+export 'src/core/core.dart';
+export 'src/brand/brand.dart';
+export 'src/inputs/inputs.dart';
+export 'src/nav/nav.dart';
+export 'src/overlays/overlays.dart';
+export 'src/charts/charts.dart';
+export 'src/client/client.dart';
+export 'src/voucher/voucher.dart';
+export 'src/visits/visits.dart';
+export 'src/filters/filters.dart';
+export 'src/provider/provider.dart';
+export 'src/hotel/hotel.dart';

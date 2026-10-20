@@ -115,12 +115,21 @@ abstract final class GzHarness {
     final boundary = tester.renderObject<RenderRepaintBoundary>(find.byKey(rootKey));
     final dpr = tester.view.devicePixelRatio;
     late final List<int> bytes;
-    await tester.runAsync(() async {
-      final ui.Image image = await boundary.toImage(pixelRatio: dpr);
-      final data = await image.toByteData(format: ui.ImageByteFormat.png);
-      bytes = data!.buffer.asUint8List();
-      image.dispose();
-    });
+    // flutter_test paints every shadow as a hard solid shape unless this flag is off; it must be off while the captured frame is
+    // painted (so elevation looks like the real app) and is restored right after, because the test binding checks it at test end.
+    debugDisableShadows = false;
+    try {
+      boundary.markNeedsPaint();
+      await tester.pump(const Duration(milliseconds: 16));
+      await tester.runAsync(() async {
+        final ui.Image image = await boundary.toImage(pixelRatio: dpr);
+        final data = await image.toByteData(format: ui.ImageByteFormat.png);
+        bytes = data!.buffer.asUint8List();
+        image.dispose();
+      });
+    } finally {
+      debugDisableShadows = true;
+    }
     final file = File(path);
     file.parent.createSync(recursive: true);
     file.writeAsBytesSync(bytes);

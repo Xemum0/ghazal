@@ -4,7 +4,7 @@
 //   node tools/parity/parity.mjs --app client --flow discover [--lang ar|en|both] [--w 390] [--strict]
 // Needs ImageMagick (`magick`). Exit code is 0 always (it is an instrument); --strict exits 1 on any fail or missing file.
 import { execFileSync } from 'node:child_process'
-import { existsSync, mkdirSync, readFileSync, unlinkSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, readdirSync, unlinkSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -24,9 +24,9 @@ const mg = (args, opts = {}) => execFileSync('magick', args, { encoding: 'utf8',
 const size = f => mg(['identify', '-format', '%wx%h', f]).split('x').map(Number)
 
 /** Compare two PNGs of identical size; returns { score, diffRatio }. */
-export function measure(refPng, flPng) {
+export function measure(refPng, flPng, top = SAFE_TOP, bottom = SAFE_BOTTOM) {
   const [w, h] = size(refPng)
-  const crop = `${w}x${h - SAFE_TOP - SAFE_BOTTOM}+0+${SAFE_TOP}`
+  const crop = `${w}x${h - top - bottom}+0+${top}`
   let score = NaN
   try { mg(['compare', '-metric', 'RMSE', `${refPng}[${crop}]`, `${flPng}[${crop}]`, 'null:']) } catch (e) {
     score = Number(/\(([\d.e+-]+)\)/.exec(String(e.stderr))?.[1]) // compare exits 1 when images differ, metric on stderr
@@ -40,14 +40,14 @@ export function measure(refPng, flPng) {
 export const verdict = s => (s < PASS_BELOW ? 'pass' : s < REVIEW_BELOW ? 'review' : 'fail')
 
 /** Write the labelled composite. Flutter image must already match the reference size. */
-export function composite(refPng, flPng, outPng, label, { score, diffRatio }) {
+export function composite(refPng, flPng, outPng, label, { score, diffRatio }, top = SAFE_TOP, bottom = SAFE_BOTTOM) {
   const [w, h] = size(refPng)
   const tmp = outPng + '.diff.png'
   mkdirSync(dirname(outPng), { recursive: true })
   mg([refPng, flPng, '-compose', 'difference', '-composite', '-colorspace', 'Gray', '-threshold', `${TOLERANCE * 100}%`,
     '(', refPng, '-fill', 'white', '-colorize', '75%', ')', '(', '-size', `${w}x${h}`, 'xc:#e5322d', ')',
     '-swap', '0,2', '-swap', '0,1', '-compose', 'over', '-composite',
-    '-fill', 'rgba(120,120,120,0.35)', '-draw', `rectangle 0,0 ${w},${SAFE_TOP - 1}`, '-draw', `rectangle 0,${h - SAFE_BOTTOM} ${w},${h}`, tmp])
+    ...(top || bottom ? ['-fill', 'rgba(120,120,120,0.35)', '-draw', `rectangle 0,0 ${w},${Math.max(top - 1, 0)}`, '-draw', `rectangle 0,${h - bottom} ${w},${h}`] : []), tmp])
   const cap = (t) => ['-background', '#222', '-fill', 'white', ...FONT_ARGS, '-pointsize', '34', '-gravity', 'center', `-size`, `${w}x70`, `label:${t}`]
   const head = `${label}   score ${score.toFixed(4)}  ${verdict(score).toUpperCase()}   differing px ${(diffRatio * 100).toFixed(1)}%`
   mg([
@@ -68,12 +68,44 @@ function parse(argv) {
     if (!a.startsWith('--')) throw new Error(`unexpected argument "${a}"`)
     const k = a.slice(2)
     if (k === 'strict') o.strict = true
-    else if (['app', 'screen', 'flow', 'lang', 'w', 'flutter', 'out', 'ref'].includes(k)) o[k] = argv[++i]
+    else if (['app', 'screen', 'flow', 'lang', 'w', 'flutter', 'out', 'ref', 'gallery'].includes(k)) o[k] = argv[++i]
     else throw new Error(`unknown flag --${k}`)
   }
   return o
 }
 const APPDIR = { client: 'apps/client_app', hotel: 'apps/provider_app', partner: 'apps/provider_app' }
+
+
+/** Gallery mode: every section PNG of design/.shots/ref/galleries/<page> against packages/ghazal_testing/build/gallery/<page>. */
+function galleryMode(o) {
+  const page = o.gallery
+  const refDir = join(root, 'design/.shots/ref/galleries', page)
+  const flDir = join(root, 'packages/ghazal_testing/build/gallery', page)
+  const outDir = join(root, 'packages/ghazal_testing/build/gallery-parity', page)
+  if (!existsSync(refDir)) { console.error(`no reference sections for "${page}" (run pnpm parity:gallery)`); return [] }
+  const langs = (o.lang ?? 'both') === 'both' ? ['ar', 'en'] : [o.lang]
+  const files = readdirSync(refDir).filter(f => f.endsWith('.png') && langs.some(l => f.endsWith(`.${l}.png`))).sort()
+  const rows = []
+  for (const f of files) {
+    const ref = join(refDir, f)
+    const fl = join(flDir, f)
+    const lang = /\.(ar|en)\.png$/.exec(f)[1]
+    const id = f.replace(/\.(ar|en)\.png$/, '')
+    if (!existsSync(fl)) { rows.push({ id, lang, error: 'flutter section missing' }); continue }
+    mkdirSync(outDir, { recursive: true })
+    // Pad both to the same canvas (a height difference is a real deviation and must show as difference).
+    const [rw, rh] = size(ref), [fw, fh] = size(fl)
+    const W = Math.max(rw, fw), H = Math.max(rh, fh)
+    const pa = join(outDir, `.${id}.${lang}.ref.png`), pb = join(outDir, `.${id}.${lang}.fl.png`)
+    for (const [src, dst] of [[ref, pa], [fl, pb]]) mg([src, '-background', '#FFF9F5', '-gravity', 'north', '-extent', `${W}x${H}`, dst])
+    const m = measure(pa, pb, 0, 0)
+    const out = join(outDir, `${id}.${lang}.png`)
+    composite(pa, pb, out, `${page}/${id} ${lang}${rh !== fh || rw !== fw ? `  (ref ${rw}x${rh}, flutter ${fw}x${fh})` : ''}`, m, 0, 0)
+    unlinkSync(pa); unlinkSync(pb)
+    rows.push({ id, lang, ...m, verdict: verdict(m.score), out, hdelta: fh - rh })
+  }
+  return rows
+}
 
 function one(o, app, id, lang, w) {
   const appDir = APPDIR[app]
@@ -99,6 +131,14 @@ function one(o, app, id, lang, w) {
 if (import.meta.url === `file://${process.argv[1]}`) {
   let o
   try { o = parse(process.argv.slice(2)) } catch (e) { console.error(e.message); process.exit(64) }
+  if (o.gallery) {
+    const rows = galleryMode(o).sort((a, b) => (b.score ?? 2) - (a.score ?? 2))
+    console.log('section'.padEnd(34) + 'lang  score    diff%   dH(px)  verdict')
+    for (const r of rows) console.log(r.error ? `${r.id.padEnd(34)}${r.lang.padEnd(6)}-        -       -       missing`
+      : `${r.id.slice(0, 33).padEnd(34)}${r.lang.padEnd(6)}${r.score.toFixed(4)}  ${(r.diffRatio * 100).toFixed(1).padStart(5)}  ${String(r.hdelta).padStart(6)}   ${r.verdict}`)
+    if (o.strict && rows.some(r => r.error || r.verdict === 'fail')) process.exit(1)
+    process.exit(0)
+  }
   if (!o.app || !APPDIR[o.app] || !(o.screen || o.flow)) {
     console.error('usage: parity.mjs --app client|hotel (--screen <ID> --lang ar|en | --flow <flow-id> [--lang ar|en|both]) [--w 390] [--flutter png] [--out png] [--strict]')
     process.exit(64)
