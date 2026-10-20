@@ -1,0 +1,7 @@
+include: ../../analysis_options.yaml
+
+# Galleries and tests import `package:ghazal_ui/src/foundation.dart` and group barrels on purpose (ADR 0036 / plan section 5): one
+# component group can compile and be tested while another is still being written, which the public barrel cannot offer.
+linter:
+  rules:
+    implementation_imports: false
