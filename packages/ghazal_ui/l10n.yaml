@@ -1,0 +1,6 @@
+arb-dir: lib/l10n
+template-arb-file: gz_en.arb
+output-localization-file: gz_localizations.dart
+output-class: GzL10n
+output-dir: lib/l10n/generated
+nullable-getter: false

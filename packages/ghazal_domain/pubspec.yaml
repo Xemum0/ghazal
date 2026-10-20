@@ -1,0 +1,11 @@
+name: ghazal_domain
+description: Entities (JSON models), repository interfaces and client-visible rules. Pure Dart.
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.13.4
+
+dependencies:
+  collection: ^1.19.1
+  equatable: ^3.0.0
+  meta: ^1.19.0

@@ -181,7 +181,7 @@ export default function WindowSchedule() {
           />
           {draft.shortcut ? (
             <div className="gt-count">
-              <FactChip icon="calendar-check" value={f.integer(shortcutList(draft.shortcut).length)} label={t('hotelGrowDatesChosen')} tone="accent" />
+              <FactChip icon="calendar-check" value={f.integer(shortcutList(draft.shortcut).length)} label={t('hotelGrowDatesChosen', { count: shortcutList(draft.shortcut).length })} tone="accent" />
               <Button variant="tertiary" iconStart="calendar" onClick={() => setShortcut(null)}>
                 {t('hotelGrowChooseDates')}
               </Button>
@@ -209,7 +209,7 @@ export default function WindowSchedule() {
                     <span className="gt-count__spacer" />
                   )
                 ) : (
-                  <FactChip icon="calendar-check" value={f.integer(draft.eventDates.length)} label={t('hotelGrowDatesChosen')} tone="accent" />
+                  <FactChip icon="calendar-check" value={f.integer(draft.eventDates.length)} label={t('hotelGrowDatesChosen', { count: draft.eventDates.length })} tone="accent" />
                 )}
                 {draft.eventDates.length > 0 ? (
                   <Button variant="tertiary" onClick={() => patch({ eventDates: [] })}>

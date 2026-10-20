@@ -1,0 +1,61 @@
+name: ghazal_ui
+description: Theme, tokens, Gz components, fonts, icons, illustrations. The only package that imports material_ui and cupertino_ui.
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.13.4
+  flutter: '>=3.47.5 <3.48.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  collection: ^1.19.1
+  cupertino_ui: ^1.1.4
+  flutter_svg: ^2.3.0
+  intl: ^0.20.3
+  material_ui: ^1.8.0
+  meta: ^1.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  generate: true
+  # Font family names are exactly ElMessiri, Manrope, Almarai (web: "El Messiri", "Manrope", "Almarai"; see assets/fonts/LICENSES.md).
+  # El Messiri and Manrope are static instances cut from the Google Fonts variable files (wght axis); Almarai ships static.
+  fonts:
+    - family: ElMessiri
+      fonts:
+        - asset: assets/fonts/ElMessiri-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/ElMessiri-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/ElMessiri-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/ElMessiri-Bold.ttf
+          weight: 700
+    - family: Manrope
+      fonts:
+        - asset: assets/fonts/Manrope-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Manrope-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Manrope-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Manrope-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Manrope-Bold.ttf
+          weight: 700
+    - family: Almarai
+      fonts:
+        - asset: assets/fonts/Almarai-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Almarai-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Almarai-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Almarai-ExtraBold.ttf
+          weight: 800

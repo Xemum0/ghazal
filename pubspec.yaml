@@ -1,0 +1,19 @@
+# Dart pub workspace root (ADR 0036, docs/engineering/flutter-build-plan.md). Not a package: it lists the members and pins the SDKs.
+# Dependencies are frozen at scaffold: nobody runs `pub add`; ask through docs/engineering/requests.md.
+name: ghazal_workspace
+description: Ghazal Flutter workspace (client_app, provider_app and the ghazal_* packages).
+publish_to: none
+
+environment:
+  sdk: ^3.13.4
+  flutter: '>=3.47.5 <3.48.0'
+
+workspace:
+  - apps/client_app
+  - apps/provider_app
+  - packages/ghazal_ui
+  - packages/ghazal_core
+  - packages/ghazal_domain
+  - packages/ghazal_api
+  - packages/ghazal_mock_api
+  - packages/ghazal_testing

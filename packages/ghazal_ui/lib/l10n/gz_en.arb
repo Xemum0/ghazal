@@ -1,0 +1,5 @@
+{
+  "@@locale": "en",
+  "stubNotBuilt": "Not built yet",
+  "@stubNotBuilt": { "description": "Label on a placeholder screen that exists in the inventory but has no Flutter implementation yet." }
+}

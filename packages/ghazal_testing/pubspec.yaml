@@ -1,0 +1,21 @@
+name: ghazal_testing
+description: Headless screenshot harness (real fonts, prototype device chrome), fixtures, fake clock, scenario helpers.
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.13.4
+  flutter: '>=3.47.5 <3.48.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.4.3
+  flutter_test:
+    sdk: flutter
+  ghazal_api: any
+  ghazal_core: any
+  ghazal_domain: any
+  ghazal_mock_api: any
+  ghazal_ui: any
+  mocktail: ^1.0.5
+  path: ^1.9.1

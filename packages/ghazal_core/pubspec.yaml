@@ -1,0 +1,21 @@
+name: ghazal_core
+description: Money, GzFormat, env, errors, locale and digit providers, retry policy.
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.13.4
+  flutter: '>=3.47.5 <3.48.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  collection: ^1.19.1
+  equatable: ^3.0.0
+  flutter_riverpod: ^3.4.3
+  intl: ^0.20.3
+  meta: ^1.19.0
+  shared_preferences: ^2.5.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

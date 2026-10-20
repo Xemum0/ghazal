@@ -19,6 +19,15 @@
     "shots": "node design/scripts/shots.mjs",
     "contracts:check": "pnpm -F @gz/contracts check && pnpm -F @gz/contracts validate",
     "verify": "pnpm typecheck && pnpm lint && pnpm tokens:check && pnpm i18n:check && pnpm contracts:check",
+    "parity:ref": "node tools/parity/ref-shots.mjs",
+    "parity": "node tools/parity/parity.mjs",
+    "flutter:get": "flutter pub get",
+    "flutter:analyze": "flutter analyze",
+    "flutter:rules": "bash tools/check-dart-rules.sh",
+    "flutter:routes": "node tools/gen-routes.mjs",
+    "flutter:test": "node tools/flutter-test-all.mjs",
+    "flutter:verify": "pnpm flutter:analyze && pnpm flutter:rules && pnpm flutter:test",
+    "fshot": "node tools/fshot.mjs",
     "ports": "node tools/ports.mjs"
   }
 }

@@ -1,0 +1,5 @@
+{
+  "@@locale": "en",
+  "appName": "Ghazal",
+  "@appName": { "description": "Stub key so gen_l10n works; the real ARB is merged from packages/i18n by the l10n script (phase F1b)." }
+}

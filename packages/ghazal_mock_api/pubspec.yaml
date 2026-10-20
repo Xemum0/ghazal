@@ -1,0 +1,21 @@
+name: ghazal_mock_api
+description: shelf mock of the Ghazal REST contract (engine, seeds), in-process dio adapter or standalone server.
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.13.4
+
+dependencies:
+  collection: ^1.19.1
+  crypto: ^3.0.7
+  dio: ^5.11.1
+  ghazal_domain: any
+  intl: ^0.20.3
+  path: ^1.9.1
+  shelf: ^1.4.3
+  shelf_router: ^1.1.5
+  shelf_static: ^1.2.0
+  uuid: ^4.6.0
+
+dev_dependencies:
+  test: ^1.25.0
