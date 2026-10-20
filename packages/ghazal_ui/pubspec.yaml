@@ -14,6 +14,7 @@ dependencies:
   collection: ^1.19.1
   cupertino_ui: ^1.1.4
   flutter_svg: ^2.3.0
+  ghazal_core: any
   intl: ^0.20.3
   material_ui: ^1.8.0
   meta: ^1.19.0

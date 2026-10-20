@@ -24,7 +24,9 @@ for (let i = 0; i < args.length; i++) {
 }
 const slot = resolveSlot(opt.slot)
 const pages = (opt.pages ?? 'core,inputs,nav,client,hotel,charts,voucher').split(',')
-const langs = (opt.lang ?? 'both') === 'both' ? ['ar', 'en'] : [opt.lang]
+// English first: its titles define the file slugs for BOTH languages (Arabic gallery titles are localised; pairing is by index and English slug).
+const langs = (opt.lang ?? 'both') === 'both' ? ['en', 'ar'] : [opt.lang]
+const slugsByPage = {}
 const W = Number(opt.w ?? 390)
 const sleep = ms => new Promise(r => setTimeout(r, ms))
 const slug = s => s.toLowerCase().replace(/[^a-z0-9؀-ۿ]+/g, '-').replace(/^-|-$/g, '').slice(0, 48) || 'section'
@@ -70,7 +72,9 @@ try {
       for (let i = 0; i < count; i++) {
         const loc = page.locator(`[data-ref-i="${i}"]`).first()
         const title = (await loc.getAttribute('data-ref-title')) ?? `section ${i + 1}`
-        const file = `${String(i + 1).padStart(2, '0')}-${slug(title)}.${lang}.png`
+        const useSlug = (slugsByPage[name] ??= [])
+        if (lang === 'en' || !useSlug[i]) useSlug[i] = slug(title)
+        const file = `${String(i + 1).padStart(2, '0')}-${useSlug[i]}.${lang}.png`
         const dest = join(dir, file)
         const box = await loc.boundingBox()
         if (!box || box.height < 8) continue

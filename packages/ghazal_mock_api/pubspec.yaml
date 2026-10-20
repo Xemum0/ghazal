@@ -1,5 +1,5 @@
 name: ghazal_mock_api
-description: shelf mock of the Ghazal REST contract (engine, seeds), in-process dio adapter or standalone server.
+description: shelf mock of the Ghazal REST contract (engine port, seeds, handlers), served in-process through a dio adapter or as a standalone server.
 publish_to: none
 resolution: workspace
 environment:
@@ -9,13 +9,22 @@ dependencies:
   collection: ^1.19.1
   crypto: ^3.0.7
   dio: ^5.11.1
-  ghazal_domain: any
-  intl: ^0.20.3
   path: ^1.9.1
   shelf: ^1.4.3
   shelf_router: ^1.1.5
   shelf_static: ^1.2.0
-  uuid: ^4.6.0
 
 dev_dependencies:
-  test: ^1.25.0
+  flutter_test:
+    sdk: flutter
+  ghazal_api: any
+  ghazal_core: any
+  ghazal_domain: any
+
+# The seeds, the slim route table and the optimised photographs travel with the package: the Flutter apps read them through rootBundle
+# ('packages/ghazal_mock_api/assets/...'), the standalone server and the Dart tests read the same files from disk.
+flutter:
+  assets:
+    - assets/seed/
+    - assets/spec/
+    - assets/images/

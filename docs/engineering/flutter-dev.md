@@ -116,6 +116,27 @@ Text: `GzText('x', role: GzTextRole.body, color: ..., maxLines: 2)` (colour defa
 - Riverpod 3: use `Notifier` / `AsyncNotifier`; `StateProvider` lives in `package:flutter_riverpod/legacy.dart` and is not used. `phosphor_flutter` does not compile on this Flutter and is never added. `Override` is imported from `package:flutter_riverpod/misc.dart` (re-exported by `ghazal_testing`).
 - Do not use `rm -rf` (project settings deny it); use `rm -r` on exact paths.
 
+## Core and brand components (`ghazal_ui`, F2 group G1)
+
+Source of truth: `design/src/system/core/**` and `brand/**`; `Foo` is `GzFoo`, props keep the TypeScript names and defaults (a web `children` string is `label`, `onClick` is `onPressed`, a null `onPressed` is `disabled`). Barrels: `package:ghazal_ui/src/core/core.dart`, `.../brand/brand.dart` (both exported by `ghazal_ui.dart`).
+
+| Group | Widgets |
+|---|---|
+| Actions | `GzButton` (`GzButtonVariant` primary / secondary / tertiary / destructive, `GzButtonSize` 44 / 48 / 52 / 56, `iconStart`, `iconEnd`, `loading` draws the thread once, `fullWidth`, `reason`, `onDark`), `GzIconButton` (plain / outline / overImage / onScrim, `active` toggle with the favourite pop), `GzChip`, `GzFilterChip` (`selected`, `menu`, `count`) |
+| Marks | `GzBadge`, `GzCountBadge`, `GzStatusPill` / `GzStatusIcon` (`GzStatus` has every request, voucher, visit, listing and availability state; labels come from the shared `common` words via `status.label(context.gzL10n, audience)`), `GzAvatar`, `GzRating`, `GzMoney`, `GzPrice` (`GzPriceSize`, `GzPriceUnit`, `was`, `prefix`) |
+| Structure | `GzDivider`, `GzThreadRule` (`GzDraw` mount / inview / off), `GzListRow`, `GzIconListRow`, `GzSectionHeader`, `GzKeyFact`, `GzTag`, `GzFactChip`, `GzFactRow`, `GzIconStat`, `GzIconProgress`, `GzSkeleton` / `GzSkeletonText`, `GzToast`, `GzUndoBar`, `GzToastRegion` (a child of a `Stack`) |
+| Controls | `GzSwitch`, `GzCheckbox`, `GzRadioGroup<T>` + `GzRadio<T>`: controlled with `checked` / `value` + `onChanged`, or uncontrolled from `defaultChecked` / `defaultValue`; one Semantics node each (toggled, checked / mixed, mutually exclusive) |
+| Brand | `GzWordmark`, `GzMonogram`, `GzThreadKnot` (`GzKnotState` open / now / tied / ended, `pop`), `GzThreadBead` |
+| Helpers | `GzDrawOnce` (the 480 ms draw-on from inline-start, reduced motion = finished), `GzFadeInOnce`, `GzScalePop`, `GzBead` / `GzBeadBox`, `GzFocusOutline`, `GzPreviewState` (gallery only: pressed / focus without a pointer), `gzFigText` |
+
+Rules of this group. Numbers and money go through the shared formatter: `GzPrice(fils: 18200000)`, `GzCountBadge(count: 3)`, `GzRating(value: 4.8, count: 212)`. `ghazal_ui` therefore depends on `ghazal_core`; the app installs `GzFormatScope(format: ref.watch(gzFormatProvider), child: ...)` once above the router (without it the components use a default Western-digits formatter for the ambient locale). Colour, space, radius, stroke and motion are tokens only. Skeleton is static (direction 5: nothing loops); `shimmer: true` is opt-in and respects reduced motion. Money is one LTR island, the currency drawn before the figure in both languages, a zero `.000` set quiet in `exact` mode.
+
+Parity notes (gallery `core`, `node tools/parity/parity.mjs --gallery core`; `ghazal_testing/test/gallery/core_gallery_test.dart` renders it and also writes each Arabic render under the Arabic section name the web reference files use):
+- The prototype's `.gz-reset { font: inherit }` is declared after the type role classes, so a web `<button class="gz-reset gz-t-button">` renders its label in the page type (`body`: 16/24 regular), not the 15/500 `button` role. Button, Chip and the toast action reproduce what the reference renders (`gzResetLabelStyle`, one function to change if the web CSS is fixed). The tertiary rule hangs under that 24 dp line box.
+- A web chip's border box is about 0.5 dp tighter per side than padding + border (measured); Flutter text sits about 0.5 dp lower than Chrome's inside the same line box (all sections show a 1 to 2 px height difference from this).
+- Web `weights` row of the Icon section shows light and regular glyphs; the Flutter font has regular only.
+- `FileImage` never completes under `flutter_test` fake async: galleries load photographs with `MemoryImage`.
+
 ## Known limits (handed to later phases)
 
 The tab bar is `GzStubTabBar` until `GzTabBar` (F2). `GzApp` installs `gzPageTransitionsPlaceholder` (the platform default); the navigation owner replaces it with the direction-aware push of the motion list. `flutter_test` draws every shadow as a hard solid shape: a test that must show soft elevation sets `debugDisableShadows = false` BEFORE pumping the frame and back to `true` before the test ends (see `packages/ghazal_testing/test/foundation_gallery_test.dart`); `GzHarness` does not do this yet.
