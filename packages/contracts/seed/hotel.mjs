@@ -284,8 +284,16 @@ export const settings = {
   notificationPrefs: { newRequestAlwaysOn: true, messages: true, reviews: true, vouchers: true, visits: true },
   listingCompleteness: { ar: 100, en: 92 },
   bookingRules: { responseSlaHours: 24, confirmWindowHours: 24, visitsEnabled: true },
-  // Aurelia is a major hotel: no listing fee, no payment step, still reviewed (owner rule).
-  billing: { feeExempt: true, majorHotel: true, plan: { cycle: null, endsOn: null } },
+  // Aurelia is a major hotel: no listing fee, no payment step, still reviewed (owner rule). Hotels and halls are on a business contract, never a plan.
+  billing: {
+    feeExempt: true,
+    majorHotel: true,
+    plan: { cycle: null, endsOn: null },
+    mode: 'contract',
+    contractSummary: bil('Business contract with Ghazal, terms as agreed.', 'عقد عمل مع غزل، بالشروط المتفق عليها.'),
+  },
+  // External calendar sync by email (ADR 0035 D8): an .ics through Resend to this address, never WhatsApp.
+  calendarSync: { channel: 'email', address: 'calendar@aurelia-gulf.example', ics: true },
   sister: { id: 'V-sister-marina', name: bil('Aurelia Marina Hall', 'قاعة أوريليا المارينا'), role: 'reception', pending: 2 },
   reliabilityStrikes: 0,
 }

@@ -2,11 +2,12 @@
 // driven by the listing fixtures of Zahra Floral Studio (draft, in review, rejected, live, ended) and the three ad plans. Plan rates are not
 // decided: the fixtures carry null and every surface says "Rates announced soon"; the one number below is a sample marked for the gallery only.
 import { useState } from 'react'
-import { adPlans, listings, type AdPlanCycle, type Listing } from '../../../mock'
+import { adPlans, listings, partnerBilling, type AdPlanCycle, type Listing } from '../../../mock'
 import { Section, Spec, useL } from '../../domain-client/gallery/kit'
 import { AdPlanCard } from '../../domain-provider/AdPlanCard'
 import { ListingStatusPill } from '../../domain-provider/ListingStatusPill'
 import { MajorHotelBadge } from '../../domain-provider/MajorHotelBadge'
+import { BillingCard } from '../../domain-provider/BillingCard'
 import { ProviderListingCard } from '../../domain-provider/ProviderListingCard'
 import { ReviewTimeline } from '../../domain-provider/ReviewTimeline'
 
@@ -108,6 +109,14 @@ export function AdPlanSection() {
       <Spec state={l('Major hotel badge · chip and note (Partner app only)', 'شارة الفندق الكبير · شارة وملاحظة (تطبيق الشريك فقط)')}>
         <MajorHotelBadge />
         <MajorHotelBadge variant="note" />
+      </Spec>
+      <Spec state={l('Billing card · business contract (hotels and halls, no price) · major hotel · plan (service providers, rates soon)', 'بطاقة الفوترة · عقد عمل (فنادق وقاعات، بلا سعر) · فندق كبير · باقة (مقدّمو الخدمات، الأسعار قريبًا)')}>
+        {partnerBilling
+          .filter((b, i, all) => all.findIndex(x => x.mode === b.mode) === i)
+          .map(b => (
+            <BillingCard key={b.partnerAccountId} billing={b} />
+          ))}
+        <BillingCard billing={partnerBilling.find(b => b.mode === 'contract')!} majorHotel />
       </Spec>
     </Section>
   )

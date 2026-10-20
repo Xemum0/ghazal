@@ -150,7 +150,7 @@ export default function NotificationPrefs() {
 
   const aboutLines = [
     ...(visible('newRequest') ? [{ icon: 'bell' as const, text: t('hotelSettingsNotifAboutLock') }, { icon: 'moon' as const, text: t('hotelSettingsNotifAboutQuiet') }] : []),
-    { icon: 'whatsapp' as const, text: t('hotelSettingsNotifAboutChannel') },
+    { icon: 'mail' as const, text: t('hotelSettingsNotifAboutChannel') },
   ]
 
   return (

@@ -118,12 +118,18 @@
         "Primary 'Continue' / «متابعة» creates the account, attaches the local Brief, hearts and Compare set, then resumes the intent",
         "Live monogram preview in the first letter of the name"
       ],
-      "contentNotes": "Legal texts are supplied by the owner and served from the Super Admin CMS; placeholder headings only in the prototype. Name example «ريم الدوسري», email optional 'reem@example.com'. Acceptance is logged once per account. The Arabic checkbox label is a statement of acceptance, not an imperative: «أوافق على شروط الاستخدام وسياسة الخصوصية». Tab bar hidden. Voucher model (ADR 0033): the terms link now lists the platform terms and the voucher terms in one reader; the voucher terms say in plain words that the KD 2 is paid to Ghazal, that the event price is paid to the venue directly, and when a voucher is reusable or refundable.",
+      "contentNotes": "Legal texts are supplied by the owner and served from the Super Admin CMS; placeholder headings only in the prototype. Name example «ريم الدوسري», email optional 'reem@example.com'. Acceptance is logged once per account. The Arabic checkbox label is a statement of acceptance, not an imperative: «أوافق على شروط الاستخدام وسياسة الخصوصية». Tab bar hidden. Voucher model (ADR 0033): the terms link now lists the platform terms and the voucher terms in one reader; the voucher terms say in plain words that the KD 2 is paid to Ghazal, that the event price is paid to the venue directly, and when a voucher is reusable, forfeited or eligible for a credit voucher from support.",
       "priority": "supporting",
       "navigatesTo": [
         "CL-AUTH-05",
         "CL-DISC-02"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Terms line: lapse forfeits, support credit instead of refund",
+        "note": "Voucher line in the terms: \"The KD 2 is paid to Ghazal. If you do not confirm in 24 hours the voucher is no longer valid. Refunds are credit vouchers from support, never money.\""
+      }
     },
     {
       "id": "CL-AUTH-04",

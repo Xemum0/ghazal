@@ -21,7 +21,8 @@
         "CA-CHAT-05",
         "CA-CHAT-10",
         "CA-NOTI-06",
-        "CA-VIS-03"
+        "CA-VIS-03",
+        "CA-VCH-16"
       ],
       "states": [
         "default",
@@ -29,7 +30,8 @@
         "empty",
         "error",
         "offline",
-        "guest"
+        "guest",
+        "support-refund-request"
       ],
       "interactions": [
         "Row: monogram (first letter of the name in its own script), name, a context line ('Request · Thu 14 Jan'), last message with dir=auto alignment, time, unread badge",
@@ -46,7 +48,13 @@
         "CL-AUTH-01",
         "CL-DISC-01",
         "CL-VIST-03"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Support thread entry for refund requests",
+        "note": "The Ghazal Support row shows \"Credit voucher request\" context when the client sent a request from CL-VCHR-05; the conversation is the support variant of CL-MSGS-02."
+      }
     },
     {
       "id": "CL-MSGS-02",
@@ -192,7 +200,13 @@
         "CL-RVRW-02",
         "CL-VCHR-03",
         "CL-VIST-03"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Notification kind Refunded becomes Credit voucher issued",
+        "note": "Notification kinds: \"Credit voucher issued\" replaces \"Refunded\"; \"Voucher lapsed: not valid\" replaces \"Still yours\" for the 24 h lapse."
+      }
     }
   ]
 }

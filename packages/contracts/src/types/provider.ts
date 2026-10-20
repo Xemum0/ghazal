@@ -26,6 +26,21 @@ export interface PartnerAccount {
 export type AdPlanCycle = 'weekly' | 'monthly' | 'annual'
 
 /**
+ * ADR 0035 D7: how a partner pays Ghazal. `plan` (weekly, monthly, annual; rates set in the Super Admin panel) is for service providers.
+ * `contract` (terms as contracted, no public plan, no price shown in the app) is mostly for hotels and halls. Fixtures never carry a number.
+ */
+export type PartnerBillingMode = 'plan' | 'contract'
+
+export interface PartnerBilling {
+  partnerAccountId: Id
+  mode: PartnerBillingMode
+  /** One line about the contract, with no price and no date arithmetic (`contract` mode only). */
+  contractSummary: Bilingual | null
+  /** Chosen plan cycle and when it ends (`plan` mode only). Rates stay null until the Super Admin sets them. */
+  plan: { cycle: AdPlanCycle | null; endsOn: IsoDate | null; ratesFils: number | null } | null
+}
+
+/**
  * One billing cycle of paid advertising. The rates are NOT decided: `ratesFils` is null everywhere in the seed and every surface
  * says "Rates announced soon" (voucher-model section 9.3). A number appears only after the Super Admin sets it.
  */
@@ -63,7 +78,8 @@ export type ListingRejectionCode =
 /**
  * `exempt`: major hotel, no fee. `rates_pending`: the provider chose a plan cycle but the plan rates are not announced, so the pay step is
  * disabled ("Payment opens when rates are announced") and no listing in the seed has paid. `paid`, `refund_due`, `refunded` exist for the
- * day rates are set (a rejected listing keeps its paid plan 14 days, then refunds; A-08).
+ * day rates are set. A listing fee is refunded on a support request, outside the gateway, and the refund is recorded in the platform
+ * (`Listing.feeRefund`; ADR 0035 D7 replaced the automatic 14-day rule). `refund_due` = support agreed, not yet recorded as paid out.
  */
 export type ListingBillingStatus = 'exempt' | 'rates_pending' | 'paid' | 'refund_due' | 'refunded'
 
@@ -108,8 +124,10 @@ export interface Listing {
   endsOn: IsoDate | null
   /** Rejection reasons and the moderator's note, shown to the provider. */
   rejection: { codes: ListingRejectionCode[]; note: Bilingual } | null
-  /** A rejected listing keeps its plan this long for a resubmission (14 days, A-08); null otherwise. */
+  /** @deprecated ADR 0035 D7 (no automatic 14-day rule); a rejected provider refines the listing and resubmits. Null in new data. */
   planKeptUntil: IsoDate | null
+  /** A listing-fee refund the provider asked support for; money moves outside the gateway, the platform only records it. */
+  feeRefund: { requestedAt: IsoDateTime; recordedAt: IsoDateTime | null; recordedBy: string | null } | null
   /** Paid placement is labelled "Sponsored" to clients; the base listing is not. */
   sponsored: boolean
   /** The review trail, oldest first. */

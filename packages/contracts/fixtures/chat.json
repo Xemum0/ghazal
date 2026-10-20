@@ -110,7 +110,7 @@
       "monogram": "غ",
       "clientId": "user-reem",
       "clientName": "ريم الدوسري",
-      "lastMessageAt": "2026-11-03T20:10:00+03:00"
+      "lastMessageAt": "2026-11-05T10:01:00+03:00"
     },
     {
       "pinned": false,
@@ -1222,6 +1222,81 @@
       "origin": "ar",
       "status": "delivered",
       "draft": false
+    },
+    {
+      "id": "msg-044",
+      "conversationId": "conv-support-reem",
+      "from": "client",
+      "senderName": "ريم الدوسري",
+      "at": "2026-11-02T20:30:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "The hall declined our request. We would like another voucher to use at a different hall.",
+        "ar": "القاعة رفضت طلبنا. نبي كوبون بديل نستخدمه في قاعة ثانية."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-045",
+      "conversationId": "conv-support-reem",
+      "from": "support",
+      "senderName": "Lama Al-Khalidi",
+      "at": "2026-11-02T21:05:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "We received your request and are reviewing it. We will reply within two days.",
+        "ar": "وصلنا طلبكم ونراجعه. نرد عليكم خلال يومين."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-046",
+      "conversationId": "conv-support-reem",
+      "from": "support",
+      "senderName": "Lama Al-Khalidi",
+      "at": "2026-11-05T10:00:00+03:00",
+      "kind": "text",
+      "text": {
+        "en": "Approved. We added a credit voucher to your account, valid for 60 days at any hall, hotel or service.",
+        "ar": "تمت الموافقة. أضفنا كوبون رصيد إلى حسابكم، صالح 60 يومًا في أي قاعة أو فندق أو خدمة."
+      },
+      "origin": "ar",
+      "status": "read",
+      "draft": false
+    },
+    {
+      "id": "msg-047",
+      "conversationId": "conv-support-reem",
+      "from": "support",
+      "senderName": "Lama Al-Khalidi",
+      "at": "2026-11-05T10:01:00+03:00",
+      "kind": "credit_card",
+      "text": null,
+      "origin": "ar",
+      "status": "read",
+      "draft": false,
+      "card": {
+        "kind": "credit_voucher",
+        "title": {
+          "en": "Credit voucher added",
+          "ar": "تمت إضافة كوبون رصيد"
+        },
+        "lines": [
+          {
+            "en": "Any hall, hotel or service",
+            "ar": "أي قاعة أو فندق أو خدمة"
+          },
+          {
+            "en": "Valid for 60 days",
+            "ar": "صالح لمدة 60 يومًا"
+          }
+        ],
+        "refId": "vch-GV-2611-C4RD"
+      }
     }
   ]
 }

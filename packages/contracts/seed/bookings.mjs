@@ -10,7 +10,7 @@ import { config } from './meta.mjs'
 import { resolveRule } from '../src/engine/pricing.ts'
 import { addHours, kuwaitDateOf, addDays } from '../src/engine/dates.ts'
 import { fils } from '../src/engine/money.ts'
-import { qrPayload, voucherCode, voucherValidUntil } from '../src/engine/voucher.ts'
+import { creditVoucherValidUntil, qrPayload, voucherCode, voucherValidUntil } from '../src/engine/voucher.ts'
 
 const phoneOf = (userId) => users.find((u) => u.id === userId).phone
 const nameOf = (userId) => users.find((u) => u.id === userId).name
@@ -166,7 +166,7 @@ add({
   approvedDiscount: kd(1040),
   life: { approvedAt: at('2026-09-21', '09:00'), approvedBy: 'Hind Al-Enezi', confirmedAt: at('2026-09-21', '17:00'), cancelledAt: at('2026-11-12', '10:20'), cancelledBy: 'client', cancelReason: 'plans_changed' },
 })
-// Cancelled by the couple inside the 24 h window, before confirming: the voucher is released (reusable, not refundable).
+// Cancelled by the couple inside the 24 h window, before confirming: the voucher is released (reusable, no credit request).
 add({
   ref: 'GZ-2611-8Y1T',
   venueId: 'V01',
@@ -186,7 +186,6 @@ add({
   eventDate: '2026-11-14',
   sections: [L('danah', 320)],
   life: { rejectedAt: at('2026-11-08', '12:30'), approvedBy: 'Hind Al-Enezi' },
-  refundVoucher: { initiatedAt: at('2026-11-09', '11:00'), status: 'processing', completedAt: null },
 })
 add({
   ref: 'GZ-2611-2D6V',
@@ -211,7 +210,7 @@ add({
   life: { approvedAt: at('2026-11-09', '14:00'), approvedBy: 'Hind Al-Enezi', expiredAt: at('2026-11-10', '14:00'), expiredReason: 'client_no_confirmation' },
 })
 
-// ---------------------------------------------------------------- Reem's other requests: Lumi Marina Hotel (no reply) and Qasr Al-Nakheel (declined, refunded)
+// ---------------------------------------------------------------- Reem's other requests: Lumi Marina Hotel (no reply) and Qasr Al-Nakheel (declined, credit voucher granted by support)
 add({
   ref: 'GZ-2611-0098',
   venueId: 'V05',
@@ -233,7 +232,7 @@ add({
   sections: [L('ladies', 350)],
   life: { rejectedAt: at('2026-10-31', '10:15'), approvedBy: 'Venue team' },
   voucher: { code: 'GV-2610-H9XB', method: 'knet', purchasedAt: at('2026-10-30', '19:11') },
-  refundVoucher: { initiatedAt: at('2026-11-02', '20:30'), status: 'completed', completedAt: at('2026-11-05', '10:00'), method: 'knet' },
+  creditGrant: { requestedAt: at('2026-11-02', '20:30'), grantedAt: at('2026-11-05', '10:00') },
 })
 
 // ---------------------------------------------------------------- service-provider requests: Zahra Floral Studio (the provider persona)
@@ -254,24 +253,49 @@ prov('GZ-2610-9C3H', 'maitha-sayegh', 'completed', at('2026-10-01', '11:00'), '2
 // ---------------------------------------------------------------- build
 const built = specs.map((s) => buildBooking({ ...s, clientName: nameOf(s.clientId), phone: phoneOf(s.clientId) }))
 
-// A voucher that was refunded (declined requests are venue-fault releases, refundable): the status moves to `refunded`.
+// A declined request is a venue-fault release; the client asked support and support granted a CREDIT voucher (ADR 0035 D5): the original
+// voucher becomes `credit_issued` and a new unbound `credit` voucher sits in the wallet. No money goes back.
+const SUPPORT_REP_NAME = 'Lama Al-Khalidi'
+export const refundRequests = []
+export const creditVouchers = []
 built.forEach((b, i) => {
-  const rv = specs[i].refundVoucher
-  if (!rv) return
+  const cg = specs[i].creditGrant
+  if (!cg) return
   const v = b.voucher
-  v.status = 'refunded'
-  v.refundEligible = false
-  v.refundUntil = null
-  v.refund = {
-    amount: fils(config.voucherFeeFils),
-    method: rv.method ?? v.payment.method,
-    status: rv.status,
-    reason: 'venue_fault_release',
-    initiatedAt: rv.initiatedAt,
-    completedAt: rv.completedAt,
-    arrival: (rv.method ?? v.payment.method) === 'knet' ? 'knet_1_3_days' : 'card_up_to_10_days',
-    creditNoteNo: rv.status === 'completed' ? 'CN-0000061' : 'CN-0000062',
-  }
+  const reqId = `rr-${v.code}`
+  const creditCode = 'GV-2611-C4RD'
+  v.status = 'credit_issued'
+  v.creditEligible = false
+  v.refundRequestId = reqId
+  creditVouchers.push({
+    id: `vch-${creditCode}`,
+    kind: 'credit',
+    code: creditCode,
+    clientId: v.clientId,
+    priceFils: config.voucherFeeFils,
+    status: 'active',
+    grantedAt: cg.grantedAt,
+    validUntil: creditVoucherValidUntil(cg.grantedAt, config),
+    qr: qrPayload(creditCode, 'any'),
+    grantedFrom: { requestId: reqId, voucherId: v.id, grantedBy: SUPPORT_REP_NAME },
+    bookingId: null,
+    usedAt: null,
+    usedReason: null,
+    redeemedBy: null,
+  })
+  refundRequests.push({
+    id: reqId,
+    voucherId: v.id,
+    clientId: v.clientId,
+    status: 'granted',
+    requestedAt: cg.requestedAt,
+    note: bil('The venue declined my request. Can I get another voucher?', 'القاعة رفضت طلبي. هل يمكن الحصول على كوبون آخر؟'),
+    conversationId: 'conv-support-reem',
+    decidedAt: cg.grantedAt,
+    decidedBy: SUPPORT_REP_NAME,
+    creditVoucherId: `vch-${creditCode}`,
+    declineReason: null,
+  })
 })
 
 export const bookings = built.map((b) => b.booking)
@@ -299,12 +323,11 @@ function standalone({ code, clientId, venueId, hall, pkgKey, guests, eventDate, 
   v.reuseUntil = null
   v.releasedAt = null
   v.releaseReason = null
-  v.refundEligible = false
-  v.refundUntil = null
+  v.creditEligible = false
   v.payment = { method: 'knet', receiptNo: 'RC-PENDING', amount: fils(config.voucherFeeFils), status: 'pending', at: at('2026-11-12', '15:50') }
   var unpaid = v
 }
-// Bought on 28 Aug for Qasr Al-Nakheel, never used inside its 60 days: expired, not refunded.
+// Bought on 28 Aug for Qasr Al-Nakheel, never used inside its 60 days: expired, no credit.
 {
   const { v } = standalone({ code: 'GV-2608-D5QN', clientId: client('hessa-marzouq'), venueId: 'V09', hall: 'ladies', pkgKey: 'ladies-weekend', guests: 320, eventDate: '2026-12-05', purchasedAt: at('2026-08-28', '20:05'), status: 'expired', ref: 'GZ-2608-NONE2' })
   v.status = 'expired'
@@ -312,15 +335,27 @@ function standalone({ code, clientId, venueId, hall, pkgKey, guests, eventDate, 
   v.releasedAt = null
   v.releaseReason = null
   v.reuseUntil = null
-  v.refundEligible = false
-  v.refundUntil = null
+  v.creditEligible = false
   v.validUntil = voucherValidUntil(at('2026-08-28', '20:05'), '2026-12-05', config)
   var expired = v
 }
-export const vouchers = [...bookingVouchers, unpaid, expired].sort((a, b) => (a.id < b.id ? -1 : 1))
+// Reem approved a request at Qasr Al-Nakheel on 22 Sep but did not confirm at the venue within 24 h: the voucher is not valid (ADR 0035 D4).
+{
+  const { v } = standalone({ code: 'GV-2609-F6TM', clientId: 'user-reem', venueId: 'V09', hall: 'ladies', pkgKey: 'ladies-weekend', guests: 320, eventDate: '2026-12-12', purchasedAt: at('2026-09-22', '20:10'), status: 'forfeited', ref: 'GZ-2609-NONE3' })
+  v.status = 'forfeited'
+  v.forfeitedAt = at('2026-09-24', '14:00')
+  v.bookingId = null
+  v.releasedAt = null
+  v.releaseReason = null
+  v.reuseUntil = null
+  v.creditEligible = false
+  v.validUntil = voucherValidUntil(at('2026-09-22', '20:10'), '2026-12-12', config)
+  var forfeited = v
+}
+export const vouchers = [...bookingVouchers, unpaid, expired, forfeited].sort((a, b) => (a.id < b.id ? -1 : 1))
 // Gapless receipt numbers in order of payment (the receipt of a voucher still in checkout is pending and has no number yet).
 ;[...vouchers]
-  .filter((v) => v.purchasedAt)
+  .filter((v) => v.purchasedAt && v.payment)
   .sort((a, b) => (a.purchasedAt < b.purchasedAt ? -1 : a.purchasedAt > b.purchasedAt ? 1 : a.id < b.id ? -1 : 1))
   .forEach((v, i) => {
     v.payment.receiptNo = `RC-${String(50001 + i).padStart(6, '0')}`

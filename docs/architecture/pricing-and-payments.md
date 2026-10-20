@@ -11,7 +11,7 @@
 5. **A voucher is offered only when it pays for itself:** `savings_fils > voucher_fee_fils`.
 6. **Frozen quote.** The quote (both totals) is snapshotted when the request is sent; partner price edits never reprice an existing request. The partner may approve at a lower voucher price, never higher.
 7. **The server is the source of truth.** Clients display the server's snapshot through `GzFormat`; they never compute totals. The gateway webhook plus a status re-query, never the app's return URL, decides that money arrived.
-8. **No money is held, split or paid out by Ghazal for events.** Gateway receipts for vouchers and listing plans are Ghazal revenue; refunds return to the original method.
+8. **No money is held, split or paid out by Ghazal for events.** Gateway receipts for vouchers and listing plans are Ghazal revenue; there are no money refunds of vouchers (a support-granted credit voucher replaces them) and no VAT line (ADR 0035).
 
 ## 2. The price engine
 
@@ -85,29 +85,29 @@ Rules: no "From" when date and guests are both set; "Est." prefixes a number ins
 | Pending bank confirmation | "Confirming with your bank". Poll with backoff; at about 30 s "We are confirming. You can leave; we will notify you."; push and email take over after 90 s |
 | Checkout lapsed | New checkout offered; a SUCCESS arriving after the lapse still activates the voucher (the client paid) |
 
-**Gateway boundary** (ADR 0027, narrowed). One port `PaymentGateway { createSession, getStatus, refund, listMethods }` with one MyFatoorah adapter. Removed: `createSupplier`, `uploadSupplierDocument`, supplier split, balance transfer. Webhook handling is unchanged: raw body, signature check, inbox row (duplicates are no-ops), **re-query**, then the compare-and-swap. Events handled: `PAYMENT_STATUS_CHANGED`, `REFUND_STATUS_CHANGED`, `DISPUTE_STATUS_CHANGED`. The session carries our payment, voucher and user ids in `ExternalIdentifier` and `UserDefinedField`. Gateway fees are recorded per payment from the webhook, never as constants. Unconfirmed facts that change copy, not design (OQ-B-02, OQ-T-04): refund timings per method, Auto Refund, per-method fees, KNET limits.
+**Gateway boundary** (ADR 0027, narrowed). One port `PaymentGateway { createSession, getStatus, listMethods }` (`refund` exists on the adapter but is not used for vouchers, ADR 0035 D5) with one MyFatoorah adapter. Removed: `createSupplier`, `uploadSupplierDocument`, supplier split, balance transfer. Webhook handling is unchanged: raw body, signature check, inbox row (duplicates are no-ops), **re-query**, then the compare-and-swap. Events handled: `PAYMENT_STATUS_CHANGED`, `REFUND_STATUS_CHANGED`, `DISPUTE_STATUS_CHANGED`. The session carries our payment, voucher and user ids in `ExternalIdentifier` and `UserDefinedField`. Gateway fees are recorded per payment from the webhook, never as constants. Refund timings and Auto Refund are moot (no refunds). Per-method fees and KNET limits remain ordinary integration details.
 
-## 6. Voucher refunds
+## 6. Refund requests and credit vouchers
 
-Rules are in [voucher-model](../product/voucher-model.md) section 4.4. Execution: the client taps "Refund KD 2" on the voucher detail (eligible cases only); the server checks eligibility, creates a `refunds` row (`calculated`, `approved`, `submitted`, `processing`, `completed`, `failed`, `manual_bank_transfer`), submits to the gateway within 1 business day, returns to the original method, always `ServiceChargeOnCustomer = false`. Arrival copy stays soft until the gateway confirms: KNET "1 to 3 working days", cards and wallets "up to 10 working days". Gateway fees on refunds are borne by Ghazal. One refund per voucher.
+There are no money refunds (ADR 0035 D5). Rules are in [voucher-model](../product/voucher-model.md) section 4.4. Flow: the client taps "Ask support" on an eligible voucher; the server creates a `refund_requests` row (`open`) and opens the support chat entry; a support agent decides in the Super Admin panel; on `granted` the original voucher becomes `credit_issued` and a voucher of kind `credit` (unbound, 60 days, any hall, hotel or service) is created in the client's wallet. No gateway call, no gateway fee, no arrival time, no VAT. A voucher whose 24 h confirm lapsed is `forfeited` and is not eligible.
 
 ## 7. Listing and advertising plans
 
 | Item | Rule |
 |---|---|
 | Plans | Weekly, Monthly, Annual (`listing_plans`, one row per cycle) |
-| Rates | **Not decided.** `rate_fils` is nullable; when null every surface says "Rates announced soon" and the pay button is disabled with the reason "Payment opens when rates are announced". No amount appears in the UI, fixtures or docs. A sample amount in a prototype state is labelled "Sample" and never shipped |
-| Who pays | Service providers always; hotels and halls that are not `fee_exempt` (A-12); major hotels never (`fee_exempt = true`, set by the Super Admin) |
+| Rates | **Managed in Super Admin, not yet set.** `rate_fils` is nullable; when null every surface says "Rates announced soon" and the pay button is disabled with the reason "Payment opens when rates are announced". No amount appears in the UI, fixtures or docs. A sample amount in a prototype state is labelled "Sample" and never shipped |
+| Who pays | Billing mode `plan` (service providers): weekly, monthly or annual plan, rates from Super Admin. Billing mode `contract` (mostly hotels and halls): terms as contracted, billed outside the app, no plan chooser. Major hotels never pay (`fee_exempt = true`, set by the Super Admin) |
 | Payment | Hosted gateway page, same method list as the voucher; Idempotency-Key; webhook plus re-query; receipt and plan invoice (bilingual PDF, amounts in KWD) |
 | When it counts | Payment moves the listing to `pending_review` only; the plan period starts at approval (A-07); no auto-debit, no saved cards |
-| Rejection | The paid plan is kept for 14 days for a resubmission; afterwards refunded in full to the original method (A-08) |
+| Rejection | The Ghazal team sends notes; the provider refines and resubmits. A refund of the listing fee happens on a support request, outside the gateway, and is recorded in the platform (`listing_refunds`) |
 | Expiry and renewal | Reminders at -7 and -1 days; an expired listing disappears from search; renewal is a new payment |
 | Labelling | Paid placement ("Featured", "Sponsored") is labelled to clients; the base listing is not |
 
 ## 8. Cash and documents
 
 - **There is no cash handling and no recorded payment of any event.** The client and the partner settle between themselves.
-- **Documents:** a receipt per voucher payment at once; a receipt and plan invoice per listing payment; a credit note on a refund. Bilingual PDFs from `ghazal-pdf`; they say **KWD** and keep Western digits; numbers are a gapless 7-digit sequence per issuer and kind. The issuing entity wording is pending legal review (OQ-B-06, OQ-T-12). There are no event invoices.
+- **Documents:** a receipt per voucher payment at once; a receipt and plan invoice per listing payment; no credit notes (there are no voucher refunds); a credit voucher is not an invoice document. The voucher receipt has no tax line. Bilingual PDFs from `ghazal-pdf`; they say **KWD** and keep Western digits; numbers are a gapless 7-digit sequence per issuer and kind. The issuing entity wording is pending legal review (OQ-B-06, OQ-T-12). There are no event invoices.
 - **Planner packages (Silver, Gold, Royal):** unchanged from the earlier state: proposal only, no in-app checkout (OQ-P-19). Planning is now a service-provider category and requests go through the same voucher request path (the partner's own price list).
 
 ## 9. Configuration (every number above lives here, not in code)

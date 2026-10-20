@@ -1,5 +1,5 @@
-// The number a code went to, as a value and not a sentence: the WhatsApp mark on a quiet disk and the masked figure in an LTR island
-// (+965 •••• 0040). The sentence "Sent to ..." is the accessible name.
+// The email a code went to, as a value and not a sentence: the envelope on a quiet disk and the masked address in an LTR island
+// (h•••@aurelia.example). The sentence "Sent to ..." is the accessible name.
 import { Icon } from '../../../../system'
 import { Ltr, useT } from '../../../../i18n'
 import './access.css'
@@ -9,11 +9,11 @@ export function NumberRow({ masked }: { masked: string }) {
   return (
     <div className="hxa-number" data-gz="NumberRow">
       <span className="hxa-number__mark" aria-hidden="true">
-        <Icon name="whatsapp" size="sm" />
+        <Icon name="mail" size="sm" />
       </span>
-      <span className="gz-sr-only">{t('hotelAccessVerifySentTo', { phone: masked })}</span>
-      <p className="hxa-number__value gz-t-fig-title" aria-hidden="true">
-        <Ltr className="gz-num">{masked}</Ltr>
+      <span className="gz-sr-only">{t('hotelAccessVerifySentTo', { email: masked })}</span>
+      <p className="hxa-number__value gz-t-title" aria-hidden="true">
+        <Ltr>{masked}</Ltr>
       </p>
     </div>
   )

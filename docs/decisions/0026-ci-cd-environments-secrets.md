@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | accepted |
+| Status | accepted; Updated by ADR 0035 (bundle ids) |
 | Date | 2026-10-12 |
 | Scope | Source control and commit conventions, GitHub Actions workflows, environments, infrastructure as code, secrets, prototype preview, observability, budget rule |
 | Owner confirmation still needed | OQ-T-03 (Apple and Google account type; D-U-N-S; Play closed test), OQ-T-05 (cost ceiling, region, optional fixed lines), OQ-T-07 (baseline commit, GitHub organisation, the pirated archive), OQ-T-13 (public preview URL), OQ-T-06 (domain and bundle prefix) |

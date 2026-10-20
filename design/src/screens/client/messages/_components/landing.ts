@@ -47,7 +47,8 @@ export function useNotificationLanding(): (n: Notification) => Landing {
         case 'voucher_ready':
         case 'voucher_released':
         case 'voucher_expiring':
-        case 'voucher_refunded':
+        case 'credit_voucher_issued':
+        case 'voucher_forfeited':
           open('CL-VCHR-03', { voucherId: n.voucherId })
           break
         case 'visit_requested':

@@ -2,6 +2,7 @@
   "vouchers": [
     {
       "id": "vch-GV-2607-SRBF",
+      "kind": "bound",
       "code": "GV-2607-SRBF",
       "clientId": "user-najla-badr",
       "targetType": "venue",
@@ -36,15 +37,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": "2026-10-28T11:15:00+03:00",
       "usedReason": "redeemed",
       "redeemedBy": "Amal Al-Balushi"
     },
     {
       "id": "vch-GV-2608-08BD",
+      "kind": "bound",
       "code": "GV-2608-08BD",
       "clientId": "user-jassim-kandari",
       "targetType": "venue",
@@ -79,15 +82,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2608-378X",
+      "kind": "bound",
       "code": "GV-2608-378X",
       "clientId": "user-jood-ajmi",
       "targetType": "venue",
@@ -122,15 +127,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": "2026-10-27T10:00:00+03:00",
       "usedReason": "redeemed",
       "redeemedBy": "Amal Al-Balushi"
     },
     {
       "id": "vch-GV-2608-6X96",
+      "kind": "bound",
       "code": "GV-2608-6X96",
       "clientId": "user-salman-harbi",
       "targetType": "venue",
@@ -165,15 +172,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": "2026-10-27T13:00:00+03:00",
       "usedReason": "redeemed",
       "redeemedBy": "Amal Al-Balushi"
     },
     {
       "id": "vch-GV-2608-D5QN",
+      "kind": "bound",
       "code": "GV-2608-D5QN",
       "clientId": "user-hessa-marzouq",
       "targetType": "venue",
@@ -208,15 +217,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2608-F2XJ",
+      "kind": "bound",
       "code": "GV-2608-F2XJ",
       "clientId": "user-bashayer-dhafiri",
       "targetType": "venue",
@@ -251,15 +262,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": "2026-11-04T12:05:00+03:00",
       "usedReason": "redeemed",
       "redeemedBy": "Amal Al-Balushi"
     },
     {
       "id": "vch-GV-2608-HCS1",
+      "kind": "bound",
       "code": "GV-2608-HCS1",
       "clientId": "user-shaikha-anzi",
       "targetType": "venue",
@@ -294,15 +307,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": "2026-11-03T11:20:00+03:00",
       "usedReason": "redeemed",
       "redeemedBy": "Amal Al-Balushi"
     },
     {
       "id": "vch-GV-2608-QDPJ",
+      "kind": "bound",
       "code": "GV-2608-QDPJ",
       "clientId": "user-alya-dhafiri",
       "targetType": "venue",
@@ -337,15 +352,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": "2026-11-01T14:00:00+03:00",
       "usedReason": "completed",
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2608-SHXK",
+      "kind": "bound",
       "code": "GV-2608-SHXK",
       "clientId": "user-nora-fahad",
       "targetType": "venue",
@@ -380,15 +397,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": "2026-10-22T12:00:00+03:00",
       "usedReason": "redeemed",
       "redeemedBy": "Amal Al-Balushi"
     },
     {
       "id": "vch-GV-2608-TKR9",
+      "kind": "bound",
       "code": "GV-2608-TKR9",
       "clientId": "user-thamer-mutawa",
       "targetType": "venue",
@@ -423,15 +442,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": "2026-10-24T13:00:00+03:00",
       "usedReason": "redeemed",
       "redeemedBy": "Amal Al-Balushi"
     },
     {
       "id": "vch-GV-2609-EDQ7",
+      "kind": "bound",
       "code": "GV-2609-EDQ7",
       "clientId": "user-munira-khaled",
       "targetType": "venue",
@@ -466,15 +487,62 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": "2026-11-02T12:30:00+03:00",
       "usedReason": "redeemed",
       "redeemedBy": "Amal Al-Balushi"
     },
     {
+      "id": "vch-GV-2609-F6TM",
+      "kind": "bound",
+      "code": "GV-2609-F6TM",
+      "clientId": "user-reem",
+      "targetType": "venue",
+      "venueOrProviderId": "V09",
+      "hallId": "V09-ladies",
+      "packageId": "V09-ladies-weekend",
+      "eventDate": "2026-12-12",
+      "guests": 320,
+      "quoteFils": {
+        "standard": 10880000,
+        "voucher": 8480000
+      },
+      "priceFils": 2000,
+      "status": "forfeited",
+      "purchasedAt": "2026-09-22T20:10:00+03:00",
+      "validUntil": "2026-11-21T20:10:00+03:00",
+      "reuseUntil": null,
+      "qr": {
+        "payload": "gz:v1:GV-2609-F6TM:V09:BF1A",
+        "version": 1
+      },
+      "bookingId": null,
+      "payment": {
+        "method": "knet",
+        "receiptNo": "RC-050018",
+        "amount": {
+          "fils": 2000,
+          "currency": "KWD"
+        },
+        "status": "succeeded",
+        "at": "2026-09-22T20:11:00+03:00"
+      },
+      "releasedAt": null,
+      "releaseReason": null,
+      "forfeitedAt": "2026-09-24T14:00:00+03:00",
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
+      "usedAt": null,
+      "usedReason": null,
+      "redeemedBy": null
+    },
+    {
       "id": "vch-GV-2609-FPNA",
+      "kind": "bound",
       "code": "GV-2609-FPNA",
       "clientId": "user-huda-shaya",
       "targetType": "venue",
@@ -509,15 +577,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": "2026-11-12T10:20:00+03:00",
       "usedReason": "cancelled_after_confirm",
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2609-H6N5",
+      "kind": "bound",
       "code": "GV-2609-H6N5",
       "clientId": "user-hessa-marzouq",
       "targetType": "venue",
@@ -552,15 +622,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2609-PDMQ",
+      "kind": "bound",
       "code": "GV-2609-PDMQ",
       "clientId": "user-ahmad-hamad",
       "targetType": "venue",
@@ -595,15 +667,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": "2026-11-09T13:10:00+03:00",
       "usedReason": "redeemed",
       "redeemedBy": "Amal Al-Balushi"
     },
     {
       "id": "vch-GV-2609-QHTW",
+      "kind": "bound",
       "code": "GV-2609-QHTW",
       "clientId": "user-asmaa-roumi",
       "targetType": "venue",
@@ -638,15 +712,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2609-QN37",
+      "kind": "bound",
       "code": "GV-2609-QN37",
       "clientId": "user-talal-failakawi",
       "targetType": "venue",
@@ -671,7 +747,7 @@
       "bookingId": "bk-GZ-2609-4M5Y",
       "payment": {
         "method": "card",
-        "receiptNo": "RC-050018",
+        "receiptNo": "RC-050019",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -681,15 +757,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2609-S3QK",
+      "kind": "bound",
       "code": "GV-2609-S3QK",
       "clientId": "user-wadha-roumi",
       "targetType": "venue",
@@ -724,15 +802,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": "2026-11-05T10:40:00+03:00",
       "usedReason": "redeemed",
       "redeemedBy": "Amal Al-Balushi"
     },
     {
       "id": "vch-GV-2609-XGBC",
+      "kind": "bound",
       "code": "GV-2609-XGBC",
       "clientId": "user-mashael-saleh",
       "targetType": "venue",
@@ -767,15 +847,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2610-24BN",
+      "kind": "bound",
       "code": "GV-2610-24BN",
       "clientId": "user-maitha-sayegh",
       "targetType": "venue",
@@ -800,7 +882,7 @@
       "bookingId": "bk-GZ-2610-1Q6B",
       "payment": {
         "method": "knet",
-        "receiptNo": "RC-050020",
+        "receiptNo": "RC-050021",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -810,15 +892,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2610-3BY3",
+      "kind": "bound",
       "code": "GV-2610-3BY3",
       "clientId": "user-hessa-marzouq",
       "targetType": "provider",
@@ -843,7 +927,7 @@
       "bookingId": "bk-GZ-2610-7T5K",
       "payment": {
         "method": "knet",
-        "receiptNo": "RC-050022",
+        "receiptNo": "RC-050023",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -853,15 +937,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2610-3DFV",
+      "kind": "bound",
       "code": "GV-2610-3DFV",
       "clientId": "user-maitha-sayegh",
       "targetType": "provider",
@@ -886,7 +972,7 @@
       "bookingId": "bk-GZ-2610-9C3H",
       "payment": {
         "method": "card",
-        "receiptNo": "RC-050019",
+        "receiptNo": "RC-050020",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -896,15 +982,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": "2026-10-25T12:00:00+03:00",
       "usedReason": "redeemed",
       "redeemedBy": "Zahra Al-Mutairi"
     },
     {
       "id": "vch-GV-2610-C9D3",
+      "kind": "bound",
       "code": "GV-2610-C9D3",
       "clientId": "user-talal-failakawi",
       "targetType": "provider",
@@ -929,7 +1017,7 @@
       "bookingId": "bk-GZ-2610-2X4B",
       "payment": {
         "method": "apple_pay",
-        "receiptNo": "RC-050021",
+        "receiptNo": "RC-050022",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -939,15 +1027,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": "2026-11-05T12:00:00+03:00",
       "usedReason": "redeemed",
       "redeemedBy": "Zahra Al-Mutairi"
     },
     {
       "id": "vch-GV-2610-H9XB",
+      "kind": "bound",
       "code": "GV-2610-H9XB",
       "clientId": "user-reem",
       "targetType": "venue",
@@ -961,7 +1051,7 @@
         "voucher": 9275000
       },
       "priceFils": 2000,
-      "status": "refunded",
+      "status": "credit_issued",
       "purchasedAt": "2026-10-30T19:11:00+03:00",
       "validUntil": "2026-12-30T23:59:00+03:00",
       "reuseUntil": "2026-12-30",
@@ -972,7 +1062,7 @@
       "bookingId": null,
       "payment": {
         "method": "knet",
-        "receiptNo": "RC-050023",
+        "receiptNo": "RC-050024",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -982,27 +1072,17 @@
       },
       "releasedAt": "2026-10-31T10:15:00+03:00",
       "releaseReason": "declined",
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": {
-        "amount": {
-          "fils": 2000,
-          "currency": "KWD"
-        },
-        "method": "knet",
-        "status": "completed",
-        "reason": "venue_fault_release",
-        "initiatedAt": "2026-11-02T20:30:00+03:00",
-        "completedAt": "2026-11-05T10:00:00+03:00",
-        "arrival": "knet_1_3_days",
-        "creditNoteNo": "CN-0000061"
-      },
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": "rr-GV-2610-H9XB",
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-3V73",
+      "kind": "bound",
       "code": "GV-2611-3V73",
       "clientId": "user-mashael-saleh",
       "targetType": "provider",
@@ -1027,7 +1107,7 @@
       "bookingId": "bk-GZ-2611-1M6N",
       "payment": {
         "method": "google_pay",
-        "receiptNo": "RC-050031",
+        "receiptNo": "RC-050032",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1037,15 +1117,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-5P3A",
+      "kind": "bound",
       "code": "GV-2611-5P3A",
       "clientId": "user-malak-hamdan",
       "targetType": "venue",
@@ -1059,7 +1141,7 @@
         "voucher": 14080000
       },
       "priceFils": 2000,
-      "status": "refunded",
+      "status": "active",
       "purchasedAt": "2026-11-08T09:51:00+03:00",
       "validUntil": "2027-01-07T23:59:00+03:00",
       "reuseUntil": "2027-01-07",
@@ -1070,7 +1152,7 @@
       "bookingId": null,
       "payment": {
         "method": "google_pay",
-        "receiptNo": "RC-050024",
+        "receiptNo": "RC-050025",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1080,27 +1162,17 @@
       },
       "releasedAt": "2026-11-08T12:30:00+03:00",
       "releaseReason": "declined",
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": {
-        "amount": {
-          "fils": 2000,
-          "currency": "KWD"
-        },
-        "method": "google_pay",
-        "status": "processing",
-        "reason": "venue_fault_release",
-        "initiatedAt": "2026-11-09T11:00:00+03:00",
-        "completedAt": null,
-        "arrival": "card_up_to_10_days",
-        "creditNoteNo": "CN-0000062"
-      },
+      "forfeitedAt": null,
+      "creditEligible": true,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-71SH",
+      "kind": "bound",
       "code": "GV-2611-71SH",
       "clientId": "user-fatima-azmi",
       "targetType": "venue",
@@ -1125,7 +1197,7 @@
       "bookingId": null,
       "payment": {
         "method": "knet",
-        "receiptNo": "RC-050030",
+        "receiptNo": "RC-050031",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1135,15 +1207,17 @@
       },
       "releasedAt": "2026-11-12T11:00:00+03:00",
       "releaseReason": "withdrawn",
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-AVG0",
+      "kind": "bound",
       "code": "GV-2611-AVG0",
       "clientId": "user-amna-kharafi",
       "targetType": "venue",
@@ -1157,10 +1231,10 @@
         "voucher": 13200000
       },
       "priceFils": 2000,
-      "status": "active",
+      "status": "forfeited",
       "purchasedAt": "2026-11-08T16:21:00+03:00",
-      "validUntil": "2027-01-09T23:59:00+03:00",
-      "reuseUntil": "2027-01-09",
+      "validUntil": "2027-01-07T16:21:00+03:00",
+      "reuseUntil": null,
       "qr": {
         "payload": "gz:v1:GV-2611-AVG0:V01:C2EE",
         "version": 1
@@ -1168,7 +1242,7 @@
       "bookingId": null,
       "payment": {
         "method": "knet",
-        "receiptNo": "RC-050025",
+        "receiptNo": "RC-050026",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1176,17 +1250,19 @@
         "status": "succeeded",
         "at": "2026-11-08T16:22:00+03:00"
       },
-      "releasedAt": "2026-11-10T14:00:00+03:00",
-      "releaseReason": "client_no_confirmation",
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "releasedAt": null,
+      "releaseReason": null,
+      "forfeitedAt": "2026-11-10T14:00:00+03:00",
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-D47W",
+      "kind": "bound",
       "code": "GV-2611-D47W",
       "clientId": "user-lulwa-saleh",
       "targetType": "venue",
@@ -1211,7 +1287,7 @@
       "bookingId": "bk-GZ-2611-2P8R",
       "payment": {
         "method": "card",
-        "receiptNo": "RC-050029",
+        "receiptNo": "RC-050030",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1221,15 +1297,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-FK3Q",
+      "kind": "bound",
       "code": "GV-2611-FK3Q",
       "clientId": "user-abdullah-hajri",
       "targetType": "venue",
@@ -1254,7 +1332,7 @@
       "bookingId": "bk-GZ-2611-5T2W",
       "payment": {
         "method": "google_pay",
-        "receiptNo": "RC-050034",
+        "receiptNo": "RC-050035",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1264,15 +1342,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-K7QM",
+      "kind": "bound",
       "code": "GV-2611-K7QM",
       "clientId": "user-reem",
       "targetType": "venue",
@@ -1297,7 +1377,7 @@
       "bookingId": "bk-GZ-2611-0147",
       "payment": {
         "method": "knet",
-        "receiptNo": "RC-050038",
+        "receiptNo": "RC-050039",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1307,15 +1387,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-M2WD",
+      "kind": "bound",
       "code": "GV-2611-M2WD",
       "clientId": "user-shahad-mutawa",
       "targetType": "venue",
@@ -1350,15 +1432,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-QD9X",
+      "kind": "bound",
       "code": "GV-2611-QD9X",
       "clientId": "user-badr-otaibi",
       "targetType": "venue",
@@ -1383,7 +1467,7 @@
       "bookingId": null,
       "payment": {
         "method": "knet",
-        "receiptNo": "RC-050027",
+        "receiptNo": "RC-050028",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1393,15 +1477,17 @@
       },
       "releasedAt": "2026-11-11T14:00:00+03:00",
       "releaseReason": "venue_no_response",
-      "refundEligible": true,
-      "refundUntil": "2027-02-09",
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": true,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-QHKY",
+      "kind": "bound",
       "code": "GV-2611-QHKY",
       "clientId": "user-dana-shammari",
       "targetType": "venue",
@@ -1426,7 +1512,7 @@
       "bookingId": "bk-GZ-2611-3K8D",
       "payment": {
         "method": "knet",
-        "receiptNo": "RC-050032",
+        "receiptNo": "RC-050033",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1436,15 +1522,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-QY57",
+      "kind": "bound",
       "code": "GV-2611-QY57",
       "clientId": "user-ahmad-hamad",
       "targetType": "provider",
@@ -1469,7 +1557,7 @@
       "bookingId": "bk-GZ-2611-3D9P",
       "payment": {
         "method": "knet",
-        "receiptNo": "RC-050033",
+        "receiptNo": "RC-050034",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1479,15 +1567,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-R4TF",
+      "kind": "bound",
       "code": "GV-2611-R4TF",
       "clientId": "user-reem",
       "targetType": "venue",
@@ -1512,7 +1602,7 @@
       "bookingId": null,
       "payment": {
         "method": "apple_pay",
-        "receiptNo": "RC-050026",
+        "receiptNo": "RC-050027",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1522,15 +1612,17 @@
       },
       "releasedAt": "2026-11-10T10:00:00+03:00",
       "releaseReason": "venue_no_response",
-      "refundEligible": true,
-      "refundUntil": "2027-02-08",
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": true,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-RK7V",
+      "kind": "bound",
       "code": "GV-2611-RK7V",
       "clientId": "user-faisal-rasheedi",
       "targetType": "venue",
@@ -1555,7 +1647,7 @@
       "bookingId": "bk-GZ-2611-7V4H",
       "payment": {
         "method": "knet",
-        "receiptNo": "RC-050037",
+        "receiptNo": "RC-050038",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1565,15 +1657,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-V3DE",
+      "kind": "bound",
       "code": "GV-2611-V3DE",
       "clientId": "user-wadha-roumi",
       "targetType": "provider",
@@ -1598,7 +1692,7 @@
       "bookingId": "bk-GZ-2611-4W8Q",
       "payment": {
         "method": "knet",
-        "receiptNo": "RC-050036",
+        "receiptNo": "RC-050037",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1608,15 +1702,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-X2B6",
+      "kind": "bound",
       "code": "GV-2611-X2B6",
       "clientId": "user-maryam-kandari",
       "targetType": "venue",
@@ -1641,7 +1737,7 @@
       "bookingId": "bk-GZ-2611-6R9C",
       "payment": {
         "method": "knet",
-        "receiptNo": "RC-050035",
+        "receiptNo": "RC-050036",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1651,15 +1747,17 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-ZDTP",
+      "kind": "bound",
       "code": "GV-2611-ZDTP",
       "clientId": "user-haya-mutairi",
       "targetType": "venue",
@@ -1684,7 +1782,7 @@
       "bookingId": "bk-GZ-2611-9H3D",
       "payment": {
         "method": "apple_pay",
-        "receiptNo": "RC-050028",
+        "receiptNo": "RC-050029",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -1694,9 +1792,10 @@
       },
       "releasedAt": null,
       "releaseReason": null,
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
@@ -1704,6 +1803,7 @@
   ],
   "competingVoucher": {
     "id": "vch-GV-2611-ZV26",
+    "kind": "bound",
     "code": "GV-2611-ZV26",
     "clientId": "user-dalal-sabti",
     "targetType": "venue",
@@ -1727,7 +1827,7 @@
     },
     "bookingId": "bk-GZ-2611-6X3M",
     "payment": {
-      "method": "card",
+      "method": "knet",
       "receiptNo": "RC-050099",
       "amount": {
         "fils": 2000,
@@ -1738,11 +1838,55 @@
     },
     "releasedAt": null,
     "releaseReason": null,
-    "refundEligible": false,
-    "refundUntil": null,
-    "refund": null,
+    "forfeitedAt": null,
+    "creditEligible": false,
+    "refundRequestId": null,
+    "grantedFrom": null,
     "usedAt": null,
     "usedReason": null,
     "redeemedBy": null
-  }
+  },
+  "creditVouchers": [
+    {
+      "id": "vch-GV-2611-C4RD",
+      "kind": "credit",
+      "code": "GV-2611-C4RD",
+      "clientId": "user-reem",
+      "priceFils": 2000,
+      "status": "active",
+      "grantedAt": "2026-11-05T10:00:00+03:00",
+      "validUntil": "2027-01-04T23:59:00+03:00",
+      "qr": {
+        "payload": "gz:v1:GV-2611-C4RD:any:D300",
+        "version": 1
+      },
+      "grantedFrom": {
+        "requestId": "rr-GV-2610-H9XB",
+        "voucherId": "vch-GV-2610-H9XB",
+        "grantedBy": "Lama Al-Khalidi"
+      },
+      "bookingId": null,
+      "usedAt": null,
+      "usedReason": null,
+      "redeemedBy": null
+    }
+  ],
+  "refundRequests": [
+    {
+      "id": "rr-GV-2610-H9XB",
+      "voucherId": "vch-GV-2610-H9XB",
+      "clientId": "user-reem",
+      "status": "granted",
+      "requestedAt": "2026-11-02T20:30:00+03:00",
+      "note": {
+        "en": "The venue declined my request. Can I get another voucher?",
+        "ar": "القاعة رفضت طلبي. هل يمكن الحصول على كوبون آخر؟"
+      },
+      "conversationId": "conv-support-reem",
+      "decidedAt": "2026-11-05T10:00:00+03:00",
+      "decidedBy": "Lama Al-Khalidi",
+      "creditVoucherId": "vch-GV-2611-C4RD",
+      "declineReason": null
+    }
+  ]
 }

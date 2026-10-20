@@ -1,7 +1,7 @@
 // Gallery: the voucher pieces (ADR 0033): VoucherCard and VoucherChip, QrCode, PriceCompare, VoucherPurchaseSummary and ConfirmWindow, driven by
 // the voucher fixtures and the hero request GZ-2611-0147. Rendered at #/gallery/voucher?lang=en|ar.
 import { useState } from 'react'
-import { getVoucher, heroBookingAs, heroVoucherAs, meta, requireVenue, type Voucher } from '../../../mock'
+import { getCreditVoucher, getVoucher, heroBookingAs, heroVoucherAs, meta, requireVenue, type CreditVoucher, type Voucher } from '../../../mock'
 import { Row, Section, Spec, useL } from '../../domain-client/gallery/kit'
 import { PriceCompare } from '../PriceCompare'
 import { QrCode } from '../QrCode'
@@ -13,6 +13,12 @@ import { Button } from '../../core'
 const V = (id: string): Voucher => {
   const v = getVoucher(id)
   if (!v) throw new Error(`fixture ${id}`)
+  return v
+}
+
+const CREDIT = (): CreditVoucher => {
+  const v = getCreditVoucher('vch-GV-2611-C4RD')
+  if (!v) throw new Error('fixture credit voucher')
   return v
 }
 
@@ -33,19 +39,23 @@ export function VoucherCardSection() {
         <VoucherCard voucher={hero} onCopy={() => setCopied(true)} onShowFull={() => undefined} />
         <p className="gc-cap gz-t-caption">{copied ? l('Copied', 'تم النسخ') : ' '}</p>
       </Spec>
-      <Spec state={l('Ready to use (released after a venue-fault: reusable and refundable)', 'جاهز للاستخدام (أُفرج عنه بعد تقصير المكان: قابل لإعادة الاستخدام والاسترداد)')}>
+      <Spec state={l('Ready to use (released after a venue fault: reusable, or ask support for a credit voucher)', 'جاهز للاستخدام (أُفرج عنه بعد تقصير المكان: قابل لإعادة الاستخدام أو اطلبوا كوبون رصيد من الدعم)')}>
         <VoucherCard voucher={V('vch-GV-2611-QD9X')} onCopy={() => undefined} onShowFull={() => undefined} />
       </Spec>
       <Spec state={l('A service provider voucher', 'كوبون خاص بمقدّم خدمة')}>
         <VoucherCard voucher={V('vch-GV-2611-QY57')} onCopy={() => undefined} onShowFull={() => undefined} />
       </Spec>
-      <Spec state={l('Used · expired · refunded: the code stays, the QR is muted', 'مستخدم · منتهٍ · مسترد: يبقى الرمز ويخفت الـQR')}>
+      <Spec state={l('Used · expired · not valid (24 h lapsed): the code stays, the QR is muted', 'مستخدم · منتهٍ · غير صالح (انتهت الـ 24 ساعة): يبقى الرمز ويخفت الـQR')}>
         <VoucherCard voucher={V('vch-GV-2608-378X')} />
         <VoucherCard voucher={V('vch-GV-2608-D5QN')} />
-        <VoucherCard voucher={V('vch-GV-2611-5P3A')} />
+        <VoucherCard voucher={V('vch-GV-2609-F6TM')} />
+      </Spec>
+      <Spec state={l('Credit voucher · granted by support, unbound: any hall, hotel or service, 60 days', 'كوبون رصيد · منحه الدعم، غير مرتبط: أي قاعة أو فندق أو خدمة، لمدة 60 يومًا')}>
+        <VoucherCard voucher={CREDIT()} onCopy={() => undefined} onShowFull={() => undefined} />
+        <VoucherCard voucher={CREDIT()} variant="compact" onOpen={() => undefined} />
       </Spec>
       <Spec state={l('Compact rows · the wallet list', 'صفوف مختصرة · قائمة المحفظة')}>
-        {['vch-GV-2611-K7QM', 'vch-GV-2611-QD9X', 'vch-GV-2611-M2WD', 'vch-GV-2608-378X', 'vch-GV-2611-5P3A'].map(id => (
+        {['vch-GV-2611-K7QM', 'vch-GV-2611-QD9X', 'vch-GV-2611-M2WD', 'vch-GV-2608-378X', 'vch-GV-2609-F6TM', 'vch-GV-2610-H9XB'].map(id => (
           <VoucherCard key={id} voucher={V(id)} variant="compact" onOpen={() => undefined} />
         ))}
       </Spec>

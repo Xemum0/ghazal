@@ -134,6 +134,7 @@ export function ownReview(sent: SentReview, booking: Booking): Review {
     eventDate: booking.eventDate,
     postedAt: sent.sentAt,
     ownerReply: null,
+    supportRequest: null,
     replyDraft: null,
     verifiedBooking: true,
     photos: sent.media.filter(m => m.status !== 'rejected').map(m => m.file),

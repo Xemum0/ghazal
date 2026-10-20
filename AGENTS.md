@@ -1,17 +1,17 @@
 # Ghazal (غزل) — Agent Guide
 
-Wedding marketplace for Kuwait (GCC later). Ghazal sells clients one thing in the app: a **KD 2 voucher** (coupon) that lets them request a hall or wedding service at a lower, voucher price. Everything else (price, contract, payment) is between the client and the venue or provider, **off-app**. Partners pay Ghazal advertising or listing fees (major hotels exempt; rates not decided). Source of truth: ADR 0033 and `docs/product/voucher-model.md`.
+Wedding marketplace for Kuwait (GCC later). Ghazal sells clients one thing in the app: a **KD 2 voucher** (coupon) that lets them request a hall or wedding service at a lower, voucher price. Everything else (price, contract, payment) is between the client and the venue or provider, **off-app**. Partners pay Ghazal advertising or listing fees (major hotels exempt; rates set in Super Admin, not decided yet). Source of truth: ADR 0033, ADR 0035 (owner round 1) and `docs/product/voucher-model.md`.
 
-Two mobile apps: **Client app** and **Partner app** (hotels and wedding halls, plus service providers; the app id and screen prefix stay `hotel` / `HL-`). Web Super Admin and Venue dashboards are context only.
-Current phase: **design**. A Vite + React + TypeScript prototype in `design/` is the specification the Flutter apps will be built from. No backend or Flutter code exists yet (`apps/` is empty).
+Two mobile apps: **Client app** (`com.ghazal.client`) and **Partner app** (`com.ghazal.provider`) (hotels and wedding halls, plus service providers; the app id and screen prefix stay `hotel` / `HL-`). Web Super Admin and Venue dashboards are context only.
+Current phase: **design**. A Vite + React + TypeScript prototype in `design/` is the specification the Flutter apps will be built from. No backend or Flutter code exists yet (`apps/` is empty); the backend will be NestJS (ADR 0020 accepted by ADR 0035).
 
-> Single source of agent instructions; `CLAUDE.md` imports it. Verified against the repo on 2026-10-14.
+> Single source of agent instructions; `CLAUDE.md` imports it. Verified against the repo on 2026-10-20.
 
 ## What exists today
 - pnpm workspace: `design/` (the prototype), `packages/design-tokens`, `packages/i18n`, `packages/contracts` (types, pricing engine, bilingual fixtures), `tools/ports.mjs`.
 - Prototype front door (bare URL): the **Launcher**, one phone with a Client | Partner switch and the EN | AR toggle. Studio views are reached only by explicit hash routes: `#/canvas/<app>`, `#/play/<app>/<id>`, `#/system/<page>`, `#/docs/<name>`; chromeless harness routes `#/gallery/<name>` and `#/frame/<id>`.
-- Screen inventory: 139 screens (85 client, 54 partner) in `docs/product/screens/**`; 134 are built under `design/src/screens/`. Live numbers: `docs/engineering/STATUS.md`.
-- Docs: 656-item feature matrix, ADRs 0001-0033, `docs/product/owner-decisions.md` (what only the owner can decide).
+- Screen inventory: 140 screens (85 client, 55 partner; 5 deprecated) in `docs/product/screens/**`; 135 are built under `design/src/screens/`. Live numbers: `docs/engineering/STATUS.md`.
+- Docs: 665-item feature matrix, ADRs 0001-0035, `docs/product/owner-decisions.md` (what only the owner can decide).
 - Typefaces: El Messiri (display), Manrope (English UI), Almarai (Arabic UI), self-hosted (ADR 0031 addendum).
 
 ## Read first
@@ -46,7 +46,7 @@ Not available yet: a11y gate, specs:check, Flutter and API gates (report them "n
 - **Brand:** 3 core colours (Ink, Matte Gold, Soft Rose) plus warm neutrals and a tiny success/danger set; no heavy gradients, glassmorphism, neon, emoji-as-icons or generic AI-template look.
 - **No identifiable human faces.** Avatars are monograms; galleries are empty rooms.
 - **Money = integer fils** (`{fils, currency}`), formatted only by `useFormat()` / the shared formatter (ADR 0010). English `KD`; Arabic `د.ك` after an LTR-isolated number; `KWD` only on invoices and the API. The Arabic UI word for the voucher is «كوبون» (OQ-V-15).
-- **Voucher model:** the KD 2 voucher is the only in-app payment for clients; partners/providers pay ad fees; venue money is off-app. No deposit, balance, commission, payout or refund-tier UI. Ad plan rates are undecided: show "Rates announced soon", carry no number.
+- **Voucher model:** the KD 2 voucher (no VAT, valid 60 days, tied to one venue or provider) is the only in-app payment for clients; venue money is off-app. After approval the client must confirm within 24 h at the hotel or service or the voucher is **forfeited** (not valid, never returns). **No money refunds:** a client asks support, which may grant an unbound **credit voucher** (60 days, any hall, hotel or service). No deposit, balance, commission, payout, refund-tier or VAT UI. Partner billing is `plan` (weekly/monthly/annual, rates set in Super Admin; show "Rates announced soon", no number) or `contract` (mostly hotels and halls). Staff are invited by email (Resend); calendar sync is by email; videos up to 500 MB (ADR 0035).
 - **Accessibility:** WCAG 2.2 AA contrast, 44x44 px targets, visible focus, `prefers-reduced-motion`.
 - Don't commit unless asked. Never commit secrets (`.env*`).
 

@@ -243,14 +243,20 @@
         "Re-authentication by a WhatsApp code (CL-AUTH-02), then a destructive confirm button with icon and text, never colour alone",
         "Success shows a plain confirmation and returns to the language screen (CL-ONBD-01)"
       ],
-      "contentNotes": "Blocked copy: «حذف الحساب متوقف مؤقتًا لوجود حجز فعّال في فندق أوريليا الخليج بتاريخ الخميس 14 يناير 2027. يمكنكم الإلغاء وفق السياسة، أو طلب الحذف بعد تاريخ الحفل.» / 'Deletion is paused while your booking at Aurelia Gulf Hotel on Thu 14 Jan 2027 is active. Cancel under the policy, or request deletion after the event.' Scheduled variant: 'We will delete your account after Thu 14 Jan 2027 and tell you when it is done.' The Google Play web deletion page uses the same flow outside the app. Tab bar hidden. Voucher model (ADR 0033): deletion pauses while a request is approved (confirm or cancel first) or a confirmed booking is in the future; a ready voucher is offered for refund before deletion; ledger and receipt records are retained as the law requires; \"points\" and event \"invoices\" no longer exist.",
+      "contentNotes": "Blocked copy: «حذف الحساب متوقف مؤقتًا لوجود حجز فعّال في فندق أوريليا الخليج بتاريخ الخميس 14 يناير 2027. يمكنكم الإلغاء وفق السياسة، أو طلب الحذف بعد تاريخ الحفل.» / 'Deletion is paused while your booking at Aurelia Gulf Hotel on Thu 14 Jan 2027 is active. Cancel under the policy, or request deletion after the event.' Scheduled variant: 'We will delete your account after Thu 14 Jan 2027 and tell you when it is done.' The Google Play web deletion page uses the same flow outside the app. Tab bar hidden. Voucher model (ADR 0033): deletion pauses while a request is approved (confirm or cancel first) or a confirmed booking is in the future; a ready voucher is shown as lost on deletion (no money refund; ask support first); ledger and receipt records are retained as the law requires; \"points\" and event \"invoices\" no longer exist.",
       "priority": "core",
       "navigatesTo": [
         "CL-AUTH-02",
         "CL-BKNG-02",
         "CL-MSGS-02",
         "CL-ONBD-01"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Account deletion: ready vouchers are lost, no refund",
+        "note": "A ready voucher is shown with \"It will be lost. Money is not refunded; ask support for a credit voucher first if you qualify.\""
+      }
     }
   ]
 }

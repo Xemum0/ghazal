@@ -91,5 +91,11 @@
   "hotelCalendarToastBlocked": "Hidden from couples",
   "hotelCalendarToastOpened": "Open for booking",
   "hotelCalendarPartialTitle": "Some dates skipped",
-  "hotelCalendarSaveFailed": "Couldn’t save"
+  "hotelCalendarSaveFailed": "Couldn’t save",
+  "hotelCalendarEmailTitle": "Calendar by email",
+  "hotelCalendarEmailSwitch": "Invite me by email",
+  "hotelCalendarEmailAdd": "Another address",
+  "hotelCalendarEmailInvalid": "Check the address",
+  "hotelCalendarEmailTest": "Send a test",
+  "hotelCalendarEmailTestSent": "Test sent"
 }

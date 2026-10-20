@@ -36,7 +36,7 @@ export function checkCode(code: string): RedeemOutcome {
   if (!v) return { kind: 'unknown' }
   if (v.venueOrProviderId !== VENUE_ID) return { kind: 'other-partner' }
   if (v.status === 'used') return { kind: 'already-used', usedAt: v.usedAt }
-  if (v.status === 'expired' || v.status === 'refunded') return { kind: 'expired-or-refunded' }
+  if (v.status === 'expired' || v.status === 'credit_issued' || v.status === 'forfeited') return { kind: 'expired-or-refunded' }
   const booking = v.bookingId ? (s.hotelBookings.find(x => x.id === v.bookingId) ?? null) : null
   if (!booking || booking.status !== 'confirmed' || v.status !== 'bound') return { kind: 'not-confirmed', booking }
   return { kind: 'ready', voucher: v, booking }
@@ -55,7 +55,7 @@ export function sampleCodes(): SampleCodes {
     notConfirmed: (approved ? ours.find(v => v.id === approved.voucherId)?.code : null) ?? meta.story.voucherCode,
     other: s.vouchers.find(v => v.venueOrProviderId !== VENUE_ID && v.status !== 'unpaid')?.code ?? null,
     used: ours.find(v => v.status === 'used')?.code ?? null,
-    expired: s.vouchers.find(v => v.venueOrProviderId === VENUE_ID && (v.status === 'expired' || v.status === 'refunded'))?.code ?? null,
+    expired: s.vouchers.find(v => v.venueOrProviderId === VENUE_ID && (v.status === 'expired' || v.status === 'credit_issued' || v.status === 'forfeited'))?.code ?? null,
   }
 }
 

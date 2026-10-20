@@ -1,12 +1,12 @@
 // The invitation, read-only (HL-ACCS-03). Text diet: the venue name (serif, it is a venue name) beside a small envelope drawing, the role as
-// a tag with its summary behind an info glyph, then three facts as glyph + value with no label: who invited, the number that was invited, and
-// how long the invitation is valid. The number cannot be edited. The labels are accessible names.
+// a tag with its summary behind an info glyph, then three facts as glyph + value with no label: who invited, the email that was invited, and
+// how long the invitation is valid. The email cannot be edited. The labels are accessible names.
 import { plainText } from '@gz/i18n'
 import { FactChip, Icon, Illustration, InfoButton, Tag, useBi } from '../../../../system'
-import { Phone, useFormat, useT } from '../../../../i18n'
+import { Ltr, useFormat, useT } from '../../../../i18n'
 import { useLang } from '../../../../shell/lang'
 import { Fx } from './Fx'
-import { adminStaff, invitedStaff, venueOf } from './flow'
+import { adminStaff, emailOf, invitedStaff, venueOf } from './flow'
 import './invite-card.css'
 
 export function InviteCard() {
@@ -41,7 +41,7 @@ export function InviteCard() {
           <FactChip icon="user-plus" label={t('hotelAccessInviteFrom', { name: inviter })} value={<bdi dir="auto">{inviter}</bdi>} />
         </li>
         <li className="hxa-card__fact">
-          <FactChip icon="whatsapp" label={t('hotelAccessSetupInvitedNumber')} value={<Phone value={invited.phone} />} />
+          <FactChip icon="mail" label={t('hotelAccessSetupInvitedEmail')} value={<Ltr>{emailOf(invited)}</Ltr>} />
         </li>
         {invited.inviteExpiresAt ? (
           <li className="hxa-card__fact">

@@ -5,7 +5,7 @@
 import { useState } from 'react'
 import { useFormat } from '../../../../i18n'
 import { useLang } from '../../../../shell/lang'
-import { Avatar, Badge, Button, FactChip, Icon, PhoneField, StatusPill, Switch, TextField } from '../../../../system'
+import { Avatar, Badge, Button, FactChip, Icon, StatusPill, Switch, TextField } from '../../../../system'
 import { Fx } from './Fx'
 import { SheetFrame, UserText, useBi, useWords, type StaffEntry } from './bits'
 import { ASSIGNABLE, ROLE_GLYPHS, type SettingsRole } from './model'
@@ -137,41 +137,44 @@ function AcceptRow({ checked, onChange }: { checked: boolean; onChange: (on: boo
 
 // ---------------------------------------------------------------- invite sheet
 
-export type InviteValues = { name: string; national: string; role: Assignable; canAccept: boolean }
+export type InviteValues = { name: string; email: string; role: Assignable; canAccept: boolean }
 
 export function InviteContent({ onSubmit, onClose }: { onSubmit: (v: InviteValues) => void; onClose?: () => void }) {
   const { t } = useWords()
   const [name, setName] = useState('')
-  const [national, setNational] = useState('')
-  const [phoneOk, setPhoneOk] = useState(false)
+  const [email, setEmail] = useState('')
   const [role, setRole] = useState<Assignable>('reception')
   const [canAccept, setCanAccept] = useState(true)
   const [tried, setTried] = useState(false)
   const nameBad = name.trim().length < 2
+  const emailBad = !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())
   const submit = () => {
     setTried(true)
-    if (nameBad || !phoneOk) return
-    onSubmit({ name: name.trim(), national, role, canAccept })
+    if (nameBad || emailBad) return
+    onSubmit({ name: name.trim(), email: email.trim(), role, canAccept })
   }
   return (
     <SheetFrame
       title={t('hotelSettingsStaffInvite')}
       onClose={onClose}
       footer={
-        <Button fullWidth onClick={submit} iconStart="whatsapp">
+        <Button fullWidth onClick={submit} iconStart="mail">
           {t('hotelSettingsStaffSend')}
         </Button>
       }
     >
       <TextField label={t('hotelSettingsStaffName')} value={name} onValueChange={setName} autoComplete="off" error={tried && nameBad ? t('hotelSettingsStaffNameError') : undefined} />
-      <PhoneField
-        label={t('hotelSettingsStaffPhone')}
-        value={national}
-        onChange={(n, info) => {
-          setNational(n)
-          setPhoneOk(info.valid)
-        }}
-        validateOnBlur={tried}
+      <TextField
+        label={t('hotelSettingsStaffEmail')}
+        dir="ltr"
+        type="email"
+        inputMode="email"
+        autoComplete="off"
+        autoCapitalize="none"
+        spellCheck={false}
+        value={email}
+        onValueChange={setEmail}
+        error={tried && emailBad ? t('hotelSettingsStaffEmailError') : undefined}
       />
       <div className="hs-field">
         <p className="gz-t-label">{t('hotelSettingsStaffRole')}</p>

@@ -16,10 +16,10 @@ const { filterTaxonomy } = await import('../seed/taxonomy.mjs')
 const { buildReviews } = await import('../seed/reviews.mjs')
 const { dayOverrides } = await import('../seed/overrides.mjs')
 const { serviceGroups, serviceCategories, providers } = await import('../seed/services.mjs')
-const { adPlans, partnerAccounts, listings, reviewDecisions, partnerPersonas } = await import('../seed/partners.mjs')
+const { adPlans, partnerAccounts, listings, reviewDecisions, partnerPersonas, partnerBilling } = await import('../seed/partners.mjs')
 const { visits } = await import('../seed/visits.mjs')
 const { plannerPackages, planners, plannerUsers } = await import('../seed/planners.mjs')
-const { users, hotelStaff } = await import('../seed/people.mjs')
+const { users, hotelStaff, staffInvitations } = await import('../seed/people.mjs')
 const client = await import('../seed/client.mjs')
 const bk = await import('../seed/bookings.mjs')
 const { conversations, messages } = await import('../seed/chat.mjs')
@@ -39,10 +39,10 @@ const files = {
   'reviews.json': buildReviews(venues),
   'day-overrides.json': dayOverrides,
   'services.json': { groups: serviceGroups, categories: serviceCategories, providers },
-  'partners.json': { accounts: partnerAccounts, adPlans, listings, reviewDecisions, personas: partnerPersonas },
+  'partners.json': { accounts: partnerAccounts, adPlans, listings, reviewDecisions, personas: partnerPersonas, billing: partnerBilling },
   'visits.json': visits,
   'planners.json': { packages: plannerPackages, planners },
-  'people.json': { users: [...users, ...plannerUsers], hotelStaff },
+  'people.json': { users: [...users, ...plannerUsers], hotelStaff, staffInvitations },
   'client.json': {
     weddingProfile: client.weddingProfile,
     budgetBands: client.budgetBands,
@@ -61,7 +61,7 @@ const files = {
     heroVariants: bk.heroVariants,
     competingRequest: bk.competingRequest,
   },
-  'vouchers.json': { vouchers: bk.vouchers, competingVoucher: bk.competingVoucher },
+  'vouchers.json': { vouchers: bk.vouchers, competingVoucher: bk.competingVoucher, creditVouchers: bk.creditVouchers, refundRequests: bk.refundRequests },
   'chat.json': { conversations, messages },
   'hotel.json': {
     triage: hotel.triage,

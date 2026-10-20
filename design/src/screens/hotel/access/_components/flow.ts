@@ -1,12 +1,12 @@
 // Flow-local state and helpers of the staff access flow (HL-ACCS-01..04). What the four screens share and the prototype store does not
-// carry: the number being signed in, whether this "device" is already trusted (30 days after a WhatsApp code, ADR 0028 D6), the failed
+// carry: the email being signed in, whether this "device" is already trusted (30 days after an email code, ADR 0028 D6), the failed
 // attempts of the sign-in screen, and the demo rules of the prototype. Nothing is persisted; a reload is the story start.
 //
 // Demo rules (live player only; a static frame is frozen and deterministic):
-//   sign in      the four active staff of Aurelia Gulf Hotel (fixtures +965 5000 0040 ... 0043) with any password; any other number is a
-//                wrong sign-in, five of them lock the screen. The first sign-in per session is a NEW device (WhatsApp code, then the
+//   sign in      the four active staff of Aurelia Gulf Hotel (email = first name @aurelia.example, fixtures 0040 ... 0043) with any password;
+//                any other email is a wrong sign-in, five of them lock the screen. The first sign-in per session is a NEW device (email code, then the
 //                authenticator code for the venue admin); after that the device is trusted and sign-in goes straight to Today.
-//   new partner  the service-provider persona (Zahra Floral Studio, +965 5000 0047) signs in with any password and, once the device is
+//   new partner  the service-provider persona (Zahra Floral Studio, zahra@zahra-floral.example) signs in with any password and, once the device is
 //                verified, lands on the account type chooser (HL-PROV-01) the first time; later sign-ins go to Today (ADR 0033 D7).
 //   code         any six digits work, 111111 is a wrong code (five lock the code), 222222 is an expired code.
 import { create } from 'zustand'
@@ -28,8 +28,8 @@ export const TRUST_DAYS = 30
 export const TOTP_SECONDS = 30
 export const PASSWORD_MIN = 10
 
-/** Hind Al-Enezi, Manager at Aurelia Gulf Hotel (+965 5000 0040): the demo account, display only. */
-export const DEMO_NATIONAL = '50000040'
+/** Hind Al-Enezi, Manager at Aurelia Gulf Hotel: the demo account. Staff are invited and sign in by email (Resend); display only. */
+export const DEMO_EMAIL = 'hind@aurelia.example'
 /** What the password manager "remembered" for her: masked, never shown unless the person reveals it. */
 export const DEMO_PASSWORD = 'Aurelia-2026'
 /** Ghazal Support (fixture phone 0001), display only. */
@@ -39,21 +39,29 @@ export const EXPIRED_CODE = '222222'
 
 export const VENUE_ID = 'V01'
 
-const nationalOf = (phone: string): string => phone.replace(/\D/g, '').slice(-8)
+/** Prototype email of a staff member (the mock carries no email): first name of the Latin name at the venue's example domain. */
+export const emailOf = (s: HotelStaff): string => `${(s.nameLatin.split(' ')[0] ?? 'staff').toLowerCase()}@aurelia.example`
+export const normalizeEmail = (v: string): string => v.trim().toLowerCase()
+export const isValidEmail = (v: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())
+/** h•••@aurelia.example: first letter and the domain, the rest hidden. */
+export const maskEmail = (v: string): string => {
+  const [name = '', domain = ''] = v.split('@')
+  return `${name.slice(0, 1)}•••@${domain}`
+}
 
-/** The active staff member behind a mobile number (the sign-in screen); invited staff have no password yet. */
-export function activeStaffByNational(national: string): HotelStaff | undefined {
-  return hotelStaff.find(s => s.status === 'active' && nationalOf(s.phone) === national)
+/** The active staff member behind an email (the sign-in screen); invited staff have no password yet. */
+export function activeStaffByEmail(email: string): HotelStaff | undefined {
+  const e = normalizeEmail(email)
+  return hotelStaff.find(s => s.status === 'active' && emailOf(s) === e)
 }
 
 /** The service-provider persona: invited by Ghazal without an account type yet, so her first sign-in ends on the chooser. */
 const providerPersona = () => personaFor('service_provider')
 export const providerUser = () => users.find(u => u.id === providerPersona()?.userId)
-export const PROVIDER_NATIONAL = nationalOf(providerPersona()?.phone ?? '')
-export const isProviderNumber = (national: string): boolean => PROVIDER_NATIONAL !== '' && national === PROVIDER_NATIONAL
+export const PROVIDER_EMAIL = 'zahra@zahra-floral.example'
+export const isProviderEmail = (email: string): boolean => normalizeEmail(email) === PROVIDER_EMAIL
 
 export const staffById = (id: string | null | undefined): HotelStaff | undefined => hotelStaff.find(s => s.id === id)
-export const staffByNational = (national: string): HotelStaff | undefined => hotelStaff.find(s => nationalOf(s.phone) === national)
 
 /** The one invitation in the seed: Sara Al-Qattan (Marketing), invited by the venue admin, valid until Sat 14 Nov 2026 (fixtures.md section 12). */
 export const invitedStaff = (): HotelStaff | undefined => hotelStaff.find(s => s.status === 'invited')
@@ -63,21 +71,21 @@ export const demoStaff = (): HotelStaff | undefined => hotelStaff.find(s => s.is
 export const venueOf = () => getVenue(VENUE_ID)
 
 type AccessFlow = {
-  /** National digits of the number being signed in (or whose password is being reset). */
-  phone: string
+  /** The email being signed in (or whose password is being reset). */
+  email: string
   /** Staff member the current attempt resolves to. */
   staffId: string | null
-  /** This device has passed a WhatsApp code within 30 days. */
+  /** This device has passed an email code within 30 days. */
   trusted: boolean
   /** The two first-run sheets on Today open once per session. */
   firstRunDone: boolean
-  /** The number being signed in belongs to the new service-provider partner (no staff record, no type yet). */
+  /** The email being signed in belongs to the new service-provider partner (no staff record, no type yet). */
   provider: boolean
   /** The account type chooser was shown once this session; the next sign-in goes to Today. */
   typeAsked: boolean
   failed: number
   lockedAt: string | null
-  setPhone: (phone: string) => void
+  setEmail: (email: string) => void
   setStaffId: (id: string | null) => void
   setTrusted: (v: boolean) => void
   setFirstRunDone: (v: boolean) => void
@@ -88,7 +96,7 @@ type AccessFlow = {
 }
 
 export const useAccessFlow = create<AccessFlow>()(set => ({
-  phone: '',
+  email: '',
   staffId: null,
   trusted: false,
   firstRunDone: false,
@@ -96,7 +104,7 @@ export const useAccessFlow = create<AccessFlow>()(set => ({
   typeAsked: false,
   failed: 0,
   lockedAt: null,
-  setPhone: phone => set({ phone }),
+  setEmail: email => set({ email }),
   setStaffId: staffId => set({ staffId }),
   setTrusted: trusted => set({ trusted }),
   setFirstRunDone: firstRunDone => set({ firstRunDone }),
@@ -110,7 +118,7 @@ export const useAccessFlow = create<AccessFlow>()(set => ({
 // Only a restart makes this device "new" again, so the first sign-in of every session shows the verification screen.
 usePrototype.subscribe((state, prev) => {
   if (state.auth === 'guest' && state.hotelBookings !== prev.hotelBookings) {
-    useAccessFlow.setState({ phone: '', staffId: null, trusted: false, firstRunDone: false, provider: false, typeAsked: false, failed: 0, lockedAt: null })
+    useAccessFlow.setState({ email: '', staffId: null, trusted: false, firstRunDone: false, provider: false, typeAsked: false, failed: 0, lockedAt: null })
   }
 })
 

@@ -118,7 +118,6 @@ export function PaymentSection() {
   const order: PaymentMethodKey[] = ['apple_pay', 'knet', 'visa', 'mastercard']
   const android: PaymentMethodKey[] = ['knet', 'google_pay', 'visa', 'mastercard']
   const paid = heroVoucherAs('pending')
-  const refunded = vouchers.find(v => v.status === 'refunded' && v.refund?.creditNoteNo)
   return (
     <Section
       id="payment"
@@ -143,11 +142,6 @@ export function PaymentSection() {
       <Spec state={l('Receipt · the KD 2 voucher, issued by Ghazal', 'إيصال · كوبون بقيمة 2 د.ك صادر عن غزل')}>
         <ReceiptSheet voucher={paid} />
       </Spec>
-      {refunded ? (
-        <Spec state={l('Credit note · for a refunded voucher', 'إشعار دائن · لكوبون مسترد')}>
-          <ReceiptSheet voucher={refunded} kind="credit_note" />
-        </Spec>
-      ) : null}
     </Section>
   )
 }

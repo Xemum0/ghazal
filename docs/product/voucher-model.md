@@ -1,6 +1,6 @@
 # The voucher marketplace model
 
-> Status: **accepted as the model; proposed-needs-owner for every working assumption marked (A-nn)** (ADR 0033). It replaces the earlier in-app booking-payment model (deposit, balance, commission, payouts, refund calculator) everywhere the two disagree. Machine-readable twin of the screen impact: [`voucher-model-changes.json`](voucher-model-changes.json). Architecture: [booking-state-machine](../architecture/booking-state-machine.md), [pricing-and-payments](../architecture/pricing-and-payments.md), [data-model](../architecture/data-model.md). Owner questions: `open-questions.md` section 2b (OQ-V-01 onwards).
+> Status: **accepted as the model; the A-nn assumptions were confirmed or replaced by the owner on 2026-10-20 (ADR 0035)** (ADR 0033). Round-1 rules: no VAT, no money refunds (credit voucher on support request), 24 h confirm lapse forfeits the voucher, partner billing `plan` or `contract`. It replaces the earlier in-app booking-payment model (deposit, balance, commission, payouts, refund calculator) everywhere the two disagree. Machine-readable twin of the screen impact: [`voucher-model-changes.json`](voucher-model-changes.json). Architecture: [booking-state-machine](../architecture/booking-state-machine.md), [pricing-and-payments](../architecture/pricing-and-payments.md), [data-model](../architecture/data-model.md). Owner questions: `open-questions.md` section 2b (OQ-V-01 onwards).
 
 ## 1. The model in one paragraph
 
@@ -22,7 +22,7 @@ Three consequences shape everything below.
 | Service-provider partner (account type **Service provider**, internal `service_provider`) | Partner app | Lists services (five primary categories), pays for an advertising plan (weekly, monthly or annual), waits for admin approval, receives requests and redeems vouchers |
 | Major hotel (a venue partner with `fee_exempt = true`) | Partner app | Same as a venue partner but exempt from listing fees (section 10); still reviewed |
 | Hotel or venue representative | Partner app | Staff member (role per ADR 0008) who is a member of visit group chats |
-| Ghazal support representative (call center) | Web Super Admin (context only) | Third member of every visit group chat; handles voucher refunds and disputes |
+| Ghazal support representative (call center) | Web Super Admin (context only) | Third member of every visit group chat; handles refund requests (grants credit vouchers), listing-fee refunds, review hide or delete requests and disputes |
 | App Admin or Moderator | Web Super Admin (context only) | Reviews every listing and advertisement before activation, sets the major-hotel flag and plan rates |
 
 ## 3. The three client paths
@@ -64,24 +64,29 @@ stateDiagram-v2
   unpaid --> active: payment confirmed (webhook plus re-query)
   unpaid --> [*]: checkout lapsed after 30 min, nothing charged
   active --> bound: request sent
-  bound --> active: request released (declined, no reply, withdrawn, 24 h lapse)
+  bound --> active: request released (declined, no reply, venue cancels, withdrawn)
   bound --> used: redeemed by the partner, or request completed
-  active --> expired: validity ended, not refunded
-  active --> refunded: client asks for the refund (eligible cases)
-  expired --> refunded: refund still allowed (venue-fault cases only)
+  bound --> forfeited: 24 h confirm window lapsed (never returns)
+  active --> expired: validity ended
+  active --> credit_issued: support agreed a refund request, credit voucher granted
   used --> [*]
   expired --> [*]
-  refunded --> [*]
+  forfeited --> [*]
+  credit_issued --> [*]
+  note right of credit_issued: a new voucher of kind credit (unbound, 60 days) is created
 ```
 
 | State | Meaning | Client sees (chip) | Money position |
 |---|---|---|---|
 | `unpaid` | A checkout exists, the gateway has not confirmed. Never shown in the wallet except as "Payment in progress" | Payment in progress | an attempt may be in flight |
-| `active` | Paid, bound to its target and quote, not attached to a request | Ready to use | KD 2 held by Ghazal as revenue; refundable per section 4.4 |
+| `active` | Paid, bound to its target and quote, not attached to a request | Ready to use | KD 2 is Ghazal revenue; no money refund, see section 4.4 |
 | `bound` | Attached to a live request (pending, approved, confirmed) | In a request | as above, locked |
 | `used` | The partner redeemed it, or the request completed | Used | final |
-| `expired` | Validity ran out without a redemption | Expired | final, unless a refund is still allowed (venue-fault release) |
-| `refunded` | KD 2 returned to the original payment method | Refunded | returned |
+| `expired` | Validity ran out without a redemption | Expired | final |
+| `forfeited` | The 24 h confirm window lapsed after approval: not valid, does not come back | Not valid | final |
+| `credit_issued` | Support agreed a refund request; this voucher is closed and a credit voucher was granted | Credit issued | no money moves |
+
+A second **kind** exists: `credit` (section 4.5). Kinds: `standard` (bought, bound) and `credit` (granted, unbound). Both use the same states `active`, `bound`, `used`, `expired`, `forfeited`.
 
 ### 4.3 Validity and reuse (A-02)
 
@@ -89,21 +94,27 @@ stateDiagram-v2
 - While `bound` it does not expire.
 - When a request is **released**, the voucher returns to `active` with a fresh **60-day reuse window for a new request to the same target** (any date, any package that the voucher's saving test still passes; the quote is re-bound, the code stays).
 
-### 4.4 Refund and reuse proposal (A-03)
+### 4.4 Lapse, release and refund request (ADR 0035; replaces A-03)
 
-| What happened to the request | Voucher outcome | Refund |
+| What happened to the request | Voucher outcome | Refund request to support |
 |---|---|---|
-| Declined by the venue | Released: reusable at the same venue for 60 days | Refundable on request (one tap, original method) |
-| Venue did not reply in time (`expired: venue_no_response`) | Released: same | Refundable on request |
-| Venue cancels a confirmed request | Released: same | Refundable on request |
-| Client withdraws before approval | Released: reusable at the same venue for 60 days | Not refundable |
-| Client lets the 24 h confirm window lapse (`expired: client_no_confirmation`) | Released: same | Not refundable |
-| Client cancels after confirming | Consumed (`used`, reason `cancelled_after_confirm`) | Not refundable |
-| Request completed, voucher redeemed | `used` | Not refundable |
-| Voucher never used inside 60 days | `expired` | Not refundable, except when the last release was a venue-fault case (then refundable for 30 more days) |
-| Payment taken twice, system error, venue suspended by Ghazal | n/a | Refunded in full by support (reason `system_error` or `admin_override`) |
+| Declined by the venue | Released: reusable at the same venue within its validity | Allowed |
+| Venue did not reply in time (`expired: venue_no_response`) | Released: same | Allowed |
+| Venue cancels a confirmed request | Released: same | Allowed |
+| Client withdraws before approval | Released: same | Allowed, support decides |
+| Client lets the 24 h confirm window lapse (`expired: client_no_confirmation`) | **`forfeited`: not valid, does not come back** | Not offered |
+| Client cancels after confirming | Consumed (`used`, reason `cancelled_after_confirm`) | Not offered |
+| Request completed, voucher redeemed | `used` | Not offered |
+| Voucher never used inside 60 days | `expired` | Not offered |
+| Payment taken twice, system error, venue suspended by Ghazal | n/a | Support grants a credit voucher (reason `system_error` or `admin_override`); a duplicate charge is a gateway matter handled by support outside the app |
 
-Refunds are executed through the payment gateway to the original method (ADR 0027 refund path, no manual wallet). Arrival copy stays soft ("1 to 3 working days for KNET, up to 10 for cards") until the gateway confirms. Gateway fees on a refund are borne by Ghazal.
+**There are no money refunds.** The client opens a refund request to Ghazal support (an entry in the support chat); a support agent decides; if agreed, the original voucher becomes `credit_issued` and a credit voucher is granted. Every request and decision is recorded in `refund_requests` (requester, voucher, reason, decision, decided by, credit voucher id, timestamps). The gateway `refund` call is not used for vouchers. There is no VAT line on the voucher payment or receipt.
+
+**Confirmation.** After approval the client has 24 hours to confirm at the hotel or service, that is to go there and pay the reservation; otherwise the voucher is `forfeited`.
+
+### 4.4b Credit voucher (kind `credit`)
+
+Granted only by support after a refund request. Unbound: it has no target or quote until the client claims it with any hall, hotel or service (it then binds to that one target like a standard voucher, single-use code). Valid 60 days from the grant (`credit_validity_days`, configuration). A credit voucher is itself never refunded; if its 24 h confirm lapses it is `forfeited` like any voucher. It appears in the wallet with a "Credit" tag.
 
 ### 4.5 Registered-only voucher pricing
 
@@ -163,7 +174,7 @@ stateDiagram-v2
 6. **Wait.** The venue has 24 h (12 / 24 / 48 configurable by the partner; 4 h forced and flagged Urgent when the event is 14 days or less away, as before). The client sees an absolute "Expected reply by" time.
 7. **Approved.** The venue approves; the date is held for **24 hours** from the approval (an 8 s Undo window applies on the partner side, exactly as ADR 0008). The client gets push plus WhatsApp with the absolute deadline "Confirm by Fri 13 Nov, 4:00 PM". The booking detail shows the 24 h countdown (live mm:ss only in the final 60 minutes, as the old pay window).
 8. **Confirm.** The client taps "Confirm booking" inside the window. This is the official confirmation required by the rule. The hold becomes a booking claim; the voucher code and QR become prominent on Booking detail.
-9. **Lapse.** If 24 h pass without confirmation the approval lapses (`expired: client_no_confirmation`), the hold is released, the voucher is released (not refundable), and the venue is nudged to approve the next competing request.
+9. **Lapse.** If 24 h pass without confirmation the approval lapses (`expired: client_no_confirmation`), the hold is released, the voucher is `forfeited` (not valid, never comes back), and the venue is nudged to approve the next competing request.
 10. **Settle off-app.** The client pays the venue directly, per the venue's terms, at the voucher price. Ghazal has no part in that payment and shows no payment fields.
 11. **Redeem.** At the venue the client shows the code or QR. The partner scans it or enters the code in the Partner app, sees the bound quote, taps "Redeem voucher". The request becomes `redeemed`, the voucher `used`. A code can be redeemed once; a second attempt reads "Already used on {date}".
 12. **Complete.** At event end plus 12 h the request completes automatically; the client gets the review prompt next morning. If the voucher was never redeemed, the request still completes and the client sees "Report an issue" for 72 h (A-04).
@@ -275,13 +286,15 @@ stateDiagram-v2
 
 - **Not published on payment.** Payment moves the listing to `pending_review` only. Publication happens at approval.
 - **Plan period starts at approval**, not at payment, so review time is never charged against the plan (A-07).
-- **Rejection** carries one or more reason codes and a note (content not compliant, wrong category, missing details, unclear pricing, other). The provider edits and resubmits. The paid plan is kept for 14 days for a resubmission; after that it is refunded in full (A-08).
+- **Rejection** is decided by the Ghazal team; the provider receives notes explaining why (reason codes plus a note: content not compliant, wrong category, missing details, unclear pricing, other), refines and resubmits. A refund of a listing fee happens on a support request, independently of the gateway, and is recorded in the platform (`listing_refunds` record: listing, amount in fils, reason, decided by, date). There is no automatic refund rule (ADR 0035 D7).
 - **Expiry** hides the listing from search; reminders go out at -7 and -1 days; renewal is a new payment (no auto-debit in the MVP, no saved cards).
 - A material edit to an `active` listing (category, price, photos, description) returns it to `pending_review` while the previous approved version stays live until the new one is approved (A-09).
 
 ### 9.3 Plans and rates
 
-Three billing cycles: **Weekly, Monthly, Annual**. **Rates are not decided.** Every price surface reads `ad_plan_rates` (configuration, one row per cycle, nullable). While a rate is null the UI shows "Rates announced soon" and the pay step is disabled with a plain reason; the prototype never shows a price number here. An illustrative figure in any fixture is labelled "sample" and never shipped.
+Partner billing has two modes (`partner.billing_mode`): **`plan`** (weekly, monthly, annual; used by service providers) and **`contract`** (terms as contracted with Ghazal, no public plan and no payment step in the app; mostly hotels and halls). Contract terms and plan rates are managed in the Super Admin panel; soft-launch submissions are managed there too. The Partner app shows a plan chooser in `plan` mode and a "Business contract" card in `contract` mode.
+
+Three billing cycles: **Weekly, Monthly, Annual**. **Rates are set in Super Admin and not yet decided.** Every price surface reads `ad_plan_rates` (configuration, one row per cycle, nullable). While a rate is null the UI shows "Rates announced soon" and the pay step is disabled with a plain reason; the prototype never shows a price number here. An illustrative figure in any fixture is labelled "sample" and never shipped.
 
 Paid placement is labelled to clients ("Sponsored") where the placement is paid (MK-SUB-04); the base listing is not labelled.
 
@@ -293,10 +306,10 @@ Paid placement is labelled to clients ("Sponsored") where the placement is paid 
 
 | Money | Payer | Payee | Through | When | Refund |
 |---|---|---|---|---|---|
-| Voucher KD 2 (configurable) | Client | Ghazal | Gateway (KNET, Visa, Mastercard, Apple Pay, Google Pay) | at "Get voucher" | per section 4.4, to the original method |
+| Voucher KD 2 (configurable) | Client | Ghazal | Gateway (KNET, Visa, Mastercard, Apple Pay, Google Pay) | at "Get voucher" | none in money; a credit voucher on support request (section 4.4) |
 | Event price (voucher price) | Client | Venue or provider | **Off-app**, per their terms | after the client confirms | between client and partner; Ghazal is not a party |
-| Listing or advertising plan | Service provider, or a non-exempt hotel or hall | Ghazal | Gateway | draft to payment | full refund if rejected and not resubmitted within 14 days |
-| Gateway fees | Ghazal | Gateway | | per transaction | Ghazal bears fees on its own refunds |
+| Listing or advertising plan | Service provider, or a non-exempt hotel or hall | Ghazal | Gateway | draft to payment (`plan` mode); `contract` mode is billed outside the app | on support request, outside the gateway, recorded in the platform |
+| Gateway fees | Ghazal | Gateway | | per transaction | no voucher refunds, so no refund fees; no VAT line |
 
 Not in the system any more: deposits, balances, cash records, commission, supplier split, payout cycles, KYC for payouts, bank information, invoices for events, loyalty credit, venue coupons. Ghazal's invoices are the voucher receipt and the listing-plan invoice, both from the shared bilingual PDF service (issuer wording still OQ-B-06 and OQ-T-12; amounts say KWD).
 
@@ -332,29 +345,37 @@ Visit group chat is a new conversation kind (`visit_group`); client-to-venue cha
 - **Review queue** (SA-REV): every listing and advertisement, with category check, content-compliance checklist, approve, reject with reason codes, request changes; SLA display; audit trail.
 - **Major-hotel flag**: set or clear `fee_exempt` per partner; list of exempt partners.
 - **Rates and configuration**: voucher fee, voucher validity and reuse window, ad plan rates for weekly, monthly and annual, listing-fee requirement per partner type, category list, venue-type verification.
-- **Voucher operations**: search a voucher by code, view the bound quote and history, issue a refund, release or void a voucher.
+- **Voucher operations**: search a voucher by code, view the bound quote and history, handle refund requests (grant a credit voucher), release or void a voucher.
 - **Visits support console**: join visit group chats as the support representative, close them.
 - **Refunds and finance**: voucher payments, listing payments, refunds, gateway reconciliation. (Commission and payout screens are retired.)
 - **Venue and provider onboarding**: approval and document verification stay as SA-VAPP and SA-VNDR.
 
 ## 13. Open questions and working assumptions
 
-Each (A-nn) is a working assumption recorded as `proposed-needs-owner` in ADR 0033 and as an `OQ-V-nn` row in `open-questions.md`. They are built as configuration.
+Each (A-nn) was a working assumption of ADR 0033. On 2026-10-20 the owner confirmed them (unmentioned items take the assumed answer) except where ADR 0035 replaced them: A-03 (see 4.4), A-08 (see 9.2), A-15 (no refunds, so no refund fees). They are built as configuration.
 
 | A | Assumption | Question for the owner |
 |---|---|---|
 | A-01 | Voucher is bound at purchase to one target and its quote; code is single-use | May a voucher be re-bound to another venue before first use? (OQ-V-01) |
 | A-02 | Validity 60 days; 60-day reuse window at the same venue after a release | Confirm the numbers (OQ-V-02) |
-| A-03 | Refund and reuse table in section 4.4 | Confirm who is refunded and when (OQ-V-03) |
+| A-03 | Replaced by ADR 0035: lapse forfeits, refund = credit voucher on support request (section 4.4) | Confirm who is refunded and when (OQ-V-03) |
 | A-04 | A completed request without a redemption still closes the voucher as `used`, with a 72 h issue report | What if the venue refuses to honour the price? Penalty for the venue? (OQ-V-04) |
 | A-05 | No in-app reschedule after confirmation | Reschedules by chat; new voucher only after a venue cancellation (OQ-V-05) |
 | A-06 | One login may hold both account types | (OQ-V-06) |
 | A-07 | Ad plan period starts at approval | (OQ-V-07) |
-| A-08 | Rejected listing keeps its paid plan for 14 days, then refunded | (OQ-V-08) |
+| A-08 | Replaced by ADR 0035: notes to the provider, refunds on support demand, recorded | (OQ-V-08) |
 | A-09 | Material edits to an active listing re-enter review; old version stays live | (OQ-V-10) |
 | A-10 | Visits for hotels and halls only; providers use a quote chat | Do providers need visits (tastings, floral consultations)? (OQ-V-11) |
 | A-11 | Visit chat read-only after 24 h, archived at 30 days | (OQ-V-12) |
 | A-12 | Hotels and halls (non-major) also pay a listing plan to be live | The spec only says major hotels are exempt; do ordinary hotels and halls pay? (OQ-V-13) |
 | A-13 | Governmental facilities: browse-only, no voucher | (OQ-V-14) |
 | A-14 | Guests see the voucher price number | Or only a saving bracket (OQ-V-09) |
-| A-15 | The voucher fee is KD 2.000, configurable; no VAT | Confirm gateway fee treatment (OQ-V-15) |
+| A-15 | KD 2.000 configurable; no VAT (confirmed); no money refunds so no refund fees | Answered 2026-10-20 |
+
+## 14. Round-1 additions (ADR 0035, 2026-10-20)
+
+- **Staff invitations** are by email through Resend (not WhatsApp); sign-in is email plus password. Client sign-in codes stay WhatsApp OTP, implemented without credentials until the Meta business account is open.
+- **External calendar sync** uses email (an .ics attachment or an invitation address), never WhatsApp.
+- **Reviews:** the venue replies once and reports; hiding or deleting a review is done on request to support, performed from the Super Admin side.
+- **Venue videos:** high quality allowed, 500 MB per video.
+- **Identifiers:** `com.ghazal.client`, `com.ghazal.provider`. Backend NestJS.

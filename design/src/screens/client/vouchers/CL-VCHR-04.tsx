@@ -24,7 +24,7 @@ import {
   useFactsOf,
   useLive,
   useSceneState,
-  useWallet,
+  useBoundWallet,
   targetOfQuote,
   type Quote,
 } from './_components/model'
@@ -43,7 +43,7 @@ export default function VoucherForRequest() {
   const nav = useNav()
   const state = useSceneState()
   const live = useLive()
-  const wallet = useWallet()
+  const wallet = useBoundWallet()
   const draft = usePrototype(s => s.bookingDraft)
   const story = storyVoucher()
 

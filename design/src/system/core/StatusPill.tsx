@@ -29,7 +29,18 @@ export type BookingStatus =
   | 'reschedule_pending'
 
 /** Voucher states (voucher-model section 4.2): the chip beside a code. */
-export type VoucherState = 'voucher_unpaid' | 'voucher_active' | 'voucher_bound' | 'voucher_used' | 'voucher_expired' | 'voucher_refunded'
+export type VoucherState =
+  | 'voucher_unpaid'
+  | 'voucher_active'
+  | 'voucher_bound'
+  | 'voucher_used'
+  | 'voucher_expired'
+  /** The 24 h confirm window lapsed: the voucher is not valid (ADR 0035 D4). */
+  | 'voucher_forfeited'
+  /** Support granted a credit voucher for it (ADR 0035 D5). */
+  | 'voucher_credit_issued'
+  /** A credit voucher granted by support that is ready to use: unbound, any venue or service. */
+  | 'voucher_credit'
 
 /** Site-visit states (HL-VIST, CL-VIST). */
 export type VisitState =
@@ -88,7 +99,9 @@ export const statusMeta: Record<StatusKey, Meta> = {
   voucher_bound: { tone: 'pending', icon: 'link', client: 'commonVoucherStatusBound' },
   voucher_used: { tone: 'neutral', icon: 'check-double', client: 'commonVoucherStatusUsed' },
   voucher_expired: { tone: 'neutral-outline', icon: 'clock-off', client: 'commonVoucherStatusExpired' },
-  voucher_refunded: { tone: 'rose', icon: 'undo', client: 'commonVoucherStatusRefunded' },
+  voucher_forfeited: { tone: 'danger-outline', icon: 'x-circle', client: 'commonVoucherStatusForfeited' },
+  voucher_credit_issued: { tone: 'neutral-outline', icon: 'gift', client: 'commonVoucherStatusCreditIssued' },
+  voucher_credit: { tone: 'rose', icon: 'gift', client: 'commonVoucherStatusCredit' },
 
   visit_requested: { tone: 'pending', icon: 'clock', client: 'commonVisitStatusRequested' },
   visit_confirmed: { tone: 'success', icon: 'calendar-check', client: 'commonVisitStatusConfirmed' },

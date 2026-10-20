@@ -4613,7 +4613,17 @@
       "plan": {
         "cycle": null,
         "endsOn": null
+      },
+      "mode": "contract",
+      "contractSummary": {
+        "en": "Business contract with Ghazal, terms as agreed.",
+        "ar": "عقد عمل مع غزل، بالشروط المتفق عليها."
       }
+    },
+    "calendarSync": {
+      "channel": "email",
+      "address": "calendar@aurelia-gulf.example",
+      "ics": true
     },
     "sister": {
       "id": "V-sister-marina",

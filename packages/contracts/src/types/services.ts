@@ -187,6 +187,7 @@ export type MessageKind =
   | 'quote_request_card'
   | 'booking_card'
   | 'visit_card'
+  | 'credit_card'
   | 'system'
 
 /** In a visit group chat `venue` is the hotel representative and `support` the Ghazal support representative. */
@@ -210,7 +211,7 @@ export interface Message {
   document?: { name: string; sizeKb: number; mime: 'application/pdf' }
   image?: { file: string; alt: Bilingual }
   card?: {
-    kind: 'meeting' | 'quote_request' | 'booking' | 'visit' | 'voucher_offer'
+    kind: 'meeting' | 'quote_request' | 'booking' | 'visit' | 'voucher_offer' | 'credit_voucher'
     title: Bilingual
     lines: Bilingual[]
     at?: IsoDateTime

@@ -208,8 +208,8 @@
   inset-inline-start: -8px;
 }
 
-/* The phone value sits against the +965 chip in both languages: one number read left to right. */
-[dir='rtl'] .hxa-phone .gz-field__input[dir='ltr'] {
+/* The email value starts at the screen's start edge in both languages: one address read left to right. */
+[dir='rtl'] .hxa-email .gz-field__input[dir='ltr'] {
   text-align: start;
 }
 

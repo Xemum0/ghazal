@@ -130,7 +130,8 @@ export type NotificationKind =
   | 'voucher_ready'
   | 'voucher_released'
   | 'voucher_redeemed'
-  | 'voucher_refunded'
+  | 'credit_voucher_issued'
+  | 'voucher_forfeited'
   | 'voucher_expiring'
   // visits and group chat
   | 'visit_requested'
@@ -202,6 +203,15 @@ export interface OwnerReply {
   by: string
 }
 
+/** Venues reply once and report; hiding or deleting a review is a request to Ghazal support, performed there (ADR 0035 D9). */
+export type ReviewAction = 'reply_once' | 'report' | 'request_hide' | 'request_delete'
+
+export interface ReviewSupportRequest {
+  action: 'request_hide' | 'request_delete'
+  requestedAt: IsoDateTime
+  status: 'requested' | 'done' | 'declined'
+}
+
 export interface Review {
   id: Id
   venueId: Id
@@ -220,6 +230,8 @@ export interface Review {
   eventDate: IsoDate
   postedAt: IsoDateTime
   ownerReply: OwnerReply | null
+  /** Hide or delete request sent to support from the venue side; null when none. */
+  supportRequest: ReviewSupportRequest | null
   /** Hotel side: the reply the manager has staged in the composer but not yet sent; never shown to couples. */
   replyDraft: Bilingual | null
   /** Hotel side: a review waits for a reply once it is 7+ days old without one. */

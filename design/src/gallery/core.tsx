@@ -460,7 +460,7 @@ const BOOKING: BookingStatus[] = ['pending', 'approved', 'confirmed', 'redeemed'
 const PARTNER: BookingStatus[] = ['pending', 'approved', 'redeemed', 'declined', 'expired']
 const AVAIL: AvailabilityState[] = ['available', 'held', 'booked', 'blocked', 'unavailable', 'past']
 const BESIDE: BookingStatus[] = ['date_proposed', 'missed', 'lapsed', 'urgent']
-const VOUCHER: VoucherState[] = ['voucher_unpaid', 'voucher_active', 'voucher_bound', 'voucher_used', 'voucher_expired', 'voucher_refunded']
+const VOUCHER: VoucherState[] = ['voucher_unpaid', 'voucher_active', 'voucher_bound', 'voucher_used', 'voucher_expired', 'voucher_forfeited', 'voucher_credit_issued', 'voucher_credit']
 const VISIT: VisitState[] = ['visit_requested', 'visit_confirmed', 'visit_reschedule', 'visit_arrived', 'visit_completed', 'visit_declined', 'visit_cancelled', 'visit_missed']
 const LISTING: ListingState[] = ['listing_draft', 'listing_payment', 'listing_review', 'listing_approved', 'listing_rejected', 'listing_active', 'listing_expired', 'listing_paused']
 

@@ -5847,7 +5847,7 @@
     "source": "Owner brief 2026-10-14 · ADR 0033",
     "phase": "MVP-P1",
     "designScope": true,
-    "notes": "Bilingual PDF, amounts in KWD (ADR 0010 D7)."
+    "notes": "Bilingual PDF, amounts in KWD (ADR 0010 D7). Amended by ADR 0035: there is no voucher refund credit note; a granted refund request issues a credit voucher."
   },
   {
     "id": "CA-VIS-01",
@@ -6558,5 +6558,95 @@
     "phase": "MVP-P1",
     "designScope": false,
     "notes": ""
+  },
+  {
+    "id": "CA-VCH-15",
+    "app": "client",
+    "group": "VCH",
+    "text": "A client can hold a credit voucher (unbound, 60 days) in the wallet and claim it with any hall, hotel or service.",
+    "source": "Owner round 1 2026-10-20 · ADR 0035",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": "Kind credit; granted only by support (CA-VCH-16)."
+  },
+  {
+    "id": "CA-VCH-16",
+    "app": "client",
+    "group": "VCH",
+    "text": "A client can send a refund request for an eligible voucher to Ghazal support; if support agrees the client receives a credit voucher. No money is returned.",
+    "source": "Owner round 1 2026-10-20 · ADR 0035",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": "Support chat entry; refund_requests record. Replaces money refunds (ADR 0035 D5)."
+  },
+  {
+    "id": "CA-VCH-17",
+    "app": "client",
+    "group": "VCH",
+    "text": "A voucher is forfeited (not valid, does not come back) when the 24 hour confirmation at the hotel or service lapses.",
+    "source": "Owner round 1 2026-10-20 · ADR 0035",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": "Voucher state forfeited; amends CA-STAT-11 and R09."
+  },
+  {
+    "id": "HA-VCH-06",
+    "app": "hotel",
+    "group": "VCH",
+    "text": "A partner sees that a request whose client did not confirm within 24 hours lapsed and its voucher is forfeited, and the date reopens.",
+    "source": "Owner round 1 2026-10-20 · ADR 0035",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": "Partner side of CA-VCH-17."
+  },
+  {
+    "id": "PA-BIL-01",
+    "app": "hotel",
+    "group": "BIL",
+    "text": "A partner account has a billing mode: plan (weekly, monthly or annual, rates set in Super Admin) or contract (terms as contracted, no public plan); contract is mostly for hotels and halls.",
+    "source": "Owner round 1 2026-10-20 · ADR 0035",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": "Prototype shows \"Rates announced soon\" for plans and a Business contract card for contract mode."
+  },
+  {
+    "id": "PA-ACC-06",
+    "app": "hotel",
+    "group": "ACC",
+    "text": "Partner staff are invited by email (Resend) and sign in with email and password.",
+    "source": "Owner round 1 2026-10-20 · ADR 0035",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": "Replaces the WhatsApp invite of ADR 0028 for staff; client sign-in codes stay WhatsApp."
+  },
+  {
+    "id": "HA-CAL-10",
+    "app": "hotel",
+    "group": "CAL",
+    "text": "External calendar sync is done by email (an .ics or an invitation address), not WhatsApp.",
+    "source": "Owner round 1 2026-10-20 · ADR 0035",
+    "phase": "MVP-P2",
+    "designScope": true,
+    "notes": ""
+  },
+  {
+    "id": "HA-REV-01",
+    "app": "hotel",
+    "group": "REV",
+    "text": "A venue can ask support to hide or delete a review; support performs it. The venue cannot hide or delete it itself.",
+    "source": "Owner round 1 2026-10-20 · ADR 0035",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": "Reply once and report stay (PA-REV, OQ-B-25)."
+  },
+  {
+    "id": "HA-VMGT-14",
+    "app": "hotel",
+    "group": "VMGT",
+    "text": "A venue can upload videos in high quality up to 500 MB each.",
+    "source": "Owner round 1 2026-10-20 · ADR 0035",
+    "phase": "MVP-P2",
+    "designScope": true,
+    "notes": "Replaces 60 s, 100 MB, 720p (OQ-T-15)."
   }
 ]

@@ -127,3 +127,9 @@ export const hotelStaff = [
 
 // The sister venue of the venue switcher (state only, not part of the seeded roster).
 export const sisterVenue = { id: 'V-sister-marina', name: bil('Aurelia Marina Hall', 'قاعة أوريليا المارينا'), role: 'reception', pending: 2 }
+
+// Staff invitations of Aurelia Gulf Hotel (ADR 0035 D8): sent by email through Resend, never by WhatsApp.
+export const staffInvitations = [
+  { id: 'inv-sara', venueId: 'V01', email: 'sara.alqattan@aurelia-gulf.example', role: 'marketing', status: 'invited', sentAt: '2026-11-11T11:00:00+03:00', expiresAt: '2026-11-14T23:59:00+03:00', invitedBy: 'Khalid Al-Otaibi', staffId: 'staff-sara' },
+  { id: 'inv-amal', venueId: 'V01', email: 'amal.albalushi@aurelia-gulf.example', role: 'reception', status: 'accepted', sentAt: '2026-06-10T09:00:00+03:00', expiresAt: null, invitedBy: 'Khalid Al-Otaibi', staffId: 'staff-amal' },
+]

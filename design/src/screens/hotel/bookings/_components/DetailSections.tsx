@@ -464,7 +464,8 @@ const STATE_LABEL = {
   used: 'hotelBookingsVoucherRedeemed',
   active: 'hotelBookingsVoucherReturned',
   expired: 'hotelBookingsVoucherExpired',
-  refunded: 'hotelBookingsVoucherRefunded',
+  forfeited: 'hotelBookingsVoucherNotValid',
+  credit_issued: 'hotelBookingsVoucherNotValid',
   unpaid: 'hotelBookingsVoucherBound',
 } as const
 
@@ -472,7 +473,7 @@ const STATE_LABEL = {
 export function voucherVisible(m: DetailModel): boolean {
   const { booking: b, voucher } = m
   if (!voucher) return false
-  return voucher.status === 'used' || voucher.status === 'active' || voucher.status === 'expired' || voucher.status === 'refunded' || b.status === 'confirmed'
+  return voucher.status === 'used' || voucher.status === 'active' || voucher.status === 'expired' || voucher.status === 'forfeited' || voucher.status === 'credit_issued' || b.status === 'confirmed'
 }
 
 export function VoucherBlock({ m }: { m: DetailModel }) {

@@ -4,14 +4,14 @@
 
 | Field | Value |
 |---|---|
-| Date | 2026-10-14 |
+| Date | 2026-10-20 |
 | Phase | design: Client app and Partner app (hotels and halls plus service providers; ids stay `hotel` / `HL-`) as a web prototype; Flutter, API and dashboards later |
-| Business model | KD 2 voucher marketplace (ADR 0033, accepted; assumptions A-01..A-17 proposed-needs-owner). The only in-app client payment is the voucher; partners pay ad fees; venue money is off-app |
+| Business model | KD 2 voucher marketplace (ADR 0033 accepted; owner round 1 answered 2026-10-20 in ADR 0035: unmentioned items take the prototype assumption; 24 h lapse forfeits the voucher; refund = support-granted credit voucher; no VAT; backend NestJS; bundle ids `com.ghazal.client` and `com.ghazal.provider`). The only in-app client payment is the voucher; partners pay ad fees; venue money is off-app |
 | Toolchain | Node 23.7, pnpm 10.10 (ADR 0031 relaxed the ADR 0021 pins; engines node >=22). Installs are allowed |
 | Typefaces | El Messiri, Manrope, Almarai (ADR 0031 addendum, owner choice 2026-10-13) |
 | Token freeze | off (`pnpm tokens` is the only way to change a token; freezes at design freeze) |
-| Design freeze | not reached (needs: display-face reader test, a11y gate, baseline commit decision, the open items below) |
-| Git | no commits yet (branch `master`); baseline commit is an owner decision (OQ-T-07) |
+| Design freeze | not reached (needs: display-face reader test, a11y gate, applying owner round 1 to the screens, the open items below) |
+| Git | baseline committed 2026-10-20: 4 commits on `master` (docs, workspace, prototype, photo library); the regenerated photo variants are not committed (OQ-T-07 answered) |
 | Dev server | `pnpm dev`; URL from `node tools/ports.mjs url design`, verified by `node tools/ports.mjs check design` (port 4700, answered `ok` today). `pnpm shots` starts it when it is down |
 | Front door | `#/` is the Launcher: one phone, Client \| Partner switch. Canvas, player, system and docs are explicit hash routes only |
 
@@ -40,7 +40,7 @@
 | Contracts | `packages/contracts`: types, pricing / availability engine, bilingual seed and generated fixtures (venues, packages with standard and voucher prices, requests, vouchers, visits, listings, chat, reviews) |
 | Component system | `design/src/system` (about 158 component files): core (+ brand), inputs, nav, overlays, charts, domain-client, domain-hotel, domain-voucher, domain-visits, domain-provider, domain-filters |
 | Prototype | `design/src/shell`: Launcher, device framework, Studio (canvas, player, docs), zustand prototype store |
-| Screens | 139 inventory entries, 5 deprecated by ADR 0033 (CL-RVRW-03, CL-RVRW-04, HL-BOOK-05, HL-DCSN-05, HL-GROW-05), so 134 live screens (83 client, 51 partner); 134 built under `design/src/screens/` (16 client flows, 10 partner flows) |
+| Screens | 140 inventory entries (HL-CALN-05 added by ADR 0035, not built), 5 deprecated by ADR 0033 (CL-RVRW-03, CL-RVRW-04, HL-BOOK-05, HL-DCSN-05, HL-GROW-05), so 134 live screens (83 client, 51 partner); 134 built under `design/src/screens/` (16 client flows, 10 partner flows) |
 | Tools | `pnpm shots`, `snap.mjs`, `probe.mjs`, `images.mjs`, `check-cycles.mjs`, `tools/ports.mjs` |
 
 ## What is missing or open
@@ -49,7 +49,7 @@
 2. **Open integration requests** (`docs/engineering/requests.md`, "Integrator resolutions 2026-10-14"): tab bar rules for the voucher, visit and provider flows in `design/src/system/nav/tabs.ts` (HIDDEN_SCREENS and flow-to-tab maps), the Launcher resetting the prototype store on each Client/Partner switch, flow-local store slices, fixture gaps (16 venues against 21 in the rulebook, English client names, funnel arithmetic), `apple` and `google` icons, currency position in Arabic prices.
 3. **Stray files to clean up (owner of the file decides):** `design/scripts/_ct_tmp.mjs`, `_lib_tmp.mjs`, `_signin_tmp.mjs` (temporary scripts), and a root folder `undefined/` containing `ar/` and `en/` screenshot-style output of a tool called without a path. Not deleted by the integrator.
 4. **Stale docs:** `docs/product/screen-inventory.md` (generated before ADR 0033; the screen JSON is authoritative), `docs/design/01-direction.md` money wording, `docs/engineering/definition-of-done.md` interim section (still says pnpm gates "land in the foundation PR"; `pnpm verify` takes no area argument today).
-5. **Owner decisions:** `docs/product/owner-decisions.md` (46 items; section 0 lists what to do now: delete the pirated archive, baseline commit, display-face reader test).
+5. **Owner decisions:** `docs/product/owner-decisions.md` (46 items, all decided on 2026-10-20; "Still open for the owner": delete the pirated archive, Kuwaiti reader test and Arabic copy reviewer, legal and tax wording, support staffing and hours). The screens touched by round 1 are listed in `docs/product/owner-round1-changes.json` (29 changed, 1 new); the prototype code and i18n messages still carry the old refund and WhatsApp-staff copy until the screen agents apply it.
 6. CSS lint stays warnings-only by ADR 0031; flip `defaultSeverity` to `error` at design freeze.
 7. `#/gallery/nav` is wider than a 390 viewport by design; read it at a desktop viewport.
 
@@ -58,5 +58,5 @@
 1. Run the visual review per flow in en and ar at 360 and 390 (skills `shots-review`, `rtl-check`; agents `design-reviewer`, `rtl-a11y-auditor`, `prd-tracer`), and fix findings in the owning flow.
 2. Apply the system-owner patch list (tab bar maps, component gaps) and the Launcher state decision; re-run `pnpm verify`.
 3. Fixtures consistency pass (fixtures-owner) against `docs/design/seed-rulebook.md`.
-4. Owner answers (section 0 and section 1 of the owner-decisions page); then design freeze: a11y gate, flip stylelint to errors, baseline commit, tag `design-v1`.
+4. Apply `owner-round1-changes.json` to the prototype; then design freeze: a11y gate, flip stylelint to errors, tag `design-v1` (baseline commit done).
 5. Later chores: Node 24 / pnpm 12 (ADR 0021), specs and redlines (ADR 0024 d5, d6), Dart workspace.

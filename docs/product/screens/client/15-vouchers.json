@@ -15,14 +15,16 @@
         "ar": "كيف يعمل الكوبون"
       },
       "kind": "sheet",
-      "purpose": "The explainer and binding confirmation shown before the first purchase and on every Get voucher: what the voucher is, what it is bound to (this venue, date, hall, package, guests), the KD 2 price, the saving, and the refund and reuse rules in plain words. One primary continues to payment.",
+      "purpose": "The explainer and binding confirmation shown before the first purchase and on every Get voucher: what the voucher is, what it is bound to (this venue, date, hall, package, guests), the KD 2 price, the saving, and the 24 hour confirm rule, the credit voucher from support and the reuse rule in plain words. One primary continues to payment.",
       "requirementIds": [
         "CA-VCH-01",
         "CA-VCH-02",
         "CA-VCH-03",
         "CA-VCH-04",
         "CA-VCH-10",
-        "CA-VCH-12"
+        "CA-VCH-12",
+        "CA-VCH-16",
+        "CA-VCH-17"
       ],
       "states": [
         "default",
@@ -36,11 +38,11 @@
       ],
       "interactions": [
         "Top: the bound quote card (venue, date, hall, package, guests) with \"Voucher price KD 15,400.000\", \"Standard KD 18,200.000\" struck through and \"You save KD 2,800.000 at the venue\"",
-        "Three plain rows with icons: \"Pay KD 2 to Ghazal now\" (online), \"Request this hall at the voucher price\" (the venue answers within 24 hours; you confirm within 24 hours of approval), \"Pay the venue directly\" (off-app, show your code); a fourth row summarises refund and reuse in two lines with \"Read the voucher terms\"",
+        "Three plain rows with icons: \"Pay KD 2 to Ghazal now\" (online), \"Request this hall at the voucher price\" (the venue answers within 24 hours; you confirm within 24 hours of approval), \"Pay the venue directly\" (off-app, show your code); a fourth row summarises the 24 hour confirm rule (a lapse forfeits the voucher) and the credit voucher from support in two lines with \"Read the voucher terms\"",
         "Primary \"Continue to payment\" opens CL-PAYM-01; guests see the sign-in sheet with the context line \"to get your voucher\" first (CL-AUTH-01) and return here with the quote intact; \"Maybe later\" dismisses; \"Contact the venue instead\" is the browse-only path",
         "Already owned: if a ready voucher exists for this venue and quote the sheet shows it and offers \"Send request\" instead of a second purchase; saving-too-small is never shown (the Get voucher action is not offered in that case)"
       ],
-      "contentNotes": "Heading «كيف يعمل الكوبون» / \"How the voucher works\". Rows AR: «ادفعوا 2 د.ك لغزل الآن» / \"Pay KD 2 to Ghazal now\"; «اطلبوا القاعة بسعر الكوبون» / \"Request the hall at the voucher price\"; «ادفعوا للقاعة مباشرةً» / \"Pay the venue directly\". Terms line: «يعود الكوبون لكم إذا اعتذرت القاعة أو لم ترد، ويمكنكم استخدامه مجددًا أو استرداده.» / \"If the venue declines or does not reply, your voucher comes back: use it again or refund it.\" The word «كوبون» is used in Arabic UI copy; «قسيمة» is avoided because in Kuwait it also means a land plot (glossary note). Illustrative seed prices.",
+      "contentNotes": "Heading «كيف يعمل الكوبون» / \"How the voucher works\". Rows AR: «ادفعوا 2 د.ك لغزل الآن» / \"Pay KD 2 to Ghazal now\"; «اطلبوا القاعة بسعر الكوبون» / \"Request the hall at the voucher price\"; «ادفعوا للقاعة مباشرةً» / \"Pay the venue directly\". Terms line: «يعود الكوبون لكم إذا اعتذرت القاعة أو لم ترد، ويمكنكم استخدامه مجددًا أو استرداده.» / \"If the venue declines or does not reply, your voucher comes back: use it again here, or ask support for a credit voucher.\" The word «كوبون» is used in Arabic UI copy; «قسيمة» is avoided because in Kuwait it also means a land plot (glossary note). Illustrative seed prices.",
       "priority": "core",
       "navigatesTo": [
         "CL-PAYM-01",
@@ -49,7 +51,13 @@
         "CL-BOOK-01",
         "CL-VENU-01",
         "CL-MSGS-02"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Terms say: no money refund, credit voucher on support request, 24 h lapse forfeits",
+        "note": "Voucher terms rewritten: the voucher is tied to this venue; a decline or no reply returns it; a lapse of the 24 hour confirm window makes it not valid; a refund is a credit voucher granted by support, never money. EN: \"If you do not confirm within 24 hours at the hotel or service, the voucher is no longer valid.\" AR: «إن لم تؤكدوا خلال 24 ساعة لدى الفندق أو الجهة، يصبح الكوبون غير صالح.»"
+      }
     },
     {
       "id": "CL-VCHR-02",
@@ -64,7 +72,10 @@
         "CA-VCH-06",
         "CA-VCH-13",
         "CA-PROF-12",
-        "CA-VCH-11"
+        "CA-VCH-11",
+        "CA-VCH-15",
+        "CA-VCH-16",
+        "CA-VCH-17"
       ],
       "states": [
         "default",
@@ -78,7 +89,7 @@
       ],
       "interactions": [
         "Segmented control Ready to use | In a request | History; each voucher is a ticket-shaped card: venue thumbnail or monogram, venue name, date and package, \"Saves KD 2,800.000\", validity as an absolute date, state chip (icon plus label); a ready voucher offers \"Send request\"; an expiring voucher (within 7 days) shows a gold-ink \"Expires Fri 8 Jan\" line",
-        "Tapping a card opens the voucher detail (CL-VCHR-03); a released voucher with a reuse window shows \"Reusable until {date}\" and a \"Refund\" text action when eligible (opens CL-VCHR-05)",
+        "Tapping a card opens the voucher detail (CL-VCHR-03); a released voucher with a reuse window shows \"Reusable until {date}\" and an \"Ask support\" text action when eligible (opens CL-VCHR-05)",
         "Empty Ready: \"No vouchers yet. Find a hall and get one from its page.\" with \"See halls\"; History lists used, expired and refunded vouchers; no swipe actions",
         "Guest: sign-in teaser with \"Sign in to see your vouchers\" (CL-AUTH-01)"
       ],
@@ -91,7 +102,13 @@
         "CL-DISC-03",
         "CL-AUTH-01",
         "CL-PROF-01"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Wallet shows credit vouchers (Credit tag) and forfeited or credit-issued history; Refund action becomes Ask support",
+        "note": "New kind: a credit voucher card with a \"Credit\" tag, unbound, valid 60 days, action \"Use at any hall, hotel or service\". History states: Used, Expired, Not valid (forfeited), Credit issued. Chips AR: «غير صالح» Not valid, «كوبون رصيد» Credit; the Refunded chip is removed."
+      }
     },
     {
       "id": "CL-VCHR-03",
@@ -101,13 +118,16 @@
         "ar": "الكوبون"
       },
       "kind": "screen",
-      "purpose": "One voucher: the single-use code and QR the venue scans, what it is bound to, its validity, its status and its history, with the actions that fit its state (send request, show to the venue, refund). The QR view raises screen brightness and stays awake.",
+      "purpose": "One voucher: the single-use code and QR the venue scans, what it is bound to, its validity, its status and its history, with the actions that fit its state (send request, show to the venue, ask support). The QR view raises screen brightness and stays awake.",
       "requirementIds": [
         "CA-VCH-07",
         "CA-VCH-08",
         "CA-VCH-11",
         "CA-VCH-14",
-        "CA-STAT-13"
+        "CA-STAT-13",
+        "CA-VCH-15",
+        "CA-VCH-16",
+        "CA-VCH-17"
       ],
       "states": [
         "ready",
@@ -117,14 +137,16 @@
         "redeemed",
         "released-reusable",
         "expired",
-        "refunded",
         "offline-cached",
         "loading",
-        "error"
+        "error",
+        "forfeited",
+        "credit-issued",
+        "credit-voucher-ready"
       ],
       "interactions": [
         "Voucher card: venue, date, hall, package and guests (the bound quote), the code GV-2611-K7QM (LTR isolate, tap to copy), a QR (tap for the full-screen view with brightness raised), validity \"Valid until Fri 8 Jan 2027\", saving \"Saves KD 2,800.000 at the venue\"",
-        "State block by status: Ready \"Send your request at the voucher price\" (opens CL-BOOK-01); In a request links to Booking detail (CL-BKNG-02); Confirmed \"Show this code to the venue when you pay\" ; Redeemed \"Used on Mon 4 Jan 2027\" ; Released \"Back with you until {date}\" with Use again and Refund (CL-VCHR-05); Expired and Refunded explain what happened",
+        "State block by status: Ready \"Send your request at the voucher price\" (opens CL-BOOK-01); In a request links to Booking detail (CL-BKNG-02); Confirmed \"Show this code to the venue when you pay\" ; Redeemed \"Used on Mon 4 Jan 2027\" ; Released \"Back with you until {date}\" with Use again and Ask support (CL-VCHR-05); Expired and Refunded explain what happened",
         "History timeline of the voucher (paid, attached to request, released, redeemed) with absolute timestamps; \"View receipt\" opens the receipt viewer (CL-BKNG-05); the QR and code are available offline once the voucher is ready (cached)",
         "Support link \"Problem with this voucher\" opens the support thread (CL-MSGS-02)"
       ],
@@ -137,7 +159,13 @@
         "CL-BKNG-05",
         "CL-MSGS-02",
         "CL-VCHR-02"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Voucher states forfeited and credit-issued replace refunded; credit voucher variant; Ask support replaces Refund",
+        "note": "Released shows \"Back with you until {date}\" with Use again and Ask support (CL-VCHR-05). Forfeited: \"Not valid. The 24 hours to confirm ended.\" Credit issued: links to the credit voucher. Credit voucher variant: \"Credit from Ghazal Support\", unbound, claim with any hall, hotel or service, valid 60 days."
+      }
     },
     {
       "id": "CL-VCHR-04",
@@ -182,29 +210,32 @@
       "id": "CL-VCHR-05",
       "slug": "voucher-refund-reuse",
       "title": {
-        "en": "Use again or refund",
-        "ar": "استخدام مجددًا أو استرداد"
+        "en": "Use again or ask support",
+        "ar": "استخدام مجددًا أو طلب من الدعم"
       },
       "kind": "sheet",
-      "purpose": "What happened to a released voucher and the choices that apply: use it again at the same venue until the reuse date, refund the KD 2 to the original payment method (venue-fault cases), or understand why neither is available. Also the refund status once requested.",
+      "purpose": "What happened to a released voucher and the choices that apply: use it again at the same venue until the reuse date, ask support for a credit voucher (no money returns), or understand why neither is available. Also the refund status once requested.",
       "requirementIds": [
         "CA-VCH-11",
         "CA-VCH-14",
-        "CA-VCH-05"
+        "CA-VCH-05",
+        "CA-VCH-16",
+        "CA-VCH-17"
       ],
       "states": [
         "reuse-or-refund",
         "reuse-only",
         "consumed-no-refund",
-        "refund-confirm",
-        "refund-processing",
-        "refunded",
-        "refund-failed",
         "offline",
-        "error"
+        "error",
+        "request-confirm",
+        "request-sent",
+        "credit-granted",
+        "request-declined",
+        "forfeited-no-action"
       ],
       "interactions": [
-        "Outcome line explains why the voucher is back (\"Aurelia Gulf Hotel did not reply in time\") and the two choices as equal rows: \"Use again at Aurelia Gulf Hotel, until Fri 8 Jan 2027\" (opens CL-BOOK-01 prefilled) and \"Refund KD 2.000 to your KNET card\" (needs confirm)",
+        "Outcome line explains why the voucher is back (\"Aurelia Gulf Hotel did not reply in time\") and the two choices as equal rows: \"Use again at Aurelia Gulf Hotel, until Fri 8 Jan 2027\" (opens CL-BOOK-01 prefilled) and \"Ask support for a credit voucher\" (needs confirm)",
         "Reuse-only (client-caused release): only the reuse row, with one line why a refund is not available; consumed (cancelled after confirmation): no actions and the reason",
         "Refund confirm: \"You get KD 2.000 back to the original method; arrival 1 to 3 working days for KNET, up to 10 for cards\"; the refund status tracker (submitted, processing, completed) appears afterwards and the receipt row (credit note) lands in CL-BKNG-05",
         "A refunded voucher cannot be reused; the confirm sheet says so"
@@ -216,7 +247,13 @@
         "CL-BKNG-05",
         "CL-VCHR-03",
         "CL-VCHR-02"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Use again or ask support: refund-to-card replaced by a refund request to support that can grant a credit voucher",
+        "note": "No money returns. Row \"Ask support for a credit voucher\" opens a confirm sheet, then a request record and a link to the support chat (CL-MSGS-02 support variant). Outcomes: request sent, credit voucher granted (opens it in the wallet), request declined. Forfeited vouchers show no action and the reason. Title EN \"Use again or ask support\", AR «استخدام مجددًا أو طلب من الدعم». Arrival times, gateway fee and credit note copy are removed."
+      }
     }
   ]
 }

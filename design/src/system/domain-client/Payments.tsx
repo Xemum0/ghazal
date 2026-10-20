@@ -2,7 +2,7 @@
 // product are the KD 2 voucher and a partner's listing plan, so there is no cash row, no deposit and no balance.
 // PaymentMethodRow  one way to pay as a radio row. The marks are monochrome placeholders drawn in ink (typeset names and a glyph in a
 //                   44 x 32 hairline tile): no brand artwork is copied. Selected = ink border and the gold bead.
-// ReceiptSheet      the layout of the voucher receipt and of its credit note after a refund: issuer, number and voucher code as LTR
+// ReceiptSheet      the layout of the voucher receipt (no VAT line, no credit note: ADR 0035): issuer, number and voucher code as LTR
 //                   isolates, the line with quantity and unit, the total, how it was paid. Documents say KWD (the legal label),
 //                   Western digits, three decimals.
 import type { IconName } from '@gz/tokens'
@@ -29,7 +29,6 @@ const useW = defineWords({
   unavailable: p('Not available on this device', 'غير متاحة على هذا الجهاز'),
   selected: p('Selected', 'محددة'),
   receipt: p('Receipt', 'إيصال'),
-  creditNote: p('Credit note', 'إشعار دائن'),
   issuer: p('Ghazal', 'غزل'),
   number: p('Receipt number', 'رقم الإيصال'),
   voucherCode: p('Voucher code', 'رمز الكوبون'),
@@ -37,11 +36,7 @@ const useW = defineWords({
   via: p('Paid with', 'وسيلة الدفع'),
   line: p('Voucher for {name}', 'كوبون خاص بـ {name}'),
   total: p('Total', 'الإجمالي'),
-  refundOf: p('Refund of receipt {number}', 'استرداد الإيصال {number}'),
   refundStatus: p('Refund requested', 'تم طلب الاسترداد'),
-  refundBack: p('Returned to the original payment method', 'يُعاد المبلغ إلى وسيلة الدفع الأصلية'),
-  knetArrival: p('1 to 3 working days for KNET', 'من يوم إلى 3 أيام عمل لكي نت'),
-  cardArrival: p('Up to 10 working days for cards', 'حتى 10 أيام عمل للبطاقات'),
   footer: p('Issued in Kuwaiti dinars (KWD). Western digits, three decimals.', 'صادر بالدينار الكويتي (KWD). أرقام غربية بثلاث خانات عشرية.'),
 })
 
@@ -126,25 +121,22 @@ function Legal({ fils, strong = false }: { fils: number; strong?: boolean }) {
 
 export type ReceiptSheetProps = {
   voucher: Voucher
-  /** `credit_note`: the refund of the voucher (shown only when the voucher was refunded). Default `receipt`. */
-  kind?: 'receipt' | 'credit_note'
   className?: string
 }
 
-export function ReceiptSheet({ voucher: v, kind = 'receipt', className }: ReceiptSheetProps) {
+export function ReceiptSheet({ voucher: v, className }: ReceiptSheetProps) {
   const f = useFormat()
   const w = useW()
   const bi = useBi()
-  const credit = kind === 'credit_note' && v.refund !== null
   const target = v.targetType === 'provider' ? getProvider(v.venueOrProviderId)?.name : getVenue(v.venueOrProviderId)?.name
   const method =
     v.payment?.method === 'knet' ? w('knet') : v.payment?.method === 'apple_pay' ? w('applePay') : v.payment?.method === 'google_pay' ? w('googlePay') : v.payment?.method === 'card' ? w('cardNote') : ''
-  const number = credit ? (v.refund?.creditNoteNo ?? '') : (v.payment?.receiptNo ?? '')
-  const at = credit ? v.refund?.initiatedAt : v.payment?.at
+  const number = v.payment?.receiptNo ?? ''
+  const at = v.payment?.at
   return (
-    <article data-gz="ReceiptSheet" data-kind={kind} className={cx('gz-inv', className)}>
+    <article data-gz="ReceiptSheet" className={cx('gz-inv', className)}>
       <header className="gz-inv__head">
-        <h2 className="gz-inv__title gz-t-ui-title">{credit ? w('creditNote') : w('receipt')}</h2>
+        <h2 className="gz-inv__title gz-t-ui-title">{w('receipt')}</h2>
         <p className="gz-inv__issuer gz-t-body-s">{w('issuer')}</p>
       </header>
       <dl className="gz-inv__meta" data-gz-id="meta">
@@ -175,13 +167,6 @@ export function ReceiptSheet({ voucher: v, kind = 'receipt', className }: Receip
           </div>
         ) : null}
       </dl>
-      {credit && v.payment ? (
-        <p className="gz-inv__for gz-t-caption">
-          <Icon name="undo" size="xs" tone="secondary" />
-          <Figures text={w('refundOf', { number: v.payment.receiptNo })} />
-        </p>
-      ) : null}
-
       <ul className="gz-inv__lines" data-gz-id="lines">
         <li className="gz-inv__line">
           <span className="gz-inv__desc gz-t-body-s">
@@ -190,20 +175,15 @@ export function ReceiptSheet({ voucher: v, kind = 'receipt', className }: Receip
           <span className="gz-inv__calc gz-t-caption">
             <Figures text={`${f.integer(1)} × ${f.money(v.priceFils, { mode: 'exact', label: 'legal' })}`} />
           </span>
-          <Legal fils={credit ? -v.priceFils : v.priceFils} />
+          <Legal fils={v.priceFils} />
         </li>
       </ul>
 
       <div className="gz-inv__totals" data-gz-id="totals">
         <div className="gz-inv__total">
           <span className="gz-t-title">{w('total')}</span>
-          <Legal fils={credit ? -v.priceFils : v.priceFils} strong />
+          <Legal fils={v.priceFils} strong />
         </div>
-        {credit && v.refund ? (
-          <p className="gz-inv__due gz-t-caption">
-            {w('refundBack')} · {v.refund.arrival === 'knet_1_3_days' ? w('knetArrival') : w('cardArrival')}
-          </p>
-        ) : null}
       </div>
       <p className="gz-inv__footer gz-t-caption">{w('footer')}</p>
     </article>

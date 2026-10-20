@@ -1,0 +1,27 @@
+/* HL-CALN-05 Calendar by email (sheet). One row (glyph, line, switch) and one field on the sheet's own gutter. Tokens only. */
+
+.cal-e {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.cal-e__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-lg);
+}
+
+.cal-e__text {
+  flex: 1;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+.cal-e__addr {
+  color: var(--gz-color-sys-text-secondary);
+  overflow-wrap: anywhere;
+}

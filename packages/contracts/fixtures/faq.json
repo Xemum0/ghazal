@@ -28,8 +28,8 @@
       "ar": "لماذا يجب التأكيد خلال 24 ساعة؟"
     },
     "answer": {
-      "en": "The venue holds the date for you after approving. If you do not confirm within 24 hours, the date is released for other couples and your voucher returns to your wallet.",
-      "ar": "تحجز القاعة التاريخ لكم بعد الموافقة. إذا لم تؤكدوا خلال 24 ساعة يُفتح التاريخ لغيركم ويعود الكوبون إلى محفظتكم."
+      "en": "The venue holds the date for you after approving. You confirm by going to the hotel or service and paying the reservation there. If you do not confirm within 24 hours, the date is released for other couples and your voucher is no longer valid.",
+      "ar": "تحجز القاعة التاريخ لكم بعد الموافقة. تؤكدون بالذهاب إلى الفندق أو مزوّد الخدمة ودفع الحجز لديهم. إذا لم تؤكدوا خلال 24 ساعة يُفتح التاريخ لغيركم ويصبح الكوبون غير صالح."
     }
   },
   {
@@ -61,8 +61,8 @@
       "ar": "هل يمكن استرداد الـ 2 د.ك؟"
     },
     "answer": {
-      "en": "Yes in the cases where the venue was the reason: it declined, did not reply in time, or cancelled. If you withdraw or let the 24 hours pass, the voucher stays reusable at the same venue for 60 days.",
-      "ar": "نعم في الحالات التي كان سببها القاعة: اعتذرت أو لم تردّ في الوقت أو ألغت. وإذا سحبتم الطلب أو انتهت الـ 24 ساعة يبقى الكوبون صالحًا للاستخدام في القاعة نفسها 60 يومًا."
+      "en": "Ghazal does not return money. If the venue was the reason (it declined, did not reply in time, or cancelled), send a request to support from your wallet. If support agrees, you get a credit voucher you can use at any hall, hotel or service for 60 days. A voucher that was not confirmed within 24 hours is no longer valid.",
+      "ar": "لا تُعيد غزل أي مبلغ. إذا كان السبب من القاعة (اعتذرت أو لم تردّ في الوقت أو ألغت) أرسلوا طلبًا إلى الدعم من محفظتكم. وإذا وافق الدعم تحصلون على كوبون رصيد تستخدمونه في أي قاعة أو فندق أو خدمة خلال 60 يومًا. أما الكوبون الذي لم يُؤكَّد خلال 24 ساعة فيصبح غير صالح."
     }
   },
   {

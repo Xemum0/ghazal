@@ -1,5 +1,5 @@
 // HL-ACCS-03 Set your password. Requirements: HA-AUTH-01, HA-AUTH-02, HA-SET-05 (ADR 0028 D5).
-// Landing for the WhatsApp invitation link and for password reset. A new staff member sees who invited them and in which role (read-only card),
+// Landing for the emailed invitation link (Resend) and for password reset. A new staff member sees who invited them and in which role (read-only card),
 // picks a password and a language, and continues to device verification. Reset mode drops the card and shows a key instead.
 // Text diet (ADR 0034): a two-word title, the invitation as a card of one drawing, the venue, the role (its summary behind an info glyph) and
 // three glyph facts, one visible field label ("Confirm": the first field is named by the title and its lock), a gold thread of strength with one
@@ -13,7 +13,7 @@ import { useT } from '../../../i18n'
 import { Head, LangChip, PasswordField, StateNote } from './_components'
 import { InviteCard } from './_components/InviteCard'
 import { PasswordRules, checkPassword } from './_components/PasswordRules'
-import { DEMO_PASSWORD, invitedStaff, useAccessFlow, useAccessMoves, useLive, useScreenState } from './_components/flow'
+import { DEMO_PASSWORD, emailOf, invitedStaff, useAccessFlow, useAccessMoves, useLive, useScreenState } from './_components/flow'
 import { useContactAdmin } from './_components/support'
 import './_components/access.css'
 import './HL-ACCS-03.css'
@@ -45,8 +45,8 @@ export default function HlAccs03() {
   useEffect(() => () => timers.current.forEach(id => window.clearTimeout(id)), [])
 
   const invited = invitedStaff()
-  const national = (invited?.phone ?? '').replace(/\D/g, '').slice(-8)
-  const check = checkPassword(password, national)
+  const invitedEmail = invited ? emailOf(invited) : ''
+  const check = checkPassword(password, invitedEmail.split('@')[0] ?? '')
   const matches = password === confirm
   const valid = check.length && check.mix && matches
   const busy = view === 'loading'
@@ -62,7 +62,7 @@ export default function HlAccs03() {
       return
     }
     const flow = useAccessFlow.getState()
-    flow.setPhone(national)
+    flow.setEmail(invitedEmail)
     flow.setStaffId(invited?.id ?? null)
     // The new device is proven next (ADR 0028 D5); a trusted device goes straight in.
     if (flow.trusted && invited) finish(invited)

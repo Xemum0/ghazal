@@ -18,8 +18,9 @@ export function Terms({ name, replyHours }: { name: string; replyHours: number }
     ['hall', t('clientVouchersTermDirect', { name })],
     ['timer', t('clientVouchersTermWindows', { name, reply: tc('commonCountHours', { count: replyHours }), confirm: tc('commonCountHours', { count: CONFIRM_HOURS() }) })],
     ['hourglass', t('clientVouchersTermValid', { validity })],
-    ['undo', t('clientVouchersTermBack', { days, fee })],
+    ['undo', t('clientVouchersTermBack', { days })],
     ['refresh', t('clientVouchersTermWithdraw')],
+    ['warning-circle', t('clientVouchersTermForfeit', { confirm: tc('commonCountHours', { count: CONFIRM_HOURS() }) })],
     ['x-circle', t('clientVouchersTermUsed')],
   ]
   return (

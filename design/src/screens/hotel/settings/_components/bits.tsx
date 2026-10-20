@@ -73,7 +73,7 @@ type StepUpName = 'invite' | 'remove'
 const stepUpName = (a: PendingAction): StepUpName => (a.kind === 'remove' ? 'remove' : 'invite')
 
 /**
- * Ask for the fresh WhatsApp code before a high-risk staff change: a short dialog says why, then the Verify screen (HL-ACCS-02) opens in
+ * Ask for the fresh email code before a high-risk staff change: a short dialog says why, then the Verify screen (HL-ACCS-02) opens in
  * step-up mode and pops back here. A confirmation lasts five minutes, so a second action in a row runs straight away.
  */
 export function useStepUp(screen: Pending['screen']) {
@@ -207,8 +207,10 @@ export function useBilling(account: Account, stateOverride?: string): Billing {
     switch (stateOverride) {
       case 'plan-active':
       case 'receipts':
+      case 'contract':
+        return billingOf({ major: false, contract: true, cycle: null, endsOn: null, daysLeft: null, ended: false, needsChanges })
       case 'hotel-with-plan':
-        return sample('monthly', 29)
+        return account.type === 'provider' ? sample('monthly', 29) : billingOf({ major: false, contract: true, cycle: null, endsOn: null, daysLeft: null, ended: false, needsChanges })
       case 'plan-expiring':
         return sample('monthly', 5)
       case 'plan-expired':
@@ -224,7 +226,7 @@ export function useBilling(account: Account, stateOverride?: string): Billing {
     if (account.type === 'provider') {
       return billingOf({ major: false, cycle: live?.planCycle ?? null, endsOn: live?.endsOn ?? null, daysLeft: days(live?.endsOn ?? null), ended: live?.status === 'expired', needsChanges })
     }
-    const plan = hotelSettings.billing.plan
-    return billingOf({ major: false, cycle: plan.cycle, endsOn: plan.endsOn, daysLeft: days(plan.endsOn), ended: false, needsChanges })
+    // Hotels and halls are on a business contract (owner round 1): terms as contracted, no plan and no number.
+    return billingOf({ major: false, contract: true, cycle: null, endsOn: null, daysLeft: null, ended: false, needsChanges })
   }, [account.type, account.major, listings, stateOverride])
 }

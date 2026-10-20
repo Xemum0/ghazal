@@ -75,6 +75,8 @@ const areaById = by(areas)
 const providerById = by(services.providers)
 const bookingById = by(bk.bookings)
 const voucherById = by(vch.vouchers)
+const refundRequestById = by(vch.refundRequests)
+const creditById = by(vch.creditVouchers)
 const visitById = by(visits)
 const hallById = new Map(venues.flatMap((v) => v.halls.map((h) => [h.id, { venue: v, hall: h }])))
 const unique = (list, where, what) => {
@@ -486,7 +488,7 @@ for (const [name, v] of Object.entries(bk.heroVariants)) {
   ok(v.booking.id === hero.id && v.booking.ref === hero.ref && v.voucher.id === heroVoucher.id && v.voucher.code === heroVoucher.code, `hero:${name}`, 'same id, reference and voucher code')
   ok(eqMoney(v.booking.totals.voucherTotal, hero.totals.voucherTotal) && eqMoney(v.booking.totals.standardTotal, hero.totals.standardTotal), `hero:${name}`, 'same quote in every variant')
   const expected = voucherStatusFor(v.booking.status)
-  const voucherExpect = v.booking.status === 'cancelled' && v.booking.confirmedAt ? 'used' : expected
+  const voucherExpect = v.booking.status === 'cancelled' && v.booking.confirmedAt ? 'used' : v.booking.expiredReason === 'client_no_confirmation' ? 'forfeited' : expected
   ok(v.voucher.status === voucherExpect, `hero:${name}`, `voucher is ${v.voucher.status}, should be ${voucherExpect}`)
 }
 ok(Object.keys(bk.heroVariants).join() === 'approved,confirmed,redeemed,completed,declined,expired,lapsed,cancelled,counter_offer', 'hero', 'every state of the request machine has a variant')
@@ -494,10 +496,10 @@ ok(bk.heroVariants.expired.booking.expiredReason === 'venue_no_response' && bk.h
 ok(bk.heroVariants.counter_offer.booking.proposal?.options.length === 3, 'hero', 'counter-offer carries three dates')
 
 // ---------------------------------------------------------------- 4b. vouchers
-const VSTATUS = ['unpaid', 'active', 'bound', 'used', 'expired', 'refunded']
+const VSTATUS = ['unpaid', 'active', 'bound', 'used', 'expired', 'forfeited', 'credit_issued']
 unique(vch.vouchers.map((v) => v.id), 'vouchers', 'id')
 unique(vch.vouchers.map((v) => v.code), 'vouchers', 'code')
-unique(vch.vouchers.filter((v) => v.payment.status === 'succeeded').map((v) => v.payment.receiptNo), 'vouchers', 'receipt number')
+unique(vch.vouchers.filter((v) => v.payment?.status === 'succeeded').map((v) => v.payment.receiptNo), 'vouchers', 'receipt number')
 for (const s of VSTATUS) ok(vch.vouchers.some((v) => v.status === s), 'vouchers', `a voucher in status ${s}`)
 function checkVoucher(v, opts = {}) {
   const w = opts.label ?? v.code
@@ -506,7 +508,9 @@ function checkVoucher(v, opts = {}) {
   ok(v.id === `vch-${v.code}`, w, 'id follows the code')
   ok(userById.has(v.clientId), w, 'client exists')
   ok(VSTATUS.includes(v.status), w, `status ${v.status}`)
-  ok(v.priceFils === FEE && FEE === 2000, w, 'the voucher costs KD 2.000 (2000 fils)')
+  ok(v.priceFils === FEE && FEE === 2000, w, 'the voucher costs KD 2.000 (2000 fils), no VAT field')
+  ok(!('vat' in v) && !('refund' in v) && !('refundEligible' in v) && !('refundUntil' in v), w, 'no VAT and no money-refund fields on a voucher')
+  ok(v.kind === 'bound', w, 'vouchers list holds bound vouchers; credit vouchers live in creditVouchers')
   ok(Number.isInteger(v.quoteFils.standard) && Number.isInteger(v.quoteFils.voucher) && v.quoteFils.voucher < v.quoteFils.standard, w, 'bound quote: voucher total lower than standard, integer fils')
   ok(v.quoteFils.standard - v.quoteFils.voucher > FEE, w, 'the saving beats the voucher fee')
   const targetOk = v.targetType === 'venue' ? venueById.has(v.venueOrProviderId) && venueById.get(v.venueOrProviderId).type !== 'governmental' : providerById.has(v.venueOrProviderId)
@@ -535,24 +539,24 @@ function checkVoucher(v, opts = {}) {
   } else if (v.status === 'used') {
     ok(!!v.usedAt && !!v.usedReason, w, 'used: when and why')
     if (v.usedReason === 'redeemed') ok(!!v.redeemedBy, w, 'redeemed by a named staff member')
-    if (v.usedReason === 'cancelled_after_confirm') ok(v.refundEligible === false, w, 'a voucher consumed by a cancellation after confirming is not refundable')
+    if (v.usedReason === 'cancelled_after_confirm') ok(v.creditEligible === false, w, 'a voucher consumed by a cancellation after confirming has no credit route')
   } else if (v.status === 'active') {
     ok(v.bookingId === null, w, 'active: not attached to a request')
     if (v.releaseReason) {
       const o = releaseOutcome(v.releaseReason)
       ok(o.reusable && v.reuseUntil !== null && v.reuseUntil === addDays(kuwaitDateOf(v.releasedAt), CFG.voucherReuseDays), w, 'released: 60-day reuse window at the same venue')
-      ok(v.refundEligible === o.refundable, w, `refund eligibility follows the release reason ${v.releaseReason}`)
-      if (o.refundable) ok(v.refundUntil !== null, w, 'a refundable release carries its refund deadline')
+      ok(v.creditEligible === o.creditEligible, w, `credit-voucher eligibility follows the release reason ${v.releaseReason}`)
     }
     ok(opts.future || instantMs(v.validUntil) > instantMs(NOW), w, 'active: still inside its validity')
   } else if (v.status === 'expired') {
-    ok(instantMs(v.validUntil) < instantMs(NOW) && v.bookingId === null && v.refundEligible === false, w, 'expired: validity ended, not refunded')
-  } else if (v.status === 'refunded') {
-    ok(!!v.refund && v.refund.amount.fils === FEE && v.refundEligible === false && !!v.refund.creditNoteNo, w, 'refunded: KD 2.000 back to the original method with a credit note')
-    ok(v.refund.method === v.payment.method && instantMs(v.refund.initiatedAt) >= instantMs(v.purchasedAt), w, 'refund returns to the original method after the payment')
-    ok(v.refund.status === 'completed' ? !!v.refund.completedAt : v.refund.completedAt === null, w, 'refund completion date follows its status')
+    ok(instantMs(v.validUntil) < instantMs(NOW) && v.bookingId === null && v.creditEligible === false, w, 'expired: validity ended, no credit route')
+  } else if (v.status === 'forfeited') {
+    ok(!!v.forfeitedAt && v.bookingId === null && v.releasedAt === null && v.reuseUntil === null && v.creditEligible === false, w, 'forfeited: the 24 h confirm window lapsed, not valid, never comes back')
+  } else if (v.status === 'credit_issued') {
+    const rr = refundRequestById.get(v.refundRequestId)
+    ok(!!rr && rr.status === 'granted' && rr.voucherId === v.id && !!rr.creditVoucherId && v.creditEligible === false, w, 'credit_issued: support granted the request and a credit voucher replaces it')
   }
-  ok(v.status === 'refunded' ? true : v.refund === null, w, 'only refunded vouchers carry a refund')
+  if (v.status !== 'forfeited') ok(v.forfeitedAt === null, w, 'only forfeited vouchers carry forfeitedAt')
 }
 for (const v of vch.vouchers) checkVoucher(v)
 checkVoucher(vch.competingVoucher, { label: 'competing voucher', future: true })
@@ -565,13 +569,14 @@ for (const b of bk.bookings) {
   ok(v.clientId === b.clientId && v.venueOrProviderId === (b.venueId ?? b.providerId), b.ref, 'voucher belongs to the same client and target')
   ok(v.quoteFils.standard === b.totals.standardTotal.fils && v.quoteFils.voucher === b.totals.voucherTotal.fils, b.ref, 'voucher quote equals the request quote')
   const expect = b.status === 'cancelled' && b.confirmedAt && b.cancelledBy === 'client' ? 'used' : voucherStatusFor(b.status)
-  const refunded = v.status === 'refunded' && ['declined', 'expired', 'cancelled'].includes(b.status)
-  ok(v.status === expect || refunded, b.ref, `voucher is ${v.status}, expected ${expect} for a ${b.status} request`)
+  const credited = v.status === 'credit_issued' && ['declined', 'expired', 'cancelled'].includes(b.status)
+  const expect2 = b.status === 'expired' && b.expiredReason === 'client_no_confirmation' ? 'forfeited' : expect
+  ok(v.status === expect2 || credited, b.ref, `voucher is ${v.status}, expected ${expect2} for a ${b.status} request`)
 }
-// the client's wallet: Reem holds three vouchers in three states
+// the client's wallet: Reem holds a bound (hero), a released-active, a forfeited, a credit_issued and a credit voucher granted by support
 {
   const reem = vch.vouchers.filter((v) => v.clientId === meta.clientUserId)
-  ok(reem.length === 3 && ['active', 'bound', 'refunded'].every((s) => reem.some((v) => v.status === s)), 'wallet', `Reem's wallet holds a bound, an active and a refunded voucher, got ${reem.map((v) => v.status)}`)
+  ok(reem.length === 4 && ['active', 'bound', 'forfeited', 'credit_issued'].every((s) => reem.some((v) => v.status === s)) && vch.creditVouchers.filter((c) => c.clientId === meta.clientUserId && c.status === 'active').length === 1, 'wallet', `Reem's wallet holds bound, active, forfeited, credit_issued and one credit voucher, got ${reem.map((v) => v.status)}`)
   const open = bk.bookings.filter((b) => ['pending', 'approved'].includes(b.status))
   const perClient = {}
   for (const b of open) perClient[b.clientId] = (perClient[b.clientId] ?? 0) + 1
@@ -579,7 +584,7 @@ for (const b of bk.bookings) {
 }
 // receipts: gapless in order of payment
 {
-  const paid = vch.vouchers.filter((v) => v.payment.status === 'succeeded').sort((a, b) => (a.purchasedAt < b.purchasedAt ? -1 : a.purchasedAt > b.purchasedAt ? 1 : a.id < b.id ? -1 : 1))
+  const paid = vch.vouchers.filter((v) => v.payment?.status === 'succeeded').sort((a, b) => (a.purchasedAt < b.purchasedAt ? -1 : a.purchasedAt > b.purchasedAt ? 1 : a.id < b.id ? -1 : 1))
   ok(paid.every((v, i) => v.payment.receiptNo === `RC-${String(50001 + i).padStart(6, '0')}`), 'receipts', 'gapless receipt numbers in order of payment')
 }
 
@@ -595,7 +600,7 @@ for (const b of bk.bookings) {
   ok(s.sections[0].hallId === 'V01-danah' && s.sections[0].guests === 350 && s.status === 'pending', 'story', 'Danah Ballroom, 350 guests, pending')
   ok(bk.heroVariants.approved.booking.confirmBy === '2026-11-13T16:00:00+03:00', 'story', 'approved variant: confirm by Fri 13 Nov 4:00 PM')
   ok(bk.heroVariants.confirmed.booking.thread.find((n) => n.node === 'confirmation').state === 'done', 'story', 'confirmed variant has the confirmation knotted')
-  ok(bk.heroVariants.declined.voucher.refundEligible === true && bk.heroVariants.lapsed.voucher.refundEligible === false && bk.heroVariants.cancelled.voucher.refundEligible === false, 'story', 'declined: refundable; lapsed and withdrawn: reusable, not refundable')
+  ok(bk.heroVariants.declined.voucher.creditEligible === true && bk.heroVariants.lapsed.voucher.status === 'forfeited' && bk.heroVariants.cancelled.voucher.creditEligible === false, 'story', 'declined: may ask support for a credit voucher; lapsed: forfeited; withdrawn: reusable, no credit route')
   ok(meta.story.voucherId === heroVoucher.id && meta.story.statusAtNow === 'pending', 'story', 'story pointer')
 }
 
@@ -858,13 +863,13 @@ ok(!existsSync(resolve(fx, 'offers.json')) && !existsSync(resolve(fx, 'policies.
   ok(client.notifications.every((n, i, all) => i === 0 || n.at <= all[i - 1].at), 'notifications', 'client notifications are newest first')
   unique([...client.notifications, ...hotel.notifications].map((n) => n.id), 'notifications', 'id')
   const kinds = new Set([...client.notifications, ...hotel.notifications, ...Object.values(client.heroVariantNotifications)].map((n) => n.kind))
-  for (const k of ['request_sent', 'request_approved', 'request_confirmed', 'request_declined', 'request_expired', 'voucher_ready', 'voucher_released', 'voucher_refunded', 'voucher_redeemed', 'visit_confirmed', 'visit_reminder', 'visit_request', 'client_confirmed', 'client_lapsed', 'voucher_redeemed_by_you', 'confirm_reminder']) {
+  for (const k of ['request_sent', 'request_approved', 'request_confirmed', 'request_declined', 'request_expired', 'voucher_ready', 'voucher_released', 'credit_voucher_issued', 'voucher_redeemed', 'visit_confirmed', 'visit_reminder', 'visit_request', 'client_confirmed', 'client_lapsed', 'voucher_redeemed_by_you', 'confirm_reminder']) {
     ok(kinds.has(k), 'notifications', `a sample of ${k}`)
   }
   for (const n of [...client.notifications, ...hotel.notifications]) {
     ok(instantMs(n.at) <= instantMs(NOW), n.id, 'notification before NOW')
     ok(!n.title.en.includes('!') && !n.body.en.includes('!') && !n.body.ar.includes('!'), n.id, 'no exclamation marks')
-    if (n.voucherId) ok(voucherById.has(n.voucherId) || vch.competingVoucher.id === n.voucherId, n.id, 'voucher exists')
+    if (n.voucherId) ok(voucherById.has(n.voucherId) || creditById.has(n.voucherId) || vch.competingVoucher.id === n.voucherId, n.id, 'voucher exists')
     if (n.visitId) ok(visitById.has(n.visitId), n.id, 'visit exists')
     if (n.bookingId) ok(bookingById.has(n.bookingId), n.id, 'booking exists')
   }
@@ -968,7 +973,7 @@ ok(!existsSync(resolve(fx, 'offers.json')) && !existsSync(resolve(fx, 'policies.
     if (l.status === 'expired') ok(l.endsOn < TODAY, w, 'expired: the period ended')
     if (l.status === 'rejected') {
       ok(!!l.rejection && l.rejection.codes.length >= 1 && l.rejection.note.en && l.rejection.note.ar, w, 'rejected with reason codes and a note')
-      ok(l.planKeptUntil === addDays(kuwaitDateOf(l.decidedAt), CFG.listingRejectedRetentionDays), w, 'the plan is kept 14 days for a resubmission')
+      ok(l.planKeptUntil === null && l.feeRefund === null, w, 'rejected: the team note guides a resubmission; no automatic 14-day rule (ADR 0035 D7)')
     } else ok(l.rejection === null && l.planKeptUntil === null, w, 'only rejected listings carry a rejection')
     if (l.status === 'draft') ok(l.submittedAt === null && l.planCycle === null, w, 'a draft is not submitted and has no plan')
     if (l.status === 'pending_review') ok(!!l.submittedAt && l.decidedAt === null && !!l.planCycle, w, 'in review: submitted, undecided, plan chosen')
@@ -1049,11 +1054,64 @@ checkBilingual(allFixtures, '$')
   ok(stressBookings.bookings.some((b) => b.status === 'expired' && b.expiredReason === 'slot_taken'), 'stress', 'a request whose slot another couple took')
   ok(stressBookings.bookings.some((b) => b.status === 'cancelled' && b.reasonCode === 'withdrawn'), 'stress', 'a withdrawn request')
   for (const b of stressBookings.bookings) checkBooking(b, { label: `stress ${b.ref}` })
-  ok(stressBookings.vouchers.length === stressBookings.bookings.length && stressBookings.vouchers.every((v) => v.status === 'active' && v.bookingId === null), 'stress', 'every stress request released its voucher')
+  ok(stressBookings.vouchers.length === stressBookings.bookings.length && stressBookings.vouchers.every((v) => (v.status === 'active' || v.status === 'forfeited') && v.bookingId === null), 'stress', 'every stress request released its voucher, or forfeited it when the 24 h window lapsed')
   ok(Object.values(stressEmpty).every((v) => Array.isArray(v) && v.length === 0), 'stress', 'empty variants are empty')
   ok(venues.some((v) => v.halls.length > 1 && v.halls.some((h) => h.sections.length === 1 && h.sections[0].audience === 'women') && v.halls.some((h) => h.sections.length === 1 && h.sections[0].audience === 'men')), 'stress', 'separate ladies and men halls on one venue')
   ok(bk.bookings.some((b) => b.sections.length === 2), 'stress', 'a two-section request')
   ok(typeof stressText.voucherCodeIsolate === 'string' && VOUCHER_CODE.test(stressText.voucherCodeIsolate), 'stress', 'a voucher code isolate in the bidi sheet')
+}
+
+// ---------------------------------------------------------------- 9. owner round 1 (ADR 0035): credit vouchers, billing mode, email invitations, media limits
+{
+  const RR = vch.refundRequests
+  ok(RR.length >= 1 && RR.every((r) => ['requested', 'granted', 'declined'].includes(r.status)), 'refund-requests', 'support credit requests exist with a valid status')
+  for (const r of RR) {
+    const w = r.id
+    const v = voucherById.get(r.voucherId)
+    ok(!!v && v.clientId === r.clientId && v.kind === 'bound', w, 'request concerns a bound voucher of the client')
+    ok(chat.conversations.some((c) => c.id === r.conversationId && c.kind === 'support' && c.clientId === r.clientId), w, 'request lives in the client support thread')
+    ok(!('refundMethod' in r) && !('amount' in r) && !('method' in r), w, 'no money fields on a credit request')
+    if (r.status === 'granted') ok(!!r.decidedAt && !!r.decidedBy && !!creditById.get(r.creditVoucherId) && instantMs(r.decidedAt) >= instantMs(r.requestedAt), w, 'granted: decided by support, credit voucher exists')
+    else ok(r.creditVoucherId === null, w, 'only granted requests carry a credit voucher')
+    if (r.status === 'declined') ok(!!r.declineReason, w, 'declined: a reason for the client')
+  }
+  for (const c of vch.creditVouchers) {
+    const w = c.code
+    ok(c.kind === 'credit' && c.id === `vch-${c.code}` && !!VOUCHER_CODE.exec(c.code), w, 'credit voucher: kind, id and code format')
+    ok(!['targetType', 'venueOrProviderId', 'hallId', 'packageId', 'eventDate', 'quoteFils', 'payment', 'vat'].some((k) => k in c), w, 'credit voucher is unbound: no venue, provider, quote, event date, payment or VAT')
+    ok(c.priceFils === FEE && ['active', 'used', 'expired'].includes(c.status), w, 'credit voucher: KD 2.000 value, active, used or expired')
+    ok(refundRequestById.get(c.grantedFrom.requestId)?.creditVoucherId === c.id && voucherById.get(c.grantedFrom.voucherId)?.status === 'credit_issued', w, 'credit voucher traces to a granted support request and its credit_issued source')
+    ok(instantMs(c.validUntil) === instantMs(`${addDays(kuwaitDateOf(c.grantedAt), CFG.creditVoucherValidityDays)}T23:59:00+03:00`), w, 'credit voucher valid 60 days from the grant')
+    ok(c.qr.version === 1 && c.qr.payload === qrPayload(c.code, 'any').payload, w, 'credit QR payload')
+    ok(c.status !== 'active' || instantMs(c.validUntil) > instantMs(NOW), w, 'active credit is inside its validity')
+    ok(c.status === 'used' ? !!c.usedAt : c.usedAt === null, w, 'credit used: when')
+  }
+  ok(chat.messages.some((m) => m.conversationId === 'conv-support-reem' && m.kind === 'credit_card'), 'refund-requests', 'the support thread shows the credit voucher card')
+  // billing: hotels and halls on contract, services on a plan, never a number
+  const BL = partners.billing
+  ok(BL.length === partners.accounts.length, 'billing', 'one billing record per partner account')
+  for (const b of BL) {
+    const a = partners.accounts.find((x) => x.id === b.partnerAccountId)
+    ok(!!a, b.partnerAccountId, 'billing belongs to a partner account')
+    if (a?.type === 'venue') ok(b.mode === 'contract' && !!b.contractSummary?.en && !!b.contractSummary?.ar && b.plan === null, b.partnerAccountId, 'hotel or hall: contract with a one-line summary, no plan')
+    else ok(b.mode === 'plan' && b.contractSummary === null && !!b.plan && b.plan.ratesFils === null, b.partnerAccountId, 'service provider: plan, rate not set')
+    ok(!JSON.stringify(b).match(/\d{3,}/), b.partnerAccountId, 'no price or number in billing')
+  }
+  ok(hotel.settings.billing.mode === 'contract' && !!hotel.settings.billing.contractSummary && hotel.settings.billing.plan.cycle === null, 'billing', 'the hotel persona settings show a contract')
+  ok(partners.adPlans.every((p) => p.ratesFils === null), 'billing', 'ad plan rates stay null until the Super Admin sets them')
+  // staff invitations by email
+  const INV = people.staffInvitations
+  ok(INV.length >= 2 && INV.some((i) => i.status === 'invited') && INV.some((i) => i.status === 'accepted'), 'invitations', 'an invited and an accepted invitation')
+  for (const i of INV) {
+    ok(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(i.email) && !('phone' in i), i.id, 'invited by email, never by phone or WhatsApp')
+    ok(['invited', 'accepted'].includes(i.status) && (i.status === 'accepted' ? i.expiresAt === null : !!i.expiresAt), i.id, 'status and expiry agree')
+    ok(people.hotelStaff.some((s) => s.id === i.staffId && s.venueId === i.venueId), i.id, 'linked staff record')
+  }
+  // calendar sync by email, review actions, no VAT anywhere
+  ok(hotel.settings.calendarSync.channel === 'email' && /@/.test(hotel.settings.calendarSync.address), 'calendar', 'external calendar sync by email')
+  ok(reviews.every((r) => r.supportRequest === null || ['request_hide', 'request_delete'].includes(r.supportRequest.action)), 'reviews', 'hide or delete only through a support request')
+  ok(!JSON.stringify([vch, bk, stressBookings]).toLowerCase().includes('"vat'), 'vat', 'no VAT field in any voucher or request fixture')
+  ok(!('voucherRefundDaysAfterExpiry' in CFG) && CFG.creditVoucherValidityDays === 60, 'config', 'no refund window; credit vouchers last 60 days')
 }
 
 // ---------------------------------------------------------------- report

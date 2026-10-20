@@ -117,7 +117,7 @@ export const SHEET_SCREENS: ReadonlySet<string> = new Set([
   'CL-AUTH-01', 'CL-DISC-02', 'CL-DISC-04', 'CL-DISC-06', 'CL-VENU-03', 'CL-VENU-04', 'CL-VENU-05', 'CL-SAVD-02',
   'CL-SAVD-03', 'CL-BOOK-07', 'CL-BKNG-03', 'CL-BKNG-04', 'CL-WEDD-04', 'CL-WEDD-05', 'CL-PLAN-04', 'CL-SERV-04',
   'CL-MSGS-03', 'CL-VCHR-01', 'CL-VCHR-04', 'CL-VCHR-05', 'CL-VIST-01', 'CL-VIST-05', 'HL-BOOK-04', 'HL-BOOK-07',
-  'HL-DCSN-01', 'HL-DCSN-02', 'HL-DCSN-03', 'HL-DCSN-04', 'HL-CALN-04', 'HL-VIST-04',
+  'HL-DCSN-01', 'HL-DCSN-02', 'HL-DCSN-03', 'HL-DCSN-04', 'HL-CALN-04', 'HL-CALN-05', 'HL-VIST-04',
 ])
 
 export const isSheetScreen = (id: string): boolean => SHEET_SCREENS.has(id)

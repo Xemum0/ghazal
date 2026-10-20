@@ -84,6 +84,7 @@ export default function CalendarMonth({ state }: { state?: string }) {
   const top = (
     <CalTop
       offline={offline}
+      onEmail={() => nav.openSheet('HL-CALN-05', { params: { role } })}
       actions={
         may && !offline && !loading && !error
           ? { select: { pressed: selecting, onPress: toggleSelect }, block: () => openBlock(selecting ? { start: range.start, end: range.end } : { start: store.selected, end: store.selected }) }

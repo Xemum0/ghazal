@@ -1,5 +1,5 @@
 // HL-GROW-06 Reviews: read what couples wrote, reply once in the venue's voice and report abuse. The venue never approves, edits or hides a
-// review; Ghazal moderates (CF-24). This is also the landing of the new-review notification (`reviewId` param: scrolled to, reply sheet ready).
+// review; Ghazal moderates (CF-24); hiding or deleting is asked of support (button opens the support chat). This is also the landing of the new-review notification (`reviewId` param: scrolled to, reply sheet ready).
 // Text diet (ADR 0034): the score as one big figure with its stars and review count, the four category scores as glyph and figure, glyph filters
 // with one word under the chosen one, reviews as a monogram, stars, glyph facts and the couple's own words (clamped), the moderation rule behind
 // the (i) of the bar. The list opens on the four newest and grows by one tap, so a long history never buries the one waiting for a reply.
@@ -234,6 +234,9 @@ export default function Reviews() {
       </Screen>
       <InfoSheet open={rules} onClose={() => setRules(false)} title={t('hotelGrowRwRulesTitle')}>
         <p>{t('hotelGrowRwModerated')}</p>
+        <Button variant="secondary" iconStart="chat-text" onClick={() => { setRules(false); nav.push('HL-TODY-05', { conversationId: 'conv-support-aurelia' }) }}>
+          {t('hotelGrowRwAskSupport')}
+        </Button>
       </InfoSheet>
       {state === 'reply-sheet' && focus ? (
         <StaticSheet label={t('hotelGrowRwReplyTitle', { name: bi(focus.author) })}>

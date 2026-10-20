@@ -79,7 +79,9 @@
         "CA-STAT-13",
         "CA-STAT-14",
         "CA-VCH-07",
-        "CA-VCH-11"
+        "CA-VCH-11",
+        "CA-VCH-16",
+        "CA-VCH-17"
       ],
       "states": [
         "pending",
@@ -106,7 +108,7 @@
         "Confirmed: voucher card with code and QR (CL-VCHR-03), \"Pay Aurelia Gulf Hotel directly, then show this code\", the venue phone, Add to calendar, Book a visit, Message, Cancel; policy dates and a refund calculator no longer exist",
         "Voucher redeemed: \"Voucher redeemed on Mon 4 Jan 2027\" and the final venue price; Completed: review prompt the morning after (CL-RVRW-02) and \"Report an issue\" for 72 hours (venue would not honour the voucher price, voucher not redeemed)",
         "Venue proposed another date: one card that opens CL-BKNG-04 (a landing from the push opens the response sheet immediately)",
-        "Not accepted: a gentle reason category, \"Your voucher is still yours\" with Use again or Refund (CL-VCHR-05) and a rail of three halls free on the date; Expired: reason (the venue did not reply, the 24 hours passed, the date was taken), the voucher outcome and \"Send to similar venues\"",
+        "Not accepted: a gentle reason category, \"Your voucher is still yours\" with Use again or Ask support (CL-VCHR-05) and a rail of three halls free on the date; Expired: reason (the venue did not reply, the 24 hours passed, the date was taken), the voucher outcome and \"Send to similar venues\"",
         "Chat entry opens the venue thread with the booking context bar (CL-MSGS-02); the Thread highlights a changed node for 1.2 s on arrival from a push"
       ],
       "contentNotes": "Header: Aurelia Gulf Hotel · Danah Ballroom · «الحفل النسائي» / Ladies' reception · «الخميس 14 يناير 2027» (Arabic adds «6 شعبان 1448 هـ») · 350 guests · reference GZ-2611-0147. Price (illustrative seed): Standard 350 x KD 52 = KD 18,200.000, Voucher KD 15,400.000, You save KD 2,800.000. Approved copy «تمت الموافقة. أكدوا حجزكم قبل الجمعة 13 نوفمبر، 4:00 م.» / \"Approved. Confirm your booking by Fri 13 Nov, 4:00 PM.\" Confirmed copy «ادفعوا للقاعة مباشرةً، ثم أظهروا هذا الرمز.» / \"Pay the venue directly, then show this code.\" Expired not confirmed: «انتهت مهلة التأكيد (24 ساعة). كوبونكم عاد إليكم لاستخدامه مرة أخرى في القاعة نفسها.» / \"The 24-hour confirmation window ended. Your voucher is back with you for another request at the same venue.\" Superseded by ADR 0033: deposit, balance, guest-count lock, refund calculator, invoice section, reschedule, refund tracker and no-show variants.",
@@ -125,7 +127,13 @@
         "CL-DISC-03",
         "CL-VENU-01",
         "CL-BOOK-01"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Not accepted and expired outcomes: Ask support instead of Refund; confirm lapse shows not valid",
+        "note": "Not accepted: \"Your voucher is still yours\" with Use again or Ask support. Expired (client did not confirm in 24 h): \"The voucher is no longer valid.\""
+      }
     },
     {
       "id": "CL-BKNG-03",
@@ -151,7 +159,7 @@
         "offline"
       ],
       "interactions": [
-        "Step 1 consequence panel: what happens to the date, and what happens to the voucher (\"Your voucher returns to you and can be used again at Aurelia Gulf Hotel until Fri 8 Jan 2027\" or \"Cancelling a confirmed booking uses your voucher; it cannot be refunded or reused\"); an alternative \"Message the venue instead\" opens the thread",
+        "Step 1 consequence panel: what happens to the date, and what happens to the voucher (\"Your voucher returns to you and can be used again at Aurelia Gulf Hotel until Fri 8 Jan 2027\" or \"Cancelling a confirmed booking uses your voucher; it cannot be reused and no money is returned\"); an alternative \"Message the venue instead\" opens the thread",
         "Step 2 reason chips (Plans changed, Found another venue, Date changed, Budget, Other) with an optional note",
         "Step 3 explicit confirm; the destructive action is text-plus-icon, never colour alone; done returns to Booking detail with the new status and the voucher outcome card"
       ],
@@ -161,7 +169,13 @@
         "CL-BKNG-02",
         "CL-VCHR-05",
         "CL-MSGS-02"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Cancel wording: no money refund; support credit only for venue-fault cases",
+        "note": "Confirmed: \"Cancelling a confirmed booking uses up your voucher. There is no refund and no credit.\" Withdraw before approval: voucher comes back. AR keeps «يستهلك الكوبون»."
+      }
     },
     {
       "id": "CL-BKNG-04",
@@ -207,7 +221,7 @@
         "ar": "الإيصالات"
       },
       "kind": "screen",
-      "purpose": "Every Ghazal receipt: the KD 2 voucher payments and voucher refunds (credit notes), with a bilingual PDF viewer. There are no scheduled payments, no balances and no event invoices. Opened from Profile > Receipts, My vouchers and the voucher-ready screen.",
+      "purpose": "Every Ghazal receipt: the KD 2 voucher payments (no credit notes; credit vouchers appear in the wallet), with a bilingual PDF viewer. There are no scheduled payments, no balances and no event invoices. Opened from Profile > Receipts, My vouchers and the voucher-ready screen.",
       "requirementIds": [
         "CA-PROF-05",
         "CA-NOTI-07",
@@ -220,12 +234,12 @@
         "error",
         "offline",
         "receipt-viewer",
-        "refund-row",
-        "downloaded"
+        "downloaded",
+        "credit-grant-row"
       ],
       "interactions": [
         "Rows grouped by month: \"Voucher · KNET · Thu 12 Nov 2026 · KD 2.000 · Receipt\" and, after a refund, \"Refund · KD 2.000 · processing\" with its arrival estimate",
-        "Tapping a row opens the viewer sheet: bilingual PDF preview with Share (OS sheet), Download and Open in; receipt per voucher payment and credit note per refund",
+        "Tapping a row opens the viewer sheet: bilingual PDF preview with Share (OS sheet), Download and Open in; receipt per voucher payment",
         "Each row links to its voucher (CL-VCHR-03); a quiet line says \"Event payments are between you and the venue and do not appear here\""
       ],
       "contentNotes": "Documents say KWD (receipts only) and use Western digits in both languages; screens say KD. Legal issuer wording is pending (OQ-B-06); Kuwait has no VAT so there are no tax lines. Superseded by ADR 0033: the Paid and Remaining strip, scheduled balance rows, booking invoice and deposit receipts.",
@@ -233,7 +247,13 @@
       "navigatesTo": [
         "CL-VCHR-03",
         "CL-BKNG-02"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Receipts: no credit notes; a credit voucher grant appears as a wallet entry, no tax line",
+        "note": "Rows: voucher receipts only. A granted refund request shows \"Credit voucher granted\" linking to the wallet instead of a refund row with an arrival estimate. No VAT or tax line."
+      }
     }
   ]
 }

@@ -77,6 +77,7 @@ const listing = (o) => ({
   endsOn: null,
   rejection: null,
   planKeptUntil: null,
+  feeRefund: null,
   sponsored: false,
   history: [],
   ...o,
@@ -158,7 +159,7 @@ const zl = (o) => listing({ providerId: Z, partnerAccountId: zp.partnerAccountId
           'يبدو هذا الإعلان تصميمًا وإيجارًا للكوشة. نرجو نشره ضمن تنسيق وديكور المناسبات مع ذكر السعر لكل مناسبة.',
         ),
       },
-      planKeptUntil: addDays(kuwaitDay(rej), 14),
+      planKeptUntil: null,
       history: [
         decision('lst-flowers-zahra-kosha', addHours(sub2, -1), null, 'draft', 'provider'),
         decision('lst-flowers-zahra-kosha', sub2, 'draft', 'pending_review', 'provider', { note: RATES_NOTE }),
@@ -210,3 +211,13 @@ export const partnerPersonas = [
   { id: 'persona-hotel-non-major', kind: 'hotel_non_major', userId: 'user-lumi-manager', partnerAccountId: 'partner-V05', roleLabel: bil('Manager · Lumi Marina Hotel', 'مديرة · فندق لومي مارينا'), phone: '+96550000046' },
   { id: 'persona-provider', kind: 'service_provider', userId: 'user-zahra', partnerAccountId: 'partner-vendor-flowers-zahra', roleLabel: bil('Owner · Zahra Floral Studio', 'مالكة · استوديو زهرة للزهور'), phone: '+96550000047' },
 ]
+
+// ---------------------------------------------------------------- how each partner pays (ADR 0035 D7): hotels and halls mostly on a business contract, services on a plan.
+// No price anywhere: contract terms are as contracted, plan rates are set in the Super Admin panel (null until then).
+const CONTRACT_LINE = bil('Business contract with Ghazal, terms as agreed.', 'عقد عمل مع غزل، بالشروط المتفق عليها.')
+export const partnerBilling = partnerAccounts.map((a) => {
+  const isHotel = a.type === 'venue'
+  if (isHotel) return { partnerAccountId: a.id, mode: 'contract', contractSummary: CONTRACT_LINE, plan: null }
+  const zahraListing = listings.find((l) => l.partnerAccountId === a.id && l.planCycle)
+  return { partnerAccountId: a.id, mode: 'plan', contractSummary: null, plan: { cycle: zahraListing ? zahraListing.planCycle : null, endsOn: null, ratesFils: null } }
+})

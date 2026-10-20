@@ -1,0 +1,217 @@
+{
+  "flows": [
+    {
+      "app": "client",
+      "flow": "vouchers (CL-VCHR)",
+      "changed": [
+        {
+          "id": "CL-VCHR-01",
+          "change": "Terms: 24 h lapse forfeits, credit voucher via support, no money refund"
+        },
+        {
+          "id": "CL-VCHR-02",
+          "change": "Wallet: credit voucher kind, Not valid and Credit issued history, Ask support replaces Refund"
+        },
+        {
+          "id": "CL-VCHR-03",
+          "change": "States forfeited, credit-issued, credit-voucher-ready replace refunded"
+        },
+        {
+          "id": "CL-VCHR-05",
+          "change": "Refund-to-card replaced by refund request to support that can grant a credit voucher"
+        }
+      ],
+      "new": [],
+      "notes": "Refund request goes to the support thread (CL-MSGS-02 support variant); no new screen needed."
+    },
+    {
+      "app": "client",
+      "flow": "payment (CL-PAYM)",
+      "changed": [
+        {
+          "id": "CL-PAYM-01",
+          "change": "Credit voucher can be applied instead of paying KD 2; no VAT line"
+        },
+        {
+          "id": "CL-PAYM-05",
+          "change": "Reminder line: 24 h confirm or the voucher is not valid"
+        }
+      ],
+      "new": [],
+      "notes": ""
+    },
+    {
+      "app": "client",
+      "flow": "booking (CL-BOOK)",
+      "changed": [
+        {
+          "id": "CL-BOOK-08",
+          "change": "Lapsed state: voucher forfeited"
+        },
+        {
+          "id": "CL-BOOK-10",
+          "change": "Window ended: client lapse invalid, venue revoke may ask support for credit"
+        }
+      ],
+      "new": [],
+      "notes": ""
+    },
+    {
+      "app": "client",
+      "flow": "bookings (CL-BKNG)",
+      "changed": [
+        {
+          "id": "CL-BKNG-02",
+          "change": "Ask support instead of Refund; lapse shows not valid"
+        },
+        {
+          "id": "CL-BKNG-03",
+          "change": "Cancel wording: no money refund"
+        },
+        {
+          "id": "CL-BKNG-05",
+          "change": "No credit notes; credit grant row; no tax line"
+        }
+      ],
+      "new": [],
+      "notes": ""
+    },
+    {
+      "app": "client",
+      "flow": "messages (CL-MSGS)",
+      "changed": [
+        {
+          "id": "CL-MSGS-01",
+          "change": "Support thread entry for credit voucher requests"
+        },
+        {
+          "id": "CL-MSGS-04",
+          "change": "Notification kind Refunded becomes Credit voucher issued"
+        }
+      ],
+      "new": [],
+      "notes": ""
+    },
+    {
+      "app": "client",
+      "flow": "terms and account (CL-AUTH, CL-VENU, CL-PROF)",
+      "changed": [
+        {
+          "id": "CL-AUTH-03",
+          "change": "Terms line: forfeit and credit voucher"
+        },
+        {
+          "id": "CL-VENU-05",
+          "change": "Voucher terms: forfeit and credit voucher"
+        },
+        {
+          "id": "CL-PROF-06",
+          "change": "Deletion: ready voucher is lost, no refund"
+        }
+      ],
+      "new": [],
+      "notes": ""
+    },
+    {
+      "app": "hotel",
+      "flow": "access (HL-ACCS)",
+      "changed": [
+        {
+          "id": "HL-ACCS-01",
+          "change": "Email and password sign-in, email invitation, reset by email"
+        },
+        {
+          "id": "HL-ACCS-02",
+          "change": "Verification code by email (was WhatsApp)"
+        },
+        {
+          "id": "HL-ACCS-03",
+          "change": "Set-password landing for email invitation"
+        },
+        {
+          "id": "HL-ACCS-04",
+          "change": "Status updates by email"
+        }
+      ],
+      "new": [],
+      "notes": ""
+    },
+    {
+      "app": "hotel",
+      "flow": "settings (HL-SETT)",
+      "changed": [
+        {
+          "id": "HL-SETT-01",
+          "change": "Billing row: plan, Business contract or Major hotel"
+        },
+        {
+          "id": "HL-SETT-02",
+          "change": "Escalations by email"
+        },
+        {
+          "id": "HL-SETT-03",
+          "change": "Staff invited by email (Resend), step-up by email"
+        },
+        {
+          "id": "HL-SETT-04",
+          "change": "Plan mode versus contract mode, no credit notes"
+        }
+      ],
+      "new": [],
+      "notes": ""
+    },
+    {
+      "app": "hotel",
+      "flow": "venue (HL-VENU)",
+      "changed": [
+        {
+          "id": "HL-VENU-01",
+          "change": "Video limit 500 MB, high quality"
+        }
+      ],
+      "new": [],
+      "notes": ""
+    },
+    {
+      "app": "hotel",
+      "flow": "calendar (HL-CALN)",
+      "changed": [],
+      "new": [
+        "HL-CALN-05"
+      ],
+      "notes": "Calendar by email (.ics through Resend). Added to inventory; not built yet."
+    },
+    {
+      "app": "hotel",
+      "flow": "grow (HL-GROW)",
+      "changed": [
+        {
+          "id": "HL-GROW-06",
+          "change": "Reviews: Ask support to hide or delete; reply once and report stay"
+        }
+      ],
+      "new": [],
+      "notes": ""
+    },
+    {
+      "app": "hotel",
+      "flow": "provider (HL-PROV)",
+      "changed": [
+        {
+          "id": "HL-PROV-04",
+          "change": "Plans for services; contract card for hotels and halls"
+        },
+        {
+          "id": "HL-PROV-05",
+          "change": "Fee refund on support request, no 14-day rule"
+        },
+        {
+          "id": "HL-PROV-06",
+          "change": "Rejected shows team notes and refund-on-request path"
+        }
+      ],
+      "new": [],
+      "notes": ""
+    }
+  ]
+}

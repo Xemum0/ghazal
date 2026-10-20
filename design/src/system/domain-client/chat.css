@@ -62,6 +62,7 @@
   align-items: center;
   gap: var(--gz-space-1);
   padding-inline: var(--gz-space-1);
+  padding-block-start: var(--gz-space-1); /* air between the bubble edge and the time (Arabic ascenders sit high) */
   color: var(--gz-color-sys-text-secondary);
 }
 

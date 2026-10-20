@@ -15,9 +15,9 @@ export const selectPendingHotelRequests = (s: PrototypeState): Booking[] =>
 export const selectAwaitingClient = (s: PrototypeState): Booking[] =>
   s.hotelBookings.filter(b => b.status === 'approved').sort((a, b) => (a.confirmBy ?? '').localeCompare(b.confirmBy ?? ''))
 
-const WALLET_RANK: Record<Voucher['status'], number> = { bound: 0, active: 1, unpaid: 2, used: 3, expired: 4, refunded: 5 }
+const WALLET_RANK: Record<Voucher['status'], number> = { bound: 0, active: 1, unpaid: 2, used: 3, expired: 4, forfeited: 5, credit_issued: 6 }
 
-/** The signed-in client's wallet (My vouchers): live vouchers first, then used, expired and refunded, newest first. */
+/** The signed-in client's wallet (My vouchers): live vouchers first, then used, expired, forfeited and credit-issued, newest first. */
 export const selectMyVouchers = (s: PrototypeState): Voucher[] => {
   const me = s.user?.id
   return s.vouchers

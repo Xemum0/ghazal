@@ -20,7 +20,7 @@ import {
 export type PhotoStatus = 'live' | 'review' | 'rejected'
 export type PhotoItem = { id: string; image: GalleryItem; status: PhotoStatus; reason?: 'person'; /** The English alt text is still missing (HA-VMGT-09: three photos in the story). */ gapEn?: boolean }
 export type VideoItem = { id: string; title: Bilingual; seconds: number; poster: GalleryItem; status: 'live' | 'review' }
-export type UploadItem = { id: string; kind: 'photo' | 'video'; label: Bilingual; progress: number; status: 'uploading' | 'failed' | 'queued'; poster: GalleryItem | null }
+export type UploadItem = { id: string; kind: 'photo' | 'video'; label: Bilingual; progress: number; status: 'uploading' | 'failed' | 'queued'; reason?: 'large'; poster: GalleryItem | null }
 
 // ---------------------------------------------------------------- packages and extras
 

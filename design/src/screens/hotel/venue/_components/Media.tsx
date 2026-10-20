@@ -48,7 +48,8 @@ export function UploadRow({ item, onRetry }: { item: UploadItem; onRetry?: () =>
   const { t, f, bi } = useV()
   const failed = item.status === 'failed'
   const queued = item.status === 'queued'
-  const status = failed ? t('hotelVenueUploadFailed') : queued ? t('hotelVenueUploadQueued') : t('hotelVenueUploading', { percent: f.percent(item.progress) })
+  const large = failed && item.reason === 'large'
+  const status = large ? t('hotelVenueVideoTooLargeBody', { size: VIDEO_MAX_MB }) : failed ? t('hotelVenueUploadFailed') : queued ? t('hotelVenueUploadQueued') : t('hotelVenueUploading', { percent: f.percent(item.progress) })
   return (
     <div className="hv-up" data-status={item.status} data-gz="UploadRow">
       <span className="hv-up__thumb">
@@ -68,7 +69,7 @@ export function UploadRow({ item, onRetry }: { item: UploadItem; onRetry?: () =>
           <Icon name={failed ? 'warning-circle' : queued ? 'offline' : 'upload'} size="xs" tone={failed ? 'danger' : 'secondary'} />
           <Figures text={status} />
         </span>
-        {failed ? (
+        {failed && !large ? (
           <span className="hv-up__retry">
             <Button variant="tertiary" onClick={onRetry}>
               {t('hotelVenueUploadRetry')}
@@ -379,7 +380,7 @@ export function ZonePicker({ value, onChange }: { value: MediaZone | null; onCha
 
 // ---------------------------------------------------------------- upload sheet
 
-export type UploadStep = 'source' | 'details' | 'face'
+export type UploadStep = 'source' | 'details' | 'face' | 'large'
 export type UploadSheetProps = {
   kind?: 'photo' | 'video'
   /** Replacing the photo that was not approved. */
@@ -391,6 +392,11 @@ export type UploadSheetProps = {
 }
 
 /** Add a photo or a video: Camera or Library, then a required zone tag, suggested bilingual alt text and the empty-room line. */
+let pickCount = 0
+
+/** The venue video limit in MB, high quality allowed (owner round 1). */
+export const VIDEO_MAX_MB = 500
+
 export function UploadSheet({ kind = 'photo', replaceId, initialStep = 'source', offline = false }: UploadSheetProps) {
   const { t } = useV()
   const nav = useNav()
@@ -398,16 +404,23 @@ export function UploadSheet({ kind = 'photo', replaceId, initialStep = 'source',
   const photos = useVenueStore(s => s.photos.length)
   const cameraWarned = useVenueStore(s => s.cameraWarned)
   const pool = useMemo(() => libraryPhotos(), [])
-  const [step, setStep] = useState<'source' | 'details'>(initialStep === 'source' ? 'source' : 'details')
+  const [step, setStep] = useState<'source' | 'details'>(initialStep === 'source' || initialStep === 'large' ? 'source' : 'details')
   const [face, setFace] = useState(initialStep === 'face')
-  const [picked, setPicked] = useState<GalleryItem | null>(initialStep === 'source' ? null : (pool[0] ?? null))
+  const [picked, setPicked] = useState<GalleryItem | null>(initialStep === 'source' || initialStep === 'large' ? null : (pool[0] ?? null))
   const [zone, setZone] = useState<MediaZone | null>(null)
   const [altAr, setAltAr] = useState('')
   const [altEn, setAltEn] = useState('')
   const [touched, setTouched] = useState(false)
+  const [large, setLarge] = useState(initialStep === 'large')
 
   const choose = (source: 'camera' | 'library') => {
     if (kind === 'video') {
+      // The prototype has no real file: every second pick shows the over-limit state.
+      pickCount += 1
+      if (pickCount % 2 === 0) {
+        setLarge(true)
+        return
+      }
       const poster = pool[(photos + 3) % Math.max(1, pool.length)] ?? venue().gallery[0]
       if (!poster) return
       const title = bilingual('hotelVenueNewVideoTitle')
@@ -461,7 +474,18 @@ export function UploadSheet({ kind = 'photo', replaceId, initialStep = 'source',
             onClick={() => choose('library')}
           />
         </div>
-        <FactLine icon="info">{kind === 'video' ? t('hotelVenueVideoLimits') : t('hotelVenueEmptyRoomOnly')}</FactLine>
+        {kind === 'video' && large ? (
+          <div className="hv-reason" role="alert">
+            <Icon name="warning-circle" size="sm" tone="danger" />
+            <div className="hv-reason__text">
+              <span className="gz-t-title">{t('hotelVenueVideoTooLarge')}</span>
+              <span className="gz-t-body-s">
+                <Figures text={t('hotelVenueVideoTooLargeBody', { size: VIDEO_MAX_MB })} />
+              </span>
+            </div>
+          </div>
+        ) : null}
+        <FactLine icon={kind === 'video' ? 'video' : 'info'}>{kind === 'video' ? <Figures text={t('hotelVenueVideoLimits', { size: VIDEO_MAX_MB })} /> : t('hotelVenueEmptyRoomOnly')}</FactLine>
         {offline ? <FactLine icon="clock">{t('hotelVenueOfflineQueueNote')}</FactLine> : null}
       </SheetFrame>
     )

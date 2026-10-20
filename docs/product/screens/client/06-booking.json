@@ -319,7 +319,8 @@
         "CA-STAT-12",
         "CA-STAT-13",
         "CA-VCH-08",
-        "CA-BOOK-17"
+        "CA-BOOK-17",
+        "CA-VCH-17"
       ],
       "states": [
         "default",
@@ -347,7 +348,13 @@
         "CL-VENU-05",
         "CL-MSGS-02",
         "CL-BKNG-02"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Lapsed state: the voucher is forfeited",
+        "note": "Lapsed state copy: \"The 24 hours ended. The hold was released and the voucher is no longer valid.\" Cancel note: \"Cancelling now releases the date. Your voucher stays with you; support cannot refund it.\" (prototype assumption kept)."
+      }
     },
     {
       "id": "CL-BOOK-09",
@@ -401,17 +408,18 @@
       "requirementIds": [
         "CA-STAT-12",
         "CA-VCH-11",
-        "CA-BOOK-16"
+        "CA-BOOK-16",
+        "CA-VCH-17"
       ],
       "states": [
-        "lapsed-client",
         "revoked-by-venue",
         "date-taken-meanwhile",
-        "offline"
+        "offline",
+        "lapsed-client-forfeited"
       ],
       "interactions": [
-        "Outcome first: \"The 24-hour window ended. The hold on Thu 14 Jan was released.\" then the voucher: \"Your voucher is back with you and can be used again at Aurelia Gulf Hotel until Fri 8 Jan 2027\" (client lapse: reusable, not refundable); a venue revoke says it is refundable too",
-        "Primary \"Send a new request\" opens CL-BOOK-01 with the voucher re-bound; secondary \"See free dates\" (CL-VENU-03) and \"Message venue\"; for a venue revoke a \"Refund voucher\" link opens CL-VCHR-05",
+        "Outcome first: \"The 24-hour window ended. The hold on Thu 14 Jan was released.\" then the voucher: \"Your voucher is back with you and can be used again at Aurelia Gulf Hotel until Fri 8 Jan 2027\" (client lapse: the voucher is forfeited, not valid); a venue revoke says support can grant a credit voucher",
+        "Primary \"Send a new request\" opens CL-BOOK-01 with the voucher re-bound; secondary \"See free dates\" (CL-VENU-03) and \"Message venue\"; for a venue revoke an \"Ask support\" link opens CL-VCHR-05",
         "Three similar halls free on the date as a rail"
       ],
       "contentNotes": "Heading «انتهت مهلة التأكيد» / \"Confirmation window ended\". Body AR: «انتهت مهلة الـ 24 ساعة، وتم تحرير الموعد. كوبونكم ما زال لكم.» / EN as above. Calm passive copy; no urgency words.",
@@ -422,7 +430,13 @@
         "CL-VCHR-05",
         "CL-MSGS-02",
         "CL-VENU-01"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Window-ended outcome: client lapse forfeits the voucher; venue revoke can ask support for a credit voucher",
+        "note": "Client lapse: \"The 24-hour window ended. The hold on {date} was released. The voucher is no longer valid.\" No reuse row, no refund link. Venue revoke: voucher is back with you; link \"Ask support for a credit voucher\" (CL-VCHR-05). Body AR for lapse: «انتهت مهلة الـ 24 ساعة. الكوبون غير صالح.»"
+      }
     }
   ]
 }

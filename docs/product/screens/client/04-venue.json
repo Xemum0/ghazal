@@ -255,13 +255,19 @@
         "Hall rules segment: a Ladies | Men segmented control (hidden for single-section venues) listing each section's facts as icon plus plain label",
         "Good to know segment: children policy, dress code, working hours and house rules",
         "'Send request' is not offered here; a quiet 'Back to venue' returns to the detail",
-        "Terms segment: the venue's own terms in plain words (set by the venue, shown as written, \"You settle these directly with the venue\"), then the voucher terms: what the KD 2 is, one voucher per request, when the voucher is reusable or refundable, the 24 hour confirm window; no tier bar and no cooling-off line"
+        "Terms segment: the venue's own terms in plain words (set by the venue, shown as written, \"You settle these directly with the venue\"), then the voucher terms: what the KD 2 is, one voucher per request, when the voucher is reusable, forfeited or eligible for a credit voucher from support, the 24 hour confirm window; no tier bar and no cooling-off line"
       ],
       "contentNotes": "Standard tier bar for Thu 14 Jan 2027: until Sun 15 Nov 2026 nothing is kept; 16 Nov – 15 Dec 25%; 16 – 30 Dec 50%; 31 Dec – 7 Jan 75%; from 8 Jan 100% of the total, never more than what was paid. Cooling-off: 'Within 48 hours of paying you get everything back when the event is 30 or more days away.' Line shown above the bar: «إلغاء مجاني حتى الأحد 15 نوفمبر 2026». Template numbers are proposed pending the owner (ADR 0006). Hall rules, Ladies' reception (Danah Ballroom): Photography: female photographers only; Music: DJ or band; Abaya cloakroom: Yes; Separate entrance: Yes; Female security: Yes; Prayer room: Yes; Boys: up to 8 years; Outside catering: Not allowed; Outside decor: Allowed with approval; Bukhoor: Allowed; Cut-off: 2:00 AM, extra hour KD 450. Men's reception (Majlis Hall): Photography: allowed; Music: duff only. Domain assumptions for these facts are flagged for validation with venue managers. Dress code is bilingual free text («لباس رسمي محتشم» / 'Formal, modest dress'); working hours (same as HL-SETT-05) «الأحد – الخميس: من 9:00 ص إلى 10:00 م، الجمعة والسبت: من 4:00 م إلى 1:00 ص» / 'Sun – Thu 9:00 AM – 10:00 PM; Fri and Sat 4:00 PM – 1:00 AM'. Every fact is an icon plus a plain label; no judgement words. Voucher model (ADR 0033): the Standard tier bar, the cooling-off line and «إلغاء مجاني حتى الأحد 15 نوفمبر 2026» are superseded; the Terms segment instead says «تتفقون مع القاعة مباشرةً على شروط الدفع والإلغاء» / \"You agree payment and cancellation terms directly with the venue.\" and links the voucher terms. CA-VDET-16 is amended: it shows venue terms, not a tier schedule.",
       "priority": "core",
       "navigatesTo": [
         "CL-VENU-01"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Voucher terms: forfeited lapse, credit voucher via support",
+        "note": "Voucher terms list: reusable after a venue-side release; forfeited after a 24 hour lapse; credit voucher via support instead of refund."
+      }
     },
     {
       "id": "CL-VENU-06",

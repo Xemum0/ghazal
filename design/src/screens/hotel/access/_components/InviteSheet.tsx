@@ -1,7 +1,7 @@
-// "Invitation" (HL-ACCS-01 sheet): there is no self sign-up, the invitation arrives as a WhatsApp link from the venue admin and opens Set password.
+// "Invitation" (HL-ACCS-01 sheet): there is no self sign-up, the invitation arrives as an email link (Resend) from the venue admin and opens Set password.
 // Text diet: the sheet title carries the rule ("Invitation only"), three knots on the gold thread show the way (link, password, code), and a
 // picture of the message, drawn like the invitation card of HL-ACCS-03 (envelope, venue, role, who sent it), whose link is the way into
-// HL-ACCS-03 in the prototype (in the real app the tap happens in WhatsApp). No sentence. The live navigator draws the sheet around this content.
+// HL-ACCS-03 in the prototype (in the real app the tap happens in the email). No sentence. The live navigator draws the sheet around this content.
 import { Button, FactChip, IconProgress, Illustration, Tag, useBi, type IconProgressStep } from '../../../../system'
 import { useT } from '../../../../i18n'
 import { useLang } from '../../../../shell/lang'
@@ -19,7 +19,7 @@ export function InviteSheet({ onClose, onOpenInvitation }: { onClose?: () => voi
   const venue = venueOf()
   const inviter = admin ? (lang === 'ar' ? admin.name : admin.nameLatin) : ''
   const steps: IconProgressStep[] = [
-    { key: 'link', icon: 'whatsapp', label: t('hotelAccessInviteStepLink'), state: 'now' },
+    { key: 'link', icon: 'mail', label: t('hotelAccessInviteStepLink'), state: 'now' },
     { key: 'password', icon: 'lock', label: t('hotelAccessSigninPasswordLabel'), state: 'open' },
     { key: 'code', icon: 'shield-check', label: t('hotelAccessInviteStepCode'), state: 'open' },
   ]
@@ -40,7 +40,7 @@ export function InviteSheet({ onClose, onOpenInvitation }: { onClose?: () => voi
           </div>
           <div className="hxa-inv__foot">
             {inviter ? <FactChip icon="user-plus" label={t('hotelAccessInviteFrom', { name: inviter })} value={<bdi dir="auto">{inviter}</bdi>} /> : <span />}
-            <Button variant="tertiary" iconStart="whatsapp" className="hxa-flush-end" onClick={onOpenInvitation}>
+            <Button variant="tertiary" iconStart="mail" className="hxa-flush-end" onClick={onOpenInvitation}>
               {t('hotelAccessInviteLink')}
             </Button>
           </div>

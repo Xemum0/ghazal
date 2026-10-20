@@ -1,5 +1,5 @@
 // The voucher rules of docs/product/voucher-model.md sections 4 and 13 as pure functions: the price columns of the seed, the code and
-// QR payload, validity and reuse, and the release and refund table (A-03). Numbers come from `PlatformConfig`, never from literals.
+// QR payload, validity and reuse, and the release and credit table (ADR 0035). Numbers come from `PlatformConfig`, never from literals.
 import type {
   IsoDate,
   IsoDateTime,
@@ -92,16 +92,16 @@ export function voucherReuseUntil(releasedAt: IsoDateTime, config: Pick<Platform
   return addDays(kuwaitDateOf(releasedAt), config.voucherReuseDays)
 }
 
-// ---------------------------------------------------------------- release and refund table (voucher-model section 4.4)
+// ---------------------------------------------------------------- release and credit table (ADR 0035 D4, D5)
 
 export interface ReleaseOutcome {
   /** The voucher is released back to `active` and reusable at the same target. */
   reusable: boolean
-  /** The client may refund the KD 2 (one tap, original method). */
-  refundable: boolean
+  /** The client may ask support for a credit voucher (never money): the venue side was the reason. */
+  creditEligible: boolean
 }
 
-/** What a release does to the voucher, by reason. Client-caused releases are reusable but not refundable. */
+/** What a release does to the voucher, by reason. Client-caused releases are reusable but not credit-eligible. */
 export function releaseOutcome(reason: VoucherReleaseReason): ReleaseOutcome {
   switch (reason) {
     case 'declined':
@@ -110,15 +110,16 @@ export function releaseOutcome(reason: VoucherReleaseReason): ReleaseOutcome {
     case 'approval_revoked':
     case 'venue_cancelled':
     case 'partner_suspended':
-      return { reusable: true, refundable: true }
+      return { reusable: true, creditEligible: true }
     case 'withdrawn':
-    case 'client_no_confirmation':
-      return { reusable: true, refundable: false }
+      return { reusable: true, creditEligible: false }
   }
 }
 
-/** Status after a request ends, from the voucher's side. `cancelled_after_confirm` consumes the voucher. */
-export function voucherStatusAfter(kind: 'release' | 'redeemed' | 'completed' | 'cancelled_after_confirm' | 'validity_ended' | 'refunded'): VoucherStatus {
+/** Status after a request ends, from the voucher's side. `cancelled_after_confirm` consumes the voucher; a lapsed 24 h window forfeits it. */
+export function voucherStatusAfter(
+  kind: 'release' | 'redeemed' | 'completed' | 'cancelled_after_confirm' | 'validity_ended' | 'forfeited' | 'credit_issued',
+): VoucherStatus {
   switch (kind) {
     case 'release':
       return 'active'
@@ -128,9 +129,16 @@ export function voucherStatusAfter(kind: 'release' | 'redeemed' | 'completed' | 
       return 'used'
     case 'validity_ended':
       return 'expired'
-    case 'refunded':
-      return 'refunded'
+    case 'forfeited':
+      return 'forfeited'
+    case 'credit_issued':
+      return 'credit_issued'
   }
+}
+
+/** Validity end of a credit voucher granted by support: 60 days from the grant, usable at any venue or service. */
+export function creditVoucherValidUntil(grantedAt: IsoDateTime, config: Pick<PlatformConfig, 'creditVoucherValidityDays'>): IsoDateTime {
+  return `${addDays(kuwaitDateOf(grantedAt), config.creditVoucherValidityDays)}T23:59:00+03:00`
 }
 
 /** Whether an `active` voucher is past its validity at `now`. */

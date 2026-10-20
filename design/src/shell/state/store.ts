@@ -5,7 +5,7 @@ import { create } from 'zustand'
 import * as mock from '../../mock'
 import type { Booking, Listing, Message, Voucher, VisitAppointment } from '../../mock'
 import { setParam } from '../router'
-import { clone as deepClone, newVoucher, paidVoucher, releasedVoucher, transition, usedVoucher } from './rules'
+import { clone as deepClone, newVoucher, paidVoucher, releasedVoucher, forfeitedVoucher, transition, usedVoucher } from './rules'
 import {
   EMPTY_BRIEF,
   EMPTY_DRAFT,
@@ -266,7 +266,7 @@ export const usePrototype = create<PrototypeState>()((set, get) => ({
       approvedDiscount: null,
     }
     booking.thread = transition(booking, 'pending', now, 'client').thread
-    const bound: Voucher = { ...clone(v), status: 'bound', bookingId: booking.id, releasedAt: null, releaseReason: null, reuseUntil: null, refundEligible: false, refundUntil: null }
+    const bound: Voucher = { ...clone(v), status: 'bound', bookingId: booking.id, releasedAt: null, releaseReason: null, reuseUntil: null, creditEligible: false }
     set({
       clientBookings: [booking, ...s.clientBookings],
       hotelBookings: booking.venueId === hotelVenueId() ? [booking, ...s.hotelBookings] : s.hotelBookings,
@@ -282,7 +282,7 @@ export const usePrototype = create<PrototypeState>()((set, get) => ({
       const now = nowIso()
       const v = s.vouchers.find(x => x.id === b.voucherId)
       const next = transition(b, 'cancelled', now, 'client', { cancelledBy: 'client', reasonCode: reason })
-      // R07 and R10a release the voucher (reusable, not refundable); R13a after confirmation consumes it.
+      // R07 and R10a release the voucher (reusable, no credit route); R13a after confirmation consumes it.
       const voucher = v ? (b.status === 'confirmed' ? usedVoucher(v, now, 'cancelled_after_confirm', null) : releasedVoucher(v, 'withdrawn', now)) : null
       return syncBooking(s, next, voucher)
     }),
@@ -305,29 +305,15 @@ export const usePrototype = create<PrototypeState>()((set, get) => ({
       const now = nowIso()
       const v = s.vouchers.find(x => x.id === b.voucherId)
       const next = transition(b, 'expired', now, 'system', { expiredReason: 'client_no_confirmation', confirmBy: b.confirmBy })
-      return syncBooking(s, next, v ? releasedVoucher(v, 'client_no_confirmation', now) : null)
+      return syncBooking(s, next, v ? forfeitedVoucher(v, now) : null)
     }),
-  refundVoucher: voucherId =>
+  /** The client asks support for a credit voucher (ADR 0035 D5): no money goes back; support decides in the chat. */
+  askSupportCredit: voucherId =>
     set(s => {
       const v = s.vouchers.find(x => x.id === voucherId)
-      if (!v || v.status !== 'active' || !v.refundEligible) return s
-      const now = nowIso()
-      const refunded: Voucher = {
-        ...clone(v),
-        status: 'refunded',
-        refundEligible: false,
-        refund: {
-          amount: { fils: v.priceFils, currency: 'KWD' },
-          method: v.payment?.method ?? 'knet',
-          status: 'submitted',
-          reason: 'venue_fault_release',
-          initiatedAt: now,
-          completedAt: null,
-          arrival: v.payment?.method === 'knet' ? 'knet_1_3_days' : 'card_up_to_10_days',
-          creditNoteNo: null,
-        },
-      }
-      return { vouchers: s.vouchers.map(x => (x.id === voucherId ? refunded : x)) }
+      if (!v || v.status !== 'active' || !v.creditEligible || v.refundRequestId) return s
+      const asked: Voucher = { ...clone(v), refundRequestId: `rr-proto-${v.code}` }
+      return { vouchers: s.vouchers.map(x => (x.id === voucherId ? asked : x)) }
     }),
 
   // ---------------------------------------------------------------- partner request actions

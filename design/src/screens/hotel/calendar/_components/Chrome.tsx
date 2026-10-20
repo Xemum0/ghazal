@@ -17,14 +17,17 @@ export type CalTopProps = {
   offline?: boolean
   /** Hide the two actions (read-only roles, or offline: the banner names the state instead). */
   actions?: { select?: { pressed: boolean; onPress: () => void }; block?: () => void }
+  /** Opens the Calendar by email sheet (HL-CALN-05). */
+  onEmail?: () => void
 }
 
-export function CalTop({ offline, actions }: CalTopProps) {
+export function CalTop({ offline, actions, onEmail }: CalTopProps) {
   const { t } = useWords()
   const f = useFormat()
   const list: TopBarAction[] = []
   if (actions?.select) list.push({ icon: 'calendar-plus', label: t('hotelCalendarActionSelect'), pressed: actions.select.pressed, onPress: actions.select.onPress })
   if (actions?.block) list.push({ icon: 'lock', label: t('hotelCalendarActionBlock'), onPress: actions.block })
+  if (onEmail) list.push({ icon: 'mail', label: t('hotelCalendarEmailTitle'), onPress: onEmail })
   return (
     <>
       <TopBar title={t('hotelCalendarTitle')} actions={list} />

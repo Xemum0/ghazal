@@ -61,10 +61,9 @@ export function transition(b: Booking, to: BookingStatus, now: string, actor: Bo
   return next
 }
 
-/** The release of a voucher after its request ended: back to `active`, 60 days of reuse at the same target, refundable only for venue faults. */
+/** The release of a voucher after its request ended: back to `active`, 60 days of reuse at the same target, a credit-voucher request to support only for venue faults (ADR 0035 D5). */
 export function releasedVoucher(v: Voucher, reason: VoucherReleaseReason, now: string): Voucher {
   const outcome = engine.releaseOutcome(reason)
-  const releasedDate = engine.kuwaitDateOf(now)
   return {
     ...clone(v),
     status: 'active',
@@ -72,8 +71,9 @@ export function releasedVoucher(v: Voucher, reason: VoucherReleaseReason, now: s
     releasedAt: now,
     releaseReason: reason,
     reuseUntil: engine.voucherReuseUntil(now, config()),
-    refundEligible: outcome.refundable,
-    refundUntil: outcome.refundable ? engine.addDays(releasedDate, config().voucherRefundDaysAfterExpiry) : null,
+    forfeitedAt: null,
+    creditEligible: outcome.creditEligible,
+    refundRequestId: null,
   }
 }
 
@@ -83,8 +83,19 @@ export const usedVoucher = (v: Voucher, now: string, reason: Voucher['usedReason
   usedAt: now,
   usedReason: reason,
   redeemedBy: by,
-  refundEligible: false,
-  refundUntil: null,
+  creditEligible: false,
+})
+
+/** The 24 h confirm window lapsed (ADR 0035 D4): the voucher is not valid and never comes back. */
+export const forfeitedVoucher = (v: Voucher, now: string): Voucher => ({
+  ...clone(v),
+  status: 'forfeited',
+  bookingId: null,
+  forfeitedAt: now,
+  releasedAt: null,
+  releaseReason: null,
+  reuseUntil: null,
+  creditEligible: false,
 })
 
 /** A new voucher in `unpaid`, bound at purchase to one target and quote (A-01). The code and QR payload come from the engine. */
@@ -105,6 +116,7 @@ export function newVoucher(args: {
   const code = engine.voucherCode(args.now, 'proto', args.targetId, args.eventDate, args.seq)
   return {
     id: `voucher-proto-${args.seq}`,
+    kind: 'bound',
     code,
     clientId: args.clientId,
     targetType: args.targetType,
@@ -124,9 +136,9 @@ export function newVoucher(args: {
     payment: null,
     releasedAt: null,
     releaseReason: null,
-    refundEligible: false,
-    refundUntil: null,
-    refund: null,
+    forfeitedAt: null,
+    creditEligible: false,
+    refundRequestId: null,
     usedAt: null,
     usedReason: null,
     redeemedBy: null,

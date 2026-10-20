@@ -189,13 +189,15 @@ erDiagram
   VOUCHERS ||--o{ VOUCHER_EVENTS : "logs"
   VOUCHERS ||--o{ PAYMENT_ATTEMPTS : "paid by"
   PAYMENT_ATTEMPTS ||--o{ PAYMENT_EVENTS : "records"
-  PAYMENT_ATTEMPTS ||--o{ REFUNDS : "refunded by"
+  VOUCHERS ||--o{ REFUND_REQUESTS : "asked for"
+  REFUND_REQUESTS ||--o| VOUCHERS : "grants credit"
   LISTINGS ||--o{ LISTING_PAYMENTS : "paid by"
   LISTING_PAYMENTS ||--o{ PAYMENT_ATTEMPTS : "uses"
   VOUCHERS {
     uuid id PK
     text code UK "GV-2611-K7QM"
-    text state "unpaid, active, bound, used, expired, refunded"
+    text kind "standard (bought, bound) or credit (support-granted, unbound)"
+    text state "unpaid, active, bound, used, expired, forfeited, credit_issued"
     uuid target_venue_id FK "or target_listing_id"
     jsonb quote_snapshot "date, hall, package, guests, standard and voucher totals"
     bigint fee_fils "2000 at purchase"
@@ -217,12 +219,13 @@ erDiagram
 
 | Table | Columns beyond the diagram |
 |---|---|
-| `vouchers` | `user_id`, `wedding_id`, `booking_id` (while bound), `release_reason`, `refund_eligible` (derived at release), `refund_until`, `paid_at`, `redeemed_at`, `qr_payload` (signed, short-lived rendering of the code), `reuse_until`. Code shown as an LTR isolate |
+| `vouchers` | `user_id`, `wedding_id`, `booking_id` (while bound), `release_reason`, `kind` (`standard` or `credit`), `source_request_id` (for a credit voucher), `forfeited_at`, `paid_at`, `redeemed_at`, `qr_payload` (signed, short-lived rendering of the code), `reuse_until`. Code shown as an LTR isolate |
 | `voucher_events` | append-only: `at`, `actor`, `from_state`, `to_state`, `reason_code`, `booking_id` |
 | `payment_attempts` | `gateway_payment_id`, `method` (knet, visa, mastercard, apple_pay, google_pay), `amount_fils`, `gateway_fee_fils` (from the webhook, never a constant), `expires_at` |
 | `payment_events` | `source` (webhook, requery, api), `status`, `raw jsonb`; append-only record of every gateway fact |
 | `webhook_inbox` | `gateway`, `event_code`, `external_id`, `received_at`, `processed_at`, `payload`; `UNIQUE (gateway, event_code, external_id)` |
-| `refunds` | `amount_fils`, `initiated_by`, `gateway_refund_id`, `expected_by`; iban columns only for `manual_bank_transfer`, encrypted, purged after payout |
+| `refund_requests` | `voucher_id`, `user_id`, `reason_code`, `note`, `status` (open, granted, declined), `decided_by`, `decided_at`, `credit_voucher_id`, `conversation_id` (support chat). Never a money movement. `refunds` (gateway) is not built for vouchers (ADR 0035 D5) |
+| `listing_refunds` | `listing_payment_id`, `amount_fils`, `reason`, `decided_by`, `decided_at`, `method` (`outside_gateway`); a record only, the transfer happens outside the platform on support demand (ADR 0035 D7) |
 | `invoices` | `number UK` (gapless 7-digit sequence per issuer and kind), `kind` (receipt, plan_invoice, credit_note), `total_fils`, `pdf_key`, `issuer` (pending OQ-B-06, OQ-T-12). No event invoices |
 | `ledger_txns` / `ledger_entries` | Kept only for Ghazal's own revenue and refunds: accounts `voucher_revenue`, `listing_revenue`, `gateway_fee_expense`, `refund_payable`, `client_cash_in`; double entry, `SUM(debit) = SUM(credit)` per `txn_id` |
 
@@ -261,7 +264,9 @@ erDiagram
 | `bookings.target_kind` | `venue`, `listing` |
 | `bookings.cancelled_by` | `client`, `venue`, `system`, `admin` |
 | `bookings.expired_reason` | `venue_no_response`, `client_no_confirmation`, `slot_taken`, `client_no_response` |
-| `vouchers.state` | `unpaid`, `active`, `bound`, `used`, `expired`, `refunded` |
+| `vouchers.state` | `unpaid`, `active`, `bound`, `used`, `expired`, `forfeited`, `credit_issued` |
+| `vouchers.kind` | `standard`, `credit` |
+| `partner_accounts.billing_mode` | `plan`, `contract` |
 | `venues.venue_type` | `private_hall`, `governmental`, `hotel` |
 | `venues.booking_channel` | `ghazal_voucher`, `external_link`, `enquiry_only` (reserved) |
 | `packages.pricing_structure` | `per_person`, `package` |
@@ -349,8 +354,8 @@ erDiagram
 
 | Table | Columns and rules |
 |---|---|
-| `partner_accounts` | `type`, `name_i18n`, `fee_exempt`, `status` (invited, active, suspended). One user may hold memberships in both types (A-06). The old `venue_members` becomes `partner_members(partner_account_id, user_id, role, status)`; `X-Venue-Id` becomes `X-Partner-Id` |
-| `listings` | `title_i18n`, `description_i18n`, `category_id` (renders from `service_categories`: five primary flagged `primary`, the rest secondary), `media`, `packages` (same `packages` and `price_rules` shape as venues, two columns), `plan_id`, `starts_on`, `ends_on`, `status`, `rejection_codes text[]`, `rejection_note`, `live_version_id` (the approved version stays live during re-review, A-09) |
+| `partner_accounts` | `type`, `name_i18n`, `fee_exempt`, `billing_mode` (`plan` or `contract`; contract terms text managed in Super Admin, no plan row), `status` (invited, active, suspended). Staff invitations are emailed through Resend (`partner_members.invited_email`). One user may hold memberships in both types (A-06). The old `venue_members` becomes `partner_members(partner_account_id, user_id, role, status)`; `X-Venue-Id` becomes `X-Partner-Id` |
+| `listings` | `title_i18n`, `description_i18n`, `category_id` (renders from `service_categories`: five primary flagged `primary`, the rest secondary), `media`, `packages` (same `packages` and `price_rules` shape as venues, two columns), `plan_id`, `starts_on`, `ends_on`, `status`, `rejection_codes text[]`, `rejection_note` (shown to the provider as notes to refine and resubmit), `live_version_id` (the approved version stays live during re-review, A-09) |
 | `listing_plans` | `cycle` (weekly, monthly, annual), `rate_fils` **nullable** (null = announced soon), `currency`, `active`. Super Admin only |
 | `listing_payments` | `listing_id`, `plan_id`, `amount_fils` (copied from the plan at checkout), `status`, attempts via `payment_attempts`; none for `fee_exempt` partners |
 | `listing_reviews` | append-only moderator decisions: `reviewer_id`, `decision` (approved, rejected, changes_requested), `codes`, `note`, `at`; **a listing can reach `approved` only through a `listing_reviews` row**, never by payment |
@@ -361,3 +366,11 @@ erDiagram
 **Retired from the MVP schema (kept in migrations history, not built):** `payment_milestones`, `payouts`, `payout_items`, `commission_rules`, event `ledger_*` accounts (`venue_payable`, `platform_commission_revenue`, `platform_credit_expense`), `cancellation_policies`, `cancellation_tiers`, `offers`, `loyalty_ledger`, `coupons`, `subscription_plans` and `venue_subscriptions` (replaced by `listing_plans`), the bank, supplier and deposit columns of `venues`, `bookings.mode`.
 
 Next: [booking-state-machine](booking-state-machine.md).
+
+## Round-1 notes (ADR 0035, 2026-10-20)
+
+- Media: venue videos up to 500 MB each (`media.size_bytes <= 524288000`), high quality, no 720p cap.
+- External calendar sync is emailed (`calendar_sync` sends an .ics by email through Resend); no WhatsApp channel for it.
+- Review hide or delete is a Super Admin action performed on a support request (`review_decisions` row with `source = support_request`); venues only reply once and report.
+- App ids: `com.ghazal.client`, `com.ghazal.provider`. Backend NestJS.
+

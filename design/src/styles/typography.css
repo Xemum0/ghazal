@@ -59,13 +59,13 @@
 }
 
 /* ---------- numeric voice ---------- */
-/* .gz-num: any number inside a line of text. Cairo Western digits, tabular, lining, weight of the surrounding text, an LTR
-   island (ADR 0010 D5). Size = the surrounding role's figure size (Poppins x1.08 rounded in English, same size in Arabic),
+/* .gz-num: any number inside a line of text. Manrope Western digits (the figures voice), tabular, lining, weight of the surrounding text, an LTR
+   island (ADR 0010 D5). Size = the surrounding role's figure size,
    supplied by the text role through --gz-num-size; outside a role it keeps the parent size. */
 .gz-num {
   font-family: var(--gz-font-fig);
   font-size: var(--gz-num-size, inherit);
-  /* An absolute px line height on the parent would otherwise stretch the line when Cairo (taller metrics) sits inside it. */
+  /* An absolute px line height on the parent would otherwise stretch the line when the figures font (different metrics) sits inside it. Inline use only: a number that is the whole element must use a figure role class (it carries its own line height). */
   line-height: 0;
   font-weight: inherit;
   font-variant-numeric: tabular-nums lining-nums;

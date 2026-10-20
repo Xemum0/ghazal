@@ -20,7 +20,8 @@
         "HA-AUTH-01",
         "HA-SET-05",
         "PA-ACC-01",
-        "PA-ACC-02"
+        "PA-ACC-02",
+        "PA-ACC-06"
       ],
       "states": [
         "default",
@@ -33,13 +34,13 @@
         "Compound phone field: fixed non-interactive +965 chip, then eight digits, LTR visual order in both languages, numeric keypad; Eastern-Arabic and Persian digits are normalised on entry (ADR 0012)",
         "Password field with show and hide; 'Sign in' / «تسجيل الدخول» is the one gold primary (52px, deep-ink label), disabled until the 8-digit shape check passes",
         "Language chip at the top inline-end flips the whole screen in place without a restart; first launch preselects the device language, else Arabic; after sign-in the user's own language setting takes over",
-        "Text link 'Forgot password' opens the WhatsApp code screen in reset mode",
-        "Quiet link 'I have an invitation' / «لدي دعوة» opens a short explanation sheet: the invitation arrives as a WhatsApp link from the venue admin and opens Set password; there is no self sign-up",
+        "Text link 'Forgot password' opens the email code screen in reset mode",
+        "Quiet link 'I have an invitation' / «لدي دعوة» opens a short explanation sheet: the invitation arrives as an email link (sent through Resend) from the venue admin and opens Set password; there is no self sign-up",
         "Known device: success goes to Today. New device: success goes to the verification screen first. Suspended, under-review or deactivated accounts go to the status screen",
         "Quiet tagline becomes \"For hotels, halls and service providers\"; a new partner invited without a type is routed after sign-in to the account type chooser (HL-PROV-01); a known partner goes to Today, whose content follows the account type (PA-ACC-02)",
         "A partner with both account types (A-06) sees a type switch in More after sign-in, never here"
       ],
-      "contentNotes": "Calm Off-White canvas, wordmark غزل in the Arabic UI and Ghazal in the English UI, with the quiet line «لفرق القاعات والفنادق» / 'For venue teams'. One empty-ballroom photograph (long table setting, no people) in a 160px strip above the form, 12px radius. Demo account: Hind Al-Enezi / هند العنزي, Manager at Aurelia Gulf Hotel, +965 5000 0040 (fixture, display-only, never a tel: link). Error copy leads with the outcome, does not blame and does not reveal whether the number exists: «رقم الهاتف أو كلمة المرور غير صحيح. لم يتم تسجيل الدخول.» / 'The phone number or password is not correct. You are not signed in.' Locked after 5 failed attempts: «تم إيقاف المحاولات مؤقتًا. يمكنكم المحاولة بعد 4:15 م بتوقيت الكويت.» / 'Attempts are paused. Try again after 4:15 PM Kuwait time.' Offline: «يلزم الاتصال بالإنترنت لتسجيل الدخول.» / 'An internet connection is needed to sign in.' Labels are noun phrases, with no exclamation marks and no greeting banner. Tab bar hidden. Voucher model (ADR 0033): tagline «لفرق القاعات والفنادق ومقدمي الخدمات» / \"For hotels, halls and service providers\" replaces «لفرق القاعات والفنادق». Invitation arrives as a WhatsApp link from the account admin or Ghazal.",
+      "contentNotes": "Calm Off-White canvas, wordmark غزل in the Arabic UI and Ghazal in the English UI, with the quiet line «لفرق القاعات والفنادق» / 'For venue teams'. One empty-ballroom photograph (long table setting, no people) in a 160px strip above the form, 12px radius. Demo account: Hind Al-Enezi / هند العنزي, Manager at Aurelia Gulf Hotel, +965 5000 0040 (fixture, display-only, never a tel: link). Error copy leads with the outcome, does not blame and does not reveal whether the number exists: «رقم الهاتف أو كلمة المرور غير صحيح. لم يتم تسجيل الدخول.» / 'The phone number or password is not correct. You are not signed in.' Locked after 5 failed attempts: «تم إيقاف المحاولات مؤقتًا. يمكنكم المحاولة بعد 4:15 م بتوقيت الكويت.» / 'Attempts are paused. Try again after 4:15 PM Kuwait time.' Offline: «يلزم الاتصال بالإنترنت لتسجيل الدخول.» / 'An internet connection is needed to sign in.' Labels are noun phrases, with no exclamation marks and no greeting banner. Tab bar hidden. Voucher model (ADR 0033): tagline «لفرق القاعات والفنادق ومقدمي الخدمات» / \"For hotels, halls and service providers\" replaces «لفرق القاعات والفنادق». Invitation arrives as an email from the account admin or Ghazal.",
       "priority": "core",
       "navigatesTo": [
         "HL-ACCS-02",
@@ -47,21 +48,28 @@
         "HL-ACCS-04",
         "HL-TODY-01",
         "HL-PROV-01"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Email and password sign-in; invitation arrives by email; reset by email",
+        "note": "Identifier is the invited email address (the +965 chip is removed on this screen). Forgot password sends a link or code by email. Invitation explanation: \"Your invitation arrives by email from your account admin.\" AR: «تصلكم الدعوة عبر البريد الإلكتروني من مسؤول الحساب.»"
+      }
     },
     {
       "id": "HL-ACCS-02",
       "slug": "verify-code",
       "title": {
-        "en": "Verify with WhatsApp",
-        "ar": "التحقق عبر واتساب"
+        "en": "Verify with email",
+        "ar": "التحقق عبر البريد الإلكتروني"
       },
       "kind": "screen",
       "purpose": "One reusable code screen for four moments: first sign-in on a new device, password reset, the step-up check before high-risk actions (bank information, inviting or removing staff), and the authenticator code that venue admins add on a new device (ADR 0028 D5-D6).",
       "requirementIds": [
         "HA-AUTH-01",
         "HA-SET-03",
-        "HA-SET-01"
+        "HA-SET-01",
+        "PA-ACC-06"
       ],
       "states": [
         "default",
@@ -88,7 +96,13 @@
         "HL-TODY-01",
         "HL-ACCS-03",
         "HL-ACCS-01"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Verification code is sent by email, not WhatsApp",
+        "note": "Title EN \"Verify with email\", AR «التحقق عبر البريد الإلكتروني». The six digit code goes to the masked email (a***@hotel.example in an LTR isolate). Delivery failure: \"The code could not be sent. Send it again, or contact Support.\" The Open WhatsApp link is removed."
+      }
     },
     {
       "id": "HL-ACCS-03",
@@ -98,11 +112,12 @@
         "ar": "تعيين كلمة المرور"
       },
       "kind": "screen",
-      "purpose": "Landing for the WhatsApp invitation link and for password reset. A new staff member sees who invited them and in which role, picks a password and a language, and continues to device verification.",
+      "purpose": "Landing for the emailed invitation link and for password reset. A new staff member sees who invited them and in which role, picks a password and a language, and continues to device verification.",
       "requirementIds": [
         "HA-AUTH-01",
         "HA-AUTH-02",
-        "HA-SET-05"
+        "HA-SET-05",
+        "PA-ACC-06"
       ],
       "states": [
         "default",
@@ -116,7 +131,7 @@
         "offline"
       ],
       "interactions": [
-        "Invitation card (read-only): venue, role chip, inviter and the number that was invited; the phone number is prefilled and cannot be edited",
+        "Invitation card (read-only): venue, role chip, inviter and the email address that was invited; it is prefilled and cannot be edited",
         "New password and Confirm password fields with show and hide; strength is stated in words ('Weak' / 'Fair' / 'Strong'), never by colour alone",
         "Language choice as two chips (Arabic, English); selecting one re-renders the screen at once and becomes this user's language setting",
         "Single gold primary 'Save and continue' / «حفظ ومتابعة»; on success it goes to the verification screen (new device) and then Today",
@@ -127,7 +142,13 @@
       "navigatesTo": [
         "HL-ACCS-02",
         "HL-ACCS-01"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Set-password landing for the email invitation; email shown instead of the invited number",
+        "note": "Invitation card shows the invited email (read-only). Expired copy: \"Ask the venue admin for a new invitation\" stays. States unchanged."
+      }
     },
     {
       "id": "HL-ACCS-04",
@@ -140,7 +161,8 @@
       "purpose": "A specific, calm screen for every moment the app cannot open normally: venue under review, venue suspended, staff member deactivated, session ended by an admin, and a deep link to something the role may not open. Never a dead end: each variant has exactly one next step.",
       "requirementIds": [
         "HA-AUTH-02",
-        "HA-AUTH-04"
+        "HA-AUTH-04",
+        "PA-ACC-06"
       ],
       "states": [
         "under-review",
@@ -151,7 +173,7 @@
         "offline"
       ],
       "interactions": [
-        "One primary action per variant: under review and suspended 'Contact Ghazal Support'; deactivated 'Contact the venue admin'; session revoked 'Sign in again'; no access 'Back to Today'. Activation of an under-review venue is announced by WhatsApp automatically, so no notify-me control is needed",
+        "One primary action per variant: under review and suspended 'Contact Ghazal Support'; deactivated 'Contact the venue admin'; session revoked 'Sign in again'; no access 'Back to Today'. Activation of an under-review venue is announced by email automatically, so no notify-me control is needed",
         "Secondary 'Sign out' text button on the full-screen variants; 'Switch venue' appears only when the account belongs to more than one venue",
         "No-access variant renders inside the app shell (tab bar visible) after a push or deep link to a forbidden object; the other variants are full screen with the tab bar hidden",
         "Contact support opens the Ghazal Support thread (HL-TODY-05) when the session is still valid; otherwise it shows the support WhatsApp number as plain text"
@@ -162,7 +184,13 @@
         "HL-TODY-05",
         "HL-ACCS-01",
         "HL-TODY-01"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Status updates are announced by email, not WhatsApp",
+        "note": "Under review: \"We will tell you by email when it is active.\" AR: «سنخبركم عبر البريد الإلكتروني عند التفعيل.» Support contact shown as an email address."
+      }
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | accepted |
+| Status | accepted; Updated by ADR 0035 |
 | Date | 2026-10-12 |
 | Scope | Identity model, client sign-in, sessions and tokens, client-side storage and biometrics, hotel staff access, two-factor and step-up, account deletion, store review account, transport |
 | Owner confirmation still needed | OQ-T-08 (WhatsApp OTP provider, Meta verification, template approval, failure fallback), OQ-T-09 (hotel login and two-factor scope), OQ-B-17 (hotel roles and multi-venue), OQ-B-20 (account deletion with a future booking), OQ-L-14 (non-WhatsApp and foreign-number users) |

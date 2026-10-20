@@ -1,8 +1,8 @@
 // CL-BOOK-10 Confirmation window ended. Covers CA-STAT-12, CA-VCH-11, CA-BOOK-16.
 // Text diet (ADR 0034): the calm outcome when the 24 hour confirm window lapses (or the venue withdrew its approval, or the date was taken), as a
-// drawing, two words and two facts (what ended, which date was released). The sentences (the outcome, and what happens to the voucher: it is back
-// with you and can be used again at this venue; a venue-side end also makes it refundable) are behind two info glyphs. The voucher is a ticket
-// row with its code, the Ready status and the date it can be used until. Never blaming, never a dead end: a new request, free dates, a message
+// drawing, two words and two facts (what ended, which date was released). The sentences (the outcome, and what happens to the voucher: a client lapse forfeits it, it does
+// not come back; a venue-side end releases it and the client may ask support for a credit voucher) are behind two info glyphs. The voucher is a ticket
+// row with its code, the Forfeited or Ready status and (when released) the date it can be used until. Never blaming, never a dead end: a new request, free dates, a message
 // to the venue, the venue itself, or similar halls free on the date. params: bookingId, reason (lapsed | revoked | date_taken).
 // Navigates to CL-BOOK-01, CL-VENU-03, CL-VCHR-05, CL-MSGS-02, CL-VENU-01.
 import { ActionBar, Banner, Button, FactChip, FactRow, Figures, Icon, IconButton, Illustration, InfoButton, ListRow, Photo, Price, Screen, StatusPill, TopBar, imageSrc, useBi, useNav } from '../../../system'
@@ -42,8 +42,9 @@ export default function ConfirmWindowEnded() {
   const venueId = booking.venueId
   const venue = venueId ? mock.getVenue(venueId) : undefined
   const date = f.date(booking.eventDate, 'short')
-  const reuse = voucher?.reuseUntil ?? null
-  const refundable = reason !== 'lapsed'
+  const forfeited = reason === 'lapsed'
+  const reuse = forfeited ? null : (voucher?.reuseUntil ?? null)
+  const creditable = !forfeited
 
   const rail = venueId && section ? similarHalls(venueId, booking.eventDate, section.guests, section.audience, areaIds ?? [], 2) : []
 
@@ -54,9 +55,11 @@ export default function ConfirmWindowEnded() {
       : reason === 'revoked'
         ? t('clientBookingEndedRevoked', { venue: req.targetName, date })
         : t('clientBookingEndedTaken', { venue: req.targetName, date })
-  const voucherLine = reuse
-    ? t(refundable ? 'clientBookingEndedVoucherRefundable' : 'clientBookingEndedVoucher', { venue: req.targetName, date: f.date(reuse, 'full') })
-    : t('clientBookingEndedVoucherPlain')
+  const voucherLine = forfeited
+    ? t('clientBookingEndedVoucherForfeited')
+    : reuse
+      ? t('clientBookingEndedVoucherCredit', { venue: req.targetName, date: f.date(reuse, 'full') })
+      : t('clientBookingEndedVoucherPlain')
 
   const newRequest = () => {
     if (!venueId) return
@@ -112,9 +115,9 @@ export default function ConfirmWindowEnded() {
             </InfoButton>
           </div>
           <div className="bk-ended-voucher__foot">
-            <StatusPill status="voucher_active" />
+            <StatusPill status={forfeited ? 'voucher_forfeited' : 'voucher_active'} />
             {reuse ? <FactChip icon="calendar" label={t('clientBookingEndedUntil')} value={f.date(reuse, 'compact')} size="sm" tone="muted" /> : null}
-            {refundable && voucher ? (
+            {creditable && voucher ? (
               <Button variant="tertiary" iconEnd="chevron-right" onClick={() => nav.openSheet('CL-VCHR-05', { params: { voucherId: voucher.id } })} className="bk-ended-voucher__refund">
                 {t('clientBookingEndedRefund')}
               </Button>

@@ -300,3 +300,17 @@ button.gz-vch__row {
 .gz-vchip__code {
   color: inherit;
 }
+
+/* Unbound mark of a credit voucher: globe plus "any hall, hotel or service" in the rose tint, ink text (no gold fill). */
+.gz-vch__any {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-primary);
+}

@@ -53,7 +53,8 @@
         "HL-CALN-03",
         "HL-CALN-04",
         "HL-BOOK-03",
-        "HL-GROW-02"
+        "HL-GROW-02",
+        "HL-CALN-05"
       ]
     },
     {
@@ -180,6 +181,48 @@
         "HL-CALN-01",
         "HL-BOOK-03"
       ]
+    },
+    {
+      "id": "HL-CALN-05",
+      "slug": "calendar-by-email",
+      "title": {
+        "en": "Calendar by email",
+        "ar": "التقويم عبر البريد"
+      },
+      "kind": "sheet",
+      "purpose": "Keep an outside calendar (Google, Outlook, Apple) in step by email: the venue gets an .ics invitation by email for each confirmed booking and each block, and may add one more address. There is no WhatsApp channel for this (ADR 0035 D8).",
+      "requirementIds": [
+        "HA-CAL-10",
+        "HA-CAL-06"
+      ],
+      "states": [
+        "default",
+        "address-added",
+        "address-invalid",
+        "sending-test",
+        "test-sent",
+        "loading",
+        "error",
+        "offline"
+      ],
+      "interactions": [
+        "Opened from a quiet row 'Calendar by email' on the month calendar overflow menu",
+        "One switch 'Email me an invitation for each confirmed booking and block' with the account email shown (LTR isolate) and 'Add another address' (one field, validated)",
+        "'Send a test invitation' sends one .ics to the address; toast 'Test sent'",
+        "Changes to a booking or block send an updated invitation; a cancelled booking sends a cancellation",
+        "Admin and Manager only; Reception sees it read-only"
+      ],
+      "contentNotes": "EN title 'Calendar by email'. AR title «التقويم عبر البريد». Row AR «أرسلوا لي دعوة بالبريد لكل حجز مؤكد وكل إغلاق». Test toast AR «تم إرسال دعوة تجريبية». Email addresses and dates sit in LTR isolates. Emails are sent through Resend. Text diet: one switch, one field, one test action.",
+      "priority": "supporting",
+      "navigatesTo": [
+        "HL-CALN-01"
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "New screen",
+        "note": "External calendar sync by email, not WhatsApp (owner item 16)."
+      }
     }
   ]
 }

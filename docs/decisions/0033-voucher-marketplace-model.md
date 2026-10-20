@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | accepted (the model, D1 to D5, D7 to D9); **proposed-needs-owner** (the working assumptions A-01 to A-15 in D6, built as configuration) |
+| Status | accepted (the model, D1 to D5, D7 to D9); **proposed-needs-owner** (the working assumptions A-01 to A-15 in D6, built as configuration); Updated by ADR 0035 |
 | Date | 2026-10-14 |
 | Scope | Client app, Partner app (the former hotel app), API, web Super Admin (context), pricing, payments, booking state machine, fixtures, screen inventory |
 | Owner confirmation still needed | OQ-V-01 to OQ-V-16 in `docs/product/open-questions.md` (section 2b) |

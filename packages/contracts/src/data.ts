@@ -19,6 +19,9 @@ import type {
   GroupThread,
   HotelSettings,
   HotelStaff,
+  StaffInvitation,
+  PartnerBilling,
+  RefundRequest,
   HotelVariants,
   Listing,
   Message,
@@ -45,6 +48,7 @@ import type {
   VenueMembership,
   VisitAppointment,
   Voucher,
+  CreditVoucher,
   VoucherWindow,
   WeddingProfile,
   ClientState,
@@ -115,6 +119,8 @@ export const adPlans = as<AdPlan[]>(partnersJson.adPlans)
 export const listings = as<Listing[]>(partnersJson.listings)
 export const reviewDecisions = as<ReviewDecision[]>(partnersJson.reviewDecisions)
 export const partnerPersonas = as<PartnerPersona[]>(partnersJson.personas)
+/** Plan (service providers) or business contract (hotels and halls); no price anywhere (ADR 0035 D7). */
+export const partnerBilling = as<PartnerBilling[]>(partnersJson.billing)
 
 export const plannerPackages = as<PlannerPackage[]>(plannersJson.packages)
 export const planners = as<Planner[]>(plannersJson.planners)
@@ -122,6 +128,8 @@ export const planners = as<Planner[]>(plannersJson.planners)
 // ---------------------------------------------------------------- people
 export const users = as<User[]>(peopleJson.users)
 export const hotelStaff = as<HotelStaff[]>(peopleJson.hotelStaff)
+/** Staff invitations by email through Resend (ADR 0035 D8). */
+export const staffInvitations = as<StaffInvitation[]>(peopleJson.staffInvitations)
 
 // ---------------------------------------------------------------- the client persona
 export const weddingProfile = as<WeddingProfile>(clientJson.weddingProfile)
@@ -147,6 +155,10 @@ export const heroVariantNotifications = as<
 export const bookings = as<Booking[]>(bookingsJson.bookings)
 export const vouchers = as<Voucher[]>(vouchersJson.vouchers)
 export const competingVoucher = as<Voucher>(vouchersJson.competingVoucher)
+/** Credit vouchers granted by support: unbound, usable at any venue or service, 60 days (ADR 0035 D5). */
+export const creditVouchers = as<CreditVoucher[]>(vouchersJson.creditVouchers)
+/** Requests to Ghazal support for a credit voucher (ADR 0035 D5): no money goes back. */
+export const refundRequests = as<RefundRequest[]>(vouchersJson.refundRequests)
 /** The hero request walked through every state: the same booking and voucher (same ids, same quote) in each variant. */
 export type HeroVariant = 'pending' | 'approved' | 'confirmed' | 'redeemed' | 'completed' | 'declined' | 'expired' | 'lapsed' | 'cancelled' | 'counter_offer'
 export const heroVariants = as<Record<Exclude<HeroVariant, 'pending'>, { booking: Booking; voucher: Voucher }>>(bookingsJson.heroVariants)

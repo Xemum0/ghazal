@@ -880,21 +880,18 @@
       "id": "ntf-c-10",
       "audience": "client",
       "userId": "user-reem",
-      "kind": "voucher_refunded",
+      "kind": "credit_voucher_issued",
       "title": {
-        "en": "Voucher refunded",
-        "ar": "تم استرداد الكوبون"
+        "en": "Credit voucher issued",
+        "ar": "تم إصدار كوبون رصيد"
       },
       "body": {
-        "en": "KD 2 was returned to your KNET card for voucher GV-2610-H9XB.",
-        "ar": "أُعيد مبلغ 2 د.ك إلى بطاقة كي نت الخاصة بكم للكوبون GV-2610-H9XB."
+        "en": "Support added a credit voucher for you. Use it at any hall, hotel or service within 60 days.",
+        "ar": "أضاف الدعم كوبون رصيد لكم. استخدموه في أي قاعة أو فندق أو خدمة خلال 60 يومًا."
       },
       "params": {
-        "code": "GV-2610-H9XB",
-        "amount": {
-          "fils": 2000,
-          "currency": "KWD"
-        }
+        "code": "GV-2611-C4RD",
+        "from": "GV-2610-H9XB"
       },
       "at": "2026-11-05T10:00:00+03:00",
       "read": true,
@@ -904,7 +901,7 @@
       "venueId": null,
       "conversationId": null,
       "channel": "transactional",
-      "voucherId": "vch-GV-2610-H9XB",
+      "voucherId": "vch-GV-2611-C4RD",
       "visitId": null
     },
     {
@@ -1195,8 +1192,8 @@
         "ar": "انتهت مهلة التأكيد"
       },
       "body": {
-        "en": "The date was released because the booking was not confirmed within 24 hours. Your voucher is still yours.",
-        "ar": "تم تحرير التاريخ لأن الحجز لم يُؤكَّد خلال 24 ساعة. كوبونكم ما زال لكم."
+        "en": "The booking was not confirmed at the hotel within 24 hours, so the voucher is not valid and the date was released.",
+        "ar": "لم يُؤكَّد الحجز لدى الفندق خلال 24 ساعة، لذلك الكوبون غير صالح وتم تحرير التاريخ."
       },
       "params": {
         "venue": "V01",
@@ -1223,8 +1220,8 @@
         "ar": "لم يُقبل الطلب"
       },
       "body": {
-        "en": "Aurelia Gulf Hotel could not accept Thu 14 Jan. Your voucher is still yours: use it again or ask for the KD 2 back.",
-        "ar": "لم يتمكن فندق أوريليا الخليج من قبول الخميس 14 يناير. كوبونكم ما زال لكم: استخدموه مجددًا أو اطلبوا استرداد الـ 2 د.ك."
+        "en": "Aurelia Gulf Hotel could not accept Thu 14 Jan. Your voucher is still yours: use it again or ask support for a credit voucher.",
+        "ar": "لم يتمكن فندق أوريليا الخليج من قبول الخميس 14 يناير. كوبونكم ما زال لكم: استخدموه مجددًا أو اطلبوا كوبون رصيد من الدعم."
       },
       "params": {
         "venue": "V01",

@@ -20,7 +20,8 @@
         "HA-VMGT-01",
         "HA-VMGT-02",
         "HA-VMGT-09",
-        "HA-AUTH-02"
+        "HA-AUTH-02",
+        "HA-VMGT-14"
       ],
       "states": [
         "default",
@@ -40,14 +41,20 @@
         "Face check: when a face is detected the sheet warns before upload and offers Retake or Crop; images with people are rejected by moderation with a stated reason shown on the tile",
         "Reorder mode (text button): drag handles with long-press, plus 'Move earlier / Move later' buttons as the accessible alternative; no swipe actions",
         "Tile menu: Set as cover, Edit zone and alt text (Arabic and English), Delete (confirm: 'Delete this photo? It disappears from the listing.')",
-        "Video: upload up to 60 seconds and 100 MB (OQ-T-15 working assumption; the server transcodes to 720p H.264 and derives a muted loop of at most 15 seconds for cards and hero), played only on tap with a static poster; uploads are resumable and continue in the background with a per-item progress line; offline queues the upload and says so",
+        "Video: upload high quality up to 500 MB (decided 2026-10-20; the server transcodes to adaptive H.264 renditions and derives a muted loop of at most 15 seconds for cards and hero), played only on tap with a static poster; uploads are resumable and continue in the background with a per-item progress line; offline queues the upload and says so",
         "Marketing may manage media; Admin and Manager may too; other roles do not see this screen"
       ],
       "contentNotes": "Aurelia Gulf Hotel, 24 photos: Hall 8, Stage and Kosha 5, Bridal suite 3, Buffet 3, Entrance and valet 2, Layouts 3, Outdoors 0 (shown as a quiet empty tag). Two photos 'Under review' (visible only to the venue until approved; whether edits go live at once or after Super Admin review is an open gap, SA-VAPP-01, so both chips are designed). One rejected tile: «مرفوضة: يظهر شخص في الصورة» / 'Rejected: a person is visible' with a Replace action. Videos: «جولة في قاعة الدانة» / 'Danah Ballroom walkthrough' 0:14 and «تجهيز الكوشة» / 'Kosha set-up' 0:09, muted, no people. Alt text example: «قاعة الدانة · الكوشة والمنصة» / 'Danah Ballroom - stage and kosha'. Upload sheet copy: «صور القاعات الفارغة فقط. لا يمكن نشر صور يظهر فيها أشخاص.» / 'Empty-room photos only. Photos showing people cannot be published.' Seed photography is generic: no signage, no recognisable real landmarks or real hotel identity. Language-completeness chip on alt text: 'AR complete - EN 3 missing'. Resumable upload copy: «يستمر الرفع في الخلفية» / 'Uploading continues in the background'.",
       "priority": "supporting",
       "navigatesTo": [
         "HL-SETT-01"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Video limit 500 MB, high quality",
+        "note": "Video: upload high quality up to 500 MB each (replaces 60 seconds, 100 MB, 720p). Over the limit: \"This video is over 500 MB. Choose a smaller file.\""
+      }
     },
     {
       "id": "HL-VENU-02",

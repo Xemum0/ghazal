@@ -25,7 +25,7 @@ import {
   useQuote,
   useSceneState,
   useSignedIn,
-  useWallet,
+  useBoundWallet,
   type Quote,
 } from './_components/model'
 import './_components/explainer.css'
@@ -42,7 +42,7 @@ export default function VoucherExplainer() {
   const state = useSceneState()
   const live = useLive()
   const signedIn = useSignedIn()
-  const wallet = useWallet()
+  const wallet = useBoundWallet()
   const quote = useQuote()
   const facts = useFactsOf(targetOfQuote(quote))
 

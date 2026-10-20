@@ -1,0 +1,41 @@
+/* BillingCard: a quiet fact card (1 px hairline, raised surface). Contract and plan share one layout; there is never a number. */
+
+.gz-bill {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-bill__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gz-bill__icon {
+  display: inline-flex;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-bill__title {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-bill__line {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}

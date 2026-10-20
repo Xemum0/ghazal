@@ -11,8 +11,8 @@ import { useBk } from './useBk'
 import { useDevice } from '../../../../shell/device/context'
 import './doc-viewer.css'
 
-export type DocKind = 'receipt' | 'credit_note'
-export const docId = (v: Voucher, kind: DocKind): string => (kind === 'credit_note' ? (v.refund?.creditNoteNo ?? `${v.id}-cn`) : (v.payment?.receiptNo ?? v.id))
+export type DocKind = 'receipt'
+export const docId = (v: Voucher, _kind: DocKind): string => v.payment?.receiptNo ?? v.id
 
 export type DocViewerProps = {
   voucher: Voucher
@@ -34,7 +34,7 @@ export function DocViewer({ voucher, kind = 'receipt', savedAt: fixedSaved, iner
 
   const title = (
     <>
-      {kind === 'credit_note' ? t('clientBookingsReceiptsCreditNote') : t('clientBookingsReceiptsReceipt')} <Fig>{id}</Fig>
+      {t('clientBookingsReceiptsReceipt')} <Fig>{id}</Fig>
     </>
   )
 
@@ -47,7 +47,7 @@ export function DocViewer({ voucher, kind = 'receipt', savedAt: fixedSaved, iner
     <div className="gzb-viewer" data-gz="DocViewer" data-doc={kind}>
       <SheetTop title={title} onClose={() => nav.closeSheet()} />
       <div className="gzb-viewer__page" role="group" aria-label={t('clientBookingsViewerPreview')} data-gz-id="preview">
-        <ReceiptSheet voucher={voucher} kind={kind} />
+        <ReceiptSheet voucher={voucher} />
       </div>
       <div className="gzb-viewer__actions">
         {/* The time it was saved sits with the buttons, which are pinned: the preview above scrolls and would hide it. */}

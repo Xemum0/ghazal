@@ -15,8 +15,8 @@ export interface PlatformConfig {
   /** Proposed (A-02): reuse window at the same target after a release. */
   voucherReuseDays: number
   voucherCheckoutMinutes: number
-  /** Proposed (A-03): venue-fault releases stay refundable this many days after expiry. */
-  voucherRefundDaysAfterExpiry: number
+  /** ADR 0035 D5: a credit voucher granted by support is valid this many days and works at any venue or service. */
+  creditVoucherValidityDays: number
   /** Owner rule: the client must confirm within 24 hours of approval. Fixed, not partner-configurable. */
   confirmWindowHours: number
   approvalUndoSeconds: number
@@ -32,7 +32,7 @@ export interface PlatformConfig {
   /** Visit group chat: read-only this long after the slot, archived this many days later (A-11). */
   visitChatReadonlyHours: number
   visitChatArchiveDays: number
-  /** A rejected listing keeps its paid plan this many days before it is refunded (A-08). */
+  /** @deprecated ADR 0035 D7: the automatic 14-day plan refund is gone (a fee refund happens on support request, outside the gateway and recorded). Kept until HL-PROV-05 and HL-PROV-06 are rebuilt. */
   listingRejectedRetentionDays: number
   slaDangerPct: number
   slaGoldPct: number

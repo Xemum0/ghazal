@@ -50,12 +50,14 @@ export type ListingCardProps = {
 
 /** The plan as one fact: the crown of a major hotel, or the end date of the plan (a calendar, a timer when it is close, a clock-off when it is over). */
 export function BillingFact({ billing }: { billing: Billing }) {
-  const { t } = useWords()
+  const { t, c } = useWords()
   const f = useFormat()
   const date = billing.endsOn ? f.date(billing.endsOn, 'dayMonth') : ''
   switch (billing.status) {
     case 'exempt':
       return <FactChip icon="crown" tone="accent" label={t('hotelSettingsBillExempt')} />
+    case 'contract':
+      return <FactChip icon="notes" label={c('commonBillingContract')} />
     case 'active':
       return <FactChip icon="calendar" label={t('hotelSettingsBillEnds')} value={<Fx text={date} />} />
     case 'expiring':

@@ -4,8 +4,8 @@
 //   useSceneState   the `?state=` of a static frame, or `state` in the navigator params in the player
 //   useLive         true only in the live prototype (timers and store writes); a static frame never moves
 //   useSignedIn     a static frame is a signed-in client unless the state says guest; the player follows the auth gate
-//   useWallet       the signed-in client's vouchers (live vouchers first, then used, expired, refunded)
-//   phaseOf         one word for where a voucher is: ready, pending, approved, confirmed, redeemed, consumed, released, expired, refunded, unpaid
+//   useWallet       the signed-in client's vouchers (live vouchers first, then used, expired, not valid, credit issued)
+//   phaseOf         one word for where a voucher is: ready, pending, approved, confirmed, redeemed, consumed, released, expired, forfeited, credit-issued, unpaid
 //   useQuote        the quote a voucher would be bound to (params, else the booking draft, else the story hall)
 //   useTargetFacts  names for a voucher or quote: venue or provider, hall, package, thumbnail
 import { useContext, useMemo } from 'react'
@@ -13,12 +13,14 @@ import { useDevice } from '../../../../shell/device/context'
 import { FrameContext } from '../../../../shell/frame'
 import { usePrototype } from '../../../../shell/state'
 import { useBi, useNav } from '../../../../system'
-import { clock, engine, getBooking, getHall, getPackage, getProvider, getVenue, getVoucher, meta, packagesFor, quoteFor, quoteForProvider, voucherOptions } from '../../../../mock'
-import type { Audience, Bilingual, Booking, ImageRef, IsoDate, Venue, Voucher } from '../../../../mock'
+import { clock, creditVouchersFor, engine, getBooking, getCreditVoucher, getHall, getPackage, getProvider, getVenue, getVoucher, meta, packagesFor, quoteFor, quoteForProvider, voucherOptions } from '../../../../mock'
+import type { Audience, Bilingual, Booking, ImageRef, IsoDate, Venue, Voucher, WalletVoucher } from '../../../../mock'
 
 export const STORY_VOUCHER_CODE = 'GV-2611-K7QM'
 export const STORY_RELEASED_CODE = 'GV-2611-R4TF'
-export const STORY_REFUNDED_CODE = 'GV-2610-H9XB'
+export const STORY_CREDIT_ISSUED_CODE = 'GV-2610-H9XB'
+export const STORY_FORFEITED_CODE = 'GV-2609-F6TM'
+export const STORY_CREDIT_CODE = 'GV-2611-C4RD'
 export const STORY_EXPIRED_CODE = 'GV-2608-D5QN'
 /** The days inside which a ready voucher says "Expires" in the gold ink (inventory CL-VCHR-02). */
 export const EXPIRING_DAYS = 7
@@ -52,51 +54,56 @@ export function storyVoucher(): Voucher {
 
 /** The story voucher as it is the moment after payment: ready to use, not yet in a request. Derived from the fixture, nothing added. */
 export function readyVariantOf(v: Voucher): Voucher {
-  return { ...v, status: 'active', bookingId: null, releasedAt: null, releaseReason: null, reuseUntil: null, refundEligible: false, refundUntil: null }
+  return { ...v, status: 'active', bookingId: null, releasedAt: null, releaseReason: null, reuseUntil: null, creditEligible: false }
 }
 
 export const settled = (v: Voucher): Voucher => (v.status === 'active' && engine.isVoucherExpired(v.validUntil, v.reuseUntil, clock.now()) ? { ...v, status: 'expired' } : v)
 
 // ---------------------------------------------------------------- the wallet
 
-const RANK: Record<Voucher['status'], number> = { bound: 0, active: 1, unpaid: 2, used: 3, expired: 4, refunded: 5 }
+const RANK: Record<Voucher['status'], number> = { bound: 0, active: 1, unpaid: 2, used: 3, expired: 4, forfeited: 5, credit_issued: 6 }
+/** A ready credit voucher leads the wallet; an ended one sorts with the ended bound vouchers. */
+const rankOf = (v: WalletVoucher): number => (v.kind === 'credit' ? (v.status === 'active' ? -1 : 3.5) : RANK[v.status])
 
 export type Segment = 'ready' | 'request' | 'history'
 
-export const segmentOf = (v: Voucher): Segment => (v.status === 'active' ? 'ready' : v.status === 'bound' || v.status === 'unpaid' ? 'request' : 'history')
+export const segmentOf = (v: WalletVoucher): Segment => (v.status === 'active' ? 'ready' : v.status === 'bound' || v.status === 'unpaid' ? 'request' : 'history')
 
 /** The end of what a voucher can still do: the reuse window while released, else the validity end (an absolute date). */
-export function endsOn(v: Voucher): IsoDate | null {
-  if (v.status === 'active' && v.reuseUntil) return v.reuseUntil
+export function endsOn(v: WalletVoucher): IsoDate | null {
+  if (v.kind === 'bound' && v.status === 'active' && v.reuseUntil) return v.reuseUntil
   return v.validUntil ? engine.kuwaitDateOf(v.validUntil) : null
 }
 
-export function daysToEnd(v: Voucher): number | null {
+export function daysToEnd(v: WalletVoucher): number | null {
   const end = endsOn(v)
   return end ? engine.diffDays(clock.today(), end) : null
 }
 
-export function useWallet(): Voucher[] {
+export function useWallet(): WalletVoucher[] {
   const all = usePrototype(s => s.vouchers)
   const user = usePrototype(s => s.user)
   const me = user?.id ?? meta.clientUserId
-  return useMemo(
-    () =>
-      all
-        .filter(v => v.clientId === me && v.status !== 'unpaid')
-        .map(settled)
-        .sort((a, b) => RANK[a.status] - RANK[b.status] || (b.purchasedAt ?? '').localeCompare(a.purchasedAt ?? '')),
-    [all, me],
-  )
+  return useMemo(() => {
+    const bound: WalletVoucher[] = all.filter(v => v.clientId === me && v.status !== 'unpaid').map(settled)
+    return [...bound, ...creditVouchersFor(me, clock.now())].sort((a, b) => rankOf(a) - rankOf(b) || ((b.kind === 'bound' ? b.purchasedAt : b.grantedAt) ?? '').localeCompare((a.kind === 'bound' ? a.purchasedAt : a.grantedAt) ?? ''))
+  }, [all, me])
 }
 
-/** A wallet for the static frames: the story client's three vouchers straight from the fixtures. */
-export function fixtureWallet(): Voucher[] {
-  return [STORY_VOUCHER_CODE, STORY_RELEASED_CODE, STORY_REFUNDED_CODE]
+/** The bound vouchers of the wallet (a credit voucher is not tied to a request's venue, so quote matching ignores it). */
+export function useBoundWallet(): Voucher[] {
+  const wallet = useWallet()
+  return useMemo(() => wallet.filter((v): v is Voucher => v.kind === 'bound'), [wallet])
+}
+
+/** A wallet for the static frames: the story client's vouchers straight from the fixtures (bound, credit, not valid, credit issued). */
+export function fixtureWallet(): WalletVoucher[] {
+  const bound = [STORY_VOUCHER_CODE, STORY_RELEASED_CODE, STORY_FORFEITED_CODE, STORY_CREDIT_ISSUED_CODE]
     .map(code => getVoucher(code))
     .filter((v): v is Voucher => Boolean(v))
     .map(settled)
-    .sort((a, b) => RANK[a.status] - RANK[b.status])
+  const credit = getCreditVoucher(STORY_CREDIT_CODE)
+  return [...bound, ...(credit ? [credit] : [])].sort((a, b) => rankOf(a) - rankOf(b))
 }
 
 // ---------------------------------------------------------------- a voucher's request
@@ -115,7 +122,7 @@ export function useBookingLookup(): (v: Voucher) => Booking | null {
   return v => (v.bookingId ? (mine.find(b => b.id === v.bookingId) ?? theirs.find(b => b.id === v.bookingId) ?? getBooking(v.bookingId) ?? null) : null)
 }
 
-export type Phase = 'ready' | 'pending' | 'approved' | 'confirmed' | 'redeemed' | 'consumed' | 'released' | 'expired' | 'refunded' | 'unpaid'
+export type Phase = 'ready' | 'pending' | 'approved' | 'confirmed' | 'redeemed' | 'consumed' | 'released' | 'expired' | 'forfeited' | 'credit-issued' | 'unpaid'
 
 export function phaseOf(v: Voucher, booking: Booking | null): Phase {
   const s = settled(v).status
@@ -130,13 +137,15 @@ export function phaseOf(v: Voucher, booking: Booking | null): Phase {
       return v.usedReason === 'cancelled_after_confirm' ? 'consumed' : 'redeemed'
     case 'expired':
       return 'expired'
-    case 'refunded':
-      return 'refunded'
+    case 'forfeited':
+      return 'forfeited'
+    case 'credit_issued':
+      return 'credit-issued'
   }
 }
 
-/** What a released voucher can still do now: reuse at the same venue, ask the KD 2 back (voucher-model 4.4). */
-export const optionsOf = (v: Voucher): { reusable: boolean; refundable: boolean; reusableUntil: IsoDate | null } => voucherOptions(v, clock.now())
+/** What a released voucher can still do now: reuse at the same venue, ask support for a credit voucher (ADR 0035 D5). */
+export const optionsOf = (v: Voucher): { reusable: boolean; creditEligible: boolean; reusableUntil: IsoDate | null } => voucherOptions(v, clock.now())
 
 // ---------------------------------------------------------------- the quote a voucher is bound to
 

@@ -150,8 +150,8 @@ export function buildVoucher(spec, booking, q) {
   let redeemedBy = null
   let releasedAt = null
   let releaseReason = null
-  let refundEligible = false
-  let refundUntil = null
+  let creditEligible = false
+  let forfeitedAt = null
   let bookingId = booking.id
   switch (booking.status) {
     case 'redeemed':
@@ -170,8 +170,15 @@ export function buildVoucher(spec, booking, q) {
       status = 'active'; releaseReason = 'declined'; releasedAt = L.rejectedAt
       break
     case 'expired':
+      if (booking.expiredReason === 'client_no_confirmation') {
+        // ADR 0035 D4: the client did not confirm at the venue within 24 h: the voucher is not valid and never comes back.
+        status = 'forfeited'
+        forfeitedAt = L.expiredAt
+        bookingId = null
+        break
+      }
       status = 'active'
-      releaseReason = booking.expiredReason === 'client_no_confirmation' ? 'client_no_confirmation' : booking.expiredReason === 'slot_taken' ? 'slot_taken' : 'venue_no_response'
+      releaseReason = booking.expiredReason === 'slot_taken' ? 'slot_taken' : 'venue_no_response'
       releasedAt = L.expiredAt
       break
     case 'cancelled':
@@ -189,16 +196,16 @@ export function buildVoucher(spec, booking, q) {
   if (status === 'active') {
     bookingId = null
     const outcome = releaseOutcome(releaseReason)
-    refundEligible = outcome.refundable
+    creditEligible = outcome.creditEligible
   }
   const reuseUntil = status === 'active' ? voucherReuseUntil(releasedAt, config) : null
   let validUntil = voucherValidUntil(purchasedAt, booking.eventDate, config)
   if (reuseUntil) validUntil = `${reuseUntil}T23:59:00+03:00`
-  if (refundEligible) refundUntil = addDays(kuwaitDateOf(validUntil), config.voucherRefundDaysAfterExpiry)
   receiptSeq.n += 1
   const method = V.method ?? PAYMENT_METHODS[receiptSeq.n % PAYMENT_METHODS.length]
   return {
     id: `vch-${code}`,
+    kind: 'bound',
     code,
     clientId: booking.clientId,
     targetType: booking.targetType,
@@ -218,9 +225,10 @@ export function buildVoucher(spec, booking, q) {
     payment: { method, receiptNo: `RC-${String(receiptSeq.n).padStart(6, '0')}`, amount: fils(config.voucherFeeFils), status: 'succeeded', at: addMinutes(purchasedAt, 1) },
     releasedAt,
     releaseReason,
-    refundEligible,
-    refundUntil,
-    refund: null,
+    forfeitedAt,
+    creditEligible,
+    refundRequestId: null,
+    grantedFrom: null,
     usedAt,
     usedReason,
     redeemedBy,

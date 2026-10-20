@@ -52,7 +52,7 @@ export default function MediaManager() {
     const photoLabel = bilingual('hotelVenueUploadDemoPhoto')
     const video: UploadItem = { id: 'demo-video', kind: 'video', label: bilingual('hotelVenueNewVideoTitle'), progress: 35, status: 'uploading', poster: b }
     return state === 'upload-failed'
-      ? [{ id: 'demo-photo', kind: 'photo', label: photoLabel, progress: 0, status: 'failed', poster: a }]
+      ? [{ id: 'demo-photo', kind: 'photo', label: photoLabel, progress: 0, status: 'failed', poster: a }, { ...video, id: 'demo-large', progress: 0, status: 'failed', reason: 'large' }]
       : [{ id: 'demo-photo', kind: 'photo', label: photoLabel, progress: 60, status: 'uploading', poster: a }, video]
   }, [state, liveUploads, bilingual])
 

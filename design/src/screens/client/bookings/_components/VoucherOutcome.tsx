@@ -1,7 +1,7 @@
 // VoucherOutcome: what became of the KD 2 voucher once its request ended (voucher-model section 4.4, CA-VCH-11). The outcome is a glyph and a
 // title of at most four words; "until 11 Jan" and "Refundable" are facts; the sentence that explains reuse, refund or use-up is behind the
 // info glyph (voucher terms, one of the three allowed paragraphs). A released voucher is reusable at the same venue for 60 days and, only
-// after a venue fault, refundable; a voucher of a confirmed booking that the client cancelled is used up. The one action opens CL-VCHR-05.
+// after a venue fault, askable; a voucher of a confirmed booking that the client cancelled is used up. The one action opens CL-VCHR-05.
 import type { IconName } from '@gz/tokens'
 import { Button, FactChip, FactRow, Icon, InfoButton, useNav } from '../../../../system'
 import { voucherOptions, type Voucher } from '../../../../mock'
@@ -23,24 +23,28 @@ export type VoucherOutcomeProps = {
 
 export function VoucherOutcome({ voucher, targetName, now, primary = false, action: withAction = true }: VoucherOutcomeProps) {
   const nav = useNav()
-  const { t, dayFull, dayMon, money } = useBk()
+  const { t, dayFull, dayMon } = useBk()
   const opts = voucherOptions(voucher, now)
 
   let icon: IconName = 'ticket'
   let title: string
   let body: string
   let until: string | null = null
-  let refundable = false
+  let askable = false
   let action: string | null = null
 
   if (voucher.status === 'used') {
     icon = 'check-double'
     title = t('clientBookingsOutcomeUsedTitle')
     body = t('clientBookingsOutcomeUsedBody')
-  } else if (voucher.status === 'refunded') {
-    icon = 'undo'
-    title = t('clientBookingsOutcomeRefundedTitle')
-    body = t('clientBookingsOutcomeRefundedBody', { amount: money(voucher.priceFils) })
+  } else if (voucher.status === 'forfeited') {
+    icon = 'x-circle'
+    title = t('clientBookingsOutcomeForfeitedTitle')
+    body = t('clientBookingsOutcomeForfeitedBody', { venue: targetName, hours: 24 })
+  } else if (voucher.status === 'credit_issued') {
+    icon = 'gift'
+    title = t('clientBookingsOutcomeCreditTitle')
+    body = t('clientBookingsOutcomeCreditBody')
   } else if (voucher.status === 'expired') {
     icon = 'clock-off'
     title = t('clientBookingsOutcomeExpiredTitle')
@@ -49,9 +53,9 @@ export function VoucherOutcome({ voucher, targetName, now, primary = false, acti
     icon = 'undo'
     title = t('clientBookingsOutcomeBackTitle')
     until = opts.reusableUntil
-    refundable = opts.refundable
-    body = refundable
-      ? t('clientBookingsOutcomeBackRefundable', { venue: targetName, date: dayFull(opts.reusableUntil) })
+    askable = opts.creditEligible
+    body = askable
+      ? t('clientBookingsOutcomeBackCredit', { venue: targetName, date: dayFull(opts.reusableUntil) })
       : t('clientBookingsOutcomeBackReusable', { venue: targetName, date: dayFull(opts.reusableUntil) })
     action = t('clientBookingsOutcomeAction')
   } else {
@@ -72,10 +76,10 @@ export function VoucherOutcome({ voucher, targetName, now, primary = false, acti
           <p>{body}</p>
         </InfoButton>
       </div>
-      {until || refundable ? (
+      {until || askable ? (
         <FactRow className="gzb-outcome__facts">
           {until ? <FactChip icon="calendar" label={t('clientBookingsOutcomeUntil')} value={<Fx text={dayMon(until)} />} /> : null}
-          {refundable ? <FactChip icon="undo" label={t('clientBookingsOutcomeRefundable')} value={t('clientBookingsOutcomeRefundable')} tone="muted" /> : null}
+          {askable ? <FactChip icon="gift" label={t('clientBookingsOutcomeAskSupport')} value={t('clientBookingsOutcomeAskSupport')} tone="muted" /> : null}
         </FactRow>
       ) : null}
       {action && withAction ? (

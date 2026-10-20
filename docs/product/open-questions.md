@@ -158,6 +158,7 @@ Move a row here when the owner answers: keep the ID, add the date, the decision,
 | ID | Decision | Date | Recorded in |
 |---|---|---|---|
 | OQ-B-01, OQ-B-03, OQ-B-04, OQ-B-05, OQ-B-14, OQ-B-16 | Superseded: the owner moved to the voucher model, so there is no deposit, balance, pay-at-request question, cancellation tier, platform credit or commission. OQ-B-06, OQ-B-07 and OQ-B-18 remain only for the parts that survive (invoice issuer for voucher and listing receipts; reply time; venue-cancel consequence for the voucher) | 2026-10-14 | ADR 0033, docs/product/voucher-model.md |
+| OQ-V-01, V-02, V-03, V-04, V-05, V-06 to V-18, OQ-T-01, OQ-T-02, OQ-T-06, OQ-T-08, OQ-T-09, OQ-T-15, OQ-B-02 = OQ-T-04, OQ-B-17, OQ-B-25, OQ-P-11 | Answered in round 1: voucher KD 2.000 for 60 days, no VAT, «كوبون», tied at purchase; the 24 h confirm lapse forfeits the voucher; no money refunds, support grants a credit voucher (unbound); non-compliance and rescheduling stay as the prototype; plan rates and contract billing from Super Admin; staff invited by email (Resend); NestJS; com.ghazal.client and com.ghazal.provider; 500 MB videos; every unmentioned item = prototype assumption. OQ-B-02 and OQ-T-04 are moot (no refunds). | 2026-10-20 | ADR 0035, `docs/product/owner-decisions.md` |
 
 ## 7. Rows that ask the same thing (answer once)
 

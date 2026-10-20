@@ -26,6 +26,21 @@ export interface HotelStaff {
   isYou: boolean
 }
 
+/** ADR 0035 D8: staff are invited by email (Resend), never by WhatsApp. */
+export interface StaffInvitation {
+  id: Id
+  venueId: Id
+  email: string
+  role: StaffRole
+  status: 'invited' | 'accepted'
+  sentAt: IsoDateTime
+  /** Invitation link validity end while `invited`; null once accepted. */
+  expiresAt: IsoDateTime | null
+  invitedBy: string
+  /** The staff record created on acceptance (or pre-created while invited). */
+  staffId: Id | null
+}
+
 export interface VenueMembership {
   userId: Id
   venueId: Id
@@ -178,7 +193,13 @@ export interface HotelSettings {
     /** Major hotel: the badge replaces the plan chooser. */
     majorHotel: boolean
     plan: { cycle: 'weekly' | 'monthly' | 'annual' | null; endsOn: IsoDate | null }
+    /** ADR 0035 D7: hotels and halls are mostly on a business contract (no plan picker, no price). */
+    mode: 'plan' | 'contract'
+    /** One line about the contract, no price (`contract` mode). */
+    contractSummary: Bilingual | null
   }
+  /** External calendar sync is by email (an .ics through Resend or an invitation address), never WhatsApp (ADR 0035 D8). */
+  calendarSync: { channel: 'email'; address: string; ics: boolean }
   /** Sister venue shown in the venue switcher (state only). */
   sister: { id: Id; name: Bilingual; role: StaffRole; pending: number } | null
   reliabilityStrikes: number

@@ -69,7 +69,7 @@ export default function DeleteAccount() {
   const blocked = status === 'confirmed' || status === 'approved'
   const approved = status === 'approved'
   const venueName = booking?.venueId ? (getVenue(booking.venueId)?.name[lang] ?? '') : ''
-  const refundable = ready.filter(v => v.refundEligible)
+  const refundable = ready.filter(v => v.creditEligible)
   const eventDate = booking?.eventDate ?? ''
   // Pages are built eagerly each render, so a missing booking (nothing active, or just erased) must never reach the date formatter.
   const day = (d: string, style: 'full' | 'short') => (d ? f.date(d, style) : '')

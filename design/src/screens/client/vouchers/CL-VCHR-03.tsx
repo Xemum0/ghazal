@@ -6,12 +6,12 @@
 // and a date per event; the paid event opens the receipt (CA-VCH-14). The one pinned action fits the state. The code is copyable and the QR opens
 // full screen for the scanner; both are cached on the phone once the voucher is ready, so the venue can scan them offline.
 // States: ready (default), in-request-pending, in-request-approved, in-request-confirmed, redeemed, released-reusable, expired,
-// refunded, offline-cached, loading, error.
+// forfeited (not valid), credit-issued, credit-voucher, offline-cached, loading, error.
 import type { ReactNode } from 'react'
 import type { IconName } from '@gz/tokens'
 import { ActionBar, Banner, Button, ErrorState, FactChip, FactRow, IconListRow, Screen, Skeleton, TopBar, VoucherCard, useNav } from '../../../system'
-import { getVoucher, heroBookingAs, heroVoucherAs } from '../../../mock'
-import type { Booking, Voucher } from '../../../mock'
+import { getCreditVoucher, getRefundRequest, getVoucher, heroBookingAs, heroVoucherAs, meta } from '../../../mock'
+import type { Booking, CreditVoucher, Voucher, WalletVoucher } from '../../../mock'
 import { usePrototype } from '../../../shell/state'
 import { ConfirmLeft } from './_components/ConfirmLeft'
 import { Fx } from './_components/Fx'
@@ -20,11 +20,14 @@ import { PhaseStrip, type PhaseStripProps } from './_components/PhaseStrip'
 import { QrFull } from './_components/QrFull'
 import { Saving } from './_components/Saving'
 import { Terms } from './_components/Terms'
-import { copyCode, useMethodName, useWhy } from './_components/copy'
+import { copyCode, useWhy } from './_components/copy'
 import { useVc } from './_components/useVc'
 import {
+  CONFIRM_HOURS,
   STORY_EXPIRED_CODE,
-  STORY_REFUNDED_CODE,
+  STORY_CREDIT_CODE,
+  STORY_CREDIT_ISSUED_CODE,
+  STORY_FORFEITED_CODE,
   STORY_RELEASED_CODE,
   openRequest,
   optionsOf,
@@ -40,9 +43,9 @@ import {
 } from './_components/model'
 import './CL-VCHR-03.css'
 
-export const states = ['in-request-pending', 'in-request-approved', 'in-request-confirmed', 'redeemed', 'released-reusable', 'expired', 'refunded', 'offline-cached', 'loading', 'error']
+export const states = ['in-request-pending', 'in-request-approved', 'in-request-confirmed', 'redeemed', 'released-reusable', 'expired', 'forfeited', 'credit-issued', 'credit-voucher', 'offline-cached', 'loading', 'error']
 
-type Scene = { voucher: Voucher; booking: Booking | null }
+type Scene = { voucher: WalletVoucher; booking: Booking | null }
 
 /** The voucher and request each state frame draws, straight from the fixtures (nothing invented, only the story voucher in its ready form). */
 function frameScene(state: string | undefined): Scene {
@@ -60,36 +63,88 @@ function frameScene(state: string | undefined): Scene {
       return { voucher: getVoucher(STORY_RELEASED_CODE) ?? storyVoucher(), booking: null }
     case 'expired':
       return { voucher: getVoucher(STORY_EXPIRED_CODE) ?? storyVoucher(), booking: null }
-    case 'refunded':
-      return { voucher: getVoucher(STORY_REFUNDED_CODE) ?? storyVoucher(), booking: null }
+    case 'forfeited':
+      return { voucher: getVoucher(STORY_FORFEITED_CODE) ?? storyVoucher(), booking: null }
+    case 'credit-issued':
+      return { voucher: getVoucher(STORY_CREDIT_ISSUED_CODE) ?? storyVoucher(), booking: null }
+    case 'credit-voucher':
+      return { voucher: getCreditVoucher(STORY_CREDIT_CODE) ?? storyVoucher(), booking: null }
     default:
       return { voucher: readyVariantOf(storyVoucher()), booking: null }
   }
 }
 
 export default function VoucherDetail() {
-  const { t, tc, money, dayMon } = useVc()
   const nav = useNav()
   const state = useSceneState()
   const live = useLive()
   const stored = usePrototype(s => s.vouchers)
   const lookup = useBookingLookup()
-  const why = useWhy()
-  const method = useMethodName()
 
   const scene: Scene = (() => {
     if (state && state !== 'loading' && state !== 'error' && state !== 'offline-cached') return frameScene(state)
     if (!live) return frameScene(undefined)
     const id = nav.params.voucherId
+    const credit = typeof id === 'string' ? getCreditVoucher(id) : undefined
+    if (credit) return { voucher: credit, booking: null }
     const v = stored.find(x => x.id === id || x.code === id) ?? stored.find(x => x.code === storyVoucher().code) ?? storyVoucher()
     return { voucher: v, booking: lookup(v) }
   })()
-  const v = settled(scene.voucher)
-  const booking = scene.booking
+  if (scene.voucher.kind === 'credit') return <CreditDetail v={scene.voucher} state={state} />
+  return <BoundDetail voucher={scene.voucher} booking={scene.booking} state={state} />
+}
+
+/** A credit voucher from support: unbound, any hall, hotel or service, 60 days. One strip, the card, and the one action (find a venue). */
+function CreditDetail({ v, state }: { v: CreditVoucher; state: string | undefined }) {
+  const { t, tc, dayMon } = useVc()
+  const nav = useNav()
+  const top = <TopBar back title={t('clientVouchersDetailTitle')} />
+  if (state === 'error') {
+    return (
+      <Screen top={top}>
+        <ErrorState kind="load" onRetry={() => nav.replace('CL-VCHR-03', nav.params)} />
+      </Screen>
+    )
+  }
+  const live = v.status === 'active'
+  const body = t('clientVouchersCreditBody', { validity: tc('commonCountDays', { count: meta.config.voucherValidityDays }), confirm: tc('commonCountHours', { count: CONFIRM_HOURS() }) })
+  const info = { title: tc('commonVoucherCredit'), body: <p>{body}</p> }
+  const copy = () => {
+    copyCode(v.code)
+    nav.toast({ message: t('clientVouchersCodeCopied'), tone: 'success', icon: 'check-circle' })
+  }
+  const strip = live ? (
+    <PhaseStrip icon="gift" tone="success" title={tc('commonVoucherCredit')} info={info}>
+      {v.validUntil ? (
+        <FactRow>
+          <FactChip icon="calendar" label={t('clientVouchersLabelValid')} value={<Fx text={dayMon(v.validUntil.slice(0, 10))} />} tone="muted" />
+        </FactRow>
+      ) : null}
+    </PhaseStrip>
+  ) : (
+    <PhaseStrip illustration={v.status === 'used' ? 'seal' : 'hourglass'} title={v.status === 'used' ? tc('commonVoucherStatusUsed') : tc('commonVoucherStatusExpired')} />
+  )
+  return (
+    <Screen top={top} bottom={live ? <ActionBar action={{ label: t('clientVouchersBrowseHalls'), onPress: () => nav.push('CL-DISC-03') }} /> : undefined}>
+      <div className="gzv-detail" data-gz-id="detail" data-phase={live ? 'credit' : v.status}>
+        {strip}
+        <VoucherCard voucher={v} variant="full" onCopy={live ? copy : undefined} />
+        <div className="gzv-detail__links">
+          <IconListRow flush last chevron icon="headset" title={t('clientVouchersSupport')} onClick={() => nav.push('CL-MSGS-02', { support: true })} />
+        </div>
+      </div>
+    </Screen>
+  )
+}
+
+function BoundDetail({ voucher, booking, state }: { voucher: Voucher; booking: Booking | null; state: string | undefined }) {
+  const { t, tc, dayMon } = useVc()
+  const nav = useNav()
+  const why = useWhy()
+  const v = settled(voucher)
   const facts = useFactsOfVoucher(v)
   const phase = phaseOf(v, booking)
   const saving = Math.max(0, v.quoteFils.standard - v.quoteFils.voucher)
-  const fee = money(v.priceFils)
   const options = optionsOf(v)
 
   const top = <TopBar back title={t('clientVouchersDetailTitle')} />
@@ -123,9 +178,9 @@ export default function VoucherDetail() {
   }
   const viewRequest = () => booking && nav.push('CL-BKNG-02', { bookingId: booking.id })
   const refund = () => nav.openSheet('CL-VCHR-05', { params: { voucherId: v.id } })
-  const refundButton = (
-    <Button variant="tertiary" iconStart="undo" onClick={refund}>
-      {t('clientVouchersRefundFee', { fee })}
+  const askButton = (
+    <Button variant="tertiary" iconStart="headset" onClick={refund}>
+      {tc('commonAskSupport')}
     </Button>
   )
 
@@ -165,8 +220,8 @@ export default function VoucherDetail() {
           icon={reason.icon}
           tone="pending"
           title={reason.word}
-          info={info(t('clientVouchersInfoBack'), reason.sentence, options.refundable ? t('clientVouchersBackRefundable', { date: v.reuseUntil ? dayMon(v.reuseUntil) : '', fee }) : t('clientVouchersBackKept', { date: v.reuseUntil ? dayMon(v.reuseUntil) : '' }))}
-          actions={options.refundable ? refundButton : undefined}
+          info={info(t('clientVouchersInfoBack'), reason.sentence, options.creditEligible ? t('clientVouchersBackCredit', { date: v.reuseUntil ? dayMon(v.reuseUntil) : '' }) : t('clientVouchersBackKept', { date: v.reuseUntil ? dayMon(v.reuseUntil) : '' }))}
+          actions={options.creditEligible ? askButton : undefined}
         >
           {v.reuseUntil ? (
             <FactRow>
@@ -182,20 +237,40 @@ export default function VoucherDetail() {
         <PhaseStrip
           illustration="hourglass"
           title={tc('commonVoucherStatusExpired')}
-          info={info(tc('commonVoucherStatusExpired'), t('clientVouchersExpiredBody', { date: dayMon((v.validUntil ?? '').slice(0, 10)) }), ...(v.refundEligible ? [t('clientVouchersExpiredRefundable', { fee })] : []))}
-          actions={v.refundEligible ? refundButton : undefined}
+          info={info(tc('commonVoucherStatusExpired'), t('clientVouchersExpiredBody', { date: dayMon((v.validUntil ?? '').slice(0, 10)) }))}
         />
       )
       break
-    case 'refunded':
+    case 'forfeited':
       strip = (
-        <PhaseStrip illustration="card" title={tc('commonVoucherStatusRefunded')} info={info(t('clientVouchersRefund'), t('clientVouchersRefundedBody', { fee, method: method(v) }))}>
-          <FactRow>
-            <FactChip icon="coins" label={t('clientVouchersRefund')} value={money(v.priceFils)} />
-          </FactRow>
+        <PhaseStrip icon="x-circle" tone="danger" title={tc('commonVoucherStatusForfeited')} info={info(tc('commonVoucherStatusForfeited'), t('clientVouchersForfeitedBody', { hours: tc('commonCountHours', { count: CONFIRM_HOURS() }) }))}>
+          {v.forfeitedAt ? (
+            <FactRow>
+              <FactChip icon="calendar" label={tc('commonVoucherStatusForfeited')} value={<Fx text={dayMon(v.forfeitedAt.slice(0, 10))} />} tone="muted" />
+            </FactRow>
+          ) : null}
         </PhaseStrip>
       )
       break
+    case 'credit-issued': {
+      const creditId = getRefundRequest(v.refundRequestId ?? '')?.creditVoucherId
+      strip = (
+        <PhaseStrip
+          icon="gift"
+          tone="success"
+          title={tc('commonVoucherStatusCreditIssued')}
+          info={info(tc('commonVoucherCredit'), t('clientVouchersCreditIssuedBody'))}
+          actions={
+            creditId ? (
+              <Button variant="tertiary" iconStart="gift" onClick={() => nav.push('CL-VCHR-03', { voucherId: creditId })}>
+                {tc('commonVoucherCredit')}
+              </Button>
+            ) : undefined
+          }
+        />
+      )
+      break
+    }
     default:
       strip = <PhaseStrip icon="hourglass" tone="pending" title={tc('commonVoucherStatusUnpaid')} info={info(t('clientVouchersInfoPaying'), t('clientVouchersPayingBody'))} />
   }

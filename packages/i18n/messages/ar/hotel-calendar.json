@@ -91,5 +91,11 @@
   "hotelCalendarToastBlocked": "مخفية عن الأزواج",
   "hotelCalendarToastOpened": "متاحة للحجز",
   "hotelCalendarPartialTitle": "تخطي بعض التواريخ",
-  "hotelCalendarSaveFailed": "تعذّر الحفظ"
+  "hotelCalendarSaveFailed": "تعذّر الحفظ",
+  "hotelCalendarEmailTitle": "التقويم عبر البريد",
+  "hotelCalendarEmailSwitch": "أرسلوا لي دعوة بالبريد",
+  "hotelCalendarEmailAdd": "بريد آخر",
+  "hotelCalendarEmailInvalid": "تأكد من العنوان",
+  "hotelCalendarEmailTest": "إرسال تجربة",
+  "hotelCalendarEmailTestSent": "تم الإرسال"
 }

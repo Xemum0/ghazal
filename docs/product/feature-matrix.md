@@ -1113,7 +1113,7 @@ IDs continue each group's numbering and are append-only. `PA` is a new prefix: p
 | `CA-VCH-11` | When a request is declined, expires, is withdrawn or is cancelled, the client sees the voucher outcome: reusable at the same venue for 60 days, refundable, or consumed. | Owner brief 2026-10-14 · ADR 0033 | MVP-P1 | yes | A-02, A-03 (OQ-V-02, OQ-V-03). |
 | `CA-VCH-12` | A client can search, compare, visit and contact a venue without a voucher and pay the venue directly at the standard price. | Owner brief 2026-10-14 · ADR 0033 | MVP-P1 | yes | Browse-only path; Contact the venue action on the detail. |
 | `CA-VCH-13` | The client is reminded before a ready voucher expires and when a request needs confirmation. | Owner brief 2026-10-14 · ADR 0033 | MVP-P1 | yes | Transactional notifications (ADR 0007 D10). |
-| `CA-VCH-14` | A receipt is available for each voucher payment and for a voucher refund (credit note). | Owner brief 2026-10-14 · ADR 0033 | MVP-P1 | yes | Bilingual PDF, amounts in KWD (ADR 0010 D7). |
+| `CA-VCH-14` | A receipt is available for each voucher payment and for a voucher refund (credit note). | Owner brief 2026-10-14 · ADR 0033 | MVP-P1 | yes | Bilingual PDF, amounts in KWD (ADR 0010 D7). Amended by ADR 0035: there is no voucher refund credit note; a granted refund request issues a credit voucher. |
 
 ### CA-VIS — Site visits and group chat (client) (6)
 
@@ -1265,3 +1265,19 @@ IDs continue each group's numbering and are append-only. `PA` is a new prefix: p
 | `SA-REV-04` | Super Admin can set and clear the major-hotel fee exemption. | Owner brief 2026-10-14 · ADR 0033 | MVP-P1 | no |  |
 | `SA-REV-05` | Super Admin can configure the voucher fee and validity and the weekly, monthly and annual plan rates. | Owner brief 2026-10-14 · ADR 0033 | MVP-P1 | no |  |
 | `SA-REV-06` | Support can search a voucher by code, refund or release it, and join visit group chats as the support representative. | Owner brief 2026-10-14 · ADR 0033 | MVP-P1 | no |  |
+
+## 14. Owner round 1 additions (2026-10-20, ADR 0035)
+
+9 lines appended; live count 665 in `feature-matrix.json`.
+
+| ID | Requirement | Source | Phase | Design | Notes |
+|---|---|---|---|---|---|
+| `CA-VCH-15` | A client can hold a credit voucher (unbound, 60 days) in the wallet and claim it with any hall, hotel or service. | Owner round 1 2026-10-20 · ADR 0035 | MVP-P1 | yes | Kind credit; granted only by support (CA-VCH-16). |
+| `CA-VCH-16` | A client can send a refund request for an eligible voucher to Ghazal support; if support agrees the client receives a credit voucher. No money is returned. | Owner round 1 2026-10-20 · ADR 0035 | MVP-P1 | yes | Support chat entry; refund_requests record. Replaces money refunds (ADR 0035 D5). |
+| `CA-VCH-17` | A voucher is forfeited (not valid, does not come back) when the 24 hour confirmation at the hotel or service lapses. | Owner round 1 2026-10-20 · ADR 0035 | MVP-P1 | yes | Voucher state forfeited; amends CA-STAT-11 and R09. |
+| `HA-VCH-06` | A partner sees that a request whose client did not confirm within 24 hours lapsed and its voucher is forfeited, and the date reopens. | Owner round 1 2026-10-20 · ADR 0035 | MVP-P1 | yes | Partner side of CA-VCH-17. |
+| `PA-BIL-01` | A partner account has a billing mode: plan (weekly, monthly or annual, rates set in Super Admin) or contract (terms as contracted, no public plan); contract is mostly for hotels and halls. | Owner round 1 2026-10-20 · ADR 0035 | MVP-P1 | yes | Prototype shows "Rates announced soon" for plans and a Business contract card for contract mode. |
+| `PA-ACC-06` | Partner staff are invited by email (Resend) and sign in with email and password. | Owner round 1 2026-10-20 · ADR 0035 | MVP-P1 | yes | Replaces the WhatsApp invite of ADR 0028 for staff; client sign-in codes stay WhatsApp. |
+| `HA-CAL-10` | External calendar sync is done by email (an .ics or an invitation address), not WhatsApp. | Owner round 1 2026-10-20 · ADR 0035 | MVP-P2 | yes |  |
+| `HA-REV-01` | A venue can ask support to hide or delete a review; support performs it. The venue cannot hide or delete it itself. | Owner round 1 2026-10-20 · ADR 0035 | MVP-P1 | yes | Reply once and report stay (PA-REV, OQ-B-25). |
+| `HA-VMGT-14` | A venue can upload videos in high quality up to 500 MB each. | Owner round 1 2026-10-20 · ADR 0035 | MVP-P2 | yes | Replaces 60 s, 100 MB, 720p (OQ-T-15). |

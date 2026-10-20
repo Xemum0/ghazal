@@ -1,11 +1,12 @@
 // HL-SETT-03 Staff and roles. Requirement IDs: HA-SET-01, HA-SET-02, HA-AUTH-04, HA-AUTH-02.
 // The team of the venue (Admin only): monogram, name in its own script, and per person the role and the state as facts (Active = when last seen,
 // Pending = a pill and its expiry, Expired, Deactivated). Invite staff and the edit sheet are real sheets; inviting, removing and changing a role
-// need a fresh WhatsApp code first (the Verify screen in step-up mode, ADR 0028 D6). The owner and your own row cannot be changed here, and nobody
+// need a fresh email code first (the Verify screen in step-up mode, ADR 0028 D6). The owner and your own row cannot be changed here, and nobody
 // removes themselves. Roles are glyph strips (what each may open); the plain-words line of each role, that whoever manages visits reads the visit
 // chats and that ownership moves through support are read in the sheet of the top bar's (i). Support is one row at the end.
 // Voucher model (ADR 0033): role lines name redemption, visits, listings and billing; bank, revenue and invoice permissions are gone, and
 // `visit:manage` decides who can read a visit group chat. A service provider has no staff list here.
+// Owner round 1: staff are invited by email (Resend) and step-up codes come by email; the row shows Invited until the invitee sets a password.
 // States: loading, empty, error, offline, invite-sheet, edit-sheet, invite-pending, invite-expired, step-up-required, role-hidden.
 import { Fragment, useState } from 'react'
 import { useFrame } from '../../../shell/frame'
@@ -42,9 +43,9 @@ export default function StaffAndRoles() {
   const run = (action: PendingAction) => {
     const store = useSettingsLocal.getState()
     if (action.kind === 'invite') {
-      const person = store.invite(action.name, action.national, action.role)
+      const person = store.invite(action.name, action.email, action.role)
       if (action.role === 'reception') store.patchStaff(person.id, { canAccept: action.canAccept })
-      nav.toast({ message: t('hotelSettingsStaffSent'), tone: 'success', icon: 'whatsapp' })
+      nav.toast({ message: t('hotelSettingsStaffSent'), tone: 'success', icon: 'mail' })
     } else if (action.kind === 'role') {
       store.patchStaff(action.id, { role: action.role })
       nav.toast({ message: roleName(action.role), tone: 'success', icon: 'check-circle' })
@@ -75,7 +76,7 @@ export default function StaffAndRoles() {
         onClose={() => nav.closeSheet(key)}
         onSubmit={v => {
           nav.closeSheet(key)
-          void stepUp({ kind: 'invite', name: v.name, national: v.national, role: v.role, canAccept: v.canAccept }, run)
+          void stepUp({ kind: 'invite', name: v.name, email: v.email, role: v.role, canAccept: v.canAccept }, run)
         }}
       />,
     )
@@ -122,7 +123,7 @@ export default function StaffAndRoles() {
       if (guardOffline()) return
       close()
       useSettingsLocal.getState().resendInvite(entry.person.id)
-      nav.toast({ message: t('hotelSettingsStaffResent'), tone: 'success', icon: 'whatsapp' })
+      nav.toast({ message: t('hotelSettingsStaffResent'), tone: 'success', icon: 'mail' })
     },
   })
 

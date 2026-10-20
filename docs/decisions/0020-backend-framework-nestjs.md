@@ -2,7 +2,8 @@
 
 | Field | Value |
 |---|---|
-| Status | proposed-needs-owner |
+| Status | accepted (NestJS confirmed by the owner 2026-10-20); Updated by ADR 0035 |
+| Confirmed by the owner | 2026-10-20 (OQ-T-01), see ADR 0035 D10 |
 | Date | 2026-10-12 |
 | Scope | `apps/api`, `packages/contracts`, deployables on Cloud Run, backend conventions for Kuwait and Arabic |
 | Owner must confirm | OQ-T-01 (who maintains the backend after handover; strong Laravel/PHP experience that should flip the call) before the first commit under `apps/api`. After confirmation it is locked and not re-litigated |

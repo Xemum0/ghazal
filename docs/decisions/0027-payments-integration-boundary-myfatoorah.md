@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | accepted; partially superseded: supplier split, payouts, KYC and event ledger items by 0033 (gateway boundary stands) |
+| Status | accepted; partially superseded: supplier split, payouts, KYC and event ledger items by 0033 (gateway boundary stands); Updated by ADR 0035 (refund parts moot) |
 | Date | 2026-10-12 |
 | Scope | `apps/api/src/payments`, the client payment screens, the hotel app's payout state, refunds, ledger and the Week-1 spike |
 | Owner confirmation still needed | OQ-T-04 and OQ-B-02 (MyFatoorah written answers; Week-1 spike gates in item 8), OQ-B-06 (merchant of record, invoice issuer, funds held, refund liability), OQ-T-12 (invoice issuer and PDF service) |

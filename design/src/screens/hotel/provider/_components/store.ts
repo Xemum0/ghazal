@@ -116,6 +116,7 @@ export function createListing(draft: ListingDraft): string {
     id,
     providerId: PROVIDER_ID,
     partnerAccountId: PROVIDER_ACCOUNT_ID,
+    feeRefund: null,
     categoryId: draft.categoryId ?? 'flowers',
     title: bi(draft.titleEn, draft.titleAr),
     description: bi(draft.descEn, draft.descAr),

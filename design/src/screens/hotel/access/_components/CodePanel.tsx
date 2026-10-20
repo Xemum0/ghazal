@@ -17,7 +17,7 @@ import './access.css'
 import './code-panel.css'
 
 export type CodeView = 'default' | 'loading' | 'error' | 'expired' | 'cooldown' | 'delivery-failed' | 'offline' | 'success'
-export type CodeStep = 'whatsapp' | 'authenticator'
+export type CodeStep = 'email' | 'authenticator'
 
 const SEED_CODE: Partial<Record<CodeView, string>> = { loading: '482913', success: '482913', error: WRONG_CODE }
 /** Frozen countdown of each static frame: mid-wait by default, just restarted after a resend, over when the view asks for Resend. */
@@ -31,14 +31,14 @@ export type CodeModel = ReturnType<typeof useCode>
 export function useCode({
   live,
   seedView = 'default',
-  seedStep = 'whatsapp',
+  seedStep = 'email',
   needsAuthenticator,
   onVerified,
 }: {
   live: boolean
   seedView?: CodeView
   seedStep?: CodeStep
-  /** A venue admin on a new device: the WhatsApp code is followed by the authenticator code. */
+  /** A venue admin on a new device: the email code is followed by the authenticator code. */
   needsAuthenticator: boolean
   onVerified: () => void
 }) {
@@ -76,12 +76,12 @@ export function useCode({
           setSeconds(0)
           setView('expired')
         } else setView('error')
-      } else if (value === EXPIRED_CODE && step === 'whatsapp') {
+      } else if (value === EXPIRED_CODE && step === 'email') {
         setTooMany(false)
         setSeconds(0)
         setView('expired')
-      } else if (step === 'whatsapp' && needsAuthenticator) {
-        // The device is proven by WhatsApp; the admin's second factor comes next on the same screen.
+      } else if (step === 'email' && needsAuthenticator) {
+        // The device is proven by email; the admin's second factor comes next on the same screen.
         setStep('authenticator')
         setCode('')
         setFailed(0)
@@ -123,7 +123,7 @@ export function useCode({
   return { view, step, code, seconds, failed, tooMany, attemptsLeft: Math.max(0, MAX_ATTEMPTS - failed), change, verify, resend, action, support, live }
 }
 
-export function CodeBody({ model, onOpenWhatsapp }: { model: CodeModel; onOpenWhatsapp: () => void }) {
+export function CodeBody({ model }: { model: CodeModel }) {
   const t = useT('hotel-access')
   const tc = useT('common')
   const { view, step, code, seconds, attemptsLeft, tooMany } = model
@@ -178,12 +178,6 @@ export function CodeBody({ model, onOpenWhatsapp }: { model: CodeModel; onOpenWh
           )}
           {view === 'error' ? <AttemptPips left={attemptsLeft} /> : null}
         </div>
-      ) : null}
-
-      {!authenticator && !failedDelivery ? (
-        <Button variant="secondary" fullWidth iconStart="whatsapp" onClick={onOpenWhatsapp} disabled={view === 'offline' || view === 'loading'}>
-          {tc('commonActionOpenWhatsapp')}
-        </Button>
       ) : null}
 
       {failedDelivery ? (

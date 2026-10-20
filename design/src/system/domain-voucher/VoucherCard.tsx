@@ -10,10 +10,11 @@
 //            slim     the voucher shown on the booking it belongs to (booking confirmed, booking detail): the venue, package, date, guests and
 //                     both prices are already on that screen, so the card is the QR, the code and its validity, then Copy and Full screen;
 //                     a state chip only when the voucher is no longer live (used, expired)
-// The QR is drawn from `voucher.qr.payload`; a used, expired or refunded voucher keeps its code but its QR is muted (the state chip says why).
-import type { Voucher } from '@gz/contracts'
-import { getPackage, getProvider, getVenue } from '../../mock'
-import { useFormat } from '../../i18n'
+// Credit voucher (kind `credit`): the same ticket with a gift glyph, the "any hall, hotel or service" mark instead of a venue, no quote.
+// The QR is drawn from `voucher.qr.payload`; a used, expired, forfeited or credit-issued voucher keeps its code but its QR is muted (the state chip says why).
+import type { CreditVoucher, Voucher, WalletVoucher } from '@gz/contracts'
+import { getPackage, getProvider, getVenue, meta } from '../../mock'
+import { useFormat, useT } from '../../i18n'
 import { Button, FactChip, FactRow, Icon, Money, StatusPill, type VoucherState } from '../core'
 import { cx } from '../core/cx'
 import { Figures, useBi } from '../domain-client/bits'
@@ -37,7 +38,8 @@ const useW = defineWords({
 })
 
 export type VoucherCardProps = {
-  voucher: Voucher
+  /** A bound voucher (venue or provider) or a credit voucher granted by support (unbound, any venue or service). */
+  voucher: WalletVoucher
   variant?: 'full' | 'compact' | 'slim'
   /** Opens the voucher (the compact row is one 44+ target; the full card has its own buttons). */
   onOpen?: () => void
@@ -58,14 +60,139 @@ export function useVoucherTarget(v: Voucher): { name: string; sub: string | null
   return { name: venue ? bi(venue.name) : '', sub: null }
 }
 
-export function VoucherCard({ voucher: v, variant = 'full', onOpen, onCopy, onShowFull, className }: VoucherCardProps) {
+export function VoucherCard(props: VoucherCardProps) {
+  const { voucher, ...rest } = props
+  return voucher.kind === 'credit' ? <CreditVoucherCard voucher={voucher} {...rest} /> : <BoundVoucherCard voucher={voucher} {...rest} />
+}
+
+/** The "any venue" mark of an unbound credit voucher: a globe and the short phrase, a quiet rose chip. Informative only. */
+export function AnyVenueMark({ className }: { className?: string }) {
+  const t = useT('common')
+  return (
+    <span data-gz="AnyVenueMark" className={cx('gz-vch__any gz-t-pill', className)}>
+      <Icon name="globe" size="xs" />
+      <span>{t('commonVoucherAnyVenue')}</span>
+    </span>
+  )
+}
+
+/** The chip state of a credit voucher: ready credit has its own rose pill; used and expired share the bound words. */
+const creditState = (v: CreditVoucher): VoucherState => (v.status === 'active' ? 'voucher_credit' : (`voucher_${v.status}` as VoucherState))
+
+/**
+ * Credit voucher (ADR 0035 D5): the same ticket without a venue, a quote or an event date. The target line is the credit title with the
+ * unbound mark (globe, "Any hall, hotel or service"); the QR, the code and the 60-day validity sit on the stub. Granted by support, never paid.
+ */
+function CreditVoucherCard({ voucher: v, variant = 'full', onOpen, onCopy, onShowFull, className }: Omit<VoucherCardProps, 'voucher'> & { voucher: CreditVoucher }) {
   const f = useFormat()
   const w = useW()
+  const t = useT('common')
+  const live = v.status === 'active'
+  const state = creditState(v)
+  const validUntil = v.validUntil ? f.date(v.validUntil.slice(0, 10), 'compact') : null
+  const usedOn = v.status === 'used' && v.usedAt ? f.date(v.usedAt.slice(0, 10), 'compact') : null
+  const validity =
+    usedOn || validUntil ? (
+      <FactRow>
+        <FactChip icon={usedOn ? 'check-double' : 'calendar'} label={usedOn ? w('usedOn') : w('validUntil')} value={usedOn ?? validUntil} size="sm" tone="muted" />
+      </FactRow>
+    ) : null
+  const title = t('commonVoucherCredit')
+  if (variant === 'compact') {
+    const body = (
+      <>
+        <span className="gz-vch__icon" aria-hidden="true">
+          <Icon name="gift" size="md" />
+        </span>
+        <span className="gz-vch__row-text">
+          <span className="gz-vch__name gz-t-title" dir="auto">
+            {title}
+          </span>
+          <AnyVenueMark />
+          <span className="gz-vch__code gz-t-fig-caption">
+            <bdi dir="ltr">{v.code}</bdi>
+          </span>
+          {validity}
+        </span>
+        <StatusPill status={state} />
+      </>
+    )
+    return (
+      <div data-gz="VoucherCard" data-variant="compact" data-kind="credit" data-status={v.status} className={cx('gz-vch gz-vch--compact', className)}>
+        {onOpen ? (
+          <button type="button" className="gz-reset gz-vch__row gz-press" onClick={onOpen}>
+            {body}
+          </button>
+        ) : (
+          <div className="gz-vch__row">{body}</div>
+        )}
+      </div>
+    )
+  }
+  const qrSize = variant === 'slim' ? 128 : 144
+  return (
+    <article data-gz="VoucherCard" data-variant={variant} data-kind="credit" data-status={v.status} className={cx('gz-vch', className)} aria-label={`${title} ${v.code}`}>
+      <div className="gz-vch__top">
+        <header className="gz-vch__head">
+          <span className="gz-vch__eyebrow">
+            <Icon name="gift" size="md" tone="secondary" />
+            <span className="gz-sr-only">{title}</span>
+          </span>
+          <StatusPill status={state} />
+        </header>
+        <div className="gz-vch__who">
+          <h3 className="gz-vch__target gz-t-d1" dir="auto">
+            {title}
+          </h3>
+          <AnyVenueMark />
+        </div>
+      </div>
+      <div className="gz-vch__perf" aria-hidden="true">
+        <span className="gz-vch__cap" />
+        <span className="gz-vch__dash" />
+        <span className="gz-vch__cap" />
+      </div>
+      <div className="gz-vch__bottom">
+        <div className="gz-vch__stub">
+          <span className="gz-vch__qr">
+            <QrCode payload={v.qr.payload} label={w('qrLabel', { code: v.code })} size={qrSize} muted={!live} />
+          </span>
+          <span className="gz-vch__codeblock">
+            <span className="gz-vch__code-value gz-t-fig-title" data-gz-id="code">
+              <span className="gz-sr-only">{w('code')}</span>
+              <bdi dir="ltr">{v.code}</bdi>
+            </span>
+            {validity}
+          </span>
+        </div>
+        {onCopy || onShowFull ? (
+          <footer className="gz-vch__actions">
+            {onCopy ? (
+              <Button variant="secondary" iconStart="copy" onClick={onCopy}>
+                {w('copy')}
+              </Button>
+            ) : null}
+            {onShowFull && live ? (
+              <Button variant="secondary" iconStart="qr-code" onClick={onShowFull}>
+                {w('full')}
+              </Button>
+            ) : null}
+          </footer>
+        ) : null}
+      </div>
+    </article>
+  )
+}
+
+function BoundVoucherCard({ voucher: v, variant = 'full', onOpen, onCopy, onShowFull, className }: Omit<VoucherCardProps, 'voucher'> & { voucher: Voucher }) {
+  const f = useFormat()
+  const w = useW()
+  const t = useT('common')
   const bi = useBi()
   const target = useVoucherTarget(v)
   const live = v.status === 'bound' || v.status === 'active'
   const pkg = getPackage(v.packageId)
-  const state = `voucher_${v.status}` as VoucherState
+  const state = (v.status === 'credit_issued' ? 'voucher_credit_issued' : `voucher_${v.status}`) as VoucherState
   // `compact` (no weekday) keeps the wallet row and the stub inside a 320 px column in both scripts.
   const validUntil = v.validUntil ? f.date(v.validUntil.slice(0, 10), 'compact') : null
   const usedOn = v.status === 'used' && v.usedAt ? f.date(v.usedAt.slice(0, 10), 'compact') : null
@@ -133,6 +260,12 @@ export function VoucherCard({ voucher: v, variant = 'full', onOpen, onCopy, onSh
         <FactChip icon={usedOn ? 'check-double' : 'calendar'} label={usedOn ? w('usedOn') : w('validUntil')} value={usedOn ?? validUntil} size="sm" tone="muted" />
       </FactRow>
     ) : null
+  const notValid =
+    v.status === 'forfeited' ? (
+      <span className="gz-vch__hint gz-t-caption" data-gz-id="not-valid">
+        <Icon name="x-circle" size="xs" tone="danger" /> {t('commonVoucherNotValidNote', { hours: meta.config.confirmWindowHours })}
+      </span>
+    ) : null
   const actions =
     onCopy || onShowFull ? (
       <footer className="gz-vch__actions">
@@ -163,6 +296,7 @@ export function VoucherCard({ voucher: v, variant = 'full', onOpen, onCopy, onSh
               <bdi dir="ltr">{v.code}</bdi>
             </span>
             {validity}
+            {notValid}
           </span>
         </div>
         {actions}
@@ -208,6 +342,7 @@ export function VoucherCard({ voucher: v, variant = 'full', onOpen, onCopy, onSh
               <bdi dir="ltr">{v.code}</bdi>
             </span>
             {validity}
+            {notValid}
           </span>
         </div>
         {actions}

@@ -31,6 +31,8 @@ export default function AdPlan() {
   const kind = state === 'fee-exempt-major-hotel' ? 'major' : isAccountKind(nav.params.account) ? nav.params.account : viewer
   const account = accountOf(kind)
   const exempt = account.exempt
+  const contract = kind === 'hotel' && !exempt
+  const noPlan = exempt || contract
   const renewalFrame = state === 'renewal'
   const mine = listings.filter(l => l.providerId === PROVIDER_ID)
   const listing = renewalFrame
@@ -57,7 +59,7 @@ export default function AdPlan() {
   }
   const submitNow = () => {
     if (!listing) return
-    chooseAndSubmit(listing.id, exempt ? null : chosen, exempt)
+    chooseAndSubmit(listing.id, noPlan ? null : chosen, exempt)
     nav.toast({ message: t('hotelProviderPlanSubmittedToast'), tone: 'success' })
     nav.replace('HL-PROV-06', { listingId: listing.id, account: kind })
   }
@@ -71,7 +73,7 @@ export default function AdPlan() {
 
   let bottom
   if (!loading && !error) {
-    if (exempt) {
+    if (noPlan) {
       bottom = <ActionBar action={{ label: t('hotelProviderStepSubmit'), iconEnd: 'check', disabled: offline || !listing, reason: offline ? t('hotelProviderNeedsConnection') : undefined, onPress: submitNow }} />
     } else {
       const reason = offline ? t('hotelProviderNeedsConnection') : !chosen ? t('hotelProviderPlanReasonChoose') : undefined
@@ -101,10 +103,10 @@ export default function AdPlan() {
     )
   } else if (error) {
     body = <ErrorState kind="load" title={t('hotelProviderPlanErrorTitle')} body={t('hotelProviderPlanErrorBody')} onRetry={() => nav.replace('HL-PROV-04', nav.params)} />
-  } else if (exempt) {
+  } else if (noPlan) {
     body = (
       <div className="hp04">
-        <MajorHotelBadge />
+        {exempt ? <MajorHotelBadge /> : <Note icon="coins">{t('hotelProviderPlanContractTitle')} · {t('hotelProviderPlanContractBody')}</Note>}
         <div className="hp04__art">
           <Illustration name="seal" size="lg" />
         </div>

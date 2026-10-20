@@ -5,3 +5,4 @@ export { ProviderListingCard, type ProviderListingCardProps } from './ProviderLi
 export { ReviewTimeline, type ReviewTimelineProps } from './ReviewTimeline'
 export { AdPlanCard, type AdPlanCardProps } from './AdPlanCard'
 export { MajorHotelBadge, type MajorHotelBadgeProps } from './MajorHotelBadge'
+export { BillingCard, type BillingCardProps } from './BillingCard'

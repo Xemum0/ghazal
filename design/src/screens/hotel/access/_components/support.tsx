@@ -31,7 +31,7 @@ export function useSupport(): () => void {
     }
     void nav.openDialog({
       title: t('hotelAccessSupportTitle'),
-      icon: 'whatsapp',
+      icon: 'headset',
       body: <Contact phone={plainText(f.phone(SUPPORT_PHONE))} />,
       confirmLabel: tc('commonActionDone'),
       cancelLabel: null,

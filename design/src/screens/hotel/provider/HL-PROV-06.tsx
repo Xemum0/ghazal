@@ -145,9 +145,8 @@ export default function ReviewStatus() {
             : { art: 'partner-review', tone: 'neutral', title: t('hotelProviderHeadPendingTitle') }
 
   const rejected = l.status === 'rejected'
-  const keptDays = l.planKeptUntil ? engine.diffDays(clock.today(), l.planKeptUntil) : null
   const paidLine =
-    view?.refunded ? t('hotelProviderPlanRefunded') : view?.paidFils && keptDays !== null && keptDays >= 0 ? t('hotelProviderPlanRetained', { days: keptDays, date: l.planKeptUntil ? f.date(l.planKeptUntil, 'short') : '' }) : null
+    view?.refunded ? t('hotelProviderPlanRefunded') : view?.paidFils ? t('hotelProviderPlanRetained') : null
 
   const action = (() => {
     if (rejected) return { label: t('hotelProviderEditResubmit'), iconEnd: 'chevron-right' as const, onPress: () => go('HL-PROV-03') }
@@ -197,7 +196,7 @@ export default function ReviewStatus() {
             <div className="hp06__note">
               <UserText role="body">{bi(l.rejection.note)}</UserText>
             </div>
-            {paidLine ? <Note tone="quiet" icon="calendar">{paidLine}</Note> : null}
+            {paidLine ? <Note tone="quiet" icon="coins" action={view?.refunded ? undefined : { label: t('hotelProviderContactSupport'), onPress: () => go('HL-TODY-05', { to: 'support' }) }}>{paidLine}</Note> : null}
             {!l.planCycle && !exempt ? (
               <Button variant="tertiary" onClick={() => go('HL-PROV-04')}>
                 {t('hotelProviderChoosePlanAgain')}

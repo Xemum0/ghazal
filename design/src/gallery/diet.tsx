@@ -40,7 +40,7 @@ function Spec({ cap, children, kind = 'plain' }: { cap: string; children: ReactN
 
 const STATUSES: StatusKey[] = [
   'pending', 'approved', 'confirmed', 'redeemed', 'declined', 'expired', 'date_proposed',
-  'voucher_unpaid', 'voucher_active', 'voucher_bound', 'voucher_used', 'voucher_refunded',
+  'voucher_unpaid', 'voucher_active', 'voucher_bound', 'voucher_used', 'voucher_forfeited', 'voucher_credit',
   'visit_requested', 'visit_confirmed', 'visit_completed', 'listing_review', 'listing_active', 'available', 'held', 'booked',
 ]
 

@@ -144,7 +144,8 @@
         "PA-ADS-03",
         "PA-ADS-04",
         "PA-ADS-05",
-        "PA-ADS-06"
+        "PA-ADS-06",
+        "PA-BIL-01"
       ],
       "states": [
         "plans",
@@ -154,7 +155,8 @@
         "renewal",
         "loading",
         "error",
-        "offline"
+        "offline",
+        "business-contract"
       ],
       "interactions": [
         "Three single-choice plan cards (Weekly, Monthly, Annual) in the shared card style, each showing the cycle length and either the admin-configured price through the formatter or \"Rates announced soon\"; the Annual card never shows a made-up saving percentage",
@@ -168,7 +170,13 @@
         "HL-PROV-05",
         "HL-PROV-06",
         "HL-PROV-03"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Plans are for service providers; hotels and halls on contract see a contract card",
+        "note": "Plan chooser appears in plan mode only. Contract mode shows \"Your terms are set in your Ghazal contract\" with a support link. Rates are managed in Super Admin; \"Rates announced soon\" stays until set. Submissions are allowed before rates exist."
+      }
     },
     {
       "id": "HL-PROV-05",
@@ -200,7 +208,7 @@
       "interactions": [
         "Summary: listing, plan and period, amount through the formatter (never a literal), and the line \"Payment does not publish your listing; Ghazal reviews it first\"; methods in platform order from the server as for CL-PAYM-01; the gateway frame and pending-bank state behave as CL-PAYM-02 and CL-PAYM-03",
         "Success: \"Payment received. Your listing is in review.\" with a receipt link and a primary \"View review status\" (HL-PROV-06); failure: \"The payment could not be completed. No amount was charged.\" with retry and switch method",
-        "Refund note: \"If your listing is rejected you keep your plan for 14 days to fix and resubmit; after that it is refunded in full\""
+        "Refund note: \"If your listing is rejected you get notes to fix and resubmit; a refund of the fee is handled by Support on request in full\""
       ],
       "contentNotes": "Receipts are plan invoices (KWD on the document). Amounts in the prototype come from the sample fixture only. A SUCCESS arriving after a lapsed checkout still records the payment. Offline: \"Offline. Reconnect to pay.\"",
       "priority": "core",
@@ -208,7 +216,13 @@
         "HL-PROV-06",
         "HL-PROV-04",
         "HL-SETT-04"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Refund note: refunds on support request, no automatic 14-day rule",
+        "note": "Note: \"If your listing is not approved you receive notes to fix and resubmit. A refund of the listing fee is handled by Support on request.\" AR: «إن لم يُعتمد إعلانكم تصلكم ملاحظات للتعديل وإعادة الإرسال. استرداد رسوم الإدراج يتم عبر الدعم عند الطلب.»"
+      }
     },
     {
       "id": "HL-PROV-06",
@@ -233,15 +247,15 @@
         "approved",
         "live",
         "rejected",
-        "rejected-plan-retained",
-        "rejected-refunded",
         "changes-requested",
         "offline",
-        "error"
+        "error",
+        "rejected-with-notes",
+        "refund-requested"
       ],
       "interactions": [
         "Timeline: Submitted, Payment received (absent for exempt partners), In review, Decision, Live; absolute timestamps; a long-wait line after 48 hours with \"Contact Ghazal support\"",
-        "Rejected: reason chips (Content not compliant, Wrong category, Missing details, Unclear pricing, Other) and the moderator's note in the provider's language; primary \"Edit and resubmit\" (HL-PROV-03); the retained-plan line shows the remaining days of the 14 day retention and the refund that follows",
+        "Rejected: reason chips (Content not compliant, Wrong category, Missing details, Unclear pricing, Other) and the moderator's note in the provider's language; primary \"Edit and resubmit\" (HL-PROV-03); a note says a fee refund is handled by Support on request and is recorded in the platform",
         "Approved: \"Your listing goes live now; your plan runs until Fri 11 Dec 2026\" and a link to performance; a push and an in-app notice arrive on every decision"
       ],
       "contentNotes": "Reasons AR: «محتوى غير مطابق للشروط» «تصنيف غير صحيح» «بيانات ناقصة» «أسعار غير واضحة» «سبب آخر». Rejected copy: «لم نتمكن من اعتماد الإعلان. عدّلوا الملاحظات أدناه وأعيدوا الإرسال.» / \"We could not approve your listing. Fix the notes below and resubmit.\" Status chip colours follow the functional set with icon plus label. Decision source: web Super Admin review queue (SA-REV).",
@@ -251,7 +265,13 @@
         "HL-PROV-07",
         "HL-PROV-04",
         "HL-TODY-05"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Rejected state shows notes and a refund-on-request path; the 14-day retention is removed",
+        "note": "Rejected: the team notes (reason codes plus a note) with \"Edit and resubmit\" and \"Ask support for a refund\". States rejected-plan-retained and rejected-refunded become rejected-with-notes and refund-requested. The refund is recorded in the platform."
+      }
     },
     {
       "id": "HL-PROV-07",

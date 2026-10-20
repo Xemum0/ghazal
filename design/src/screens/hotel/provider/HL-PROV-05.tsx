@@ -13,7 +13,7 @@ import { ActionBar, Badge, Button, ChipGroup, ErrorState, Figures, Icon, InfoBut
 import { Interstitial } from './_components/Interstitial'
 import { PlanReceipt } from './_components/PlanReceipt'
 import { Note, OfflineStrip, SheetFrame, StaticSheet, UserText, useAfter, useBi, useFormat, useIsStatic, useP } from './_components/bits'
-import { CYCLES, PROVIDER_ID, RETENTION_DAYS, SAMPLE_PERIOD_DAYS, SAMPLE_RATES_FILS, isAccountKind, pickListing } from './_components/model'
+import { CYCLES, PROVIDER_ID, SAMPLE_PERIOD_DAYS, SAMPLE_RATES_FILS, isAccountKind, pickListing } from './_components/model'
 import { payAndSubmit, useProv } from './_components/store'
 import './HL-PROV-05.css'
 
@@ -280,7 +280,7 @@ export default function AdPayment() {
           </Button>
         </section>
         <p className="hp05__refund">
-          <InfoButton title={t('hotelProviderRefundTitle')}>{t('hotelProviderRefundNote', { days: RETENTION_DAYS })}</InfoButton>
+          <InfoButton title={t('hotelProviderRefundTitle')}>{t('hotelProviderRefundNote')}</InfoButton>
         </p>
       </div>
     )

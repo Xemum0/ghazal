@@ -6,7 +6,7 @@
 
 1. **A request is a request for a price.** Sending one binds a paid voucher; approval holds the date for 24 hours; the client confirms; the partner redeems the voucher. No money moves inside this machine. The voucher has its own machine (section 5).
 2. **Nothing is held while pending.** A pending request holds no date (ADR 0001 D5). Approval creates a hold of exactly 24 hours; confirmation converts it to a booking claim.
-3. **The client must confirm within 24 hours of approval.** If not, the approval lapses (`expired`, reason `client_no_confirmation`), the hold is released and the voucher is released.
+3. **The client must confirm within 24 hours of approval.** If not, the approval lapses (`expired`, reason `client_no_confirmation`), the hold is released and the voucher is **forfeited** (`forfeited`: not valid, never returns; ADR 0035 D4). The client confirms by going to the hotel or service and paying the reservation there.
 4. **Statuses are few; changes are objects.** Counter-offers (date proposals) are child objects. There is no in-app reschedule after confirmation in the MVP (OQ-V-05).
 5. **One screen per app, many variants.** `CL-BKNG-02` (client) and `HL-BOOK-03` (partner) render every status.
 6. **Every transition is a guarded compare-and-swap** on `(status, version)` and appends an immutable `booking_events` row. The loser of a race sees an "already updated" sheet (`409 BOOKING_STATE_CONFLICT`).
@@ -65,10 +65,10 @@ Removed from the old vocabulary: `awaiting_deposit` (now `approved`), `rejected`
 | R03u | `approved` to `pending` | `UndoApprove`, partner | before `undo_until` only | hold released; pending notifications deleted; `respond_by` unchanged | none; the client never saw the approval |
 | R04 | `pending` to `declined` | `Decline`, partner | reason required: `date_unavailable`, `capacity_mismatch`, `package_not_offered`, `other` (note required and shown) | voucher released (reusable, refundable) | Client: gentle reason, "Your voucher is still yours: use it again or refund it", three alternatives free on the date |
 | R05 | `pending` to `approved` | `ProposeDates` (partner, `booking:propose_date`) then `AcceptProposal` (client) | 1-3 dates, same hall and session, re-quoted per date (voucher price held); valid 48 h; new slot holdable. Booking stays `pending` while a proposal is open. Decline: to `cancelled` (`counter_offer_declined`). Lapse: to `expired` (`client_no_response`) | on accept: hold on the new slot, `event_date` updated, the 24 h confirm window starts | Client push when proposed; partner push when answered |
-| R06 | `pending` to `expired` | `ExpireRequest`, system | `respond_by` passed | voucher released (reusable, refundable); response-rate hit | Client: "No reply. Your voucher is still yours" plus similar venues; partner: "Missed" |
+| R06 | `pending` to `expired` | `ExpireRequest`, system | `respond_by` passed | voucher released (reusable at the same venue; a refund request to support is allowed); response-rate hit | Client: "No reply. Your voucher is still yours" plus similar venues; partner: "Missed" |
 | R07 | `pending` to `cancelled` | `Withdraw`, client | none (free) | voucher released (reusable, not refundable) | Partner: silent removal plus timeline entry |
 | R08 | `approved` to `confirmed` | `Confirm`, client | before `confirm_by`; claim still active; not undone | `hold` becomes `booking`; competing requests become `expired(slot_taken)`; voucher code and QR emphasised; completion and review jobs scheduled | Client: confirmation, calendar file. Partner: "Client confirmed" |
-| R09 | `approved` to `expired` | `ExpireApproval`, system | `confirm_by` passed | claim `expired`; voucher released (reusable, not refundable); partner nudged to approve the next competing request | Client reminders at -12 h, -3 h (WhatsApp) and -1 h, then "The hold was released". Partner: "Date reopened" |
+| R09 | `approved` to `expired` | `ExpireApproval`, system | `confirm_by` passed | claim `expired`; voucher `forfeited` (not valid, no refund request offered); partner nudged to approve the next competing request | Client reminders at -12 h, -3 h (WhatsApp) and -1 h, then "The hold was released". Partner: "Date reopened" |
 | R10 | `approved` to `cancelled` | `CancelApproved` (client) or `Revoke` (partner Admin or Manager, reason required, reliability strike) | none for the client | claim released; voucher released (client cancel: not refundable; revoke: refundable) | the other party |
 | R11 | `confirmed` to `redeemed` | `RedeemVoucher`, partner (`voucher:redeem`: Admin, Manager, Reception) | code belongs to this partner; request `confirmed`; voucher `bound`, not used | `redeemed_by`, `redeemed_at`; voucher `bound` to `used` | Client: "Voucher redeemed"; partner: confirmation |
 | R12 | `confirmed` or `redeemed` to `completed` | `Complete`, system at event end plus 12 h, or partner manual | event passed | voucher `used` if not already; review prompt scheduled | Client: review prompt next morning |
@@ -85,19 +85,22 @@ stateDiagram-v2
   unpaid --> active: ConfirmVoucherPayment (webhook, re-queried)
   unpaid --> [*]: checkout lapsed after 30 min
   active --> bound: R01
-  bound --> active: release (R04, R06, R07, R09, R10 venue revoke, R13 venue cancel)
+  bound --> active: release (R04, R06, R07, R10 venue revoke, R13 venue cancel)
+  bound --> forfeited: R09 24 h confirm lapse
   bound --> used: R11 or R12 or R13 client cancel
   active --> expired: validity ended
-  active --> refunded: RefundVoucher
-  expired --> refunded: RefundVoucher (venue-fault releases, 30 days)
+  active --> credit_issued: GrantCreditVoucher after a refund request
+  forfeited --> [*]
 ```
 
 | Command | Actor | Guards | Effect |
 |---|---|---|---|
 | `CreateVoucherCheckout` | client | signed in; target active and voucher-enabled; saving test passes; no other `active` voucher for the same target and quote (one is reused) | `unpaid` voucher, gateway session, 30 min |
 | `ConfirmVoucherPayment` | system (webhook) | signature valid; **re-queried** status SUCCESS; amount equals `voucher_fee_fils` | `active`, code and QR issued, receipt |
-| `RefundVoucher` | client (eligible cases) or support | eligibility per [voucher-model](../product/voucher-model.md) section 4.4 | refund row, gateway refund within 1 business day, `refunded` |
-| `ExpireVoucher` | system sweeper | validity passed, state `active` | `expired`; refund eligibility flag stays if the last release was a venue-fault case |
+| `RequestVoucherRefund` | client (eligible cases) | eligibility per [voucher-model](../product/voucher-model.md) section 4.4 | `refund_requests` row `open`, opens the support chat entry; no money moves |
+| `GrantCreditVoucher` | support (Super Admin) | open `refund_requests` row; audit reason | request `granted`, original voucher `credit_issued`, new voucher of kind `credit` (unbound, 60 days) |
+| `ForfeitVoucher` | system (R09) | `confirm_by` passed on a `bound` voucher | `forfeited` |
+| `ExpireVoucher` | system sweeper | validity passed, state `active` | `expired` |
 
 Validity and reuse numbers are configuration (section 7).
 
@@ -127,7 +130,7 @@ All stored UTC, shown Asia/Kuwait. Values are configuration with bounds.
 | Max open requests | 3 (`pending` plus `approved`) | fixed | Platform |
 | Voucher checkout | 30 min | fixed | Platform |
 | Voucher validity / reuse window | 60 days / 60 days | 30-180 | Super Admin |
-| Voucher refund window after a venue-fault release | 30 days after expiry | fixed | Platform |
+| Credit voucher validity | 60 days from the grant | `credit_validity_days` | Super Admin |
 | Auto-complete | event end + 12 h | fixed | Platform |
 | Issue report | 72 h after completion | fixed | Platform |
 | Review window | opens event end + 24 h (prompt next morning), closes +60 days, editable 14 days | fixed | Platform |

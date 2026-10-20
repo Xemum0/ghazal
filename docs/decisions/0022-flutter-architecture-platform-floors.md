@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Status | accepted; partially superseded: D tabs by 0007 D1, E money string by 0010 D7; item A (iOS 15.0) is proposed-needs-owner until OQ-T-02 and CF-35 are signed |
+| Status | accepted; partially superseded: D tabs by 0007 D1, E money string by 0010 D7; item A (iOS 15.0) is proposed-needs-owner until OQ-T-02 and CF-35 are signed; Updated by ADR 0035 (iOS 15 and bundle id accepted) |
 | Date | 2026-10-12 |
 | Scope | `apps/client_app`, `apps/hotel_app`, `packages/ghazal_*`: platform floors, layering, state, routing, localisation, theming, images and performance, platform services, accessibility, flavors, guardrails |
 | Owner confirmation still needed | OQ-T-02 (iOS 15.0 and Android minSdk 26, registered as CF-35 and signed off by the owner), OQ-T-06 (bundle ID prefix and domain), OQ-T-03 (store accounts) |

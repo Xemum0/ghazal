@@ -221,7 +221,8 @@
         "HA-NOTI-04",
         "HA-NOTI-07",
         "HA-NOTI-09",
-        "HA-AUTH-02"
+        "HA-AUTH-02",
+        "HA-REV-01"
       ],
       "states": [
         "default",
@@ -232,7 +233,8 @@
         "reply-sheet",
         "replied",
         "report-sheet",
-        "reported"
+        "reported",
+        "ask-support-hide"
       ],
       "interactions": [
         "Summary header: overall rating with count and the four category averages (venue, food, service, value); filter chips All, Needs reply (1), Replied, Reported",
@@ -246,7 +248,13 @@
       "navigatesTo": [
         "HL-TODY-03",
         "HL-GROW-04"
-      ]
+      ],
+      "ownerRound1": {
+        "adr": "0035",
+        "date": "2026-10-20",
+        "change": "Reviews: reply once and report stay; add Ask support to hide or delete",
+        "note": "Review actions: Reply (once), Report abuse, and \"Ask support to hide or delete\" which opens the support chat with the review attached. The venue never hides or deletes a review itself. AR «اطلبوا من الدعم إخفاء التقييم أو حذفه»."
+      }
     }
   ]
 }

@@ -1,6 +1,11 @@
 // Ready-to-use selectors over the seed. Pure functions: time is a parameter (default PROTOTYPE_NOW), nothing reads the system clock.
 // Money stays in fils; display strings are the formatter's job (ADR 0010). Voucher model: every price is a pair, standard and voucher.
 import type {
+  CreditVoucher,
+  WalletVoucher,
+  RefundRequest,
+  StaffInvitation,
+  PartnerBilling,
   AdPlan,
   Area,
   Audience,
@@ -46,7 +51,7 @@ import type {
 import * as D from './data.ts'
 import type { HeroVariant } from './data.ts'
 import { availabilityFor as engineAvailability, type AvailabilityContext } from './engine/availability.ts'
-import { addDays, datesBetween, datesInMonth, diffDays, diffMinutes, kuwaitDateOf, monthOf, weekdayOf } from './engine/dates.ts'
+import { addDays, datesBetween, datesInMonth, diffDays, diffMinutes, instantMs, kuwaitDateOf, monthOf, weekdayOf } from './engine/dates.ts'
 import { bestWindow, effectiveMinGuests, quote as engineQuote, quoteProviderPackage, type SectionInput } from './engine/pricing.ts'
 import { isVoucherExpired, releaseOutcome } from './engine/voucher.ts'
 import { slotTimesOn } from './engine/visits.ts'
@@ -693,25 +698,62 @@ export function getVoucher(idOrCode: string): Voucher | undefined {
   return voucherIndex.get(idOrCode) ?? D.vouchers.find((v) => v.code === idOrCode)
 }
 
+/** A credit voucher by id or code (ADR 0035 D5). */
+export function getCreditVoucher(idOrCode: string): CreditVoucher | undefined {
+  return D.creditVouchers.find((v) => v.id === idOrCode || v.code === idOrCode)
+}
+
 export function voucherFor(booking: Booking): Voucher | undefined {
   return voucherIndex.get(booking.voucherId)
 }
 
-/** The wallet of a client (My vouchers): live vouchers first (bound, active, unpaid), then used, expired and refunded, newest first. */
+/** The wallet of a client (My vouchers): live vouchers first (bound, active, unpaid), then used, expired, forfeited and credit-issued, newest first. */
 export function vouchersFor(clientId: Id, now: IsoDateTime = D.PROTOTYPE_NOW): Voucher[] {
-  const rank: Record<Voucher['status'], number> = { bound: 0, active: 1, unpaid: 2, used: 3, expired: 4, refunded: 5 }
+  const rank: Record<Voucher['status'], number> = { bound: 0, active: 1, unpaid: 2, used: 3, expired: 4, forfeited: 5, credit_issued: 6 }
   return D.vouchers
     .filter((v) => v.clientId === clientId)
     .map((v) => (v.status === 'active' && isVoucherExpired(v.validUntil, v.reuseUntil, now) ? { ...v, status: 'expired' as const } : v))
     .sort((a, b) => rank[a.status] - rank[b.status] || ((b.purchasedAt ?? '') < (a.purchasedAt ?? '') ? -1 : 1))
 }
 
-/** What a released voucher can still do: reuse it at the same venue, or ask for the KD 2 back (voucher-model section 4.4). */
-export function voucherOptions(v: Voucher, now: IsoDateTime = D.PROTOTYPE_NOW): { reusable: boolean; refundable: boolean; reusableUntil: IsoDate | null } {
-  if (v.status !== 'active') return { reusable: false, refundable: false, reusableUntil: null }
-  const outcome = v.releaseReason ? releaseOutcome(v.releaseReason) : { reusable: true, refundable: false }
-  const refundOpen = v.refundEligible && (v.refundUntil === null || v.refundUntil >= kuwaitDateOf(now))
-  return { reusable: outcome.reusable, refundable: refundOpen, reusableUntil: v.reuseUntil }
+/** What a released voucher can still do: reuse it at the same venue, or ask support for a credit voucher (ADR 0035 D5; never money). */
+export function voucherOptions(v: Voucher, _now: IsoDateTime = D.PROTOTYPE_NOW): { reusable: boolean; creditEligible: boolean; reusableUntil: IsoDate | null } {
+  if (v.status !== 'active') return { reusable: false, creditEligible: false, reusableUntil: null }
+  const outcome = v.releaseReason ? releaseOutcome(v.releaseReason) : { reusable: true, creditEligible: false }
+  return { reusable: outcome.reusable, creditEligible: v.creditEligible && v.refundRequestId === null, reusableUntil: v.reuseUntil }
+}
+
+/** Requests the client sent to support for a credit voucher, newest first. */
+export function refundRequestsFor(clientId: Id): RefundRequest[] {
+  return D.refundRequests.filter((r) => r.clientId === clientId).sort((a, b) => (a.requestedAt < b.requestedAt ? 1 : -1))
+}
+
+export function getRefundRequest(id: Id): RefundRequest | undefined {
+  return D.refundRequests.find((r) => r.id === id)
+}
+
+/** The credit vouchers of a client (unbound, usable at any venue or service), newest grant first; expired ones are marked at `now`. */
+export function creditVouchersFor(clientId: Id, now: IsoDateTime = D.PROTOTYPE_NOW): CreditVoucher[] {
+  return D.creditVouchers
+    .filter((v) => v.clientId === clientId)
+    .map((v) => (v.status === 'active' && v.validUntil && instantMs(now) > instantMs(v.validUntil) ? { ...v, status: 'expired' as const } : v))
+    .sort((a, b) => (a.grantedAt < b.grantedAt ? 1 : -1))
+}
+
+/** Everything in the wallet: credit vouchers that are ready, then the bound vouchers in `vouchersFor` order, then ended credit vouchers. */
+export function walletFor(clientId: Id, now: IsoDateTime = D.PROTOTYPE_NOW): WalletVoucher[] {
+  const credit = creditVouchersFor(clientId, now)
+  return [...credit.filter((c) => c.status === 'active'), ...vouchersFor(clientId, now), ...credit.filter((c) => c.status !== 'active')]
+}
+
+/** Staff invitations of a venue, newest first (sent by email through Resend). */
+export function staffInvitationsFor(venueId: Id): StaffInvitation[] {
+  return D.staffInvitations.filter((i) => i.venueId === venueId).sort((a, b) => (a.sentAt < b.sentAt ? 1 : -1))
+}
+
+/** How a partner pays Ghazal: a plan (service providers) or a business contract (hotels and halls). */
+export function billingFor(accountId: Id): PartnerBilling | undefined {
+  return D.partnerBilling.find((b) => b.partnerAccountId === accountId)
 }
 
 /** Vouchers of a venue or provider that its staff can redeem today: bound to a confirmed request. */

@@ -105,7 +105,7 @@ export const conversations = [
     pinned: true,
     clientId: 'user-reem',
     clientName: 'ريم الدوسري',
-    lastMessageAt: at('2026-11-03', '20:10'),
+    lastMessageAt: at('2026-11-05', '10:01'),
   }),
   conv({
     id: 'conv-lumi-reem',
@@ -297,3 +297,18 @@ messages.push(
 )
 
 export const heroReplyDraftIds = messages.filter((m) => m.draft).map((m) => m.id)
+
+// Support thread (ADR 0035 D5): the client asked for a credit voucher after a declined request; support granted it. No money goes back.
+messages.push(
+  msg('conv-support-reem', 'client', 'ريم الدوسري', at('2026-11-02', '20:30'), 'text', T('القاعة رفضت طلبنا. نبي كوبون بديل نستخدمه في قاعة ثانية.', 'The hall declined our request. We would like another voucher to use at a different hall.')),
+  msg('conv-support-reem', 'support', 'Lama Al-Khalidi', at('2026-11-02', '21:05'), 'text', T('وصلنا طلبكم ونراجعه. نرد عليكم خلال يومين.', 'We received your request and are reviewing it. We will reply within two days.')),
+  msg('conv-support-reem', 'support', 'Lama Al-Khalidi', at('2026-11-05', '10:00'), 'text', T('تمت الموافقة. أضفنا كوبون رصيد إلى حسابكم، صالح 60 يومًا في أي قاعة أو فندق أو خدمة.', 'Approved. We added a credit voucher to your account, valid for 60 days at any hall, hotel or service.')),
+  msg('conv-support-reem', 'support', 'Lama Al-Khalidi', at('2026-11-05', '10:01'), 'credit_card', null, {
+    card: {
+      kind: 'credit_voucher',
+      title: bil('Credit voucher added', 'تمت إضافة كوبون رصيد'),
+      lines: [bil('Any hall, hotel or service', 'أي قاعة أو فندق أو خدمة'), bil('Valid for 60 days', 'صالح لمدة 60 يومًا')],
+      refId: 'vch-GV-2611-C4RD',
+    },
+  }),
+)

@@ -175,10 +175,10 @@ export type VoucherSlice = {
   cancelRequest: (bookingId: string, reason?: Booking['reasonCode']) => void
   /** R08: the client confirms inside the 24 h window. */
   confirmBooking: (bookingId: string) => boolean
-  /** R09: the 24 h window passed without a confirmation (the prototype's "let it lapse" control). The voucher is released, not refundable. */
+  /** R09: the 24 h window passed without a confirmation (the prototype's "let it lapse" control). The voucher is forfeited (ADR 0035 D4). */
   lapseApproval: (bookingId: string) => void
-  /** Refund of a released, refundable voucher (one tap, original method). */
-  refundVoucher: (voucherId: string) => void
+  /** Ask support for a credit voucher after a venue-fault release (never money back). */
+  askSupportCredit: (voucherId: string) => void
 }
 
 // ---------------------------------------------------------------- partner request actions (ADR 0008 D5, D6; ADR 0033 D3)

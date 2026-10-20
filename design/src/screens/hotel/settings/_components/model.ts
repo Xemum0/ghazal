@@ -90,7 +90,7 @@ export const ROLE_GLYPHS: Record<Exclude<SettingsRole, 'admin'>, readonly RoleGl
 /** Reminders at -7 and -1 days (PA-ADS-05). */
 export const EXPIRY_WARN_DAYS = 7
 
-export type BillingStatus = 'exempt' | 'active' | 'expiring' | 'expired' | 'none'
+export type BillingStatus = 'exempt' | 'active' | 'expiring' | 'expired' | 'none' | 'contract'
 
 export type Billing = {
   status: BillingStatus
@@ -103,9 +103,10 @@ export type Billing = {
 }
 
 /** Plan status from a period end and today: the plan of the live listing (a provider) or the plan on the account (a hotel). */
-export function billingOf(args: { major: boolean; cycle: AdPlanCycle | null; endsOn: string | null; daysLeft: number | null; ended: boolean; needsChanges: boolean }): Billing {
-  const { major, cycle, endsOn, daysLeft, ended, needsChanges } = args
+export function billingOf(args: { major: boolean; cycle: AdPlanCycle | null; endsOn: string | null; daysLeft: number | null; ended: boolean; needsChanges: boolean; contract?: boolean }): Billing {
+  const { major, cycle, endsOn, daysLeft, ended, needsChanges, contract } = args
   if (major) return { status: 'exempt', cycle: null, endsOn: null, daysLeft: null, needsChanges }
+  if (contract) return { status: 'contract', cycle: null, endsOn: null, daysLeft: null, needsChanges }
   if (!cycle || !endsOn) return { status: ended ? 'expired' : 'none', cycle, endsOn, daysLeft, needsChanges }
   if (ended || (daysLeft !== null && daysLeft < 0)) return { status: 'expired', cycle, endsOn, daysLeft, needsChanges }
   if (daysLeft !== null && daysLeft <= EXPIRY_WARN_DAYS) return { status: 'expiring', cycle, endsOn, daysLeft, needsChanges }

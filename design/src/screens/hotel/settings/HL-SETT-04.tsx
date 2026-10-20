@@ -7,13 +7,15 @@
 // There is no bank, no IBAN and no payout: partners are never paid through Ghazal. Admin and Manager change the plan, Accountant views and
 // downloads, Reception and Marketing do not see the screen. The only amounts are the labelled SAMPLE ones of the `receipts` frame and of a prototype payment.
 // Text diet (ADR 0034): one drawing, facts as glyph + figure, no note under the card, no code on a receipt row.
-// States: plan-active, plan-expiring, plan-expired, no-plan, rates-not-announced, fee-exempt-major-hotel, receipts, role-view-only, offline, error, loading.
+// Owner round 1: two modes. Contract (hotels and halls): the Business contract card, terms as contracted, no plan row, no receipts and no number.
+// Plan (service providers): weekly, monthly or annual from the Super Admin, "Rates announced soon" until it sets them. No credit notes.
+// States: contract, plan-active, plan-expiring, plan-expired, no-plan, rates-not-announced, fee-exempt-major-hotel, receipts, role-view-only, offline, error, loading.
 import { useMemo } from 'react'
 import { planRates } from '../../../mock'
 import type { AdPlanCycle } from '../../../mock'
 import { useFrame } from '../../../shell/frame'
 import { usePrototype } from '../../../shell/state'
-import { ActionBar, Badge, Banner, Button, ErrorState, FactChip, IconListRow, Illustration, InfoButton, MajorHotelBadge, Screen, SectionHeader, Skeleton, StatusPill, TopBar, useNav, type IllustrationName } from '../../../system'
+import { ActionBar, Badge, Banner, BillingCard, Button, ErrorState, FactChip, IconListRow, Illustration, InfoButton, MajorHotelBadge, Screen, SectionHeader, Skeleton, StatusPill, TopBar, useNav, type IllustrationName } from '../../../system'
 import { PlanReceipt } from '../provider/_components/PlanReceipt'
 import { SAMPLE_RATES_FILS } from '../provider/_components/model'
 import { useProv, type PaidPlan } from '../provider/_components/store'
@@ -25,6 +27,7 @@ import { useT } from '../../../i18n'
 import './HL-SETT-04.css'
 
 export const states = [
+  'contract',
   'plan-active',
   'plan-expiring',
   'plan-expired',
@@ -141,7 +144,7 @@ export default function BillingAndFees() {
   }
 
   // ---- the status card
-  const art: IllustrationName = status === 'exempt' ? 'seal' : status === 'expiring' || status === 'expired' ? 'hourglass' : 'partner-ads'
+  const art: IllustrationName = status === 'exempt' || status === 'contract' ? 'seal' : status === 'expiring' || status === 'expired' ? 'hourglass' : 'partner-ads'
   const endsOn = billing.endsOn ? f.date(billing.endsOn, 'compact') : ''
   const pill =
     status === 'active' ? (
@@ -154,7 +157,9 @@ export default function BillingAndFees() {
 
   // The sentences of the card, behind its (i): the exemption, the reminders, what ended, what a plan is, and that couples pay the venue.
   const infoLines: string[] =
-    status === 'exempt'
+    status === 'contract'
+      ? [t('hotelSettingsBillContractBody'), t('hotelSettingsBillDirectNote')]
+      : status === 'exempt'
       ? [t('hotelSettingsBillExemptBody'), t('hotelSettingsBillDirectNote')]
       : status === 'none'
         ? [t(ratesSoon ? 'hotelSettingsBillRatesBody' : 'hotelSettingsBillNoneBody'), t('hotelSettingsBillDirectNote')]
@@ -174,7 +179,9 @@ export default function BillingAndFees() {
           ))}
         </InfoButton>
       </div>
-      {status === 'exempt' ? (
+      {status === 'contract' ? (
+        <BillingCard billing={{ mode: 'contract', contractSummary: null, plan: null }} />
+      ) : status === 'exempt' ? (
         <MajorHotelBadge variant="chip" />
       ) : status === 'none' ? (
         <h2 className="gz-t-ui-xl hs-bill__title">{ratesSoon ? c('commonRatesSoon') : t('hotelSettingsBillNone')}</h2>

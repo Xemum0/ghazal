@@ -13,7 +13,7 @@ export type StaffOverride = { role?: SettingsRole; status?: HotelStaff['status']
 
 /** What a step-up check unlocks once the code is confirmed (the Verify screen pops back to the screen that asked). */
 export type PendingAction =
-  | { kind: 'invite'; name: string; national: string; role: Exclude<SettingsRole, 'admin'>; canAccept: boolean }
+  | { kind: 'invite'; name: string; email: string; role: Exclude<SettingsRole, 'admin'>; canAccept: boolean }
   | { kind: 'role'; id: string; role: Exclude<SettingsRole, 'admin'> }
   | { kind: 'remove'; id: string }
 
@@ -64,7 +64,7 @@ type SettingsLocal = {
   staffOverrides: Record<string, StaffOverride>
   invited: HotelStaff[]
   patchStaff: (id: string, patch: StaffOverride) => void
-  invite: (name: string, national: string, role: Exclude<SettingsRole, 'admin'>) => HotelStaff
+  invite: (name: string, email: string, role: Exclude<SettingsRole, 'admin'>) => HotelStaff
   resendInvite: (id: string) => void
 
   stepUpUntil: number
@@ -107,7 +107,7 @@ export const useSettingsLocal = create<SettingsLocal>()((set, get) => ({
   staffOverrides: {},
   invited: [],
   patchStaff: (id, patch) => set(s => ({ staffOverrides: { ...s.staffOverrides, [id]: { ...s.staffOverrides[id], ...patch } } })),
-  invite: (name, national, role) => {
+  invite: (name, _email, role) => {
     seq += 1
     const label = roleLabelOf(role)
     const person: HotelStaff = {
@@ -120,7 +120,7 @@ export const useSettingsLocal = create<SettingsLocal>()((set, get) => ({
       role,
       roleLabel: label.label,
       roleSummary: label.summary,
-      phone: `+965${national}`,
+      phone: '',
       status: 'invited',
       uiLang: /[؀-ۿ]/.test(name) ? 'ar' : 'en',
       lastSeenAt: null,

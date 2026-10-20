@@ -2,7 +2,7 @@
 // rail; the end of a voucher (expired) is a quiet ended knot. Nothing is predicted: a voucher that is still ready shows only that it was paid.
 // The paid event IS the receipt: its row opens the receipt viewer (CA-VCH-14), so there is no separate "View receipt" link.
 import type { IconName } from '@gz/tokens'
-import type { Booking, Voucher } from '../../../../mock'
+import { getRefundRequest, type Booking, type Voucher } from '../../../../mock'
 import { Icon, ThreadKnot } from '../../../../system'
 import { Fx } from './Fx'
 import { useVc } from './useVc'
@@ -18,10 +18,12 @@ export function useHistory(v: Voucher, booking: Booking | null): Event[] {
   if (booking) events.push({ key: 'attached', icon: 'send', word: t('clientVouchersHistRequested'), at: booking.createdAt })
   if (v.releasedAt) events.push({ key: 'released', icon: 'undo', word: t('clientVouchersHistReturned'), at: v.releasedAt })
   if (v.usedAt) events.push({ key: 'used', icon: 'check-double', word: v.usedReason === 'cancelled_after_confirm' ? t('clientVouchersPhaseUsedUp') : tc('commonVoucherStatusUsed'), at: v.usedAt })
-  if (v.refund) {
-    events.push({ key: 'refund', icon: 'undo', word: t('clientVouchersRefund'), at: v.refund.initiatedAt })
-    if (v.refund.completedAt) events.push({ key: 'refund-done', icon: 'check-circle', word: tc('commonVoucherStatusRefunded'), at: v.refund.completedAt })
+  const rr = v.refundRequestId ? getRefundRequest(v.refundRequestId) : undefined
+  if (rr) {
+    events.push({ key: 'refund', icon: 'chat', word: tc('commonAskSupport'), at: rr.requestedAt })
+    if (rr.decidedAt && rr.status === 'granted') events.push({ key: 'refund-done', icon: 'gift', word: tc('commonVoucherStatusCreditIssued'), at: rr.decidedAt })
   }
+  if (v.status === 'forfeited' && v.forfeitedAt) events.push({ key: 'forfeited', icon: 'x-circle', word: tc('commonVoucherStatusForfeited'), at: v.forfeitedAt, ended: true })
   if (v.status === 'expired' && v.validUntil) events.push({ key: 'expired', icon: 'clock-off', word: tc('commonVoucherStatusExpired'), at: v.validUntil, ended: true })
   return events.sort((a, b) => a.at.localeCompare(b.at))
 }

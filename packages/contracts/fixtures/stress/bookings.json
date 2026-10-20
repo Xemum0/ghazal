@@ -505,6 +505,7 @@
   "vouchers": [
     {
       "id": "vch-GV-2611-S8K2",
+      "kind": "bound",
       "code": "GV-2611-S8K2",
       "clientId": "user-reem",
       "targetType": "venue",
@@ -518,18 +519,18 @@
         "voucher": 15400000
       },
       "priceFils": 2000,
-      "status": "active",
+      "status": "forfeited",
       "purchasedAt": "2026-11-08T09:48:00+03:00",
-      "validUntil": "2027-01-08T23:59:00+03:00",
-      "reuseUntil": "2027-01-08",
+      "validUntil": "2027-01-07T09:48:00+03:00",
+      "reuseUntil": null,
       "qr": {
         "payload": "gz:v1:GV-2611-S8K2:V01:01B4",
         "version": 1
       },
       "bookingId": null,
       "payment": {
-        "method": "knet",
-        "receiptNo": "RC-050170",
+        "method": "google_pay",
+        "receiptNo": "RC-050171",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -537,17 +538,19 @@
         "status": "succeeded",
         "at": "2026-11-08T09:49:00+03:00"
       },
-      "releasedAt": "2026-11-09T15:00:00+03:00",
-      "releaseReason": "client_no_confirmation",
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "releasedAt": null,
+      "releaseReason": null,
+      "forfeitedAt": "2026-11-09T15:00:00+03:00",
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-P3M9",
+      "kind": "bound",
       "code": "GV-2611-P3M9",
       "clientId": "user-reem",
       "targetType": "venue",
@@ -571,8 +574,8 @@
       },
       "bookingId": null,
       "payment": {
-        "method": "google_pay",
-        "receiptNo": "RC-050171",
+        "method": "knet",
+        "receiptNo": "RC-050172",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -582,15 +585,17 @@
       },
       "releasedAt": "2026-11-05T15:00:00+03:00",
       "releaseReason": "slot_taken",
-      "refundEligible": true,
-      "refundUntil": "2027-02-03",
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": true,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null
     },
     {
       "id": "vch-GV-2611-R7V4",
+      "kind": "bound",
       "code": "GV-2611-R7V4",
       "clientId": "user-reem",
       "targetType": "venue",
@@ -615,7 +620,7 @@
       "bookingId": null,
       "payment": {
         "method": "knet",
-        "receiptNo": "RC-050172",
+        "receiptNo": "RC-050173",
         "amount": {
           "fils": 2000,
           "currency": "KWD"
@@ -625,9 +630,10 @@
       },
       "releasedAt": "2026-11-02T10:02:00+03:00",
       "releaseReason": "withdrawn",
-      "refundEligible": false,
-      "refundUntil": null,
-      "refund": null,
+      "forfeitedAt": null,
+      "creditEligible": false,
+      "refundRequestId": null,
+      "grantedFrom": null,
       "usedAt": null,
       "usedReason": null,
       "redeemedBy": null

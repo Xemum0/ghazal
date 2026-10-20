@@ -8,7 +8,7 @@ export const config = {
   voucherValidityDays: 60,
   voucherReuseDays: 60,
   voucherCheckoutMinutes: 30,
-  voucherRefundDaysAfterExpiry: 30,
+  creditVoucherValidityDays: 60,
   confirmWindowHours: 24,
   approvalUndoSeconds: 8,
   counterOfferValidityHours: 48,

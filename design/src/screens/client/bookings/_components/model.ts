@@ -175,14 +175,15 @@ export function buildView(variant: DetailVariant): View {
     }
     case 'expired-not-confirmed': {
       const h = hero('lapsed')
-      return viewOf(h.booking, h.voucher, variant)
+      // The 24 h confirm window ended: the voucher is not valid and does not come back (ADR 0035 D4).
+      return viewOf(h.booking, { ...h.voucher, status: 'forfeited', forfeitedAt: h.booking.confirmBy ?? h.voucher.forfeitedAt, creditEligible: false }, variant)
     }
     case 'cancelled-by-me': {
       const h = hero('cancelled')
       return viewOf(h.booking, h.voucher, variant)
     }
     case 'cancelled-by-venue': {
-      // Derived from the confirmed request: the venue cancels after the client confirmed, the voucher returns and is refundable (R13b).
+      // Derived from the confirmed request: the venue cancels after the client confirmed, the voucher returns and support may grant a credit voucher (R13b).
       const h = hero('confirmed')
       const at = addHoursIso(h.booking.confirmedAt ?? clock.now(), 30)
       const booking = transition(h.booking, 'cancelled', at, 'venue', { cancelledBy: 'venue', reasonCode: 'hall_unavailable' })
