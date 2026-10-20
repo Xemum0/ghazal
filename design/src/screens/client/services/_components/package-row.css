@@ -1,0 +1,86 @@
+/* PackageRow: a paper panel with a hairline; the chosen one carries the ink ring (a ring, so nothing shifts) and the bead. */
+
+.gzs-pkg {
+  position: relative; /* flutter-ok: named overlay anchor for the heart */
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzs-pkg.is-chosen {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-control-chip-border-selected);
+}
+
+.gzs-pkg__choose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  text-align: start;
+  cursor: pointer;
+  border-radius: var(--gz-radius-sm);
+}
+
+/* The heart sits at the end of the name row, inside the panel's padding. */
+.gzs-pkg__head {
+  display: flex;
+  align-items: center;
+  min-block-size: var(--gz-size-touch-min);
+  padding-inline-end: var(--gz-size-touch-min);
+}
+
+.gzs-pkg__name {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-pkg__fav {
+  position: absolute; /* flutter-ok: named overlay anchor, PositionedDirectional */
+  inset-block-start: var(--gz-space-2);
+  inset-inline-end: var(--gz-space-2);
+}
+
+.gzs-pkg__price {
+  display: flex;
+  flex-direction: column;
+}
+
+.gzs-pkg__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzs-pkg__inc {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.gzs-pkg__inc > .gz-icon {
+  flex: none;
+  margin-block-start: var(--gz-stroke-thread);
+}
+
+.gzs-pkg__check {
+  color: var(--gz-color-sys-icon-accent);
+}
+
+.gzs-pkg__count {
+  display: flex;
+}

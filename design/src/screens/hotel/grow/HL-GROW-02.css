@@ -1,0 +1,58 @@
+/* HL-GROW-02 Voucher price window, step 1. Gutter 20, section rhythm 32, 16 inside a section. The dialog layer anchors on the root. */
+
+.gc-root {
+  position: relative; /* flutter-ok: overlay anchor for the unsaved-guard dialog (Stack) */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-block-size: 0;
+}
+
+.gc-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding: var(--gz-space-4) var(--gz-space-gutter) var(--gz-space-8);
+}
+
+.gc-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gc-cur {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gc-prefill {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-3) var(--gz-space-4);
+  background: var(--gz-color-sys-surface-tint-soft);
+  border-radius: var(--gz-radius-md);
+}
+
+.gc-prefill .gz-frow {
+  flex: 1;
+}
+
+.gc-preview-wait {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: var(--gz-space-6);
+  border-width: var(--gz-stroke-hair);
+  border-style: dashed;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-md);
+}
+
+.gc-bounds {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-1) var(--gz-space-4);
+}

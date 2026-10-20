@@ -1,0 +1,60 @@
+/* Reviews: the score row, four category facts and one review card. Tokens only, logical properties, flex + gap. */
+.gzv-rv__sum {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  min-block-size: var(--gz-size-row-min);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzv-rv__avg {
+  flex: none;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzv-rv__stars {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzv-rv__count {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzv-rv__cats {
+  gap: var(--gz-space-5);
+}
+
+.gzv-rv__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.gzv-rv__who {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzv-rv__name {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzv-rv__reply {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}

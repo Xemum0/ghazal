@@ -1,0 +1,13 @@
+/* Hatch fills: the shader paints the box of its positioned parent. Gold = on hold, ink = setup, teardown and blocked. */
+
+.cal-hatch {
+  position: absolute; /* flutter-ok: a pattern shader fills its positioned parent (Positioned.fill) */
+  inset: 0;
+  inline-size: 100%; /* flutter-ok: fills the parent (Positioned.fill) */
+  block-size: 100%; /* flutter-ok: fills the parent (Positioned.fill) */
+}
+
+.cal-hatch--ink .cal-hatch__bg { fill: var(--gz-color-sys-surface-raised); }
+.cal-hatch--ink .cal-hatch__ink { stroke: var(--gz-color-sys-border-control); }
+.cal-hatch--gold .cal-hatch__bg { fill: var(--gz-color-sys-status-pending-bg); }
+.cal-hatch--gold .cal-hatch__ink { stroke: var(--gz-color-sys-mark-state); }

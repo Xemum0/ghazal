@@ -1,0 +1,34 @@
+/* StepBar: safe-top inset + a 56 row, like the system TopBar. The thread takes the free width between Back and Skip. */
+.obd-stepbar {
+  flex: none;
+  padding-block-start: var(--gz-safe-top);
+  background: var(--gz-color-sys-surface-canvas);
+}
+
+.obd-stepbar__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  block-size: var(--gz-size-control-lg);
+}
+
+.obd-stepbar__start,
+.obd-stepbar__end {
+  flex: none;
+  display: flex;
+  align-items: center;
+  min-inline-size: var(--gz-size-touch-min);
+}
+
+.obd-stepbar__end {
+  justify-content: flex-end;
+  gap: var(--gz-space-1);
+}
+
+.obd-stepbar__thread {
+  flex: 1;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

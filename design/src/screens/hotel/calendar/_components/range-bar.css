@@ -1,0 +1,45 @@
+/* RangeBar: 8 + (summary row 44) + 8 + 52 + 12, a hairline above, canvas. The three buttons share the width; the primary sits at inline-end. */
+
+.cal-rbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  padding-block: var(--gz-space-2) var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  background: var(--gz-color-sys-surface-canvas);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.cal-rbar__top {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.cal-rbar__count {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.cal-rbar__n {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.cal-rbar__row {
+  display: flex;
+  gap: var(--gz-space-2);
+}
+
+.cal-rbar__row > * {
+  flex: 1;
+  min-inline-size: 0;
+}

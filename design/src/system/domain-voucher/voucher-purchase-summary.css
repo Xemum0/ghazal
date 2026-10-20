@@ -1,0 +1,121 @@
+/* VoucherPurchaseSummary: ruled lists in the figures voice, one amount paid to Ghazal, three rules in plain words. No panel chrome:
+   the host sheet or screen owns the surface. */
+
+.gz-vps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-vps__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+.gz-vps__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-vps__target {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.gz-vps__facts,
+.gz-vps__prices {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-vps__fact,
+.gz-vps__price {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  min-block-size: var(--gz-size-touch-min);
+  padding-block: var(--gz-space-2);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-vps__fact dt {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-vps__fact dd {
+  margin: 0;
+  text-align: end;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.gz-vps__price {
+  align-items: center;
+}
+
+.gz-vps__was {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-vps__strong {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-vps__price--save {
+  color: var(--gz-color-sys-text-success);
+}
+
+.gz-vps__pay {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  padding: var(--gz-space-4);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}
+
+.gz-vps__pay-text {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-vps__pay-text .gz-t-caption {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-vps__directly {
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-vps__rules {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gz-vps__rule {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}

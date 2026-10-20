@@ -1,0 +1,104 @@
+/* WeekStrip: seven flex columns, 88 high, weekday / figure / three 4 px marks. Today = ink-900 1 px outline; selected = the gold fill. */
+
+.gz-ws {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gz-ws__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+.gz-ws__row {
+  display: flex;
+}
+
+.gz-ws__day {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-week-strip);
+  padding-block: var(--gz-space-3);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: transparent;
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+}
+
+.gz-ws__day:active { background: var(--gz-color-sys-surface-quiet); }
+
+.gz-ws__day.is-today { border-color: var(--gz-color-sys-border-focus); }
+
+.gz-ws__day.is-selected {
+  background: var(--gz-color-sys-mark-khayt);
+  border-color: var(--gz-color-sys-mark-khayt);
+  color: var(--gz-color-sys-text-on-gold);
+  box-shadow: 0 0 0 var(--gz-stroke-thread) var(--gz-color-sys-surface-canvas);
+  outline-width: var(--gz-stroke-hair); outline-style: solid; outline-color: var(--gz-color-sys-mark-decor);
+  outline-offset: var(--gz-stroke-thread);
+}
+
+/* The selected day's gold ring is an outline, so it must hand the outline over to the keyboard ring (as the month calendar does). */
+.gz-ws__day.is-selected:focus-visible {
+  outline-width: var(--gz-stroke-focus);
+  outline-color: var(--gz-color-sys-focus-ring);
+}
+
+.gz-ws__day.is-selected:active { background: var(--gz-color-sys-mark-pressed); }
+.gz-ws__day.is-selected .gz-ws__wd { color: var(--gz-color-sys-text-on-gold); }
+
+.gz-ws__wd {
+  color: var(--gz-color-sys-text-secondary);
+  white-space: nowrap;
+}
+
+.gz-ws__fig { color: inherit; }
+
+.gz-ws__marks {
+  display: flex;
+  gap: var(--gz-space-1);
+  margin-block-start: var(--gz-space-1);
+}
+
+/* The three marks: 4 px high bars; confirmed solid ink, pending gold, open a hairline outline. */
+.gz-ws__mark {
+  display: block;
+  flex: none;
+  box-sizing: border-box;
+  inline-size: var(--gz-space-3);
+  block-size: var(--gz-space-1);
+  border-radius: var(--gz-radius-pill);
+}
+
+.gz-ws__mark--confirmed { background: var(--gz-color-sys-text-primary); }
+.gz-ws__mark--pending { background: var(--gz-color-sys-mark-khayt); }
+.gz-ws__mark--open { border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong); background: transparent; }
+
+.gz-ws__day.is-selected .gz-ws__mark--confirmed { background: var(--gz-color-sys-text-on-gold); }
+.gz-ws__day.is-selected .gz-ws__mark--pending { background: var(--gz-color-sys-text-on-gold); }
+.gz-ws__day.is-selected .gz-ws__mark--open { border-color: var(--gz-color-sys-text-on-gold); }
+
+.gz-ws__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-1) var(--gz-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-ws__key {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}

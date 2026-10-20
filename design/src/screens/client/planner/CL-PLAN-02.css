@@ -1,0 +1,163 @@
+/* CL-PLAN-02 Request consultation. Tokens only, logical properties, flex + gap. */
+
+.gzp2-banner {
+  padding-block-start: var(--gz-space-3);
+}
+
+.gzp2-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  padding-block: var(--gz-space-3) var(--gz-space-section);
+}
+
+/* ---------- package row: thumb, name and marks, the wedding as two facts, a chevron (the whole row opens the picker) ---------- */
+.gzp2-package {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gz-space-4);
+  margin-inline: var(--gz-space-gutter);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzp2-package__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gzp2-package__facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-3);
+  row-gap: var(--gz-space-1);
+}
+
+/* ---------- time windows ---------- */
+.gzp2-times {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzp2-times__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gzp2-times__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzp2-count {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzp2-count.is-full {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+/* Three equal toggles: the session glyph centred, its word only once chosen (the glyph is the value, 02-text-diet section 2). */
+.gzp2-parts {
+  display: flex;
+  gap: var(--gz-space-2);
+}
+
+.gzp2-part {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-stroke-thread);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-control-lg);
+  padding-inline: var(--gz-space-2);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-primary);
+  cursor: pointer;
+}
+
+.gzp2-part:disabled {
+  border-color: var(--gz-color-sys-border-hairline);
+  cursor: default;
+}
+
+.gzp2-part:disabled .gz-icon {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+/* Chosen: the chip's selected anatomy (ink border on paper). */
+.gzp2-part.is-on {
+  background-color: var(--gz-color-sys-surface-raised);
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-control-chip-border-selected);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzp2-part__word {
+  white-space: nowrap;
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gzp2-error {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding-block-start: var(--gz-space-2);
+  color: var(--gz-color-sys-text-danger);
+}
+
+/* ---------- package picker sheet ---------- */
+.gzp2-picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzp2-picker__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzp2-opt {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding: var(--gz-space-4);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzp2-opt.is-selected {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-control-chip-border-selected);
+}
+
+.gzp2-opt__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}

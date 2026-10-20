@@ -1,0 +1,41 @@
+/* Skeleton: static ink-100 (surface.placeholder). No shimmer, no pulse: the image reveal (480 ms) is the only motion. */
+
+.gz-skeleton {
+  display: block;
+  flex: none;
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gz-skeleton--fill {
+  align-self: stretch;
+}
+
+/* Beside a fixed item in a row (an avatar), grow into the remaining width. */
+.gz-skeleton--grow {
+  flex: 1 1 auto;
+}
+
+.gz-skeleton--line {
+  block-size: var(--gz-space-4);
+  border-radius: var(--gz-radius-xs);
+}
+
+.gz-skeleton--block {
+  block-size: var(--gz-space-20);
+  border-radius: var(--gz-radius-md);
+}
+
+.gz-skeleton--circle {
+  border-radius: var(--gz-radius-pill);
+}
+
+.gz-skeleton-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  align-items: flex-start;
+}
+
+.gz-skeleton-text .gz-skeleton--fill {
+  align-self: stretch;
+}

@@ -1,0 +1,160 @@
+/* HallDay (hotel/calendar HL-CALN-03): a hall section on the 20 gutter, sections divided by a hairline. The booking card is a panel
+   (paper, 1 px ink-300, radius 12, padding 16); a hold card carries the gold-100 note tone, a block card the ink-50 one. An open hall is a
+   doorway, its state and its actions. Tokens only. */
+
+.cal-hd {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.cal-hd__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.cal-hd__name {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.cal-hd__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.cal-hd__card[data-kind='hold'] {
+  background: var(--gz-color-sys-status-pending-bg);
+  border-color: var(--gz-color-sys-mark-state);
+}
+
+.cal-hd__card[data-kind='block'] {
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+.cal-hd__who {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.cal-hd__main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-control-lg);
+  text-align: start;
+  cursor: pointer;
+}
+
+.cal-hd__blk {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.cal-hd__id {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  min-inline-size: 0;
+}
+
+.cal-hd__client {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.cal-hd__line {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.cal-hd__act {
+  display: flex;
+}
+
+.cal-hd__open {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block: var(--gz-space-2);
+}
+
+.cal-hd__openhead {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.cal-hd__door {
+  display: inline-flex;
+  flex: none;
+}
+
+.cal-hd__acts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-5);
+  row-gap: var(--gz-space-2);
+}
+
+.cal-hd__req {
+  display: flex;
+  flex-direction: column;
+}
+
+.cal-hd__reqrow {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.cal-hd__reqmain {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-touch-min);
+  text-align: start;
+  cursor: pointer;
+}
+
+.cal-hd__reqmain > [lang] {
+  flex: 1;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cal-hd__reqword {
+  flex: none;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.cal-hd__reqgap {
+  flex: none;
+  inline-size: var(--gz-size-touch-min);
+}

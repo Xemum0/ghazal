@@ -1,0 +1,16 @@
+/* IconListRow: the leading glyph disk (40, rose-100) or a 64 illustration. */
+
+.gz-irow__disk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.gz-irow__art {
+  display: inline-flex;
+  flex: none;
+}

@@ -1,0 +1,4 @@
+/* HL-VENU-06 Booking rules. Form column inside hv-page. Tokens only. */
+
+.hv-links { display: flex; flex-direction: column; }
+.hv-ro-list { display: flex; flex-direction: column; }

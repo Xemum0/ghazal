@@ -1,0 +1,23 @@
+/* HL-VIST-04 Mark arrival (sheet). Content sits on the sheet's own 20 padding; the result is a centred block, a quiet disc and two lines. */
+
+.hv-arr__who { display: flex; align-items: center; gap: var(--gz-space-4); }
+.hv-arr__text { display: flex; flex: 1; flex-direction: column; gap: var(--gz-space-1); min-inline-size: 0; }
+.hv-arr__text .gz-t-ui-title { color: var(--gz-color-sys-text-strong); }
+.hv-arr__when { color: var(--gz-color-sys-text-primary); }
+.hv-arr__sub { color: var(--gz-color-sys-text-secondary); }
+.hv-arr__rule { margin: 0; color: var(--gz-color-sys-text-secondary); }
+
+.hv-arr__done { display: flex; flex-direction: column; align-items: center; gap: var(--gz-space-3); padding-block: var(--gz-space-6); text-align: center; }
+.hv-arr__done p { margin: 0; }
+.hv-arr__done-title { color: var(--gz-color-sys-text-strong); }
+.hv-arr__done-body { color: var(--gz-color-sys-text-secondary); }
+.hv-arr__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-md);
+  block-size: var(--gz-size-avatar-md);
+  border-radius: var(--gz-radius-pill);
+}
+.hv-arr__badge[data-tone='ok'] { background-color: var(--gz-color-sys-status-success-bg); color: var(--gz-color-sys-status-success-text); }
+.hv-arr__badge[data-tone='quiet'] { background-color: var(--gz-color-sys-surface-quiet); color: var(--gz-color-sys-text-secondary); }

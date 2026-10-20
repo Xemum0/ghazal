@@ -1,0 +1,77 @@
+/* The keys behind the (i) of the calendar: a shape and its word, one per row, on hairlines. The marks reuse the system's own swatches so the
+   key can never drift from the grid. Tokens only. */
+
+.cal-key {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cal-key__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.cal-key__row:last-child {
+  border-block-end-width: 0;
+}
+
+.cal-key__ring {
+  display: inline-block;
+  flex: none;
+  box-sizing: border-box;
+  inline-size: var(--gz-space-4);
+  block-size: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-mark-state);
+  border-radius: var(--gz-radius-xs);
+}
+
+.cal-key__note {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.cal-key__bar {
+  position: relative; /* flutter-ok: the hatch shader fills the swatch */
+  flex: none;
+  box-sizing: border-box;
+  inline-size: var(--gz-space-8);
+  block-size: var(--gz-space-4);
+  overflow: hidden;
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-xs);
+}
+
+.cal-key__bar[data-kind='event'] {
+  background: var(--gz-color-sys-text-primary);
+  border-color: var(--gz-color-sys-text-primary);
+}
+
+.cal-key__word {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.cal-key__time {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.cal-key__next {
+  color: var(--gz-color-sys-text-secondary);
+}

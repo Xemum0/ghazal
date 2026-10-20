@@ -1,0 +1,109 @@
+/* CL-DISC-02 Your Brief sheet: pinned header, the one scrolling middle, pinned footer. The Sheet brings the 20 gutter. */
+.gzd-brs {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gzd-brs .gz-sheet__header {
+  padding-inline: 0;
+}
+
+/* A picker's header: back at inline-start, the picker's name in the display face. */
+.gzd-brs__panelhead {
+  gap: var(--gz-space-1);
+}
+
+.gzd-brs__scroll {
+  flex: 1;
+  min-block-size: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.gzd-brs__banner {
+  padding-block-end: var(--gz-space-3);
+}
+
+.gzd-brs__section {
+  margin-inline-start: var(--gz-space-2);
+  vertical-align: middle;
+}
+
+.gzd-brs__main {
+  display: flex;
+  flex-direction: column;
+}
+
+.gzd-brs__rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzd-brs__rows > li {
+  display: flex;
+}
+
+.gzd-brs__foot {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-3);
+}
+
+.gzd-brs__clear {
+  display: flex;
+  justify-content: center;
+}
+
+.gzd-brs__row {
+  flex: 1;
+  padding-inline: 0;
+}
+
+/* The halls that fit: four photographs side by side (no captions) and the number beyond them. One button: it does what the CTA does. */
+.gzd-brs__preview {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-5);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzd-brs__thumbs {
+  display: flex;
+  flex: 1;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gzd-brs__thumb {
+  display: flex;
+  flex: 1 1 0;
+  min-inline-size: 0;
+  block-size: 168px;
+  overflow: hidden;
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gzd-brs__thumb .gz-photo {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzd-brs__more {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  color: var(--gz-color-sys-text-secondary);
+}

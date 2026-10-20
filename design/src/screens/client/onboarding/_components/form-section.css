@@ -1,0 +1,43 @@
+/* FormSection: khayt, then the question row, then the controls 16 below. */
+.obd-sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.obd-sec__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.obd-sec__head > .gz-threadrule {
+  align-self: flex-start;
+}
+
+.obd-sec__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+/* The title keeps its own width and the unit follows it; the action is pushed to inline-end. */
+.obd-sec__title {
+  flex: 0 1 auto;
+  min-inline-size: 0;
+  margin: 0;
+}
+
+.obd-sec__unit {
+  flex: none;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* The quiet action lines its text edge up with the gutter, like `See all`. */
+.obd-sec__row > .gz-btn--tertiary {
+  flex: none;
+  margin-inline-start: auto;
+  padding-inline: 0;
+}

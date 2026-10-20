@@ -1,0 +1,74 @@
+/* OtpInput: six 56-high cells, LTR in both languages (ADR 0012 D4). Cells are flex:1 (46 dp wide at 360). */
+
+.gz-otp {
+  display: flex;
+  gap: var(--gz-space-2);
+  direction: ltr;
+}
+
+.gz-otp__cell {
+  flex: 1 1 0;
+  min-inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-control-lg);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-weight: var(--gz-type-price-strong-weight);
+  background: var(--gz-color-sys-control-bg);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-sm);
+  appearance: none;
+  caret-color: var(--gz-color-sys-text-strong);
+  transition:
+    border-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard),
+    box-shadow var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-otp__cell[data-filled] {
+  border-color: var(--gz-color-sys-text-primary);
+}
+
+.gz-otp__cell:focus,
+.gz-otp__cell:focus-visible,
+.gz-field[data-force-focus] .gz-otp__cell:first-child {
+  outline: none;
+  border-color: var(--gz-color-sys-border-focus);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-border-focus);
+}
+
+.gz-field[data-invalid] .gz-otp__cell,
+.gz-field[data-invalid] .gz-otp__cell[data-filled] {
+  border-color: var(--gz-color-sys-border-error);
+}
+
+.gz-field[data-invalid] .gz-otp__cell:focus {
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-border-error);
+}
+
+.gz-otp__cell:disabled {
+  background: var(--gz-color-sys-surface-quiet);
+  border-color: var(--gz-color-sys-border-strong);
+  color: var(--gz-color-sys-text-disabled);
+  cursor: not-allowed;
+}
+
+/* Error shake: three short nudges, 320 ms. Amplitude is motion.distance.shake. */
+@keyframes gz-otp-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(var(--gz-motion-distance-shake-reverse)); }
+  40% { transform: translateX(var(--gz-motion-distance-shake)); }
+  60% { transform: translateX(var(--gz-motion-distance-shake-reverse)); }
+  80% { transform: translateX(var(--gz-motion-distance-shake)); }
+}
+
+.gz-otp--shake {
+  animation: gz-otp-shake var(--gz-motion-duration-slow) var(--gz-motion-ease-standard) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-otp--shake {
+    animation: none;
+  }
+}

@@ -1,0 +1,78 @@
+/* Shared rules of the client domain components (system/domain-client). Tokens only, logical properties, flex + gap.
+   Imported by bits.tsx, so every component that uses a shared piece gets them. */
+
+/* The card price line: [amount][basis]. The amount hugs its currency (an LTR island, .gz-money); the basis is a caption.
+   Baseline-aligned; wraps as two lines on a narrow card instead of truncating a price. */
+.gz-price-line {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--gz-space-2);
+  row-gap: 0;
+  min-inline-size: 0;
+}
+
+.gz-price-line--end {
+  justify-content: flex-end;
+}
+
+.gz-price-line__basis {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* The saving chip after a voucher price: success tint, ink-quiet, same shape as a status pill. */
+.gz-price-line__save {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}
+
+.gz-price-line__lock {
+  display: inline-flex;
+  flex-basis: 100%;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* A bare panel in the system's sense: paper, 1 px ink-300 hairline, radius 12, 16 padding (direction 3, "Panel"). */
+.gz-cpanel {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+}
+
+/* The gold-700 bead used by availability lines and the best-in-row marker: informative gold on a light surface (direction 2.3). */
+.gz-cbead {
+  display: inline-block;
+  flex: none;
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+  margin-inline: var(--gz-stroke-thread);
+  background-color: var(--gz-color-sys-text-gold-ink);
+  transform: rotate(45deg);
+}
+
+/* Component constants now come from tokens; the --gzc-* names stay as aliases so the component files keep one vocabulary. */
+:root {
+  --gzc-ctl-inset: var(--gz-size-photo-inset);
+  --gzc-thumb-compact-w: var(--gz-size-thumb-compact-width);
+  --gzc-thumb-compact-h: var(--gz-size-thumb-compact-height);
+  --gzc-dot-on: var(--gz-size-dot-on);
+  --gzc-dot-off: var(--gz-size-dot-off);
+  --gzc-dot-edge: var(--gz-size-dot-edge);
+  --gzc-bubble-media: var(--gz-size-chat-media);
+}

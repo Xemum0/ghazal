@@ -1,0 +1,137 @@
+/* PackageChoice and the step-2 list. Selected = ink-900 border and a check in an ink disc (choice is ink, never gold). Tokens only. */
+
+.bk-pkgs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-list-gap);
+}
+
+.bk-pkg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.bk-pkg.is-selected {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+}
+
+.bk-pkg__choose {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  text-align: start;
+  cursor: pointer;
+  border-radius: var(--gz-radius-sm);
+  min-inline-size: 0;
+}
+
+.bk-pkg__mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+  margin-block-start: var(--gz-space-1);
+  border-width: var(--gz-stroke-icon);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-pill);
+  color: var(--gz-color-sys-control-toggle-knob);
+}
+
+.bk-pkg.is-selected .bk-pkg__mark {
+  border-color: var(--gz-color-sys-control-toggle-on);
+  background-color: var(--gz-color-sys-control-toggle-on);
+}
+
+.bk-pkg__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.bk-pkg__name {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.bk-pkg__main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.bk-pkg__sub {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-3);
+  row-gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.bk-pkg__was {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.bk-pkg__save {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-block-size: var(--gz-size-pill-min);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}
+
+.bk-pkg__none {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.bk-pkg__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-2);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+/* The info glyph is a 44 target: pull its disk back to the card padding so the glyph sits on the card's edge. */
+.bk-pkg__foot .bk-pkg__details {
+  flex: none;
+  position: relative; /* flutter-ok: Transform.translate by the target's slack */
+  inset-inline-end: -10px;
+}
+
+/* ---------- running total in the bar: one button that opens the breakdown ---------- */
+.bk-sum {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-block-size: var(--gz-size-control-md);
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+}

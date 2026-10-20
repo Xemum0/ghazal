@@ -1,0 +1,15 @@
+/* CL-PROF-05 Settings. Rows edge to edge, 24 between the three lists. Tokens only. */
+
+.gzpr-set {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+}
+
+.gzpr-set__version {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+  text-align: center;
+}

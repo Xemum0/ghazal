@@ -1,0 +1,66 @@
+/* VoucherWindowCard: the rose-100 panel (offers and quiet notes only, direction 3). Tokens only. */
+
+.gz-vwin {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: var(--gz-space-panel-pad);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-vwin.is-pressed {
+  transform: scale(var(--gz-motion-scale-press));
+}
+
+.gz-vwin.is-muted {
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}
+
+.gz-vwin__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-vwin__rate {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-vwin__title {
+  margin: 0;
+}
+
+.gz-vwin__venue {
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-vwin__facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-stroke-thread);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gz-vwin__facts li {
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-vwin__state {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.gz-vwin__go {
+  margin-block-start: var(--gz-space-1);
+}

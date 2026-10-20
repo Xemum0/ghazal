@@ -1,0 +1,35 @@
+/* CL-PAYM-03 · Confirming. One quiet column (the Outcome): drawing, two-word title, the determinate thread, three facts. */
+
+/* ---------- the determinate thread: a 2 px gold fill over an ink-200 track, ending in the knot that ties on success ---------- */
+.pm-prog {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  gap: var(--gz-space-2);
+  padding-block: var(--gz-space-2);
+}
+
+.pm-prog__track {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+  block-size: var(--gz-stroke-thread);
+  overflow: hidden;
+  background-color: var(--gz-color-sys-mark-track);
+}
+
+.pm-prog__fill {
+  display: block;
+  block-size: var(--gz-stroke-thread);
+  background-color: var(--gz-color-sys-mark-khayt);
+  transform: scaleX(var(--pm-p, 0));
+  transform-origin: var(--gz-origin-start);
+  transition: transform var(--gz-motion-duration-slow) var(--gz-motion-ease-linear);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pm-prog__fill {
+    transition: none;
+  }
+}

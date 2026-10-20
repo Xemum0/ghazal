@@ -1,0 +1,24 @@
+/* ChatPinned: a hairline-bordered strip under the header (paper, radius 12, 12 padding); the actions sit under the facts at 44 high. */
+
+.hv-pin {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  margin-inline: var(--gz-space-gutter);
+  padding: var(--gz-space-3);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  min-inline-size: 0;
+}
+
+.hv-pin__body { display: flex; flex-direction: column; align-items: flex-start; gap: var(--gz-space-1); min-inline-size: 0; text-align: start; color: inherit; cursor: pointer; }
+.hv-pin__line { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--gz-space-3); align-self: stretch; min-inline-size: 0; }
+.hv-pin__who { color: var(--gz-color-sys-text-secondary); text-align: end; min-inline-size: 0; }
+.hv-pin__when { display: inline-flex; flex: 1 1 auto; justify-content: flex-end; min-inline-size: 0; align-items: center; gap: var(--gz-space-2); color: var(--gz-color-sys-text-strong); }
+
+.hv-pin__actions { display: flex; flex-wrap: wrap; gap: var(--gz-space-2); }
+.hv-pin__actions > * { flex: 1 1 auto; min-inline-size: 0; }

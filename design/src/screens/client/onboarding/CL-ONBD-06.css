@@ -1,0 +1,66 @@
+/* CL-ONBD-06 Preferred areas. Governorate groups of chips; the search is pinned under the step bar. */
+.obd-areas__search {
+  flex: none;
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-1) var(--gz-space-3);
+  background: var(--gz-color-sys-surface-canvas);
+}
+
+.obd-areas {
+  gap: var(--gz-space-6);
+}
+
+.obd-areas__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.obd-areas__summary > .gz-btn--tertiary {
+  flex: none;
+  padding-inline: 0;
+}
+
+.obd-gov {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-4);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.obd-gov__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.obd-gov__name {
+  margin: 0;
+  font-weight: var(--gz-type-title-weight);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.obd-gov__count {
+  display: flex;
+}
+
+/* The chips and the `+N` that opens the rest share one wrapping row. */
+.obd-gov__chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.obd-gov__chips > .gz-btn--tertiary {
+  padding-inline: var(--gz-space-2);
+}
+
+/* The card banner brings its own gutter margin; the form already has the gutter. */
+.obd-areas .gz-banner--card {
+  margin-inline: 0;
+}

@@ -1,0 +1,114 @@
+/* Wordmark. The lockup is a fixed LTR artwork: Latin then Arabic, the thread behind both at the shared baseline, the knot at its end.
+   Geometry per size lives in custom properties (px derived from the direction 7 formulas: thread = max(1.5, 0.03 x size),
+   knot = max(5, 0.14 x size), start overhang 0.22 x size, end room 0.5 x size); token requests for them are filed
+   (docs/engineering/requests.md). Letters come from the display roles; each script span carries its own lang, so its own
+   size and weight resolve (Newsreader 300/400, Amiri 400 at x1.10). */
+
+.gz-wordmark {
+  --gz-origin-start: 0 50%; /* the lockup never mirrors: the draw always starts at the Latin edge */
+  --gz-wm-pad-start: 6px;
+  --gz-wm-pad-end: 16px;
+  --gz-wm-base: 10px;
+  --gz-wm-thick: var(--gz-stroke-icon);
+  --gz-wm-knot: var(--gz-space-1);
+  --gz-wm-track: var(--gz-type-wordmark-tracking);
+  position: relative; /* flutter-ok: named overlay anchor for the thread (Stack + CustomPainter) */
+  display: inline-flex;
+  flex: none;
+  align-items: baseline;
+  gap: var(--gz-space-3);
+  padding-inline-start: var(--gz-wm-pad-start);
+  padding-inline-end: var(--gz-wm-pad-end);
+  color: var(--gz-color-sys-text-strong);
+  white-space: nowrap;
+  font-synthesis: none;
+}
+
+.gz-wordmark.gz-on-dark {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-wordmark__latin,
+.gz-wordmark__arabic {
+  position: relative; /* flutter-ok: letters sit above the thread */
+  z-index: var(--gz-z-raised);
+  font-family: var(--gz-type-d2-family);
+  font-weight: var(--gz-type-d2-weight);
+  font-variant-numeric: var(--gz-type-d2-numeric);
+}
+
+.gz-wordmark__latin {
+  letter-spacing: var(--gz-wm-track);
+}
+
+.gz-wordmark__arabic {
+  letter-spacing: 0;
+}
+
+/* sizes: the letters come from a display role, so size, leading and weight stay on tokens */
+.gz-wordmark--sm .gz-wordmark__latin,
+.gz-wordmark--sm .gz-wordmark__arabic {
+  font-size: var(--gz-type-d2-size);
+  line-height: var(--gz-type-d2-line);
+  font-weight: var(--gz-type-d2-weight);
+}
+
+.gz-wordmark--md .gz-wordmark__latin,
+.gz-wordmark--md .gz-wordmark__arabic {
+  font-size: var(--gz-type-wordmark-size);
+  line-height: var(--gz-type-wordmark-line);
+  font-weight: var(--gz-type-wordmark-weight);
+}
+
+.gz-wordmark--lg .gz-wordmark__latin,
+.gz-wordmark--lg .gz-wordmark__arabic {
+  font-size: var(--gz-type-d4-size);
+  line-height: var(--gz-type-d4-line);
+  font-weight: var(--gz-type-d4-weight);
+}
+
+.gz-wordmark--xl .gz-wordmark__latin,
+.gz-wordmark--xl .gz-wordmark__arabic {
+  font-size: var(--gz-type-d6-size);
+  line-height: var(--gz-type-d6-line);
+  font-weight: var(--gz-type-d6-weight);
+}
+
+.gz-wordmark--sm { --gz-wm-pad-start: 6px; --gz-wm-pad-end: 12px; --gz-wm-base: 12px; --gz-wm-track: 0.48px; --gz-wm-knot: var(--gz-space-1); gap: var(--gz-space-2); }
+.gz-wordmark--md { --gz-wm-pad-start: 6px; --gz-wm-pad-end: 14px; --gz-wm-base: 10px; --gz-wm-track: var(--gz-type-wordmark-tracking); --gz-wm-knot: var(--gz-space-1); }
+.gz-wordmark--lg { --gz-wm-pad-start: 8px; --gz-wm-pad-end: 20px; --gz-wm-base: 19px; --gz-wm-track: 0.8px; --gz-wm-knot: 6px; gap: var(--gz-space-4); }
+.gz-wordmark--xl { --gz-wm-pad-start: 12px; --gz-wm-pad-end: 28px; --gz-wm-base: 20px; --gz-wm-track: 1.2px; --gz-wm-knot: var(--gz-size-knot-bead); --gz-wm-thick: var(--gz-stroke-thread); gap: var(--gz-space-5); }
+
+/* the thread: behind the letters, from the start overhang to the knot */
+.gz-wordmark__thread {
+  position: absolute; /* flutter-ok: ThreadPainter layer behind the text */
+  inset-inline: 0;
+  inset-block-end: var(--gz-wm-base);
+  block-size: var(--gz-wm-thick);
+  display: flex;
+  align-items: center;
+}
+
+.gz-wordmark__line {
+  flex: 1;
+  block-size: var(--gz-wm-thick);
+  background-color: var(--gz-color-sys-mark-khayt);
+  border-radius: var(--gz-radius-pill);
+}
+
+/* the knot: a gold diamond (rotated square) at the end of the line, centred on it */
+.gz-wordmark__knot {
+  flex: none;
+  box-sizing: border-box;
+  inline-size: var(--gz-wm-knot);
+  block-size: var(--gz-wm-knot);
+  background-color: var(--gz-color-sys-mark-khayt);
+  transform: rotate(45deg);
+}
+
+/* The Latin-only form has a shorter line box than the Arabic one, so its baseline sits lower in the box. Values are the
+   measured distance from the box bottom to the baseline, less half the thread thickness. */
+.gz-wordmark--sm.gz-wordmark--latin { --gz-wm-base: 9px; }
+.gz-wordmark--md.gz-wordmark--latin { --gz-wm-base: 8px; }
+.gz-wordmark--lg.gz-wordmark--latin { --gz-wm-base: 12px; }
+.gz-wordmark--xl.gz-wordmark--latin { --gz-wm-base: 15px; }

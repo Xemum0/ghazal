@@ -1,0 +1,73 @@
+/* ScoreSummary: the figure and its stars at inline-start, four glyph + bar + figure rows at inline-end. Tokens only, logical properties. */
+.rvx {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-6);
+  min-inline-size: 0;
+}
+
+.rvx__score {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+}
+
+.rvx__avg {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.rvx__count {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.rvx__bars {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rvx__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.rvx__bar > .gz-icon {
+  flex: none;
+}
+
+.rvx__track {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+  block-size: var(--gz-stroke-thread);
+}
+
+.rvx__fill {
+  flex-basis: 0;
+  flex-shrink: 0;
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.rvx__rest {
+  flex-basis: 0;
+  flex-shrink: 0;
+  background-color: var(--gz-color-sys-mark-track);
+}
+
+.rvx__val {
+  flex: none;
+  inline-size: var(--gz-space-6);
+  color: var(--gz-color-sys-text-strong);
+  text-align: end;
+}

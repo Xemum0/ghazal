@@ -1,0 +1,56 @@
+/* CL-VCHR-04: the voucher attached to this request. Shared sheet pieces are in _components/explainer.css. */
+.gzv-sum {
+  padding-block-start: var(--gz-space-1);
+}
+
+.gzv-pick__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzv-pick__row {
+  box-sizing: border-box;
+  padding-block: var(--gz-space-2);
+  padding-inline: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-canvas);
+}
+
+.gzv-pick__row[data-on] {
+  border-width: var(--gz-stroke-focus);
+  border-color: var(--gz-color-sys-border-focus);
+}
+
+.gzv-choice {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  padding-block: var(--gz-space-1);
+}
+
+.gzv-choice__code {
+  align-self: flex-start;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* A voucher that no longer fits: the voucher's venue and what the request is for now, one line each under their glyphs. */
+.gzv-fit {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-panel-pad);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gzv-fit__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}

@@ -1,0 +1,23 @@
+/* HL-PROV-02 My listings: a column of grouped cards on the 20 gutter. */
+.hp02 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-2) var(--gz-space-8);
+}
+
+.hp02__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.hp02__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

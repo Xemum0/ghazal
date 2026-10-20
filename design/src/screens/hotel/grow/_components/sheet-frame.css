@@ -1,0 +1,40 @@
+/* GrowSheet: title row, body, action stack. The sheet container already carries the 20 gutter. */
+
+.gg-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.gg-sheet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.gg-sheet__title {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gg-sheet__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+  max-block-size: var(--gg-sheet-body-max, 320px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.gg-sheet__foot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-1);
+}

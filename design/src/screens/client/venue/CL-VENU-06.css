@@ -1,0 +1,63 @@
+/* CL-VENU-06 Government hall: fee rows, rules, the official channel rows. Tokens only, logical properties, flex + gap. */
+.gzv-fees {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzv-fees__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-row-min);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzv-fees__row dt {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzv-fees__row dd {
+  flex: none;
+  margin: 0;
+}
+
+.gzv-fees__badge {
+  display: inline-flex;
+}
+
+/* The scope of the fee (hall only) is a quiet badge; its explanation and the fee caveat sit behind the (i). */
+.gzv-gov__only {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gzv-gov__rules {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+/* A ruled list row is a straight rule here (the system row rounds its pressed state; a rounded rule would curl at the ends). */
+.gzv-gov__rules .gz-row--interactive {
+  border-radius: 0;
+}

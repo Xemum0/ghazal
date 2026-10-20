@@ -1,0 +1,49 @@
+/* FunnelRows: glyph, track, count, share on one line per stage. The track takes what the three fixed slots leave. */
+
+.gf-funnel__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gf-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gf-row__glyph {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  background: var(--gz-color-sys-surface-tint-soft);
+  border-radius: var(--gz-radius-pill);
+}
+
+.gf-row__track {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gf-row__value {
+  display: flex;
+  flex: none;
+  justify-content: flex-end;
+  inline-size: var(--gz-space-12);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gf-row__step {
+  display: flex;
+  flex: none;
+  justify-content: flex-end;
+  inline-size: var(--gz-space-12);
+  color: var(--gz-color-sys-text-secondary);
+}

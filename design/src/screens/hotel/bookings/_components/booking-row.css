@@ -1,0 +1,96 @@
+/* BookingRow (HL-BOOK-02): a list row on the 20 gutter with a hairline under it. Name and price on one line, one line of facts, an optional
+   pill line for a Past row. Gold appears only on a time left. Tokens only; logical properties only. */
+
+.hbk-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  inline-size: 100%; /* flutter-ok: a row fills its list (ListTile) */
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+  cursor: pointer;
+  transition: background-color var(--gz-motion-duration-fast) var(--gz-motion-ease-standard);
+}
+
+.hbk-row:active {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.hbk-row[data-last] {
+  border-block-end-color: transparent;
+}
+
+.hbk-row > .gz-icon:last-child,
+.hbk-row > .gz-avatar {
+  flex: none;
+}
+
+.hbk-row__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.hbk-row__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.hbk-row__name {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hbk-row__amount {
+  flex: none;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hbk-row__ref {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* The state glyph that ends the facts line. */
+.hbk-row__tail {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hbk-row__tail[data-tone='gold'] {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.hbk-row__tail[data-tone='success'] {
+  color: var(--gz-color-sys-text-success);
+}
+
+.hbk-row__pill {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-1);
+}
+
+.hbk-row__hit {
+  padding-inline: var(--gz-space-1);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-ui-title-weight);
+}

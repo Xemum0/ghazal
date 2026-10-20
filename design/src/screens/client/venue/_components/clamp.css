@@ -1,0 +1,18 @@
+/* Clamp: authored text, cut to two lines, the chevron at inline-end. Tokens only, logical properties, flex + gap. */
+.gzv-clamp {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzv-clamp__text {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzv-clamp__btn {
+  flex: none;
+}

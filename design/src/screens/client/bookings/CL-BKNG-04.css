@@ -1,0 +1,51 @@
+/* CL-BKNG-04 Venue proposed another date (sheet). The Sheet body carries the 20 gutter; 16 between blocks, 24 before the actions. Tokens only. */
+.gzb-prop {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzb-prop__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzb-prop__facts {
+  column-gap: var(--gz-space-4);
+}
+
+.gzb-prop__options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzb-prop__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+}
+
+/* The decision stays in reach when the dates are taller than the sheet. */
+.gzb-prop__actions--pinned {
+  position: sticky; /* flutter-ok: pinned sliver */
+  inset-block-end: 0;
+  padding-block: var(--gz-space-3);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+  z-index: var(--gz-z-raised);
+}
+
+.gzb-prop__pair {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.gzb-prop__pair > * {
+  flex: 1;
+  min-inline-size: 0;
+}

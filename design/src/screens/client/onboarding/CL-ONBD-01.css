@@ -1,0 +1,103 @@
+/* CL-ONBD-01 Language. Canvas, the wordmark, the arch photograph, then two language tiles. Tokens only. */
+.obd-lang {
+  display: flex;
+  flex-direction: column;
+}
+
+.obd-lang__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block-start: var(--gz-safe-top);
+  block-size: var(--gz-space-16);
+  box-sizing: content-box;
+}
+
+.obd-lang__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-6);
+}
+
+.obd-lang__cards {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+/* A tile: the script's mark and the selection ring on one line, the language written in itself under them. */
+.obd-lang-card {
+  flex: 1;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  padding-block: var(--gz-space-3) var(--gz-space-4);
+  padding-inline: var(--gz-space-4);
+  background: var(--gz-color-sys-control-bg);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-strong);
+  text-align: start;
+  cursor: pointer;
+}
+
+.obd-lang-card.is-selected {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+}
+
+.obd-lang-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+}
+
+.obd-lang-card__mark {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.obd-lang-card.is-selected .obd-lang-card__mark {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.obd-lang-card__name {
+  min-inline-size: 0;
+}
+
+/* Selected is an ink check on its own disk: never gold alone (the inventory), never colour alone. */
+.obd-lang-card__check {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+  border-radius: var(--gz-radius-pill);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.obd-lang-card.is-selected .obd-lang-card__check {
+  background: var(--gz-color-sys-surface-dark);
+  border-color: var(--gz-color-sys-surface-dark);
+}
+
+/* The quiet account link sits centred under the primary; offline it is disabled and the banner says why. */
+.obd-lang__account {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* The card banner brings its own gutter margin; the content already has the gutter. */
+.obd-lang__content .gz-banner--card {
+  margin-inline: 0;
+}

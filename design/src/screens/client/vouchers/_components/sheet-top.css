@@ -1,0 +1,22 @@
+.gzv-sheettop {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-block-size: var(--gz-size-control-md);
+}
+
+.gzv-sheettop__title {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The info glyph and the close glyph are 44 targets with slack around a 20 glyph: both slide by the slack so the pair meets the 20 gutter. */
+.gzv-sheettop__info,
+.gzv-sheettop__close {
+  display: flex;
+  flex: none;
+  position: relative; /* flutter-ok: Transform.translate by the target's slack so the glyph meets the 20 gutter */
+  inset-inline-end: -10px;
+}

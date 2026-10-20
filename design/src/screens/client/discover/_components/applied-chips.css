@@ -1,0 +1,66 @@
+/* The chip row of Results: one line, 44 high chips, 8 between, scrolling under the end edge. The track starts on the gutter and ends with a
+   gutter-wide spacer, so the first chip aligns with the text above and the last one rests on the gutter. */
+.gzd-chips {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+}
+
+.gzd-chips__track {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-2);
+  padding-inline-start: var(--gz-space-gutter);
+}
+
+.gzd-chips__track::after {
+  content: '';
+  flex: none;
+  inline-size: var(--gz-space-2);
+}
+
+/* A hairline between the two sheet buttons and the applied filters. */
+.gzd-chips__rule {
+  flex: none;
+  align-self: center;
+  inline-size: var(--gz-stroke-hair);
+  block-size: var(--gz-space-6);
+  background-color: var(--gz-color-sys-border-strong);
+}
+
+.gzd-chip {
+  flex: none;
+  white-space: nowrap;
+}
+
+.gzd-chips__track > .gz-chip {
+  flex: none;
+  white-space: nowrap;
+}
+
+.gzd-chips__clear {
+  flex: none;
+  white-space: nowrap;
+}
+
+/* A glyph-only chip (Sort, Region, Date before they hold a value): the word is the accessible name, so the empty label takes no gap. */
+.gzd-chips__track > .gzd-chip--glyph {
+  gap: 0;
+  padding-inline: var(--gz-space-3);
+}
+
+/* Chosen but without a value to repeat (the Brief above already says the date): the bead and the glyph, a hair apart. */
+.gzd-chips__track > .gzd-chip--glyph.is-selected {
+  gap: var(--gz-space-1);
+}
+
+/* Filters: the glyph, and the gold count once something is applied (a hair of air between them). */
+.gzd-chips__track > .gzd-chip--filters {
+  gap: 0;
+}
+
+.gzd-chips__track > .gzd-chip--filters .gz-count {
+  margin-inline-start: var(--gz-space-1);
+}

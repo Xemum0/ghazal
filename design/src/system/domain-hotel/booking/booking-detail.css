@@ -1,0 +1,121 @@
+/* Booking detail pieces (GuestCard, BookingStatusCard, InvoiceRow, BookingActionList): paper panels, 1 px ink-300, radius 12, padding 16,
+   blocks 16 apart, ruled lists inside. Serif only for the guest's name. Money in the figures voice, exact. */
+
+.gz-gc,
+.gz-bs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+}
+
+/* ---------- guest card ---------- */
+.gz-gc__head { display: flex; align-items: center; gap: var(--gz-space-4); }
+
+.gz-gc__who { display: flex; flex: 1; flex-direction: column; gap: var(--gz-space-1); min-inline-size: 0; }
+.gz-gc__name { color: var(--gz-color-sys-text-strong); }
+
+.gz-gc__marks { display: flex; flex-wrap: wrap; gap: 0 var(--gz-space-3); color: var(--gz-color-sys-text-secondary); }
+.gz-gc__mark { display: inline-flex; align-items: center; gap: var(--gz-space-1); }
+
+.gz-gc__list { display: flex; flex-direction: column; margin: 0; border-block-start-width: var(--gz-stroke-hair); border-block-start-style: solid; border-block-start-color: var(--gz-color-sys-border-hairline); }
+
+.gz-gc__item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  min-block-size: var(--gz-size-control-md);
+  padding-block: var(--gz-space-2);
+  border-block-end-width: var(--gz-stroke-hair); border-block-end-style: solid; border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-gc__item dt, .gz-gc__item dd { margin: 0; }
+.gz-gc__item dt { flex: none; color: var(--gz-color-sys-text-secondary); }
+.gz-gc__item dd { min-inline-size: 0; text-align: end; color: var(--gz-color-sys-text-strong); }
+.gz-gc__muted { color: var(--gz-color-sys-text-secondary); }
+
+.gz-gc__actions { display: flex; gap: var(--gz-space-3); }
+
+.gz-gc__action {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-inline-size: var(--gz-size-touch-min);
+  min-block-size: var(--gz-size-row-min);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+}
+
+.gz-gc__action:active { background: var(--gz-color-sys-surface-quiet); }
+.gz-gc__action:disabled { color: var(--gz-color-sys-text-disabled); cursor: not-allowed; }
+.gz-gc__action:disabled .gz-t-caption { color: var(--gz-color-sys-text-disabled); }
+.gz-gc__why { margin: 0; color: var(--gz-color-sys-text-secondary); }
+
+/* ---------- status card ---------- */
+.gz-bs__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--gz-space-2) var(--gz-space-3); }
+.gz-bs__pills { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gz-space-2); }
+.gz-bs__ref { margin: 0; color: var(--gz-color-sys-text-secondary); }
+
+.gz-bs__pay { display: flex; flex-direction: column; gap: var(--gz-space-3); padding-block-start: var(--gz-space-4); border-block-start-width: var(--gz-stroke-hair); border-block-start-style: solid; border-block-start-color: var(--gz-color-sys-border-hairline); }
+.gz-bs__label { margin: 0; }
+
+.gz-bs__lines { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+
+.gz-bs__line {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair); border-block-end-style: solid; border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-bs__line:first-child { padding-block-start: 0; }
+
+.gz-bs__what { display: flex; flex-direction: column; min-inline-size: 0; }
+.gz-bs__what .gz-t-title { color: var(--gz-color-sys-text-strong); }
+
+.gz-bs__state { display: inline-flex; align-items: center; gap: var(--gz-space-1); color: var(--gz-color-sys-text-secondary); }
+.gz-bs__state--paid { color: var(--gz-color-sys-text-success); }
+.gz-bs__state--late { color: var(--gz-color-sys-text-danger); }
+
+.gz-bs__total { display: flex; align-items: baseline; justify-content: space-between; gap: var(--gz-space-3); }
+.gz-bs__total .gz-t-title { color: var(--gz-color-sys-text-strong); }
+
+/* ---------- invoice row and the action list ---------- */
+.gz-inv__disk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.gz-inv__disk--danger { background: var(--gz-color-sys-status-danger-bg); color: var(--gz-color-sys-icon-danger); }
+
+.gz-inv__end { display: inline-flex; align-items: center; gap: var(--gz-space-2); }
+.gz-inv__amount { align-items: baseline; }
+
+.gz-bal { display: flex; flex-direction: column; border-block-start-width: var(--gz-stroke-hair); border-block-start-style: solid; border-block-start-color: var(--gz-color-sys-border-hairline); }
+
+/* The voucher block of the partner's request detail. */
+.gz-bs__voucher { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gz-space-3); }
+.gz-bs__code { color: var(--gz-color-sys-text-strong); }
+.gz-bs__standard,
+.gz-bs__direct { margin: 0; color: var(--gz-color-sys-text-secondary); }

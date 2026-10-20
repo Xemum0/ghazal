@@ -1,0 +1,86 @@
+/* Notice: a quiet band on the sheet gutter. offline = ink-50, warning = rose-100, danger = the functional danger pair. With an (i) the first
+   line is 44 high, so the band pads less and the glyph centres on that line. */
+
+.cal-notice {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  padding: var(--gz-space-3) var(--gz-space-4);
+  background: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.cal-notice[data-info] {
+  padding-block: var(--gz-space-1) var(--gz-space-3);
+  padding-inline-end: var(--gz-space-1);
+}
+
+.cal-notice[data-tone='warning'] {
+  background: var(--gz-color-sys-surface-tint);
+}
+
+.cal-notice[data-tone='danger'] {
+  background: var(--gz-color-sys-status-danger-bg);
+  color: var(--gz-color-sys-status-danger-text);
+}
+
+.cal-notice__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.cal-notice__row > .gz-icon,
+.cal-notice__row > .cal-notice__lead {
+  flex: none;
+  margin-block-start: var(--gz-space-1);
+}
+
+.cal-notice[data-info] .cal-notice__row > .gz-icon,
+.cal-notice[data-info] .cal-notice__row > .cal-notice__lead {
+  margin-block-start: var(--gz-space-3);
+}
+
+.cal-notice__lead {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--gz-size-icon-sm);
+}
+
+.cal-notice__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  margin: 0;
+}
+
+.cal-notice__text p {
+  margin: 0;
+}
+
+.cal-notice__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+}
+
+.cal-notice__main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.cal-notice__action {
+  display: flex;
+  padding-inline-start: var(--gz-space-6);
+}
+
+.cal-notice[data-tone='danger'] .gz-btn--tertiary {
+  color: var(--gz-color-sys-status-danger-text);
+}

@@ -1,0 +1,129 @@
+/* PackageTile: a panel you choose. Selected = ink-900 border + a filled gold bead (never a gold fill). Tokens only, logical properties, flex + gap. */
+.gzv-pt {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gz-space-1);
+  padding: var(--gz-space-panel-pad);
+  padding-inline-end: var(--gz-space-2);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  min-inline-size: 0;
+}
+
+.gzv-pt.is-selected {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+}
+
+.gzv-pt.is-unavailable {
+  border-color: var(--gz-color-sys-border-hairline);
+  background-color: var(--gz-color-sys-surface-canvas);
+}
+
+.gzv-pt.is-unavailable .gzv-pt__name {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzv-pt__choose {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  text-align: start;
+  cursor: pointer;
+  border-radius: var(--gz-radius-sm);
+}
+
+.gzv-pt__choose:disabled {
+  cursor: default;
+}
+
+.gzv-pt__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.gzv-pt__bead {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  /* Optically on the first line of the serif name (d1 line 28). */
+  block-size: var(--gz-space-6);
+  padding-block-start: var(--gz-space-1);
+}
+
+.gzv-pt__name {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzv-pt__facts {
+  gap: var(--gz-space-4);
+  padding-inline-start: var(--gz-space-6);
+}
+
+.gzv-pt__money {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  padding-inline-start: var(--gz-space-6);
+}
+
+.gzv-pt__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+/* The per-guest rate closes the headline line at inline-end (it wraps under the total on a narrow frame). */
+.gzv-pt__rate {
+  display: inline-flex;
+  margin-inline-start: auto;
+}
+
+.gzv-pt__mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+
+.gzv-pt__sub {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzv-pt__was {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzv-pt__save {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-block-size: var(--gz-size-pill-min);
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}
+
+.gzv-pt__off {
+  display: inline-flex;
+  padding-inline-start: var(--gz-space-6);
+}
+
+.gzv-pt__more {
+  flex: none;
+  align-self: center;
+}

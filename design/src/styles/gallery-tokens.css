@@ -1,0 +1,598 @@
+/* Styles for the tokens gallery page (design/src/gallery/tokens.tsx). Product-grade CSS: tokens only, logical properties, flex + gap.
+   Prefix .tk-. Loaded with the gallery chunk, not with the app. */
+
+.tk {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  max-inline-size: var(--gz-layout-max-width);
+  margin-inline: auto;
+  padding-block-end: var(--gz-space-section);
+}
+
+.tk-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-4);
+}
+
+.tk-sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.tk-sec__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.tk-note {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.tk-sub {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+/* ---------- colour ramps ---------- */
+.tk-ramp {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-3);
+}
+
+.tk-sw {
+  display: flex;
+  flex: 1 1 var(--gz-size-week-strip);
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.tk-sw--ghost {
+  block-size: 0;
+  visibility: hidden;
+}
+
+.tk-sw__chip {
+  block-size: var(--gz-size-avatar-md);
+  border-radius: var(--gz-radius-sm);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: var(--gz-space-2);
+}
+
+.tk-sw__aa {
+  font-family: var(--gz-type-badge-family);
+  font-size: var(--gz-type-badge-size);
+  line-height: var(--gz-type-badge-line);
+  font-weight: var(--gz-type-badge-weight);
+}
+
+.tk-sw__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.tk-sw__step {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.tk-sw__line {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- semantic rows ---------- */
+.tk-rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.tk-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-sm);
+  padding-block: var(--gz-space-2);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.tk-row__chip {
+  flex: none;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  border-radius: var(--gz-radius-xs);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+}
+
+.tk-row__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.tk-row__name {
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.tk-row__end {
+  flex: none;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.tk-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+/* ---------- contrast tiles ---------- */
+.tk-pair {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.tk-pair__tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+}
+
+.tk-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.tk-tile__swatch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-md);
+  block-size: var(--gz-size-control-sm);
+  border-radius: var(--gz-radius-sm);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+}
+
+.tk-ok {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-success);
+}
+
+.tk-bad {
+  color: var(--gz-color-sys-text-danger);
+}
+
+/* ---------- type specimens ---------- */
+.tk-spec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.tk-spec__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--gz-space-1) var(--gz-space-3);
+}
+
+.tk-spec__role {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.tk-spec__sample {
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.tk-spec__sample--ar {
+  text-align: start;
+}
+
+.tk-spec__tag {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- price table ---------- */
+.tk-price {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.tk-price__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-primary);
+}
+
+/* ---------- space, radius, elevation ---------- */
+.tk-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.tk-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.tk-bar__label {
+  flex: none;
+  inline-size: var(--gz-space-24);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.tk-bar__fill {
+  block-size: var(--gz-space-4);
+  background: var(--gz-color-sys-mark-khayt);
+  border-radius: var(--gz-radius-xs);
+}
+
+.tk-bar__fill--ink {
+  background: var(--gz-color-sys-action-selected-bg);
+}
+
+.tk-boxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-4);
+}
+
+.tk-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}
+
+.tk-box__shape {
+  inline-size: var(--gz-space-16);
+  block-size: var(--gz-space-16);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+}
+
+.tk-box__shape--float {
+  border: 0;
+}
+
+.tk-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.tk-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  padding-inline: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-surface-raised);
+}
+
+.tk-control--gold {
+  border: 0;
+  background: var(--gz-color-sys-action-primary-bg);
+  color: var(--gz-color-sys-action-primary-label);
+}
+
+/* ---------- motion ---------- */
+.tk-curves {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-4);
+}
+
+.tk-curve {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.tk-curve__plot {
+  inline-size: var(--gz-space-20);
+  block-size: var(--gz-space-20);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-surface-raised);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.tk-demos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.tk-demo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-end: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.tk-demo__stage {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  min-block-size: var(--gz-size-control-lg);
+}
+
+.tk-replay {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-block-size: var(--gz-size-control-sm);
+  padding-inline: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-action-secondary-border);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-action-secondary-label);
+  background: transparent;
+}
+
+.tk-replay:active {
+  background: var(--gz-color-sys-action-secondary-bg-pressed);
+}
+
+.tk-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: var(--gz-size-control-cta);
+  padding-inline: var(--gz-space-6);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-action-primary-bg);
+  color: var(--gz-color-sys-action-primary-label);
+}
+
+.tk-cta:active {
+  background: var(--gz-color-sys-action-primary-bg-pressed);
+}
+
+.tk-track {
+  flex: 1;
+}
+
+.tk-photo {
+  inline-size: var(--gz-space-20);
+  block-size: var(--gz-space-24);
+  border-radius: var(--gz-radius-md);
+}
+
+.tk-photo__img {
+  inline-size: var(--gz-space-20);
+  block-size: var(--gz-space-24);
+  background: var(--gz-color-sys-surface-tint);
+}
+
+.tk-stage-sheet {
+  position: relative; /* flutter-ok: harness stage for the sheet-rise demo */
+  inline-size: 100%; /* flutter-ok: harness stage */
+  block-size: var(--gz-space-24);
+  overflow: hidden;
+  background: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-md);
+}
+
+.tk-sheet {
+  position: absolute; /* flutter-ok: harness stage for the sheet-rise demo */
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: var(--gz-space-16);
+  background: var(--gz-color-sys-surface-raised);
+  border-start-start-radius: var(--gz-radius-lg);
+  border-start-end-radius: var(--gz-radius-lg);
+  box-shadow: var(--gz-elevation-3);
+  display: flex;
+  justify-content: center;
+  padding-block-start: var(--gz-space-3);
+}
+
+.tk-sheet__handle {
+  inline-size: var(--gz-size-handle-width);
+  block-size: var(--gz-size-handle-height);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-border-strong);
+}
+
+.tk-undo {
+  position: relative; /* flutter-ok: harness stage */
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-block-size: var(--gz-size-control-md);
+  padding-inline: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+  border-radius: var(--gz-radius-sm);
+  box-shadow: var(--gz-elevation-2);
+  overflow: hidden;
+}
+
+.tk-undo__line {
+  position: absolute; /* flutter-ok: named overlay anchor, the depleting line */
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+/* ---------- thread ---------- */
+.tk-knots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-6);
+}
+
+.tk-knotcell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: var(--gz-size-week-strip);
+}
+
+.tk-knotcell__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-md);
+  block-size: var(--gz-size-avatar-md);
+}
+
+.tk-darkpanel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding: var(--gz-space-6) var(--gz-space-5);
+  background: var(--gz-color-sys-surface-dark);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-mark-khayt);
+}
+
+.tk-threadrow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.tk-threadrow__seg {
+  flex: 1;
+  block-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-track);
+}
+
+.tk-threadrow__seg--done {
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.tk-darkpanel .tk-threadrow__seg {
+  background: var(--gz-color-sys-mark-track-on-dark);
+}
+
+.tk-darkpanel .tk-threadrow__seg--done {
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+/* ---------- icons ---------- */
+.tk-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+}
+
+.tk-icon {
+  display: flex;
+  flex: 1 1 var(--gz-size-week-strip);
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  padding-block: var(--gz-space-3);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.tk-icon svg {
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+}
+
+.tk-icon__name {
+  max-inline-size: 100%; /* flutter-ok: harness label */
+  color: var(--gz-color-sys-text-secondary);
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.tk-icon__mirror {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.tk-iconsizes {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gz-space-6);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.tk-iconsizes__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.tk-weights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-6);
+}
+
+.tk-weights__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.tk-weights__row {
+  display: flex;
+  gap: var(--gz-space-4);
+  color: var(--gz-color-sys-icon-primary);
+}

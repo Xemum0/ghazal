@@ -1,0 +1,81 @@
+/* Calendar skeletons: layout only, the shapes come from the system Skeleton. */
+
+.cal-skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-3);
+}
+
+.cal-skel__head {
+  display: flex;
+  align-items: center;
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.cal-skel__grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.cal-skel__week {
+  display: flex;
+}
+
+.cal-skel__day {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-1);
+  block-size: var(--gz-size-cal-cell-height);
+  min-inline-size: 0;
+}
+
+.cal-skel__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-4);
+}
+
+.cal-skel__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-row-min);
+}
+
+.cal-skel__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+.cal-skel__wrow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-2);
+}
+
+.cal-skel__lanes {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.cal-skel--day {
+  gap: var(--gz-space-8);
+}
+
+.cal-skel__hall {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}

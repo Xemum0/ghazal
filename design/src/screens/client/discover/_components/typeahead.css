@@ -1,0 +1,60 @@
+/* Typeahead: rows of 56 on the gutter with a hairline between; the glyph of a row says what it is, so there are no section labels. */
+.gzd-ta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding-block: var(--gz-space-4) var(--gz-space-8);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzd-ta__head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--gz-space-3);
+}
+
+.gzd-ta__clear {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--gz-size-touch-min);
+  color: var(--gz-color-sys-text-accent);
+  cursor: pointer;
+}
+
+.gzd-ta__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzd-ta__list > li {
+  display: flex;
+}
+
+.gzd-ta__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  flex: 1;
+  min-block-size: var(--gz-size-control-lg);
+  text-align: start;
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  cursor: pointer;
+}
+
+.gzd-ta__text {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzd-ta__none {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}

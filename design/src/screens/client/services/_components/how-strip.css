@@ -1,0 +1,96 @@
+/* HowStrip: three glyph disks on one hairline thread, then the info glyph. Tokens only, logical properties, flex + gap. */
+
+.gzs-how {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}
+
+.gzs-how__steps {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-inline-size: 0;
+}
+
+.gzs-how__item {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: flex-start;
+  min-inline-size: 0;
+}
+
+.gzs-how__item:first-child {
+  flex: none;
+}
+
+/* The rule runs from the disk before to the disk after, at the disks' mid line. */
+.gzs-how__rule {
+  flex: 1;
+  align-self: flex-start;
+  margin-block-start: var(--gz-space-6);
+  margin-inline: var(--gz-space-2);
+  block-size: var(--gz-stroke-hair);
+  background-color: var(--gz-color-sys-border-strong);
+}
+
+.gzs-how__step {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.gzs-how__disk {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-how__disk--sm {
+  inline-size: var(--gz-space-8);
+  block-size: var(--gz-space-8);
+}
+
+.gzs-how__label {
+  color: var(--gz-color-sys-text-secondary);
+  white-space: nowrap;
+}
+
+/* In the sheet: the three steps in words. */
+.gzs-how__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzs-how__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-4);
+}
+
+.gzs-how__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzs-how__body {
+  color: var(--gz-color-sys-text-secondary);
+}

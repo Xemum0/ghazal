@@ -1,0 +1,83 @@
+/* Device frame. Hardware metrics (bezel, hardware corner radius, notch) are the only non-token values: they are the phone, not
+   the product, and live in three local custom properties. Everything inside the screen is tokens. */
+.gz-device {
+  --gz-device-bezel: 8px;
+  --gz-device-corner: 48px;
+  --gz-device-corner-outer: 56px;
+  --gz-device-notch-z: 80;
+  --gz-device-notch-w: 160px;
+  --gz-device-notch-h: 28px;
+  position: relative;
+  flex: none;
+  max-inline-size: none;
+}
+
+.gz-device__screen {
+  position: relative;
+  overflow: hidden;
+  background: var(--gz-color-sys-surface-canvas);
+  color: var(--gz-color-sys-text-primary);
+  /* A transform-free stacking root: sheets, scrims and the system chrome all stack inside it, never against the page. */
+  isolation: isolate;
+  /* Chrome does not apply a rounded overflow clip to composited descendants (fading stacks, sliding layers) unless the clipper is
+     its own paint container: `contain: paint` makes it one, so the bezel corners stay clean. */
+  contain: paint;
+  direction: inherit;
+}
+
+.gz-device[data-auto] .gz-device__screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.gz-device__content {
+  position: absolute; /* flutter-ok: the Scaffold body fills the screen */
+  inset: 0;
+  /* Composited children (fading stacks, sliding layers) do not honour a grandparent's rounded clip: round the content box too. */
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.gz-device[data-auto] .gz-device__content {
+  position: relative;
+  flex: 1;
+  overflow: visible;
+}
+
+/* Thin bezel: the player. The canvas frames (bezel none) are flat rectangles. */
+.gz-device[data-bezel='thin'] {
+  padding: var(--gz-device-bezel);
+  border-radius: var(--gz-device-corner-outer);
+  background: var(--gz-color-sys-surface-dark);
+  box-shadow: var(--gz-elevation-2);
+}
+
+.gz-device[data-bezel='thin'] .gz-device__screen {
+  border-radius: var(--gz-device-corner);
+}
+
+.gz-device__notch {
+  position: absolute; /* flutter-ok: harness hardware */
+  inset-block-start: var(--gz-device-bezel);
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  margin-inline: auto;
+  inline-size: var(--gz-device-notch-w);
+  block-size: var(--gz-device-notch-h);
+  border-end-start-radius: var(--gz-radius-lg);
+  border-end-end-radius: var(--gz-radius-lg);
+  background: var(--gz-color-sys-surface-dark);
+  z-index: var(--gz-device-notch-z);
+  pointer-events: none;
+}
+
+/* Static mode is deterministic: nothing animates, so a screenshot is the same frame every time (ADR 0025). */
+.gz-device[data-mode='static'] *,
+.gz-device[data-mode='static'] *::before,
+.gz-device[data-mode='static'] *::after {
+  animation: none !important;
+  transition: none !important;
+}

@@ -1,0 +1,32 @@
+/* PhoneField: one compound LTR field in both languages (ADR 0012 D2). The +965 chip is a fixed, non-interactive label. */
+
+.gz-phone__box {
+  direction: ltr;
+}
+
+.gz-phone__chip {
+  display: flex;
+  align-items: center;
+  flex: none;
+  block-size: var(--gz-size-control-sm);
+  padding-inline-end: var(--gz-space-3);
+  border-inline-end-width: var(--gz-stroke-hair);
+  border-inline-end-style: solid;
+  border-inline-end-color: var(--gz-color-sys-border-strong);
+  font-weight: var(--gz-type-title-weight);
+  color: var(--gz-color-sys-text-strong);
+  user-select: none;
+}
+
+.gz-field[data-disabled] .gz-phone__chip {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-phone__input {
+  font-weight: var(--gz-type-title-weight);
+  letter-spacing: 0;
+}
+
+.gz-phone__ok {
+  color: var(--gz-color-sys-icon-success);
+}

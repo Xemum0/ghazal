@@ -1,0 +1,68 @@
+/* VisitQueueCard: paper, hairline, radius 12, 16 padding, like the system VisitCard; the body is one target, the actions sit under a gap of 12. */
+
+.hv-qcard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hv-qcard__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  align-self: stretch;
+  min-inline-size: 0;
+  text-align: start;
+  color: inherit;
+  cursor: pointer;
+}
+
+.hv-qcard__who {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  align-self: stretch;
+  min-inline-size: 0;
+  margin-block-end: var(--gz-space-1);
+}
+
+.hv-qcard__name { display: flex; flex: 1; flex-direction: column; gap: 0; min-inline-size: 0; }
+.hv-qcard__name .gz-t-title { color: var(--gz-color-sys-text-strong); }
+.hv-qcard__sub { color: var(--gz-color-sys-text-secondary); }
+
+.hv-qcard__when { color: var(--gz-color-sys-text-strong); }
+
+.hv-qcard__facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-1) var(--gz-space-4);
+  color: var(--gz-color-sys-text-secondary);
+}
+.hv-qcard__fact { display: inline-flex; align-items: center; gap: var(--gz-space-1); }
+
+.hv-qcard__note {
+  align-self: stretch;
+  padding-inline-start: var(--gz-space-3);
+  border-inline-start-width: var(--gz-stroke-hair);
+  border-inline-start-style: solid;
+  border-inline-start-color: var(--gz-color-sys-border-strong);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hv-qcard__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-3);
+}
+.hv-qcard__actions > * { flex: 1 1 auto; min-inline-size: 0; }

@@ -1,0 +1,70 @@
+/* CL-DISC-01 Home. Hero (home-hero.css) then, on the 20 gutter: Brief card, status card, the Venues | Services switch, then the shelves.
+   The Brief card rides on the foot of the photograph: it sits above the hero's raised layer. */
+
+.gzd-home__card {
+  position: relative; /* flutter-ok: Stack child above the photograph foot */
+  z-index: var(--gz-z-raised);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzd-home__status {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-4);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzd-home__stale {
+  display: flex;
+  margin: 0;
+}
+
+.gzd-status-skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-brief-row);
+  padding: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.gzd-home__switch {
+  padding-block-start: var(--gz-space-4);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzd-home__error {
+  padding-block-start: var(--gz-space-section);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzd-near {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+}
+
+/* The lead shelf's empty state sits under its title on the same gutter (the state carries its own), without the full-screen block padding. */
+.gzd-home__empty .gz-state {
+  padding-block: 0;
+}
+
+.gzd-home__end {
+  display: flex;
+  justify-content: center;
+  padding-block: var(--gz-space-section) var(--gz-space-12);
+}
+
+/* Area is the longer value of the split row: 3 parts to Guests' 2, so "Salmiya, Sharq" holds one line at 360 as well. */
+.gzd-home__card .gz-briefrow--half:first-child {
+  flex: 3 1 0;
+}
+
+.gzd-home__card .gz-briefrow--half:last-child {
+  flex: 2 1 0;
+}

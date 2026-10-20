@@ -1,0 +1,29 @@
+/* RuleChips: each hall rule a quiet hairline chip, a glyph and (sometimes) a mark or a word. Tokens only, logical properties, flex + gap. */
+.gzv-rule {
+  gap: var(--gz-space-2);
+}
+
+.gzv-rule__chip {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-3);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+/* A rule that does not apply is quieter, never louder: a minus mark and the same hairline. */
+.gzv-rule__chip.is-not {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+/* The word beside a glyph that would be a riddle alone (door, shield, incense): body voice, then the figure or the mark. */
+.gzv-rule__text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-primary);
+}

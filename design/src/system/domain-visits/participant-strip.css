@@ -1,0 +1,44 @@
+/* ParticipantStrip: three equal flex columns (no grid), each centred: monogram, name (two lines at most), role badge. */
+
+.gz-pstrip {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-size-touch-min);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-2);
+  text-align: center;
+  color: var(--gz-color-sys-text-primary);
+  cursor: default;
+}
+
+button.gz-pstrip {
+  cursor: pointer;
+}
+
+.gz-pstrip__m {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-pstrip__name {
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+/* A role badge may wrap to two lines in a 106 px column ("Hotel representative" at 360). */
+.gz-pstrip .gz-role {
+  white-space: normal;
+  text-align: center;
+}
+
+.gz-pstrip__org {
+  color: var(--gz-color-sys-text-secondary);
+}

@@ -1,0 +1,64 @@
+/* The "Invitation" sheet content: three knots on the thread, the message picture, one action. Tokens only. */
+.hxa-inv {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  padding-block: var(--gz-space-2);
+}
+
+/* The message, drawn like the invitation card of HL-ACCS-03: envelope and venue on top, who sent it and the link on a ruled foot. */
+.hxa-inv__msg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-panel-pad);
+  padding-block-end: var(--gz-space-2);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-raised);
+}
+
+.hxa-inv__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.hxa-inv__art {
+  display: inline-flex;
+  flex: none;
+}
+
+.hxa-inv__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.hxa-inv__venue {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hxa-inv__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hxa-inv__footer {
+  display: flex;
+  flex-direction: column;
+  padding-block-start: var(--gz-space-3);
+}

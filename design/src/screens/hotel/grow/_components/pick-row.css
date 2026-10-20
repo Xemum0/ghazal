@@ -1,0 +1,48 @@
+/* PickRow: a 56 high field-like row (hairline control border, radius 12): glyph, the choice, chevron. */
+
+.gk-pick {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-control-lg);
+  padding-inline: var(--gz-space-4);
+  background: var(--gz-color-sys-control-bg);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-strong);
+  text-align: start;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.gk-pick .gz-icon {
+  flex: none;
+}
+
+.gk-pick__text {
+  display: flex;
+  flex: 1;
+  align-items: baseline;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gk-pick__text bdi {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gk-pick__more {
+  flex: none;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gk-pick__list {
+  display: flex;
+  flex-direction: column;
+}

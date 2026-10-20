@@ -1,0 +1,11 @@
+.gz-cap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gz-cap__summary {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}

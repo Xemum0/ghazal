@@ -1,0 +1,248 @@
+/* Redeem (HL-BOOK-06, HL-BOOK-07): the viewfinder, the code field, the quote, the outcomes and the success sheet.
+   Gutter 20, blocks 24 apart, tokens only, logical properties only. Gold appears only on the one primary action. */
+
+.hbk-redeem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  padding-block: var(--gz-space-3) var(--gz-space-section);
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* ---- scanner: an ink panel with four corner brackets and the torch at inline-end */
+
+.hbk-scan {
+  position: relative; /* flutter-ok: the torch anchors to the glass (Stack) */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+}
+
+.hbk-scan__glass {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  block-size: 360px;
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark-muted);
+  position: relative; /* flutter-ok: the four brackets are positioned in the glass (Stack) */
+}
+
+.hbk-scan__corner {
+  position: absolute; /* flutter-ok: corner marks of the frame (Stack, Positioned) */
+  inline-size: var(--gz-space-8);
+  block-size: var(--gz-space-8);
+  border-color: var(--gz-color-sys-text-on-dark);
+  border-style: solid;
+  border-width: 0;
+}
+
+.hbk-scan__corner--tl {
+  inset-block-start: var(--gz-space-12);
+  inset-inline-start: var(--gz-space-12);
+  border-block-start-width: var(--gz-stroke-thread-max);
+  border-inline-start-width: var(--gz-stroke-thread-max);
+  border-start-start-radius: var(--gz-radius-md);
+}
+
+.hbk-scan__corner--tr {
+  inset-block-start: var(--gz-space-12);
+  inset-inline-end: var(--gz-space-12);
+  border-block-start-width: var(--gz-stroke-thread-max);
+  border-inline-end-width: var(--gz-stroke-thread-max);
+  border-start-end-radius: var(--gz-radius-md);
+}
+
+.hbk-scan__corner--bl {
+  inset-block-end: var(--gz-space-12);
+  inset-inline-start: var(--gz-space-12);
+  border-block-end-width: var(--gz-stroke-thread-max);
+  border-inline-start-width: var(--gz-stroke-thread-max);
+  border-end-start-radius: var(--gz-radius-md);
+}
+
+.hbk-scan__corner--br {
+  inset-block-end: var(--gz-space-12);
+  inset-inline-end: var(--gz-space-12);
+  border-block-end-width: var(--gz-stroke-thread-max);
+  border-inline-end-width: var(--gz-stroke-thread-max);
+  border-end-end-radius: var(--gz-radius-md);
+}
+
+/* The scan line: one gold hairline across the frame (the illustration rule: a QR's scan line is the gold accent). Decorative, never interactive. */
+.hbk-scan__line {
+  position: absolute; /* flutter-ok: the scan line is positioned in the glass (Stack, Positioned) */
+  inset-inline: var(--gz-space-12);
+  inset-block-start: 66%; /* flutter-ok: the line rests below the QR mark, a third from the bottom (Align) */
+  block-size: var(--gz-stroke-hair);
+  background-color: var(--gz-color-sys-mark-khayt);
+  pointer-events: none;
+}
+
+.hbk-scan__torch {
+  position: absolute; /* flutter-ok: the torch toggle sits at the glass corner (Stack, Positioned) */
+  inset-block-start: var(--gz-space-1);
+  inset-inline-end: var(--gz-space-1);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.hbk-scan__demo {
+  align-self: center;
+}
+
+/* ---- code field */
+
+.hbk-code {
+  display: flex;
+  flex-direction: column;
+}
+
+.hbk-code__prefix {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* The code is one LTR island: the GV- prefix sits first and the value follows it, in Arabic too (a code reads left to right). */
+.hbk-code .gz-field__box {
+  direction: ltr;
+}
+
+/* A prefix leads the value, so here the value starts right after it (the system default pushes an LTR island to the screen's start edge). */
+[dir='rtl'] .hbk-code .gz-field__input[dir='ltr'] {
+  text-align: start;
+}
+
+/* ---- quote card */
+
+.hbk-quote__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.hbk-quote__name {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hbk-quote__chips {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.hbk-quote__price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+}
+
+.hbk-quote__compare {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-5);
+  row-gap: var(--gz-space-1);
+}
+
+.hbk-quote__was,
+.hbk-quote__save {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hbk-quote__save {
+  color: var(--gz-color-sys-text-success);
+}
+
+/* ---- prototype shortcuts: a quiet dashed strip of four glyph chips under a one-word tag */
+
+.hbk-proto {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: dashed;
+  border-block-start-color: var(--gz-color-sys-border-strong);
+}
+
+.hbk-proto__tag {
+  margin-inline-end: auto;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hbk-redeem__skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+/* ---- HL-BOOK-07: the success moment, one drawing (no confetti), the price as one figure, the facts of the visit */
+
+.hbk-done {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.hbk-done__art {
+  display: flex;
+  justify-content: center;
+}
+
+.hbk-done__price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-1);
+}
+
+.hbk-done__facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-4);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.hbk-done__who {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.hbk-done__footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.hbk-done .hbk-done__art {
+  animation: hbk-pop var(--gz-motion-duration-success) var(--gz-motion-ease-emphasized) both;
+}
+
+@keyframes hbk-pop {
+  from {
+    transform: scale(var(--gz-motion-scale-reveal-from));
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbk-done .hbk-done__art {
+    animation-duration: var(--gz-motion-duration-instant);
+  }
+}

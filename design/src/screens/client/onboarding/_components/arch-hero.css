@@ -1,0 +1,40 @@
+/* ArchHero: the photograph fills the box; the crown overlay sits on its top edge and is exactly the arch rise high. */
+.obd-arch {
+  position: relative; /* flutter-ok: named overlay anchor for the arch crown (CustomClipper) */
+  flex: none;
+  display: flex;
+  overflow: hidden;
+  background: var(--gz-color-sys-surface-placeholder);
+}
+
+.obd-arch__photo {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.obd-arch__crown {
+  position: absolute; /* flutter-ok: arch crown overlay */
+  inset-inline: 0;
+  inset-block-start: 0;
+  block-size: var(--gz-shape-arch-rise);
+  display: flex;
+  pointer-events: none;
+}
+
+/* A replaced element keeps its intrinsic ratio unless it is a flex item that stretches. */
+.obd-arch__svg {
+  flex: 1;
+  min-inline-size: 0;
+  block-size: var(--gz-shape-arch-rise);
+}
+
+.obd-arch__outside {
+  fill: var(--gz-color-sys-surface-canvas);
+  stroke: none;
+}
+
+.obd-arch__line {
+  fill: none;
+  stroke: var(--gz-color-sys-mark-khayt);
+  stroke-width: var(--gz-stroke-khayt);
+}

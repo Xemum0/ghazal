@@ -1,0 +1,98 @@
+/* TierPlate: a full-bleed photograph and a wall label under it. Tokens only, logical properties, flex + gap. */
+
+.gzp-plate {
+  display: flex;
+  flex-direction: column;
+}
+
+.gzp-plate__photo {
+  display: flex;
+  overflow: hidden;
+  aspect-ratio: var(--gz-layout-aspect-16x9);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gzp-plate__photo--ph {
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gzp-plate__img {
+  display: flex;
+  flex: 1;
+}
+
+.gzp-plate__img .gz-photo__img {
+  object-position: center;
+}
+
+/* The royal staircase is a portrait: anchor the crop on the lanterns and blooms at the foot of it. */
+.gzp-plate[data-tier='royal'] .gzp-plate__img .gz-photo__img {
+  object-position: center bottom;
+}
+
+.gzp-plate__label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-5) var(--gz-space-2);
+}
+
+.gzp-plate__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: var(--gz-space-3);
+  row-gap: var(--gz-space-2);
+  padding-block-end: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzp-plate__id {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+}
+
+.gzp-plate__name {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The from-price at inline-end; the info glyph is its 44 target (price terms live behind it). */
+.gzp-plate__price {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.gzp-plate__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzp-plate__inc {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-icon-lg);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzp-plate__inc > .gz-icon {
+  flex: none;
+}
+
+/* The carry-over row: plus, the previous package's marks and its name. */
+.gzp-plate__carry-name {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}

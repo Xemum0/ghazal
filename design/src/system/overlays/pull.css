@@ -1,0 +1,43 @@
+.gz-ptr {
+  display: flex;
+  flex-direction: column;
+  flex: none;
+}
+
+.gz-ptr__indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.gz-pull {
+  display: inline-flex;
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+.gz-pull__track {
+  stroke: var(--gz-color-sys-border-hairline);
+  stroke-width: var(--gz-stroke-icon);
+}
+
+.gz-pull__arc {
+  stroke: currentColor;
+  stroke-width: var(--gz-stroke-icon);
+  stroke-linecap: round;
+}
+
+/* The platform activity rhythm while the data loads: the only rotation in the system, and it ends with the request. */
+@keyframes gz-pull-turn {
+  to { transform: rotate(360deg); }
+}
+
+.gz-pull.is-refreshing .gz-pull__ring {
+  animation: gz-pull-turn var(--gz-motion-duration-activity) var(--gz-motion-ease-linear) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-pull.is-refreshing .gz-pull__ring {
+    animation: none;
+  }
+}

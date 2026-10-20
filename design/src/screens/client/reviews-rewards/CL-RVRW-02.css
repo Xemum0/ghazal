@@ -1,0 +1,199 @@
+/* CL-RVRW-02 Write a review. Tokens only, logical properties, flex + gap. */
+
+.rvw {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding-block: var(--gz-space-4) var(--gz-space-8);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.rvw-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+/* Section head: the word at inline-start, the one-glyph rule, then the (i) at inline-end. */
+.rvw-head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.rvw-head h3 {
+  flex: none;
+  margin: 0;
+}
+
+.rvw-info {
+  margin-inline-start: auto;
+}
+
+/* ---------- the plate: which stay this is about ---------- */
+.rvw-plate {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.rvw-plate__thumb {
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  inline-size: var(--gz-size-thumb-lg);
+  aspect-ratio: var(--gz-layout-aspect-1x1);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.rvw-plate__img {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+.rvw-plate__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.rvw-plate__name {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* ---------- overall: five large stars, one live word under them (its height is reserved, so nothing moves) ---------- */
+.rvw-overall {
+  gap: var(--gz-space-2);
+}
+
+.rvw-rate {
+  gap: var(--gz-space-4);
+}
+
+.rvw-word {
+  margin: 0;
+  min-block-size: var(--gz-space-8);
+  color: var(--gz-color-sys-text-secondary);
+  text-align: center;
+}
+
+.rvw-word.is-set {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* ---------- categories: glyph and word at inline-start, five stars at inline-end, rows of 52 ---------- */
+.rvw-cats {
+  display: flex;
+  flex-direction: column;
+}
+
+.rvw-cat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-cta);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.rvw-cat:last-child {
+  border-block-end-width: 0;
+}
+
+.rvw-cat__label {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.rvw-cat__label > .gz-icon {
+  flex: none;
+}
+
+/* ---------- media ---------- */
+.rvw-rule {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.rvw-rule > .gz-icon {
+  flex: none;
+}
+
+.rvw-media {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.rvw-tiles {
+  display: flex;
+  gap: var(--gz-space-2);
+}
+
+.rvw-add {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-inline-size: 0;
+  aspect-ratio: var(--gz-layout-aspect-1x1);
+  border-width: var(--gz-stroke-hair);
+  border-style: dashed;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+  cursor: pointer;
+}
+
+.rvw-add:disabled {
+  color: var(--gz-color-sys-text-disabled);
+  cursor: default;
+}
+
+.rvw-slot {
+  display: flex;
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.rvw-saved {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  margin: 0;
+  color: var(--gz-color-sys-text-success);
+}
+
+/* ---------- sent ---------- */
+.rvw-done {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding-block-end: var(--gz-space-8);
+}
+
+.rvw-done__media {
+  box-sizing: border-box;
+  padding-block-start: var(--gz-space-6);
+  padding-inline: var(--gz-space-gutter);
+}

@@ -1,0 +1,74 @@
+/* HL-PROV-07 Listing performance: range chips, KPI tiles in rows of two, a funnel and a ranked list, each with its table twin. */
+.hp07 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-2) var(--gz-space-8);
+}
+
+.hp07__listing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.hp07__name {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.hp07__sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.hp07__sec--tight {
+  gap: var(--gz-space-2);
+}
+
+.hp07__range {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp07__tiles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.hp07__row {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.hp07__tile {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.hp07__tile > * {
+  flex: 1;
+}
+
+.hp07__foot {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp07__toggle {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.hp07__sum {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}

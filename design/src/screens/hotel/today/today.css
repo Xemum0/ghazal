@@ -1,0 +1,21 @@
+/* HL-TODY-01: the root anchors the foreground banner; the body is the one scroller (Screen). */
+
+.ht-root {
+  position: relative; /* flutter-ok: overlay anchor for the new-request banner (Stack) */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-block-size: 0;
+}
+
+.ht-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-8);
+  padding-block: var(--gz-space-6) var(--gz-space-8);
+}
+
+.ht-banner-slot {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-4);
+}

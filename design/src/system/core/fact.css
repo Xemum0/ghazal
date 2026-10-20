@@ -1,0 +1,50 @@
+/* FactChip and FactRow: an icon and a value on one line, nothing else. Not controls: no target size. Tokens only, flex + gap. */
+
+.gz-fchip {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  white-space: nowrap;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-fchip--sm {
+  gap: var(--gz-space-1);
+}
+
+.gz-fchip__value {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* Words and figures together: the language direction, not the LTR isolate of the figures role (digit runs stay LTR islands). */
+.gz-fchip .gz-fchip__value--words {
+  direction: inherit;
+}
+
+.gz-fchip--muted .gz-fchip__value {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-fchip--accent .gz-fchip__value {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-fchip__unit {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-frow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-4);
+  row-gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gz-frow--scroll {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}

@@ -1,0 +1,55 @@
+/* StatusIcon: the glyph of a status in a disk of its tone (the same status tokens as StatusPill). 24 or 32, never a target. */
+
+.gz-sicon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: transparent;
+  border-radius: var(--gz-radius-pill);
+}
+
+.gz-sicon--sm {
+  inline-size: var(--gz-size-pill-min);
+  block-size: var(--gz-size-pill-min);
+}
+
+.gz-sicon--md {
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+}
+
+.gz-sicon--pending {
+  background-color: var(--gz-color-sys-status-pending-bg);
+}
+
+.gz-sicon--pending-outline {
+  border-color: var(--gz-color-sys-mark-state);
+}
+
+.gz-sicon--success {
+  background-color: var(--gz-color-sys-status-success-bg);
+}
+
+.gz-sicon--danger {
+  background-color: var(--gz-color-sys-status-danger-bg);
+}
+
+.gz-sicon--danger-outline {
+  border-color: var(--gz-color-sys-status-danger-text);
+}
+
+.gz-sicon--neutral {
+  background-color: var(--gz-color-sys-status-neutral-bg);
+}
+
+.gz-sicon--neutral-outline {
+  border-color: var(--gz-color-sys-border-strong);
+}
+
+.gz-sicon--rose {
+  background-color: var(--gz-color-sys-surface-tint);
+}

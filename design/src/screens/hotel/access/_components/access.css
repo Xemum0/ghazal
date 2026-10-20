@@ -1,0 +1,230 @@
+/* Staff access flow, shared pieces (HL-ACCS-01..04). Tokens only, logical properties only, flex + gap, 4-pt grid.
+   Prefix hxa-. Screen-specific layout lives in each screen's own CSS file.
+   Text diet (ADR 0034): drawings, glyphs and figures carry the screens, so most of what is here is spacing and quiet surfaces. */
+
+/* ---------- screen body: the Screen body has no side padding, the gutter is ours ---------- */
+.hxa-body {
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+  gap: var(--gz-space-section);
+}
+
+.hxa-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+}
+
+/* A state composition inside a body starts at the start edge and takes the host's gutter (it brings its own by default). */
+.hxa-body .gz-state {
+  padding-inline: 0;
+}
+
+/* ---------- heading block: one drawing at the start edge, then the title ---------- */
+.hxa-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}
+
+/* A drawing sits in a padded 120 box: pull it back by that padding so its edge, not its box, lines up with the title under it. */
+.hxa-head__art {
+  position: relative; /* flutter-ok: Transform.translate by the drawing's own padding */
+  inset-inline-start: -12px;
+  flex: none;
+}
+
+.hxa-head__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The title and one control (the language chip) share a line; the title takes what the control leaves. */
+.hxa-head__row {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-lg);
+}
+
+.hxa-head__row .hxa-head__title {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* ---------- state note: the state line inside a form (danger / success / offline) ---------- */
+.hxa-note {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-lg);
+  padding-block: var(--gz-space-1);
+  padding-inline-start: var(--gz-space-4);
+  padding-inline-end: var(--gz-space-2);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hxa-note__icon {
+  flex: none;
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+.hxa-note__text {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+}
+
+.hxa-note__facts {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+
+.hxa-note--danger {
+  background: var(--gz-color-sys-status-danger-bg);
+  color: var(--gz-color-sys-status-danger-text);
+}
+
+.hxa-note--danger .hxa-note__icon {
+  color: var(--gz-color-sys-icon-danger);
+}
+
+.hxa-note--success {
+  background: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}
+
+.hxa-note--success .hxa-note__icon {
+  color: var(--gz-color-sys-icon-success);
+}
+
+/* A note without an info glyph takes the full end padding; with one, the glyph's 44 target brings its own slack. */
+.hxa-note:not(.hxa-note--info) {
+  padding-inline-end: var(--gz-space-4);
+}
+
+/* A tertiary link that ends a column takes its 8 back at the end edge. */
+.hxa-flush-end {
+  position: relative; /* flutter-ok: Transform.translate by the tertiary padding */
+  inset-inline-end: -8px;
+}
+
+/* ---------- the number a code went to ---------- */
+.hxa-number {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.hxa-number__mark {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+.hxa-number__value {
+  flex: none;
+  margin: 0;
+}
+
+/* ---------- password field: lock at the start, the reveal control is a 44 target that takes back the box's end padding ---------- */
+.hxa-pwd .gz-field__box {
+  padding-inline-end: var(--gz-space-1);
+}
+
+/* An icon-led field has no visible label: the hidden label keeps no height or gap above the box. */
+.hxa-nolabel .gz-field__label {
+  display: block;
+  block-size: 0;
+  overflow: hidden;
+}
+
+.hxa-eye {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--gz-radius-sm);
+  background: transparent;
+  color: var(--gz-color-sys-icon-secondary);
+  cursor: pointer;
+}
+
+.hxa-eye:active {
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+.hxa-eye:disabled {
+  color: var(--gz-color-sys-icon-disabled);
+  cursor: not-allowed;
+}
+
+/* ---------- language chip: 44 high, radius 8, hairline (the Chip anatomy without a selected state) ---------- */
+.hxa-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  flex: none;
+  min-block-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-3);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-surface-raised);
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+}
+
+.hxa-lang:disabled {
+  color: var(--gz-color-sys-text-disabled);
+  cursor: not-allowed;
+}
+
+/* ---------- tertiary links: the button insets its label by 8; a link that starts a column takes that back ---------- */
+.hxa-flush {
+  position: relative; /* flutter-ok: Transform.translate by the tertiary padding */
+  inset-inline-start: -8px;
+}
+
+/* The phone value sits against the +965 chip in both languages: one number read left to right. */
+[dir='rtl'] .hxa-phone .gz-field__input[dir='ltr'] {
+  text-align: start;
+}
+
+/* ---------- the contact shown by the support and admin dialogs: a name and a number, no sentence ---------- */
+.hxa-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+}
+
+.hxa-contact__name {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hxa-contact__phone {
+  color: var(--gz-color-sys-text-primary);
+}

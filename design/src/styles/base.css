@@ -1,0 +1,137 @@
+/* Base: direction multiplier, document defaults per language, focus ring, safe areas, bidi and mirroring helpers,
+   scrollbar hiding. Tokens only: every value is var(--gz-...). Loaded after tokens.css and reset.css (index.css). */
+
+:root {
+  /* ADR 0014: one multiplier drives every horizontal motion; transform-origin has no logical keywords, so its start edge is a token. */
+  --gz-dir: 1;
+  --gz-origin-start: 0 50%;
+  /* Translate offsets toward inline-end / inline-start, signed per direction (keyframes cannot multiply without calc). */
+  --gz-shift-end: var(--gz-motion-distance-push);
+  --gz-shift-start: var(--gz-motion-distance-push-reverse);
+  color-scheme: light;
+}
+
+[dir='rtl'] {
+  --gz-dir: -1;
+  --gz-origin-start: 100% 50%;
+  --gz-shift-end: var(--gz-motion-distance-push-reverse);
+  --gz-shift-start: var(--gz-motion-distance-push);
+}
+
+html {
+  background: var(--gz-color-sys-surface-canvas);
+}
+
+body {
+  background: var(--gz-color-sys-surface-canvas);
+  color: var(--gz-color-sys-text-primary);
+  /* Body voice by language (the type variables switch under :lang(ar)). */
+  font-family: var(--gz-type-body-family);
+  font-size: var(--gz-type-body-size);
+  line-height: var(--gz-type-body-line);
+  font-weight: var(--gz-type-body-weight);
+  text-align: start;
+  /* The fonts ship no italic and no bold beyond the weights in the direction: never fake either. */
+  font-synthesis: none;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-wrap: break-word;
+}
+
+/* Arabic: no tracking, no hyphenation, no justification, ever (direction section 6). */
+:lang(ar) {
+  letter-spacing: 0;
+  hyphens: manual;
+  line-break: auto;
+}
+
+::selection {
+  background: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* Focus ring: ink-900, 2 px, offset 2 (direction 2.2). Keyboard only; touch never shows it. */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline-width: var(--gz-stroke-focus);
+  outline-style: solid;
+  outline-color: var(--gz-color-sys-focus-ring);
+  outline-offset: var(--gz-stroke-focus-offset);
+}
+
+/* On an ink panel the ring is canvas, not ink. */
+.gz-on-dark :focus-visible {
+  outline-color: var(--gz-color-sys-text-on-dark);
+}
+
+/* Bidi isolation: every number, phone, code and money value is an LTR island (ADR 0010 D5, ADR 0012). */
+.gz-ltr,
+bdi.gz-ltr {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Names, search and chat text pick their own direction from the first strong character (ADR 0014 D8). */
+.gz-auto {
+  unicode-bidi: plaintext;
+  text-align: start;
+}
+
+.gz-nowrap {
+  white-space: nowrap;
+}
+
+/* Directional glyphs (the mirror registry, ADR 0014 D2) flip with the reading direction. The <Icon> component adds this class
+   for every name in mirrorInRtl; nothing else is ever mirrored (photos, logos, play, clocks, digits). */
+[dir='rtl'] .gz-mirror {
+  transform: scaleX(-1);
+}
+
+/* Safe areas: the prototype frame is 390 x 844 with the real iOS insets (47 / 34); Flutter reads MediaQuery. */
+.gz-safe-top {
+  padding-block-start: var(--gz-safe-top);
+}
+
+.gz-safe-bottom {
+  padding-block-end: var(--gz-safe-bottom);
+}
+
+/* Gutter: the only screen gutter, 20, fixed from 360 to 430. */
+.gz-gutter {
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* Scroll containers never show a bar in the product (the device chrome does the work). */
+.gz-no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.gz-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Visually hidden, still read by screen readers (Flutter: Semantics label). */
+.gz-sr-only {
+  /* flutter-ok: web-only a11y utility, expressed in Flutter as a Semantics label */
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Touch target: 44 x 44 minimum for anything tappable (WCAG 2.2, platform guidance). */
+.gz-target {
+  min-inline-size: var(--gz-size-touch-min);
+  min-block-size: var(--gz-size-touch-min);
+}

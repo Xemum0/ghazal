@@ -1,0 +1,22 @@
+.obd-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.obd-head__title {
+  margin: 0;
+}
+
+/* With a drawing: the title at the start, the drawing at the end, centred on each other. */
+.obd-head--art {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+}
+
+.obd-head--art .obd-head__title {
+  flex: 1;
+  min-inline-size: 0;
+}

@@ -1,0 +1,85 @@
+/* IconTabs: 56 high columns, glyph over a reserved label row; the thread is a 1 px bar scaled to the tab and slid from the start edge. */
+
+.gz-itabs {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-itabs__list {
+  position: relative; /* flutter-ok: named overlay anchor, the thread sits inside the list (AnimatedAlign) */
+  display: flex;
+  min-inline-size: 0;
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-strong);
+}
+
+.gz-itabs .gz-itabs__tab {
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-control-lg);
+  padding-block: var(--gz-space-2);
+  padding-inline: var(--gz-space-1);
+  justify-content: flex-start;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-itabs .gz-itabs__tab[data-selected] {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-itabs .gz-itabs__tab:disabled {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-itabs__glyph {
+  position: relative; /* flutter-ok: anchors the count badge to the glyph (Badge) */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--gz-space-2);
+  block-size: var(--gz-size-icon-md);
+}
+
+.gz-itabs__count {
+  position: absolute; /* flutter-ok: Badge over the glyph corner */
+  inset-block-start: 0;
+  inset-inline-end: 0;
+}
+
+/* The label row is always as high as one caption line: selecting never changes the tab's height. */
+.gz-itabs__label {
+  display: block;
+  block-size: var(--gz-space-4);
+  white-space: nowrap;
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-itabs__thread {
+  position: absolute; /* flutter-ok: named overlay anchor inside .gz-itabs__list */
+  inset-inline-start: 0;
+  inset-block-end: 0;
+  inline-size: var(--gz-stroke-hair);
+  block-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-khayt);
+  transform-origin: var(--gz-origin-start);
+  transform: translateX(var(--gz-in-x)) scaleX(var(--gz-in-w));
+  pointer-events: none;
+}
+
+.gz-itabs:not([data-ready]) .gz-itabs__thread {
+  transition: none;
+}
+
+.gz-itabs__panel {
+  padding-block-start: var(--gz-space-4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-itabs__thread {
+    transition: none;
+  }
+}

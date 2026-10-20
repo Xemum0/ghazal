@@ -1,0 +1,109 @@
+/* SlotPicker (visits): a rail of day cells (48 x 80, the chosen one is the gold calendar cell and spells weekday and month) and the arrival
+   windows as chips beside a part-of-day glyph. Tokens only, logical properties, flex only. */
+.gzvt-slot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.gzvt-days {
+  display: flex;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  overflow-x: auto;
+  /* the chosen cell draws a 2 px ring outside its box: room so the scroller never clips it */
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-1);
+}
+
+.gzvt-day {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  inline-size: var(--gz-space-12);
+  block-size: var(--gz-space-20);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-primary);
+  cursor: pointer;
+}
+
+.gzvt-day__wd,
+.gzvt-day__mo {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzvt-day__n {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzvt-day[data-selected] {
+  z-index: var(--gz-z-raised);
+  background: var(--gz-color-sys-mark-khayt);
+  border-color: var(--gz-color-sys-mark-khayt);
+  box-shadow: 0 0 0 var(--gz-stroke-thread) var(--gz-color-sys-surface-raised);
+  outline-width: var(--gz-stroke-hair);
+  outline-style: solid;
+  outline-color: var(--gz-color-sys-mark-decor);
+  outline-offset: var(--gz-stroke-thread);
+}
+
+.gzvt-day[data-selected] .gzvt-day__wd,
+.gzvt-day[data-selected] .gzvt-day__n,
+.gzvt-day[data-selected] .gzvt-day__mo {
+  color: var(--gz-color-sys-text-on-gold);
+}
+
+.gzvt-day:disabled {
+  cursor: default;
+}
+
+.gzvt-day:focus-visible {
+  outline-width: var(--gz-stroke-focus);
+  outline-style: solid;
+  outline-color: var(--gz-color-sys-focus-ring);
+  outline-offset: var(--gz-stroke-focus-offset);
+}
+
+.gzvt-groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzvt-group {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}
+
+/* The part of the day: a glyph over the meridiem, 40 wide so four chips fit a row beside it. */
+.gzvt-group__mark {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-thumb-sm);
+  min-block-size: var(--gz-size-touch-min);
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+.gzvt-group__mer {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzvt-chips {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}

@@ -1,0 +1,104 @@
+/* Hotel-domain and charts gallery pages. Harness-grade layout (flex + gap), tokens only. Not product CSS.
+   The page runs inside the gallery's 20 px gutters, so a specimen is exactly as wide as the same component on a 390 screen. */
+
+.hg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  align-self: stretch;
+  max-inline-size: var(--gz-layout-max-width);
+  padding-block-end: var(--gz-space-24);
+}
+
+.hg-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-4);
+}
+
+.hg-head p,
+.hg-title { margin: 0; }
+
+.hg-lede { color: var(--gz-color-sys-text-secondary); }
+
+.hg-sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.hg-note {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hg-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+}
+
+.hg-spec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  margin: 0;
+}
+
+.hg-cap {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hg-spec__body {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.hg-stage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.hg-stage--panel {
+  padding: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.hg-stage--ink {
+  padding: var(--gz-space-5);
+  background: var(--gz-color-sys-surface-dark);
+  border-radius: var(--gz-radius-md);
+}
+
+.hg-row {
+  display: flex;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.hg-row--wrap { flex-wrap: wrap; }
+.hg-row > * { min-inline-size: 0; }
+.hg-row:not(.hg-row--wrap) > * { flex: 1; }
+
+.hg-sechead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.hg-sechead__title { margin: 0; }
+
+/* A list of rows inside a panel (the rows are flush: the panel pads). */
+.hg-list {
+  display: flex;
+  flex-direction: column;
+}

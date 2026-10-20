@@ -1,0 +1,6 @@
+/* The voucher action under a Results card: one 44 text button at inline-end, directly under the availability and price lines. */
+.gzd-cardact {
+  display: flex;
+  justify-content: flex-end;
+  padding-block-start: var(--gz-space-1);
+}

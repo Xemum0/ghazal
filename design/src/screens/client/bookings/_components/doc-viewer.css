@@ -1,0 +1,45 @@
+/* DocViewer sheet. The page is a hairline-bordered sheet of paper on the sheet; the actions stay pinned under it. Tokens only. */
+.gzb-viewer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzb-viewer__page {
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-canvas);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-sm);
+}
+
+.gzb-viewer__stamp {
+  margin: 0;
+  justify-content: center;
+}
+
+.gzb-viewer__actions {
+  position: sticky; /* flutter-ok: pinned sliver */
+  inset-block-end: 0;
+  z-index: var(--gz-z-raised);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-3);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzb-viewer__pair {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.gzb-viewer__pair > * {
+  flex: 1;
+  min-inline-size: 0;
+}

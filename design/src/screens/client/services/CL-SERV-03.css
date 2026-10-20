@@ -1,0 +1,165 @@
+/* CL-SERV-03 Vendor profile. Tokens only, logical properties, flex + gap. */
+
+.gzs-prof__hero {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.gzs-prof__hero--loading {
+  block-size: var(--gz-layout-hero-venue);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gzs-prof__status {
+  padding-block-start: var(--gz-space-4);
+}
+
+.gzs-prof__page {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  box-sizing: border-box;
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-5);
+  padding-block-end: var(--gz-space-section);
+}
+
+.gzs-prof__skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+/* ---------- the wall label under the hero ---------- */
+.gzs-prof__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzs-prof__name {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* Five facts must hold one line at 360 in both scripts: the gap is 12, the row wraps only when a long area name forces it. */
+.gzs-prof__head .gzs-prof__facts {
+  column-gap: var(--gz-space-3);
+  row-gap: var(--gz-space-2);
+}
+
+.gzs-prof__summary {
+  display: flex;
+  padding-block-start: var(--gz-space-1);
+}
+
+/* The hero is 4:3 here (the shared carousel is 440 high): the name, the voucher line and the facts must show above the bar. */
+.gzs-prof__hero .gz-carousel__item {
+  block-size: auto !important;
+  aspect-ratio: var(--gz-layout-aspect-4x3);
+}
+
+/* ---------- the provider's own words ---------- */
+.gzs-prof__about {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+}
+
+.gzs-prof__about-text {
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+/* ---------- sections ---------- */
+.gzs-prof__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzs-prof__packages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-list-gap);
+}
+
+/* ---------- event: the date (and guests) a voucher is tied to, glyph-led fields with no visible labels ---------- */
+.gzs-prof__event {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.gzs-prof__date {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gzs-prof__guests {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+}
+
+.gzs-prof__event .gz-field {
+  gap: 0;
+}
+
+.gzs-prof__event .gz-field__foot {
+  padding-block-start: var(--gz-space-2);
+}
+
+.gzs-prof__ask {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+/* ---------- reviews ---------- */
+.gzs-prof__score {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.gzs-prof__count {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-prof__avg {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-prof__none {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.gzs-prof__sheet {
+  padding-block-start: var(--gz-space-2);
+}
+
+/* ---------- the bar: the voucher fee beside the gold action, then Request quote and the chat glyph ---------- */
+.gzs-prof__fee {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-prof__barnote {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}

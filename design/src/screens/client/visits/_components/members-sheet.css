@@ -1,0 +1,51 @@
+/* MembersSheet: three rows of 64 (monogram, name, role chip), the privacy line, then the actions. Tokens only. */
+.gzvt-ms {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.gzvt-ms__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzvt-ms__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-row-min);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzvt-ms__row:last-child {
+  border-block-end-width: 0;
+}
+
+.gzvt-ms__name {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.gzvt-ms__rule {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzvt-ms__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}

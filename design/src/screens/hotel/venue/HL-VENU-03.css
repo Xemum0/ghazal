@@ -1,0 +1,4 @@
+/* HL-VENU-03 Edit package. Form column: gutter 20 (hv-page), sections 32 apart, fields 16 apart. Tokens only. */
+
+.hv-field__label { color: var(--gz-color-sys-text-strong); }
+.hv-ro-list { display: flex; flex-direction: column; }

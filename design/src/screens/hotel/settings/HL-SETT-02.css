@@ -1,0 +1,6 @@
+/* HL-SETT-02 Notification preferences. Four quiet groups of glyph, word and switch (space between them instead of headings); the new-request
+   row leads with its drawing, a lock glyph and the sound control; the OS-permission callout sits in the gutter. */
+
+.hs-notif__group { display: flex; flex-direction: column; }
+.hs-notif__lead { display: flex; flex-direction: column; }
+.hs-notif__ctrl { display: inline-flex; flex: none; align-items: center; gap: var(--gz-space-2); }

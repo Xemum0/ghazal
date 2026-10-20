@@ -1,0 +1,36 @@
+/* PriceLines: ruled rows (hairline above each), the total in the figures voice. No panel, no shadow. */
+
+.gl-lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gl-lines__rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.gl-lines__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-md);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gl-lines__name {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gl-lines__name--total {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}

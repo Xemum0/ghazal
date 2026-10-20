@@ -1,0 +1,15 @@
+/* Outcome: a drawing, a title, the facts. Centred (a single-purpose state, ADR 0034 D7). Tokens only. */
+
+.cal-out {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-4);
+  text-align: center;
+}
+
+.cal-out__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}

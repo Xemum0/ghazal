@@ -1,0 +1,150 @@
+/* The new-request banner (paper, hairline, elev-2, radius 12), the first-run sheets and the venue switcher. */
+
+.ht-banner {
+  position: absolute; /* flutter-ok: overlay anchored under the status bar (OverlayEntry) */
+  inset-block-start: var(--gz-safe-top);
+  inset-inline: var(--gz-space-gutter);
+  z-index: var(--gz-z-toast);
+  margin-block-start: var(--gz-space-2);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  box-shadow: var(--gz-elevation-2);
+  display: flex;
+}
+
+.ht-banner__main {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  flex: 1;
+  padding: var(--gz-space-4);
+  border-radius: var(--gz-radius-md);
+  text-align: start;
+  cursor: pointer;
+}
+
+.ht-banner__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-ref-gold-100);
+  color: var(--gz-color-sys-icon-accent);
+}
+
+.ht-banner__text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.ht-banner__title { color: var(--gz-color-sys-text-strong); }
+.ht-banner__facts { column-gap: var(--gz-space-3); }
+
+/* sheets: a drawing, two glyph points, the step dots and the info glyph; the actions sit in the footer */
+.ht-sheet__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-4);
+  padding-block-end: var(--gz-space-2);
+}
+
+.ht-sheet__points {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.ht-sheet__point {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.ht-sheet__glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.ht-sheet__meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-3);
+}
+
+.ht-sheet__dots { display: inline-flex; align-items: center; gap: var(--gz-space-2); }
+
+.ht-sheet__dot {
+  display: block;
+  inline-size: var(--gz-size-dot-off);
+  block-size: var(--gz-size-dot-off);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-border-strong);
+}
+
+.ht-sheet__dot[data-on] {
+  inline-size: var(--gz-size-dot-on);
+  block-size: var(--gz-size-dot-on);
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.ht-sheet__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-1);
+}
+
+/* venue switcher */
+.ht-switch li { display: flex; }
+
+.ht-switch {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ht-switch__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  flex: 1;
+  min-block-size: var(--gz-size-row-queue);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair); border-block-end-style: solid; border-block-end-color: var(--gz-color-sys-border-hairline);
+  text-align: start;
+  cursor: pointer;
+}
+
+.ht-switch__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.ht-switch__meta { display: flex; align-items: center; gap: var(--gz-space-3); color: var(--gz-color-sys-text-secondary); }

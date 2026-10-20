@@ -1,0 +1,67 @@
+/* MessageMeta: clock + tick under a bubble, and the state line of a message still on its way. Tokens only. */
+
+.gzm-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  margin: 0;
+  padding-inline: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzm-meta.is-own {
+  align-self: flex-end;
+}
+
+.gzm-meta__state {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--gz-space-1);
+  margin: 0;
+  padding-inline: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzm-meta__state.is-failed {
+  color: var(--gz-color-sys-text-danger);
+}
+
+.gzm-meta__upload {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  inline-size: var(--gz-size-chat-media);
+}
+
+.gzm-meta__pct {
+  flex: none;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzm-meta__bar {
+  display: flex;
+  flex: 1 1 0;
+  block-size: var(--gz-stroke-thread);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-mark-track);
+  overflow: hidden;
+}
+
+/* A progress line is a state carrier: the one gold line of the message, 2 px. */
+.gzm-meta__fill {
+  display: block;
+  block-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-khayt);
+  transition: inline-size var(--gz-motion-duration-slow) var(--gz-motion-ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gzm-meta__fill {
+    transition-duration: var(--gz-motion-duration-instant);
+  }
+}

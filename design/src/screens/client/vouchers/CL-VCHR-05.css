@@ -1,0 +1,56 @@
+/* CL-VCHR-05: use again or refund. Shared sheet pieces are in _components/explainer.css. */
+.gzv-who {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gzv-who__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzv-who__name {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.gzv-choices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+/* The refund confirmed or on its way, and the confirm step: one composition each, a drawing, a figure or a word, facts. Single-purpose, so centred. */
+.gzv-done,
+.gzv-confirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-3);
+  text-align: center;
+}
+
+.gzv-done__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzv-confirm__figure {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzv-confirm__note {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}

@@ -1,0 +1,113 @@
+/* CL-DISC-07 Search by region. Gutter 20; the near-me row, the recent row, then the governorate groups (or the typeahead matches). */
+/* The search field has no action at its end, so the bar's 10 glyph inset would leave it 10 from the edge: bring it to the 20 gutter. */
+.gzd-reg__top {
+  flex: none;
+}
+
+.gzd-reg__top .gz-topbar {
+  padding-inline-end: var(--gz-space-gutter);
+}
+
+.gzd-reg {
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzd-reg__stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+}
+
+.gzd-reg__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzd-reg__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+/* "Near me": a 56 row, glyph, the line and what it does, a check when it is on. */
+.gzd-reg__near {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-brief-row);
+  padding-block: var(--gz-space-2);
+  padding-inline: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzd-reg__near-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzd-reg__near-sub {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzd-reg__note {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzd-reg__recents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+}
+
+/* The typeahead rows: 48 high, glyph, the match, its venue count at inline-end. */
+.gzd-reg__matches {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzd-reg__match {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  align-self: stretch;
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-control-md);
+  padding-block: var(--gz-space-2);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzd-reg__match-text {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzd-reg__match-meta {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzd-reg__none {
+  margin: 0;
+  padding-block: var(--gz-space-6);
+  color: var(--gz-color-sys-text-secondary);
+  text-align: center;
+}

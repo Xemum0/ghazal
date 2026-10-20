@@ -1,0 +1,8 @@
+/* HL-DCSN-02 Decline request. The reasons are four glyph tiles (a disk over one word, ReasonTiles); the switch row and the quiet facts under
+   it carry the rest. Nothing is red and nothing is gold here but the one primary. Tokens only. */
+
+.gzd-dec__facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}

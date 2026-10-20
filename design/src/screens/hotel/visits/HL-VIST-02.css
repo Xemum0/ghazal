@@ -1,0 +1,43 @@
+/* HL-VIST-02 Visit. One column on the 20 gutter, sections 24 apart; the hero is type on the canvas (no card), the rest are hairline blocks. */
+
+.hv-detail { display: flex; flex-direction: column; gap: var(--gz-space-6); padding-block: var(--gz-space-2) var(--gz-space-10); }
+.hv-pad { padding-inline: var(--gz-space-gutter); }
+.hv-detail__skel { display: flex; flex-direction: column; gap: var(--gz-space-4); padding-inline: var(--gz-space-gutter); }
+.hv-detail__notes { display: flex; flex-direction: column; gap: var(--gz-space-3); }
+
+.hv-hero { display: flex; flex-direction: column; align-items: flex-start; gap: var(--gz-space-2); }
+.hv-hero__top { display: flex; align-items: center; gap: var(--gz-space-2); margin-block-end: var(--gz-space-1); }
+.hv-hero__date { margin: 0; color: var(--gz-color-sys-text-strong); }
+.hv-hero__facts { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gz-space-1) var(--gz-space-5); margin: 0; color: var(--gz-color-sys-text-primary); }
+.hv-hero__fact { display: inline-flex; align-items: center; gap: var(--gz-space-2); }
+
+.hv-client { display: flex; align-items: center; gap: var(--gz-space-4); }
+.hv-client__text { display: flex; flex: 1; flex-direction: column; gap: var(--gz-space-1); min-inline-size: 0; }
+.hv-client__text .gz-t-ui-title { color: var(--gz-color-sys-text-strong); }
+.hv-client__sub { color: var(--gz-color-sys-text-secondary); }
+
+.hv-facts { display: flex; flex-direction: column; margin: 0; }
+.hv-facts__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  min-block-size: var(--gz-size-control-md);
+  padding-block: var(--gz-space-2);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+.hv-facts__row dt { margin: 0; color: var(--gz-color-sys-text-secondary); }
+.hv-facts__row dd { margin: 0; text-align: end; color: var(--gz-color-sys-text-strong); }
+
+.hv-quote {
+  margin: 0;
+  padding-inline-start: var(--gz-space-4);
+  border-inline-start-width: var(--gz-stroke-hair);
+  border-inline-start-style: solid;
+  border-inline-start-color: var(--gz-color-sys-border-strong);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hv-rep__hint { margin: 0; color: var(--gz-color-sys-text-secondary); }

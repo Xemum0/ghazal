@@ -1,0 +1,64 @@
+/* ReceiptRow: ruled list row, 72+ high, one target. Tokens only. */
+.gzb-rcrow {
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzb-rcrow__btn {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-space-16);
+  padding-block: var(--gz-space-3);
+  text-align: start;
+  cursor: pointer;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzb-rcrow__icon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-icon-lg);
+  block-size: var(--gz-size-icon-lg);
+}
+
+.gzb-rcrow__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzb-rcrow__title {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gzb-rcrow__chip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-1);
+}
+
+.gzb-rcrow__end {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--gz-space-1);
+}
+
+.gzb-rcrow__saved {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}

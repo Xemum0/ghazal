@@ -1,0 +1,63 @@
+/* ConfirmLeft: a quiet panel, the figure large, one 4 px line under it (the one allowed gold line: a state). Tokens only. */
+.gzv-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  padding-block-end: var(--gz-space-5);
+  background-color: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-md);
+}
+
+.gzv-left__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzv-left__glyph {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-radius: var(--gz-radius-pill);
+}
+
+.gzv-left__time {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzv-left__figure {
+  color: var(--gz-color-sys-text-strong);
+  white-space: nowrap;
+}
+
+.gzv-left__info {
+  display: flex;
+  flex: none;
+  position: relative; /* flutter-ok: Transform.translate by the target's slack so the glyph meets the panel padding */
+  inset-inline-end: -10px;
+}
+
+.gzv-left__bar {
+  display: flex;
+  block-size: var(--gz-stroke-thread-max);
+  overflow: hidden;
+  border-radius: var(--gz-radius-pill);
+}
+
+.gzv-left__fill {
+  flex-basis: 0;
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gzv-left__rest {
+  flex-basis: 0;
+  background-color: var(--gz-color-sys-mark-track);
+}

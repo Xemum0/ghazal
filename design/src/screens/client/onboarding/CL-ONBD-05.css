@@ -1,0 +1,148 @@
+/* CL-ONBD-05 Guests and budget. Two questions on one page, 32 apart (section rhythm); controls are hairline-first, nothing is a card. */
+.obd-guests {
+  gap: var(--gz-space-8);
+}
+
+.obd-guests__split {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The one number of the page: the stepper centred, its figure at the hero size, between two 44 buttons. */
+.obd-guests__hero {
+  justify-content: center;
+}
+
+.obd-guests__hero .gz-stepper__ctrl {
+  margin-inline-start: 0;
+  gap: var(--gz-space-4);
+}
+
+.obd-guests__hero .gz-stepper__value {
+  inline-size: var(--gz-space-16);
+  font-size: var(--gz-type-fig-xl-size);
+  line-height: var(--gz-type-fig-xl-line);
+}
+
+/* A section glyph as the label of a stepper row: the glyph is the value, its name is read by assistive technology. */
+.obd-who {
+  display: inline-flex;
+  align-items: center;
+  color: var(--gz-color-sys-icon-primary);
+}
+
+/* The split: both section glyphs, the one word, the switch at the end. */
+.obd-split {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-row-min);
+  cursor: pointer;
+}
+
+.obd-split__glyphs {
+  display: flex;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.obd-split__title {
+  flex: 1;
+  min-inline-size: 0;
+  font-weight: var(--gz-type-title-weight);
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The common guest counts: three equal rows of three, one block (the system ChipGroup wraps by content width and goes ragged). */
+.obd-presets {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.obd-presets__row {
+  display: flex;
+  gap: var(--gz-space-2);
+}
+
+.obd-presets .obd-presets__chip {
+  flex: 1;
+  min-inline-size: 0;
+  justify-content: center;
+}
+
+/* A selected chip trades 4 px of start padding for its bead; the 4 px is given back at the end so equal tiles stay equal. */
+.obd-presets .obd-presets__chip.is-selected,
+.obd-bands .obd-bands__chip.is-selected {
+  padding-inline-end: var(--gz-space-5);
+}
+
+/* Budget bands: bare figures, one chip each, in one rail that scrolls sideways (the slider under it is the exact control). */
+.obd-bands {
+  display: flex;
+  gap: var(--gz-space-2);
+  overflow-x: auto;
+}
+
+.obd-bands .obd-bands__chip {
+  flex: none;
+  justify-content: center;
+}
+
+/* A band is two figures and a dash on one line; the row follows the language (low at inline-start), like the slider under it. */
+.obd-band {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--gz-space-1);
+}
+
+.obd-band__dash {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.obd-slider {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-2);
+}
+
+/* The system knob is 24 px; here the thumb element itself is the 44 x 44 target and the 24 px knob is drawn inside it, so the
+   hit area is real (not only a pseudo-element slop). Same look, same geometry (the thumb width is read at runtime). */
+.obd-slider .gz-range__thumb {
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  transform: none;
+}
+
+.obd-slider .gz-range__thumb::before {
+  inset: 0;
+}
+
+.obd-slider .gz-range__thumb::after {
+  content: '';
+  flex: none;
+  inline-size: var(--gz-size-toggle-knob);
+  block-size: var(--gz-size-toggle-knob);
+  box-sizing: border-box;
+  background: var(--gz-color-sys-control-bg);
+  border-width: var(--gz-stroke-thread);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-focus);
+  border-radius: var(--gz-radius-pill);
+}
+
+.obd-slider .gz-range__thumb[data-active] {
+  background: transparent;
+  transform: none;
+}
+
+.obd-slider .gz-range__thumb[data-active]::after {
+  background: var(--gz-color-sys-surface-quiet);
+  transform: scale(var(--gz-motion-scale-press));
+}

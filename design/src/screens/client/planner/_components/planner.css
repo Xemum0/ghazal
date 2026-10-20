@@ -1,0 +1,177 @@
+/* Planner flow, shared local pieces (CL-PLAN-01..04). Tokens only, logical properties, flex + gap, no grid. Prefix gzp-. */
+
+/* ---------- wedding line: ruled, like YOUR DATE (direction 3), never a panel ---------- */
+.gzp-context {
+  display: flex;
+  flex-direction: column;
+  padding-block: var(--gz-space-3);
+  border-block-width: var(--gz-stroke-hair);
+  border-block-style: solid;
+  border-block-color: var(--gz-color-sys-border-hairline);
+}
+
+/* ---------- tier marks: one, two or three beads, never a metal colour ---------- */
+.gzp-marks {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+
+/* ---------- sheet head: the sheet screen draws its own title row (the static frame has no Sheet title) ---------- */
+.gzp-sheethead {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-md);
+}
+
+.gzp-sheethead__title {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* ---------- panel ---------- */
+.gzp-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+}
+
+/* ---------- planner identity ---------- */
+.gzp-planner {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.gzp-planner__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-stroke-thread);
+  min-inline-size: 0;
+}
+
+.gzp-planner__name {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzp-planner__role {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzp-planner__package {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-1);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzp-planner__action {
+  display: flex;
+  flex: none;
+}
+
+/* ---------- package name row: name in the display face, thread marks ---------- */
+.gzp-pkg__name {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* ---------- request summary ---------- */
+.gzp-summary {
+  flex-direction: row;
+  align-items: center;
+}
+
+.gzp-summary__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+/* ---------- tier thumb: 64 square ---------- */
+.gzp-thumb {
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  inline-size: var(--gz-size-thumb-lg);
+  block-size: var(--gz-size-thumb-lg);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gzp-thumb__img {
+  display: flex;
+  flex: 1;
+}
+
+/* ---------- sheet note ---------- */
+.gzp-note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-4);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzp-note--tint {
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.gzp-note--quiet {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gzp-note > .gz-icon {
+  flex: none;
+  margin-block-start: var(--gz-stroke-thread);
+}
+
+.gzp-note__text {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+}
+
+/* A message strip inside the gutters (error lines under a control). */
+.gzp-gutter {
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* Banner with an action, stacked: icon + text on the first line, the action on its own line under the text (narrow phones never
+   squeeze the text into a one-word column). The wrapper's gutter replaces the banner's own card margin. */
+.gzp-bannerstack > .gz-banner {
+  flex-wrap: wrap;
+  margin-inline: 0;
+  align-items: flex-start;
+  padding-block: var(--gz-space-3);
+}
+
+.gzp-bannerstack > .gz-banner .gz-banner__text {
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.gzp-bannerstack > .gz-banner > [data-gz="Button"] {
+  flex: 0 0 100%;
+  justify-content: flex-start;
+  min-block-size: var(--gz-size-control-md);
+}

@@ -1,0 +1,282 @@
+/* Sections of the Today screen. One gutter (20), 32 between sections, hairlines and tone before shadows. Tokens only. */
+
+.ht-sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-inline: var(--gz-space-gutter);
+  min-inline-size: 0;
+}
+
+.ht-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ht-list__card {
+  scroll-margin-block-start: var(--gz-space-2);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-1);
+  margin-block: var(--gz-space-3);
+  list-style: none;
+}
+
+/* the chevron that folds an open triage card back into its row */
+.ht-list__less { display: flex; justify-content: center; }
+
+/* ---------- the section head: khayt, title, count and chevron in one 44 press target ---------- */
+.ht-sh {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+.ht-sh__h { display: flex; flex-direction: column; align-items: stretch; margin: 0; }
+
+.ht-sh__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-strong);
+  text-align: start;
+}
+
+button.ht-sh__row { cursor: pointer; }
+
+.ht-sh__title { min-inline-size: 0; }
+
+.ht-sh__end {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.ht-sh__count { color: var(--gz-color-sys-text-primary); }
+
+/* ---------- the status on the ink band: glyph, figure, time left ---------- */
+.ht-stat {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-control-md);
+}
+
+.ht-stat__glyph {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-mark-khayt);
+  color: var(--gz-color-sys-text-on-dark-gold);
+}
+
+.ht-stat__fig { color: var(--gz-color-sys-text-on-dark); }
+.ht-stat__text { color: var(--gz-color-sys-text-on-dark); }
+
+.ht-stat__extra {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  margin-inline-start: auto;
+}
+
+.ht-stat__views {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.ht-stat__views-fig { color: var(--gz-color-sys-text-on-dark); }
+
+/* ---------- all clear ---------- */
+.ht-clear {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  padding-block: var(--gz-space-2);
+}
+
+.ht-clear__art { display: inline-flex; flex: none; }
+.ht-clear__text { display: flex; flex-direction: column; gap: var(--gz-space-2); min-inline-size: 0; }
+.ht-clear__title { margin: 0; color: var(--gz-color-sys-text-strong); }
+
+/* ---------- offline decision (disabled in place) ---------- */
+.ht-offline-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-5);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.ht-offline-card__head { display: flex; align-items: center; justify-content: space-between; gap: var(--gz-space-3); }
+.ht-offline-card__pair { display: flex; gap: var(--gz-space-3); }
+.ht-offline-card__pair > * { flex: 1 1 0; }
+
+/* ---------- quick actions: three glyph tiles with one word ---------- */
+.ht-quick {
+  display: flex;
+  gap: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.ht-act {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-row-min);
+  padding: var(--gz-space-3) var(--gz-space-2);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-strong);
+  text-align: center;
+  cursor: pointer;
+}
+
+.ht-act:active { background: var(--gz-color-sys-surface-quiet); }
+/* the lone action: glyph and word on one row, control height */
+.ht-act--wide { flex-direction: row; min-block-size: var(--gz-size-control-lg); }
+.ht-act__glyph { display: inline-flex; }
+.ht-act__label { min-inline-size: 0; }
+
+/* ---------- events ---------- */
+.ht-event { margin-block-start: var(--gz-space-1); column-gap: var(--gz-space-3); }
+
+/* ---------- the strip's footer: the marks with their counts, the open weekends ---------- */
+.ht-stripfoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.ht-key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-1) var(--gz-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.ht-key__item { display: inline-flex; align-items: center; gap: var(--gz-space-2); }
+
+.ht-soft {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-inline-size: var(--gz-size-touch-min);
+  min-block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+}
+
+/* ---------- tiles ---------- */
+.ht-tiles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.ht-tiles__pair,
+.ht-tiles__trio {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+}
+
+.ht-tiles__pair > *,
+.ht-tiles__trio > * { flex: 1 1 0; min-inline-size: 0; }
+
+/* ---------- the listing in review (provider) ---------- */
+.ht-note {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding: var(--gz-space-3) var(--gz-space-4);
+  background: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-md);
+  text-align: start;
+  cursor: pointer;
+}
+
+.ht-note__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-raised);
+}
+
+.ht-note > .gz-pill { margin-inline-end: auto; }
+
+/* ---------- the billing glance ---------- */
+.ht-billing {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-hairline);
+  border-radius: var(--gz-radius-md);
+}
+
+.ht-billing__badge { display: flex; align-items: center; min-block-size: var(--gz-size-touch-min); }
+
+/* ---------- skeleton ---------- */
+.ht-skel { display: flex; flex-direction: column; gap: var(--gz-space-8); }
+.ht-skel__rows { display: flex; flex-direction: column; }
+.ht-skel__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair); border-block-end-style: solid; border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+.ht-skel__col { display: flex; flex-direction: column; gap: var(--gz-space-1); }
+.ht-skel__col--grow { flex: 1 1 0; }
+
+/* a skeleton line on the ink band */
+.gz-skeleton.ht-skel--dark { background: var(--gz-color-sys-surface-dark-raised); }
+
+.ht-offline-card__why { display: inline-flex; align-items: center; gap: var(--gz-space-3); }

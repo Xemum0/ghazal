@@ -1,0 +1,15 @@
+/* DeliveryLine: a caption row at the end edge of the thread under an undelivered bubble. Tokens only. */
+.gzvt-dl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--gz-space-1);
+  margin: 0;
+  padding-inline: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzvt-dl[data-failed] {
+  color: var(--gz-color-sys-text-danger);
+}

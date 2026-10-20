@@ -1,0 +1,60 @@
+/* WindowRow: a hairline row. Gutter comes from the list; content stacks on a 4-pt rhythm; the chevron sits at the inline-end. */
+
+.go-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  flex: 1;
+  min-inline-size: 0;
+  box-sizing: border-box;
+  padding-block: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.go-row__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.go-row__title {
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.go-row__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-1) var(--gz-space-2);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.go-row__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-thumb-md);
+  block-size: var(--gz-size-thumb-md);
+  background: var(--gz-color-sys-surface-tint-soft);
+  border-radius: var(--gz-radius-md);
+}
+
+.go-row__chev {
+  flex: none;
+}
+
+.go-row[data-paused] .go-row__title,
+.go-row[data-paused] .go-row__price {
+  color: var(--gz-color-sys-text-secondary);
+}

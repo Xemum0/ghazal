@@ -1,0 +1,40 @@
+/* ToggleRow: a 64 min list row, title and description at the start, the shared Switch at the end. */
+
+.gz-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  cursor: pointer;
+}
+
+.gz-toggle-row[data-divider] {
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-toggle-row[data-disabled] {
+  cursor: default;
+}
+
+.gz-toggle-row__text {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-toggle-row__title {
+  font-weight: var(--gz-type-title-weight);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-toggle-row__sub {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-toggle-row[data-disabled] .gz-toggle-row__title {
+  color: var(--gz-color-sys-text-disabled);
+}

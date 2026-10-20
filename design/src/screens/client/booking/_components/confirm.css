@@ -1,0 +1,228 @@
+/* CL-BOOK-08 Confirm your booking, CL-BOOK-10 Confirmation window ended: the pieces they share. Tokens only. */
+
+/* ---------- the confirm window: one layout, a gold bar of the time that remains ---------- */
+.bk-clock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  padding: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.bk-clock p {
+  margin: 0;
+}
+
+.bk-clock__deadline,
+.bk-clock__left {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.bk-clock__bar {
+  display: flex;
+  block-size: var(--gz-stroke-thread-max);
+  margin-block: var(--gz-space-2);
+  overflow: hidden;
+  border-radius: var(--gz-radius-pill);
+}
+
+.bk-clock__fill {
+  flex-basis: 0;
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.bk-clock__rest {
+  flex-basis: 0;
+  background-color: var(--gz-color-sys-mark-track);
+}
+
+/* In the last minute the mm:ss turns gold-ink: a verb coming due, never red. */
+.bk-clock[data-state='final'] .bk-clock__left {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+/* The title row of the confirm screens: the title at the start, the status at the end. */
+.bk-head__status {
+  flex: none;
+}
+
+.bk-notice--flush {
+  padding-block-start: 0;
+  padding-block-end: var(--gz-space-3);
+}
+
+/* ---------- the summary under the clock ---------- */
+.bk-confirm-sum {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.bk-confirm-price {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.bk-confirm-price__main {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.bk-confirm-price__main > .gz-price {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.bk-confirm-price__main > .gz-iconbtn {
+  flex: none;
+  position: relative; /* flutter-ok: Transform.translate by the target's slack so the glyph meets the 20 gutter */
+  inset-inline-end: -10px;
+}
+
+.bk-confirm-save {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-success);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.bk-confirm-voucher {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--gz-space-3);
+}
+
+/* ---------- "already updated" sheet ---------- */
+.bk-updated {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-5);
+  padding-block-end: var(--gz-space-2);
+}
+
+.bk-updated .gz-btn {
+  align-self: stretch;
+}
+
+.bk-maps {
+  display: flex;
+  flex-direction: column;
+  padding-block-end: var(--gz-space-2);
+}
+
+/* ---------- CL-BOOK-09: the icon row of next steps ---------- */
+.bk-quick {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+}
+
+/* ---------- CL-BOOK-10: what happens to the voucher ---------- */
+.bk-ended-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-2) var(--gz-space-4);
+  text-align: center;
+}
+
+.bk-ended-hero__title {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.bk-ended-hero__title > .gz-iconbtn {
+  flex: none;
+}
+
+.bk-section.bk-leave--center {
+  justify-content: center;
+}
+
+.bk-ended-hero .gz-frow {
+  justify-content: center;
+}
+
+.bk-ended-voucher {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-4) var(--gz-space-1);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}
+
+.bk-ended-voucher__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.bk-ended-voucher__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-raised);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.bk-ended-voucher__code {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.bk-ended-voucher__foot {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: var(--gz-space-3);
+  row-gap: var(--gz-space-1);
+  padding-inline-end: var(--gz-space-3);
+}
+
+.bk-ended-voucher__foot .bk-ended-voucher__refund {
+  margin-inline-start: auto;
+  position: relative; /* flutter-ok: Transform.translate by the tertiary padding */
+  inset-inline-end: -8px;
+}
+
+.bk-ended-voucher > .bk-ended-voucher__head > .gz-iconbtn {
+  flex: none;
+}
+
+/* ---------- the slim voucher ticket (CL-BOOK-09): QR and code are the system's own layout; only the two actions wrap at 360 ---------- */
+.bk-sent-body .gz-vch__actions {
+  flex-wrap: wrap;
+}
+
+.bk-sent-body .gz-vch__actions > * {
+  flex: 1 1 auto;
+  block-size: auto;
+  min-block-size: 44px;
+  white-space: nowrap;
+}

@@ -1,0 +1,292 @@
+/* Sections of Booking detail (ADR 0034): header with the reply-window bar and its one glyph-and-figure fact, the glyph thread, notices, special
+   requests, client, event with its hall photograph, the price, the voucher panel, actions and history. Tokens only; logical properties only. */
+
+.hbk-header {
+  display: flex;
+  flex-direction: column;
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.hbk-header__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-4);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.hbk-header__pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.hbk-header__date {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The one fact of the header: a glyph and a figure (time left, days to go, the day it was redeemed). */
+.hbk-left {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hbk-left__figure {
+  color: inherit;
+}
+
+.hbk-left[data-state='gold'] {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.hbk-left[data-state='danger'] {
+  color: var(--gz-color-sys-text-danger);
+}
+
+.hbk-left[data-state='success'] {
+  color: var(--gz-color-sys-text-success);
+}
+
+/* The 2 px reply-window bar: ink under 50%, gold-650 from 50%, danger from 80% or under an hour; it depletes toward inline-start. */
+.hbk-sla {
+  display: flex;
+  block-size: var(--gz-stroke-thread);
+  background-color: var(--gz-color-sys-mark-track);
+}
+
+.hbk-sla__fill {
+  background-color: var(--gz-color-sys-status-sla-ok);
+  transform-origin: var(--gz-origin-start);
+}
+
+.hbk-sla--gold .hbk-sla__fill {
+  background-color: var(--gz-color-sys-status-sla-warn);
+}
+
+.hbk-sla--danger .hbk-sla__fill {
+  background-color: var(--gz-color-sys-status-sla-alert);
+}
+
+.hbk-thread {
+  min-inline-size: 0;
+}
+
+.hbk-notices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+/* Special requests: a quiet rose note, authored text, a chevron to open it. */
+.hbk-special__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}
+
+.hbk-special__row > .gz-icon {
+  flex: none;
+  margin-block-start: var(--gz-space-1);
+}
+
+.hbk-special__text {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* Client: the monogram, the name with its two glyph marks, chat and call. */
+.hbk-client__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.hbk-client__who {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.hbk-client__name {
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hbk-client__marks {
+  display: inline-flex;
+  gap: var(--gz-space-1);
+}
+
+.hbk-client__mark {
+  display: inline-flex;
+}
+
+.hbk-client__contact {
+  display: flex;
+  flex: none;
+  gap: var(--gz-space-1);
+}
+
+/* Event: the hall photograph is an empty room, 72 by 56, radius 8; the facts sit under the hall name. */
+.hbk-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--gz-size-thumb-compact-width);
+  block-size: var(--gz-size-thumb-md);
+  overflow: hidden;
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.hbk-thumb__photo {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+/* Price: the one big figure, the standard struck and the saving under it. */
+.hbk-price__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.hbk-price__head > .gz-price {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.hbk-price__glyph,
+.hbk-voucher__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.hbk-price__compare {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-5);
+  row-gap: var(--gz-space-2);
+}
+
+.hbk-price__was,
+.hbk-price__save,
+.hbk-proposal__price {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hbk-price__save {
+  color: var(--gz-color-sys-text-success);
+}
+
+/* Voucher panel: the ticket glyph, the code as an LTR island, the state pill. */
+.hbk-voucher__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.hbk-voucher__id {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.hbk-voucher__code {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* Actions: complete, cancel with its terms behind the info glyph. */
+.hbk-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.hbk-actions__cancel {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.hbk-actions__cancel > .gz-btn,
+.hbk-actions__cancel > .gz-btn-wrap {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.hbk-actions__info {
+  flex: none;
+}
+
+/* History: one row, the trail lives in the sheet. */
+.hbk-audit {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hbk-audit__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.hbk-audit__row:last-child {
+  border-block-end-width: 0;
+}
+
+.hbk-audit__glyph {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.hbk-audit__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.hbk-audit__what {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hbk-audit__who {
+  color: var(--gz-color-sys-text-secondary);
+}

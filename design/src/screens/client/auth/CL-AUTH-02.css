@@ -1,0 +1,11 @@
+/* CL-AUTH-02: drawing, title and number at the top, the code under them, the interrupted intent pinned as a footer strip above the action bar. */
+.gza02-body {
+  flex: 1 0 auto;
+  justify-content: space-between;
+}
+
+.gza02-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+}

@@ -1,0 +1,100 @@
+/* Illustration (ADR 0034): one hand. Colour roles are local custom properties resolved from the illus tokens so a tone only
+   rebinds them; every drawing part is a class (il-*) with no colour of its own. Stroke is non-scaling: 1.5 px at every size. */
+
+.gz-illus {
+  --il-line: var(--gz-color-sys-illus-line);
+  --il-soft: var(--gz-color-sys-illus-line-soft);
+  --il-ground: var(--gz-color-sys-illus-ground);
+  --il-tint: var(--gz-color-sys-illus-tint);
+  --il-tint-deep: var(--gz-color-sys-illus-tint-deep);
+  --il-accent: var(--gz-color-sys-illus-accent);
+  --il-accent-line: var(--gz-color-sys-illus-accent-line);
+  --il-ko: var(--gz-color-sys-illus-knockout);
+  display: block;
+  flex: none;
+  inline-size: var(--gz-size-illustration-lg);
+  block-size: var(--gz-size-illustration-lg);
+  overflow: visible;
+}
+
+.gz-illus--sm {
+  inline-size: var(--gz-size-illustration-sm);
+  block-size: var(--gz-size-illustration-sm);
+}
+
+.gz-illus--md {
+  inline-size: var(--gz-size-illustration-md);
+  block-size: var(--gz-size-illustration-md);
+}
+
+.gz-illus--lg {
+  inline-size: var(--gz-size-illustration-lg);
+  block-size: var(--gz-size-illustration-lg);
+}
+
+.gz-illus--hero {
+  inline-size: var(--gz-size-illustration-hero);
+  block-size: var(--gz-size-illustration-hero);
+}
+
+/* Tones rebind roles; the drawing never changes. */
+.gz-illus--quiet {
+  --il-line: var(--gz-color-sys-illus-line-soft);
+  --il-soft: var(--gz-color-sys-illus-ground);
+}
+
+.gz-illus--danger {
+  --il-accent: var(--gz-color-sys-status-danger-text);
+  --il-accent-line: var(--gz-color-sys-status-danger-text);
+  --il-tint: var(--gz-color-sys-status-danger-bg);
+}
+
+.gz-illus--success {
+  --il-accent: var(--gz-color-sys-status-success-text);
+  --il-accent-line: var(--gz-color-sys-status-success-text);
+  --il-tint: var(--gz-color-sys-status-success-bg);
+}
+
+.gz-illus--on-dark {
+  --il-line: var(--gz-color-sys-text-on-dark);
+  --il-soft: var(--gz-color-sys-text-on-dark-muted);
+  --il-ground: var(--gz-color-sys-border-on-dark);
+  --il-tint: var(--gz-color-sys-surface-dark-raised);
+  --il-tint-deep: var(--gz-color-sys-border-on-dark);
+  --il-accent: var(--gz-color-sys-text-on-dark-gold);
+  --il-accent-line: var(--gz-color-sys-text-on-dark-gold);
+  --il-ko: var(--gz-color-sys-surface-dark);
+}
+
+/* ---- drawing parts ---- */
+.gz-illus path {
+  vector-effect: non-scaling-stroke;
+}
+
+.gz-illus .il-l,
+.gz-illus .il-s,
+.gz-illus .il-g,
+.gz-illus .il-al,
+.gz-illus .il-kl {
+  fill: none;
+  stroke-width: var(--gz-stroke-illustration);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.gz-illus .il-l { stroke: var(--il-line); }
+.gz-illus .il-s { stroke: var(--il-soft); }
+.gz-illus .il-g { stroke: var(--il-ground); }
+.gz-illus .il-al { stroke: var(--il-accent-line); }
+.gz-illus .il-kl { stroke: var(--il-ko); stroke-width: var(--gz-space-2); }
+
+.gz-illus .il-dash {
+  stroke-dasharray: 2 4;
+}
+
+.gz-illus .il-t { fill: var(--il-tint); stroke: none; }
+.gz-illus .il-td { fill: var(--il-tint-deep); stroke: none; }
+.gz-illus .il-k { fill: var(--il-ko); stroke: none; }
+.gz-illus .il-a { fill: var(--il-accent); stroke: none; }
+.gz-illus .il-f { fill: var(--il-line); stroke: none; }
+.gz-illus .il-fs { fill: var(--il-soft); stroke: none; }

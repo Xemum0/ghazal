@@ -1,0 +1,63 @@
+.gz-carousel {
+  position: relative;
+  flex: none;
+}
+
+.gz-carousel__item {
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.gz-photo {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+  position: relative;
+}
+
+.gz-photo__img {
+  flex: 1;
+  min-inline-size: 0;
+  max-inline-size: none;
+  object-fit: cover;
+  user-select: none;
+}
+
+.gz-photo__img--contain {
+  object-fit: contain;
+}
+
+/* Photos reveal once: until loaded they are invisible over the placeholder. */
+.gz-photo__img:not([data-loaded]) {
+  opacity: 0; /* flutter-ok: FadeInImage placeholder */
+}
+
+.gz-carousel--tour .gz-carousel__item {
+  border-radius: var(--gz-radius-md);
+}
+
+/* Hero: bottom scrim only (the transparent TopBar brings its own top scrim); counter and progress sit on it in canvas text. */
+.gz-carousel__scrim {
+  position: absolute; /* flutter-ok: photo scrim overlay */
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: var(--gz-space-24);
+  background: linear-gradient(to bottom, var(--gz-color-sys-scrim-clear), var(--gz-color-sys-scrim-bottom));
+  pointer-events: none;
+}
+
+.gz-carousel__foot {
+  position: absolute; /* flutter-ok: counter + progress anchored to the hero's bottom edge */
+  inset-inline: var(--gz-space-gutter);
+  inset-block-end: var(--gz-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  pointer-events: none;
+}
+
+.gz-carousel__counter {
+  align-self: flex-end;
+  color: var(--gz-color-sys-text-on-dark);
+}

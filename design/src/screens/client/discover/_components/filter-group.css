@@ -1,0 +1,72 @@
+.gzd-fgroup {
+  display: flex;
+  flex-direction: column;
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzd-fgroup__head {
+  display: flex;
+  margin: 0;
+}
+
+.gzd-fgroup__button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  flex: 1;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzd-fgroup__disk {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-control-sm);
+  block-size: var(--gz-size-control-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gzd-fgroup__disk.is-active {
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+/* The gold bead marks a group that holds a choice (a thing chosen, direction 2.3). */
+.gzd-fgroup__bead {
+  flex: none;
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-mark-state);
+}
+
+.gzd-fgroup__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gzd-fgroup__title {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gzd-fgroup__summary {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzd-fgroup__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-end: var(--gz-space-5);
+}

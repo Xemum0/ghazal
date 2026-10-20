@@ -1,0 +1,91 @@
+/* AdPlanCard: a choice card in the Chip grammar (1 px ink hairline, selected = ink border + gold bead), taller because it carries a price
+   line. The "rates soon" state is quiet text with a clock, never a placeholder number. */
+
+.gz-plan {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-size-row-min);
+  padding: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gz-plan.is-selected {
+  border-width: var(--gz-stroke-focus);
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+}
+
+.gz-plan.is-disabled {
+  cursor: default;
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-plan__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gz-plan__radio {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-icon-sm);
+  block-size: var(--gz-size-icon-sm);
+  border-width: var(--gz-stroke-icon);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-pill);
+}
+
+.gz-plan.is-selected .gz-plan__radio {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+}
+
+.gz-plan__name {
+  flex: 1;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-plan__period,
+.gz-plan__note,
+.gz-plan__starts {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-plan__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--gz-space-2);
+  min-block-size: var(--gz-space-8);
+}
+
+.gz-plan__soon {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-plan__exempt {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}

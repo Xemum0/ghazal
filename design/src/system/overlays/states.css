@@ -1,0 +1,75 @@
+/* EmptyState, SuccessState, ErrorState: an illustration, a title, one action, the info glyph. Centred by default (a single-purpose
+   composition); `--start` aligns to inline-start. The drawing reveals once (opacity and a 3.5% settle on a wrapper, so the mirrored
+   drawing keeps its own transform); reduced motion keeps the finished state. */
+
+.gz-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-4);
+  padding-block: var(--gz-space-8);
+  padding-inline: var(--gz-space-gutter);
+  text-align: center;
+}
+
+.gz-state--start {
+  align-items: flex-start;
+  text-align: start;
+}
+
+/* A whole-screen blank rests in the upper third, not the centre: the screen still reads as a page that starts at the top. */
+.gz-state--fill {
+  flex: 1;
+  padding-block-start: var(--gz-space-12);
+}
+
+.gz-state__art {
+  display: inline-flex;
+  flex: none;
+  animation: gz-image-reveal var(--gz-motion-duration-expressive) var(--gz-motion-ease-emphasized) both;
+}
+
+.gz-state__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-state__helper {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-state__facts {
+  display: flex;
+  justify-content: center;
+  min-inline-size: 0;
+}
+
+.gz-state--start .gz-state__facts {
+  justify-content: flex-start;
+}
+
+/* inset="none": the state sits inside a shelf or body that already carries the gutter and the block rhythm. */
+.gz-state--flush {
+  padding-block: 0;
+  padding-inline: 0;
+}
+
+.gz-state__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-2);
+}
+
+.gz-state--start .gz-state__actions {
+  justify-content: flex-start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-state__art {
+    animation: none;
+  }
+}

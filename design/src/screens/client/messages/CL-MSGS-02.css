@@ -1,0 +1,134 @@
+/* CL-MSGS-02 Conversation. Bubbles come from the system; this file lays the thread out on the 20 gutter: 4 inside a run, 16 between runs,
+   32 above a day divider. Tokens only. */
+
+.gzm-th__root {
+  position: relative; /* flutter-ok: overlay anchor for the sheets and the viewer in a static frame (Stack) */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-block-size: 0;
+}
+
+.gzm-th__who {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gzm-th__name {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gzm-th__list {
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-3) var(--gz-space-4);
+}
+
+.gzm-th__list .gz-bubble-day {
+  margin-block: var(--gz-space-4) var(--gz-space-3);
+}
+
+.gzm-msg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  margin-block-start: var(--gz-space-1);
+}
+
+.gzm-msg.is-run-start {
+  margin-block-start: var(--gz-space-4);
+}
+
+/* A system line (request sent, approved, confirmed) breathes like a divider. */
+.gzm-msg[data-kind='system'] {
+  margin-block: var(--gz-space-3);
+}
+
+.gzm-msg__tap {
+  display: block;
+  border-radius: var(--gz-radius-md);
+  cursor: pointer;
+}
+
+.gzm-msg__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-1) var(--gz-space-4);
+}
+
+.gzm-msg__actions--end {
+  justify-content: flex-end;
+}
+
+.gzm-th__skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-4);
+}
+
+.gzm-th__skel-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* A new enquiry: who you are about to write to, how to start, how soon they reply. The composer's chips carry the starters. */
+.gzm-th__intro {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-6) var(--gz-space-8);
+}
+
+.gzm-th__cover {
+  display: flex;
+  flex: none; /* the photo's own flex: 1 would stretch it to the screen height and drop the aspect ratio */
+  align-self: stretch;
+  aspect-ratio: var(--gz-layout-aspect-16x10);
+  border-radius: var(--gz-radius-md);
+  overflow: hidden;
+}
+
+.gzm-th__intro-title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzm-th__blocked {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-3);
+  padding-block-end: var(--gz-safe-bottom);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzm-th__blocked-note {
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+/* The played share of a voice note grows away from the play button, so in Arabic it grows from the right (ADR 0014 D6). The system bubble
+   keeps its meter left to right; this thread follows the page direction. */
+.gzm-th .gz-bubble__wave {
+  direction: inherit;
+}

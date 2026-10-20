@@ -1,0 +1,79 @@
+/* VoucherLock: locked facts of the bound quote. A ruled block (hairline above and below), never a framed panel. Tokens only. */
+
+.bk-lock {
+  display: flex;
+  flex-direction: column;
+  border-block-width: var(--gz-stroke-hair);
+  border-block-style: solid;
+  border-block-color: var(--gz-color-sys-border-strong);
+}
+
+.bk-lock__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+  padding-block-start: var(--gz-space-2);
+}
+
+.bk-lock__title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.bk-lock .bk-lock__change {
+  position: relative; /* flutter-ok: Transform.translate by the tertiary padding */
+  inset-inline-end: -8px;
+  flex: none;
+}
+
+.bk-lock__rows {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bk-lock__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-4);
+}
+
+.bk-lock__row + .bk-lock__row {
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.bk-lock__row > .gz-icon {
+  flex: none;
+}
+
+.bk-lock__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.bk-lock__value {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The hall row is the photograph plate (the Review's RequestPlate): no leading glyph, the plate fills the row. */
+.bk-lock__row--plate {
+  align-items: center;
+}
+
+.bk-lock__row--plate > .bk-plate {
+  flex: 1;
+  min-inline-size: 0;
+}

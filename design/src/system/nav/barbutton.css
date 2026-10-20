@@ -1,0 +1,13 @@
+/* The wrapper only anchors the count badge to the top inline-end of the 44 target. */
+.gz-barbtn {
+  position: relative;
+  flex: none;
+  display: inline-flex;
+}
+
+.gz-barbtn__count {
+  position: absolute; /* flutter-ok: Badge anchored top-end */
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  pointer-events: none;
+}

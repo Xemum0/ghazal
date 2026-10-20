@@ -1,0 +1,271 @@
+/* The media manager's pieces (HL-VENU-01): upload rows, attention panel, video rows, the photo / upload / video sheets. Tokens only. */
+
+/* ---------- upload queue row ---------- */
+.hv-up {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.hv-up__thumb {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  inline-size: var(--gz-size-thumb-md);
+  block-size: var(--gz-size-thumb-md);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-surface-placeholder);
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+.hv-up__img { display: flex; flex: 1; inline-size: var(--gz-size-thumb-md); block-size: var(--gz-size-thumb-md); }
+.hv-up__body { display: flex; flex: 1; flex-direction: column; gap: var(--gz-space-1); min-inline-size: 0; }
+.hv-up__label { overflow: hidden; color: var(--gz-color-sys-text-strong); white-space: nowrap; text-overflow: ellipsis; }
+
+/* progress is a gold LINE (direction 2.3 e): fill and rest share the track by flex-grow, no percentages */
+.hv-up__bar { display: flex; block-size: var(--gz-stroke-thread); background: var(--gz-color-sys-mark-track); border-radius: var(--gz-radius-pill); overflow: hidden; }
+.hv-up__fill { flex-basis: 0; flex-shrink: 0; background: var(--gz-color-sys-mark-khayt); }
+.hv-up__rest { flex-basis: 0; flex-shrink: 0; }
+
+.hv-up__status { display: flex; align-items: center; gap: var(--gz-space-1); color: var(--gz-color-sys-text-secondary); }
+.hv-up[data-status='failed'] .hv-up__status { color: var(--gz-color-sys-text-danger); }
+.hv-up__retry { display: flex; }
+.hv-up__retry .gz-btn--tertiary { padding-inline: 0; }
+.hv-up__bg { color: var(--gz-color-sys-text-secondary); }
+
+/* ---------- attention panel (what needs a person) ---------- */
+.hv-attn {
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.hv-attn__row.gz-row { padding-inline: 0; }
+
+.hv-attn__disk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-control-sm);
+  block-size: var(--gz-size-control-sm);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-status-danger-bg);
+}
+
+/* ---------- video row ---------- */
+.hv-vid {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  inline-size: 100%; /* flutter-ok: a row fills its list */
+  min-block-size: var(--gz-size-row-queue);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  text-align: start;
+  cursor: pointer;
+}
+
+.hv-vid__poster {
+  position: relative; /* flutter-ok: overlay anchor of the play disk and the length chip */
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  inline-size: var(--gz-size-thumb-lg);
+  aspect-ratio: var(--gz-layout-aspect-16x10);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-surface-placeholder);
+}
+
+.hv-vid__img { display: flex; flex: 1; min-inline-size: 0; }
+
+.hv-vid__play {
+  position: absolute; /* flutter-ok: overlay layer centring the disk (Center in a Stack) */
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hv-vid__disk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-canvas);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.hv-vid__len {
+  position: absolute; /* flutter-ok: overlay chip */
+  inset-block-end: var(--gz-space-1);
+  inset-inline-end: var(--gz-space-1);
+  padding-inline: var(--gz-space-2);
+  background: var(--gz-color-sys-surface-canvas);
+  border-radius: var(--gz-radius-xs);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hv-vid__text { display: flex; flex: 1; flex-direction: column; gap: var(--gz-space-1); min-inline-size: 0; }
+.hv-vid__title { color: var(--gz-color-sys-text-strong); }
+.hv-vid__sub { color: var(--gz-color-sys-text-secondary); }
+.hv-vid__status { display: flex; }
+
+/* ---------- sheets ---------- */
+.hv-tile__preview,
+.hv-vsheet__poster {
+  position: relative; /* flutter-ok: overlay anchor of the play disk */
+  display: flex;
+  overflow: hidden;
+  aspect-ratio: var(--gz-layout-aspect-16x10);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-placeholder);
+}
+
+.hv-tile__img,
+.hv-vsheet__img { display: flex; flex: 1; min-inline-size: 0; }
+
+.hv-tile__thumb {
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  inline-size: var(--gz-size-thumb-lg);
+  aspect-ratio: var(--gz-layout-aspect-16x10);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-surface-placeholder);
+}
+
+.hv-vsheet__play {
+  position: absolute; /* flutter-ok: overlay disk */
+  inset-block-end: var(--gz-space-3);
+  inset-inline-start: var(--gz-space-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-control-sm);
+  block-size: var(--gz-size-control-sm);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-canvas);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.hv-vsheet__meta { display: flex; align-items: baseline; justify-content: space-between; gap: var(--gz-space-3); color: var(--gz-color-sys-text-strong); }
+.hv-vsheet__len { display: inline-flex; align-items: center; gap: var(--gz-space-1); color: var(--gz-color-sys-text-secondary); }
+
+.hv-tile__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gz-space-2); }
+.hv-tile__zone { color: var(--gz-color-sys-text-secondary); }
+.hv-tile__actions { display: flex; flex-direction: column; }
+
+.hv-reason {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-panel-pad);
+  background: var(--gz-color-sys-status-danger-bg);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hv-reason > .gz-icon { flex: none; margin-block-start: var(--gz-space-1); }
+.hv-reason__text { display: flex; flex: 1; flex-direction: column; gap: var(--gz-space-1); min-inline-size: 0; }
+
+.hv-face { display: flex; flex-direction: column; gap: var(--gz-space-3); }
+.hv-face__actions { display: flex; gap: var(--gz-space-3); }
+.hv-face__actions > * { flex: 1; min-inline-size: 0; }
+
+.hv-zone { display: flex; flex-direction: column; gap: var(--gz-space-2); }
+.hv-zone__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--gz-space-3); color: var(--gz-color-sys-text-secondary); }
+.hv-zone__req { color: var(--gz-color-sys-text-secondary); }
+
+.hv-source { display: flex; flex-direction: column; }
+.hv-source__disk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-control-sm);
+  block-size: var(--gz-size-control-sm);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+/* ---------- filtered grid: three 4:5 columns, 8 apart (same geometry as the system grid) ---------- */
+.hv-tg { display: flex; flex-direction: column; gap: var(--gz-space-2); min-inline-size: 0; }
+.hv-tg__row { display: flex; gap: var(--gz-space-2); }
+
+.hv-tg__col { display: flex; flex: 1 1 0; flex-direction: column; min-inline-size: 0; }
+.hv-tg__col > .hv-tg__cell { flex: none; }
+.hv-tg__why { display: flex; flex-direction: column; align-items: flex-start; gap: var(--gz-space-1); padding-block-start: var(--gz-space-2); }
+.hv-tg__why .gz-btn--tertiary { padding-inline: 0; }
+.hv-tg__reason { color: var(--gz-color-sys-text-danger); }
+
+.hv-tg__cell {
+  position: relative; /* flutter-ok: overlay anchors for the tag, status and cover chips (Stack) */
+  display: flex;
+  flex: 1 1 0;
+  min-inline-size: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  aspect-ratio: var(--gz-layout-aspect-4x5);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-placeholder);
+}
+
+.hv-tg__cell--empty { background: transparent; }
+.hv-tg__cell.is-rejected { border-width: var(--gz-stroke-icon); border-style: solid; border-color: var(--gz-color-sys-border-error); }
+.hv-tg__photo { display: flex; flex: 1; min-inline-size: 0; cursor: pointer; }
+.hv-tg__img { display: flex; flex: 1; min-inline-size: 0; }
+
+.hv-tg__top,
+.hv-tg__bottom { position: absolute; /* flutter-ok: overlay row */ inset-inline: var(--gz-space-2); display: flex; pointer-events: none; }
+.hv-tg__top { inset-block-start: var(--gz-space-2); }
+.hv-tg__bottom { inset-block-end: var(--gz-space-2); flex-direction: column; align-items: flex-start; gap: var(--gz-space-1); }
+
+.hv-tg__tag {
+  min-inline-size: 0;
+  overflow: hidden;
+  padding: 0 var(--gz-space-2);
+  background: var(--gz-color-sys-surface-canvas);
+  border-radius: var(--gz-radius-xs);
+  color: var(--gz-color-sys-text-strong);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* status chips in a tile footer shrink to the tile and wrap rather than clip (both grids) */
+.hv-media .gz-pmg__bottom,
+.hv-tg__bottom { min-inline-size: 0; }
+.hv-media .gz-pmg__bottom .gz-pill,
+.hv-tg__bottom .gz-pill { flex: 0 1 auto; min-inline-size: 0; white-space: normal; }
+.hv-media .gz-pmg__bottom .gz-pill__label,
+.hv-tg__bottom .gz-pill__label { min-inline-size: 0; overflow-wrap: normal; text-align: start; }
+
+/* the system grid's tag stays on one line, ellipsised; in reorder mode the decorative handle is dropped (aria-hidden, the two arrow buttons are the control, ADR 0014 D4) so it never covers the tag or the Cover chip */
+.hv-media .gz-pmg__tag { white-space: nowrap; text-overflow: ellipsis; }
+.hv-media .gz-pmg[data-reorder] .gz-pmg__grip { display: none; }
+
+.hv-tg__cover {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-block-size: var(--gz-size-pill-min);
+  padding: 0 var(--gz-space-2);
+  background: var(--gz-color-sys-surface-canvas);
+  border-radius: var(--gz-radius-xs);
+  color: var(--gz-color-sys-text-strong);
+}

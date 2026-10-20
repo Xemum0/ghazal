@@ -1,0 +1,90 @@
+/* HL-TODY-03 Notifications. Day headers are label-role text on a hairline; rows sit on the 20 gutter. Tokens only. */
+
+.ht-nt__root {
+  position: relative; /* flutter-ok: overlay anchor for the new-request banner (Stack) */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-block-size: 0;
+}
+
+.ht-nt__controls {
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-2) var(--gz-space-3);
+}
+
+.ht-nt__denied {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  margin-inline: var(--gz-space-gutter);
+  margin-block-end: var(--gz-space-3);
+  padding: var(--gz-space-3) var(--gz-space-4);
+  background: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-md);
+}
+
+.ht-nt__denied-disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-raised);
+}
+
+.ht-nt__denied-title { flex: 1 1 0; margin: 0; min-inline-size: 0; color: var(--gz-color-sys-text-strong); }
+
+.ht-nt__day {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-control-sm);
+  margin-inline: var(--gz-space-gutter);
+  margin-block-start: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-strong);
+}
+
+.ht-nt__day-label {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.ht-nt__group {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  margin-block-end: var(--gz-space-4);
+  padding: 0;
+  padding-inline: var(--gz-space-gutter);
+  list-style: none;
+}
+
+.ht-nt__skel {
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--gz-space-gutter);
+}
+
+.ht-nt__skelrow {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.ht-nt__skelcol {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}

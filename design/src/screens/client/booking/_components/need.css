@@ -1,0 +1,32 @@
+/* VoucherNeed: the quiet rose panel that says "voucher first". Tokens only. */
+
+.bk-need {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  padding-inline: var(--gz-space-4) var(--gz-space-1);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}
+
+.bk-need__main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-2);
+  text-align: start;
+  cursor: pointer;
+}
+
+.bk-need__title {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.bk-need .bk-need__info {
+  flex: none;
+}

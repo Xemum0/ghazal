@@ -1,0 +1,98 @@
+/* The Ink band: ink-900, canvas text. The bar is the 56 row under the status bar (pinned); the intro scrolls away and ends in the
+   1 px gold-500 khayt. */
+
+.ht-bar {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-block-start: var(--gz-safe-top);
+  background: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.ht-bar__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  /* the bell's glyph sits on the 20 gutter: bar padding = gutter - (target - glyph) / 2 */
+  padding-inline-start: var(--gz-space-gutter);
+  padding-inline-end: var(--gz-space-2);
+}
+
+.ht-head__stamp {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-2);
+  color: var(--gz-color-sys-text-on-dark-muted);
+}
+
+.ht-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-1) var(--gz-space-6);
+  background: var(--gz-color-sys-surface-dark);
+  border-block-end-width: var(--gz-stroke-hair); border-block-end-style: solid; border-block-end-color: var(--gz-color-sys-mark-khayt);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.ht-head__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-control-lg);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-on-dark);
+  text-align: start;
+}
+
+button.ht-head__chip { cursor: pointer; }
+
+.ht-head__venue {
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.ht-head__bell {
+  position: relative; /* flutter-ok: the count badge is anchored to the bell (Stack) */
+  display: inline-flex;
+  flex: none;
+}
+
+.ht-head__count {
+  position: absolute; /* flutter-ok: Badge anchored top-end */
+  inset-block-start: var(--gz-space-1);
+  inset-inline-end: 0;
+  pointer-events: none;
+}
+
+.ht-head__date {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-on-dark-muted);
+}
+
+/* a quiet bead between the date and the role word */
+.ht-head__dot {
+  flex: none;
+  inline-size: var(--gz-space-1);
+  block-size: var(--gz-space-1);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.ht-head__status {
+  display: flex;
+  align-items: center;
+  margin-block-start: var(--gz-space-3);
+  color: var(--gz-color-sys-text-on-dark);
+}

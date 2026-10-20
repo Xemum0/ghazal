@@ -1,0 +1,65 @@
+/* CL-PLAN-04 Schedule a meeting (sheet content). Tokens only, logical properties, flex + gap. */
+
+.gzp4 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+}
+
+.gzp4-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzp4-skel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+}
+
+.gzp4-foot {
+  position: sticky; /* flutter-ok: pinned sliver */
+  inset-block-end: 0;
+  z-index: var(--gz-z-bar);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-3);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+/* ---------- confirmation: one drawing, the outcome, three facts, Done and Calendar (a single-purpose composition, so it centres) ---------- */
+.gzp4-done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-4);
+  padding-block: var(--gz-space-4) var(--gz-space-2);
+  text-align: center;
+}
+
+.gzp4-done__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzp4-done__facts {
+  align-self: stretch;
+  justify-content: center;
+  padding-block: var(--gz-space-3);
+  border-block-width: var(--gz-stroke-hair);
+  border-block-style: solid;
+  border-block-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzp4-done__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-3);
+}

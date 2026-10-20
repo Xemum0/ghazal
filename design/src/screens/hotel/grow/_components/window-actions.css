@@ -1,0 +1,59 @@
+/* WindowActions: price, scope as facts, three figures, the card as couples see it. Hairlines and tone, no shadows. */
+
+.go-act__what {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2) var(--gz-space-3);
+}
+
+.go-act__scope {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2) var(--gz-space-4);
+}
+
+.go-act__stats {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.go-act__stat {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 0;
+  padding: var(--gz-space-3) var(--gz-space-2);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.go-act__preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.go-act__toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.go-act__toggle-text {
+  flex: 1;
+  min-inline-size: 0;
+}

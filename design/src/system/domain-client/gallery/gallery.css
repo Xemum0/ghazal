@@ -1,0 +1,189 @@
+/* Client-domain gallery page (design/src/gallery/client.tsx). Harness-grade layout, flex + gap, tokens only. Not product CSS. */
+
+.gc {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  align-self: stretch;
+  max-inline-size: var(--gz-layout-max-width);
+  padding-block-end: var(--gz-space-24);
+}
+
+.gc-hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gc-hero p,
+.gc-hero h1 {
+  margin: 0;
+}
+
+.gc-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-2);
+}
+
+.gc-index__link {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-3);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-primary);
+  cursor: pointer;
+}
+
+.gc-sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+}
+
+.gc-sec__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gc-sec__head h2 {
+  margin: 0;
+}
+
+.gc-note {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gc-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-8);
+}
+
+.gc-spec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  margin: 0;
+}
+
+.gc-spec__state {
+  padding-block-start: var(--gz-space-2);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-secondary);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gc-spec__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  min-inline-size: 0;
+}
+
+.gc-spec__body--ink {
+  padding: var(--gz-space-4);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-dark);
+}
+
+.gc-spec__body--tint {
+  padding: var(--gz-space-4);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.gc-row {
+  display: flex;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gc-row > * {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* Rail card: 72% of the 390 frame snapped to 4 = 280 (ADR 0018 D8); the gallery stage is 350 so a fixed width is the honest specimen. */
+.gc-rail {
+  flex: none;
+  inline-size: 280px;
+}
+
+.gc-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gc-cap {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gc-replay {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Full-bleed specimens (compare thirds, bars): the screen gives them the whole frame width, the page gives 20 of gutter. Harness only. */
+.gc-spec__body--bleed {
+  margin-inline: calc(var(--gz-space-gutter) * -1); /* flutter-ok: gallery harness, not product CSS */
+}
+
+.gc-row--wrap {
+  flex-wrap: wrap;
+}
+
+/* Specimens of fixed-size marks (pills, chips): never squeezed, wrapped when the stage runs out. */
+.gc-row--fixed {
+  flex-wrap: wrap;
+}
+
+.gc-row--fixed > * {
+  flex: none;
+}
+
+.gc-pill {
+  display: inline-flex;
+  white-space: nowrap;
+  align-items: center;
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-primary);
+  cursor: pointer;
+}
+
+.gc-pill:disabled {
+  color: var(--gz-color-sys-text-disabled);
+  cursor: default;
+}
+
+.gc-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* A chat transcript inside a specimen: bubbles stack with the system's own spacing. */
+.gc-chat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}

@@ -1,0 +1,58 @@
+/* CL-PROF-02 Wedding info. Gutter 20; rows edge to edge; 24 between blocks. Tokens only. */
+
+.gzpr-wed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+}
+
+/* The drawing and the days to go, side by side: the figure sits on the drawing's baseline, not floating mid-row. */
+.gzpr-wed__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-6);
+}
+
+.gzpr-wed__head > .gz-istat {
+  align-items: baseline;
+}
+
+.gzpr-wed__head > .gz-illus {
+  flex: none;
+}
+
+.gzpr-wed__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+/* The booking strip: the hotel's name, then the date as a fact and the one action. */
+.gzpr-wed__strip {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-4);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gzpr-wed__venue {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzpr-wed__use {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: var(--gz-space-3);
+}

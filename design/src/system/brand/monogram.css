@@ -1,0 +1,70 @@
+/* Monogram: a square of 40 / 56 / 80 holding one display letter and the thread at its baseline. The letter sits above the thread. */
+
+.gz-monogram {
+  --gz-origin-start: 0 50%;
+  --gz-mg-base: 8px;
+  --gz-mg-thick: var(--gz-stroke-icon);
+  --gz-mg-knot: var(--gz-space-1);
+  position: relative; /* flutter-ok: named overlay anchor for the thread */
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-monogram--sm { inline-size: var(--gz-size-avatar-sm); block-size: var(--gz-size-avatar-sm); --gz-mg-base: 13px; }
+.gz-monogram--md { inline-size: var(--gz-size-avatar-md); block-size: var(--gz-size-avatar-md); --gz-mg-base: 19px; }
+.gz-monogram--lg { inline-size: var(--gz-space-20); block-size: var(--gz-space-20); --gz-mg-base: 30px; --gz-mg-thick: var(--gz-stroke-thread); --gz-mg-knot: var(--gz-size-knot-bead); }
+
+.gz-monogram--tile {
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.gz-monogram__letter {
+  position: relative; /* flutter-ok: the letter sits above the thread */
+  z-index: var(--gz-z-raised);
+  font-family: var(--gz-type-d2-family);
+  font-weight: var(--gz-type-d2-weight);
+  font-size: var(--gz-type-d2-size);
+  line-height: var(--gz-type-d2-line);
+}
+
+.gz-monogram--md .gz-monogram__letter {
+  font-size: var(--gz-type-d3-size);
+  line-height: var(--gz-type-d3-line);
+  font-weight: var(--gz-type-d3-weight);
+}
+
+.gz-monogram--lg .gz-monogram__letter {
+  font-size: var(--gz-type-d4-size);
+  line-height: var(--gz-type-d4-line);
+  font-weight: var(--gz-type-d4-weight);
+}
+
+.gz-monogram__thread {
+  position: absolute; /* flutter-ok: ThreadPainter layer */
+  inset-inline: 0;
+  inset-block-end: var(--gz-mg-base);
+  display: flex;
+  align-items: center;
+  block-size: var(--gz-mg-thick);
+}
+
+.gz-monogram__line {
+  flex: 1;
+  block-size: var(--gz-mg-thick);
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-monogram__knot {
+  flex: none;
+  inline-size: var(--gz-mg-knot);
+  block-size: var(--gz-mg-knot);
+  background-color: var(--gz-color-sys-mark-khayt);
+  transform: rotate(45deg);
+}

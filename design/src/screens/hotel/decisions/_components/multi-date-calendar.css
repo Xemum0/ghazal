@@ -1,0 +1,158 @@
+/* MultiDateCalendar (hotel/decisions): the anatomy of the system Calendar (cell 52 high, at least 44 wide, Thu-Sat band at the
+   inline-end edge) with several selected days. Gold is the selected day only; busy days are struck, never colour alone. */
+
+.gzd-cal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gzd-cal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+}
+
+.gzd-cal__titles {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  min-inline-size: 0;
+}
+
+.gzd-cal__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+  text-align: center;
+}
+
+.gzd-cal__grid {
+  display: flex;
+  flex-direction: column;
+  /* room for the selected day's two rings at the outer columns (the sheet body clips what overflows it) */
+  padding-inline: var(--gz-space-1);
+}
+
+.gzd-cal__row {
+  display: flex;
+}
+
+.gzd-cal__hcell {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 0;
+  block-size: var(--gz-space-8);
+  color: var(--gz-color-sys-text-secondary);
+  white-space: nowrap;
+}
+
+.gzd-cal__cell {
+  position: relative; /* flutter-ok: anchor of the original-date mark */
+  display: flex;
+  flex: 1 1 0;
+  min-inline-size: 0;
+  block-size: var(--gz-size-cal-cell-height);
+}
+
+.gzd-cal__hcell[data-peak],
+.gzd-cal__cell[data-peak] {
+  background: var(--gz-color-sys-surface-tint-soft);
+}
+
+.gzd-cal__hcell[data-top][data-peak='first'] { border-start-start-radius: var(--gz-radius-md); }
+.gzd-cal__hcell[data-top][data-peak='last'] { border-start-end-radius: var(--gz-radius-md); }
+.gzd-cal__cell[data-bottom][data-peak='first'] { border-end-start-radius: var(--gz-radius-md); }
+.gzd-cal__cell[data-bottom][data-peak='last'] { border-end-end-radius: var(--gz-radius-md); }
+
+/* ---------- day ---------- */
+.gzd-cal__day {
+  position: relative; /* flutter-ok: above the cell band */
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 0;
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: transparent;
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color var(--gz-motion-duration-fast) var(--gz-motion-ease-standard),
+    border-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gzd-cal__price {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzd-cal__day[aria-disabled='true'] {
+  cursor: default;
+}
+
+/* busy, taken: a struck figure in ink-500; past: ink-400, no strike */
+.gzd-cal__day[data-status='busy'] .gzd-cal__fig,
+.gzd-cal__day[data-status='taken'] .gzd-cal__fig {
+  color: var(--gz-color-sys-border-control);
+  text-decoration: line-through;
+  text-decoration-thickness: var(--gz-stroke-hair);
+}
+
+.gzd-cal__day[data-status='taken'] {
+  border-color: var(--gz-color-sys-border-error);
+}
+
+.gzd-cal__day[data-status='past'] .gzd-cal__fig {
+  color: var(--gz-color-sys-icon-disabled);
+}
+
+/* the original date: an ink hairline box and a small bead, so it reads as "where we started" */
+.gzd-cal__day[data-status='original'] {
+  border-color: var(--gz-color-sys-border-control);
+}
+
+.gzd-cal__orig {
+  position: absolute; /* flutter-ok: corner mark anchored inside the day */
+  inset-block-start: var(--gz-space-2);
+  inset-inline-end: var(--gz-space-2);
+  inline-size: var(--gz-space-2);
+  block-size: var(--gz-space-2);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-border-control);
+}
+
+.gzd-cal__day[data-today] {
+  border-color: var(--gz-color-sys-border-focus);
+}
+
+/* selected: gold fill, ink label, radius 8, a 2 px canvas ring and a 1 px gold-600 ring outside it (direction 2.3 b) */
+.gzd-cal__day[data-selected] {
+  z-index: var(--gz-z-raised);
+  background: var(--gz-color-sys-mark-khayt);
+  border-color: var(--gz-color-sys-mark-khayt);
+  color: var(--gz-color-sys-text-on-gold);
+  box-shadow: 0 0 0 var(--gz-stroke-thread) var(--gz-color-sys-surface-canvas);
+  outline-width: var(--gz-stroke-hair);
+  outline-style: solid;
+  outline-color: var(--gz-color-sys-mark-decor);
+  outline-offset: var(--gz-stroke-thread);
+}
+
+.gzd-cal__day[data-selected] .gzd-cal__price {
+  color: var(--gz-color-sys-text-on-gold);
+}
+
+.gzd-cal__day:focus-visible {
+  outline-width: var(--gz-stroke-focus);
+  outline-style: solid;
+  outline-color: var(--gz-color-sys-focus-ring);
+  outline-offset: var(--gz-stroke-focus-offset);
+}

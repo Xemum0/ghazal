@@ -1,0 +1,56 @@
+.gzv-hist {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzv-hist__item {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+}
+
+.gzv-hist__rail {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  inline-size: var(--gz-space-6);
+  padding-block-start: var(--gz-space-3);
+}
+
+.gzv-hist__line {
+  flex: 1;
+  inline-size: var(--gz-stroke-hair);
+  min-block-size: var(--gz-space-3);
+  background-color: var(--gz-color-sys-border-strong);
+}
+
+/* One row: glyph, word, date (and a chevron when the row opens something). At least 48 high (the knot slot is 24, so its centre sits 12 + 12 down, level with the row) so the paid row is a real target. */
+.gzv-hist__row {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-control-md);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+  text-align: start;
+}
+
+.gzv-hist__row--press {
+  border-radius: var(--gz-radius-sm);
+}
+
+.gzv-hist__word {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzv-hist__time {
+  color: var(--gz-color-sys-text-secondary);
+  white-space: nowrap;
+}

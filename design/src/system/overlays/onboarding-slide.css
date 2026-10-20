@@ -1,0 +1,31 @@
+/* OnboardingSlide: the drawing over its five words, centred in the page, generous space. */
+
+.gz-oslide {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-8);
+  min-block-size: 0;
+  padding-block: var(--gz-space-8);
+  padding-inline: var(--gz-space-gutter);
+  text-align: center;
+}
+
+.gz-oslide__art {
+  display: inline-flex;
+  flex: none;
+  animation: gz-image-reveal var(--gz-motion-duration-expressive) var(--gz-motion-ease-emphasized) both;
+}
+
+.gz-oslide__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-oslide__art {
+    animation: none;
+  }
+}

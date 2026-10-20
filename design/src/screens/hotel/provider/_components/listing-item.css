@@ -1,0 +1,16 @@
+/* ListingItem: the card, then its next step at the inline-start edge. */
+
+.hp-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hp-item__step {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}

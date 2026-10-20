@@ -1,0 +1,50 @@
+/* RequestRow: a ListRow (80) with a stacked trailing column. Nothing but the SLA tone changes colour. */
+
+.gz-qrow__disk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.gz-qrow__title {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gz-qrow__new {
+  display: inline-flex;
+  flex: none;
+}
+
+.gz-qrow__title > [lang] {
+  min-inline-size: 0;
+}
+
+.gz-qrow__end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--gz-space-1);
+}
+
+.gz-qrow__amount {
+  align-items: baseline;
+}
+
+.gz-qrow__left {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+  white-space: nowrap;
+}
+
+.gz-qrow__left--gold { color: var(--gz-color-sys-text-gold-ink); }
+.gz-qrow__left--danger { color: var(--gz-color-sys-text-danger); }

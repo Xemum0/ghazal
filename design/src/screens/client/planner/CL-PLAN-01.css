@@ -1,0 +1,105 @@
+/* CL-PLAN-01 Planner packages. Tokens only, logical properties, flex + gap. */
+
+/* The wedding line (booking and My Wedding entries) sits inside the gutters above the tier control. */
+.gzp1-context {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-2);
+}
+
+/* The segmented control stays under the bar while the plate scrolls (Scaffold persistent header). */
+.gzp1-sticky {
+  position: sticky; /* flutter-ok: pinned sliver */
+  inset-block-start: 0;
+  z-index: var(--gz-z-sticky-header);
+  padding-block: var(--gz-space-2) var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  background-color: var(--gz-color-sys-surface-canvas);
+}
+
+.gzp1-more {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-4);
+  padding-block-end: var(--gz-space-section);
+}
+
+/* ---------- compare table ---------- */
+.gzp1-heads {
+  position: sticky; /* flutter-ok: pinned sliver */
+  inset-block-start: 0;
+  z-index: var(--gz-z-sticky-header);
+  display: flex;
+  align-items: stretch;
+  background-color: var(--gz-color-sys-surface-canvas);
+  border-block-width: var(--gz-stroke-hair);
+  border-block-style: solid;
+  border-block-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzp1-headcol {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-touch-min);
+  padding: var(--gz-space-3);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzp1-headcol + .gzp1-headcol {
+  border-inline-start-width: var(--gz-stroke-hair);
+  border-inline-start-style: solid;
+  border-inline-start-color: var(--gz-color-sys-border-hairline);
+}
+
+/* The chosen column: ink hairline on paper with the bead (a thing chosen), like a selected chip. */
+.gzp1-headcol.is-chosen {
+  background-color: var(--gz-color-sys-surface-raised);
+  box-shadow: 0 0 0 var(--gz-stroke-thread) var(--gz-color-sys-control-chip-border-selected);
+  position: relative; /* flutter-ok: the ring must paint over the neighbouring hairline */
+  z-index: var(--gz-z-raised);
+}
+
+.gzp1-headcol__thumb {
+  display: flex;
+  align-self: stretch;
+  overflow: hidden;
+  aspect-ratio: var(--gz-layout-aspect-1x1);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gzp1-headcol__photo {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+.gzp1-headcol__name {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzp1-headcol__marks {
+  display: flex;
+  align-items: center;
+  min-block-size: var(--gz-size-icon-xs);
+}
+
+.gzp1-fromcell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gzp1-tick {
+  display: flex;
+  align-items: center;
+  min-block-size: var(--gz-size-icon-sm);
+}
+
+.gzp1-dash {
+  color: var(--gz-color-sys-text-disabled);
+}

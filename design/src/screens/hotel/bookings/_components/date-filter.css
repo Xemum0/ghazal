@@ -1,0 +1,41 @@
+.hbk-range {
+  display: flex;
+  align-items: center;
+  min-block-size: var(--gz-size-touch-min);
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The applied range: one chip (44, radius 8, ink-900 border like a chosen chip) whose label opens the filter and whose cross removes it. */
+.hbk-rchip {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-control-sm);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.hbk-rchip__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-block-size: var(--gz-size-control-sm);
+  padding-inline: var(--gz-space-3) var(--gz-space-1);
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+  cursor: pointer;
+}
+
+.hbk-rchip__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: var(--gz-size-touch-min);
+  min-block-size: var(--gz-size-control-sm);
+  color: var(--gz-color-sys-icon-primary);
+  cursor: pointer;
+}

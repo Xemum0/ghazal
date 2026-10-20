@@ -1,0 +1,63 @@
+/* System chrome. Heights and the indicator size are tokens; the notch gap is device hardware (iPhone notch, 162 wide) and is
+   only the gap between the two ears, so the time and the icons centre in the free space at every width from 360 to 430. */
+.gz-statusbar {
+  position: absolute; /* flutter-ok: system chrome overlay; Flutter reads MediaQuery.padding.top and draws nothing */
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: var(--gz-z-modal);
+  display: flex;
+  align-items: center;
+  block-size: var(--gz-safe-top);
+  direction: ltr;
+  pointer-events: none;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-statusbar[data-tone='light'] {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-statusbar__zone {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-1);
+  /* The ears sit lower than the bar's optical centre on a notched phone. */
+  padding-block-start: var(--gz-space-1);
+}
+
+.gz-statusbar__notch-gap {
+  flex: none;
+  inline-size: 160px;
+}
+
+.gz-statusbar__time {
+  /* The role class carries the Cairo 600 15/20 voice and the tone colour is the bar's. */
+  color: inherit;
+}
+
+.gz-homebar {
+  position: absolute; /* flutter-ok: system chrome overlay */
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: var(--gz-z-modal);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  block-size: var(--gz-safe-bottom);
+  padding-block-end: var(--gz-space-2);
+  pointer-events: none;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-homebar[data-tone='light'] {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-homebar__pill {
+  inline-size: var(--gz-size-home-indicator-width);
+  block-size: var(--gz-size-home-indicator-height);
+  border-radius: var(--gz-radius-pill);
+  background: currentColor;
+}

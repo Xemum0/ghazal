@@ -1,0 +1,250 @@
+/* Reading surfaces inside the Studio: a gallery page and a design document. Ivory page, serif title, a khayt above it. */
+
+.gzs-page {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  overflow-y: auto;
+  padding-block: var(--gz-space-8) var(--gz-space-16);
+  padding-inline: var(--gz-space-8);
+  background: var(--gz-color-sys-surface-canvas);
+}
+
+.gzs-page--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gzs-page__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  max-inline-size: 760px;
+  margin-block-end: var(--gz-space-8);
+}
+
+.gzs-page__head h1 {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-page__note {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-page__gallery {
+  padding: 0;
+}
+
+.gzs-page--doc {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-10);
+}
+
+.gzs-doc {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  max-inline-size: 880px;
+}
+
+.gzs-doc__body {
+  min-inline-size: 0;
+}
+
+.gzs-toc {
+  position: sticky; /* flutter-ok: pinned sliver (harness table of contents) */
+  inset-block-start: 0;
+  flex: none;
+  inline-size: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-2);
+}
+
+.gzs-toc h2 {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-toc ul {
+  display: flex;
+  flex-direction: column;
+  border-inline-start: var(--gz-stroke-hair) solid var(--gz-color-sys-border-strong);
+}
+
+.gzs-toc__link {
+  display: flex;
+  align-items: center;
+  min-block-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-3);
+  color: var(--gz-color-sys-text-secondary);
+  text-decoration: none;
+}
+
+.gzs-toc__link:active {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* ---------------------------------------------------------------- markdown */
+
+.gzs-md {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  font-family: var(--gz-font-ui);
+  font-size: var(--gz-type-body-s-size);
+  line-height: var(--gz-type-body-s-line);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzs-md__h {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+  scroll-margin-block-start: var(--gz-space-6);
+}
+
+.gzs-md__h1 {
+  margin-block-start: var(--gz-space-8);
+  padding-block-start: var(--gz-space-5);
+  border-block-start: var(--gz-stroke-hair) solid var(--gz-color-sys-border-hairline);
+  font-family: var(--gz-font-display);
+  font-size: var(--gz-type-d2-size);
+  line-height: var(--gz-type-d2-line);
+  font-weight: 400;
+}
+
+.gzs-md__h2 {
+  margin-block-start: var(--gz-space-6);
+  font-family: var(--gz-font-display);
+  font-size: var(--gz-type-d1-size);
+  line-height: var(--gz-type-d1-line);
+  font-weight: 400;
+}
+
+.gzs-md__h3,
+.gzs-md__h4 {
+  margin-block-start: var(--gz-space-4);
+  font-size: var(--gz-type-body-size);
+  line-height: var(--gz-type-body-line);
+  font-weight: 600;
+}
+
+.gzs-md__p {
+  margin: 0;
+  max-inline-size: 760px;
+}
+
+.gzs-md__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  margin: 0;
+  max-inline-size: 760px;
+  padding-inline-start: var(--gz-space-5);
+}
+
+ul.gzs-md__list {
+  list-style: disc;
+}
+
+ol.gzs-md__list {
+  list-style: decimal;
+}
+
+.gzs-md__quote {
+  margin: 0;
+  max-inline-size: 760px;
+  padding-inline-start: var(--gz-space-4);
+  border-inline-start: var(--gz-stroke-thread) solid var(--gz-color-sys-mark-khayt);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-md__hr {
+  /* flutter-ok: harness chrome (web-only geometry) */
+  inline-size: 100%;
+  margin: var(--gz-space-4) 0;
+  border: 0;
+  border-block-start: var(--gz-stroke-hair) solid var(--gz-color-sys-border-hairline);
+}
+
+.gzs-md__code {
+  padding-inline: var(--gz-space-1);
+  border-radius: var(--gz-radius-xs);
+  background: var(--gz-color-sys-surface-quiet);
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: var(--gz-type-caption-size);
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.gzs-md__pre {
+  margin: 0;
+  padding: var(--gz-space-4);
+  overflow-x: auto;
+  border: var(--gz-stroke-hair) solid var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-quiet);
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: var(--gz-type-caption-size);
+  line-height: var(--gz-type-caption-line);
+}
+
+.gzs-md__ref {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: 500;
+}
+
+.gzs-md a {
+  color: var(--gz-color-sys-text-gold-ink);
+  text-decoration: underline;
+  text-underline-offset: var(--gz-space-1);
+}
+
+.gzs-md__tablewrap {
+  overflow-x: auto;
+  border: var(--gz-stroke-hair) solid var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-raised);
+}
+
+.gzs-md__table {
+  border-collapse: collapse;
+  /* flutter-ok: harness chrome (web-only geometry) */
+  inline-size: 100%;
+  font-size: var(--gz-type-caption-size);
+  line-height: var(--gz-type-caption-line);
+}
+
+.gzs-md__table th,
+.gzs-md__table td {
+  padding: var(--gz-space-2) var(--gz-space-3);
+  border-block-end: var(--gz-stroke-hair) solid var(--gz-color-sys-border-hairline);
+  text-align: start;
+  vertical-align: top;
+  min-inline-size: var(--gz-space-20);
+}
+
+.gzs-md__table th {
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-text-strong);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.gzs-md__table tr:last-child td {
+  border-block-end: 0;
+}
+
+@media (max-width: 1100px) {
+  .gzs-toc {
+    display: none;
+  }
+
+  .gzs-page {
+    padding-inline: var(--gz-space-5);
+  }
+}

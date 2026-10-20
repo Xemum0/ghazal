@@ -1,0 +1,54 @@
+/* RegionList: governorate groups separated by hairlines, areas indented one step under their group. */
+.gzd-region {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzd-region__group {
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzd-region__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+}
+
+.gzd-region__head .gz-check,
+.gzd-region__areas .gz-check {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzd-region__name {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzd-region__count {
+  margin-inline-start: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzd-region__areas {
+  margin: 0;
+  padding: 0;
+  padding-inline-start: var(--gz-space-6);
+  padding-block-end: var(--gz-space-2);
+  list-style: none;
+}
+
+/* The Checkbox label holds the name and the count: name at inline-start, count at inline-end. */
+.gzd-region__check .gz-check__label {
+  display: flex;
+  flex: 1;
+  align-items: baseline;
+  justify-content: space-between;
+  min-inline-size: 0;
+}

@@ -1,0 +1,76 @@
+/* CL-PLAN-03 Your planner. Tokens only, logical properties, flex + gap. The waiting drawing and the wordless "what next" drawing are the
+   system's EmptyState; nothing here draws them. */
+
+.gzp3-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-3) var(--gz-space-section);
+}
+
+/* Three knots, one thread edge to edge: the last column hugs its knot (the system gives every column an equal share, which leaves the
+   last third of a three-step thread empty). Its one-word label ends flush with the knot's outer edge, so it stays inside the gutter
+   instead of running 25 px past the knot toward the screen edge. */
+.gzp3-thread .gz-iprog__col:last-child {
+  flex: 0 0 auto;
+}
+
+.gzp3-thread .gz-iprog__col:last-child .gz-iprog__label {
+  justify-content: flex-end;
+}
+
+/* ---------- meeting card ---------- */
+.gzp3-meeting {
+  gap: var(--gz-space-3);
+}
+
+.gzp3-meeting__when {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+}
+
+.gzp3-meeting__time {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzp3-meeting__date {
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzp3-today {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-gold-ink);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gzp3-meeting__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzp3-meeting__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+/* ---------- edit and cancel (only while unassigned) ---------- */
+.gzp3-manage {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.gzp3-manage > * {
+  flex: 1;
+}

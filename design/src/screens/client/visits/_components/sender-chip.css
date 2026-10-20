@@ -1,0 +1,28 @@
+/* SenderChip: a 24 high text chip at the start edge of a run, the shape and tones of the system RoleBadge (ink tint = hotel, rose tint =
+   support), so the roles read apart by surface and by word. Tokens only. */
+.gzvt-sc {
+  display: inline-flex;
+  align-self: flex-start;
+  padding-inline: var(--gz-space-1);
+}
+
+.gzvt-sc__chip {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-xs);
+  white-space: nowrap;
+}
+
+.gzvt-sc[data-role='hotel_representative'] .gzvt-sc__chip {
+  background-color: var(--gz-color-sys-status-neutral-bg);
+  color: var(--gz-color-sys-status-neutral-text);
+}
+
+.gzvt-sc[data-role='support'] .gzvt-sc__chip {
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-strong);
+}

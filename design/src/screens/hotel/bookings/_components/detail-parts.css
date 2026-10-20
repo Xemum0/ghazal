@@ -1,0 +1,135 @@
+/* Booking detail anatomy. Blocks are 32 apart (section rhythm), content inside a block 12 under its head. Panels: paper + 1 px ink-300,
+   radius 12, padding 16; quiet = ink-50; tint = rose-100 (quiet notes only). Glyph lines: min 56, hairline between. Tokens only. */
+
+.hbk-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.hbk-block__head {
+  min-inline-size: 0;
+}
+
+.hbk-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hbk-panel--paper {
+  background-color: var(--gz-color-sys-surface-raised);
+  border-color: var(--gz-color-sys-border-strong);
+}
+
+.hbk-panel--quiet {
+  background-color: var(--gz-color-sys-surface-quiet);
+  border-color: var(--gz-color-sys-border-hairline);
+}
+
+.hbk-panel--tint {
+  background-color: var(--gz-color-sys-surface-tint);
+  border-color: var(--gz-color-sys-surface-tint);
+}
+
+/* ---- glyph lines */
+
+.hbk-lines {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hbk-line {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.hbk-line:last-child {
+  border-block-end-width: 0;
+}
+
+.hbk-line:first-child {
+  padding-block-start: 0;
+}
+
+.hbk-line:last-child {
+  padding-block-end: 0;
+}
+
+.hbk-line__glyph {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.hbk-line__lead {
+  display: flex;
+  flex: none;
+}
+
+.hbk-line__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.hbk-line__value {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.hbk-line__trailing {
+  display: flex;
+  flex: none;
+  align-items: baseline;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* ---- notice line */
+
+.hbk-note-line {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hbk-note-line > .gz-icon {
+  flex: none;
+}
+
+.hbk-note-line__text {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.hbk-copy {
+  display: inline;
+  user-select: none;
+}

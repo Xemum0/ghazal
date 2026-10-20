@@ -1,0 +1,405 @@
+/* Compare (ADR 0009 + direction section 3): full-bleed fluid thirds, 12 inner padding, 1 px hairlines between, no label column, no
+   horizontal scroll. Equal flex columns (Flutter: Row of Expanded, Table for rows). Tokens only; sticky only for the pinned bars. */
+
+/* ---------- range bar ---------- */
+.gz-rbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-rbar__stage {
+  position: relative; /* flutter-ok: named overlay anchor for the tick row (Stack) */
+  display: flex;
+  align-items: center;
+  block-size: var(--gz-size-knot-compact);
+}
+
+.gz-rbar__track {
+  display: flex;
+  flex: 1;
+  block-size: var(--gz-stroke-thread);
+}
+
+.gz-rbar__fill {
+  flex-basis: 0;
+  flex-shrink: 0;
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-rbar__rest {
+  flex-basis: 0;
+  flex-shrink: 0;
+  background-color: var(--gz-color-sys-mark-track);
+}
+
+.gz-rbar__ticks {
+  position: absolute; /* flutter-ok: named overlay anchor, tick row over the track */
+  inset: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.gz-rbar__ticks > span:not(.gz-rbar__tick) {
+  flex-basis: 0;
+  flex-shrink: 0;
+}
+
+.gz-rbar__tick {
+  flex: none;
+  inline-size: var(--gz-stroke-icon);
+  background-color: var(--gz-color-sys-text-primary);
+}
+
+.gz-rbar__legend {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-rbar__tick--legend {
+  block-size: var(--gz-size-knot-compact);
+}
+
+/* ---------- best in row ---------- */
+.gz-best {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--gz-space-1);
+}
+
+.gz-best .gz-cbead {
+  align-self: center;
+}
+
+/* ---------- header ---------- */
+.gz-cmph {
+  display: flex;
+  align-items: stretch;
+  background-color: var(--gz-color-sys-surface-canvas);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-cmph--pinned {
+  position: sticky; /* flutter-ok: pinned sliver */
+  inset-block-start: 0;
+  z-index: var(--gz-z-sticky-header);
+}
+
+.gz-cmph__col {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: var(--gz-space-3);
+}
+
+.gz-cmph__col + .gz-cmph__col {
+  border-inline-start-width: var(--gz-stroke-hair);
+  border-inline-start-style: solid;
+  border-inline-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-cmph__thumb {
+  position: relative; /* flutter-ok: named overlay anchor for the remove target */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  aspect-ratio: var(--gz-layout-aspect-4x5);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gz-cmph__photo {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+/* Remove: 24 visible in a 44 target at the thumbnail's top inline-end corner. */
+.gz-cmph__remove {
+  position: absolute; /* flutter-ok: named overlay anchor */
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  padding: var(--gz-space-1);
+  cursor: pointer;
+}
+
+.gz-cmph__x {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-canvas);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-scrim-ring-fab);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.gz-cmph__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  align-self: stretch;
+}
+
+.gz-cmph__thumb {
+  position: relative; /* flutter-ok: named overlay anchor for open, remove and pick (Stack children) */
+}
+
+.gz-cmph__thumb.is-picked {
+  box-shadow: 0 0 0 var(--gz-stroke-focus) var(--gz-color-sys-border-focus);
+}
+
+.gz-cmph__open {
+  position: absolute; /* flutter-ok: named overlay anchor, the stretched open target (one InkWell) */
+  inset: 0;
+  cursor: pointer;
+}
+
+/* The pick control: a canvas disk with a quiet check until the hall is chosen, then an ink disk with a canvas check. Never gold. */
+.gz-cmph__pick {
+  position: absolute; /* flutter-ok: named overlay anchor (PositionedDirectional) */
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  z-index: var(--gz-z-raised);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  padding: var(--gz-space-1);
+  cursor: pointer;
+}
+
+.gz-cmph__disk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-canvas);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-scrim-ring-fab);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-cmph__disk.is-on {
+  background-color: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+/* The name takes the free height so the area and the badge sit on one line across the three columns, whatever the name's length. */
+.gz-cmph__name {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  min-inline-size: 0;
+}
+
+.gz-cmph__name--button {
+  text-align: start;
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+}
+
+/* A fourth line for the longest names, before they are cut. */
+.gz-cmph__name--4 {
+  display: -webkit-box; /* flutter-ok: maxLines 4 with TextOverflow.ellipsis */
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+/* A badge in a 106 column wraps to two lines instead of overflowing it. */
+.gz-cmph__text .gz-badge {
+  flex-shrink: 1;
+  min-inline-size: 0;
+  white-space: normal;
+}
+
+.gz-cmph__area {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* Compact (scrolled): thumbs 40, one line of name, no area or badge. Height tween 200 ms is the screen's scroll listener. */
+.gz-cmph.is-compact {
+  align-items: center;
+}
+
+.gz-cmph.is-compact .gz-cmph__name {
+  display: block;
+}
+
+.gz-cmph.is-compact .gz-cmph__col {
+  flex-direction: row;
+  align-items: center;
+  padding-block: var(--gz-space-2);
+}
+
+.gz-cmph.is-compact .gz-cmph__thumb {
+  flex: none;
+  aspect-ratio: var(--gz-layout-aspect-1x1);
+  inline-size: var(--gz-size-thumb-sm);
+}
+
+.gz-cmph.is-compact .gz-cmph__remove {
+  display: none;
+}
+
+/* ---------- band, rows ---------- */
+.gz-cmpb {
+  padding-block: var(--gz-space-2);
+  padding-inline: var(--gz-space-3);
+  background-color: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-text-primary);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-cmpr {
+  display: flex;
+  flex-direction: column;
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-cmpr__label {
+  margin: 0;
+  padding-block-start: var(--gz-space-3);
+  padding-inline: var(--gz-space-3);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-cmpr__cells {
+  display: flex;
+  align-items: stretch;
+}
+
+.gz-cmpr__cell {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  min-inline-size: 0;
+  padding-block: var(--gz-space-2) var(--gz-space-3);
+  padding-inline: var(--gz-space-3);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-cmpr__cell + .gz-cmpr__cell {
+  border-inline-start-width: var(--gz-stroke-hair);
+  border-inline-start-style: solid;
+  border-inline-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-cmpr__cell .gz-pill {
+  /* "Unavailable" with its icon is 100 wide in a 93 inner column at 360: tighter inline padding keeps the pill inside its cell. */
+  padding-inline: var(--gz-space-1);
+}
+
+.gz-cmpr__cell .gz-cmpr__sub {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-cmpr__cell .gz-cmpr__dash {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-cmpr__cell .gz-cmpr__fact {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+}
+
+.gz-cmpr__cell .gz-cmpr__fact > .gz-icon {
+  flex: none;
+}
+
+.gz-cmpr__cell .gz-cmpr__strip {
+  display: flex;
+  overflow: hidden;
+  aspect-ratio: var(--gz-layout-aspect-4x3);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+/* ---------- toggle ---------- */
+.gz-cmpt {
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* ---------- action bar ---------- */
+.gz-cmpa {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-3);
+  background-color: var(--gz-color-sys-surface-canvas);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-cmpa--pinned {
+  position: sticky; /* flutter-ok: pinned sliver */
+  inset-block-end: 0;
+  z-index: var(--gz-z-bar);
+}
+
+.gz-cmpa__col {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-cmpa__btn {
+  /* A third of the row is about 110 at 360: the label ("See dates", "Request") keeps to the button instead of running out of it. */
+  padding-inline: var(--gz-space-2);
+}
+
+.gz-cmpa__name {
+  display: block;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-cmph.is-compact .gz-cmph__text {
+  flex: 1;
+  min-inline-size: 0;
+  align-items: stretch; /* the name is as wide as the column, so the ellipsis can happen (a flex-start child clips hard at the edge) */
+  overflow: hidden;
+}
+
+.gz-cmph.is-compact .gz-cmph__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The standard price row is the quiet one: the voucher price above it is the headline. */
+.gz-cmpr__quiet .gz-money__amt {
+  color: var(--gz-color-sys-text-secondary);
+}

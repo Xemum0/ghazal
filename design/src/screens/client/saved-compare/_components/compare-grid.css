@@ -1,0 +1,286 @@
+/* The compare table of CL-SAVD-04. The thirds, rows and bars come from the system's compare.css (global gz-cmp* classes); this file adds
+   the pinned compact strip, the tap targets in the header, the differences switch, the glyph cells, the expandable Packages row, the
+   photo strips and the aligned footer. */
+
+.svd-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- compact strip: a zero-height sticky slot; the strip hangs from it while the expanded header is out of view ---------- */
+.svd-pin {
+  position: sticky; /* flutter-ok: pinned sliver (SliverPersistentHeader, pinned, compact extent) */
+  inset-block-start: 0;
+  z-index: var(--gz-z-sticky-header);
+  flex: none;
+  block-size: 0;
+}
+
+.svd-pin__inner {
+  position: absolute; /* flutter-ok: named overlay anchor, the strip hangs from the sticky slot */
+  inset-inline: 0;
+  inset-block-start: 0;
+  visibility: hidden;
+  /* flutter-ok: fade (AnimatedOpacity) */
+  opacity: 0;
+  transition:
+    opacity var(--gz-motion-duration-base) var(--gz-motion-ease-standard),
+    visibility var(--gz-motion-duration-instant) var(--gz-motion-ease-linear) var(--gz-motion-duration-base);
+}
+
+.svd-pin__inner.is-on {
+  visibility: visible;
+  /* flutter-ok: fade */
+  opacity: 1;
+  transition: opacity var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svd-pin__inner,
+  .svd-pin__inner.is-on {
+    transition: opacity var(--gz-motion-duration-fast) var(--gz-motion-ease-standard);
+  }
+}
+
+/* ---------- header ---------- */
+.svd-head__thumb {
+  position: relative; /* flutter-ok: named overlay anchor for open, remove and pick */
+}
+
+.svd-head__thumb.is-picked {
+  box-shadow: 0 0 0 var(--gz-stroke-focus) var(--gz-color-sys-border-focus);
+}
+
+.svd-head__open {
+  position: absolute; /* flutter-ok: named overlay anchor, the stretched open target */
+  inset: 0;
+  cursor: pointer;
+}
+
+.svd-head__pick {
+  position: absolute; /* flutter-ok: named overlay anchor (PositionedDirectional) */
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  z-index: var(--gz-z-raised);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  padding: var(--gz-space-1);
+  cursor: pointer;
+}
+
+/* The pick control: a canvas disk with a quiet check until the hall is chosen, then an ink disk with a canvas check. Never gold, never on by default. */
+.svd-head__disk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-canvas);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-scrim-ring-fab);
+  color: var(--gz-color-sys-text-secondary);
+  transition:
+    background-color var(--gz-motion-duration-fast) var(--gz-motion-ease-standard),
+    color var(--gz-motion-duration-fast) var(--gz-motion-ease-standard);
+}
+
+.svd-head__disk.is-on {
+  background-color: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+/* The name takes the free height so area and badge sit on one line across the three columns, whatever the name's length (up to 3 lines). */
+.svd-head__text {
+  flex: 1 1 auto;
+}
+
+.svd-head__text > .gz-cmph__name,
+.svd-head__text > .svd-head__name {
+  flex: 1 1 auto;
+}
+
+.svd-head__name {
+  min-block-size: 0;
+  min-inline-size: 0;
+  text-align: start;
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+}
+
+/* ---------- rows ---------- */
+/* Differences | all as two glyphs, the count of hidden rows beside it. */
+.svd-diff {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.svd-diff__seg {
+  flex: 1;
+}
+
+/* No date: one tertiary action, no sentence. */
+.svd-setdate {
+  display: flex;
+  justify-content: flex-start;
+  padding-inline: var(--gz-space-gutter);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+/* A row of glyph cells: each cell centres its one fact on the row's height. */
+.svd-row4 .gz-cmpr__cell {
+  justify-content: center;
+  padding-block: var(--gz-space-3);
+}
+
+/* A glyph that is the whole value (a check, a bank, a dash). */
+.svd-cmark {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* A facility or the setting: the glyph, then its state mark. */
+.svd-cfac {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.svd-lockpair {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.svd-expand {
+  display: flex;
+  justify-content: center;
+  padding-inline: var(--gz-space-gutter);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.svd-pkglist {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.svd-strips {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.svd-strip {
+  display: flex;
+  overflow: hidden;
+  aspect-ratio: var(--gz-layout-aspect-4x3);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-surface-placeholder);
+  cursor: pointer;
+}
+
+.svd-strip__photo {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+/* ---------- footer ---------- */
+/* The system bar spaces its buttons with a 12 gap inside 12 of padding, which sits 4 off the table's thirds. Here every column carries
+   its own 12 of padding, so a button's edges are exactly its column's cell edges. The bottom adds the home-indicator inset (no tab bar). */
+.svd-bar {
+  flex: none;
+  background-color: var(--gz-color-sys-surface-canvas);
+  padding-block-end: var(--gz-safe-bottom);
+}
+
+.svd-bar .gz-cmpa {
+  gap: 0;
+  padding-inline: 0;
+}
+
+.svd-bar .gz-cmpa__col {
+  padding-inline: var(--gz-space-3);
+}
+
+/* A third of the bar is 96 wide at 360: the glyph, its gap and a one-word label (Voucher, التواريخ) must fit with air on both sides, so
+   the button gives up its side padding and the glyph gap (the label never touches the outline). */
+.svd-bar .gz-cmpa__btn {
+  gap: var(--gz-space-1);
+  padding-inline: var(--gz-space-1);
+}
+
+/* Names are clamped to two lines (the full name stays in the DOM and the open target); area and a fixed-height badge slot sit at the bottom
+   of every column, so the three columns align whether or not a column has a badge. */
+.svd-head .gz-clamp-3 {
+  -webkit-line-clamp: 2;
+}
+
+.svd-head .gz-cmph__text .gz-badge {
+  flex: none;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.svd-head__slot {
+  display: block;
+  flex: none;
+  min-block-size: var(--gz-size-pill-min);
+}
+
+/* The pinned strip keeps two lines of name (56 high, 40 thumbnail): one line cut every hall name after its first word. */
+.svd-pin__inner .gz-cmph.is-compact .gz-cmph__name {
+  display: -webkit-box; /* flutter-ok: maxLines: 2 with TextOverflow.ellipsis */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal;
+}
+
+/* The standard price sits quieter than the voucher price it is compared with (same figures voice, secondary ink). */
+.svd-quiet {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* You save: the trend glyph and the amount on one line, the success text colour (a fact, never a gold or red). */
+.svd-save {
+  color: var(--gz-color-sys-status-success-text);
+}
+
+/* No date: "From" on its own line, then the per-guest glyph and the rate, the same three-line rhythm in every column. */
+.svd-from {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.svd-rate {
+  display: flex;
+  align-items: baseline;
+  column-gap: var(--gz-space-1);
+}
+
+/* The glyph keeps its place on the first line; the price (and the struck rate) wraps inside what is left. */
+.svd-rate > .gz-fchip {
+  flex: none;
+}
+
+.svd-rate__price {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}

@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>Ghazal - Direction board (The Thread)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Cormorant+Garamond:wght@500;600&family=Amiri:wght@400;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Markazi+Text:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="direction.css">
+<style>
+/* ======================================================================
+   BOARD-ONLY layout (desktop 1280). Every component below comes from direction.css.
+   ====================================================================== */
+body.board { margin: 0; min-inline-size: 1280px; background: var(--ivory); }
+.b-page { position: relative; inline-size: 1280px; margin-inline: auto; padding: 0 72px 120px 128px; overflow: clip; }
+
+/* THE SPINE: the board itself is one thread. Knots = sections. It draws on once at load. */
+.spine { position: absolute; inset-block: 0; inset-inline-start: 71px; inline-size: 2px; background: var(--thread-track); }
+.spine::after { content: ""; position: absolute; inset: 0; background: var(--thread); transform-origin: top; animation: spine-draw 2200ms var(--ease-emphasized) both; }
+@keyframes spine-draw { from { transform: scaleY(0); } }
+
+.b-sec { position: relative; padding-block-start: 104px; }
+.b-sech { position: relative; display: flex; align-items: baseline; gap: 20px; margin-block-end: 40px; }
+.b-sech::before { content: ""; position: absolute; inset-inline-start: -66px; inset-block-start: 22px; inline-size: 20px; block-size: 20px; border-radius: 50%; background: var(--gold-500); box-shadow: 0 0 0 6px var(--ivory), 0 0 0 7.5px var(--thread-ring); }
+.b-no { font-family: var(--font-figures); font-weight: 500; font-size: 16px; line-height: 24px; color: var(--text-gold); letter-spacing: .04em; min-inline-size: 28px; }
+.b-sech h2 { font-size: 40px; line-height: 48px; font-weight: 300; letter-spacing: -.015em; color: var(--ink-900); }
+.b-sech p { margin-inline-start: auto; max-inline-size: 420px; font-size: 14px; line-height: 20px; color: var(--text-muted); text-align: end; }
+.b-lede { font-size: 20px; line-height: 32px; font-weight: 300; color: var(--ink-800); max-inline-size: 720px; }
+.b-sub { font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: .09em; text-transform: uppercase; color: var(--text-muted); margin-block-end: 16px; }
+.b-note { font-size: 13px; line-height: 20px; color: var(--text-muted); }
+.b-note b, .b-card b { font-weight: 500; color: var(--ink-900); }
+.g12 { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+.c3 { grid-column: span 3; } .c4 { grid-column: span 4; } .c5 { grid-column: span 5; } .c6 { grid-column: span 6; } .c7 { grid-column: span 7; } .c8 { grid-column: span 8; } .c12 { grid-column: span 12; }
+.b-card { padding: 28px; border-radius: var(--r-lg); background: var(--paper); border: 1px solid var(--line); }
+.b-card--tint { background: var(--rose-100); border-color: transparent; }
+.b-card--sunk { background: var(--rose-50); border-color: var(--rose-100); }
+.b-card--ink { background: var(--ink-900); border-color: transparent; color: var(--ivory); --text-strong: var(--ivory); --text-muted: rgba(255,249,245,.72); --text-gold: var(--gold-400); }
+.b-card h3 { font-size: 20px; line-height: 28px; font-weight: 500; color: var(--text-strong); margin-block-end: 8px; }
+.b-card p { font-size: 15px; line-height: 24px; color: var(--text); }
+.b-card--ink p { color: rgba(255,249,245,.84); }
+.b-rtl { direction: rtl; }
+
+/* HERO */
+.b-hero { position: relative; display: grid; grid-template-columns: 1fr 392px; gap: 56px; align-items: start; padding-block: 88px 24px; }
+.b-hero h1 { font-size: 68px; line-height: 76px; font-weight: 300; letter-spacing: -.025em; color: var(--ink-900); margin-block: 20px 12px; }
+.b-hero h1 em { font-style: normal; color: var(--ink-600); }
+.b-hero__ar { font-size: 36px; line-height: 56px; font-weight: 300; color: var(--ink-700); }
+.b-hero__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-block-start: 32px; }
+.b-tag { display: inline-flex; align-items: center; min-block-size: 32px; padding-inline: 14px; border-radius: 999px; border: 1px solid var(--line-strong); font-size: 13px; font-weight: 500; color: var(--ink-800); background: var(--paper); }
+.b-lock { display: grid; place-items: center; min-block-size: 168px; border-radius: var(--r-xl); }
+.b-lock--ivory { background: var(--paper); border: 1px solid var(--line); }
+.b-lock--ink { background: var(--ink-900); }
+.b-hero__r { display: grid; gap: 16px; padding-block-start: 8px; }
+.b-hero__r .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.b-lock .wordmark { --wm: 64px; }
+.b-hero__r .row2 .b-lock { min-block-size: 112px; }
+.b-hero__r .row2 .wordmark { --wm: 40px; }
+
+/* steppers on the board need room for labels */
+.b-big-stepper { padding: 8px 12px 56px; }
+.b-big-stepper .stepper--labels { padding-block-end: 0; }
+.b-big-stepper .step__label { font-size: 13px; line-height: 18px; }
+:lang(ar) .b-big-stepper .step__label { font-size: 14px; line-height: 20px; }
+
+.b-btn-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+/* ---- 03 atlas ---- */
+.atlas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.at { display: grid; grid-template-rows: auto 128px auto; gap: 16px; padding: 24px; border-radius: var(--r-lg); background: var(--paper); border: 1px solid var(--line); }
+.at__t { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.at__t b { font-size: 16px; font-weight: 500; color: var(--ink-900); }
+.at__t span { font-size: 12px; color: var(--text-gold); font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
+.at__s { display: grid; align-content: center; min-block-size: 0; }
+.at__f { font-size: 12px; line-height: 18px; color: var(--text-muted); border-block-start: 1px solid var(--line); padding-block-start: 12px; }
+.at__f code { font: 500 11.5px/16px ui-monospace, 'SF Mono', Menlo, monospace; color: var(--ink-800); background: var(--ink-50); padding: 1px 5px; border-radius: 4px; }
+.at .tabs { --n: 3; }
+.at .cal { grid-template-columns: repeat(7, 1fr); }
+.at .cal__day { min-block-size: 56px; }
+.at .cal__d { font-size: 14px; }
+/* ---- 04 palette ---- */
+.ramp { margin-block-end: 32px; }
+.ramp__h { display: flex; align-items: baseline; gap: 12px; margin-block-end: 12px; }
+.ramp__h b { font-size: 16px; font-weight: 500; color: var(--ink-900); }
+.ramp__h span { font-size: 13px; color: var(--text-muted); }
+.ramp__row { display: grid; gap: 8px; }
+.sw { display: grid; gap: 0; align-content: start; }
+.sw__c { position: relative; block-size: 80px; border-radius: 12px; border: 1px solid rgba(58,47,51,.08); margin-block-end: 8px; }
+.sw__c u { position: absolute; inset-block-end: 8px; inset-inline-start: 8px; text-decoration: none; font-size: 10px; font-weight: 600; letter-spacing: .08em; }
+.sw b { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--ink-900); }
+.sw span { font: 400 11px/16px ui-monospace, 'SF Mono', Menlo, monospace; color: var(--text-muted); }
+.sw em { font-style: normal; font-size: 11px; line-height: 14px; color: var(--text-muted); margin-block-start: 2px; min-block-size: 28px; }
+.ctab { inline-size: 100%; border-collapse: collapse; font-size: 14px; }
+.ctab th { text-align: start; font-size: 11px; font-weight: 500; letter-spacing: .09em; text-transform: uppercase; color: var(--text-muted); padding: 0 12px 12px; }
+.ctab td { padding: 10px 12px; border-block-start: 1px solid var(--line); vertical-align: middle; color: var(--ink-800); }
+.ctab tr.hot td { background: var(--rose-50); }
+.ctab small { display: block; font: 400 11px/16px ui-monospace, 'SF Mono', Menlo, monospace; color: var(--text-muted); }
+.ctab .r { text-align: end; font-family: var(--font-figures); font-weight: 600; font-size: 16px; font-variant-numeric: tabular-nums; }
+.cs { display: inline-grid; place-items: center; min-inline-size: 64px; block-size: 36px; border-radius: 8px; font-family: var(--font-figures); font-weight: 600; font-size: 15px; border: 1px solid rgba(58,47,51,.1); }
+.vd { display: inline-flex; align-items: center; block-size: 24px; padding-inline: 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+.vd--ok { background: var(--ok-100); color: var(--ok-700); }
+.vd--mid { background: var(--gold-100); color: var(--gold-800); }
+.vd--bad { background: var(--err-100); color: var(--err-700); }
+.fix { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.fix > div { padding: 28px; border-radius: var(--r-lg); display: grid; gap: 12px; align-content: start; }
+.fix .big { font-size: 40px; line-height: 48px; font-weight: 300; letter-spacing: -.01em; }
+/* ---- 05 type ---- */
+.tp { display: grid; grid-template-columns: 112px 1fr 1fr; gap: 0 32px; align-items: baseline; padding-block: 18px; border-block-start: 1px solid var(--line); }
+.tp:first-of-type { border: 0; }
+.tp__k { font-size: 12px; line-height: 16px; color: var(--text-muted); }
+.tp__k b { display: block; font-weight: 500; color: var(--ink-900); font-size: 13px; }
+.tp__s { min-inline-size: 0; }
+.tp__m { display: block; font: 400 11.5px/16px ui-monospace, 'SF Mono', Menlo, monospace; color: var(--text-muted); margin-block-start: 6px; }
+.tp .display, .tp p { margin: 0; }
+.cons { display: grid; gap: 14px; }
+.cons__r { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; padding: 16px 20px; border-radius: 16px; background: var(--paper); border: 1px solid var(--line); }
+.cons__r--ok { border-color: var(--gold-400); background: var(--rose-50); }
+.cons__t { font-size: 28px; line-height: 40px; color: var(--ink-900); display: flex; gap: 24px; align-items: baseline; flex-wrap: wrap; }
+.cons__v { font-size: 12px; font-weight: 500; line-height: 16px; max-inline-size: 190px; color: var(--text-muted); }
+.cons__r--ok .cons__v { color: var(--gold-800); }
+.bl { position: relative; padding-block: 8px; border-radius: 16px; background: var(--paper); border: 1px solid var(--line); padding-inline: 24px; }
+.bl__line { font-size: 48px; line-height: 88px; font-weight: 300; color: var(--ink-900); white-space: nowrap; letter-spacing: -.01em; }
+.bl__ar { font-family: var(--font-ui-ar); font-weight: 300; letter-spacing: 0; }
+.bl__num { font-family: var(--font-figures); font-weight: 300; }
+.bl__m { display: inline-block; inline-size: 0; block-size: 0; }
+.bl__g { position: absolute; inset-inline: 12px; block-size: 0; border-block-start: 1px dashed var(--ink-300); top: calc(var(--base, 56px) - var(--up, 0px)); pointer-events: none; }
+.bl__g::after { content: attr(data-l); position: absolute; inset-inline-end: 0; inset-block-end: 2px; font: 500 10px/12px ui-monospace, Menlo, monospace; color: var(--ink-500); background: var(--paper); padding-inline: 4px; }
+.bl__g--base { border-block-start: 2px solid var(--gold-500); }
+.bl__g--base::after { color: var(--gold-700); }
+.fg { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.fg__col { padding: 24px; border-radius: 20px; background: var(--paper); border: 1px solid var(--line); }
+.fg__col h4 { font-size: 13px; font-weight: 500; color: var(--ink-900); margin: 0 0 4px; }
+.fg__col .b-note { margin-block-end: 16px; }
+.pl { display: grid; gap: 2px; justify-items: end; font-size: 28px; line-height: 40px; color: var(--ink-900); position: relative; padding-inline-end: 4px; }
+.pl span { display: block; border-block-end: 1px solid var(--line); inline-size: 100%; text-align: end; }
+.pl--poppins span { font-family: 'Poppins'; font-weight: 300; }
+.pl--cairo span { font-family: 'Cairo'; font-weight: 300; }
+.hn { display: grid; gap: 4px; }
+.hn .numeral { color: var(--ink-900); }
+.fmt { inline-size: 100%; border-collapse: collapse; font-size: 14px; margin-block-start: 8px; }
+.fmt td { padding: 10px 0; border-block-start: 1px solid var(--line); color: var(--ink-800); }
+.fmt td:first-child { color: var(--text-muted); font-size: 12px; inline-size: 96px; }
+/* ---- 06 shape ---- */
+.sp { display: grid; gap: 10px; }
+.sp__r { display: grid; grid-template-columns: 56px 1fr 120px; gap: 16px; align-items: center; }
+.sp__r b { font-family: var(--font-figures); font-weight: 500; font-size: 14px; color: var(--ink-900); text-align: end; }
+.sp__r i { display: block; block-size: 16px; background: var(--rose-200); border-radius: 3px; border-inline-start: 2px solid var(--gold-500); }
+.sp__r span { font-size: 12px; color: var(--text-muted); }
+.rd { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+.rd div { display: grid; gap: 8px; justify-items: start; }
+.rd i { display: block; inline-size: 100%; aspect-ratio: 1; background: var(--rose-100); border: 1.5px solid var(--ink-400); }
+.rd b { font-size: 13px; font-weight: 500; color: var(--ink-900); }
+.rd span { font-size: 11.5px; line-height: 16px; color: var(--text-muted); }
+.el { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.el > div { padding: 20px 16px; border-radius: 20px; min-block-size: 132px; display: grid; align-content: space-between; }
+.el b { font-size: 13px; font-weight: 500; }
+.el span { font-size: 12px; line-height: 16px; opacity: .8; }
+.st { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.st > div { display: grid; gap: 12px; align-content: start; }
+.st .ln { block-size: 40px; display: flex; align-items: center; }
+.st .ln i { display: block; inline-size: 100%; }
+.st b { font-size: 13px; font-weight: 500; color: var(--ink-900); }
+.st span { font-size: 12px; line-height: 16px; color: var(--text-muted); }
+.ch { display: flex; align-items: flex-end; gap: 24px; }
+.ch div { display: grid; gap: 8px; justify-items: center; font-size: 12px; color: var(--text-muted); text-align: center; }
+.ch i { display: grid; place-items: center; background: var(--paper); border: 1.5px solid var(--ink-700); border-radius: 12px; font: 500 13px/1 var(--font-figures); color: var(--ink-900); }
+.tt { position: relative; display: grid; place-items: center; inline-size: 44px; block-size: 44px; border: 1.5px dashed var(--gold-600); border-radius: 8px; }
+.tt i { display: block; inline-size: 24px; block-size: 24px; background: var(--ink-900); border-radius: 4px; }
+/* ---- 07 icons ---- */
+.ig { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px 0; }
+.ig div { display: grid; justify-items: center; gap: 8px; padding: 16px 0 12px; border-radius: 12px; color: var(--ink-800); }
+.ig span { font-size: 11px; line-height: 14px; color: var(--text-muted); }
+.kl { position: relative; inline-size: 192px; block-size: 192px; border-radius: 16px; background: var(--paper); border: 1px solid var(--line); background-image: linear-gradient(var(--rose-200) 1px, transparent 1px), linear-gradient(90deg, var(--rose-200) 1px, transparent 1px); background-size: 8px 8px; display: grid; place-items: center; }
+.kl::before { content: ""; position: absolute; inset: 16px; border: 1.5px dashed var(--gold-600); border-radius: 4px; }
+.kl .ic { --size: 160px; color: var(--ink-900); }
+.mir { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.mir > div { padding: 16px 20px; border-radius: 16px; background: var(--paper); border: 1px solid var(--line); }
+.mir .row { display: flex; gap: 20px; align-items: center; margin-block-start: 12px; color: var(--ink-900); }
+/* ---- 08 wordmark ---- */
+.wm-g { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.wm-c { display: grid; place-items: center; min-block-size: 200px; border-radius: 24px; position: relative; overflow: hidden; }
+.wm-c small { position: absolute; inset-block-end: 12px; inset-inline-start: 16px; font-size: 11.5px; color: var(--text-muted); }
+.wm-c--ink small { color: rgba(255,249,245,.6); }
+.wm-c--photo small { color: rgba(255,249,245,.85); z-index: 3; }
+.wm-c--photo > img { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
+.lk { --wm: 56px; position: relative; display: inline-flex; align-items: baseline; gap: 44px; font-size: var(--wm); line-height: 1; padding-inline: calc(var(--wm) * .35); color: var(--ink-900); }
+.lk__en { font-family: 'Poppins'; font-weight: 300; letter-spacing: -.01em; position: relative; z-index: 1; }
+.lk__ar { font-family: 'Cairo'; font-weight: 300; font-size: 1.08em; position: relative; z-index: 1; }
+.lk__line { position: absolute; inset-inline: 0; inset-block-start: calc(var(--base, 48px) - 1px); block-size: 2px; background: var(--gold-500); border-radius: 2px; }
+.lk__knot { position: absolute; inset-inline-start: 50%; inset-block-start: calc(var(--base, 48px) - 6px); inline-size: 12px; block-size: 12px; margin-inline-start: -6px; border-radius: 50%; background: var(--gold-500); z-index: 2; box-shadow: 0 0 0 4px var(--bg-lk, var(--paper)); }
+.appicon { inline-size: 132px; block-size: 132px; border-radius: 30px; background: var(--ink-900); position: relative; overflow: hidden; display: grid; place-items: center; }
+.appicon__g { font-family: 'Poppins'; font-weight: 300; font-size: 96px; line-height: 1; color: var(--ivory); position: relative; z-index: 1; transform: translateY(-6px); }
+.appicon__g--ar { font-family: 'Cairo'; font-size: 92px; transform: translateY(-4px); font-weight: 400; }
+.appicon__l { position: absolute; inset-inline: 0; inset-block-start: 76px; block-size: 2px; background: var(--gold-500); }
+.appicon__l::after { content: ""; position: absolute; inset-inline-end: 22px; inset-block-start: 50%; inline-size: 10px; block-size: 10px; margin-block-start: -5px; border-radius: 50%; background: var(--gold-500); box-shadow: 0 0 0 3px var(--ink-900); }
+.appicon__l--ar { inset-block-start: 74px; }
+.clear { position: relative; display: inline-block; padding: 36px; border: 1px dashed var(--gold-600); border-radius: 4px; background: var(--paper); }
+.clear::before, .clear::after { content: ""; position: absolute; background: var(--rose-200); }
+.clear::before { inset-inline: 0; inset-block-start: 36px; block-size: 1px; }
+.clear::after { inset-inline: 0; inset-block-end: 36px; block-size: 1px; }
+.clear .wordmark { --wm: 48px; position: relative; z-index: 1; }
+.clear__x { position: absolute; font: 500 10px/12px ui-monospace, Menlo, monospace; color: var(--gold-700); }
+/* ---- 09 sampler ---- */
+.smp { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+.sc { padding: 24px; border-radius: var(--r-lg); background: var(--paper); border: 1px solid var(--line); display: grid; gap: 16px; align-content: start; min-inline-size: 0; }
+.sc--tint { background: var(--rose-50); border-color: var(--rose-100); }
+.sc > h4 { margin: 0; font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: .09em; text-transform: uppercase; color: var(--text-muted); }
+.sc .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.sc .lab { font-size: 11.5px; line-height: 16px; color: var(--text-muted); }
+.sc .stack2 { display: grid; gap: 8px; }
+.smp .nav { position: relative; padding-block-end: 0; border-radius: 16px; border: 1px solid var(--line); overflow: hidden; }
+.smp .nav .homebar { display: none; }
+.smp .nav__item { min-block-size: 56px; }
+.phone-in { display: grid; grid-template-columns: auto 1fr; gap: 8px; }
+.phone-in .cc { display: grid; place-items: center; padding-inline: 14px; min-block-size: 56px; background: var(--ink-50); border: 1px solid var(--line-control); border-radius: 12px; font-family: var(--font-figures); font-weight: 500; color: var(--ink-800); direction: ltr; }
+.phone-in .input { direction: ltr; text-align: start; font-family: var(--font-figures); font-weight: 500; letter-spacing: .02em; }
+.cdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; }
+.cdays .cal__day { min-block-size: 64px; }
+/* ---- 10 demos ---- */
+.dm { display: grid; gap: 20px; padding: 28px; border-radius: var(--r-xl); background: var(--paper); border: 1px solid var(--line); align-content: start; }
+.dm__h { display: grid; gap: 4px; }
+.dm__h b { font-size: 18px; line-height: 28px; font-weight: 500; color: var(--ink-900); }
+.dm__h span { font-size: 13px; line-height: 20px; color: var(--text-muted); }
+.dm__t { display: flex; flex-wrap: wrap; gap: 6px 14px; font: 500 11.5px/16px ui-monospace, 'SF Mono', Menlo, monospace; color: var(--ink-600); border-block-start: 1px solid var(--line); padding-block-start: 12px; }
+.dm__t i { font-style: normal; color: var(--gold-700); }
+.frame { position: relative; overflow: hidden; border-radius: 28px; background: var(--ivory); border: 1px solid var(--line-strong); block-size: 520px; display: grid; grid-template-rows: auto 1fr auto; }
+.frame .scrim { z-index: 4; }
+.frame .sheet { z-index: 5; }
+.frame__h { padding: 20px 20px 8px; display: flex; align-items: baseline; justify-content: space-between; }
+.frame__h b { font-size: 20px; line-height: 28px; font-weight: 400; color: var(--ink-900); }
+.frame__f { padding: 12px 16px 16px; border-block-start: 1px solid var(--line); background: var(--paper); }
+.frame .cal { padding-inline: 8px; }
+.frame .cal__day { min-block-size: 48px; padding-block: 4px; }
+.frame .cal__d { font-size: 15px; }
+.frame .toast { position: absolute; inset-inline: 12px; inset-block-end: 12px; z-index: 6; transform: translateY(140%); transition: transform var(--dur-3) var(--ease-emphasized); }
+.frame .toast.is-on { transform: none; }
+.sheet .sh-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.sheet h5 { margin: 0; font-size: 20px; line-height: 28px; font-weight: 400; color: var(--ink-900); }
+.frame .sheet { position: absolute; padding-block-end: 20px; }
+.rq { position: relative; overflow: hidden; padding: 20px; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--paper); display: grid; gap: 14px; }
+.rq .succ-wrap { position: absolute; inset-inline-end: 36px; inset-block-end: 31px; pointer-events: none; opacity: 0; transition: opacity var(--dur-2) var(--ease-standard); }
+.rq.is-ok .succ-wrap { opacity: 1; }
+.rq .success circle, .rq .success path { stroke: var(--gold-500); }
+.rq .sla { transition: opacity var(--dur-3) var(--ease-standard); }
+.rq.is-ok .sla { opacity: 0; }
+.rq .btn { transition: background-color var(--dur-2) var(--ease-standard), color var(--dur-2) var(--ease-standard); }
+/* ---- 11 motion ---- */
+.mt { inline-size: 100%; border-collapse: collapse; font-size: 14px; }
+.mt th { text-align: start; font-size: 11px; font-weight: 500; letter-spacing: .09em; text-transform: uppercase; color: var(--text-muted); padding: 0 12px 12px; }
+.mt td { padding: 14px 12px; border-block-start: 1px solid var(--line); vertical-align: middle; color: var(--ink-800); }
+.mt code { font: 500 12px/16px ui-monospace, 'SF Mono', Menlo, monospace; color: var(--ink-800); background: var(--ink-50); padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
+.mt .ms { font-family: var(--font-figures); font-weight: 600; font-size: 18px; color: var(--ink-900); white-space: nowrap; }
+.mt .bar2 { display: block; block-size: 2px; background: var(--ink-100); border-radius: 2px; position: relative; inline-size: 120px; }
+.mt .bar2::after { content: ""; position: absolute; inset-block: 0; inset-inline-start: 0; background: var(--gold-500); border-radius: 2px; inline-size: var(--w); }
+.curve { inline-size: 64px; block-size: 64px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.curve path { fill: none; stroke: var(--gold-600); stroke-width: 2; stroke-linecap: round; }
+.curve line { stroke: var(--ink-200); stroke-width: 1; }
+/* ---- 12 screens ---- */
+.sx { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 24px; }
+.sx figure { margin: 0; display: grid; gap: 12px; justify-items: start; }
+.sx__f { position: relative; inline-size: 234px; block-size: 507px; border-radius: 30px; overflow: hidden; border: 1.5px solid var(--ink-700); background: var(--ivory); }
+.sx__f iframe { position: absolute; inset-block-start: 0; inset-inline-start: 0; inline-size: 390px; block-size: 844px; border: 0; transform: scale(.6); transform-origin: top left; pointer-events: none; }
+.sx figcaption { font-size: 13px; line-height: 20px; color: var(--text-muted); max-inline-size: 234px; }
+.sx figcaption b { display: block; font-weight: 500; color: var(--ink-900); font-size: 14px; }
+.rk { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 24px; }
+.rk > div { padding: 20px 24px; border-radius: 16px; background: var(--paper); border: 1px solid var(--line); display: grid; grid-template-columns: 28px 1fr; gap: 4px 12px; }
+.rk b { font-weight: 500; color: var(--ink-900); font-size: 15px; line-height: 24px; }
+.rk i { grid-row: span 2; font-style: normal; font-family: var(--font-figures); font-weight: 500; color: var(--text-gold); font-size: 14px; line-height: 24px; }
+.rk p { font-size: 14px; line-height: 22px; color: var(--text); }
+.b-foot { margin-block-start: 120px; padding-block-start: 32px; border-block-start: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-muted); }
+
+.g12 > * { min-inline-size: 0; }
+.bl__ar, .bl__num { unicode-bidi: isolate; }
+.fmt td { padding-inline: 0 24px; }
+.fmt td[lang=ar] { padding-inline: 24px; }
+.fmt td:nth-child(3) { text-align: start; }
+.at .cal__day { min-block-size: 44px; }
+.at .cal__thr { inset-block-end: 6px; }
+.dm .stack2 { display: grid; gap: 14px; }
+.frame .cal__thr { inset-block-end: 6px; }
+.frame__h b { white-space: nowrap; }
+.sp__r { grid-template-columns: 32px 200px 1fr; }
+.kl-wrap { display: grid; gap: 16px; justify-items: start; }
+.mt { table-layout: fixed; }
+.mt th:nth-child(1) { inline-size: 110px; } .mt th:nth-child(2) { inline-size: 150px; } .mt th:nth-child(3) { inline-size: 110px; } .mt th:nth-child(5) { inline-size: 270px; }
+.lk { gap: 14px; }
+.lk__knot { position: relative; inset: auto; margin: 0; align-self: baseline; transform: translateY(5px); flex: none; }
+</style>
+</head>
+<body class="board">
+<div class="b-page">
+<div class="spine" aria-hidden="true"></div>
+
+<!-- ======================= HERO ======================= -->
+<header class="b-hero">
+  <div>
+    <span class="eyebrow">Direction 03 · Client app + Hotel app · Design board</span>
+    <h1 class="display">Ghazal is a poem.<br><em>And a thread.</em></h1>
+    <p class="b-hero__ar" lang="ar" dir="rtl">قصيدة تُنظَم، وخيط يُغزَل.</p>
+    <p class="b-lede" style="margin-block-start:24px">One matte-gold line, two pixels wide, that appears only when something is moving, chosen, joined or waiting. It draws the booking, underlines the tab you are in, connects two dates, counts down a reply, closes a payment. Everything else is quiet: ivory, rose and ink, in one monoline type voice.</p>
+    <div class="b-hero__tags">
+      <span class="b-tag">Concept: The Thread · الخيط</span>
+      <span class="b-tag">Poppins + Cairo only</span>
+      <span class="b-tag">Ink · Matte Gold · Soft Rose</span>
+      <span class="b-tag">Tone, not shadow</span>
+      <span class="b-tag">Flutter: one painter + one controller</span>
+    </div>
+  </div>
+  <div class="b-hero__r">
+    <div class="b-lock b-lock--ivory"><span class="wordmark draw"><span class="wordmark__line"></span><span class="wordmark__text">Ghazal</span></span></div>
+    <div class="row2">
+      <div class="b-lock b-lock--ivory" lang="ar" dir="rtl"><span class="wordmark draw"><span class="wordmark__line"></span><span class="wordmark__text">غزل</span></span></div>
+      <div class="b-lock b-lock--ink"><span class="wordmark wordmark--ivory draw"><span class="wordmark__line"></span><span class="wordmark__text">Ghazal</span></span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= 01 CONCEPT & NAME ======================= -->
+<section class="b-sec" id="concept">
+  <header class="b-sech"><span class="b-no">01</span><h2>Concept and name</h2><p>The name already contains the system. We only had to make it move.</p></header>
+  <div class="g12">
+    <div class="b-card c4">
+      <div class="b-sub">The word</div>
+      <p class="display" style="font-size:44px;line-height:64px;font-weight:300;margin-block-end:8px" lang="ar" dir="rtl">غزل</p>
+      <p>A love poem built from couplets, and the act of spinning thread. A Kuwaiti wedding is both: a story told in verses, and one line pulled through a year of decisions. Arabic says it already: to compose verse is <b lang="ar">نَظْم</b>, to string pearls on a line.</p>
+    </div>
+    <div class="b-card b-card--tint c4">
+      <div class="b-sub">The rule</div>
+      <h3>Gold is a verb.</h3>
+      <p>Static structure is ink and rose. The gold line appears only where something is progressing, selected, connected or waiting. If a gold stroke carries no information, it is deleted. One thread per region of a screen, never a second.</p>
+    </div>
+    <div class="b-card c4">
+      <div class="b-sub">The proof</div>
+      <h3>One stroke, eight jobs.</h3>
+      <p>2 px, round caps, drawn on from the inline-start edge over 640 ms. In Flutter it is a single <b>ThreadPainter(path, progress, nodes)</b> driven by an <b>AnimationController</b>: the same painter is the stepper, the tab underline, the loader and the timeline.</p>
+    </div>
+    <div class="b-card b-card--sunk c12" style="display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:center">
+      <div class="b-sub" style="margin:0">What we refused</div>
+      <div class="b-hero__tags" style="margin:0">
+        <span class="b-tag">A second display typeface</span><span class="b-tag">Gold text on ivory</span><span class="b-tag">Gradients except photo scrims</span><span class="b-tag">Drop-shadow cards</span><span class="b-tag">Arabesque wallpaper</span><span class="b-tag">Confetti</span><span class="b-tag">Any looping decoration</span><span class="b-tag">Urgency counters</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 02 THE MEMORABLE IDEA ======================= -->
+<section class="b-sec" id="idea">
+  <header class="b-sech"><span class="b-no">02</span><h2>The one memorable idea</h2><p>The Booking Thread. Certainty, drawn.</p></header>
+  <div class="b-card b-card--tint" style="padding:40px 40px 32px">
+    <div style="display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end;margin-block-end:32px">
+      <div>
+        <h3 style="font-size:32px;line-height:40px;font-weight:300;letter-spacing:-.01em;margin:0 0 8px">Five knots, one line, seen identically by the couple and the hotel.</h3>
+        <p style="font-size:16px;max-inline-size:700px">Request, approval, deposit, balance, day. It is the booking stepper, the status, the payment schedule and the countdown on the client side, and the same booking on the hotel side. Each knot is tied only when something real has happened. It is how Ghazal makes the biggest purchase of the year feel certain.</p>
+      </div>
+      <div class="b-btn-row"><button class="btn btn--primary btn--sm" id="spin" type="button">Advance the thread</button><button class="btn btn--secondary btn--sm" id="spinReset" type="button">Reset</button></div>
+    </div>
+
+    <div class="g12" style="align-items:start">
+      <div class="c8" style="display:grid;gap:36px">
+        <!-- EN / LTR -->
+        <div>
+          <div class="b-sub">Couple · English · draws from the left</div>
+          <div class="b-big-stepper"><div class="stepper stepper--labels stepper--edge" id="bt-en" style="--n:5;--p:.25;--ring-bg:var(--rose-100)">
+            <span class="stepper__line"></span>
+            <div class="step is-done"><span class="step__node"><i class="ic i-check"></i></span><span class="step__label">Request</span></div>
+            <div class="step is-current"><span class="step__node"><i class="ic i-check"></i></span><span class="step__label">Approval</span></div>
+            <div class="step"><span class="step__node"><i class="ic i-check"></i></span><span class="step__label">Deposit</span></div>
+            <div class="step"><span class="step__node"><i class="ic i-check"></i></span><span class="step__label">Balance</span></div>
+            <div class="step"><span class="step__node"><i class="ic i-check"></i></span><span class="step__label">Day</span></div>
+          </div></div>
+        </div>
+        <!-- AR / RTL -->
+        <div lang="ar" dir="rtl">
+          <div class="b-sub" style="text-transform:none;letter-spacing:0;font-size:13px">للعروسين · بالعربية · يُرسَم من اليمين</div>
+          <div class="b-big-stepper"><div class="stepper stepper--labels stepper--edge" id="bt-ar" style="--n:5;--p:.25;--ring-bg:var(--rose-100)">
+            <span class="stepper__line"></span>
+            <div class="step is-done"><span class="step__node"><i class="ic i-check"></i></span><span class="step__label">الطلب</span></div>
+            <div class="step is-current"><span class="step__node"><i class="ic i-check"></i></span><span class="step__label">الموافقة</span></div>
+            <div class="step"><span class="step__node"><i class="ic i-check"></i></span><span class="step__label">العربون</span></div>
+            <div class="step"><span class="step__node"><i class="ic i-check"></i></span><span class="step__label">المتبقي</span></div>
+            <div class="step"><span class="step__node"><i class="ic i-check"></i></span><span class="step__label">اليوم</span></div>
+          </div></div>
+        </div>
+        <div class="b-note" id="bt-note" style="min-block-size:40px"><b>Now:</b> Request sent Thu 12 Nov, 4:00 PM. The hotel replies within 24 hours; nothing is charged until it does.</div>
+      </div>
+      <!-- Hotel view: the same booking, as the day's order of work -->
+      <div class="c4">
+        <div class="b-sub">Hotel · the same thread as the day</div>
+        <ol class="vt" style="--bg:var(--rose-100)">
+          <li class="vt__row is-done"><time class="vt__t"><span class="num">12 Nov</span><small>4:00 PM</small></time><span class="vt__rail"></span><div class="vt__c"><div><div class="ev__t">Request received</div><div class="ev__s">Reem Al-Dosari · Ladies</div></div></div></li>
+          <li class="vt__row is-now"><time class="vt__t"><span class="num">Now</span><small>3 h left</small></time><span class="vt__rail"></span><div class="vt__c"><div><div class="ev__t" style="color:var(--text-gold)">Awaiting your reply</div><div class="ev__s">Accept, propose a date or decline</div></div></div></li>
+          <li class="vt__row"><time class="vt__t"><span class="num">+24 h</span><small>to pay</small></time><span class="vt__rail"></span><div class="vt__c"><div><div class="ev__t">Deposit</div><div class="ev__s"><span class="money"><i class="cur"></i>5,460<i class="fils">.000</i></span></div></div></div></li>
+          <li class="vt__row"><time class="vt__t"><span class="num">31 Dec</span><small>balance</small></time><span class="vt__rail"></span><div class="vt__c"><div><div class="ev__t">Balance</div><div class="ev__s"><span class="money"><i class="cur"></i>12,740<i class="fils">.000</i></span></div></div></div></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 03 THE THREAD ATLAS ======================= -->
+<section class="b-sec" id="atlas">
+  <header class="b-sech"><span class="b-no">03</span><h2>One stroke, eight jobs</h2><p>Same 2 px line, same round caps, same draw-on. Only its meaning changes.</p></header>
+  <div class="atlas">
+
+    <div class="at"><div class="at__t"><b>Progress</b><span>stepper</span></div>
+      <div class="at__s"><div class="stepper stepper--labels" style="--n:3;--p:.5;padding-block-end:28px"><span class="stepper__line"></span>
+        <div class="step is-done"><span class="step__node"><i class="ic i-check"></i></span><span class="step__label">Date</span></div>
+        <div class="step is-current"><span class="step__node"><i class="ic i-check"></i></span><span class="step__label">Package</span></div>
+        <div class="step"><span class="step__node"><i class="ic i-check"></i></span><span class="step__label">Review</span></div></div></div>
+      <div class="at__f">Booking steps, "Step 2 of 5". <code>ThreadPainter(progress: .5, nodes: 3)</code></div></div>
+
+    <div class="at"><div class="at__t"><b>Selection</b><span>tab</span></div>
+      <div class="at__s"><div class="tabs" id="atTabs" style="--n:3;--i:0" role="tablist"><button class="tab" role="tab" aria-selected="true">Hall</button><button class="tab" role="tab" aria-selected="false">Food</button><button class="tab" role="tab" aria-selected="false">Suite</button><span class="tabs__thread"></span></div>
+        <p class="b-note" style="margin-block-start:12px">Tap a tab: the thread travels.</p></div>
+      <div class="at__f">Underline and nav stub slide between tabs. <code>AnimatedAlign + ThreadPainter</code></div></div>
+
+    <div class="at"><div class="at__t"><b>Connection</b><span>range</span></div>
+      <div class="at__s"><div class="cal cal--range" style="grid-template-columns:repeat(7,1fr)">
+        <div class="cal__day"><span class="cal__d">11</span><i class="cal__thr"></i></div>
+        <div class="cal__day is-range-start"><span class="cal__d">12</span><i class="cal__thr"></i></div>
+        <div class="cal__day is-in-range"><span class="cal__d">13</span><i class="cal__thr"></i></div>
+        <div class="cal__day is-in-range"><span class="cal__d">14</span><i class="cal__thr"></i></div>
+        <div class="cal__day is-range-end"><span class="cal__d">15</span><i class="cal__thr"></i></div>
+        <div class="cal__day"><span class="cal__d">16</span><i class="cal__thr"></i></div>
+        <div class="cal__day"><span class="cal__d">17</span><i class="cal__thr"></i></div></div>
+        <p class="b-note" style="margin-block-start:8px">Blocked 12 to 15: one thread, two knots.</p></div>
+      <div class="at__f">Block ranges, flexible dates. <code>Path between two cell centres</code></div></div>
+
+    <div class="at"><div class="at__t"><b>Waiting</b><span>deplete · run</span></div>
+      <div class="at__s" style="gap:20px"><div><div class="b-note" style="margin-block-end:8px">Reply window, 3 h left of 24 h</div><div style="position:relative;block-size:2px"><span class="sla is-soon" style="--p:.125"></span></div></div>
+        <div><div class="b-note" style="margin-block-end:8px">Loading</div><div class="thread-loader"></div></div></div>
+      <div class="at__f">Depletes toward the start. Gold under 6 h. <code>trim(0, remaining)</code></div></div>
+
+    <div class="at"><div class="at__t"><b>Completion</b><span>ring + tick</span></div>
+      <div class="at__s" style="justify-items:center"><svg class="success play" id="atSucc" viewBox="0 0 72 72" aria-label="Confirmed"><circle cx="36" cy="36" r="30" pathLength="1"/><path d="M24 37l8 8 16-17" pathLength="1"/></svg></div>
+      <div class="at__f"><button class="btn btn--tertiary btn--sm" id="atSuccBtn" type="button" style="padding:0 8px;margin-inline-start:-8px">Replay</button> Ring, then tick: 480 + 320 ms. <code>extractPath</code></div></div>
+
+    <div class="at"><div class="at__t"><b>Measure</b><span>length = value</span></div>
+      <div class="at__s" style="gap:14px">
+        <div><div class="vrow t-small"><span>Aurelia</span><span class="money"><i class="cur"></i>18,200</span></div><div class="bar draw" style="--v:.945"></div></div>
+        <div><div class="vrow t-small"><span>Nawar</span><span class="money"><i class="cur"></i>19,250</span></div><div class="bar draw" style="--v:1"></div></div>
+        <div><div class="vrow t-small"><span>Wasl</span><span class="money"><i class="cur"></i>10,850</span></div><div class="bar bar--end draw" style="--v:.564"></div></div></div>
+      <div class="at__f">Price and capacity in Compare, collected vs booked. <code>drawLine(0, v * w)</code></div></div>
+
+    <div class="at"><div class="at__t"><b>Time</b><span>timeline</span></div>
+      <div class="at__s"><ol class="vt" style="--bg:var(--paper)">
+        <li class="vt__row is-done" style="padding-block-end:14px"><time class="vt__t"><span class="num">2:00</span></time><span class="vt__rail"></span><div class="vt__c"><div class="ev__s" style="color:var(--text)">Set-up</div></div></li>
+        <li class="vt__row is-now" style="padding-block-end:14px"><time class="vt__t"><span class="num">4:00</span></time><span class="vt__rail"></span><div class="vt__c"><div class="ev__s">Now</div></div></li>
+        <li class="vt__row"><time class="vt__t"><span class="num">9:00</span></time><span class="vt__rail"></span><div class="vt__c"><div class="ev__s">Ladies</div></div></li></ol></div>
+      <div class="at__f">Hotel day, booking status. Gold up to now. <code>ThreadPainter(axis: vertical)</code></div></div>
+
+    <div class="at"><div class="at__t"><b>Identity</b><span>wordmark</span></div>
+      <div class="at__s" style="justify-items:center"><span class="wordmark draw" id="atWm" style="--wm:48px"><span class="wordmark__line"></span><span class="wordmark__text">Ghazal</span></span></div>
+      <div class="at__f">The Arabic baseline, lent to the Latin name. <code>scaleX 0 to 1, 900 ms</code></div></div>
+  </div>
+</section>
+
+<!-- ======================= 04 PALETTE ======================= -->
+<section class="b-sec" id="palette">
+  <header class="b-sech"><span class="b-no">04</span><h2>Colour</h2><p>Three core colours and warm neutrals. Gold is spent only on verbs.</p></header>
+  <div>
+<div class="ramp"><div class="ramp__h"><b>Ink</b><span>Dark Rose Gray · text, strokes, the one dark surface</span></div><div class="ramp__row" style="grid-template-columns:repeat(11,1fr)"><div class="sw"><div class="sw__c" style="background:#2E2528;color:#FFF9F5"></div><b>ink-950</b><span>#2E2528</span><em>label on gold fills</em></div><div class="sw"><div class="sw__c" style="background:#3A2F33;color:#FFF9F5"></div><b>ink-900</b><span>#3A2F33</span><em>headings · ink surface</em></div><div class="sw"><div class="sw__c" style="background:#4A3C40;color:#FFF9F5"></div><b>ink-800</b><span>#4A3C40</span><em>pressed ink</em></div><div class="sw"><div class="sw__c" style="background:#5A4B4F;color:#FFF9F5"><u>PRD</u></div><b>ink-700</b><span>#5A4B4F</span><em>PRD ink · body text</em></div><div class="sw"><div class="sw__c" style="background:#6E5D62;color:#FFF9F5"></div><b>ink-600</b><span>#6E5D62</span><em>muted text</em></div><div class="sw"><div class="sw__c" style="background:#8A787D;color:#FFF9F5"></div><b>ink-500</b><span>#8A787D</span><em>control borders</em></div><div class="sw"><div class="sw__c" style="background:#A89A9D;color:#2E2528"></div><b>ink-400</b><span>#A89A9D</span><em>disabled</em></div><div class="sw"><div class="sw__c" style="background:#CFC3C5;color:#2E2528"></div><b>ink-300</b><span>#CFC3C5</span><em>strong hairline</em></div><div class="sw"><div class="sw__c" style="background:#E7DEDC;color:#2E2528"></div><b>ink-200</b><span>#E7DEDC</span><em>hairline · track</em></div><div class="sw"><div class="sw__c" style="background:#F2EBE8;color:#2E2528"></div><b>ink-100</b><span>#F2EBE8</span><em>disabled fill</em></div><div class="sw"><div class="sw__c" style="background:#F8F3F0;color:#2E2528"></div><b>ink-50</b><span>#F8F3F0</span><em>sunk</em></div></div></div>
+<div class="ramp"><div class="ramp__h"><b>Matte Gold</b><span>flat, never metallic · fills, hairlines, the thread; text only as gold-700</span></div><div class="ramp__row" style="grid-template-columns:repeat(10,1fr)"><div class="sw"><div class="sw__c" style="background:#4A3710;color:#FFF9F5"></div><b>gold-900</b><span>#4A3710</span><em></em></div><div class="sw"><div class="sw__c" style="background:#5E4616;color:#FFF9F5"></div><b>gold-800</b><span>#5E4616</span><em>text on tint</em></div><div class="sw"><div class="sw__c" style="background:#7F6020;color:#FFF9F5"></div><b>gold-700</b><span>#7F6020</span><em>GOLD-INK · text, icons</em></div><div class="sw"><div class="sw__c" style="background:#A67F2E;color:#FFF9F5"></div><b>gold-600</b><span>#A67F2E</span><em>thread ring (3:1)</em></div><div class="sw"><div class="sw__c" style="background:#C79F57;color:#2E2528"></div><b>gold-550</b><span>#C79F57</span><em>pressed fill</em></div><div class="sw"><div class="sw__c" style="background:#D8B26E;color:#2E2528"><u>PRD</u></div><b>gold-500</b><span>#D8B26E</span><em>PRD gold · fills, the thread</em></div><div class="sw"><div class="sw__c" style="background:#E4C98F;color:#2E2528"></div><b>gold-400</b><span>#E4C98F</span><em>gold on ink</em></div><div class="sw"><div class="sw__c" style="background:#EDDBB3;color:#2E2528"></div><b>gold-300</b><span>#EDDBB3</span><em>tint border</em></div><div class="sw"><div class="sw__c" style="background:#F4E8CC;color:#2E2528"></div><b>gold-200</b><span>#F4E8CC</span><em></em></div><div class="sw"><div class="sw__c" style="background:#FAF3E3;color:#2E2528"></div><b>gold-100</b><span>#FAF3E3</span><em>pending tint</em></div></div></div>
+<div class="g12" style="margin-block-start:0"><div class="c4"><div class="ramp"><div class="ramp__h"><b>Soft Rose</b><span>tonal surfaces, selected tint</span></div><div class="ramp__row" style="grid-template-columns:repeat(4,1fr)"><div class="sw"><div class="sw__c" style="background:#E6BFCB;color:#2E2528"></div><b>rose-300</b><span>#E6BFCB</span><em>rose hairline</em></div><div class="sw"><div class="sw__c" style="background:#F1D6DE;color:#2E2528"></div><b>rose-200</b><span>#F1D6DE</span><em>pressed rose</em></div><div class="sw"><div class="sw__c" style="background:#F8E7EC;color:#2E2528"><u>PRD</u></div><b>rose-100</b><span>#F8E7EC</span><em>PRD rose · tonal surface</em></div><div class="sw"><div class="sw__c" style="background:#FDF5F7;color:#2E2528"></div><b>rose-50</b><span>#FDF5F7</span><em>sunk surface</em></div></div></div></div><div class="c3"><div class="ramp"><div class="ramp__h"><b>Warm neutrals</b><span>canvas and raised layer</span></div><div class="ramp__row" style="grid-template-columns:repeat(2,1fr)"><div class="sw"><div class="sw__c" style="background:#FFF9F5;color:#2E2528"><u>PRD</u></div><b>ivory</b><span>#FFF9F5</span><em>PRD canvas</em></div><div class="sw"><div class="sw__c" style="background:#FFFDFB;color:#2E2528"></div><b>paper</b><span>#FFFDFB</span><em>raised layer</em></div></div></div></div><div class="c5"><div class="ramp"><div class="ramp__h"><b>Functional</b><span>status only · always icon + label · never a brand colour</span></div><div class="ramp__row" style="grid-template-columns:repeat(4,1fr)"><div class="sw"><div class="sw__c" style="background:#3F6B52;color:#FFF9F5"></div><b>ok-700</b><span>#3F6B52</span><em>success text</em></div><div class="sw"><div class="sw__c" style="background:#E6EFE8;color:#2E2528"></div><b>ok-100</b><span>#E6EFE8</span><em>success tint</em></div><div class="sw"><div class="sw__c" style="background:#9A4A3F;color:#FFF9F5"></div><b>err-700</b><span>#9A4A3F</span><em>danger text</em></div><div class="sw"><div class="sw__c" style="background:#F6E4DE;color:#2E2528"></div><b>err-100</b><span>#F6E4DE</span><em>danger tint</em></div></div></div></div></div>  </div>
+
+  <div class="g12" style="margin-block-start:16px">
+    <div class="c4 b-card"><div class="b-sub">Roles</div>
+      <table class="ctab" style="font-size:14px"><tbody>
+        <tr><td style="border:0;padding-inline:0">Canvas</td><td style="border:0">ivory</td></tr>
+        <tr><td style="padding-inline:0">Card, bar</td><td>paper + hairline</td></tr>
+        <tr><td style="padding-inline:0">Tonal / selected</td><td>rose-100, rose-50</td></tr>
+        <tr><td style="padding-inline:0">Text, headings</td><td>ink-700, ink-900</td></tr>
+        <tr><td style="padding-inline:0">Muted</td><td>ink-600</td></tr>
+        <tr><td style="padding-inline:0">Action fill, the thread</td><td>gold-500</td></tr>
+        <tr><td style="padding-inline:0">Gold text and icons</td><td>gold-700</td></tr>
+        <tr><td style="padding-inline:0">Lone stroke, rings</td><td>gold-600</td></tr>
+        <tr><td style="padding-inline:0">Dark surface (1 per screen)</td><td>ink-900</td></tr>
+        <tr><td style="padding-inline:0">Pending</td><td>gold-100 + gold-800</td></tr>
+      </tbody></table></div>
+    <div class="c8">
+      <div class="fix">
+        <div style="background:var(--paper);border:1px solid var(--line)">
+          <div class="b-sub" style="margin:0">The problem</div>
+          <div class="big" style="color:var(--gold-500)">Wedding, 14 Jan</div>
+          <div style="font-size:14px;color:var(--text-muted)">Gold-500 as text on ivory: <b style="color:var(--err-700);font-weight:600">1.91 : 1</b>. Unreadable for small text and icons.</div>
+        </div>
+        <div style="background:var(--paper);border:1px solid var(--gold-300)">
+          <div class="b-sub" style="margin:0">The fix, a deepened gold-ink</div>
+          <div class="big" style="color:var(--gold-700)">Wedding, 14 Jan</div>
+          <div style="font-size:14px;color:var(--text-muted)">Gold-700 <span style="font-family:ui-monospace,Menlo,monospace;font-size:12px">#7F6020</span>: <b style="color:var(--ok-700);font-weight:600">5.59 : 1</b> on ivory, 4.90 on rose. Gold stays for fills, hairlines and the thread.</div>
+        </div>
+        <div style="background:var(--gold-500);display:grid;gap:12px">
+          <div class="b-sub" style="margin:0;color:var(--ink-950)">Label on a gold fill</div>
+          <div class="btn btn--lg" style="background:var(--gold-500);color:var(--ink-950);border:1.5px solid var(--ink-950);justify-self:start;pointer-events:none">Request this date</div>
+          <div style="font-size:14px;color:var(--ink-950)">Ink-950 on gold: <b style="font-weight:600">7.45 : 1</b>. The brand ink (#5A4B4F) only reaches 4.12, so the label is one step deeper.</div>
+        </div>
+        <div style="background:var(--ink-900);display:grid;gap:12px">
+          <div class="b-sub" style="margin:0;color:var(--gold-400)">On the ink surface</div>
+          <div style="display:flex;align-items:center;gap:14px"><div style="flex:1;block-size:2px;background:rgba(255,249,245,.22);position:relative"><div style="position:absolute;inset-block:0;inset-inline-start:0;inline-size:62%;background:var(--gold-500)"></div></div><span style="color:var(--gold-400);font-weight:500">62%</span></div>
+          <div style="font-size:14px;color:rgba(255,249,245,.8)">Thread gold-500 <b style="font-weight:600">6.43</b>, text gold-400 <b style="font-weight:600">7.99</b>, ivory <b style="font-weight:600">12.31</b>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="b-card" style="margin-block-start:24px;padding:28px 20px 12px">
+    <div class="b-sub" style="padding-inline:12px">Contrast, computed (WCAG 2.2 relative luminance)</div>
+<table class="ctab"><thead><tr><th>Sample</th><th>Pair</th><th class="r">Ratio</th><th>Result</th><th>Role</th></tr></thead><tbody><tr><td><span class="cs" style="color:#5A4B4F;background:#FFF9F5">Aa 14</span></td><td>Ink-700 on ivory<small>#5A4B4F on #FFF9F5</small></td><td class="r">7.88</td><td><span class="vd vd--ok">AAA</span></td><td>Body text on canvas</td></tr><tr><td><span class="cs" style="color:#3A2F33;background:#FFF9F5">Aa 14</span></td><td>Ink-900 on ivory<small>#3A2F33 on #FFF9F5</small></td><td class="r">12.31</td><td><span class="vd vd--ok">AAA</span></td><td>Headings</td></tr><tr><td><span class="cs" style="color:#6E5D62;background:#FFF9F5">Aa 14</span></td><td>Ink-600 on ivory<small>#6E5D62 on #FFF9F5</small></td><td class="r">5.91</td><td><span class="vd vd--ok">AA text</span></td><td>Muted text, captions</td></tr><tr><td><span class="cs" style="color:#6E5D62;background:#F8E7EC">Aa 14</span></td><td>Ink-600 on rose-100<small>#6E5D62 on #F8E7EC</small></td><td class="r">5.18</td><td><span class="vd vd--ok">AA text</span></td><td>Muted text on rose</td></tr><tr><td><span class="cs" style="color:#8A787D;background:#FFFDFB">Aa 14</span></td><td>Ink-500 on paper<small>#8A787D on #FFFDFB</small></td><td class="r">4.09</td><td><span class="vd vd--mid">Non-text only</span></td><td>Control borders (non-text)</td></tr><tr class="hot"><td><span class="cs" style="color:#D8B26E;background:#FFF9F5">Aa 14</span></td><td>Gold-500 on ivory<small>#D8B26E on #FFF9F5</small></td><td class="r">1.91</td><td><span class="vd vd--bad">Fails</span></td><td>THE PROBLEM: gold as text on ivory</td></tr><tr><td><span class="cs" style="color:#D8B26E;background:#3A2F33">Aa 14</span></td><td>Gold-500 on ink-900<small>#D8B26E on #3A2F33</small></td><td class="r">6.43</td><td><span class="vd vd--ok">AA text</span></td><td>Thread and gold marks on ink</td></tr><tr><td><span class="cs" style="color:#A67F2E;background:#FFF9F5">Aa 14</span></td><td>Gold-600 on ivory<small>#A67F2E on #FFF9F5</small></td><td class="r">3.53</td><td><span class="vd vd--mid">Non-text only</span></td><td>Lone thread, rings (non-text)</td></tr><tr><td><span class="cs" style="color:#A67F2E;background:#F8E7EC">Aa 14</span></td><td>Gold-600 on rose-100<small>#A67F2E on #F8E7EC</small></td><td class="r">3.10</td><td><span class="vd vd--mid">Non-text only</span></td><td>Lone thread on rose (non-text)</td></tr><tr class="hot"><td><span class="cs" style="color:#7F6020;background:#FFF9F5">Aa 14</span></td><td>Gold-700 on ivory<small>#7F6020 on #FFF9F5</small></td><td class="r">5.59</td><td><span class="vd vd--ok">AA text</span></td><td>THE FIX: gold-ink text and icons</td></tr><tr><td><span class="cs" style="color:#7F6020;background:#F8E7EC">Aa 14</span></td><td>Gold-700 on rose-100<small>#7F6020 on #F8E7EC</small></td><td class="r">4.90</td><td><span class="vd vd--ok">AA text</span></td><td>Gold-ink on rose</td></tr><tr><td><span class="cs" style="color:#5E4616;background:#FAF3E3">Aa 14</span></td><td>Gold-800 on gold-100<small>#5E4616 on #FAF3E3</small></td><td class="r">8.04</td><td><span class="vd vd--ok">AAA</span></td><td>Pending badge text</td></tr><tr><td><span class="cs" style="color:#2E2528;background:#D8B26E">Aa 14</span></td><td>Ink-950 on gold-500<small>#2E2528 on #D8B26E</small></td><td class="r">7.45</td><td><span class="vd vd--ok">AAA</span></td><td>Primary button label</td></tr><tr><td><span class="cs" style="color:#5A4B4F;background:#D8B26E">Aa 14</span></td><td>Ink-700 on gold-500<small>#5A4B4F on #D8B26E</small></td><td class="r">4.12</td><td><span class="vd vd--mid">Non-text only</span></td><td>Brand ink on gold (rejected)</td></tr><tr><td><span class="cs" style="color:#FFF9F5;background:#D8B26E">Aa 14</span></td><td>Ivory on gold-500<small>#FFF9F5 on #D8B26E</small></td><td class="r">1.91</td><td><span class="vd vd--bad">Fails</span></td><td>Ivory on gold (rejected)</td></tr><tr><td><span class="cs" style="color:#FFF9F5;background:#3A2F33">Aa 14</span></td><td>Ivory on ink-900<small>#FFF9F5 on #3A2F33</small></td><td class="r">12.31</td><td><span class="vd vd--ok">AAA</span></td><td>Text on the ink surface</td></tr><tr><td><span class="cs" style="color:#E4C98F;background:#3A2F33">Aa 14</span></td><td>Gold-400 on ink-900<small>#E4C98F on #3A2F33</small></td><td class="r">7.99</td><td><span class="vd vd--ok">AAA</span></td><td>Gold text on ink</td></tr><tr><td><span class="cs" style="color:#3F6B52;background:#E6EFE8">Aa 14</span></td><td>Ok-700 on ok-100<small>#3F6B52 on #E6EFE8</small></td><td class="r">5.20</td><td><span class="vd vd--ok">AA text</span></td><td>Success badge</td></tr><tr><td><span class="cs" style="color:#9A4A3F;background:#F6E4DE">Aa 14</span></td><td>Err-700 on err-100<small>#9A4A3F on #F6E4DE</small></td><td class="r">4.98</td><td><span class="vd vd--ok">AA text</span></td><td>Danger badge</td></tr><tr><td><span class="cs" style="color:#9A4A3F;background:#FFF9F5">Aa 14</span></td><td>Err-700 on ivory<small>#9A4A3F on #FFF9F5</small></td><td class="r">5.87</td><td><span class="vd vd--ok">AA text</span></td><td>Danger text on canvas</td></tr></tbody></table>    <p class="b-note" style="padding:16px 12px 12px">Rules: body text at least 4.5 (AA), the thread when it is the only carrier of a state at least 3 (gold-600), and every state also appears as text or an icon. The thread is never the sole signal.</p>
+  </div>
+</section>
+
+<!-- ======================= 05 TYPOGRAPHY ======================= -->
+<section class="b-sec" id="type">
+  <header class="b-sech"><span class="b-no">05</span><h2>Typography</h2><p>Poppins and Cairo, and nothing else. The weight is the voice.</p></header>
+
+  <div class="g12">
+    <div class="b-card b-card--tint c5">
+      <div class="b-sub">The decision</div>
+      <h3 style="font-size:28px;line-height:36px;font-weight:300;letter-spacing:-.01em">One pair. No display face.</h3>
+      <p style="margin-block-start:12px">The PRD names Poppins and Cairo. We kept exactly that. The thread is a monoline, and a Light 300 geometric sans is a monoline too: headlines are the same family as the interface, set at Light from 32 px, Regular below. Emphasis comes from size, weight (300 to 500) and numerals, not from a second voice. One font pair to ship against the 2 s load budget, one to keep in step across Flutter and web.</p>
+      <p style="margin-block-start:12px"><b>Figures</b> are Cairo's Western digits in both languages: tabular, lining, one numeric voice from 12 px captions to 64 px hero numerals. Poppins has no tabular feature, so it never sets a number that must align.</p>
+    </div>
+    <div class="c7"><div class="b-sub">Considered, and why not</div>
+      <div class="cons">
+        <div class="cons__r"><div class="cons__t"><span style="font-family:'Cormorant Garamond';font-weight:600">Your hall for 14 January</span><span lang="ar" dir="rtl" style="font-family:Amiri;font-weight:700;font-size:26px">قاعتكم ليوم 14 يناير</span></div><div class="cons__v">Cormorant + Amiri. Lovely, and the wedding-invitation default. A second voice that argues with a 2 px line.</div></div>
+        <div class="cons__r"><div class="cons__t"><span style="font-family:Newsreader;font-weight:400">Your hall for 14 January</span><span lang="ar" dir="rtl" style="font-family:'Markazi Text';font-weight:500;font-size:28px">قاعتكم ليوم 14 يناير</span></div><div class="cons__v">Newsreader + Markazi. The editorial default of the other directions. Still a serif beside the thread.</div></div>
+        <div class="cons__r cons__r--ok"><div class="cons__t"><span style="font-family:Poppins;font-weight:300;letter-spacing:-.01em">Your hall for 14 January</span><span lang="ar" dir="rtl" style="font-family:Cairo;font-weight:300;font-size:30px">قاعتكم ليوم 14 يناير</span></div><div class="cons__v">Poppins 300 + Cairo 300. Same stroke as the thread and as the 1.5 px icons. Chosen.</div></div>
+      </div></div>
+  </div>
+
+  <div class="b-card" style="margin-block-start:24px;padding:12px 32px 8px">
+    <div class="tp" style="padding-block:20px 8px;border:0"><span class="tp__k"><b>Role</b></span><span class="tp__k"><b>English · Poppins · LTR</b></span><span class="tp__k"><b>Arabic · Cairo · RTL · own sizes, own leading</b></span></div>
+    <div class="tp"><div class="tp__k"><b>Hero</b>Light 300</div><div class="tp__s"><h4 class="display hero-t">Your hall</h4><span class="tp__m">48 / 56 · tracking -0.012em</span></div><div class="tp__s" lang="ar" dir="rtl"><h4 class="display hero-t">قاعتكم</h4><span class="tp__m" dir="ltr">52 / 72 · tracking 0</span></div></div>
+    <div class="tp"><div class="tp__k"><b>Display 1</b>Light 300</div><div class="tp__s"><h4 class="display d1">Aurelia Gulf Hotel</h4><span class="tp__m">40 / 48</span></div><div class="tp__s" lang="ar" dir="rtl"><h4 class="display d1">فندق أوريليا الخليج</h4><span class="tp__m" dir="ltr">42 / 60</span></div></div>
+    <div class="tp"><div class="tp__k"><b>Display 2</b>Light 300</div><div class="tp__s"><h4 class="display d2">Thu 14 Jan 2027</h4><span class="tp__m">32 / 40</span></div><div class="tp__s" lang="ar" dir="rtl"><h4 class="display d2">الخميس 14 يناير 2027</h4><span class="tp__m" dir="ltr">34 / 48</span></div></div>
+    <div class="tp"><div class="tp__k"><b>Display 3</b>Regular 400</div><div class="tp__s"><h4 class="display d3">Featured this season</h4><span class="tp__m">24 / 32 · never below 24</span></div><div class="tp__s" lang="ar" dir="rtl"><h4 class="display d3">مختارة لموسمكم</h4><span class="tp__m" dir="ltr">26 / 40</span></div></div>
+    <div class="tp"><div class="tp__k"><b>Title</b>Medium 500</div><div class="tp__s"><p class="t-title">Ladies' reception · weekend</p><span class="tp__m">20 / 28</span></div><div class="tp__s" lang="ar" dir="rtl"><p class="t-title">الحفل النسائي · نهاية الأسبوع</p><span class="tp__m" dir="ltr">22 / 32</span></div></div>
+    <div class="tp"><div class="tp__k"><b>Body</b>Regular 400</div><div class="tp__s"><p class="t-body">Buffet dinner, valet and the bridal suite for the evening. Nothing is charged until the hotel approves.</p><span class="tp__m">16 / 24 · minimum 15</span></div><div class="tp__s" lang="ar" dir="rtl"><p class="t-body">عشاء بوفيه وخدمة الفاليه وجناح العروس طوال الأمسية. لا يُخصم أي مبلغ قبل موافقة الفندق.</p><span class="tp__m" dir="ltr">17 / 28</span></div></div>
+    <div class="tp"><div class="tp__k"><b>Small</b>Regular 400</div><div class="tp__s"><p class="t-small t-muted">Sharq, Kuwait City · Prestige · 650 guests</p><span class="tp__m">14 / 20</span></div><div class="tp__s" lang="ar" dir="rtl"><p class="t-small t-muted">شرق، مدينة الكويت · فاخر · 650 مدعوّاً</p><span class="tp__m" dir="ltr">15 / 24</span></div></div>
+    <div class="tp"><div class="tp__k"><b>Caption · eyebrow</b>Medium 500 / 600</div><div class="tp__s"><p class="eyebrow">Your date · 350 guests</p><span class="tp__m">12 / 16 · caps +0.09em (Latin only)</span></div><div class="tp__s" lang="ar" dir="rtl"><p class="eyebrow">موعدكم · 350 مدعوّاً</p><span class="tp__m" dir="ltr">13 / 20 · weight and colour, never tracking</span></div></div>
+    <div style="display:grid;grid-template-columns:112px 1fr;gap:32px;padding:20px 0 16px;border-block-start:1px solid var(--line)"><div class="tp__k"><b>Scale</b>ratio</div><p class="b-note" style="font-size:14px;line-height:22px;color:var(--ink-800)">Major third, about <b>1.25</b>, snapped to a 4-pt line box: EN <b>12 · 14 · 16 · 20 · 24 · 32 · 40 · 48 · 56</b>. Arabic is the English size <b>× 1.08 to 1.10</b>, rounded to whole pixels (13 · 15 · 17 · 22 · 26 · 34 · 42 · 52), with 15 to 30 % more leading, because Cairo's letters are 0.500 em tall against Poppins' 0.548 em x-height. Weights: 300 display, 400 body, 500 emphasis, 600 badges and Arabic emphasis. No italics, no uppercase and no letter-spacing in Arabic.</p></div>
+  </div>
+
+  <div class="b-sub" style="margin-block:40px 16px">Baseline proof: English and Arabic on one line</div>
+  <div class="g12" style="align-items:start">
+    <div class="c6">
+      <div class="bl" data-base>
+        <div class="bl__line"><i class="bl__m"></i>Ghazal <span class="bl__ar" style="font-size:48px">غزل</span> <span class="bl__num">14</span> <span style="font-size:.5em;color:var(--ink-600);font-weight:400">Jan</span></div>
+        <i class="bl__g bl__g--base" data-l="baseline" style="--up:0px"></i>
+        <i class="bl__g" data-l="x-height: Poppins 26.3 / Cairo 24.0" style="--up:26.3px"></i>
+        <i class="bl__g" style="--up:24px;border-color:var(--rose-300)"></i>
+      </div>
+      <p class="b-note" style="margin-block-start:12px"><b>Same point size (48 / 48).</b> The baseline is shared, but the Arabic letter bodies stop 2 px under the Latin x-height and read small.</p>
+    </div>
+    <div class="c6">
+      <div class="bl" data-base>
+        <div class="bl__line"><i class="bl__m"></i>Ghazal <span class="bl__ar" style="font-size:52px">غزل</span> <span class="bl__num" style="font-size:1.08em">14</span> <span style="font-size:.5em;color:var(--ink-600);font-weight:400">Jan</span></div>
+        <i class="bl__g bl__g--base" data-l="baseline" style="--up:0px"></i>
+        <i class="bl__g" data-l="x-height: Poppins 26.3 / Cairo 26.0" style="--up:26.3px"></i>
+      </div>
+      <p class="b-note" style="margin-block-start:12px"><b>Arabic +8 % (52), digits 1.08 em.</b> One baseline, one x-height. This is the rule the tokens encode: AR = EN × 1.08 to 1.10.</p>
+    </div>
+  </div>
+
+  <div class="b-sub" style="margin-block:40px 16px">Figures: one numeric voice</div>
+  <div class="fg">
+    <div class="fg__col"><h4>Poppins digits: proportional</h4><p class="b-note">Decimal points drift. Never use for columns.</p>
+      <div class="pl pl--poppins"><span>18,200.000</span><span>5,460.000</span><span>12,740.000</span><span>1,118.000</span><span>880.000</span></div></div>
+    <div class="fg__col"><h4>Cairo digits: tabular, 560 / 1000 em</h4><p class="b-note">Every digit the same width. Aligned in both languages.</p>
+      <div class="pl pl--cairo"><span>18,200.000</span><span>5,460.000</span><span>12,740.000</span><span>1,118.000</span><span>880.000</span></div></div>
+    <div class="fg__col"><h4>Hero numerals: Cairo Light 300</h4><p class="b-note">Same digits as the 12 px captions, drawn at size.</p>
+      <div class="hn"><span class="numeral numeral--lg">63</span><span class="numeral numeral--md">18,200<span style="font-size:.5em">.000</span></span><span class="numeral numeral--sm"><span class="money"><i class="cur"></i>214,600</span></span></div></div>
+  </div>
+  <div class="b-card" style="margin-block-start:24px;padding:20px 28px">
+    <table class="fmt"><tbody>
+      <tr><td>Browse</td><td><span class="money t-strong"><i class="cur"></i>18,200</span></td><td lang="ar" dir="rtl"><span class="money t-strong"><i class="cur"></i>18,200</span></td><td class="b-note">Whole dinars when fils are .000. Currency sits visually left of the number in both languages.</td></tr>
+      <tr><td>Exact</td><td><span class="money t-strong"><i class="cur"></i>18,200<i class="fils">.000</i></span></td><td lang="ar" dir="rtl"><span class="money t-strong"><i class="cur"></i>18,200<i class="fils">.000</i></span></td><td class="b-note">Booking, payment, invoice: always 3 decimals, fils quieter.</td></tr>
+      <tr><td>With unit</td><td><span class="money t-strong"><i class="cur"></i>52</span> <span class="t-muted">per guest</span></td><td lang="ar" dir="rtl"><span class="money t-strong"><i class="cur"></i>52</span> <span class="t-muted">للضيف</span></td><td class="b-note">No price without its unit. Western digits 0 to 9 in Arabic; a formatter switches.</td></tr>
+    </tbody></table>
+  </div>
+</section>
+
+<!-- ======================= 06 SPACE / SHAPE ======================= -->
+<section class="b-sec" id="shape">
+  <header class="b-sech"><span class="b-no">06</span><h2>Space, shape, elevation, stroke</h2><p>Everything on a 4-pt grid. Tone instead of shadow. One stroke vocabulary.</p></header>
+  <div class="g12">
+    <div class="b-card c5"><div class="b-sub">Spacing · 4-pt</div>
+      <div class="sp">
+        <div class="sp__r"><b>4</b><i style="inline-size:12px"></i><span>icon gap</span></div>
+        <div class="sp__r"><b>8</b><i style="inline-size:24px"></i><span>inline gap, chip gap</span></div>
+        <div class="sp__r"><b>12</b><i style="inline-size:36px"></i><span>list gap, compare cell</span></div>
+        <div class="sp__r"><b>16</b><i style="inline-size:48px"></i><span>card inner gap</span></div>
+        <div class="sp__r"><b>20</b><i style="inline-size:60px"></i><span>request card padding</span></div>
+        <div class="sp__r"><b>24</b><i style="inline-size:72px"></i><span>screen gutter, card padding</span></div>
+        <div class="sp__r"><b>32</b><i style="inline-size:96px"></i><span>group gap</span></div>
+        <div class="sp__r"><b>40</b><i style="inline-size:120px"></i><span>section gap</span></div>
+        <div class="sp__r"><b>48</b><i style="inline-size:144px"></i><span>tab bar clearance</span></div>
+        <div class="sp__r"><b>64</b><i style="inline-size:192px"></i><span>hero rhythm</span></div>
+      </div>
+    </div>
+    <div class="c7" style="display:grid;gap:24px">
+      <div class="b-card"><div class="b-sub">Radius · small and meaningful</div>
+        <div class="rd">
+          <div><i style="border-radius:4px"></i><b>4 · xs</b><span>dividers, checkmarks</span></div>
+          <div><i style="border-radius:8px"></i><b>8 · sm</b><span>focus ring, thumbs</span></div>
+          <div><i style="border-radius:12px"></i><b>12 · md</b><span>buttons, inputs</span></div>
+          <div><i style="border-radius:20px"></i><b>20 · lg</b><span>cards, photos</span></div>
+          <div><i style="border-radius:24px"></i><b>24 · xl</b><span>hero cards, sheets</span></div>
+          <div><i style="border-radius:999px"></i><b>pill</b><span>chips, segments</span></div>
+        </div></div>
+      <div class="b-card"><div class="b-sub">Control heights and touch</div>
+        <div class="ch">
+          <div><i style="inline-size:44px;block-size:44px">44</i>small, icon, row</div>
+          <div><i style="inline-size:48px;block-size:48px">48</i>primary default</div>
+          <div><i style="inline-size:56px;block-size:56px">56</i>hero CTA, input</div>
+          <div><span class="tt"><i></i></span>24 px icon in a 44 px target</div>
+          <p class="b-note" style="max-inline-size:200px;margin-inline-start:auto">Nothing tappable is under 44 x 44. Visible focus ring: 2 px ink, 2 px offset.</p>
+        </div></div>
+    </div>
+  </div>
+
+  <div class="b-sub" style="margin-block:40px 16px">Elevation: tone, not shadow</div>
+  <div class="el">
+    <div style="background:var(--ivory);border:1px solid var(--line)"><b>0 · canvas</b><span>ivory. The page.</span></div>
+    <div style="background:var(--paper);border:1px solid var(--line)"><b>1 · paper</b><span>paper + 1 px hairline. Cards, bars.</span></div>
+    <div style="background:var(--rose-100)"><b>2 · rose</b><span>tonal. Selected, offers, "Your date".</span></div>
+    <div style="background:var(--ink-900);color:var(--ivory)"><b>3 · ink</b><span>One dark surface per screen.</span></div>
+    <div style="background:var(--paper);box-shadow:var(--shadow-sheet);border:1px solid var(--line)"><b>4 · sheet</b><span>The only shadow: 0 -12 40, 12 % ink.</span></div>
+  </div>
+
+  <div class="b-sub" style="margin-block:40px 16px">Stroke</div>
+  <div class="st">
+    <div><div class="ln"><i style="block-size:1px;background:var(--line-strong)"></i></div><b>Hairline · 1 px</b><span>Static structure: dividers, card borders.</span></div>
+    <div><div class="ln"><i style="block-size:1.5px;background:var(--ink-700)"></i></div><b>Ring · 1.5 px</b><span>Controls, selection ring, icon stroke.</span></div>
+    <div><div class="ln"><i style="block-size:2px;background:var(--gold-500);border-radius:2px"></i></div><b>Thread · 2 px, round caps</b><span>State only. Gold-500 fill, gold-600 when alone.</span></div>
+    <div><div class="ln" style="gap:16px"><i style="inline-size:8px;block-size:8px;border-radius:50%;background:var(--gold-500)"></i><i style="inline-size:12px;block-size:12px;border-radius:50%;background:var(--gold-500)"></i><i style="inline-size:20px;block-size:20px;border-radius:50%;background:var(--gold-500);box-shadow:inset 0 0 0 3px var(--ivory),inset 0 0 0 10px var(--gold-500)"></i></div><b>Knots · 8 / 12 / 20</b><span>Badge dot, tray, step node.</span></div>
+  </div>
+</section>
+
+<!-- ======================= 07 ICONS ======================= -->
+<section class="b-sec" id="icons">
+  <header class="b-sech"><span class="b-no">07</span><h2>Icon style</h2><p>One set, 24 px grid, 1.5 px stroke, round caps and joins. The same stroke as the thread.</p></header>
+  <div class="g12" style="align-items:start">
+    <div class="c8" style="display:grid;gap:24px">
+      <div class="b-card" style="padding:20px 16px"><div class="ig"><div><i class="ic i-search"></i><span>search</span></div><div><i class="ic i-compass"></i><span>compass</span></div><div><i class="ic i-heart"></i><span>heart</span></div><div><i class="ic i-calendar"></i><span>calendar</span></div><div><i class="ic i-message"></i><span>message</span></div><div><i class="ic i-user"></i><span>user</span></div><div><i class="ic i-bell"></i><span>bell</span></div><div><i class="ic i-sliders"></i><span>sliders</span></div><div><i class="ic i-chevron"></i><span>chevron</span></div><div><i class="ic i-arrow"></i><span>arrow</span></div><div><i class="ic i-check"></i><span>check</span></div><div><i class="ic i-close"></i><span>close</span></div><div><i class="ic i-plus"></i><span>plus</span></div><div><i class="ic i-minus"></i><span>minus</span></div><div><i class="ic i-users"></i><span>users</span></div><div><i class="ic i-pin"></i><span>pin</span></div><div><i class="ic i-wallet"></i><span>wallet</span></div><div><i class="ic i-phone"></i><span>phone</span></div><div><i class="ic i-clock"></i><span>clock</span></div><div><i class="ic i-star"></i><span>star</span></div><div><i class="ic i-compare"></i><span>compare</span></div><div><i class="ic i-share"></i><span>share</span></div><div><i class="ic i-building"></i><span>building</span></div><div><i class="ic i-hall"></i><span>hall</span></div><div><i class="ic i-sun"></i><span>sun</span></div><div><i class="ic i-gem"></i><span>gem</span></div><div><i class="ic i-parking"></i><span>parking</span></div><div><i class="ic i-bed"></i><span>bed</span></div><div><i class="ic i-utensils"></i><span>utensils</span></div><div><i class="ic i-camera"></i><span>camera</span></div><div><i class="ic i-shield"></i><span>shield</span></div><div><i class="ic i-tag"></i><span>tag</span></div><div><i class="ic i-sunrise"></i><span>sunrise</span></div><div><i class="ic i-list"></i><span>list</span></div><div><i class="ic i-more"></i><span>more</span></div><div><i class="ic i-undo"></i><span>undo</span></div><div><i class="ic i-map"></i><span>map</span></div><div><i class="ic i-info"></i><span>info</span></div><div><i class="ic i-trendup"></i><span>trendup</span></div><div><i class="ic i-image"></i><span>image</span></div><div><i class="ic i-rings"></i><span>rings</span></div><div><i class="ic i-thread"></i><span>thread</span></div><div><i class="ic i-car"></i><span>car</span></div><div><i class="ic i-edit"></i><span>edit</span></div><div><i class="ic i-lock"></i><span>lock</span></div><div><i class="ic i-flash"></i><span>flash</span></div><div><i class="ic i-grid"></i><span>grid</span></div><div><i class="ic i-wa"></i><span>wa</span></div></div></div>
+      <div class="b-card"><div class="b-sub">Mirrors in RTL</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+          <div><div class="b-note" style="margin-block-end:12px">Flips (reading order): chevrons, arrows, undo, list, progress, calendar arrows.</div>
+            <div style="display:flex;gap:16px;align-items:center;color:var(--ink-900)"><i class="ic i-chevron"></i><i class="ic i-arrow"></i><i class="ic i-undo"></i><i class="ic i-list"></i><span class="b-note" style="margin-inline-start:auto">LTR</span></div>
+            <div style="display:flex;gap:16px;align-items:center;color:var(--ink-900);margin-block-start:12px;direction:rtl"><i class="ic i-chevron mirror"></i><i class="ic i-arrow mirror"></i><i class="ic i-undo mirror"></i><i class="ic i-list mirror"></i><span class="b-note" style="margin-inline-start:auto;direction:ltr">RTL</span></div></div>
+          <div><div class="b-note" style="margin-block-end:12px">Never flips (physical): check, calendar, phone, heart, clock, search, plus, star, share.</div>
+            <div style="display:flex;gap:16px;align-items:center;color:var(--ink-900)"><i class="ic i-check"></i><i class="ic i-calendar"></i><i class="ic i-phone"></i><i class="ic i-heart"></i><i class="ic i-clock"></i><i class="ic i-search"></i><i class="ic i-star"></i><i class="ic i-share"></i></div></div>
+        </div></div>
+    </div>
+    <div class="b-card c4 kl-wrap"><div class="kl"><i class="ic i-calendar"></i></div>
+      <div><div class="b-sub" style="margin-block-end:8px">Construction</div><p class="b-note">24 px grid, 20 px live area (dashed), 8 px keylines. Strokes 1.5 px, corners 2 to 3 px, no fills except the heart, star and dots. Sizes 16 / 20 / 24 / 28 / 32 only. Directional glyphs carry a mirror flag in the icon registry.</p></div></div>
+  </div>
+</section>
+
+<!-- ======================= 08 WORDMARK ======================= -->
+<section class="b-sec" id="wordmark">
+  <header class="b-sech"><span class="b-no">08</span><h2>Wordmark lockups</h2><p>The thread sits on the baseline. In Arabic that line already exists: letters are joined on it. The Latin name borrows it.</p></header>
+  <div class="wm-g">
+    <div class="wm-c b-card" style="padding:0;background:var(--paper)"><span class="wordmark draw" style="--wm:72px"><span class="wordmark__line"></span><span class="wordmark__text">Ghazal</span></span><small>English · Poppins 300 · thread on the baseline, knot ends the word</small></div>
+    <div class="wm-c b-card" style="padding:0;background:var(--paper)" lang="ar" dir="rtl"><span class="wordmark draw" style="--wm:72px"><span class="wordmark__line"></span><span class="wordmark__text">غزل</span></span><small dir="ltr" style="inset-inline-start:auto;inset-inline-end:16px">Arabic · Cairo 300 · the joining line is the thread</small></div>
+    <div class="wm-c b-card" style="padding:0;background:var(--paper)"><span class="lk" data-base style="--wm:40px"><i class="bl__m"></i><span class="lk__en">Ghazal</span><i class="lk__knot"></i><span class="lk__ar" lang="ar">غزل</span><i class="lk__line"></i></span><small>Bilingual · one line, two scripts, one knot where they meet</small></div>
+    <div class="wm-c wm-c--ink" style="background:var(--ink-900)"><span class="wordmark wordmark--ivory draw" style="--wm:64px"><span class="wordmark__line"></span><span class="wordmark__text">Ghazal</span></span><small>Reversed on ink · thread stays gold-500 (6.43 : 1)</small></div>
+    <div class="wm-c" style="background:var(--rose-100)" lang="ar" dir="rtl"><span class="wordmark draw" style="--wm:64px"><span class="wordmark__line"></span><span class="wordmark__text">غزل</span></span><small dir="ltr" style="inset-inline-start:auto;inset-inline-end:16px">On rose · ink-900 on rose-100 (11.3 : 1)</small></div>
+    <div class="wm-c wm-c--photo scrim-top scrim-bottom"><img class="photo" src="../../public/images/halls/halls-08-grand-ballroom-crystal-chandelier.jpg" alt="" style="object-position:50% 78%"><span class="wordmark wordmark--sm wordmark--ivory draw" style="--wm:48px;position:relative;z-index:3"><span class="wordmark__line"></span><span class="wordmark__text">Ghazal</span></span><small>On photography · weight 500 below 28 px, top scrim only</small></div>
+  </div>
+
+  <div class="g12" style="margin-block-start:24px;align-items:stretch">
+    <div class="b-card c4" style="display:flex;gap:20px;align-items:center;justify-content:center;flex-wrap:wrap">
+      <div class="appicon"><span class="appicon__g">g</span><i class="appicon__l"></i></div>
+      <div class="appicon" lang="ar" dir="rtl"><span class="appicon__g appicon__g--ar">غ</span><i class="appicon__l appicon__l--ar"></i></div>
+      <p class="b-note" style="inline-size:100%;text-align:center">App icon: ink-900, the initial on the baseline thread, knot at the end. Same recipe in both scripts.</p>
+    </div>
+    <div class="b-card c4" style="display:grid;place-items:center;gap:12px"><div class="clear"><span class="wordmark draw" style="--wm:48px"><span class="wordmark__line"></span><span class="wordmark__text">Ghazal</span></span><span class="clear__x" style="inset-block-start:10px;inset-inline-start:12px">x</span><span class="clear__x" style="inset-block-end:10px;inset-inline-end:12px">x</span></div><p class="b-note" style="text-align:center">Clear space x = 0.75 of the cap height on every side. Never place the knot against an edge.</p></div>
+    <div class="b-card b-card--tint c4"><div class="b-sub">Rules</div>
+      <p class="b-note" style="color:var(--ink-800)"><b>Minimum:</b> 20 px cap height (about 72 px wide); below that the knot drops, the line stays.<br><b>Weight:</b> 300 above 28 px, 500 (Latin) or 600 (Arabic) below.<br><b>Motion:</b> the line draws on once, 900 ms, from the inline-start edge. It never loops.<br><b>Never:</b> recolour the line, put it above the letters, add a tagline, or outline the name.</p></div>
+  </div>
+</section>
+
+<!-- ======================= 09 COMPONENT SAMPLER ======================= -->
+<section class="b-sec" id="components">
+  <header class="b-sech"><span class="b-no">09</span><h2>Component sampler</h2><p>Real classes from direction.css. The thread appears only where it means something.</p></header>
+  <div class="smp">
+
+    <div class="sc c6"><h4>Buttons · one primary per screen</h4>
+      <div class="row"><a class="btn btn--primary btn--lg" href="#">Request this date</a><a class="btn btn--primary" href="#">Accept</a><a class="btn btn--primary btn--sm" href="#">Pay</a></div>
+      <div class="lab">Primary · 56 / 48 / 44 · gold-500 fill, ink-950 label (7.45 : 1)</div>
+      <div class="row"><button class="btn btn--primary is-pressed" type="button">Pressed</button><button class="btn btn--primary is-loading" type="button">Sending</button><button class="btn btn--primary btn--disabled" type="button">Disabled</button></div>
+      <div class="lab">Pressed: scale .98 + gold-550 · Loading: a thread runs the foot · Disabled: ink-100</div>
+      <div class="row"><button class="btn btn--secondary btn--lg" type="button">Add to compare</button><button class="btn btn--secondary" type="button">Notify me</button><button class="btn btn--secondary is-pressed" type="button">Pressed</button></div>
+      <div class="lab">Secondary · 1.5 px ink ring, rose on press</div>
+      <div class="row"><button class="btn btn--tertiary" type="button">Propose another date</button><button class="btn btn--tertiary is-pressed" type="button">Pressed</button><button class="btn btn--tertiary btn--neutral" type="button">Decline</button><button class="btn btn--dark" type="button">Dark</button></div>
+      <div class="lab">Tertiary · the thread draws under the label on press (the only underline in the system)</div>
+    </div>
+
+    <div class="sc c6"><h4>Inputs</h4>
+      <div class="field"><label class="field__label">Guests in this hall</label><input class="input" value="350" inputmode="numeric"></div>
+      <div class="field"><label class="field__label">Event date (focus)</label><input class="input is-focus" value="Thu 14 Jan 2027"></div>
+      <div class="field"><label class="field__label">WhatsApp number</label><div class="phone-in"><span class="cc">+965</span><input class="input is-error" value="5123 45" dir="ltr"></div><div class="field__msg"><i class="ic i-info"></i>Enter the 8 digits, for example 5123 4567.</div></div>
+      <div class="lab">Phone is one compound field, LTR in both languages. Focus = gold-600 ring; error = text + icon + ring.</div>
+    </div>
+
+    <div class="sc c4"><h4>Chips · segmented · toggle</h4>
+      <div class="row"><button class="chip is-on" aria-pressed="true" type="button"><i class="ic i-check"></i>Ladies</button><button class="chip" aria-pressed="false" type="button">Men's</button><button class="chip" aria-pressed="false" type="button">Both</button></div>
+      <div class="seg seg--block" style="--n:3;--i:1"><button class="seg__item" aria-selected="false">Day</button><button class="seg__item" aria-selected="true">Evening</button><button class="seg__item" aria-selected="false">Full day</button></div>
+      <div class="row" style="gap:28px"><button class="toggle" role="switch" aria-checked="false" aria-label="Off" type="button"></button><button class="toggle" role="switch" aria-checked="true" aria-label="On" type="button"></button><span class="knot"><i class="ic i-check"></i></span><span class="knot is-on"><i class="ic i-check"></i></span></div>
+      <div class="lab">Selected = rose fill + gold-600 ring · toggle on = ink track, gold knob toward inline-end · knot = radio</div>
+    </div>
+
+    <div class="sc c8"><h4>Status · icon + label + shape, never colour alone</h4>
+      <div class="row"><span class="badge badge--pending"><i class="ic i-clock"></i>Awaiting reply</span><span class="badge badge--approved"><i class="ic i-checkcircle"></i>Approved, deposit due</span><span class="badge badge--confirmed"><i class="ic i-check"></i>Confirmed</span><span class="badge badge--rejected"><i class="ic i-xcircle"></i>Venue unable to host</span><span class="badge badge--cancelled"><i class="ic i-close"></i>Cancelled</span><span class="badge badge--completed"><i class="ic i-check"></i>Completed</span><span class="badge badge--refunded"><i class="ic i-undo"></i>Refunded</span></div>
+      <div class="row" lang="ar" dir="rtl"><span class="badge badge--pending"><i class="ic i-clock"></i>بانتظار الرد</span><span class="badge badge--approved"><i class="ic i-checkcircle"></i>تمت الموافقة · بانتظار العربون</span><span class="badge badge--confirmed"><i class="ic i-check"></i>مؤكد</span><span class="badge badge--rejected"><i class="ic i-xcircle"></i>اعتذرت القاعة</span><span class="badge badge--cancelled"><i class="ic i-close"></i>ملغي</span><span class="badge badge--completed"><i class="ic i-check"></i>مكتمل</span><span class="badge badge--refunded"><i class="ic i-undo mirror"></i>تم الاسترداد</span></div>
+      <div class="row"><span class="badge badge--ok"><i class="ic i-check"></i>Paid</span><span class="badge badge--free"><i class="ic i-checkcircle" style="color:var(--gold-700)"></i>Free on 14 Jan</span><span class="badge badge--tint">Prestige</span><span class="badge badge--on-image" style="background:var(--ink-900);color:var(--ivory)">Instant</span></div>
+      <div class="lab">Gold doubles as "pending" (gold-100 + gold-800). Green and red exist only for Paid and Declined, desaturated, always with an icon.</div>
+    </div>
+
+    <div class="sc c4"><h4>Rating · price · list row</h4>
+      <div class="row" style="justify-content:space-between"><span class="rating"><i class="ic i-starfill"></i><span class="rating__n">4.8</span><span class="rating__c">(212)</span></span><span class="price"><span class="price__amt"><span class="money"><i class="cur"></i>52</span></span><span class="price__unit">per guest</span></span></div>
+      <div class="row" style="justify-content:space-between"><span class="t-strong money money--lg"><i class="cur"></i>18,200<i class="fils">.000</i></span><span class="t-caption t-muted">350 guests</span></div>
+      <div class="lrow" style="padding-block:8px"><span class="lrow__ic"><i class="ic i-shield"></i></span><div><div class="lrow__t">Cancellation</div><div class="lrow__s">Free until Tue 15 Dec</div></div><span class="lrow__end"><i class="ic i-chevron"></i></span></div>
+    </div>
+
+    <div class="sc c4"><h4>Calendar cell</h4>
+      <div class="cdays" style="grid-template-columns:repeat(5,1fr)">
+        <button class="cal__day"><span class="cal__d">12</span><span class="cal__p">16.1</span></button>
+        <button class="cal__day is-peak is-selected"><span class="cal__d">14</span><span class="cal__p">18.2</span></button>
+        <button class="cal__day is-peak is-held"><span class="cal__d">15</span><span class="cal__p">18.2</span></button>
+        <button class="cal__day is-peak is-booked"><span class="cal__d">16</span><span class="cal__p">18.2</span></button>
+        <button class="cal__day is-blocked"><span class="cal__d">17</span><span class="cal__p">16.1</span></button>
+      </div>
+      <div class="lab">Open · your date (gold fill + ring) · on hold (corner mark) · booked (struck) · blocked (hatch). Prices in KD thousands. Thu to Sat tinted at the inline-end edge in both languages.</div>
+    </div>
+
+    <div class="sc c4"><h4>Toast with Undo</h4>
+      <div class="toast is-running" style="--toast-dur:8s"><span class="t-small">Date hidden from couples</span><button class="btn btn--tertiary btn--sm" type="button">Undo</button><span class="toast__thread"></span></div>
+      <h4 style="margin-block-start:8px">Compare tray</h4>
+      <div style="position:relative;min-block-size:60px"><div class="tray" style="position:relative;inset-inline:0;--tray-p:50px"><div class="tray__knots"><span class="tray__k"><img src="../../public/images/halls/halls-08-grand-ballroom-crystal-chandelier.jpg" alt=""></span><span class="tray__k"><img src="../../public/images/outdoor/outdoor-01-ring-arch-oceanfront-aisle.jpg" alt=""></span></div><div><div class="t-small t-strong">Compare</div><div class="t-caption t-muted">2 of 3</div></div><span class="btn btn--secondary btn--sm" style="border-radius:999px">Open</span></div></div>
+    </div>
+
+    <div class="sc c8"><h4>Navigation · avatars · KPI</h4>
+      <nav class="nav" style="--i:2" aria-label="Sample"><span class="nav__thread"></span>
+        <a class="nav__item"><i class="ic i-compass"></i>Discover</a><a class="nav__item"><i class="ic i-heart"></i>Saved</a><a class="nav__item" aria-current="page"><i class="ic i-rings"></i>My Wedding<span class="nav__dot"></span></a><a class="nav__item"><i class="ic i-message"></i>Messages<span class="nav__badge">2</span></a><a class="nav__item"><i class="ic i-user"></i>Profile</a></nav>
+      <div class="row" style="gap:32px;align-items:flex-start">
+        <div class="row" style="gap:12px"><span class="mono">ر</span><span class="mono mono--lg">ف</span><span class="mono mono--dark">س</span><span class="lab" style="max-inline-size:120px">Monogram avatars. One Arabic letter, no faces.</span></div>
+        <div style="display:grid;gap:2px"><span class="kpi__k">Booked in November</span><span class="kpi__v"><span class="money"><i class="cur"></i>214,600</span></span><span class="kpi__d"><i class="ic i-trendup ic--16"></i>+12 % vs October</span></div>
+        <div class="tabs tabs--scroll" style="padding-inline:0;gap:20px;border:0"><button class="tab" aria-selected="true">Overview</button><button class="tab">Packages</button><button class="tab">Dates</button></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======================= 10 LIVE DEMOS ======================= -->
+<section class="b-sec" id="demos">
+  <header class="b-sech"><span class="b-no">10</span><h2>Live micro-interactions</h2><p>Real CSS motion. Press, tap, drag the sheet handle, tap two dates, press Accept.</p></header>
+  <div class="g12" style="align-items:start">
+
+    <div class="dm c4" id="dmA">
+      <div class="dm__h"><b>Press, select, toggle</b><span>Every control answers inside 200 ms and nothing waits on it.</span></div>
+      <div class="stack2" style="gap:14px">
+        <button class="btn btn--primary btn--lg btn--block" type="button">Request this date</button>
+        <button class="btn btn--secondary btn--block" type="button">Add to compare</button>
+        <div class="row" id="dChips" style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip is-on" aria-pressed="true" type="button">Ladies</button><button class="chip" aria-pressed="false" type="button">Men's</button><button class="chip" aria-pressed="false" type="button">Both</button></div>
+        <div class="seg seg--block" id="dSeg" style="--n:3;--i:1"><button class="seg__item" aria-selected="false">Day</button><button class="seg__item" aria-selected="true">Evening</button><button class="seg__item" aria-selected="false">Full day</button></div>
+        <div class="row" style="justify-content:space-between;display:flex;align-items:center"><span class="t-small">Instant booking</span><button class="toggle" id="dTog" role="switch" aria-checked="false" aria-label="Instant booking" type="button"></button></div>
+        <div class="row" style="justify-content:space-between;display:flex;align-items:center"><span class="t-small">Save to Wishlist</span><button class="icon-btn icon-btn--paper heart" id="dHeart" aria-pressed="false" aria-label="Save" type="button"><i class="ic i-heart"></i></button></div>
+      </div>
+      <div class="dm__t"><span>press <i>120</i> ms</span><span>chip, segment, toggle <i>200</i> ms</span><span>heart fills <i>200</i> ms</span></div>
+    </div>
+
+    <div class="dm c4" id="dmB">
+      <div class="dm__h"><b>Sheet rise, range thread, undo</b><span>Tap two dates: the thread connects them. Then block them.</span></div>
+      <div class="frame" id="frB">
+        <div class="frame__h"><b>December 2026</b><span class="t-caption t-muted">Danah</span></div>
+        <div>
+          <div class="cal" style="grid-template-columns:repeat(7,1fr)"><div class="cal__dow">Sun</div><div class="cal__dow">Mon</div><div class="cal__dow">Tue</div><div class="cal__dow">Wed</div><div class="cal__dow is-peak">Thu</div><div class="cal__dow is-peak">Fri</div><div class="cal__dow is-peak">Sat</div></div>
+          <div class="cal cal--range" id="calB" style="grid-template-columns:repeat(7,1fr)">
+<i class="cal__day is-blank"></i>
+<i class="cal__day is-blank"></i>
+<button class="cal__day" data-d="1"><span class="cal__d">1</span><i class="cal__thr"></i></button>
+<button class="cal__day" data-d="2"><span class="cal__d">2</span><i class="cal__thr"></i></button>
+<button class="cal__day is-peak is-booked" data-d="3" disabled><span class="cal__d">3</span><i class="cal__thr"></i></button>
+<button class="cal__day is-peak" data-d="4"><span class="cal__d">4</span><i class="cal__thr"></i></button>
+<button class="cal__day is-peak" data-d="5"><span class="cal__d">5</span><i class="cal__thr"></i></button>
+<button class="cal__day is-range-start" data-d="6"><span class="cal__d">6</span><i class="cal__thr"></i></button>
+<button class="cal__day is-in-range" data-d="7"><span class="cal__d">7</span><i class="cal__thr"></i></button>
+<button class="cal__day is-in-range" data-d="8"><span class="cal__d">8</span><i class="cal__thr"></i></button>
+<button class="cal__day is-range-end" data-d="9"><span class="cal__d">9</span><i class="cal__thr"></i></button>
+<button class="cal__day is-peak is-booked" data-d="10" disabled><span class="cal__d">10</span><i class="cal__thr"></i></button>
+<button class="cal__day is-peak is-booked" data-d="11" disabled><span class="cal__d">11</span><i class="cal__thr"></i></button>
+<button class="cal__day is-peak is-held" data-d="12"><span class="cal__d">12</span><i class="cal__thr"></i></button>
+<button class="cal__day" data-d="13"><span class="cal__d">13</span><i class="cal__thr"></i></button>
+<button class="cal__day" data-d="14"><span class="cal__d">14</span><i class="cal__thr"></i></button>
+<button class="cal__day" data-d="15"><span class="cal__d">15</span><i class="cal__thr"></i></button>
+<button class="cal__day" data-d="16"><span class="cal__d">16</span><i class="cal__thr"></i></button>
+<button class="cal__day is-peak is-booked" data-d="17" disabled><span class="cal__d">17</span><i class="cal__thr"></i></button>
+<button class="cal__day is-peak is-booked" data-d="18" disabled><span class="cal__d">18</span><i class="cal__thr"></i></button>
+<button class="cal__day is-peak is-held" data-d="19"><span class="cal__d">19</span><i class="cal__thr"></i></button>
+<button class="cal__day" data-d="20"><span class="cal__d">20</span><i class="cal__thr"></i></button>
+<button class="cal__day" data-d="21"><span class="cal__d">21</span><i class="cal__thr"></i></button>
+<button class="cal__day" data-d="22"><span class="cal__d">22</span><i class="cal__thr"></i></button>
+<button class="cal__day" data-d="23"><span class="cal__d">23</span><i class="cal__thr"></i></button>
+<button class="cal__day is-peak" data-d="24"><span class="cal__d">24</span><i class="cal__thr"></i></button>
+<button class="cal__day is-peak" data-d="25"><span class="cal__d">25</span><i class="cal__thr"></i></button>
+<button class="cal__day is-peak" data-d="26"><span class="cal__d">26</span><i class="cal__thr"></i></button>
+<button class="cal__day" data-d="27"><span class="cal__d">27</span><i class="cal__thr"></i></button>
+<button class="cal__day" data-d="28"><span class="cal__d">28</span><i class="cal__thr"></i></button>
+<button class="cal__day" data-d="29"><span class="cal__d">29</span><i class="cal__thr"></i></button>
+<button class="cal__day" data-d="30"><span class="cal__d">30</span><i class="cal__thr"></i></button>
+<button class="cal__day is-peak is-booked" data-d="31" disabled><span class="cal__d">31</span><i class="cal__thr"></i></button>
+          </div>
+        </div>
+        <div class="frame__f"><div class="row" style="display:flex;align-items:center;justify-content:space-between;gap:12px"><div><div class="t-small t-strong" id="bSum">Sun 6 to Wed 9 Dec</div><div class="t-caption t-muted" id="bSub">4 days, all open</div></div><button class="btn btn--primary btn--sm" id="bOpen" type="button">Block dates</button></div></div>
+        <div class="scrim" id="bScrim"></div>
+        <div class="sheet" id="bSheet" role="dialog" aria-label="Block dates">
+          <div class="sheet__grab"></div>
+          <div style="display:grid;gap:16px">
+            <div class="sh-row"><h5>Block dates</h5><button class="icon-btn" id="bClose" type="button" aria-label="Close"><i class="ic i-close"></i></button></div>
+            <div><div class="t-small t-strong" id="bSum2">Sun 6 to Wed 9 Dec</div><div class="t-caption t-muted">Hidden from couples right away. Existing bookings are never touched.</div></div>
+            <div class="row" style="display:flex;gap:8px;flex-wrap:wrap" id="bReasons"><button class="chip is-on" aria-pressed="true" type="button">Maintenance</button><button class="chip" aria-pressed="false" type="button">Booked offline</button><button class="chip" aria-pressed="false" type="button">Private event</button></div>
+            <button class="btn btn--primary btn--lg btn--block" id="bGo" type="button">Block 4 days</button>
+          </div>
+        </div>
+        <div class="toast" id="bToast"><span class="t-small">Hidden from couples now</span><button class="btn btn--tertiary btn--sm" id="bUndo" type="button">Undo</button><span class="toast__thread"></span></div>
+      </div>
+      <div class="dm__t"><span>sheet <i>320</i> ms emphasized</span><span>handle turns gold on drag</span><span>undo <i>8 s</i> depleting</span></div>
+    </div>
+
+    <div class="dm c4" id="dmC">
+      <div class="dm__h"><b>Accept: the thread ties a knot</b><span>One tap. A thread runs while it sends, the knot ties, the reply window stops, Undo stays for 8 s.</span></div>
+      <div class="rq" id="rq">
+        <span class="sla is-soon" style="--p:.125"></span>
+        <div class="req__top" style="display:flex;align-items:center;justify-content:space-between"><span class="badge badge--pending" id="cBadge"><i class="ic i-clock"></i><span id="cBadgeT">Awaiting reply</span></span><span class="t-small t-gold t-strong" id="cLeft">3 h left</span></div>
+        <div><div class="req__date" style="margin:0">Sun 17 Jan 2027</div><div class="req__meta">Ladies' reception · 250 guests · <span class="money"><i class="cur"></i>11,500<i class="fils">.000</i></span></div></div>
+        <div class="sched sched--on-rose" id="cSched" style="--n:4;--p:0;--ring-bg:var(--paper);--thread-track:var(--ink-200)">
+          <span class="sched__line"></span>
+          <div class="sched__i is-done"><span class="sched__node"><i class="ic i-check"></i></span><span class="sched__t">Request</span></div>
+          <div class="sched__i" id="cN2"><span class="sched__node"><i class="ic i-check"></i></span><span class="sched__t">Approval</span></div>
+          <div class="sched__i"><span class="sched__node"><i class="ic i-check"></i></span><span class="sched__t">Deposit</span></div>
+          <div class="sched__i"><span class="sched__node"><i class="ic i-check"></i></span><span class="sched__t">Day</span></div>
+        </div>
+        <button class="btn btn--primary btn--lg btn--block" id="cAccept" type="button">Accept</button>
+        <span class="succ-wrap"><svg class="success" id="cSucc" viewBox="0 0 72 72" style="inline-size:28px;block-size:28px" aria-hidden="true"><circle cx="36" cy="36" r="30" pathLength="1"/><path d="M24 37l8 8 16-17" pathLength="1"/></svg></span>
+      </div>
+      <div class="toast" id="cToast" style="visibility:hidden"><span class="t-small">Accepted. The couple is told in 8 s.</span><button class="btn btn--tertiary btn--sm" id="cUndo" type="button">Undo</button><span class="toast__thread"></span></div>
+      <div class="dm__t"><span>loader <i>1100</i> ms loop, while waiting only</span><span>knot + thread <i>640</i> ms</span><span>tick <i>320</i> ms</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 11 MOTION SPEC ======================= -->
+<section class="b-sec" id="motion">
+  <header class="b-sech"><span class="b-no">11</span><h2>Motion specification</h2><p>Motion is the identity: the thread drawing on. Every animation answers one question.</p></header>
+  <div class="g12" style="align-items:start">
+    <div class="b-card c12" style="padding:20px 20px 12px">
+      <table class="mt"><thead><tr><th>Token</th><th>Duration</th><th>Easing</th><th>Used for · the question it answers</th><th>Flutter</th></tr></thead><tbody>
+        <tr><td><code>dur-1</code></td><td><span class="ms">120</span> ms<span class="bar2" style="--w:16px;margin-block-start:6px"></span></td><td>standard</td><td>Press, tap feedback, icon button. "Did it register?"</td><td><code>Duration(milliseconds: 120)</code></td></tr>
+        <tr><td><code>dur-2</code></td><td><span class="ms">200</span> ms<span class="bar2" style="--w:27px;margin-block-start:6px"></span></td><td>standard</td><td>Selection: chip, segment, toggle, knot, heart fill, status swap. "Is it chosen?"</td><td><code>Duration(milliseconds: 200)</code></td></tr>
+        <tr><td><code>dur-3</code></td><td><span class="ms">320</span> ms<span class="bar2" style="--w:43px;margin-block-start:6px"></span></td><td>emphasized</td><td>Sheet rise, tab thread travel, nav stub, one stepper segment, toast. "Where did it come from?"</td><td><code>Duration(milliseconds: 320)</code></td></tr>
+        <tr><td><code>dur-4</code></td><td><span class="ms">480</span> ms<span class="bar2" style="--w:64px;margin-block-start:6px"></span></td><td>emphasized</td><td>Shared-element image expansion, success ring. "Where am I now?"</td><td><code>Duration(milliseconds: 480)</code></td></tr>
+        <tr><td><code>dur-thread</code></td><td><span class="ms">640</span> ms<span class="bar2" style="--w:85px;margin-block-start:6px"></span></td><td>emphasized</td><td>A full thread draw-on: booking to the next knot, countdown, completion. Deliberate moments only. "How far have I come?"</td><td><code>extractPath(0, len * t)</code></td></tr>
+        <tr><td><code>wordmark</code></td><td><span class="ms">900</span> ms<span class="bar2" style="--w:120px;margin-block-start:6px"></span></td><td>emphasized</td><td>The line draws through the name once per session start. Never loops.</td><td><code>ScaleTransition(alignment: start)</code></td></tr>
+        <tr><td><code>loader</code></td><td><span class="ms">1100</span> ms loop</td><td>standard</td><td>A short segment travels the track while we wait. The only loop, and only while waiting.</td><td><code>controller.repeat()</code></td></tr>
+        <tr><td><code>undo</code></td><td><span class="ms">8000</span> ms</td><td>linear</td><td>The toast thread depletes: its length is the undo window. "How long can I take it back?"</td><td><code>AnimationController(duration: 8s)</code></td></tr>
+      </tbody></table>
+    </div>
+    <div class="c12 g12" style="gap:24px;align-items:start;display:grid;grid-template-columns:repeat(12,1fr)">
+      <div class="b-card c6"><div class="b-sub">Curves</div>
+        <div style="display:grid;gap:14px">
+          <div style="display:flex;gap:16px;align-items:center"><svg class="curve" viewBox="0 0 64 64"><line x1="8" y1="56" x2="56" y2="56"/><line x1="8" y1="56" x2="8" y2="8"/><path d="M8 56C17.6 56 17.6 8 56 8"/></svg><div><b style="font-weight:500;color:var(--ink-900)">standard</b><div class="b-note">cubic-bezier(.2, 0, 0, 1)<br>Cubic(.2, 0, 0, 1)</div></div></div>
+          <div style="display:flex;gap:16px;align-items:center"><svg class="curve" viewBox="0 0 64 64"><line x1="8" y1="56" x2="56" y2="56"/><line x1="8" y1="56" x2="8" y2="8"/><path d="M8 56C11.4 22.4 14 8 56 8"/></svg><div><b style="font-weight:500;color:var(--ink-900)">emphasized</b><div class="b-note">cubic-bezier(.05, .7, .1, 1)<br>Cubic(.05, .7, .1, 1)</div></div></div>
+          <div style="display:flex;gap:16px;align-items:center"><svg class="curve" viewBox="0 0 64 64"><line x1="8" y1="56" x2="56" y2="56"/><line x1="8" y1="56" x2="8" y2="8"/><path d="M8 56C22 51 43 11 56 8"/></svg><div><b style="font-weight:500;color:var(--ink-900)">exit</b><div class="b-note">cubic-bezier(.3, 0, .8, .15)<br>dismiss, 160 ms</div></div></div>
+        </div></div>
+      <div class="b-card b-card--tint c6"><div class="b-sub">Rules</div>
+        <p class="b-note" style="color:var(--ink-800)"><b>Nothing blocks input.</b> Nothing exceeds 500 ms except a deliberate thread or success moment (640 / 900). Nothing decorative loops.<br><b>Reduced motion:</b> the state stays, the movement goes. Instant, or a 120 ms cross-fade; the loader becomes a static half line.<br><b>RTL:</b> every translate multiplies by <b>--dir</b> (-1). Threads draw from the inline-start. Clocks, play, check never mirror.<br><b>Haptics:</b> commit moments only: save, accept, pay, toggle, range tick.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 12 SCREENS ======================= -->
+<section class="b-sec" id="screens">
+  <header class="b-sech"><span class="b-no">12</span><h2>In situ, both languages</h2><p>390 px, live pages. The same files flip with dir="rtl".</p></header>
+  <div class="b-sub">English · LTR</div>
+  <div class="sx">
+    <figure><div class="sx__f"><iframe src="client-home.html?lang=en" title="Client home EN" loading="eager"></iframe></div><figcaption><b>Client home</b>Brief card, then one gold action. The thread: wordmark, tab, countdown, nav.</figcaption></figure>
+    <figure><div class="sx__f"><iframe src="client-venue.html?lang=en" title="Venue EN" loading="eager"></iframe></div><figcaption><b>Venue</b>Pager, tab thread, payment schedule, price per day.</figcaption></figure>
+    <figure><div class="sx__f"><iframe src="client-compare.html?lang=en" title="Compare EN" loading="eager"></iframe></div><figcaption><b>Compare</b>Fluid thirds, label above value. Thread length is price and fit.</figcaption></figure>
+    <figure><div class="sx__f"><iframe src="hotel-today.html?lang=en" title="Hotel EN" loading="eager"></iframe></div><figcaption><b>Hotel today</b>Triage first. Reply windows deplete; the day is a thread.</figcaption></figure>
+  </div>
+  <div class="b-sub" style="margin-block-start:40px">Arabic · RTL</div>
+  <div class="sx">
+    <figure><div class="sx__f"><iframe src="client-home.html?lang=ar" title="Client home AR" loading="eager"></iframe></div></figure>
+    <figure><div class="sx__f"><iframe src="client-venue.html?lang=ar" title="Venue AR" loading="eager"></iframe></div></figure>
+    <figure><div class="sx__f"><iframe src="client-compare.html?lang=ar" title="Compare AR" loading="eager"></iframe></div></figure>
+    <figure><div class="sx__f"><iframe src="hotel-today.html?lang=ar" title="Hotel AR" loading="eager"></iframe></div></figure>
+  </div>
+</section>
+
+<!-- ======================= 13 RISKS ======================= -->
+<section class="b-sec" id="risks">
+  <header class="b-sech"><span class="b-no">13</span><h2>Honest risks</h2><p>What could make this direction fail, and what we would test first.</p></header>
+  <div class="rk">
+    <div><i>1</i><b>Static screens undersell it.</b><p>The identity is motion. A screenshot shows a thin gold line; an AD reviewing PNGs may call it timid. Review on device, with the board's demos.</p></div>
+    <div><i>2</i><b>Light type needs good photography.</b><p>Poppins and Cairo at 300 are elegant over calm images and weak over busy ones. Hero text therefore stays off photographs; only the wordmark and one caption sit on them.</p></div>
+    <div><i>3</i><b>Arabic Light below 26 px.</b><p>Cairo 300 holds at display sizes but thins out small. Display 3 steps up to Regular; user-test the 34 px headline on low-end Android.</p></div>
+    <div><i>4</i><b>Thin contrast margins.</b><p>Gold-700 on rose is 4.90 and gold-600 on rose is 3.10: pass, with no spare. Any tint change in the Rose ramp needs a re-check.</p></div>
+    <div><i>5</i><b>Mixed-font numerals in Flutter.</b><p>Cairo digits inside Poppins lines need a formatter that emits per-span fonts and a 1.08 em size. Easy once; easy to forget in a new widget.</p></div>
+    <div><i>6</i><b>Gold used sparingly may look flat.</b><p>The rule "gold is a verb" leaves most screens with one gold element. If the brand wants warmth, widen with photography, not with more gold.</p></div>
+  </div>
+  <div class="b-foot"><span>Ghazal · Direction 03 · The Thread · colours from the PRD, type from the PRD, no new fonts.</span><span>direction.css · client-home · client-venue · client-compare · hotel-today</span></div>
+</section>
+</div>
+<script>
+/* Board interactions: motion demos only. Nothing here is needed to read the board. */
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+  function reflow(el){void el.offsetWidth}
+
+  /* baseline measurement for the proof rows and the bilingual lockup */
+  function measure(){ $$('[data-base]').forEach(function(el){ var m=el.querySelector('.bl__m'); if(!m) return;
+    el.style.setProperty('--base',(m.getBoundingClientRect().bottom-el.getBoundingClientRect().top-el.clientTop)+'px'); }); }
+  (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(measure); addEventListener('load',measure); addEventListener('resize',measure);
+  if(document.fonts&&document.fonts.addEventListener) document.fonts.addEventListener('loadingdone',measure);
+  setTimeout(measure,600); setTimeout(measure,1600);
+
+  /* 02  the Booking Thread: advance / reset */
+  var notes=['','Request sent Thu 12 Nov, 4:00 PM. The hotel replies within 24 hours; nothing is charged until it does.','Approved Thu 12 Nov, 7:12 PM. The date is held for you; the KD 5,460.000 deposit is due within 24 hours.','Deposit received. The balance, KD 12,740.000, is due Thu 31 Dec, 14 days before your day.','Balance received. Thu 14 Jan 2027 is yours.'];
+  var cur=1;
+  function paintBT(i){ ['bt-en','bt-ar'].forEach(function(id){ var s=document.getElementById(id); if(!s) return; s.style.setProperty('--p',i/4);
+      $$('.step',s).forEach(function(st,k){ st.classList.toggle('is-done',k<i||(i===4&&k===4)); st.classList.toggle('is-current',k===i&&i<4); }); });
+    $('#bt-note').innerHTML='<b>'+(i===4?'Done:':'Now:')+'</b> '+notes[i]; }
+  $('#spin').addEventListener('click',function(){ cur=cur>=4?4:cur+1; paintBT(cur); });
+  $('#spinReset').addEventListener('click',function(){ cur=1; paintBT(1); });
+
+  /* 03  atlas */
+  var tabs=$('#atTabs'); if(tabs) $$('.tab',tabs).forEach(function(t,i){ t.addEventListener('click',function(){ tabs.style.setProperty('--i',i); $$('.tab',tabs).forEach(function(x,k){x.setAttribute('aria-selected',k===i)}); }); });
+  var sb=$('#atSuccBtn'), ss=$('#atSucc'); if(sb) sb.addEventListener('click',function(){ ss.classList.remove('play'); reflow(ss); ss.classList.add('play'); });
+  var wm=$('#atWm'); if(wm) wm.addEventListener('click',function(){ wm.classList.remove('draw'); reflow(wm); wm.classList.add('draw'); });
+
+  /* 10A  press, select, toggle */
+  var chips=$('#dChips'); if(chips) $$('.chip',chips).forEach(function(c){ c.addEventListener('click',function(){ $$('.chip',chips).forEach(function(x){ var on=x===c; x.classList.toggle('is-on',on); x.setAttribute('aria-pressed',on); }); }); });
+  var seg=$('#dSeg'); if(seg) $$('.seg__item',seg).forEach(function(b,i){ b.addEventListener('click',function(){ seg.style.setProperty('--i',i); $$('.seg__item',seg).forEach(function(x,k){ x.setAttribute('aria-selected',k===i); }); }); });
+  var tog=$('#dTog'); if(tog) tog.addEventListener('click',function(){ tog.setAttribute('aria-checked',tog.getAttribute('aria-checked')!=='true'); });
+  var hr=$('#dHeart'); if(hr) hr.addEventListener('click',function(){ var on=hr.getAttribute('aria-pressed')!=='true'; hr.setAttribute('aria-pressed',on); var i=hr.querySelector('.ic'); i.classList.toggle('i-heartfill',on); i.classList.toggle('i-heart',!on); });
+
+  /* 10B  range thread + sheet + undo */
+  var cal=$('#calB'); if(cal){
+    var cells=$$('.cal__day[data-d]',cal), start=6, end=9, stage=0, lastBlocked=[], tmr;
+    var dn=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], isBooked=function(c){return c.classList.contains('is-booked')};
+    var sum=$('#bSum'), sub=$('#bSub'), sum2=$('#bSum2'), go=$('#bGo'), open=$('#bOpen'), sheet=$('#bSheet'), scrim=$('#bScrim'), toast=$('#bToast');
+    function dow(d){return dn[(d+1)%7]}
+    function label(a,b){return a===b? dow(a)+' '+a+' Dec' : dow(a)+' '+a+' to '+dow(b)+' '+b+' Dec'}
+    function paintCal(){ cells.forEach(function(c){ var d=+c.dataset.d; c.classList.remove('is-range-start','is-range-end','is-in-range','is-selected');
+        if(start&&end){ if(start===end){ if(d===start) c.classList.add('is-selected'); } else { if(d===start) c.classList.add('is-range-start'); else if(d===end) c.classList.add('is-range-end'); else if(d>start&&d<end) c.classList.add('is-in-range'); } }
+        else if(start&&d===start) c.classList.add('is-range-start'); });
+      if(start&&end){ var all=0,free=0; cells.forEach(function(c){var d=+c.dataset.d; if(d>=start&&d<=end){all++; if(!isBooked(c)&&!c.classList.contains('is-blocked')) free++;}});
+        sum.textContent=label(start,end); sum2.textContent=label(start,end);
+        sub.textContent=all+(all===1?' day':' days')+(free===all?', all open':', '+(all-free)+' already booked, kept as they are');
+        go.textContent='Block '+free+(free===1?' day':' days'); open.disabled=false; open.classList.remove('btn--disabled'); }
+      else if(start){ sum.textContent=dow(start)+' '+start+' Dec'; sub.textContent='Tap the last day'; open.disabled=true; open.classList.add('btn--disabled'); } }
+    cells.forEach(function(c){ c.addEventListener('click',function(){ if(isBooked(c)) return; var d=+c.dataset.d;
+      if(stage===0){ start=d; end=null; stage=1; } else { end=d; if(end<start){var t=start;start=end;end=t;} stage=0; }
+      paintCal(); }); });
+    function openSheet(){ scrim.classList.add('is-open'); sheet.classList.add('is-open'); }
+    function closeSheet(){ scrim.classList.remove('is-open'); sheet.classList.remove('is-open'); sheet.style.translate=''; }
+    open.addEventListener('click',function(){ if(start&&end) openSheet(); });
+    $('#bClose').addEventListener('click',closeSheet); scrim.addEventListener('click',closeSheet);
+    var rs=$('#bReasons'); $$('.chip',rs).forEach(function(c){ c.addEventListener('click',function(){ $$('.chip',rs).forEach(function(x){var on=x===c; x.classList.toggle('is-on',on); x.setAttribute('aria-pressed',on);}); }); });
+    /* drag the handle: the grab turns gold, release past 80 px dismisses */
+    var y0=null; sheet.addEventListener('pointerdown',function(e){ if(!e.target.closest('.sheet__grab')&&e.target.closest('button')) return; y0=e.clientY; sheet.classList.add('is-dragging'); sheet.setPointerCapture(e.pointerId); });
+    sheet.addEventListener('pointermove',function(e){ if(y0===null) return; var dy=Math.max(0,e.clientY-y0); sheet.style.translate='0 '+dy+'px'; });
+    function endDrag(e){ if(y0===null) return; var dy=Math.max(0,e.clientY-y0); y0=null; sheet.classList.remove('is-dragging'); if(dy>80) closeSheet(); else sheet.style.translate=''; }
+    sheet.addEventListener('pointerup',endDrag); sheet.addEventListener('pointercancel',endDrag);
+    go.addEventListener('click',function(){ closeSheet(); lastBlocked=[]; cells.forEach(function(c){ var d=+c.dataset.d; if(d>=start&&d<=end&&!isBooked(c)){ c.classList.add('is-blocked'); lastBlocked.push(c); } });
+      start=end=null; stage=0; paintCal(); sum.textContent='Nothing selected'; sub.textContent='Tap two dates'; open.disabled=true; open.classList.add('btn--disabled');
+      toast.classList.remove('is-running'); reflow(toast); toast.classList.add('is-on','is-running'); clearTimeout(tmr); tmr=setTimeout(function(){ toast.classList.remove('is-on','is-running'); },8000); });
+    $('#bUndo').addEventListener('click',function(){ lastBlocked.forEach(function(c){c.classList.remove('is-blocked')}); toast.classList.remove('is-on','is-running'); clearTimeout(tmr); start=6; end=9; stage=0; paintCal(); });
+    paintCal();
+  }
+
+  /* 10C  Accept: loader thread, knot, success ring, undo */
+  var rq=$('#rq'); if(rq){
+    var btn=$('#cAccept'), badge=$('#cBadge'), bt=$('#cBadgeT'), left=$('#cLeft'), sched=$('#cSched'), n2=$('#cN2'), succ=$('#cSucc'), toast2=$('#cToast'), t2;
+    function ok(){ rq.classList.add('is-ok'); btn.classList.remove('is-loading','btn--primary'); btn.classList.add('btn--dark'); btn.textContent='Accepted';
+      badge.className='badge badge--approved'; badge.querySelector('.ic').className='ic i-checkcircle'; bt.textContent='Approved, deposit due'; left.textContent='Replied';
+      sched.style.setProperty('--p','.3333'); n2.classList.add('is-done'); succ.classList.remove('play'); reflow(succ); succ.classList.add('play');
+      toast2.style.visibility='visible'; toast2.classList.remove('is-running'); reflow(toast2); toast2.classList.add('is-on','is-running'); clearTimeout(t2); t2=setTimeout(function(){ toast2.classList.remove('is-on','is-running'); toast2.style.visibility='hidden'; },8000); }
+    function undo(){ clearTimeout(t2); rq.classList.remove('is-ok'); btn.classList.remove('btn--dark','is-loading'); btn.classList.add('btn--primary'); btn.textContent='Accept';
+      badge.className='badge badge--pending'; badge.querySelector('.ic').className='ic i-clock'; bt.textContent='Awaiting reply'; left.textContent='3 h left';
+      sched.style.setProperty('--p','0'); n2.classList.remove('is-done'); toast2.classList.remove('is-on','is-running'); toast2.style.visibility='hidden'; }
+    btn.addEventListener('click',function(){ if(rq.classList.contains('is-ok')||btn.classList.contains('is-loading')) return; btn.classList.add('is-loading'); setTimeout(ok,900); });
+    $('#cUndo').addEventListener('click',undo);
+  }
+})();
+</script>
+</body>
+</html>

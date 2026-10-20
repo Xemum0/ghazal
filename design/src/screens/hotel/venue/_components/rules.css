@@ -1,0 +1,27 @@
+/* Booking rules pieces (HL-VENU-06): fixed mode panel and the couples timeline (one thread: 8 px beads on a hairline rail). Tokens only. */
+
+.hv-tl { display: flex; flex-direction: column; gap: var(--gz-space-3); padding: var(--gz-space-panel-pad); background: var(--gz-color-sys-surface-raised); border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong); border-radius: var(--gz-radius-md); }
+.hv-tl__for { margin: 0; color: var(--gz-color-sys-text-secondary); }
+.hv-tl__list { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.hv-tl__row { display: flex; gap: var(--gz-space-3); }
+.hv-tl__rail { display: flex; flex: none; flex-direction: column; align-items: center; inline-size: var(--gz-size-timeline-rail); }
+.hv-tl__bead { flex: none; inline-size: var(--gz-size-knot-bead); block-size: var(--gz-size-knot-bead); margin-block-start: var(--gz-space-2); transform: rotate(45deg); background: var(--gz-color-sys-mark-khayt); }
+.hv-tl__line { flex: 1; inline-size: var(--gz-stroke-hair); margin-block-start: var(--gz-space-2); background: var(--gz-color-sys-border-strong); }
+.hv-tl__row[data-last] .hv-tl__line { background: transparent; }
+.hv-tl__body { display: flex; flex: 1; flex-direction: column; gap: var(--gz-space-1); min-inline-size: 0; padding-block-end: var(--gz-space-4); }
+.hv-tl__row[data-last] .hv-tl__body { padding-block-end: 0; }
+.hv-tl__title { color: var(--gz-color-sys-text-strong); }
+.hv-tl__text { color: var(--gz-color-sys-text-secondary); }
+
+/* fixed booking mode: a quiet tone panel, never a card or a switch */
+.hv-mode {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding: var(--gz-space-panel-pad);
+  background: var(--gz-color-sys-surface-tint);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-strong);
+}
+.hv-mode__head { display: flex; align-items: center; gap: var(--gz-space-2); }
+.hv-mode__text { margin: 0; color: var(--gz-color-sys-text-primary); }

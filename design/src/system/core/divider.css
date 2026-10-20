@@ -1,0 +1,74 @@
+/* Divider (ink hairline) and ThreadRule (gold khayt). Gold line up to 4 px, for place and state only (direction 2.3 e). */
+
+.gz-divider {
+  flex: none;
+  align-self: stretch;
+  box-sizing: border-box;
+  block-size: var(--gz-stroke-hair);
+  margin: 0;
+  border: 0;
+  background-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-divider--strong {
+  background-color: var(--gz-color-sys-border-strong);
+}
+
+.gz-divider--on-dark {
+  background-color: var(--gz-color-sys-border-on-dark);
+}
+
+.gz-divider--vertical {
+  inline-size: var(--gz-stroke-hair);
+  block-size: auto;
+}
+
+/* ---------- thread rule ---------- */
+.gz-threadrule {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+
+.gz-threadrule__line {
+  block-size: var(--gz-stroke-khayt);
+  background-color: var(--gz-color-sys-mark-khayt);
+  transform-origin: var(--gz-origin-start);
+}
+
+.gz-threadrule__line.is-armed {
+  transform: scaleX(0);
+}
+
+.gz-threadrule--khayt {
+  inline-size: var(--gz-size-khayt-width);
+}
+
+.gz-threadrule--khayt .gz-threadrule__line {
+  flex: 1;
+}
+
+.gz-threadrule--full,
+.gz-threadrule--knot {
+  align-self: stretch;
+}
+
+.gz-threadrule--full .gz-threadrule__line,
+.gz-threadrule--knot .gz-threadrule__line {
+  flex: 1;
+}
+
+/* The bead sits on the end of the line, centred on it; its 12 px box keeps the rotated square from clipping. */
+.gz-threadrule__bead {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-space-3);
+  block-size: var(--gz-space-3);
+}
+
+.gz-threadrule__bead.is-armed {
+  /* flutter-ok: hidden until the line arrives; the bead fades in with FadeTransition */
+  visibility: hidden;
+}

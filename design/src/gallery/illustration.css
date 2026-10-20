@@ -1,0 +1,132 @@
+/* Illustration gallery (design/src/gallery/illustration.tsx). Harness CSS: logical properties, flex + gap, no grid. Prefix .ig-. */
+
+.ig {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  max-inline-size: 1080px;
+  margin-inline: auto;
+  padding-block: var(--gz-space-4) var(--gz-space-24);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.ig-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.ig-head p {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.ig-sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+}
+
+.ig-sec__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}
+
+.ig-sec__head h2,
+.ig-sec__head p {
+  margin: 0;
+}
+
+.ig-sec__head p {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.ig-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-4);
+}
+
+.ig-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 168px;
+  padding-block: var(--gz-space-4) var(--gz-space-3);
+  padding-inline: var(--gz-space-3);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-canvas);
+}
+
+.ig-cell--ink {
+  background: var(--gz-color-sys-surface-dark);
+  border-color: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.ig-cell--paper {
+  background: var(--gz-color-sys-surface-raised);
+}
+
+.ig-cap {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+  text-align: center;
+}
+
+.ig-cap--flip {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.ig-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--gz-space-6);
+}
+
+.ig-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-3);
+}
+
+.ig-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+}
+
+.ig-swatch__chip {
+  inline-size: 72px;
+  block-size: var(--gz-space-8);
+  border-radius: var(--gz-radius-sm);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+}
+
+.ig-state {
+  inline-size: 360px;
+  min-block-size: 360px;
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-canvas);
+  display: flex;
+}
+
+.ig-cell--ink .ig-cap {
+  color: var(--gz-color-sys-text-on-dark-muted);
+}

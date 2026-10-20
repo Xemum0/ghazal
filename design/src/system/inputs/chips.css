@@ -1,0 +1,18 @@
+/* ChipGroup layout only: the chip itself is the shared Chip (system/core/chip.css). */
+
+.gz-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gz-chips[data-layout='rail'] {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.gz-chips[data-layout='rail']::-webkit-scrollbar {
+  display: none;
+}

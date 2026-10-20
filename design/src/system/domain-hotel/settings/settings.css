@@ -1,0 +1,104 @@
+/* Settings and reviews: StaffRow, BusinessHoursRow, BankInfoCard, ReviewReplyCard. Ruled lists and hairline panels; the serif never appears. */
+
+/* ---------- staff row ---------- */
+.gz-staff { display: flex; flex-direction: column; min-inline-size: 0; border-block-end-width: var(--gz-stroke-hair); border-block-end-style: solid; border-block-end-color: var(--gz-color-sys-border-hairline); }
+.gz-staff.is-last { border-block-end-color: transparent; }
+
+.gz-staff__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-row-queue);
+  padding-block: var(--gz-space-3);
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gz-staff__text { display: flex; flex: 1; flex-direction: column; gap: var(--gz-space-1); min-inline-size: 0; }
+.gz-staff__line { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gz-space-1) var(--gz-space-2); }
+.gz-staff__name { color: var(--gz-color-sys-text-strong); }
+.gz-staff__marker { color: var(--gz-color-sys-text-secondary); }
+.gz-staff__state { color: var(--gz-color-sys-text-secondary); }
+.gz-staff__state.is-muted { color: var(--gz-color-sys-text-disabled); }
+
+.gz-staff__body { display: flex; flex-direction: column; gap: var(--gz-space-3); padding-block-end: var(--gz-space-4); }
+.gz-staff__summary { margin: 0; color: var(--gz-color-sys-text-primary); }
+.gz-staff__perms { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; border-block-start-width: var(--gz-stroke-hair); border-block-start-style: solid; border-block-start-color: var(--gz-color-sys-border-hairline); }
+
+.gz-staff__perm {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-md);
+  padding-block: var(--gz-space-2);
+  border-block-end-width: var(--gz-stroke-hair); border-block-end-style: solid; border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-staff__perm-text { display: flex; flex-direction: column; min-inline-size: 0; }
+.gz-staff__why { color: var(--gz-color-sys-text-secondary); }
+.gz-staff__flag { display: inline-flex; flex: none; align-items: center; gap: var(--gz-space-1); color: var(--gz-color-sys-text-secondary); }
+.gz-staff__flag.is-yes { color: var(--gz-color-sys-text-success); }
+
+/* ---------- business hours ---------- */
+.gz-bh { display: flex; flex-direction: column; align-items: flex-start; gap: var(--gz-space-2); padding-block: var(--gz-space-2); border-block-end-width: var(--gz-stroke-hair); border-block-end-style: solid; border-block-end-color: var(--gz-color-sys-border-hairline); }
+.gz-bh.is-last { border-block-end-color: transparent; }
+.gz-bh__head { display: flex; align-items: center; gap: var(--gz-space-3); align-self: stretch; min-block-size: var(--gz-size-row-min); }
+.gz-bh__day { flex: 1; color: var(--gz-color-sys-text-strong); }
+.gz-bh__closed { color: var(--gz-color-sys-text-secondary); }
+.gz-bh__times { display: flex; gap: var(--gz-space-3); align-self: stretch; }
+
+.gz-bh__time {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-control-lg);
+  padding: var(--gz-space-2) var(--gz-space-3);
+  background: var(--gz-color-sys-control-bg);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gz-bh__time.is-invalid { border-color: var(--gz-color-sys-border-error); }
+.gz-bh__what { color: var(--gz-color-sys-text-secondary); }
+.gz-bh__value { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gz-space-1) var(--gz-space-2); color: var(--gz-color-sys-text-strong); }
+.gz-bh__next { color: var(--gz-color-sys-text-secondary); }
+.gz-bh__error { display: flex; align-items: center; gap: var(--gz-space-1); margin: 0; color: var(--gz-color-sys-text-danger); }
+
+/* ---------- bank info ---------- */
+
+
+
+
+/* ---------- review reply card ---------- */
+.gz-rr {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  padding-block: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair); border-block-end-style: solid; border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-rr.is-last { border-block-end-color: transparent; }
+.gz-rr__head { display: flex; align-items: center; gap: var(--gz-space-3); }
+.gz-rr__who { display: flex; flex: 1; flex-direction: column; min-inline-size: 0; }
+.gz-rr__name { color: var(--gz-color-sys-text-strong); }
+.gz-rr__sub { color: var(--gz-color-sys-text-secondary); }
+.gz-rr__tags { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gz-space-2) var(--gz-space-3); }
+.gz-rr__tags:empty { display: none; }
+.gz-rr__verified { display: inline-flex; align-items: center; gap: var(--gz-space-1); color: var(--gz-color-sys-text-secondary); }
+.gz-rr__text { color: var(--gz-color-sys-text-primary); }
+
+.gz-rr__reply { display: flex; flex-direction: column; gap: var(--gz-space-1); padding: var(--gz-space-3); background: var(--gz-color-sys-surface-tint); border-radius: var(--gz-radius-sm); }
+.gz-rr__reply--draft { background: var(--gz-color-sys-surface-quiet); }
+.gz-rr__reply-head { display: flex; align-items: center; gap: var(--gz-space-1); margin: 0; color: var(--gz-color-sys-text-secondary); }
+
+.gz-rr__actions { display: flex; align-items: center; gap: var(--gz-space-3); }
+.gz-rr__actions .gz-btn--secondary { flex: 1; }
+.gz-rr__once { margin: 0; color: var(--gz-color-sys-text-secondary); }

@@ -1,0 +1,188 @@
+/* Button. Heights 44 / 48 / 52 / 56 are the control tokens; radius 8; label from the `button` type role (.gz-t-button).
+   Colour, pressed and disabled values are the action tokens. No :hover (touch UI); :active and the .is-pressed twin. */
+
+.gz-btn {
+  position: relative; /* flutter-ok: named overlay anchor for the loading thread (ThreadPainter) */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-inline-size: var(--gz-size-touch-min);
+  min-block-size: var(--gz-size-control-md);
+  padding-inline: var(--gz-space-6);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: transparent;
+  border-radius: var(--gz-radius-sm);
+  overflow: hidden;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.gz-btn--sm { min-block-size: var(--gz-size-control-sm); }
+.gz-btn--md { min-block-size: var(--gz-size-control-md); }
+.gz-btn--cta { min-block-size: var(--gz-size-control-cta); }
+.gz-btn--lg { min-block-size: var(--gz-size-control-lg); }
+
+.gz-btn--block {
+  display: flex;
+  /* flutter-ok: fills the parent's width (SizedBox(width: double.infinity)) */
+  inline-size: 100%;
+}
+
+.gz-btn__label {
+  position: relative; /* flutter-ok: anchor for the tertiary underline */
+  display: inline-block;
+}
+
+/* ---------- primary: the one gold fill on a screen ---------- */
+/* Filled buttons carry no border, so the loading thread sits on the very bottom edge of the fill. */
+.gz-btn--primary,
+.gz-btn--destructive {
+  border-width: 0;
+}
+
+.gz-btn--primary {
+  background-color: var(--gz-color-sys-action-primary-bg);
+  color: var(--gz-color-sys-action-primary-label);
+}
+
+.gz-btn--primary:active,
+.gz-btn--primary.is-pressed,
+.gz-btn--primary.is-loading {
+  background-color: var(--gz-color-sys-action-primary-bg-pressed);
+}
+
+.gz-btn--primary:disabled {
+  background-color: var(--gz-color-sys-action-primary-bg-disabled);
+  color: var(--gz-color-sys-action-primary-label-disabled);
+}
+
+/* ---------- secondary: hairline outline, equal weight in pairs ---------- */
+.gz-btn--secondary {
+  border-color: var(--gz-color-sys-action-secondary-border);
+  color: var(--gz-color-sys-action-secondary-label);
+}
+
+.gz-btn--secondary:active,
+.gz-btn--secondary.is-pressed,
+.gz-btn--secondary.is-loading {
+  background-color: var(--gz-color-sys-action-secondary-bg-pressed);
+}
+
+.gz-btn--secondary:disabled {
+  border-color: var(--gz-color-sys-action-secondary-border-disabled);
+  color: var(--gz-color-sys-action-secondary-label-disabled);
+}
+
+/* ---------- destructive: danger on its tint, icon + label ---------- */
+.gz-btn--destructive {
+  background-color: var(--gz-color-sys-action-destructive-bg);
+  color: var(--gz-color-sys-action-destructive-label);
+}
+
+.gz-btn--destructive:active,
+.gz-btn--destructive.is-pressed,
+.gz-btn--destructive.is-loading {
+  background-color: var(--gz-color-sys-action-destructive-bg-pressed);
+}
+
+.gz-btn--destructive:disabled {
+  background-color: var(--gz-color-sys-action-primary-bg-disabled);
+  color: var(--gz-color-sys-action-primary-label-disabled);
+}
+
+/* ---------- tertiary: gold-700 text, 1 px underline 8 px under the baseline ---------- */
+.gz-btn--tertiary {
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-sm);
+  overflow: visible;
+  color: var(--gz-color-sys-action-tertiary-label);
+}
+
+/* The label's line box is 18 / 20; the 4 px of padding puts the rule 8 px under the baseline. */
+.gz-btn--tertiary .gz-btn__label {
+  padding-block-end: var(--gz-space-1);
+}
+
+.gz-btn__underline {
+  position: absolute; /* flutter-ok: named overlay anchor, a 1 px rule under the label (bottom border of a WidgetSpan) */
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: var(--gz-stroke-hair);
+  background-color: var(--gz-color-sys-action-tertiary-underline);
+}
+
+/* On an ink surface (CountdownCard): the label and its rule are canvas; the gold-700 default is for light surfaces. */
+.gz-btn--tertiary.gz-btn--on-dark {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-btn--tertiary.gz-btn--on-dark .gz-btn__underline {
+  background-color: var(--gz-color-sys-text-on-dark);
+}
+
+/* Press shortens the underline to 40% (direction 3), from inline-start; the label itself does not scale. */
+.gz-btn--tertiary:active .gz-btn__underline,
+.gz-btn--tertiary.is-pressed .gz-btn__underline {
+  transform: scaleX(var(--gz-motion-scale-underline-press));
+}
+
+.gz-btn--tertiary:disabled {
+  color: var(--gz-color-sys-action-secondary-label-disabled);
+}
+
+.gz-btn--tertiary:disabled .gz-btn__underline {
+  background-color: var(--gz-color-sys-action-secondary-border-disabled);
+}
+
+/* ---------- loading: the thread draws once along the bottom edge ---------- */
+.gz-btn.is-loading {
+  cursor: progress;
+}
+
+.gz-btn__thread {
+  position: absolute; /* flutter-ok: named overlay anchor along the bottom edge */
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: var(--gz-stroke-thread);
+  overflow: hidden;
+}
+
+.gz-btn__thread-fill {
+  position: absolute; /* flutter-ok: fill inside the thread track (ThreadPainter) */
+  inset: 0;
+  background-color: var(--gz-color-sys-mark-state);
+}
+
+/* Gold line on a gold fill would vanish: on the primary the thread is ink. */
+.gz-btn--primary .gz-btn__thread-fill {
+  background-color: var(--gz-color-sys-text-strong);
+}
+
+.gz-btn--tertiary .gz-btn__thread {
+  inset-inline: var(--gz-space-2);
+}
+
+.gz-btn:disabled {
+  cursor: default;
+}
+
+/* ---------- the stated reason under a disabled button ---------- */
+.gz-btn-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-2);
+}
+
+.gz-btn-wrap--block {
+  display: flex;
+}
+
+.gz-btn__reason {
+  margin: 0;
+  text-align: center;
+}

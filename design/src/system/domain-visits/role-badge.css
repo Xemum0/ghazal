@@ -1,0 +1,31 @@
+/* RoleBadge: 24 high text chip, radius 4 (the status-pill shape), no glyph. Roles are told apart by tone, never by colour alone. */
+
+.gz-role {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-2);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: transparent;
+  border-radius: var(--gz-radius-xs);
+  white-space: nowrap;
+}
+
+.gz-role--client {
+  border-color: var(--gz-color-sys-border-strong);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-role--hotel_representative {
+  background-color: var(--gz-color-sys-status-neutral-bg);
+  color: var(--gz-color-sys-status-neutral-text);
+}
+
+.gz-role--support {
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-strong);
+}

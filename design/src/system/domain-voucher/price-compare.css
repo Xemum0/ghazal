@@ -1,0 +1,118 @@
+/* PriceCompare: the voucher price is the headline, the standard price is quiet. Success green only on the saving glyph and line; no
+   gold (a price is not a verb). Tokens only, flex + gap. */
+
+.gz-pcmp {
+  display: flex;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-pcmp--stack {
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gz-pcmp__main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--gz-space-2);
+}
+
+.gz-pcmp__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+}
+
+.gz-pcmp__row--voucher {
+  align-items: center;
+}
+
+.gz-pcmp__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-pcmp__row--voucher .gz-pcmp__label {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-pcmp__was,
+.gz-pcmp__strike {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-pcmp__save {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-success);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-pcmp__basis {
+  margin: 0;
+}
+
+.gz-pcmp__save-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+/* guest: the locked teaser replaces the voucher row */
+.gz-pcmp__locked {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  padding: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}
+
+.gz-pcmp__lockhead {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-pcmp__lockfig {
+  display: inline-flex;
+}
+
+/* inline: one line, wraps to a second only when a card is narrow */
+.gz-pcmp--inline {
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--gz-space-2);
+  row-gap: var(--gz-space-1);
+}
+
+.gz-pcmp__lockline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-pcmp__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}

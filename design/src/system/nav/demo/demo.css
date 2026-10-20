@@ -1,0 +1,53 @@
+/* Demo screens: layout only, tokens only. */
+.gz-demo__stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-6);
+}
+
+.gz-demo__section {
+  padding-block-start: var(--gz-space-4);
+}
+
+.gz-demo__hall {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-end: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-demo__thumb {
+  align-self: stretch;
+  block-size: var(--gz-space-24);
+  object-fit: cover;
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-placeholder);
+}
+
+.gz-demo__hall-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.gz-demo__hall-name {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-demo__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-6);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gz-demo__sheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}

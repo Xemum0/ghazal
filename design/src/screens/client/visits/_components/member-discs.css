@@ -1,0 +1,53 @@
+/* MemberDiscs: three 32 monogram discs in a row, each in a 2 px ring so the roles read apart by line and tint. Tokens only. */
+.gzvt-md {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.gzvt-md--button {
+  justify-content: center;
+  min-inline-size: var(--gz-size-touch-min);
+  min-block-size: var(--gz-size-touch-min);
+  cursor: pointer;
+}
+
+.gzvt-md__in {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.gzvt-md--button:focus-visible {
+  outline-width: var(--gz-stroke-focus);
+  outline-style: solid;
+  outline-color: var(--gz-color-sys-focus-ring);
+  outline-offset: var(--gz-stroke-focus-offset);
+}
+
+.gzvt-md__d {
+  display: inline-flex;
+  flex: none;
+  padding: var(--gz-stroke-thread);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: transparent;
+  border-radius: var(--gz-radius-pill);
+}
+
+.gzvt-md__d[data-role='client'] {
+  border-color: var(--gz-color-sys-border-strong);
+}
+
+.gzvt-md__d[data-role='client'] .gz-avatar {
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.gzvt-md__d[data-role='hotel_representative'] .gz-avatar {
+  background-color: var(--gz-color-sys-status-neutral-bg);
+  color: var(--gz-color-sys-status-neutral-text);
+}
+
+.gzvt-md__d[data-role='support'] .gz-avatar {
+  background-color: var(--gz-color-sys-surface-tint);
+}

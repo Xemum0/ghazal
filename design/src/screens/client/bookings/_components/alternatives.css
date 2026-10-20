@@ -1,0 +1,46 @@
+.gzb-alt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzb-alt__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  text-align: start;
+  color: inherit;
+}
+
+.gzb-alt__thumb {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  inline-size: var(--gz-size-thumb-lg);
+  block-size: var(--gz-size-thumb-lg);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}
+
+.gzb-alt__photo {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+.gzb-alt__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzb-alt__name {
+  color: var(--gz-color-sys-text-strong);
+}
+

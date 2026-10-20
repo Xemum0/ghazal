@@ -1,0 +1,82 @@
+/* AttachSheet: three equal tiles (glyph disk + one word), a one-glyph row with the info button, a rail of 80 squares. The sheet pads
+   itself with the gutter. Tokens only. */
+
+.gzm-att {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gzm-att__tiles {
+  display: flex;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzm-att__cell {
+  display: flex;
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.gzm-att__tile {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-queue);
+  padding-block: var(--gz-space-3);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+}
+
+.gzm-att__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-control-sm);
+  block-size: var(--gz-size-control-sm);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-canvas);
+}
+
+.gzm-att__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline-start: var(--gz-space-1);
+}
+
+.gzm-att__rail {
+  display: flex;
+  gap: var(--gz-space-2);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.gzm-att__rail::-webkit-scrollbar {
+  display: none;
+}
+
+.gzm-att__thumb {
+  display: flex;
+  flex: none;
+  inline-size: var(--gz-space-20);
+  block-size: var(--gz-space-20);
+  border-radius: var(--gz-radius-sm);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.gzm-att__photo {
+  display: flex;
+  flex: 1;
+}

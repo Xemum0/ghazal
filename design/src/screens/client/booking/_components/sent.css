@@ -1,0 +1,189 @@
+/* The outcome screens (CL-BOOK-06 Request sent, CL-BOOK-09 Booking confirmed): the one ink panel, the summary, the planner row. Tokens only. */
+
+.bk-sent-body {
+  padding-block-end: var(--gz-space-8);
+}
+
+.bk-sent-notice {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-3);
+}
+
+.bk-sent-body > .bk-section {
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* ---------- the ink panel: edge to edge, the single dark surface of the screen ---------- */
+.bk-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-4) var(--gz-space-8);
+  padding-inline: var(--gz-space-gutter);
+  margin-block-end: var(--gz-space-6);
+  background-color: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.bk-hero__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-on-dark);
+  text-align: center;
+}
+
+/* The drawing settles once (640 ms, no confetti); reduced motion shows it finished. */
+.bk-hero__art {
+  display: inline-flex;
+  animation: bk-seal-in var(--gz-motion-duration-success) var(--gz-motion-ease-emphasized) both;
+}
+
+@keyframes bk-seal-in {
+  from {
+    transform: scale(var(--gz-motion-scale-knot-from));
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bk-hero__art {
+    animation: none;
+  }
+}
+
+.bk-hero .gz-bthread {
+  align-self: stretch;
+  padding-block-start: var(--gz-space-4);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-on-dark);
+}
+
+/* ---------- summary ---------- */
+.bk-section.bk-sent-summary {
+  gap: var(--gz-space-3);
+}
+
+.bk-sent-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.bk-sent-head__name {
+  margin: 0;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.bk-sent-head > .gz-iconbtn {
+  flex: none;
+  position: relative; /* flutter-ok: Transform.translate by the target's slack so the glyph meets the 20 gutter */
+  inset-inline-end: -10px;
+}
+
+/* ---------- the event date line ---------- */
+.bk-dateline {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.bk-dateline > .gz-icon {
+  flex: none;
+}
+
+.bk-dateline__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.bk-dateline__value {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.bk-dateline__sub {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- the planner offer: a quiet row, once ---------- */
+.bk-planner {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  padding-inline: var(--gz-space-4) var(--gz-space-1);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.bk-planner__main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-row-min);
+  text-align: start;
+  cursor: pointer;
+}
+
+.bk-planner__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.bk-planner__title {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.bk-section.bk-leave {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2);
+  padding-block-end: 0;
+}
+
+.bk-leave .gz-btn:first-child {
+  position: relative; /* flutter-ok: Transform.translate by the tertiary padding */
+  inset-inline-start: -8px;
+}
+
+/* ---------- notification pre-prompt sheet ---------- */
+.bk-notif {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-4);
+  padding-block-end: var(--gz-space-4);
+}
+
+.bk-notif__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-self: stretch;
+  gap: var(--gz-space-2);
+}
+
+.bk-notif__actions > .gz-btn--tertiary {
+  align-self: center;
+}

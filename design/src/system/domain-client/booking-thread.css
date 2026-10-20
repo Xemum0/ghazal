@@ -1,0 +1,251 @@
+/* BookingThread (direction section 4). Five knots on one thread: flex columns, each a knot slot, a 2 px segment that fills with
+   gold-500 up to where the booking is, and the label under it. No grid, no calc: the segment is flex:1 between two fixed slots.
+   Only transform animates (scaleX / scaleY from inline-start / block-start), once. */
+
+.gz-bthread {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gz-bthread__cols {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Five equal columns; each column is [slot][4][segment][4] over its label, so the label starts under its knot. */
+.gz-bthread__col {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  /* A column never narrows below its longest word: at 360 on a dark panel "Approval" keeps its letters and the other columns give way. */
+  min-inline-size: min-content;
+}
+
+.gz-bthread__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  padding-inline-end: var(--gz-space-1);
+}
+
+.gz-bthread__seg {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gz-bthread__fill {
+  transform-origin: var(--gz-origin-start);
+}
+
+.gz-bthread__fill.is-armed {
+  transform: scaleX(0);
+}
+
+.gz-bthread__text {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  padding-inline-end: var(--gz-space-1);
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+.gz-bthread__label {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+.gz-bthread__label.is-strong {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-bthread__label.is-faint {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-bthread__sub {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* The one full-width line under the thread: a deadline, a reason, a verification. Gold-700 while waiting (a verb), danger when ended. */
+.gz-bthread__note {
+  margin: 0;
+  padding-block-start: var(--gz-space-2);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-bthread__note.is-now {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.gz-bthread__note.is-danger {
+  color: var(--gz-color-sys-text-danger);
+}
+
+.gz-on-dark .gz-bthread__note {
+  border-block-start-color: var(--gz-color-sys-border-on-dark);
+  color: var(--gz-color-sys-text-on-dark-muted);
+}
+
+.gz-on-dark .gz-bthread__note.is-now {
+  color: var(--gz-color-sys-text-on-dark-gold);
+}
+
+.gz-bthread__sub.is-now {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.gz-bthread__sub.is-danger {
+  color: var(--gz-color-sys-text-danger);
+}
+
+.gz-on-dark .gz-bthread__label,
+.gz-on-dark .gz-bthread__sub {
+  color: var(--gz-color-sys-text-on-dark-muted);
+}
+
+.gz-on-dark .gz-bthread__label.is-strong {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-on-dark .gz-bthread__sub.is-now {
+  color: var(--gz-color-sys-text-on-dark-gold);
+}
+
+/* ---------- compact: 12 px knots, the current label only ---------- */
+.gz-bthread--compact .gz-bthread__col {
+  flex: 1 1 0;
+}
+
+.gz-bthread__current {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-bthread__current-sub {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.gz-bthread__current-label {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-bthread__current .is-now {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.gz-bthread__current .is-danger {
+  color: var(--gz-color-sys-text-danger);
+}
+
+.gz-on-dark .gz-bthread__current,
+.gz-on-dark .gz-bthread__current-label {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-on-dark .gz-bthread__current .is-now {
+  color: var(--gz-color-sys-text-on-dark-gold);
+}
+
+/* ---------- vertical: rail and content ---------- */
+.gz-bthread--vertical {
+  gap: 0;
+}
+
+.gz-bthread__item {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+}
+
+.gz-bthread__rail {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-1);
+  inline-size: var(--gz-size-icon-lg);
+}
+
+/* The vertical segment between two knots: a 2 px track that stretches with the row; the fill draws from the top. */
+.gz-bthread .gz-bthread__vseg {
+  flex: 1;
+  inline-size: var(--gz-stroke-thread);
+  block-size: auto;
+  min-block-size: var(--gz-space-4);
+}
+
+.gz-bthread__vfill {
+  position: absolute; /* flutter-ok: ThreadPainter segment inside its track */
+  inset: 0;
+  background-color: var(--gz-color-sys-mark-khayt);
+  transform-origin: center top;
+}
+
+.gz-bthread__vfill.is-armed {
+  transform: scaleY(0);
+}
+
+.gz-bthread__vdraw {
+  animation: gz-bthread-draw-y var(--gz-motion-duration-expressive) var(--gz-motion-ease-standard) var(--gz-delay, 0s) both;
+}
+
+@keyframes gz-bthread-draw-y {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+.gz-bthread--vertical .gz-bthread__text {
+  flex: 1;
+  gap: var(--gz-space-1);
+  padding-block: var(--gz-space-1) var(--gz-space-4);
+  padding-inline-end: 0;
+}
+
+.gz-bthread--vertical .gz-bthread__item:last-child .gz-bthread__text {
+  padding-block-end: 0;
+}
+
+.gz-bthread--vertical .gz-bthread__label {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-bthread--vertical .gz-bthread__label.is-faint {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-on-dark.gz-bthread--vertical .gz-bthread__label {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-on-dark.gz-bthread--vertical .gz-bthread__label.is-faint {
+  color: var(--gz-color-sys-text-on-dark-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-bthread__vdraw {
+    animation: none;
+  }
+}

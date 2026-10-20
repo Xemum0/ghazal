@@ -1,0 +1,40 @@
+/* Harness stage for the player: controls above the device. Harness CSS (shell), not product CSS. */
+.gz-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-5);
+  padding-block: var(--gz-space-6);
+  padding-inline: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-player__bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gz-space-3);
+}
+
+.gz-player__group {
+  display: flex;
+  gap: var(--gz-space-1);
+}
+
+.gz-player__chip {
+  min-block-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-control-bg);
+  color: var(--gz-color-sys-text-strong);
+  font-family: var(--gz-font-ui);
+  font-size: var(--gz-type-body-s-size);
+}
+
+.gz-player__chip[aria-pressed='true'] {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+  font-weight: 500;
+}

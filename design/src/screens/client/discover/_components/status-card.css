@@ -1,0 +1,65 @@
+/* StatusCard: a paper panel, hairline ink-300, radius 12, padding 16 (direction 3 "Panel"). A 64 drawing leads, then pill, name and facts;
+   one button; the chevron mirrors in Arabic. */
+.gzd-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-brief-row);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-3) var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzd-status:active {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gzd-status__art {
+  display: flex;
+  flex: none;
+}
+
+.gzd-status__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzd-status__pill {
+  display: flex;
+  margin-block-end: var(--gz-space-1);
+}
+
+.gzd-status__title {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gzd-status__facts {
+  margin-block-start: var(--gz-space-1);
+}
+
+/* The variants specimen: the seven faces, one under the other. */
+.gzd-variants {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding-block: var(--gz-space-4) var(--gz-space-8);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzd-variants__item {
+  display: flex;
+  flex-direction: column;
+}

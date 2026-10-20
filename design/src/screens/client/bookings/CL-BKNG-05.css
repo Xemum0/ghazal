@@ -1,0 +1,35 @@
+/* CL-BKNG-05 Receipts. Gutter 20, section rhythm 32. Tokens only; flex + gap; logical properties. */
+.gzb-pays {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding-block: var(--gz-space-4) var(--gz-space-section);
+}
+
+.gzb-pays__pad {
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzb-pays__skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzb-pays__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gzb-pays__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  padding-inline: var(--gz-space-gutter);
+  list-style: none;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}

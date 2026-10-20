@@ -1,0 +1,122 @@
+/* Review (CL-BOOK-05) pieces: the request plate, the attached voucher, what happens next, the consent row. Tokens only. */
+
+/* ---------- request plate ---------- */
+.bk-plate {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.bk-plate__photo {
+  display: flex;
+  flex: none;
+  inline-size: var(--gz-size-thumb-compact-width);
+  block-size: var(--gz-size-thumb-compact-height);
+  overflow: hidden;
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.bk-plate__photo > .gz-photo {
+  flex: 1;
+}
+
+.bk-plate__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.bk-plate__name {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* Step 1: the hall as a plate of its own, a 16:10 photograph the width of the column with its name and facts beneath (wall label). */
+.bk-plate--wide {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+}
+
+.bk-plate--wide > .bk-plate__photo {
+  inline-size: auto;
+  block-size: auto;
+  aspect-ratio: var(--gz-layout-aspect-16x10);
+}
+
+.bk-plate--wide > .bk-plate__text {
+  flex: none;
+}
+
+/* ---------- voucher card: ink hairline, quiet; the code is a fact, the whole card changes it ---------- */
+.bk-vattach {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  align-self: stretch;
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  text-align: start;
+  cursor: pointer;
+}
+
+.bk-vattach__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.bk-vattach__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.bk-vattach__code {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* ---------- what happens next ---------- */
+.bk-next__facts {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-4);
+  row-gap: var(--gz-space-1);
+}
+
+/* ---------- consent row: the checkbox and its info glyph on one line ---------- */
+.bk-section.bk-consent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+}
+
+.bk-section.bk-rv-blocks .gz-row--interactive {
+  border-radius: 0;
+}
+
+.bk-consent > .gz-iconbtn {
+  flex: none;
+  position: relative; /* flutter-ok: Transform.translate by the target's slack so the glyph meets the 20 gutter */
+  inset-inline-end: -10px;
+}

@@ -1,0 +1,260 @@
+/* Styles for the core components gallery (design/src/gallery/core.tsx). Tokens only, logical properties, flex + gap. Prefix .cg-.
+   The specimen layout: a section head (SectionHeader), a one-line note, then labelled cells on the canvas or on a named stage
+   (panel, ink, photo). Nothing here is product CSS; it frames the components so each state can be read at 390. */
+
+.cg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  max-inline-size: var(--gz-layout-max-width);
+  margin-inline: auto;
+  padding-block-end: var(--gz-space-24);
+}
+
+.cg-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-4);
+}
+
+.cg-lede {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.cg-lang {
+  display: flex;
+  gap: var(--gz-space-2);
+}
+
+.cg-sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+}
+
+.cg-note {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.cg-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.cg-label {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.cg-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--gz-space-4);
+}
+
+.cg-row--center {
+  align-items: flex-end;
+}
+
+.cg-row--col {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.cg-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.cg-cell--fill {
+  flex: 1 1 var(--gz-size-week-strip);
+}
+
+.cg-cell--stretch {
+  align-self: stretch;
+  align-items: stretch;
+}
+
+.cg-cap {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- stages ---------- */
+.cg-stage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  padding: var(--gz-space-4);
+  border-radius: var(--gz-radius-md);
+}
+
+.cg-stage--panel {
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+}
+
+.cg-stage--tint {
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.cg-stage--ink {
+  background-color: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.cg-stage--ink .cg-cap,
+.cg-stage--ink .cg-label {
+  color: var(--gz-color-sys-text-on-dark-muted);
+}
+
+/* photo stage: a real photograph with the named gallery scrim over it, as the product places chrome on imagery */
+.cg-photo {
+  position: relative; /* flutter-ok: named overlay anchor, controls over a photograph */
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  box-sizing: border-box;
+  aspect-ratio: var(--gz-layout-aspect-16x10);
+  padding: var(--gz-space-2);
+  overflow: hidden;
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.cg-photo__img {
+  position: absolute; /* flutter-ok: photograph fills its frame (Positioned.fill) */
+  inset: 0;
+  inline-size: 100%; /* flutter-ok: photograph fills its frame */
+  block-size: 100%; /* flutter-ok: photograph fills its frame */
+  object-fit: cover;
+}
+
+.cg-photo__scrim {
+  position: absolute; /* flutter-ok: scrim over the photograph (DecoratedBox) */
+  inset: 0;
+  background-image: var(--gz-gradient-gallery);
+}
+
+.cg-photo > .gz-iconbtn,
+.cg-photo > .cg-photo__end,
+.cg-photo > .gz-badge {
+  position: relative; /* flutter-ok: controls above the scrim */
+  z-index: var(--gz-z-raised);
+}
+
+.cg-photo__end {
+  display: flex;
+  gap: var(--gz-space-1);
+}
+
+/* ---------- icon registry ---------- */
+.cg-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-1);
+}
+
+.cg-icon {
+  position: relative; /* flutter-ok: anchor for the mirror marker */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: transparent;
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.cg-icon--mirror {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+}
+
+.cg-sizes {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gz-space-6);
+}
+
+/* ---------- misc specimens ---------- */
+.cg-bar {
+  position: relative; /* flutter-ok: toast region anchor */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  min-block-size: var(--gz-space-24);
+  padding-block-start: var(--gz-space-8);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.cg-tab {
+  position: relative; /* flutter-ok: badge anchor */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-icon-lg);
+  block-size: var(--gz-size-icon-lg);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.cg-tab > .gz-count {
+  position: absolute; /* flutter-ok: PositionedDirectional badge on a tab icon */
+  inset-block-start: 0;
+  inset-inline-end: 0;
+}
+
+.cg-pair {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.cg-pair > * {
+  flex: 1;
+}
+
+.cg-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.cg-card__top {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.cg-fig {
+  inline-size: var(--gz-size-week-strip);
+}
+
+.cg-knots {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.cg-lock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-6);
+}

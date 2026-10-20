@@ -1,0 +1,7 @@
+.gzv-thumb {
+  flex: none;
+  inline-size: var(--gz-size-thumb-md);
+  block-size: var(--gz-size-thumb-md);
+  border-radius: var(--gz-radius-sm);
+  overflow: hidden;
+}

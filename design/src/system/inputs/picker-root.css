@@ -1,0 +1,23 @@
+/* The anchor of a PickerSheet: the window outside the Studio, the device frame inside it. The Sheet draws its own scrim and paper. */
+.gz-pick-root {
+  position: fixed; /* flutter-ok: showModalBottomSheet overlay anchor (direction section 9) */
+  inset: 0;
+  z-index: var(--gz-z-sheet);
+}
+
+.gz-pick-root--frame {
+  position: absolute; /* flutter-ok: overlay anchored to the device frame */
+}
+
+/* The first control in a picker (search, calendar head) draws a 2 px focus ring that the scrolling body would clip: room above it. */
+.gz-pick-root .gz-sheet__body {
+  padding-block-start: var(--gz-space-2);
+}
+
+/* A picker's footer is a primary action under scrolling content: a hairline and room above it, as before the Sheet was shared. */
+.gz-pick-root .gz-sheet__footer {
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}

@@ -1,0 +1,26 @@
+/* CL-AUTH-01: the gate sheet. The Sheet supplies the handle, the 20 gutter and the safe-bottom; this is the rhythm inside. */
+.gza01 {
+  gap: var(--gz-space-4);
+}
+
+/* Password link at the start edge, the info glyph at the end edge (its 44 target hands the glyph back to the gutter). */
+.gza01__foot {
+  display: flex;
+  align-items: center;
+  column-gap: var(--gz-space-6);
+}
+
+.gza01__info {
+  margin-inline-start: auto;
+  position: relative; /* flutter-ok: Transform.translate by the target's slack so the glyph meets the 20 gutter */
+  inset-inline-end: -10px;
+}
+
+/* The legal links are inline text in the info sheet's sentence (the WCAG 2.2 target-size inline exception); a hairline underline marks them. */
+.gza01__link {
+  display: inline;
+  color: var(--gz-color-sys-text-gold-ink);
+  text-decoration-line: underline;
+  text-decoration-thickness: var(--gz-stroke-hair);
+  font: inherit;
+}

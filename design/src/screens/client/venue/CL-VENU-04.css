@@ -1,0 +1,152 @@
+/* CL-VENU-04 Package: ruled rate block (facts, two prices, the day type), checks list, accordion, footer. Tokens only, logical properties, flex + gap. */
+.gzv-pk__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzv-pk__rate {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-4);
+  border-block-width: var(--gz-stroke-hair);
+  border-block-style: solid;
+  border-block-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzv-pk__facts {
+  gap: var(--gz-space-5);
+}
+
+.gzv-pk__alert {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+/* The two per-guest rates side by side: the voucher column, then the standard one (struck when a voucher price exists). */
+.gzv-pk__rates {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2) var(--gz-space-5);
+}
+
+.gzv-pk__basis {
+  display: inline-flex;
+  align-items: center;
+}
+
+.gzv-pk__unit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gzv-pk__unit--std {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* The day type of the date (a glyph and one word) and the sibling rate beside it. */
+.gzv-pk__tier {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2) var(--gz-space-5);
+}
+
+.gzv-pk__sibling {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzv-pk__block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.gzv-pk__h {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzv-pk__list {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzv-pk__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzv-pk__item > .gz-icon {
+  flex: none;
+}
+
+.gzv-pk__item-text {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzv-pk__menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzv-pk__menu p {
+  margin: 0;
+}
+
+.gzv-pk__note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzv-pk__note > .gz-icon {
+  flex: none;
+  margin-block-start: var(--gz-stroke-thread);
+}
+
+.gzv-pk__visit {
+  align-self: flex-start;
+}
+
+/* Footer: the save heart, the fee as a glyph and a figure, the one primary action. */
+.gzv-pk__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzv-pk__fee {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gzv-pk__cta {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}

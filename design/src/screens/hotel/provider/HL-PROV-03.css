@@ -1,0 +1,24 @@
+/* HL-PROV-03 Listing editor: one column of sections on the 20 gutter. */
+.hp03 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-2) var(--gz-space-8);
+}
+
+.hp03__sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.hp03__lead {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp03__toggles {
+  display: flex;
+  flex-direction: column;
+}

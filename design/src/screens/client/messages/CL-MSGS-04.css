@@ -1,0 +1,86 @@
+/* CL-MSGS-04 Notifications. A row of six glyph tabs (56 high), a tools row of 44, day labels, rows of the flow (they carry their own gutter). Tokens only. */
+
+.gzm-nt__root {
+  position: relative; /* flutter-ok: overlay anchor for the sheets in a static frame (Stack) */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-block-size: 0;
+}
+
+.gzm-nt__tabs {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-2);
+}
+
+.gzm-nt__tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-2);
+}
+
+.gzm-nt__day {
+  margin: 0;
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-4) var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzm-nt__group {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each item is a column too, so its row button stretches to the full width of the list instead of shrinking to its text. */
+.gzm-nt__group > li {
+  display: flex;
+  flex-direction: column;
+}
+
+.gzm-nt__denied {
+  padding-block-end: var(--gz-space-3);
+}
+
+/* The card Banner already carries the gutter margin. The title and its info glyph sit on one line; the action stays at inline-end. */
+.gzm-nt__denied .gz-banner {
+  padding-block: var(--gz-space-2);
+}
+
+.gzm-nt__denied-text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.gzm-nt__denied-title {
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gzm-nt__skel {
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzm-nt__skelrow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzm-nt__skelcol {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}

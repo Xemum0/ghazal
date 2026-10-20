@@ -1,0 +1,23 @@
+/* StatTile: a hairline panel (paper, 1 px ink-300, radius 12). Glyph and figure on one line, a second fact at inline-end. Tokens only. */
+
+.ht-tile {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-row-min);
+  padding: var(--gz-space-3) var(--gz-space-4);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+}
+
+.ht-tile--hero { flex: none; min-block-size: var(--gz-size-control-lg); padding-block: var(--gz-space-4); }
+.ht-tile--press { cursor: pointer; }
+.ht-tile--press:active { background: var(--gz-color-sys-surface-quiet); }
+.ht-tile__aside { display: inline-flex; flex: none; align-items: center; }

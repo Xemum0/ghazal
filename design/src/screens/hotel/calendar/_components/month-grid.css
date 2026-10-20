@@ -1,0 +1,19 @@
+/* MonthGrid wrapper (hotel/calendar). The system grid brings its own month header; this flow draws a header with Today and the (i), so the
+   system one rests. Soft dates: a 1 px gold-650 ring inside the day (the sole-carrier stroke token), radius 8, never a fill. */
+
+.cal-grid {
+  padding-inline: var(--gz-space-gutter);
+  min-inline-size: 0;
+}
+
+.cal-grid .gz-hc__head {
+  display: none;
+}
+
+.cal-grid .gz-hc__day[data-soft] {
+  border-color: var(--gz-color-sys-mark-state);
+}
+
+.cal-grid .gz-hc__day[data-soft][data-selected] {
+  border-color: var(--gz-color-sys-mark-khayt);
+}

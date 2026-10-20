@@ -1,0 +1,15 @@
+/* Saving: glyph, currency, signed amount on one baseline. */
+
+.gs-saving {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-strong);
+  white-space: nowrap;
+}
+
+.gs-saving__amt {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--gz-space-1);
+}

@@ -1,0 +1,52 @@
+/* CL-MSGS-01 Messages. A row of six glyph tabs (56 high), rows 80 on hairlines, 20 gutter. Tokens only. */
+
+.gzm-ib__tabs {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-2);
+}
+
+.gzm-ib__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-8);
+  list-style: none;
+}
+
+.gzm-ib__skel {
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzm-ib__skelrow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-4);
+  padding-block: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzm-ib__skelcol {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+/* The guest teaser: a quiet rose panel (offers and quiet notes only): one drawing at the start, one primary action at the end. */
+.gzm-ib__teaser {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  margin-inline: var(--gz-space-gutter);
+  margin-block-end: var(--gz-space-4);
+  padding: var(--gz-space-panel-pad);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-tint);
+}

@@ -1,0 +1,110 @@
+/* Inputs gallery page. Harness-grade layout (flex + gap), tokens only. Not product CSS. */
+
+.ig {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  align-self: stretch;
+  max-inline-size: var(--gz-layout-max-width);
+}
+
+.ig-hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.ig-hero p {
+  margin: 0;
+}
+
+.ig-hero__title {
+  margin: 0;
+}
+
+.ig-sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+}
+
+.ig-sec__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.ig-sec__head h2 {
+  margin: 0;
+}
+
+.ig-note {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.ig-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-6);
+}
+
+.ig-spec {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 var(--gz-layout-breakpoint-narrow);
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  margin: 0;
+}
+
+.ig-spec--wide {
+  flex-basis: 100%;
+}
+
+.ig-spec__state {
+  padding-block-start: var(--gz-space-2);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-secondary);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.ig-spec__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+/* a quiet panel to show the brief-card use of row selects */
+.ig-card {
+  padding-inline: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.ig-card > * + * {
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.ig-row {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.ig-row > * {
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.ig-out {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}

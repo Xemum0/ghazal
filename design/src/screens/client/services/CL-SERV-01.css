@@ -1,0 +1,61 @@
+/* CL-SERV-01 Services hub. Tokens only, logical properties, flex + gap. */
+
+.gzs-hub {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  box-sizing: border-box;
+  padding-block-start: var(--gz-space-1);
+  padding-block-end: var(--gz-space-section);
+}
+
+.gzs-hub__pad {
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* The voucher: a ticket glyph, the word, the fee as a figure and the info glyph. One rose strip, no gold. */
+.gzs-hub__voucher {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-control-lg);
+  padding-inline-start: var(--gz-space-4);
+  padding-inline-end: var(--gz-space-1);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-hub__voucher > .gz-icon {
+  flex: none;
+}
+
+.gzs-hub__voucher-info {
+  display: flex;
+  margin-inline-start: auto;
+}
+
+.gzs-hub__groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-list-gap);
+}
+
+.gzs-hub__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-4);
+}
+
+.gzs-hub__spacer {
+  flex: 1 1 0;
+}
+
+.gzs-hub__more,
+.gzs-hub__planner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}

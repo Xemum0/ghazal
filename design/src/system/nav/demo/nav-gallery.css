@@ -1,0 +1,130 @@
+/* Nav gallery page. Page furniture only; every value is a token. */
+.ng {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding-block: var(--gz-space-8);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.ng-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.ng-head__lede {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.ng-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-2);
+}
+
+.ng-chip {
+  min-block-size: var(--gz-size-control-sm);
+  padding-inline: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-control-bg);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.ng-chip[aria-pressed='true'] {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.ng-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+}
+
+.ng-section__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.ng-section__khayt {
+  inline-size: var(--gz-size-khayt-width);
+  block-size: var(--gz-stroke-khayt);
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.ng-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--gz-space-8);
+}
+
+.ng-specimen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  margin: 0;
+}
+
+.ng-specimen__frame {
+  /* A hairline around the frame so the canvas-on-canvas specimens read as devices. */
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+  align-self: flex-start;
+  border-radius: var(--gz-radius-xs);
+  overflow: hidden;
+}
+
+.ng-specimen__label {
+  max-inline-size: var(--gz-layout-frame-width);
+}
+
+.ng-note {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  max-inline-size: var(--gz-layout-frame-width);
+}
+
+.ng-fill {
+  flex: 1;
+}
+
+.ng-gap {
+  block-size: var(--gz-space-3);
+}
+
+.ng-pad {
+  padding-inline: var(--gz-space-gutter);
+}
+
+.ng-pull {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-block: var(--gz-space-8);
+}
+
+.ng-backdrop {
+  position: absolute; /* flutter-ok: specimen backdrop */
+  inset: 0;
+}
+
+.ng-pagerwrap {
+  padding-block-start: var(--gz-space-24);
+}
+
+.ng-page {
+  block-size: var(--gz-space-24);
+  overflow: hidden;
+  border-radius: var(--gz-radius-md);
+}

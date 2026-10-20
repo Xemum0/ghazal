@@ -1,0 +1,108 @@
+/* HL-CALN-04 Block or open dates (sheet). On the sheet's own 20 gutter. The dates summary is a panel (paper, 1 px ink-300, radius 12) that is one
+   56 high button (a glyph, the dates, a chevron); the chip groups are named by a glyph; the pending and booked warnings are a bead or a pill and
+   a figure; the open list is rows on hairlines. Tokens only. */
+
+.cal-s__sum {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  inline-size: 100%; /* flutter-ok: a full-width button inside a column */
+  min-block-size: var(--gz-size-control-lg);
+  padding: var(--gz-space-2) var(--gz-space-4);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-strong);
+  text-align: start;
+  cursor: pointer;
+}
+
+.cal-s__sumline {
+  flex: 1;
+  min-inline-size: 0;
+  font-weight: var(--gz-type-title-weight);
+}
+
+.cal-s__sumn {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.cal-s__picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+/* ---------- warnings ---------- */
+.cal-s__pend {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.cal-s__taken {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cal-s__takenrow {
+  display: flex;
+  align-items: center;
+}
+
+/* ---------- the open list and the skipped rows ---------- */
+.cal-s__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.cal-s__item {
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.cal-s__itext {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  padding-block: var(--gz-space-1);
+}
+
+.cal-s__item:last-child {
+  border-block-end-width: 0;
+}
+
+.cal-s__idate {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.cal-s__skip:last-child {
+  border-block-end-width: 0;
+}
+
+.cal-s__skip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-lg);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}

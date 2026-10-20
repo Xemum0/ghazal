@@ -1,0 +1,4 @@
+/* HL-ACCS-03 Set your password. Title with the language chip on its line, the read-only invitation, the two fields with the strength thread between them. Tokens only. */
+.hxa03 {
+  gap: var(--gz-space-6);
+}

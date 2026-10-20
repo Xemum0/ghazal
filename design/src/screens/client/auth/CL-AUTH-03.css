@@ -1,0 +1,39 @@
+/* CL-AUTH-03: the monogram preview sits at the title row's end edge; what the device carries over is one row of facts; consent is a two-word box with its info glyph. */
+.gza03-disk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--gz-size-thumb-lg);
+  block-size: var(--gz-size-thumb-lg);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+.gza03-disk__letter {
+  /* One letter: the Arabic display word-spacing does not apply. */
+  word-spacing: 0;
+}
+
+.gza03-kept {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gza03-kept .gz-icon {
+  flex: none;
+}
+
+/* The checkbox hugs its label so the info glyph sits right beside it; the glyph's 44 target is part of the row. */
+.gza03-agree {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+}
+
+.gza03-agree .gz-check-wrap,
+.gza03-agree .gz-check {
+  flex: none;
+}

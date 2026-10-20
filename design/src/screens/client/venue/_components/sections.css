@@ -1,0 +1,214 @@
+/* Sections of the venue detail: a khayt head on the 20 gutter, 32 between sections. Tokens only, logical properties, flex + gap. */
+.gzv-sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  margin-block-start: var(--gz-space-section);
+  padding-inline: var(--gz-space-gutter);
+  min-inline-size: 0;
+}
+
+.gzv-sec--rail {
+  padding-inline: 0;
+}
+
+.gzv-sec__head {
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* ---------- packages ---------- */
+.gzv-pkgs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzv-pkgs__item {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gzv-pkgs__item > .gzv-pt {
+  align-self: stretch;
+}
+
+/* ---------- policies: four tiles, two to a row ---------- */
+.gzv-pol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzv-pol__tile {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-lg);
+  padding-inline: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzv-pol__tile > .gz-icon {
+  flex: none;
+}
+
+.gzv-pol__label {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* ---------- location: the map plate, one row under it (the system caption is replaced by it) ---------- */
+.gzv-loc {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gzv-loc .gz-map__cap {
+  display: none;
+}
+
+.gzv-loc__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2) var(--gz-space-4);
+}
+
+.gzv-loc__addr {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+/* ---------- similar rail: 72% of the frame snapped to 4, the next card peeks at inline-end ---------- */
+.gzv-rail {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+}
+
+.gzv-rail__track {
+  display: flex;
+  flex: none;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: 0;
+  padding-inline-start: var(--gz-space-gutter);
+  list-style: none;
+}
+
+.gzv-rail__track::after {
+  content: '';
+  flex: none;
+  inline-size: var(--gz-space-2);
+}
+
+.gzv-rail__item {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gzv-rail__item > * {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* ---------- sticky bar: the two paths that need no voucher, quiet text actions under the one gold verb ---------- */
+.gzv-barnote {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gzv-barnote--quiet {
+  min-block-size: var(--gz-size-touch-min);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzv-barlinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: var(--gz-space-8);
+}
+
+/* ---------- the maps chooser and the contact sheet ---------- */
+.gzv-maps {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzv-contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+/* A ruled list row is a straight rule here (the system row rounds its pressed state; a rounded rule would curl at the ends). */
+.gzv-maps .gz-row--interactive {
+  border-radius: 0;
+}
+
+/* ---------- self-report sheet (government hall): the (i) beside the one primary ---------- */
+.gzv-self {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzv-self__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+/* ---------- CL-VENU-01 and CL-VENU-06: the page is one column; heroes and strips bring their own gutters, blocks sit on the 20 gutter with 32 between sections ---------- */
+.gzv-page {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding-block-end: var(--gz-space-section);
+}
+
+.gzv-block {
+  display: flex;
+  flex-direction: column;
+  margin-block-start: var(--gz-space-section);
+  padding-inline: var(--gz-space-gutter);
+  min-inline-size: 0;
+}
+
+/* The ruled date strip brings its own gutter margin; the block adds only the rhythm above it. */
+.gzv-block--strip {
+  margin-block-start: var(--gz-space-5);
+  padding-inline: 0;
+}
+
+.gzv-skeleton {
+  gap: var(--gz-space-4);
+}

@@ -1,0 +1,4 @@
+.hv-sk { display: flex; flex-direction: column; gap: var(--gz-space-3); padding-inline: var(--gz-space-gutter); padding-block-start: var(--gz-space-1); }
+.hv-sk__card { display: flex; flex-direction: column; gap: var(--gz-space-3); padding: var(--gz-space-panel-pad); border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-hairline); border-radius: var(--gz-radius-md); }
+.hv-sk__who { display: flex; align-items: center; gap: var(--gz-space-3); }
+.hv-sk__lines { display: flex; flex-direction: column; gap: var(--gz-space-1); }

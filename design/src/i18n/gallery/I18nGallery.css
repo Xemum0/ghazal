@@ -1,0 +1,156 @@
+/* Gallery page for the i18n layer. Tokens only; logical properties; flex + gap. */
+
+.gz-i18n-g {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding-block: var(--gz-space-8);
+  padding-inline: var(--gz-space-gutter);
+  background-color: var(--gz-color-sys-surface-canvas);
+  color: var(--gz-color-sys-text-primary);
+  font-family: var(--gz-type-body-s-family);
+  font-size: var(--gz-type-body-s-size);
+  line-height: var(--gz-type-body-s-line);
+}
+
+.gz-i18n-g__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gz-i18n-g__h1 {
+  margin: 0;
+  font-family: var(--gz-type-ui-xl-family);
+  font-size: var(--gz-type-ui-xl-size);
+  line-height: var(--gz-type-ui-xl-line);
+  font-weight: var(--gz-type-ui-xl-weight);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-i18n-g__note {
+  margin: 0;
+  font-family: var(--gz-type-caption-family);
+  font-size: var(--gz-type-caption-size);
+  line-height: var(--gz-type-caption-line);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-i18n-g__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gz-i18n-g__title {
+  margin: 0;
+  padding-block-end: var(--gz-space-2);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  font-family: var(--gz-type-label-family);
+  font-size: var(--gz-type-label-size);
+  line-height: var(--gz-type-label-line);
+  font-weight: var(--gz-type-label-weight);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-i18n-g__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  margin: 0;
+}
+
+.gz-i18n-g__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+.gz-i18n-g__label {
+  font-family: var(--gz-type-fig-label-family);
+  font-size: var(--gz-type-fig-label-size);
+  line-height: var(--gz-type-fig-label-line);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-i18n-g__value {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* Price anatomy: currency as a label, amount in the figures face, the fils quieter and smaller (direction doc 2.4). */
+.gz-i18n-g__money {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--gz-space-1);
+  font-family: var(--gz-type-price-strong-family);
+  font-variant-numeric: var(--gz-type-price-strong-numeric);
+}
+
+.gz-i18n-g__figure {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.gz-i18n-g__currency {
+  font-family: var(--gz-type-label-family);
+  font-size: var(--gz-type-caption-size);
+  line-height: var(--gz-type-caption-line);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-i18n-g__amount {
+  font-size: var(--gz-type-price-strong-size);
+  line-height: var(--gz-type-price-strong-line);
+  font-weight: var(--gz-type-price-strong-weight);
+}
+
+.gz-i18n-g__fils {
+  font-size: var(--gz-type-fils-price-size);
+  line-height: var(--gz-type-fils-price-line);
+  font-weight: var(--gz-type-fils-price-weight);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* Calendar: seven flex cells per week, Sunday first; the Thu-Sat peak band is one tinted block at the inline-end edge. */
+.gz-i18n-g__cal {
+  display: flex;
+  flex-direction: column;
+}
+
+.gz-i18n-g__week {
+  display: flex;
+}
+
+.gz-i18n-g__dow,
+.gz-i18n-g__day {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 0;
+}
+
+.gz-i18n-g__dow {
+  block-size: var(--gz-space-8);
+  font-family: var(--gz-type-caption-family);
+  font-size: var(--gz-type-caption-size);
+  line-height: var(--gz-type-caption-line);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-i18n-g__day {
+  block-size: var(--gz-space-12);
+  font-family: var(--gz-type-fig-body-s-family);
+  font-size: var(--gz-type-fig-body-s-size);
+}
+
+.gz-i18n-g__day[data-in-month='false'] {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-i18n-g__day[data-peak='true'] {
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}

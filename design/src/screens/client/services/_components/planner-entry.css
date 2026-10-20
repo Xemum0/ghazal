@@ -1,0 +1,55 @@
+/* PlannerEntry: a paper panel with a hairline (direction 3, Panel), one press target. */
+
+.gzs-planner {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  align-self: stretch;
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  text-align: start;
+  color: var(--gz-color-sys-text-primary);
+  cursor: pointer;
+}
+
+.gzs-planner.is-loading {
+  cursor: default;
+}
+
+.gzs-planner__thumb {
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  inline-size: var(--gz-size-thumb-lg);
+  aspect-ratio: var(--gz-layout-aspect-4x5);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gzs-planner__photo {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzs-planner__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzs-planner__title {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-planner__price {
+  display: flex;
+  padding-block-start: var(--gz-space-1);
+}

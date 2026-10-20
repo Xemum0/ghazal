@@ -1,0 +1,19 @@
+/* HL-SETT-04 Billing and fees. One status card (hairline, radius 12, no shadow) with its drawing, a ruled plan row and a ruled receipts list. */
+
+.hs-bill {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  padding: var(--gz-space-5);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.hs-bill__top { display: flex; align-items: flex-start; justify-content: space-between; align-self: stretch; gap: var(--gz-space-3); }
+.hs-bill__head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gz-space-2); }
+.hs-bill__title { margin: 0; color: var(--gz-color-sys-text-strong); }
+.hs-bill__facts { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gz-space-2) var(--gz-space-5); }
+.hs-bill__plan { display: flex; flex-direction: column; }

@@ -1,0 +1,93 @@
+/* PhotoTile. Square slot, radius 12. The label sits on the named bottom scrim (canvas text, direction section 5); rejected is the
+   functional danger tint with an icon and words. */
+
+.rvt {
+  position: relative; /* flutter-ok: Stack for the remove control over the photograph */
+  display: flex;
+  flex: 1 1 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  min-inline-size: 0;
+  aspect-ratio: var(--gz-layout-aspect-1x1);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.rvt__img {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+.rvt__scrim {
+  position: absolute; /* flutter-ok: Stack, label over the photograph */
+  inset-inline: 0;
+  inset-block-end: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  padding: var(--gz-space-2);
+  background-color: var(--gz-color-sys-scrim-bottom);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.rvt__label {
+  margin: 0;
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.rvt__label--status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.rvt--rejected .rvt__label {
+  color: var(--gz-color-sys-status-danger-text);
+}
+
+.rvt__thread {
+  display: flex;
+  block-size: var(--gz-stroke-thread);
+}
+
+.rvt__fill {
+  flex-basis: 0;
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.rvt__rest {
+  flex-basis: 0;
+  background-color: var(--gz-color-sys-mark-track-on-dark);
+}
+
+.rvt--rejected {
+  align-items: flex-end;
+  justify-content: center;
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-error);
+  background-color: var(--gz-color-sys-status-danger-bg);
+}
+
+.rvt__rejected {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-1);
+  padding: var(--gz-space-2);
+  color: var(--gz-color-sys-status-danger-text);
+  text-align: center;
+}
+
+.rvt__mark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.rvt__remove {
+  position: absolute; /* flutter-ok: Stack, control over the photograph */
+  inset-block-start: 0;
+  inset-inline-end: 0;
+}

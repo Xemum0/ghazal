@@ -1,0 +1,117 @@
+/* The thread (غزل): the khayt, hairline rules and the thread / knot primitives the domain components build on.
+   Gold is a verb (direction 2.3): gold LINE up to 4 px for state and place only, gold FILL for knots and beads.
+   Never a decorative divider; never more than one thread per component. */
+
+/* Rules */
+.gz-rule {
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-border-hairline);
+  border: 0;
+  margin: 0;
+}
+
+.gz-rule--strong {
+  background: var(--gz-color-sys-border-strong);
+}
+
+.gz-rule--on-dark {
+  background: var(--gz-color-sys-border-on-dark);
+}
+
+/* Khayt: the 24 x 1 gold line at a section head, and the gold line that spans a hero crown or a hotel header band. */
+.gz-khayt {
+  inline-size: var(--gz-size-khayt-width);
+  block-size: var(--gz-stroke-khayt);
+  background: var(--gz-color-sys-mark-khayt);
+  flex: none;
+}
+
+.gz-khayt--full {
+  inline-size: auto;
+  align-self: stretch;
+}
+
+/* Tab-bar khayt: 24 x 2 on the top edge of the active item. */
+.gz-khayt--tab {
+  block-size: var(--gz-stroke-thread);
+}
+
+/* Thread track and fill (2 px): the fill draws from inline-start. Compose with .gz-thread-draw for the 480 ms draw-on. */
+.gz-thread-track {
+  position: relative; /* flutter-ok: named overlay anchor, the fill sits inside its track (ThreadPainter) */
+  block-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-track);
+  overflow: hidden;
+}
+
+.gz-on-dark .gz-thread-track {
+  background: var(--gz-color-sys-mark-track-on-dark);
+}
+
+.gz-thread-fill {
+  position: absolute; /* flutter-ok: named overlay anchor inside .gz-thread-track */
+  inset-block: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  background: var(--gz-color-sys-mark-khayt);
+  transform-origin: var(--gz-origin-start);
+}
+
+/* Bead: the 8 px diamond (rotated square) marking a chosen or progressing thing; gold fill. */
+.gz-bead {
+  display: inline-block;
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+  background: var(--gz-color-sys-mark-khayt);
+  transform: rotate(45deg);
+  flex: none;
+}
+
+/* Knots (Booking Thread): 20 px booking knot, 12 px compact; states open / now / tied. Borders, never inset shadows. */
+.gz-knot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-knot-booking);
+  block-size: var(--gz-size-knot-booking);
+  border-radius: var(--gz-radius-pill);
+  flex: none;
+  box-sizing: border-box;
+}
+
+.gz-knot--compact {
+  inline-size: var(--gz-size-knot-compact);
+  block-size: var(--gz-size-knot-compact);
+}
+
+.gz-knot--open {
+  background: var(--gz-color-sys-surface-canvas);
+  border-width: var(--gz-stroke-icon);
+  border-style: solid;
+  border-color: var(--gz-color-sys-mark-open);
+}
+
+.gz-knot--tied {
+  background: var(--gz-color-sys-mark-khayt);
+  color: var(--gz-color-sys-text-on-gold);
+}
+
+/* now: gold centre, then a 3 px canvas gap, then a 3 px gold-650 ring (outside the 20 / 12 px fill, so the ring stays visible
+   as the sole carrier of "now"). Border = gap, spread shadow = ring: tokens only, no inset shadow. */
+.gz-knot--now {
+  box-sizing: content-box;
+  background: var(--gz-color-sys-mark-khayt);
+  border-width: var(--gz-size-knot-now-gap);
+  border-style: solid;
+  border-color: var(--gz-color-sys-surface-canvas);
+  box-shadow: 0 0 0 var(--gz-size-knot-now-ring) var(--gz-color-sys-mark-state);
+}
+
+.gz-on-dark .gz-knot--open {
+  background: var(--gz-color-sys-surface-dark);
+}
+
+.gz-on-dark .gz-knot--now {
+  border-color: var(--gz-color-sys-surface-dark);
+  box-shadow: 0 0 0 var(--gz-size-knot-now-ring) var(--gz-color-sys-mark-khayt);
+}

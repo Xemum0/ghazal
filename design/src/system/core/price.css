@@ -1,0 +1,88 @@
+/* Price: [prefix] [currency amount.fils] [unit] [was]. The .gz-money island (typography.css) owns the currency and fils voices;
+   this file adds the size ladder. Fils size = round(0.8 x amount), minimum 12, always ink-600, never opacity (direction 2.4). */
+
+.gz-price {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  column-gap: var(--gz-space-2);
+}
+
+.gz-price__prefix,
+.gz-price__unit {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* Struck-through old price; the digits stay in the figures voice. */
+.gz-price__was {
+  direction: ltr;
+}
+
+/* The amount inherits its face, size and weight from the type role class on .gz-money__amt (card, strong, total, kpi). */
+.gz-price .gz-money__amt {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* Quiet fils per size: the figure role nearest to 0.8 x the amount (17 to 14, 22 to 18, 32 to 26, 20 to 16). */
+.gz-price--card .gz-money__fils,
+.gz-price--strong .gz-money__fils {
+  font-family: var(--gz-type-fils-price-family);
+  font-size: var(--gz-type-fils-price-size);
+}
+
+.gz-price--total .gz-money__fils {
+  font-family: var(--gz-type-fils-total-family);
+  font-size: var(--gz-type-fils-total-size);
+}
+
+.gz-price--kpi .gz-money__fils {
+  font-family: var(--gz-type-fig-xl-family);
+  font-size: var(--gz-type-fig-xl-size);
+}
+
+/* Display voice (sticky bar, plate): the serif amount at d1, the currency stays in the label voice. */
+.gz-price--display .gz-money__amt {
+  font-family: var(--gz-type-d1-family);
+  font-size: var(--gz-type-d1-size);
+  line-height: var(--gz-type-d1-line);
+  font-weight: var(--gz-type-d1-weight);
+  font-variant-numeric: var(--gz-type-d1-numeric);
+  word-spacing: var(--gz-type-d1-word-spacing);
+}
+
+.gz-price--display .gz-money__fils {
+  font-family: var(--gz-type-fig-body-s-family);
+  font-size: var(--gz-type-fig-body-s-size);
+}
+
+/* Hero total (venue details): d3, the one large serif price on a screen. */
+.gz-price--hero .gz-money__amt {
+  font-family: var(--gz-type-d3-family);
+  font-size: var(--gz-type-d3-size);
+  line-height: var(--gz-type-d3-line);
+  font-weight: var(--gz-type-d3-weight);
+  letter-spacing: var(--gz-type-d3-tracking);
+  font-variant-numeric: var(--gz-type-d3-numeric);
+  word-spacing: var(--gz-type-d3-word-spacing);
+}
+
+.gz-price--hero .gz-money__fils {
+  font-family: var(--gz-type-fig-xl-family);
+  font-size: var(--gz-type-fig-xl-size);
+}
+
+/* Money.inline (struck standard prices, chips, facts): the currency takes the surrounding size, face and ink, never the label voice. The
+   island stays LTR, so the Arabic currency is drawn left of the figure and read after it (ADR 0010 D7). */
+.gz-money--inline {
+  gap: var(--gz-space-1);
+}
+
+.gz-money--inline .gz-money__cur {
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
+.gz-money--inline .gz-money__amt {
+  color: inherit;
+}

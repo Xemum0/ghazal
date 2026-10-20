@@ -1,0 +1,190 @@
+/* BriefSentence and BriefCard (direction section 3). The sentence is display type with the four decisions in strong ink; the echo is
+   one 44+ button; the edit form underlines each decision with a 1 px gold rule (an inline-flex word with a bottom border, 44 hit). */
+
+/* ---------- sentence ---------- */
+.gz-brief {
+  display: flex;
+  min-inline-size: 0;
+}
+
+.gz-brief__text {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+}
+
+.gz-brief__text.gz-t-d1,
+.gz-brief__text.gz-t-brief {
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-brief__plain {
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-brief__tok {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-brief__tok.is-empty {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* Echo: the whole block is one button, at least 44 high, the pencil at inline-end. */
+.gz-brief--echo {
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  padding-block: var(--gz-space-2);
+  text-align: start;
+  cursor: pointer;
+  border-radius: var(--gz-radius-sm);
+}
+
+.gz-brief--echo:active {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-brief__edit {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+}
+
+/* Edit form (Brief sheet): each decision is a button with a 1 px gold-500 rule under it. The rule sits at the padding edge, so the
+   offset below the text is the padding (8), and the padding also lifts the target to 44. `text-underline-offset` has no Flutter
+   twin: this is a WidgetSpan with a bottom border (direction section 9). */
+.gz-brief__aud {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-brief--edit button.gz-brief__tok {
+  display: inline-block;
+  padding-block: var(--gz-space-2);
+  white-space: nowrap;
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-mark-khayt);
+  border-radius: var(--gz-radius-xs);
+  color: var(--gz-color-sys-text-strong);
+  text-align: start;
+  cursor: pointer;
+  transition:
+    background-color var(--gz-motion-duration-fast) var(--gz-motion-ease-standard),
+    border-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-brief--edit button.gz-brief__tok:active {
+  background-color: var(--gz-color-sys-status-pending-bg);
+  border-block-end-color: var(--gz-color-sys-mark-state);
+}
+
+.gz-brief--edit button.gz-brief__tok.is-empty {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- brief card (Home) ---------- */
+.gz-briefcard {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+/* A row: label over value, the glyph at inline-end. 64 high, hairline above every row but the first. */
+.gz-briefrow {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-brief-row);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-4);
+  min-inline-size: 0;
+  text-align: start;
+  cursor: pointer;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-briefcard > .gz-briefrow:first-child {
+  border-block-start-width: 0;
+}
+
+.gz-briefrow:active {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-briefrow__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-briefrow__label {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-briefrow__value {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-briefrow__value.is-empty {
+  color: var(--gz-color-sys-text-secondary);
+  font-weight: var(--gz-type-body-weight);
+}
+
+/* Area and Guests share one row of 64 with a hairline between (a vertical rule). */
+.gz-briefrow__split {
+  display: flex;
+  align-items: stretch;
+  min-inline-size: 0;
+}
+
+.gz-briefrow__rule {
+  flex: none;
+  inline-size: var(--gz-stroke-hair);
+  background-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-briefrow--half {
+  flex: 1 1 0;
+}
+
+.gz-briefcard__foot {
+  padding: var(--gz-space-4);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+/* Each decision is one unbreakable token: a date or a budget never wraps mid-token ("14 / يناير 2027"). */
+.gz-brief__tok--date,
+.gz-brief__tok--guests,
+.gz-brief__tok--budget {
+  white-space: nowrap;
+}
+
+/* The results echo keeps four lines before it is cut: three cut the budget at 360 in English. */
+.gz-brief__clamp-4 {
+  display: -webkit-box; /* flutter-ok: maxLines 4 with TextOverflow.ellipsis */
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}

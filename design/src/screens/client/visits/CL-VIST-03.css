@@ -1,0 +1,112 @@
+/* CL-VIST-03 Visit chat. The thread sits on the 20 gutter: 4 inside a run, 16 between runs, 32 above a day divider. The pinned head (member
+   discs, status and facts in the visit card) is a flex item of the screen's top region, never sticky. Tokens only. */
+.gzvt-ch__root {
+  position: relative; /* flutter-ok: overlay anchor for the photo viewer in a static frame (Stack) */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-block-size: 0;
+}
+
+.gzvt-ch__title {
+  display: block;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gzvt-ch__head {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  background-color: var(--gz-color-sys-surface-canvas);
+}
+
+.gzvt-ch__list {
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-3) var(--gz-space-4);
+}
+
+.gzvt-ch__list .gz-bubble-day {
+  margin-block: var(--gz-space-4) var(--gz-space-3);
+}
+
+.gzvt-msg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  margin-block-start: var(--gz-space-1);
+}
+
+.gzvt-msg.is-run-start {
+  margin-block-start: var(--gz-space-4);
+}
+
+/* A system line breathes like a divider. */
+.gzvt-msg[data-kind='system'] {
+  margin-block: var(--gz-space-3);
+}
+
+.gzvt-msg__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-1) var(--gz-space-4);
+}
+
+.gzvt-ch__skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-4);
+}
+
+.gzvt-ch__skel-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Read-only: the composer is replaced by one quiet block above the safe-area inset. */
+.gzvt-ch__closed {
+  position: relative;
+  flex: none;
+  padding-block-end: var(--gz-safe-bottom);
+  background: var(--gz-color-sys-surface-canvas);
+  z-index: var(--gz-z-bar);
+}
+
+.gzvt-ch__closed::before {
+  content: '';
+  position: absolute; /* flutter-ok: hairline divider overlay */
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-border-hairline);
+}
+
+.gzvt-ch__closed-in {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-3);
+}
+
+.gzvt-ch__closed-text {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}

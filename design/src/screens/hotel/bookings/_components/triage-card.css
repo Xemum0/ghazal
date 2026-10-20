@@ -1,0 +1,201 @@
+/* TriageCard (ADR 0034): the card chrome and the reply bar are the system's `gz-rq`; here only the lean anatomy. Padding 20 and 16 between
+   blocks come from `gz-rq__body`; the head is the date and the hall on the full width, then the facts with the voucher price at the end of
+   the same row. Tokens only, logical properties. */
+
+.hbk-tri--fresh {
+  animation: hbk-arrive var(--gz-motion-duration-slow) var(--gz-motion-ease-emphasized) both;
+}
+
+@keyframes hbk-arrive {
+  from {
+    transform: translateY(var(--gz-motion-distance-push));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hbk-tri--fresh {
+    animation-duration: var(--gz-motion-duration-instant);
+  }
+}
+
+/* The open target: top row, headline and facts are one tap that opens Booking detail. */
+.hbk-tri__open {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  border-radius: var(--gz-radius-sm);
+  cursor: pointer;
+}
+
+.hbk-tri__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-pill-min);
+}
+
+.hbk-tri__left {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hbk-tri__left--gold {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.hbk-tri__left--danger,
+.hbk-tri__left--expired {
+  color: var(--gz-color-sys-text-danger);
+}
+
+.hbk-tri__chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.hbk-tri__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.hbk-tri__hall {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The facts at the start, the voucher price at the end of the same row: the date above keeps the whole width. */
+.hbk-tri__foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.hbk-tri__facts {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.hbk-tri__price {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--gz-space-1);
+}
+
+.hbk-tri__was {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* The guest: monogram, the name with its two glyph marks, chat and call. A hairline above separates the person from the event. */
+.hbk-tri__guest {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.hbk-tri__who {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  column-gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.hbk-tri__name {
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hbk-tri__mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+
+.hbk-tri__contact {
+  display: flex;
+  flex: none;
+  gap: var(--gz-space-1);
+}
+
+/* The special request is authored text: a quiet rose note, two lines at most. */
+.hbk-tri__notes {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  padding: var(--gz-space-3);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hbk-tri__notes > .gz-icon {
+  flex: none;
+  margin-block-start: var(--gz-space-1);
+}
+
+.hbk-tri__notes-text {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.hbk-tri__line {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  min-block-size: var(--gz-space-6);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hbk-tri__line--compare {
+  justify-content: space-between;
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.hbk-tri__line .gz-btn {
+  flex: none;
+}
+
+/* Accept takes what is left; Decline hugs its word; the calendar glyph is a 52 square (all three at the CTA height). */
+.hbk-tri__actions {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gz-space-2);
+}
+
+.hbk-tri__accept {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.hbk-tri__decline {
+  flex: none;
+  padding-inline: var(--gz-space-4);
+}
+
+.hbk-tri__date {
+  flex: none;
+  gap: 0;
+  inline-size: var(--gz-size-control-cta);
+  padding-inline: 0;
+}

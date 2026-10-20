@@ -1,0 +1,65 @@
+.gz-fsg {
+  position: absolute; /* flutter-ok: full-screen route overlay */
+  inset: 0;
+  z-index: var(--gz-z-modal);
+  display: flex;
+  flex-direction: column;
+  background: var(--gz-color-sys-surface-dark);
+}
+
+.gz-fsg--leave {
+  animation: gz-fade-out var(--gz-motion-duration-base) var(--gz-motion-ease-exit) both;
+}
+
+.gz-fsg__stage {
+  position: absolute; /* flutter-ok: viewer stage under the chrome */
+  inset: 0;
+  display: flex;
+  align-items: center;
+}
+
+.gz-fsg__pager {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gz-fsg__page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: var(--gz-layout-frame-height);
+}
+
+/* The photograph is contained at its natural proportion: the box hugs it so the FLIP never stretches it. */
+.gz-fsg__photo {
+  align-items: center;
+  background: transparent;
+}
+
+.gz-fsg__photo .gz-photo__img {
+  flex: 1;
+  align-self: center;
+  block-size: auto;
+}
+
+.gz-fsg__top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block-start: var(--gz-safe-top);
+  padding-inline: var(--gz-space-gutter);
+  min-block-size: var(--gz-size-control-lg);
+  background: var(--gz-gradient-scrim-top-bar);
+}
+
+.gz-fsg__counter {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-fsg__foot {
+  position: absolute; /* flutter-ok: progress anchored to the bottom edge */
+  inset-inline: var(--gz-space-gutter);
+  inset-block-end: var(--gz-safe-bottom);
+  padding-block-end: var(--gz-space-4);
+}

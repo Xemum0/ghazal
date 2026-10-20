@@ -1,0 +1,14 @@
+/* InfoSheet body: the one paragraph the diet allows, in body type, ink-700, on the paper sheet. */
+
+.gz-info__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-4);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-info__body > * {
+  margin: 0;
+}

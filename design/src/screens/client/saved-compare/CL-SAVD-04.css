@@ -1,0 +1,137 @@
+/* CL-SAVD-04 Compare: the Brief echo, the shared-link note and the loading shapes. The table itself is _components/compare-grid.css. */
+
+.svd-echo {
+  display: flex;
+  flex-direction: column;
+  padding-block: var(--gz-space-1) var(--gz-space-2);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.svd-echo__stale {
+  display: flex;
+  padding-block-end: var(--gz-space-1);
+}
+
+/* A guest who opened a shared link: a quiet rose-100 row, the locked-voucher glyph pair at inline-start, Sign in at the end. */
+.svd-shared {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  margin-block-start: var(--gz-space-1);
+  margin-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-4);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.svd-shared__pair {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+/* loading: the header and five rows in the same thirds */
+.svd-skel {
+  display: flex;
+  flex-direction: column;
+}
+
+.svd-skel__head {
+  display: flex;
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.svd-skel__col {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: var(--gz-space-3);
+}
+
+.svd-skel__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.svd-skel__row > :first-child {
+  margin-inline-start: var(--gz-space-3);
+}
+
+.svd-skel__cells {
+  display: flex;
+}
+
+.svd-skel__cell {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding-block-end: var(--gz-space-3);
+  padding-inline: var(--gz-space-3);
+}
+
+/* fewer than two halls: the one hall that is in, then the drawing, the title and the way out */
+.svd-fewer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-4);
+}
+
+.svd-fewer__hall {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  margin-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.svd-fewer__thumb {
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  inline-size: var(--gz-size-thumb-compact-width);
+  block-size: var(--gz-size-thumb-compact-height);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.svd-fewer__photo {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+.svd-fewer__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.svd-fewer__name {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.svd-fewer__area {
+  color: var(--gz-color-sys-text-secondary);
+}

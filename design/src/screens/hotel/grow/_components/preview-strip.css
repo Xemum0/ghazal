@@ -1,0 +1,99 @@
+/* PreviewStrip: paper, hairline, radius 12, padding 12; a 72 square photograph (radius 8) at the inline-start. */
+
+.gp-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  padding: var(--gz-space-3);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.gp-strip[data-flat] {
+  padding: 0;
+  background: transparent;
+  border-color: transparent;
+}
+
+.gp-strip__thumb {
+  display: flex;
+  flex: none;
+  inline-size: var(--gz-size-thumb-compact-width);
+  block-size: var(--gz-size-thumb-compact-width);
+  overflow: hidden;
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-surface-placeholder);
+}
+
+.gp-strip__thumb .gz-photo {
+  flex: 1;
+  align-self: stretch;
+}
+
+.gp-strip__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gp-strip__name {
+  display: block;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.gp-strip__badge {
+  display: flex;
+  align-items: center;
+}
+
+.gp-strip__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--gz-space-1) var(--gz-space-2);
+}
+
+.gp-strip[data-compact] {
+  padding: var(--gz-space-2) var(--gz-space-3);
+  border-radius: var(--gz-radius-sm);
+}
+
+.gp-strip[data-compact] .gp-strip__thumb {
+  inline-size: var(--gz-size-thumb-md);
+  block-size: var(--gz-size-thumb-md);
+}
+
+/* Card: the photograph across the top (the badge over it), everything else under it at full width. */
+.gp-strip[data-card] {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+  padding: 0;
+  overflow: hidden;
+}
+
+.gp-strip[data-card] .gp-strip__thumb {
+  position: relative; /* flutter-ok: badge overlay anchor */
+  inline-size: auto;
+  aspect-ratio: var(--gz-layout-aspect-16x10);
+  border-radius: 0;
+}
+
+.gp-strip__over {
+  position: absolute; /* flutter-ok: named overlay anchor */
+  inset-block-end: var(--gz-space-3);
+  inset-inline-start: var(--gz-space-3);
+  z-index: var(--gz-z-raised);
+}
+
+.gp-strip[data-card] .gp-strip__body {
+  padding: 0 var(--gz-space-4) var(--gz-space-4);
+}

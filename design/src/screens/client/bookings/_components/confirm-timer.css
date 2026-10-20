@@ -1,0 +1,60 @@
+/* ConfirmTimer: a quiet panel, the figure large, one 4 px line under it (the one allowed gold line: a state). Tokens only. */
+.gzb-timer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  padding-block-end: var(--gz-space-5);
+  background-color: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-md);
+}
+
+.gzb-timer__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzb-timer__glyph {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-radius: var(--gz-radius-pill);
+}
+
+.gzb-timer__left {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzb-timer__figure {
+  color: var(--gz-color-sys-text-strong);
+  white-space: nowrap;
+}
+
+.gzb-timer__info {
+  flex: none;
+}
+
+.gzb-timer__bar {
+  display: flex;
+  block-size: var(--gz-stroke-thread-max);
+  overflow: hidden;
+  border-radius: var(--gz-radius-pill);
+}
+
+.gzb-timer__fill {
+  flex-basis: 0;
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gzb-timer__rest {
+  flex-basis: 0;
+  background-color: var(--gz-color-sys-mark-track);
+}

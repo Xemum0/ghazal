@@ -1,0 +1,154 @@
+/* The map canvas: tokens only. Ground (land, water, blocks, roads) is decorative and scales with the view; pins and clusters keep their size.
+   Pins are positioned by logical `inset-inline-start` / `inset-block-start` (the canvas flips x for Arabic, so east stays on the right). */
+.gzd-map {
+  position: relative; /* flutter-ok: Stack, the pins and controls are positioned inside it */
+  overflow: hidden;
+  background-color: var(--gz-color-sys-surface-quiet);
+  touch-action: none;
+  cursor: grab;
+}
+
+.gzd-map__ground {
+  position: absolute; /* flutter-ok: map layer */
+  inset: 0;
+  display: flex;
+}
+
+.gzd-map__svg {
+  flex: 1;
+  align-self: stretch;
+  min-inline-size: 0;
+}
+
+.gzd-map__land {
+  fill: var(--gz-color-sys-surface-quiet);
+}
+
+.gzd-map__water {
+  fill: var(--gz-color-sys-surface-placeholder);
+}
+
+.gzd-map__blocks rect {
+  fill: var(--gz-color-sys-surface-tint);
+}
+
+.gzd-map__minor path {
+  fill: none;
+  stroke: var(--gz-color-sys-border-hairline);
+  stroke-width: 3;
+}
+
+.gzd-map__roads path {
+  fill: none;
+  stroke: var(--gz-color-sys-surface-raised);
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+
+.gzd-map__pins {
+  position: absolute; /* flutter-ok: Stack child */
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* An item is a zero-size anchor at the venue's place; its button is centred on it with a translate (a pin is a label, not a point). */
+.gzd-map__item {
+  position: absolute; /* flutter-ok: PositionedDirectional */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 0;
+  block-size: 0;
+}
+
+.gzd-map__pin,
+.gzd-map__cluster {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-inline-size: var(--gz-size-touch-min);
+  min-block-size: var(--gz-size-touch-min);
+  cursor: pointer;
+}
+
+/* The visible pin: a 32 high paper label with a hairline; selected = ink fill, canvas figure. The target around it is 44. */
+.gzd-map__price {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  block-size: var(--gz-space-8);
+  padding-inline: var(--gz-space-3);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-2);
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The ticket notch of a voucher pin: a squarer ticket body, a glyph and a dashed perforation before the figure. */
+.gzd-map__pin[data-kind='voucher'] .gzd-map__price {
+  gap: var(--gz-space-1);
+  padding-inline-start: var(--gz-space-2);
+  border-radius: var(--gz-radius-sm);
+}
+
+.gzd-map__notch {
+  flex: none;
+  block-size: var(--gz-space-4);
+  border-inline-start-width: var(--gz-stroke-hair);
+  border-inline-start-style: dashed;
+  border-inline-start-color: currentColor;
+}
+
+.gzd-map__pin.is-on .gzd-map__price {
+  background-color: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gzd-map__cluster > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-thumb-sm);
+  block-size: var(--gz-size-thumb-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-text-strong);
+  box-shadow: var(--gz-elevation-2);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzd-map__here {
+  position: absolute; /* flutter-ok: PositionedDirectional, the current-location dot */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-space-8);
+  block-size: var(--gz-space-8);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-2);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzd-map__zoomout {
+  position: absolute; /* flutter-ok: floating control */
+  inset-inline-start: var(--gz-space-gutter);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-4);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-2);
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+}

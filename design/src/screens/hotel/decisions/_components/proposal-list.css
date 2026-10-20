@@ -1,0 +1,70 @@
+/* ProposalList: ruled rows (56, the list rhythm), hairline between, no card. A glyph disk, the date as the headline of a row, the price
+   and its one quiet fact at inline-end, the remove glyph last. */
+
+.gzd-prop {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzd-prop__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-lg);
+  padding-block: var(--gz-space-2);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzd-prop__row:last-child {
+  border-block-end-width: 0;
+}
+
+.gzd-prop__date {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gzd-prop__money {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.gzd-prop__price {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzd-prop__note {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzd-prop__note--lower {
+  color: var(--gz-color-sys-text-success);
+}
+
+.gzd-prop__taken {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-danger);
+}
+
+.gzd-prop__row[data-taken] .gzd-prop__date {
+  text-decoration: line-through;
+  text-decoration-thickness: var(--gz-stroke-hair);
+  color: var(--gz-color-sys-text-secondary);
+}

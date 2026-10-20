@@ -1,0 +1,78 @@
+/* CL-WEDD-02 Checklist. Progress on the gutter, bands as quiet headings, rows full-bleed with a hairline under each. Tokens only. */
+
+.gzmw-cl {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+}
+
+.gzmw-cl__pad {
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzmw-cl__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+/* Everything done: one quiet drawing and two words, start-aligned. No confetti, no badge. */
+.gzmw-cl__alldone {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzmw-cl__alldone > .gz-illus {
+  flex: none;
+}
+
+.gzmw-cl__alldone > p {
+  margin: 0;
+}
+
+.gzmw-cl__group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* A band: the countdown window its tasks fall in. A label on the ink-50 tone, not a card. */
+.gzmw-cl__band {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-control-sm);
+  margin: 0;
+  padding-inline: var(--gz-space-gutter);
+  background-color: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-text-primary);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gzmw-cl__rows {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- loading ---------- */
+.gzmw-cl__skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzmw-cl__skelrow {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-row-min);
+}
+
+.gzmw-cl__skeltext {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}

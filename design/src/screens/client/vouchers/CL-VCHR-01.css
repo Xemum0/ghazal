@@ -1,0 +1,36 @@
+/* CL-VCHR-01: the explainer sheet. The shared sheet pieces live in _components/explainer.css; this is what only the explainer has. */
+.gzv-steps {
+  padding-block: var(--gz-space-2);
+}
+
+.gzv-owned {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+/* The returns line: a glyph, a fragment and its info glyph, under a hairline. The glyph slides by the target's slack so the pair meets the gutter. */
+.gzv-back {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-block-size: var(--gz-size-touch-min);
+  padding-block-start: var(--gz-space-2);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzv-back__line {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+}
+
+.gzv-back__info {
+  display: flex;
+  flex: none;
+  position: relative; /* flutter-ok: Transform.translate by the target's slack so the glyph meets the 20 gutter */
+  inset-inline-end: -10px;
+}

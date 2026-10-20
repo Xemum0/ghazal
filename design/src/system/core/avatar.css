@@ -1,0 +1,66 @@
+/* Avatar: rose-100 disk, one letter. Display minimums hold (Newsreader 20+, Amiri 22+ = the d1 role), so the serif voice uses
+   d1 at 32 / 40 and d2 at 56 / 64; the sans voice (hotel) uses the UI title roles. */
+
+.gz-avatar {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-strong);
+  user-select: none;
+}
+
+.gz-avatar--xs {
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+}
+
+.gz-avatar--sm {
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+}
+
+.gz-avatar--md {
+  inline-size: var(--gz-size-avatar-md);
+  block-size: var(--gz-size-avatar-md);
+}
+
+.gz-avatar--lg {
+  inline-size: var(--gz-size-thumb-lg);
+  block-size: var(--gz-size-thumb-lg);
+}
+
+.gz-avatar__initial {
+  display: block;
+  text-align: center;
+  font-family: var(--gz-type-d1-family);
+  font-size: var(--gz-type-d1-size);
+  line-height: var(--gz-type-d1-line);
+  font-weight: var(--gz-type-d1-weight);
+  /* The Arabic display word-spacing is irrelevant to one letter. */
+  word-spacing: 0;
+}
+
+.gz-avatar--md .gz-avatar__initial,
+.gz-avatar--lg .gz-avatar__initial {
+  font-size: var(--gz-type-d2-size);
+  line-height: var(--gz-type-d2-line);
+}
+
+.gz-avatar--sans .gz-avatar__initial {
+  font-family: var(--gz-type-title-family);
+  font-size: var(--gz-type-title-size);
+  line-height: var(--gz-type-title-line);
+  font-weight: var(--gz-type-ui-title-weight);
+}
+
+.gz-avatar--sans.gz-avatar--md .gz-avatar__initial,
+.gz-avatar--sans.gz-avatar--lg .gz-avatar__initial {
+  font-size: var(--gz-type-ui-title-size);
+  line-height: var(--gz-type-ui-title-line);
+}

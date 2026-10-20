@@ -1,0 +1,29 @@
+.gzb-choice {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-size-control-lg);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzb-choice__label {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzb-choice.is-selected {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzb-choice__radio {
+  display: flex;
+  flex: none;
+  align-items: center;
+}

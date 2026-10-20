@@ -1,0 +1,112 @@
+/* DateStrip: the ruled YOUR DATE strip (hairline above and below, not a panel). Tokens only, logical properties, flex + gap. */
+.gzv-date {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  margin-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-3);
+  border-block-width: var(--gz-stroke-hair);
+  border-block-style: solid;
+  border-block-color: var(--gz-color-sys-border-hairline);
+  min-inline-size: 0;
+}
+
+.gzv-date.is-loading {
+  gap: var(--gz-space-3);
+}
+
+.gzv-date__main {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-lg);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzv-date__value {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzv-date__state {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-5);
+}
+
+.gzv-date__guests {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-block-size: var(--gz-size-touch-min);
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzv-date__alt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}
+
+.gzv-date__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzv-date__money {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-4);
+  padding-block-end: var(--gz-space-1);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+/* ---------- compact bar under the top bar ---------- */
+.gzv-compact {
+  position: sticky; /* flutter-ok: pinned sliver */
+  flex: none;
+  block-size: 0;
+  z-index: var(--gz-z-sticky-header);
+}
+
+.gzv-compact__bar {
+  position: absolute; /* flutter-ok: pinned bar, an overlay anchored to the zero-height sticky anchor */
+  display: flex;
+  flex-direction: column;
+  inset-inline: 0;
+  inset-block-start: 0;
+  background-color: var(--gz-color-sys-surface-canvas);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzv-compact__btn {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-md);
+  padding-inline: var(--gz-space-gutter);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzv-compact__date {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}

@@ -1,0 +1,144 @@
+/* Navigator layout. The root fills the device content; each stack layer fills the root. A layer keeps room for the tab bar it
+   shows (padding), so screens never draw under it; the bar itself is one persistent element that slides away when the top screen hides it. */
+.gz-navroot {
+  position: relative;
+  flex: 1;
+  min-block-size: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--gz-color-sys-surface-canvas);
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.gz-navroot__stage {
+  position: relative;
+  flex: 1;
+  min-block-size: 0;
+}
+
+/* One tab's stack. Hidden tabs keep their layers mounted (state, scroll) but are invisible and inert. */
+.gz-stack {
+  position: absolute; /* flutter-ok: IndexedStack child */
+  inset: 0;
+}
+
+.gz-stack[data-state='hidden'] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.gz-stack[data-state='leaving'] {
+  pointer-events: none;
+}
+
+.gz-stack[data-state='active'] {
+  z-index: var(--gz-z-raised);
+}
+
+.gz-layer {
+  position: absolute; /* flutter-ok: Navigator overlay entry */
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--gz-color-sys-surface-canvas);
+}
+
+/* The tab bar this layer shows: tab bar 56 + home-indicator inset. */
+.gz-layer[data-tab-bar] {
+  padding-block-end: var(--gz-bar-reserve);
+}
+
+.gz-layer[data-hidden] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.gz-layer--fade-out {
+  pointer-events: none;
+  animation: gz-fade-out var(--gz-motion-duration-fast) var(--gz-motion-ease-exit) both;
+}
+
+.gz-layer[data-phase='exit-push'],
+.gz-layer[data-phase='exit-pop'],
+.gz-layer[data-phase='fade-out'] {
+  pointer-events: none;
+}
+
+/* Screens that do not use the Screen scaffold scroll here; Screen fills this box exactly and scrolls itself. */
+.gz-layer__body {
+  flex: 1;
+  min-block-size: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* The persistent tab bar: an overlay at the bottom that slides out (transform) when the top screen hides it. */
+.gz-navroot__bar {
+  position: absolute; /* flutter-ok: Scaffold.bottomNavigationBar, hidden per route */
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: var(--gz-z-bar);
+  transition:
+    transform var(--gz-motion-duration-slow) var(--gz-motion-ease-emphasized),
+    opacity var(--gz-motion-duration-slow) var(--gz-motion-ease-emphasized);
+}
+
+.gz-navroot__bar[data-hidden] {
+  transform: translateY(100%); /* flutter-ok: own height */
+  /* flutter-ok: AnimatedOpacity */
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition:
+    transform var(--gz-motion-duration-base) var(--gz-motion-ease-exit),
+    opacity var(--gz-motion-duration-base) var(--gz-motion-ease-exit),
+    visibility var(--gz-motion-duration-instant) var(--gz-motion-ease-linear) var(--gz-motion-duration-base);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-navroot__bar,
+  .gz-navroot__bar[data-hidden] {
+    transform: none;
+    transition: opacity var(--gz-motion-duration-fast) var(--gz-motion-ease-standard);
+  }
+}
+
+/* The not-built notice sits under a TopBar with a way back. */
+.gz-notbuilt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tab switch: the incoming stack fades in over the outgoing one (200 ms). Two alternating names restart the animation every switch. */
+@keyframes gz-stack-in-0 {
+  from { opacity: 0; /* flutter-ok: FadeTransition */ }
+  to { opacity: 1; /* flutter-ok: FadeTransition */ }
+}
+
+@keyframes gz-stack-in-1 {
+  from { opacity: 0; /* flutter-ok: FadeTransition */ }
+  to { opacity: 1; /* flutter-ok: FadeTransition */ }
+}
+
+.gz-stack--in-0 {
+  animation: gz-stack-in-0 var(--gz-motion-duration-base) var(--gz-motion-ease-standard) both;
+}
+
+.gz-stack--in-1 {
+  animation: gz-stack-in-1 var(--gz-motion-duration-base) var(--gz-motion-ease-standard) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-stack--in-0 {
+    animation: gz-stack-in-0 var(--gz-motion-duration-fast) var(--gz-motion-ease-standard) both;
+  }
+
+  .gz-stack--in-1 {
+    animation: gz-stack-in-1 var(--gz-motion-duration-fast) var(--gz-motion-ease-standard) both;
+  }
+}

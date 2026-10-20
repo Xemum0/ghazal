@@ -1,0 +1,90 @@
+/* NotifRow: icon disk, the name and the clock, then the facts. Hairline rule between rows. Tokens only. */
+
+.ht-ntf {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ht-ntf__main {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+  cursor: pointer;
+}
+
+.ht-ntf__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+/* the one that stands out: a new booking request */
+.ht-ntf__disk--gold {
+  background: var(--gz-color-ref-gold-100);
+  color: var(--gz-color-sys-icon-accent);
+}
+
+.ht-ntf__disk--success {
+  background: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-icon-success);
+}
+
+.ht-ntf__text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.ht-ntf__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.ht-ntf__title {
+  flex: 1 1 0;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.ht-ntf__title.is-unread { font-weight: var(--gz-type-ui-title-weight); }
+.ht-ntf__title.is-read { color: var(--gz-color-sys-text-primary); }
+
+.ht-ntf__time {
+  flex: none;
+  color: var(--gz-color-sys-text-secondary);
+  white-space: nowrap;
+}
+
+.ht-ntf__facts { column-gap: var(--gz-space-3); }
+
+.ht-ntf__dot {
+  flex: none;
+  inline-size: var(--gz-space-2);
+  block-size: var(--gz-space-2);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-dark);
+}
+
+.ht-ntf__rule {
+  display: block;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-border-hairline);
+}

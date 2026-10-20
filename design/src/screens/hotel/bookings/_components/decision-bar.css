@@ -1,0 +1,53 @@
+/* DecisionBar: canvas, 1 px ink-200 top rule, 12 above and below, 8 between rows. When no tab bar sits below, the home inset is added. */
+
+.hbk-bar {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  background-color: var(--gz-color-sys-surface-canvas);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+/* No tab bar below: the home-indicator inset is a spacer (SafeArea), never a calc. */
+.hbk-bar__inset {
+  flex: none;
+  block-size: var(--gz-layout-safe-bottom);
+}
+
+.hbk-bar__why {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* Same rule as the triage card: Accept takes what is left, Decline hugs its word, the calendar glyph is a 52 square. */
+.hbk-bar__row {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gz-space-2);
+}
+
+.hbk-bar__main {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.hbk-bar__decline {
+  flex: none;
+  padding-inline: var(--gz-space-4);
+}
+
+.hbk-bar__date {
+  flex: none;
+  gap: 0;
+  inline-size: var(--gz-size-control-cta);
+  padding-inline: 0;
+}

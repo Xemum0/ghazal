@@ -1,0 +1,253 @@
+/* Motion utilities and keyframes (ADR 0017, ADR 0030 D8). Durations, curves and scale/distance constants are tokens only.
+   Rules: nothing loops, nothing blocks input, only transform and opacity animate. Every class has a reduced-motion form at the
+   bottom: transforms, draws and pops are removed; opacity cross-fades stay at the 120 ms token (ADR 0031 addendum).
+   Stagger: a component sets --gz-delay (a time computed from tokens in TypeScript); CSS cannot multiply a token without calc. */
+
+/* ---------- keyframes ---------- */
+@keyframes gz-fade-in {
+  from { opacity: 0; /* flutter-ok: fade (FadeTransition) */ }
+  to { opacity: 1; /* flutter-ok: fade (FadeTransition) */ }
+}
+
+@keyframes gz-fade-out {
+  from { opacity: 1; /* flutter-ok: fade (FadeTransition) */ }
+  to { opacity: 0; /* flutter-ok: fade (FadeTransition) */ }
+}
+
+/* Thread / khayt draw-on: from inline-start (transform-origin is the --gz-origin-start token). */
+@keyframes gz-thread-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Knot pop on a live state change: .6 to 1.4 to 1, once. The overshoot is the knot's alone (ADR 0030 D8). */
+@keyframes gz-knot-pop {
+  from { transform: scale(var(--gz-motion-scale-knot-from)); }
+  60% { transform: scale(var(--gz-motion-scale-knot-peak)); }
+  to { transform: scale(1); }
+}
+
+/* Favourite toggle: 1 to 1.08 to 1, no bounce (ADR 0017 D5). */
+@keyframes gz-favorite-pop {
+  from { transform: scale(1); }
+  50% { transform: scale(var(--gz-motion-scale-favorite-peak)); }
+  to { transform: scale(1); }
+}
+
+/* Image reveal: opacity 0 to 1 and a 3.5% settle, once, over a static ink-100 placeholder. */
+@keyframes gz-image-reveal {
+  from { opacity: 0; /* flutter-ok: fade (FadeTransition) */ transform: scale(var(--gz-motion-scale-reveal-from)); }
+  to { opacity: 1; /* flutter-ok: fade (FadeTransition) */ transform: scale(1); }
+}
+
+/* Sheet: rises from the bottom edge by its own height. */
+@keyframes gz-sheet-rise {
+  /* flutter-ok: showModalBottomSheet animates by the sheet's own height */
+  from { transform: translateY(100%); /* flutter-ok: own height */ }
+  to { transform: translateY(0); }
+}
+
+@keyframes gz-sheet-dismiss {
+  /* flutter-ok: showModalBottomSheet animates by the sheet's own height */
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); /* flutter-ok: own height */ }
+}
+
+/* Push and pop travel 24 px toward / from the inline-end edge, direction-signed through --gz-shift-end / --gz-shift-start. */
+@keyframes gz-push-enter {
+  from { opacity: 0; /* flutter-ok: fade (FadeTransition) */ transform: translateX(var(--gz-shift-end)); }
+  to { opacity: 1; /* flutter-ok: fade (FadeTransition) */ transform: translateX(0); }
+}
+
+@keyframes gz-push-exit {
+  from { opacity: 1; /* flutter-ok: fade (FadeTransition) */ transform: translateX(0); }
+  to { opacity: 0; /* flutter-ok: fade (FadeTransition) */ transform: translateX(var(--gz-shift-start)); }
+}
+
+@keyframes gz-pop-enter {
+  from { opacity: 0; /* flutter-ok: fade (FadeTransition) */ transform: translateX(var(--gz-shift-start)); }
+  to { opacity: 1; /* flutter-ok: fade (FadeTransition) */ transform: translateX(0); }
+}
+
+@keyframes gz-pop-exit {
+  from { opacity: 1; /* flutter-ok: fade (FadeTransition) */ transform: translateX(0); }
+  to { opacity: 0; /* flutter-ok: fade (FadeTransition) */ transform: translateX(var(--gz-shift-end)); }
+}
+
+/* Undo bar: a 2 px line depletes over 8 s. It is a determinate timer, so it also runs under reduced motion. */
+@keyframes gz-deplete {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+/* Success check: an SVG path with pathLength="1" draws within the success token (one moment per flow). */
+@keyframes gz-draw-stroke {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* ---------- press feedback ---------- */
+/* Tone step (the component's pressed token) plus scale .985 over 120 ms. No ripple, no overlay, no :hover (touch UI). */
+.gz-press {
+  transition:
+    transform var(--gz-motion-duration-fast) var(--gz-motion-ease-standard),
+    background-color var(--gz-motion-duration-fast) var(--gz-motion-ease-standard);
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.gz-press:active {
+  transform: scale(var(--gz-motion-scale-press));
+}
+
+/* Selection and state colour changes (chips, options, borders): 200 ms, never a resize. */
+.gz-select {
+  transition:
+    background-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard),
+    border-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard),
+    color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+/* Tab / segmented thread: the 2 px line slides to the active item over 320 ms (the component sets translateX = index x width x --gz-dir). */
+.gz-thread-slide {
+  transition: transform var(--gz-motion-duration-slow) var(--gz-motion-ease-standard);
+}
+
+/* Tertiary underline shortens to 40% on press. */
+.gz-underline-press {
+  transform-origin: var(--gz-origin-start);
+  transition: transform var(--gz-motion-duration-slow) var(--gz-motion-ease-standard);
+}
+
+/* ---------- entrances (once) ---------- */
+.gz-thread-draw {
+  transform-origin: var(--gz-origin-start);
+  animation: gz-thread-draw var(--gz-motion-duration-expressive) var(--gz-motion-ease-standard) var(--gz-delay, 0s) both;
+}
+
+.gz-wordmark-draw {
+  transform-origin: var(--gz-origin-start);
+  animation: gz-thread-draw var(--gz-motion-duration-wordmark) var(--gz-motion-ease-standard) both;
+}
+
+.gz-knot-pop {
+  animation: gz-knot-pop var(--gz-motion-duration-slow) var(--gz-motion-ease-emphasized) both;
+}
+
+.gz-favorite-pop {
+  animation: gz-favorite-pop var(--gz-motion-duration-fast) var(--gz-motion-ease-standard) both;
+}
+
+/* Wrap an <img> in .gz-reveal-frame: ink-100 placeholder, then the image fades and settles in. */
+.gz-reveal-frame {
+  overflow: hidden;
+  background: var(--gz-color-sys-surface-placeholder);
+}
+
+.gz-reveal {
+  animation: gz-image-reveal var(--gz-motion-duration-expressive) var(--gz-motion-ease-emphasized) both;
+}
+
+.gz-fade-in {
+  animation: gz-fade-in var(--gz-motion-duration-base) var(--gz-motion-ease-standard) var(--gz-delay, 0s) both;
+}
+
+/* ---------- sheet and scrim ---------- */
+.gz-sheet-enter {
+  animation: gz-sheet-rise var(--gz-motion-duration-slow) var(--gz-motion-ease-emphasized) both;
+}
+
+.gz-sheet-exit {
+  animation: gz-sheet-dismiss var(--gz-motion-duration-base) var(--gz-motion-ease-exit) both;
+}
+
+.gz-scrim-enter {
+  animation: gz-fade-in var(--gz-motion-duration-slow) var(--gz-motion-ease-standard) both;
+}
+
+.gz-scrim-exit {
+  animation: gz-fade-out var(--gz-motion-duration-base) var(--gz-motion-ease-exit) both;
+}
+
+/* ---------- screen push and pop ---------- */
+.gz-push-enter {
+  animation: gz-push-enter var(--gz-motion-duration-slow) var(--gz-motion-ease-emphasized) both;
+}
+
+.gz-push-exit {
+  animation: gz-push-exit var(--gz-motion-duration-base) var(--gz-motion-ease-exit) both;
+}
+
+.gz-pop-enter {
+  animation: gz-pop-enter var(--gz-motion-duration-slow) var(--gz-motion-ease-emphasized) both;
+}
+
+.gz-pop-exit {
+  animation: gz-pop-exit var(--gz-motion-duration-base) var(--gz-motion-ease-exit) both;
+}
+
+/* ---------- undo bar and success ---------- */
+.gz-undo-line {
+  transform-origin: var(--gz-origin-start);
+  animation: gz-deplete var(--gz-motion-duration-undo) var(--gz-motion-ease-linear) both;
+}
+
+.gz-success-draw {
+  stroke-dasharray: 1;
+  animation: gz-draw-stroke var(--gz-motion-duration-success) var(--gz-motion-ease-emphasized) both;
+}
+
+/* ---------- reduced motion ---------- */
+/* Movement goes, state stays. Transform-only animations (draws, pops, press scale, slides) are removed; entrances and exits that
+   moved become 120 ms opacity cross-fades so a push, sheet or tab change never reads as a jump cut. */
+@media (prefers-reduced-motion: reduce) {
+  .gz-thread-draw,
+  .gz-wordmark-draw,
+  .gz-knot-pop,
+  .gz-favorite-pop,
+  .gz-success-draw {
+    animation: none;
+  }
+
+  .gz-success-draw {
+    stroke-dashoffset: 0;
+  }
+
+  .gz-press:active {
+    transform: none;
+  }
+
+  .gz-thread-slide,
+  .gz-underline-press {
+    transition: none;
+  }
+
+  .gz-reveal,
+  .gz-sheet-enter,
+  .gz-push-enter,
+  .gz-pop-enter {
+    animation: gz-fade-in var(--gz-motion-duration-fast) var(--gz-motion-ease-standard) both;
+  }
+
+  .gz-sheet-exit,
+  .gz-push-exit,
+  .gz-pop-exit {
+    animation: gz-fade-out var(--gz-motion-duration-fast) var(--gz-motion-ease-exit) both;
+  }
+
+  .gz-scrim-enter {
+    animation: gz-fade-in var(--gz-motion-duration-fast) var(--gz-motion-ease-standard) both;
+  }
+
+  .gz-scrim-exit {
+    animation: gz-fade-out var(--gz-motion-duration-fast) var(--gz-motion-ease-exit) both;
+  }
+
+  .gz-fade-in {
+    animation: gz-fade-in var(--gz-motion-duration-fast) var(--gz-motion-ease-standard) both;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -1,0 +1,93 @@
+/* Rail and the Home sections. The scroller is the rail itself; the track pads its start with the gutter and ends with a gutter-wide
+   spacer, so the first card sits on the gutter and the last one rests on it (padding on a scroll container's end edge is not reliable). */
+.gzd-rail {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+}
+
+.gzd-rail__track {
+  display: flex;
+  flex: none;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: 0;
+  padding-inline-start: var(--gz-space-gutter);
+  list-style: none;
+}
+
+.gzd-rail__track::after {
+  content: '';
+  flex: none;
+  inline-size: var(--gz-space-2);
+}
+
+.gzd-rail__item {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gzd-rail__item > * {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* A section of Home: khayt header on the gutter, optional note, then the rail or the content. 32 between sections (section rhythm). */
+.gzd-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  margin-block-start: var(--gz-space-section);
+}
+
+.gzd-section__head {
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzd-section__note {
+  margin: 0;
+  padding-inline: var(--gz-space-gutter);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzd-section__body {
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* The drive facts under a card (Nearby on Home, the map carousel): a car and a figure, a cursor and a figure, on one line. */
+.gzd-drive {
+  column-gap: var(--gz-space-3);
+}
+
+.gzd-shelves {
+  display: flex;
+  flex-direction: column;
+}
+
+/* A Nearby card carries its drive time under the card, outside the card's own hairline. */
+.gzd-nearby {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+/* Loading: static 4:5 blocks and text lines, no shimmer. */
+.gzd-rail__skeleton {
+  display: flex;
+  gap: var(--gz-space-3);
+  padding-inline-start: var(--gz-space-gutter);
+  overflow: hidden;
+}
+
+.gzd-rail__skeleton-card {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}

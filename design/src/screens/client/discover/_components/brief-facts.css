@@ -1,0 +1,21 @@
+/* BriefFacts: the Results header. The facts wrap on the gutter (two lines at most at 360), the pencil sits at inline-end, the block is one 44+ target. */
+.gzd-bf {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  padding-block: var(--gz-space-2);
+  text-align: start;
+  cursor: pointer;
+  border-radius: var(--gz-radius-sm);
+}
+
+.gzd-bf:active {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gzd-bf__facts {
+  flex: 1;
+  min-inline-size: 0;
+}

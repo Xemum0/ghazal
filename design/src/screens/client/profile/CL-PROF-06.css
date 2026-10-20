@@ -1,0 +1,113 @@
+/* CL-PROF-06 Delete account. Gutter 20; rows edge to edge; 24 between blocks. No gold on the destructive path. Tokens only. */
+
+.gzpr-del {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+}
+
+/* The shield, the one warning in a line and the info glyph (its 44 target hands the slack back to the gutter). */
+.gzpr-del__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.gzpr-del__head > .gz-illus {
+  flex: none;
+}
+
+/* The warning keeps its own width and the glyph follows it, so the (i) reads as the warning's explanation, not a stray control. */
+.gzpr-del__head > .gzpr-del__warn {
+  min-inline-size: 0;
+}
+
+/* Blocked: the state sits above the request it names; the state's own bottom padding would double the gap. */
+.gzpr-del[data-step='blocked'] .gz-state {
+  padding-block-end: 0;
+}
+
+.gzpr-del__para {
+  margin: 0 0 var(--gz-space-3);
+}
+
+.gzpr-del__para:last-child {
+  margin-block-end: 0;
+}
+
+/* The outcome word at the end of a row: quiet, one word. */
+.gzpr-del__out {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* The warning line over the destructive button. */
+.gzpr-del__warn {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-danger);
+}
+
+.gzpr-del__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+}
+
+.gzpr-del__actions > .gz-btn--tertiary {
+  align-self: flex-start;
+}
+
+/* Confirm: one centred composition, a single-purpose screen (ADR 0034 D7): the drawing, who is leaving, the warning and the two ways out. */
+.gzpr-del__confirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-6);
+}
+
+.gzpr-del__who {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gzpr-del__name {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.gzpr-del__phone {
+  margin: 0;
+}
+
+.gzpr-del__phone .gzpr-del__digits {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzpr-del__confirm > .gzpr-del__actions {
+  align-self: stretch;
+}
+
+.gzpr-del__confirm .gzpr-del__warn {
+  justify-content: center;
+}
+
+.gzpr-del__confirm .gzpr-del__actions > .gz-btn--tertiary {
+  align-self: center;
+}
+
+/* The code step: the chat drawing, then the number and the six boxes. */
+.gzpr-del__otp {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+}

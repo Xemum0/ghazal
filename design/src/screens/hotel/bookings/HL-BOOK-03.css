@@ -1,0 +1,30 @@
+/* HL-BOOK-03 Booking detail: header full-bleed under the bar, then blocks on the 20 gutter, 24 apart (the screen is short now, so the rhythm
+   tightens from the section 32 to the list gap 24). Tokens only. */
+
+.hbk-detail {
+  display: flex;
+  flex-direction: column;
+  padding-block-end: var(--gz-space-section);
+}
+
+.hbk-detail__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-list-gap);
+  padding-block-start: var(--gz-space-5);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.hbk-detail__voucher {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.hbk-detail__skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding-block: var(--gz-space-5);
+  padding-inline: var(--gz-space-gutter);
+}

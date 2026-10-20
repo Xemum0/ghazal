@@ -1,0 +1,14 @@
+/* The page rhythm of the four profile steps: 20 gutter, 16 under the bar, 24 between groups, room above the pinned action bar. */
+.obd-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-2) var(--gz-space-8);
+}
+
+.obd-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}

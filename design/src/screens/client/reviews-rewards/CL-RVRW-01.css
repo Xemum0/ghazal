@@ -1,0 +1,142 @@
+/* CL-RVRW-01 Reviews. Tokens only, logical properties, flex + gap. The body is the one scroller; the 20 gutter is added per section so
+   the filter rail can run edge to edge. */
+
+.rvl {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  padding-block-end: var(--gz-space-8);
+}
+
+.rvl-pad {
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding-inline: var(--gz-space-gutter);
+}
+
+.rvl-summary {
+  padding-block: var(--gz-space-4) var(--gz-space-6);
+}
+
+/* "New": one quiet drawing and one word, never 0.0. Alone on the screen it takes the free height. */
+.rvl-new {
+  padding-block-start: var(--gz-space-4);
+}
+
+.gz-screen__body > .rvl--fill {
+  flex: 1;
+}
+
+.rvl--fill .rvl-new--fill {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding-block-start: 0;
+}
+
+/* "New" carries five empty hairline stars under the word: no rating yet, no number. */
+.rvl-nostars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-1);
+  margin-block-start: var(--gz-space-3);
+}
+
+/* Report reasons: a glyph, then the word. */
+.rvl-reason {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+/* ---------- who may write: one ruled strip, a hairline above and below (the YOUR DATE idiom) ---------- */
+.rvl-write,
+.rvl-rule {
+  display: flex;
+  box-sizing: border-box;
+  border-block-width: var(--gz-stroke-hair);
+  border-block-style: solid;
+  border-block-color: var(--gz-color-sys-border-hairline);
+}
+
+.rvl-write {
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  padding-block: var(--gz-space-4);
+}
+
+.rvl-rule {
+  flex-direction: column;
+}
+
+/* ---------- the list ---------- */
+.rvl-rail {
+  display: flex;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  overflow-x: auto;
+  margin-block-start: var(--gz-space-5);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-gutter);
+  scrollbar-width: none;
+}
+
+.rvl-rail > * {
+  flex: none;
+}
+
+.rvl-items {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rvl-more {
+  display: flex;
+  justify-content: center;
+  padding-block-start: var(--gz-space-4);
+}
+
+/* ---------- loading: static ink-100 shapes standing in for the layout, no shimmer ---------- */
+.rvl-skel-score {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.rvl-skel-bars {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.rvl-summary--skel {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-6);
+}
+
+.rvl-skel-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-8);
+}
+
+.rvl-skel-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.rvl-skel-head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}

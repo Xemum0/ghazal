@@ -1,0 +1,8 @@
+/* HL-DCSN-04 Cancel booking. No gold on this sheet: the one action is the danger tint (direction 3, destructive), the way out is a tertiary.
+   The reasons are glyph tiles and the consequence is three equal glyph cells (the strike cell carries the danger tint on its disk, never
+   colour alone: the flag glyph and its word say it). Tokens only. */
+
+.gzd-cancel__consequence {
+  display: flex;
+  flex-direction: column;
+}

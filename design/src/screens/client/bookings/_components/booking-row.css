@@ -1,0 +1,96 @@
+/* BookingRow: paper panel, 1 px hairline, radius 12, 16 padding; one stretched open target. Tokens only. */
+.gzb-row {
+  position: relative; /* flutter-ok: named overlay anchor for the stretched open target (one InkWell) */
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.gzb-row:active {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gzb-row__open {
+  position: absolute; /* flutter-ok: named overlay anchor, one InkWell over the card */
+  inset: 0;
+  border-radius: var(--gz-radius-md);
+  cursor: pointer;
+}
+
+.gzb-row__top {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzb-row__thumb {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  inline-size: var(--gz-size-thumb-md);
+  block-size: var(--gz-size-thumb-md);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}
+
+.gzb-row__photo {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+.gzb-row__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzb-row__name {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The chip, the voucher mark and the price share one line down to 360 wide (the Arabic chip is the widest); wrap is only the last resort. */
+.gzb-row__status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gzb-row__amount {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  margin-inline-start: auto;
+}
+
+.gzb-row.is-attention {
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}
+
+.gzb-row__facts {
+  column-gap: var(--gz-space-3);
+}
+
+.gzb-row__foot {
+  display: flex;
+  align-items: center;
+}
+
+.gzb-vmark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}

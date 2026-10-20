@@ -1,0 +1,62 @@
+/* SheetShell (hotel/decisions): the sheet body is padded 20 on both sides by the Sheet, so this column starts on the gutter.
+   Rhythm: title row 48 -> who and what -> sections 16 apart (the middle scrolls) -> footer pinned under a hairline. Tokens only. */
+
+.gzd-sheet {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gzd-sheet__head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-md);
+  margin-block-end: 0;
+}
+
+.gzd-sheet__title {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzd-sheet__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-block: var(--gz-space-3);
+}
+
+/* Flex items inside the scroller keep their height instead of shrinking into it. */
+.gzd-sheet__content > * {
+  flex: none;
+}
+
+.gzd-sheet__foot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  flex: none;
+  position: relative; /* flutter-ok: anchor of the scroll-cue fade */
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair); border-block-start-style: solid; border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+/* Scroll cue: more body under the footer -> a short fade on the footer's top edge. */
+.gzd-sheet__foot[data-more]::before {
+  content: '';
+  position: absolute; /* flutter-ok: scroll-cue fade anchored above the footer */
+  inset-inline: 0;
+  inset-block-end: 100%; /* flutter-ok: directly above the footer (Flutter: Stack + Positioned.bottom) */
+  block-size: var(--gz-space-6);
+  background: linear-gradient(to top, var(--gz-color-sys-surface-raised), transparent); /* flutter-ok: 24 px scroll fade */
+  pointer-events: none;
+}

@@ -1,0 +1,43 @@
+/* SectionHeader: khayt, optional eyebrow, then the title row. 12 between the khayt and what follows (space 3). */
+
+.gz-sechead {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+}
+
+/* The khayt is 24 wide and hugs inline-start, not the full row. */
+.gz-sechead > .gz-threadrule {
+  align-self: flex-start;
+}
+
+.gz-sechead__eyebrow {
+  margin: 0;
+}
+
+.gz-sechead__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+}
+
+.gz-sechead__title {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+}
+
+/* See all lines up with the gutter edge: no inline padding; the 44 target comes from its height and the label width. */
+.gz-sechead__all.gz-btn--tertiary {
+  flex: none;
+  padding-inline: 0;
+}
+
+/* An action beside the title (the (i) of a price section): one control at inline-end, bottom-aligned to the title line. */
+.gz-sechead__action {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}

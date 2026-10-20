@@ -1,0 +1,138 @@
+/* InboxRow: monogram, name + status glyph + time, one short line of preview + unread count. 20 gutter comes from the list. Tokens only. */
+
+.gzm-inbox {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzm-inbox__main {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-size-row-queue);
+  padding-block: var(--gz-space-3);
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzm-inbox__main:disabled {
+  cursor: default;
+}
+
+.gzm-inbox__text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzm-inbox__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gzm-inbox__name {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzm-inbox__time {
+  flex: none;
+  color: var(--gz-color-sys-text-secondary);
+  white-space: nowrap;
+}
+
+.gzm-inbox__time.is-unread {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gzm-inbox__line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-space-6);
+}
+
+.gzm-inbox__preview {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+/* A shrink-to-fit box at the UI start: its own text direction decides where the ellipsis falls (ADR 0014 D8). */
+.gzm-inbox__preview-text {
+  flex: 0 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gzm-inbox__preview.is-unread {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+/* A voice note, a document: its glyph and one figure or file name. */
+.gzm-inbox__media {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzm-inbox__file {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gzm-inbox__rule {
+  display: block;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-border-hairline);
+}
+
+/* Visit group chat: a quiet glyph tile the size of the avatar (never a face), the visit date as a fact and the three roles as glyphs. */
+.gzm-inbox__glyph {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-md);
+  block-size: var(--gz-size-avatar-md);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzm-inbox__facts {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.gzm-inbox__roles {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}

@@ -1,0 +1,31 @@
+/* CL-VCHR-03: one voucher. The Screen body has no side padding: the 20 gutter is ours. */
+.gzv-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+}
+
+.gzv-detail__hist {
+  padding-block-start: var(--gz-space-2);
+}
+
+.gzv-detail__links {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The system voucher stub puts the code beside a 144 QR and wraps; on the voucher screen the QR, its code and the two buttons are one centred
+   ticket stub: the thing to show at the door (requests.md: VoucherCard stub should centre and wrap by itself). */
+.gzv-detail .gz-vch__stub {
+  flex-direction: column;
+  align-items: center;
+}
+
+.gzv-detail .gz-vch__codeblock {
+  align-items: center;
+  align-self: stretch;
+  text-align: center;
+}

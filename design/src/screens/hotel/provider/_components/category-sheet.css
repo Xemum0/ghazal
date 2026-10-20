@@ -1,0 +1,21 @@
+.hp-cats__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.hp-cats__label {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp-cats__limit {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp-cats__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}

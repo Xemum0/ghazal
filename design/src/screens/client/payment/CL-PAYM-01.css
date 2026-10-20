@@ -1,0 +1,66 @@
+/* CL-PAYM-01 · Pay. Rhythm: gutter 20, 32 between blocks, 16 inside. Hairlines before shadows; no gold but the one action and the bead. */
+
+.pm-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-8);
+  min-inline-size: 0;
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.pm-banner {
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* ---------- the amount: the figure and two facts at inline-start, the voucher drawing at inline-end ---------- */
+.pm-amount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.pm-amount__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.pm-amount__value {
+  display: flex;
+}
+
+/* ---------- methods ---------- */
+.pm-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.pm-sechead {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gz-space-2);
+}
+
+.pm-sechead__title {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.pm-methods {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.pm-methods > .gz-skeleton {
+  flex: 1;
+  min-inline-size: 0;
+}

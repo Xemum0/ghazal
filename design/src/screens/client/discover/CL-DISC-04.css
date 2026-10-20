@@ -1,0 +1,107 @@
+/* CL-DISC-04 Filters sheet: header, the groups (64 rows with a hairline), then a pinned footer. The Sheet brings the 20 gutter. */
+.gzd-fil {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gzd-fil .gz-sheet__header {
+  padding-inline: 0;
+}
+
+.gzd-fil__scroll {
+  flex: 1;
+  min-block-size: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.gzd-fil__n {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* A chip label with its glyph in front: the glyph names the option, the word is one word. */
+.gzd-fil__chiplabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+/* Two controls of one group on a line (the Brief date and the calendar; voucher only and its count). */
+.gzd-fil__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+/* The one suggestion when nothing matches: remove the filter that brings halls back. */
+.gzd-fil__relax {
+  display: flex;
+  justify-content: center;
+}
+
+.gzd-fil__banner {
+  padding-block-end: var(--gz-space-3);
+}
+
+.gzd-fil__groups {
+  display: flex;
+  flex-direction: column;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+/* Price: the histogram sits directly above the rail, the From / To values under it. */
+.gzd-fil__price {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gzd-fil__price .gz-range__values {
+  order: 3;
+}
+
+/* The pinned footer: Clear and the one gold CTA, a hairline above (the sheet's own surface behind). */
+.gzd-fil__foot {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzd-fil__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzd-fil__cta {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* The region search entry: a field-shaped 48 row that opens CL-DISC-07 (it is a button, not an input). */
+.gzd-fil__search {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-control-md);
+  padding-inline: var(--gz-space-3);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-control-bg);
+  color: var(--gz-color-sys-text-secondary);
+  text-align: start;
+  cursor: pointer;
+}
+

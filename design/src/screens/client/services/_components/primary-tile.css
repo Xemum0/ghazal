@@ -1,0 +1,67 @@
+/* PrimaryTile: photograph plate with a bottom scrim name, then one line of facts. Tokens only, logical properties, flex + gap. */
+
+.gzs-ptile {
+  position: relative; /* flutter-ok: named overlay anchor for the open target */
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzs-ptile__plate {
+  position: relative; /* flutter-ok: named overlay anchor for the scrim */
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  aspect-ratio: var(--gz-layout-aspect-4x5);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gzs-ptile--feature .gzs-ptile__plate {
+  aspect-ratio: var(--gz-layout-aspect-16x10);
+}
+
+.gzs-ptile__photo {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* The scrim fades in over the top 40 and is solid under the text, so the name holds 4.5:1 on the brightest photograph. */
+.gzs-ptile__scrim {
+  position: absolute; /* flutter-ok: named overlay anchor, the scrim under the name */
+  inset-inline: 0;
+  inset-block-end: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+  padding: var(--gz-space-3);
+  padding-block-start: var(--gz-space-10);
+  background: linear-gradient(to bottom, var(--gz-color-sys-scrim-clear) 0, var(--gz-color-sys-scrim-bottom) var(--gz-space-10));
+  pointer-events: none;
+}
+
+.gzs-ptile--feature .gzs-ptile__scrim {
+  padding: var(--gz-space-4);
+  padding-block-start: var(--gz-space-10);
+}
+
+.gzs-ptile__name {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gzs-ptile .gzs-ptile__facts {
+  column-gap: var(--gz-space-3);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-ptile__open {
+  position: absolute; /* flutter-ok: named overlay anchor, one InkWell over the tile */
+  inset: 0;
+  border-radius: var(--gz-radius-md);
+  cursor: pointer;
+}

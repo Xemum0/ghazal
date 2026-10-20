@@ -1,0 +1,123 @@
+/* One review in the list: a ruled block, no card, no shadow. Header (monogram, name, facts, overflow), the text, photographs, the reply.
+   Tokens only, logical properties, flex + gap. */
+
+.rvi {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.rvi:last-child {
+  border-block-end-width: 0;
+}
+
+.rvi__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  padding-block: var(--gz-space-5);
+}
+
+.rvi__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.rvi__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+/* The name and the one control share a 44 line, so the facts below get the whole width of the column. */
+.rvi__line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+  min-block-size: var(--gz-size-touch-min);
+  min-inline-size: 0;
+}
+
+.rvi__name {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.rvi__facts {
+  gap: var(--gz-space-3);
+}
+
+.rvi__more {
+  flex: none;
+}
+
+.rvi__reported {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-success);
+}
+
+.rvi__photos {
+  display: flex;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rvi__photo {
+  display: flex;
+  flex: 1 1 0;
+  overflow: hidden;
+  min-inline-size: 0;
+  aspect-ratio: var(--gz-layout-aspect-4x3);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.rvi__slot {
+  display: flex;
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.rvi__img {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+/* The venue's reply: set apart on ink-50 with a thread on the inline-start edge; the glyph says who and what. */
+.rvi__reply {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-3) var(--gz-space-1);
+  border-inline-start-width: var(--gz-stroke-thread);
+  border-inline-start-style: solid;
+  border-inline-start-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.rvi__reply > .gz-icon {
+  flex: none;
+  margin-block-start: var(--gz-space-1);
+}
+
+.rvi__reply > .rvc {
+  flex: 1;
+}

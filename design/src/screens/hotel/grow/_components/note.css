@@ -1,0 +1,39 @@
+/* Note: glyph, fragment, optional action and (i) on one row. Tint, never a border. The (i) is a 44 target that hands its padding back. */
+
+.gn-note {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+  padding: var(--gz-space-2) var(--gz-space-4);
+  background: var(--gz-color-sys-surface-tint-soft);
+  border-radius: var(--gz-radius-sm);
+}
+
+.gn-note[data-info] {
+  padding-inline-end: var(--gz-space-1);
+}
+
+.gn-note[data-tone='danger'] {
+  background: var(--gz-color-sys-status-danger-bg);
+}
+
+.gn-note .gz-icon {
+  flex: none;
+}
+
+.gn-note__text {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gn-note[data-tone='danger'] .gn-note__text {
+  color: var(--gz-color-sys-status-danger-text);
+}
+
+.gn-note__info {
+  display: inline-flex;
+  flex: none;
+}

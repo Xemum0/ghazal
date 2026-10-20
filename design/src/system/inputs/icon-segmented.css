@@ -1,0 +1,68 @@
+/* IconSegmented: ink-100 track (radius 12, 4 pad), 44 high equal options, the selected one an ink-700 pill with the 2 px gold thread. */
+
+.gz-iseg {
+  position: relative; /* flutter-ok: named overlay anchor, the thumb sits inside its track (AnimatedAlign) */
+  display: flex;
+  padding: var(--gz-space-1);
+  background: var(--gz-color-sys-control-track);
+  border-radius: var(--gz-radius-md);
+  min-inline-size: 0;
+}
+
+.gz-iseg__thumb {
+  position: absolute; /* flutter-ok: named overlay anchor inside .gz-iseg */
+  inset-block: var(--gz-space-1);
+  inset-inline-start: 0; /* the measured x is from the track's start edge, padding included */
+  inline-size: var(--gz-in-w);
+  background: var(--gz-color-sys-action-selected-bg);
+  border-radius: var(--gz-radius-sm);
+  transform: translateX(var(--gz-in-x));
+  pointer-events: none;
+}
+
+.gz-iseg__thumb::after {
+  content: '';
+  position: absolute; /* flutter-ok: part of the thumb */
+  inset-inline: var(--gz-space-3);
+  inset-block-end: var(--gz-space-1);
+  block-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-iseg:not([data-ready]) .gz-iseg__thumb {
+  transition: none;
+}
+
+.gz-iseg .gz-iseg__opt {
+  position: relative; /* flutter-ok: the glyph and word sit above the sliding thumb */
+  flex: 1 1 0;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  block-size: var(--gz-size-control-sm);
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-primary);
+  justify-content: center;
+  transition: color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-iseg .gz-iseg__opt:disabled {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-iseg .gz-iseg__opt[data-selected] {
+  color: var(--gz-color-sys-action-selected-label);
+}
+
+.gz-iseg__label {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-iseg__thumb {
+    transition: none;
+  }
+}

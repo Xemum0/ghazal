@@ -1,0 +1,87 @@
+/* HL-PROV-04 Choose a plan: the listing it is for, three single-choice cards, what every plan includes. */
+.hp04 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-2) var(--gz-space-8);
+}
+
+.hp04__for {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  padding-block-end: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.hp04__for-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.hp04__for-label,
+.hp04__for-cat {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp04__for-title {
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.hp04__plans {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.hp04__h {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hp04__incl,
+.hp04__exempt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.hp04__points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hp04__point {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hp04__point .gz-icon {
+  flex: none;
+  margin-block-start: var(--gz-space-1);
+}
+
+.hp04__proto {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.hp04__art {
+  display: flex;
+  justify-content: center;
+  padding-block: var(--gz-space-6);
+}

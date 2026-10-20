@@ -1,0 +1,62 @@
+/* SheetFrame: header, a scrolling middle and a footer, all in flow inside the height the sheet allows. Tokens only, logical properties. */
+.gzv-sf {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  min-block-size: 0;
+}
+
+.gzv-sf__head {
+  display: flex;
+  flex: none;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  padding-block-end: var(--gz-space-2);
+}
+
+.gzv-sf__heading {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  padding-block-start: var(--gz-space-2);
+}
+
+.gzv-sf__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzv-sf__sub {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzv-sf__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-block-end: var(--gz-space-4);
+}
+
+/* Nothing in the scrolling middle may shrink: a grid that is clipped to a leftover height hides weeks; the body scrolls instead. */
+.gzv-sf__body > * {
+  flex: none;
+}
+
+.gzv-sf__foot {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}

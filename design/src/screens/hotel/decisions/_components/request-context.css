@@ -1,0 +1,47 @@
+/* RequestContext: a ruled strip. Avatar 40, a text column (name 16/24 500, the hall as a quiet caption), an optional end node, then the facts
+   as one line of glyphs and figures under the name column, inset by the avatar width so the glyphs start on the text. Tokens only. */
+
+.gzd-ctx {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block: var(--gz-space-3);
+  border-block-width: var(--gz-stroke-hair); border-block-style: solid; border-block-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzd-ctx__main {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzd-ctx__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gzd-ctx__name {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzd-ctx__hall {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzd-ctx__end {
+  flex: none;
+}
+
+.gzd-ctx__facts {
+  column-gap: var(--gz-space-3);
+}
+
+/* The two glyph-only facts (session, section) wrap as one unit, never one orphaned glyph. */
+.gzd-ctx__glyphs {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-3);
+}

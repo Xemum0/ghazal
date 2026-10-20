@@ -1,0 +1,47 @@
+/* CL-AUTH-04: one screen, five modes. Drawing, title, a short form, then one quiet row of links; the single gold action lives in the action bar. */
+.gza04-pwdrow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+/* The forgot link sits under the password field at its end edge; the tertiary button keeps its 44 target. */
+.gza04-forgot {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.gza04-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+}
+
+/* The number that was just confirmed on WhatsApp: a quiet read-only row, check, figure, the WhatsApp mark. Not an input. */
+.gza04-verified {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-lg);
+  padding-inline: var(--gz-space-4);
+  padding-block: var(--gz-space-2);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}
+
+.gza04-verified .gz-icon {
+  flex: none;
+  color: var(--gz-color-sys-icon-success);
+}
+
+.gza04-verified__num {
+  flex: none;
+  margin: 0;
+}
+
+/* The WhatsApp mark takes the free space before it, so the figure stays against the check in both directions. */
+.gza04-verified .gza04-verified__mark {
+  margin-inline-start: auto;
+}

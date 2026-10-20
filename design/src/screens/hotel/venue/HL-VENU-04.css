@@ -1,0 +1,25 @@
+/* HL-VENU-04 Halls and amenities. Gutter 20; list rows are hairline-separated. Tokens only. */
+
+.hv-halls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-4) var(--gz-space-8);
+}
+
+.hv-halls__lead { margin: 0; color: var(--gz-color-sys-text-secondary); }
+
+.hv-halls__disk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-thumb-sm);
+  block-size: var(--gz-size-thumb-sm);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.hv-halls__sub { display: flex; flex-direction: column; gap: var(--gz-space-1); }
+

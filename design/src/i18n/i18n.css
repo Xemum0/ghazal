@@ -1,0 +1,43 @@
+/* i18n binding styles: the development missing-key alarm (the bidi isolate and the figures face live in styles/).
+   Tokens only (var(--gz-...)). The alarm is development-only: it renders nothing unless a key is missing. */
+
+/* .gz-ltr (styles/base.css) and .gz-num (styles/typography.css) are the one definition of the LTR island and the figures voice. */
+
+.gz-i18n-missing {
+  color: var(--gz-color-sys-text-danger);
+  background-color: var(--gz-color-sys-status-danger-bg);
+  border-radius: var(--gz-radius-xs);
+  outline-width: var(--gz-stroke-hair);
+  outline-style: dashed;
+  outline-color: var(--gz-color-sys-border-error);
+  font-family: var(--gz-font-fig);
+}
+
+html[data-gz-i18n-missing]::before {
+  content: '';
+  /* flutter-ok: development-only overlay, never product UI */
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: var(--gz-space-1);
+  background-color: var(--gz-color-sys-text-danger);
+  z-index: 2147483647;
+  pointer-events: none;
+}
+
+.gz-i18n-badge {
+  /* flutter-ok: development-only overlay, never product UI */
+  position: fixed;
+  inset-block-end: var(--gz-space-2);
+  inset-inline-end: var(--gz-space-2);
+  z-index: 2147483647;
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-3);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-text-danger);
+  color: var(--gz-color-sys-text-on-dark);
+  font-family: var(--gz-font-fig);
+  font-size: var(--gz-type-fig-label-size);
+  line-height: var(--gz-type-fig-label-line);
+  pointer-events: none;
+}

@@ -1,0 +1,85 @@
+/* CL-DISC-03 Results. Brief facts, chip row, count, then the cards 24 apart on the gutter (ADR 0018 A). */
+.gzd-res__top {
+  flex: none;
+}
+
+/* The search field has no action at its end, so the bar's 10 glyph inset would leave it 10 from the edge: bring it to the 20 gutter the content uses. */
+.gzd-res__top .gz-topbar {
+  padding-inline-end: var(--gz-space-gutter);
+}
+
+.gzd-res__head {
+  display: flex;
+  flex-direction: column;
+  padding-block: var(--gz-space-2) var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* The count: a hall glyph and a figure; with the government rule an info glyph beside it. */
+.gzd-res__count {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding-block: var(--gz-space-2) var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzd-res__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  margin: 0;
+  padding: 0;
+  padding-inline: var(--gz-space-gutter);
+  list-style: none;
+}
+
+.gzd-res__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzd-res__booked {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.gzd-res__state,
+.gzd-res__none {
+  padding-block-start: var(--gz-space-4);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzd-res__near-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-4);
+}
+
+/* Room under the last card so the Map pill and the Compare tray never cover it. */
+.gzd-res__foot {
+  block-size: var(--gz-space-24);
+}
+
+/* A signed-out visitor: the voucher price is locked behind sign-in; one 44 row under the chips says so and opens the gate (ADR 0007, 0033). */
+.gzd-res__lock {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  margin-block-start: var(--gz-space-2);
+  padding-inline: var(--gz-space-gutter);
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+}
+
+.gzd-res__lock > span {
+  flex: 1;
+  min-inline-size: 0;
+}

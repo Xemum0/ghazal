@@ -1,0 +1,55 @@
+/* ContextBar: canvas, hairline below, 20 gutter. Pinned in the screen's top region (a flex item, not sticky). Facts at the start,
+   the status and a chevron at the end, one 56 high row (wraps to two only when the width runs out). Tokens only. */
+
+.gzm-ctx {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-1) var(--gz-space-2);
+  background: var(--gz-color-sys-surface-canvas);
+  z-index: var(--gz-z-sticky-header);
+}
+
+.gzm-ctx::after {
+  content: '';
+  position: absolute; /* flutter-ok: hairline divider overlay */
+  inset-block-end: 0;
+  inset-inline: 0;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-border-hairline);
+}
+
+.gzm-ctx__main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-1) var(--gz-space-3);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzm-ctx__facts {
+  display: flex;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.gzm-ctx__end {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+/* A tertiary link: gold-700 text, never a fill. */
+.gzm-ctx__link {
+  color: var(--gz-color-sys-text-gold-ink);
+  font-weight: var(--gz-type-title-weight);
+}

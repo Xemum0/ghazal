@@ -1,0 +1,213 @@
+/* PaymentMethodRow and InvoiceSheet. Ink marks on paper tiles, no brand artwork; the invoice is a ruled document. Tokens only. */
+
+.gz-pay {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gz-pay.is-selected {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+}
+
+.gz-pay.is-pressed,
+.gz-pay:active {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-pay.is-unavailable {
+  border-color: var(--gz-color-sys-border-hairline);
+  background-color: var(--gz-color-sys-surface-canvas);
+  cursor: default;
+}
+
+.gz-pay.is-unavailable .gz-pay__label,
+.gz-pay.is-unavailable .gz-pay__mark {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+/* The mark: a 44 x 32 hairline tile, a placeholder set in ink. Direction: brand marks never mirror (direction 6). */
+.gz-pay__mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  inline-size: var(--gz-size-timeline-time-col);
+  block-size: var(--gz-size-disk);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-surface-canvas);
+  color: var(--gz-color-sys-text-strong);
+  direction: ltr;
+}
+
+.gz-pay__mark-text {
+  font-family: var(--gz-type-fig-label-family);
+  font-size: var(--gz-type-fig-label-size);
+  font-weight: var(--gz-type-fig-title-weight);
+  letter-spacing: var(--gz-type-label-tracking);
+  white-space: nowrap;
+}
+
+.gz-pay__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-pay__label {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-pay__sub {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-pay__radio {
+  display: inline-flex;
+  flex: none;
+}
+
+/* ---------- invoice ---------- */
+.gz-inv {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: var(--gz-space-5);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.gz-inv__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+.gz-inv__title,
+.gz-inv__issuer {
+  margin: 0;
+}
+
+.gz-inv__issuer {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-inv__meta {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-strong);
+}
+
+.gz-inv__metarow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-2);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-inv__metarow dt,
+.gz-inv__metarow dd {
+  margin: 0;
+}
+
+.gz-inv__metarow dt {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-inv__metarow dd {
+  color: var(--gz-color-sys-text-strong);
+  text-align: end;
+}
+
+.gz-inv__for {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-inv__lines {
+  display: flex;
+  flex-direction: column;
+}
+
+.gz-inv__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-1) var(--gz-space-3);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-inv__desc {
+  flex: 1 1 100%;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-inv__calc {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-inv__totals {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gz-inv__total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gz-inv__total--sub {
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-inv__due {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-inv__footer {
+  margin: 0;
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-secondary);
+}

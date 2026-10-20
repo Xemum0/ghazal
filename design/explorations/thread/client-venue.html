@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ghazal - Venue details (The Thread)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="direction.css">
+<script>(function(){var m=location.search.match(/lang=(ar|en)/);if(m){var d=document.documentElement;d.lang=m[1];d.dir=m[1]==='ar'?'rtl':'ltr'}if(/full=1/.test(location.search))document.documentElement.classList.add('is-full')})()</script>
+<style>
+  .gal { position: relative; block-size: 452px; background: var(--ink-900); color: var(--ivory); overflow: hidden; }
+  .gal > img { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 50% 34%; }
+  .gal__in { position: relative; z-index: 2; block-size: 100%; display: flex; flex-direction: column; }
+  .gal__bar { display: flex; align-items: center; justify-content: space-between; block-size: 56px; padding-inline: 8px; }
+  .gal__bar .ends { display: flex; gap: 4px; }
+  .gal__foot { margin-block-start: auto; padding-inline: var(--gutter); padding-block-end: 52px; display: grid; gap: 12px; }
+  .gal__zone { display: flex; align-items: baseline; justify-content: space-between; }
+  .gal__count { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-figures); font-weight: var(--fw-med); font-size: var(--fs-small); }
+  .pager { grid-template-columns: 9fr 5fr 4fr 4fr 2fr; }
+  .sheet-top { position: relative; z-index: 3; margin-block-start: -28px; background: var(--bg); border-start-start-radius: var(--r-xl); border-start-end-radius: var(--r-xl); padding-block-start: 28px; }
+  .intro { padding-inline: var(--gutter); display: grid; gap: 12px; }
+  .intro h1 { margin: 0; }
+  .meta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px; color: var(--text-muted); font-size: var(--fs-small); line-height: var(--lh-small); }
+  .meta-row .ic { --size: 18px; color: var(--ink-600); }
+  .intab { position: sticky; inset-block-start: 0; z-index: 25; background: var(--bg); margin-block-start: 24px; }
+  .tabs--in { display: grid; grid-template-columns: repeat(4, 1fr); padding-inline: var(--gutter); }
+  .tabs--in .tab { padding-inline: 4px; }
+  .tabs--in .tabs__thread { inset-inline: var(--gutter); inline-size: calc((100% - var(--gutter) * 2) / var(--n)); }
+  .tabs--in .tabs__thread::after { margin-inline: 14%; }
+  .yd { padding: 24px; border-radius: var(--r-xl); background: var(--rose-100); display: grid; gap: 20px; }
+  .yd__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .yd__date { font-size: var(--fs-d2); line-height: var(--lh-d2); }
+  .yd__est { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding-block-start: 16px; border-block-start: var(--stroke-hair) solid var(--rose-300); }
+  .yd__note { display: flex; gap: 10px; align-items: flex-start; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--text); }
+  .yd__note .ic { --size: 20px; color: var(--gold-700); margin-block-start: 2px; flex: none; }
+  .calcard { padding: 20px 12px 16px; border-radius: var(--r-xl); background: var(--paper); border: var(--stroke-hair) solid var(--line); }
+  .calcard__head { display: flex; align-items: center; justify-content: space-between; padding-inline: 12px 4px; margin-block-end: 8px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 16px; padding: 16px 12px 0; margin-block-start: 12px; border-block-start: var(--stroke-hair) solid var(--line); font-size: var(--fs-caption); line-height: var(--lh-caption); color: var(--text-muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .lg { inline-size: 14px; block-size: 14px; border-radius: 4px; display: inline-block; }
+  .page-end { block-size: 40px; }
+  .cta-bar .price { gap: 0 6px; }
+</style>
+</head>
+<body>
+<main class="screen">
+
+  <!-- ============ GALLERY HERO: the pager thread is the photo tour; segment length = photos in that zone ============ -->
+  <header class="gal scrim-top scrim-bottom">
+    <img class="photo" src="../../public/images/halls/halls-08-grand-ballroom-crystal-chandelier.jpg" alt="" width="1333" height="2000">
+    <div class="gal__in">
+      <div class="statusbar statusbar--on-image"><span class="num">4:00</span><span class="statusbar__r"><span class="sb-sig"><i></i><i></i><i></i><i></i></span><span class="sb-bat"></span></span></div>
+      <div class="gal__bar">
+        <a class="icon-btn icon-btn--on-image" href="client-home.html" aria-label="Back"><i class="ic i-chevron prev"></i></a>
+        <div class="ends">
+          <button class="icon-btn icon-btn--on-image" type="button" aria-label="Add to compare"><i class="ic i-compare"></i></button>
+          <button class="icon-btn icon-btn--on-image" type="button" aria-label="Share"><i class="ic i-share"></i></button>
+          <button class="icon-btn icon-btn--on-image heart" type="button" aria-label="Save" aria-pressed="false"><i class="ic i-heart"></i></button>
+        </div>
+      </div>
+      <div class="gal__foot">
+        <div class="gal__zone">
+          <span class="t-small t-strong" style="color:var(--ivory)"><span class="en">Grand ballroom</span><span class="ar">القاعة الكبرى</span></span>
+          <span class="gal__count"><i class="ic i-image ic--16"></i><span class="en"><span class="num">3</span> / <span class="num">24</span></span><span class="ar"><span class="num">3</span> من <span class="num">24</span></span></span>
+        </div>
+        <div class="pager" aria-hidden="true"><i class="is-now" style="--p:33%"></i><i></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  </header>
+  <!-- the sheet that overlaps the photograph -->
+  <div class="sheet-top">
+
+    <section class="intro">
+      <span class="eyebrow"><span class="en">5-star hotel · Prestige</span><span class="ar">فندق 5 نجوم · فاخر</span></span>
+      <h1 class="display d2"><span class="en">Aurelia Gulf Hotel</span><span class="ar">فندق أوريليا الخليج</span></h1>
+      <div class="meta-row">
+        <span class="flex gap-1"><i class="ic i-pin"></i><span class="en">Sharq, Kuwait City</span><span class="ar">شرق، مدينة الكويت</span></span>
+        <span class="rating"><i class="ic i-starfill"></i><span class="rating__n">4.8</span><span class="rating__c">(<span class="num">212</span>)</span><span class="t-muted en" style="margin-inline-start:2px">reviews</span><span class="t-muted ar" style="margin-inline-start:2px">تقييماً</span></span>
+      </div>
+      <div class="price"><span class="price__amt"><span class="money"><i class="cur"></i>46–52</span></span><span class="price__unit"><span class="en">per guest · minimum <span class="num">300</span> guests</span><span class="ar">للضيف · الحد الأدنى <span class="num">300</span> مدعوّ</span></span></div>
+      <div class="seg seg--block" style="--n:2;--i:0;margin-block-start:4px" role="tablist" aria-label="Space">
+        <button class="seg__item" role="tab" aria-selected="true"><span class="en">Danah Ballroom</span><span class="ar">قاعة الدانة</span></button>
+        <button class="seg__item" role="tab" aria-selected="false"><span class="en">Majlis Hall</span><span class="ar">قاعة المجلس</span></button>
+      </div>
+    </section>
+
+    <!-- in-page tabs: the thread travels as you scroll -->
+    <div class="intab">
+      <div class="tabs tabs--in" style="--n:4;--i:0" role="tablist">
+        <button class="tab" role="tab" aria-selected="true"><span class="en">Overview</span><span class="ar">نظرة عامة</span></button>
+        <button class="tab" role="tab" aria-selected="false"><span class="en">Packages</span><span class="ar">الباقات</span></button>
+        <button class="tab" role="tab" aria-selected="false"><span class="en">Dates</span><span class="ar">التواريخ</span></button>
+        <button class="tab" role="tab" aria-selected="false"><span class="en">Policies</span><span class="ar">الشروط</span></button>
+        <span class="tabs__thread"></span>
+      </div>
+    </div>
+
+    <!-- key facts -->
+    <section class="gx" id="overview" style="padding-block-start:24px">
+      <div class="facts">
+        <div class="fact"><i class="ic i-users"></i><div><div class="fact__t"><span class="en">Up to <span class="num">650</span> guests</span><span class="ar">حتى <span class="num">650</span> مدعوّاً</span></div><div class="fact__s"><span class="en">Minimum <span class="num">300</span></span><span class="ar">الحد الأدنى <span class="num">300</span></span></div></div></div>
+        <div class="fact"><i class="ic i-hall"></i><div><div class="fact__t"><span class="en">Ladies' hall</span><span class="ar">قاعة نسائية</span></div><div class="fact__s"><span class="en">Separate entrance</span><span class="ar">مدخل مستقل</span></div></div></div>
+        <div class="fact"><i class="ic i-car"></i><div><div class="fact__t"><span class="en">Valet parking</span><span class="ar">خدمة الفاليه</span></div><div class="fact__s"><span class="en">Included</span><span class="ar">مشمولة</span></div></div></div>
+        <div class="fact"><i class="ic i-bed"></i><div><div class="fact__t"><span class="en">Bridal suite</span><span class="ar">جناح العروس</span></div><div class="fact__s"><span class="en">Plus one suite night</span><span class="ar">مع ليلة إقامة</span></div></div></div>
+      </div>
+    </section>
+
+    <!-- ============ YOUR DATE: certainty first. Free or not, what it costs, when money moves. ============ -->
+    <section class="gx sec" style="padding-block-start:32px">
+      <div class="yd">
+        <div class="yd__head">
+          <span class="eyebrow"><span class="en">Your date</span><span class="ar">موعدكم</span></span>
+          <span class="badge badge--free"><i class="ic i-checkcircle" style="color:var(--gold-700)"></i><span class="en">Free</span><span class="ar">متاح</span></span>
+        </div>
+        <div style="display:grid;gap:4px">
+          <h2 class="display yd__date"><span class="en">Thu <span class="num">14</span> Jan <span class="num">2027</span></span><span class="ar">الخميس <span class="num">14</span> يناير <span class="num">2027</span></span></h2>
+          <p class="t-small t-muted"><span class="en">Evening · <span class="num">7:00</span> PM to <span class="num">1:00</span> AM</span><span class="ar">المساء · من <span class="num">7:00</span> م إلى <span class="num">1:00</span> ص</span></p>
+        </div>
+        <div class="yd__est">
+          <div style="display:grid;gap:2px"><span class="kpi__k"><span class="en">Estimate · <span class="num">350</span> guests</span><span class="ar">التقدير · <span class="num">350</span> مدعوّاً</span></span><span class="t-caption t-muted"><span class="en"><span class="num">350</span> × <span class="money"><i class="cur"></i>52</span> · weekend rate</span><span class="ar"><span class="num">350</span> × <span class="money"><i class="cur"></i>52</span> · سعر نهاية الأسبوع</span></span></div>
+          <span class="t-strong money money--lg" style="--fw-fig:600"><i class="cur"></i>18,200<i class="fils">.000</i></span>
+        </div>
+        <div class="sched sched--on-rose draw" style="--n:4;--p:0">
+          <span class="sched__line"></span>
+          <div class="sched__i is-current"><span class="sched__node"><i class="ic i-check"></i></span><span class="sched__t"><span class="en">Today</span><span class="ar">اليوم</span></span><span class="sched__s"><span class="en">No charge</span><span class="ar">بلا رسوم</span></span></div>
+          <div class="sched__i"><span class="sched__node"><i class="ic i-check"></i></span><span class="sched__t"><span class="en">Approval</span><span class="ar">الموافقة</span></span><span class="sched__s"><span class="en">Deposit</span><span class="ar">العربون</span></span><span class="sched__a"><span class="num">5,460</span><i class="fils">.000</i></span></div>
+          <div class="sched__i"><span class="sched__node"><i class="ic i-check"></i></span><span class="sched__t"><span class="en"><span class="num">31</span> Dec</span><span class="ar"><span class="num">31</span> ديسمبر</span></span><span class="sched__s"><span class="en">Balance</span><span class="ar">المتبقي</span></span><span class="sched__a"><span class="num">12,740</span><i class="fils">.000</i></span></div>
+          <div class="sched__i"><span class="sched__node"><i class="ic i-check"></i></span><span class="sched__t"><span class="en"><span class="num">14</span> Jan</span><span class="ar"><span class="num">14</span> يناير</span></span><span class="sched__s"><span class="en">Your day</span><span class="ar">يومكم</span></span></div>
+        </div>
+        <p class="yd__note"><i class="ic i-shield"></i><span><span class="en">Nothing is charged until the hotel approves. Free cancellation until Tue <span class="num">15</span> Dec.</span><span class="ar">لا يُخصم أي مبلغ قبل موافقة الفندق، والإلغاء مجاني حتى الثلاثاء <span class="num">15</span> ديسمبر.</span></span></p>
+      </div>
+    </section>
+
+    <!-- ============ PACKAGES ============ -->
+    <section class="gx sec" id="packages">
+      <div class="sec-h"><h2 class="display d3"><span class="en">Packages</span><span class="ar">الباقات</span></h2></div>
+      <div class="stack" style="--stack:12px" role="radiogroup">
+        <div class="pkg is-on" role="radio" aria-checked="true">
+          <span class="knot"><i class="ic i-check"></i></span>
+          <div><div class="pkg__t"><span class="en">Ladies' reception · weekend</span><span class="ar">الحفل النسائي · نهاية الأسبوع</span></div><p class="pkg__d"><span class="en">Buffet dinner, valet and the bridal suite for the evening.</span><span class="ar">عشاء بوفيه وخدمة الفاليه وجناح العروس طوال الأمسية.</span></p></div>
+          <div class="pkg__p"><span class="price__amt"><span class="money"><i class="cur"></i>52</span></span><span class="price__unit"><span class="en">per guest</span><span class="ar">للضيف</span></span></div>
+        </div>
+        <div class="pkg" role="radio" aria-checked="false">
+          <span class="knot"><i class="ic i-check"></i></span>
+          <div><div class="pkg__t"><span class="en">Ladies' signature evening</span><span class="ar">الحفل النسائي المتكامل</span></div><p class="pkg__d"><span class="en">Kosha design, zaffa entrance and a full suite night.</span><span class="ar">تصميم الكوشة وزفّة الدخول وليلة إقامة في الجناح.</span></p></div>
+          <div class="pkg__p"><span class="price__amt"><span class="money"><i class="cur"></i>64</span></span><span class="price__unit"><span class="en">per guest</span><span class="ar">للضيف</span></span></div>
+        </div>
+        <div class="pkg" role="radio" aria-checked="false">
+          <span class="knot"><i class="ic i-check"></i></span>
+          <div><div class="pkg__t"><span class="en">Men's reception</span><span class="ar">الحفل الرجالي</span></div><p class="pkg__d"><span class="en">Majlis Hall with its own entrance, up to <span class="num">350</span>.</span><span class="ar">قاعة المجلس بمدخل خاص، حتى <span class="num">350</span> مدعوّاً.</span></p></div>
+          <div class="pkg__p"><span class="price__amt"><span class="money"><i class="cur"></i>32</span></span><span class="price__unit"><span class="en">per guest</span><span class="ar">للضيف</span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ AVAILABILITY: price on every day; Thu-Sat band sits at the end edge in both scripts ============ -->
+    <section class="gx sec" id="dates">
+      <div class="sec-h"><h2 class="display d3"><span class="en">Availability</span><span class="ar">التوفّر</span></h2></div>
+      <div class="calcard">
+        <div class="calcard__head">
+          <h3 class="t-title"><span class="en">January <span class="num">2027</span></span><span class="ar">يناير <span class="num">2027</span></span></h3>
+          <div class="flex"><button class="icon-btn" type="button" aria-label="Previous month"><i class="ic i-chevron prev"></i></button><button class="icon-btn" type="button" aria-label="Next month"><i class="ic i-chevron mirror"></i></button></div>
+        </div>
+        <div class="cal" role="grid">
+          <div class="cal__dow"><span class="en">Sun</span><span class="ar">أحد</span></div><div class="cal__dow"><span class="en">Mon</span><span class="ar">اثنين</span></div><div class="cal__dow"><span class="en">Tue</span><span class="ar">ثلاثاء</span></div><div class="cal__dow"><span class="en">Wed</span><span class="ar">أربعاء</span></div>
+          <div class="cal__dow is-peak"><span class="en">Thu</span><span class="ar">خميس</span></div><div class="cal__dow is-peak"><span class="en">Fri</span><span class="ar">جمعة</span></div><div class="cal__dow is-peak"><span class="en">Sat</span><span class="ar">سبت</span></div>
+          <i class="cal__day is-blank"></i><i class="cal__day is-blank"></i><i class="cal__day is-blank"></i><i class="cal__day is-blank"></i><i class="cal__day is-blank is-peak"></i>
+          <button class="cal__day is-peak is-booked"><span class="cal__d">1</span><span class="cal__p">18.2</span></button><button class="cal__day is-peak is-booked"><span class="cal__d">2</span><span class="cal__p">18.2</span></button>
+          <button class="cal__day"><span class="cal__d">3</span><span class="cal__p">16.1</span></button><button class="cal__day"><span class="cal__d">4</span><span class="cal__p">16.1</span></button><button class="cal__day"><span class="cal__d">5</span><span class="cal__p">16.1</span></button><button class="cal__day"><span class="cal__d">6</span><span class="cal__p">16.1</span></button>
+          <button class="cal__day is-peak is-booked"><span class="cal__d">7</span><span class="cal__p">18.2</span></button><button class="cal__day is-peak is-booked"><span class="cal__d">8</span><span class="cal__p">18.2</span></button><button class="cal__day is-peak is-held"><span class="cal__d">9</span><span class="cal__p">18.2</span></button>
+          <button class="cal__day"><span class="cal__d">10</span><span class="cal__p">16.1</span></button><button class="cal__day"><span class="cal__d">11</span><span class="cal__p">16.1</span></button><button class="cal__day"><span class="cal__d">12</span><span class="cal__p">16.1</span></button><button class="cal__day"><span class="cal__d">13</span><span class="cal__p">16.1</span></button>
+          <button class="cal__day is-peak is-selected" aria-pressed="true"><span class="cal__d">14</span><span class="cal__p">18.2</span></button><button class="cal__day is-peak is-booked"><span class="cal__d">15</span><span class="cal__p">18.2</span></button><button class="cal__day is-peak"><span class="cal__d">16</span><span class="cal__p">18.2</span></button>
+          <button class="cal__day"><span class="cal__d">17</span><span class="cal__p">16.1</span></button><button class="cal__day"><span class="cal__d">18</span><span class="cal__p">16.1</span></button><button class="cal__day"><span class="cal__d">19</span><span class="cal__p">16.1</span></button><button class="cal__day"><span class="cal__d">20</span><span class="cal__p">16.1</span></button>
+          <button class="cal__day is-peak is-booked"><span class="cal__d">21</span><span class="cal__p">18.2</span></button><button class="cal__day is-peak is-held"><span class="cal__d">22</span><span class="cal__p">18.2</span></button><button class="cal__day is-peak is-booked"><span class="cal__d">23</span><span class="cal__p">18.2</span></button>
+          <button class="cal__day"><span class="cal__d">24</span><span class="cal__p">16.1</span></button><button class="cal__day"><span class="cal__d">25</span><span class="cal__p">16.1</span></button><button class="cal__day"><span class="cal__d">26</span><span class="cal__p">16.1</span></button><button class="cal__day"><span class="cal__d">27</span><span class="cal__p">16.1</span></button>
+          <button class="cal__day is-peak is-held"><span class="cal__d">28</span><span class="cal__p">18.2</span></button><button class="cal__day is-peak"><span class="cal__d">29</span><span class="cal__p">18.2</span></button><button class="cal__day is-peak is-booked"><span class="cal__d">30</span><span class="cal__p">18.2</span></button>
+          <button class="cal__day"><span class="cal__d">31</span><span class="cal__p">16.1</span></button>
+        </div>
+        <div class="legend">
+          <span><i class="lg" style="background:var(--gold-500);box-shadow:inset 0 0 0 1.5px var(--thread-ring)"></i><span class="en">Your date</span><span class="ar">موعدكم</span></span>
+          <span><i class="lg" style="border:1.5px solid var(--ink-600);border-radius:50%;inline-size:10px;block-size:10px"></i><span class="en">On hold</span><span class="ar">قيد الحجز</span></span>
+          <span><span style="text-decoration:line-through;color:var(--ink-500);font-family:var(--font-figures)">12</span><span class="en">Booked</span><span class="ar">محجوز</span></span>
+          <span><i class="lg" style="background:var(--rose-100)"></i><span class="en">Thu–Sat</span><span class="ar">الخميس–السبت</span></span>
+        </div>
+        <p class="t-caption t-muted" style="padding:12px 12px 0"><span class="en">Prices in KD thousands, for <span class="num">350</span> guests.</span><span class="ar">الأسعار بآلاف الدنانير لـ <span class="num">350</span> مدعوّاً.</span></p>
+      </div>
+    </section>
+
+    <!-- ============ GOOD TO KNOW ============ -->
+    <section class="gx sec" id="policies">
+      <div class="sec-h"><h2 class="display d3"><span class="en">Policies</span><span class="ar">الشروط والسياسات</span></h2></div>
+      <div>
+        <div class="lrow"><span class="lrow__ic"><i class="ic i-shield"></i></span><div><div class="lrow__t"><span class="en">Cancellation</span><span class="ar">الإلغاء</span></div><div class="lrow__s"><span class="en">Free until Tue <span class="num">15</span> Dec. After that the deposit is kept.</span><span class="ar">مجاني حتى الثلاثاء <span class="num">15</span> ديسمبر، وبعدها يُحتجز العربون.</span></div></div></div>
+        <div class="lrow"><span class="lrow__ic"><i class="ic i-camera"></i></span><div><div class="lrow__t"><span class="en">Photography</span><span class="ar">التصوير</span></div><div class="lrow__s"><span class="en">Female photographers only in the ladies' hall.</span><span class="ar">القاعة النسائية للمصوّرات فقط.</span></div></div></div>
+        <div class="lrow"><span class="lrow__ic"><i class="ic i-users"></i></span><div><div class="lrow__t"><span class="en">Children</span><span class="ar">الأطفال</span></div><div class="lrow__s"><span class="en">Boys under <span class="num">8</span> are welcome in the ladies' hall.</span><span class="ar">يُسمح للأولاد دون <span class="num">8</span> سنوات بدخول القاعة النسائية.</span></div></div></div>
+        <div class="lrow"><span class="lrow__ic"><i class="ic i-clock"></i></span><div><div class="lrow__t"><span class="en">Timings</span><span class="ar">المواعيد</span></div><div class="lrow__s"><span class="en">Evening <span class="num">7:00</span> PM to <span class="num">1:00</span> AM. Set-up from <span class="num">3:00</span> PM.</span><span class="ar">المساء من <span class="num">7:00</span> م إلى <span class="num">1:00</span> ص، ويبدأ التجهيز من <span class="num">3:00</span> م.</span></div></div></div>
+      </div>
+    </section>
+    <div class="page-end"></div>
+  </div>
+
+  <!-- ============ STICKY CTA: one price, one primary action ============ -->
+  <div class="cta-bar">
+    <div style="display:grid;gap:0">
+      <span class="t-caption t-muted"><span class="en">Estimate · <span class="num">350</span> guests</span><span class="ar">التقدير · <span class="num">350</span> مدعوّاً</span></span>
+      <span class="t-strong money money--lg" style="--fw-fig:700"><i class="cur"></i>18,200</span>
+    </div>
+    <a class="btn btn--primary btn--lg" href="#"><span class="en">Request this date</span><span class="ar">طلب هذا الموعد</span></a>
+    <div class="homebar"></div>
+  </div>
+</main>
+<script>
+  /* motion only: the tab thread travels with the scroll (scroll-spy) and on tap */
+  (function(){
+    var bar=document.querySelector('.tabs--in'); if(!bar) return;
+    var tabs=[].slice.call(bar.querySelectorAll('.tab')), ids=['overview','packages','dates','policies'];
+    var secs=ids.map(function(i){return document.getElementById(i)});
+    function set(i){bar.style.setProperty('--i',i);tabs.forEach(function(t,k){t.setAttribute('aria-selected',k===i)})}
+    tabs.forEach(function(t,k){t.addEventListener('click',function(){set(k);secs[k].scrollIntoView({behavior:'smooth',block:'start'})})});
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)set(secs.indexOf(e.target))})},{rootMargin:'-30% 0px -60% 0px'});
+      secs.forEach(function(s){io.observe(s)});
+    }
+  })();
+</script>
+</body>
+</html>

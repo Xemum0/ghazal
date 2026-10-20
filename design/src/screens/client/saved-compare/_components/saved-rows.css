@@ -1,0 +1,164 @@
+/* Saved rows (CL-SAVD-01): unframed, a 1 px ink-200 rule between rows, 72 x 88 thumbnail, text column, heart at the end.
+   Flex only; tokens only; logical properties. */
+
+.svd-row {
+  position: relative; /* flutter-ok: named overlay anchor, one InkWell over the row (the heart sits above it) */
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  padding-block: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.svd-row__open {
+  position: absolute; /* flutter-ok: named overlay anchor, the stretched target */
+  inset: 0;
+  cursor: pointer;
+}
+
+.svd-row__thumb {
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  inline-size: var(--gz-size-thumb-compact-width);
+  block-size: var(--gz-size-thumb-compact-height);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.svd-row__photo {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+.svd-row__ghost {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}
+
+.svd-row__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.svd-row__name {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.svd-row.is-muted .svd-row__name {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* One quiet line under the name: the area, then the availability glyph (and the saving-moved glyph when it applies). */
+.svd-row__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.svd-row__price {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--gz-space-2);
+}
+
+.svd-row__basis {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.svd-row__marks {
+  display: inline-flex;
+  gap: var(--gz-space-1);
+}
+
+/* The heart (or Remove) sits above the stretched target; it hangs half its padding into the gutter so the glyph aligns to the 20 edge. */
+.svd-row__aside {
+  position: relative; /* flutter-ok: sits above the stretched row target */
+  z-index: var(--gz-z-raised);
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  align-self: flex-start;
+}
+
+/* Selection mark (select mode): 24 box, ink-700 fill when chosen, never gold. */
+.svd-mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+  border-width: var(--gz-stroke-icon);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-control-bg);
+  color: var(--gz-color-sys-control-toggle-knob);
+  transition:
+    background-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard),
+    border-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.svd-mark.is-on {
+  border-color: var(--gz-color-sys-control-toggle-on);
+  background-color: var(--gz-color-sys-control-toggle-on);
+}
+
+.svd-row--skeleton {
+  pointer-events: none;
+}
+
+/* Voucher ready: a 44 target (the row's own target sits under it) around the ticket StatusIcon, under the heart. */
+.svd-vtag {
+  position: relative; /* flutter-ok: sits above the stretched row target */
+  z-index: var(--gz-z-raised);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  cursor: pointer;
+}
+
+/* The saving chip beside a service price, the same chip CardPriceLine draws for halls. */
+.svd-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+  white-space: nowrap;
+}
+
+/* A guest sees the voucher price locked: the ticket and the lock, no sentence (the sentence is the accessible name). */
+.svd-row__lock {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}

@@ -1,0 +1,420 @@
+/* Hotel calendar: month grid, agenda, week view, day view, block sheet. Sunday-first, seven flex columns, cell 52 high (44 wide minimum).
+   The Thu-Sat peak band is one rose-50 block at the inline-end edge in both languages (it follows the flex direction). Day states are
+   never colour alone: solid disc, ring, dash, bead, strike. Gold: the selected day, its thread, and the requested bead. */
+
+.gz-hc {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gz-hc__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+}
+
+.gz-hc__title {
+  flex: 1;
+  margin: 0;
+  text-align: center;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-hc__grid { display: flex; flex-direction: column; }
+.gz-hc__row { display: flex; }
+
+.gz-hc__hcell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  /* 44 wide at every real width (7 x 44 = 308 fits the 320 inner width of a 360 phone); where a container is narrower the columns give
+     way together instead of clipping Saturday. */
+  min-inline-size: 0;
+  block-size: var(--gz-space-8);
+  color: var(--gz-color-sys-text-secondary);
+  white-space: nowrap;
+}
+
+.gz-hc__cell {
+  position: relative; /* flutter-ok: named overlay anchor (range thread, requested bead) */
+  display: flex;
+  flex: 1 1 0;
+  /* 44 wide at every real width (7 x 44 = 308 fits the 320 inner width of a 360 phone); where a container is narrower the columns give
+     way together instead of clipping Saturday. */
+  min-inline-size: 0;
+  block-size: var(--gz-size-cal-cell-height);
+}
+
+.gz-hc__hcell[data-peak],
+.gz-hc__cell[data-peak] { background: var(--gz-color-sys-surface-tint-soft); }
+
+.gz-hc__hcell[data-top][data-peak='first'],
+.gz-hc__hcell[data-top][data-peak='only'] { border-start-start-radius: var(--gz-radius-md); }
+.gz-hc__hcell[data-top][data-peak='last'],
+.gz-hc__hcell[data-top][data-peak='only'] { border-start-end-radius: var(--gz-radius-md); }
+.gz-hc__cell[data-bottom][data-peak='first'],
+.gz-hc__cell[data-bottom][data-peak='only'] { border-end-start-radius: var(--gz-radius-md); }
+.gz-hc__cell[data-bottom][data-peak='last'],
+.gz-hc__cell[data-bottom][data-peak='only'] { border-end-end-radius: var(--gz-radius-md); }
+
+/* ---------- day ---------- */
+.gz-hc__day {
+  position: relative; /* flutter-ok: above the range thread */
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: transparent;
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color var(--gz-motion-duration-fast) var(--gz-motion-ease-standard),
+    border-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-hc__day:active { background: var(--gz-color-sys-surface-quiet); }
+.gz-hc__day[aria-disabled='true'] { cursor: not-allowed; }
+.gz-hc__day[aria-disabled='true']:active { background: transparent; }
+.gz-hc__day[data-past] .gz-hc__fig { color: var(--gz-color-sys-icon-disabled); }
+.gz-hc__day[data-today] { border-color: var(--gz-color-sys-border-focus); }
+.gz-hc__day[data-inrange] .gz-hc__fig { font-weight: var(--gz-type-price-strong-weight); }
+
+.gz-hc__day[data-selected] {
+  z-index: var(--gz-z-raised);
+  background: var(--gz-color-sys-mark-khayt);
+  border-color: var(--gz-color-sys-mark-khayt);
+  color: var(--gz-color-sys-text-on-gold);
+  box-shadow: 0 0 0 var(--gz-stroke-thread) var(--gz-color-sys-surface-canvas);
+  outline-width: var(--gz-stroke-hair); outline-style: solid; outline-color: var(--gz-color-sys-mark-decor);
+  outline-offset: var(--gz-stroke-thread);
+}
+
+.gz-hc__day[data-selected]:active { background: var(--gz-color-sys-mark-pressed); }
+.gz-hc__day[data-selected]:focus-visible { outline-width: var(--gz-stroke-focus); outline-color: var(--gz-color-sys-focus-ring); }
+
+.gz-hc__thread {
+  position: absolute; /* flutter-ok: ThreadPainter segment behind the day */
+  inset-inline: 0;
+  inset-block-end: var(--gz-stroke-thread);
+  block-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-khayt);
+  pointer-events: none;
+}
+
+/* ---------- lane marks: one slot per hall, in hall order, so a mark always sits in its hall's lane ---------- */
+.gz-hc__lanes {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  block-size: var(--gz-size-knot-bead);
+}
+
+.gz-hc__mark {
+  display: block;
+  flex: none;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+}
+
+.gz-hc__mark--booked { border-radius: var(--gz-radius-pill); background: var(--gz-color-sys-text-primary); }
+.gz-hc__mark--held { border-radius: var(--gz-radius-pill); border-width: var(--gz-stroke-icon); border-style: solid; border-color: var(--gz-color-sys-mark-state); }
+.gz-hc__mark--blocked { block-size: var(--gz-stroke-thread); background: var(--gz-color-sys-border-control); }
+.gz-hc__mark--none { background: transparent; }
+
+.gz-hc__day[data-selected] .gz-hc__mark--booked { background: var(--gz-color-sys-text-on-gold); }
+.gz-hc__day[data-selected] .gz-hc__mark--held { border-color: var(--gz-color-sys-text-on-gold); }
+.gz-hc__day[data-selected] .gz-hc__mark--blocked { background: var(--gz-color-sys-text-on-gold); }
+
+/* requested: a gold-700 bead at the corner. Informational: a request never claims the date. */
+.gz-hc__req {
+  position: absolute; /* flutter-ok: corner mark anchored inside the day */
+  inset-block-start: var(--gz-space-1);
+  inset-inline-end: var(--gz-space-1);
+  inline-size: var(--gz-space-2);
+  block-size: var(--gz-space-2);
+  background: var(--gz-color-sys-icon-accent);
+  transform: rotate(45deg);
+}
+
+.gz-hc__day[data-selected] .gz-hc__req { background: var(--gz-color-sys-text-on-gold); }
+
+/* ---------- legend ---------- */
+.gz-hc__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2) var(--gz-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-hc__key {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gz-hc__swatch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-space-3);
+  block-size: var(--gz-space-3);
+}
+
+.gz-hc__swatch .gz-hc__req {
+  position: static; /* flutter-ok: legend swatch, not an overlay */
+  inline-size: var(--gz-space-2);
+  block-size: var(--gz-space-2);
+}
+
+.gz-hc__swatch--peak {
+  box-sizing: border-box;
+  background: var(--gz-color-sys-surface-tint-soft);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-xs);
+}
+
+/* ---------- agenda ---------- */
+.gz-agenda {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gz-agenda__title { margin: 0; color: var(--gz-color-sys-text-strong); }
+
+.gz-agenda__rows {
+  display: flex;
+  flex-direction: column;
+  border-block-start-width: var(--gz-stroke-hair); border-block-start-style: solid; border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-agenda__sub {
+  display: flex;
+  flex-direction: column;
+}
+
+.gz-agenda__req {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-block-size: var(--gz-space-12);
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+/* ---------- week view ---------- */
+.gz-wk {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gz-wk__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gz-wk__day {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-2);
+  border-block-end-width: var(--gz-stroke-hair); border-block-end-style: solid; border-block-end-color: var(--gz-color-sys-border-hairline);
+  min-block-size: var(--gz-size-row-queue);
+}
+
+.gz-wk__day--peak { background: var(--gz-color-sys-surface-tint-soft); }
+.gz-wk__day--past .gz-wk__num { color: var(--gz-color-sys-icon-disabled); }
+
+.gz-wk__date {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-timeline-time-col);
+  min-block-size: var(--gz-size-touch-min);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: transparent;
+  border-radius: var(--gz-radius-sm);
+  cursor: pointer;
+}
+
+.gz-wk__date.is-today { border-color: var(--gz-color-sys-border-focus); }
+.gz-wk__wd { color: var(--gz-color-sys-text-secondary); }
+.gz-wk__num { color: var(--gz-color-sys-text-strong); }
+
+.gz-wk__lanes {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-wk__lane {
+  position: relative; /* flutter-ok: hatched stripe sits inside the lane */
+  display: flex;
+  align-items: stretch;
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  overflow: hidden;
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+}
+
+.gz-wk__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  min-inline-size: 0;
+  padding-inline: var(--gz-space-3);
+  padding-block: var(--gz-space-1);
+}
+
+.gz-wk__hall { font-weight: var(--gz-type-badge-weight); }
+.gz-wk__info { display: block; }
+.gz-wk__info .gz-t-caption { color: inherit; }
+.gz-wk__info .gz-bead-box { vertical-align: middle; margin-inline-end: var(--gz-space-1); }
+
+.gz-wk__lane--booked { background: var(--gz-color-sys-text-primary); color: var(--gz-color-sys-text-on-dark); cursor: pointer; }
+.gz-wk__lane--booked .gz-wk__hall,
+.gz-wk__lane--booked .gz-wk__info { color: var(--gz-color-sys-text-on-dark); }
+
+.gz-wk__lane--held { background: var(--gz-color-sys-status-pending-bg); border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-mark-state); color: var(--gz-color-sys-status-pending-text); }
+.gz-wk__lane--held .gz-wk__hall,
+.gz-wk__lane--held .gz-wk__info { color: var(--gz-color-sys-status-pending-text); }
+
+.gz-wk__lane--blocked { background: var(--gz-color-sys-surface-quiet); border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong); }
+.gz-wk__lane--blocked .gz-wk__hall,
+.gz-wk__lane--blocked .gz-wk__info { color: var(--gz-color-sys-text-secondary); }
+.gz-wk__struck { text-decoration: line-through; text-decoration-thickness: var(--gz-stroke-hair); }
+
+.gz-wk__lane--open { border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong); }
+.gz-wk__lane--open .gz-wk__hall,
+.gz-wk__lane--open .gz-wk__info { color: var(--gz-color-sys-text-secondary); }
+
+.gz-wk__stripe {
+  position: relative; /* flutter-ok: pattern shader fills the stripe */
+  display: flex;
+  flex: none;
+  inline-size: var(--gz-space-4);
+  border-inline-end-width: var(--gz-stroke-hair); border-inline-end-style: solid; border-inline-end-color: var(--gz-color-sys-mark-state);
+}
+
+.gz-wk__lane--blocked .gz-wk__stripe { border-inline-end-color: var(--gz-color-sys-border-strong); }
+
+/* ---------- day view ---------- */
+.gz-dv {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  min-inline-size: 0;
+}
+
+.gz-dv__hall {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding-block-start: var(--gz-space-4);
+  border-block-start-width: var(--gz-stroke-hair); border-block-start-style: solid; border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-dv__hall:first-child {
+  padding-block-start: 0;
+  border-block-start: 0;
+}
+
+.gz-dv__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+.gz-dv__name { margin: 0; color: var(--gz-color-sys-text-strong); }
+.gz-dv__session { color: var(--gz-color-sys-text-secondary); }
+
+.gz-dv__open {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.gz-dv__openline { margin: 0; color: var(--gz-color-sys-text-primary); }
+
+/* ---------- drag affordance and the block sheet ---------- */
+.gz-drag {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-3);
+  background: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-sm);
+}
+
+.gz-drag__demo {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.gz-drag__cell {
+  display: block;
+  inline-size: var(--gz-space-5);
+  block-size: var(--gz-space-5);
+  box-sizing: border-box;
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-xs);
+}
+
+.gz-drag__cell--on {
+  background: var(--gz-color-sys-mark-khayt);
+  border-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-drag__thread {
+  display: block;
+  inline-size: var(--gz-space-4);
+  block-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-drag__text { flex: 1; margin: 0; color: var(--gz-color-sys-text-primary); }
+
+.gz-bd {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.gz-bd__group { display: flex; flex-direction: column; gap: var(--gz-space-2); }
+.gz-bd__label { margin: 0; }
+.gz-bd__note { margin: 0; color: var(--gz-color-sys-text-secondary); }
+
+.gz-bd__bar { display: flex; flex-direction: column; gap: var(--gz-space-3); }
+.gz-bd__count { margin: 0; color: var(--gz-color-sys-text-strong); font-weight: var(--gz-type-title-weight); }
+.gz-bd__pair { display: flex; gap: var(--gz-space-3); }
+.gz-bd__pair .gz-btn { flex: 1; min-inline-size: 0; }

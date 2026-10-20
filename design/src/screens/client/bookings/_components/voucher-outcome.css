@@ -1,0 +1,44 @@
+/* VoucherOutcome: tint panel, radius 12, 16 padding. The ticket glyph carries a small outcome glyph at its corner. Tokens only. */
+.gzb-outcome {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-tint-soft);
+  border-radius: var(--gz-radius-md);
+}
+
+.gzb-outcome__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzb-outcome__icon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+  justify-content: center;
+  min-inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-3);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-radius: var(--gz-radius-pill);
+}
+
+.gzb-outcome__title {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzb-outcome__facts {
+  column-gap: var(--gz-space-4);
+}
+
+.gzb-outcome__info {
+  flex: none;
+}

@@ -1,0 +1,68 @@
+/* MethodTile: a radio tile on paper, hairline-first. Selected = ink border + the gold bead (gold is the choice, never a fill). */
+
+.pm-tile {
+  position: relative; /* flutter-ok: anchor of the selection bead, a Stack */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-row-queue);
+  padding-block: var(--gz-space-5) var(--gz-space-4);
+  padding-inline: var(--gz-space-2);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  color: var(--gz-color-sys-text-strong);
+  text-align: center;
+  cursor: pointer;
+}
+
+.pm-tile.is-selected {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+}
+
+.pm-tile:active {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.pm-tile.is-disabled {
+  border-color: var(--gz-color-sys-border-hairline);
+  background-color: var(--gz-color-sys-surface-canvas);
+  color: var(--gz-color-sys-text-disabled);
+  cursor: default;
+}
+
+.pm-tile__bead {
+  position: absolute; /* flutter-ok: the selection bead sits on the tile corner, a Positioned in a Stack */
+  inset-block-start: var(--gz-space-2);
+  inset-inline-end: var(--gz-space-2);
+  display: inline-flex;
+}
+
+/* Brand marks never mirror and never wrap: the glyph over the typeset name, ink on paper. */
+.pm-tile__mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-1);
+  direction: ltr;
+}
+
+.pm-tile__word {
+  font-family: var(--gz-type-fig-label-family);
+  font-size: var(--gz-type-fig-label-size);
+  font-weight: var(--gz-type-fig-title-weight);
+  letter-spacing: var(--gz-type-label-tracking);
+  white-space: nowrap;
+}
+
+/* The suggestion is a fact in ink, not a gold flag. */
+.pm-tile__hint {
+  color: var(--gz-color-sys-text-strong);
+}

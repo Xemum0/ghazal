@@ -1,0 +1,90 @@
+/* Checkbox: 24 box in a 44 row. Border = control border (ink-500, 4.0:1); checked fills with ink-700. */
+
+.gz-check {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gz-check__box {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+  border-width: var(--gz-stroke-icon);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-control-bg);
+  color: var(--gz-color-sys-control-toggle-knob);
+  transition:
+    background-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard),
+    border-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-check__label {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-check:active .gz-check__box,
+.gz-check.is-pressed .gz-check__box {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-check.is-on .gz-check__box {
+  border-color: var(--gz-color-sys-control-toggle-on);
+  background-color: var(--gz-color-sys-control-toggle-on);
+}
+
+.gz-check.is-on:active .gz-check__box,
+.gz-check.is-on.is-pressed .gz-check__box {
+  border-color: var(--gz-color-sys-action-selected-bg-pressed);
+  background-color: var(--gz-color-sys-action-selected-bg-pressed);
+}
+
+.gz-check.is-error .gz-check__box {
+  border-color: var(--gz-color-sys-border-error);
+}
+
+.gz-check:disabled {
+  cursor: default;
+}
+
+.gz-check:disabled .gz-check__box {
+  border-color: var(--gz-color-sys-border-strong);
+  background-color: var(--gz-color-sys-control-track);
+}
+
+.gz-check:disabled .gz-check__label {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-check.is-on:disabled .gz-check__box {
+  border-color: var(--gz-color-sys-icon-disabled);
+  background-color: var(--gz-color-sys-icon-disabled);
+}
+
+.gz-check-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+.gz-check__error {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  margin: 0;
+  padding-inline-start: var(--gz-space-1);
+  color: var(--gz-color-sys-text-danger);
+}

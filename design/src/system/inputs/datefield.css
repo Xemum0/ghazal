@@ -1,0 +1,30 @@
+/* DateField trigger: the whole 56 high box is the button. */
+
+.gz-datefield__trigger {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  align-self: stretch;
+  justify-content: flex-start;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-datefield__trigger:focus,
+.gz-datefield__trigger:focus-visible {
+  outline: none; /* the field box carries the focus indicator */
+}
+
+.gz-datefield__value {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-datefield__value.is-placeholder {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-field[data-disabled] .gz-datefield__value {
+  color: var(--gz-color-sys-text-disabled);
+}

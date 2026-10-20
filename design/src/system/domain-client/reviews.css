@@ -1,0 +1,173 @@
+/* ReviewCard and RatingSummary: ruled blocks, no cards, no shadows. Tokens only. */
+
+.gz-review {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-5);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  min-inline-size: 0;
+}
+
+.gz-review__head {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  gap: var(--gz-space-3);
+}
+
+.gz-review__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-review__when {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-review__verified {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  margin: 0;
+  color: var(--gz-color-sys-text-success);
+}
+
+.gz-review__text {
+  align-self: stretch;
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+}
+
+
+.gz-review__photos {
+  display: flex;
+  align-self: stretch;
+  gap: var(--gz-space-2);
+}
+
+.gz-review__photo {
+  display: flex;
+  flex: 1 1 0;
+  overflow: hidden;
+  min-inline-size: 0;
+  aspect-ratio: var(--gz-layout-aspect-4x3);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gz-review__img {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+/* The owner's reply: set apart on ink-50, a hairline on the inline-start edge. */
+.gz-review__reply {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  gap: var(--gz-space-1);
+  padding: var(--gz-space-3);
+  border-inline-start-width: var(--gz-stroke-thread);
+  border-inline-start-style: solid;
+  border-inline-start-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-review__reply-head,
+.gz-review__reply-text {
+  margin: 0;
+}
+
+.gz-review__reply-head {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- rating summary ---------- */
+.gz-rsum {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-6);
+  min-inline-size: 0;
+}
+
+.gz-rsum--new {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}
+
+.gz-rsum__empty {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-rsum__score {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+}
+
+.gz-rsum__avg {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-rsum__count {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-rsum__bars {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gz-rsum__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gz-rsum__label {
+  flex: none;
+  inline-size: var(--gz-space-12);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-rsum__track {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+  block-size: var(--gz-stroke-thread);
+}
+
+.gz-rsum__fill {
+  flex-basis: 0;
+  flex-shrink: 0;
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-rsum__rest {
+  flex-basis: 0;
+  flex-shrink: 0;
+  background-color: var(--gz-color-sys-mark-track);
+}
+
+.gz-rsum__val {
+  flex: none;
+  inline-size: var(--gz-space-6);
+  color: var(--gz-color-sys-text-strong);
+  text-align: end;
+}

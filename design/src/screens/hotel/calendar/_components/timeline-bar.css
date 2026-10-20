@@ -1,0 +1,68 @@
+/* TimelineBar: 32 high bar on an ink-50 track, radius 8, segments are flex children (grow = minutes). The axis has four equal cells with a
+   hairline tick at their start edge, so the labels sit under the quarter points in either direction. */
+
+.cal-tl {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.cal-tl__bar {
+  display: flex;
+  align-items: stretch;
+  block-size: var(--gz-size-disk);
+  overflow: hidden;
+  background: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-sm);
+}
+
+.cal-tl__seg {
+  position: relative; /* flutter-ok: the hatch shader fills its segment */
+  flex-basis: 0;
+  flex-shrink: 0;
+  min-inline-size: 0;
+}
+
+.cal-tl__seg[data-kind] {
+  box-sizing: border-box;
+  border-inline-width: var(--gz-stroke-hair);
+  border-inline-style: solid;
+  border-inline-color: var(--gz-color-sys-border-strong);
+}
+
+.cal-tl__seg[data-kind='event'] {
+  background: var(--gz-color-sys-text-primary);
+  border-inline-color: var(--gz-color-sys-text-primary);
+}
+
+.cal-tl__seg[data-kind='held'] {
+  border-inline-color: var(--gz-color-sys-mark-state);
+}
+
+.cal-tl__seg[data-kind='window'] {
+  background: var(--gz-color-sys-surface-raised);
+  border-block-width: var(--gz-stroke-hair);
+  border-block-style: solid;
+  border-block-color: var(--gz-color-sys-border-control);
+  border-inline-color: var(--gz-color-sys-border-control);
+}
+
+.cal-tl__axis {
+  display: flex;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.cal-tl__tick {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  min-block-size: var(--gz-space-5);
+  padding-inline-start: var(--gz-space-1);
+  border-inline-start-width: var(--gz-stroke-hair);
+  border-inline-start-style: solid;
+  border-inline-start-color: var(--gz-color-sys-border-strong);
+  white-space: nowrap;
+}

@@ -1,0 +1,39 @@
+/* Rating: items sit on one baseline-centred row; the star is gold-700 (an informative gold glyph, never a fill). */
+
+.gz-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-icon-accent);
+}
+
+.gz-rating__value {
+  font-weight: var(--gz-type-price-weight);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-rating__count {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* Five-star row: a track of ink-200 stars, with the gold row laid over it and clipped to the value (overflow clip in px). */
+.gz-rating__row {
+  display: inline-flex;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-mark-track);
+}
+
+.gz-rating--stars .gz-rating__row:first-child {
+  position: relative; /* flutter-ok: named overlay anchor for the filled row (ClipRect over the track) */
+}
+
+.gz-rating__fill {
+  position: absolute; /* flutter-ok: ClipRect with a width of value x star pitch, anchored at inline-start */
+  inset-block: 0;
+  inset-inline-start: 0;
+  overflow: hidden;
+}
+
+.gz-rating__row--filled {
+  color: var(--gz-color-sys-icon-accent);
+}

@@ -1,0 +1,74 @@
+/* Badge: min 24, radius 4 (the status-pill radius), label from the `pill` role (12/16 EN, 13/20 AR). */
+
+.gz-badge {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-xs);
+  white-space: nowrap;
+}
+
+.gz-badge--outline {
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* On a photograph the chip is canvas with the fab ring: legible without a scrim of its own. */
+.gz-badge--photo {
+  background-color: var(--gz-color-sys-surface-canvas);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-scrim-ring-fab);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-badge--quiet {
+  background-color: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-text-primary);
+}
+
+/* A rotated 8 px square overhangs by about 2 px: the 12 px box keeps it optically on the text edge. */
+.gz-badge__bead {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-space-3);
+  block-size: var(--gz-space-3);
+}
+
+.gz-badge .gz-icon {
+  color: var(--gz-color-sys-icon-accent);
+}
+
+/* ---------- count badge ---------- */
+.gz-count {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-inline-size: var(--gz-size-badge);
+  block-size: var(--gz-size-badge);
+  padding-inline: var(--gz-space-1);
+  border-radius: var(--gz-radius-pill);
+  white-space: nowrap;
+}
+
+.gz-count.gz-count--gold {
+  background-color: var(--gz-color-sys-mark-khayt);
+  color: var(--gz-color-sys-text-on-gold);
+}
+
+.gz-count.gz-count--danger {
+  background-color: var(--gz-color-sys-status-sla-alert);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-count--ring {
+  box-shadow: 0 0 0 var(--gz-stroke-thread) var(--gz-color-sys-surface-canvas);
+}

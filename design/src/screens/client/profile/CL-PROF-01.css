@@ -1,0 +1,102 @@
+/* CL-PROF-01 Profile hub. Gutter 20 on the content, rows full-bleed, 24 between the three lists. Tokens only. */
+
+.gzpr-hub {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+}
+
+/* ---------- identity: monogram, name, the verified number ---------- */
+.gzpr-id {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.gzpr-id__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzpr-id__name {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.gzpr-id__phone {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+}
+
+.gzpr-id__phone .gzpr-id__digits {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- cards: the wedding card and the scheduled-deletion note ---------- */
+.gzpr-card {
+  box-sizing: border-box;
+  padding-inline: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.gzpr-card--quiet {
+  border-color: transparent;
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.gzpr-card .gz-row--interactive {
+  border-radius: var(--gz-radius-md);
+}
+
+
+/* ---------- row values ---------- */
+.gzpr-count {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzpr-native {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- guest card: the one gold action of a guest's Profile; the doorway drawing over a full-width Sign in ---------- */
+.gzpr-guest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-5);
+  box-sizing: border-box;
+  padding-block: var(--gz-space-6);
+  padding-inline: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.gzpr-guest > .gz-illus {
+  flex: none;
+}
+
+.gzpr-guest > .gz-btn {
+  align-self: stretch;
+}
+
+/* ---------- footer ---------- */
+.gzpr-version {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+  text-align: center;
+}

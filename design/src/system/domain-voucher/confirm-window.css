@@ -1,0 +1,76 @@
+/* ConfirmWindow: a quiet block, no panel. The bar is the one allowed gold LINE (a state): a 4 px track with the passed share in gold,
+   the rest ink-200. It never changes to danger: the window is generous and the tone stays calm. */
+
+.gz-cwin {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-cwin__eyebrow,
+.gz-cwin__title,
+.gz-cwin__deadline,
+.gz-cwin__line,
+.gz-cwin__left,
+.gz-cwin__held {
+  margin: 0;
+}
+
+.gz-cwin__eyebrow {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-cwin__deadline,
+.gz-cwin__title {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-cwin__bar {
+  display: flex;
+  block-size: var(--gz-stroke-thread-max);
+  margin-block: var(--gz-space-2);
+  overflow: hidden;
+  border-radius: var(--gz-radius-pill);
+}
+
+.gz-cwin__fill {
+  flex-basis: 0;
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-cwin__rest {
+  flex-basis: 0;
+  background-color: var(--gz-color-sys-mark-track);
+}
+
+.gz-cwin__left {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-cwin__held,
+.gz-cwin__line {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-cwin > .gz-btn {
+  margin-block-start: var(--gz-space-3);
+}
+
+.gz-on-dark.gz-cwin .gz-cwin__eyebrow,
+.gz-on-dark.gz-cwin .gz-cwin__held,
+.gz-on-dark.gz-cwin .gz-cwin__line {
+  color: var(--gz-color-sys-text-on-dark-muted);
+}
+
+.gz-on-dark.gz-cwin .gz-cwin__deadline,
+.gz-on-dark.gz-cwin .gz-cwin__title,
+.gz-on-dark.gz-cwin .gz-cwin__left {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-on-dark.gz-cwin .gz-cwin__rest {
+  background-color: var(--gz-color-sys-mark-track-on-dark);
+}

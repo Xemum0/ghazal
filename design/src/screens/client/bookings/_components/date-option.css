@@ -1,0 +1,74 @@
+/* DateOption: paper card, hairline border, ink border when chosen; 72 high, radius 12. Tokens only. */
+.gzb-dateopt {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-space-16);
+  padding-block: var(--gz-space-2);
+  padding-inline: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  color: var(--gz-color-sys-text-strong);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzb-dateopt.is-selected {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+}
+
+.gzb-dateopt:active {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gzb-dateopt.is-taken {
+  border-color: var(--gz-color-sys-border-hairline);
+  background-color: var(--gz-color-sys-surface-canvas);
+  cursor: default;
+}
+
+.gzb-dateopt.is-taken .gzb-dateopt__date {
+  color: var(--gz-color-sys-text-disabled);
+  text-decoration: line-through;
+}
+
+.gzb-dateopt__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzb-dateopt__date {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzb-dateopt__sub {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzb-dateopt__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzb-dateopt__taken {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.gzb-dateopt__radio {
+  display: flex;
+  flex: none;
+  align-items: center;
+}

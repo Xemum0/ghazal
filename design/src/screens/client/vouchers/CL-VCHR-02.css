@@ -1,0 +1,15 @@
+/* CL-VCHR-02: the wallet. The Screen body has no side padding: the 20 gutter is ours. */
+.gzv-wallet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+}
+
+.gzv-wallet__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-list-gap);
+}

@@ -1,0 +1,22 @@
+/* DetailBar: canvas, 1 px hairline top rule, 12 above and below, 8 between rows. With no tab bar below, the home inset is a spacer. */
+
+.hv-bar {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  background-color: var(--gz-color-sys-surface-canvas);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.hv-bar__inset { flex: none; block-size: var(--gz-layout-safe-bottom); }
+
+.hv-bar__pair { display: flex; gap: var(--gz-space-3); }
+.hv-bar__pair > * { flex: 1; min-inline-size: 0; }
+
+.hv-bar__note { margin: 0; text-align: center; color: var(--gz-color-sys-text-secondary); }

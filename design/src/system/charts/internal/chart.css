@@ -1,0 +1,544 @@
+/* Charts (ADR 0014 D5, direction 2.3 / 2.7). Tokens only; flex + gap; logical properties.
+   Colour roles (never a ramp step):  ink-700 = the series, ink-500 = a quiet series / bars, ink-900 = the highlight,
+   gold-650 = the one state stroke, rose-100 = the flat area tint, ink-200 = grid.  Gold-500 is a fill and a hairline only.
+   Nothing here carries meaning by colour alone: marks differ by pattern or shape and every chart has labels and a table twin. */
+
+.gz-chart,
+.gz-spark {
+  --gz-chart-series: var(--gz-color-sys-text-primary);
+  --gz-chart-quiet: var(--gz-color-sys-border-control);
+  --gz-chart-strong: var(--gz-color-sys-text-strong);
+  --gz-chart-accent: var(--gz-color-sys-mark-state);
+  --gz-chart-area: var(--gz-color-sys-surface-tint);
+  --gz-chart-grid: var(--gz-color-sys-border-hairline);
+}
+
+.gz-chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-chart-defs {
+  position: absolute; /* flutter-ok: zero-size SVG holding the pattern defs, paints nothing (CustomPainter shaders) */
+  inline-size: 0;
+  block-size: 0;
+  overflow: hidden;
+}
+
+/* ---------- legend ---------- */
+.gz-chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2) var(--gz-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gz-chart-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-chart-key {
+  position: relative; /* flutter-ok: the pattern swatch fills its own box */
+  display: inline-flex;
+  flex: none;
+  overflow: hidden;
+  inline-size: var(--gz-space-4);
+  block-size: var(--gz-space-3);
+  border-radius: var(--gz-radius-xs);
+  background: var(--gz-chart-series);
+}
+
+.gz-chart-key--quiet { background: var(--gz-chart-quiet); }
+.gz-chart-key--strong { background: var(--gz-chart-strong); }
+.gz-chart-key--accent { background: var(--gz-chart-accent); }
+.gz-chart-key--gold { background: var(--gz-color-sys-status-pending-bg); border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-chart-accent); box-sizing: border-box; }
+.gz-chart-key--open { background: transparent; border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-chart-quiet); box-sizing: border-box; }
+.gz-chart-key--tint { background: var(--gz-color-sys-surface-tint-soft); border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong); box-sizing: border-box; }
+.gz-chart-key--line { block-size: var(--gz-stroke-thread); border-radius: 0; }
+.gz-chart-key--dashed { background: transparent; border-block-start-width: var(--gz-stroke-thread); border-block-start-style: dashed; border-block-start-color: var(--gz-chart-quiet); block-size: 0; }
+
+/* ---------- patterns ---------- */
+.gz-chart-pattern {
+  position: absolute; /* flutter-ok: a pattern shader fills its positioned parent (Positioned.fill) */
+  inset: 0;
+  inline-size: 100%; /* flutter-ok: fills the parent (Positioned.fill) */
+  block-size: 100%; /* flutter-ok: fills the parent (Positioned.fill) */
+}
+
+.gz-pat--ink .gz-pat__bg { fill: var(--gz-color-sys-surface-raised); }
+.gz-pat--ink .gz-pat__ink { stroke: var(--gz-color-sys-text-primary); }
+.gz-pat--ink .gz-pat__fill { fill: var(--gz-color-sys-text-primary); }
+.gz-pat--gold .gz-pat__bg { fill: var(--gz-color-sys-status-pending-bg); }
+.gz-pat--gold .gz-pat__ink { stroke: var(--gz-color-sys-mark-state); }
+.gz-pat--gold .gz-pat__fill { fill: var(--gz-color-sys-mark-state); }
+
+/* ---------- value axis + grid (flex columns that line up with the plot) ---------- */
+.gz-chart-plotrow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}
+
+/* The y labels sit at the inline-start edge (ADR 0014 D5); the column is 16 taller than the plot so each label centres on its gridline. */
+.gz-chart-yaxis {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-chart-yaxis > span {
+  display: block;
+  line-height: var(--gz-type-fig-label-line);
+}
+
+.gz-chart-plotcol {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  padding-block-start: var(--gz-space-2);
+}
+
+.gz-chart-plot {
+  position: relative; /* flutter-ok: plot area anchor for grid, marks and the SVG layer */
+  display: flex;
+  min-inline-size: 0;
+}
+
+.gz-chart-grid {
+  position: absolute; /* flutter-ok: gridlines painted under the marks */
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.gz-chart-grid > i {
+  display: block;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-chart-grid);
+}
+
+.gz-chart-grid > i:last-child {
+  background: var(--gz-color-sys-border-strong);
+}
+
+.gz-chart-xaxis {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-chart-xaxis > span {
+  white-space: nowrap;
+}
+
+.gz-chart-svg {
+  position: absolute; /* flutter-ok: CustomPaint layer over the plot */
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  overflow: visible;
+}
+
+/* ---------- animate in, once ---------- */
+@keyframes gz-chart-grow-y {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes gz-chart-grow-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes gz-chart-fade {
+  from { opacity: 0; /* flutter-ok: fade (FadeTransition) */ }
+  to { opacity: 1; /* flutter-ok: fade (FadeTransition) */ }
+}
+
+.gz-grow-y {
+  transform-origin: center bottom;
+}
+
+.gz-grow-x {
+  transform-origin: var(--gz-origin-start);
+}
+
+.is-armed .gz-grow-y,
+.is-armed .gz-grow-x { transform: scale(0); }
+.is-armed .gz-draw { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.is-armed .gz-chart-fade { opacity: 0; /* flutter-ok: fade before the reveal */ }
+
+.is-in .gz-grow-y { animation: gz-chart-grow-y var(--gz-motion-duration-expressive) var(--gz-motion-ease-standard) both; }
+.is-in .gz-grow-x { animation: gz-chart-grow-x var(--gz-motion-duration-expressive) var(--gz-motion-ease-standard) both; }
+.is-in .gz-draw { stroke-dasharray: 1; animation: gz-draw-stroke var(--gz-motion-duration-expressive) var(--gz-motion-ease-standard) both; }
+.is-in .gz-chart-fade { animation: gz-chart-fade var(--gz-motion-duration-slow) var(--gz-motion-ease-standard) var(--gz-motion-duration-expressive) both; }
+
+/* Reduced motion: the finished chart, no draw, no grow; the tint still fades at the cross-fade token. */
+@media (prefers-reduced-motion: reduce) {
+  .is-armed .gz-grow-y,
+  .is-armed .gz-grow-x { transform: none; }
+  .is-armed .gz-draw { stroke-dasharray: none; stroke-dashoffset: 0; }
+  .is-in .gz-grow-y,
+  .is-in .gz-grow-x { animation: none; }
+  .is-in .gz-draw { animation: none; stroke-dasharray: none; }
+  .is-armed .gz-chart-fade { opacity: 1; /* flutter-ok: no fade without motion */ }
+  .is-armed .gz-line__path--dashed { opacity: 1; /* flutter-ok: finished chart without motion */ }
+  .is-in .gz-chart-fade { animation: gz-chart-fade var(--gz-motion-duration-fast) var(--gz-motion-ease-standard) both; }
+}
+
+/* ---------- table twin ---------- */
+.gz-chart-table--shown {
+  border-collapse: collapse;
+  inline-size: 100%; /* flutter-ok: a table fills its panel (DataTable) */
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+}
+
+.gz-chart-table--shown th,
+.gz-chart-table--shown td {
+  padding-block: var(--gz-space-2);
+  padding-inline-end: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair); border-block-end-style: solid; border-block-end-color: var(--gz-color-sys-border-hairline);
+  text-align: start;
+  font-weight: inherit;
+}
+
+.gz-chart-table__caption {
+  text-align: start;
+  color: var(--gz-color-sys-text-secondary);
+  padding-block-end: var(--gz-space-2);
+}
+
+.gz-chart-sr-title {
+  /* flutter-ok: web-only a11y utility, expressed in Flutter as a Semantics label */
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* ---------- sparkline ---------- */
+.gz-spark {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-spark__box {
+  position: relative; /* flutter-ok: SVG layer anchor */
+  display: flex;
+  min-inline-size: 0;
+}
+
+.gz-spark__svg {
+  display: block;
+  overflow: visible;
+}
+
+.gz-spark__line {
+  fill: none;
+  stroke: var(--gz-chart-series);
+  stroke-width: var(--gz-stroke-thread);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.gz-spark__area {
+  fill: var(--gz-chart-area);
+}
+
+.gz-spark__bead {
+  paint-order: stroke fill;
+  fill: var(--gz-color-sys-mark-khayt);
+  stroke: var(--gz-color-sys-surface-canvas);
+  stroke-width: var(--gz-stroke-thread);
+}
+
+.gz-spark[data-tone='accent'] .gz-spark__line { stroke: var(--gz-chart-accent); }
+
+/* ---------- line chart ---------- */
+.gz-line__path {
+  fill: none;
+  stroke: var(--gz-chart-series);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.gz-line__path--accent { stroke: var(--gz-chart-accent); }
+.gz-line__path--quiet { stroke: var(--gz-chart-quiet); }
+
+/* The comparison series is dashed: a draw-on cannot animate a dash array, so it fades in with the area instead. */
+.gz-line__path--dashed {
+  stroke-dasharray: var(--gz-space-2) var(--gz-space-1);
+  stroke-linecap: butt;
+}
+
+.is-armed .gz-line__path--dashed { stroke-dasharray: var(--gz-space-2) var(--gz-space-1); stroke-dashoffset: 0; opacity: 0; /* flutter-ok: fade before the reveal */ }
+.is-in .gz-line__path--dashed { animation: gz-chart-fade var(--gz-motion-duration-slow) var(--gz-motion-ease-standard) both; stroke-dasharray: var(--gz-space-2) var(--gz-space-1); }
+
+.gz-line__area { fill: var(--gz-chart-area); }
+
+.gz-line__bead {
+  paint-order: stroke fill;
+  fill: var(--gz-color-sys-mark-khayt);
+  stroke: var(--gz-color-sys-surface-canvas);
+  stroke-width: var(--gz-stroke-thread);
+}
+
+.gz-line__bead--accent { fill: var(--gz-chart-accent); }
+
+/* ---------- bar chart ---------- */
+.gz-chart-plotrow--labels {
+  padding-block-start: var(--gz-space-4);
+}
+
+.gz-bars {
+  position: relative; /* flutter-ok: bars above the gridlines */
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gz-bars--dense {
+  gap: var(--gz-space-1);
+}
+
+.gz-bars__col {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-bars__bar {
+  position: relative; /* flutter-ok: pattern shader fills the bar */
+  display: flex;
+  overflow: hidden;
+  inline-size: var(--gz-space-6);
+  border-start-start-radius: var(--gz-radius-xs);
+  border-start-end-radius: var(--gz-radius-xs);
+  background: var(--gz-chart-quiet);
+  box-sizing: border-box;
+}
+
+.gz-bars--dense .gz-bars__bar {
+  align-self: stretch;
+  inline-size: auto;
+}
+
+.gz-bars__bar--on {
+  background: var(--gz-color-sys-mark-khayt);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-chart-accent);
+  border-block-end: 0;
+}
+
+.gz-bars__value {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-fig-body-s-weight);
+  white-space: nowrap;
+}
+
+.gz-bars__labels {
+  display: flex;
+  gap: var(--gz-space-2);
+}
+
+.gz-bars__label {
+  flex: 1;
+  min-inline-size: 0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.gz-bars__label--on {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-tab-weight);
+}
+
+/* ---------- breakdown: stacked bar and donut ---------- */
+.gz-chart-stack {
+  display: flex;
+  gap: var(--gz-stroke-thread);
+  block-size: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.gz-chart-stack__seg {
+  position: relative; /* flutter-ok: pattern shader fills the segment */
+  display: flex;
+  flex-basis: 0;
+  min-inline-size: 0;
+  overflow: hidden;
+  background: var(--gz-chart-series);
+  box-sizing: border-box;
+}
+
+.gz-chart-stack__seg:first-child {
+  border-start-start-radius: var(--gz-radius-xs);
+  border-end-start-radius: var(--gz-radius-xs);
+}
+
+.gz-chart-stack__seg:last-child {
+  border-start-end-radius: var(--gz-radius-xs);
+  border-end-end-radius: var(--gz-radius-xs);
+}
+
+.gz-chart-stack__seg--quiet { background: var(--gz-chart-quiet); }
+.gz-chart-stack__seg--strong { background: var(--gz-chart-strong); }
+.gz-chart-stack__seg--accent { background: var(--gz-chart-accent); }
+.gz-chart-stack__seg--gold { background: var(--gz-color-sys-status-pending-bg); border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-chart-accent); }
+.gz-chart-stack__seg--open { background: transparent; border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-chart-quiet); }
+
+.gz-donut {
+  position: relative; /* flutter-ok: centre label anchored over the ring */
+  display: flex;
+  flex: none;
+  align-self: center;
+}
+
+.gz-donut__svg { display: block; }
+
+.gz-donut__track {
+  fill: none;
+  stroke: var(--gz-color-sys-border-hairline);
+}
+
+.gz-donut__seg {
+  fill: none;
+  stroke: var(--gz-chart-series);
+  stroke-linecap: butt;
+}
+
+.gz-donut__seg--quiet { stroke: var(--gz-chart-quiet); }
+.gz-donut__seg--strong { stroke: var(--gz-chart-strong); }
+.gz-donut__seg--accent { stroke: var(--gz-chart-accent); }
+.gz-donut__seg--gold { stroke: var(--gz-chart-accent); }
+.gz-donut__seg--open { stroke: var(--gz-chart-quiet); }
+
+.gz-donut__center {
+  position: absolute; /* flutter-ok: Stack, centred */
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gz-donut__value { color: var(--gz-color-sys-text-strong); }
+
+/* ---------- horizontal bars (funnel, ranked) ---------- */
+.gz-hbars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gz-hbars__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-hbars__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gz-hbars__label {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-hbars__value {
+  flex: none;
+}
+
+.gz-hbars__track {
+  display: flex;
+  block-size: var(--gz-space-3);
+  background: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-xs);
+  overflow: hidden;
+}
+
+.gz-hbars__fill {
+  background: var(--gz-chart-quiet);
+  border-start-end-radius: var(--gz-radius-xs);
+  border-end-end-radius: var(--gz-radius-xs);
+}
+
+.gz-hbars__fill--gold {
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-hbars__fill--lead {
+  background: var(--gz-chart-strong);
+}
+
+.gz-hbars--ranked .gz-hbars__track { block-size: var(--gz-space-2); }
+.gz-hbars--ranked .gz-hbars__label { display: flex; align-items: center; gap: var(--gz-space-2); }
+
+.gz-hbars__step {
+  margin: 0;
+}
+
+/* ---------- heat strip ---------- */
+.gz-heat {
+  display: flex;
+  min-inline-size: 0;
+}
+
+.gz-heat__day {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  padding: var(--gz-space-1) var(--gz-stroke-hair);
+}
+
+.gz-heat__day--peak {
+  background: var(--gz-color-sys-surface-tint-soft);
+}
+
+.gz-heat__lane {
+  position: relative; /* flutter-ok: pattern shader fills the lane */
+  display: flex;
+  overflow: hidden;
+  block-size: var(--gz-space-3);
+  border-radius: var(--gz-radius-xs);
+  box-sizing: border-box;
+}
+
+.gz-heat__lane--booked { background: var(--gz-chart-strong); }
+.gz-heat__lane--held { border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-chart-accent); }
+.gz-heat__lane--blocked { border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-chart-quiet); }
+.gz-heat__lane--open { border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-chart-quiet); }

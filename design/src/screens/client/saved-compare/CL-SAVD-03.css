@@ -1,0 +1,79 @@
+/* CL-SAVD-03 Replace which one?: the sheet draws its own header, then the incoming hall in a rose-tint card with the swap glyph, then three
+   radio rows. Tokens only. */
+
+.svd-replace {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+/* The sheet body already carries the 20 gutter, so the header the screen draws drops its own inline padding. */
+.svd-replace .gz-sheet__header {
+  padding-inline: 0;
+}
+
+/* The incoming hall: the one rose-100 panel of the sheet (a quiet base shape, as in the drawings), the swap glyph at inline-end. */
+.svd-replace__new {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  padding: var(--gz-space-3);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.svd-replace__thumb {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  inline-size: var(--gz-size-avatar-md);
+  block-size: var(--gz-size-thumb-lg);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.svd-replace__photo {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+.svd-replace__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.svd-replace__name {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.svd-replace__area {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.svd-replace__swap {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-canvas);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.svd-replace__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

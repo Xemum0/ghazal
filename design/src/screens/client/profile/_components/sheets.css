@@ -1,0 +1,15 @@
+/* Shared profile sheets: language, digits, legal reader. Tokens only. The Sheet brings the 20 gutter and the 24 bottom padding. */
+
+.gzpr-legal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzpr-legal__list {
+  display: flex;
+  flex-direction: column;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}

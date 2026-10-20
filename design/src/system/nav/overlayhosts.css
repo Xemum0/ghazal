@@ -1,0 +1,17 @@
+/* Toast host: a full-width strip above the bars, 20 gutter, never intercepting taps outside the toast itself. */
+.gz-toasthost {
+  position: absolute; /* flutter-ok: Overlay entry anchored bottom */
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: var(--gz-z-toast);
+  padding-inline: var(--gz-space-gutter);
+  pointer-events: none;
+}
+
+.gz-toasthost > * {
+  pointer-events: auto;
+}
+
+.gz-toasthost__item--leave {
+  animation: gz-fade-out var(--gz-motion-duration-fast) var(--gz-motion-ease-exit) both;
+}

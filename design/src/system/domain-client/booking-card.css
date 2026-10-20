@@ -1,0 +1,123 @@
+/* BookingCard: a panel (paper, 1 px ink-300, radius 12, 16 padding) with one stretched open target. Tokens only. */
+
+.gz-bcard {
+  position: relative; /* flutter-ok: named overlay anchor for the stretched open target (one InkWell) */
+  gap: var(--gz-space-4);
+}
+
+.gz-bcard.is-pressed {
+  transform: scale(var(--gz-motion-scale-press));
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-bcard:active {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-bcard__open {
+  position: absolute; /* flutter-ok: named overlay anchor, one InkWell over the card */
+  inset: 0;
+  border-radius: var(--gz-radius-md);
+  cursor: pointer;
+}
+
+.gz-bcard__top {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gz-bcard__thumb {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  inline-size: var(--gz-size-thumb-md);
+  block-size: var(--gz-size-thumb-md);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}
+
+.gz-bcard__photo {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+.gz-bcard__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-bcard__name {
+  margin: 0;
+}
+
+.gz-bcard__hall {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-bcard__status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gz-bcard__ref {
+  margin-inline-start: auto;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* Three facts, label over value, hairline between (direction 3, "KeyFact"). */
+.gz-bcard__facts {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+  margin: 0;
+}
+
+.gz-bcard__fact {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-bcard__fact--date {
+  flex: 2 1 0;
+}
+
+.gz-bcard__fact dt,
+.gz-bcard__fact dd {
+  margin: 0;
+}
+
+.gz-bcard__fact dd {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-bcard__line {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+}
+
+.gz-bcard--row {
+  gap: var(--gz-space-3);
+}
+
+.gz-bcard__confirm {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-gold-ink);
+}

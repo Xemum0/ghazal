@@ -1,0 +1,20 @@
+/* HL-CALN-03 Day view. Hall sections on the 20 gutter, 32 apart, divided by a hairline. Tokens only. */
+
+.cal-d {
+  padding-block-end: var(--gz-space-8);
+}
+
+.cal-d__halls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-8);
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-4);
+}
+
+.cal-d__halls > * + * {
+  padding-block-start: var(--gz-space-6);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}

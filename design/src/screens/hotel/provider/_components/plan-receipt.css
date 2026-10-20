@@ -1,0 +1,67 @@
+/* PlanReceipt: a paper document inside a sheet. Hairlines, ink, no gold. */
+.hp-rec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hp-rec__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-block-end: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hp-rec__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  margin: 0;
+}
+
+.hp-rec__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+}
+
+.hp-rec__row dt {
+  flex: none;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp-rec__row dd {
+  min-inline-size: 0;
+  margin: 0;
+  text-align: end;
+  overflow-wrap: anywhere;
+}
+
+.hp-rec__total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-strong);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hp-rec__foot {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}

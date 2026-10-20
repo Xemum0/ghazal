@@ -1,0 +1,101 @@
+/* CL-WEDD-05 Set budget (sheet). Total and presets, then the split with one stepper per category, the two alert glyphs, the pinned footer. Tokens only. */
+
+.gzmw-set__cur {
+  flex: none;
+}
+
+.gzmw-set__cats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gzmw-set__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-sm);
+}
+
+.gzmw-set__head > h3,
+.gzmw-set__head > p {
+  margin: 0;
+}
+
+.gzmw-set__rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.gzmw-set__row {
+  display: flex;
+  flex-direction: column;
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzmw-set__row:last-child {
+  border-block-end-color: transparent;
+}
+
+.gzmw-set__ref {
+  display: flex;
+  margin: 0;
+  padding-block-end: var(--gz-space-3);
+  padding-inline-start: var(--gz-space-8);
+}
+
+/* The category's glyph and its one word, as the stepper's title. */
+.gzmw-set__name {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzmw-set__name > .gz-icon {
+  flex: none;
+}
+
+/* The alerts: a bell, then the two thresholds with the glyphs the Budget screen shows at them. */
+.gzmw-set__alerts {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+/* Pinned under the top edge while the categories scroll: what is left to allocate, live. */
+.gzmw-set__sticky {
+  position: sticky; /* flutter-ok: pinned sliver */
+  inset-block-start: 0;
+  z-index: var(--gz-z-raised);
+  display: flex;
+  flex-direction: column;
+  padding-block: var(--gz-space-1);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.gzmw-set__left {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+}
+
+.gzmw-set__left > .gz-icon {
+  flex: none;
+}
+
+/* The stepper's fixed value column is 56: five-digit thousands (32,000) need 80 in the figures face. */
+.gzmw-set__rows .gz-stepper__value {
+  inline-size: var(--gz-space-20);
+}
+
+/* What is left to allocate: a short gold line (how much of the total is placed) and the figure. */
+.gzmw-set__left .gzmw-mini {
+  inline-size: var(--gz-size-thumb-md);
+}

@@ -1,0 +1,103 @@
+/* CL-PAYM-05 · Voucher ready. Rhythm: gutter 20, 32 between blocks. The one ink panel of the screen is the hero (direction 3, "Ink panels"):
+   one drawing and a two-word title. Everything under it is canvas, hairlines and the voucher ticket. Gold appears only in the drawing's one
+   accent and the primary button. */
+
+/* ---------- hero: the ink panel, full-bleed, drawn up to the top edge; the transparent bar (the close glyph) overlays its first row.
+   The title sits under the glyph at inline-start, the drawing at inline-end, so the voucher and its code start high on the screen. ---------- */
+.pm-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding-block-start: var(--pm-top);
+  padding-block-end: var(--gz-space-4);
+  padding-inline: var(--gz-space-5);
+  background-color: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+/* The success moment: the drawing settles in once (the 640 ms expressive token, no confetti); reduced motion keeps the finished drawing. */
+.pm-hero__art {
+  display: inline-flex;
+  flex: none;
+  animation: gz-image-reveal var(--gz-motion-duration-expressive) var(--gz-motion-ease-emphasized) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pm-hero__art {
+    animation: none;
+  }
+}
+
+.pm-hero__title {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+/* ---------- body ---------- */
+.pm-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  min-inline-size: 0;
+  padding-block-start: var(--gz-space-6);
+  padding-block-end: var(--gz-space-8);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.pm-rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.pm-card {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+/* The saving and the info glyph of the voucher terms. */
+.pm-terms-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+}
+
+.pm-info-p {
+  margin: 0;
+}
+
+.pm-info-p + .pm-info-p {
+  padding-block-start: var(--gz-space-3);
+}
+
+/* ---------- the voucher ticket: the code is the key content, so the stub stacks and centres like a ticket stub (QR, the code on its own
+   full-width line, the validity under it); the ticket's own head and quote above keep the reading start ---------- */
+.pm-card .gz-vch__stub {
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.pm-card .gz-vch__codeblock {
+  align-self: stretch;
+  align-items: center;
+}
+
+.pm-card .gz-vch__codeblock .gz-frow {
+  justify-content: center;
+}
+
+.pm-card .gz-vch__code-value {
+  font-size: var(--gz-type-fig-title-size);
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  direction: inherit;
+  text-align: center;
+  white-space: nowrap;
+}

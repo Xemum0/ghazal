@@ -1,0 +1,37 @@
+/* HL-SETT-01 More. The root anchors the static frame's overlays; the body is the one scroller (Screen). Groups are 32 apart. */
+
+.hs-more__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding-block: var(--gz-space-2) var(--gz-space-8);
+}
+
+.hs-more__card { padding-inline: var(--gz-space-gutter); }
+
+.hs-more__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.hs-more__foot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.hs-more__foot p { margin: 0; }
+.hs-more__legal { display: flex; flex-wrap: wrap; gap: var(--gz-space-2) var(--gz-space-5); }
+
+.hs-more__link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--gz-size-touch-min);
+  color: var(--gz-color-sys-text-gold-ink);
+  text-decoration: underline;
+  cursor: pointer;
+}

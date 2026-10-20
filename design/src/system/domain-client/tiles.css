@@ -1,0 +1,101 @@
+/* CategoryTile and ServiceTile: 4:5 photograph tiles (direction 5: 4:5 for cards, category tiles, package images). The name sits on a
+   single-purpose bottom scrim token in canvas text, or under the plate as a wall label. Never a coloured chip, never an icon grid. */
+
+.gz-ctile {
+  position: relative; /* flutter-ok: named overlay anchor for the stretched open target (one InkWell) */
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gz-ctile.is-pressed {
+  transform: scale(var(--gz-motion-scale-press));
+}
+
+.gz-ctile__plate {
+  position: relative; /* flutter-ok: named overlay anchor for the scrim and the check */
+  display: flex;
+  overflow: hidden;
+  aspect-ratio: var(--gz-layout-aspect-4x5);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gz-ctile__plate--skeleton {
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gz-ctile__photo {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gz-ctile__empty {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}
+
+.gz-ctile__scrim {
+  position: absolute; /* flutter-ok: named overlay anchor, the scrim under the name */
+  inset-inline: 0;
+  inset-block-end: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  padding: var(--gz-space-3);
+  padding-block-start: var(--gz-space-10);
+  /* The 0.72 scrim fades in over the 40 above the text and is solid under it (stops in px, not %), so name and caption stay 4.5:1
+     on the brightest ivory hall (pixel-sampled: a ramp still at half strength under the caption gave 2.8 to 3.5). */
+  background: linear-gradient(to bottom, var(--gz-color-sys-scrim-clear) 0, var(--gz-color-sys-scrim-bottom) var(--gz-space-10));
+}
+
+.gz-ctile__name {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-ctile__name--under {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-ctile__scrim .gz-ctile__cap {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-ctile__under {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-stroke-hair);
+}
+
+.gz-ctile.is-selected .gz-ctile__plate {
+  outline-width: var(--gz-stroke-thread);
+  outline-style: solid;
+  outline-color: var(--gz-color-sys-surface-dark);
+  outline-offset: var(--gz-stroke-focus-offset);
+}
+
+.gz-ctile__check {
+  position: absolute; /* flutter-ok: named overlay anchor */
+  inset-block-start: var(--gz-space-2);
+  inset-inline-end: var(--gz-space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-control-toggle-on);
+  color: var(--gz-color-sys-control-toggle-knob);
+}
+
+.gz-ctile__open {
+  position: absolute; /* flutter-ok: named overlay anchor, one InkWell over the tile */
+  inset: 0;
+  border-radius: var(--gz-radius-md);
+  cursor: pointer;
+}

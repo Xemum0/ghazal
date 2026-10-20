@@ -1,0 +1,89 @@
+/* IconButton: the root is always the 44 x 44 target; the disk inside is what you see. */
+
+.gz-iconbtn {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-pill);
+  color: var(--gz-color-sys-icon-primary);
+  cursor: pointer;
+}
+
+.gz-iconbtn__disk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: var(--gz-radius-pill);
+  transition: background-color var(--gz-motion-duration-fast) var(--gz-motion-ease-standard);
+}
+
+.gz-iconbtn--disk-sm .gz-iconbtn__disk {
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+}
+
+.gz-iconbtn--disk-lg .gz-iconbtn__disk {
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+}
+
+/* plain: the glyph alone; pressed fills the disk with the quiet track tone */
+.gz-iconbtn--plain:active .gz-iconbtn__disk,
+.gz-iconbtn--plain.is-pressed .gz-iconbtn__disk {
+  background-color: var(--gz-color-sys-control-track);
+}
+
+/* outline: hairline disk on the canvas (back button in a header, a quiet toolbar action) */
+.gz-iconbtn--outline .gz-iconbtn__disk {
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+}
+
+.gz-iconbtn--outline:active .gz-iconbtn__disk,
+.gz-iconbtn--outline.is-pressed .gz-iconbtn__disk {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+/* over-image: a canvas disk with the fab ring, the only chrome allowed on photography (direction 5) */
+.gz-iconbtn--over-image .gz-iconbtn__disk {
+  background-color: var(--gz-color-sys-surface-canvas);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-scrim-ring-fab);
+}
+
+.gz-iconbtn--over-image:active .gz-iconbtn__disk,
+.gz-iconbtn--over-image.is-pressed .gz-iconbtn__disk {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+/* on-scrim: no disk; a canvas glyph that relies on the top scrim token behind it */
+.gz-iconbtn--on-scrim {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-iconbtn--on-scrim:active .gz-iconbtn__disk,
+.gz-iconbtn--on-scrim.is-pressed .gz-iconbtn__disk {
+  background-color: var(--gz-color-sys-scrim-ring-fab);
+}
+
+/* A saved / selected toggle keeps the glyph in the strong ink: gold is reserved for verbs (direction 2.3). */
+.gz-iconbtn.is-active {
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.gz-iconbtn--on-scrim.is-active {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+/* A toggle without a filled glyph (compare added) shows its state as the solid ink disk: ink is the colour of choice. */
+.gz-iconbtn--over-image.is-ink .gz-iconbtn__disk,
+.gz-iconbtn--outline.is-ink .gz-iconbtn__disk {
+  border-color: var(--gz-color-sys-surface-dark);
+  background-color: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+}

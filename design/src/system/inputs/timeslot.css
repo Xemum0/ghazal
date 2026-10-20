@@ -1,0 +1,104 @@
+/* TimeSlotPicker: a stack of 12-radius rows (panel radius). Selected = ink-900 border + ring + gold bead, the chip language. */
+
+.gz-slots {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gz-slots .gz-slot {
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-4);
+  background: var(--gz-color-sys-control-bg);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-md);
+  text-align: start;
+  transition:
+    border-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard),
+    box-shadow var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-slots .gz-slot:active {
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-slots .gz-slot[data-selected] {
+  padding-inline-start: var(--gz-space-3);
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-control-chip-border-selected);
+}
+
+.gz-slots .gz-slot:disabled {
+  background: var(--gz-color-sys-surface-quiet);
+  border-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-slot__main {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  min-inline-size: 0;
+}
+
+.gz-slot__label {
+  font-weight: var(--gz-type-title-weight);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-slot[data-selected] .gz-slot__label {
+  font-weight: var(--gz-type-ui-title-weight);
+}
+
+.gz-slot__time {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-slot[data-status='booked'] .gz-slot__label,
+.gz-slot[data-status='booked'] .gz-slot__time {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-slot[data-status='booked'] .gz-slot__time {
+  text-decoration: line-through;
+  text-decoration-thickness: var(--gz-stroke-hair);
+}
+
+.gz-slot__end {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: var(--gz-space-2);
+  text-align: end;
+}
+
+.gz-slot__price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.gz-slot__amount {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-slot__unit,
+.gz-slot__status {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-slot[data-status='booked'] .gz-slot__status {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-slot__held {
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+  background: var(--gz-color-sys-icon-accent);
+  transform: rotate(45deg);
+  flex: none;
+}

@@ -1,0 +1,44 @@
+/* The key sheet of the compare table: a glyph in a rose disk and one word, a hairline between rows, two rows to a line so all ten
+   marks sit on one screen (flex wrap, no grid: two halves of the line, never three). */
+
+.svd-key {
+  display: flex;
+  flex-flow: row wrap;
+  column-gap: var(--gz-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.svd-key__row {
+  display: flex;
+  flex: 1 1 45%;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-block-size: var(--gz-size-touch-min);
+  min-inline-size: 0;
+  padding-block: var(--gz-space-2);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+/* The last line has no rule under it (the sheet's own footer follows). */
+.svd-key__row:nth-last-child(-n + 2) {
+  border-block-end-width: 0;
+}
+
+.svd-key__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.svd-key__label {
+  color: var(--gz-color-sys-text-strong);
+}

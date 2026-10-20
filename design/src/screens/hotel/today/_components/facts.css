@@ -1,0 +1,22 @@
+/* TimeLeft: a glyph and a compact duration in the SLA tone. Colour reinforces; the glyph and the figure always carry it (direction 8). */
+
+.ht-left {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+  white-space: nowrap;
+}
+
+.ht-left--gold { color: var(--gz-color-sys-text-gold-ink); }
+.ht-left--danger { color: var(--gz-color-sys-text-danger); }
+.ht-left--expired { color: var(--gz-color-sys-text-secondary); }
+
+/* on the Ink band: muted canvas, the warm tones keep their hue on the dark ground */
+.ht-left--dark { color: var(--gz-color-sys-text-on-dark-muted); }
+.ht-left--dark.ht-left--gold,
+.ht-left--dark.ht-left--danger { color: var(--gz-color-sys-text-on-dark-gold); }
+
+.ht-left--md { gap: var(--gz-space-2); }
+.ht-left__fig { color: inherit; }

@@ -1,0 +1,155 @@
+/* CompareTray: a floating paper capsule with the elev-2 shadow (floating UI only, direction 2.6), three 40 slots, one action. */
+
+.gz-tray {
+  display: flex;
+  align-items: center;
+  /* 16: the last remove target overhangs its thumb by 16, so the action beside the slots is never covered. */
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding-block: var(--gz-space-2);
+  padding-inline: var(--gz-space-3) 0;
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-2);
+  z-index: var(--gz-z-tray);
+}
+
+.gz-tray--float {
+  /* The screen mounts the tray in the slot above its tab bar (the frame's content box already ends at the bar), so 16 clears it. */
+  position: absolute; /* flutter-ok: floating tray above the tab bar (Stack + PositionedDirectional) */
+  inset-inline: var(--gz-space-gutter);
+  inset-block-end: var(--gz-space-4);
+}
+
+.gz-tray__slots {
+  display: flex;
+  flex: none;
+  gap: var(--gz-space-1);
+  /* The last remove target overhangs its thumbnail by 16; with the tray gap only 4 of it reaches into the action's own padding. */
+  padding-inline-end: var(--gz-space-1);
+}
+
+.gz-tray__slot {
+  position: relative; /* flutter-ok: named overlay anchor for the remove target */
+  display: flex;
+}
+
+.gz-tray__thumb {
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-thumb-sm);
+  block-size: var(--gz-size-thumb-sm);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gz-tray__photo {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+/* An empty slot: a hairline box, neutral (ADR 0009 D3). */
+.gz-tray__thumb--empty {
+  box-sizing: border-box;
+  border-width: var(--gz-stroke-hair);
+  border-style: dashed;
+  border-color: var(--gz-color-sys-border-strong);
+  background-color: transparent;
+}
+
+/* Remove: a 44 x 44 target that sits on the thumbnail's end-top corner and overhangs it (16 up, 16 out), so a tap on the photo itself does
+   nothing; the visible control is a 20 disk (24 would hide a third of a 40 thumbnail) whose centre is 6 inside the corner. Neighbouring targets touch, never overlap. */
+.gz-tray__remove {
+  position: absolute; /* flutter-ok: named overlay anchor (PositionedDirectional) */
+  inset-block-start: -16px;
+  inset-inline-end: -16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  cursor: pointer;
+}
+
+.gz-tray__x {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-icon-sm);
+  block-size: var(--gz-size-icon-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-canvas);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-scrim-ring-fab);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.gz-tray__hint {
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-tray__go {
+  flex: 1 0 auto;
+  padding-inline: var(--gz-space-2);
+  white-space: nowrap;
+}
+
+.gz-tray__clear {
+  flex: none;
+}
+
+/* Collapsed: a 44 capsule. */
+.gz-tray-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-4);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-2);
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+  z-index: var(--gz-z-tray);
+}
+
+.gz-tray-pill.gz-tray--float {
+  inset-inline-end: var(--gz-space-gutter);
+  inset-inline-start: auto;
+}
+
+/* Insertion: the tray rises 16 over 320 ms ease-emph, a new slot settles in from .6 (the knot token) with a short stagger. */
+@keyframes gz-tray-in {
+  from { opacity: 0; /* flutter-ok: fade */ transform: translateY(var(--gz-space-4)); }
+  to { opacity: 1; /* flutter-ok: fade */ transform: translateY(0); }
+}
+
+@keyframes gz-tray-slot-in {
+  from { opacity: 0; /* flutter-ok: fade */ transform: scale(var(--gz-motion-scale-knot-from)); }
+  to { opacity: 1; /* flutter-ok: fade */ transform: scale(1); }
+}
+
+.gz-tray-in {
+  animation: gz-tray-in var(--gz-motion-duration-slow) var(--gz-motion-ease-emphasized) both;
+}
+
+.gz-tray-slot-in {
+  animation: gz-tray-slot-in var(--gz-motion-duration-slow) var(--gz-motion-ease-emphasized) var(--gz-delay, 0s) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-tray-in,
+  .gz-tray-slot-in {
+    animation: gz-fade-in var(--gz-motion-duration-fast) var(--gz-motion-ease-standard) both;
+  }
+}

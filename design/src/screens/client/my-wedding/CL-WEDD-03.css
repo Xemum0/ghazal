@@ -1,0 +1,55 @@
+/* CL-WEDD-03 Budget. Gutter 20 on the figures, rows full-bleed, 32 between sections. Tokens only. */
+
+.gzmw-bd {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+}
+
+.gzmw-bd__pad {
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* Hero, its alert and (for a guest) the sample note: one group, 20 apart. */
+.gzmw-bd__top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+}
+
+.gzmw-bd__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzmw-bd__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------- loading ---------- */
+.gzmw-bd__skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzmw-bd__skelrow {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-row-min);
+}
+
+.gzmw-bd__skeltext {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}

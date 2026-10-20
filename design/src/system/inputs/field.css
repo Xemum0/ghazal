@@ -1,0 +1,160 @@
+/* Field shell: TextField, PhoneField, SearchField, TextArea, SelectRow (field variant), DateField.
+   Direction 3 "Input": 56 high, radius 8, paper, 1 px ink-500 border; focus ink-900 2 px; error danger-700 border + icon + message;
+   label above in the label role, hint in caption ink-600. States are never colour alone: error carries an icon and a message,
+   disabled carries a stated reason when one is given. */
+
+.gz-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gz-field__label {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-field__opt {
+  font-weight: var(--gz-type-caption-weight);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-field__box {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  block-size: var(--gz-size-control-lg);
+  padding-inline: var(--gz-space-4);
+  background: var(--gz-color-sys-control-bg);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-sm);
+  transition:
+    border-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard),
+    box-shadow var(--gz-motion-duration-base) var(--gz-motion-ease-standard),
+    background-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+/* Focus = ink-900 at 2 px: the 1 px border turns ink and a 1 px ring is added outside (no layout shift, no inset shadow). */
+.gz-field__box:focus-within,
+.gz-field[data-force-focus] .gz-field__box {
+  border-color: var(--gz-color-sys-border-focus);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-border-focus);
+}
+
+.gz-field[data-invalid] .gz-field__box {
+  border-color: var(--gz-color-sys-border-error);
+}
+
+.gz-field[data-invalid] .gz-field__box:focus-within,
+.gz-field[data-invalid][data-force-focus] .gz-field__box {
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-border-error);
+}
+
+.gz-field[data-disabled] .gz-field__box {
+  background: var(--gz-color-sys-surface-quiet);
+  border-color: var(--gz-color-sys-border-strong);
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-field[data-disabled] .gz-field__label {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* Interactive adornments are 44 wide targets: the box gives back its padding on that side. */
+.gz-field__box[data-start-action] { padding-inline-start: var(--gz-space-1); }
+.gz-field__box[data-end-action] { padding-inline-end: var(--gz-space-1); }
+
+.gz-field__adorn {
+  display: flex;
+  align-items: center;
+  flex: none;
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+.gz-field[data-disabled] .gz-field__adorn {
+  color: var(--gz-color-sys-icon-disabled);
+}
+
+.gz-field__input {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  align-self: stretch;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--gz-color-sys-text-strong);
+  text-align: start;
+  appearance: none;
+}
+
+.gz-field__input:focus,
+.gz-field__input:focus-visible {
+  outline: none; /* the box carries the focus indicator */
+}
+
+.gz-field__input::placeholder {
+  color: var(--gz-color-sys-text-secondary);
+  opacity: 1; /* flutter-ok: web-only UA reset of the placeholder alpha, the colour token carries the tone */
+}
+
+.gz-field__input:disabled {
+  color: var(--gz-color-sys-text-disabled);
+  cursor: not-allowed;
+}
+
+.gz-field__input:disabled::placeholder {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+/* An LTR island inside an RTL screen (email, URL, codes): the text runs left to right but the value still starts at the
+   screen's start edge. In an LTR element `end` is the right edge, so the Arabic screen uses it (ADR 0012 D2, a direction
+   variable instead of a physical property). */
+.gz-field__input[dir='ltr'] {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+[dir='rtl'] .gz-field__input[dir='ltr'] {
+  text-align: end;
+}
+
+/* Hint and error: caption role. Error = danger-700 text with an icon (never colour alone). */
+.gz-field__msg {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-field__msg .gz-in-glyph {
+  margin-block-start: var(--gz-space-1);
+}
+
+.gz-field__msg--error {
+  color: var(--gz-color-sys-text-danger);
+}
+
+.gz-field__msg--error .gz-in-glyph {
+  color: var(--gz-color-sys-icon-danger);
+}
+
+.gz-field__foot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gz-field__count {
+  flex: none;
+  margin-inline-start: auto;
+  color: var(--gz-color-sys-text-secondary);
+}

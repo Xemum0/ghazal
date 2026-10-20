@@ -1,0 +1,5 @@
+/* StepThread: the system thread inside the gutter, a little air under it. */
+
+.gs-thread {
+  padding: var(--gz-space-1) var(--gz-space-gutter) var(--gz-space-3);
+}

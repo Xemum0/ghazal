@@ -1,0 +1,80 @@
+/* SheetFrame (visits): header, a scrolling middle and a footer, all in flow inside the height the sheet allows. Tokens only, logical properties. */
+.gzvt-sf {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  min-block-size: 0;
+}
+
+.gzvt-sf__head {
+  display: flex;
+  flex: none;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+  padding-block-end: var(--gz-space-2);
+}
+
+.gzvt-sf__heading {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  padding-block-start: var(--gz-space-2);
+}
+
+.gzvt-sf__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzvt-sf__sub {
+  display: flex;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzvt-sf__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-block-end: var(--gz-space-4);
+}
+
+.gzvt-sf__foot {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+/* A scrolling column never squeezes its children (a banner has a min height of its own that would clip its text). */
+.gzvt-sf__body > * {
+  flex-shrink: 0;
+}
+
+/* Not inside a Sheet: the status bar and the gutters the Sheet would have given. */
+.gzvt-sf[data-bare] {
+  padding-block-start: var(--gz-safe-top);
+  padding-block-end: var(--gz-safe-bottom);
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* A state composition inside a sheet (the finished step of CL-VIST-05) has no gutter of its own: the sheet gives one. */
+.gzvt-sf__body > .gz-state {
+  padding-inline: 0;
+  padding-block: var(--gz-space-2);
+}
+
+/* A card banner brings its own gutter margin; inside a sheet the body already has the gutter. */
+.gzvt-sf__body > .gz-banner--card {
+  margin-inline: 0;
+}

@@ -1,0 +1,31 @@
+/* HL-BOOK-04 Contact client: three rows of 64 (a glyph, one word, the number), one short line when the number is not shared. Tokens only. */
+
+.hbk-contact__rows {
+  display: flex;
+  flex-direction: column;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.hbk-contact__note {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  min-block-size: var(--gz-size-row-min);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hbk-contact__note > .gz-icon {
+  flex: none;
+}
+
+.hbk-contact__offline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}

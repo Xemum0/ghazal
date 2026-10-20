@@ -1,0 +1,69 @@
+/* Outcome: a calm single-purpose composition (ADR 0034 D7), centred in the space between the bars with a little more air below than above
+   (the optical centre sits above the geometric one). It grows to fill the body and never shrinks below its content. */
+
+.pm-out {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-4);
+  padding-block-start: var(--gz-space-6);
+  padding-block-end: var(--gz-space-16);
+  padding-inline: var(--gz-space-gutter);
+  text-align: center;
+}
+
+/* The live-region wrapper some screens put around the Outcome stretches with it. */
+.pm-stage {
+  display: flex;
+  flex-direction: column;
+}
+
+.gz-screen__body > .pm-out,
+.gz-screen__body > .pm-stage {
+  flex: 1 1 auto;
+}
+
+.pm-out__art {
+  display: inline-flex;
+  flex: none;
+  animation: gz-image-reveal var(--gz-motion-duration-expressive) var(--gz-motion-ease-emphasized) both;
+}
+
+.pm-out__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.pm-out__meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-1);
+}
+
+/* The facts under the title: centred, wrapping only when the width runs out. */
+.pm-facts {
+  justify-content: center;
+}
+
+/* The payment facts: amount and method on one line, what the voucher is for on the next, the same at 390, 360 and 430. */
+.pm-payfacts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.pm-out__action {
+  padding-block-start: var(--gz-space-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pm-out__art {
+    animation: none;
+  }
+}

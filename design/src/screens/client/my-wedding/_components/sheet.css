@@ -1,0 +1,147 @@
+/* Sheet screens of My Wedding: title row, field stack, pinned footer. The Sheet body brings the 20 gutter and the 24 bottom padding. */
+
+.gzmw-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  min-inline-size: 0;
+}
+
+.gzmw-sheet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-md);
+}
+
+.gzmw-sheet__title {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+}
+
+/* A banner in a sheet: the sheet body already carries the gutter, so the card shape's own inline margin would inset it from the fields. */
+.gzmw-sheet > .gz-banner--card {
+  margin-inline: 0;
+}
+
+.gzmw-sheet__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+/* Pinned to the bottom edge of the scrolling sheet body: the primary stays in view over a long form. The shadow paints the body's
+   bottom padding in the sheet colour so rows never peek through under it. */
+.gzmw-sheet__foot {
+  position: sticky; /* flutter-ok: bottom-pinned action area */
+  inset-block-end: 0;
+  z-index: var(--gz-z-raised);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-3);
+  background-color: var(--gz-color-sys-surface-raised);
+  box-shadow: 0 var(--gz-space-sheet-pad-bottom) 0 var(--gz-color-sys-surface-raised);
+}
+
+/* Opened as a page (no Sheet host): the status-bar inset and the gutter come from here, on the sheet colour. */
+.gzmw-sheet[data-page] {
+  padding-block-start: var(--gz-safe-top);
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-safe-bottom);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+/* ---------- compact date control: a 56 box, the glyph and the day ---------- */
+.gzmw-datepick {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-size-control-lg);
+  padding-inline: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-raised);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzmw-datepick > .gz-icon {
+  flex: none;
+}
+
+.gzmw-datepick__value {
+  flex: 1 1 0;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzmw-datepick__value.is-placeholder {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- category rail: two lines of four glyphs, the chosen name under them ---------- */
+.gzmw-rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gzmw-rail__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gzmw-rail__row {
+  display: flex;
+  gap: var(--gz-space-2);
+}
+
+.gzmw-rail__opt {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-inline-size: 0;
+  block-size: var(--gz-size-control-md);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-raised);
+  cursor: pointer;
+}
+
+.gzmw-rail__opt.is-selected {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+}
+
+.gzmw-rail__opt:disabled {
+  cursor: default;
+}
+
+/* The chosen glyph's mark: the 8 px gold bead (a thing chosen), in the corner. */
+.gzmw-rail__bead {
+  position: absolute;
+  inset-block-start: var(--gz-space-1);
+  inset-inline-end: var(--gz-space-1);
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+  background-color: var(--gz-color-sys-mark-khayt);
+  transform: rotate(45deg);
+}
+
+.gzmw-rail__name {
+  min-block-size: var(--gz-size-icon-sm);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}

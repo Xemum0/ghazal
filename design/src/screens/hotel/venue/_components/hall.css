@@ -1,0 +1,35 @@
+/* Hall editor pieces (HL-VENU-04): session rows, facility rows, section facts. Tokens only. */
+
+.hv-ses {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  text-align: start;
+  color: var(--gz-color-sys-text-primary);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.hv-ses__text { display: flex; flex: 1; flex-direction: column; gap: var(--gz-space-1); min-inline-size: 0; }
+.hv-ses__time { color: var(--gz-color-sys-text-strong); }
+.hv-ses__buf { color: var(--gz-color-sys-text-secondary); }
+
+.hv-am { display: flex; flex-direction: column; }
+
+.hv-facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding: var(--gz-space-panel-pad);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+/* a hall in the list */
+.hv-hall { display: flex; flex-direction: column; }

@@ -1,0 +1,104 @@
+/* Sheet. Paper, top radius 20, handle 36 x 4, elev-3, scrim-modal. Padding: 12 top, 20 sides, 24 bottom plus the home-indicator inset. */
+.gz-sheetlayer {
+  position: absolute; /* flutter-ok: showModalBottomSheet route overlay */
+  inset: 0;
+  z-index: var(--gz-z-sheet);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.gz-scrim {
+  position: absolute; /* flutter-ok: ModalBarrier */
+  inset: 0;
+  background: var(--gz-color-sys-scrim-modal);
+  z-index: var(--gz-z-scrim);
+}
+
+.gz-scrim--clear {
+  background: transparent;
+}
+
+.gz-sheet {
+  position: relative;
+  z-index: var(--gz-z-sheet);
+  display: flex;
+  flex-direction: column;
+  min-block-size: 0;
+  background: var(--gz-color-sys-surface-raised);
+  border-start-start-radius: var(--gz-radius-lg);
+  border-start-end-radius: var(--gz-radius-lg);
+  box-shadow: var(--gz-elevation-3);
+  padding-block-start: var(--gz-space-sheet-pad-top);
+  padding-block-end: var(--gz-safe-bottom);
+  outline: none;
+}
+
+.gz-sheet--inline {
+  box-shadow: var(--gz-elevation-3);
+}
+
+.gz-sheet[data-dragging] {
+  user-select: none;
+}
+
+/* Handle: a 20 high full-width grab zone (the title row below it is a drag zone too); the visible bar is 36 x 4 ink-300. */
+.gz-sheet__grab {
+  flex: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  block-size: var(--gz-space-5);
+  touch-action: none;
+  cursor: grab;
+}
+
+.gz-sheet__handle {
+  inline-size: var(--gz-size-handle-width);
+  block-size: var(--gz-size-handle-height);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-border-strong);
+}
+
+.gz-sheet__dragzone {
+  flex: none;
+  touch-action: none;
+}
+
+.gz-sheet__header {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-md);
+  padding-inline-start: var(--gz-space-gutter);
+  padding-inline-end: var(--gz-space-2);
+}
+
+.gz-sheet__title {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-sheet__body {
+  flex: 1;
+  min-block-size: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-sheet-pad-bottom);
+}
+
+.gz-sheet__footer {
+  flex: none;
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-sheet-pad-bottom);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+/* The footer slot exists on every Sheet (a screen opened as a sheet portals its action row into it); nothing in it = no space taken. */
+.gz-sheet__footer:empty {
+  display: none;
+}

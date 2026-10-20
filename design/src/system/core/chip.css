@@ -1,0 +1,68 @@
+/* Chip: 44 high, radius 8, hairline border; selected is an ink border plus the gold bead, never a gold fill. */
+
+.gz-chip {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-control-sm);
+  padding-inline: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-sm);
+  background-color: transparent;
+  color: var(--gz-color-sys-text-primary);
+  white-space: nowrap;
+}
+
+.gz-chip--interactive {
+  cursor: pointer;
+}
+
+.gz-chip--interactive:active,
+.gz-chip--interactive.is-pressed {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-chip.is-selected {
+  padding-inline-start: var(--gz-space-3);
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+  background-color: var(--gz-color-sys-control-bg);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-chip.is-selected .gz-chip__label {
+  font-weight: var(--gz-type-title-weight);
+}
+
+/* The label column is as wide as its 500 weight copy: selection never moves the text. */
+.gz-chip__label {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gz-chip__ghost {
+  block-size: 0;
+  overflow: hidden;
+  visibility: hidden;
+  font-weight: var(--gz-type-title-weight);
+}
+
+/* A rotated 8 px square overhangs by about 2 px: the 12 px box keeps the bead optically on the text edge. */
+.gz-chip__bead {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-space-3);
+  block-size: var(--gz-space-3);
+}
+
+.gz-chip:disabled {
+  border-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-disabled);
+  cursor: default;
+}

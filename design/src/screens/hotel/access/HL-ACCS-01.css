@@ -1,0 +1,68 @@
+/* HL-ACCS-01 Sign in. Canvas, brand row, one photograph, the two fields, one quiet row for a new staff member. Tokens only. */
+.hxa01 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-safe-top);
+  padding-block-end: var(--gz-space-8);
+}
+
+.hxa01__brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-lg);
+}
+
+.hxa01__photo {
+  display: flex;
+  flex: none;
+  block-size: 184px;
+  overflow: hidden;
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-placeholder);
+}
+
+.hxa01__photo .gz-photo {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.hxa01__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+/* "Forgot?" ends the column, under the password it belongs to. */
+.hxa01__links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* The way in for a new staff member: one quiet ruled row at the foot of the form. */
+.hxa01__invite {
+  display: flex;
+  flex-direction: column;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+/* The pressable row squares its pressed fill so the hairline under it keeps straight ends. */
+.hxa01__invite .gz-row--interactive {
+  border-radius: 0;
+}
+
+/* Anchor of the static invite-sheet frame (the live navigator draws its own sheet). */
+.hxa01-root {
+  position: relative; /* flutter-ok: overlay anchor for the sheet (Stack) */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-block-size: 0;
+}

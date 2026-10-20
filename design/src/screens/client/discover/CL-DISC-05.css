@@ -1,0 +1,216 @@
+/* CL-DISC-05 Map. The map fills the frame; the controls float over it: the Brief pill and tools on top, the carousel at the bottom. */
+.gzd-ms {
+  position: relative; /* flutter-ok: Stack */
+  display: flex;
+  flex: 1;
+  min-block-size: 0;
+  overflow: hidden;
+}
+
+.gzd-ms__top {
+  position: absolute; /* flutter-ok: Stack child */
+  inset-block-start: 0;
+  inset-inline: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-inline: var(--gz-space-2);
+  padding-block-end: var(--gz-space-2);
+  pointer-events: none;
+}
+
+.gzd-ms__top > * {
+  pointer-events: auto;
+}
+
+.gzd-ms__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+/* The tools row sits on the 20 gutter (the bar row above carries the 10 target overhang). */
+.gzd-ms__row--tools {
+  justify-content: space-between;
+  padding-inline: var(--gz-space-2);
+}
+
+.gzd-ms__row--tools .gz-chip {
+  background-color: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-2);
+}
+
+/* Filters is the glyph and the gold count (the word is the accessible name), so the empty label takes no gap. */
+.gzd-ms__row--tools .gzd-ms__filters {
+  gap: 0;
+  padding-inline: var(--gz-space-3);
+}
+
+.gzd-ms__row--tools .gzd-ms__filters .gz-count {
+  margin-inline-start: var(--gz-space-1);
+}
+
+.gzd-ms__seg {
+  flex: none;
+  box-shadow: var(--gz-elevation-2);
+}
+
+/* Two glyph options, each a 44 x 44 target (the system option sizes itself to its glyph: 36 wide). */
+.gzd-ms__seg .gz-iseg__opt {
+  flex: none;
+  inline-size: var(--gz-size-touch-min);
+}
+
+/* The Brief pill: one 48 button, paper with a hairline, the facts (date, guests, area) on one line and a pencil. */
+.gzd-ms__pill {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-control-md);
+  padding-inline: var(--gz-space-4);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-2);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzd-ms__facts {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* The area is the last fact and the longest: it gives way with an ellipsis rather than cutting a letter at the pill's edge. */
+.gzd-ms__facts .gz-fchip:last-child {
+  flex: 0 1 auto;
+  overflow: hidden;
+}
+
+.gzd-ms__facts .gz-fchip:last-child .gz-fchip__value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gzd-ms__moved,
+.gzd-ms__note {
+  align-self: center;
+}
+
+.gzd-ms__moved-btn {
+  background-color: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-2);
+}
+
+.gzd-ms__note {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-3);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-2);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzd-ms__bottom {
+  position: absolute; /* flutter-ok: Stack child */
+  inset-block-end: 0;
+  inset-inline: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  pointer-events: none;
+}
+
+.gzd-ms__bottom > * {
+  pointer-events: auto;
+}
+
+.gzd-ms__fab {
+  display: flex;
+  justify-content: flex-end;
+  padding-inline: var(--gz-space-2);
+}
+
+.gzd-ms__carousel {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+}
+
+.gzd-ms__track {
+  display: flex;
+  align-items: flex-start;
+  flex: none;
+  margin: 0;
+  padding: 0;
+  padding-inline-start: var(--gz-space-gutter);
+  list-style: none;
+}
+
+.gzd-ms__track::after {
+  content: '';
+  flex: none;
+  inline-size: var(--gz-space-2);
+}
+
+/* A carousel card: paper, hairline, radius 12; the selected one takes the ink border (state in shape and weight, not gold). */
+.gzd-ms__card {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  padding: var(--gz-space-3);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-2);
+}
+
+.gzd-ms__card.is-on {
+  border-color: var(--gz-color-sys-text-strong);
+}
+
+.gzd-ms__card--skeleton {
+  flex-direction: row;
+}
+
+.gzd-ms__skeleton {
+  display: flex;
+  padding-inline-start: var(--gz-space-gutter);
+}
+
+.gzd-ms__skeleton-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+
+.gzd-ms__empty,
+.gzd-ms__center {
+  box-sizing: border-box;
+  margin-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-2);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-2);
+}
+
+.gzd-ms__center {
+  position: absolute; /* flutter-ok: Stack child, the offline and error blank */
+  inset-block-start: 40%;
+  inset-inline: 0;
+}

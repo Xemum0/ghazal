@@ -1,0 +1,64 @@
+/* PhaseStrip: quiet ink-50 panel, radius 12, 16 padding. The glyph sits in a 44 disk; an ended voucher shows a 96 drawing at start. Tokens only. */
+.gzv-phase {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-md);
+}
+
+.gzv-phase__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzv-phase__glyph {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-radius: var(--gz-radius-pill);
+}
+
+.gzv-phase__art {
+  display: flex;
+  flex: none;
+}
+
+.gzv-phase__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gzv-phase__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzv-phase[data-tone='danger'] .gzv-phase__title {
+  color: var(--gz-color-sys-text-danger);
+}
+
+/* The info glyph is a 44 target around a 20 glyph: it slides by its slack so the glyph meets the panel's padding. */
+.gzv-phase__info {
+  display: flex;
+  flex: none;
+  position: relative; /* flutter-ok: Transform.translate by the target's slack so the glyph meets the panel padding */
+  inset-inline-end: -10px;
+}
+
+.gzv-phase__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-3);
+}

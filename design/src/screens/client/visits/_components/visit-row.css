@@ -1,0 +1,45 @@
+/* VisitRow: 72 x 88 photograph, name (display face), status pill, then the day and time as facts; hairline under the row. Tokens only. */
+.gzvt-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzvt-row__thumb {
+  display: flex;
+  flex: none;
+  align-self: flex-start;
+  inline-size: var(--gz-size-thumb-compact-width);
+  block-size: var(--gz-size-thumb-compact-height);
+  border-radius: var(--gz-radius-md);
+  overflow: hidden;
+}
+
+.gzvt-row__photo {
+  display: flex;
+  flex: 1;
+}
+
+.gzvt-row__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gzvt-row__name {
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+

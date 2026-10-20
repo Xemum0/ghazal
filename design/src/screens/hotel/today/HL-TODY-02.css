@@ -1,0 +1,43 @@
+/* HL-TODY-02 Needs you. Gutter 20, rows on hairlines, the glyph tabs on the gutter. Tokens only. */
+
+.ht-nq__chips {
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.ht-nq__list {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-8);
+}
+
+.ht-nq__skel {
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--gz-space-gutter);
+}
+
+.ht-nq__skelrow {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.ht-nq__skelcol {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+/* the all-clear: the drawing and its two words, then the next event as facts under them */
+.ht-nq__clear {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  padding-block-start: var(--gz-space-6);
+}

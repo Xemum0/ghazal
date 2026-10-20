@@ -1,0 +1,27 @@
+/* The bars sit between the slider's two thumb centres (half a 24 px thumb in from each edge), so a bar lines up with its price. */
+.obd-hist {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gz-space-1);
+  block-size: var(--gz-space-12);
+  padding-inline: var(--gz-space-3);
+}
+
+.obd-hist__col {
+  flex: 1;
+  min-inline-size: 0;
+  display: flex;
+  align-items: flex-end;
+}
+
+.obd-hist__bar {
+  flex: 1;
+  min-inline-size: 0;
+  background: var(--gz-color-sys-border-hairline);
+  border-start-start-radius: var(--gz-radius-xs);
+  border-start-end-radius: var(--gz-radius-xs);
+}
+
+.obd-hist__bar.is-inside {
+  background: var(--gz-color-sys-icon-secondary);
+}

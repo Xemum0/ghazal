@@ -1,0 +1,3 @@
+/* HL-SETT-03 Staff and roles. Hairline person rows edge to edge, then one support row; the sheets and the (i) anchor on .hs-root. */
+
+.hs-staff__list { display: flex; flex-direction: column; }

@@ -1,0 +1,183 @@
+/* Typography. The role classes (.gz-t-<role>) are generated into typography.roles.css from the tokens; this file holds the
+   behaviour around them: text colours, the numeric ("figures") voice, money, bidi-safe numbers, display details.
+   Rules (docs/design/01-direction.md 2.4): Newsreader/Amiri display only at the named moments, Cairo tabular Western digits
+   for every aligned number, nothing italic, no tracking on Arabic, no uppercase on Arabic. */
+
+/* ---------- colour of text (semantic, never the ramps) ---------- */
+.gz-text-strong { color: var(--gz-color-sys-text-strong); }
+.gz-text { color: var(--gz-color-sys-text-primary); }
+.gz-text-muted { color: var(--gz-color-sys-text-secondary); }
+.gz-text-gold { color: var(--gz-color-sys-text-gold-ink); }
+.gz-text-success { color: var(--gz-color-sys-text-success); }
+.gz-text-danger { color: var(--gz-color-sys-text-danger); }
+.gz-text-disabled { color: var(--gz-color-sys-text-disabled); }
+
+/* An ink panel (max one per screen): text canvas, muted ink-300, gold-400 for gold text. */
+.gz-on-dark { color: var(--gz-color-sys-text-on-dark); }
+.gz-on-dark .gz-text-muted { color: var(--gz-color-sys-text-on-dark-muted); }
+.gz-on-dark .gz-text-gold { color: var(--gz-color-sys-text-on-dark-gold); }
+
+/* ---------- display voice ---------- */
+/* Headings take their colour from the strong ink unless a context says otherwise. */
+.gz-t-d1,
+.gz-t-d2,
+.gz-t-d3,
+.gz-t-d4,
+.gz-t-d5,
+.gz-t-d6,
+.gz-t-brief,
+.gz-t-countdown,
+.gz-t-compare-name,
+.gz-t-wordmark {
+  color: var(--gz-color-sys-text-strong);
+  /* Display numerals are lining and proportional (set per role by the tokens); the optical-size axis is not used: static instances. */
+  font-optical-sizing: none;
+}
+
+.gz-on-dark .gz-t-d1,
+.gz-on-dark .gz-t-d2,
+.gz-on-dark .gz-t-d3,
+.gz-on-dark .gz-t-d4,
+.gz-on-dark .gz-t-d5,
+.gz-on-dark .gz-t-d6,
+.gz-on-dark .gz-t-countdown {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-t-label {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-t-caption {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-t-title,
+.gz-t-ui-title,
+.gz-t-ui-xl {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* ---------- numeric voice ---------- */
+/* .gz-num: any number inside a line of text. Cairo Western digits, tabular, lining, weight of the surrounding text, an LTR
+   island (ADR 0010 D5). Size = the surrounding role's figure size (Poppins x1.08 rounded in English, same size in Arabic),
+   supplied by the text role through --gz-num-size; outside a role it keeps the parent size. */
+.gz-num {
+  font-family: var(--gz-font-fig);
+  font-size: var(--gz-num-size, inherit);
+  /* An absolute px line height on the parent would otherwise stretch the line when Cairo (taller metrics) sits inside it. */
+  line-height: 0;
+  font-weight: inherit;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: 0;
+  word-spacing: 0;
+  direction: ltr;
+  unicode-bidi: isolate;
+  white-space: nowrap;
+}
+
+/* Standalone figures (a number that is the whole element): use a figure or price role class, which carries its own size and line height. */
+.gz-t-fig-label,
+.gz-t-fig-tab,
+.gz-t-fig-caption,
+.gz-t-fig-body-s,
+.gz-t-fig-body,
+.gz-t-fig-title,
+.gz-t-fig-xl,
+.gz-t-fig-3xl,
+.gz-t-price,
+.gz-t-price-strong,
+.gz-t-price-total,
+.gz-t-kpi,
+.gz-t-cal-day,
+.gz-t-cal-price,
+.gz-t-badge,
+.gz-t-statusbar,
+.gz-t-timeline-time {
+  direction: ltr;
+  unicode-bidi: isolate;
+  white-space: nowrap;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-t-cal-price { color: var(--gz-color-sys-text-secondary); }
+
+/* ---------- money ---------- */
+/* Structure (the Money component fills it from GzFormat, ADR 0010): [currency][NBSP][ [amount][.fils] ]. The whole value is one LTR
+   island, so the currency sits visually left of the number in BOTH languages. The currency uses the label voice in ink-600. */
+.gz-money {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--gz-space-1);
+  direction: ltr;
+  unicode-bidi: isolate;
+  white-space: nowrap;
+}
+
+.gz-money__cur {
+  font-family: var(--gz-type-label-family);
+  font-size: var(--gz-type-label-size);
+  line-height: var(--gz-type-label-line);
+  font-weight: var(--gz-type-label-weight);
+  letter-spacing: var(--gz-type-label-tracking);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* Amount and fils hug each other (no gap): [amt][.fils]. */
+.gz-money__num {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+/* The fils: round(0.8 x amount), minimum 12 px, ink-600, never opacity (direction 2.4). */
+.gz-money__fils {
+  font-family: var(--gz-type-fils-price-family);
+  font-size: var(--gz-type-fils-price-size);
+  font-weight: inherit;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-money--total .gz-money__fils {
+  font-size: var(--gz-type-fils-total-size);
+}
+
+/* Browse price in display voice (venue sticky bar, plate price): amount is d1, currency stays label. */
+.gz-money--display .gz-money__amt {
+  font-family: var(--gz-type-d1-family);
+  font-size: var(--gz-type-d1-size);
+  line-height: var(--gz-type-d1-line);
+  font-weight: var(--gz-type-d1-weight);
+  font-variant-numeric: var(--gz-type-d1-numeric);
+  word-spacing: var(--gz-type-d1-word-spacing);
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* Strike-through old price: caption, ink-600, 1 px line, only when real (ADR 0018 D4). */
+.gz-strike {
+  text-decoration: line-through;
+  text-decoration-thickness: var(--gz-stroke-hair);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- misc ---------- */
+/* One line, ellipsis at the end (names get two lines first, ADR 0014 D8: use .gz-clamp-2). */
+.gz-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gz-clamp-2 {
+  display: -webkit-box; /* flutter-ok: maxLines: 2 with TextOverflow.ellipsis */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.gz-clamp-3 {
+  display: -webkit-box; /* flutter-ok: maxLines: 3 with TextOverflow.ellipsis */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}

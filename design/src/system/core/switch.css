@@ -1,0 +1,105 @@
+/* Switch: root = the 52 x 44 target, track = 52 x 32, knob = 24, inset 4. The knob travels 20 (track 52 - knob 24 - 2 x inset 4)
+   toward inline-end; CSS cannot negate a token without calc, so RTL reads the signed twin token (size.toggle.travel-reverse).
+   Only transform animates (200 ms). */
+
+.gz-switch {
+  --gz-switch-travel: var(--gz-size-toggle-travel);
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-toggle-width);
+  block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-pill);
+  cursor: pointer;
+}
+
+[dir='rtl'] .gz-switch {
+  --gz-switch-travel: var(--gz-size-toggle-travel-reverse);
+}
+
+.gz-switch__track {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-toggle-width);
+  block-size: var(--gz-size-toggle-height);
+  padding-inline: var(--gz-space-1);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-control-bg);
+  transition:
+    background-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard),
+    border-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-switch__knob {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-toggle-knob);
+  block-size: var(--gz-size-toggle-knob);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-control-toggle-knob);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-border-control);
+  color: var(--gz-color-sys-control-toggle-check);
+  transition:
+    transform var(--gz-motion-duration-base) var(--gz-motion-ease-standard),
+    box-shadow var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-switch:active .gz-switch__track,
+.gz-switch.is-pressed .gz-switch__track {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+/* on */
+.gz-switch.is-on .gz-switch__track {
+  border-color: var(--gz-color-sys-control-toggle-on);
+  background-color: var(--gz-color-sys-control-toggle-on);
+}
+
+.gz-switch.is-on .gz-switch__knob {
+  transform: translateX(var(--gz-switch-travel));
+  box-shadow: none;
+}
+
+.gz-switch.is-on:active .gz-switch__track,
+.gz-switch.is-on.is-pressed .gz-switch__track {
+  border-color: var(--gz-color-sys-action-selected-bg-pressed);
+  background-color: var(--gz-color-sys-action-selected-bg-pressed);
+}
+
+/* disabled */
+.gz-switch:disabled {
+  cursor: default;
+}
+
+.gz-switch:disabled .gz-switch__track {
+  border-color: var(--gz-color-sys-border-hairline);
+  background-color: var(--gz-color-sys-control-track);
+}
+
+.gz-switch:disabled .gz-switch__knob {
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-border-strong);
+}
+
+.gz-switch.is-on:disabled .gz-switch__track {
+  border-color: var(--gz-color-sys-icon-disabled);
+  background-color: var(--gz-color-sys-icon-disabled);
+}
+
+.gz-switch.is-on:disabled .gz-switch__knob {
+  box-shadow: none;
+  color: var(--gz-color-sys-icon-disabled);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-switch__knob {
+    transition: none;
+  }
+}

@@ -1,0 +1,137 @@
+/* CL-BKNG-02 Booking detail. Gutter 20, section rhythm 32. Tokens only; flex + gap; logical properties. */
+.gzb-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding-block: var(--gz-space-4) var(--gz-space-section);
+}
+
+.gzb-pad {
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* ---------- header: the venue picture, the serif name, the facts as glyphs and figures ---------- */
+.gzb-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzb-head__who {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.gzb-head__thumb {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  inline-size: var(--gz-size-thumb-lg);
+  block-size: var(--gz-size-thumb-lg);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}
+
+.gzb-head__photo {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+.gzb-head__name {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzb-head__facts {
+  column-gap: var(--gz-space-5);
+}
+
+/* ---------- the Booking Thread: the hero, on paper with a hairline; the status chip at its start ---------- */
+.gzb-thread {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  margin-inline: var(--gz-space-gutter);
+  padding: var(--gz-space-panel-pad);
+  padding-block-end: var(--gz-space-5);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.gzb-thread__top {
+  display: flex;
+  align-items: center;
+}
+
+/* The actions of a pending request: two buttons and the info glyph. */
+.gzb-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzb-actions > .gz-btn {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* Confirmed: pay the venue, then show the code. Two glyphs, two words each, one arrow. */
+.gzb-steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.gzb-steps > .gz-icon {
+  margin-block-start: var(--gz-space-1);
+}
+.gzb-steps__step {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+  text-align: center;
+}
+
+/* ---------- sections ---------- */
+.gzb-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzb-rows {
+  display: flex;
+  flex-direction: column;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+/* A section header with an info glyph at its end: the title keeps the row, the glyph sits on the title line. */
+.gzb-sechead {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gz-space-2);
+}
+
+.gzb-sechead__head {
+  flex: 1;
+  min-inline-size: 0;
+}

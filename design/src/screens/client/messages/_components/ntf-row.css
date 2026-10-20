@@ -1,0 +1,106 @@
+/* NtfRow: min 64, an inset hairline under, a tone disk with a glyph, title, a quiet venue line, the clock and the gold bead at the end. Tokens only. */
+
+.gzm-ntf {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  text-align: start;
+  cursor: pointer;
+}
+
+/* The hairline between two rows is inset to the 20 gutter, as in the inbox. */
+.gzm-ntf__rule {
+  display: block;
+  margin-inline: var(--gz-space-gutter);
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-border-hairline);
+}
+
+.gzm-ntf:active {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gzm-ntf__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-thumb-sm);
+  block-size: var(--gz-size-thumb-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-status-neutral-bg);
+  color: var(--gz-color-sys-status-neutral-text);
+}
+
+.gzm-ntf__disk.is-gold {
+  background-color: var(--gz-color-sys-status-pending-bg);
+  color: var(--gz-color-sys-status-pending-text);
+}
+
+.gzm-ntf__disk.is-success {
+  background-color: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}
+
+.gzm-ntf__disk.is-danger {
+  background-color: var(--gz-color-sys-status-danger-bg);
+  color: var(--gz-color-sys-status-danger-text);
+}
+
+.gzm-ntf__text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzm-ntf__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gzm-ntf__title {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzm-ntf:not(.is-unread) .gzm-ntf__title {
+  font-weight: var(--gz-type-body-weight);
+}
+
+.gzm-ntf__sub {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-1) var(--gz-space-3);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzm-ntf__venue {
+  min-inline-size: 0;
+}
+
+.gzm-ntf__side {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--gz-space-2);
+  align-self: stretch;
+  justify-content: center;
+}
+
+.gzm-ntf__time {
+  color: var(--gz-color-sys-text-secondary);
+  white-space: nowrap;
+}
+
+.gzm-ntf__dot {
+  display: inline-flex;
+}

@@ -1,0 +1,166 @@
+/* PackageCard: a panel you choose. Selected = ink-900 border + a filled gold bead (never a gold fill). Tokens only. */
+
+.gz-pkg {
+  gap: var(--gz-space-4);
+}
+
+.gz-pkg.is-selected {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+}
+
+.gz-pkg.is-unavailable {
+  border-color: var(--gz-color-sys-border-hairline);
+  background-color: var(--gz-color-sys-surface-canvas);
+}
+
+.gz-pkg.is-unavailable .gz-pkg__name,
+.gz-pkg.is-unavailable .gz-pkg__inc {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-pkg.is-pressed {
+  transform: scale(var(--gz-motion-scale-press));
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-pkg__choose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  text-align: start;
+  cursor: pointer;
+  border-radius: var(--gz-radius-sm);
+}
+
+.gz-pkg__choose--static,
+.gz-pkg__choose:disabled {
+  cursor: default;
+}
+
+.gz-pkg__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.gz-pkg__mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  /* Optically on the first line of the serif name (d1 line 28). */
+  block-size: var(--gz-space-6);
+  padding-block-start: var(--gz-space-1);
+}
+
+.gz-pkg__title {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-pkg__name {
+  display: block;
+}
+
+.gz-pkg__sub {
+  display: block;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-pkg__price {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--gz-space-1);
+  max-inline-size: var(--gz-size-week-strip);
+  padding-block-start: var(--gz-space-1);
+}
+
+.gz-pkg__price .gz-price {
+  flex-direction: column;
+  align-items: flex-end;
+  column-gap: 0;
+}
+
+.gz-pkg__unit {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* The all-in total for the guests, under the head and aligned with the name. */
+.gz-pkg__total {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--gz-space-2);
+  padding-inline-start: var(--gz-space-6);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-pkg__reason {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-pkg__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-4);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-pkg__list--notes {
+  padding-block-start: var(--gz-space-3);
+}
+
+.gz-pkg__inc {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-pkg__inc > .gz-icon {
+  flex: none;
+  margin-block-start: var(--gz-stroke-thread);
+}
+
+.gz-pkg__check {
+  color: var(--gz-color-sys-icon-accent);
+}
+
+.gz-pkg__inc--note {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-pkg__more {
+  align-self: flex-start;
+}
+
+.gz-pkg__save {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}
+
+.gz-pkg__lock {
+  padding-inline-start: var(--gz-space-6);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}

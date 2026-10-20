@@ -1,0 +1,30 @@
+/* Calendar chrome (hotel/calendar): the view switch, the hall chip rail and the period header. Gutter 20; the chip rail bleeds to the
+   inline-end edge. The period header is the title at the start and a quiet group at the end (Today, (i), the two arrows). Tokens only. */
+
+.cal-switch {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-3);
+}
+
+.cal-halls {
+  padding-block-start: var(--gz-space-3);
+  padding-inline-start: var(--gz-space-gutter);
+}
+
+.cal-head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  padding-block-start: var(--gz-space-2);
+  padding-inline-start: var(--gz-space-gutter);
+  padding-inline-end: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.cal-head__title {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+  text-align: start;
+}

@@ -1,0 +1,89 @@
+/* VenueHero: 440 high, full bleed, starting under the status bar. Bottom scrim only where the zone label and counter sit. */
+.gzv-hero {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  block-size: var(--gz-layout-hero-venue);
+  background-color: var(--gz-color-sys-surface-placeholder);
+  overflow: hidden;
+}
+
+.gzv-hero .gz-pager {
+  flex: none;
+}
+
+.gzv-hero__cell {
+  display: flex;
+  flex-direction: column;
+  block-size: var(--gz-layout-hero-venue);
+}
+
+.gzv-hero__item {
+  display: flex;
+  flex: 1;
+  align-items: stretch;
+  block-size: var(--gz-layout-hero-venue);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.gzv-hero__photo {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzv-hero--loading {
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gzv-hero--empty {
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}
+
+.gzv-hero__scrim {
+  position: absolute; /* flutter-ok: photo scrim overlay */
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: var(--gz-space-24);
+  background: linear-gradient(to bottom, var(--gz-color-sys-scrim-clear), var(--gz-color-sys-scrim-bottom));
+  pointer-events: none;
+}
+
+.gzv-hero__foot {
+  position: absolute; /* flutter-ok: zone label and counter anchored to the hero's bottom edge */
+  inset-inline: var(--gz-space-gutter);
+  inset-block-end: var(--gz-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  pointer-events: none;
+}
+
+.gzv-hero__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+}
+
+.gzv-hero__zone {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gzv-hero__counter {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+  margin: 0;
+  color: var(--gz-color-sys-text-on-dark);
+}

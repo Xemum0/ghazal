@@ -1,0 +1,147 @@
+/* Composer: canvas bar with a hairline above, quick replies, then 44 attach, 48 field, 44 send or voice. Tokens only. */
+
+.ht-cmp {
+  position: relative;
+  flex: none;
+  padding-block-end: var(--gz-safe-bottom);
+  background: var(--gz-color-sys-surface-canvas);
+  z-index: var(--gz-z-bar);
+}
+
+.ht-cmp::before {
+  content: '';
+  position: absolute; /* flutter-ok: hairline divider overlay */
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-border-hairline);
+}
+
+.ht-cmp__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block: var(--gz-space-2) var(--gz-space-3);
+}
+
+.ht-cmp__quick {
+  display: flex;
+  gap: var(--gz-space-2);
+  padding-inline: var(--gz-space-gutter);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.ht-cmp__quick::-webkit-scrollbar { display: none; }
+.ht-cmp__quick > * { flex: none; }
+
+.ht-cmp__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  padding-inline: var(--gz-space-2) var(--gz-space-gutter);
+}
+
+.ht-cmp__field {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  box-sizing: border-box;
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-control-md);
+  padding-inline: var(--gz-space-3);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-sm);
+}
+
+.ht-cmp__field:focus-within {
+  border-width: var(--gz-stroke-focus);
+  border-color: var(--gz-color-sys-text-strong);
+}
+
+.ht-cmp__input {
+  flex: 1 1 0;
+  align-self: stretch;
+  min-inline-size: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.ht-cmp__input::placeholder { color: var(--gz-color-sys-text-secondary); }
+
+/* send: the ink disk (gold is the verb of Accept, not of Send) */
+.ht-cmp__send {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-dark);
+  cursor: pointer;
+}
+
+.ht-cmp__mic {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-pill);
+  color: var(--gz-color-sys-text-strong);
+  touch-action: none;
+  cursor: pointer;
+}
+
+/* recording */
+.ht-cmp__row--rec { min-block-size: var(--gz-size-control-md); }
+
+.ht-cmp__rec {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.ht-cmp__recdot {
+  flex: none;
+  inline-size: var(--gz-space-3);
+  block-size: var(--gz-space-3);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-text-danger);
+}
+
+.ht-cmp__time { color: var(--gz-color-sys-text-strong); }
+.ht-cmp__recnote {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.ht-cmp__hint {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.ht-cmp__spacer {
+  flex: none;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+}
+
+
+/* while recording the mic stays under the thumb: ink disk, canvas glyph */
+.ht-cmp__mic.is-live {
+  background: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-icon-on-dark);
+}

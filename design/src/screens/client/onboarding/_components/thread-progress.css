@@ -1,0 +1,39 @@
+/* ThreadProgress: 2 px gold line (stroke.thread) filled in reading direction, an 8 px bead where it ends, hairline track after. */
+.obd-thread {
+  display: flex;
+  align-items: center;
+  block-size: var(--gz-size-knot-bead);
+  min-inline-size: 0;
+}
+
+.obd-thread__fill,
+.obd-thread__rest {
+  flex-basis: 0;
+  flex-shrink: 0;
+  min-inline-size: 0;
+  block-size: var(--gz-stroke-thread);
+  transition: flex-grow var(--gz-motion-duration-slow) var(--gz-motion-ease-standard);
+}
+
+.obd-thread__fill {
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.obd-thread__rest {
+  background: var(--gz-color-sys-border-hairline);
+}
+
+.obd-thread__bead {
+  flex: none;
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+  background: var(--gz-color-sys-mark-khayt);
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obd-thread__fill,
+  .obd-thread__rest {
+    transition: none;
+  }
+}

@@ -1,0 +1,99 @@
+/* CL-SERV-04 Request quote (sheet). The sheet container owns the handle, padding and safe area. Tokens only, flex + gap. */
+
+.gzs-quote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+/* The provider is the sheet's header: the category glyph in a rose disk and the name (title role, not the display role of a sentence-title). */
+.gzs-quote__who {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gzs-quote__disk {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-space-8);
+  block-size: var(--gz-space-8);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-quote__vendor {
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-quote__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+/* The fields have no visible label: the field shell gives back the gap the label row used to take. */
+.gzs-quote__fields .gz-field {
+  gap: 0;
+}
+
+.gzs-quote__fields .gz-field__foot {
+  padding-block-start: var(--gz-space-2);
+}
+
+/* The Send button stays in reach while the fields scroll under it. */
+.gzs-quote__foot {
+  position: sticky; /* flutter-ok: pinned sliver */
+  inset-block-end: 0;
+  z-index: var(--gz-z-raised);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block: var(--gz-space-3);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+  /* Paints paper over the sheet's bottom padding, where the scrolled fields would otherwise show under the button. */
+  box-shadow: 0 var(--gz-space-16) 0 var(--gz-color-sys-surface-raised);
+}
+
+.gzs-quote__note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-1);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- use your voucher ---------- */
+.gzs-quote__voucher {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  padding-inline: var(--gz-space-4);
+  padding-block-end: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.gzs-quote__vsum {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}

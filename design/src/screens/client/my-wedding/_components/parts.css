@@ -1,0 +1,271 @@
+/* Hub parts: lead card, mini meter, tool tile, booking glance, planner module. Tokens only; hairlines before shadows; no gold except the
+   button and the meter line. */
+
+/* ---------- lead card ---------- */
+.gzmw-lead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  border-radius: var(--gz-radius-md);
+}
+
+.gzmw-lead--panel {
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.gzmw-lead--quiet {
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+/* A guest's sample: the word at the start, the one action at the end, on one line. */
+.gzmw-lead.is-inline {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gzmw-lead__body {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gzmw-lead__facts {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gzmw-lead__art {
+  flex: none;
+}
+
+/* The confirm window: the time left as the one big figure of the card, the closing time of day quiet beside it. */
+.gzmw-timer {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gz-space-3);
+}
+
+.gzmw-timer > .gz-icon {
+  align-self: center;
+  flex: none;
+}
+
+.gzmw-timer__left {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* ---------- mini meter ---------- */
+.gzmw-mini {
+  display: flex;
+  block-size: var(--gz-stroke-thread-max);
+}
+
+.gzmw-mini__fill {
+  flex-basis: 0;
+  flex-shrink: 0;
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gzmw-mini__rest {
+  flex-basis: 0;
+  flex-shrink: 0;
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-mark-track);
+}
+
+/* ---------- tool tile: two to a line, equal width ---------- */
+.gzmw-tile {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-week-strip);
+  padding: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzmw-tile__glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  block-size: var(--gz-size-icon-md);
+}
+
+.gzmw-tile__text {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gzmw-tile__value {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The Services tile has no figure: three service glyphs stand where it would be. */
+.gzmw-tile__glyphs {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  block-size: var(--gz-size-icon-md);
+}
+
+.gzmw-tile.is-warn .gzmw-tile__value {
+  color: var(--gz-color-sys-text-danger);
+}
+
+.gzmw-tile__label {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- booking glance ---------- */
+.gzmw-glance {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.gzmw-glance__top {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.gzmw-glance__thumb {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-thumb-md);
+  block-size: var(--gz-size-thumb-md);
+  overflow: hidden;
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gzmw-glance__photo {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+.gzmw-glance__who {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gzmw-glance__name {
+  margin: 0;
+}
+
+.gzmw-glance__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2) var(--gz-space-3);
+}
+
+/* The whole card is one target; the thread above it is a picture. */
+.gzmw-glance__open {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--gz-radius-md);
+  cursor: pointer;
+}
+
+/* ---------- bookings empty: one row, a quiet hairline frame so it reads as the section's one (empty) item ---------- */
+.gzmw-empty {
+  overflow: hidden;
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+/* ---------- planner offer: a quiet note with its drawing, never a banner ---------- */
+.gzmw-offer {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  padding-block: var(--gz-space-2);
+  padding-inline: var(--gz-space-4) var(--gz-space-2);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.gzmw-offer__art {
+  flex: none;
+}
+
+.gzmw-offer__action {
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+/* ---------- assigned planner ---------- */
+.gzmw-planner {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.gzmw-planner__head {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-avatar-md);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzmw-planner__who {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}

@@ -1,0 +1,13 @@
+/* The static frame lays a screen and its tab bar out as the live navigator does: body fills, the bar sits under it. */
+.gz-static__body {
+  flex: 1;
+  min-block-size: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.gz-static__under {
+  flex: 1;
+}

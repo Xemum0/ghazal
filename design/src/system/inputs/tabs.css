@@ -1,0 +1,91 @@
+/* Tabs (direction 3): 48 high, label 15 muted, selected ink-900 500, a 2 px gold thread slides under it on a 1 px ink-300 baseline. */
+
+.gz-tabs {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-tabs__list {
+  position: relative; /* flutter-ok: named overlay anchor, the thread sits inside the list (AnimatedAlign) */
+  display: flex;
+  min-inline-size: 0;
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-strong);
+}
+
+.gz-tabs[data-layout='hug'] .gz-tabs__list {
+  overflow-x: auto;
+  gap: var(--gz-space-6);
+}
+
+.gz-tabs .gz-tabs__tab {
+  flex: 1 1 0;
+  min-inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-control-md);
+  padding-inline: var(--gz-space-2);
+  gap: var(--gz-space-2);
+  justify-content: center;
+  text-align: center;
+  color: var(--gz-color-sys-text-secondary);
+  transition: color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-tabs[data-layout='hug'] .gz-tabs__tab {
+  flex: none;
+  padding-inline: 0;
+}
+
+.gz-tabs .gz-tabs__tab[data-selected] {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-tabs .gz-tabs__tab:disabled {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+/* The label reserves its selected (500) width so selecting a tab never nudges its neighbours. */
+.gz-tabs__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.gz-tabs__text::after {
+  content: attr(data-text);
+  block-size: 0;
+  overflow: hidden;
+  visibility: hidden;
+  font-weight: var(--gz-type-title-weight);
+  pointer-events: none;
+}
+
+.gz-tabs__count {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* The thread: 1 px wide, 2 px high, scaled to the tab's width and translated from the start edge. */
+.gz-tabs__thread {
+  position: absolute; /* flutter-ok: named overlay anchor inside .gz-tabs__list */
+  inset-inline-start: 0;
+  inset-block-end: 0;
+  inline-size: var(--gz-stroke-hair);
+  block-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-khayt);
+  transform-origin: var(--gz-origin-start);
+  transform: translateX(var(--gz-in-x)) scaleX(var(--gz-in-w));
+  pointer-events: none;
+}
+
+.gz-tabs__panel {
+  padding-block-start: var(--gz-space-4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-tabs__thread {
+    transition: none;
+  }
+}

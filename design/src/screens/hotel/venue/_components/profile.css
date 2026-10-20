@@ -1,0 +1,4 @@
+/* Venue profile block (HL-VENU-04). Tokens only; flex + gap only. */
+.hv-prof { display: flex; flex-direction: column; align-items: flex-start; gap: var(--gz-space-3); }
+.hv-prof__chip { display: inline-flex; align-items: center; gap: var(--gz-space-2); }
+.hv-ro-list { display: flex; flex-direction: column; }

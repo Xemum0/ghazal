@@ -1,0 +1,70 @@
+/* Rows of "Packages and extras" (hv-pkg, hv-extra) and the price text pieces. Hairline rows, no cards. Tokens only. */
+
+.hv-pkg {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.hv-pkg[data-last] { border-block-end-width: 0; }
+
+.hv-pkg__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  min-block-size: var(--gz-size-row-min);
+  min-inline-size: 0;
+  padding-block: var(--gz-space-4);
+  text-align: start;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hv-pkg__head { display: flex; align-items: center; min-inline-size: 0; }
+.hv-pkg__name { color: var(--gz-color-sys-text-strong); }
+.hv-pkg[data-inactive] .hv-pkg__name { color: var(--gz-color-sys-text-secondary); }
+
+.hv-pkg__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gz-space-2) var(--gz-space-3); }
+
+.hv-pkg__prices { display: flex; flex-direction: column; gap: var(--gz-space-3); align-self: stretch; }
+.hv-pkg__price { display: flex; flex-direction: column; gap: var(--gz-space-1); }
+.hv-pkg__tier { color: var(--gz-color-sys-text-secondary); }
+.hv-pkg__pair { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--gz-space-2) var(--gz-space-5); }
+.hv-pkg__cell { display: flex; flex-direction: row; align-items: center; gap: var(--gz-space-2); min-inline-size: 0; }
+.hv-pkg__aud { display: inline-flex; align-items: center; }
+.hv-pkg__cap { display: inline-flex; align-items: center; gap: var(--gz-space-1); color: var(--gz-color-sys-text-secondary); }
+.hv-pkg__cell--std { color: var(--gz-color-sys-text-secondary); }
+.hv-pkg__sub { color: var(--gz-color-sys-text-secondary); }
+.hv-pkg__guests { display: flex; align-items: center; gap: var(--gz-space-2); color: var(--gz-color-sys-text-secondary); }
+
+/* the switch keeps its own 44 target, top aligned with the name line */
+.hv-pkg__switch { display: flex; flex: none; align-items: center; justify-content: center; min-block-size: var(--gz-size-touch-min); margin-block-start: var(--gz-space-3); }
+
+.hv-rate { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: var(--gz-space-1); }
+.hv-rate__unit { color: var(--gz-color-sys-text-secondary); }
+
+.hv-extra__range { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--gz-space-1) var(--gz-space-4); }
+
+/* archived section */
+.hv-arch { display: flex; flex-direction: column; }
+.hv-arch__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+  padding-block: var(--gz-space-2);
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+}
+.hv-arch__row { display: flex; align-items: center; justify-content: space-between; gap: var(--gz-space-3); min-block-size: var(--gz-size-row-min); border-block-start-width: var(--gz-stroke-hair); border-block-start-style: solid; border-block-start-color: var(--gz-color-sys-border-hairline); }
+.hv-arch__name { flex: 1; min-inline-size: 0; color: var(--gz-color-sys-text-secondary); }
+.hv-arch__row .gz-btn--tertiary { flex: none; }
+
+/* the standard price is the quiet one of the pair: secondary ink, regular weight */
+.hv-pkg__cell--std .gz-money__amt,
+.hv-pkg__cell--std .gz-money__cur { color: var(--gz-color-sys-text-secondary); }

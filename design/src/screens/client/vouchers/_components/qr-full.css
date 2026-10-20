@@ -1,0 +1,26 @@
+.gzv-qrfull {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-6);
+  padding-block-end: var(--gz-space-4);
+}
+
+.gzv-qrfull > .gzv-sheettop {
+  align-self: stretch;
+}
+
+.gzv-qrfull__plate {
+  display: flex;
+  padding: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-canvas);
+}
+
+.gzv-qrfull__code {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}

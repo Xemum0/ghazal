@@ -1,0 +1,66 @@
+/* PriceStack: the voucher price leads, the standard price is quiet beside it. Tokens only, logical properties, flex + gap. */
+
+.gzs-pstack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzs-pstack--inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-1) var(--gz-space-3);
+}
+
+.gzs-pstack__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--gz-space-2);
+}
+
+.gzs-pstack__glyph {
+  display: inline-flex;
+  align-items: center;
+}
+
+.gzs-pstack__unit {
+  display: inline-flex;
+  align-items: center;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-pstack__sub {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-1) var(--gz-space-3);
+}
+
+/* The old price, struck: currency left of the figure in both languages, each part cut by its own line (a flex item takes no inherited line). */
+.gzs-pstack__was {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--gz-space-1);
+  direction: ltr;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-pstack__cut {
+  text-decoration: line-through;
+  text-decoration-thickness: var(--gz-stroke-hair);
+}
+
+.gzs-pstack__save {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}

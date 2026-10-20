@@ -1,0 +1,114 @@
+/* Shared pieces of the payment flow. Tokens only, logical properties, flex. */
+
+/* ---------- VenuePlate ---------- */
+.pm-plate {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.pm-plate__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.pm-plate__img {
+  display: block;
+  flex: none;
+  inline-size: var(--gz-size-thumb-lg);
+  block-size: var(--gz-size-thumb-lg);
+  border-radius: var(--gz-radius-md);
+  overflow: hidden;
+}
+
+.pm-plate__img .gz-photo__img {
+  display: block;
+  inline-size: var(--gz-size-thumb-lg);
+  block-size: var(--gz-size-thumb-lg);
+  object-fit: cover;
+}
+
+.pm-plate__img--empty {
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.pm-plate__name {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* ---------- PayTimer ---------- */
+.pm-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.pm-timer__value {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The last minute turns to gold-ink: a colour change, no animation, no alarm. */
+.pm-timer__value.is-last-minute {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+/* ---------- TermsStrip: three glyphs on a ruled line, the whole strip one target, the info glyph at the end ---------- */
+.pm-terms {
+  position: relative; /* flutter-ok: anchor of the info glyph at the end of the strip, a Stack */
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-inline-size: 0;
+  padding-block: var(--gz-space-4);
+  border-block-width: var(--gz-stroke-hair);
+  border-block-style: solid;
+  border-block-color: var(--gz-color-sys-border-hairline);
+  text-align: center;
+  cursor: pointer;
+}
+
+.pm-terms__list {
+  display: flex;
+  flex: 1;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.pm-terms__item {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.pm-terms__disk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.pm-terms__label {
+  color: var(--gz-color-sys-text-primary);
+}
+
+.pm-terms__info {
+  position: absolute; /* flutter-ok: the info glyph sits on the corner so the three columns keep the full width */
+  inset-block-start: var(--gz-space-4);
+  inset-inline-end: 0;
+  display: inline-flex;
+  padding-block-start: var(--gz-space-2);
+}

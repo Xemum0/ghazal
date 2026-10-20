@@ -1,0 +1,65 @@
+/* CL-SAVD-01 Saved: the page sits on the 20 gutter; rows are unframed with hairlines (saved-rows.css). Tokens only. */
+
+.svd-saved__page {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-6);
+}
+
+/* Guest note: a quiet rose-100 panel (the one place rose-100 is for): the phone glyph and "This phone only" at inline-start, Sign in at the end. */
+.svd-guest {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  margin-block-end: var(--gz-space-4);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-4);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.svd-guest__text {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  margin: 0;
+}
+
+.svd-guest__text > .gz-icon {
+  flex: none;
+}
+
+.svd-saved__stale {
+  display: flex;
+  padding-block: var(--gz-space-3);
+}
+
+/* The Brief date and what is free on it at inline-start, Select at inline-end. */
+.svd-saved__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  min-block-size: var(--gz-size-control-sm);
+  padding-block-start: var(--gz-space-2);
+}
+
+.svd-saved__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The list's last rule would double the page edge: the final row has no bottom hairline. */
+.svd-saved__list > li:last-child {
+  border-block-end-width: 0;
+}

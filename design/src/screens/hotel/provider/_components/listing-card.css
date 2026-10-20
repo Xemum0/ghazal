@@ -1,0 +1,15 @@
+/* ListingCard: the system card look with the row pinned to the card edges, so the chevron sits at the inline-end edge on every card. */
+.hp-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.hp-card__row {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.hp-card__text {
+  flex: 1;
+  min-inline-size: 0;
+}

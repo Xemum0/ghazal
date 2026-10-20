@@ -1,0 +1,48 @@
+/* CL-BOOK-05 Review: the rows, the price, the voucher, the thread, the consent. Tokens only. */
+
+.bk-section.bk-rv-blocks {
+  gap: var(--gz-space-2);
+}
+
+.bk-section.bk-rv-plan {
+  gap: var(--gz-space-4);
+}
+
+/* The price: its title row sits close to the first rule, the total reads as the end of one column. */
+.bk-section.bk-rv-price {
+  gap: var(--gz-space-1);
+}
+
+.bk-rv-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.bk-rv-head__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.bk-rv-head > .gz-iconbtn {
+  flex: none;
+  position: relative; /* flutter-ok: Transform.translate by the target's slack so the glyph meets the 20 gutter */
+  inset-inline-end: -10px;
+}
+
+.bk-section.bk-rv-skel {
+  gap: var(--gz-space-5);
+}
+
+.bk-rv-skel__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+/* The user's own words: clamped, never longer than three lines. */
+.bk-rv-note {
+  color: var(--gz-color-sys-text-primary);
+}

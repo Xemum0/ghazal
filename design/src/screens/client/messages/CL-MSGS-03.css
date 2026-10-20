@@ -1,0 +1,191 @@
+/* CL-MSGS-03 Conversation details (sheet content). The sheet pads itself with the gutter; sections are ruled, not carded; rows are a glyph
+   and one word. Tokens only. */
+
+.gzm-info__root {
+  position: relative; /* flutter-ok: anchor for the inline dialog of the block-confirm frame */
+}
+
+.gzm-info,
+.gzm-info__step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzm-info__who {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+/* A visit group chat has no monogram (never a face, never a stand-in letter): the group glyph on the rose disk, as in the inbox. */
+.gzm-info__glyph {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-thumb-lg);
+  block-size: var(--gz-size-thumb-lg);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzm-info__who-name {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzm-info__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+/* The shared-media section head: the counts at the start, the info button at the end. */
+.gzm-info__sectionhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.gzm-info__row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2) var(--gz-space-4);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The linked request (or the visit): its facts at the start, the status glyph and a chevron at the end, always one line. */
+.gzm-info__request {
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+button.gzm-info__request {
+  cursor: pointer;
+}
+
+.gzm-info__facts {
+  display: flex;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.gzm-info__end {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gzm-info__rail {
+  display: flex;
+  gap: var(--gz-space-2);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.gzm-info__rail::-webkit-scrollbar {
+  display: none;
+}
+
+.gzm-info__thumb {
+  display: flex;
+  flex: none;
+  inline-size: var(--gz-space-20);
+  block-size: var(--gz-space-20);
+  border-radius: var(--gz-radius-sm);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.gzm-info__photo {
+  display: flex;
+  flex: 1;
+}
+
+.gzm-info__doc {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.gzm-info__doc-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-thumb-sm);
+  block-size: var(--gz-size-thumb-sm);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+.gzm-info__doc-name {
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* Mute, call, report, block: IconListRow rows, ruled by their own hairlines. The system rule curves a pressable row's hairline with the
+   row radius (the mute row, which holds a switch, is not pressable and stays straight); here all four read as one straight list. */
+.gzm-info__list {
+  gap: 0;
+}
+
+.gzm-info__list .gz-row--interactive {
+  border-radius: 0;
+}
+
+/* Block on a thread that cannot be blocked (Support, a visit): the row stays, quiet, with the reason behind its info glyph. */
+.gzm-info__locked {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- report steps ---------- */
+.gzm-info__radios {
+  display: flex;
+  flex-direction: column;
+}
+
+.gzm-info__msg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  padding-block: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gzm-info__msg-text {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzm-info__msg-time {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzm-info__dialog {
+  position: absolute; /* flutter-ok: the confirm dialog sits over the sheet on its scrim (Stack) */
+  inset-block: 0;
+  inset-inline: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  background: var(--gz-color-sys-scrim-modal);
+}

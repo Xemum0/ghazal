@@ -1,0 +1,302 @@
+/* VoucherCard and VoucherChip. Paper ticket on the canvas: 1 px ink hairline, radius 12, a dashed perforation with two notches that
+   take the surrounding ground (--gz-vch-ground, default canvas). Tokens only, flex + gap, logical properties. */
+
+.gz-vch {
+  --gz-vch-ground: var(--gz-color-sys-surface-canvas);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-vch__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gz-vch__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-vch__who {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-vch__target {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.gz-vch__facts {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* The bound quote: two cells, the standard price quiet and struck through, the voucher price in the figures voice. */
+.gz-vch__quote {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gz-space-6);
+  margin: 0;
+}
+
+.gz-vch__q {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-vch__qicon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-vch__q dd {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-vch__q--voucher dd {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The two halves of the ticket carry the card padding; the perforation between them runs edge to edge. */
+.gz-vch__top,
+.gz-vch__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+}
+
+.gz-vch__top {
+  border-block-end-width: 0;
+  border-start-start-radius: var(--gz-radius-md);
+  border-start-end-radius: var(--gz-radius-md);
+}
+
+.gz-vch__bottom {
+  border-block-start-width: 0;
+  border-end-start-radius: var(--gz-radius-md);
+  border-end-end-radius: var(--gz-radius-md);
+}
+
+/* Perforation: [cap][dashed hairline][cap]. Each cap is a half-disc in the surrounding ground that bites into the card edge. */
+.gz-vch__perf {
+  display: flex;
+  align-items: center;
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.gz-vch__dash {
+  flex: 1;
+  block-size: 0;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: dashed;
+  border-block-start-color: var(--gz-color-sys-border-strong);
+}
+
+.gz-vch__cap {
+  flex: none;
+  inline-size: var(--gz-space-2);
+  block-size: var(--gz-space-4);
+  background-color: var(--gz-vch-ground);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+}
+
+.gz-vch__cap:first-child {
+  border-inline-start-width: 0;
+  border-start-end-radius: var(--gz-radius-sm);
+  border-end-end-radius: var(--gz-radius-sm);
+}
+
+.gz-vch__cap:last-child {
+  border-inline-end-width: 0;
+  border-start-start-radius: var(--gz-radius-sm);
+  border-end-start-radius: var(--gz-radius-sm);
+}
+
+.gz-vch__stub {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-4) var(--gz-space-5);
+  min-inline-size: 0;
+}
+
+.gz-vch__qr {
+  display: inline-flex;
+  flex: none;
+  padding: var(--gz-space-2);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-canvas);
+}
+
+.gz-vch__codeblock {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-vch__code-label {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-vch__code-value {
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.gz-vch__valid,
+.gz-vch__hint {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-vch__actions {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.gz-vch__actions > * {
+  flex: 1 1 0;
+}
+
+/* ---------- slim: the voucher on its own booking (QR, code, validity, two actions) ---------- */
+.gz-vch--slim {
+  gap: var(--gz-space-4);
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+/* A centred column: the QR, the code under it, the validity under that. No empty space beside a 128 QR, and the code never breaks mid-token. */
+.gz-vch__stub--slim {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  text-align: center;
+}
+
+.gz-vch__stub--slim .gz-vch__codeblock {
+  flex: none;
+  align-items: center;
+}
+
+.gz-vch__stub--slim .gz-frow {
+  justify-content: center;
+}
+
+/* ---------- compact: the wallet row ---------- */
+.gz-vch--compact {
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.gz-vch__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-4);
+  text-align: start;
+  color: inherit;
+  cursor: default;
+}
+
+button.gz-vch__row {
+  cursor: pointer;
+}
+
+.gz-vch__icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-md);
+  block-size: var(--gz-size-avatar-md);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.gz-vch__row-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-vch__name {
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.gz-vch__code {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- chip ---------- */
+.gz-vchip {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-2);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: transparent;
+  border-radius: var(--gz-radius-xs);
+  white-space: nowrap;
+}
+
+.gz-vchip--bound {
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-vchip--ready {
+  background-color: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}
+
+.gz-vchip--quiet {
+  border-color: var(--gz-color-sys-border-strong);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-vchip__code {
+  color: inherit;
+}

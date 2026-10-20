@@ -1,0 +1,129 @@
+/* InboxRow: monogram, name + time, one line of preview + unread count, then the booking context. */
+
+.ht-inbox {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ht-inbox__main {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-queue);
+  padding-block: var(--gz-space-4);
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+  cursor: pointer;
+}
+
+.ht-inbox__main:disabled { cursor: default; }
+
+.ht-inbox__avatar { display: inline-flex; flex: none; }
+
+.ht-inbox__text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.ht-inbox__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.ht-inbox__name {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.ht-inbox__time {
+  flex: none;
+  color: var(--gz-color-sys-text-secondary);
+  white-space: nowrap;
+}
+
+.ht-inbox__line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.ht-inbox__preview {
+  display: flex;
+  flex: 1 1 0;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* a shrink-to-fit box that sits at the UI start; its own text direction decides where the ellipsis falls */
+.ht-inbox__preview-text {
+  flex: 0 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ht-inbox__preview.is-unread { color: var(--gz-color-sys-text-strong); }
+
+.ht-inbox__you { display: inline-flex; align-items: center; flex: none; margin-inline-end: var(--gz-space-1); }
+
+.ht-inbox__facts { column-gap: var(--gz-space-3); margin-block-start: var(--gz-space-1); }
+
+.ht-inbox__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-space-6);
+  block-size: var(--gz-space-6);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-status-neutral-bg);
+  color: var(--gz-color-sys-status-neutral-text);
+}
+
+.ht-inbox__rule {
+  display: block;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-border-hairline);
+}
+
+/* a visit group chat: a group glyph in place of a monogram, and the three role chips */
+.ht-inbox__group {
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.ht-inbox__roles {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.ht-inbox__role {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-space-6);
+  block-size: var(--gz-space-6);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-icon-secondary);
+}

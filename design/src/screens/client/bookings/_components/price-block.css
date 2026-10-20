@@ -1,0 +1,85 @@
+/* PriceBlock: ruled, no panel. Two cells say who is paid what (Ghazal: the KD 2 voucher, paid; the venue: paid directly, off-app, the larger
+   cell), then one quiet line of facts (struck standard price, the saving, the price per guest). Tokens only; flex + gap. */
+.gzb-price {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzb-price__lines {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzb-price__line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-lg);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzb-price__name {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzb-price__amounts {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--gz-space-1);
+}
+
+.gzb-price__cells {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.gzb-price__cell {
+  display: flex;
+  flex: 2 1 0;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.gzb-price__cellhead {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-block-size: var(--gz-size-icon-sm);
+}
+
+.gzb-price__off {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzb-price__cell--ghazal {
+  flex: 1 1 0;
+}
+
+.gzb-price__facts {
+  column-gap: var(--gz-space-4);
+}

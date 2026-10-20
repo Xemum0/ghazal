@@ -1,0 +1,20 @@
+/* CL-WEDD-04 Add expense (sheet). The sheet brings the 20 gutter. Field stack 16 apart, the primary pinned under it. Tokens only. */
+
+.gzmw-exp__cur {
+  flex: none;
+}
+
+/* The success moment: one quiet drawing, one display word, the facts, on one centre line (a single-purpose composition, ADR 0034 D7).
+   Nothing moves after it lands. */
+.gzmw-exp__done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-6);
+  text-align: center;
+}
+
+.gzmw-exp__done > h3 {
+  margin: 0;
+}

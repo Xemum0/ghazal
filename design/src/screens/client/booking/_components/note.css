@@ -1,0 +1,48 @@
+/* StateNote: a state line with something to do. Tokens only. */
+
+.bk-note-card {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-4);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.bk-note-card__icon {
+  flex: none;
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.bk-note-card__body {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.bk-note-card__text {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.bk-note-card .bk-note-card__info {
+  flex: none;
+}
+
+.bk-note-card.is-danger {
+  background-color: var(--gz-color-sys-status-danger-bg);
+  color: var(--gz-color-sys-status-danger-text);
+}
+
+.bk-note-card.is-danger .bk-note-card__text {
+  color: var(--gz-color-sys-status-danger-text);
+}
+
+.bk-note-card.is-danger .bk-note-card__icon {
+  color: var(--gz-color-sys-icon-danger);
+}

@@ -1,0 +1,21 @@
+.gzm-sheethead {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-md);
+}
+
+/* The title and its info glyph sit together at the start; the close button is alone at the end. */
+.gzm-sheethead__lead {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzm-sheethead__title {
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}

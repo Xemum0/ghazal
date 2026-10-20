@@ -1,0 +1,114 @@
+/* Launcher chrome: a calm ivory stage with one phone. Not product UI, so it may use transform for scaling the device. */
+.gz-launch {
+  min-block-size: 100dvh; /* flutter-ok: web-only launcher chrome, not product UI */
+  overflow: hidden; /* the page never scrolls: only the app inside the phone does */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-1);
+  background: var(--gz-color-sys-surface-canvas);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-launch__bar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-3);
+  block-size: 64px;
+  padding-inline: var(--gz-space-4);
+  inline-size: 100%; /* flutter-ok: web-only launcher chrome */
+}
+
+.gz-launch__bar .gz-seg {
+  flex: none;
+  min-inline-size: 168px;
+}
+
+.gz-launch__restart {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-block-size: 44px;
+  padding-inline: var(--gz-space-3);
+  background: transparent;
+  border: 0;
+  color: var(--gz-color-sys-text-gold-ink, var(--gz-color-sys-text-primary));
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.gz-launch__stage {
+  flex: none;
+  position: relative;
+}
+
+.gz-launch__phone {
+  /* Centred on the stage by its own midline, then scaled about the top centre. Physical `left` is deliberate: the
+     translate is physical too, so this must not mirror in RTL. */
+  position: absolute;
+  inset-block-start: 0;
+  /* stylelint-disable-next-line csstools/use-logical */
+  left: 50%; /* flutter-ok: web-only launcher chrome */
+  transform-origin: top center;
+  inline-size: max-content;
+}
+
+.gz-launch__full {
+  flex: 1;
+  inline-size: 100%; /* flutter-ok: web-only launcher chrome */
+  display: flex;
+  justify-content: center;
+}
+
+/* On a handheld the bar overlays nothing: keep it compact and let the prototype take the rest. */
+@media (max-width: 520px) {
+  .gz-launch {
+    gap: 0;
+  }
+  .gz-launch__bar {
+    gap: var(--gz-space-2);
+    block-size: 60px;
+  }
+  .gz-launch__bar .gz-seg {
+    flex: 1;
+    min-inline-size: 0;
+  }
+  .gz-launch__lang {
+    flex: none;
+    min-inline-size: 52px;
+    min-block-size: 44px;
+    padding-inline: var(--gz-space-3);
+    border: 1px solid var(--gz-color-sys-border-strong, currentColor);
+    border-radius: var(--gz-radius-sm);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+  /* Icon-only restart: the two switches keep their labels. */
+  .gz-launch__restart {
+    min-inline-size: 44px;
+    justify-content: center;
+    padding-inline: 0;
+    text-decoration: none;
+  }
+  .gz-launch__restart-label {
+    display: none;
+  }
+  /* The real device owns the notch and home indicator. */
+  .gz-launch__full {
+    padding-block-end: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+/* Pin the document itself: no rubber-banding, no page scroll behind the prototype. */
+html:has([data-gz-route="launcher"]),
+body:has([data-gz-route="launcher"]) {
+  overflow: hidden;
+  overscroll-behavior: none;
+  block-size: 100%; /* flutter-ok: web-only launcher chrome */
+}

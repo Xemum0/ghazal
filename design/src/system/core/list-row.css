@@ -1,0 +1,79 @@
+/* ListRow: min 64 / 80, gutter 20 inside, hairline under. The pressed state is the quiet surface (ink-50) edge to edge. */
+
+.gz-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+}
+
+.gz-row--queue {
+  min-block-size: var(--gz-size-row-queue);
+}
+
+.gz-row--flush {
+  padding-inline: 0;
+}
+
+.gz-row--last {
+  border-block-end-color: transparent;
+}
+
+/* Focus ring and pressed fill follow the control radius. */
+.gz-row--interactive {
+  border-radius: var(--gz-radius-sm);
+  inline-size: 100%; /* flutter-ok: a row fills its list (ListTile) */
+  cursor: pointer;
+  transition: background-color var(--gz-motion-duration-fast) var(--gz-motion-ease-standard);
+}
+
+.gz-row--interactive:active,
+.gz-row--interactive.is-pressed {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-row.is-selected {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-row__leading {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.gz-row__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-row__title {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-row__sub {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-row__trailing {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-row--danger .gz-row__title {
+  color: var(--gz-color-sys-text-danger);
+}

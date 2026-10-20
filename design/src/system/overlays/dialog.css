@@ -1,0 +1,66 @@
+.gz-dialoglayer {
+  position: absolute; /* flutter-ok: showDialog route overlay */
+  inset: 0;
+  z-index: var(--gz-z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gz-dialog {
+  position: relative;
+  z-index: var(--gz-z-modal);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-5);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-2);
+  outline: none;
+}
+
+.gz-dialog--inline {
+  flex: none;
+}
+
+.gz-dialog--leave {
+  animation: gz-fade-out var(--gz-motion-duration-fast) var(--gz-motion-ease-exit) both;
+}
+
+.gz-dialog__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-control-md);
+  block-size: var(--gz-size-control-md);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.gz-dialog__icon--danger {
+  background: var(--gz-color-sys-status-danger-bg);
+  color: var(--gz-color-sys-icon-danger);
+}
+
+.gz-dialog__title {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-dialog__body {
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-dialog__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-3);
+}

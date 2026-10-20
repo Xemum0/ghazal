@@ -1,0 +1,159 @@
+/* Shared pieces of the hotel venue flow (hv-). Gutter 20, sections 32 apart, hairlines and tone before shadows, gold only on the one primary.
+   Tokens only; logical properties only; flex and gap only. */
+
+.hv-root {
+  position: relative; /* flutter-ok: anchor of the state overlays (sheet, dialog) in a static frame (Stack) */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-block-size: 0;
+}
+
+.hv-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-5) var(--gz-space-8);
+}
+
+.hv-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.hv-section__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+/* ---------- facts, errors, chips ---------- */
+.hv-fact {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hv-fact > .gz-icon { flex: none; margin-block-start: var(--gz-space-1); }
+.hv-fact__text { flex: 1; min-inline-size: 0; }
+
+.hv-err {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-danger);
+}
+
+.hv-err > .gz-icon { flex: none; margin-block-start: var(--gz-space-1); }
+.hv-err__text { flex: 1; min-inline-size: 0; }
+
+.hv-cur { color: var(--gz-color-sys-text-secondary); }
+
+.hv-bi { display: flex; flex-direction: column; gap: var(--gz-space-3); min-inline-size: 0; }
+.hv-bi__helper { margin: 0; color: var(--gz-color-sys-text-secondary); }
+.hv-bi > .hv-lang { align-self: flex-start; }
+
+/* the language chip: a quiet tone label with a glyph; it wraps instead of clipping (a missing language is a to-do, not an error) */
+.hv-lang {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-3);
+  background: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-xs);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hv-lang > .gz-icon { flex: none; margin-block-start: var(--gz-space-1); }
+.hv-lang__text { min-inline-size: 0; }
+
+.hv-guest { display: flex; flex-direction: column; gap: var(--gz-space-2); min-inline-size: 0; }
+
+/* ---------- the read-only note ---------- */
+.hv-note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-panel-pad);
+  background: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hv-note > .gz-icon { flex: none; margin-block-start: var(--gz-space-1); }
+.hv-note__text { display: flex; flex: 1; flex-direction: column; align-items: flex-start; min-inline-size: 0; }
+.hv-note__text > p { margin: 0; }
+.hv-note__cta.gz-btn--tertiary { padding-inline: 0; }
+
+.hv-ro {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  min-block-size: var(--gz-size-touch-min);
+  padding-block: var(--gz-space-2);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.hv-ro:last-child { border-block-end-width: 0; }
+.hv-ro__label { color: var(--gz-color-sys-text-primary); }
+.hv-ro__value { color: var(--gz-color-sys-text-strong); text-align: end; }
+
+/* ---------- the dashboard sheet ---------- */
+.hv-dash { display: flex; flex-direction: column; gap: var(--gz-space-4); padding-block-start: var(--gz-space-2); }
+.hv-dash__lead { margin: 0; color: var(--gz-color-sys-text-strong); }
+.hv-dash__list { display: flex; flex-direction: column; gap: var(--gz-space-3); margin: 0; padding: 0; list-style: none; color: var(--gz-color-sys-text-primary); }
+.hv-dash__item { display: flex; align-items: flex-start; gap: var(--gz-space-3); }
+.hv-dash__item > .gz-icon { flex: none; margin-block-start: var(--gz-space-1); }
+.hv-dash__why { margin: 0; color: var(--gz-color-sys-text-secondary); }
+
+/* ---------- sheet column (body scrolls, footer pinned) ---------- */
+.hv-sheet { display: flex; flex-direction: column; min-inline-size: 0; }
+
+.hv-sheet__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-block: var(--gz-space-2) var(--gz-space-3);
+}
+
+.hv-sheet__content > * { flex: none; }
+.hv-sheet__content > .hv-lang { align-self: flex-start; }
+
+.hv-sheet__foot {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+/* ---------- skeletons ---------- */
+.hv-skel { display: flex; flex-direction: column; gap: var(--gz-space-4); padding-inline: var(--gz-space-gutter); padding-block: var(--gz-space-5); }
+.hv-skel__row { display: flex; align-items: center; gap: var(--gz-space-4); }
+.hv-skel__col { display: flex; flex: 1; flex-direction: column; gap: var(--gz-space-2); min-inline-size: 0; }
+
+/* ---------- padded body (loading and error frames) ---------- */
+.hv-pad { display: flex; flex-direction: column; padding-inline: var(--gz-space-gutter); padding-block: var(--gz-space-5); }
+
+.hv-field { display: flex; flex-direction: column; gap: var(--gz-space-2); min-inline-size: 0; }

@@ -1,0 +1,99 @@
+/* ThreadKnot and ThreadBead. The base knot geometry and states (open / now / tied) live in styles/thread.css; this file adds the
+   fixed slot (so the now ring never shifts a neighbour), the glyph size, the ended tones and the bead tones. */
+
+/* Slot = the outer size of the `now` knot: 20 + 2 x (3 gap + 3 ring) = 32; compact 12 + 12 = 24. */
+.gz-knot-slot {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-icon-lg);
+  block-size: var(--gz-size-icon-lg);
+}
+
+.gz-knot-slot--compact {
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+}
+
+/* align="start": the compact knot hugs the inline-start edge of its slot, so a thread of compact knots lines up with the card text. */
+.gz-knot-slot--start {
+  justify-content: flex-start;
+}
+
+.gz-knot__glyph {
+  inline-size: var(--gz-size-knot-compact);
+  block-size: var(--gz-size-knot-compact);
+}
+
+/* ended: a terminal knot with its glyph. x and the clock are solid in their tone with a canvas glyph (legible at 20 px);
+   no-show is the danger outline; refunded is the return arrow on a rose-100 ring (direction 4). */
+.gz-knot--ended-danger,
+.gz-knot--ended-danger-outline,
+.gz-knot--ended-neutral,
+.gz-knot--ended-rose {
+  box-sizing: border-box;
+  border-width: var(--gz-stroke-icon);
+  border-style: solid;
+}
+
+.gz-knot--ended-danger {
+  border-color: var(--gz-color-sys-status-danger-text);
+  background-color: var(--gz-color-sys-status-danger-text);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-knot--ended-danger-outline {
+  border-color: var(--gz-color-sys-status-danger-text);
+  background-color: var(--gz-color-sys-surface-canvas);
+  color: var(--gz-color-sys-status-danger-text);
+}
+
+.gz-knot--ended-neutral {
+  border-color: var(--gz-color-sys-text-secondary);
+  background-color: var(--gz-color-sys-text-secondary);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-knot--ended-rose {
+  border-color: var(--gz-color-sys-text-secondary);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-primary);
+}
+
+/* On an ink panel the dark tones would vanish: they become pale outlines. */
+.gz-on-dark .gz-knot--ended-danger,
+.gz-on-dark .gz-knot--ended-danger-outline {
+  border-color: var(--gz-color-sys-status-danger-bg);
+  background-color: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-status-danger-bg);
+}
+
+.gz-on-dark .gz-knot--ended-neutral {
+  border-color: var(--gz-color-sys-text-on-dark-muted);
+  background-color: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark-muted);
+}
+
+/* ---------- bead ---------- */
+.gz-bead-box {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-space-3);
+  block-size: var(--gz-space-3);
+}
+
+.gz-bead--ink {
+  background-color: var(--gz-color-sys-text-strong);
+}
+
+/* Hollow: a bordered diamond (borders, never inset shadows). */
+.gz-bead--hollow {
+  box-sizing: border-box;
+  background-color: var(--gz-color-sys-surface-canvas);
+  border-width: var(--gz-stroke-icon);
+  border-style: solid;
+  border-color: var(--gz-color-sys-mark-open);
+}

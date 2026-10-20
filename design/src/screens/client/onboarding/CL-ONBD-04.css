@@ -1,0 +1,83 @@
+/* CL-ONBD-04 Wedding date. A ruled "your date" strip (hairline above and below, not a panel), the occasions, the two alternatives. */
+.obd-date__strip {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-space-16);
+  box-sizing: border-box;
+  padding-block: var(--gz-space-3);
+  border-block-width: var(--gz-stroke-hair);
+  border-block-style: solid;
+  border-block-color: var(--gz-color-sys-border-hairline);
+}
+
+.obd-date__icon {
+  flex: none;
+  display: flex;
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.obd-date__icon--muted {
+  color: var(--gz-color-sys-icon-disabled);
+}
+
+/* The date and its Hijri line take the free width; the time left sits at inline-end. */
+.obd-date__text {
+  flex: 1;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.obd-date__date,
+.obd-date__hijri,
+.obd-date__none {
+  margin: 0;
+}
+
+.obd-date__hijri,
+.obd-date__none {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.obd-date__occasions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}
+
+/* The two alternatives to a day. Chips, equal size, on the same row. */
+.obd-date__alts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+}
+
+.obd-months {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-end: var(--gz-space-2);
+}
+
+.obd-months__row {
+  display: flex;
+  gap: var(--gz-space-2);
+}
+
+.obd-months .obd-months__chip {
+  flex: 1;
+  min-inline-size: 0;
+  justify-content: center;
+}
+
+/* A selected chip trades 4 px of start padding for its bead; give the 4 px back at the end so equal-width tiles stay equal. */
+.obd-months .obd-months__chip.is-selected {
+  padding-inline-end: var(--gz-space-5);
+}
+
+/* The list takes programmatic focus when the sheet opens (so a screen reader lands inside it); it is not a control, so no ring. */
+.obd-months:focus-visible {
+  outline-style: none;
+}

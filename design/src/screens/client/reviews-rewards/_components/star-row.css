@@ -1,0 +1,37 @@
+/* StarRow. 48 / 44 targets, gold-700 glyphs when on (informative gold), a hairline outline when off. */
+
+.rvs {
+  display: flex;
+  align-items: center;
+}
+
+.rvs--spread {
+  justify-content: space-between;
+}
+
+.rvs__star {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  block-size: var(--gz-size-control-sm);
+  inline-size: var(--gz-size-control-sm);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-border-control);
+  cursor: pointer;
+}
+
+.rvs--lg .rvs__star {
+  block-size: var(--gz-size-control-md);
+  inline-size: var(--gz-size-control-md);
+}
+
+.rvs__star.is-on {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.rvs__star:disabled {
+  color: var(--gz-color-sys-icon-disabled);
+  cursor: default;
+}

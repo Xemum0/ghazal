@@ -1,0 +1,170 @@
+/* ChecklistRow. 64 minimum, a 44 check target around a 24 box, hairline under. Done is quiet ink. The check draws once in the fast token. */
+
+.gzmw-task {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding-inline-start: var(--gz-space-3);
+  padding-inline-end: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzmw-task.is-last {
+  border-block-end-color: transparent;
+}
+
+.gzmw-task__target {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-pill);
+  cursor: pointer;
+}
+
+.gzmw-task__target[aria-disabled='true'] {
+  cursor: default;
+}
+
+.gzmw-task__box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+  border-width: var(--gz-stroke-icon);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-control-bg);
+  color: var(--gz-color-sys-control-toggle-knob);
+  transition:
+    background-color var(--gz-motion-duration-fast) var(--gz-motion-ease-standard),
+    border-color var(--gz-motion-duration-fast) var(--gz-motion-ease-standard);
+}
+
+.gzmw-task__target.is-on .gzmw-task__box {
+  border-color: var(--gz-color-sys-control-toggle-on);
+  background-color: var(--gz-color-sys-control-toggle-on);
+}
+
+.gzmw-task__check {
+  inline-size: var(--gz-size-icon-xs);
+  block-size: var(--gz-size-icon-xs);
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.gzmw-task__check.is-drawing path {
+  animation: gzmw-check-draw var(--gz-motion-duration-fast) var(--gz-motion-ease-standard) both;
+}
+
+@keyframes gzmw-check-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+.gzmw-task__glyph {
+  flex: none;
+  margin-inline-start: var(--gz-space-2);
+}
+
+.gzmw-task__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+  padding-block: var(--gz-space-3);
+  padding-inline-start: var(--gz-space-1);
+}
+
+.gzmw-task__title {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzmw-task.is-done .gzmw-task__title {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzmw-task__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-1) var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzmw-task__lock {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* An overdue date: the warning glyph and the date in the danger text (never colour alone). */
+.gzmw-task__due {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.gzmw-task__due.is-overdue {
+  color: var(--gz-color-sys-text-danger);
+}
+
+.gzmw-task__due > .gz-icon {
+  flex: none;
+}
+
+/* ---------- progress head: the figure, its fraction, the line ---------- */
+.gzmw-prog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzmw-prog__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gzmw-prog__frac {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzmw-prog__track {
+  display: flex;
+  block-size: var(--gz-stroke-thread-max);
+}
+
+.gzmw-prog__fill {
+  flex-basis: 0;
+  flex-shrink: 0;
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gzmw-prog__rest {
+  flex-basis: 0;
+  flex-shrink: 0;
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-mark-track);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gzmw-task__check.is-drawing path {
+    animation: none;
+  }
+}

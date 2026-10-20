@@ -1,0 +1,39 @@
+/* CL-ONBD-02 Introduction. The wordmark and Skip on the canvas, the pager that owns the free height (each page centres one drawing and
+   its five words), the thread below. */
+.obd-intro {
+  display: flex;
+  flex-direction: column;
+}
+
+.obd-intro__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  block-size: var(--gz-size-control-lg);
+  box-sizing: content-box;
+  padding-block-start: var(--gz-safe-top);
+  padding-inline-start: var(--gz-space-gutter);
+  /* Skip is a tertiary button with 8 px of its own padding: its text edge lands on the gutter. */
+  padding-inline-end: var(--gz-space-3);
+}
+
+/* The pager takes the height between the top row and the thread; every page is a column so the slide can centre in it. */
+.obd-intro__pager {
+  flex: 1;
+  min-block-size: 0;
+  display: flex;
+}
+
+.obd-intro__pager .gz-pager__track {
+  flex: 1;
+}
+
+.obd-intro__pager .gz-pager__page {
+  display: flex;
+  flex-direction: column;
+}
+
+.obd-intro__thread {
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-6);
+}

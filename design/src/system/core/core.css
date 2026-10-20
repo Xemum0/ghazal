@@ -1,0 +1,39 @@
+/* Shared rules for the core components (system/core). Loaded by every component file that needs them.
+   1. Forced states: the gallery shows pressed and focus-visible without a pointer or a keyboard, so each state has a class twin
+      (.is-pressed, .is-focus). Product screens never set these classes; the browser's :active and :focus-visible do the work.
+   2. The press scale is the motion token (direction 2.7): tone step per component, plus scale .985 over 120 ms. */
+
+[data-gz].is-focus {
+  outline-width: var(--gz-stroke-focus);
+  outline-style: solid;
+  outline-color: var(--gz-color-sys-focus-ring);
+  outline-offset: var(--gz-stroke-focus-offset);
+}
+
+.gz-on-dark [data-gz].is-focus {
+  outline-color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-press.is-pressed {
+  transform: scale(var(--gz-motion-scale-press));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-press.is-pressed {
+    transform: none;
+  }
+}
+
+/* Buttons and rows reset the browser's chrome: colour, border, font and tap highlight come from the component. */
+.gz-reset {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}

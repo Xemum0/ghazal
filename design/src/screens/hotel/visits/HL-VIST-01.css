@@ -1,0 +1,26 @@
+/* HL-VIST-01 Visit requests. Cards on the 20 gutter, 12 apart; the segmented control sits under the large title like the Bookings tab. */
+
+.hv-head { display: flex; flex-direction: column; }
+.hv-head__seg { padding-inline: var(--gz-space-gutter); padding-block-end: var(--gz-space-3); }
+
+.hv-seg { display: flex; align-items: center; justify-content: center; gap: var(--gz-space-1); min-inline-size: 0; }
+/* The label gives way to the count badge: it truncates, the badge never clips. */
+.hv-seg__text { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hv-seg > .gz-count { flex: none; }
+/* The Requested segment carries the count, so it takes a larger share of the track. */
+.hv-head__seg .gz-seg button.gz-seg__opt:first-of-type { flex-grow: 1.2; }
+.hv-head__seg .gz-seg button.gz-seg__opt { padding-inline: var(--gz-space-2); }
+
+.hv-queue { padding-block-end: var(--gz-space-6); }
+.hv-queue__note { padding-inline: var(--gz-space-gutter); padding-block-end: var(--gz-space-3); }
+
+.hv-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: 0;
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-1);
+  list-style: none;
+}

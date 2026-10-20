@@ -1,0 +1,284 @@
+/* Checklist and budget. Bars are flex ratios (no widths); gold lines are state (progress, committed), never decoration. */
+
+/* ---------- checklist progress ---------- */
+.gz-cprog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gz-cprog__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gz-cprog__label {
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-cprog__pct {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-cprog__track {
+  display: flex;
+  block-size: var(--gz-stroke-thread-max);
+}
+
+.gz-cprog__fill {
+  flex-basis: 0;
+  flex-shrink: 0;
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-cprog__rest {
+  flex-basis: 0;
+  flex-shrink: 0;
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-mark-track);
+}
+
+/* ---------- checklist item ---------- */
+.gz-cli {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-cli.is-last {
+  border-block-end-width: 0;
+}
+
+.gz-cli__box-target {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-pill);
+  cursor: pointer;
+}
+
+.gz-cli__box-target[aria-disabled='true'] {
+  cursor: default;
+}
+
+.gz-cli__box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+  border-width: var(--gz-stroke-icon);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-surface-raised);
+  color: var(--gz-color-sys-control-toggle-knob);
+  transition:
+    background-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard),
+    border-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-cli__box-target.is-on .gz-cli__box {
+  border-color: var(--gz-color-sys-control-toggle-on);
+  background-color: var(--gz-color-sys-control-toggle-on);
+}
+
+.gz-cli__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+  padding-block: var(--gz-space-3);
+}
+
+.gz-cli__title {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-cli.is-done .gz-cli__title {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-cli__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-cli__meta.is-overdue {
+  color: var(--gz-color-sys-text-danger);
+}
+
+.gz-cli__go {
+  flex: none;
+}
+
+/* ---------- budget ---------- */
+.gz-budget {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.gz-budget__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gz-budget__label {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* The stacked bar: paid (ink-700), committed (gold-500, waiting money), the rest on the track. 4 px, segments by flex ratio. */
+.gz-budget__bar {
+  display: flex;
+  gap: var(--gz-stroke-thread);
+  block-size: var(--gz-stroke-thread-max);
+}
+
+.gz-budget__bar--row {
+  block-size: var(--gz-stroke-thread);
+}
+
+.gz-budget__seg {
+  flex-basis: 0;
+  flex-shrink: 0;
+  border-radius: var(--gz-radius-pill);
+}
+
+.gz-budget__seg.is-paid,
+.gz-budget__swatch.is-paid {
+  background-color: var(--gz-color-sys-surface-dark-raised);
+}
+
+.gz-budget__seg.is-committed,
+.gz-budget__swatch.is-committed {
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-budget__seg.is-rest,
+.gz-budget__swatch.is-rest {
+  background-color: var(--gz-color-sys-mark-track);
+}
+
+.gz-budget__stats {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.gz-budget__stat {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-budget__key {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-budget__swatch {
+  flex: none;
+  inline-size: var(--gz-space-2);
+  block-size: var(--gz-space-2);
+  border-radius: var(--gz-radius-pill);
+}
+
+.gz-budget__alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: var(--gz-space-3);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-status-danger-bg);
+  color: var(--gz-color-sys-text-danger);
+}
+
+.gz-budget__alert > .gz-icon {
+  flex: none;
+}
+
+.gz-budget__head {
+  margin: 0;
+  padding-block-start: var(--gz-space-4);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-primary);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-budget__rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.gz-budget__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-budget__icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-thumb-sm);
+  block-size: var(--gz-size-thumb-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-budget__what {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-budget__name {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-budget__amounts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-1) var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-budget__over {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-danger);
+}

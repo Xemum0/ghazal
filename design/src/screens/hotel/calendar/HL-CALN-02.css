@@ -1,0 +1,12 @@
+/* HL-CALN-02 Week view. The rows carry their own gutter (the peak wash runs edge to edge); notes sit on the 20 gutter. Tokens only. */
+
+.cal-w {
+  padding-block-end: var(--gz-space-8);
+}
+
+.cal-w .cal-wk {
+  padding-block-start: var(--gz-space-2);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}

@@ -1,0 +1,7 @@
+/* CL-BOOK-01 Your event: the session chips and the sheet the occasion opens. Tokens only. */
+
+.bk-session {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}

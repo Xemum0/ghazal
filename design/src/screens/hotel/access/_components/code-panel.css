@@ -1,0 +1,52 @@
+/* The code step: the six cells are the system OtpInput; this is the rhythm around them. Tokens only. */
+.hxa-code {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.hxa-code__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+/* A lone tertiary link under the cells starts at the column's start edge (the delivery-failed view). */
+.hxa-code > .gz-btn--tertiary {
+  align-self: flex-start;
+}
+
+/* Attempts left after a wrong code: five quiet pips, filled while an attempt remains. */
+.hxa-pips {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.hxa-pip {
+  inline-size: var(--gz-size-dot-off);
+  block-size: var(--gz-size-dot-off);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-mark-track);
+}
+
+.hxa-pip.is-on {
+  background: var(--gz-color-sys-icon-primary);
+}
+
+/* Done: the seal, the outcome in two words (SuccessState), one fact (how long the device stays trusted). A single-purpose composition, so it centres. */
+.hxa-done {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-1);
+  padding-block-start: var(--gz-space-8);
+}
+
+.hxa-done .gz-state {
+  padding-inline: 0;
+  padding-block-end: var(--gz-space-2);
+}

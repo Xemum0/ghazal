@@ -1,0 +1,58 @@
+/* CL-PROF-03 Personal info. Gutter 20; 24 between blocks; the monogram sits beside the name field. Tokens only. */
+
+.gzpr-pers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+}
+
+.gzpr-pers__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzpr-pers__name {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-4);
+}
+
+.gzpr-pers__name > .gz-avatar {
+  flex: none;
+}
+
+.gzpr-pers__name > :last-child {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* The phone label with its info glyph right beside it (the glyph explains the label, not the row); the 44 target extends inline-end. */
+.gzpr-pers__label {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.gzpr-pers__label > p {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzpr-pers__phone {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.gzpr-pers__number {
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}

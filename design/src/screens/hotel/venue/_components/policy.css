@@ -1,0 +1,35 @@
+/* Venue terms pieces (HL-VENU-05): voucher terms panel and opening-hours rows. Ink tones only, no gold fills. Tokens only. */
+
+.hv-vt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-panel-pad);
+  background: var(--gz-color-sys-surface-tint);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hv-vt__head { display: flex; align-items: center; gap: var(--gz-space-2); margin: 0; color: var(--gz-color-sys-text-strong); }
+.hv-vt__rows { display: flex; flex-direction: column; }
+.hv-vt__note { margin: 0; color: var(--gz-color-sys-text-secondary); }
+
+.hv-hrs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  text-align: start;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hv-hrs__text { display: flex; flex-direction: column; gap: var(--gz-space-1); min-inline-size: 0; }
+.hv-hrs__time { color: var(--gz-color-sys-text-secondary); }
+.hv-hrs__lead { margin: 0; color: var(--gz-color-sys-text-strong); }

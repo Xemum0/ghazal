@@ -1,0 +1,22 @@
+/* ChipRow: a glyph at inline-start names the group (hall, reason, shortcuts), the chips wrap beside it. The glyph sits on the first line of
+   chips (44 high). Tokens only. */
+
+.cal-crow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.cal-crow__ico {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-icon-md);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.cal-crow__chips {
+  flex: 1;
+  min-inline-size: 0;
+}

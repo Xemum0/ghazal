@@ -1,0 +1,255 @@
+/* WeekRows (hotel/calendar HL-CALN-02). Day row = date button (56) + lanes. A lane is one line, 44 minimum; state is shape + glyph + facts.
+   Peak (Thu-Sat) is the rose-50 wash on the whole row; today is the ink outline on the date; past is quiet. Tokens only. */
+
+.cal-wk {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cal-wk__day {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-row-queue);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.cal-wk__day[data-peak] {
+  background: var(--gz-color-sys-surface-tint-soft);
+}
+
+.cal-wk__date {
+  position: relative; /* flutter-ok: anchor of the range thread */
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-timeline-time-col);
+  min-block-size: var(--gz-size-control-lg);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: transparent;
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+}
+
+.cal-wk__date[data-today] {
+  border-color: var(--gz-color-sys-border-focus);
+}
+
+.cal-wk__day[data-past] .cal-wk__num,
+.cal-wk__day[data-past] .cal-wk__wd {
+  color: var(--gz-color-sys-icon-disabled);
+}
+
+.cal-wk__wd {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.cal-wk__date[data-sel='edge'] {
+  background: var(--gz-color-sys-mark-khayt);
+  border-color: var(--gz-color-sys-mark-khayt);
+  color: var(--gz-color-sys-text-on-gold);
+  box-shadow: 0 0 0 var(--gz-stroke-thread) var(--gz-color-sys-surface-canvas);
+}
+
+.cal-wk__date[data-sel='edge'] .cal-wk__wd,
+.cal-wk__date[data-sel='edge'] .cal-wk__num {
+  color: var(--gz-color-sys-text-on-gold);
+}
+
+.cal-wk__date[data-sel='in'] {
+  border-block-end-width: var(--gz-stroke-thread);
+  border-block-end-color: var(--gz-color-sys-mark-khayt);
+}
+
+.cal-wk__lanes {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.cal-wk__lane {
+  position: relative; /* flutter-ok: the hatched stripe sits inside the lane */
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  overflow: hidden;
+  border-radius: var(--gz-radius-sm);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: transparent;
+  text-align: start;
+  min-inline-size: 0;
+}
+
+.cal-wk__text {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  padding-block: var(--gz-space-1);
+  padding-inline-start: var(--gz-space-3);
+}
+
+.cal-wk__text > [lang] {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cal-wk__hall {
+  flex: none;
+  font-weight: var(--gz-type-badge-weight);
+}
+
+.cal-wk__open {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.cal-wk__facts {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.cal-wk__fact {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  white-space: nowrap;
+}
+
+.cal-wk__state {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  padding-inline-end: var(--gz-space-3);
+}
+
+.cal-wk__acts {
+  display: flex;
+  flex: none;
+  align-items: center;
+  padding-inline-end: var(--gz-space-1);
+}
+
+.cal-wk__lane[data-state='booked'] {
+  background: var(--gz-color-sys-text-primary);
+  border-color: var(--gz-color-sys-text-primary);
+  color: var(--gz-color-sys-text-on-dark);
+  cursor: pointer;
+}
+
+.cal-wk__lane[data-state='booked'] .cal-wk__hall,
+.cal-wk__lane[data-state='booked'] .cal-wk__text,
+.cal-wk__lane[data-state='booked'] .cal-wk__facts,
+.cal-wk__lane[data-state='booked'] .cal-wk__state {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.cal-wk__lane[data-state='booked'][data-past] {
+  background: var(--gz-color-sys-surface-quiet);
+  border-color: var(--gz-color-sys-border-strong);
+}
+
+.cal-wk__lane[data-state='booked'][data-past] .cal-wk__hall,
+.cal-wk__lane[data-state='booked'][data-past] .cal-wk__text,
+.cal-wk__lane[data-state='booked'][data-past] .cal-wk__facts,
+.cal-wk__lane[data-state='booked'][data-past] .cal-wk__state {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.cal-wk__lane[data-state='held'] {
+  background: var(--gz-color-sys-status-pending-bg);
+  border-color: var(--gz-color-sys-mark-state);
+  color: var(--gz-color-sys-status-pending-text);
+  cursor: pointer;
+}
+
+.cal-wk__lane[data-state='held'] .cal-wk__hall,
+.cal-wk__lane[data-state='held'] .cal-wk__text,
+.cal-wk__lane[data-state='held'] .cal-wk__facts,
+.cal-wk__lane[data-state='held'] .cal-wk__state {
+  color: var(--gz-color-sys-status-pending-text);
+}
+
+.cal-wk__lane[data-state='blocked'] {
+  background: var(--gz-color-sys-surface-quiet);
+  border-color: var(--gz-color-sys-border-strong);
+  cursor: pointer;
+}
+
+.cal-wk__lane[data-state='blocked'] .cal-wk__hall,
+.cal-wk__lane[data-state='blocked'] .cal-wk__text,
+.cal-wk__lane[data-state='blocked'] .cal-wk__state {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.cal-wk__struck {
+  text-decoration: line-through;
+  text-decoration-thickness: var(--gz-stroke-hair);
+}
+
+.cal-wk__lane[data-state='open'] {
+  border-color: var(--gz-color-sys-border-strong);
+}
+
+.cal-wk__lane[data-state='open'] .cal-wk__hall,
+.cal-wk__lane[data-state='open'] .cal-wk__open {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.cal-wk__lane[data-past] {
+  cursor: default;
+}
+
+.cal-wk__stripe {
+  position: relative; /* flutter-ok: pattern shader fills the stripe */
+  align-self: stretch;
+  flex: none;
+  inline-size: var(--gz-space-4);
+  border-inline-end-width: var(--gz-stroke-hair);
+  border-inline-end-style: solid;
+  border-inline-end-color: var(--gz-color-sys-mark-state);
+}
+
+.cal-wk__lane[data-state='blocked'] .cal-wk__stripe {
+  border-inline-end-color: var(--gz-color-sys-border-strong);
+}
+
+/* Past days nobody held are a quiet date and nothing else: no lane is drawn, the row keeps one target of height. */
+.cal-wk__day[data-past] {
+  min-block-size: var(--gz-size-touch-min);
+  padding-block: var(--gz-space-2);
+}
+
+.cal-wk__day[data-past] .cal-wk__date {
+  min-block-size: var(--gz-size-touch-min);
+}
+
+/* The user text and figures inside a lane take the lane's own colour (light on the ink bar). */
+.cal-wk__text .gz-t-caption,
+.cal-wk__text .gz-num,
+.cal-wk__facts .gz-num {
+  color: inherit;
+}

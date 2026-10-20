@@ -1,0 +1,67 @@
+/* PinnedVisit: a paper panel (hairline, radius 12, 16 padding) pinned under the header. Quiet: ink text, status in the pill, gold only on
+   the one primary button. Tokens only. */
+.gzvt-pin {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+/* The pill at the start, the 44 target of "more" at the end; its disk is smaller than the target, so it is pulled back by its own inset. */
+.gzvt-pin__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.gzvt-pin__end {
+  display: inline-flex;
+  align-items: center;
+}
+
+.gzvt-pin__status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzvt-pin__proposed {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gzvt-pin__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-2);
+}
+
+.gzvt-pin__pair {
+  display: flex;
+  align-self: stretch;
+  gap: var(--gz-space-3);
+}
+
+.gzvt-pin__pair > * {
+  flex: 1;
+}
+
+.gzvt-pin__why {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}

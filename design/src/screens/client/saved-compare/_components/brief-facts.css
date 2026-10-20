@@ -1,0 +1,22 @@
+/* The Brief echo of the Compare screen: facts at inline-start, the pencil at inline-end, the whole row a 44 target. Tokens only. */
+
+.svd-brief {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-size-touch-min);
+  cursor: pointer;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.svd-brief__facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-5);
+  row-gap: var(--gz-space-1);
+  min-inline-size: 0;
+}

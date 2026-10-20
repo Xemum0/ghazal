@@ -1,0 +1,86 @@
+/* CL-SAVD-02 Compare tray sheet: header, up to three rows (56 x 64 thumbnail, serif name, area, price, remove), one action. */
+
+.svd-tray {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.svd-tray .gz-sheet__header {
+  padding-inline: 0;
+}
+
+.svd-tray__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.svd-tray__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.svd-tray__thumb {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  inline-size: var(--gz-size-avatar-md);
+  block-size: var(--gz-size-thumb-lg);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+/* The empty slot is a hairline box, neutral and not actionable (ADR 0009 D3). */
+.svd-tray__thumb--empty {
+  box-sizing: border-box;
+  border-width: var(--gz-stroke-hair);
+  border-style: dashed;
+  border-color: var(--gz-color-sys-border-strong);
+  background-color: transparent;
+}
+
+.svd-tray__photo {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+}
+
+.svd-tray__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.svd-tray__name {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.svd-tray__area {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.svd-tray__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-3);
+}
+
+.svd-tray__clear {
+  align-self: center;
+}

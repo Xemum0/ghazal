@@ -1,0 +1,56 @@
+/* SheetFrame: the Sheet pads its body 20 on both sides, so this column starts on the gutter. Header 48, content scrolls, footer pinned. */
+
+.hbk-sheet {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.hbk-sheet__head {
+  display: flex;
+  flex: none;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-md);
+}
+
+.hbk-sheet__titles {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  padding-block-start: var(--gz-space-2);
+}
+
+.hbk-sheet__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hbk-sheet__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-block: var(--gz-space-3);
+}
+
+.hbk-sheet__content > * {
+  flex: none;
+}
+
+.hbk-sheet__foot {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}

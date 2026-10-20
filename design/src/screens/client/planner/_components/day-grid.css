@@ -1,0 +1,122 @@
+/* DayGrid: the next two weeks, Sunday-first. Tokens only, logical properties, flex + gap, no grid. */
+
+.gzp-dg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gzp-dg__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-icon-md);
+}
+
+.gzp-dg__months {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzp-dg__month {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gzp-dg__aside {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzp-dg__week,
+.gzp-dg__row {
+  display: flex;
+  gap: var(--gz-stroke-thread);
+}
+
+.gzp-dg__days {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-stroke-thread);
+}
+
+.gzp-dg__wk {
+  flex: 1 1 0;
+  min-inline-size: 0;
+  text-align: center;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzp-dg__day {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-inline-size: 0;
+  block-size: var(--gz-size-cal-cell-height);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+}
+
+.gzp-dg__day.is-blank {
+  cursor: default;
+}
+
+.gzp-dg__day:disabled {
+  color: var(--gz-color-sys-text-disabled);
+  cursor: default;
+}
+
+.gzp-dg__marks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-stroke-thread);
+  block-size: var(--gz-space-3);
+}
+
+/* A bead is the gold-700 diamond of the thread (informative gold, never text). */
+.gzp-dg__bead {
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+  background-color: var(--gz-color-sys-text-gold-ink);
+  transform: rotate(45deg);
+}
+
+/* A chosen window under its day: the session glyph at 12, gold-700 (informative gold, never text). */
+.gzp-dg__marks .gzp-dg__glyph {
+  flex: none;
+  inline-size: var(--gz-space-3);
+  block-size: var(--gz-space-3);
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+/* selected day (direction 2.3 b): gold fill, ink label, a 2 px canvas ring and a 1 px gold-600 ring outside it */
+.gzp-dg__day[data-selected] {
+  position: relative; /* flutter-ok: the ring paints over the neighbouring cells */
+  z-index: var(--gz-z-raised);
+  background-color: var(--gz-color-sys-mark-khayt);
+  color: var(--gz-color-sys-text-on-gold);
+  box-shadow: 0 0 0 var(--gz-stroke-thread) var(--gz-color-sys-surface-canvas);
+  outline-width: var(--gz-stroke-hair);
+  outline-style: solid;
+  outline-color: var(--gz-color-sys-mark-decor);
+  outline-offset: var(--gz-stroke-thread);
+}
+
+.gzp-dg__day[data-selected] .gzp-dg__bead {
+  background-color: var(--gz-color-sys-text-on-gold);
+}
+
+.gzp-dg__day[data-selected] .gzp-dg__marks .gzp-dg__glyph {
+  color: var(--gz-color-sys-text-on-gold);
+}

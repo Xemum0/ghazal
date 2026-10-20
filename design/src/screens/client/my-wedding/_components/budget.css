@@ -1,0 +1,230 @@
+/* Budget parts: hero, legend, category rows. Bars and meters are flex ratios (no widths). Gold lines are state: committed money only. */
+
+/* ---------- hero ---------- */
+.gzmw-bh {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.gzmw-bh__top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+.gzmw-bh__top > p {
+  margin: 0;
+}
+
+/* The total and its one-word Edit: the total at the start, the verb at the end. */
+.gzmw-bh__sub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.gzmw-bh__label {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzmw-bh__label > .gz-icon {
+  flex: none;
+}
+
+/* The segmented bar: 8 px, a 2 px gap between segments, pill ends. */
+.gzmw-bh__bar {
+  display: flex;
+  gap: var(--gz-stroke-thread);
+  block-size: var(--gz-space-2);
+}
+
+.gzmw-bh__seg {
+  flex-basis: 0;
+  flex-shrink: 0;
+  min-inline-size: 0;
+  border-radius: var(--gz-radius-pill);
+}
+
+.gzmw-bh__seg.is-paid,
+.gzmw-bh__swatch.is-paid {
+  background-color: var(--gz-color-sys-surface-dark-raised);
+}
+
+.gzmw-bh__seg.is-committed,
+.gzmw-bh__swatch.is-committed {
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gzmw-bh__seg.is-rest,
+.gzmw-bh__swatch.is-rest {
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.gzmw-bh__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2) var(--gz-space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzmw-bh__item {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gzmw-bh__item > .gz-icon {
+  flex: none;
+}
+
+.gzmw-bh__swatch {
+  flex: none;
+  inline-size: var(--gz-space-2);
+  block-size: var(--gz-space-2);
+  border-radius: var(--gz-radius-pill);
+}
+
+/* Rose-100 alone is faint on the canvas: a hairline outlines the swatch of the remaining colour. */
+.gzmw-bh__swatch.is-rest {
+  box-sizing: border-box;
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+}
+
+/* ---------- category rows ---------- */
+.gzmw-cat {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzmw-cat.is-last {
+  border-block-end-color: transparent;
+}
+
+.gzmw-cat__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-thumb-sm);
+  block-size: var(--gz-size-thumb-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.gzmw-cat__body {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gzmw-cat__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gzmw-cat__name {
+  display: inline-flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzmw-cat__name > .gz-icon {
+  flex: none;
+}
+
+/* Spent against its share, one figure: the spent part strong, the share quiet. */
+.gzmw-cat__fig {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.gzmw-cat__used {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzmw-cat__of {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzmw-cat.is-soft .gzmw-cat__used {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.gzmw-cat.is-over .gzmw-cat__used {
+  color: var(--gz-color-sys-text-danger);
+}
+
+.gzmw-cat__meter {
+  display: flex;
+  block-size: var(--gz-stroke-thread-max);
+}
+
+.gzmw-cat__seg {
+  flex-basis: 0;
+  flex-shrink: 0;
+  min-inline-size: 0;
+}
+
+.gzmw-cat__seg.is-paid {
+  background-color: var(--gz-color-sys-surface-dark-raised);
+}
+
+.gzmw-cat__seg.is-committed {
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gzmw-cat__seg.is-rest {
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-mark-track);
+}
+
+.gzmw-cat.is-over .gzmw-cat__seg.is-paid,
+.gzmw-cat.is-over .gzmw-cat__seg.is-committed {
+  background-color: var(--gz-color-sys-status-danger-text);
+}
+
+/* ---------- ledger trailing: the status glyph, then the amount ---------- */
+.gzmw-led {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gzmw-led > .gz-icon {
+  flex: none;
+}
+
+/* The currency, once, beside a section title (the rows under it carry bare figures). */
+.gzmw-unit {
+  margin-inline-start: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}

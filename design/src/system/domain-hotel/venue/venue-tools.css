@@ -1,0 +1,190 @@
+/* Venue tools: PackageEditorRow and PhotoManagerGrid. */
+
+.gz-per {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  border-block-end-width: var(--gz-stroke-hair); border-block-end-style: solid; border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-per.is-last { border-block-end-color: transparent; }
+
+.gz-per__head { display: flex; align-items: center; gap: var(--gz-space-3); min-block-size: var(--gz-size-row-min); }
+
+.gz-per__summary {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gz-per__text { display: flex; flex: 1; flex-direction: column; min-inline-size: 0; }
+.gz-per__name { color: var(--gz-color-sys-text-strong); }
+.gz-per__meta { display: flex; flex-wrap: wrap; gap: 0 var(--gz-space-3); color: var(--gz-color-sys-text-secondary); }
+.gz-per__price { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: var(--gz-space-1); }
+
+.gz-per__body { display: flex; flex-direction: column; gap: var(--gz-space-5); padding-block: var(--gz-space-2) var(--gz-space-5); }
+.gz-per__cur { color: var(--gz-color-sys-text-secondary); }
+.gz-per__steppers { display: flex; flex-direction: column; }
+
+.gz-per__label { margin: 0 0 var(--gz-space-2); }
+.gz-per__chips { display: flex; flex-wrap: wrap; gap: var(--gz-space-2); margin: 0; padding: 0; list-style: none; }
+
+.gz-per__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-3) var(--gz-space-1);
+  background: var(--gz-color-sys-control-bg);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-per__chip--add { padding-inline: var(--gz-space-3); gap: var(--gz-space-2); color: var(--gz-color-sys-action-tertiary-label); cursor: pointer; }
+.gz-per__chip-label { min-inline-size: 0; }
+
+.gz-per__x {
+  display: inline-flex;
+  flex: none;
+  min-inline-size: var(--gz-size-touch-min);
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-icon-secondary);
+  cursor: pointer;
+}
+
+.gz-per__note { margin: 0; color: var(--gz-color-sys-text-secondary); }
+
+/* ---------- photo manager grid: three 4:5 columns, 8 apart ---------- */
+.gz-pmg { display: flex; flex-direction: column; gap: var(--gz-space-2); min-inline-size: 0; }
+.gz-pmg__row { display: flex; gap: var(--gz-space-2); }
+
+.gz-pmg__cell {
+  position: relative; /* flutter-ok: named overlay anchors for the tag, cover marker, status and handle */
+  display: flex;
+  flex: 1 1 0;
+  min-inline-size: 0;
+  overflow: hidden;
+  aspect-ratio: var(--gz-layout-aspect-4x5);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-placeholder);
+}
+
+.gz-pmg__photo { position: relative; /* flutter-ok: anchor of the inset focus ring */ display: flex; flex: 1; min-inline-size: 0; cursor: pointer; }
+
+/* The cell clips its photo, so an outer ring would be cut: the keyboard ring is drawn inside the cell. */
+.gz-pmg__photo:focus-visible { outline-style: none; }
+
+.gz-pmg__photo:focus-visible::after {
+  content: '';
+  position: absolute; /* flutter-ok: focus ring overlay inside the clipped cell */
+  inset: 0;
+  border-radius: var(--gz-radius-md);
+  border-width: var(--gz-stroke-focus);
+  border-style: solid;
+  border-color: var(--gz-color-sys-focus-ring);
+  pointer-events: none;
+}
+.gz-pmg__photo:disabled { cursor: default; }
+.gz-pmg__img { display: flex; flex: 1; min-inline-size: 0; }
+.gz-pmg__tile.is-rejected { box-sizing: border-box; border-width: var(--gz-stroke-icon); border-style: solid; border-color: var(--gz-color-sys-border-error); }
+
+.gz-pmg__add {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  background: var(--gz-color-sys-surface-quiet);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong);
+  color: var(--gz-color-sys-action-tertiary-label);
+  cursor: pointer;
+}
+
+.gz-pmg__add .gz-t-caption { color: inherit; text-align: center; }
+span.gz-pmg__cell { background: transparent; }
+
+/* chips over the photo are canvas chips (direction 5: chrome over photo is a canvas disk or chip, never text on the picture) */
+.gz-pmg__top,
+.gz-pmg__bottom {
+  position: absolute; /* flutter-ok: overlay row */
+  inset-inline: var(--gz-space-2);
+  display: flex;
+  pointer-events: none;
+}
+
+.gz-pmg__top { inset-block-start: var(--gz-space-2); }
+.gz-pmg__bottom { inset-block-end: var(--gz-space-2); flex-direction: column; align-items: flex-start; gap: var(--gz-space-1); }
+.gz-pmg[data-reorder] .gz-pmg__bottom { inset-block-end: var(--gz-space-12); }
+
+.gz-pmg__tag {
+  flex: 0 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  padding: 0 var(--gz-space-2);
+  background: var(--gz-color-sys-surface-canvas);
+  border-radius: var(--gz-radius-xs);
+  color: var(--gz-color-sys-text-strong);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.gz-pmg__cover {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding: 0 var(--gz-space-2);
+  background: var(--gz-color-sys-surface-canvas);
+  border-radius: var(--gz-radius-xs);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-pmg__grip {
+  position: absolute; /* flutter-ok: overlay handle */
+  inset-block-start: var(--gz-space-2);
+  inset-inline-end: var(--gz-space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-canvas);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.gz-pmg__moves {
+  position: absolute; /* flutter-ok: overlay buttons */
+  inset-block-end: 0;
+  inset-inline: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.gz-per__structure {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-per__save {
+  margin: 0;
+  color: var(--gz-color-sys-text-success);
+}
+
+.gz-per__save.is-weak {
+  color: var(--gz-color-sys-text-secondary);
+}

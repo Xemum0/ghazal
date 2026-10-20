@@ -1,0 +1,164 @@
+/* CL-VENU-03 Dates and prices: the sheet's own content, under the SheetFrame header. Tokens only, logical properties, flex + gap. */
+.gzv-cal__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzv-cal__guests {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The switch (glyphs, one word on the chosen one) and the month jump (a calendar glyph) share one row. */
+.gzv-cal__tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gzv-cal__switch {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzv-cal__muted {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzv-cal__basis {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gzv-cal__occasions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2) var(--gz-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A date range is marked by a legend chip with the 2 px gold-ink rule (direction: a line that carries a place). */
+.gzv-cal__occasion {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  padding-block-end: var(--gz-space-1);
+  border-block-end-width: var(--gz-stroke-thread);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-text-gold-ink);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzv-cal__none {
+  display: flex;
+  flex-direction: column;
+}
+
+.gzv-cal__sessions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2) var(--gz-space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzv-cal__money {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gzv-cal__alt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gzv-cal__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzv-cal__similar {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzv-jump {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzv-jump .gz-row--interactive {
+  border-radius: 0;
+}
+
+/* ---------- the focus card under the grid: a ruled block, not a panel ---------- */
+.gzv-cal__sum {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-4);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzv-cal__sum-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gzv-cal__sum-date {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gzv-cal__sum-title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* ---------- the pinned footer: the fee as a glyph and a figure, the one primary ---------- */
+.gzv-cal__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.gzv-cal__fee {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gzv-cal__cta {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}

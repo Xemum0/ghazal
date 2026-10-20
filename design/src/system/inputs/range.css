@@ -1,0 +1,140 @@
+/* RangeSlider: a 44 high rail = flex row [segment a][thumb][fill][thumb][segment c]; the segments carry their proportion in
+   flex-grow (set from TypeScript as --gz-in-a/b/c), so the minimum sits at the inline-start in both languages with no mirroring code.
+   Handles are 24 px visually, 44 x 44 to touch. The track and the fill are 4 px lines (gold-500 fill = a state line). */
+
+.gz-range {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gz-range__values {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+}
+
+.gz-range__value {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-range__value[data-edge='end'] {
+  align-items: flex-end;
+  text-align: end;
+}
+
+.gz-range__caption {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-range__figure {
+  font-weight: var(--gz-type-price-strong-weight);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-range__rail {
+  position: relative; /* flutter-ok: named overlay anchor, the track line sits behind the segments (Stack) */
+  display: flex;
+  align-items: center;
+  block-size: var(--gz-size-touch-min);
+  touch-action: pan-y;
+  cursor: pointer;
+  user-select: none;
+}
+
+.gz-range__line {
+  position: absolute; /* flutter-ok: named overlay anchor inside .gz-range__rail */
+  inset-inline: 0;
+  block-size: var(--gz-stroke-thread-max);
+  background: var(--gz-color-sys-mark-track);
+  border-radius: var(--gz-radius-pill);
+}
+
+.gz-range__seg {
+  position: relative; /* flutter-ok: stacks above the track line */
+  flex-shrink: 1;
+  flex-basis: 0;
+  block-size: var(--gz-stroke-thread-max);
+  min-inline-size: 0;
+}
+
+.gz-range__seg--a { flex-grow: var(--gz-in-a); }
+.gz-range__seg--c { flex-grow: var(--gz-in-c); }
+
+.gz-range__seg--fill {
+  flex-grow: var(--gz-in-b);
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-range__thumb {
+  position: relative; /* flutter-ok: hit area pseudo-element anchor */
+  flex: none;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-toggle-knob);
+  block-size: var(--gz-size-toggle-knob);
+  background: var(--gz-color-sys-control-bg);
+  border-width: var(--gz-stroke-thread);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-focus);
+  border-radius: var(--gz-radius-pill);
+  cursor: grab;
+  transition:
+    transform var(--gz-motion-duration-fast) var(--gz-motion-ease-standard),
+    background-color var(--gz-motion-duration-fast) var(--gz-motion-ease-standard);
+}
+
+/* 44 x 44 hit area around the 24 px knob: 10 px each side horizontally, the rail is already 44 high. */
+.gz-range__thumb::before {
+  content: '';
+  position: absolute; /* flutter-ok: hit-test slop around the knob (a 44 dp touch target) */
+  inset-block: 0;
+  inset-inline: -10px;
+}
+
+.gz-range__thumb[data-active] {
+  background: var(--gz-color-sys-surface-quiet);
+  transform: scale(var(--gz-motion-scale-press));
+  cursor: grabbing;
+}
+
+.gz-range__thumb:focus,
+.gz-range__thumb:focus-visible {
+  outline-width: var(--gz-stroke-focus);
+  outline-style: solid;
+  outline-color: var(--gz-color-sys-focus-ring);
+  outline-offset: var(--gz-stroke-focus-offset);
+}
+
+.gz-range__thumb:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.gz-range[data-disabled] .gz-range__rail {
+  cursor: not-allowed;
+}
+
+.gz-range[data-disabled] .gz-range__seg--fill {
+  background: var(--gz-color-sys-border-strong);
+}
+
+.gz-range[data-disabled] .gz-range__thumb {
+  background: var(--gz-color-sys-surface-quiet);
+  border-color: var(--gz-color-sys-border-strong);
+  cursor: not-allowed;
+}
+
+.gz-range__edges {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-range__thumb[data-active] {
+    transform: none;
+  }
+}

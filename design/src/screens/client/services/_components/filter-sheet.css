@@ -1,0 +1,41 @@
+/* FilterSheet content: the sheet container owns the title row, padding and safe area. Tokens only, flex + gap. */
+
+.gzs-fsheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding-block-start: var(--gz-space-2);
+}
+
+.gzs-fsheet__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+/* The glyph column is a 44 high slot, so the glyph lines up with the first row of chips. */
+.gzs-fsheet__glyph {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+}
+
+.gzs-fsheet__body {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzs-fsheet__foot {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-2);
+}
+
+.gzs-fsheet__foot > .gz-btn {
+  flex: 1 1 0;
+}

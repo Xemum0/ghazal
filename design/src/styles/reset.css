@@ -1,0 +1,115 @@
+/* Reset. A deliberately small, opinionated baseline: no library, no surprises, logical properties only.
+   Everything visual (colour, type, space) comes from the tokens in base.css and the components. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Respect the OS text size choice; the layout reflows (ADR 0016 D8), it never clips. */
+  -webkit-text-size-adjust: 100%; /* flutter-ok: web-only, Flutter reads the OS text scale */
+  text-size-adjust: 100%; /* flutter-ok: web-only */
+  -webkit-tap-highlight-color: transparent;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd,
+ul,
+ol,
+menu {
+  margin: 0;
+}
+
+ul,
+ol,
+menu {
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font: inherit;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+}
+
+img,
+video {
+  /* flutter-ok: web reset, a media element never overflows its box (Flutter images are sized by their parent) */
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+svg {
+  flex: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  word-spacing: inherit;
+}
+
+button {
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: start;
+  cursor: pointer;
+  /* Press feedback comes from the .gz-press utility, never from the platform highlight. */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+input,
+textarea {
+  /* iOS Safari zooms a focused input under 16 px; every input style is at least 16. */
+  appearance: none;
+  border-radius: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+[hidden] {
+  display: none !important;
+}

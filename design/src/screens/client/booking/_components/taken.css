@@ -1,0 +1,87 @@
+/* CL-BOOK-07 date taken (a sheet: the host supplies the gutter and the bottom inset). Tokens only. */
+
+.bk-taken {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding-block-end: var(--gz-space-8);
+}
+
+.bk-taken__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.bk-taken__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.bk-taken__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.bk-taken__close {
+  align-self: flex-start;
+  flex: none;
+  position: relative; /* flutter-ok: Transform.translate by the target's slack so the glyph meets the 20 gutter */
+  inset-inline-end: -10px;
+}
+
+.bk-taken__none {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-strong);
+  text-align: center;
+}
+
+.bk-taken__block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.bk-taken__skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block: var(--gz-space-3);
+}
+
+.bk-taken__thumb {
+  display: flex;
+  inline-size: var(--gz-size-thumb-md);
+  block-size: var(--gz-size-thumb-md);
+  overflow: hidden;
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.bk-taken__thumb > .gz-photo {
+  flex: 1;
+}
+
+.bk-taken__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-2);
+}
+
+.bk-taken__actions > .gz-btn--tertiary {
+  align-self: center;
+}
+
+/* Straight 1 px hairlines: the row's control radius would curve the end of its border-bottom. */
+.bk-taken .gz-row--interactive,
+.bk-sent-body .gz-row--interactive {
+  border-radius: 0;
+}

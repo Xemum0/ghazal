@@ -1,0 +1,121 @@
+/* Lists of the Bookings tab. Gutter 20, card gap 24 (ADR 0018), section rhythm 32. Tokens only. */
+
+.hbk-pad {
+  padding-inline: var(--gz-space-gutter);
+}
+
+.hbk-pending {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding-block: var(--gz-space-3) var(--gz-space-section);
+}
+
+.hbk-pending__cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-list-gap);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.hbk-pending__lock {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding-inline: var(--gz-space-gutter);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hbk-pending__clear {
+  padding-inline: var(--gz-space-gutter);
+}
+
+.hbk-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.hbk-sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding-block: var(--gz-space-3) var(--gz-space-section);
+}
+
+.hbk-count {
+  margin-inline-start: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hbk-past {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block: var(--gz-space-3) var(--gz-space-section);
+}
+
+.hbk-past__chips {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-2);
+}
+
+.hbk-past__none {
+  padding-block-start: var(--gz-space-4);
+}
+
+/* Empty Pending: the drawing and its one action, then the next event as a quiet ruled row. */
+.hbk-empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding-block: var(--gz-space-4) var(--gz-space-section);
+}
+
+.hbk-empty > .gz-state {
+  padding-inline: var(--gz-space-gutter);
+}
+
+.hbk-next {
+  box-sizing: border-box;
+  margin-inline: var(--gz-space-gutter);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+/* Skeletons: static ink-100 shapes sized like what they stand in for. */
+.hbk-skel-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  padding: var(--gz-space-5);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.hbk-skel-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.hbk-skel-row__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}

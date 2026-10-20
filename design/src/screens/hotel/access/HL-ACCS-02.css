@@ -1,0 +1,37 @@
+/* HL-ACCS-02 Verify with WhatsApp. The heading block, the number, then the six cells (code-panel.css). Tokens only. */
+.hxa02 {
+  gap: var(--gz-space-5);
+}
+
+/* The two knots of the authenticator step take half the width: a short thread, not a rail. */
+.hxa02__steps {
+  inline-size: 160px;
+}
+
+/* Step-up: the action being confirmed, as one ruled line (a glyph and two words, not a panel). */
+.hxa-action {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-row-min);
+  border-block-width: var(--gz-stroke-hair);
+  border-block-style: solid;
+  border-block-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hxa-action__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--gz-size-thumb-sm);
+  block-size: var(--gz-size-thumb-sm);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.hxa-action__text {
+  margin: 0;
+}

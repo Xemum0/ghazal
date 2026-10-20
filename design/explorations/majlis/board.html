@@ -1,0 +1,908 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>Ghazal · Majlis — Direction board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Markazi+Text:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="direction.css">
+<style>
+/* ===== BOARD LAYOUT (documentation chrome only; all product styling lives in direction.css) ===== */
+.board-page { background: var(--paper-3); }
+.board { width: 1280px; margin-inline: auto; background: var(--ivory); color: var(--ink-500); font-size: 15px; line-height: 24px; }
+.board code { font: 500 12.5px/1 ui-monospace, "SF Mono", Menlo, monospace; color: var(--ink-600); background: var(--paper-2); padding: 2px 6px; border-radius: 4px; }
+.board b { font-weight: 600; color: var(--ink-700); }
+.board h3, .board h4, .board h5 { margin: 0; }
+.b-over { display: block; font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-700); margin-block-end: 8px; }
+.b-h3 { font: 600 15px/24px var(--font-ui-en); color: var(--ink-700); margin-block-end: 16px; }
+.b-h3 small { font: 400 13px/20px var(--font-ui-en); color: var(--ink-400); margin-inline-start: 8px; }
+.b-cap { font-size: 13px; line-height: 20px; color: var(--ink-400); margin-block-start: 12px; max-width: 62ch; }
+
+/* sections */
+.b-sec { padding: 80px 64px 0; }
+.b-sec--last { padding-block-end: 96px; }
+.b-head { display: grid; grid-template-columns: 176px 1fr; column-gap: 24px; align-items: baseline; padding-block-start: 20px; border-block-start: 2px solid var(--ink-700); margin-block-end: 40px; }
+.b-num { font: 600 12px/16px var(--font-ui-en); letter-spacing: .08em; text-transform: uppercase; color: var(--gold-700); }
+.b-title { font: 400 44px/52px var(--font-display-en); letter-spacing: -.012em; color: var(--ink-700); margin: 0; }
+.b-lede { grid-column: 2; margin: 16px 0 0; max-width: 760px; font-size: 16px; line-height: 28px; color: var(--ink-500); }
+.board .tbl { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 20px; }
+.tbl th { text-align: start; font: 600 12px/16px var(--font-ui-en); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-400); padding: 10px 12px; border-block-end: 1px solid var(--ink-700); }
+.tbl td { padding: 10px 12px; border-block-end: 1px solid var(--line); vertical-align: middle; color: var(--ink-500); }
+.tbl .r { text-align: end; } .tbl .num { font-variant-numeric: tabular-nums; }
+.tbl .use { color: var(--ink-400); }
+.tbl--tight td, .tbl--tight th { padding: 8px 8px; font-size: 13px; line-height: 18px; }
+.chipdot { display: inline-block; inline-size: 14px; block-size: 14px; border-radius: 4px; margin-inline-end: 8px; vertical-align: -2px; box-shadow: inset 0 0 0 1px rgba(63,50,54,.25); }
+.sample { display: inline-grid; place-items: center; inline-size: 40px; block-size: 24px; border-radius: 4px; font: 600 13px/1 var(--font-ui-en); box-shadow: inset 0 0 0 1px rgba(63,50,54,.12); }
+.vd { display: inline-block; padding: 2px 8px; border-radius: 4px; font: 600 12px/18px var(--font-ui-en); }
+.vd--ok { background: var(--success-bg); color: var(--success); } .vd--mid { background: var(--gold-100); color: var(--gold-700); } .vd--no { background: var(--danger-bg); color: var(--danger); }
+
+/* masthead */
+.mast { position: relative; display: grid; grid-template-columns: 1fr 480px; min-height: 680px; background: var(--ink-700); overflow: hidden; }
+.mast__text { position: relative; z-index: 1; display: flex; flex-direction: column; padding: 40px 24px 56px 64px; }
+.mast__bar { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.mast__tag { font-size: 12px; line-height: 16px; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-300); }
+.mast .wordmark__en { font-size: 28px; } .mast .wordmark__ar { font-size: 36px; }
+.mast .wordmark { gap: 12px; }
+.mast__title { display: flex; align-items: baseline; gap: 28px; margin: 88px 0 0; font: 300 128px/120px var(--font-display-en); letter-spacing: -.03em; color: var(--ivory); }
+.mast__ar { font: 600 112px/120px var(--font-display-ar); letter-spacing: 0; color: var(--gold-300); }
+.mast__sub { margin: 16px 0 0; font: 400 24px/32px var(--font-ui-en); color: var(--ink-200); }
+.mast__lede { margin: 24px 0 0; max-width: 560px; font-size: 16px; line-height: 28px; color: var(--ink-200); }
+.mast__facts { margin: auto 0 0; padding-block-start: 40px; display: grid; grid-template-columns: repeat(4, auto); justify-content: start; }
+.mast__facts > div { padding-inline: 20px; border-inline-start: 1px solid var(--line-on-ink); }
+.mast__facts > div:first-child { padding-inline-start: 0; border-inline-start: 0; }
+.mast__facts dt { font-size: 12px; line-height: 16px; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-300); }
+.mast__facts dd { margin: 4px 0 0; font-size: 14px; line-height: 20px; color: var(--ivory); }
+.mast__door { position: relative; align-self: end; margin-inline-end: 64px; block-size: 580px; }
+.door__lat { position: absolute; inset: 0; border: 1px solid rgba(216, 178, 110, .32); border-block-end: 0; }
+.door__arch { position: absolute; inset-inline: 44px; inset-block: 44px 0; }
+.door__arch .arch { block-size: 100% !important; }
+
+/* concept */
+.g-concept { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.idea { display: grid; grid-template-columns: 220px 1fr; gap: 28px; align-items: end; }
+.idea__fig { margin: 0; } .idea__fig .arch { block-size: 300px !important; }
+.idea__q { font: 400 28px/36px var(--font-display-en); color: var(--ink-700); margin: 0 0 16px; letter-spacing: -.01em; }
+.idea__list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; font-size: 14px; line-height: 22px; }
+.geo { border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+.geo__svg { display: block; margin: 16px 8px 20px; overflow: visible; inline-size: calc(100% - 16px); block-size: auto; }
+.geo__t { font: 500 12px/1 ui-monospace, Menlo, monospace; fill: var(--ink-500); }
+.code { margin: 0; padding: 16px; border-radius: 8px; background: var(--ink-800); color: var(--ink-100); font: 400 12px/20px ui-monospace, "SF Mono", Menlo, monospace; white-space: pre-wrap; }
+.mini3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-block-start: 20px; }
+.principles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-block-start: 64px; border-block-start: 1px solid var(--line); }
+.principles article { padding: 24px 24px 8px; border-inline-start: 1px solid var(--line); }
+.principles article:first-child { padding-inline-start: 0; border-inline-start: 0; }
+.pn { display: inline-block; font: 600 12px/16px var(--font-ui-en); color: var(--gold-700); margin-block-end: 12px; }
+.principles h3 { font: 600 17px/24px var(--font-ui-en); color: var(--ink-700); margin-block-end: 8px; }
+.principles p { font-size: 14px; line-height: 22px; margin: 0; }
+.moods { margin-block-start: 56px; border-block: 1px solid var(--line); }
+.moods__h, .moods__r { display: grid; grid-template-columns: 160px 1fr 1fr; gap: 24px; padding: 14px 0; font-size: 14px; line-height: 20px; }
+.moods__h { font: 600 12px/16px var(--font-ui-en); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-400); border-block-end: 1px solid var(--ink-700); }
+.moods__r { border-block-end: 1px solid var(--line); } .moods__r:last-child { border-block-end: 0; }
+.moods__r > span:first-child { font-weight: 600; color: var(--ink-700); }
+
+/* colour */
+.ramp { margin-block-end: 32px; }
+.ramp--split { display: grid; grid-template-columns: 4fr 5fr; gap: 24px; }
+.sw-row { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px var(--line); }
+.sw { display: flex; flex-direction: column; justify-content: flex-end; gap: 0; min-block-size: 112px; padding: 12px; background: var(--c); color: var(--f); font-size: 12px; line-height: 16px; }
+.sw__n { font-weight: 600; } .sw__h { font-family: ui-monospace, Menlo, monospace; font-size: 12px; opacity: .92; } .sw__r { font-size: 12px; line-height: 14px; opacity: .92; min-block-size: 28px; }
+.sw .star { font-size: 12px; letter-spacing: .06em; padding: 1px 4px; border-radius: 3px; box-shadow: inset 0 0 0 1px currentColor; margin-inline-start: 4px; color: inherit; }
+.g-colour { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-block-start: 48px; }
+.share { display: flex; block-size: 56px; border-radius: 8px; overflow: hidden; }
+.share span { display: grid; place-items: center; font: 500 12px/16px var(--font-ui-en); }
+.fnrow { display: grid; gap: 12px; }
+.fn { display: grid; grid-template-columns: 160px 1fr; gap: 12px; align-items: center; font-size: 13px; color: var(--ink-400); }
+.fn__a { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 8px; font: 600 13px/20px var(--font-ui-en); }
+.fn__a .icon { inline-size: 16px; block-size: 16px; stroke-width: 2; }
+.goldfix { display: grid; gap: 0; align-content: start; }
+.gf { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 16px; border-block-end: 1px solid var(--line); }
+.gf:first-of-type { border-block-start: 1px solid var(--line); }
+.gf__t { font: 600 18px/24px var(--font-ui-en); } .gf__r { font-size: 12.5px; line-height: 18px; color: var(--ink-400); text-align: end; }
+.gf--bad { background: var(--ivory); } .gf--ink { background: var(--ink-700); } .gf--ink .gf__r { color: var(--ink-200); }
+
+/* type */
+.fam { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-block: 1px solid var(--line); margin-block-end: 48px; }
+.fam__c { padding: 24px; border-inline-start: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
+.fam__c:first-child { border-inline-start: 0; padding-inline-start: 0; }
+.fam__c--d { background: var(--paper-2); }
+.fam__big { font-size: 88px; line-height: 104px; color: var(--ink-700); }
+.fam__c h3 { font: 600 17px/24px var(--font-ui-en); color: var(--ink-700); }
+.fam__c p { margin: 0; font-size: 13px; line-height: 20px; } .fam__c small { font-size: 12px; line-height: 16px; color: var(--ink-400); }
+.g-type { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: start; }
+.sc { border-block-start: 1px solid var(--ink-700); }
+.sc-row { display: grid; grid-template-columns: 136px 1fr 1fr; gap: 16px; align-items: center; padding: 14px 0; border-block-end: 1px solid var(--line); }
+.sc-meta { display: flex; flex-direction: column; gap: 0; font-size: 12px; line-height: 16px; color: var(--ink-400); }
+.sc-role { font: 600 12px/16px var(--font-ui-en); color: var(--ink-700); margin-block-end: 2px; }
+.sc-px i { font-style: normal; font-weight: 600; color: var(--gold-700); margin-inline-end: 4px; }
+.sc-en, .sc-ar { min-inline-size: 0; }
+.sc-en.t-disp-l, .sc-ar.t-disp-l { white-space: normal; }
+.proof .bl { position: relative; display: flex; align-items: baseline; gap: 20px; padding: 12px 0 14px; direction: ltr; }
+.bl__g { flex: 0 0 0; block-size: 0; inline-size: 0; align-self: baseline; }
+.bl__g::before { content: ""; position: absolute; inset-inline: 0; border-block-start: 1px solid var(--gold-600); }
+.bl--ui .bl__a { font: 500 22px/1 var(--font-ui-en); color: var(--ink-700); } .bl--ui .bl__b { font: 500 24px/1 var(--font-ui-ar); color: var(--ink-700); }
+.bl--ui.bl--m .bl__a { font-weight: 600; } .bl--ui.bl--m .bl__b { font-weight: 700; }
+.bl--ui .bl__a.bl__n { font-family: var(--font-ui-ar); font-weight: 700; }
+.bl--disp .bl__a { font: 300 56px/1 var(--font-display-en); letter-spacing: -.02em; color: var(--ink-700); } .bl--disp .bl__b { font: 600 66px/1 var(--font-display-ar); color: var(--ink-700); }
+.proof .tbl { margin-block-start: 20px; }
+.g-fig { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-block-start: 56px; }
+.figcard { border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+.figtbl { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, auto); grid-auto-flow: column; gap: 0 32px; }
+.figtbl > div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0; border-block-end: 1px solid var(--line-soft); font-size: 15px; }
+.figtbl .money { font-size: 16px; }
+.swap { display: grid; gap: 16px; }
+.swap > div { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: baseline; padding-block-end: 12px; border-block-end: 1px solid var(--line-soft); }
+.swap__k { grid-column: 1 / -1; font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-400); }
+
+/* shape */
+.g-shape { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; align-items: start; }
+.sp > div, .rad > div { display: grid; grid-template-columns: 72px 28px 1fr; align-items: center; gap: 12px; padding: 6px 0; border-block-end: 1px solid var(--line-soft); font-size: 13px; }
+.sp i { display: block; block-size: 12px; background: var(--ink-500); border-radius: 0; } .sp i.g { background: var(--gold-500); }
+.sp b, .rad b, .elev b, .strk b { font-variant-numeric: tabular-nums; }
+.sp span, .rad span, .elev span, .strk span { color: var(--ink-400); font-size: 12.5px; line-height: 18px; }
+.rad > div { grid-template-columns: 72px 44px 1fr; padding: 8px 0; }
+.rad i { display: block; inline-size: 56px; block-size: 36px; background: var(--rose-100); box-shadow: inset 0 0 0 1px var(--rose-300); }
+.rad i.crown { background: var(--rose-100); -webkit-mask: var(--arch-cap-mask) top / 100% 16px no-repeat, linear-gradient(#000, #000) bottom / 100% calc(100% - 15px) no-repeat; mask: var(--arch-cap-mask) top / 100% 16px no-repeat, linear-gradient(#000, #000) bottom / 100% calc(100% - 15px) no-repeat; box-shadow: none; }
+.elev > div { display: grid; grid-template-columns: 72px 36px 1fr; align-items: center; gap: 12px; padding: 12px 0; border-block-end: 1px solid var(--line-soft); }
+.elev i { display: block; inline-size: 56px; block-size: 40px; background: var(--ivory); border-radius: 12px; }
+.elev .e0 { box-shadow: inset 0 0 0 1px var(--line); } .elev .e1 { box-shadow: var(--e-1); border: 1px solid var(--line); } .elev .e2 { box-shadow: var(--e-2); border: 1px solid var(--line); border-radius: 12px 12px 0 0; }
+.strk { margin-block-start: 8px; } .strk > div { display: grid; grid-template-columns: 72px 36px 1fr; align-items: center; gap: 12px; padding: 12px 0; border-block-end: 1px solid var(--line-soft); }
+.strk i { display: block; background: var(--gold-600); inline-size: 56px; }
+.ctl { display: grid; gap: 6px; }
+.ctl span { display: flex; align-items: center; padding-inline: 12px; background: var(--rose-100); box-shadow: inset 0 0 0 1px var(--rose-300); border-radius: 12px; font-size: 12.5px; }
+.g-frame { display: grid; grid-template-columns: 340px 1fr; gap: 56px; margin-block-start: 64px; align-items: center; }
+.frame390 { position: relative; inline-size: 340px; block-size: 360px; border: 1px solid var(--ink-700); border-radius: 0; background: var(--ivory); overflow: hidden; }
+.f-safe { position: absolute; inset-inline: 0; background: var(--paper-3); font: 500 12px/1 ui-monospace, Menlo, monospace; color: var(--ink-400); display: grid; place-items: center; }
+.f-safe--t { inset-block-start: 0; block-size: 40px; } .f-safe--b { inset-block-end: 0; block-size: 30px; }
+.f-gut { position: absolute; inset-block: 40px 30px; inline-size: 17px; background: var(--rose-100); box-shadow: inset 0 0 0 1px var(--rose-300); }
+.f-gut--s { inset-inline-start: 0; } .f-gut--e { inset-inline-end: 0; }
+.f-cols { position: absolute; inset-block: 40px 30px; inset-inline: 17px; display: grid; grid-template-columns: repeat(3, 1fr); }
+.f-cols i { border-inline-start: 1px solid var(--gold-600); } .f-cols i:first-child { border-inline-start: 0; }
+.f-lab { position: absolute; inset-inline: 0; inset-block-start: 150px; text-align: center; font: 500 12px/16px ui-monospace, Menlo, monospace; color: var(--ink-500); background: var(--ivory); padding: 4px 0; }
+.frame-notes ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; font-size: 14px; line-height: 22px; }
+
+/* icons */
+.g-icons { display: grid; grid-template-columns: auto 1fr; gap: 56px; align-items: start; }
+.kls { display: grid; grid-template-columns: repeat(2, 168px); gap: 20px; }
+.kl { margin: 0; } .kl svg { display: block; box-shadow: 0 0 0 1px var(--line); border-radius: 0; }
+.kl .icon-draw use { }
+.kl figcaption { font-size: 12px; line-height: 16px; color: var(--ink-400); margin-block-start: 6px; }
+.ladder { display: flex; align-items: flex-end; gap: 32px; padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px; color: var(--ink-700); }
+.ladder > div { display: flex; align-items: flex-end; gap: 10px; } .ladder span { font-size: 12px; line-height: 16px; } .ladder small { color: var(--ink-400); font-size: 12px; }
+.mirr { display: grid; gap: 8px; }
+.mirr > div { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 12px; color: var(--ink-700); }
+.mirr__k { inline-size: 32px; font: 600 12px/16px var(--font-ui-en); color: var(--gold-700); } .mirr__s { color: var(--line); }
+.ig-grid { display: grid; grid-template-columns: repeat(9, 1fr); border-block-start: 1px solid var(--line); border-inline-start: 1px solid var(--line); }
+.ig { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 4px 10px; border-block-end: 1px solid var(--line); border-inline-end: 1px solid var(--line); color: var(--ink-700); }
+.ig__n { font-size: 12px; line-height: 14px; color: var(--ink-400); text-align: center; }
+
+/* wordmark */
+.wm { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.wm__c { position: relative; display: flex; flex-direction: column; justify-content: space-between; min-block-size: 200px; padding: 24px; border-radius: 16px; }
+.wm__c--ivory { background: var(--ivory); box-shadow: inset 0 0 0 1px var(--line); } .wm__c--ink { background: var(--ink-700); } .wm__c--rose { background: var(--rose-100); }
+.wm__c--tall { min-block-size: 360px; }
+.wm__big { flex: 1; display: grid; place-items: center; }
+.wm__k { font-size: 12px; line-height: 16px; letter-spacing: .04em; color: var(--ink-400); } .wm__c--ink .wm__k { color: var(--ink-200); }
+.wordmark--l { gap: 16px; } .wordmark--l .wordmark__en { font-size: 48px; color: currentColor; } .wordmark--l .wordmark__ar { font-size: 64px; color: currentColor; }
+.wm__c--ivory .wordmark, .wm__c--rose .wordmark { color: var(--ink-700); }
+.wm__c--ink .wordmark--l .wordmark__en { font-size: 40px; } .wm__c--ink .wordmark--l .wordmark__ar { font-size: 52px; }
+.wm__rule { inline-size: 1px; block-size: 48px; background: var(--gold-500); opacity: .6; }
+.wm__construct { position: relative; flex: 1; display: grid; place-items: center; }
+.wm__construct .mark { overflow: visible; }
+.cs { position: absolute; background: var(--rose-300); }
+.cs--base { inset-inline: 22%; inset-block-end: 22%; block-size: 1px; } .cs--apex { inset-block: 6% 22%; inset-inline-start: calc(50% - .5px); inline-size: 1px; } .cs--dia { inset-inline: 22%; inset-block-start: 46.5%; block-size: 1px; }
+.wm__icon { flex: 1; display: grid; place-items: center; } .wm__icon::before { content: ""; position: absolute; inline-size: 112px; block-size: 112px; border-radius: 26px; background: var(--ink-800); box-shadow: inset 0 0 0 1px var(--line-on-ink); }
+.wm__icon .mark { position: relative; }
+.wm__rules { display: grid; grid-template-columns: repeat(4, 1fr); margin-block-start: 24px; border-block-start: 1px solid var(--line); }
+.wm__rules > div { padding: 16px 20px 0; border-inline-start: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px; font-size: 13px; line-height: 20px; }
+.wm__rules > div:first-child { padding-inline-start: 0; border-inline-start: 0; }
+.wm__min { display: flex; align-items: flex-end; gap: 12px; margin-block-start: 8px; }
+
+/* sampler */
+.smp { border-block-start: 2px solid var(--ink-700); }
+.smp-hd, .smp-row { display: grid; grid-template-columns: 112px 1fr 1fr; gap: 32px; }
+.smp-hd { padding-block: 10px; font: 600 12px/16px var(--font-ui-en); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-400); border-block-end: 1px solid var(--line); }
+.smp-row { padding-block: 22px; border-block-end: 1px solid var(--line); align-items: start; }
+.smp-label { font: 600 13px/20px var(--font-ui-en); color: var(--ink-700); } .smp-label small { display: block; font: 400 12px/16px var(--font-ui-en); color: var(--ink-400); margin-block-start: 2px; }
+.smp-cell { min-inline-size: 0; }
+.smp-cell .stack { display: grid; gap: 12px; } .smp-cell .line { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; } .smp-cell .line--sp { justify-content: space-between; } .smp-cell .line--2 { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }
+.smp-cell .days { gap: 0; } .smp-cell .days .day { inline-size: 56px; block-size: 56px; background: transparent; }
+.smp-cell .tl { margin-block-start: 8px; } .smp-cell .tl .tl__line { inset-block-start: 5px; }
+
+/* demos */
+.demos { display: grid; grid-template-columns: 1fr 380px 1fr; gap: 24px; align-items: start; }
+.dm { border: 1px solid var(--line); border-radius: 16px; background: var(--ivory); overflow: hidden; display: flex; flex-direction: column; }
+.dm--sig { border-color: var(--ink-700); box-shadow: 0 0 0 1px var(--ink-700); }
+.dm > header { display: grid; grid-template-columns: 32px 1fr; gap: 12px; padding: 20px 20px 16px; }
+.dm__n { display: grid; place-items: center; inline-size: 32px; block-size: 32px; background: var(--ink-700); color: var(--gold-300); font: 600 14px/1 var(--font-ui-en); }
+.dm h3 { font: 600 16px/24px var(--font-ui-en); color: var(--ink-700); } .dm h3 small { font: 600 12px/16px var(--font-ui-en); letter-spacing: .08em; text-transform: uppercase; color: var(--gold-700); margin-inline-start: 8px; }
+.dm header p { margin: 2px 0 0; font-size: 13px; line-height: 20px; color: var(--ink-400); }
+.dm > footer { display: grid; gap: 6px; padding: 16px 20px 20px; border-block-start: 1px solid var(--line); font-size: 12.5px; line-height: 18px; color: var(--ink-400); margin-block-start: auto; }
+.dm__stage { position: relative; padding: 20px; background: var(--paper-2); min-block-size: 680px; }
+.dm__stage--phone { display: grid; place-items: center; }
+.dm__f { }
+.dm__stage--press { display: flex; flex-direction: column; gap: 20px; justify-content: center; }
+.pr-row { display: flex; gap: 12px; align-items: center; } .pr-row .btn { flex: 1; }
+.pr-row--2 .btn { flex: 1; } .pr-heart { border: 1px solid var(--control-border); border-radius: 12px; color: var(--ink-700); inline-size: 48px; block-size: 48px; flex: none; }
+.pr-heart[aria-pressed="true"] { color: var(--gold-700); } .pr-heart[aria-pressed="true"] .icon { fill: var(--gold-500); stroke: var(--gold-700); }
+.pr-heart.is-pop .icon { animation: pop var(--dur-state) var(--ease-out); }
+@keyframes pop { 0% { transform: scale(1); } 45% { transform: scale(1.14); } 100% { transform: scale(1); } }
+.pr-card { inline-size: 100% !important; } .pr-card .vcard__media { aspect-ratio: 16 / 10; }
+.pr-replay { align-self: flex-start; }
+.btn.is-pressed { transform: translateY(1px) scale(.985); } .btn--primary.is-pressed { background: var(--gold-press); } .btn--secondary.is-pressed { background: var(--paper-3); }
+.chip.is-pressed { transform: scale(.97); } .icon-btn.is-pressed { transform: scale(.94); background: rgba(90, 75, 79, .10); } .vcard.is-pressed .vcard__media img { transform: scale(1.02); }
+
+.pf { position: relative; inline-size: 340px; block-size: 640px; border: 1px solid var(--ink-300); border-radius: 24px; overflow: hidden; background: var(--ivory); isolation: isolate; }
+.pf__bg { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
+.pf__ctl { position: absolute; inset: 14px 12px auto 12px; display: flex; justify-content: space-between; z-index: 2; }
+.pf__bar { position: absolute; inset-inline: 0; inset-block-end: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px 28px; background: var(--ink-800); z-index: 3; border-block-start: 1px solid var(--line-on-ink); }
+.pf__bar .btn { min-block-size: 48px; padding-inline: 20px; }
+.pf--sheet .scrim { z-index: 4; } .pf--sheet .sheet { z-index: 5; block-size: 420px; transition: transform var(--dur-sheet) var(--ease-emph-in), height var(--dur-sheet) var(--ease-emph); }
+.pf--sheet.is-open > .sheet { transition-timing-function: var(--ease-emph); }
+.pf--sheet .sheet.is-expanded { block-size: 596px; }
+.pf--sheet .sheet__shape { block-size: 100%; overflow: hidden; padding-inline: 16px; touch-action: none; }
+.sheet__head { padding-block-start: 12px; cursor: grab; }
+.sheet__head p { margin: 2px 0 12px; }
+.days7 { display: grid; grid-template-columns: repeat(7, 1fr); } .days7 .day { min-block-size: 52px; }
+.sheet__sum { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-block-start: 16px; padding-block-start: 12px; border-block-start: 1px solid var(--line); }
+.pf--sheet .sheet__shape .day.is-sel { box-shadow: 0 0 0 2px var(--ivory), 0 0 0 3px var(--gold-600); }
+
+.pf--hotel { background: var(--ivory); }
+.pf--hotel .hh { padding: 28px 16px 20px; background: var(--ink-700); } .hh__v { font: 600 14px/20px var(--font-ui-en); color: var(--ink-200); }
+.hh__t { margin: 8px 0 0; color: var(--ivory); } .hh__n { display: inline-block; font-variant-numeric: tabular-nums; transition: opacity var(--dur-state) var(--ease-out), transform var(--dur-state) var(--ease-out); }
+.hh__n.is-swap { opacity: 0; transform: translateY(6px); }
+.hh__rule { block-size: 2px; background: var(--gold-500); }
+.tri-list { padding: 16px 16px 0; display: grid; gap: 0; }
+.tri-wrap { display: grid; grid-template-rows: 1fr; transition: grid-template-rows var(--dur-move) var(--ease-out), opacity var(--dur-state) var(--ease-out), margin var(--dur-move) var(--ease-out); margin-block-end: 12px; }
+.tri-wrap > .tri { min-block-size: 0; overflow: hidden; margin-inline: 0; }
+.tri-wrap.is-gone { grid-template-rows: 0fr; opacity: 0; margin-block-end: 0; pointer-events: none; }
+.pf--hotel .tri__body { padding: 14px 16px 16px; padding-block-start: 17px; } .pf--hotel .tri__facts { margin-block: 8px; } .pf--hotel .tri__facts dd { font-size: 15px; } .pf--hotel .tri__facts > div { padding: 8px; }
+.pf--hotel .tri__sub { font-size: 14px; line-height: 20px; } .pf--hotel .tri__actions { margin-block-start: 8px; }
+.pf--hotel .tri__top { gap: 8px; }
+.sla__fill { transition: width var(--dur-move) var(--ease-out), background-color var(--dur-state) var(--ease-out); }
+.tri.is-done .sla__fill { width: 100% !important; background: var(--gold-500); }
+.tri.is-done .tri__left { color: var(--success); }
+.btn.is-ok { background: var(--ink-700); color: var(--gold-300); }
+.toast { position: absolute; inset-inline: 12px; inset-block-end: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 4px 8px 4px 16px; border-radius: 12px; background: var(--ink-800); color: var(--ivory); font-size: 14px; line-height: 20px; transform: translateY(calc(100% + 24px)); transition: transform var(--dur-move) var(--ease-out); z-index: 6; }
+.toast.is-on { transform: translateY(0); }
+.toast .btn--tertiary { color: var(--gold-300); }
+
+/* motion spec */
+.g-motion { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; margin-block-end: 48px; }
+.curves { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.curves figure { margin: 0; } .curves figcaption { font-size: 12px; line-height: 16px; color: var(--ink-400); margin-block-start: 4px; } .curve { display: block; border-radius: 8px; background: var(--paper-2); }
+.board .tbl code { white-space: nowrap; }
+.tbl--beh td:first-child { inline-size: 260px; font-weight: 600; color: var(--ink-700); }
+
+/* screens */
+.shots { display: grid; grid-template-columns: repeat(4, 273px); justify-content: space-between; row-gap: 32px; }
+.shot { margin: 0; } .shot__f { inline-size: 273px; block-size: 591px; overflow: hidden; border: 1px solid var(--ink-300); border-radius: 16px; background: var(--ivory); }
+.shot iframe { inline-size: 390px; block-size: 844px; border: 0; zoom: .7; display: block; pointer-events: none; }
+.shot figcaption { margin-block-start: 8px; font: 500 12.5px/18px var(--font-ui-en); color: var(--ink-500); }
+.shot figcaption[lang="ar"] { font-family: var(--font-ui-ar); font-size: 14px; }
+
+/* risks */
+.g-risk { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--line); }
+.g-risk article { padding: 24px; border-inline-start: 1px solid var(--line); } .g-risk article:first-child { padding-inline-start: 0; border-inline-start: 0; }
+.g-risk h3 { font: 600 15px/22px var(--font-ui-en); color: var(--ink-700); margin-block-end: 8px; } .g-risk p { margin: 0; font-size: 13.5px; line-height: 22px; }
+.g-impl { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; margin-block-start: 48px; }
+.g-impl h3 { font: 600 15px/24px var(--font-ui-en); color: var(--ink-700); margin-block-end: 12px; } .g-impl ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 14px; line-height: 22px; }
+
+/* lattice study */
+.g-lattice { display: grid; grid-template-columns: 288px 1fr 360px; gap: 48px; align-items: start; margin-block-start: 64px; padding-block-start: 40px; border-block-start: 1px solid var(--line); }
+.lat__fig { margin: 0; } .lat__tile { display: block; margin-block-start: 8px; box-shadow: 0 0 0 1px var(--line); }
+.lat__sw { display: grid; grid-template-columns: 168px 1fr; gap: 16px; align-items: end; margin-block-end: 16px; font-size: 13px; line-height: 20px; color: var(--ink-400); }
+.lat__sw .lattice { display: block; inline-size: 168px; block-size: 168px; background-position: 0 0; }
+.lat__sw--ink .lattice { background-color: var(--ink-700); } .lat__sw--ivory .lattice { background-color: var(--ivory); box-shadow: inset 0 0 0 1px var(--line); }
+.lat__rep .code { margin-block-start: 8px; }
+.lat__crop { inline-size: 360px; block-size: 232px; overflow: hidden; border-radius: 12px; border: 1px solid var(--ink-300); background: var(--ink-700); }
+.lat__crop iframe { display: block; inline-size: 390px; block-size: 844px; border: 0; transform: scale(.923) translateY(-190px); transform-origin: 0 0; pointer-events: none; }
+.lat__empty { align-items: flex-start; text-align: start; padding: 24px 0 0; } .lat__empty .empty__p { max-width: none; }
+.opt__rule { inline-size: 1px; block-size: 48px; background: var(--line); align-self: center; margin-inline: 4px; }
+.wm__rules { grid-template-columns: 1.7fr repeat(3, 1fr); }
+.wm__duo { display: grid; gap: 20px; justify-items: center; }
+.wm__construct .mark--cons { box-shadow: 0 0 0 1px var(--line); }
+.wm__icon::before { border-radius: 26px; }
+.tri-empty { position: absolute; inset-inline: 0; inset-block: 136px 0; background: var(--ivory); opacity: 0; pointer-events: none; transition: opacity var(--dur-move) var(--ease-out); z-index: 1; }
+.tri-empty.is-on { opacity: 1; }
+.pf--hotel .tri-list { position: relative; z-index: 0; }
+
+</style>
+</head>
+<body class="board-page">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5L13.5 13.5L8.5 15.5L10.5 10.5Z"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5C12 20.5 3.5 15 3.5 9.2C3.5 6.6 5.5 4.8 7.9 4.8C9.6 4.8 11.2 5.7 12 7.2C12.8 5.7 14.4 4.8 16.1 4.8C18.5 4.8 20.5 6.6 20.5 9.2C20.5 15 12 20.5 12 20.5Z"/></symbol><symbol id="i-rings" viewBox="0 0 24 24"><circle cx="9" cy="15" r="5"/><circle cx="15" cy="15" r="5"/><path d="M12 3.5L14 5.5L12 7.5L10 5.5Z"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5H20V16H11L6 20V16H4Z"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20.5V18.5C5 15.5 8 13.5 12 13.5C16 13.5 19 15.5 19 18.5V20.5"/></symbol><symbol id="i-today" viewBox="0 0 24 24"><path d="M4 6H20V20H4ZM4 10H20M8 3V7M16 3V7"/><path d="M11 14H13V16H11Z" fill="currentColor"/></symbol><symbol id="i-bookings" viewBox="0 0 24 24"><path d="M7 4H17V20H7ZM10 8.5H14M10 12H14M10 15.5H12"/><path d="M5 6.5V18M19 6.5V18"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M4 6H20V20H4ZM4 10H20M8 3V7M16 3V7"/></symbol><symbol id="i-dots" viewBox="0 0 24 24"><path d="M4 10.5H6.5V13.5H4ZM10.75 10.5H13.25V13.5H10.75ZM17.5 10.5H20V13.5H17.5Z" fill="currentColor"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17V11C6 7.7 8.7 5 12 5C15.3 5 18 7.7 18 11V17M4 17H20M10 20.5H14M12 3V5"/></symbol><symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5L16 12L9 19"/></symbol><symbol id="i-chev-back" viewBox="0 0 24 24"><path d="M15 5L8 12L15 19"/></symbol><symbol id="i-chev-down" viewBox="0 0 24 24"><path d="M5 9L12 16L19 9"/></symbol><symbol id="i-chev-up" viewBox="0 0 24 24"><path d="M5 15L12 8L19 15"/></symbol><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12H20M14 6L20 12L14 18"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="M5.5 5.5L18.5 18.5M18.5 5.5L5.5 18.5"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5V19M5 12H19"/></symbol><symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12H19"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.5L9.5 17.5L19.5 6.5"/></symbol><symbol id="i-dash" viewBox="0 0 24 24"><path d="M7 12H17"/></symbol><symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V3M7.5 7.5L12 3L16.5 7.5M5 11V21H19V11"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3L14.6 9.2L21 9.7L16.1 14L17.6 20.5L12 17L6.4 20.5L7.9 14L3 9.7L9.4 9.2Z"/></symbol><symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.5C12 21.5 5 14.5 5 9.5C5 5.6 8.1 2.5 12 2.5C15.9 2.5 19 5.6 19 9.5C19 14.5 12 21.5 12 21.5Z"/><circle cx="12" cy="9.5" r="2.5"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 19.5V18C3 15.5 5.5 14 9 14C12.5 14 15 15.5 15 18V19.5M16 5.3C17.8 5.6 19 6.9 19 8.6C19 10.2 18 11.4 16.5 11.8M18 14.2C19.9 14.6 21 15.9 21 18V19.5"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7V12L15.5 14"/></symbol><symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6 3H18M6 21H18M7.5 3C7.5 9 12 10.5 12 12C12 13.5 7.5 15 7.5 21M16.5 3C16.5 9 12 10.5 12 12C12 13.5 16.5 15 16.5 21"/></symbol><symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 7H20M4 17H20M9 4V10M15 14V20"/></symbol><symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.5 3.5H10L11.5 8L9 9.7C10.2 12.1 11.9 13.8 14.3 15L16 12.5L20.5 14V17.5C20.5 19 19.3 20.5 17.5 20.5C10.5 20.5 3.5 13.5 3.5 6.5C3.5 4.7 5 3.5 6.5 3.5Z"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11V17M12 7V8.5"/></symbol><symbol id="i-banknote" viewBox="0 0 24 24"><path d="M3 6.5H21V17.5H3Z"/><circle cx="12" cy="12" r="2.75"/><path d="M6 10V14M18 10V14"/></symbol><symbol id="i-compare" viewBox="0 0 24 24"><path d="M3 4.5H21V19.5H3ZM9 4.5V19.5M15 4.5V19.5"/></symbol><symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6H20M9 12H20M9 18H20M4 6H5.5M4 12H5.5M4 18H5.5"/></symbol><symbol id="i-trend-up" viewBox="0 0 24 24"><path d="M6 18L18 6M9 6H18V15"/></symbol><symbol id="i-trend-down" viewBox="0 0 24 24"><path d="M6 6L18 18M9 18H18V9"/></symbol><symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8 12.2L11 15.2L16.2 9.2"/></symbol><symbol id="i-x-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9 9L15 15M15 9L9 15"/></symbol><symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8H19M15 4L19 8L15 12M20 16H5M9 12L5 16L9 20"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><path d="M5 11H19V21H5ZM8 11V7.5C8 5.3 9.8 3.5 12 3.5C14.2 3.5 16 5.3 16 7.5V11"/></symbol><symbol id="i-hotel" viewBox="0 0 24 24"><path d="M5 21V4H15V21M15 9H19V21M3 21H21M8 8H12M8 12H12M8 16H12"/></symbol><symbol id="i-hall" viewBox="0 0 24 24"><path d="M3 21H21M5 21V12C5 8.2 8.5 5 12 3C15.5 5 19 8.2 19 12V21M9 21V14C9 12 10.5 10.5 12 9.5C13.5 10.5 15 12 15 14V21"/></symbol><symbol id="i-civic" viewBox="0 0 24 24"><path d="M3 9.5L12 3.5L21 9.5ZM5.5 9.5V18.5M9.8 9.5V18.5M14.2 9.5V18.5M18.5 9.5V18.5M3 21H21M3 18.5H21"/></symbol><symbol id="i-beach" viewBox="0 0 24 24"><circle cx="16.5" cy="7" r="3"/><path d="M3 14C5 12.2 7 12.2 9 14C11 15.8 13 15.8 15 14C17 12.2 19 12.2 21 14M3 19.5C5 17.7 7 17.7 9 19.5C11 21.3 13 21.3 15 19.5C17 17.7 19 17.7 21 19.5"/></symbol><symbol id="i-outdoor" viewBox="0 0 24 24"><path d="M12 21V12M12 12C8 12 5 9.5 5 5.5C9 5.5 12 8 12 12ZM12 12C12 8 15 5.5 19 5.5C19 9.5 16 12 12 12Z"/><path d="M8 21H16"/></symbol><symbol id="i-vip" viewBox="0 0 24 24"><path d="M12 2.5L14.37 6.27L18.72 5.28L17.73 9.63L21.5 12L17.73 14.37L18.72 18.72L14.37 17.73L12 21.5L9.63 17.73L5.28 18.72L6.27 14.37L2.5 12L6.27 9.63L5.28 5.28L9.63 6.27Z"/></symbol><symbol id="i-signal" viewBox="0 0 24 24"><path d="M3 17H5V20H3ZM8 13H10V20H8ZM13 9H15V20H13ZM18 4H20V20H18Z" fill="currentColor" stroke="none"/></symbol><symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 9C7 4.5 17 4.5 22 9M5.5 12.5C9 9.5 15 9.5 18.5 12.5M9 16C11 14.5 13 14.5 15 16" stroke-width="2"/><path d="M11 19H13V21H11Z" fill="currentColor"/></symbol><symbol id="i-battery" viewBox="0 0 24 24"><path d="M2.5 7H19.5V17H2.5Z" stroke-width="1.2"/><path d="M4.5 9H17V15H4.5Z" fill="currentColor" stroke="none"/><path d="M21 10V14" stroke-width="2"/></symbol></defs></svg>
+
+<main class="board">
+
+<!-- ============ MASTHEAD ============ -->
+<header class="mast on-ink">
+  <div class="mast__text">
+    <div class="mast__bar">
+      <span class="wordmark"><svg class="mark" width="40" height="40" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M5 28V16C5 10 10 6 16 2.5C22 6 27 10 27 16V28" stroke="var(--ivory)" stroke-width="1.75" stroke-linejoin="miter"/><path d="M3 28H29" stroke="var(--ivory)" stroke-width="1.75"/><path d="M16 15L19.5 19L16 23L12.5 19Z" fill="var(--gold-500)"/></svg><span class="wordmark__en">Ghazal</span><span class="wordmark__ar" lang="ar">غزل</span></span>
+      <span class="mast__tag">Direction 02 of 03 · Client app + Hotel app</span>
+    </div>
+    <h1 class="mast__title"><span>Majlis</span><span class="mast__ar" lang="ar" dir="rtl">مجلس</span></h1>
+    <p class="mast__sub">Architectural warmth</p>
+    <p class="mast__lede">A booking is a threshold. Majlis builds the interface from the grammar of Gulf hospitality architecture — the doorway, the lintel, the lattice screen, the dark wall of a diwaniya — and then withholds everything else. Ink is the wall. Ivory is the room. Gold is the line that draws the door.</p>
+    <dl class="mast__facts">
+      <div><dt>Colours</dt><dd>3 + neutrals</dd></div>
+      <div><dt>Signature</dt><dd>One shape: the arch crown</dd></div>
+      <div><dt>Standard motion</dt><dd>160 – 240 ms</dd></div>
+      <div><dt>Type</dt><dd>Poppins · Cairo + a display pair</dd></div>
+    </dl>
+  </div>
+  <div class="mast__door">
+    <div class="door__lat lattice" aria-hidden="true"></div>
+    <div class="door__arch"><div class="arch" style="--rise:112px;height:440px;"><div class="arch__body"><img src="../../public/images/halls/halls-23-arched-niche-majlis-seating.jpg" alt="" style="object-position:50% 50%"></div><svg class="arch__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="stroke:var(--gold-500)"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg></div></div>
+  </div>
+</header>
+
+<!-- ============ 01 CONCEPT ============ -->
+<section class="b-sec" id="concept">
+  <div class="b-head"><span class="b-num">01 · Concept</span><h2 class="b-title">Every venue is a doorway.</h2>
+    <p class="b-lede">A couple is not buying square metres. She is deciding which room she will walk into on the night of her life. The single idea in Majlis is the <b>arch crown</b>: a pointed, slightly horseshoe silhouette that frames every photograph that matters, crowns every sheet that asks for a decision, and relaxes to a straight lintel when a sheet is pulled to full height — the door opens.</p></div>
+
+  <div class="g-concept">
+    <div class="idea">
+      <figure class="idea__fig"><div class="arch" style="--rise:96px;height:300px;"><div class="arch__body"><img src="../../public/images/outdoor/outdoor-28-moorish-arch-fountain-palms.jpg" alt="" style="object-position:50% 45%"></div><svg class="arch__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="stroke:var(--gold-500)"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg></div></figure>
+      <div class="idea__geo">
+        <span class="b-over">The one memorable idea</span>
+        <p class="idea__q">One silhouette, three places, never decoration.</p>
+        <ul class="idea__list">
+          <li><b>Hero crown</b> clips the home photograph (rise 64).</li>
+          <li><b>Sheet crown</b> tops every sheet and the venue panel (rise 24). Dragged to full height it flattens to 0 over 320 ms.</li>
+          <li><b>Compare doors</b> frame the three venues side by side (rise 20, docked 12).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="geo">
+      <span class="b-over">Geometry · two cubic Béziers</span>
+      <svg class="geo__svg" viewBox="0 0 320 132" width="320" height="132" fill="none" aria-hidden="true">
+        <path d="M0 120H320M0 0H320M160 0V120" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 4"/>
+        <path d="M0 120C0 55 90 43 160 0C230 43 320 55 320 120" stroke="var(--gold-700)" stroke-width="2"/>
+        <path d="M0 120L0 55M90 43L160 0M230 43L160 0M320 120L320 55" stroke="var(--ink-300)" stroke-width="1"/>
+        <g fill="var(--ink-700)"><rect x="-3" y="117" width="6" height="6"/><rect x="157" y="-3" width="6" height="6"/><rect x="317" y="117" width="6" height="6"/></g>
+        <g fill="var(--ivory)" stroke="var(--ink-700)" stroke-width="1.25"><circle cx="0" cy="55" r="3.5"/><circle cx="90" cy="43" r="3.5"/><circle cx="230" cy="43" r="3.5"/><circle cx="320" cy="55" r="3.5"/></g>
+        <text x="10" y="50" class="geo__t">0, .46</text><text x="78" y="30" class="geo__t">.28, .36</text><text x="242" y="30" class="geo__t">.72, .36</text><text x="262" y="50" class="geo__t">1, .46</text>
+      </svg>
+      <pre class="code">Path crown(double w, double rise) =&gt; Path()
+  ..moveTo(0, rise)
+  ..cubicTo(0, .46*rise, .28*w, .36*rise, .5*w, 0)
+  ..cubicTo(.72*w, .36*rise, w, .46*rise, w, rise);
+// ClipPath for photos; same path stroked Gold 500, 1.5 dp
+// rise: hero 64 · sheet 24 · compare 20 (docked 12) · expanded 0</pre>
+      <div class="mini3"><div><div class="arch" style="--rise:20px;height:88px;"><div class="arch__body"><img src="../../public/images/halls/halls-08-grand-ballroom-crystal-chandelier.jpg" alt="" style="object-position:50% 30%"></div><svg class="arch__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="stroke:var(--gold-600)"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg></div></div><div><div class="arch" style="--rise:20px;height:88px;"><div class="arch__body"><img src="../../public/images/halls/halls-04-conservatory-reception-hall.jpg" alt="" style="object-position:50% 30%"></div><svg class="arch__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="stroke:var(--gold-600)"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg></div></div><div><div class="arch" style="--rise:20px;height:88px;"><div class="arch__body"><img src="../../public/images/halls/halls-02-ivory-draped-ballroom.jpg" alt="" style="object-position:56% 45%"></div><svg class="arch__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="stroke:var(--gold-600)"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg></div></div></div>
+    </div>
+  </div>
+
+  <div class="g-lattice">
+    <figure class="lat__fig">
+      <span class="b-over">The second device · the lattice</span>
+      <svg class="lat__tile" width="288" height="288" viewBox="-4 -4 64 64" fill="none" aria-hidden="true"><rect x="0" y="0" width="56" height="56" fill="var(--ivory)" stroke="var(--line)" stroke-width=".25" stroke-dasharray="1 1.2"/><g stroke="var(--rose-300)" stroke-width=".22"><path d="M28 28L28.00 2.91"/><path d="M28 28L45.74 10.26"/><path d="M28 28L53.09 28.00"/><path d="M28 28L45.74 45.74"/><path d="M28 28L28.00 53.09"/><path d="M28 28L10.26 45.74"/><path d="M28 28L2.91 28.00"/><path d="M28 28L10.26 10.26"/></g><g stroke="var(--gold-600)" stroke-width=".22" stroke-dasharray=".8 1"><circle cx="28" cy="28" r="22.4"/><circle cx="28" cy="28" r="17.14"/></g><path d="M28 5.6L34.56 12.17L43.84 12.16L43.83 21.44L50.4 28L43.83 34.56L43.84 43.84L34.56 43.83L28 50.4L21.44 43.83L12.16 43.84L12.17 34.56L5.6 28L12.17 21.44L12.16 12.16L21.44 12.17ZM50.4 28H56M5.6 28H0M28 50.4V56M28 5.6V0M43.84 56V43.84H56M43.84 0V12.16H56M12.16 0V12.16H0M12.16 56V43.84H0" stroke="var(--ink-700)" stroke-width=".55" stroke-linejoin="miter"/><g fill="var(--ivory)" stroke="var(--ink-700)" stroke-width=".25"><rect x="27.3" y="4.900000000000001" width="1.4" height="1.4"/><rect x="49.699999999999996" y="27.3" width="1.4" height="1.4"/></g></svg>
+      <figcaption class="b-cap">One 56 dp tile: a sixteen-vertex star on the tile centre (tip .40 T, valley .765 × tip), four axis stubs and four corner Ls, so neighbouring tiles join into a single screen. 1 dp stroke, never filled, never animated.</figcaption>
+    </figure>
+    <div class="lat__rep">
+      <h3 class="b-h3">At size <small>1 : 1</small></h3>
+      <div class="lat__sw lat__sw--ink"><span class="lattice" aria-hidden="true"></span><span><b>On Ink</b><br>Gold 500 at 20 %, hero spandrels</span></div>
+      <div class="lat__sw lat__sw--ivory"><span class="lattice lattice--ivory" aria-hidden="true"></span><span><b>On ivory</b><br>Ink 500 at 13 %, empty states</span></div>
+      <pre class="code">class LatticePainter extends CustomPainter {
+  // T = 56 dp · stroke 1 dp · Gold 500 @ .20 on Ink
+  void paint(Canvas c, Size s) {
+    for (var y = 0.0; y &lt; s.height; y += T)
+      for (var x = 0.0; x &lt; s.width; x += T) {
+        c.save(); c.translate(x, y);
+        c.drawPath(_tile, _stroke); c.restore();
+      }
+  }
+}  // always clipped to the spandrel path</pre>
+    </div>
+    <div class="lat__where">
+      <h3 class="b-h3">Where it lives <small>two places</small></h3>
+      <div class="lat__crop"><iframe src="client-home.html" title="Home hero with lattice in the spandrels" tabindex="-1" loading="eager"></iframe></div>
+      <p class="b-cap"><b>Hero spandrels</b>: only the corners the arch leaves empty. Measured at <b>1.1 %</b> of the 390 × 844 fold’s pixels.</p>
+      <div class="lat__empty empty"><div class="doorframe"><div class="doorframe__lat"></div><div class="doorframe__door"></div><svg class="doorframe__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg><span class="doorframe__lamp"></span></div><h4 class="empty__t">All clear</h4><p class="empty__p">The same door, one lamp. Empty states only.</p></div>
+      <p class="b-cap">Never behind text, never on content, never animated.</p>
+    </div>
+  </div>
+
+  <div class="principles">
+    <article><span class="pn">1</span><h3>Ink is the wall, ivory is the room.</h3><p>Large Ink surfaces mark the moments of decision: the hero, the summary bars, the tab bar, the call to action. Content lives on warm ivory with hairline rules, never on stacks of shadowed cards.</p></article>
+    <article><span class="pn">2</span><h3>Gold is structure.</h3><p>A 2 px lintel above each section, hairline plinths under featured photos, the knots on a progress thread, and the one primary action per screen. Gold text is always Gold-ink 700; Gold 500 is never a text colour.</p></article>
+    <article><span class="pn">3</span><h3>Lattice sits in the spandrels.</h3><p>The geometric screen appears only where architecture would put it: around the doorway in the hero (and in empty states). Gold at 20 % on Ink, 1 px stroke, 1.1 % of the home fold’s pixels (measured). A CustomPainter, not an asset.</p></article>
+    <article><span class="pn">4</span><h3>Brochure columns, not card piles.</h3><p>Content snaps to 2, 3 or 4 equal columns separated by 1 px rules, like a printed hotel brochure. Elevation is reserved for the one floating object per screen.</p></article>
+  </div>
+
+  <div class="moods">
+    <div class="moods__h"><span></span><span>Client app · aspirational</span><span>Hotel app · back-of-house</span></div>
+    <div class="moods__r"><span>Surface</span><span>Ink hero, ivory content, Ink bars</span><span>Ink header with a 2 px gold rule, ivory ledger</span></div>
+    <div class="moods__r"><span>Signature</span><span>Arch crown, lattice in the spandrels</span><span>No arch. Lattice only in the All-clear state. Orthogonal rules, gold thread as SLA clock</span></div>
+    <div class="moods__r"><span>Type</span><span>Display serif for names and hero lines</span><span>Display serif for one line only: the greeting</span></div>
+    <div class="moods__r"><span>Density</span><span>Photography leads, 20 px gutters, 32 px sections</span><span>Rows of 64–76 px, numbers first, one gold action per card</span></div>
+  </div>
+</section>
+
+<!-- ============ 02 COLOUR ============ -->
+<section class="b-sec" id="colour">
+  <div class="b-head"><span class="b-num">02 · Colour</span><h2 class="b-title">Three colours, one deepened gold.</h2>
+    <p class="b-lede">The PRD palette is kept exactly: Ink <b>#5A4B4F</b>, Matte Gold <b>#D8B26E</b>, Soft Rose <b>#F8E7EC</b> on Warm Off White <b>#FFF9F5</b>. Each is extended into a ramp, and greys are Ink mixed into ivory, so nothing is cold. Gold sits at 1.91:1 on ivory, which fails for text, so the system carries a second gold made for reading: <b>Gold-ink #7A5A1C at 6.08:1</b>.</p></div>
+
+  <div class="ramp"><h3 class="b-h3">Ink <small>Dark Rose Gray · walls, text, strokes</small></h3><div class="sw-row" style="--cols:10"><div class="sw" style="--c:#F6F1F0;--f:var(--ink-900)"><span class="sw__n">50</span><span class="sw__h">#F6F1F0</span><span class="sw__r">wash</span></div><div class="sw" style="--c:#EAE2E3;--f:var(--ink-900)"><span class="sw__n">100</span><span class="sw__h">#EAE2E3</span><span class="sw__r">chip off · track</span></div><div class="sw" style="--c:#D0C5C7;--f:var(--ink-900)"><span class="sw__n">200</span><span class="sw__h">#D0C5C7</span><span class="sw__r">strong rule · 2° text on Ink</span></div><div class="sw" style="--c:#A89A9D;--f:var(--ink-900)"><span class="sw__n">300</span><span class="sw__h">#A89A9D</span><span class="sw__r">disabled · non-text</span></div><div class="sw" style="--c:#6E6064;--f:var(--ivory)"><span class="sw__n">400</span><span class="sw__h">#6E6064</span><span class="sw__r">muted text</span></div><div class="sw" style="--c:#5A4B4F;--f:var(--ivory)"><span class="sw__n">500 <b class="star">PRD</b></span><span class="sw__h">#5A4B4F</span><span class="sw__r">body text</span></div><div class="sw" style="--c:#4B3E42;--f:var(--ivory)"><span class="sw__n">600</span><span class="sw__h">#4B3E42</span><span class="sw__r">pressed ink</span></div><div class="sw" style="--c:#3F3236;--f:var(--ivory)"><span class="sw__n">700</span><span class="sw__h">#3F3236</span><span class="sw__r">Ink surface · headings</span></div><div class="sw" style="--c:#322829;--f:var(--ivory)"><span class="sw__n">800</span><span class="sw__h">#322829</span><span class="sw__r">tab + CTA bars</span></div><div class="sw" style="--c:#2A2124;--f:var(--ivory)"><span class="sw__n">900</span><span class="sw__h">#2A2124</span><span class="sw__r">label on gold</span></div></div></div>
+  <div class="ramp"><h3 class="b-h3">Matte Gold <small>fills, lintels, selection · flat, never metallic</small></h3><div class="sw-row" style="--cols:10"><div class="sw" style="--c:#FBF5E7;--f:var(--ink-900)"><span class="sw__n">50</span><span class="sw__h">#FBF5E7</span><span class="sw__r">wash</span></div><div class="sw" style="--c:#F6EACB;--f:var(--ink-900)"><span class="sw__n">100</span><span class="sw__h">#F6EACB</span><span class="sw__r">pending tint</span></div><div class="sw" style="--c:#EDD6A5;--f:var(--ink-900)"><span class="sw__n">200</span><span class="sw__h">#EDD6A5</span><span class="sw__r">rule on tint</span></div><div class="sw" style="--c:#E4C384;--f:var(--ink-900)"><span class="sw__n">300</span><span class="sw__h">#E4C384</span><span class="sw__r">gold text on Ink</span></div><div class="sw" style="--c:#E0BC7C;--f:var(--ink-900)"><span class="sw__n">400</span><span class="sw__h">#E0BC7C</span><span class="sw__r">hover fill</span></div><div class="sw" style="--c:#D8B26E;--f:var(--ink-900)"><span class="sw__n">500 <b class="star">PRD</b></span><span class="sw__h">#D8B26E</span><span class="sw__r">fills, lintel</span></div><div class="sw" style="--c:#C3A066;--f:var(--ink-900)"><span class="sw__n">press</span><span class="sw__h">#C3A066</span><span class="sw__r">pressed fill</span></div><div class="sw" style="--c:#A67E38;--f:var(--ink-900)"><span class="sw__n">600</span><span class="sw__h">#A67E38</span><span class="sw__r">graphics ≥ 3:1</span></div><div class="sw" style="--c:#7A5A1C;--f:var(--ivory)"><span class="sw__n">700</span><span class="sw__h">#7A5A1C</span><span class="sw__r">GOLD-INK · text</span></div><div class="sw" style="--c:#5A4214;--f:var(--ivory)"><span class="sw__n">800</span><span class="sw__h">#5A4214</span><span class="sw__r">deep</span></div></div></div>
+  <div class="ramp ramp--split">
+    <div><h3 class="b-h3">Soft Rose <small>quiet tinted surfaces</small></h3><div class="sw-row" style="--cols:4"><div class="sw" style="--c:#FDF4F6;--f:var(--ink-900)"><span class="sw__n">50</span><span class="sw__h">#FDF4F6</span><span class="sw__r">wash</span></div><div class="sw" style="--c:#F8E7EC;--f:var(--ink-900)"><span class="sw__n">100 <b class="star">PRD</b></span><span class="sw__h">#F8E7EC</span><span class="sw__r">quiet surface</span></div><div class="sw" style="--c:#F0D3DC;--f:var(--ink-900)"><span class="sw__n">200</span><span class="sw__h">#F0D3DC</span><span class="sw__r">monogram</span></div><div class="sw" style="--c:#E4B9C6;--f:var(--ink-900)"><span class="sw__n">300</span><span class="sw__h">#E4B9C6</span><span class="sw__r">rule on rose</span></div></div></div>
+    <div><h3 class="b-h3">Warm neutrals <small>ivory + Ink mixed in</small></h3><div class="sw-row" style="--cols:5"><div class="sw" style="--c:#FFF9F5;--f:var(--ink-900)"><span class="sw__n">Ivory <b class="star">PRD</b></span><span class="sw__h">#FFF9F5</span><span class="sw__r">canvas</span></div><div class="sw" style="--c:#F8EFEA;--f:var(--ink-900)"><span class="sw__n">Paper 2</span><span class="sw__h">#F8EFEA</span><span class="sw__r">bands</span></div><div class="sw" style="--c:#F0E4DE;--f:var(--ink-900)"><span class="sw__n">Paper 3</span><span class="sw__h">#F0E4DE</span><span class="sw__r">track · pressed</span></div><div class="sw" style="--c:#DCCFCA;--f:var(--ink-900)"><span class="sw__n">Line</span><span class="sw__h">#DCCFCA</span><span class="sw__r">hairline</span></div><div class="sw" style="--c:#8F8084;--f:var(--ink-900)"><span class="sw__n">Control</span><span class="sw__h">#8F8084</span><span class="sw__r">control edge 3.6:1</span></div></div></div>
+  </div>
+
+  <div class="g-colour">
+    <div>
+      <h3 class="b-h3">Where each colour lives <small>share of a typical screen</small></h3>
+      <div class="share" aria-hidden="true"><span style="flex:72.4;background:var(--ivory);box-shadow:inset 0 0 0 1px var(--line)">Ivory 72 %</span><span style="flex:13.4;background:var(--ink-700);color:var(--ivory)">Ink 13 %</span><span style="flex:8.6;background:var(--rose-100);box-shadow:inset 0 0 0 1px var(--rose-200)"></span><span style="flex:2;background:var(--gold-500)"></span><span style="flex:3.5;background:var(--ink-200)"></span></div>
+      <p class="b-cap" style="margin-block-start:8px">Rose 9 % · Gold 2 % · type anti-aliasing 3.5 %.</p>
+      <p class="b-cap" style="margin-block-start:4px">Measured on the four screens, English and Arabic, photographs excluded (photographs are 13 % of all pixels). Ink concentrates where decisions are made: 24 % of the home fold, 16 % of the hotel’s Today. Gold is scarce on purpose: if more than one gold fill is visible, one of them is wrong.</p>
+      <h3 class="b-h3" style="margin-block-start:32px">Functional set <small>status only · always icon + label</small></h3>
+      <div class="fnrow"><div class="fn"><span class="fn__a" style="background:#E5EEE3;color:#46664D"><svg class="icon " aria-hidden="true"><use href="#i-check-circle"/></svg>Success</span><span class="fn__m">#46664D on #E5EEE3 · 5.41:1 · approved · available</span></div><div class="fn"><span class="fn__a" style="background:#F7E3DF;color:#964139"><svg class="icon " aria-hidden="true"><use href="#i-x-circle"/></svg>Danger</span><span class="fn__m">#964139 on #F7E3DF · 5.47:1 · declined · overdue</span></div></div>
+      <p class="b-cap">Attention and pending borrow Gold 100 / Gold 700, so the only extra hues in the product are one desaturated green and one desaturated brick.</p>
+    </div>
+    <div class="goldfix">
+      <h3 class="b-h3">The gold-on-ivory problem, solved <small>same word, three golds</small></h3>
+      <div class="gf gf--bad"><span class="gf__t" style="color:var(--gold-500)">Free on Thu 14 Jan</span><span class="gf__r">Gold 500 · 1.91:1 · fails</span></div>
+      <div class="gf gf--mid"><span class="gf__t" style="color:var(--gold-600)">Free on Thu 14 Jan</span><span class="gf__r">Gold 600 · 3.55:1 · graphics only</span></div>
+      <div class="gf gf--ok"><span class="gf__t" style="color:var(--gold-700)">Free on Thu 14 Jan</span><span class="gf__r">Gold-ink 700 · 6.08:1 · text and small icons</span></div>
+      <div class="gf gf--ink"><span class="gf__t" style="color:var(--gold-300)">Free on Thu 14 Jan</span><span class="gf__r">Gold 300 on Ink · 7.23:1 · text on dark</span></div>
+      <div class="gf gf--btn"><span class="btn btn--primary btn--sm" style="pointer-events:none">Request booking</span><span class="gf__r">Ink 900 on Gold 500 · 7.84:1 · the primary button</span></div>
+    </div>
+  </div>
+
+  <h3 class="b-h3" style="margin-block-start:48px">Contrast, measured <small>WCAG 2.2 relative luminance, computed from the token hex values</small></h3>
+  <table class="tbl"><thead><tr><th>Foreground</th><th>Background</th><th></th><th class="r">Ratio</th><th>WCAG 2.2</th><th>Role</th></tr></thead><tbody><tr><td><span class="chipdot" style="background:#5A4B4F"></span>Ink 500</td><td><span class="chipdot" style="background:#FFF9F5"></span>Ivory</td><td class="num"><span class="sample" style="color:#5A4B4F;background:#FFF9F5">Aa</span></td><td class="num r">7.88</td><td><span class="vd vd--ok">AAA</span></td><td class="use">Body text</td></tr><tr><td><span class="chipdot" style="background:#3F3236"></span>Ink 700</td><td><span class="chipdot" style="background:#FFF9F5"></span>Ivory</td><td class="num"><span class="sample" style="color:#3F3236;background:#FFF9F5">Aa</span></td><td class="num r">11.69</td><td><span class="vd vd--ok">AAA</span></td><td class="use">Headings, values</td></tr><tr><td><span class="chipdot" style="background:#6E6064"></span>Ink 400</td><td><span class="chipdot" style="background:#FFF9F5"></span>Ivory</td><td class="num"><span class="sample" style="color:#6E6064;background:#FFF9F5">Aa</span></td><td class="num r">5.72</td><td><span class="vd vd--ok">AA</span></td><td class="use">Muted text, labels</td></tr><tr><td><span class="chipdot" style="background:#6E6064"></span>Ink 400</td><td><span class="chipdot" style="background:#F8E7EC"></span>Rose 100</td><td class="num"><span class="sample" style="color:#6E6064;background:#F8E7EC">Aa</span></td><td class="num r">5.01</td><td><span class="vd vd--ok">AA</span></td><td class="use">Muted on rose surface</td></tr><tr><td><span class="chipdot" style="background:#FFF9F5"></span>Ivory</td><td><span class="chipdot" style="background:#3F3236"></span>Ink 700</td><td class="num"><span class="sample" style="color:#FFF9F5;background:#3F3236">Aa</span></td><td class="num r">11.69</td><td><span class="vd vd--ok">AAA</span></td><td class="use">Text on Ink surface</td></tr><tr><td><span class="chipdot" style="background:#D0C5C7"></span>Ink 200</td><td><span class="chipdot" style="background:#3F3236"></span>Ink 700</td><td class="num"><span class="sample" style="color:#D0C5C7;background:#3F3236">Aa</span></td><td class="num r">7.26</td><td><span class="vd vd--ok">AAA</span></td><td class="use">Secondary on Ink</td></tr><tr><td><span class="chipdot" style="background:#E4C384"></span>Gold 300</td><td><span class="chipdot" style="background:#3F3236"></span>Ink 700</td><td class="num"><span class="sample" style="color:#E4C384;background:#3F3236">Aa</span></td><td class="num r">7.23</td><td><span class="vd vd--ok">AAA</span></td><td class="use">Overline, gold text on Ink</td></tr><tr><td><span class="chipdot" style="background:#D8B26E"></span>Gold 500</td><td><span class="chipdot" style="background:#3F3236"></span>Ink 700</td><td class="num"><span class="sample" style="color:#D8B26E;background:#3F3236">Aa</span></td><td class="num r">6.11</td><td><span class="vd vd--ok">AA</span></td><td class="use">Lintel, active icon on Ink</td></tr><tr><td><span class="chipdot" style="background:#2A2124"></span>Ink 900</td><td><span class="chipdot" style="background:#D8B26E"></span>Gold 500</td><td class="num"><span class="sample" style="color:#2A2124;background:#D8B26E">Aa</span></td><td class="num r">7.84</td><td><span class="vd vd--ok">AAA</span></td><td class="use">Label on primary button</td></tr><tr><td><span class="chipdot" style="background:#7A5A1C"></span>Gold 700</td><td><span class="chipdot" style="background:#FFF9F5"></span>Ivory</td><td class="num"><span class="sample" style="color:#7A5A1C;background:#FFF9F5">Aa</span></td><td class="num r">6.08</td><td><span class="vd vd--ok">AA</span></td><td class="use">Gold-ink text + small icons</td></tr><tr><td><span class="chipdot" style="background:#7A5A1C"></span>Gold 700</td><td><span class="chipdot" style="background:#F8E7EC"></span>Rose 100</td><td class="num"><span class="sample" style="color:#7A5A1C;background:#F8E7EC">Aa</span></td><td class="num r">5.33</td><td><span class="vd vd--ok">AA</span></td><td class="use">Gold-ink on rose</td></tr><tr><td><span class="chipdot" style="background:#7A5A1C"></span>Gold 700</td><td><span class="chipdot" style="background:#F6EACB"></span>Gold 100</td><td class="num"><span class="sample" style="color:#7A5A1C;background:#F6EACB">Aa</span></td><td class="num r">5.31</td><td><span class="vd vd--ok">AA</span></td><td class="use">Pending badge</td></tr><tr><td><span class="chipdot" style="background:#A67E38"></span>Gold 600</td><td><span class="chipdot" style="background:#FFF9F5"></span>Ivory</td><td class="num"><span class="sample" style="color:#A67E38;background:#FFF9F5">Aa</span></td><td class="num r">3.55</td><td><span class="vd vd--mid">3:1 graphics</span></td><td class="use">Stars, diamonds, calendar marks</td></tr><tr><td><span class="chipdot" style="background:#D8B26E"></span>Gold 500</td><td><span class="chipdot" style="background:#FFF9F5"></span>Ivory</td><td class="num"><span class="sample" style="color:#D8B26E;background:#FFF9F5">Aa</span></td><td class="num r">1.91</td><td><span class="vd vd--no">Fails as text</span></td><td class="use">Never text. Fills and hairlines only</td></tr><tr><td><span class="chipdot" style="background:#46664D"></span>Success</td><td><span class="chipdot" style="background:#E5EEE3"></span>Success bg</td><td class="num"><span class="sample" style="color:#46664D;background:#E5EEE3">Aa</span></td><td class="num r">5.41</td><td><span class="vd vd--ok">AA</span></td><td class="use">Status pill, with icon + label</td></tr><tr><td><span class="chipdot" style="background:#964139"></span>Danger</td><td><span class="chipdot" style="background:#F7E3DF"></span>Danger bg</td><td class="num"><span class="sample" style="color:#964139;background:#F7E3DF">Aa</span></td><td class="num r">5.47</td><td><span class="vd vd--ok">AA</span></td><td class="use">Status pill, with icon + label</td></tr><tr><td><span class="chipdot" style="background:#8F8084"></span>Control</td><td><span class="chipdot" style="background:#FFF9F5"></span>Ivory</td><td class="num"><span class="sample" style="color:#8F8084;background:#FFF9F5">Aa</span></td><td class="num r">3.60</td><td><span class="vd vd--mid">3:1 graphics</span></td><td class="use">Input, chip, toggle edge</td></tr></tbody></table>
+</section>
+
+<!-- ============ 03 TYPE ============ -->
+<section class="b-sec" id="type">
+  <div class="b-head"><span class="b-num">03 · Type</span><h2 class="b-title">Confident contrast, equal Arabic.</h2>
+    <p class="b-lede">Poppins and Cairo, the PRD pair, carry every control, label and number at 400–700. One display pair is added for names and the hero line only — six places in the whole product: Newsreader (an optical-size serif with warm, unforced proportions) and Markazi Text (a modern naskh with real stroke contrast). Weight contrast does the hierarchy: 300 display against 600 UI, so size can stay modest.</p></div>
+
+  <div class="fam">
+    <article class="fam__c"><span class="fam__big" style="font-family:var(--font-ui-en)">Aa</span><h3>Poppins</h3><p>UI · EN · 400 / 500 / 600</p><small>x-height .55 · cap .70</small></article>
+    <article class="fam__c" lang="ar" dir="rtl"><span class="fam__big" style="font-family:var(--font-ui-ar);font-weight:600">أب</span><h3 style="font-family:var(--font-ui-en)" dir="ltr">Cairo</h3><p style="font-family:var(--font-ui-en)" dir="ltr">UI · AR · 400 / 500 / 600 / 700</p><small style="font-family:var(--font-ui-en)" dir="ltr">x-height .50 · alef .72</small></article>
+    <article class="fam__c fam__c--d"><span class="fam__big" style="font-family:var(--font-display-en);font-weight:300">Aa</span><h3>Newsreader</h3><p>Display · EN · 300 / 400</p><small>x-height .51 · cap .72</small></article>
+    <article class="fam__c fam__c--d" lang="ar" dir="rtl"><span class="fam__big" style="font-family:var(--font-display-ar);font-weight:600">أب</span><h3 style="font-family:var(--font-ui-en)" dir="ltr">Markazi Text</h3><p style="font-family:var(--font-ui-en)" dir="ltr">Display · AR · 500 / 600 / 700</p><small style="font-family:var(--font-ui-en)" dir="ltr">alef .53 · sized +22 %</small></article>
+  </div>
+
+  <div class="g-type">
+    <div>
+      <h3 class="b-h3">Scale · ratio 1.25 (major third) on 16, snapped to the 4 pt line grid <small>EN 13 · 16 · 20 · 24 · 32, plus a deliberate 15 for dense secondary text — AR the same steps +1 to +4 px</small></h3>
+      <div class="sc"><div class="sc-row"><div class="sc-meta"><span class="sc-role">Hero line</span><span class="sc-px"><i>EN</i> 36 / 40 · 300</span><span class="sc-px"><i>AR</i> 44 / 52 · 500</span></div><div class="sc-en t-disp-l" lang="en" dir="ltr">Rooms worth gathering in.</div><div class="sc-ar t-disp-l" lang="ar" dir="rtl">قاعات تليق بليلة العمر</div></div><div class="sc-row"><div class="sc-meta"><span class="sc-role">Venue name, hotel greeting</span><span class="sc-px"><i>EN</i> 28 / 32 · 400</span><span class="sc-px"><i>AR</i> 34 / 48 · 600</span></div><div class="sc-en t-disp-m" lang="en" dir="ltr">Aurelia Gulf Hotel</div><div class="sc-ar t-disp-m" lang="ar" dir="rtl">فندق أوريليا الخليج</div></div><div class="sc-row"><div class="sc-meta"><span class="sc-role">Featured name</span><span class="sc-px"><i>EN</i> 22 / 28 · 400</span><span class="sc-px"><i>AR</i> 26 / 40 · 600</span></div><div class="sc-en t-disp-s" lang="en" dir="ltr">Madar Grand Hotel</div><div class="sc-ar t-disp-s" lang="ar" dir="rtl">فندق مدار جراند</div></div><div class="sc-row"><div class="sc-meta"><span class="sc-role">Hero figure (KPI)</span><span class="sc-px"><i>EN</i> 32 / 40 · 700</span><span class="sc-px"><i>AR</i> 36 / 48 · 700</span></div><div class="sc-en t-2xl t-strong" lang="en" dir="ltr">KWD 48,250</div><div class="sc-ar t-2xl t-strong" lang="ar" dir="rtl">48,250 د.ك</div></div><div class="sc-row"><div class="sc-meta"><span class="sc-role">Date, card value</span><span class="sc-px"><i>EN</i> 24 / 32 · 600</span><span class="sc-px"><i>AR</i> 26 / 36 · 600</span></div><div class="sc-en t-xl t-strong" lang="en" dir="ltr">Sun 17 Jan 2027</div><div class="sc-ar t-xl t-strong" lang="ar" dir="rtl">الأحد 17 يناير 2027</div></div><div class="sc-row"><div class="sc-meta"><span class="sc-role">Section title</span><span class="sc-px"><i>EN</i> 20 / 28 · 600</span><span class="sc-px"><i>AR</i> 22 / 32 · 700</span></div><div class="sc-en t-l t-strong" lang="en" dir="ltr">Packages</div><div class="sc-ar t-l t-strong" lang="ar" dir="rtl">الباقات</div></div><div class="sc-row"><div class="sc-meta"><span class="sc-role">Body, controls</span><span class="sc-px"><i>EN</i> 16 / 24 · 400</span><span class="sc-px"><i>AR</i> 17 / 28 · 400</span></div><div class="sc-en t-m" lang="en" dir="ltr">Cancel free until 30 days before.</div><div class="sc-ar t-m" lang="ar" dir="rtl">إلغاء مجاني حتى 30 يوماً قبل الموعد.</div></div><div class="sc-row"><div class="sc-meta"><span class="sc-role">Secondary, meta (floor)</span><span class="sc-px"><i>EN</i> 15 / 24 · 400</span><span class="sc-px"><i>AR</i> 16 / 28 · 400</span></div><div class="sc-en t-s" lang="en" dir="ltr">Ladies’ reception · 7 PM – 1 AM</div><div class="sc-ar t-s" lang="ar" dir="rtl">الحفل النسائي · من 7 م إلى 1 ص</div></div><div class="sc-row"><div class="sc-meta"><span class="sc-role">Caption, badge, meta</span><span class="sc-px"><i>EN</i> 13 / 20 · 500</span><span class="sc-px"><i>AR</i> 14 / 24 · 500</span></div><div class="sc-en t-cap t-muted" lang="en" dir="ltr">Estimate · 350 guests</div><div class="sc-ar t-cap t-muted" lang="ar" dir="rtl">التقدير · 350 مدعواً</div></div><div class="sc-row"><div class="sc-meta"><span class="sc-role">Tab-bar label, the one floor</span><span class="sc-px"><i>EN</i> 12 / 16 · 500</span><span class="sc-px"><i>AR</i> 13 / 20 · 500</span></div><div class="sc-en t-tab t-muted" lang="en" dir="ltr">My Wedding · Messages</div><div class="sc-ar t-tab t-muted" lang="ar" dir="rtl">عرسي · الرسائل</div></div></div>
+    </div>
+    <aside class="proof">
+      <h3 class="b-h3">Baselines, proven <small>one flex row, <code>align-items: baseline</code>, guide drawn at the shared baseline</small></h3>
+      <div class="bl bl--ui"><span class="bl__a" lang="en">Salmiya</span><span class="bl__b" lang="ar">السالمية</span><span class="bl__a bl__n" lang="en">350</span><span class="bl__b" lang="ar">مدعو</span><i class="bl__g"></i></div>
+      <div class="bl bl--ui bl--m"><span class="bl__a" lang="en">Ghazal booking</span><span class="bl__b" lang="ar">حجز غزل</span><span class="bl__a bl__n" lang="en">KWD 18,200</span><i class="bl__g"></i></div>
+      <div class="bl bl--disp"><span class="bl__a" lang="en">Aurelia</span><span class="bl__b" lang="ar">أوريليا</span><i class="bl__g"></i></div>
+      <table class="tbl tbl--tight">
+        <thead><tr><th>Pair</th><th>Rule</th><th class="r">Measured</th></tr></thead>
+        <tbody>
+          <tr><td>UI · Poppins ↔ Cairo</td><td>Arabic +6 to +10 % so Cairo’s body letters (.50) meet Poppins’ x-height (.55)</td><td class="r">alef .72 vs cap .70</td></tr>
+          <tr><td>Display · Newsreader ↔ Markazi</td><td>Arabic +22 %: Markazi is small on the body, so 36 px Latin pairs with 44 px Arabic</td><td class="r">alef .53 vs cap .72</td></tr>
+          <tr><td>Leading</td><td>Latin 1.5 · Arabic 1.65 (never below 1.45 under 22 px), because marks stack above and below the line</td><td class="r">24 vs 28 px</td></tr>
+          <tr><td>Tracking</td><td>Latin overlines .08 em, uppercase · Arabic never tracked, never uppercased: weight only</td><td class="r">0 for Arabic</td></tr>
+        </tbody>
+      </table>
+    </aside>
+  </div>
+
+  <div class="g-fig">
+    <div class="figcard">
+      <h3 class="b-h3">Figures <small>Western digits by default · tabular · never concatenated across scripts</small></h3>
+      <div class="figtbl">
+        <div lang="en" dir="ltr"><span>Aurelia Gulf Hotel</span><span class="money"><span class="cur">KWD</span><bdi class="fig">18,200</bdi></span></div>
+        <div lang="en" dir="ltr"><span>Qasr Al-Nakheel</span><span class="money"><span class="cur">KWD</span><bdi class="fig">11,900</bdi></span></div>
+        <div lang="en" dir="ltr"><span>Jawharat Al-Salmiya</span><span class="money"><span class="cur">KWD</span><bdi class="fig">9,750</bdi></span></div>
+        <div lang="ar" dir="rtl"><span>فندق أوريليا الخليج</span><span class="money"><bdi class="fig" dir="ltr">18,200</bdi><span class="cur">د.ك</span></span></div>
+        <div lang="ar" dir="rtl"><span>قصر النخيل</span><span class="money"><bdi class="fig" dir="ltr">11,900</bdi><span class="cur">د.ك</span></span></div>
+        <div lang="ar" dir="rtl"><span>قصر جوهرة السالمية</span><span class="money"><bdi class="fig" dir="ltr">9,750</bdi><span class="cur">د.ك</span></span></div>
+      </div>
+    </div>
+    <div class="figcard">
+      <h3 class="b-h3">The numeral switch <small>one formatter, one flag (open question 3)</small></h3>
+      <div class="swap" lang="ar" dir="rtl">
+        <div><span class="swap__k" lang="en" dir="ltr">Default · Western</span><span class="t-xl t-strong">الخميس <bdi class="fig">14</bdi> يناير <bdi class="fig">2027</bdi></span><span class="money t-l"><bdi class="fig" dir="ltr">18,200</bdi><span class="cur">د.ك</span></span></div>
+        <div><span class="swap__k" lang="en" dir="ltr">Setting · Eastern Arabic-Indic</span><span class="t-xl t-strong">الخميس <bdi class="fig">١٤</bdi> يناير <bdi class="fig">٢٠٢٧</bdi></span><span class="money t-l"><bdi class="fig" dir="ltr">١٨٬٢٠٠</bdi><span class="cur">د.ك</span></span></div>
+      </div>
+      <p class="b-cap">Money keeps three decimals internally (18,200.000) and shows none for whole dinars. In Arabic the amount is an isolated LTR run, so the digits never reorder next to Arabic words.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 SHAPE ============ -->
+<section class="b-sec" id="shape">
+  <div class="b-head"><span class="b-num">04 · Shape &amp; measure</span><h2 class="b-title">Architectural, on a 4 pt grid.</h2>
+    <p class="b-lede">Radii are medium and few (12–16): firm enough to read as masonry, soft enough to stay hospitable. Rules are 1 px hairlines in warm greys. Elevation exists only for the one object that floats: the brief card on the hero, and the bars that carry a decision.</p></div>
+
+  <div class="g-shape">
+    <div>
+      <h3 class="b-h3">Spacing <small>multiples of 4 · gutter token = 20</small></h3>
+      <div class="sp">
+        <div><i style="inline-size:4px"></i><b>4</b><span>hairline gaps, icon + label</span></div>
+        <div><i style="inline-size:8px"></i><b>8</b><span>inside controls</span></div>
+        <div><i style="inline-size:12px"></i><b>12</b><span>card to card, rail gap</span></div>
+        <div><i style="inline-size:16px"></i><b>16</b><span>padding in a row</span></div>
+        <div><i class="g" style="inline-size:20px"></i><b>20</b><span>screen gutter</span></div>
+        <div><i style="inline-size:24px"></i><b>24</b><span>card padding</span></div>
+        <div><i style="inline-size:32px"></i><b>32</b><span>section gap</span></div>
+        <div><i style="inline-size:40px"></i><b>40</b><span>—</span></div>
+        <div><i style="inline-size:48px"></i><b>48</b><span>hero air</span></div>
+        <div><i style="inline-size:64px"></i><b>64</b><span>—</span></div>
+      </div>
+    </div>
+    <div>
+      <h3 class="b-h3">Radius <small>meaningful, not bubbly</small></h3>
+      <div class="rad">
+        <div><i style="border-radius:4px"></i><b>4</b><span>day cell, legend key</span></div>
+        <div><i style="border-radius:8px"></i><b>8</b><span>badge, segment option</span></div>
+        <div><i style="border-radius:12px"></i><b>12</b><span>button, input, chip</span></div>
+        <div><i style="border-radius:16px"></i><b>16</b><span>card, brief, featured</span></div>
+        <div><i style="border-radius:24px"></i><b>24</b><span>mini device frame only</span></div>
+        <div><i style="border-radius:999px"></i><b>pill</b><span>toggle, count badge</span></div>
+        <div><i class="crown"></i><b>crown</b><span>the only non-rectangle</span></div>
+      </div>
+    </div>
+    <div>
+      <h3 class="b-h3">Elevation &amp; stroke</h3>
+      <div class="elev">
+        <div><i class="e0"></i><b>E0</b><span>hairline + tone. Default for everything</span></div>
+        <div><i class="e1"></i><b>E1</b><span>brief card over the hero. One per screen</span></div>
+        <div><i class="e2"></i><b>E2</b><span>sticky bars and sheets, lifting upward</span></div>
+      </div>
+      <div class="strk">
+        <div><i style="block-size:1px"></i><b>1</b><span>rule, edge</span></div>
+        <div><i style="block-size:1.5px"></i><b>1.5</b><span>icons, arch line</span></div>
+        <div><i style="block-size:2px"></i><b>2</b><span>lintel, selection, focus</span></div>
+      </div>
+      <h3 class="b-h3" style="margin-block-start:24px">Controls <small>height scale</small></h3>
+      <div class="ctl"><span style="block-size:44px">44 · touch minimum, chips, segments</span><span style="block-size:48px">48 · secondary buttons</span><span style="block-size:56px">56 · primary, inputs</span></div>
+    </div>
+  </div>
+
+  <div class="g-frame">
+    <div class="frame390" aria-hidden="true">
+      <span class="f-safe f-safe--t">safe 47</span>
+      <span class="f-gut f-gut--s"></span><span class="f-gut f-gut--e"></span>
+      <div class="f-cols"><i></i><i></i><i></i></div>
+      <span class="f-safe f-safe--b">34</span>
+      <span class="f-lab">390 × 844 · gutter 20 · measure 350</span>
+    </div>
+    <div class="frame-notes">
+      <h3 class="b-h3">The brochure grid <small>fluid from 360 to 430</small></h3>
+      <ul>
+        <li><b>Measure</b> is the frame minus two 20 px gutters: 320 at 360, 350 at 390, 390 at 430.</li>
+        <li><b>Columns</b> are equal thirds or quarters divided by 1 px rules (compare, facts, categories). Never gaps plus shadows.</li>
+        <li><b>Hero bleeds</b>: images run edge to edge; text re-enters at the gutter.</li>
+        <li><b>Safe areas</b>: 47 top, 34 bottom, handled by the bars, not by content.</li>
+        <li><b>Everything in logical order</b>: inline-start / inline-end, so the same layout mirrors in RTL with no second stylesheet.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 ICONS ============ -->
+<section class="b-sec" id="icons">
+  <div class="b-head"><span class="b-num">05 · Icons</span><h2 class="b-title">Drawn like a floor plan.</h2>
+    <p class="b-lede">One set on a 24 px grid with a 2 px keyline margin: 1.5 px stroke, square caps, mitre joins, no rounded ends. Corners are the geometry of arches and diamonds, not soft curves. Strokes are compensated at every size so the rendered line is always 1.5 px. Only directional glyphs mirror in RTL.</p></div>
+  <div class="g-icons">
+    <div class="kls"><figure class="kl"><svg viewBox="0 0 24 24" width="168" height="168" aria-hidden="true"><rect x="0" y="0" width="24" height="24" fill="var(--ivory)"/><g stroke="var(--line-soft)" stroke-width=".08"><path d="M4 0V24M0 4H24"/><path d="M8 0V24M0 8H24"/><path d="M12 0V24M0 12H24"/><path d="M16 0V24M0 16H24"/><path d="M20 0V24M0 20H24"/></g><rect x="2" y="2" width="20" height="20" fill="none" stroke="var(--rose-300)" stroke-width=".1"/><g class="icon-draw" fill="none" stroke="var(--ink-700)" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><use href="#i-hall"/></g></svg><figcaption>hall · arch + base</figcaption></figure><figure class="kl"><svg viewBox="0 0 24 24" width="168" height="168" aria-hidden="true"><rect x="0" y="0" width="24" height="24" fill="var(--ivory)"/><g stroke="var(--line-soft)" stroke-width=".08"><path d="M4 0V24M0 4H24"/><path d="M8 0V24M0 8H24"/><path d="M12 0V24M0 12H24"/><path d="M16 0V24M0 16H24"/><path d="M20 0V24M0 20H24"/></g><rect x="2" y="2" width="20" height="20" fill="none" stroke="var(--rose-300)" stroke-width=".1"/><g class="icon-draw" fill="none" stroke="var(--ink-700)" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><use href="#i-calendar"/></g></svg><figcaption>calendar · tabs + frame</figcaption></figure><figure class="kl"><svg viewBox="0 0 24 24" width="168" height="168" aria-hidden="true"><rect x="0" y="0" width="24" height="24" fill="var(--ivory)"/><g stroke="var(--line-soft)" stroke-width=".08"><path d="M4 0V24M0 4H24"/><path d="M8 0V24M0 8H24"/><path d="M12 0V24M0 12H24"/><path d="M16 0V24M0 16H24"/><path d="M20 0V24M0 20H24"/></g><rect x="2" y="2" width="20" height="20" fill="none" stroke="var(--rose-300)" stroke-width=".1"/><g class="icon-draw" fill="none" stroke="var(--ink-700)" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><use href="#i-pin"/></g></svg><figcaption>pin · single curve</figcaption></figure><figure class="kl"><svg viewBox="0 0 24 24" width="168" height="168" aria-hidden="true"><rect x="0" y="0" width="24" height="24" fill="var(--ivory)"/><g stroke="var(--line-soft)" stroke-width=".08"><path d="M4 0V24M0 4H24"/><path d="M8 0V24M0 8H24"/><path d="M12 0V24M0 12H24"/><path d="M16 0V24M0 16H24"/><path d="M20 0V24M0 20H24"/></g><rect x="2" y="2" width="20" height="20" fill="none" stroke="var(--rose-300)" stroke-width=".1"/><g class="icon-draw" fill="none" stroke="var(--ink-700)" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><use href="#i-users"/></g></svg><figcaption>users · open forms</figcaption></figure></div>
+    <div>
+      <h3 class="b-h3">Size ladder <small>stroke scaled so the rendered line stays 1.5 px</small></h3>
+      <div class="ladder">
+        <div><svg class="icon i16"><use href="#i-hall"/></svg><span>16<br><small>sw 2.25</small></span></div>
+        <div><svg class="icon i20"><use href="#i-hall"/></svg><span>20<br><small>sw 1.8</small></span></div>
+        <div><svg class="icon"><use href="#i-hall"/></svg><span>24<br><small>sw 1.5</small></span></div>
+        <div><svg class="icon i28"><use href="#i-hall"/></svg><span>28<br><small>sw 1.29</small></span></div>
+        <div><svg class="icon i32"><use href="#i-hall"/></svg><span>32<br><small>sw 1.13</small></span></div>
+      </div>
+      <h3 class="b-h3" style="margin-block-start:24px">Mirroring <small>flip only what points</small></h3>
+      <div class="mirr">
+        <div lang="en" dir="ltr"><span class="mirr__k">LTR</span><svg class="icon"><use href="#i-chev"/></svg><svg class="icon"><use href="#i-chev-back"/></svg><svg class="icon"><use href="#i-arrow"/></svg><svg class="icon"><use href="#i-trend-up"/></svg><span class="mirr__s">|</span><svg class="icon"><use href="#i-check"/></svg><svg class="icon"><use href="#i-search"/></svg><svg class="icon"><use href="#i-phone"/></svg><svg class="icon"><use href="#i-clock"/></svg></div>
+        <div lang="ar" dir="rtl"><span class="mirr__k" lang="en" dir="ltr">RTL</span><svg class="icon mir"><use href="#i-chev"/></svg><svg class="icon mir"><use href="#i-chev-back"/></svg><svg class="icon mir"><use href="#i-arrow"/></svg><svg class="icon"><use href="#i-trend-up"/></svg><span class="mirr__s">|</span><svg class="icon"><use href="#i-check"/></svg><svg class="icon"><use href="#i-search"/></svg><svg class="icon"><use href="#i-phone"/></svg><svg class="icon"><use href="#i-clock"/></svg></div>
+      </div>
+      <p class="b-cap">Chevrons, back and arrows flip. Trend arrows, charts, checks, clocks, phone, search and every figure never do. The share and compare glyphs are symmetric by construction.</p>
+    </div>
+  </div>
+  <div style="margin-block-start:40px"><div class="ig-grid"><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-compass"/></svg></span><span class="ig__n">compass</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-heart"/></svg></span><span class="ig__n">heart</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-rings"/></svg></span><span class="ig__n">rings</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-chat"/></svg></span><span class="ig__n">chat</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-user"/></svg></span><span class="ig__n">user</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-today"/></svg></span><span class="ig__n">today</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-bookings"/></svg></span><span class="ig__n">bookings</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-calendar"/></svg></span><span class="ig__n">calendar</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-dots"/></svg></span><span class="ig__n">dots</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-search"/></svg></span><span class="ig__n">search</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-bell"/></svg></span><span class="ig__n">bell</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-chev"/></svg></span><span class="ig__n">chev</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-chev-back"/></svg></span><span class="ig__n">chev-back</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-chev-down"/></svg></span><span class="ig__n">chev-down</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-chev-up"/></svg></span><span class="ig__n">chev-up</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-arrow"/></svg></span><span class="ig__n">arrow</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-close"/></svg></span><span class="ig__n">close</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-plus"/></svg></span><span class="ig__n">plus</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-minus"/></svg></span><span class="ig__n">minus</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-check"/></svg></span><span class="ig__n">check</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-dash"/></svg></span><span class="ig__n">dash</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-share"/></svg></span><span class="ig__n">share</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-star"/></svg></span><span class="ig__n">star</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-pin"/></svg></span><span class="ig__n">pin</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-users"/></svg></span><span class="ig__n">users</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-clock"/></svg></span><span class="ig__n">clock</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-hourglass"/></svg></span><span class="ig__n">hourglass</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-filter"/></svg></span><span class="ig__n">filter</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-phone"/></svg></span><span class="ig__n">phone</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-info"/></svg></span><span class="ig__n">info</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-banknote"/></svg></span><span class="ig__n">banknote</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-compare"/></svg></span><span class="ig__n">compare</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-list"/></svg></span><span class="ig__n">list</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-trend-up"/></svg></span><span class="ig__n">trend-up</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-trend-down"/></svg></span><span class="ig__n">trend-down</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-check-circle"/></svg></span><span class="ig__n">check-circle</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-x-circle"/></svg></span><span class="ig__n">x-circle</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-swap"/></svg></span><span class="ig__n">swap</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-lock"/></svg></span><span class="ig__n">lock</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-hotel"/></svg></span><span class="ig__n">hotel</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-hall"/></svg></span><span class="ig__n">hall</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-civic"/></svg></span><span class="ig__n">civic</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-beach"/></svg></span><span class="ig__n">beach</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-outdoor"/></svg></span><span class="ig__n">outdoor</span></div><div class="ig"><span class="ig__i"><svg class="icon " aria-hidden="true"><use href="#i-vip"/></svg></span><span class="ig__n">vip</span></div></div></div>
+</section>
+
+<!-- ============ 06 WORDMARK ============ -->
+<section class="b-sec" id="wordmark">
+  <div class="b-head"><span class="b-num">06 · Wordmark</span><h2 class="b-title">A door with a lamp lit inside.</h2>
+    <p class="b-lede">The mark is a doorway receding into depth: two crowns on one threshold and a single Gold diamond, the knot of the <i>ghazal</i> thread and the same diamond that marks “best in row”, a holiday rate and the active tab. Like a type family it has two optical sizes: the master with two crowns from 40 px up, and a compact single-crown cut for headers and small marks. The English wordmark is set in Newsreader; the Arabic, <span lang="ar" style="font-family:var(--font-display-ar);font-weight:700;font-size:20px">غزل</span>, in Markazi Text Bold at 1.33× so both carry the same weight.</p></div>
+  <div class="wm">
+    <div class="wm__c wm__c--ivory"><div class="wm__big"><span class="wordmark wordmark--l"><svg class="mark mark--full" width="64" height="64" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 28V19C4 12 10 9.5 16 2.5C22 9.5 28 12 28 19V28" stroke="var(--ink-700)" stroke-width="1.5" stroke-linejoin="miter"/><path d="M10 28V21.5C10 17.5 13 15.5 16 11C19 15.5 22 17.5 22 21.5V28" stroke="var(--ink-700)" stroke-width="1.5" stroke-linejoin="miter"/><path d="M2 28H30" stroke="var(--ink-700)" stroke-width="1.5"/><path d="M16 19.5L18.5 23L16 26.5L13.5 23Z" fill="var(--gold-600)"/></svg><span class="wordmark__en">Ghazal</span></span></div><span class="wm__k">Master · EN · on Ivory</span></div>
+    <div class="wm__c wm__c--ivory" lang="ar" dir="rtl"><div class="wm__big"><span class="wordmark wordmark--l"><svg class="mark mark--full" width="64" height="64" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 28V19C4 12 10 9.5 16 2.5C22 9.5 28 12 28 19V28" stroke="var(--ink-700)" stroke-width="1.5" stroke-linejoin="miter"/><path d="M10 28V21.5C10 17.5 13 15.5 16 11C19 15.5 22 17.5 22 21.5V28" stroke="var(--ink-700)" stroke-width="1.5" stroke-linejoin="miter"/><path d="M2 28H30" stroke="var(--ink-700)" stroke-width="1.5"/><path d="M16 19.5L18.5 23L16 26.5L13.5 23Z" fill="var(--gold-600)"/></svg><span class="wordmark__ar">غزل</span></span></div><span class="wm__k" lang="en" dir="ltr">Master · AR · on Ivory</span></div>
+    <div class="wm__c wm__c--ink on-ink"><div class="wm__big"><span class="wordmark wordmark--l"><svg class="mark mark--full" width="64" height="64" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 28V19C4 12 10 9.5 16 2.5C22 9.5 28 12 28 19V28" stroke="var(--ivory)" stroke-width="1.5" stroke-linejoin="miter"/><path d="M10 28V21.5C10 17.5 13 15.5 16 11C19 15.5 22 17.5 22 21.5V28" stroke="var(--ivory)" stroke-width="1.5" stroke-linejoin="miter"/><path d="M2 28H30" stroke="var(--ivory)" stroke-width="1.5"/><path d="M16 19.5L18.5 23L16 26.5L13.5 23Z" fill="var(--gold-500)"/></svg><span class="wordmark__en">Ghazal</span><span class="wm__rule"></span><span class="wordmark__ar" lang="ar">غزل</span></span></div><span class="wm__k">Bilingual · on Ink</span></div>
+    <div class="wm__c wm__c--rose"><div class="wm__big wm__duo"><span class="wordmark"><svg class="mark" width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M5 28V16C5 10 10 6 16 2.5C22 6 27 10 27 16V28" stroke="var(--ink-700)" stroke-width="1.75" stroke-linejoin="miter"/><path d="M3 28H29" stroke="var(--ink-700)" stroke-width="1.75"/><path d="M16 15L19.5 19L16 23L12.5 19Z" fill="var(--gold-600)"/></svg><span class="wordmark__en">Ghazal</span></span><span class="wordmark" dir="rtl"><svg class="mark" width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M5 28V16C5 10 10 6 16 2.5C22 6 27 10 27 16V28" stroke="var(--ink-700)" stroke-width="1.75" stroke-linejoin="miter"/><path d="M3 28H29" stroke="var(--ink-700)" stroke-width="1.75"/><path d="M16 15L19.5 19L16 23L12.5 19Z" fill="var(--gold-600)"/></svg><span class="wordmark__ar" lang="ar">غزل</span></span></div><span class="wm__k">Compact · app headers · on Soft Rose</span></div>
+    <div class="wm__c wm__c--ivory wm__c--tall"><div class="wm__construct"><svg class="mark mark--cons" width="256" height="256" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect width="32" height="32" fill="var(--ivory)"/><g stroke="var(--line-soft)" stroke-width=".06"><path d="M4 0V32M0 4H32"/><path d="M8 0V32M0 8H32"/><path d="M12 0V32M0 12H32"/><path d="M16 0V32M0 16H32"/><path d="M20 0V32M0 20H32"/><path d="M24 0V32M0 24H32"/><path d="M28 0V32M0 28H32"/></g><g stroke="var(--rose-300)" stroke-width=".07"><path d="M0 28H32M0 2.5H32M0 19H32M0 11H32M16 0V32M4 0V32M28 0V32M10 0V32M22 0V32"/></g><path d="M4 28V19C4 12 10 9.5 16 2.5C22 9.5 28 12 28 19V28" stroke="var(--ink-700)" stroke-width=".5" stroke-linejoin="miter"/><path d="M10 28V21.5C10 17.5 13 15.5 16 11C19 15.5 22 17.5 22 21.5V28" stroke="var(--ink-700)" stroke-width=".5" stroke-linejoin="miter"/><path d="M2 28H30" stroke="var(--ink-700)" stroke-width=".5"/><path d="M16 19.5L18.5 23L16 26.5L13.5 23Z" fill="var(--gold-600)"/><g fill="var(--ivory)" stroke="var(--ink-700)" stroke-width=".2"><circle cx="4" cy="19" r=".55"/><circle cx="28" cy="19" r=".55"/><circle cx="16" cy="2.5" r=".55"/><circle cx="10" cy="21.5" r=".55"/><circle cx="22" cy="21.5" r=".55"/><circle cx="16" cy="11" r=".55"/></g></svg></div><span class="wm__k">Construction · 32 grid · crowns 24 and 12 wide, 6 apart · lamp 5 × 7 on the threshold</span></div>
+    <div class="wm__c wm__c--ink on-ink wm__c--tall"><div class="wm__icon"><svg class="mark mark--full" width="72" height="72" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 28V19C4 12 10 9.5 16 2.5C22 9.5 28 12 28 19V28" stroke="var(--ivory)" stroke-width="1.5" stroke-linejoin="miter"/><path d="M10 28V21.5C10 17.5 13 15.5 16 11C19 15.5 22 17.5 22 21.5V28" stroke="var(--ivory)" stroke-width="1.5" stroke-linejoin="miter"/><path d="M2 28H30" stroke="var(--ivory)" stroke-width="1.5"/><path d="M16 19.5L18.5 23L16 26.5L13.5 23Z" fill="var(--gold-500)"/></svg></div><span class="wm__k">App icon · Ink 700, master mark at 56 %</span></div>
+  </div>
+  <div class="wm__rules">
+    <div><b>Optical sizes</b><span>Master from 40 px, compact below. Strokes thicken as the mark shrinks.</span><span class="wm__min"><svg class="mark mark--full" width="96" height="96" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 28V19C4 12 10 9.5 16 2.5C22 9.5 28 12 28 19V28" stroke="var(--ink-700)" stroke-width="1.4" stroke-linejoin="miter"/><path d="M10 28V21.5C10 17.5 13 15.5 16 11C19 15.5 22 17.5 22 21.5V28" stroke="var(--ink-700)" stroke-width="1.4" stroke-linejoin="miter"/><path d="M2 28H30" stroke="var(--ink-700)" stroke-width="1.4"/><path d="M16 19.5L18.5 23L16 26.5L13.5 23Z" fill="var(--gold-600)"/></svg><svg class="mark mark--full" width="56" height="56" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 28V19C4 12 10 9.5 16 2.5C22 9.5 28 12 28 19V28" stroke="var(--ink-700)" stroke-width="1.5" stroke-linejoin="miter"/><path d="M10 28V21.5C10 17.5 13 15.5 16 11C19 15.5 22 17.5 22 21.5V28" stroke="var(--ink-700)" stroke-width="1.5" stroke-linejoin="miter"/><path d="M2 28H30" stroke="var(--ink-700)" stroke-width="1.5"/><path d="M16 19.5L18.5 23L16 26.5L13.5 23Z" fill="var(--gold-600)"/></svg><svg class="mark mark--full" width="40" height="40" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 28V19C4 12 10 9.5 16 2.5C22 9.5 28 12 28 19V28" stroke="var(--ink-700)" stroke-width="1.6" stroke-linejoin="miter"/><path d="M10 28V21.5C10 17.5 13 15.5 16 11C19 15.5 22 17.5 22 21.5V28" stroke="var(--ink-700)" stroke-width="1.6" stroke-linejoin="miter"/><path d="M2 28H30" stroke="var(--ink-700)" stroke-width="1.6"/><path d="M16 19.5L18.5 23L16 26.5L13.5 23Z" fill="var(--gold-600)"/></svg><i class="opt__rule"></i><svg class="mark" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M5 28V16C5 10 10 6 16 2.5C22 6 27 10 27 16V28" stroke="var(--ink-700)" stroke-width="1.75" stroke-linejoin="miter"/><path d="M3 28H29" stroke="var(--ink-700)" stroke-width="1.75"/><path d="M16 15L19.5 19L16 23L12.5 19Z" fill="var(--gold-600)"/></svg><svg class="mark" width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M5 28V16C5 10 10 6 16 2.5C22 6 27 10 27 16V28" stroke="var(--ink-700)" stroke-width="1.9" stroke-linejoin="miter"/><path d="M3 28H29" stroke="var(--ink-700)" stroke-width="1.9"/><path d="M16 15L19.5 19L16 23L12.5 19Z" fill="var(--gold-600)"/></svg><svg class="mark" width="16" height="16" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M5 28V16C5 10 10 6 16 2.5C22 6 27 10 27 16V28" stroke="var(--ink-700)" stroke-width="2.2" stroke-linejoin="miter"/><path d="M3 28H29" stroke="var(--ink-700)" stroke-width="2.2"/><path d="M16 15L19.5 19L16 23L12.5 19Z" fill="var(--gold-600)"/></svg></span></div>
+    <div><b>Clear space</b><span>One lamp height (7 units) on every side.</span></div>
+    <div><b>On photography</b><span>Ivory mark only, never over a busy area; the hero places it on Ink.</span></div>
+    <div><b>Gold</b><span>Gold 500 on Ink, Gold 600 on ivory: always a fill, never an outline.</span></div>
+  </div>
+</section>
+
+<!-- ============ 07 COMPONENTS ============ -->
+<section class="b-sec" id="components">
+  <div class="b-head"><span class="b-num">07 · Components</span><h2 class="b-title">Sampler, in both scripts.</h2>
+    <p class="b-lede">Every row is the same component rendered in English (LTR) and Arabic (RTL) from identical CSS: only <code>lang</code> and <code>dir</code> differ. Controls are 44–56 high, edges are Control #8F8084 (3.6:1), selected states are Ink fills, and gold is the primary action.</p></div>
+  <div class="smp"><div class="smp-hd"><span></span><span>English · LTR</span><span lang="ar" dir="rtl" style="font-family:var(--font-ui-ar);font-size:13px">العربية · RTL</span></div><div class="smp-row"><div class="smp-label">Buttons<small>56 · 48 · 44</small></div><div class="smp-cell" lang="en" dir="ltr"><div class="stack"><div class="line"><button class="btn btn--primary btn--lg">Request booking<svg class="icon  mir" aria-hidden="true"><use href="#i-arrow"/></svg></button></div><div class="line"><button class="btn btn--secondary">Compare</button><button class="btn btn--tertiary">See all</button><button class="btn btn--danger">Decline</button><button class="btn btn--secondary" disabled>Continue</button></div></div></div><div class="smp-cell" lang="ar" dir="rtl"><div class="stack"><div class="line"><button class="btn btn--primary btn--lg">طلب الحجز<svg class="icon  mir" aria-hidden="true"><use href="#i-arrow"/></svg></button></div><div class="line"><button class="btn btn--secondary">مقارنة</button><button class="btn btn--tertiary">عرض الكل</button><button class="btn btn--danger">اعتذار</button><button class="btn btn--secondary" disabled>متابعة</button></div></div></div></div><div class="smp-row"><div class="smp-label">Input<small>default · focus · error</small></div><div class="smp-cell" lang="en" dir="ltr"><div class="line line--2"><div class="field"><label class="field__label">Wedding date</label><input class="input" value="Thu 14 Jan 2027" readonly></div><div class="field"><label class="field__label">Guests</label><input class="input is-focus" value="350" readonly></div></div><div class="field" style="margin-block-start:12px"><label class="field__label">Phone (WhatsApp)</label><input class="input" aria-invalid="true" value="9965" readonly><span class="field__hint" style="color:var(--danger)">Kuwaiti numbers have 8 digits.</span></div></div><div class="smp-cell" lang="ar" dir="rtl"><div class="line line--2"><div class="field"><label class="field__label">تاريخ الزفاف</label><input class="input" value="الخميس 14 يناير 2027" readonly></div><div class="field"><label class="field__label">عدد المدعوين</label><input class="input is-focus" value="350" readonly></div></div><div class="field" style="margin-block-start:12px"><label class="field__label">رقم الجوال (واتساب)</label><input class="input" aria-invalid="true" value="9965" readonly><span class="field__hint" style="color:var(--danger)">أرقام الكويت مكوّنة من 8 أرقام.</span></div></div></div><div class="smp-row"><div class="smp-label">Chips<small>r 12 · not pill</small></div><div class="smp-cell" lang="en" dir="ltr"><div class="line"><button class="chip" aria-pressed="true"><svg class="icon " aria-hidden="true"><use href="#i-check"/></svg>Ladies</button><button class="chip" aria-pressed="false">Indoor</button><button class="chip" aria-pressed="false"><svg class="icon " aria-hidden="true"><use href="#i-pin"/></svg>Salmiya</button><button class="chip" aria-pressed="false">Valet</button></div></div><div class="smp-cell" lang="ar" dir="rtl"><div class="line"><button class="chip" aria-pressed="true"><svg class="icon " aria-hidden="true"><use href="#i-check"/></svg>نسائي</button><button class="chip" aria-pressed="false">داخلي</button><button class="chip" aria-pressed="false"><svg class="icon " aria-hidden="true"><use href="#i-pin"/></svg>السالمية</button><button class="chip" aria-pressed="false">خدمة صف السيارات</button></div></div></div><div class="smp-row"><div class="smp-label">Segmented<small></small></div><div class="smp-cell" lang="en" dir="ltr"><div class="stack"><div class="seg"><button class="seg__opt" aria-selected="true">Availability</button><button class="seg__opt" aria-selected="false">Prices</button></div><div class="seg"><button class="seg__opt" aria-selected="false">Evening</button><button class="seg__opt" aria-selected="true">Full day</button><button class="seg__opt" aria-selected="false">Morning</button></div></div></div><div class="smp-cell" lang="ar" dir="rtl"><div class="stack"><div class="seg"><button class="seg__opt" aria-selected="true">التوافر</button><button class="seg__opt" aria-selected="false">الأسعار</button></div><div class="seg"><button class="seg__opt" aria-selected="false">مسائية</button><button class="seg__opt" aria-selected="true">يوم كامل</button><button class="seg__opt" aria-selected="false">صباحية</button></div></div></div></div><div class="smp-row"><div class="smp-label">Status<small>icon + label, always</small></div><div class="smp-cell" lang="en" dir="ltr"><div class="line"><span class="badge badge--pending"><svg class="icon " aria-hidden="true"><use href="#i-hourglass"/></svg>Pending</span><span class="badge badge--ok"><svg class="icon " aria-hidden="true"><use href="#i-check-circle"/></svg>Approved</span><span class="badge badge--danger"><svg class="icon " aria-hidden="true"><use href="#i-x-circle"/></svg>Declined</span><span class="badge badge--outline">Prestige</span><span class="badge badge--ink"><svg class="icon " aria-hidden="true"><use href="#i-clock"/></svg>Instant</span></div></div><div class="smp-cell" lang="ar" dir="rtl"><div class="line"><span class="badge badge--pending"><svg class="icon " aria-hidden="true"><use href="#i-hourglass"/></svg>بانتظار الرد</span><span class="badge badge--ok"><svg class="icon " aria-hidden="true"><use href="#i-check-circle"/></svg>مؤكد</span><span class="badge badge--danger"><svg class="icon " aria-hidden="true"><use href="#i-x-circle"/></svg>مرفوض</span><span class="badge badge--outline">فاخر</span><span class="badge badge--ink"><svg class="icon " aria-hidden="true"><use href="#i-clock"/></svg>حجز فوري</span></div></div></div><div class="smp-row"><div class="smp-label">Rating · price<small>tabular figures</small></div><div class="smp-cell" lang="en" dir="ltr"><div class="line line--sp"><span class="rating"><svg class="icon " aria-hidden="true"><use href="#i-star"/></svg><span class="rating__v">4.8</span><span class="rating__n">(212)</span></span><div class="price"><span class="t-cap t-muted">Estimate · 350 guests</span><span class="price__main"><span class="money"><span class="cur">KWD</span><bdi class="fig" dir="ltr">18,200</bdi></span></span><span class="price__unit">52 per guest</span></div></div></div><div class="smp-cell" lang="ar" dir="rtl"><div class="line line--sp"><span class="rating"><svg class="icon " aria-hidden="true"><use href="#i-star"/></svg><span class="rating__v">4.8</span><span class="rating__n">(212)</span></span><div class="price"><span class="t-cap t-muted">التقدير · 350 مدعواً</span><span class="price__main"><span class="money"><bdi class="fig" dir="ltr">18,200</bdi><span class="cur">د.ك</span></span></span><span class="price__unit">52 للضيف</span></div></div></div></div><div class="smp-row"><div class="smp-label">List row<small>min 64</small></div><div class="smp-cell" lang="en" dir="ltr"><div class="row" style="padding-inline:0;border-block-end:0"><span class="mono">D</span><div class="row__body"><div class="row__title">Dana Al-Shammari</div><div class="row__sub">Booking for herself · 250 guests</div></div><div class="row__end"><svg class="icon  mir" aria-hidden="true"><use href="#i-chev"/></svg></div></div></div><div class="smp-cell" lang="ar" dir="rtl"><div class="row" style="padding-inline:0;border-block-end:0"><span class="mono">د</span><div class="row__body"><div class="row__title">دانة الشمري</div><div class="row__sub">الحجز لنفسها · 250 مدعواً</div></div><div class="row__end"><svg class="icon  mir" aria-hidden="true"><use href="#i-chev"/></svg></div></div></div></div><div class="smp-row"><div class="smp-label">Toggle<small>52 × 32</small></div><div class="smp-cell" lang="en" dir="ltr"><div class="stack"><div class="line line--sp"><span class="t-m">Differences only</span><span class="toggle" aria-checked="true" role="switch"></span></div><div class="line line--sp"><span class="t-m">Notify me</span><span class="toggle" aria-checked="false" role="switch"></span></div></div></div><div class="smp-cell" lang="ar" dir="rtl"><div class="stack"><div class="line line--sp"><span class="t-m">الفروقات فقط</span><span class="toggle" aria-checked="true" role="switch"></span></div><div class="line line--sp"><span class="t-m">نبّهني</span><span class="toggle" aria-checked="false" role="switch"></span></div></div></div></div><div class="smp-row"><div class="smp-label">Thread<small>progress · countdown</small></div><div class="smp-cell" lang="en" dir="ltr"><div class="stack"><div class="thread" style="--p:50%"><span class="thread__fill"></span></div><div class="tl"><span class="thread tl__line"><span class="thread__fill" style="--p:50%"></span></span><div class="tl__cell"><span class="knot is-done"></span><span class="tl__lab">365</span></div><div class="tl__cell"><span class="knot is-done"></span><span class="tl__lab">180</span></div><div class="tl__cell"><span class="knot is-now"></span><span class="tl__lab is-now">30</span></div><div class="tl__cell"><span class="knot"></span><span class="tl__lab">7</span></div><div class="tl__cell"><span class="knot"></span><span class="tl__lab">Day</span></div></div></div></div><div class="smp-cell" lang="ar" dir="rtl"><div class="stack"><div class="thread" style="--p:50%"><span class="thread__fill"></span></div><div class="tl"><span class="thread tl__line"><span class="thread__fill" style="--p:50%"></span></span><div class="tl__cell"><span class="knot is-done"></span><span class="tl__lab">365</span></div><div class="tl__cell"><span class="knot is-done"></span><span class="tl__lab">180</span></div><div class="tl__cell"><span class="knot is-now"></span><span class="tl__lab is-now">30</span></div><div class="tl__cell"><span class="knot"></span><span class="tl__lab">7</span></div><div class="tl__cell"><span class="knot"></span><span class="tl__lab">اليوم</span></div></div></div></div></div><div class="smp-row"><div class="smp-label">Calendar day<small>price under date</small></div><div class="smp-cell" lang="en" dir="ltr"><div class="line days"><div class="day"><span class="day__n">13</span><span class="day__p">46</span></div><div class="day is-sel"><span class="day__n">14</span><span class="day__p">52</span></div><div class="day is-booked"><span class="day__n">15</span><span class="day__p">–</span></div><div class="day is-held"><span class="day__n">17</span><span class="day__p">–</span></div></div></div><div class="smp-cell" lang="ar" dir="rtl"><div class="line days"><div class="day"><span class="day__n">13</span><span class="day__p">46</span></div><div class="day is-sel"><span class="day__n">14</span><span class="day__p">52</span></div><div class="day is-booked"><span class="day__n">15</span><span class="day__p">–</span></div><div class="day is-held"><span class="day__n">17</span><span class="day__p">–</span></div></div></div></div><div class="smp-row"><div class="smp-label">Compare tray<small>after the first add · max 3</small></div><div class="smp-cell" lang="en" dir="ltr"><div class="stack"><div class="tray" style="padding-inline:16px;border:1px solid var(--line);border-radius:16px 16px 0 0"><div class="tray__slots"><span class="tray__slot arch"><span class="arch__body"><img src="../../public/images/halls/halls-11-gold-ceiling-dining-hall.jpg" alt="" style="object-position:50% 35%"></span><svg class="arch__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg></span><span class="tray__slot arch"><span class="arch__body"><img src="../../public/images/halls/halls-02-ivory-draped-ballroom.jpg" alt="" style="object-position:56% 45%"></span><svg class="arch__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg></span><span class="tray__slot tray__slot--empty"><svg class="icon " aria-hidden="true"><use href="#i-plus"/></svg></span></div><div class="tray__txt"><span class="tray__t">Compare 2 of 3</span><span class="tray__s">Thu 14 Jan · 350 guests</span></div><button class="btn btn--secondary btn--sm">Compare</button></div><div class="line"><span class="tray tray--pill"><span class="tray__slots"><span class="tray__slot arch"><span class="arch__body"><img src="../../public/images/halls/halls-11-gold-ceiling-dining-hall.jpg" alt="" style="object-position:50% 35%"></span><svg class="arch__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg></span><span class="tray__slot arch"><span class="arch__body"><img src="../../public/images/halls/halls-02-ivory-draped-ballroom.jpg" alt="" style="object-position:56% 45%"></span><svg class="arch__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg></span></span><span class="tray__t">Compare 2</span></span><span class="t-cap t-muted">collapsed after 4 s idle</span></div></div></div><div class="smp-cell" lang="ar" dir="rtl"><div class="stack"><div class="tray" style="padding-inline:16px;border:1px solid var(--line);border-radius:16px 16px 0 0"><div class="tray__slots"><span class="tray__slot arch"><span class="arch__body"><img src="../../public/images/halls/halls-11-gold-ceiling-dining-hall.jpg" alt="" style="object-position:50% 35%"></span><svg class="arch__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg></span><span class="tray__slot arch"><span class="arch__body"><img src="../../public/images/halls/halls-02-ivory-draped-ballroom.jpg" alt="" style="object-position:56% 45%"></span><svg class="arch__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg></span><span class="tray__slot tray__slot--empty"><svg class="icon " aria-hidden="true"><use href="#i-plus"/></svg></span></div><div class="tray__txt"><span class="tray__t">المقارنة · 2 من 3</span><span class="tray__s">الخميس 14 يناير · 350 مدعواً</span></div><button class="btn btn--secondary btn--sm">مقارنة</button></div><div class="line"><span class="tray tray--pill"><span class="tray__slots"><span class="tray__slot arch"><span class="arch__body"><img src="../../public/images/halls/halls-11-gold-ceiling-dining-hall.jpg" alt="" style="object-position:50% 35%"></span><svg class="arch__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg></span><span class="tray__slot arch"><span class="arch__body"><img src="../../public/images/halls/halls-02-ivory-draped-ballroom.jpg" alt="" style="object-position:56% 45%"></span><svg class="arch__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg></span></span><span class="tray__t">مقارنة 2</span></span><span class="t-cap t-muted">تنطوي بعد 4 ثوانٍ</span></div></div></div></div><div class="smp-row"><div class="smp-label">Empty state<small>lattice, spandrels only</small></div><div class="smp-cell" lang="en" dir="ltr"><div class="empty" style="padding-block:8px 0"><div class="doorframe"><div class="doorframe__lat"></div><div class="doorframe__door"></div><svg class="doorframe__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg><span class="doorframe__lamp"></span></div><h4 class="empty__t">All clear</h4><p class="empty__p">No requests are waiting. New ones appear here with their reply deadline.</p></div></div><div class="smp-cell" lang="ar" dir="rtl"><div class="empty" style="padding-block:8px 0"><div class="doorframe"><div class="doorframe__lat"></div><div class="doorframe__door"></div><svg class="doorframe__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg><span class="doorframe__lamp"></span></div><h4 class="empty__t">لا شيء معلّق</h4><p class="empty__p">تم الرد على جميع الطلبات. سيظهر الجديد هنا مع مهلة الرد.</p></div></div></div><div class="smp-row"><div class="smp-label">Monogram<small>no faces, ever</small></div><div class="smp-cell" lang="en" dir="ltr"><div class="line"><span class="mono">D</span><span class="mono mono--ink">M</span><span class="mono mono--sm">A</span></div></div><div class="smp-cell" lang="ar" dir="rtl"><div class="line"><span class="mono">د</span><span class="mono mono--ink">م</span><span class="mono mono--sm">ع</span></div></div></div></div>
+</section>
+
+<!-- ============ 08 LIVE MOTION ============ -->
+<section class="b-sec" id="motion">
+  <div class="b-head"><span class="b-num">08 · Motion, live</span><h2 class="b-title">Snappy by default, heavy where it matters.</h2>
+    <p class="b-lede">Controls answer in 120–160 ms; objects move in 240; sheets take 320 with an emphasised curve so they feel like they have mass. Nothing loops, nothing bounces, nothing blocks input. Try all three.</p></div>
+  <div class="demos">
+
+    <!-- DEMO 1 · PRESS -->
+    <article class="dm">
+      <header><span class="dm__n">A</span><div><h3>Press, release, select</h3><p>Hold a control to feel the 120 ms press; tap the heart or the chip to select.</p></div></header>
+      <div class="dm__stage dm__stage--press" id="pressDemo">
+        <div class="pr-row"><button class="btn btn--primary btn--lg" type="button" data-p>Request booking</button></div>
+        <div class="pr-row pr-row--2"><button class="btn btn--secondary" type="button" data-p>Compare</button><button class="chip" type="button" aria-pressed="false" data-p data-toggle>Ladies only</button>
+          <button class="icon-btn pr-heart" type="button" aria-pressed="false" aria-label="Save" data-p data-toggle data-heart><svg class="icon"><use href="#i-heart"/></svg></button></div>
+        <a class="vcard pr-card" href="#" onclick="return false" data-p><div class="vcard__media"><img src="../../public/images/halls/halls-04-conservatory-reception-hall.jpg" alt="" style="object-position:50% 50%"></div>
+          <div class="vcard__body"><div class="vcard__name">Qasr Al-Nakheel</div><div class="vcard__meta">Jabriya · KWD 11,900</div></div></a>
+        <button class="btn btn--tertiary btn--sm pr-replay" type="button" id="pressReplay">Replay press</button>
+      </div>
+      <footer><span>Button <b>scale .985 + 1 dp</b> · 120 ms · ease-out</span><span>Chip <b>.97</b> · Icon <b>.94</b> · Photo <b>1.02</b> over 320 ms</span><span>Selection <b>160 ms</b> fill swap, no bounce</span></footer>
+    </article>
+
+    <!-- DEMO 2 · SHEET -->
+    <article class="dm dm--sig">
+      <header><span class="dm__n">B</span><div><h3>The door opens <small>signature</small></h3><p>Open the sheet, then drag its handle up. The arch crown relaxes to a straight lintel as it reaches full height.</p></div></header>
+      <div class="dm__stage dm__stage--phone">
+        <div class="pf pf--sheet is-open" id="sheetDemo">
+          <img class="pf__bg" src="../../public/images/halls/halls-11-gold-ceiling-dining-hall.jpg" alt="" style="object-position:50% 30%">
+          <div class="pf__ctl"><span class="icon-btn icon-btn--scrim"><svg class="icon " aria-hidden="true"><use href="#i-chev-back"/></svg></span><span class="icon-btn icon-btn--scrim"><svg class="icon " aria-hidden="true"><use href="#i-heart"/></svg></span></div>
+          <div class="pf__bar on-ink"><div><span class="t-cap" style="color:var(--c-on-ink-2);display:block">Estimate · 350 guests</span><span class="money" style="font-size:20px;line-height:28px"><span class="cur">KWD</span><bdi class="fig">18,200</bdi></span></div><button class="btn btn--primary" type="button" id="sheetOpen">Choose date</button></div>
+          <div class="scrim" id="sheetScrim"></div>
+          <div class="sheet" id="sheet" role="dialog" aria-label="Choose your night">
+            <div class="sheet__shape">
+              <svg class="sheet__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg>
+              <span class="sheet__grab" aria-hidden="true"></span>
+              <div class="sheet__head" id="sheetHead">
+                <h4 class="t-l t-strong">Choose your night</h4>
+                <p class="t-s t-muted">Danah Ballroom · ladies’ reception</p>
+              </div>
+              <div class="sheet__days days7"><div class="day"><span class="day__n">10</span><span class="day__p">46</span></div><div class="day"><span class="day__n">11</span><span class="day__p">46</span></div><div class="day"><span class="day__n">12</span><span class="day__p">46</span></div><div class="day"><span class="day__n">13</span><span class="day__p">46</span></div><div class="day is-sel"><span class="day__n">14</span><span class="day__p">52</span></div><div class="day is-booked"><span class="day__n">15</span><span class="day__p">–</span></div><div class="day"><span class="day__n">16</span><span class="day__p">52</span></div></div>
+              <div class="seg" style="margin-block-start:16px"><button class="seg__opt" aria-selected="true" type="button">Evening</button><button class="seg__opt" aria-selected="false" type="button">Full day</button></div>
+              <div class="sheet__sum"><div class="price"><span class="t-cap t-muted">Estimate</span><span class="money t-l"><span class="cur">KWD</span><bdi class="fig">18,200</bdi></span></div><div class="price"><span class="t-cap t-muted">Deposit · 30 %</span><span class="money t-l"><span class="cur">KWD</span><bdi class="fig">5,460</bdi></span></div></div>
+              <button class="btn btn--primary btn--lg btn--block" type="button" style="margin-block-start:16px">Request booking</button>
+              <div class="sheet__more">
+                <h5 class="t-over" style="margin-block:24px 8px">Packages</h5>
+                <div class="row" style="padding-inline:0;min-height:56px"><div class="row__body"><div class="row__title">Ladies’ reception · weekend</div><div class="row__sub">Buffet, valet, bridal suite</div></div><span class="money"><span class="cur">KWD</span><bdi class="fig">52</bdi></span></div>
+                <div class="row" style="padding-inline:0;min-height:56px;border-block-end:0"><div class="row__body"><div class="row__title">Signature evening</div><div class="row__sub">Kosha design, zaffa entrance</div></div><span class="money"><span class="cur">KWD</span><bdi class="fig">61</bdi></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer><span>Scrim fade <b>240 ms</b> · sheet rise <b>320 ms</b> emphasised</span><span>Crown <b>24 → 0 dp</b> as height 420 → 596 dp, same 320 ms (registered <code>--rise</code>)</span><span>Flutter: <b>ClipPath</b> with an animated <b>rise</b>, <b>DraggableScrollableSheet</b></span></footer>
+    </article>
+
+    <!-- DEMO 3 · TRIAGE -->
+    <article class="dm">
+      <header><span class="dm__n">C</span><div><h3>Reply, and the queue shortens</h3><p>Accept the requests. The thread completes, the card closes, the count drops, undo stays for four seconds. Clear the queue and the door appears.</p></div></header>
+      <div class="dm__stage dm__stage--phone">
+        <div class="pf pf--hotel" id="triDemo">
+          <div class="hh on-ink"><span class="hh__v">Aurelia Gulf Hotel</span><p class="hh__t t-disp-s"><span class="hh__n" id="triCount">2</span> <span id="triRest">requests need your reply.</span></p></div>
+          <div class="hh__rule"></div>
+          <div class="tri-list" id="triList">
+            <div class="tri-wrap" data-name="Dana Al-Shammari">
+              <article class="tri"><span class="sla"><span class="sla__fill" style="--p:46%"></span></span>
+                <div class="tri__body">
+                  <div class="tri__top"><span class="badge badge--pending"><svg class="icon " aria-hidden="true"><use href="#i-hourglass"/></svg>New request</span><span class="tri__left"><svg class="icon " aria-hidden="true"><use href="#i-clock"/></svg><span class="tl-time">3 h left</span></span></div>
+                  <p class="tri__date" style="font-size:22px;line-height:28px">Sun 17 Jan 2027</p>
+                  <p class="tri__sub">Ladies’ reception · Danah Ballroom</p>
+                  <dl class="tri__facts" style="grid-template-columns:.7fr 1fr 1.3fr"><div><dt>Guests</dt><dd class="fig">250</dd></div><div><dt>Session</dt><dd>Evening</dd></div><div><dt>Total</dt><dd><span class="money"><span class="cur">KWD</span><bdi class="fig">11,500</bdi></span></dd></div></dl>
+                  <div class="tri__actions"><button class="btn btn--primary" type="button" data-act="accept"><svg class="icon " aria-hidden="true"><use href="#i-check"/></svg><span class="lbl">Accept</span></button>
+                    <div class="tri__actions2"><button class="btn btn--secondary" type="button" data-act="reschedule">Reschedule</button><button class="btn btn--secondary" type="button" data-act="decline">Decline</button></div></div>
+                </div>
+              </article>
+            </div>
+            <div class="tri-wrap" data-name="Abdullah Al-Mutairi">
+              <article class="tri"><span class="sla"><span class="sla__fill" style="--p:30%"></span></span>
+                <div class="tri__body">
+                  <div class="tri__top"><span class="badge badge--pending"><svg class="icon " aria-hidden="true"><use href="#i-hourglass"/></svg>New request</span><span class="tri__left"><svg class="icon " aria-hidden="true"><use href="#i-clock"/></svg><span class="tl-time">17 h left</span></span></div>
+                  <p class="tri__date" style="font-size:22px;line-height:28px">Fri 22 Jan 2027</p>
+                  <p class="tri__sub">Men’s majlis · Majlis Hall · 180 guests</p>
+                  <div class="tri__actions"><div class="tri__actions2"><button class="btn btn--primary btn--sm" type="button" data-act="accept"><span class="lbl">Accept</span></button><button class="btn btn--secondary btn--sm" type="button" data-act="decline">Decline</button></div></div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="empty tri-empty" id="triEmpty" aria-live="polite"><div class="doorframe"><div class="doorframe__lat"></div><div class="doorframe__door"></div><svg class="doorframe__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M0 100C0 46 28 36 50 0C72 36 100 46 100 100"/></svg><span class="doorframe__lamp"></span></div><h4 class="empty__t">All clear</h4><p class="empty__p">No requests are waiting. New ones appear here with their reply deadline.</p></div>
+          <div class="toast on-ink" id="toast" role="status"><span class="toast__t" id="toastT">Accepted</span><button class="btn btn--tertiary btn--sm" type="button" id="toastUndo">Undo</button></div>
+        </div>
+        </div>
+      <footer class="dm__f"><button class="btn btn--tertiary btn--sm" type="button" id="triReplay" style="justify-self:start">Replay</button><span>Label to check <b>160 ms</b> · thread fills <b>240 ms</b></span><span>Hold <b>480 ms</b> (success), card closes <b>240 ms</b> ease-out</span><span>Count swaps <b>160 ms</b> · toast <b>240 ms</b> in, 4 s out</span></footer>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 09 MOTION SPEC ============ -->
+<section class="b-sec" id="spec">
+  <div class="b-head"><span class="b-num">09 · Motion spec</span><h2 class="b-title">Five durations, four curves.</h2>
+    <p class="b-lede">Every value is a token. Durations step 120 · 160 · 240 · 320 · 480; the long ones are reserved for sheets and success. Under <code>prefers-reduced-motion</code> every transform collapses to an opacity cross-fade of 120 ms and nothing slides.</p></div>
+  <div class="g-motion">
+    <table class="tbl">
+      <thead><tr><th>Token</th><th class="r">ms</th><th>Curve</th><th>Used for</th><th>Flutter</th></tr></thead>
+      <tbody>
+        <tr><td><code>dur-press</code></td><td class="r num">120</td><td>ease-out</td><td>Press-in and release, icon tint, tab icon</td><td><code>Duration(milliseconds: 120)</code></td></tr>
+        <tr><td><code>dur-state</code></td><td class="r num">160</td><td>ease-out</td><td>Selection, toggle, chip, segment, thread fill, favourite</td><td><code>…160 · Curves custom</code></td></tr>
+        <tr><td><code>dur-move</code></td><td class="r num">240</td><td>ease-out</td><td>Push / pop, scrim, card collapse, toast, compare tray</td><td><code>…240</code></td></tr>
+        <tr><td><code>dur-sheet</code></td><td class="r num">320</td><td>emphasised</td><td>Sheet rise, crown relax, image expansion</td><td><code>…320 · emph / emphIn</code></td></tr>
+        <tr><td><code>dur-success</code></td><td class="r num">480</td><td>emphasised</td><td>Booking and accept confirmation, the one slow beat</td><td><code>…480</code></td></tr>
+      </tbody>
+    </table>
+    <div class="curves">
+      <figure><svg class="curve" width="132" height="84" viewBox="0 0 132 84" fill="none" aria-hidden="true"><path d="M8 76H124M8 76V8M8 8H124M124 76V8" stroke="var(--line)" stroke-width="1"/><path d="M8 76L31.200000000000003 76M124 8L8 8" stroke="var(--ink-300)" stroke-width="1" stroke-dasharray="2 3"/><path d="M8 76C31.200000000000003 76 8 8 124 8" stroke="var(--gold-700)" stroke-width="2"/><path d="M28.200000000000003 76h6M31.200000000000003 73v6M5 8h6M8 5v6" stroke="var(--ink-500)" stroke-width="1"/></svg><figcaption><b>ease-out</b> .2, 0, 0, 1</figcaption></figure>
+      <figure><svg class="curve" width="132" height="84" viewBox="0 0 132 84" fill="none" aria-hidden="true"><path d="M8 76H124M8 76V8M8 8H124M124 76V8" stroke="var(--line)" stroke-width="1"/><path d="M8 76L13.8 28.400000000000006M124 8L19.6 8" stroke="var(--ink-300)" stroke-width="1" stroke-dasharray="2 3"/><path d="M8 76C13.8 28.400000000000006 19.6 8 124 8" stroke="var(--gold-700)" stroke-width="2"/><path d="M10.8 28.400000000000006h6M13.8 25.400000000000006v6M16.6 8h6M19.6 5v6" stroke="var(--ink-500)" stroke-width="1"/></svg><figcaption><b>emphasised</b> .05, .7, .1, 1</figcaption></figure>
+      <figure><svg class="curve" width="132" height="84" viewBox="0 0 132 84" fill="none" aria-hidden="true"><path d="M8 76H124M8 76V8M8 8H124M124 76V8" stroke="var(--line)" stroke-width="1"/><path d="M8 76L42.8 76M124 8L100.80000000000001 65.8" stroke="var(--ink-300)" stroke-width="1" stroke-dasharray="2 3"/><path d="M8 76C42.8 76 100.80000000000001 65.8 124 8" stroke="var(--gold-700)" stroke-width="2"/><path d="M39.8 76h6M42.8 73v6M97.80000000000001 65.8h6M100.80000000000001 62.8v6" stroke="var(--ink-500)" stroke-width="1"/></svg><figcaption><b>emphasised-in</b> .3, 0, .8, .15 · leaving</figcaption></figure>
+      <figure><svg class="curve" width="132" height="84" viewBox="0 0 132 84" fill="none" aria-hidden="true"><path d="M8 76H124M8 76V8M8 8H124M124 76V8" stroke="var(--line)" stroke-width="1"/><path d="M8 76L54.400000000000006 76M124 8L31.200000000000003 8" stroke="var(--ink-300)" stroke-width="1" stroke-dasharray="2 3"/><path d="M8 76C54.400000000000006 76 31.200000000000003 8 124 8" stroke="var(--gold-700)" stroke-width="2"/><path d="M51.400000000000006 76h6M54.400000000000006 73v6M28.200000000000003 8h6M31.200000000000003 5v6" stroke="var(--ink-500)" stroke-width="1"/></svg><figcaption><b>in-out</b> .4, 0, .2, 1 · crossfades</figcaption></figure>
+    </div>
+  </div>
+  <table class="tbl tbl--beh">
+    <thead><tr><th>Required behaviour</th><th>In Majlis</th></tr></thead>
+    <tbody>
+      <tr><td>Screen push / pop</td><td>240 ms, 24 % slide plus fade. Follows <code>dir</code>: a push enters from the inline-end, so it flips in RTL.</td></tr>
+      <tr><td>Bottom sheet + drag</td><td>320 ms emphasised rise, scrim 240, velocity-based settle at closed / open / expanded. The crown relaxes as it expands.</td></tr>
+      <tr><td>Shared-element image expansion</td><td>Card photo grows to the gallery over 320 ms; the hero crown tweens 64 → 24 so the door visibly widens.</td></tr>
+      <tr><td>Tap and press</td><td>120 ms, scale .94 – .985 and a tonal fill. No ripple halos.</td></tr>
+      <tr><td>Stepper progress</td><td>The gold thread grows 240 ms; the knot behind it fills in 160. Direction follows <code>dir</code>.</td></tr>
+      <tr><td>Selection</td><td>160 ms fill swap to Ink (chips, segments) or Gold (days). No bounce.</td></tr>
+      <tr><td>Skeleton → content</td><td>Static Ink 100 blocks with a hairline, crossfading to content in 160. No shimmer loop.</td></tr>
+      <tr><td>Success</td><td>480 ms: the knot draws a check, the card closes in 240, the count steps down, undo toast for 4 s.</td></tr>
+      <tr><td>Calendar range</td><td>Gold fill grows from the start day to the end day in one 160 ms step; price captions stay put.</td></tr>
+      <tr><td>Favourite</td><td>Heart fills Gold in 160 ms with a single 1 → 1.14 → 1 pulse.</td></tr>
+      <tr><td>Compare tray</td><td>Tray rises 240 ms; the new thumbnail enters from the inline-start; counter swaps in 160.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 10 SCREENS ============ -->
+<section class="b-sec" id="screens">
+  <div class="b-head"><span class="b-num">10 · Screens</span><h2 class="b-title">The four screens, live.</h2>
+    <p class="b-lede">Home, venue, compare and the hotel’s Today, at 390 × 844, English above and Arabic below. Each page carries both languages in its markup and flips with <code>lang</code> and <code>dir</code> alone.</p></div>
+  <div class="shots">
+    <figure class="shot"><div class="shot__f"><iframe src="client-home.html" title="Client home, English" tabindex="-1" loading="eager"></iframe></div><figcaption>Client · Home</figcaption></figure>
+    <figure class="shot"><div class="shot__f"><iframe src="client-venue.html" title="Venue details, English" tabindex="-1" loading="eager"></iframe></div><figcaption>Client · Venue</figcaption></figure>
+    <figure class="shot"><div class="shot__f"><iframe src="client-compare.html" title="Compare, English" tabindex="-1" loading="eager"></iframe></div><figcaption>Client · Compare 3</figcaption></figure>
+    <figure class="shot"><div class="shot__f"><iframe src="hotel-today.html" title="Hotel today, English" tabindex="-1" loading="eager"></iframe></div><figcaption>Hotel · Today</figcaption></figure>
+    <figure class="shot"><div class="shot__f"><iframe src="client-home.html?lang=ar" title="الرئيسية" tabindex="-1" loading="eager"></iframe></div><figcaption lang="ar" dir="rtl">العميل · الرئيسية</figcaption></figure>
+    <figure class="shot"><div class="shot__f"><iframe src="client-venue.html?lang=ar" title="تفاصيل القاعة" tabindex="-1" loading="eager"></iframe></div><figcaption lang="ar" dir="rtl">العميل · القاعة</figcaption></figure>
+    <figure class="shot"><div class="shot__f"><iframe src="client-compare.html?lang=ar" title="المقارنة" tabindex="-1" loading="eager"></iframe></div><figcaption lang="ar" dir="rtl">العميل · مقارنة 3</figcaption></figure>
+    <figure class="shot"><div class="shot__f"><iframe src="hotel-today.html?lang=ar" title="اليوم" tabindex="-1" loading="eager"></iframe></div><figcaption lang="ar" dir="rtl">الفندق · اليوم</figcaption></figure>
+  </div>
+</section>
+
+<!-- ============ 11 RISKS ============ -->
+<section class="b-sec b-sec--last" id="risks">
+  <div class="b-head"><span class="b-num">11 · Honest risks</span><h2 class="b-title">Where this could go wrong.</h2></div>
+  <div class="g-risk">
+    <article><h3>The arch can become a gimmick</h3><p>It works because it is rationed to three places. Every new surface will want an arch; the rule is that nothing else gets one. If research says couples read it as “mosque”, the crown rise can drop to 12 and the idea survives as a flat lintel.</p></article>
+    <article><h3>Ink-heavy chrome costs photo space</h3><p>The Ink tab bar (94 px) and CTA bar (about 120 px) cost 11–14 % of an 844 px screen. They earn it by making the primary action unmissable, but a long browse screen may want the bar to hide on scroll.</p></article>
+    <article><h3>Markazi runs small</h3><p>It is sized +22 % to match Newsreader and still reads lighter than Cairo beside it. Fallback is Amiri or Noto Naskh; the scale tokens already carry per-script sizes so swapping is one token.</p></article>
+    <article><h3>The hotel app is deliberately plain</h3><p>No arch, no lattice, one display line. Owners will love the calm; a brand review may find it generic. The gold thread as an SLA clock is the one signature we spend there.</p></article>
+  </div>
+  <div class="g-impl">
+    <div><h3>Flutter, token to widget</h3><ul>
+      <li><b>ThemeExtension</b> holds the ramps, spacing, radius, motion and the two <b>rise</b> values.</li>
+      <li><b>CrownClipper</b> (CustomClipper&lt;Path&gt;) and <b>CrownBorder</b> (ShapeBorder with a Gold stroke) from the two cubics above.</li>
+      <li><b>LatticePainter</b> draws one 56 dp octagram tile (tip .40 T, valley .306 T, 1 dp stroke) clipped to the spandrel path.</li>
+      <li><b>ThreadProgress</b> is a CustomPainter: one 2 dp line, circular knots, direction from <b>Directionality</b>.</li>
+      <li>Icons ship as an SVG sprite compiled to a custom icon font; mirrored via <b>matchTextDirection</b>.</li></ul></div>
+    <div><h3>What is out of scope here</h3><ul>
+      <li>Dark mode: Ink-on-ivory inverts naturally, but it is not designed in this pass.</li>
+      <li>Booking steps, payments, chat, planner: the sheet, thread and row patterns above are meant to carry them.</li>
+      <li>Web admin: the hotel pattern (ledger rows, gold rule) extends to it directly.</li></ul></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* Board motion demos. Demo-only vanilla JS: Flutter equivalents are named in each demo's footer. */
+(function () {
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* A · press, release, select */
+  var pd = document.getElementById('pressDemo');
+  if (pd) {
+    pd.querySelectorAll('[data-toggle]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var on = el.getAttribute('aria-pressed') === 'true';
+        el.setAttribute('aria-pressed', on ? 'false' : 'true');
+        if (el.hasAttribute('data-heart') && !on) { el.classList.remove('is-pop'); void el.offsetWidth; el.classList.add('is-pop'); }
+      });
+    });
+    document.getElementById('pressReplay').addEventListener('click', function () {
+      var els = pd.querySelectorAll('[data-p]');
+      els.forEach(function (e) { e.classList.add('is-pressed'); });
+      setTimeout(function () { els.forEach(function (e) { e.classList.remove('is-pressed'); }); }, 640);
+    });
+  }
+
+  /* B · sheet: closed / open / expanded, with a draggable head */
+  var pf = document.getElementById('sheetDemo');
+  if (pf) {
+    var sheet = document.getElementById('sheet'), head = document.getElementById('sheetHead'), grab = sheet.querySelector('.sheet__grab');
+    var H_OPEN = 420, H_FULL = 596, state = 'open';
+    function set(s) {
+      state = s; sheet.style.transition = ''; sheet.style.transform = ''; sheet.style.height = '';
+      pf.classList.toggle('is-open', s !== 'closed'); sheet.classList.toggle('is-expanded', s === 'expanded');
+    }
+    document.getElementById('sheetOpen').addEventListener('click', function () { set('open'); });
+    document.getElementById('sheetScrim').addEventListener('click', function () { set('closed'); });
+    var y0 = null, h0 = 0, dy = 0, drag = false;
+    function down(e) { if (state === 'closed') return; drag = true; y0 = e.clientY; h0 = state === 'expanded' ? H_FULL : H_OPEN; dy = 0; sheet.style.transition = 'none'; (e.target.setPointerCapture || function () {}).call(e.target, e.pointerId); }
+    function move(e) {
+      if (!drag) return; dy = e.clientY - y0;
+      var h = Math.max(H_OPEN, Math.min(H_FULL, h0 - dy));
+      sheet.style.height = h + 'px';
+      var t = h0 - dy < H_OPEN ? Math.max(0, H_OPEN - (h0 - dy)) : 0; sheet.style.transform = 'translateY(' + t + 'px)';
+      var k = (h - H_OPEN) / (H_FULL - H_OPEN);      /* crown relaxes in step with the drag */
+      sheet.querySelector('.sheet__shape').style.setProperty('--rise', (24 * (1 - k)).toFixed(1) + 'px');
+      sheet.querySelector('.sheet__shape').style.transition = 'none';
+    }
+    function up() {
+      if (!drag) return; drag = false;
+      var sh = sheet.querySelector('.sheet__shape'); sh.style.transition = ''; sh.style.removeProperty('--rise');
+      var h = h0 - dy;
+      if (h < H_OPEN - 70) set('closed'); else if (h > (H_OPEN + H_FULL) / 2) set('expanded'); else set('open');
+    }
+    [head, grab].forEach(function (el) { el.addEventListener('pointerdown', down); });
+    window.addEventListener('pointermove', move); window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
+    head.addEventListener('dblclick', function () { set(state === 'expanded' ? 'open' : 'expanded'); });
+    head.addEventListener('click', function (e) { if (Math.abs(dy) < 4) set(state === 'open' ? 'expanded' : 'open'); dy = 0; });
+    if (location.hash === '#sheet-open') set('open'); if (location.hash === '#sheet-full') set('expanded');
+  }
+
+  /* C · triage */
+  var td = document.getElementById('triDemo');
+  if (td) {
+    var list = document.getElementById('triList'), cnt = document.getElementById('triCount'), rest = document.getElementById('triRest');
+    var emptyEl = document.getElementById('triEmpty');
+    var toast = document.getElementById('toast'), toastT = document.getElementById('toastT'), last = null, timer = null, n = 2;
+    function paint(v) { cnt.textContent = v === 0 ? 'No' : String(v); rest.textContent = v === 0 ? 'requests waiting.' : (v === 1 ? 'request needs your reply.' : 'requests need your reply.'); }
+    function setCount(v) {
+      n = v; cnt.classList.add('is-swap');
+      setTimeout(function () { paint(v); cnt.classList.remove('is-swap'); if (emptyEl) emptyEl.classList.toggle('is-on', v === 0); }, reduce ? 0 : 160);
+    }
+    function resolve(wrap, kind) {
+      var tri = wrap.querySelector('.tri'), btn = wrap.querySelector('[data-act="' + kind + '"]'), who = wrap.getAttribute('data-name');
+      if (wrap.classList.contains('is-gone') || tri.classList.contains('is-done')) return;
+      tri.classList.add('is-done');
+      if (kind === 'accept' && btn) { btn.classList.add('is-ok'); var l = btn.querySelector('.lbl'); if (l) l.textContent = 'Accepted'; }
+      var msg = { accept: 'Accepted · ' + who + ' is notified', decline: 'Declined · ' + who + ' is notified', reschedule: 'Proposed Mon 18 Jan · awaiting ' + who }[kind];
+      setTimeout(function () {                      /* hold the success beat, then close the card */
+        wrap.classList.add('is-gone'); setCount(n - 1);
+        toastT.textContent = msg; toast.classList.add('is-on'); last = { wrap: wrap, kind: kind, btn: btn };
+        clearTimeout(timer); timer = setTimeout(function () { toast.classList.remove('is-on'); }, 4000);
+      }, reduce ? 0 : 480);
+    }
+    function reset(wrap) {
+      var tri = wrap.querySelector('.tri'); tri.classList.remove('is-done'); wrap.classList.remove('is-gone');
+      wrap.querySelectorAll('.is-ok').forEach(function (b) { b.classList.remove('is-ok'); var l = b.querySelector('.lbl'); if (l) l.textContent = 'Accept'; });
+    }
+    list.querySelectorAll('[data-act]').forEach(function (b) { b.addEventListener('click', function () { resolve(b.closest('.tri-wrap'), b.getAttribute('data-act')); }); });
+    document.getElementById('toastUndo').addEventListener('click', function () { if (!last) return; reset(last.wrap); setCount(n + 1); toast.classList.remove('is-on'); last = null; });
+    document.getElementById('triReplay').addEventListener('click', function () { list.querySelectorAll('.tri-wrap').forEach(reset); toast.classList.remove('is-on'); n = 2; paint(2); if (emptyEl) emptyEl.classList.remove('is-on'); last = null; });
+  }
+})();
+
+</script>
+</body>
+</html>

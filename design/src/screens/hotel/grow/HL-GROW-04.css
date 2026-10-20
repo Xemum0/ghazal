@@ -1,0 +1,58 @@
+/* HL-GROW-04 Analytics. Gutter 20, section rhythm 32, 12 between tiles, 12 inside a section. */
+
+.ga-root {
+  position: relative; /* flutter-ok: overlay anchor for the static sheet frame (Stack) */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-block-size: 0;
+}
+
+.ga-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding: var(--gz-space-4) var(--gz-space-gutter) var(--gz-space-8);
+}
+
+.ga-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.ga-tiles {
+  gap: var(--gz-space-3);
+}
+
+.ga-row {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+}
+
+.ga-range {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.ga-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.ga-role {
+  display: flex;
+}
+
+.ga-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-4);
+  padding: var(--gz-space-6) var(--gz-space-gutter);
+}

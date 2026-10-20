@@ -1,0 +1,72 @@
+/* HL-CALN-01 Month calendar. Gutter 20 everywhere; the grid pads itself, the agenda block and the soft panel sit on the gutter. Tokens only. */
+
+.cal-m {
+  padding-block-end: var(--gz-space-8);
+}
+
+.cal-m__nudge {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-4);
+}
+
+.cal-m__readonly {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-3);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.cal-m__below {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-5);
+}
+
+.cal-m__soft {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.cal-m__softhead {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.cal-m__softdisk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-md);
+  block-size: var(--gz-size-avatar-md);
+  background: var(--gz-color-sys-surface-tint);
+  border-radius: var(--gz-radius-pill);
+}
+
+.cal-m__softtitle {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.cal-m__softn {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.cal-m__hint {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-3);
+}
+
+.cal-m__empty {
+  padding-block-start: var(--gz-space-4);
+}

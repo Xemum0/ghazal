@@ -1,0 +1,134 @@
+/* CL-DISC-06 Dates for your search (sheet): pinned header, the one scrolling middle, pinned footer. The Sheet brings the 20 gutter. */
+.gzd-dl {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gzd-dl .gz-sheet__header {
+  padding-inline: 0;
+}
+
+.gzd-dl__scroll {
+  flex: 1;
+  min-block-size: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.gzd-dl__banner {
+  padding-block-end: var(--gz-space-3);
+}
+
+.gzd-dl__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding-block-end: var(--gz-space-4);
+}
+
+.gzd-dl__alts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+}
+
+/* The info sheet: the density legend (a sample figure with its shape, then the word; never colour alone) and the seven-day limit. */
+.gzd-dl__legend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzd-dl__legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.gzd-dl__hint {
+  margin: var(--gz-space-4) 0 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzd-dl__near,
+.gzd-dl__months {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzd-dl__monthgrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+}
+
+/* The three nearest free dates are one line (they all fit at 360; a longer label scrolls sideways) so they never sit half hidden under the footer. */
+.gzd-dl__nearchips {
+  display: flex;
+  gap: var(--gz-space-2);
+  overflow-x: auto;
+}
+
+.gzd-dl__nearchips > * {
+  flex: none;
+}
+
+.gzd-dl__foot {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-3);
+}
+
+.gzd-dl__clear {
+  display: flex;
+  justify-content: center;
+}
+
+/* The legend samples: a figure with its shape (plain, bead before it, struck), never colour alone. */
+.gzd-dl__sample {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--gz-space-1);
+  min-inline-size: var(--gz-space-8);
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The bead of a day with few halls free is the calendar's own gold-700 diamond. */
+.gzd-dl__sample[data-k='few']::before {
+  content: '';
+  flex: none;
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+  background-color: var(--gz-color-sys-icon-accent);
+  transform: rotate(45deg);
+}
+
+.gzd-dl__sample[data-k='none'] {
+  color: var(--gz-color-sys-text-secondary);
+  text-decoration: line-through;
+}
+
+/* Drawn as a screen (static frame without the Sheet container): the 20 gutter and the safe-area top come from here. */
+.gzd-dl--bare {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-4);
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.gzd-dl--bare .gzd-dl__panel {
+  gap: var(--gz-space-2);
+  padding-block-end: 0;
+}
+
+.gzd-dl--bare .gzd-dl__foot {
+  padding-block-start: var(--gz-space-2);
+}

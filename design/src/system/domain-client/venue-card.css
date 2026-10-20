@@ -1,0 +1,352 @@
+/* VenueCard (ADR 0018, direction section 3). Unframed plate: 4:5 photograph radius 12, wall label under it. No border, no shadow.
+   Variants: card, feature, list (16:10), compact / saved / compare (72 x 88 thumbnail row). Tokens only, logical properties, flex + gap. */
+
+.gz-vcard {
+  position: relative; /* flutter-ok: named overlay anchor for the stretched open target (the card is one InkWell) */
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-vcard.is-pressed {
+  transform: scale(var(--gz-motion-scale-press));
+}
+
+/* The whole card is one press target: the stretched button sits over everything; controls and the Book action sit above it. */
+.gz-vcard__open {
+  position: absolute; /* flutter-ok: named overlay anchor, one InkWell over the card */
+  inset: 0;
+  border-radius: var(--gz-radius-md);
+  cursor: pointer;
+}
+
+/* ---------- media ---------- */
+.gz-vcard__media {
+  position: relative; /* flutter-ok: named overlay anchor for the controls, badge and dots */
+  display: flex;
+  overflow: hidden;
+  aspect-ratio: var(--gz-layout-aspect-4x5);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gz-vcard__media--list {
+  aspect-ratio: var(--gz-layout-aspect-16x10);
+}
+
+.gz-vcard__media--skeleton {
+  aspect-ratio: var(--gz-layout-aspect-4x5);
+}
+
+.gz-vcard--list .gz-vcard__media--skeleton {
+  aspect-ratio: var(--gz-layout-aspect-16x10);
+}
+
+.gz-vcard__photo {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gz-vcard__pager {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gz-vcard__pager .gz-pager__track {
+  flex: 1;
+}
+
+.gz-vcard__pager .gz-pager__page {
+  display: flex;
+}
+
+/* No photograph yet: a branded empty frame, never a broken image (CA-CARD-01, stress S02). */
+.gz-vcard__empty {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-3);
+  color: var(--gz-color-sys-text-secondary);
+  background-color: var(--gz-color-sys-surface-tint-soft);
+}
+
+.gz-vcard__empty--thumb {
+  gap: 0;
+}
+
+/* Controls: canvas disks in 44 targets. Compare at inline-start, heart at inline-end (ADR 0018 D1). */
+.gz-vcard__ctl {
+  position: absolute; /* flutter-ok: named overlay anchor, PositionedDirectional */
+  inset-block-start: var(--gzc-ctl-inset);
+  z-index: var(--gz-z-raised);
+}
+
+.gz-vcard__ctl--start {
+  inset-inline-start: var(--gzc-ctl-inset);
+}
+
+.gz-vcard__ctl--end {
+  inset-inline-end: var(--gzc-ctl-inset);
+}
+
+/* One badge, bottom inline-start. */
+.gz-vcard__badge {
+  position: absolute; /* flutter-ok: named overlay anchor */
+  inset-block-end: var(--gz-space-3);
+  inset-inline-start: var(--gz-space-3);
+  z-index: var(--gz-z-raised);
+}
+
+/* Play affordance, bottom inline-end: a canvas disk, decorative (never autoplay, ADR 0018 D1). */
+.gz-vcard__play {
+  position: absolute; /* flutter-ok: named overlay anchor */
+  inset-block-end: var(--gz-space-3);
+  inset-inline-end: var(--gz-space-3);
+  z-index: var(--gz-z-raised);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-canvas);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-scrim-ring-fab);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+/* Photo dots sit on a bottom scrim token: the counter's scrim, only where dots exist (direction 5). */
+.gz-vcard__dots {
+  position: absolute; /* flutter-ok: named overlay anchor */
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: var(--gz-z-raised);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-1);
+  padding-block-end: var(--gz-space-2);
+  padding-block-start: var(--gz-space-6);
+  background: linear-gradient(to bottom, var(--gz-color-sys-scrim-clear), var(--gz-color-sys-scrim-mid));
+  pointer-events: none;
+}
+
+.gz-vcard__dot {
+  inline-size: var(--gzc-dot-off);
+  block-size: var(--gzc-dot-off);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-scrim-rule-on-photo);
+  transition: background-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-vcard__dot.is-on {
+  inline-size: var(--gzc-dot-on);
+  block-size: var(--gzc-dot-on);
+  background-color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-vcard__dot.is-small {
+  inline-size: var(--gzc-dot-edge);
+  block-size: var(--gzc-dot-edge);
+}
+
+/* ---------- wall label ---------- */
+.gz-vcard__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gz-vcard__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-vcard__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gz-vcard__name {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+}
+
+.gz-vcard__rate {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+
+.gz-vcard__new {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-vcard__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-3);
+  row-gap: var(--gz-space-1);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-vcard__meta-text {
+  min-inline-size: 0;
+}
+
+.gz-vcard__sponsored {
+  flex: none;
+  margin-inline-start: auto;
+}
+
+.gz-vcard__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-1);
+}
+
+.gz-vcard__tag {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding-inline: var(--gz-space-2);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-xs);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-vcard__foot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-vcard__avail {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-block-size: var(--gz-space-6);
+}
+
+.gz-vcard__avail-text {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* The gold-700 bead before an available date: an informative gold mark on a light surface (direction 2.3). */
+.gz-vcard__bead {
+  display: inline-block;
+  flex: none;
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+  margin-inline: var(--gz-stroke-thread);
+  background-color: var(--gz-color-sys-text-gold-ink);
+  transform: rotate(45deg);
+}
+
+/* ---------- feature: the serif name steps up to d2, the price to the display voice ---------- */
+.gz-vcard--feature .gz-vcard__foot {
+  gap: var(--gz-space-2);
+}
+
+/* ---------- compact, saved, compare ---------- */
+.gz-vcard--compact {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--gz-space-4);
+}
+
+.gz-vcard--compact .gz-vcard__thumb {
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  inline-size: var(--gzc-thumb-compact-w);
+  block-size: var(--gzc-thumb-compact-h);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gz-vcard--compact .gz-vcard__body {
+  flex: 1;
+  gap: var(--gz-space-1);
+  justify-content: center;
+  min-block-size: var(--gzc-thumb-compact-h);
+}
+
+.gz-vcard--compact .gz-vcard__name {
+  flex: none;
+}
+
+.gz-vcard__aside {
+  position: relative; /* flutter-ok: sits above the stretched card target */
+  z-index: var(--gz-z-raised);
+  flex: none;
+  align-self: flex-start;
+}
+
+.gz-vcard__drop {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+/* compare (the Replace sheet): a row you choose. Selected = ink border on paper and an ink mark, never gold (direction 2.3). */
+.gz-vcard--compare {
+  box-sizing: border-box;
+  padding: var(--gz-space-3);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  align-items: center;
+}
+
+.gz-vcard--compare.is-selected {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+}
+
+.gz-vcard__choice {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+  border-width: var(--gz-stroke-icon);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.gz-vcard__choice.is-on {
+  border-color: var(--gz-color-sys-control-toggle-on);
+  background-color: var(--gz-color-sys-control-toggle-on);
+  color: var(--gz-color-sys-control-toggle-knob);
+}
+
+/* ---------- loading ---------- */
+.gz-vcard.is-loading .gz-vcard__body {
+  gap: var(--gz-space-2);
+}

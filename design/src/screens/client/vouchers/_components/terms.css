@@ -1,0 +1,33 @@
+/* The terms inside the info sheet: one glyph and one short paragraph per rule. */
+.gzv-terms {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzv-terms__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.gzv-terms__glyph {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gzv-terms__text {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  padding-block-start: var(--gz-space-1);
+}

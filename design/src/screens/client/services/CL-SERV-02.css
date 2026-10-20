@@ -1,0 +1,38 @@
+/* CL-SERV-02 Providers in one category. Tokens only, logical properties, flex + gap. */
+
+.gzs-list {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding-block-start: var(--gz-space-1);
+  padding-block-end: var(--gz-space-section);
+}
+
+.gzs-list__pad {
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzs-list__switch {
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzs-list__grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-list-gap);
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-2);
+}
+
+.gzs-list__row {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gz-space-4);
+}
+
+.gzs-list__spacer {
+  flex: 1 1 0;
+}

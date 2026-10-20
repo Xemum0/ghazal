@@ -1,0 +1,130 @@
+/* Harness shell. Defines no token values: everything reads var(--gz-*) from packages/design-tokens/dist.
+   Fallbacks after the comma are CSS system keywords or 4-pt integers so the harness stays legible before tokens land. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--gz-color-sys-surface-canvas, Canvas);
+  color: var(--gz-color-sys-text-primary, CanvasText);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Font stacks by language class (set by GzProvider). Arabic runs inside English keep Cairo through the fallback chain.
+   Static self-hosted files are declared by the font owner (see requests.md); until then installed fonts are used. */
+.gz-lang-en {
+  font-family: var(--gz-font-ui, Poppins), Cairo, system-ui, sans-serif;
+}
+
+.gz-lang-ar {
+  font-family: var(--gz-font-ui, Cairo), Poppins, system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gz-color-sys-focus-ring, Highlight);
+  outline-offset: 2px;
+}
+
+/* Gallery: chromeless full-width page. */
+.gz-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6, 24px);
+  padding-inline: var(--gz-space-5, 20px);
+  padding-block: var(--gz-space-6, 24px);
+}
+
+/* Frame: a fixed device canvas, centred when the window is wider than the frame. */
+.gz-frame-stage {
+  display: flex;
+  justify-content: center;
+}
+
+.gz-frame {
+  position: relative; /* flutter-ok: harness frame, not component CSS */
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  overflow: hidden;
+  background: var(--gz-color-sys-surface-canvas, Canvas);
+}
+
+.gz-frame[data-gz-auto] {
+  overflow: visible;
+}
+
+.gz-frame > * {
+  flex: 1 1 auto;
+  min-block-size: 0;
+}
+
+/* Notices (not-built placeholder, error boundary, loading). */
+.gz-shell-notice {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--gz-space-2, 8px);
+  padding: var(--gz-space-5, 20px);
+  text-align: start;
+}
+
+.gz-shell-notice__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.gz-shell-notice__id {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-family: ui-monospace, Menlo, monospace;
+}
+
+.gz-shell-notice__body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--gz-color-sys-text-secondary, GrayText);
+}
+
+pre.gz-shell-notice__body {
+  direction: ltr;
+  text-align: start;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 12px;
+}
+
+.gz-shell-notice--error .gz-shell-notice__title {
+  color: var(--gz-color-sys-status-danger-text, CanvasText);
+}
+
+.gz-shell-loading {
+  margin: 0;
+  padding: var(--gz-space-5, 20px);
+  font-size: 14px;
+  color: var(--gz-color-sys-text-secondary, GrayText);
+}

@@ -1,0 +1,93 @@
+/* Package editor pieces (HL-VENU-03): day-tier panel, "What couples see" preview, inclusion chips. Tokens only. */
+
+/* ---------- a set of days: a panel with its switch and prices ---------- */
+.hv-tier {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding: var(--gz-space-panel-pad);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.hv-tier[data-on] { border-color: var(--gz-color-sys-border-control); }
+
+.hv-tier__head { display: flex; align-items: center; justify-content: space-between; gap: var(--gz-space-3); min-block-size: var(--gz-size-touch-min); }
+.hv-tier__text { display: flex; flex: 1; flex-direction: column; min-inline-size: 0; color: var(--gz-color-sys-text-strong); }
+.hv-tier__off { color: var(--gz-color-sys-text-secondary); }
+.hv-tier__group { display: flex; flex-direction: column; gap: var(--gz-space-3); }
+.hv-tier__gtitle { display: flex; align-items: center; gap: var(--gz-space-2); color: var(--gz-color-sys-text-strong); }
+
+/* the voucher column sits in its own quiet tone panel: two prices of one rule read as two groups, not one long form */
+.hv-tier__group--voucher {
+  padding: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-tint);
+  border-radius: var(--gz-radius-sm);
+}
+
+/* ---------- preview ---------- */
+.hv-pv {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-panel-pad);
+  background: var(--gz-color-sys-surface-tint);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hv-pv__name { color: var(--gz-color-sys-text-strong); }
+.hv-pv__lines { display: flex; flex-direction: column; }
+.hv-pv__line {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  padding-block: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-strong);
+}
+.hv-pv__label { display: inline-flex; align-items: center; color: var(--gz-color-sys-text-secondary); }
+.hv-pv__value { color: var(--gz-color-sys-text-strong); }
+.hv-pv__value--head { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--gz-space-2); font-weight: var(--gz-type-title-weight); }
+.hv-pv__value--head > .gz-icon { align-self: center; }
+.hv-pv__tail { color: var(--gz-color-sys-text-secondary); font-weight: var(--gz-type-body-s-weight); }
+.hv-pv__std { color: var(--gz-color-sys-text-secondary); }
+.hv-pv__off { color: var(--gz-color-sys-text-secondary); }
+.hv-pv__note { color: var(--gz-color-sys-text-secondary); }
+
+/* ---------- inclusion chips ---------- */
+.hv-inc { display: flex; flex-wrap: wrap; gap: var(--gz-space-2); margin: 0; padding: 0; list-style: none; }
+
+.hv-inc__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-3) var(--gz-space-1);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hv-inc__label { min-inline-size: 0; }
+
+.hv-inc__x {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--gz-size-touch-min);
+  min-inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+.hv-inc__chip--add { padding-inline: var(--gz-space-3); border-style: dashed; color: var(--gz-color-sys-text-gold-ink); }

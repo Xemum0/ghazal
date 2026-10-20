@@ -1,0 +1,115 @@
+/* HL-TODY-05 Conversation. Bubbles come from the system; this file only lays the thread out on the 20 gutter. Tokens only. */
+
+.ht-th__root {
+  position: relative; /* flutter-ok: overlay anchor for the attach sheet in a static frame (Stack) */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-block-size: 0;
+}
+
+.ht-th__who {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.ht-th__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-3) var(--gz-space-4);
+}
+
+.ht-th__msg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.ht-th__drafts {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.ht-th__state {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--gz-space-1);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.ht-th__state.is-failed { color: var(--gz-color-sys-text-danger); }
+
+.ht-th__skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-4);
+}
+
+.ht-th__skel-end { display: flex; justify-content: flex-end; }
+
+.ht-th__readonly {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-4);
+  padding-block-end: var(--gz-safe-bottom);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.ht-th__readonly p { margin: 0; }
+
+.ht-th__menu {
+  display: flex;
+  flex-direction: column;
+  padding-block-end: var(--gz-space-2);
+}
+
+.ht-th__attach {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ht-th__attach-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-size-control-lg);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  text-align: start;
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+}
+
+.ht-th__attach-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-quiet);
+}

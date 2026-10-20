@@ -1,0 +1,53 @@
+/* Form pieces of the provider screens. Tokens only. */
+
+.hp-err {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-danger);
+}
+
+.hp-err .gz-icon {
+  flex: none;
+  margin-block-start: var(--gz-space-1);
+}
+
+.hp-err__text {
+  min-inline-size: 0;
+}
+
+.hp-bi {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.hp-bi__helper {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp-comp {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-4);
+  row-gap: var(--gz-space-1);
+  margin: 0;
+}
+
+.hp-comp__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp-comp__item[data-done] {
+  color: var(--gz-color-sys-text-success);
+}
+
+.hp-cur {
+  color: var(--gz-color-sys-text-secondary);
+}

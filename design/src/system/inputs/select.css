@@ -1,0 +1,192 @@
+/* SelectRow: the trigger (field and row variants) and the listbox inside the sheet. */
+
+.gz-select__trigger {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  align-self: stretch;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-select__trigger:focus,
+.gz-select__trigger:focus-visible {
+  outline: none; /* the field box carries the focus indicator */
+}
+
+.gz-select__value {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-select__value.is-placeholder {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-field[data-disabled] .gz-select__value {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-select__chev {
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+/* ---------- row variant: 64 min, label above value, mirrored chevron at the end ---------- */
+.gz-select-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.gz-select-row[data-divider] {
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-select-row__hit {
+  align-self: stretch;
+  min-block-size: var(--gz-size-brief-row);
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-2);
+  text-align: start;
+}
+
+.gz-select-row__lead {
+  display: flex;
+  flex: none;
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+.gz-select-row__text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  min-inline-size: 0;
+}
+
+.gz-select-row__label {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-select-row .gz-select__value {
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-select-row .gz-select__value.is-placeholder {
+  font-weight: var(--gz-type-body-weight);
+}
+
+.gz-select-row__chev {
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+.gz-select-row__hit:disabled .gz-select__value,
+.gz-select-row__hit:disabled .gz-select-row__label {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-select-row__msg {
+  margin: 0;
+  padding-block-end: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-select-row__msg.is-error {
+  color: var(--gz-color-sys-text-danger);
+}
+
+/* ---------- listbox in the sheet ---------- */
+.gz-select__search {
+  padding-block-end: var(--gz-space-3);
+}
+
+.gz-select__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gz-select__list > li {
+  display: flex;
+}
+
+.gz-select__opt {
+  flex: 1 1 auto;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-2);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-select__opt:active {
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-select__opt[aria-disabled='true'] .gz-select__opt-label,
+.gz-select__opt[aria-disabled='true'] .gz-select__opt-sub {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-select__opt[aria-disabled='true']:active {
+  background: transparent;
+  transform: none;
+}
+
+.gz-select__opt-text {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-select__opt-label {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-select__opt[data-selected] .gz-select__opt-label {
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-select__opt-sub {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* The mark: a check in ink-900 on the selected row; multiple selection draws an empty 24 box so the choice is a shape. */
+.gz-select__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-select__mark[data-multiple] {
+  box-sizing: border-box;
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-xs);
+}
+
+.gz-select__opt[data-selected] .gz-select__mark[data-multiple] {
+  background: var(--gz-color-sys-control-toggle-on);
+  border-color: var(--gz-color-sys-control-toggle-on);
+  color: var(--gz-color-sys-control-toggle-knob);
+}
+
+.gz-select__empty {
+  margin: 0;
+  padding-block: var(--gz-space-6);
+  text-align: center;
+  color: var(--gz-color-sys-text-secondary);
+}

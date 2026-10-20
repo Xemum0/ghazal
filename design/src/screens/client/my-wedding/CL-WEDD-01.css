@@ -1,0 +1,63 @@
+/* CL-WEDD-01 My Wedding. Gutter 20 on the content, rows full-bleed, 32 between sections, 16 inside the top group. Tokens only. */
+
+.gzmw-hub {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+}
+
+.gzmw-hub__pad {
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* The countdown and what belongs to it: one group, 16 apart. */
+.gzmw-top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzmw-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzmw-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.gzmw-skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+/* The four tools: two to a line, 12 apart, equal width (two flex rows, no grid). */
+.gzmw-tiles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzmw-tiles__row {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+/* The call and chat glyphs on the ink panel (the day itself): a hairline ring on the 44 target, since there is no disk on ink. */
+.gzmw-hero__glyph .gz-iconbtn__disk {
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-on-dark);
+}
+
+/* The bell's count in the large-title bar: the shared badge (20) sat over the glyph. Here it is 16 and tucked into the glyph's top
+   inline-end corner (a shared fix is requested in docs/engineering/requests.md; drop this rule when it lands). */
+.gz-screen:has(.gzmw-hub) .gz-barbtn__count {
+  line-height: 0;
+  transform: scale(0.8);
+}

@@ -1,0 +1,46 @@
+/* ReviewList: hairline-separated entries. Tokens only, logical properties, flex + gap. */
+
+.gzs-reviews {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzs-review {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block: var(--gz-space-4);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzs-review:first-child {
+  border-block-start-width: 0;
+  padding-block-start: 0;
+}
+
+.gzs-review__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzs-review__who {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzs-review__date {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-review__text {
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}

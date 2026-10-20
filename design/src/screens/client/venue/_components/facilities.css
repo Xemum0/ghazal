@@ -1,0 +1,63 @@
+/* Facilities: a field of glyph tiles (six to a row, two rows) and the full list in a sheet. Tokens only, logical properties, flex + gap. */
+.gzv-fac {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzv-fac > li {
+  display: flex;
+}
+
+.gzv-fac__tile {
+  position: relative; /* flutter-ok: anchors the extra mark */
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  cursor: pointer;
+}
+
+.gzv-fac__tile--more {
+  color: var(--gz-color-sys-text-strong);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+/* An extra is a facility that costs more: a small gold-ink plus in the corner, part of the tile. */
+.gzv-fac__plus {
+  position: absolute; /* flutter-ok: badge overlay on the tile corner */
+  display: flex;
+  inset-block-start: var(--gz-space-1);
+  inset-inline-end: var(--gz-space-1);
+}
+
+.gzv-facl {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzv-facl .gz-row--interactive {
+  border-radius: 0;
+}
+
+.gzv-facl__off {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzv-facl__state {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-primary);
+}

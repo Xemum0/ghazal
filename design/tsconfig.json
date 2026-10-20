@@ -1,0 +1,18 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["vite/client", "node"],
+    "allowJs": true,
+    "checkJs": false,
+    "paths": {
+      "@gz/tokens": ["../packages/design-tokens/dist/index.ts"],
+      "@gz/tokens/*": ["../packages/design-tokens/*"],
+      "@gz/i18n": ["../packages/i18n/src/index.ts"],
+      "@gz/i18n/*": ["../packages/i18n/*"],
+      "@gz/contracts": ["../packages/contracts/src/index.ts"],
+      "@gz/contracts/*": ["../packages/contracts/*"],
+      "@docs/*": ["../docs/*"]
+    }
+  },
+  "include": ["src", "vite.config.ts", "vite", "../tools/ports.mjs"]
+}

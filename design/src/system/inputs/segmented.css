@@ -1,0 +1,78 @@
+/* SegmentedControl (direction 3): track ink-100 radius 12, 4 inner pad, option 44, selected = ink-700 pill radius 8 with a
+   2 px gold thread. The pill is positioned from the start edge; --gz-in-x is signed by the direction in TypeScript. */
+
+.gz-seg {
+  position: relative; /* flutter-ok: named overlay anchor, the thumb sits inside its track (AnimatedAlign) */
+  display: flex;
+  gap: 0;
+  padding: var(--gz-space-1);
+  background: var(--gz-color-sys-control-track);
+  border-radius: var(--gz-radius-md);
+  min-inline-size: 0;
+}
+
+.gz-seg__thumb {
+  position: absolute; /* flutter-ok: named overlay anchor inside .gz-seg */
+  inset-block: var(--gz-space-1);
+  inset-inline-start: 0; /* the measured x is from the track's start edge, padding included */
+  inline-size: var(--gz-in-w);
+  background: var(--gz-color-sys-action-selected-bg);
+  border-radius: var(--gz-radius-sm);
+  transform: translateX(var(--gz-in-x));
+  pointer-events: none;
+}
+
+/* The gold thread under the active option: a 2 px line inside the pill, inset 12 from its ends. */
+.gz-seg__thumb::after {
+  content: '';
+  position: absolute; /* flutter-ok: part of the thumb */
+  inset-inline: var(--gz-space-3);
+  inset-block-end: var(--gz-space-1);
+  block-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+/* No slide on first paint or when the thumb is first measured. */
+.gz-seg:not([data-ready]) .gz-seg__thumb {
+  transition: none;
+}
+
+.gz-seg .gz-seg__opt {
+  position: relative; /* flutter-ok: label sits above the sliding thumb */
+  flex: 1 1 0;
+  min-inline-size: 0;
+  block-size: var(--gz-size-control-sm);
+  padding-inline: var(--gz-space-3);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-primary);
+  text-align: center;
+  justify-content: center;
+  transition: color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+/* Hall names are set in the display face and ink (the only serif in a control). */
+.gz-seg[data-face='hall'] .gz-seg__opt {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-seg .gz-seg__opt:disabled {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-seg .gz-seg__opt[data-selected] {
+  color: var(--gz-color-sys-action-selected-label);
+}
+
+.gz-seg__label {
+  display: block;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-seg__thumb {
+    transition: none;
+  }
+}

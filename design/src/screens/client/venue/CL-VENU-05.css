@@ -1,0 +1,88 @@
+/* CL-VENU-05 Terms and hall rules: the voucher terms rows, the glyph facts. Tokens only, logical properties, flex + gap. */
+.gzv-pol__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gzv-pol__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+}
+
+/* ---------- terms: the venue's own words (clamped), then the voucher terms as a glyph list ---------- */
+.gzv-pol__block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzv-pol__venue {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.gzv-pol__venue > .gz-icon {
+  flex: none;
+}
+
+.gzv-pol__venue > .gzv-clamp {
+  flex: 1;
+}
+
+.gzv-pol__terms {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  margin: 0;
+  padding: 0;
+  padding-block-start: var(--gz-space-4);
+  list-style: none;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzv-pol__terms > li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzv-pol__terms > li > .gz-icon {
+  flex: none;
+}
+
+/* ---------- good to know: a glyph and the venue's own words ---------- */
+.gzv-pol__facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gzv-pol__fact {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  padding-block-end: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzv-pol__fact > .gz-icon {
+  flex: none;
+}
+
+.gzv-pol__lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}

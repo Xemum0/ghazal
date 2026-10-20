@@ -1,0 +1,65 @@
+/* HL-TODY-04 Messages. Search 48, chips 44 as a rail, rows 80+ on hairlines, 20 gutter. Tokens only. */
+
+.ht-ib__search {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-3);
+}
+
+.ht-ib__chips {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-1);
+}
+
+.ht-ib__note {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-3);
+}
+
+.ht-ib__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-8);
+  list-style: none;
+}
+
+.ht-ib__handled {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-4);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.ht-ib__menu {
+  display: flex;
+  flex-direction: column;
+  padding-block-end: var(--gz-space-2);
+}
+
+.ht-ib__skel {
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--gz-space-gutter);
+}
+
+.ht-ib__skelrow {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.ht-ib__skelcol {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}

@@ -1,0 +1,56 @@
+/* ContextBar: canvas, hairline below, 20 gutter. Pinned in the screen's top region (a flex item, not sticky). */
+
+.ht-ctx {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-1) var(--gz-space-3);
+  background: var(--gz-color-sys-surface-canvas);
+  z-index: var(--gz-z-sticky-header);
+}
+
+.ht-ctx::after {
+  content: '';
+  position: absolute; /* flutter-ok: hairline divider overlay */
+  inset-block-end: 0;
+  inset-inline: 0;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-border-hairline);
+}
+
+.ht-ctx__main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+  cursor: pointer;
+}
+
+.ht-ctx__text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.ht-ctx__facts { column-gap: var(--gz-space-3); }
+
+.ht-ctx__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-1) var(--gz-space-3);
+}
+
+.ht-ctx__actions { display: flex; gap: var(--gz-space-3); }
+.ht-ctx__actions > * { flex: 1 1 0; }
+
+.ht-ctx__why { display: inline-flex; flex: none; align-items: center; justify-content: center; inline-size: var(--gz-size-touch-min); }

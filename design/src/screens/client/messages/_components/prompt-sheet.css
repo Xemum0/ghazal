@@ -1,0 +1,26 @@
+/* PromptSheet: title row, one drawing, one gold action, a tertiary way out. A single-purpose composition, so it centres (ADR 0034 D7). Tokens only. */
+
+.gzm-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzm-prompt > .gzm-sheethead {
+  align-self: stretch;
+}
+
+.gzm-prompt__art {
+  display: inline-flex;
+  padding-block: var(--gz-space-2);
+}
+
+.gzm-prompt__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-2);
+}

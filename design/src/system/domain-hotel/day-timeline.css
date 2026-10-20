@@ -1,0 +1,170 @@
+/* DayTimeline: time column 56, rail 16, content. One line down the rail: gold-500 up to Now, ink-200 beyond (2 px). The slot is the
+   24 px height of a title line, so the knot is always centred on the first line of its row. */
+
+.gz-tl {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gz-tl__empty {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-tl__row {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+/* ---------- time ---------- */
+.gz-tl__time {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-start;
+  inline-size: var(--gz-size-timeline-time-col);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-tl__row--open .gz-tl__time { color: var(--gz-color-sys-text-primary); }
+.gz-tl__row--done .gz-tl__time { color: var(--gz-color-sys-text-secondary); }
+
+/* ---------- rail ---------- */
+.gz-tl__rail {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  inline-size: var(--gz-size-timeline-rail);
+}
+
+.gz-tl__slot {
+  position: relative; /* flutter-ok: ThreadPainter, the line runs behind the knot */
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  block-size: var(--gz-space-6);
+  inline-size: var(--gz-size-timeline-rail);
+}
+
+.gz-tl__slot::before {
+  content: '';
+  position: absolute; /* flutter-ok: the line segment through the slot, behind the knot */
+  inset-block: 0;
+  inline-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-track);
+}
+
+.gz-tl__slot.is-reached::before { background: var(--gz-color-sys-mark-khayt); }
+.gz-tl__slot--first::before { inset-block-start: var(--gz-space-3); }
+.gz-tl__slot--last::before { inset-block-end: var(--gz-space-3); }
+.gz-tl__slot--first.gz-tl__slot--last::before { display: none; }
+
+.gz-tl__down {
+  flex: 1;
+  inline-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-track);
+  transform-origin: center top;
+}
+
+.gz-tl__down.is-reached { background: var(--gz-color-sys-mark-khayt); }
+.gz-tl__down.is-armed { transform: scaleY(0); }
+
+/* ---------- knots ---------- */
+.gz-tl__knot {
+  position: relative; /* flutter-ok: above the line */
+  flex: none;
+  box-sizing: border-box;
+  border-radius: var(--gz-radius-pill);
+}
+
+.gz-tl__knot--done {
+  inline-size: var(--gz-size-knot-timeline-done);
+  block-size: var(--gz-size-knot-timeline-done);
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-tl__knot--open {
+  inline-size: var(--gz-size-knot-timeline-done);
+  block-size: var(--gz-size-knot-timeline-done);
+  background: var(--gz-color-sys-surface-canvas);
+  border-width: var(--gz-stroke-icon); border-style: solid; border-color: var(--gz-color-sys-mark-open);
+}
+
+/* now: 16 px gold, a 3 px canvas gap, then the 3 px gold-650 ring (spread shadow, no inset); the ring is the sole carrier of "now". */
+.gz-tl__knot--now {
+  inline-size: var(--gz-size-knot-timeline-now);
+  block-size: var(--gz-size-knot-timeline-now);
+  background: var(--gz-color-sys-mark-khayt);
+  border-width: var(--gz-size-knot-now-gap); border-style: solid; border-color: var(--gz-color-sys-surface-canvas);
+  box-sizing: content-box;
+  box-shadow: 0 0 0 var(--gz-size-knot-now-ring) var(--gz-color-sys-mark-state);
+}
+
+/* ---------- content ---------- */
+.gz-tl__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  padding-block-end: var(--gz-space-5);
+  text-align: start;
+}
+
+.gz-tl__row:last-child .gz-tl__content { padding-block-end: 0; }
+
+.gz-tl__content--button {
+  min-block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-sm);
+  cursor: pointer;
+}
+
+.gz-tl__title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-1) var(--gz-space-2);
+  min-block-size: var(--gz-space-6);
+}
+
+.gz-tl__title {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-tl__title--prep {
+  color: var(--gz-color-sys-text-secondary);
+  font-weight: var(--gz-type-body-weight);
+}
+
+.gz-tl__title--now {
+  display: block;
+  min-block-size: var(--gz-space-6);
+  color: var(--gz-color-sys-text-gold-ink);
+  font-weight: var(--gz-type-ui-title-weight);
+}
+
+.gz-tl__meta {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+@keyframes gz-tl-draw {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+.gz-thread-draw-y {
+  transform-origin: center top;
+  animation: gz-tl-draw var(--gz-motion-duration-expressive) var(--gz-motion-ease-standard) var(--gz-delay, 0s) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-tl__down.is-armed { transform: none; }
+  .gz-thread-draw-y { animation: none; }
+}

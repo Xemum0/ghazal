@@ -1,0 +1,55 @@
+.gzb-flines {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A column flex box so a pressable row (a button) fills the line: its chevron sits at the inline-end, as on every other row. */
+.gzb-flines__li {
+  display: flex;
+  flex-direction: column;
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzb-flines__li:first-child {
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzb-flines__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  align-self: stretch;
+  min-block-size: var(--gz-size-control-lg);
+  padding-block: var(--gz-space-2);
+  text-align: start;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzb-flines__icon {
+  flex: none;
+}
+
+.gzb-flines__text {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzb-flines__value {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzb-flines__trail {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-2);
+}

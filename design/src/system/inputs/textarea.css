@@ -1,0 +1,14 @@
+/* TextArea: the field box grows with its text; 16 padding top and bottom (panel padding), lines from the body role. */
+
+.gz-field__box.gz-textarea__box {
+  align-items: flex-start;
+  block-size: auto;
+  min-block-size: var(--gz-size-control-lg);
+  padding-block: var(--gz-space-4);
+}
+
+.gz-textarea {
+  block-size: auto;
+  resize: none;
+  overflow-y: hidden;
+}

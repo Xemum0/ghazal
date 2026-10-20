@@ -1,0 +1,36 @@
+/* CL-BOOK-04 Your details: the form rhythm. Tokens only. */
+
+.bk-section.bk-form {
+  gap: var(--gz-space-5);
+}
+
+.bk-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.bk-phone {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.bk-verified {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-success);
+}
+
+.bk-verify {
+  display: flex;
+}
+
+/* A chip that is a glyph (or two) and, where the glyph alone could mislead, one word. */
+.bk-glyphs {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}

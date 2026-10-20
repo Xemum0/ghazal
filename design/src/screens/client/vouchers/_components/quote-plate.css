@@ -1,0 +1,53 @@
+/* The bound-quote plate: hairline paper, radius 12, 16 padding. The prices sit under a hairline so the choice and its figures read as two beats. */
+.gzv-plate {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-canvas);
+}
+
+.gzv-plate__who {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gzv-plate__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzv-plate__name {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.gzv-plate__prices {
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzv-plate__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+/* A hall or package name is authored text: it may wrap inside its fact instead of pushing the row wide. */
+.gzv-plate__fact {
+  white-space: normal;
+  align-items: flex-start;
+}

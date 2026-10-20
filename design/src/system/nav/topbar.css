@@ -1,0 +1,191 @@
+/* TopBar. Safe-top inset + a 56 row. The 20 gutter is carried by the bar padding (glyph edge on the gutter, set from tokens in TS),
+   so every screen below aligns with it. Hairline-first: the rule is an overlay that fades in, never a layout change. */
+.gz-topbar {
+  position: relative;
+  flex: none;
+  padding-block-start: var(--gz-safe-top);
+  padding-inline: var(--gz-topbar-pad, var(--gz-space-2));
+  background: var(--gz-color-sys-surface-canvas);
+  z-index: var(--gz-z-sticky-header);
+  transition: background-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-topbar__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  block-size: var(--gz-size-control-lg);
+}
+
+.gz-topbar__start,
+.gz-topbar__end {
+  flex: none;
+  display: flex;
+  align-items: center;
+  inline-size: var(--gz-topbar-slot);
+}
+
+.gz-topbar__start {
+  justify-content: flex-start;
+}
+
+.gz-topbar__end {
+  justify-content: flex-end;
+}
+
+/* Search variant: back at the start, actions at the end, both hugging their content; the field takes the rest. */
+.gz-topbar__start--auto,
+.gz-topbar__end--auto {
+  inline-size: auto;
+}
+
+.gz-topbar__center {
+  flex: 1;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: opacity var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-topbar__center.is-faded {
+  /* flutter-ok: AnimatedOpacity */
+  opacity: 0;
+}
+
+.gz-topbar__title {
+  align-self: stretch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-topbar__subtitle {
+  align-self: stretch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Large title: the row keeps its 56; the title block collapses by a 200 ms height tween (direction section 9), fading with it. */
+.gz-topbar__large {
+  overflow: hidden;
+  block-size: var(--gz-topbar-large-h);
+  padding-inline: var(--gz-space-2);
+  transition:
+    block-size var(--gz-motion-duration-base) var(--gz-motion-ease-standard),
+    opacity var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-topbar.is-compact .gz-topbar__large {
+  block-size: 0;
+  /* flutter-ok: AnimatedOpacity */
+  opacity: 0;
+}
+
+.gz-topbar__large-title {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* Hairline overlay under the bar. */
+.gz-topbar__rule {
+  position: absolute; /* flutter-ok: hairline divider overlay */
+  inset-block-end: 0;
+  inset-inline: 0;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-border-hairline);
+  /* flutter-ok: AnimatedOpacity on a 1 px line */
+  opacity: 0;
+  transition: opacity var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-topbar.has-rule .gz-topbar__rule {
+  /* flutter-ok: AnimatedOpacity on a 1 px line */
+  opacity: 1;
+}
+
+/* Transparent over a photograph: no background, the scrim-top gradient carries the status icons and the disks (direction section 5). */
+.gz-topbar--transparent {
+  position: absolute; /* flutter-ok: the bar overlays the scroll body (Stack over a CustomScrollView) */
+  inset-block-start: 0;
+  inset-inline: 0;
+}
+
+.gz-topbar--transparent.is-clear {
+  background: transparent;
+}
+
+.gz-topbar__scrim {
+  position: absolute; /* flutter-ok: photo scrim */
+  inset-block-start: 0;
+  inset-inline: 0;
+  inset-block-end: 0;
+  background: var(--gz-gradient-scrim-top-bar);
+  /* flutter-ok: AnimatedOpacity */
+  opacity: 0;
+  transition: opacity var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+  pointer-events: none;
+}
+
+.gz-topbar.is-clear .gz-topbar__scrim {
+  /* flutter-ok: AnimatedOpacity */
+  opacity: 1;
+}
+
+/* Search field in the row: 48 high, paper, 1 px control border, radius 8; the text is caption-weight body-s, muted until typed. */
+.gz-topbar__search {
+  flex: 1;
+  min-inline-size: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  block-size: var(--gz-size-control-md);
+  padding-inline: var(--gz-space-3);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-control-bg);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-topbar__placeholder {
+  flex: 1;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-topbar__placeholder.has-value {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-topbar__input {
+  flex: 1;
+  min-inline-size: 0;
+  border: 0;
+  background: none;
+  color: var(--gz-color-sys-text-strong);
+  outline: none;
+}
+
+.gz-topbar__input::placeholder {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-topbar__search:focus-within {
+  border-color: var(--gz-color-sys-border-focus);
+  border-width: var(--gz-stroke-focus);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-topbar__large {
+    transition: opacity var(--gz-motion-duration-fast) var(--gz-motion-ease-standard);
+  }
+}

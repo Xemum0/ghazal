@@ -1,0 +1,73 @@
+/* ReviewItem: a ruled block (hairline under it), 12 between its parts. The reply sits in a rose tint with its glyph at the inline-start. */
+
+.gw-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gw-item[data-last] {
+  border-block-end-width: 0;
+}
+
+.gw-item__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gw-item__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gw-item__name {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gw-item__text {
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gw-item__reply {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-3);
+  background: var(--gz-color-sys-surface-tint-soft);
+  border-radius: var(--gz-radius-sm);
+}
+
+.gw-item__reply .gz-icon {
+  flex: none;
+  margin-block-start: var(--gz-space-1);
+}
+
+.gw-item__reply--draft {
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+.gw-item__reply-text {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gw-item__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}

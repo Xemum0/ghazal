@@ -1,0 +1,1166 @@
+/* Ghazal Design Studio chrome: calm ink on ivory. Everything is a token; px only where it is a 4-pt measurement of the chrome itself
+   (toolbar 64, sidebar 320, inspector 360). Logical properties throughout; the canvas (canvas/canvas.css) is the one place that
+   works in physical world coordinates. */
+
+.gzs-studio {
+  position: fixed; /* flutter-ok: harness chrome, the Studio fills the window */
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--gz-color-sys-surface-canvas);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzs-studio__body {
+  position: relative; /* flutter-ok: harness chrome */
+  display: flex;
+  flex: 1 1 auto;
+  min-block-size: 0;
+}
+
+.gzs-studio__main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  min-block-size: 0;
+  position: relative; /* flutter-ok: harness chrome */
+}
+
+/* ---------------------------------------------------------------- small shared pieces */
+
+.gzs-id {
+  font-family: var(--gz-font-fig);
+  font-variant-numeric: tabular-nums lining-nums;
+  direction: ltr;
+  unicode-bidi: isolate;
+  white-space: nowrap;
+  letter-spacing: 0;
+  word-spacing: 0;
+}
+
+.gzs-khayt {
+  display: block;
+  flex: none;
+  inline-size: var(--gz-size-khayt-width);
+  block-size: var(--gz-stroke-khayt);
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.gzs-built {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  flex: none;
+}
+
+.gzs-built__bead {
+  flex: none;
+  inline-size: var(--gz-space-2);
+  block-size: var(--gz-space-2);
+  border-radius: var(--gz-radius-pill);
+  border: var(--gz-stroke-icon) solid var(--gz-color-sys-border-control);
+  background: transparent;
+}
+
+.gzs-built[data-built] .gzs-built__bead {
+  border-color: var(--gz-color-sys-action-selected-bg);
+  background: var(--gz-color-sys-action-selected-bg);
+}
+
+.gzs-built__label {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: var(--gz-space-6);
+  padding-inline: var(--gz-space-2);
+  border: var(--gz-stroke-hair) solid var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-xs);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzs-glyph {
+  flex: none;
+}
+
+/* ---------------------------------------------------------------- toolbar */
+
+.gzs-toolbar {
+  position: relative; /* flutter-ok: harness chrome */
+  z-index: var(--gz-z-sticky-header);
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  flex: none;
+  block-size: var(--gz-space-16);
+  padding-inline: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-canvas);
+  border-block-end: var(--gz-stroke-hair) solid var(--gz-color-sys-border-hairline);
+}
+
+.gzs-toolbar__start,
+.gzs-toolbar__end {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.gzs-toolbar__start {
+  gap: var(--gz-space-3);
+}
+
+.gzs-toolbar__end {
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+.gzs-toolbar__spacer {
+  flex: 1 1 0;
+}
+
+.gzs-toolbar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  flex: none;
+  min-block-size: var(--gz-size-touch-min);
+  color: var(--gz-color-sys-text-strong);
+  text-decoration: none;
+  border-radius: var(--gz-radius-sm);
+}
+
+.gzs-toolbar__rule {
+  flex: none;
+  inline-size: var(--gz-stroke-hair);
+  block-size: var(--gz-space-6);
+  margin-inline: var(--gz-space-1);
+  background: var(--gz-color-sys-border-hairline);
+}
+
+.gzs-toolbar__seg,
+.gzs-play__controls .gz-seg {
+  flex: none;
+}
+
+.gzs-toolbar__seg .gz-seg__opt,
+.gzs-play__controls .gz-seg__opt {
+  flex: 1 0 auto;
+  min-inline-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-4);
+}
+
+.gzs-toolbar__seg:not(.gzs-toolbar__seg--width) .gz-seg__opt {
+  min-inline-size: var(--gz-space-16);
+}
+
+.gzs-toolbar__copy {
+  position: relative; /* flutter-ok: harness chrome */
+  display: inline-flex;
+}
+
+.gzs-toolbar__toast {
+  position: absolute; /* flutter-ok: harness chrome */
+  inset-block-start: 100%;
+  inset-inline-end: 0;
+  margin-block-start: var(--gz-space-2);
+  padding: var(--gz-space-2) var(--gz-space-3);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+  box-shadow: var(--gz-elevation-2);
+  white-space: nowrap;
+  pointer-events: none;
+  /* flutter-ok: harness chrome (web-only geometry) */
+  opacity: 0;
+  transition: opacity var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+  z-index: var(--gz-z-toast);
+}
+
+.gzs-toolbar__toast[data-show] {
+  /* flutter-ok: harness chrome (web-only geometry) */
+  opacity: 1;
+}
+
+/* Where you are: app, flow, screen. Shrinks and ellipsises before anything else on the bar gives way. */
+.gzs-crumbs {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.gzs-crumbs > * {
+  flex: none;
+}
+
+.gzs-crumbs__flow,
+.gzs-crumbs__screen {
+  flex: 0 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* The flow gives way first, then the screen name; the id and the chevron never shrink. */
+.gzs-crumbs__flow {
+  flex-shrink: 8;
+}
+
+.gzs-crumbs > .gzs-crumbs__count {
+  flex: 0 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gzs-crumbs__screen {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: 500;
+}
+
+.gzs-crumbs__id {
+  padding-inline: var(--gz-space-2);
+  border: var(--gz-stroke-hair) solid var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-xs);
+}
+
+.gzs-crumbs__sep {
+  inline-size: var(--gz-stroke-hair);
+  block-size: var(--gz-space-4);
+  background: var(--gz-color-sys-border-strong);
+}
+
+/* ToolButton: 44 x 44, ink glyph; a toggle that is on fills ink-700 like a selected segment. */
+.gzs-toolbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-2);
+  flex: none;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-sm);
+  background: transparent;
+  color: var(--gz-color-sys-text-primary);
+  cursor: pointer;
+}
+
+.gzs-toolbtn--text {
+  inline-size: auto;
+  padding-inline: var(--gz-space-3);
+}
+
+.gzs-toolbtn:active {
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+.gzs-toolbtn[aria-pressed='true'] {
+  background: var(--gz-color-sys-action-selected-bg);
+  color: var(--gz-color-sys-action-selected-label);
+}
+
+.gzs-toolbtn[aria-pressed='true']:active {
+  background: var(--gz-color-sys-action-selected-bg-pressed);
+}
+
+.gzs-toolbtn:disabled {
+  color: var(--gz-color-sys-text-disabled);
+  cursor: default;
+}
+
+/* Zoom: a floating pill at the bottom centre of the canvas. */
+.gzs-hud {
+  position: absolute; /* flutter-ok: harness chrome */
+  inset-inline: 0;
+  inset-block-end: var(--gz-space-5);
+  display: flex;
+  justify-content: center;
+  z-index: var(--gz-z-bar);
+  pointer-events: none;
+}
+
+.gzs-hud > * {
+  pointer-events: auto;
+}
+
+.gzs-zoom {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  flex: none;
+  padding: var(--gz-space-1);
+  border: var(--gz-stroke-hair) solid var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-2);
+}
+
+.gzs-zoom__value {
+  min-inline-size: var(--gz-space-16);
+  block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-sm);
+  text-align: center;
+  cursor: pointer;
+}
+
+.gzs-zoom__value:active {
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+/* ---------------------------------------------------------------- popover, menu */
+
+.gzs-pop {
+  position: relative; /* flutter-ok: harness chrome */
+  display: inline-flex;
+}
+
+.gzs-pop__panel {
+  position: absolute; /* flutter-ok: harness chrome */
+  z-index: var(--gz-z-sheet);
+  /* flutter-ok: harness chrome (web-only geometry) */
+  inset-block-start: 100%;
+  margin-block-start: var(--gz-space-2);
+  padding: var(--gz-space-4);
+  border: var(--gz-stroke-hair) solid var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-2);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzs-pop__panel[data-placement='top'] {
+  inset-block-start: auto;
+  /* flutter-ok: harness chrome (web-only geometry) */
+  inset-block-end: 100%;
+  margin-block-start: 0;
+  margin-block-end: var(--gz-space-2);
+}
+
+.gzs-pop__panel[data-align='end'] {
+  inset-inline-end: 0;
+}
+
+.gzs-pop__panel[data-align='start'] {
+  inset-inline-start: 0;
+}
+
+.gzs-pop__panel[data-align='center'] {
+  inset-inline: 0;
+  margin-inline: auto;
+  inline-size: max-content;
+}
+
+.gzs-menu {
+  display: flex;
+  flex-direction: column;
+  margin: calc(var(--gz-space-2) * -1); /* flutter-ok: harness menu */
+}
+
+.gzs-menu__item {
+  display: flex;
+  align-items: center;
+  /* flutter-ok: harness chrome (web-only geometry) */
+  inline-size: 100%;
+  min-block-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-4);
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gzs-menu__item:active,
+.gzs-menu__item[aria-current] {
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+.gzs-menu__item[aria-current] {
+  font-weight: 600;
+}
+
+.gzs-viewmenu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  inline-size: 320px;
+}
+
+.gzs-viewmenu__sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gzs-viewmenu__h {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-viewmenu__rows {
+  gap: 0;
+}
+
+.gzs-viewmenu__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.gzs-viewmenu__row[data-off] {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-keys {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  margin: 0;
+}
+
+.gzs-keys__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzs-keys__row dt {
+  flex: none;
+  inline-size: var(--gz-space-16);
+}
+
+.gzs-keys__row dd {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------------------------------------------------------------- sidebar */
+
+.gzs-sidebar {
+  flex: none;
+  inline-size: 0;
+  overflow: hidden;
+  background: var(--gz-color-sys-surface-canvas);
+  transition: inline-size var(--gz-motion-duration-slow) var(--gz-motion-ease-emphasized);
+}
+
+.gzs-sidebar[data-open] {
+  inline-size: 320px;
+  border-inline-end: var(--gz-stroke-hair) solid var(--gz-color-sys-border-hairline);
+}
+
+.gzs-sidebar__in {
+  display: flex;
+  flex-direction: column;
+  inline-size: 320px;
+  /* flutter-ok: harness chrome (web-only geometry) */
+  block-size: 100%;
+}
+
+.gzs-sidebar__in > .gz-tabs {
+  flex: none;
+  padding-inline: var(--gz-space-4);
+}
+
+.gzs-sb {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-block-size: 0;
+}
+
+.gzs-sb__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  flex: none;
+  padding: var(--gz-space-4);
+}
+
+.gzs-sb__app {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--gz-space-2);
+}
+
+.gzs-sb__app-n {
+  /* flutter-ok: harness chrome (web-only geometry) */
+  opacity: 1;
+  color: inherit;
+  font-weight: 400;
+}
+
+.gzs-cover {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gzs-cover__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-cover__track,
+.gzs-flow__track {
+  display: flex;
+  block-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-track);
+  border-radius: var(--gz-radius-xs);
+  overflow: hidden;
+}
+
+.gzs-cover__fill,
+.gzs-flow__fill {
+  display: block;
+  /* flutter-ok: harness chrome (web-only geometry) */
+  block-size: 100%;
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.gzs-sb__search {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  block-size: var(--gz-size-control-md);
+  padding-inline: var(--gz-space-3);
+  border: var(--gz-stroke-hair) solid var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-surface-raised);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-sb__search:focus-within {
+  border-color: var(--gz-color-sys-border-focus);
+  outline: var(--gz-stroke-focus) solid var(--gz-color-sys-focus-ring);
+  outline-offset: calc(var(--gz-stroke-focus) * -1); /* flutter-ok: harness field ring */
+}
+
+.gzs-sb__input {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  /* flutter-ok: harness chrome (web-only geometry) */
+  block-size: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--gz-color-sys-text-strong);
+  outline: none;
+  appearance: none;
+}
+
+.gzs-sb__input::placeholder {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-sb__input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.gzs-sb__list {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  overflow-y: auto;
+  padding-block-end: var(--gz-space-8);
+}
+
+.gzs-sb__empty {
+  padding: var(--gz-space-4);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-flow {
+  position: relative; /* flutter-ok: harness chrome */
+  border-block-end: var(--gz-stroke-hair) solid var(--gz-color-sys-border-hairline);
+}
+
+.gzs-flow[data-open] {
+  padding-block-end: var(--gz-space-3);
+}
+
+.gzs-flow[data-current]::before {
+  content: '';
+  position: absolute; /* flutter-ok: harness chrome */
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.gzs-flow__head {
+  display: flex;
+  align-items: center;
+  padding-inline-end: var(--gz-space-2);
+}
+
+.gzs-flow__toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-row-min);
+  padding-inline: var(--gz-space-4);
+  text-align: start;
+  cursor: pointer;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-flow__num {
+  flex: none;
+  inline-size: var(--gz-space-5);
+}
+
+.gzs-flow__title {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--gz-color-sys-text-strong);
+  font-weight: 500;
+}
+
+.gzs-flow__count {
+  flex: none;
+}
+
+.gzs-flow__fit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-secondary);
+  cursor: pointer;
+}
+
+.gzs-flow__track {
+  margin-inline: var(--gz-space-4);
+}
+
+.gzs-sb__screens {
+  display: flex;
+  flex-direction: column;
+  margin-block-start: var(--gz-space-2);
+}
+
+.gzs-sb__row {
+  position: relative; /* flutter-ok: harness chrome */
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  /* flutter-ok: harness chrome (web-only geometry) */
+  inline-size: 100%;
+  min-block-size: var(--gz-size-control-md);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-5) var(--gz-space-4);
+  text-align: start;
+  color: var(--gz-color-sys-text-primary);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.gzs-flow .gzs-sb__row {
+  padding-inline-start: var(--gz-space-10);
+}
+
+.gzs-sb__row:active {
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+.gzs-sb__row[data-selected] {
+  background: var(--gz-color-ref-ink-100);
+}
+
+.gzs-sb__row[data-selected]::before {
+  content: '';
+  position: absolute; /* flutter-ok: harness chrome */
+  inset-block: var(--gz-space-2);
+  inset-inline-start: 0;
+  inline-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.gzs-sb__text {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  flex: 1 1 auto;
+}
+
+.gzs-sb__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-sb__row[data-selected] .gzs-sb__name {
+  font-weight: 600;
+}
+
+.gzs-sb__meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-sb__extra {
+  padding-block-start: var(--gz-space-5);
+  padding-inline: var(--gz-space-4);
+}
+
+.gzs-sb__extra h3 {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-sys {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding: var(--gz-space-4);
+}
+
+.gzs-sys__h {
+  margin: 0 0 var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-sys__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-row-min);
+  margin-inline: calc(var(--gz-space-2) * -1); /* flutter-ok: harness row bleeds to the gutter */
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-secondary);
+  text-decoration: none;
+}
+
+.gzs-sys__row:active {
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+.gzs-sys__row[aria-current] {
+  background: var(--gz-color-ref-ink-100);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-sys__note {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------------------------------------------------------------- inspector */
+
+.gzs-inspector {
+  flex: none;
+  inline-size: 0;
+  overflow: hidden;
+  background: var(--gz-color-sys-surface-canvas);
+  transition: inline-size var(--gz-motion-duration-slow) var(--gz-motion-ease-emphasized);
+}
+
+.gzs-inspector[data-open] {
+  inline-size: 360px;
+  border-inline-start: var(--gz-stroke-hair) solid var(--gz-color-sys-border-hairline);
+}
+
+.gzs-inspector__in {
+  display: flex;
+  flex-direction: column;
+  inline-size: 360px;
+  /* flutter-ok: harness chrome (web-only geometry) */
+  block-size: 100%;
+}
+
+.gzs-inspector__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: none;
+  block-size: var(--gz-size-control-lg);
+  padding-inline: var(--gz-space-5) var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+  border-block-end: var(--gz-stroke-hair) solid var(--gz-color-sys-border-hairline);
+}
+
+.gzs-inspector__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-sm);
+  cursor: pointer;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzs-inspector__body {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  overflow-y: auto;
+  padding: var(--gz-space-5);
+}
+
+.gzs-inspector__empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-6);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-inspector__empty h2 {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-inspector__empty p {
+  margin: 0;
+}
+
+.gzs-insp {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+}
+
+.gzs-insp__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.gzs-insp__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-insp__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--gz-space-2) var(--gz-space-3);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-insp__tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2) var(--gz-space-3);
+}
+
+.gzs-insp__tag {
+  padding-inline: var(--gz-space-2);
+  border: var(--gz-stroke-hair) solid var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-xs);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-insp__tag[data-core] {
+  border-color: var(--gz-color-sys-text-strong);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-insp__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzs-insp__sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-5);
+  border-block-start: var(--gz-stroke-hair) solid var(--gz-color-sys-border-hairline);
+}
+
+.gzs-insp__h {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-insp__n {
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-insp__text {
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzs-insp__hint {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-insp__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+}
+
+.gzs-insp__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding-inline-start: var(--gz-space-5);
+  list-style: decimal;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzs-insp__list li::marker {
+  color: var(--gz-color-sys-text-secondary);
+  font-family: var(--gz-font-fig);
+}
+
+.gzs-reqs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzs-reqs__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+.gzs-reqs__id {
+  align-self: flex-start;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-reqs__text {
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzs-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.gzs-links__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  /* flutter-ok: harness chrome (web-only geometry) */
+  inline-size: 100%;
+  min-block-size: var(--gz-size-control-md);
+  border-block-end: var(--gz-stroke-hair) solid var(--gz-color-sys-border-hairline);
+  text-align: start;
+  cursor: pointer;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-links__row:disabled {
+  color: var(--gz-color-sys-text-disabled);
+  cursor: default;
+}
+
+.gzs-links__id {
+  flex: none;
+  inline-size: var(--gz-space-20);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-links__name {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-scan {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzs-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+}
+
+.gzs-swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-1) var(--gz-space-2);
+  border: var(--gz-stroke-hair) solid var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-xs);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzs-swatch__chip {
+  flex: none;
+  inline-size: var(--gz-space-4);
+  block-size: var(--gz-space-4);
+  border-radius: var(--gz-radius-xs);
+  box-shadow: var(--gz-elevation-1);
+}
+
+.gzs-scan__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+}
+
+.gzs-scan__row .gz-t-label {
+  flex: none;
+  inline-size: var(--gz-space-16);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzs-scan__pill {
+  padding-inline: var(--gz-space-2);
+  border: var(--gz-stroke-hair) solid var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-xs);
+}
+
+.gzs-scan__off {
+  margin: 0;
+  color: var(--gz-color-sys-text-danger);
+}
+
+/* ---------------------------------------------------------------- narrow windows */
+
+/* The view menu carries the toolbar's secondary controls; they only show in it when the toolbar has dropped them. */
+.gzs-viewmenu__narrow {
+  display: none;
+}
+
+.gzs-viewmenu__link {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+}
+
+@media (max-width: 1320px) {
+  .gzs-opt {
+    display: none;
+  }
+
+  .gzs-viewmenu__narrow {
+    display: flex;
+  }
+
+  .gzs-viewmenu__row.gzs-viewmenu__narrow {
+    display: flex;
+  }
+}
+
+@media (max-width: 980px) {
+  .gzs-opt-w {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .gzs-toolbar {
+    gap: var(--gz-space-2);
+    padding-inline: var(--gz-space-2);
+  }
+
+  .gzs-toolbar__brand {
+    display: none;
+  }
+
+  .gzs-toolbar__present .gz-btn__label {
+    display: none;
+  }
+
+  .gzs-toolbar__present {
+    padding-inline: var(--gz-space-3);
+  }
+
+  .gzs-viewmenu {
+    inline-size: 280px;
+  }
+}
+
+/* ---------------------------------------------------------------- the side panels float over the canvas on a narrow window */
+
+@media (max-width: 1100px) {
+  .gzs-sidebar,
+  .gzs-inspector {
+    position: absolute; /* flutter-ok: harness chrome */
+    inset-block: 0;
+    z-index: var(--gz-z-tray);
+  }
+
+  .gzs-sidebar {
+    inset-inline-start: 0;
+  }
+
+  .gzs-inspector {
+    inset-inline-end: 0;
+  }
+
+  .gzs-sidebar[data-open],
+  .gzs-inspector[data-open] {
+    box-shadow: var(--gz-elevation-2);
+  }
+
+  .gzs-crumbs {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------- reduced motion (emulated by the toolbar toggle; the OS setting is honoured by the component CSS) */
+
+html[data-reduced-motion] *,
+html[data-reduced-motion] *::before,
+html[data-reduced-motion] *::after {
+  animation-duration: var(--gz-motion-duration-instant) !important;
+  animation-delay: var(--gz-motion-duration-instant) !important;
+  transition-duration: var(--gz-motion-duration-instant) !important;
+  transition-delay: var(--gz-motion-duration-instant) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gzs-sidebar,
+  .gzs-inspector,
+  .gzs-toolbar__toast {
+    transition: none;
+  }
+}

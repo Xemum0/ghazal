@@ -1,0 +1,36 @@
+/* CL-ONBD-03 Who is planning? The monogram disk sits on the 56 input row, its bottom edge on the input's. */
+.obd-group--fields {
+  gap: var(--gz-space-4);
+}
+
+.obd-about__name {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gz-space-3);
+}
+
+.obd-about__name > :last-child {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.obd-roles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.obd-roles__row {
+  display: flex;
+  gap: var(--gz-space-2);
+}
+
+.obd-roles .obd-roles__chip {
+  flex: 1;
+  min-inline-size: 0;
+  justify-content: center;
+}
+
+.obd-roles .obd-roles__chip.is-selected {
+  padding-inline-end: var(--gz-space-5);
+}

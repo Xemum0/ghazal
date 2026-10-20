@@ -1,0 +1,187 @@
+/* Profile flow parts: layout shared by the screens, picker row, switch row, sheet frame, choice list. Tokens only; hairlines before shadows. */
+
+/* ---------- layout shared by the screens ---------- */
+.gzpr-pad {
+  padding-inline: var(--gz-space-gutter);
+}
+
+.gzpr-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzpr-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Rows run edge to edge: a square pressed fill and a straight hairline (the system row rounds its corners, which curls the rule's ends). */
+.gzpr-list > .gz-row,
+.gzpr-pick > .gz-row {
+  border-radius: 0;
+}
+
+/* A tertiary action at the start of a column sits flush with the text above it. */
+.gzpr-flush {
+  position: relative; /* flutter-ok: Transform.translate by the tertiary padding */
+  inset-inline-start: -8px;
+}
+
+/* A quiet value or word at the end of a row or under a title. */
+.gzpr-quiet {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- loading ---------- */
+.gzpr-skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gzpr-skel--rows {
+  gap: var(--gz-space-3);
+}
+
+/* ---------- picker row ---------- */
+.gzpr-pick__empty {
+  color: var(--gz-color-sys-text-secondary);
+  font-weight: var(--gz-type-body-weight);
+}
+
+.gzpr-pick.is-disabled .gz-row {
+  cursor: default;
+}
+
+/* ---------- switch row ---------- */
+.gzpr-swrow {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  cursor: pointer;
+}
+
+.gzpr-swrow.is-last {
+  border-block-end-color: transparent;
+}
+
+.gzpr-swrow.is-locked {
+  cursor: default;
+}
+
+.gzpr-swrow.is-nested {
+  padding-inline-start: var(--gz-space-12);
+}
+
+.gzpr-swrow__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzpr-swrow__title {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzpr-swrow__fact {
+  display: inline-flex;
+}
+
+.gzpr-swrow.is-locked .gzpr-swrow__title {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gzpr-swrow.is-locked .gz-irow__disk {
+  color: var(--gz-color-sys-icon-disabled);
+}
+
+/* ---------- sheet frame ---------- */
+.gzpr-sheet {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+/* The Sheet body already pads the 20 gutter: the header and the rows draw edge to edge inside it. */
+.gzpr-sheet .gz-sheet__header {
+  padding-inline: 0;
+}
+
+.gzpr-sheet__head {
+  gap: var(--gz-space-1);
+}
+
+.gzpr-sheet__scroll {
+  flex: 1;
+  min-block-size: 0;
+  padding-block-start: var(--gz-space-2);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.gzpr-sheet__foot {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-3);
+}
+
+/* ---------- choice list ---------- */
+.gzpr-choices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzpr-choice {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  inline-size: 100%; /* flutter-ok: a choice row fills the sheet (RadioListTile) */
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+  color: var(--gz-color-sys-text-primary);
+  cursor: pointer;
+}
+
+.gzpr-choice.is-on {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+  background-color: var(--gz-color-sys-control-bg);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzpr-choice.is-on .gzpr-choice__title {
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gzpr-choice__title {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzpr-choice__mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-space-3);
+  block-size: var(--gz-space-3);
+}

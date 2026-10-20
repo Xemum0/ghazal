@@ -1,0 +1,16 @@
+/* HL-VENU-05 Policies. Form column inside hv-page; the per-section children blocks are quiet panels. Tokens only. */
+
+.hv-child {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding: var(--gz-space-panel-pad);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hv-hrs-list { display: flex; flex-direction: column; }

@@ -1,0 +1,112 @@
+/* QuoteLines: glyph rows, figures at the end. Tokens only. */
+
+.bk-quote {
+  display: flex;
+  flex-direction: column;
+}
+
+.bk-quote__lines {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-strong);
+}
+
+.bk-quote__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.bk-quote__what {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-3);
+  row-gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.bk-quote__what > .gz-icon {
+  flex: none;
+}
+
+.bk-quote__name {
+  color: var(--gz-color-sys-text-primary);
+}
+
+.bk-quote__amounts {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.bk-quote__was {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.bk-quote__row.is-credit .gz-money,
+.bk-quote__row.is-credit .gz-price__prefix {
+  color: var(--gz-color-sys-text-success);
+}
+
+.bk-quote__totals {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-4);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.bk-quote__trow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-2);
+  row-gap: var(--gz-space-1);
+}
+
+/* The plain total (no voucher price): the word at one end, the figure at the other. */
+.bk-quote__trow--plain {
+  justify-content: space-between;
+}
+
+.bk-quote__trow--sub {
+  column-gap: var(--gz-space-3);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.bk-quote__glyph {
+  display: inline-flex;
+  align-items: center;
+}
+
+.bk-quote__was {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.bk-quote__save {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  min-block-size: var(--gz-size-pill-min);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}

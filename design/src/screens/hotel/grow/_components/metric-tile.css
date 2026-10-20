@@ -1,0 +1,74 @@
+/* MetricTile: a hairline panel, radius 12, padding 12, three to a row. Disk, figure, delta stacked at the inline-start. */
+
+.gm-tile {
+  position: relative; /* flutter-ok: anchors the selected bead at the corner */
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: var(--gz-space-3);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-strong);
+  text-align: start;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.gm-tile[data-on] {
+  border-color: var(--gz-color-sys-text-strong);
+}
+
+.gm-tile__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  background: var(--gz-color-sys-surface-tint-soft);
+  border-radius: var(--gz-radius-pill);
+}
+
+.gm-tile[data-on] .gm-tile__disk {
+  background: var(--gz-color-sys-action-selected-bg);
+}
+
+.gm-tile__bead {
+  position: absolute; /* flutter-ok: the selected bead pinned to the corner (Positioned) */
+  inset-block-start: var(--gz-space-3);
+  inset-inline-end: var(--gz-space-3);
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+  background: var(--gz-color-sys-mark-state);
+  border-radius: var(--gz-radius-pill);
+}
+
+.gm-tile__figure {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gm-tile__sub {
+  display: inline-flex;
+}
+
+.gm-tile__delta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gm-tile__delta[data-dir='up'] {
+  color: var(--gz-color-sys-text-success);
+}
+
+.gm-tile__delta[data-dir='down'] {
+  color: var(--gz-color-sys-text-danger);
+}

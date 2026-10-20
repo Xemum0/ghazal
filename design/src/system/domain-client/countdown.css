@@ -1,0 +1,89 @@
+/* CountdownCard: the ink panel. Canvas text, ink-300 muted, gold-400 for the one gold word, a 2 px gold thread for state.
+   Only transform animates elsewhere; nothing here moves. */
+
+.gz-countdown {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding-block: var(--gz-space-8);
+  padding-inline: var(--gz-space-5);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-countdown__eyebrow {
+  margin: 0;
+}
+
+.gz-countdown__num {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.gz-countdown__big,
+.gz-countdown__word {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-countdown__unit {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-countdown__line {
+  margin: 0;
+}
+
+/* The wait so far: fill (gold), the 8 px bead where it has reached, the rest in the on-dark track. Flex ratios, no widths. */
+.gz-countdown__thread {
+  display: flex;
+  align-items: center;
+  block-size: var(--gz-size-knot-bead);
+  margin-block: var(--gz-space-2);
+}
+
+.gz-countdown__fill {
+  flex-basis: 0;
+  flex-shrink: 0;
+  block-size: var(--gz-stroke-thread);
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-countdown__knot {
+  flex: none;
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+  background-color: var(--gz-color-sys-mark-khayt);
+  transform: rotate(45deg);
+}
+
+.gz-countdown__rest {
+  flex-basis: 0;
+  flex-shrink: 0;
+  block-size: var(--gz-stroke-thread);
+  background-color: var(--gz-color-sys-mark-track-on-dark);
+}
+
+.gz-countdown__facts {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-countdown__facts > .gz-icon {
+  flex: none;
+}
+
+/* Tertiary on ink: Button onDark carries the colours; only the alignment is the card's. */
+.gz-countdown .gz-btn--tertiary {
+  align-self: flex-start;
+}
+
+.gz-countdown__sk.gz-skeleton {
+  background-color: var(--gz-color-sys-surface-dark-raised);
+}

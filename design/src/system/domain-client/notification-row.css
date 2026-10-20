@@ -1,0 +1,87 @@
+/* NotificationRow: min 64, hairline under, a tone disk with a glyph, the gold bead for unread. Tokens only. */
+
+.gz-ntf {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-4);
+  padding-inline: var(--gz-space-gutter);
+  text-align: start;
+  cursor: pointer;
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-ntf.is-last {
+  border-block-end-width: 0;
+}
+
+.gz-ntf:active {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-ntf__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-thumb-sm);
+  block-size: var(--gz-size-thumb-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-status-neutral-bg);
+  color: var(--gz-color-sys-status-neutral-text);
+}
+
+.gz-ntf__disk.is-gold {
+  background-color: var(--gz-color-sys-status-pending-bg);
+  color: var(--gz-color-sys-status-pending-text);
+}
+
+.gz-ntf__disk.is-success {
+  background-color: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}
+
+.gz-ntf__disk.is-danger {
+  background-color: var(--gz-color-sys-status-danger-bg);
+  color: var(--gz-color-sys-status-danger-text);
+}
+
+.gz-ntf__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-ntf__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gz-ntf__title {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-ntf:not(.is-unread) .gz-ntf__title {
+  font-weight: var(--gz-type-body-weight);
+}
+
+.gz-ntf__body {
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-ntf__time {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-ntf__dot {
+  display: inline-flex;
+  flex: none;
+  padding-block-start: var(--gz-space-2);
+}

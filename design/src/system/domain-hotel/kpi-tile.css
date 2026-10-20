@@ -1,0 +1,67 @@
+/* KpiTile: a hairline panel (paper, 1 px ink-300, radius 12, padding 16). Label, value, sub-line, then the delta with the sparkline. */
+
+.gz-kpi {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+}
+
+.gz-kpi--hero { flex: none; gap: var(--gz-space-2); }
+
+.gz-kpi--press { cursor: pointer; }
+.gz-kpi--press:active { background: var(--gz-color-sys-surface-quiet); }
+
+.gz-kpi__label { color: var(--gz-color-sys-text-secondary); }
+
+.gz-kpi__glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.gz-kpi__value {
+  display: flex;
+  min-inline-size: 0;
+  padding-block: var(--gz-space-1);
+}
+
+.gz-kpi__figure { color: var(--gz-color-sys-text-strong); }
+
+.gz-kpi__sub { color: var(--gz-color-sys-text-secondary); }
+
+.gz-kpi__delta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+  min-inline-size: 0;
+}
+
+.gz-kpi__delta--up { color: var(--gz-color-sys-text-success); }
+.gz-kpi__delta--down { color: var(--gz-color-sys-text-danger); }
+
+.gz-kpi__signed { font-weight: var(--gz-type-badge-weight); }
+.gz-kpi__vs { color: var(--gz-color-sys-text-secondary); }
+
+.gz-kpi__spark {
+  display: flex;
+  margin-block: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gz-kpi__spark > * { flex: 1; min-inline-size: 0; }

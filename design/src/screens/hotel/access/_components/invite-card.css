@@ -1,0 +1,68 @@
+/* The read-only invitation card: paper, 1 px ink-300, radius 12, padding 16 (direction section 3, Panel). A head (drawing, venue, role), then
+   three ruled facts. Tokens only. */
+.hxa-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-raised);
+}
+
+.hxa-card__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.hxa-card__art {
+  display: inline-flex;
+  flex: none;
+}
+
+.hxa-card__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.hxa-card__venue {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hxa-card__role {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+/* The info glyph hands its 44 target's slack back to the tag, so the pair reads as one line. */
+.hxa-card__info {
+  position: relative; /* flutter-ok: Transform.translate by the target's slack */
+  inset-inline-start: -8px;
+}
+
+.hxa-card__facts {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hxa-card__fact {
+  display: flex;
+  align-items: center;
+  min-block-size: var(--gz-size-touch-min);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-strong);
+}

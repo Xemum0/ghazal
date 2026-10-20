@@ -1,0 +1,84 @@
+/* Radio: 24 ring, 12 dot, 44 row. Chosen = ink-700 ring (2 px) and dot; the ring never turns gold. */
+
+.gz-radiogroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.gz-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gz-radio__ring {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+  border-width: var(--gz-stroke-icon);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-control-bg);
+  transition: border-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gz-radio__dot {
+  inline-size: var(--gz-space-3);
+  block-size: var(--gz-space-3);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-control-toggle-on);
+  transform: scale(0);
+  transition: transform var(--gz-motion-duration-base) var(--gz-motion-ease-emphasized);
+}
+
+.gz-radio__label {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-radio:active .gz-radio__ring,
+.gz-radio.is-pressed .gz-radio__ring {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-radio.is-on .gz-radio__ring {
+  border-color: var(--gz-color-sys-control-toggle-on);
+}
+
+.gz-radio.is-on .gz-radio__dot {
+  transform: scale(1);
+}
+
+.gz-radio:disabled {
+  cursor: default;
+}
+
+.gz-radio:disabled .gz-radio__ring {
+  border-color: var(--gz-color-sys-border-strong);
+  background-color: var(--gz-color-sys-control-track);
+}
+
+.gz-radio:disabled .gz-radio__label {
+  color: var(--gz-color-sys-text-disabled);
+}
+
+.gz-radio.is-on:disabled .gz-radio__dot {
+  background-color: var(--gz-color-sys-icon-disabled);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-radio__dot {
+    transition: none;
+  }
+}

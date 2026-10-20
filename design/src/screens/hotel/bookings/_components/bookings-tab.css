@@ -1,0 +1,33 @@
+/* BookingsTab: the pinned header (title row, glyph tabs, applied range chip) over one scroll body. Gutter 20, tokens only. */
+
+.hbk-root {
+  position: relative; /* flutter-ok: overlay anchor for the static date-filter sheet (Stack) */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-block-size: 0;
+}
+
+.hbk-head {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  background-color: var(--gz-color-sys-surface-canvas);
+}
+
+.hbk-head__seg {
+  padding-block: var(--gz-space-1) var(--gz-space-1);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.hbk-head__seg .gz-itabs__tab:first-child .gz-itabs__glyph {
+  /* The pending count sits beside the glyph, not on it: the system badge covers the clock's hands at the glyph corner (filed). The room is
+     the same on both sides so the glyph stays centred in its tab and the badge clears it on whichever corner it takes in either language. */
+  padding-inline: var(--gz-space-6);
+}
+
+.hbk-head__chip {
+  display: flex;
+  padding-block: var(--gz-space-2) var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+}

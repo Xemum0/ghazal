@@ -1,0 +1,241 @@
+/* HL-PROV-05 Pay for the plan: Ghazal's chrome is the summary and the interstitials; the hosted page is a neutral third-party placeholder
+   (paper, ink, hairlines, no gold: gold is Ghazal's verb, not the bank's). */
+.hp05 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-2) var(--gz-space-8);
+}
+
+.hp05__bartitle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hp05__hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+.hp05__herolabel {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp05__heroamt {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hp05__sum {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  margin: 0;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.hp05__sumrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.hp05__sumrow dt {
+  flex: none;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp05__sumrow dd {
+  min-inline-size: 0;
+  margin: 0;
+  text-align: end;
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.hp05__sumamt {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.hp05__h {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hp05__method {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}
+
+.hp05__method > [role='radiogroup'] {
+  align-self: stretch;
+}
+
+.hp05__refund {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp05__refund .gz-icon {
+  flex: none;
+  margin-block-start: var(--gz-space-1);
+}
+
+.hp05__methods {
+  display: flex;
+  flex-direction: column;
+}
+
+.hp05__act {
+  padding-block-start: var(--gz-space-3);
+}
+
+.hp05__acts {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-4);
+}
+
+/* ---------- the hosted page frame ---------- */
+.hp05__hosted {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-block-size: 0;
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.hp05__hostednote {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp05__bank {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding: var(--gz-space-5);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-strong);
+}
+
+.hp05__brand {
+  display: flex;
+  align-items: center;
+  padding-block-end: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.hp05__logo {
+  direction: ltr;
+  font-family: var(--gz-font-fig);
+  font-weight: var(--gz-type-title-weight);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hp05__facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  margin: 0;
+}
+
+.hp05__facts dt {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp05__facts dd {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hp05__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.hp05__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp05__input {
+  block-size: var(--gz-size-control-md);
+  background-color: var(--gz-color-sys-surface-canvas);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-xs);
+}
+
+.hp05__bankact {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.hp05__bankbtn {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-block-size: var(--gz-size-control-md);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-xs);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hp05__bankbtn--solid {
+  background-color: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.hp05__proto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  margin-inline: var(--gz-space-gutter);
+  padding: var(--gz-space-3) var(--gz-space-4);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.hp05__protolabel {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}

@@ -1,0 +1,138 @@
+/* PriceBreakdown: ruled lines in the figures voice (voucher amount, standard struck beneath), the totals, then who is paid what. Tokens only. */
+
+.gz-pbd {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+}
+
+.gz-pbd__lines {
+  display: flex;
+  flex-direction: column;
+}
+
+.gz-pbd__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  min-block-size: var(--gz-size-touch-min);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-pbd__what {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-pbd__name {
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-pbd__basis {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-pbd__amounts {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.gz-pbd__was,
+.gz-pbd__muted {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-pbd__totals {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gz-pbd__trow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+}
+
+.gz-pbd__trow--save {
+  color: var(--gz-color-sys-text-success);
+}
+
+.gz-pbd__total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+}
+
+.gz-pbd__inclusive {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- schedule ---------- */
+.gz-pbd__schedule {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding-block-start: var(--gz-space-4);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-strong);
+}
+
+.gz-pbd__schedule-head {
+  margin: 0;
+}
+
+.gz-pbd__cells {
+  display: flex;
+  gap: var(--gz-space-4);
+}
+
+.gz-pbd__cell {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-pbd__cell-label {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-pbd__cell-note {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-pbd__cell-note.is-paid {
+  color: var(--gz-color-sys-text-success);
+}
+
+.gz-pbd__note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  margin: 0;
+  padding: var(--gz-space-4);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-pbd__note > .gz-icon {
+  flex: none;
+}

@@ -1,0 +1,270 @@
+/* GalleryViewer: a dark stage (ink, never pure black), contained photographs, chrome on the 20 gutter. Tokens only. */
+.gzv-gal {
+  position: absolute; /* flutter-ok: full-screen route overlay */
+  inset: 0;
+  z-index: var(--gz-z-modal);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gzv-gal.is-leaving {
+  animation: gz-fade-out var(--gz-motion-duration-base) var(--gz-motion-ease-exit) both;
+}
+
+.gzv-gal__stage {
+  position: absolute; /* flutter-ok: viewer stage under the chrome */
+  inset: 0;
+  display: flex;
+  align-items: center;
+  touch-action: pan-y;
+}
+
+.gzv-gal__pager {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzv-gal__page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: var(--gz-layout-frame-height);
+}
+
+/* The photograph is contained at its own proportion; the box hugs it so the FLIP never stretches it. */
+.gzv-gal__photo {
+  align-items: center;
+  background: transparent;
+}
+
+.gzv-gal__photo .gz-photo__img {
+  flex: 1;
+  align-self: center;
+  block-size: auto;
+}
+
+/* Zoom: the current photograph scales about its centre and pans; the pager (clipping) frames it. */
+.gzv-gal[data-zoomed] .gz-pager__page:not([aria-hidden]) .gz-photo {
+  transform: translate(var(--gzv-px), var(--gzv-py)) scale(var(--gzv-zoom));
+  transition: transform var(--gz-motion-duration-slow) var(--gz-motion-ease-emphasized);
+}
+
+.gzv-gal__loading,
+.gzv-gal__message {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-4);
+  padding-inline: var(--gz-space-gutter);
+  text-align: center;
+  color: var(--gz-color-sys-text-on-dark-muted);
+}
+
+.gzv-gal__loading {
+  align-items: stretch;
+}
+
+.gzv-gal__message p {
+  margin: 0;
+}
+
+/* ---------- top row: counter at inline-start, close disk at inline-end ---------- */
+.gzv-gal__top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-block-size: var(--gz-size-control-lg);
+  padding-block-start: var(--gz-layout-safe-top);
+  padding-inline: var(--gz-space-gutter);
+  background: var(--gz-gradient-scrim-top-bar);
+}
+
+.gzv-gal__counter {
+  margin: 0;
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gzv-gal__banner {
+  position: relative;
+}
+
+/* ---------- zone chips: the photo tour ---------- */
+.gzv-gal__chips {
+  position: relative;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  padding-block-start: var(--gz-space-2);
+}
+
+.gzv-gal__chiplist {
+  display: flex;
+  flex: none;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding: 0;
+  padding-inline: var(--gz-space-gutter);
+  list-style: none;
+}
+
+.gzv-gal__chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-1);
+  min-block-size: var(--gz-size-control-sm);
+  min-inline-size: var(--gz-size-control-md);
+  padding-inline: var(--gz-space-2);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-on-dark);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-dark-raised);
+  color: var(--gz-color-sys-text-on-dark-muted);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.gzv-gal__chip.is-selected {
+  border-color: var(--gz-color-sys-text-on-dark);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+/* The selected zone carries the gold bead under its glyph (a thing chosen), never a fill. Every chip reserves the bead's room, so choosing never moves a glyph. */
+.gzv-gal__bead {
+  flex: none;
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+  background-color: transparent;
+  transform: rotate(45deg);
+}
+
+.gzv-gal__chip.is-selected .gzv-gal__bead {
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+/* ---------- foot: zone label over the hairline progress ---------- */
+.gzv-gal__foot {
+  position: absolute; /* flutter-ok: label and progress anchored to the bottom edge */
+  inset-inline: var(--gz-space-gutter);
+  inset-block-end: var(--gz-layout-safe-bottom);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-end: var(--gz-space-4);
+}
+
+.gzv-gal__label {
+  margin: 0;
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+/* ---------- video ---------- */
+.gzv-gal__video {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.gzv-gal__poster {
+  flex: 1;
+  align-items: center;
+  background: transparent;
+}
+
+.gzv-gal__poster .gz-photo__img {
+  flex: 1;
+  align-self: center;
+  block-size: auto;
+}
+
+.gzv-gal__play {
+  position: absolute; /* flutter-ok: play control over the poster frame */
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.gzv-gal__play > * {
+  pointer-events: auto;
+}
+
+.gzv-gal__controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.gzv-gal__scrub-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzv-gal__scrub {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-touch-min);
+  cursor: pointer;
+  touch-action: none;
+}
+
+.gzv-gal__scrub-fill,
+.gzv-gal__scrub-rest {
+  flex-basis: 0;
+  flex-shrink: 0;
+  block-size: var(--gz-stroke-hair);
+}
+
+.gzv-gal__scrub-fill {
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gzv-gal__scrub-rest {
+  background-color: var(--gz-color-sys-scrim-rule-on-photo);
+}
+
+.gzv-gal__scrub-bead {
+  flex: none;
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+  background-color: var(--gz-color-sys-mark-khayt);
+  transform: rotate(45deg);
+}
+
+.gzv-gal__captions {
+  margin: 0;
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gzv-gal[data-zoomed] .gz-pager__page:not([aria-hidden]) .gz-photo {
+    transition-duration: var(--gz-motion-duration-instant);
+  }
+}
+
+/* The shared element: the ghost flies between the thumbnail and the viewer; the real photograph waits (hidden, still laid out). */
+.gzv-gal[data-ghost] .gzv-gal__stage {
+  visibility: hidden;
+}
+
+.gzv-gal__ghost {
+  position: absolute; /* flutter-ok: Hero flight overlay */
+  z-index: var(--gz-z-modal);
+  object-fit: cover;
+  pointer-events: none;
+}

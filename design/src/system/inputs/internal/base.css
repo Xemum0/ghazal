@@ -1,0 +1,68 @@
+/* Shared by every input: glyph sizes, the activity indicator, the 44 x 44 icon action, button resets.
+   Tokens only (var(--gz-...)); logical properties only; no grid, no %, no calc (ADR 0024). */
+
+/* Unstyled button base used by every tappable part. Zero specificity (:where) so a type role class on the same element wins
+   over `font: inherit`. Pressed feedback comes from .gz-press (motion.css). */
+:where(.gz-in-btn) {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.gz-in-btn:disabled,
+.gz-in-btn[aria-disabled='true'] {
+  cursor: not-allowed;
+}
+
+/* A 44 x 44 icon action that lives inside a field (clear, reveal, step). */
+.gz-in-action {
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  flex: none;
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+.gz-in-action:active {
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-in-action:disabled {
+  color: var(--gz-color-sys-icon-disabled);
+}
+
+/* OS-style activity indicator: the only looping element in the system (ADR 0030 "Pending"). */
+@keyframes gz-in-spin {
+  to { transform: rotate(360deg); }
+}
+
+.gz-in-activity {
+  display: block;
+  flex: none;
+  box-sizing: border-box;
+  inline-size: var(--gz-size-icon-sm);
+  block-size: var(--gz-size-icon-sm);
+  border-radius: var(--gz-radius-pill);
+  border-width: var(--gz-stroke-thread);
+  border-style: solid;
+  border-color: var(--gz-color-sys-mark-track);
+  border-block-start-color: var(--gz-color-sys-text-secondary);
+  animation: gz-in-spin var(--gz-motion-duration-activity) var(--gz-motion-ease-linear) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-in-activity {
+    animation: none;
+  }
+}

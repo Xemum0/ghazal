@@ -1,0 +1,71 @@
+/* ReviewTimeline: the Booking Thread's vertical rail, drawn with the same knots; segments are the 2 px thread, gold only where a
+   decision is recorded (done), ink-200 beyond. Tokens only. */
+
+.gz-rvt {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gz-rvt__item {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+}
+
+.gz-rvt__rail {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-1);
+  inline-size: var(--gz-size-icon-lg);
+}
+
+.gz-rvt__seg {
+  flex: 1;
+  inline-size: var(--gz-stroke-thread);
+  min-block-size: var(--gz-space-4);
+  background-color: var(--gz-color-sys-mark-track);
+}
+
+.gz-rvt__seg.is-done {
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-rvt__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+  padding-block: var(--gz-space-1) var(--gz-space-4);
+}
+
+.gz-rvt__item:last-child .gz-rvt__text {
+  padding-block-end: 0;
+}
+
+.gz-rvt__title {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-rvt__title.is-faint {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-rvt__meta,
+.gz-rvt__note {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-rvt__reasons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  margin: 0;
+  padding-inline-start: var(--gz-space-4);
+  color: var(--gz-color-sys-text-danger);
+}

@@ -1,0 +1,61 @@
+/* PackageRanks: each row is a 44 high target: name, count, chevron over a thin track. */
+
+.gr-ranks__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gr-ranks__list > li {
+  display: flex;
+}
+
+.gr-ranks__row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--gz-space-2);
+  box-sizing: border-box;
+  flex: 1;
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-touch-min);
+  padding-block: var(--gz-space-1);
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.gr-ranks__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gr-ranks__name {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gr-ranks__label {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gr-ranks__count {
+  flex: none;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gr-ranks__track {
+  block-size: var(--gz-space-2);
+}

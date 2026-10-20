@@ -1,0 +1,209 @@
+/* Venue information blocks: amenity grid, policy list, FAQ answer, map preview. Flex rows only, tokens only. */
+
+/* ---------- amenities ---------- */
+.gz-amen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  min-inline-size: 0;
+}
+
+.gz-amen__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gz-amen__title {
+  margin: 0;
+  padding-block-end: var(--gz-space-2);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-primary);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-amen__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gz-amen__row {
+  display: flex;
+  gap: var(--gz-space-4);
+}
+
+.gz-amen__item {
+  display: flex;
+  flex: 1 1 0;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gz-amen__item > .gz-icon {
+  flex: none;
+}
+
+.gz-amen__text {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-amen__label {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-amen__state {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-amen__item.is-off .gz-amen__label {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-amen__more {
+  align-self: flex-start;
+}
+
+/* ---------- policy ---------- */
+.gz-policy {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.gz-policy__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  min-block-size: var(--gz-size-touch-min);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gz-policy__label {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  inline-size: var(--gz-size-week-strip);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-policy__label > .gz-icon {
+  flex: none;
+}
+
+.gz-policy__value {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+  text-align: end;
+}
+
+/* ---------- faq ---------- */
+.gz-faq__answer {
+  display: block;
+  color: var(--gz-color-sys-text-primary);
+}
+
+/* ---------- map preview ---------- */
+.gz-map {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  margin: 0;
+  min-inline-size: 0;
+}
+
+.gz-map__plate {
+  position: relative; /* flutter-ok: named overlay anchor for the area chip (Stack) */
+  display: flex;
+  overflow: hidden;
+  aspect-ratio: var(--gz-layout-aspect-16x10);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-map__svg {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* The illustration is drawn with tokens only: land ink-50, water ink-100, blocks rose-100, roads paper with an ink-200 casing. */
+.gz-map__land {
+  fill: var(--gz-color-sys-surface-quiet);
+}
+
+.gz-map__water {
+  fill: var(--gz-color-sys-surface-placeholder);
+}
+
+.gz-map__blocks rect {
+  fill: var(--gz-color-sys-surface-tint);
+}
+
+.gz-map__roads-minor path {
+  fill: none;
+  stroke: var(--gz-color-sys-border-hairline);
+  stroke-width: 3;
+}
+
+.gz-map__roads path {
+  fill: none;
+  stroke: var(--gz-color-sys-surface-raised);
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.gz-map__pin-body {
+  fill: var(--gz-color-sys-surface-dark);
+}
+
+.gz-map__pin-dot {
+  fill: var(--gz-color-sys-mark-khayt);
+}
+
+.gz-map__area {
+  position: absolute; /* flutter-ok: named overlay anchor */
+  inset-block-end: var(--gz-space-3);
+  inset-inline-start: var(--gz-space-3);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-2);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-surface-canvas);
+  box-shadow: 0 0 0 var(--gz-stroke-hair) var(--gz-color-sys-scrim-ring-fab);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-map__cap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2) var(--gz-space-4);
+}
+
+.gz-map__addr {
+  flex: 1 1 100%;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-map__drive {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}

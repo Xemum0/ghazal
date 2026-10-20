@@ -1,0 +1,25 @@
+/* ThreadPreview: a rose-100 quiet panel holding the five-glyph thread (IconProgress) and one foot line: the reply time and the (i). */
+.gzv-tp {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding: var(--gz-space-panel-pad);
+  padding-block-end: var(--gz-space-2);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzv-tp__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.gzv-tp__owned {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}

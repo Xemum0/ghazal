@@ -1,0 +1,182 @@
+/* EventCalendar (hotel/grow, after hotel/decisions MultiDateCalendar): the anatomy of the system Calendar (cell 52 high, at least 44 wide, Thu-Sat band at the
+   inline-end edge) with several selected days. Gold is the selected day only; busy days are struck, never colour alone. */
+
+.ge-cal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.ge-cal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+}
+
+.ge-cal__titles {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  min-inline-size: 0;
+}
+
+.ge-cal__title {
+  flex: 1;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+  text-align: center;
+}
+
+.ge-cal__basis {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.ge-cal__grid {
+  display: flex;
+  flex-direction: column;
+  /* room for the selected day's two rings at the outer columns (the sheet body clips what overflows it) */
+  padding-inline: var(--gz-space-1);
+}
+
+.ge-cal__row {
+  display: flex;
+}
+
+.ge-cal__hcell {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 0;
+  block-size: var(--gz-space-8);
+  color: var(--gz-color-sys-text-secondary);
+  white-space: nowrap;
+}
+
+.ge-cal__cell {
+  position: relative; /* flutter-ok: anchor of the open-weekend bead */
+  display: flex;
+  flex: 1 1 0;
+  min-inline-size: 0;
+  block-size: var(--gz-size-cal-cell-height);
+}
+
+.ge-cal__hcell[data-peak],
+.ge-cal__cell[data-peak] {
+  background: var(--gz-color-sys-surface-tint-soft);
+}
+
+.ge-cal__hcell[data-top][data-peak='first'] { border-start-start-radius: var(--gz-radius-md); }
+.ge-cal__hcell[data-top][data-peak='last'] { border-start-end-radius: var(--gz-radius-md); }
+.ge-cal__cell[data-bottom][data-peak='first'] { border-end-start-radius: var(--gz-radius-md); }
+.ge-cal__cell[data-bottom][data-peak='last'] { border-end-end-radius: var(--gz-radius-md); }
+
+/* ---------- day ---------- */
+.ge-cal__day {
+  position: relative; /* flutter-ok: above the cell band */
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 0;
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: transparent;
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-strong);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color var(--gz-motion-duration-fast) var(--gz-motion-ease-standard),
+    border-color var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.ge-cal__day[aria-disabled='true'] {
+  cursor: default;
+}
+
+/* busy: a struck figure in ink-500; past: ink-400, no strike */
+.ge-cal__day[data-status='busy'] .ge-cal__fig {
+  color: var(--gz-color-sys-border-control);
+  text-decoration: line-through;
+  text-decoration-thickness: var(--gz-stroke-hair);
+}
+
+.ge-cal__day[data-status='past'] .ge-cal__fig {
+  color: var(--gz-color-sys-icon-disabled);
+}
+
+/* an open weekend date of the venue: an 8 px gold-700 bead at the corner (informative gold glyph on a light surface) */
+.ge-cal__bead {
+  position: absolute; /* flutter-ok: corner mark anchored inside the day */
+  inset-block-start: var(--gz-space-2);
+  inset-inline-end: var(--gz-space-2);
+  inline-size: var(--gz-space-2);
+  block-size: var(--gz-space-2);
+  background: var(--gz-color-sys-text-gold-ink);
+  border-radius: var(--gz-radius-pill);
+}
+
+.ge-cal__day[data-disabled],
+.ge-cal[data-disabled] .ge-cal__day {
+  cursor: default;
+}
+
+.ge-cal__day[data-today] {
+  border-color: var(--gz-color-sys-border-focus);
+}
+
+/* selected: gold fill, ink label, radius 8, a 2 px canvas ring and a 1 px gold-600 ring outside it (direction 2.3 b) */
+.ge-cal__day[data-selected] {
+  z-index: var(--gz-z-raised);
+  background: var(--gz-color-sys-mark-khayt);
+  border-color: var(--gz-color-sys-mark-khayt);
+  color: var(--gz-color-sys-text-on-gold);
+  box-shadow: 0 0 0 var(--gz-stroke-thread) var(--gz-color-sys-surface-canvas);
+  outline-width: var(--gz-stroke-hair);
+  outline-style: solid;
+  outline-color: var(--gz-color-sys-mark-decor);
+  outline-offset: var(--gz-stroke-thread);
+}
+
+.ge-cal__day:focus-visible {
+  outline-width: var(--gz-stroke-focus);
+  outline-style: solid;
+  outline-color: var(--gz-color-sys-focus-ring);
+  outline-offset: var(--gz-stroke-focus-offset);
+}
+
+/* ---------- legend ---------- */
+.ge-cal__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2) var(--gz-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.ge-cal__legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.ge-cal__sw {
+  flex: none;
+  inline-size: var(--gz-space-4);
+  block-size: var(--gz-space-4);
+  border-radius: var(--gz-radius-xs);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+}
+
+.ge-cal__sw--free { background: var(--gz-color-sys-surface-raised); }
+.ge-cal__sw--busy { background: var(--gz-color-sys-surface-quiet); border-color: var(--gz-color-sys-border-control); }
+.ge-cal__sw--open { background: var(--gz-color-sys-text-gold-ink); border-radius: var(--gz-radius-pill); border-color: transparent; }

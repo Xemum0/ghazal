@@ -1,0 +1,26 @@
+/* SearchField: 44 / 48 high variants of the field box. */
+
+.gz-search {
+  display: block;
+  margin: 0;
+}
+
+.gz-field__box.gz-search__box {
+  gap: var(--gz-space-2);
+  padding-inline-start: var(--gz-space-3);
+}
+
+.gz-search__box--sm { block-size: var(--gz-size-control-sm); }
+.gz-search__box--md { block-size: var(--gz-size-control-md); }
+
+/* The native clear and decoration are replaced by our own 44 px button. */
+.gz-search__input::-webkit-search-cancel-button,
+.gz-search__input::-webkit-search-decoration {
+  display: none;
+  -webkit-appearance: none;
+}
+
+/* The 44 px action would overflow the 44 high box: it fills the box height exactly, so no extra room is needed. */
+.gz-search__box .gz-in-action {
+  block-size: var(--gz-size-touch-min);
+}

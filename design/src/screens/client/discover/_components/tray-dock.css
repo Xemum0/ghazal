@@ -1,0 +1,46 @@
+/* The dock: a zero-height slot under the screen body (above the tab bar). What floats above the list sits in it, 16 above the bar:
+   the Map pill (Results) over the Compare tray. It never changes the layout above it; only its own children take pointer events. */
+.gzd-dock {
+  position: relative; /* flutter-ok: named overlay anchor (Stack + PositionedDirectional) */
+  flex: none;
+  block-size: 0;
+  z-index: var(--gz-z-tray);
+}
+
+.gzd-dock__stack {
+  position: absolute; /* flutter-ok: floating column above the tab bar */
+  inset-inline: 0;
+  inset-block-end: var(--gz-space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-3);
+  pointer-events: none;
+}
+
+.gzd-dock__stack > * {
+  pointer-events: auto;
+}
+
+/* The tray keeps its own capsule; here it is in the flow of the stack, on the gutters. */
+.gzd-dock__stack > .gzd-dock__tray {
+  align-self: stretch;
+  margin-inline: var(--gz-space-gutter);
+}
+
+.gzd-dock__stack > .gz-tray-pill.gzd-dock__tray {
+  align-self: center;
+  margin-inline: 0;
+}
+
+/* Home: the tray owns its row between the body and the tab bar, so it never covers the status card. */
+.gzd-dock--flow {
+  block-size: auto;
+  padding-block: var(--gz-space-2);
+  background-color: var(--gz-color-sys-surface-canvas);
+}
+
+.gzd-dock--flow .gzd-dock__stack {
+  position: static;
+  pointer-events: auto;
+}

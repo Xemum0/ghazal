@@ -1,0 +1,11 @@
+/* HL-DCSN-03 Propose date. One quiet line over the calendar: the three pips (picked of three) at inline-start and the reply window
+   (`timer 48 h`) at inline-end. The calendar carries the selection (gold = the picked days); the picked dates under it are ruled glyph rows.
+   Gold appears on the picked days, the pips and the one primary only. Tokens only. */
+
+.gzd-prop-page__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}

@@ -1,0 +1,83 @@
+.gz-pager {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+/* The pager clips its own overflow, so the keyboard ring is drawn inside the box (a 2 px focus-ring border over the content). */
+.gz-pager:focus-visible {
+  outline-style: none;
+}
+
+.gz-pager:focus-visible::after {
+  content: '';
+  position: absolute; /* flutter-ok: focus ring overlay inside the clipped pager */
+  inset: 0;
+  border-width: var(--gz-stroke-focus);
+  border-style: solid;
+  border-color: var(--gz-color-sys-focus-ring);
+  pointer-events: none;
+}
+
+.gz-pager__track {
+  display: flex;
+  align-items: stretch;
+  transition: transform var(--gz-motion-duration-slow) var(--gz-motion-ease-emphasized);
+  will-change: transform;
+}
+
+.gz-pager__track.is-dragging {
+  transition: none;
+}
+
+.gz-pager__page {
+  flex: none;
+  min-inline-size: 0;
+}
+
+/* Progress: 1 px rule, gold-500 fill, an 8 px bead at the fill's end. The line grows from inline-start by flex ratio. */
+.gz-progress {
+  display: flex;
+  align-items: center;
+  block-size: var(--gz-size-knot-bead);
+}
+
+.gz-progress__fill {
+  flex-basis: 0;
+  flex-shrink: 0;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-mark-khayt);
+  transition: flex-grow var(--gz-motion-duration-slow) var(--gz-motion-ease-standard);
+}
+
+.gz-progress__rest {
+  flex-basis: 0;
+  flex-shrink: 0;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-scrim-rule-on-photo);
+  transition: flex-grow var(--gz-motion-duration-slow) var(--gz-motion-ease-standard);
+}
+
+.gz-progress--on-canvas .gz-progress__rest {
+  background: var(--gz-color-sys-border-hairline);
+}
+
+/* The bead: a rotated square, 8 px (the same bead as the thread knots). */
+.gz-progress__bead {
+  flex: none;
+  inline-size: var(--gz-size-knot-bead);
+  block-size: var(--gz-size-knot-bead);
+  background: var(--gz-color-sys-mark-khayt);
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gz-pager__track {
+    transition: none;
+  }
+
+  .gz-progress__fill,
+  .gz-progress__rest {
+    transition: none;
+  }
+}

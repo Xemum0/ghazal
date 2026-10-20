@@ -1,0 +1,57 @@
+/* Analytics sheets: 16 between blocks; the legend is ruled rows of a disk and a name. */
+
+.gas-range {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gas-defs {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gas-defs__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.gas-defs__row:last-child {
+  border-block-end-width: 0;
+}
+
+.gas-defs__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  background: var(--gz-color-sys-surface-tint-soft);
+  border-radius: var(--gz-radius-pill);
+}
+
+.gas-defs__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gas-defs__name {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gas-defs__text {
+  color: var(--gz-color-sys-text-primary);
+}

@@ -1,0 +1,43 @@
+/* CL-VIST-01 Book a visit (sheet). The visitors row and the window taken meanwhile. Tokens only. */
+.gzvt-bk__row {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The visitors row is one 44 control wide: the 64 minimum of a labelled stepper row is not needed with a glyph for a label. */
+.gzvt-bk__row .gz-stepper {
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.gzvt-bk__lead {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+}
+
+/* A window taken meanwhile: a rose-100 quiet note (glyph, the time, one word) with the next free windows as chips under it. */
+.gzvt-bk__taken {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-panel-pad);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.gzvt-bk__taken-text {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzvt-bk__taken-next {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2);
+}

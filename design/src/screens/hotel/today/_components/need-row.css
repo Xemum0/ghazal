@@ -1,0 +1,111 @@
+/* NeedRow: a compact line of the Needs-you queue. The 2 px reply-window bar is the row's baseline (track ink-200, fill by SLA tone).
+   Nothing here is gold fill: the only gold is the warning tone of a bar and its time-left figure (gold-650 / gold-700). */
+
+.ht-need {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ht-need__line {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.ht-need__main {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  min-block-size: var(--gz-size-row-queue);
+  padding-block: var(--gz-space-4);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-strong);
+  text-align: start;
+  cursor: pointer;
+}
+
+.ht-need__main:disabled { cursor: default; }
+
+/* the leading disk: the hall's section symbol for a request, the type glyph for the rest */
+.ht-need__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+.ht-need[data-kind='request'] .ht-need__disk { background: var(--gz-color-sys-surface-tint); }
+
+.ht-need__body {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.ht-need__top,
+.ht-need__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.ht-need__bottom { flex-wrap: wrap; row-gap: var(--gz-space-1); }
+
+.ht-need__title {
+  flex: 1 1 0;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.ht-need__facts { flex: 1 1 auto; column-gap: var(--gz-space-3); }
+
+.ht-need__price {
+  display: inline-flex;
+  flex: none;
+  margin-inline-start: auto;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.ht-need__action { flex: none; }
+
+/* the reply-window bar */
+.ht-need__bar {
+  display: flex;
+  flex: none;
+  block-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-track);
+}
+
+.ht-need__fill {
+  background: var(--gz-color-sys-status-sla-ok);
+  transform-origin: var(--gz-origin-start);
+}
+
+.ht-need__bar--gold .ht-need__fill { background: var(--gz-color-sys-status-sla-warn); }
+.ht-need__bar--danger .ht-need__fill { background: var(--gz-color-sys-status-sla-alert); }
+.ht-need__bar--expired .ht-need__fill { background: var(--gz-color-sys-border-strong); }
+
+.ht-need__rule {
+  display: block;
+  flex: none;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-border-hairline);
+}
+
+/* the full queue: time left and the clock it closes at, together */
+.ht-need__when { display: inline-flex; align-items: center; gap: var(--gz-space-3); }

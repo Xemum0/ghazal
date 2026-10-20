@@ -1,0 +1,150 @@
+/* Text-diet gallery (design/src/gallery/diet.tsx): the icon-led components in both languages. Harness CSS: logical properties, flex + gap. Prefix .dg-. */
+
+.dg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  max-inline-size: var(--gz-layout-max-width);
+  margin-inline: auto;
+  padding-block: var(--gz-space-4) var(--gz-space-24);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.dg-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.dg-head p,
+.dg-note {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.dg-sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.dg-sec__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}
+
+.dg-sec__head h2 {
+  margin: 0;
+}
+
+.dg-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+}
+
+.dg-spec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  margin: 0;
+  min-inline-size: 0;
+}
+
+.dg-cap {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.dg-body {
+  min-inline-size: 0;
+}
+
+.dg-body--panel {
+  padding: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-raised);
+}
+
+.dg-body--ink {
+  padding: var(--gz-space-4);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-dark);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.dg-body--state {
+  display: flex;
+  min-block-size: 360px;
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+  border-radius: var(--gz-radius-md);
+  background: var(--gz-color-sys-surface-canvas);
+}
+
+.dg-body--state > * {
+  flex: 1;
+}
+
+.dg-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.dg-row--col {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.dg-row--stretch {
+  align-items: stretch;
+}
+
+.dg-row--top {
+  align-items: flex-start;
+  column-gap: var(--gz-space-6);
+}
+
+.dg-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-4);
+}
+
+.dg-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-1);
+  inline-size: 72px;
+  text-align: center;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* A phone scaled to 75% by transform, the way the Launcher and the Studio canvas do: the controls inside must stay exact. The box clips the
+   unscaled layout box (400) so the page never scrolls sideways; the origin is the start edge in either direction. */
+.dg-scaled-box {
+  display: flex;
+  inline-size: 300px;
+  block-size: 152px;
+  overflow: hidden;
+}
+
+.dg-scaled {
+  flex: none;
+  inline-size: 400px;
+  transform: scale(0.75);
+  transform-origin: top left;
+}
+
+[dir='rtl'] .dg-scaled {
+  transform-origin: top right;
+}

@@ -1,0 +1,320 @@
+/* Chat: bubbles, voice waveform, document and structured cards, the date divider and the conversation row. Tokens only. */
+
+.gz-bubble {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-bubble--own {
+  align-items: flex-end;
+  /* The opposite side keeps a 48 reserve, so a bubble never spans the whole thread (about 86% at 390). */
+  padding-inline-start: var(--gz-space-12);
+}
+
+.gz-bubble--other {
+  align-items: flex-start;
+  padding-inline-end: var(--gz-space-12);
+}
+
+.gz-bubble__body {
+  display: flex;
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-4);
+  border-radius: var(--gz-radius-md);
+}
+
+.gz-bubble--own .gz-bubble__body {
+  border-end-end-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-surface-dark-raised);
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-bubble--other .gz-bubble__body {
+  border-end-start-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-bubble.is-draft .gz-bubble__body {
+  border-width: var(--gz-stroke-hair);
+  border-style: dashed;
+  border-color: var(--gz-color-sys-border-strong);
+  background-color: transparent;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-bubble__body--bare {
+  padding: 0;
+  overflow: hidden;
+}
+
+.gz-bubble__text {
+  text-align: start;
+  white-space: pre-wrap;
+}
+
+.gz-bubble__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  padding-inline: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-bubble__draft {
+  padding-inline: var(--gz-space-1);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+/* ---------- image ---------- */
+.gz-bubble__image {
+  display: flex;
+  inline-size: var(--gzc-bubble-media);
+  aspect-ratio: var(--gz-layout-aspect-4x3);
+  cursor: pointer;
+}
+
+.gz-bubble__photo {
+  display: flex;
+  flex: 1;
+}
+
+/* ---------- document ---------- */
+.gz-bubble__doc {
+  display: flex;
+  inline-size: var(--gzc-bubble-media);
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gz-bubble__doc-icon,
+.gz-bubble__doc-get {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-thumb-sm);
+  block-size: var(--gz-size-thumb-sm);
+  border-radius: var(--gz-radius-sm);
+}
+
+.gz-bubble--other .gz-bubble__doc-icon {
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.gz-bubble--own .gz-bubble__doc-icon {
+  background-color: var(--gz-color-sys-surface-dark);
+}
+
+.gz-bubble__doc-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-bubble__doc-name {
+  display: block;
+}
+
+.gz-bubble__doc-meta {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-bubble--own .gz-bubble__doc-meta {
+  color: var(--gz-color-sys-text-on-dark-muted);
+}
+
+/* A draft own bubble is a dashed, transparent body on the canvas: every on-dark override of the own bubble is reset to its on-light
+   counterpart so no descendant keeps a pale colour on a pale ground (document, voice). */
+.gz-bubble--own.is-draft .gz-bubble__doc-icon {
+  background-color: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.gz-bubble--own.is-draft .gz-bubble__doc-meta {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-bubble--own.is-draft .gz-bubble__disc {
+  background-color: var(--gz-color-sys-surface-dark-raised);
+  color: var(--gz-color-sys-icon-on-dark);
+}
+
+.gz-bubble--own.is-draft .gz-bubble__bar {
+  background-color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-bubble--own.is-draft .gz-bubble__bar.is-played {
+  background-color: var(--gz-color-sys-text-strong);
+}
+
+/* ---------- voice ---------- */
+.gz-bubble__voice {
+  display: flex;
+  inline-size: var(--gzc-bubble-media);
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gz-bubble__play {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-pill);
+  cursor: pointer;
+}
+
+.gz-bubble__disc {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-canvas);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.gz-bubble--other .gz-bubble__disc {
+  background-color: var(--gz-color-sys-surface-dark-raised);
+  color: var(--gz-color-sys-icon-on-dark);
+}
+
+.gz-bubble__wave {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-stroke-thread);
+  min-inline-size: 0;
+  /* LTR time axis in both languages: a waveform is a recording, not text. */
+  direction: ltr;
+}
+
+.gz-bubble__bar {
+  flex: 1 1 0;
+  min-inline-size: var(--gz-stroke-thread);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-bubble--own .gz-bubble__bar {
+  background-color: var(--gz-color-sys-text-on-dark-muted);
+}
+
+.gz-bubble__bar.is-played {
+  background-color: var(--gz-color-sys-text-strong);
+}
+
+.gz-bubble--own .gz-bubble__bar.is-played {
+  background-color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-bubble__time {
+  flex: none;
+  color: inherit;
+}
+
+/* ---------- structured cards ---------- */
+.gz-bubble__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gz-bubble__card-head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gz-bubble__card-title {
+  color: inherit;
+}
+
+.gz-bubble__card-line {
+  color: inherit;
+}
+
+/* ---------- system and day ---------- */
+.gz-bubble-system,
+.gz-bubble-day {
+  align-self: center;
+  margin: 0;
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-3);
+  border-radius: var(--gz-radius-xs);
+  background-color: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-text-secondary);
+  text-align: center;
+}
+
+/* ---------- conversation row ---------- */
+.gz-conv__preview {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-conv__text {
+  flex: 1;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: start;
+}
+
+.gz-conv__preview.is-unread {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-conv__you {
+  color: var(--gz-color-sys-text-secondary);
+  font-weight: var(--gz-type-body-weight);
+}
+
+.gz-conv__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--gz-space-1);
+}
+
+.gz-conv__time {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- group chat: sender line and the glyph on system lines ---------- */
+.gz-bubble__sender {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2);
+  padding-inline: var(--gz-space-1);
+}
+
+.gz-bubble__sender-name {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-bubble-system--group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-2);
+}

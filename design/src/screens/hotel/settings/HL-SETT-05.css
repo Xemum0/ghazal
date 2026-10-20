@@ -1,0 +1,31 @@
+/* HL-SETT-05 Business hours. The preview is a quiet panel (an eye and the lines); the seven day rows and the closures are hairline lists on the
+   gutter; the time buttons share the row equally, so 360 and 430 differ only in the width of the two boxes. */
+
+.hs-hours__top { display: flex; flex-direction: column; align-items: flex-start; gap: var(--gz-space-3); }
+
+.hs-hours__preview {
+  display: flex;
+  align-items: flex-start;
+  align-self: stretch;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  padding: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-md);
+}
+
+.hs-hours__preview .gz-icon { flex: none; margin-block-start: var(--gz-space-1); }
+.hs-hours__lines { display: flex; flex: 1; flex-direction: column; gap: var(--gz-space-1); min-inline-size: 0; }
+.hs-hours__line { margin: 0; color: var(--gz-color-sys-text-strong); }
+
+.hs-hours__rows { display: flex; flex-direction: column; padding-inline: var(--gz-space-gutter); }
+
+.hs-hours__closures { display: flex; flex-direction: column; padding-inline: var(--gz-space-gutter); }
+.hs-closure { display: flex; align-items: center; gap: var(--gz-space-3); min-block-size: var(--gz-size-row-min); padding-block: var(--gz-space-3); border-block-end-width: var(--gz-stroke-hair); border-block-end-style: solid; border-block-end-color: var(--gz-color-sys-border-hairline); }
+.hs-closure__text { display: flex; flex: 1; flex-direction: column; align-items: flex-start; gap: var(--gz-space-1); min-inline-size: 0; }
+.hs-closure__name { color: var(--gz-color-sys-text-strong); }
+.hs-closure__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gz-space-1) var(--gz-space-3); }
+.hs-closure__range { color: var(--gz-color-sys-text-secondary); }
+
+.hs-hours__add { display: flex; flex-direction: column; align-items: flex-start; gap: var(--gz-space-3); }
+.hs-hours__suggest { display: flex; flex-wrap: wrap; gap: var(--gz-space-2); }

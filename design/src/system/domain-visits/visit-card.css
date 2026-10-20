@@ -1,0 +1,69 @@
+/* VisitCard: paper, hairline, radius 12, 16 padding (the Panel). Date in the UI title voice (figures, never serif on the partner side). */
+
+.gz-visit {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-visit__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-1);
+  align-self: stretch;
+  text-align: start;
+  color: inherit;
+  cursor: default;
+}
+
+button.gz-visit__body {
+  cursor: pointer;
+}
+
+.gz-visit__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  align-self: stretch;
+  margin-block-end: var(--gz-space-2);
+}
+
+.gz-visit__party {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-visit__when {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-visit__window {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-visit__who {
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.gz-visit__rep,
+.gz-visit__ro {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}

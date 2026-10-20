@@ -1,0 +1,94 @@
+/* StateStrip and StateStack (ADR 0034 section 5). A quiet panel (ink-50, hairline) for the strip; the stack is centred, a single-purpose
+   composition. Tokens only; logical properties only. */
+
+.hbk-strip {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: var(--gz-space-panel-pad);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-hairline);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.hbk-strip__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.hbk-strip__art {
+  display: flex;
+  flex: none;
+}
+
+.hbk-strip__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.hbk-strip__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hbk-strip__info {
+  align-self: flex-start;
+  flex: none;
+}
+
+.hbk-strip__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.hbk-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-4);
+  min-inline-size: 0;
+  text-align: center;
+}
+
+.hbk-stack__art {
+  display: flex;
+  justify-content: center;
+}
+
+.hbk-stack__titlerow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.hbk-stack__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hbk-stack__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.hbk-stack__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-2);
+  align-self: stretch;
+}

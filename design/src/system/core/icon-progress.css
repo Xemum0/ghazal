@@ -1,0 +1,106 @@
+/* IconProgress: [glyph][knot + thread segment][active label] in equal columns. The glyph sits over its knot slot (32 wide) so the
+   thread reads as a row of ticked-off things. No grid, no calc: the segment is flex:1 between two fixed slots. */
+
+.gz-iprog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gz-iprog__cols {
+  display: flex;
+  align-items: flex-start;
+}
+
+.gz-iprog__col {
+  position: relative; /* flutter-ok: anchors the visually hidden label of a step */
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+/* The glyph is centred over the knot slot (32), not over the column. */
+.gz-iprog__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-icon-lg);
+  block-size: var(--gz-size-icon-md);
+}
+
+.gz-iprog__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  padding-inline-end: var(--gz-space-1);
+}
+
+.gz-iprog__seg {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gz-iprog__fill {
+  transform-origin: var(--gz-origin-start);
+}
+
+.gz-iprog__fill.is-armed {
+  transform: scaleX(0);
+}
+
+/* One word under the active step, centred on its knot slot (32): a flex row centres overflow on both sides, so the word is balanced
+   under the knot however long it is, and never wraps. */
+.gz-iprog__label {
+  display: flex;
+  justify-content: center;
+  inline-size: var(--gz-size-icon-lg);
+  white-space: nowrap;
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-iprog__label.is-ended {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-on-dark .gz-iprog__label {
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+.gz-iprog__note {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  margin: 0;
+  padding-block-start: var(--gz-space-2);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-iprog__note.is-now {
+  color: var(--gz-color-sys-text-gold-ink);
+}
+
+.gz-iprog__note.is-danger {
+  color: var(--gz-color-sys-text-danger);
+}
+
+.gz-on-dark .gz-iprog__note {
+  border-block-start-color: var(--gz-color-sys-border-on-dark);
+  color: var(--gz-color-sys-text-on-dark-muted);
+}
+
+.gz-on-dark .gz-iprog__note.is-now {
+  color: var(--gz-color-sys-text-on-dark-gold);
+}
+
+/* The glyph of the step in progress on an Ink panel takes the gold-on-dark text role (gold-400 on ink-900, 8.75:1), not the light-surface
+   accent (gold-700, about 2.7:1 on Ink), so it is as bright as the tied and open glyphs beside it. */
+.gz-on-dark .gz-iprog__icon--now {
+  color: var(--gz-color-sys-text-on-dark-gold);
+}

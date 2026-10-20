@@ -1,0 +1,21 @@
+/* The tray slot: a zero-height strip under the screen body (above the tab bar). The floating tray anchors to it, 16 above its edge. */
+
+.svd-trayslot {
+  position: relative; /* flutter-ok: named overlay anchor for the floating tray (Stack + PositionedDirectional) */
+  flex: none;
+  block-size: 0;
+}
+
+/* Docked, not floating: the slot takes its own height above the tab bar, so the list is shorter by the tray and its last row is never
+   covered (no row hides beneath it while the family scrolls). The tray keeps its capsule, shadow and 16 clearance from the bar. */
+.svd-trayslot {
+  block-size: auto;
+  padding-block: var(--gz-space-2) var(--gz-space-4);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.svd-trayslot .gz-tray--float {
+  position: static;
+  inset-inline: auto;
+  inset-block-end: auto;
+}

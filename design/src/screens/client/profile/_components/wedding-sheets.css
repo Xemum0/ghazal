@@ -1,0 +1,14 @@
+/* Wedding info pickers: the two guest steppers. The Sheet brings the 20 gutter. Tokens only. */
+
+.gzpr-wsheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+/* A section symbol as the stepper's label: 32 glyph, ink. */
+.gzpr-sec {
+  display: inline-flex;
+  align-items: center;
+  color: var(--gz-color-sys-icon-primary);
+}

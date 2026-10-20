@@ -1,0 +1,37 @@
+/* Icon: a square glyph on the 24 grid. Size tokens only; colour follows currentColor unless a tone is named. */
+
+.gz-icon {
+  display: inline-block;
+  flex: none;
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+  vertical-align: middle;
+}
+
+.gz-icon--xs {
+  inline-size: var(--gz-size-icon-xs);
+  block-size: var(--gz-size-icon-xs);
+}
+
+.gz-icon--sm {
+  inline-size: var(--gz-size-icon-sm);
+  block-size: var(--gz-size-icon-sm);
+}
+
+.gz-icon--md {
+  inline-size: var(--gz-size-icon-md);
+  block-size: var(--gz-size-icon-md);
+}
+
+.gz-icon--lg {
+  inline-size: var(--gz-size-icon-lg);
+  block-size: var(--gz-size-icon-lg);
+}
+
+.gz-icon--primary { color: var(--gz-color-sys-icon-primary); }
+.gz-icon--secondary { color: var(--gz-color-sys-icon-secondary); }
+.gz-icon--accent { color: var(--gz-color-sys-icon-accent); }
+.gz-icon--success { color: var(--gz-color-sys-icon-success); }
+.gz-icon--danger { color: var(--gz-color-sys-icon-danger); }
+.gz-icon--disabled { color: var(--gz-color-sys-icon-disabled); }
+.gz-icon--on-dark { color: var(--gz-color-sys-icon-on-dark); }

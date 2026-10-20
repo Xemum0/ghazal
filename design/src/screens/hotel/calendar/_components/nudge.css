@@ -1,0 +1,30 @@
+/* Nudge: rose-100 quiet panel (notes only), radius 12; a glyph in a paper disk at inline-start, three words, the one action at inline-end. */
+
+.cal-nudge {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-3);
+  background: var(--gz-color-sys-surface-tint);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.cal-nudge__disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-md);
+  block-size: var(--gz-size-avatar-md);
+  background: var(--gz-color-sys-surface-raised);
+  border-radius: var(--gz-radius-pill);
+}
+
+.cal-nudge__title {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}

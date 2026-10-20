@@ -1,0 +1,235 @@
+/* RequestCard (direction 3 "Hotel request card"): paper, 1 px ink-300, radius 12, padding 20, 16 between blocks, 12 inside a block.
+   The 2 px reply-window bar runs along the top edge and is clipped by the radius. Gold appears exactly twice: the one Accept and the
+   warning tone of the bar and time-left from 50% of the window. Nothing here has a shadow. */
+
+.gz-rq {
+  position: relative; /* flutter-ok: the reply bar is clipped to the card radius (ClipRRect) */
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-inline-size: 0;
+  overflow: hidden;
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair); border-style: solid; border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+}
+
+/* ---------- the reply-window bar ---------- */
+.gz-rq__bar {
+  display: flex;
+  flex: none;
+  block-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-track);
+}
+
+.gz-rq__bar-fill {
+  background: var(--gz-color-sys-status-sla-ok);
+  transform-origin: var(--gz-origin-start);
+}
+
+.gz-rq__bar--gold .gz-rq__bar-fill { background: var(--gz-color-sys-status-sla-warn); }
+.gz-rq__bar--danger .gz-rq__bar-fill { background: var(--gz-color-sys-status-sla-alert); }
+.gz-rq__bar--expired .gz-rq__bar-fill { background: var(--gz-color-sys-border-strong); }
+
+.gz-rq__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding: var(--gz-space-5);
+}
+
+/* ---------- head ---------- */
+.gz-rq__open {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-block-size: var(--gz-size-touch-min);
+  border-radius: var(--gz-radius-sm);
+  text-align: start;
+  cursor: pointer;
+}
+
+.gz-rq__status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2) var(--gz-space-3);
+}
+
+.gz-rq__pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gz-rq__new {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-rq__left {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-rq__left--gold { color: var(--gz-color-sys-text-gold-ink); }
+.gz-rq__left--danger { color: var(--gz-color-sys-text-danger); }
+
+.gz-rq__date {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-rq__hall {
+  color: var(--gz-color-sys-text-strong);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gz-rq__when {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-1) var(--gz-space-2);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-rq__dot {
+  flex: none;
+  inline-size: var(--gz-space-1);
+  block-size: var(--gz-space-1);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-border-control);
+}
+
+/* ---------- facts: a ruled strip, not a panel ---------- */
+.gz-rq__facts {
+  padding-block: var(--gz-space-3);
+  border-block-width: var(--gz-stroke-hair); border-block-style: solid; border-block-color: var(--gz-color-sys-border-hairline);
+}
+
+
+
+/* "You receive": the last line of the strip, label at the start and the amount at the end, like a ledger line. */
+.gz-rq__receive {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-rq__receive dt, .gz-rq__receive dd { margin: 0; }
+
+/* ---------- guest ---------- */
+.gz-rq__guest {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gz-rq__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.gz-rq__name {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-rq__marks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--gz-space-3);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-rq__mark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}
+
+.gz-rq__contact {
+  display: flex;
+  flex: none;
+  gap: var(--gz-space-1);
+}
+
+/* Special requests: a quiet rose note (rose-100 is for offers and quiet notes only). */
+.gz-rq__notes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  padding: var(--gz-space-3);
+  background: var(--gz-color-sys-surface-tint);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-rq__notes-label {
+  display: inline-flex;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- check line and conflict note ---------- */
+.gz-rq__line {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  min-block-size: var(--gz-space-6);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-rq__line--ok { color: var(--gz-color-sys-text-secondary); }
+
+.gz-rq__line--compare {
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.gz-rq__line-text {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-rq__line .gz-btn { flex: none; }
+
+/* ---------- decision ---------- */
+.gz-rq__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gz-rq__pair {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.gz-rq__pair .gz-btn {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* ---------- resolved ---------- */
+.gz-rq__summary {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gz-rq--resolved .gz-rq__date,
+.gz-rq--resolved .gz-rq__name {
+  color: var(--gz-color-sys-text-primary);
+}

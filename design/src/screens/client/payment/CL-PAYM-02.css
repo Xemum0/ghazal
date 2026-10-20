@@ -1,0 +1,227 @@
+/* CL-PAYM-02 · Secure payment. Ghazal's own chrome is the Outcome; the hosted page is a neutral third-party placeholder:
+   paper, ink, hairlines, no gold (gold is Ghazal's verb, not the bank's). */
+
+.pm-bartitle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.pm-info-p {
+  margin: 0;
+}
+
+.pm-info-p + .pm-info-p {
+  padding-block-start: var(--gz-space-3);
+}
+
+/* ---------- the hosted page frame ---------- */
+.pm-hosted {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-block-size: 0;
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.pm-hosted__note {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.pm-bank {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding: var(--gz-space-5);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-strong);
+}
+
+.pm-bank__brand {
+  display: flex;
+  align-items: center;
+  padding-block-end: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.pm-bank__logo {
+  direction: ltr;
+  font-family: var(--gz-font-fig);
+  font-size: var(--gz-type-fig-xl-size);
+  font-weight: var(--gz-type-fig-title-weight);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.pm-bank__facts {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+}
+
+.pm-bank__item {
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.pm-bank__fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-4);
+}
+
+.pm-bank__field {
+  display: flex;
+  flex: 1 1 140px;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.pm-bank__input {
+  display: block;
+  block-size: var(--gz-size-control-md);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-control);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-canvas);
+}
+
+.pm-bank__actions {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.pm-bankbtn {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-block-size: var(--gz-size-control-md);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-action-secondary-border);
+  border-radius: var(--gz-radius-sm);
+  background-color: transparent;
+  color: var(--gz-color-sys-action-secondary-label);
+}
+
+.pm-bankbtn--solid {
+  border-color: var(--gz-color-sys-action-selected-bg);
+  background-color: var(--gz-color-sys-action-selected-bg);
+  color: var(--gz-color-sys-action-selected-label);
+}
+
+/* ---------- Apple Pay / Google Pay: the native sheet over the hosted flow ---------- */
+.pm-hosted__dim {
+  position: relative; /* flutter-ok: named overlay anchor for the scrim, as a Stack */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: var(--gz-color-sys-surface-canvas);
+}
+
+.pm-hosted__scrim {
+  position: absolute; /* flutter-ok: the modal scrim over the Ghazal page behind the native sheet */
+  inset-block: 0;
+  inset-inline: 0;
+  background-color: var(--gz-color-sys-scrim-modal);
+}
+
+.pm-native {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-6);
+  border-start-start-radius: var(--gz-radius-lg);
+  border-start-end-radius: var(--gz-radius-lg);
+  background-color: var(--gz-color-sys-surface-raised);
+  box-shadow: var(--gz-elevation-3);
+}
+
+.pm-native__handle {
+  align-self: center;
+  inline-size: var(--gz-size-handle-width);
+  block-size: var(--gz-size-handle-height);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-border-strong);
+}
+
+.pm-native__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.pm-native__mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+  direction: ltr;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.pm-native__word {
+  font-family: var(--gz-type-fig-label-family);
+  font-size: var(--gz-type-fig-label-size);
+  font-weight: var(--gz-type-fig-title-weight);
+  white-space: nowrap;
+}
+
+.pm-native__item {
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.pm-native__amount {
+  display: flex;
+}
+
+/* ---------- prototype tray (not product UI) ---------- */
+.pm-proto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding: var(--gz-space-4) var(--gz-space-gutter) var(--gz-space-6);
+}
+
+.pm-proto__label {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.pm-proto__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+}
+
+.pm-proto__chip {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--gz-size-touch-min);
+  min-inline-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-4);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-raised);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.pm-proto__chip.is-on {
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+  color: var(--gz-color-sys-text-strong);
+}

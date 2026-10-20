@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ghazal - Compare (The Thread)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="direction.css">
+<script>(function(){var m=location.search.match(/lang=(ar|en)/);if(m){var d=document.documentElement;d.lang=m[1];d.dir=m[1]==='ar'?'rtl':'ltr'}if(/full=1/.test(location.search))document.documentElement.classList.add('is-full')})()</script>
+<style>
+  .appbar { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 4px; padding-inline: 8px; block-size: 64px; }
+  .appbar__t { display: grid; gap: 0; padding-inline: 4px; }
+  .controls { padding: 4px 12px 0; }
+  .controls__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .cmp__g--key { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .best-key { display: inline-flex; align-items: center; font-size: var(--fs-caption); line-height: var(--lh-caption); font-weight: var(--fw-reg); color: var(--text-muted); text-transform: none; letter-spacing: 0; }
+  .cmp__v .ic { --size: 18px; }
+  .cmp__v--st { display: inline-flex; align-items: center; gap: 6px; }
+  .cmp__v--st .ic { color: var(--gold-700); }
+  .cmp__v--hold .ic { color: var(--ink-600); }
+  .bar { margin-block-start: 10px; }
+  .page-end { block-size: 24px; }
+  .cmp-foot .btn { font-size: var(--fs-small); }
+</style>
+</head>
+<body>
+<main class="screen">
+  <div class="cmp-mini" id="mini" aria-hidden="true">
+    <div class="cmp-mini__c"><img src="../../public/images/halls/halls-08-grand-ballroom-crystal-chandelier.jpg" alt=""><span><span class="en">Aurelia Gulf Hotel</span><span class="ar">فندق أوريليا الخليج</span></span></div>
+    <div class="cmp-mini__c"><img src="../../public/images/outdoor/outdoor-01-ring-arch-oceanfront-aisle.jpg" alt=""><span><span class="en">Nawar Beach Resort</span><span class="ar">منتجع نوّار الشاطئي</span></span></div>
+    <div class="cmp-mini__c"><img src="../../public/images/halls/halls-06-heritage-skylight-banquet-hall.jpg" alt=""><span><span class="en">Wasl Wedding Centre</span><span class="ar">مركز وصل للأفراح</span></span></div>
+  </div>
+
+  <div class="statusbar"><span class="num">4:00</span><span class="statusbar__r"><span class="sb-sig"><i></i><i></i><i></i><i></i></span><span class="sb-bat"></span></span></div>
+  <header class="appbar">
+    <a class="icon-btn" href="client-home.html" aria-label="Back"><i class="ic i-chevron prev"></i></a>
+    <div class="appbar__t"><h1 class="t-title"><span class="en">Compare</span><span class="ar">مقارنة</span></h1><p class="t-caption t-muted"><span class="en">Thu <span class="num">14</span> Jan · <span class="num">350</span> guests · Ladies</span><span class="ar">الخميس <span class="num">14</span> يناير · <span class="num">350</span> مدعوّاً · نسائي</span></p></div>
+    <button class="icon-btn" type="button" aria-label="Share to WhatsApp"><i class="ic i-share"></i></button>
+  </header>
+
+  <!-- three venues, three equal columns, no label column, no horizontal scroll -->
+  <section class="cmp-head" id="head">
+    <div class="cmp-head__c"><div class="cmp-head__img"><img class="photo" src="../../public/images/halls/halls-08-grand-ballroom-crystal-chandelier.jpg" alt=""><button class="cmp-head__x" type="button" aria-label="Remove"><i class="ic i-close ic--16"></i></button></div><div><div class="cmp-head__n"><span class="en">Aurelia Gulf Hotel</span><span class="ar">فندق أوريليا الخليج</span></div><div class="cmp-head__a"><span class="en">Sharq</span><span class="ar">شرق</span></div></div></div>
+    <div class="cmp-head__c"><div class="cmp-head__img"><img class="photo" src="../../public/images/outdoor/outdoor-01-ring-arch-oceanfront-aisle.jpg" alt=""><button class="cmp-head__x" type="button" aria-label="Remove"><i class="ic i-close ic--16"></i></button></div><div><div class="cmp-head__n"><span class="en">Nawar Beach Resort</span><span class="ar">منتجع نوّار الشاطئي</span></div><div class="cmp-head__a"><span class="en">Messila</span><span class="ar">المسيلة</span></div></div></div>
+    <div class="cmp-head__c"><div class="cmp-head__img"><img class="photo" src="../../public/images/halls/halls-06-heritage-skylight-banquet-hall.jpg" alt=""><button class="cmp-head__x" type="button" aria-label="Remove"><i class="ic i-close ic--16"></i></button></div><div><div class="cmp-head__n"><span class="en">Wasl Wedding Centre</span><span class="ar">مركز وصل للأفراح</span></div><div class="cmp-head__a"><span class="en">Mishref</span><span class="ar">مشرف</span></div></div></div>
+  </section>
+
+  <!-- differences only: a switch, not a second control. Hidden rows are counted, never silently dropped. -->
+  <div class="controls">
+    <div class="controls__row">
+      <div style="display:grid;gap:0;min-inline-size:0"><span class="t-small t-strong"><span class="en">Differences only</span><span class="ar">الفروقات فقط</span></span><span class="t-caption t-muted"><span class="en"><span class="num">5</span> identical rows hidden</span><span class="ar"><span class="num">5</span> صفوف متطابقة مخفية</span></span></div>
+      <button class="toggle" type="button" role="switch" aria-checked="true" aria-label="Differences only"></button>
+    </div>
+  </div>
+
+  <!-- YOUR DATE + PRICE: certainty first. Availability and the number that matters, both before the fold. -->
+  <h2 class="cmp__g eyebrow cmp__g--key"><span class="en">Your date · <span class="num">350</span> guests</span><span class="ar">موعدكم · <span class="num">350</span> مدعوّاً</span><span class="best-key"><i class="best"></i><span class="en">best in row</span><span class="ar">الأفضل</span></span></h2>
+  <div class="cmp__lbl"><span class="en">Thu <span class="num">14</span> Jan, evening</span><span class="ar">الخميس <span class="num">14</span> يناير، المساء</span></div>
+  <div class="cmp__row">
+    <div class="cmp__c"><span class="cmp__v cmp__v--st"><i class="ic i-checkcircle"></i><span class="en">Free</span><span class="ar">متاح</span></span></div>
+    <div class="cmp__c"><span class="cmp__v cmp__v--st cmp__v--hold"><i class="ic i-clock"></i><span class="en">On hold</span><span class="ar">قيد الحجز</span></span></div>
+    <div class="cmp__c"><span class="cmp__v cmp__v--st"><i class="ic i-checkcircle"></i><span class="en">Free</span><span class="ar">متاح</span></span></div>
+  </div>
+  <div class="cmp__lbl"><span class="en">Estimated total</span><span class="ar">الإجمالي التقديري</span></div>
+  <div class="cmp__row">
+    <div class="cmp__c"><span class="cmp__v"><span class="money"><i class="cur"></i>18,200</span></span><div class="bar draw" style="--v:.945"></div></div>
+    <div class="cmp__c"><span class="cmp__v"><span class="money"><i class="cur"></i>19,250</span></span><div class="bar draw" style="--v:1"></div></div>
+    <div class="cmp__c"><span class="cmp__v"><i class="best"></i><span class="money"><i class="cur"></i>10,850</span></span><div class="bar bar--end draw" style="--v:.564"></div></div>
+  </div>
+  <div class="cmp__lbl"><span class="en">Per guest, weekend</span><span class="ar">للضيف، نهاية الأسبوع</span></div>
+  <div class="cmp__row">
+    <div class="cmp__c"><span class="cmp__v"><span class="money"><i class="cur"></i>52</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><span class="money"><i class="cur"></i>55</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><i class="best"></i><span class="money"><i class="cur"></i>31</span></span></div>
+  </div>
+  <div class="cmp__lbl"><span class="en">Deposit, <span class="num">30</span>%</span><span class="ar">العربون، <span class="num">30</span>%</span></div>
+  <div class="cmp__row">
+    <div class="cmp__c"><span class="cmp__v"><span class="money"><i class="cur"></i>5,460</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><span class="money"><i class="cur"></i>5,775</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><i class="best"></i><span class="money"><i class="cur"></i>3,255</span></span></div>
+  </div>
+
+  <!-- HOW YOU BOOK -->
+  <h2 class="cmp__g eyebrow"><span class="en">How you book</span><span class="ar">طريقة الحجز</span></h2>
+  <div class="cmp__row">
+    <div class="cmp__c"><span class="cmp__v"><span class="en">Request</span><span class="ar">طلب</span></span><span class="cmp__s"><span class="en">Reply in <span class="num">24</span> h</span><span class="ar">الرد خلال <span class="num">24</span> ساعة</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><span class="en">Request</span><span class="ar">طلب</span></span><span class="cmp__s"><span class="en">Reply in <span class="num">24</span> h</span><span class="ar">الرد خلال <span class="num">24</span> ساعة</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><span class="en">Instant</span><span class="ar">فوري</span></span><span class="cmp__s"><span class="en">Pay deposit now</span><span class="ar">العربون الآن</span></span></div>
+  </div>
+
+  <!-- SPACE: the thread is the hall; the tick is your guest count -->
+  <h2 class="cmp__g eyebrow"><span class="en">Space</span><span class="ar">المساحة</span></h2>
+  <div class="cmp__lbl"><span class="en">Hall capacity · tick = your <span class="num">350</span></span><span class="ar">سعة القاعة · العلامة = <span class="num">350</span> مدعوّ</span></div>
+  <div class="cmp__row">
+    <div class="cmp__c"><span class="cmp__v"><span class="en">Danah · <span class="num">650</span></span><span class="ar">الدانة · <span class="num">650</span></span></span><div class="bar bar--tick draw" style="--v:.93"></div></div>
+    <div class="cmp__c"><span class="cmp__v"><i class="best"></i><span class="en">Lawn · <span class="num">450</span></span><span class="ar">الحديقة · <span class="num">450</span></span></span><div class="bar bar--tick draw" style="--v:.643"></div><span class="cmp__s"><span class="en">Closest fit</span><span class="ar">الأنسب للعدد</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><span class="en">Hall A · <span class="num">600</span></span><span class="ar">قاعة A · <span class="num">600</span></span></span><div class="bar bar--tick draw" style="--v:.857"></div></div>
+  </div>
+  <div class="cmp__lbl"><span class="en">Setting</span><span class="ar">الأجواء</span></div>
+  <div class="cmp__row">
+    <div class="cmp__c"><span class="cmp__v"><span class="en">Indoor</span><span class="ar">داخلية</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><span class="en">Outdoor</span><span class="ar">مفتوحة</span></span><span class="cmp__s"><span class="en">Nov to Mar</span><span class="ar">نوفمبر إلى مارس</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><span class="en">Indoor</span><span class="ar">داخلية</span></span></div>
+  </div>
+
+  <!-- FACILITIES -->
+  <h2 class="cmp__g eyebrow"><span class="en">Facilities</span><span class="ar">المرافق</span></h2>
+  <div class="cmp__lbl"><span class="en">Parking</span><span class="ar">المواقف</span></div>
+  <div class="cmp__row">
+    <div class="cmp__c"><span class="cmp__v"><span class="en">Valet included</span><span class="ar">فاليه مشمول</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><span class="en">Valet included</span><span class="ar">فاليه مشمول</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><span class="en">Self-park</span><span class="ar">مواقف ذاتية</span></span></div>
+  </div>
+  <div class="cmp__lbl"><span class="en">Bridal suite</span><span class="ar">جناح العروس</span></div>
+  <div class="cmp__row">
+    <div class="cmp__c"><span class="cmp__v"><span class="en">Plus 1 night</span><span class="ar">مع ليلة إقامة</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><span class="en">Included</span><span class="ar">مشمول</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><span class="en">Included</span><span class="ar">مشمول</span></span></div>
+  </div>
+
+  <!-- RATING + DISTANCE -->
+  <h2 class="cmp__g eyebrow"><span class="en">Reputation and distance</span><span class="ar">التقييم والمسافة</span></h2>
+  <div class="cmp__lbl"><span class="en">Rating</span><span class="ar">التقييم</span></div>
+  <div class="cmp__row">
+    <div class="cmp__c"><span class="rating"><i class="ic i-starfill"></i><span class="rating__n">4.8</span><span class="rating__c">(<span class="num">212</span>)</span></span></div>
+    <div class="cmp__c"><span class="rating"><i class="best" style="margin-inline-end:2px"></i><i class="ic i-starfill"></i><span class="rating__n">4.9</span><span class="rating__c">(<span class="num">96</span>)</span></span></div>
+    <div class="cmp__c"><span class="rating"><i class="ic i-starfill"></i><span class="rating__n">4.3</span><span class="rating__c">(<span class="num">158</span>)</span></span></div>
+  </div>
+  <div class="cmp__lbl"><span class="en">From Salmiya</span><span class="ar">من السالمية</span></div>
+  <div class="cmp__row">
+    <div class="cmp__c"><span class="cmp__v"><i class="best"></i><span class="en"><span class="num">9</span> km</span><span class="ar"><span class="num">9</span> كم</span></span><span class="cmp__s"><span class="en"><span class="num">15</span> min drive</span><span class="ar"><span class="num">15</span> دقيقة بالسيارة</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><span class="en"><span class="num">24</span> km</span><span class="ar"><span class="num">24</span> كم</span></span><span class="cmp__s"><span class="en"><span class="num">28</span> min drive</span><span class="ar"><span class="num">28</span> دقيقة بالسيارة</span></span></div>
+    <div class="cmp__c"><span class="cmp__v"><span class="en"><span class="num">11</span> km</span><span class="ar"><span class="num">11</span> كم</span></span><span class="cmp__s"><span class="en"><span class="num">17</span> min drive</span><span class="ar"><span class="num">17</span> دقيقة بالسيارة</span></span></div>
+  </div>
+  <div class="page-end"></div>
+
+  <!-- footer: each button sits under its own venue; they are a choice group, so none is gold -->
+  <div class="cmp-foot">
+    <div><a class="btn btn--secondary" href="#"><span class="en">Request</span><span class="ar">طلب</span></a></div>
+    <div><a class="btn btn--secondary" href="#"><span class="en">Notify me</span><span class="ar">نبّهوني</span></a></div>
+    <div><a class="btn btn--secondary" href="#"><span class="en">Book now</span><span class="ar">حجز فوري</span></a></div>
+    <div class="homebar"></div>
+  </div>
+</main>
+<script>
+  /* motion only: the three thumbnails collapse into a 56px sticky header once the full header scrolls away */
+  (function(){var h=document.getElementById('head'),m=document.getElementById('mini');if(!h||!m||!('IntersectionObserver' in window))return;
+    new IntersectionObserver(function(e){m.classList.toggle('is-on',!e[0].isIntersecting&&e[0].boundingClientRect.top<0)},{threshold:0}).observe(h)})();
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+/* CL-AUTH-05: the unlock screen is a quiet column (brand, a doorway, one person, one action); the pre-prompt is a sheet with the method's glyph. */
+.gza05-unlock {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-6);
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-safe-top);
+  padding-block-end: var(--gz-space-8);
+}
+
+/* The doorway and the person sit in the middle of the space left under the brand; with the fallback the whole group does. */
+.gza05-unlock__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  gap: var(--gz-space-6);
+}
+
+.gza05-unlock__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  block-size: var(--gz-space-16);
+}
+
+.gza05-unlock__who {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gz-space-3);
+}
+
+.gza05-unlock__name {
+  margin: 0;
+}
+
+.gza05-unlock__fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  gap: var(--gz-space-3);
+}
+
+.gza05-unlock__fallback .gza-note {
+  align-self: stretch;
+}
+
+/* The method's glyph on a rose disk (never larger than the monogram's column, never decorative lock art). */
+.gza05-disk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--gz-size-thumb-lg);
+  block-size: var(--gz-size-thumb-lg);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+.gza05-disk--hero {
+  inline-size: var(--gz-size-illustration-md);
+  block-size: var(--gz-size-illustration-md);
+}
+
+.gza05-disk--quiet {
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-icon-disabled);
+}
+
+.gza05-sheet {
+  gap: var(--gz-space-3);
+}
+
+/* Info glyph at the start edge, close at the end edge: both hand their 44 target's slack back to the gutter. */
+.gza05-sheet__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gza05-info {
+  position: relative; /* flutter-ok: Transform.translate by the target's slack so the glyph meets the 20 gutter */
+  inset-inline-start: -10px;
+}
+
+.gza05-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.gza05-sheet__title {
+  margin: 0;
+}
+
+.gza05-sheet__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-4);
+}
+
+.gza05-sheet__actions .gz-btn--tertiary {
+  align-self: center;
+}
+
+.gza05-under {
+  flex: 1;
+}
+
+.gza05-settings {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+/* The reason glyph and the disabled switch share the row's end edge. */
+.gza05-settings__end {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}

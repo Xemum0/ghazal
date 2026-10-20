@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ghazal - Hotel Today (The Thread)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="direction.css">
+<script>(function(){var m=location.search.match(/lang=(ar|en)/);if(m){var d=document.documentElement;d.lang=m[1];d.dir=m[1]==='ar'?'rtl':'ltr'}if(/full=1/.test(location.search))document.documentElement.classList.add('is-full')})()</script>
+<style>
+  .appbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 4px; padding-inline: var(--gutter) 8px; block-size: 64px; }
+  .who { display: flex; align-items: center; gap: 12px; min-inline-size: 0; }
+  .who__t { display: grid; gap: 0; min-inline-size: 0; }
+  .venue-sw { display: inline-flex; align-items: center; gap: 2px; font-size: var(--fs-body); line-height: var(--lh-small); font-weight: var(--fw-med); color: var(--text-strong); min-block-size: 44px; }
+  .venue-sw .ic { --size: 18px; color: var(--ink-600); }
+  .bell { position: relative; }
+  .bell .dot { position: absolute; inset-block-start: 10px; inset-inline-end: 11px; inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--gold-500); box-shadow: 0 0 0 2px var(--bg); }
+  .lead { padding: 24px var(--gutter) 0; display: grid; gap: 8px; }
+  .sec--h { padding-block-start: 32px; }
+  .sec-h .display { font-size: var(--fs-d3); line-height: var(--lh-d3); }
+  .reqs { display: grid; gap: 12px; }
+  .reqc__who { min-inline-size: 0; display: grid; gap: 2px; }
+  .reqc__end { display: grid; gap: 2px; justify-items: end; text-align: end; }
+  .reqc__end .t-caption { font-weight: var(--fw-med); color: var(--text-muted); }
+  .vt .badge { margin-inline-start: auto; }
+  .vt__c { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .vt__c .badge { flex: none; }
+  .week-card { padding: 8px 8px 12px; }
+  .week-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 12px 8px 0; border-block-start: var(--stroke-hair) solid var(--line); margin-block-start: 4px; font-size: var(--fs-caption); line-height: var(--lh-caption); color: var(--text-muted); }
+  .week-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .lb { inline-size: 14px; block-size: 4px; border-radius: 2px; display: inline-block; }
+  .week__closed { inset-block-start: 67px; inset-inline-start: calc(100% / 7 * 4.5); inline-size: calc(100% / 7); }
+  .week__closed::before, .week__closed::after { content: ""; position: absolute; inset-block-start: 50%; inline-size: 10px; block-size: 10px; margin-block-start: -5px; border-radius: 50%; background: var(--gold-500); box-shadow: 0 0 0 2px var(--paper); }
+  .week__closed::before { inset-inline-start: -5px; } .week__closed::after { inset-inline-end: -5px; }
+  .kpi-hero { padding: 24px; border-radius: var(--r-xl); display: grid; gap: 16px; }
+  .kpi-hero .kpi__v { color: var(--ivory); }
+  .kpi-hero__split { display: flex; justify-content: space-between; gap: 12px; }
+  .kpi-hero__split > div { display: grid; gap: 2px; }
+  .kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-block-start: 12px; }
+  .kpis .card { padding: 16px; display: grid; gap: 4px; align-content: start; }
+  .page-end { block-size: 40px; }
+</style>
+</head>
+<body>
+<main class="screen">
+  <div class="statusbar"><span class="num">4:00</span><span class="statusbar__r"><span class="sb-sig"><i></i><i></i><i></i><i></i></span><span class="sb-bat"></span></span></div>
+
+  <!-- ============ APP BAR: who is looking, at which venue ============ -->
+  <header class="appbar">
+    <div class="who">
+      <span class="mono mono--dark" aria-hidden="true">س</span>
+      <div class="who__t">
+        <span class="t-caption t-muted"><span class="en">Good afternoon, Salman</span><span class="ar">مساء الخير، سلمان</span></span>
+        <button class="venue-sw" type="button"><span class="en">Aurelia Gulf Hotel</span><span class="ar">فندق أوريليا الخليج</span><i class="ic i-chevdown"></i></button>
+      </div>
+    </div>
+    <button class="icon-btn bell" type="button" aria-label="Notifications"><i class="ic i-bell"></i><span class="dot"></span></button>
+  </header>
+
+  <!-- ============ STATUS SENTENCE: answers "do I have anything to do?" before any number ============ -->
+  <section class="lead">
+    <p class="t-caption t-muted"><span class="en">Thursday <span class="num">12</span> November · <span class="num">4:00</span> PM</span><span class="ar">الخميس <span class="num">12</span> نوفمبر · <span class="num">4:00</span> م</span></p>
+    <h1 class="display d2"><span class="en"><span class="num">5</span> requests need your reply.</span><span class="ar"><span class="num">5</span> طلبات بانتظار ردّكم.</span></h1>
+    <p class="t-body t-muted"><span class="en">The first one closes in <span class="num">3</span> hours.</span><span class="ar">أقربها انتهاءً بعد <span class="num">3</span> ساعات.</span></p>
+  </section>
+
+  <!-- ============ NEEDS YOUR REPLY: ordered by expiry. The hairline on each card is the reply window, depleting. ============ -->
+  <section class="gx sec--h">
+    <div class="sec-h"><h2 class="display"><span class="en">Needs your reply</span><span class="ar">بانتظار ردّكم</span></h2><a class="btn btn--tertiary btn--sm" href="#"><span class="en">See all <span class="num">5</span></span><span class="ar">عرض الكل (<span class="num">5</span>)</span></a></div>
+    <div class="reqs">
+      <article class="req">
+        <span class="sla is-soon" style="--p:.125"></span>
+        <div class="req__top"><span class="badge badge--pending"><i class="ic i-clock"></i><span class="en">Awaiting reply</span><span class="ar">بانتظار الرد</span></span><span class="t-small t-gold t-strong"><span class="en"><span class="num">3</span> h left</span><span class="ar">باقي <span class="num">3</span> ساعات</span></span></div>
+        <h3 class="req__date"><span class="en">Sun <span class="num">17</span> Jan <span class="num">2027</span></span><span class="ar">الأحد <span class="num">17</span> يناير <span class="num">2027</span></span></h3>
+        <p class="req__meta"><span class="en">Ladies' reception · Majlis Hall · Evening</span><span class="ar">الحفل النسائي · قاعة المجلس · المساء</span></p>
+        <dl class="req__facts">
+          <div><dt><span class="en">Guests</span><span class="ar">المدعوّون</span></dt><dd><span class="num">250</span></dd></div>
+          <div><dt><span class="en">Rate</span><span class="ar">السعر</span></dt><dd><span class="en">Weekday · <span class="money"><i class="cur"></i>46</span></span><span class="ar">أيام الأسبوع · <span class="money"><i class="cur"></i>46</span></span></dd></div>
+          <div><dt><span class="en">Total</span><span class="ar">الإجمالي</span></dt><dd><span class="money"><i class="cur"></i>11,500<i class="fils">.000</i></span></dd></div>
+        </dl>
+        <div class="req__who">
+          <span class="mono">د</span>
+          <div class="grow"><div class="t-small t-strong"><span class="en">Dana Al-Shammari</span><span class="ar">دانة الشمري</span></div><div class="t-caption t-muted"><span class="en">Verified · First booking</span><span class="ar">رقم موثّق · أول حجز</span></div></div>
+          <button class="icon-btn" type="button" aria-label="Call"><i class="ic i-phone"></i></button>
+          <button class="icon-btn" type="button" aria-label="Chat"><i class="ic i-message"></i></button>
+        </div>
+        <div class="req__acts">
+          <a class="btn btn--primary btn--lg btn--block" href="#"><span class="en">Accept</span><span class="ar">قبول</span></a>
+          <div class="req__alt"><a class="btn btn--tertiary" href="#"><span class="en">Propose another date</span><span class="ar">اقتراح موعد آخر</span></a><a class="btn btn--tertiary btn--neutral" href="#"><span class="en">Decline</span><span class="ar">اعتذار</span></a></div>
+        </div>
+      </article>
+
+      <article class="reqc">
+        <span class="sla" style="--p:.625"></span>
+        <span class="mono">ع</span>
+        <div class="reqc__who"><span class="t-small t-strong"><span class="en">Abdullah Al-Hajri</span><span class="ar">عبدالله الهاجري</span></span><span class="t-caption t-muted"><span class="en">Full night · Fri <span class="num">5</span> Feb</span><span class="ar">ليلة متكاملة · الجمعة <span class="num">5</span> فبراير</span></span><span class="t-caption t-muted"><span class="en">Ladies <span class="num">380</span> · Men <span class="num">450</span></span><span class="ar">نساء <span class="num">380</span> · رجال <span class="num">450</span></span></span></div>
+        <div class="reqc__end"><span class="t-caption"><span class="en"><span class="num">15</span> h left</span><span class="ar">باقي <span class="num">15</span> ساعة</span></span><span class="t-small t-strong"><span class="money"><i class="cur"></i>34,160<i class="fils">.000</i></span></span></div>
+      </article>
+      <article class="reqc">
+        <span class="sla" style="--p:.708"></span>
+        <span class="mono">م</span>
+        <div class="reqc__who"><span class="t-small t-strong"><span class="en">Maryam Al-Kandari</span><span class="ar">مريم الكندري</span></span><span class="t-caption t-muted"><span class="en">Ladies' · Thu <span class="num">28</span> Jan</span><span class="ar">نسائي · الخميس <span class="num">28</span> يناير</span></span><span class="t-caption t-muted"><span class="en"><span class="num">300</span> guests</span><span class="ar"><span class="num">300</span> مدعوّة</span></span></div>
+        <div class="reqc__end"><span class="t-caption"><span class="en"><span class="num">17</span> h left</span><span class="ar">باقي <span class="num">17</span> ساعة</span></span><span class="t-small t-strong"><span class="money"><i class="cur"></i>15,600<i class="fils">.000</i></span></span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ TODAY: the thread is the day. Gold up to now, quiet after. ============ -->
+  <section class="gx sec--h">
+    <div class="sec-h"><h2 class="display"><span class="en">Today</span><span class="ar">اليوم</span></h2><span class="t-small t-muted"><span class="en">Thu <span class="num">12</span> Nov</span><span class="ar">الخميس <span class="num">12</span> نوفمبر</span></span></div>
+    <ol class="vt">
+      <li class="vt__row is-done">
+        <time class="vt__t"><span class="num">2:00</span><small><span class="en">PM</span><span class="ar">م</span></small></time><span class="vt__rail"></span>
+        <div class="vt__c"><div><div class="ev__t"><span class="en">Danah Ballroom set-up</span><span class="ar">تجهيز قاعة الدانة</span></div><div class="ev__s"><span class="en">Complete · <span class="num">420</span> seats</span><span class="ar">اكتمل · <span class="num">420</span> مقعداً</span></div></div><span class="badge badge--completed"><i class="ic i-check"></i><span class="en">Done</span><span class="ar">تم</span></span></div>
+      </li>
+      <li class="vt__row is-now">
+        <time class="vt__t"><span class="num">4:00</span><small><span class="en">Now</span><span class="ar">الآن</span></small></time><span class="vt__rail"></span>
+        <div class="vt__c"><div class="ev__s" style="color:var(--text-gold);padding-block-start:2px"><span class="en">Next: guests arrive in <span class="num">4</span> h <span class="num">30</span> min</span><span class="ar">التالي: وصول المدعوّين بعد <span class="num">4</span> ساعات و<span class="num">30</span> دقيقة</span></div></div>
+      </li>
+      <li class="vt__row">
+        <time class="vt__t"><span class="num">8:30</span><small><span class="en">PM</span><span class="ar">م</span></small></time><span class="vt__rail"></span>
+        <div class="vt__c"><div><div class="ev__t"><span class="en">Men's reception</span><span class="ar">الحفل الرجالي</span></div><div class="ev__s"><span class="en">Majlis Hall · <span class="num">310</span> guests</span><span class="ar">قاعة المجلس · <span class="num">310</span> مدعوّاً</span></div><div class="ev__s"><span class="money"><i class="cur"></i>9,920<i class="fils">.000</i></span></div></div><span class="badge badge--ok"><i class="ic i-check"></i><span class="en">Paid</span><span class="ar">مدفوع</span></span></div>
+      </li>
+      <li class="vt__row">
+        <time class="vt__t"><span class="num">9:00</span><small><span class="en">PM</span><span class="ar">م</span></small></time><span class="vt__rail"></span>
+        <div class="vt__c"><div><div class="ev__t"><span class="en">Ladies' reception</span><span class="ar">الحفل النسائي</span></div><div class="ev__s"><span class="en">Danah Ballroom · <span class="num">420</span> guests</span><span class="ar">قاعة الدانة · <span class="num">420</span> مدعوّة</span></div><div class="ev__s"><span class="money"><i class="cur"></i>21,840<i class="fils">.000</i></span></div></div><span class="badge badge--ok"><i class="ic i-check"></i><span class="en">Paid</span><span class="ar">مدفوع</span></span></div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ============ NEXT 7 DAYS: a range of closed days is one thread between two knots ============ -->
+  <section class="gx sec--h">
+    <div class="sec-h"><h2 class="display"><span class="en">Next 7 days</span><span class="ar">الأيام السبعة القادمة</span></h2></div>
+    <div class="card week-card">
+      <div class="week">
+        <div class="wd is-today"><span class="wd__n">12</span><span class="wd__d"><span class="en">Thu</span><span class="ar">خميس</span></span><span class="wd__bars"><i class="is-conf"></i><i class="is-conf"></i></span></div>
+        <div class="wd"><span class="wd__n">13</span><span class="wd__d"><span class="en">Fri</span><span class="ar">جمعة</span></span><span class="wd__bars"><i class="is-conf"></i><i class="is-pend"></i></span></div>
+        <div class="wd"><span class="wd__n">14</span><span class="wd__d"><span class="en">Sat</span><span class="ar">سبت</span></span><span class="wd__bars"><i class="is-conf"></i><i class="is-conf"></i></span></div>
+        <div class="wd"><span class="wd__n">15</span><span class="wd__d"><span class="en">Sun</span><span class="ar">أحد</span></span><span class="wd__bars"><i></i><i></i></span></div>
+        <div class="wd is-closed"><span class="wd__n">16</span><span class="wd__d"><span class="en">Mon</span><span class="ar">اثنين</span></span><span class="wd__bars"></span></div>
+        <div class="wd is-closed"><span class="wd__n">17</span><span class="wd__d"><span class="en">Tue</span><span class="ar">ثلاثاء</span></span><span class="wd__bars"></span></div>
+        <div class="wd"><span class="wd__n">18</span><span class="wd__d"><span class="en">Wed</span><span class="ar">أربعاء</span></span><span class="wd__bars"><i class="is-conf"></i><i></i></span></div>
+        <span class="week__closed"></span>
+      </div>
+      <div class="week-legend">
+        <span><i class="lb" style="background:var(--ink-700)"></i><span class="en">Confirmed</span><span class="ar">مؤكد</span></span>
+        <span><i class="lb" style="background:var(--gold-500)"></i><span class="en">Pending</span><span class="ar">بانتظار الرد</span></span>
+        <span><i class="lb" style="background:var(--ink-200)"></i><span class="en">Open</span><span class="ar">متاح</span></span>
+        <span style="flex-basis:100%"><i class="lb" style="background:var(--gold-500);block-size:2px"></i><span class="en">Mon–Tue closed: lobby works</span><span class="ar">الاثنين والثلاثاء مغلق: أعمال صيانة المدخل</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THIS MONTH: one hero figure, two tiles. One ink surface on the screen. ============ -->
+  <section class="gx sec--h">
+    <div class="sec-h"><h2 class="display"><span class="en">This month</span><span class="ar">هذا الشهر</span></h2></div>
+    <div class="kpi-hero card--dark card">
+      <div style="display:grid;gap:4px">
+        <span class="eyebrow" style="color:var(--gold-400)"><span class="en">Booked in November</span><span class="ar">قيمة حجوزات نوفمبر</span></span>
+        <span class="kpi__v kpi__v--hero"><span class="money"><i class="cur"></i>214,600</span></span>
+        <span class="t-small" style="color:rgba(255,249,245,.72)"><span class="en"><span class="num">16</span> events · deposits this week <span class="money"><i class="cur"></i>21,860</span></span><span class="ar"><span class="num">16</span> مناسبة · عربونات هذا الأسبوع <span class="money"><i class="cur"></i>21,860</span></span></span>
+      </div>
+      <div>
+        <div class="bar bar--on-bar bar--end draw" style="--v:.663;--thread-track:rgba(255,249,245,.22);--ring-bg:var(--ink-900);margin-block-start:0"></div>
+        <div class="kpi-hero__split" style="margin-block-start:12px">
+          <div><span class="t-caption" style="color:rgba(255,249,245,.72)"><span class="en">Collected</span><span class="ar">المحصّل</span></span><span class="t-small t-strong" style="color:var(--ivory)"><span class="money"><i class="cur"></i>142,300</span></span></div>
+          <div style="text-align:end"><span class="t-caption" style="color:rgba(255,249,245,.72)"><span class="en">To collect</span><span class="ar">المتبقي للتحصيل</span></span><span class="t-small t-strong" style="color:var(--ivory)"><span class="money"><i class="cur"></i>72,300</span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="kpis">
+      <div class="card"><span class="kpi__k"><span class="en">Pending value</span><span class="ar">قيمة الطلبات المعلقة</span></span><span class="kpi__v"><span class="money"><i class="cur"></i>92,260</span></span><span class="kpi__d"><span class="en"><span class="num">5</span> requests</span><span class="ar"><span class="num">5</span> طلبات</span></span></div>
+      <div class="card"><span class="kpi__k"><span class="en">Open dates, next 30 days</span><span class="ar">تواريخ متاحة خلال 30 يوماً</span></span><span class="kpi__v">9</span><span class="kpi__d"><i class="ic i-trendup ic--16"></i><span class="en"><span class="num">+2</span> vs last month</span><span class="ar"><span class="num">+2</span> عن الشهر الماضي</span></span></div>
+    </div>
+  </section>
+  <div class="page-end"></div>
+
+  <nav class="nav" style="--i:0" aria-label="Main">
+    <span class="nav__thread"></span>
+    <a class="nav__item" href="#" aria-current="page"><i class="ic i-sunrise"></i><span class="en">Today</span><span class="ar">اليوم</span></a>
+    <a class="nav__item" href="#"><i class="ic i-list"></i><span class="en">Bookings</span><span class="ar">الحجوزات</span><span class="nav__badge">5</span></a>
+    <a class="nav__item" href="#"><i class="ic i-calendar"></i><span class="en">Calendar</span><span class="ar">التقويم</span></a>
+    <a class="nav__item" href="#"><i class="ic i-message"></i><span class="en">Messages</span><span class="ar">الرسائل</span><span class="nav__badge">3</span></a>
+    <a class="nav__item" href="#"><i class="ic i-more"></i><span class="en">More</span><span class="ar">المزيد</span></a>
+    <div class="homebar"></div>
+  </nav>
+</main>
+</body>
+</html>

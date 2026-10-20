@@ -1,0 +1,168 @@
+/* Home hero (CL-DISC-01, direction 5 "Arch": Home hero and onboarding only).
+   Layers, bottom to top: the photograph (from the apex down to 40 under the Brief card's top edge) with one scrim over the stage part only;
+   the crown (an SVG of canvas outside the arch plus a 1 px gold-500 edge, 64 high; Flutter: CustomClipper from shape.arch plus one stroked
+   path); the header row (wordmark, bell) on canvas; the khayt and the three-word headline at the stage foot. The hero's own box is the stage, so the
+   Brief card that follows in the flow covers the photograph's foot without a negative margin. */
+
+.gzd-hero {
+  position: relative; /* flutter-ok: Stack, the photo, crown and copy are positioned inside it */
+  display: block;
+  background-color: var(--gz-color-sys-surface-canvas);
+}
+
+.gzd-hero__photo {
+  position: absolute; /* flutter-ok: Stack child behind the copy */
+  inset-inline: 0;
+  display: flex;
+  overflow: hidden;
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gzd-hero__photo .gz-photo {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzd-hero__photo .gz-photo__img {
+  /* flutter-ok: image alignment (Alignment(0, -0.2)) */
+  object-position: 50% 42%;
+}
+
+/* Scrim over the visible stage only: clear at the crown, scrim-low behind the headline, scrim-bottom at the card edge (then it stays,
+   so the photograph beside the card's top corners is the same tone as the headline's ground). */
+.gzd-hero__scrim {
+  position: absolute; /* flutter-ok: photo scrim */
+  inset-block-start: 0;
+  inset-inline: 0;
+  /* flutter-ok: hero scrim stops (a gradient-hero-home token is requested; direction 2.2 names the stops) */
+  background: linear-gradient(to bottom, var(--gz-color-sys-scrim-clear) 0%, var(--gz-color-sys-scrim-clear) 14%, var(--gz-color-sys-scrim-mid) 30%, var(--gz-color-sys-scrim-low) 54%, var(--gz-color-sys-scrim-bottom) 100%);
+  pointer-events: none;
+}
+
+.gzd-hero__photo::after {
+  content: '';
+  position: absolute; /* flutter-ok: photo scrim continuing under the Brief card */
+  inset-block-end: 0;
+  inset-inline: 0;
+  block-size: var(--gz-space-6);
+  background-color: var(--gz-color-sys-scrim-bottom);
+  pointer-events: none;
+}
+
+/* The crown: 64 high from the apex. The outside (the two shoulders) is canvas; the edge is one hairline of gold-500. */
+.gzd-hero__crown {
+  position: absolute; /* flutter-ok: CustomPainter over the photo */
+  inset-inline: 0;
+  display: flex;
+  block-size: var(--gz-shape-arch-rise);
+  pointer-events: none;
+}
+
+.gzd-hero__crown-svg {
+  flex: 1;
+  align-self: stretch;
+  min-inline-size: 0;
+  overflow: visible;
+}
+
+.gzd-hero__outside {
+  fill: var(--gz-color-sys-surface-canvas);
+}
+
+.gzd-hero__edge {
+  fill: none;
+  stroke: var(--gz-color-sys-mark-khayt);
+  stroke-width: var(--gz-stroke-hair);
+}
+
+/* Wordmark and bell: one 44 row under the status bar, on canvas. The apex rises between them. */
+.gzd-hero__bar {
+  position: absolute; /* flutter-ok: Stack child */
+  inset-block-start: 0;
+  inset-inline: 0;
+  box-sizing: border-box;
+}
+
+.gzd-hero__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  padding-inline-start: var(--gz-space-gutter);
+  /* The bell's glyph sits on the gutter: its 44 target overhangs the glyph by 10. */
+  padding-inline-end: var(--gz-space-2);
+}
+
+.gzd-hero__bell {
+  position: relative; /* flutter-ok: named anchor for the unread bead */
+  display: flex;
+  flex: none;
+}
+
+.gzd-hero__bead {
+  position: absolute; /* flutter-ok: named anchor, the unread bead on the bell */
+  inset-block-start: var(--gz-space-2);
+  inset-inline-end: var(--gz-space-2);
+  display: flex;
+  pointer-events: none;
+}
+
+/* Khayt and headline: at the stage foot, 24 above the card. */
+.gzd-hero__copy {
+  position: absolute; /* flutter-ok: Stack child anchored to the stage foot */
+  inset-block-end: var(--gz-space-6);
+  inset-inline: var(--gz-space-gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}
+
+.gzd-hero__headline {
+  margin: 0;
+  color: var(--gz-color-sys-text-on-dark);
+  /* The line break is authored in the message (two balanced lines, Arabic too); the hero never relies on text-wrap: balance. */
+  white-space: pre-line;
+}
+
+/* Mini bar: appears once the hero has scrolled away; wordmark and bell on canvas with a hairline. */
+.gzd-homebar {
+  position: absolute; /* flutter-ok: the bar overlays the scroll body (Stack) */
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: var(--gz-z-sticky-header);
+  padding-block-start: var(--gz-safe-top);
+  background-color: var(--gz-color-sys-surface-canvas);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  /* flutter-ok: AnimatedOpacity */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--gz-motion-duration-base) var(--gz-motion-ease-standard);
+}
+
+.gzd-homebar.is-on {
+  /* flutter-ok: AnimatedOpacity */
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.gzd-homebar__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  block-size: var(--gz-size-control-sm);
+  padding-inline-start: var(--gz-space-gutter);
+  padding-inline-end: var(--gz-space-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gzd-homebar {
+    transition-duration: var(--gz-motion-duration-instant);
+  }
+}

@@ -1,0 +1,69 @@
+/* Toast and UndoBar: an ink-900 bar (one of the few dark surfaces), canvas text, floating on elev-2. */
+
+.gz-toast {
+  position: relative; /* flutter-ok: named overlay anchor for the undo timer line */
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-control-md);
+  padding-block: var(--gz-space-2);
+  padding-inline-start: var(--gz-space-4);
+  padding-inline-end: var(--gz-space-4);
+  border-radius: var(--gz-radius-sm);
+  background-color: var(--gz-color-sys-surface-dark);
+  box-shadow: var(--gz-elevation-2);
+  overflow: hidden;
+}
+
+.gz-toast--icon {
+  padding-inline-start: var(--gz-space-3);
+}
+
+.gz-toast__message {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  color: var(--gz-color-sys-text-on-dark);
+}
+
+/* The action is gold-400 (gold text on ink) in a 44 target. */
+.gz-toast__action {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-inline-size: var(--gz-size-touch-min);
+  min-block-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-3);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-on-dark-gold);
+  cursor: pointer;
+}
+
+.gz-toast__action:active,
+.gz-toast__action.is-pressed {
+  background-color: var(--gz-color-sys-surface-dark-raised);
+}
+
+/* The 2 px gold line along the bottom edge: the time left to undo. */
+.gz-toast__timer {
+  position: absolute; /* flutter-ok: named overlay anchor along the bottom edge (LinearProgressIndicator, 2 dp) */
+  inset-inline: 0;
+  inset-block-end: 0;
+  display: flex;
+  block-size: var(--gz-stroke-thread);
+}
+
+.gz-toast__timer-fill {
+  flex: 1;
+  background-color: var(--gz-color-sys-mark-khayt);
+}
+
+/* Floats 16 above its bar, inside the screen gutters. */
+.gz-toast-region {
+  position: absolute; /* flutter-ok: overlay anchor above the pinned bar (Scaffold snackbar slot) */
+  inset-inline: var(--gz-space-gutter);
+  z-index: var(--gz-z-toast);
+}

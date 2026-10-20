@@ -1,0 +1,75 @@
+/* StateStrip: quiet ink-50 panel, radius 12, 16 padding. The glyph sits in a 44 disk; a finished request shows a 144 drawing at start. Tokens only. */
+.gzb-strip {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-md);
+}
+
+.gzb-strip__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzb-strip__glyph {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-radius: var(--gz-radius-pill);
+}
+
+.gzb-strip__art {
+  display: flex;
+  flex: none;
+}
+
+.gzb-strip__main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.gzb-strip__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzb-strip[data-tone='danger'] .gzb-strip__title {
+  color: var(--gz-color-sys-text-danger);
+}
+
+.gzb-strip__info {
+  align-self: flex-start;
+  flex: none;
+}
+
+.gzb-strip__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzb-strip__actions > .gz-btn {
+  flex: 1 1 var(--gz-size-thumb-lg);
+}
+
+.gzb-strip__actions--stack {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.gzb-strip__actions--stack > .gz-btn {
+  flex: none;
+}

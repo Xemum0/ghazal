@@ -1,0 +1,75 @@
+/* VendorTile: unframed plate and wall label (direction 3, venue card language). Tokens only, logical properties, flex + gap. */
+
+.gzs-vtile {
+  position: relative; /* flutter-ok: named overlay anchor for the stretched open target and the heart */
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzs-vtile__media {
+  position: relative; /* flutter-ok: named overlay anchor for the heart */
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  aspect-ratio: var(--gz-layout-aspect-4x5);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-placeholder);
+}
+
+.gzs-vtile__photo {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.gzs-vtile__sponsored {
+  position: absolute; /* flutter-ok: named overlay anchor, PositionedDirectional */
+  inset-block-start: var(--gz-space-3);
+  inset-inline-start: var(--gz-space-3);
+  z-index: var(--gz-z-raised);
+}
+
+.gzs-vtile__fav {
+  position: absolute; /* flutter-ok: named overlay anchor, PositionedDirectional */
+  inset-block-start: var(--gz-space-1);
+  inset-inline-end: var(--gz-space-1);
+  z-index: var(--gz-z-raised);
+}
+
+.gzs-vtile__label {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzs-vtile__name {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzs-vtile .gzs-vtile__facts {
+  column-gap: var(--gz-space-3);
+  row-gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* The prices sit at the foot of the label so the prices of a row of tiles share one baseline. */
+.gzs-vtile__price {
+  display: flex;
+  flex-direction: column;
+  margin-block-start: auto;
+  padding-block-start: var(--gz-space-2);
+}
+
+.gzs-vtile__open {
+  position: absolute; /* flutter-ok: named overlay anchor, one InkWell over the tile */
+  inset: 0;
+  border-radius: var(--gz-radius-md);
+  cursor: pointer;
+}

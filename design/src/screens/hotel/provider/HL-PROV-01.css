@@ -1,0 +1,178 @@
+/* HL-PROV-01 Account type: two large choice cards (one choice, then Continue), then a quiet profile form on the 20 gutter. */
+.hp01 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding-inline: var(--gz-space-gutter);
+  padding-block: var(--gz-space-2) var(--gz-space-8);
+}
+
+.hp01__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.hp01__title,
+.hp01__sub {
+  margin: 0;
+}
+
+.hp01__title {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hp01__sub {
+  color: var(--gz-color-sys-text-primary);
+}
+
+.hp01__cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.hp01__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-control-chip-border);
+  border-radius: var(--gz-radius-md);
+  text-align: start;
+  color: var(--gz-color-sys-text-primary);
+  cursor: pointer;
+}
+
+.hp01__card[data-selected] {
+  border-width: var(--gz-stroke-focus);
+  border-color: var(--gz-color-sys-control-chip-border-selected);
+}
+
+.hp01__cardhead {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.hp01__disk {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.hp01__cardtitle {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hp01__radio {
+  display: inline-flex;
+  flex: none;
+}
+
+.hp01__cardbody {
+  margin: 0;
+}
+
+.hp01__facts {
+  display: flex;
+  flex-direction: row;
+  gap: var(--gz-space-4);
+}
+
+.hp01__fact {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp01__hint {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp01__group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.hp01__label {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp01__cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+}
+
+.hp01__cat {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-block-size: var(--gz-size-touch-min);
+  padding-inline: var(--gz-space-3);
+  background-color: var(--gz-color-sys-surface-tint);
+  border-radius: var(--gz-radius-sm);
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hp01__logo,
+.hp01__who {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.hp01__logotext,
+.hp01__whotext {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.hp01__whoname {
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.hp01__whotype {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hp01__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-md);
+  block-size: var(--gz-size-avatar-md);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-icon-primary);
+}
+
+.hp01__quiet {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: var(--gz-space-6);
+}

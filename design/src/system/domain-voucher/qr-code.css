@@ -1,0 +1,21 @@
+/* QrCode: ink modules on the canvas token. A scanner needs real contrast, so the ground is the raised surface and the modules the
+   strongest text ink (never gold, never a tint). Muted = the same art at reduced strength (a used voucher). */
+
+.gz-qr {
+  display: block;
+  flex: none;
+  min-inline-size: 0;
+  block-size: auto;
+}
+
+.gz-qr__ground {
+  fill: var(--gz-color-sys-surface-canvas);
+}
+
+.gz-qr__ink {
+  fill: var(--gz-color-sys-text-strong);
+}
+
+.gz-qr.is-muted .gz-qr__ink {
+  fill: var(--gz-color-sys-text-secondary);
+}

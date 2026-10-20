@@ -1,0 +1,110 @@
+/* HL-GROW-01 Voucher prices. Gutter 20; glyph tabs; one rose strip of open dates; hairline rows (WindowRow); the sheet container anchors on the root. */
+
+.go-list__root {
+  position: relative; /* flutter-ok: overlay anchor for the static sheet frame (Stack) */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-block-size: 0;
+}
+
+.go-list__tabs {
+  padding-inline: var(--gz-space-gutter);
+}
+
+.go-list__insight-wrap {
+  display: flex;
+  padding-block-start: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+}
+
+.go-list__insight {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding: var(--gz-space-2) var(--gz-space-4) var(--gz-space-2) var(--gz-space-3);
+  background: var(--gz-color-sys-surface-tint-soft);
+  border-radius: var(--gz-radius-md);
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.go-list__insight-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.go-list__insight-fig {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.go-list__insight-sub {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.go-list__rows {
+  padding-inline: var(--gz-space-gutter);
+  padding-block-end: var(--gz-space-6);
+}
+
+.go-list__rows > [role='listitem'] {
+  display: flex;
+}
+
+.go-list__empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+  padding-block-end: var(--gz-space-8);
+}
+
+.go-list__dates {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  margin-inline: var(--gz-space-gutter);
+  padding: var(--gz-space-3) var(--gz-space-4);
+  background: var(--gz-color-sys-surface-tint-soft);
+  border-radius: var(--gz-radius-md);
+}
+
+.go-list__chips {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.go-list__skel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding: var(--gz-space-3) var(--gz-space-gutter);
+}
+
+.go-list__skelrow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  padding-block: var(--gz-space-4);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+.go-list__skelcol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}

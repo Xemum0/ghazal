@@ -1,0 +1,131 @@
+/* HL-DCSN-01 Accept request. The hold is the headline of the sheet: an hourglass and `24 h` in the figures voice on a soft rose band.
+   Under it the voucher price (ticket, amount, the voucher chip), the struck standard price, the saving and `Off-app`. Gold appears once:
+   the primary in the footer. Tokens only, flex + gap. */
+
+.gzd-acc__hold {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-tint-soft);
+  border-radius: var(--gz-radius-md);
+}
+
+.gzd-acc__hold-disk {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-avatar-sm);
+  block-size: var(--gz-size-avatar-sm);
+  border-radius: var(--gz-radius-pill);
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.gzd-acc__hold-fig {
+  flex: none;
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The window as a thread: a tied knot now, the gold line, an open knot at the end (the one brand mark of the sheet, drawn once). */
+.gzd-acc__thread {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-inline-size: 0;
+}
+
+.gzd-acc__line {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* ---------- competing request: users +1 and the scale ---------- */
+.gzd-acc__others {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.gzd-acc__compare {
+  display: flex;
+  gap: var(--gz-space-4);
+  padding: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-md);
+}
+
+.gzd-acc__col {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gzd-acc__col-title {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* ---------- price ---------- */
+.gzd-acc__money {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gzd-acc__price {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-4);
+  background: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  border-radius: var(--gz-radius-md);
+}
+
+.gzd-acc__price-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gzd-acc__price-sub {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-4);
+  row-gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-3);
+  border-block-start-width: var(--gz-stroke-hair); border-block-start-style: solid; border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.gzd-acc__was {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gzd-acc__save {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+  margin: 0;
+  color: var(--gz-color-sys-text-success);
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gzd-acc__lower {
+  padding-block: var(--gz-space-1) var(--gz-space-2);
+}
+
+.gzd-acc__unit {
+  color: var(--gz-color-sys-text-secondary);
+}

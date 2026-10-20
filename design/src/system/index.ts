@@ -1,0 +1,13 @@
+// The Ghazal component system. Single writer: system-owner (ADR 0029 D7). Screens import from here only.
+export * from './core'
+export * from './inputs'
+export * from './nav'
+export * from './overlays'
+export * from './illustration'
+export * from './domain-client'
+export * from './domain-hotel'
+export * from './domain-voucher'
+export * from './domain-visits'
+export * from './domain-provider'
+export * from './domain-filters'
+export * from './charts'

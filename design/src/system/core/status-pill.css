@@ -1,0 +1,64 @@
+/* StatusPill: min 24, radius 4, icon 16 + label (12/16 500 EN, 13/20 600 AR from the `pill` role). Tones are the status tokens;
+   outline variants carry a 1 px border so the pill is not a flat tint on a tinted card. */
+
+.gz-pill {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-pill-min);
+  padding-block: var(--gz-space-1);
+  padding-inline: var(--gz-space-2);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: transparent;
+  border-radius: var(--gz-radius-xs);
+  white-space: nowrap;
+}
+
+.gz-pill--pending {
+  background-color: var(--gz-color-sys-status-pending-bg);
+  color: var(--gz-color-sys-status-pending-text);
+}
+
+.gz-pill--pending-outline {
+  border-color: var(--gz-color-sys-mark-state);
+  color: var(--gz-color-sys-status-pending-text);
+}
+
+.gz-pill--success {
+  background-color: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}
+
+.gz-pill--danger {
+  background-color: var(--gz-color-sys-status-danger-bg);
+  color: var(--gz-color-sys-status-danger-text);
+}
+
+.gz-pill--danger-outline {
+  border-color: var(--gz-color-sys-status-danger-text);
+  color: var(--gz-color-sys-status-danger-text);
+}
+
+.gz-pill--neutral {
+  background-color: var(--gz-color-sys-status-neutral-bg);
+  color: var(--gz-color-sys-status-neutral-text);
+}
+
+.gz-pill--neutral-outline {
+  border-color: var(--gz-color-sys-border-strong);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+/* Refunded: the rose tint, ink text; the return arrow carries the meaning. */
+.gz-pill--rose {
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-status-neutral-text);
+}
+
+/* The compact time after the word (`Approved 23 h`): a figure, quiet. */
+.gz-pill__fig {
+  color: inherit;
+}

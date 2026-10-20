@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ghazal - Client home (The Thread)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="direction.css">
+<script>(function(){var m=location.search.match(/lang=(ar|en)/);if(m){var d=document.documentElement;d.lang=m[1];d.dir=m[1]==='ar'?'rtl':'ltr'}if(/full=1/.test(location.search))document.documentElement.classList.add('is-full')})()</script>
+<style>
+  /* page-only layout; everything reusable lives in direction.css */
+  .hero { position: relative; block-size: 360px; color: var(--ivory); background: var(--ink-900); overflow: hidden; }
+  .hero > img { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; object-position: 50% 42%; }
+  .hero__in { position: relative; z-index: 2; block-size: 100%; display: flex; flex-direction: column; }
+  .hero__bar { display: flex; align-items: center; justify-content: space-between; block-size: 56px; padding-inline: var(--gutter) 4px; }
+  .hero__bar .icon-btn { position: relative; }
+  .hero__bar .dot { position: absolute; inset-block-start: 10px; inset-inline-end: 11px; inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--gold-500); box-shadow: 0 0 0 2px var(--paper); }
+  .hero__cap { margin-block-start: auto; padding-inline: var(--gutter); padding-block-end: 84px; }
+  .brief-wrap { position: relative; z-index: 3; margin-block-start: -72px; padding-inline: var(--gutter); }
+  .brief__grid { grid-template-columns: 1.2fr 1fr; }
+  .cats { margin-block-start: 24px; }
+  .rail { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); padding-inline: var(--gutter); margin-inline: calc(var(--gutter) * -1); }
+  .rail::-webkit-scrollbar { display: none; }
+  .rail > * { scroll-snap-align: start; flex: none; }
+  .vcard--s { inline-size: 160px; }
+  .vcard--s .vcard__name { font-size: var(--fs-small); line-height: var(--lh-small); }
+  .vcard--s .vcard__meta { font-size: var(--fs-caption); line-height: var(--lh-caption); }
+  .vcard--s .vcard__tl { inset-block-start: 8px; inset-inline-start: 8px; }
+  .page-end { block-size: 32px; }
+  .tray-dock { position: sticky; inset-block-end: calc(var(--nav-h, 95px) + 12px); z-index: 15; block-size: 0; }
+  .tray-dock .tray { position: absolute; inset-block-end: 0; }
+  .is-full .tray-dock { position: static; block-size: 68px; } .is-full .tray-dock .tray { position: static; margin-inline-start: auto; inline-size: max-content; margin-inline-end: var(--gutter); }
+  .offer__body { display: grid; gap: 4px; align-content: start; }
+  .offer__price { display: flex; align-items: baseline; gap: 8px; margin-block-start: 4px; }
+  .offer__price .unit { font-size: var(--fs-small); }
+</style>
+</head>
+<body>
+<main class="screen">
+
+  <!-- ============ HERO: the photograph leads. The wordmark signs it; the caption names the room. ============ -->
+  <header class="hero scrim-top scrim-bottom">
+    <img class="photo" src="../../public/images/halls/halls-11-gold-ceiling-dining-hall.jpg" alt="" width="1500" height="2000">
+    <div class="hero__in">
+      <div class="statusbar statusbar--on-image"><span class="num">4:00</span><span class="statusbar__r"><span class="sb-sig"><i></i><i></i><i></i><i></i></span><span class="sb-bat"></span></span></div>
+      <div class="hero__bar">
+        <span class="wordmark wordmark--sm wordmark--ivory draw" style="--wm:32px"><span class="wordmark__line"></span><span class="wordmark__text"><span class="en">Ghazal</span><span class="ar">غزل</span></span></span>
+        <button class="icon-btn icon-btn--on-image" type="button" aria-label="Notifications"><i class="ic i-bell"></i><span class="dot"></span></button>
+      </div>
+      <div class="hero__cap">
+        <a class="hero-cap" href="client-venue.html"><span><span class="en">Qamar Hall<small>Madar Grand Hotel · Bneid Al-Qar</small></span><span class="ar">قاعة القمر<small>فندق مدار جراند · بنيد القار</small></span></span><i class="ic i-chevron mirror ic--20"></i></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ BRIEF: date, guests, area, budget. One primary action. ============ -->
+  <section class="brief-wrap" aria-label="Your brief">
+    <div class="brief">
+      <div class="brief__grid">
+        <button class="brief__cell" type="button"><span class="brief__k"><i class="ic i-calendar"></i><span class="en">Date · Thu</span><span class="ar">التاريخ · الخميس</span></span><span class="brief__v"><span class="en"><span class="num">14</span> Jan <span class="num">2027</span></span><span class="ar"><span class="num">14</span> يناير <span class="num">2027</span></span></span></button>
+        <button class="brief__cell" type="button"><span class="brief__k"><i class="ic i-users"></i><span class="en">Guests</span><span class="ar">المدعوّون</span></span><span class="brief__v"><span class="num">350</span> <span class="en">· Ladies</span><span class="ar">· نسائي</span></span></button>
+        <button class="brief__cell" type="button"><span class="brief__k"><i class="ic i-pin"></i><span class="en">Area</span><span class="ar">المنطقة</span></span><span class="brief__v"><span class="en">Salmiya, Sharq</span><span class="ar">السالمية، شرق</span></span></button>
+        <button class="brief__cell" type="button"><span class="brief__k"><i class="ic i-wallet"></i><span class="en">Budget</span><span class="ar">الميزانية</span></span><span class="brief__v"><span class="en"><span class="money"><i class="cur"></i>20–35k</span></span><span class="ar"><span class="num">20–35</span> ألف د.ك</span></span></button>
+      </div>
+      <div class="brief__cta"><a class="btn btn--primary btn--lg btn--block" href="#"><span class="en">See <span class="num">38</span> halls free on 14 Jan</span><span class="ar">عرض <span class="num">38</span> قاعة متاحة في 14 يناير</span></a></div>
+    </div>
+  </section>
+
+  <!-- ============ CATEGORIES: typographic tabs; the thread underlines the one you are in ============ -->
+  <nav class="cats" aria-label="Categories">
+    <div class="tabs tabs--scroll" role="tablist">
+      <button class="tab draw" role="tab" aria-selected="true"><span class="en">Luxury hotels</span><span class="ar">الفنادق الفاخرة</span></button>
+      <button class="tab" role="tab" aria-selected="false"><span class="en">Wedding halls</span><span class="ar">قاعات الأفراح</span></button>
+      <button class="tab" role="tab" aria-selected="false"><span class="en">Beach</span><span class="ar">شاطئية</span></button>
+      <button class="tab" role="tab" aria-selected="false"><span class="en">Outdoor</span><span class="ar">في الهواء الطلق</span></button>
+      <button class="tab" role="tab" aria-selected="false"><span class="en">VIP</span><span class="ar">VIP</span></button>
+      <button class="tab" role="tab" aria-selected="false"><span class="en">Government halls</span><span class="ar">القاعات الحكومية</span></button>
+    </div>
+  </nav>
+
+  <!-- ============ FEATURED ============ -->
+  <section class="gx sec">
+    <div class="sec-h">
+      <h2 class="display d3"><span class="en">Featured this season</span><span class="ar">مختارة لموسمكم</span></h2>
+      <a class="btn btn--tertiary btn--sm" href="#"><span class="en">See all</span><span class="ar">عرض الكل</span></a>
+    </div>
+    <a class="vcard vcard--lg" href="client-venue.html">
+      <div class="vcard__img">
+        <img class="photo" src="../../public/images/halls/halls-08-grand-ballroom-crystal-chandelier.jpg" alt="" loading="lazy">
+        <span class="vcard__tl"><span class="badge badge--on-image"><i class="ic i-checkcircle" style="color:var(--gold-700)"></i><span class="en">Free on 14 Jan</span><span class="ar">متاحة في 14 يناير</span></span></span>
+        <button class="vcard__tr icon-btn icon-btn--on-image heart" type="button" aria-label="Save" aria-pressed="false"><i class="ic i-heart"></i></button>
+      </div>
+      <div class="vcard__body" style="gap:4px;padding-block-start:16px">
+        <div class="vrow"><span class="vcard__name"><span class="en">Aurelia Gulf Hotel</span><span class="ar">فندق أوريليا الخليج</span></span>
+          <span class="rating"><i class="ic i-starfill"></i><span class="rating__n">4.8</span><span class="rating__c">(212)</span></span></div>
+        <div class="vcard__meta"><span class="en">Sharq, Kuwait City · Prestige</span><span class="ar">شرق، مدينة الكويت · فاخر</span></div>
+        <div class="price" style="margin-block-start:4px"><span class="price__amt"><span class="money"><i class="cur"></i>52</span></span><span class="price__unit"><span class="en">per guest · est. <span class="money"><i class="cur"></i>18,200</span></span><span class="ar">للضيف · التقدير <span class="money"><i class="cur"></i>18,200</span></span></span></div>
+      </div>
+    </a>
+  </section>
+
+  <!-- ============ OFFER: flat rose, one number, one date ============ -->
+  <section class="gx sec">
+    <a class="offer" href="#">
+      <div class="offer__body">
+        <span class="eyebrow"><span class="en">Last-minute · Thu 3 Dec</span><span class="ar">لحظة أخيرة · الخميس 3 ديسمبر</span></span>
+        <div class="offer__price"><span class="numeral numeral--md"><span class="money"><i class="cur"></i>28</span></span><span class="unit"><span class="en">per guest</span><span class="ar">للضيف</span></span></div>
+        <p class="t-small t-strong"><span class="en">Ladies' reception</span><span class="ar">الحفل النسائي</span></p>
+        <p class="t-small t-muted"><span class="en">Qasr Al-Nakheel, Jabriya · usually <span class="money"><i class="cur"></i>34</span></span><span class="ar">قصر النخيل للأفراح، الجابرية · المعتاد <span class="money"><i class="cur"></i>34</span></span></p>
+        <span class="btn btn--tertiary btn--sm" style="justify-self:start;margin-inline-start:-8px;margin-block-start:4px"><span class="en">View the date</span><span class="ar">عرض التاريخ</span><i class="ic i-chevron mirror ic--20"></i></span>
+      </div>
+      <div class="offer__img"><img class="photo" src="../../public/images/halls/halls-03-cream-arched-banquet-hall.jpg" alt="" loading="lazy"></div>
+    </a>
+  </section>
+
+  <!-- ============ OPEN THIS WEEK ============ -->
+  <section class="gx sec">
+    <div class="sec-h">
+      <h2 class="display d3"><span class="en">Open this week</span><span class="ar">متاحة هذا الأسبوع</span></h2>
+      <a class="btn btn--tertiary btn--sm" href="#"><span class="en">See all</span><span class="ar">عرض الكل</span></a>
+    </div>
+    <div class="rail">
+      <a class="vcard vcard--s" href="#"><div class="vcard__img"><img class="photo" src="../../public/images/halls/halls-02-ivory-draped-ballroom.jpg" alt="" loading="lazy"><span class="vcard__tl"><span class="badge badge--on-image"><span class="en">Sun <span class="num">15</span> Nov</span><span class="ar">الأحد <span class="num">15</span> نوفمبر</span></span></span></div>
+        <div class="vcard__body"><span class="vcard__name"><span class="en">Lumi Marina Hotel</span><span class="ar">فندق لومي مارينا</span></span><span class="vcard__meta"><span class="en">Salmiya · <span class="money"><i class="cur"></i>34</span> a guest</span><span class="ar">السالمية · <span class="money"><i class="cur"></i>34</span> للضيف</span></span></div></a>
+      <a class="vcard vcard--s" href="#"><div class="vcard__img"><img class="photo" src="../../public/images/halls/halls-15-hotel-ballroom-chandeliers.jpg" alt="" loading="lazy"><span class="vcard__tl"><span class="badge badge--on-image"><span class="en">Mon <span class="num">16</span> Nov</span><span class="ar">الاثنين <span class="num">16</span> نوفمبر</span></span></span></div>
+        <div class="vcard__body"><span class="vcard__name"><span class="en">Jawharat Al-Salmiya Palace</span><span class="ar">قصر جوهرة السالمية</span></span><span class="vcard__meta"><span class="en">Salmiya · <span class="money"><i class="cur"></i>29</span> a guest</span><span class="ar">السالمية · <span class="money"><i class="cur"></i>29</span> للضيف</span></span></div></a>
+      <a class="vcard vcard--s" href="#"><div class="vcard__img"><img class="photo" src="../../public/images/outdoor/outdoor-26-sea-terrace-lounge-sunset.jpg" alt="" loading="lazy"><span class="vcard__tl"><span class="badge badge--on-image"><span class="en">Sat <span class="num">21</span> Nov</span><span class="ar">السبت <span class="num">21</span> نوفمبر</span></span></span></div>
+        <div class="vcard__body"><span class="vcard__name"><span class="en">Fintas Sea Pavilion</span><span class="ar">جناح البحر للمناسبات</span></span><span class="vcard__meta"><span class="en">Fintas · <span class="money"><i class="cur"></i>42</span> a guest</span><span class="ar">الفنطاس · <span class="money"><i class="cur"></i>42</span> للضيف</span></span></div></a>
+    </div>
+  </section>
+
+  <!-- ============ COUNTDOWN TEASER: the thread, with the PRD milestones as knots ============ -->
+  <section class="gx sec">
+    <a class="count" href="#" aria-label="Your wedding countdown">
+      <div class="count__top">
+        <div style="display:grid;gap:8px">
+          <span class="eyebrow"><span class="en">Your wedding · Thu 14 Jan 2027</span><span class="ar">زفافكم · الخميس 14 يناير 2027</span></span>
+          <div class="flex gap-3" style="align-items:baseline"><span class="numeral">63</span><span class="t-body" style="color:var(--ivory)"><span class="en">days to go</span><span class="ar">يوماً على الزفاف</span></span></div>
+        </div>
+        <i class="ic i-chevron mirror" style="color:var(--gold-400)"></i>
+      </div>
+      <div class="sched sched--on-dark draw" style="--n:5;--p:.445">
+        <span class="sched__line"><i class="thread__bead" style="--ring-bg:var(--ink-900)"></i></span>
+        <div class="sched__i is-done"><span class="sched__node"><i class="ic i-check"></i></span><span class="sched__t"><span class="en">1 year</span><span class="ar">سنة</span></span></div>
+        <div class="sched__i is-done"><span class="sched__node"><i class="ic i-check"></i></span><span class="sched__t"><span class="en">6 months</span><span class="ar">6 أشهر</span></span></div>
+        <div class="sched__i"><span class="sched__node"><i class="ic i-check"></i></span><span class="sched__t"><span class="en">30 days</span><span class="ar">30 يوماً</span></span></div>
+        <div class="sched__i"><span class="sched__node"><i class="ic i-check"></i></span><span class="sched__t"><span class="en">7 days</span><span class="ar">7 أيام</span></span></div>
+        <div class="sched__i"><span class="sched__node"><i class="ic i-check"></i></span><span class="sched__t"><span class="en">The day</span><span class="ar">اليوم</span></span></div>
+      </div>
+    </a>
+  </section>
+  <div class="page-end"></div>
+
+  <!-- ============ COMPARE TRAY: appears after the first add; collapsed to a pill, never in booking ============ -->
+  <div class="tray-dock">
+    <a class="tray tray--pill" href="client-compare.html" role="region" aria-label="Compare, 2 of 3 venues">
+      <div class="tray__knots" style="--tray-p:38px">
+        <span class="tray__k"><img src="../../public/images/halls/halls-08-grand-ballroom-crystal-chandelier.jpg" alt=""></span>
+        <span class="tray__k"><img src="../../public/images/outdoor/outdoor-01-ring-arch-oceanfront-aisle.jpg" alt=""></span>
+      </div>
+      <span class="t-small t-strong"><span class="num">2/3</span></span>
+    </a>
+  </div>
+
+  <!-- ============ BOTTOM NAV: the thread rides the hairline to the active tab ============ -->
+  <nav class="nav" style="--i:0" aria-label="Main">
+    <span class="nav__thread"></span>
+    <a class="nav__item" href="#" aria-current="page"><i class="ic i-compass"></i><span class="en">Discover</span><span class="ar">استكشاف</span></a>
+    <a class="nav__item" href="#"><i class="ic i-heart"></i><span class="en">Saved</span><span class="ar">المفضلة</span></a>
+    <a class="nav__item" href="#"><i class="ic i-rings"></i><span class="en">My Wedding</span><span class="ar">زفافي</span><span class="nav__dot"></span></a>
+    <a class="nav__item" href="#"><i class="ic i-message"></i><span class="en">Messages</span><span class="ar">الرسائل</span><span class="nav__badge">2</span></a>
+    <a class="nav__item" href="#"><i class="ic i-user"></i><span class="en">Profile</span><span class="ar">حسابي</span></a>
+    <div class="homebar"></div>
+  </nav>
+</main>
+</body>
+</html>

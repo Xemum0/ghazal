@@ -1,0 +1,9 @@
+/* CL-VIST-05 Change or cancel visit (sheet): two icon rows ruled by hairlines (the IconListRow of the system); cancel is told apart by its
+   danger glyph. Tokens only. */
+.gzvt-ch5__rows {
+  display: flex;
+  flex-direction: column;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}

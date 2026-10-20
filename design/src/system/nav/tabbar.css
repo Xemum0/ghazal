@@ -1,0 +1,108 @@
+/* TabBar. 56 high + the home-indicator inset, canvas, 1 px ink-200 top rule (a hairline overlay, so it adds no height).
+   Items are equal flex cells (min 56 wide, full 56 tall: above the 44 target). The khayt is one element that slides. */
+.gz-tabbar {
+  position: relative;
+  flex: none;
+  background: var(--gz-color-sys-surface-canvas);
+  padding-block-end: var(--gz-safe-bottom);
+  z-index: var(--gz-z-bar);
+}
+
+.gz-tabbar::before {
+  content: '';
+  position: absolute; /* flutter-ok: hairline divider overlay */
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-border-hairline);
+}
+
+.gz-tabbar__khayt {
+  position: absolute; /* flutter-ok: AnimatedAlign over the row */
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: var(--gz-size-khayt-width);
+  block-size: var(--gz-stroke-thread);
+  background: var(--gz-color-sys-mark-khayt);
+  /* Sits over the hairline: the line is the place, the rule is the edge. */
+  z-index: var(--gz-z-raised);
+}
+
+.gz-tabbar__row {
+  display: flex;
+  align-items: stretch;
+}
+
+.gz-tabbar__cell {
+  flex: 1;
+  min-inline-size: var(--gz-size-tab-bar);
+  display: flex;
+}
+
+.gz-tabbar__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--gz-space-1);
+  min-block-size: var(--gz-size-tab-bar);
+  padding-block-start: 0;
+  padding-block-end: var(--gz-space-1);
+  padding-inline: var(--gz-space-1);
+  color: var(--gz-color-sys-text-secondary);
+  text-align: center;
+}
+
+.gz-tabbar__item.is-active {
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-tabbar__item.is-active .gz-tabbar__label {
+  /* Selected label steps up to the weight 500 / 600 of the tab role; inactive stays 400. */
+  font-weight: var(--gz-type-tab-weight);
+}
+
+.gz-tabbar__label {
+  font-weight: var(--gz-type-caption-weight);
+  color: inherit;
+  white-space: nowrap;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gz-tabbar__glyph {
+  /* 48 x 32: the 24 glyph sits in the middle with 8 spare above it, so the badge anchors to the top inline-end corner with
+     positive insets only (no negative offsets). */
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  inline-size: var(--gz-space-12);
+  block-size: var(--gz-space-8);
+}
+
+.gz-tabbar__item.is-pressed {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* Count badge: the core CountBadge (20 gold, ink-900 12 px figure, 2 px canvas ring) at the glyph's top inline-end. */
+.gz-tabbar__badge {
+  position: absolute; /* flutter-ok: Badge anchored top-end on the icon */
+  inset-block-start: 0;
+  inset-inline-end: var(--gz-space-1);
+  display: flex;
+}
+
+/* Action-due dot (My Wedding): 12 gold with the 2 px canvas ring. */
+.gz-tabbar__dot {
+  position: absolute; /* flutter-ok: Badge anchored top-end on the icon */
+  inset-block-start: var(--gz-space-1);
+  inset-inline-end: var(--gz-space-2);
+  inline-size: var(--gz-space-3);
+  block-size: var(--gz-space-3);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-mark-khayt);
+  box-shadow: 0 0 0 var(--gz-stroke-thread) var(--gz-color-sys-surface-canvas);
+}

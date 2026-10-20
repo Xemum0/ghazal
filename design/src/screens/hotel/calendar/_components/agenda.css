@@ -1,0 +1,113 @@
+/* Agenda (hotel/calendar HL-CALN-01): the date as the heading (it opens the day), rows on hairlines under it, the day's actions beneath.
+   Tokens only. */
+
+.cal-ag {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.cal-ag__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+  text-align: start;
+  cursor: pointer;
+}
+
+.cal-ag__title {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.cal-ag__rows {
+  display: flex;
+  flex-direction: column;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+}
+
+.cal-ag__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-primary);
+  text-align: start;
+}
+
+.cal-ag__row[data-last] {
+  border-block-end-color: transparent;
+}
+
+.cal-ag__row--tap {
+  inline-size: 100%; /* flutter-ok: a row fills its list (ListTile) */
+  cursor: pointer;
+}
+
+.cal-ag__lead {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.cal-ag__col {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.cal-ag__line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-2);
+  min-inline-size: 0;
+}
+
+.cal-ag__name {
+  min-inline-size: 0;
+  overflow: hidden;
+  color: var(--gz-color-sys-text-strong);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cal-ag__free {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.cal-ag__req {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  min-block-size: var(--gz-space-12);
+  margin: 0;
+  color: var(--gz-color-sys-text-primary);
+}
+
+.cal-ag__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--gz-space-5);
+  row-gap: var(--gz-space-2);
+}
+
+.cal-ag__why {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-1);
+}

@@ -1,0 +1,72 @@
+/* HL-GROW-03 Voucher price window, step 2. Gutter 20, section rhythm 32, 12 to 16 inside a section. The preview card is pinned under the step thread. */
+
+.gt-root {
+  position: relative; /* flutter-ok: overlay anchor for the success toast frame (Stack) */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-block-size: 0;
+}
+
+.gs-pin {
+  padding: var(--gz-space-1) var(--gz-space-gutter) var(--gz-space-3);
+}
+
+.gt-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-section);
+  padding: var(--gz-space-4) var(--gz-space-gutter) var(--gz-space-8);
+}
+
+.gt-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gt-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}
+
+.gt-count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-sm);
+}
+
+.gt-count__spacer {
+  flex: 1;
+}
+
+.gt-count__error {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-status-danger-text);
+}
+
+.gt-dates {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gz-space-3);
+}
+
+.gt-dates > .gz-field {
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.gt-clash {
+  font-weight: var(--gz-type-title-weight);
+}
+
+.gt-status {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,115 @@
+/* Wallet ticket: hairline paper, radius 12, a dashed perforation with two notches that take the canvas. Tokens only, flex + gap. */
+.gzv-ticket {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-inline-size: 0;
+}
+
+.gzv-ticket__top,
+.gzv-ticket__bottom {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  gap: var(--gz-space-3);
+  padding: var(--gz-space-panel-pad);
+  background-color: var(--gz-color-sys-surface-raised);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gzv-ticket__top {
+  align-items: stretch;
+  border-block-end-width: 0;
+  border-start-start-radius: var(--gz-radius-md);
+  border-start-end-radius: var(--gz-radius-md);
+  text-align: start;
+}
+
+.gzv-ticket__bottom {
+  border-block-start-width: 0;
+  border-end-start-radius: var(--gz-radius-md);
+  border-end-end-radius: var(--gz-radius-md);
+}
+
+.gzv-ticket__who {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-inline-size: 0;
+}
+
+.gzv-ticket__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+  min-inline-size: 0;
+}
+
+.gzv-ticket__name {
+  color: var(--gz-color-sys-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.gzv-ticket__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+}
+
+.gzv-ticket__perf {
+  display: flex;
+  align-items: center;
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
+.gzv-ticket__dash {
+  flex: 1;
+  block-size: 0;
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: dashed;
+  border-block-start-color: var(--gz-color-sys-border-strong);
+}
+
+.gzv-ticket__cap {
+  flex: none;
+  inline-size: var(--gz-space-2);
+  block-size: var(--gz-space-4);
+  background-color: var(--gz-color-sys-surface-canvas);
+  border-width: var(--gz-stroke-hair);
+  border-style: solid;
+  border-color: var(--gz-color-sys-border-strong);
+}
+
+.gzv-ticket__cap:first-child {
+  border-inline-start-width: 0;
+  border-start-end-radius: var(--gz-radius-sm);
+  border-end-end-radius: var(--gz-radius-sm);
+}
+
+.gzv-ticket__cap:last-child {
+  border-inline-end-width: 0;
+  border-start-start-radius: var(--gz-radius-sm);
+  border-end-start-radius: var(--gz-radius-sm);
+}
+
+.gzv-ticket__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzv-ticket__actions > :first-child {
+  flex: 1 1 0;
+}
+
+/* A ticket with no stub (a voucher in a request, nothing to do) closes its top half. */
+.gzv-ticket[data-solo] .gzv-ticket__top {
+  border-block-end-width: var(--gz-stroke-hair);
+  border-end-start-radius: var(--gz-radius-md);
+  border-end-end-radius: var(--gz-radius-md);
+}

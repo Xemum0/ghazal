@@ -1,0 +1,67 @@
+/* ActionBar: 12 + 52 + 12 + safe. The hairline is an overlay (no extra height). */
+.gz-actionbar {
+  position: relative;
+  flex: none;
+  padding-inline: var(--gz-space-gutter);
+  background: var(--gz-color-sys-surface-canvas);
+  z-index: var(--gz-z-bar);
+}
+
+.gz-actionbar.has-inset {
+  padding-block-end: var(--gz-safe-bottom);
+}
+
+.gz-actionbar__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block: var(--gz-space-3);
+}
+
+.gz-actionbar::before {
+  content: '';
+  position: absolute; /* flutter-ok: hairline divider overlay */
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-border-hairline);
+}
+
+.gz-actionbar__row {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+}
+
+.gz-actionbar__summary {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-inline-size: 0;
+}
+
+.gz-actionbar__label {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-actionbar__value {
+  color: var(--gz-color-sys-text-strong);
+}
+
+/* The primary fills what the summary leaves; with a secondary the pair is equal width, primary at inline-end. */
+.gz-actionbar__buttons {
+  flex: 1;
+  min-inline-size: 0;
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.gz-actionbar__buttons > * {
+  flex: 1;
+}
+
+.gz-actionbar__note {
+  color: var(--gz-color-sys-text-secondary);
+  text-align: start;
+}

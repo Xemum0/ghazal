@@ -1,0 +1,33 @@
+/* CL-PROF-04 Notification preferences. Gutter 20; rows edge to edge; 24 between groups. Tokens only. */
+
+.gzpr-notif {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-6);
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+}
+
+.gzpr-notif__top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+/* Channels: the send mark, then three glyph chips on one line. */
+.gzpr-notif__channels {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gzpr-notif__send {
+  display: inline-flex;
+  flex: none;
+}
+
+.gzpr-notif__chan {
+  display: inline-flex;
+  align-items: center;
+}

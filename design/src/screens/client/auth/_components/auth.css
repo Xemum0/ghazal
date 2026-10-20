@@ -1,0 +1,375 @@
+/* Auth flow, shared pieces (CL-AUTH-01..05). Tokens only, logical properties only, flex + gap, 4-pt grid.
+   Prefix gza-. Screen-specific layout lives in each screen's own CSS file.
+   Text diet (ADR 0034): drawings, glyphs and figures carry the screens, so most of what is here is spacing and quiet surfaces. */
+
+/* ---------- screen body (pushed screens: the body has no side padding, the gutter is ours) ---------- */
+.gza-body {
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--gz-space-gutter);
+  padding-block-start: var(--gz-space-2);
+  padding-block-end: var(--gz-space-8);
+  gap: var(--gz-space-section);
+}
+
+.gza-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+}
+
+/* A state composition inside a body or a sheet starts at the start edge and takes the host's gutter (it brings its own by default). */
+.gza-body .gz-state,
+.gza-sheet .gz-state,
+.gza-otp .gz-state {
+  padding-inline: 0;
+  padding-block: var(--gz-space-2);
+}
+
+.gza-sheet .gz-state {
+  align-self: stretch;
+}
+
+/* The state's info glyph hands its 44 target's slack back to the gutter, like the sheet's close glyph. */
+.gza-body .gz-state--start .gz-state__info {
+  position: relative; /* flutter-ok: Transform.translate by the target's slack so the glyph meets the 20 gutter */
+  inset-inline-start: -10px;
+}
+
+/* ---------- heading block: one drawing at the start edge, then the serif title (and a trailing element at the row's end) ---------- */
+.gza-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gz-space-2);
+}
+
+.gza-head__art {
+  flex: none;
+}
+
+.gza-head__row {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  gap: var(--gz-space-4);
+}
+
+.gza-head__title {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+}
+
+/* ---------- inline note: the state line inside a sheet or a form (danger / success / info / offline) ---------- */
+.gza-note {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-lg);
+  padding-block: var(--gz-space-1);
+  padding-inline-start: var(--gz-space-4);
+  padding-inline-end: var(--gz-space-2);
+  border-radius: var(--gz-radius-sm);
+  background: var(--gz-color-sys-surface-quiet);
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gza-note__icon {
+  flex: none;
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+.gza-note__text {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+}
+
+.gza-note__facts {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+
+.gza-note--danger {
+  background: var(--gz-color-sys-status-danger-bg);
+  color: var(--gz-color-sys-status-danger-text);
+}
+
+.gza-note--danger .gza-note__icon {
+  color: var(--gz-color-sys-icon-danger);
+}
+
+.gza-note--success {
+  background: var(--gz-color-sys-status-success-bg);
+  color: var(--gz-color-sys-status-success-text);
+}
+
+.gza-note--success .gza-note__icon {
+  color: var(--gz-color-sys-icon-success);
+}
+
+/* ---------- ruled strip: what is waiting for the person (the interrupted intent) ---------- */
+.gza-resume {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-4);
+  padding-block: var(--gz-space-4);
+  border-block-start-width: var(--gz-stroke-hair);
+  border-block-start-style: solid;
+  border-block-start-color: var(--gz-color-sys-border-hairline);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+}
+
+/* Inside a sheet the strip is one quiet row with tighter rules. */
+.gza-resume--compact {
+  padding-block: var(--gz-space-3);
+}
+
+.gza-resume__thumb {
+  flex: none;
+  display: flex;
+  overflow: hidden;
+  inline-size: var(--gz-size-thumb-md);
+  block-size: var(--gz-size-thumb-md);
+  border-radius: var(--gz-radius-xs);
+  background: var(--gz-color-sys-surface-placeholder);
+}
+
+.gza-resume__disk {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-thumb-md);
+  block-size: var(--gz-size-thumb-md);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-tint);
+}
+
+.gza-resume__text {
+  flex: 1;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-1);
+}
+
+.gza-resume__name,
+.gza-resume__noun {
+  margin: 0;
+}
+
+.gza-resume__noun {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* The commit moment (paper plane, ticket, door), quiet at the end edge. */
+.gza-resume__why {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-tint);
+}
+
+/* ---------- "or" divider ---------- */
+.gza-or {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+}
+
+.gza-or__rule {
+  flex: 1;
+  block-size: var(--gz-stroke-hair);
+  background: var(--gz-color-sys-border-hairline);
+}
+
+/* ---------- provider buttons: two equal buttons in one row ---------- */
+.gza-paths {
+  display: flex;
+  gap: var(--gz-space-3);
+}
+
+.gza-path {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* ---------- the number a code was sent to ---------- */
+.gza-number {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+.gza-number__mark {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--gz-size-disk);
+  block-size: var(--gz-size-disk);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-icon-secondary);
+}
+
+.gza-number__value {
+  flex: none;
+  margin: 0;
+}
+
+/* The change link takes the free space before it, so the figure stays against the WhatsApp mark in both directions. */
+.gza-number .gz-btn {
+  margin-inline-start: auto;
+}
+
+/* ---------- password field: the reveal control is a 44 target that takes back the box's end padding ---------- */
+.gza-pwd .gz-field__box {
+  padding-inline-end: var(--gz-space-1);
+}
+
+.gza-eye {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--gz-size-touch-min);
+  block-size: var(--gz-size-touch-min);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--gz-radius-sm);
+  background: transparent;
+  color: var(--gz-color-sys-icon-secondary);
+  cursor: pointer;
+}
+
+.gza-eye:active {
+  background: var(--gz-color-sys-surface-quiet);
+}
+
+.gza-eye:disabled {
+  color: var(--gz-color-sys-icon-disabled);
+  cursor: not-allowed;
+}
+
+/* ---------- password strength (a gold thread of three segments) and the two rule chips ---------- */
+.gza-strength {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-3);
+}
+
+.gza-strength__bar {
+  display: flex;
+  gap: var(--gz-space-1);
+}
+
+.gza-strength__seg {
+  flex: 1;
+  block-size: var(--gz-stroke-thread-max);
+  border-radius: var(--gz-radius-pill);
+  background: var(--gz-color-sys-mark-track);
+}
+
+.gza-strength__seg.is-on {
+  background: var(--gz-color-sys-mark-khayt);
+}
+
+.gza-rules {
+  display: flex;
+  gap: var(--gz-space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gza-rule {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gza-rule__icon {
+  flex: none;
+  color: var(--gz-color-sys-icon-disabled);
+}
+
+.gza-rule__chip {
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gza-rule.is-met,
+.gza-rule.is-met .gza-rule__chip {
+  color: var(--gz-color-sys-text-primary);
+}
+
+.gza-rule.is-met .gza-rule__icon {
+  color: var(--gz-color-sys-icon-success);
+}
+
+/* ---------- legal sheet: section headings as icon rows ---------- */
+.gza-legal {
+  display: flex;
+  flex-direction: column;
+}
+
+.gza-legal__note {
+  margin: 0;
+  padding-block-start: var(--gz-space-4);
+}
+
+/* ---------- sheet screens draw their own title row (the Sheet gives the handle and the padding) ---------- */
+.gza-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-4);
+}
+
+.gza-sheet__head {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  min-block-size: var(--gz-size-control-md);
+}
+
+.gza-sheet__title {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+}
+
+.gza-sheet__close {
+  flex: none;
+  position: relative; /* flutter-ok: Transform.translate by the target's slack so the glyph meets the 20 gutter */
+  inset-inline-end: -10px;
+}
+
+/* ---------- tertiary links: the button insets its label by 8; a link that starts a column takes that back so label and gutter meet ---------- */
+.gza-flush {
+  position: relative; /* flutter-ok: Transform.translate by the tertiary padding */
+  inset-inline-start: -8px;
+}
+
+.gza-flush-end {
+  position: relative; /* flutter-ok: Transform.translate by the tertiary padding */
+  inset-inline-end: -8px;
+}
+
+/* The phone value sits against the +965 chip in both languages: one number read left to right. (System rule puts LTR islands at the
+   screen's start edge, which in Arabic detaches the digits from the chip; see requests.md.) */
+[dir='rtl'] .gza-phone .gz-field__input[dir='ltr'] {
+  text-align: start;
+}

@@ -1,0 +1,78 @@
+.hbk-search {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+  padding-block: var(--gz-space-4) var(--gz-space-section);
+}
+
+.hbk-search--none {
+  padding-inline: var(--gz-space-gutter);
+}
+
+.hbk-search__pad {
+  padding-inline: var(--gz-space-gutter);
+}
+
+/* No recent searches: one quiet drawing, nothing to read. */
+.hbk-search__idle {
+  display: flex;
+  justify-content: center;
+  padding-block-start: var(--gz-space-8);
+}
+
+.hbk-search__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+}
+
+.hbk-search__recents {
+  display: flex;
+  flex-direction: column;
+}
+
+.hbk-search__recents-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gz-space-3);
+  padding-inline: var(--gz-space-gutter);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hbk-search__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hbk-search__recent {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  inline-size: 100%; /* flutter-ok: a row fills its list (ListTile) */
+  min-block-size: var(--gz-size-row-min);
+  padding-inline: var(--gz-space-gutter);
+  border-block-end-width: var(--gz-stroke-hair);
+  border-block-end-style: solid;
+  border-block-end-color: var(--gz-color-sys-border-hairline);
+  color: var(--gz-color-sys-text-strong);
+  text-align: start;
+  cursor: pointer;
+}
+
+.hbk-search__recent:active {
+  background-color: var(--gz-color-sys-surface-quiet);
+}
+
+.hbk-search__recent-text {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.hbk-search--none .gz-state__title {
+  overflow-wrap: anywhere;
+}
