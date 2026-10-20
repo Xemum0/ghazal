@@ -1,0 +1,200 @@
+[
+ {
+  "total": {
+   "fils": 60000000,
+   "currency": "KWD"
+  },
+  "categories": [
+   {
+    "id": "venue_catering",
+    "name": {
+     "en": "Venue and catering",
+     "ar": "القاعة والضيافة"
+    },
+    "allocated": {
+     "fils": 32000000,
+     "currency": "KWD"
+    },
+    "paid": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "committed": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "autoLinked": true,
+    "icon": "hall"
+   },
+   {
+    "id": "photo_video",
+    "name": {
+     "en": "Photography and video",
+     "ar": "التصوير والفيديو"
+    },
+    "allocated": {
+     "fils": 4000000,
+     "currency": "KWD"
+    },
+    "paid": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "committed": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "autoLinked": false,
+    "icon": "camera"
+   },
+   {
+    "id": "flowers_decor",
+    "name": {
+     "en": "Flowers and decoration",
+     "ar": "الزهور والديكور"
+    },
+    "allocated": {
+     "fils": 6000000,
+     "currency": "KWD"
+    },
+    "paid": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "committed": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "autoLinked": false,
+    "icon": "flower"
+   },
+   {
+    "id": "attire",
+    "name": {
+     "en": "Attire (dress and suit)",
+     "ar": "الملابس (الفستان والبدلة)"
+    },
+    "allocated": {
+     "fils": 7000000,
+     "currency": "KWD"
+    },
+    "paid": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "committed": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "autoLinked": false,
+    "icon": "dress"
+   },
+   {
+    "id": "makeup_henna",
+    "name": {
+     "en": "Makeup and henna",
+     "ar": "المكياج والحناء"
+    },
+    "allocated": {
+     "fils": 2500000,
+     "currency": "KWD"
+    },
+    "paid": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "committed": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "autoLinked": false,
+    "icon": "brush"
+   },
+   {
+    "id": "cars",
+    "name": {
+     "en": "Cars",
+     "ar": "السيارات"
+    },
+    "allocated": {
+     "fils": 1500000,
+     "currency": "KWD"
+    },
+    "paid": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "committed": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "autoLinked": false,
+    "icon": "car"
+   },
+   {
+    "id": "invitations",
+    "name": {
+     "en": "Invitations",
+     "ar": "بطاقات الدعوة"
+    },
+    "allocated": {
+     "fils": 1000000,
+     "currency": "KWD"
+    },
+    "paid": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "committed": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "autoLinked": false,
+    "icon": "mail"
+   },
+   {
+    "id": "music",
+    "name": {
+     "en": "Music",
+     "ar": "الموسيقى"
+    },
+    "allocated": {
+     "fils": 3000000,
+     "currency": "KWD"
+    },
+    "paid": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "committed": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "autoLinked": false,
+    "icon": "music"
+   },
+   {
+    "id": "honeymoon",
+    "name": {
+     "en": "Honeymoon",
+     "ar": "شهر العسل"
+    },
+    "allocated": {
+     "fils": 3000000,
+     "currency": "KWD"
+    },
+    "paid": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "committed": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "autoLinked": false,
+    "icon": "palm"
+   }
+  ],
+  "expenses": []
+ }
+]

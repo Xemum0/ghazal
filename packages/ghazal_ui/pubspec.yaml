@@ -24,6 +24,9 @@ dev_dependencies:
 
 flutter:
   generate: true
+  assets:
+    # The illustration set exported by tools/export-illustrations.mjs: <name>.<sm|md|lg|hero>.svg (flat folder).
+    - assets/illustrations/
   # Font family names are exactly ElMessiri, Manrope, Almarai (web: "El Messiri", "Manrope", "Almarai"; see assets/fonts/LICENSES.md).
   # El Messiri and Manrope are static instances cut from the Google Fonts variable files (wght axis); Almarai ships static.
   fonts:
@@ -59,3 +62,7 @@ flutter:
           weight: 700
         - asset: assets/fonts/Almarai-ExtraBold.ttf
           weight: 800
+    # The icon font built by tools/gen-icons.mjs (179 glyphs, codepoints in assets/fonts/GzIcons.codepoints.json).
+    - family: GzIcons
+      fonts:
+        - asset: assets/fonts/GzIcons.ttf

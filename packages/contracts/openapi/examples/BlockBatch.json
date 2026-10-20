@@ -1,0 +1,18 @@
+{
+  "id": "blk_01JEXAMPLE",
+  "hallIds": [
+    "V01-danah"
+  ],
+  "dates": [
+    "2027-02-04",
+    "2027-02-05"
+  ],
+  "reason": "maintenance",
+  "note": "Chandelier service",
+  "createdAt": "2026-11-12T16:00:00+03:00",
+  "createdBy": "Hind Al-Enezi",
+  "claimIds": [
+    "claim-blk-1",
+    "claim-blk-2"
+  ]
+}

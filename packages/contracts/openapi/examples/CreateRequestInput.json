@@ -1,0 +1,24 @@
+{
+  "targetType": "venue",
+  "venueId": "V01",
+  "eventDate": "2027-01-14",
+  "sections": [
+    {
+      "hallId": "V01-danah",
+      "sessionId": "V01-danah-evening",
+      "audience": "women",
+      "guests": 350,
+      "packageId": "V01-ladies-weekend"
+    }
+  ],
+  "extras": [],
+  "voucherId": "vch-GV-2611-K7QM",
+  "quoteId": "qt_01JEXAMPLEDANAH",
+  "contact": {
+    "name": "ريم الدوسري",
+    "phone": "+96550000012",
+    "bookingFor": "bride",
+    "shared": true
+  },
+  "specialRequests": "نحتاج مدخلًا منفصلًا لكبار السن ومكانًا مخصصًا للعبايات."
+}

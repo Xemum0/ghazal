@@ -1,0 +1,145 @@
+[
+ {
+  "id": "V01-x-kosha",
+  "venueId": "V01",
+  "category": "kosha",
+  "name": {
+   "en": "Bespoke kosha",
+   "ar": "الكوشة المخصصة"
+  },
+  "description": {
+   "en": "Designed bridal stage with florals and lighting.",
+   "ar": "منصة عروس بتصميم خاص مع الزهور والإضاءة."
+  },
+  "pricingUnit": "flat",
+  "price": {
+   "fils": 1800000,
+   "currency": "KWD"
+  },
+  "priceMin": {
+   "fils": 1800000,
+   "currency": "KWD"
+  },
+  "priceMax": {
+   "fils": 6500000,
+   "currency": "KWD"
+  },
+  "maxQty": 1,
+  "includedInPackageIds": [
+   "V01-ladies-signature"
+  ],
+  "audiences": [
+   "women",
+   "men"
+  ],
+  "unitLabel": null,
+  "active": true
+ },
+ {
+  "id": "V01-x-florals",
+  "venueId": "V01",
+  "category": "florals",
+  "name": {
+   "en": "Fresh florals",
+   "ar": "الزهور الطبيعية"
+  },
+  "description": {
+   "en": "Table centrepieces, aisle and entrance arrangements.",
+   "ar": "تنسيقات الطاولات والممر والمدخل."
+  },
+  "pricingUnit": "flat",
+  "price": {
+   "fils": 900000,
+   "currency": "KWD"
+  },
+  "priceMin": {
+   "fils": 900000,
+   "currency": "KWD"
+  },
+  "priceMax": {
+   "fils": 4000000,
+   "currency": "KWD"
+  },
+  "maxQty": 1,
+  "includedInPackageIds": [],
+  "audiences": [
+   "women",
+   "men"
+  ],
+  "unitLabel": null,
+  "active": true
+ },
+ {
+  "id": "V01-x-photographer",
+  "venueId": "V01",
+  "category": "photographer",
+  "name": {
+   "en": "Female photographer",
+   "ar": "مصوّرة"
+  },
+  "description": {
+   "en": "A female photographer for the ladies’ hall.",
+   "ar": "مصوّرة للقاعة النسائية."
+  },
+  "pricingUnit": "flat",
+  "price": {
+   "fils": 550000,
+   "currency": "KWD"
+  },
+  "priceMin": {
+   "fils": 450000,
+   "currency": "KWD"
+  },
+  "priceMax": {
+   "fils": 700000,
+   "currency": "KWD"
+  },
+  "maxQty": 1,
+  "includedInPackageIds": [],
+  "audiences": [
+   "women"
+  ],
+  "unitLabel": {
+   "en": "per event",
+   "ar": "للحفل الواحد"
+  },
+  "active": true
+ },
+ {
+  "id": "V01-x-valet-staff",
+  "venueId": "V01",
+  "category": "valet",
+  "name": {
+   "en": "Extra valet staff",
+   "ar": "طاقم فاليه إضافي"
+  },
+  "description": {
+   "en": "Additional valet attendants for busy arrivals.",
+   "ar": "مرافقو فاليه إضافيون لأوقات الذروة."
+  },
+  "pricingUnit": "per_unit",
+  "price": {
+   "fils": 250000,
+   "currency": "KWD"
+  },
+  "priceMin": {
+   "fils": 150000,
+   "currency": "KWD"
+  },
+  "priceMax": {
+   "fils": 400000,
+   "currency": "KWD"
+  },
+  "maxQty": 4,
+  "includedInPackageIds": [],
+  "audiences": [
+   "women",
+   "men"
+  ],
+  "unitLabel": {
+   "en": "per attendant",
+   "ar": "لكل مرافق"
+  },
+  "active": true
+ }
+]

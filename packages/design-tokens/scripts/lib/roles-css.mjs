@@ -3,7 +3,7 @@
 import { HEADER } from './css.mjs'
 
 /** Figure context: the Cairo figure role that matches the text role's size (EN Poppins x1.08, AR same size). */
-const NUM_CONTEXT = {
+export const NUM_CONTEXT = {
   label: 'fig-label', pill: 'fig-label', tab: 'fig-tab', caption: 'fig-caption', 'body-s': 'fig-body-s', button: 'fig-body-s',
   body: 'fig-body', title: 'fig-body', 'ui-title': 'fig-title', 'ui-xl': 'fig-xl',
 }

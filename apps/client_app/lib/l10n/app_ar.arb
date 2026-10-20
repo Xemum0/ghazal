@@ -1,4 +1,4411 @@
 {
   "@@locale": "ar",
-  "appName": "غزل"
+  "commonActionAccept": "قبول",
+  "commonActionAdd": "إضافة",
+  "commonActionApply": "تطبيق",
+  "commonActionBack": "رجوع",
+  "commonActionCall": "اتصال",
+  "commonActionCancel": "إلغاء",
+  "commonActionClear": "مسح",
+  "commonActionClose": "إغلاق",
+  "commonActionConfirm": "تأكيد",
+  "commonActionContinue": "متابعة",
+  "commonActionDecline": "اعتذار",
+  "commonActionDone": "تم",
+  "commonActionEdit": "تعديل",
+  "commonActionMessage": "مراسلة",
+  "commonActionNext": "التالي",
+  "commonActionOpenWhatsapp": "فتح واتساب",
+  "commonActionPrevious": "السابق",
+  "commonActionRemove": "إزالة",
+  "commonActionReschedule": "تغيير الموعد",
+  "commonActionReset": "إعادة الضبط",
+  "commonActionRetry": "إعادة المحاولة",
+  "commonActionSave": "حفظ",
+  "commonActionSearch": "بحث",
+  "commonActionSeeAll": "عرض الكل",
+  "commonActionSend": "إرسال",
+  "commonActionShare": "مشاركة",
+  "commonActionShowLess": "عرض أقل",
+  "commonActionSkip": "تخطي",
+  "commonActionUndo": "تراجع",
+  "commonActionWhatsapp": "واتساب",
+  "commonAvailabilityAvailable": "متاح",
+  "commonAvailabilityBlocked": "مغلق",
+  "commonAvailabilityBooked": "محجوز",
+  "commonAvailabilityFree": "متاح",
+  "commonAvailabilityHeld": "محجوز مؤقتًا",
+  "commonAvailabilityPast": "تاريخ سابق",
+  "commonAvailabilityUnavailable": "غير متاح",
+  "commonAvailabilityLineFree": "{date} · متاح",
+  "@commonAvailabilityLineFree": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonAvailabilityLineBooked": "{date} · محجوز",
+  "@commonAvailabilityLineBooked": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonCalendarAvailability": "التوفر",
+  "commonCalendarPrices": "الأسعار",
+  "commonCalendarToday": "اليوم",
+  "commonCalendarSelected": "محدد",
+  "commonCalendarPeak": "أيام الذروة",
+  "commonCalendarPreviousMonth": "الشهر السابق",
+  "commonCalendarNextMonth": "الشهر التالي",
+  "commonCalendarOccasionApproximate": "{occasion} (تقريبي)",
+  "@commonCalendarOccasionApproximate": {
+    "placeholders": {
+      "occasion": {
+        "type": "String"
+      }
+    }
+  },
+  "commonStatusRequested": "بانتظار الرد",
+  "commonStatusAwaitingDeposit": "تمت الموافقة · بانتظار العربون",
+  "commonStatusConfirmed": "مؤكد",
+  "commonStatusRejected": "لم يُقبل الطلب",
+  "commonStatusExpired": "انتهت المهلة",
+  "commonStatusCancelled": "ملغي",
+  "commonStatusCompleted": "مكتمل",
+  "commonStatusRefunded": "تم الاسترداد",
+  "commonStatusNoShow": "عدم حضور",
+  "commonStatusHeadlineConfirmed": "حجز مؤكد",
+  "commonStatusCancelledByYou": "ملغي بطلب منكم",
+  "commonStatusCancelledByVenue": "ملغي من القاعة",
+  "commonStatusHotelMissed": "انتهت المهلة",
+  "commonStatusUrgent": "عاجل",
+  "commonStatusTimeLeft": "باقي {time}",
+  "@commonStatusTimeLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "commonFilterAll": "الكل",
+  "commonTierWeekday": "أيام الأسبوع",
+  "commonTierWeekend": "نهاية الأسبوع",
+  "commonTierHoliday": "عطلة",
+  "commonTierSeason": "موسم",
+  "commonTierSpecialDate": "تاريخ مميز",
+  "commonUnitPerGuest": "للضيف",
+  "commonUnitPerNight": "لليلة",
+  "commonUnitPerDay": "لليوم",
+  "commonUnitPerHour": "للساعة",
+  "commonUnitMinGuests": "الحد الأدنى {count, plural, =0{لا ضيوف} =1{ضيف واحد} =2{ضيفان} few{⁦{count}⁩ ضيوف} many{⁦{count}⁩ ضيفًا} other{⁦{count}⁩ ضيف}}",
+  "@commonUnitMinGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonUnitUpToGuests": "حتى {count, plural, =0{لا ضيوف} =1{ضيف واحد} =2{ضيفين} few{⁦{count}⁩ ضيوف} many{⁦{count}⁩ ضيفًا} other{⁦{count}⁩ ضيف}}",
+  "@commonUnitUpToGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountGuests": "{count, plural, =0{لا ضيوف} =1{ضيف واحد} =2{ضيفان} few{⁦{count}⁩ ضيوف} many{⁦{count}⁩ ضيفًا} other{⁦{count}⁩ ضيف}}",
+  "@commonCountGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountDays": "{count, plural, =0{لا أيام} =1{يوم واحد} =2{يومان} few{⁦{count}⁩ أيام} many{⁦{count}⁩ يومًا} other{⁦{count}⁩ يوم}}",
+  "@commonCountDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountHours": "{count, plural, =0{لا ساعات} =1{ساعة واحدة} =2{ساعتان} few{⁦{count}⁩ ساعات} many{⁦{count}⁩ ساعة} other{⁦{count}⁩ ساعة}}",
+  "@commonCountHours": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMinutes": "{count, plural, =0{لا دقائق} =1{دقيقة واحدة} =2{دقيقتان} few{⁦{count}⁩ دقائق} many{⁦{count}⁩ دقيقة} other{⁦{count}⁩ دقيقة}}",
+  "@commonCountMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountHalls": "{count, plural, =0{لا قاعات} =1{قاعة واحدة} =2{قاعتان} few{⁦{count}⁩ قاعات} many{⁦{count}⁩ قاعة} other{⁦{count}⁩ قاعة}}",
+  "@commonCountHalls": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountPackages": "{count, plural, =0{لا باقات} =1{باقة واحدة} =2{باقتان} few{⁦{count}⁩ باقات} many{⁦{count}⁩ باقة} other{⁦{count}⁩ باقة}}",
+  "@commonCountPackages": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMessages": "{count, plural, =0{لا رسائل} =1{رسالة واحدة} =2{رسالتان} few{⁦{count}⁩ رسائل} many{⁦{count}⁩ رسالة} other{⁦{count}⁩ رسالة}}",
+  "@commonCountMessages": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountBookings": "{count, plural, =0{لا حجوزات} =1{حجز واحد} =2{حجزان} few{⁦{count}⁩ حجوزات} many{⁦{count}⁩ حجزًا} other{⁦{count}⁩ حجز}}",
+  "@commonCountBookings": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountSessions": "{count, plural, =0{لا فترات} =1{فترة واحدة} =2{فترتان} few{⁦{count}⁩ فترات} many{⁦{count}⁩ فترة} other{⁦{count}⁩ فترة}}",
+  "@commonCountSessions": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMonths": "{count, plural, =0{لا أشهر} =1{شهر واحد} =2{شهران} few{⁦{count}⁩ أشهر} many{⁦{count}⁩ شهرًا} other{⁦{count}⁩ شهر}}",
+  "@commonCountMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountDates": "{count, plural, =0{لا تواريخ} =1{تاريخ واحد} =2{تاريخان} few{⁦{count}⁩ تواريخ} many{⁦{count}⁩ تاريخًا} other{⁦{count}⁩ تاريخ}}",
+  "@commonCountDates": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountRequests": "{count, plural, =0{لا طلبات} =1{طلب واحد} =2{طلبان} few{⁦{count}⁩ طلبات} many{⁦{count}⁩ طلبًا} other{⁦{count}⁩ طلب}}",
+  "@commonCountRequests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountReviews": "{count, plural, =0{لا تقييمات} =1{تقييم واحد} =2{تقييمان} few{⁦{count}⁩ تقييمات} many{⁦{count}⁩ تقييمًا} other{⁦{count}⁩ تقييم}}",
+  "@commonCountReviews": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountPhotos": "{count, plural, =0{لا صور} =1{صورة واحدة} =2{صورتان} few{⁦{count}⁩ صور} many{⁦{count}⁩ صورة} other{⁦{count}⁩ صورة}}",
+  "@commonCountPhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountdownDays": "{count, plural, =0{اليوم} =1{باقي يوم واحد} =2{باقي يومان} few{باقي ⁦{count}⁩ أيام} many{باقي ⁦{count}⁩ يومًا} other{باقي ⁦{count}⁩ يوم}}",
+  "@commonCountdownDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCounter": "⁦{current}⁩ من ⁦{total}⁩",
+  "@commonCounter": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonStateLoading": "جارٍ التحميل",
+  "commonStateTitleGeneric": "حدث خطأ ما",
+  "commonStateTitleLoad": "تعذّر التحميل",
+  "commonStateTitleNetwork": "لا يوجد اتصال",
+  "commonStateTitlePayment": "تعذّر الدفع",
+  "commonStateTitleNoAccess": "لا صلاحية",
+  "commonStateTitleNotFound": "غير موجود",
+  "commonStateTitleEmptySearch": "لا نتائج",
+  "commonStateTitleEmpty": "لا شيء هنا",
+  "commonStateOffline": "لا يوجد اتصال",
+  "commonStateErrorGeneric": "حدث خطأ من جانبنا. لم يتم تغيير أي شيء. يُرجى المحاولة مرة أخرى.",
+  "commonStateErrorLoad": "تعذّر تحميل المحتوى. يُرجى المحاولة مرة أخرى.",
+  "commonStateErrorNetwork": "تعذّر الاتصال. يُرجى التأكد من الاتصال بالإنترنت والمحاولة مرة أخرى.",
+  "commonStateErrorPayment": "تعذّر إتمام الدفع. لم يُخصم أي مبلغ.",
+  "commonStateErrorNoAccess": "لا تملكون صلاحية الوصول. يُرجى مراجعة المدير.",
+  "commonStateErrorNotFound": "هذه الصفحة لم تعد متاحة.",
+  "commonStateSaved": "تم الحفظ",
+  "commonStateCopied": "تم النسخ",
+  "commonStateSent": "تم الإرسال",
+  "commonNoPaymentNowFull": "لا دفع الآن. لا يُخصم أي مبلغ قبل موافقة الفندق.",
+  "commonMoneyDeposit": "العربون",
+  "commonMoneyBalance": "المبلغ المتبقي",
+  "commonMoneyTotal": "الإجمالي",
+  "commonMoneyServiceCharge": "رسوم الخدمة",
+  "commonMoneyRentalFee": "رسوم الإيجار",
+  "commonLabelOptional": "اختياري",
+  "commonLabelRequired": "مطلوب",
+  "commonLabelNotDecided": "لم يتحدد",
+  "commonLabelToday": "اليوم",
+  "commonLabelTomorrow": "غدًا",
+  "commonLabelKuwaitTime": "بتوقيت الكويت",
+  "commonLabelSponsored": "إعلان",
+  "commonLabelNew": "جديد",
+  "commonLabelOr": "أو",
+  "commonLabelLanguage": "اللغة",
+  "commonLabelSettings": "الإعدادات",
+  "commonLanguageEnglish": "الإنجليزية",
+  "commonLanguageArabic": "العربية",
+  "commonFieldRequired": "هذا الحقل مطلوب.",
+  "commonFieldInvalid": "القيمة المدخلة غير صالحة.",
+  "commonFieldPhoneInvalid": "رقم الهاتف غير صالح.",
+  "commonA11yFavouriteAdd": "حفظ في المفضلة",
+  "commonA11yFavouriteRemove": "إزالة من المفضلة",
+  "commonA11yCompareAdd": "إضافة إلى المقارنة",
+  "commonA11yCompareRemove": "إزالة من المقارنة",
+  "commonA11yPhotoCounter": "صورة ⁦{current}⁩ من ⁦{total}⁩",
+  "@commonA11yPhotoCounter": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonA11yRating": "التقييم ⁦{rating}⁩ من ⁦{max}⁩",
+  "@commonA11yRating": {
+    "placeholders": {
+      "rating": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "max": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonA11ySelected": "محدد",
+  "commonStatusPending": "بانتظار الرد",
+  "commonStatusApproved": "تمت الموافقة",
+  "commonStatusRedeemed": "تم الاستخدام",
+  "commonStatusDeclined": "لم يُقبل",
+  "commonStatusHotelPending": "بانتظار الرد",
+  "commonStatusHotelApproved": "بانتظار العميل",
+  "commonStatusHotelRedeemed": "تم الاستخدام",
+  "commonStatusHotelDeclined": "تم الاعتذار",
+  "commonStatusHotelLapsed": "انتهت المهلة",
+  "commonStatusDateProposed": "موعد جديد",
+  "commonVoucherStatusUnpaid": "قيد الدفع",
+  "commonVoucherStatusActive": "جاهز",
+  "commonVoucherStatusBound": "مرتبط بطلب",
+  "commonVoucherStatusUsed": "تم الاستخدام",
+  "commonVoucherStatusExpired": "منتهي الصلاحية",
+  "commonVisitStatusRequested": "طلب زيارة",
+  "commonVisitStatusConfirmed": "مؤكدة",
+  "commonVisitStatusReschedule": "وقت جديد",
+  "commonVisitStatusArrived": "تم الوصول",
+  "commonVisitStatusCompleted": "تمت",
+  "commonVisitStatusDeclined": "غير متاح",
+  "commonVisitStatusCancelled": "ملغية",
+  "commonVisitStatusMissed": "لم تتم",
+  "commonListingStatusDraft": "مسودة",
+  "commonListingStatusPayment": "غير مدفوع",
+  "commonListingStatusReview": "قيد المراجعة",
+  "commonListingStatusApproved": "تمت الموافقة",
+  "commonListingStatusRejected": "لم تُعتمد",
+  "commonListingStatusActive": "منشور",
+  "commonListingStatusExpired": "انتهت المدة",
+  "commonListingStatusPaused": "متوقف مؤقتًا",
+  "commonVoucher": "كوبون",
+  "commonVoucherPrice": "سعر الكوبون",
+  "commonStandardPrice": "السعر العادي",
+  "commonYouSave": "توفّرون {amount}",
+  "@commonYouSave": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "commonSaveAmount": "وفّروا {amount}",
+  "@commonSaveAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "commonConfirmBooking": "تأكيد الحجز",
+  "commonRedeemVoucher": "استخدام الكوبون",
+  "commonVoucherCode": "رمز الكوبون",
+  "commonValidUntil": "صالح حتى {date}",
+  "@commonValidUntil": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonLabelGuestVoucher": "سعر الكوبون بعد التسجيل",
+  "commonRoleClient": "العميل",
+  "commonRoleYou": "أنتم",
+  "commonRoleHotelRep": "ممثل الفندق",
+  "commonRoleSupport": "دعم غزل",
+  "commonVenueTypePrivateHall": "قاعة خاصة",
+  "commonVenueTypeGovernmental": "منشأة حكومية",
+  "commonVenueTypeHotel": "فندق",
+  "commonPricingPerPerson": "سعر للضيف",
+  "commonPricingPackages": "باقات",
+  "commonPricingPackage": "باقة",
+  "commonPricingStructure": "طريقة التسعير",
+  "commonFilterGovernorate": "المحافظة",
+  "commonFilterVenueType": "نوع المكان",
+  "commonFilterCapacity": "السعة",
+  "commonPlanWeekly": "أسبوعي",
+  "commonPlanMonthly": "شهري",
+  "commonPlanAnnual": "سنوي",
+  "commonRatesSoon": "الأسعار تُعلن قريبًا",
+  "commonExempt": "معفى",
+  "commonMajorHotel": "فندق كبير",
+  "commonA11yInfo": "معلومات إضافية",
+  "commonLabelDetails": "التفاصيل",
+  "commonVoucherStatusForfeited": "غير صالح",
+  "commonVoucherStatusCredit": "رصيد",
+  "commonVoucherStatusCreditIssued": "تم إصدار رصيد",
+  "commonVoucherCredit": "كوبون رصيد",
+  "commonVoucherAnyVenue": "أي قاعة أو فندق أو خدمة",
+  "commonVoucherNotValidNote": "لم يُؤكَّد خلال {hours, plural, =0{لا ساعات} =1{ساعة} =2{ساعتين} few{⁦{hours}⁩ ساعات} many{⁦{hours}⁩ ساعة} other{⁦{hours}⁩ ساعة}}",
+  "@commonVoucherNotValidNote": {
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonVoucherConfirmIn24h": "أكدوا لدى الفندق أو الخدمة خلال {hours, plural, =0{لا ساعات} =1{ساعة} =2{ساعتين} few{⁦{hours}⁩ ساعات} many{⁦{hours}⁩ ساعة} other{⁦{hours}⁩ ساعة}}، وإلا أصبح الكوبون غير صالح",
+  "@commonVoucherConfirmIn24h": {
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonAskSupport": "اسألوا الدعم",
+  "commonCreditRequested": "تم إرسال الطلب إلى الدعم",
+  "commonBillingContract": "عقد عمل",
+  "commonBillingPlan": "باقة",
+  "commonBillingContractTerms": "بالشروط المتفق عليها",
+  "commonStaffInvitedByEmail": "دعوة بالبريد",
+  "commonCalendarByEmail": "التقويم بالبريد الإلكتروني",
+  "commonReviewAskSupportHide": "اطلبوا من الدعم إخفاء المراجعة أو حذفها",
+  "commonVideoLimit": "حتى {size} ميغابايت للفيديو الواحد",
+  "@commonVideoLimit": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "clientAuthSharedNotNow": "ليس الآن",
+  "clientAuthSharedSupport": "الدعم",
+  "clientAuthSharedApple": "آبل",
+  "clientAuthSharedGoogle": "جوجل",
+  "clientAuthSharedUsePassword": "كلمة المرور",
+  "clientAuthSharedUseCode": "رمز واتساب",
+  "clientAuthSharedSignIn": "تسجيل الدخول",
+  "clientAuthSharedCreateAccount": "إنشاء حساب",
+  "clientAuthSharedSignedIn": "تم الدخول",
+  "clientAuthSharedAccountReady": "الحساب جاهز",
+  "clientAuthSharedPhone": "الجوال",
+  "clientAuthSharedSendCode": "إرسال الرمز",
+  "clientAuthSharedDate": "التاريخ",
+  "clientAuthSharedGuests": "الضيوف",
+  "clientAuthSharedLegalTerms": "شروط الاستخدام",
+  "clientAuthSharedLegalPrivacy": "سياسة الخصوصية",
+  "clientAuthSharedLegalNote": "النص الكامل قبل الإطلاق",
+  "clientAuthSharedTermsSection1": "استخدام غزل",
+  "clientAuthSharedTermsSection2": "الكوبون",
+  "clientAuthSharedTermsSection3": "الدفع للقاعة",
+  "clientAuthSharedTermsSection4": "مسؤولياتكم",
+  "clientAuthSharedPrivacySection1": "ما نجمعه من بيانات",
+  "clientAuthSharedPrivacySection2": "كيف نستخدمها",
+  "clientAuthSharedPrivacySection3": "من يطّلع عليها",
+  "clientAuthSharedPrivacySection4": "خياراتكم",
+  "clientAuthSharedInfoTitle": "حسابكم",
+  "clientAuthSharedPartnerNote": "فندق أو مقدم خدمة؟ استخدموا تطبيق غزل للشركاء.",
+  "clientAuthSharedSmallPrint": "تسري <terms>شروط الاستخدام</terms> و<privacy>سياسة الخصوصية</privacy> عليكم، وتؤكدون موافقتكم عليهما عند إنشاء الحساب.",
+  "clientAuthReasonSendRequest": "إرسال الطلب",
+  "clientAuthReasonVoucher": "كوبون",
+  "clientAuthReasonVisit": "زيارة",
+  "clientAuthReasonChat": "رسالة",
+  "clientAuthReasonReview": "تقييم",
+  "clientAuthReasonPlanner": "استشارة",
+  "clientAuthReasonQuote": "عرض سعر",
+  "clientAuthReasonSave": "المفضلة",
+  "clientAuthGateErrorDigits": "يلزم {count, plural, =0{لا أرقام} =1{رقم واحد} =2{رقمان} few{⁦{count}⁩ أرقام} many{⁦{count}⁩ رقمًا} other{⁦{count}⁩ رقم}}",
+  "@clientAuthGateErrorDigits": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientAuthGateErrorNotOnWhatsapp": "ليس على واتساب",
+  "clientAuthGateNotOnWhatsappDetail": "تعذّر إرسال رمز إلى هذا الرقم عبر واتساب. يمكنكم المتابعة عبر آبل أو جوجل، أو التواصل مع الدعم.",
+  "clientAuthOtpTitle": "رمز واتساب",
+  "clientAuthOtpSheetTitle": "تأكيد الرقم",
+  "clientAuthOtpLabel": "الرمز",
+  "clientAuthOtpVerify": "تأكيد",
+  "clientAuthOtpWrong": "رمز خاطئ",
+  "clientAuthOtpAttemptsLeft": "{count, plural, =0{لا محاولات متبقية} =1{بقيت محاولة واحدة} =2{بقيت محاولتان} few{بقيت ⁦{count}⁩ محاولات} many{بقيت ⁦{count}⁩ محاولة} other{بقيت ⁦{count}⁩ محاولة}}",
+  "@clientAuthOtpAttemptsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientAuthOtpExpired": "انتهى الرمز",
+  "clientAuthOtpResent": "تم الإرسال",
+  "clientAuthOtpResendIn": "{count, plural, =0{إعادة إرسال الرمز الآن} =1{إعادة إرسال الرمز بعد ثانية واحدة} =2{إعادة إرسال الرمز بعد ثانيتين} few{إعادة إرسال الرمز بعد ⁦{count}⁩ ثوانٍ} many{إعادة إرسال الرمز بعد ⁦{count}⁩ ثانية} other{إعادة إرسال الرمز بعد ⁦{count}⁩ ثانية}}",
+  "@clientAuthOtpResendIn": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientAuthOtpTimer": "{count} ث",
+  "@clientAuthOtpTimer": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "clientAuthOtpResend": "إعادة الإرسال",
+  "clientAuthOtpChange": "تغيير",
+  "clientAuthOtpChangeNumber": "تغيير الرقم",
+  "clientAuthOtpLocked": "محاولات كثيرة",
+  "clientAuthOtpLockedDetail": "يمكنكم المحاولة لاحقًا أو التواصل مع الدعم.",
+  "clientAuthOtpDeliveryFailed": "لم يصل الرمز",
+  "clientAuthOtpDeliveryFailedDetail": "لم يصل الرمز إلى واتساب. يمكنكم إعادة الإرسال أو المتابعة بطريقة أخرى.",
+  "clientAuthOtpSendAgain": "إرسال مجددًا",
+  "clientAuthOtpSuccessTitle": "تم التأكيد",
+  "clientAuthOtpOpening": "جارٍ فتح واتساب",
+  "clientAuthNameTitle": "إنشاء حساب",
+  "clientAuthNameLabel": "الاسم",
+  "clientAuthNamePlaceholder": "الاسم الكامل",
+  "clientAuthNameEmailLabel": "البريد الإلكتروني",
+  "clientAuthNameAccept": "أوافق",
+  "clientAuthNameLegalTitle": "الشروط والخصوصية",
+  "clientAuthNameKept": "محفوظ في حسابكم",
+  "clientAuthNameMonogram": "حرف اسمكم",
+  "clientAuthPwdForgotTitle": "استعادة الدخول",
+  "clientAuthPwdResetTitle": "كلمة مرور جديدة",
+  "clientAuthPwdPassword": "كلمة المرور",
+  "clientAuthPwdShow": "إظهار كلمة المرور",
+  "clientAuthPwdHide": "إخفاء كلمة المرور",
+  "clientAuthPwdForgot": "نسيتم؟",
+  "clientAuthPwdForgotLabel": "نسيتم كلمة المرور",
+  "clientAuthPwdEnterCode": "إدخال الرمز",
+  "clientAuthPwdVerified": "تم تأكيد الرقم عبر واتساب",
+  "clientAuthPwdStrength": "قوة كلمة المرور: {level}",
+  "@clientAuthPwdStrength": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "clientAuthPwdStrengthWeak": "ضعيفة",
+  "clientAuthPwdStrengthFair": "مقبولة",
+  "clientAuthPwdStrengthStrong": "قوية",
+  "clientAuthPwdRuleLength": "{count, plural, =0{لا أحرف} =1{حرف واحد على الأقل} =2{حرفان على الأقل} few{⁦{count}⁩ أحرف على الأقل} many{⁦{count}⁩ حرفًا على الأقل} other{⁦{count}⁩ حرف على الأقل}}",
+  "@clientAuthPwdRuleLength": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientAuthPwdRuleMix": "حرف ورقم",
+  "clientAuthPwdRulePhone": "ليست رقم جوالكم",
+  "clientAuthPwdRuleMet": "تم",
+  "clientAuthPwdRuleOpen": "لم يتحقق بعد",
+  "clientAuthPwdInvalid": "البيانات غير صحيحة",
+  "clientAuthPwdLocked": "متوقف مؤقتًا",
+  "clientAuthPwdUpdatedTitle": "تم التحديث",
+  "clientAuthBioTitle": "الفتح بالبصمة أو الوجه",
+  "clientAuthBioMethod": "{method, select, face{بصمة الوجه} touch{بصمة الإصبع} other{بصمة الإصبع}}",
+  "@clientAuthBioMethod": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "clientAuthBioPromptDetail": "تقتصر {method, select, face{بصمة الوجه} touch{بصمة الإصبع} other{بصمة الإصبع}} على فتح تسجيل الدخول المحفوظ على هذا الهاتف، ولا تغني عن أول تسجيل دخول.",
+  "@clientAuthBioPromptDetail": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "clientAuthBioTurnOn": "تفعيل",
+  "clientAuthBioUnlock": "فتح",
+  "clientAuthBioFailedTitle": "غير مطابق",
+  "clientAuthBioFailedDetail": "يمكنكم المحاولة مرة أخرى أو الدخول بطريقة أخرى. حسابكم غير مغلق.",
+  "clientAuthBioUnavailableRow": "الفتح بالبصمة",
+  "clientAuthBioUnavailableDetail": "يلزم إضافة بصمة الوجه أو الإصبع من إعدادات الهاتف لتفعيل هذه الميزة. تفتح البصمة تسجيل الدخول المحفوظ على هذا الهاتف فقط.",
+  "clientAuthBioEnabledTitle": "تم التفعيل",
+  "clientBookingStepOf": "الخطوة {step} من {total}",
+  "@clientBookingStepOf": {
+    "placeholders": {
+      "step": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingStepsLabel": "مراحل الطلب",
+  "clientBookingLeaveTitle": "مغادرة الطلب؟",
+  "clientBookingLeaveBody": "المسودة محفوظة.",
+  "clientBookingLeaveConfirm": "مغادرة",
+  "clientBookingLeaveKeep": "متابعة التعديل",
+  "clientBookingEstimateLabel": "تقريبي",
+  "clientBookingOfflineBanner": "دون اتصال. المسودة محفوظة.",
+  "clientBookingPriceErrorBanner": "تعذّر تحديث السعر",
+  "clientBookingPriceTitle": "السعر",
+  "clientBookingVoucherTotalLabel": "سعر الكوبون",
+  "clientBookingVoucherEstimateLabel": "سعر الكوبون (تقريبي)",
+  "clientBookingYouSaveNet": "توفّرون {amount} بعد رسوم الكوبون",
+  "@clientBookingYouSaveNet": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingReplyWithin": "ترد القاعة خلال",
+  "clientBookingReplyFast": "يُطلب من القاعة الرد خلال",
+  "clientBookingEventTitle": "مناسبتكم",
+  "clientBookingDateChange": "تغيير التاريخ",
+  "clientBookingDateTakenAction": "تواريخ متاحة",
+  "clientBookingDateTakenBanner": "{date} غير متاح",
+  "@clientBookingDateTakenBanner": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingDateTakenReason": "اختاروا تاريخًا آخر",
+  "clientBookingHostingLabel": "الحفل",
+  "clientBookingHostingWomen": "الحفل النسائي",
+  "clientBookingHostingMen": "الحفل الرجالي",
+  "clientBookingHostingMixed": "الحفل المختلط",
+  "clientBookingHostingWomenShort": "نسائي",
+  "clientBookingHostingMenShort": "رجالي",
+  "clientBookingHostingMixedShort": "مختلط",
+  "clientBookingHallLabel": "القاعة",
+  "clientBookingSessionLabel": "الفترة",
+  "clientBookingGuestsLabel": "الضيوف",
+  "clientBookingGuestsPresets": "أعداد شائعة",
+  "clientBookingOccasionLabel": "المناسبة",
+  "clientBookingOccasionWedding": "زفاف",
+  "clientBookingOccasionMilka": "ملكة",
+  "clientBookingOccasionHenna": "حنّة",
+  "clientBookingOccasionEngagement": "خطوبة",
+  "clientBookingOccasionOther": "أخرى",
+  "clientBookingNeedVoucherTitle": "الكوبون أولًا",
+  "clientBookingNeedVoucherInfoTitle": "الكوبون",
+  "clientBookingNeedVoucherBody": "لا يُرسل الطلب بدون كوبون. الكوبون يمنحكم سعر الكوبون ويصل إلى القاعة مع طلبكم.",
+  "clientBookingHostingOneVoucher": "الكوبون الواحد يغطي حفلًا واحدًا. الحفل الثاني طلب مستقل بكوبون خاص به.",
+  "clientBookingNeedVoucherAction": "شراء الكوبون {fee}",
+  "@clientBookingNeedVoucherAction": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingFromVoucher": "من كوبونكم",
+  "clientBookingFromVoucherChange": "تغيير",
+  "clientBookingFromVoucherChangeAria": "تغيير ما يرتبط به الكوبون",
+  "clientBookingPackageTitle": "الباقة",
+  "clientBookingPackageSelected": "محددة",
+  "clientBookingPackageIncludes": "تشمل",
+  "clientBookingPackageDetails": "التفاصيل",
+  "clientBookingPackageFlat": "سعر الباقة",
+  "clientBookingPackageNoVoucher": "بلا كوبون",
+  "clientBookingPackageChangeVoucher": "يفتح الكوبون لهذا العرض",
+  "clientBookingPackageNotCoveredToast": "لا يشمله الكوبون",
+  "clientBookingPackageNoneTitle": "لا باقة مناسبة",
+  "clientBookingPackageNoneBody": "لا توجد باقة تناسب {guests} في هذه القاعة. يمكنكم تعديل العدد أو اختيار قاعة أخرى.",
+  "@clientBookingPackageNoneBody": {
+    "placeholders": {
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingPackageNoneInfoTitle": "الباقات",
+  "clientBookingPackageNoneAction": "تغيير العدد",
+  "clientBookingPackageMissingReason": "اختاروا باقة",
+  "clientBookingPackageBreakdownOpen": "عرض تفاصيل السعر",
+  "clientBookingExtrasTitle": "الإضافات",
+  "clientBookingExtrasInfoTitle": "الإضافات",
+  "clientBookingExtrasIncluded": "مشمولة",
+  "clientBookingExtrasNone": "بدون إضافات",
+  "clientBookingExtrasNoneOffered": "لا تقدّم هذه القاعة إضافات لحجزكم. يمكنكم المتابعة.",
+  "clientBookingExtrasLead": "اختيارية وتُحتسب بشكل منفصل، بسعر الكوبون حيثما توفّر لدى القاعة.",
+  "clientBookingExtrasSettledNote": "الإضافات تُسدَّد للقاعة مباشرةً.",
+  "clientBookingDetailsTitle": "بياناتكم",
+  "clientBookingNameLabel": "الاسم",
+  "clientBookingNameError": "أضيفوا الاسم",
+  "clientBookingPhoneLabel": "الجوال",
+  "clientBookingPhoneVerified": "موثّق",
+  "clientBookingPhoneVerify": "توثيق",
+  "clientBookingPhoneDigits": "يلزم {count, plural, =0{لا أرقام} =1{رقم واحد} =2{رقمان} few{⁦{count}⁩ أرقام} many{⁦{count}⁩ رقمًا} other{⁦{count}⁩ رقم}}",
+  "@clientBookingPhoneDigits": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientBookingEmailLabel": "البريد",
+  "clientBookingForLabel": "الحجز لصالح",
+  "clientBookingForSelf": "لي",
+  "clientBookingForOther": "لغيري",
+  "clientBookingForNameLabel": "اسم الشخص",
+  "clientBookingForRelationLabel": "الصلة",
+  "clientBookingRelationBride": "العروس",
+  "clientBookingRelationGroom": "العريس",
+  "clientBookingRelationFamily": "العائلة",
+  "clientBookingRelationPlanner": "المنسّق",
+  "clientBookingRequestsLabel": "طلبات",
+  "clientBookingRequestsSuggestions": "طلبات شائعة",
+  "clientBookingSuggestPhotographer": "مصوّرة فقط",
+  "clientBookingSuggestKosha": "دخول فريق الكوشة من {time}",
+  "@clientBookingSuggestKosha": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingSuggestWheelchair": "مدخل مهيّأ للكراسي المتحركة",
+  "clientBookingSuggestPhotographerShort": "مصوّرة",
+  "clientBookingSuggestKoshaShort": "الكوشة",
+  "clientBookingSuggestWheelchairShort": "كرسي متحرك",
+  "clientBookingPrivacyWord": "الخصوصية",
+  "clientBookingPrivacy": "يظهر اسمكم ورقم هاتفكم لدى {venue} لهذا الطلب فقط، ويظهر رمز كوبونكم لها عند الاستخدام فقط.",
+  "@clientBookingPrivacy": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingReviewTitle": "المراجعة",
+  "clientBookingReviewExtras": "الإضافات",
+  "clientBookingReviewContact": "جهة الاتصال",
+  "clientBookingReviewPackage": "الباقة",
+  "clientBookingReviewPriceNote": "السعر شامل ويُثبَّت عند الإرسال. لا مبلغ إضافي لغزل، وبعد التأكيد تدفعون للقاعة مباشرةً.",
+  "clientBookingNextTitle": "ما يحدث بعد ذلك",
+  "clientBookingNextSend": "إرسال",
+  "clientBookingNextReply": "الرد",
+  "clientBookingNextConfirm": "التأكيد",
+  "clientBookingNextVenue": "الاستخدام",
+  "clientBookingNextReplyNote": "الرد المتوقع قبل",
+  "clientBookingNextConfirmNote": "مهلة التأكيد بعد الموافقة",
+  "clientBookingNextVenueNote": "تدفعون إلى {venue} مباشرةً وتعرضون رمز الكوبون.",
+  "@clientBookingNextVenueNote": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingConsent": "أوافق",
+  "clientBookingConsentTitle": "الشروط",
+  "clientBookingConsentBody": "أوافق على شروط القاعة وشروط الكوبون وشروط المنصة.",
+  "clientBookingConsentRead": "قراءة الشروط",
+  "clientBookingSend": "إرسال الطلب",
+  "clientBookingSendFailed": "لم يُرسل. حاولوا مجددًا.",
+  "clientBookingReasonConsent": "وافقوا للإرسال",
+  "clientBookingReasonLimit": "الطلبات مكتملة",
+  "clientBookingReasonVoucher": "الكوبون مطلوب",
+  "clientBookingReasonPhone": "وثّقوا الجوال",
+  "clientBookingLimitBanner": "{count} من {max} مفتوحة",
+  "@clientBookingLimitBanner": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingLimitAction": "عرض",
+  "clientBookingLimitInfoTitle": "الطلبات المفتوحة",
+  "clientBookingLimitInfo": "اسحبوا طلبًا مفتوحًا لإرسال طلب آخر.",
+  "clientBookingPhoneBanner": "الجوال غير موثّق",
+  "clientBookingVoucherUneconomic": "توفير غير كافٍ",
+  "clientBookingVoucherUneconomicInfo": "في هذا العرض لم يعد التوفير أكبر من سعر الكوبون، لذلك لا يمكن استخدام الكوبون له.",
+  "clientBookingVoucherCardTitle": "الكوبون",
+  "clientBookingVoucherChange": "تغيير الكوبون",
+  "clientBookingVoucherValid": "صالح حتى",
+  "clientBookingQuoteChanged": "تغيّر إجمالي طلبكم منذ حصولكم على الكوبون بسبب الإضافات التي اخترتموها. الكوبون ما زال ساريًا.",
+  "clientBookingQuoteChangedShort": "تغيّر الإجمالي",
+  "clientBookingSentTitle": "تم إرسال الطلب",
+  "clientBookingSentInfoTitle": "طلبكم",
+  "clientBookingSentBody": "لم يُحجز التاريخ بعد. إذا وافق {venue}، نثبّته لكم {count, plural, =0{لا ساعات} =1{ساعة} =2{ساعتين} few{⁦{count}⁩ ساعات} many{⁦{count}⁩ ساعة} other{⁦{count}⁩ ساعة}} لتؤكدوا الحجز. كوبونكم مرفق بالطلب.",
+  "@clientBookingSentBody": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientBookingSentWithdraw": "يمكنكم سحب الطلب، ويعود الكوبون إليكم ويمكن استخدامه هنا من جديد.",
+  "clientBookingSentDate": "التاريخ",
+  "clientBookingSentHall": "القاعة",
+  "clientBookingSentGuests": "الضيوف",
+  "clientBookingSentReference": "رقم الطلب",
+  "clientBookingSentVoucherPrice": "سعر الكوبون",
+  "clientBookingSentHeld": "التاريخ محجوز",
+  "clientBookingSentHeldLong": "التاريخ محجوز لدى عروسين آخرين",
+  "clientBookingSentView": "عرض الطلب",
+  "clientBookingSentDiscover": "استكشاف",
+  "clientBookingSentWedding": "زفافي",
+  "clientBookingSentNotifTitle": "تحديثات الحجز",
+  "clientBookingSentNotifYes": "تفعيل",
+  "clientBookingSentNotifNo": "لاحقًا",
+  "clientBookingSentNotifToast": "التحديثات مفعّلة",
+  "clientBookingSentOffline": "دون اتصال. الملخص محفوظ.",
+  "clientBookingPlannerTitle": "منسّق الأعراس",
+  "clientBookingPlannerNo": "لاحقًا",
+  "clientBookingTakenTitle": "التاريخ غير متاح",
+  "clientBookingTakenSessionTitle": "الفترة غير متاحة",
+  "clientBookingTakenExpiredTitle": "انتهت المهلة",
+  "clientBookingTakenLoading": "جارٍ البحث عن تواريخ متاحة",
+  "clientBookingTakenNearest": "أقرب التواريخ المتاحة",
+  "clientBookingTakenSimilar": "قاعات مشابهة متاحة يوم {date}",
+  "@clientBookingTakenSimilar": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingTakenAnother": "تاريخ آخر",
+  "clientBookingTakenResults": "النتائج",
+  "clientBookingTakenNone": "لا تواريخ قريبة",
+  "clientBookingTakenNoneInfo": "لا توجد تواريخ متاحة قريبة من {date} في هذه القاعة. يمكنكم اختيار تاريخ آخر أو استعراض قاعات أخرى.",
+  "@clientBookingTakenNoneInfo": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingTakenVoucherValid": "كوبونكم ما زال صالحًا",
+  "clientBookingTakenRebindFailed": "لا ينتقل الكوبون إليه",
+  "clientBookingTakenRebound": "انتقل الكوبون إلى {date}",
+  "@clientBookingTakenRebound": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingConfirmHeading": "التأكيد",
+  "clientBookingConfirmByLabel": "التأكيد قبل",
+  "clientBookingConfirmLapsedLabel": "انتهت في",
+  "clientBookingConfirmWindowLabel": "مهلة التأكيد",
+  "clientBookingConfirmLeft": "المتبقي للتأكيد {time}",
+  "@clientBookingConfirmLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingConfirmSummary": "ما وافقت عليه القاعة",
+  "clientBookingConfirmSaveNet": "توفّرون بعد رسوم الكوبون",
+  "clientBookingConfirmPayTitle": "الدفع",
+  "clientBookingConfirmPay": "لا مبلغ يُدفع هنا. تدفعون للقاعة مباشرةً بعد التأكيد.",
+  "clientBookingConfirmConsentBody": "أوافق على شروط القاعة وشروط الكوبون.",
+  "clientBookingConfirmNoteCancel": "التأكيد يحجز التاريخ بسعر الكوبون. الإلغاء بعد التأكيد يُخلي التاريخ ويُستهلك الكوبون.",
+  "clientBookingConfirmReasonConsent": "وافقوا للتأكيد",
+  "clientBookingConfirmAction": "تأكيد الحجز",
+  "clientBookingConfirmSeeNext": "عرض الخيارات",
+  "clientBookingConfirmCancel": "إلغاء الطلب",
+  "clientBookingConfirmViewRequest": "عرض الطلب",
+  "clientBookingConfirmOffline": "دون اتصال. أعيدوا الاتصال للتأكيد.",
+  "clientBookingUpdatedTitle": "تحديث الطلب",
+  "clientBookingUpdatedAction": "التفاصيل",
+  "clientBookingDoneHeading": "تم تأكيد الحجز",
+  "clientBookingDoneVoucherTitle": "الكوبون",
+  "clientBookingDonePayWord": "ادفعوا للقاعة",
+  "clientBookingDonePayTitle": "لدى القاعة",
+  "clientBookingDonePay": "ادفعوا إلى {venue} مباشرةً، ثم أظهروا هذا الرمز عند الدفع.",
+  "@clientBookingDonePay": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingDoneCopied": "تم النسخ",
+  "clientBookingDoneChecklist": "تم تسجيل القاعة كمنجزة في قائمتكم",
+  "clientBookingDoneSetDate": "تعيين موعد الزفاف",
+  "clientBookingDoneDateSet": "تم تعيين الموعد",
+  "clientBookingDoneActions": "الخطوات التالية",
+  "clientBookingDoneDirections": "الاتجاهات",
+  "clientBookingDoneVisit": "حجز زيارة",
+  "clientBookingDoneCall": "الاتصال بالقاعة",
+  "clientBookingDoneCalling": "جارٍ الاتصال بالقاعة",
+  "clientBookingDoneCalendar": "إضافة إلى التقويم",
+  "clientBookingDoneCalendarToast": "أُضيف إلى التقويم",
+  "clientBookingDoneShared": "تم نسخ الرابط",
+  "clientBookingDoneView": "عرض الحجز",
+  "clientBookingMapsTitle": "الاتجاهات",
+  "clientBookingMapsGoogle": "خرائط جوجل",
+  "clientBookingMapsApple": "خرائط آبل",
+  "clientBookingMapsWaze": "ويز",
+  "clientBookingMapsToast": "جارٍ فتح الاتجاهات",
+  "clientBookingEndedTitle": "انتهت المهلة",
+  "clientBookingEndedRevokedTitle": "سُحبت الموافقة",
+  "clientBookingEndedTakenTitle": "التاريخ غير متاح",
+  "clientBookingEndedLapsed": "انتهت مهلة التأكيد ({duration})، وتم تحرير موعد {date} وسقط الكوبون.",
+  "@clientBookingEndedLapsed": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingEndedRevoked": "لم يعد بإمكان {venue} تثبيت موعد {date}، لذلك سُحبت الموافقة.",
+  "@clientBookingEndedRevoked": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingEndedTaken": "لم يعد {date} متاحًا في {venue}.",
+  "@clientBookingEndedTaken": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingEndedVoucherTitle": "كوبونكم",
+  "clientBookingEndedVoucherPlain": "عاد الكوبون إليكم ويمكن استخدامه لطلب جديد هنا.",
+  "clientBookingEndedRefund": "اطلبوا رصيدًا",
+  "clientBookingEndedNew": "طلب جديد",
+  "clientBookingEndedFreeDates": "تواريخ متاحة",
+  "clientBookingEndedViewVenue": "القاعة",
+  "clientBookingEndedOffline": "دون اتصال. أعيدوا الاتصال للمتابعة.",
+  "clientBookingEndedReleased": "تحرر الموعد",
+  "clientBookingEndedWindow": "مهلة التأكيد",
+  "clientBookingEndedUntil": "صالح حتى",
+  "clientBookingEndedVoucherForfeited": "غير صالح. الكوبون الذي لا يُؤكَّد في القاعة خلال المهلة لا يعود.",
+  "clientBookingEndedVoucherCredit": "عاد الكوبون إليكم. استخدموه من جديد في {venue} حتى {date}، أو اطلبوا كوبون رصيد من الدعم.",
+  "@clientBookingEndedVoucherCredit": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsTitle": "الحجوزات",
+  "clientBookingsFindHall": "البحث عن قاعة",
+  "clientBookingsSectionNeeds": "بانتظار قراركم",
+  "clientBookingsSectionPending": "معلّقة",
+  "clientBookingsSectionConfirmed": "مؤكدة",
+  "clientBookingsSectionPast": "السابقة",
+  "clientBookingsPastFilter": "تصفية الطلبات السابقة",
+  "clientBookingsPastNone": "لا طلبات بهذه الحالة",
+  "clientBookingsLimitLabel": "الطلبات المفتوحة",
+  "clientBookingsLimitReached": "أغلقوا طلبًا لإرسال آخر",
+  "clientBookingsGuestTitle": "تابعوا طلباتكم",
+  "clientBookingsGuestAction": "تسجيل الدخول",
+  "clientBookingsEmptyTitle": "لا طلبات بعد",
+  "clientBookingsEmptyAction": "تصفح القاعات",
+  "clientBookingsEmptyActionDate": "قاعات {date}",
+  "@clientBookingsEmptyActionDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsVouchers": "الكوبونات",
+  "clientBookingsReceipts": "الإيصالات",
+  "clientBookingsAudienceWomen": "الحفل النسائي",
+  "clientBookingsAudienceMen": "الحفل الرجالي",
+  "clientBookingsAudienceMixed": "حفل مختلط",
+  "clientBookingsSessionDay": "فترة نهارية",
+  "clientBookingsSessionAfternoon": "فترة العصر",
+  "clientBookingsSessionEvening": "فترة مسائية",
+  "clientBookingsRowReplyBy": "الرد قبل",
+  "clientBookingsRowVoucherBack": "عاد الكوبون",
+  "clientBookingsRowVoucherUsed": "استُخدم الكوبون",
+  "clientBookingsDetailTitle": "الحجز",
+  "clientBookingsThreadLabel": "مراحل الحجز",
+  "clientBookingsHeadFacts": "بيانات الحجز",
+  "clientBookingsFactDate": "التاريخ",
+  "clientBookingsFactHall": "القاعة",
+  "clientBookingsFactGuests": "الضيوف",
+  "clientBookingsFactQuantity": "الكمية",
+  "clientBookingsFactPackage": "الباقة",
+  "clientBookingsFactNotes": "ملاحظات",
+  "clientBookingsPendingTitle": "تم إرسال الطلب",
+  "clientBookingsPendingBody": "الكوبون مرفق بالطلب. لم يُحجز أي تاريخ بعد.",
+  "clientBookingsPendingHeldTitle": "التاريخ محجوز",
+  "clientBookingsPendingHeld": "طلب آخر حصل على الموافقة ويحجز هذا التاريخ حاليًا. إذا انتهت مهلته يمكن قبول طلبكم. الكوبون يبقى مرفقًا به.",
+  "clientBookingsPendingWithdraw": "سحب الطلب",
+  "clientBookingsApprovedCancel": "إلغاء الطلب",
+  "clientBookingsCancelBooking": "إلغاء الحجز",
+  "clientBookingsConfirmWindow": "مهلة التأكيد",
+  "clientBookingsConfirmLeft": "الوقت المتبقي",
+  "clientBookingsConfirmInfoTitle": "مهلة التأكيد",
+  "clientBookingsConfirmInfo": "التاريخ محجوز لكم حتى ذلك الوقت. لا مبلغ إضافي لغزل.",
+  "clientBookingsStepPay": "الدفع للقاعة",
+  "clientBookingsStepShow": "إظهار الرمز",
+  "clientBookingsConfirmedInfoTitle": "الخطوة التالية",
+  "clientBookingsConfirmedPay": "ادفعوا مباشرةً إلى {venue}، ثم أظهروا هذا الرمز.",
+  "@clientBookingsConfirmedPay": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsAddToCalendar": "التقويم",
+  "clientBookingsCalendarAdded": "أُضيف إلى التقويم",
+  "clientBookingsBookVisit": "زيارة",
+  "clientBookingsRedeemedOn": "تاريخ الاستخدام",
+  "clientBookingsRedeemedPrice": "السعر المطبّق",
+  "clientBookingsProposedWas": "التاريخ الأصلي",
+  "clientBookingsProposedReply": "الرد قبل",
+  "clientBookingsDeclinedDate": "التاريخ غير متاح",
+  "clientBookingsDeclinedCapacity": "السعة لا تناسب",
+  "clientBookingsDeclinedPackage": "الباقة غير متاحة",
+  "clientBookingsDeclinedOther": "لم يُقبل الطلب",
+  "clientBookingsExpiredTitle": "لا رد",
+  "clientBookingsExpiredConfirmTitle": "انتهت مهلة التأكيد",
+  "clientBookingsExpiredConfirm": "انتهت مهلة التأكيد، فتم إخلاء التاريخ المحجوز في {date}.",
+  "@clientBookingsExpiredConfirm": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsExpiredDeadline": "الموعد النهائي",
+  "clientBookingsCancelledOn": "تاريخ الإلغاء",
+  "clientBookingsCancelledByYou": "بطلبكم",
+  "clientBookingsCancelledByVenue": "من القاعة",
+  "clientBookingsIssueOpen": "إبلاغ",
+  "clientBookingsIssueUntil": "الإبلاغ حتى",
+  "clientBookingsIssueReportedTitle": "تم إرسال البلاغ",
+  "clientBookingsIssueReportedBody": "وصل بلاغكم إلى دعم غزل، وسنتابعه معكم في الرسائل.",
+  "clientBookingsIssueTitle": "الإبلاغ عن مشكلة",
+  "clientBookingsIssueFacts": "تفاصيل البلاغ",
+  "clientBookingsIssueReasonPrice": "السعر غير مطبّق",
+  "clientBookingsIssueReasonNotRedeemed": "لم يُستخدم",
+  "clientBookingsIssueReasonOther": "سبب آخر",
+  "clientBookingsIssueNote": "ملاحظة",
+  "clientBookingsIssueSend": "إرسال البلاغ",
+  "clientBookingsIssueSent": "تم إرسال البلاغ",
+  "clientBookingsShowVoucher": "عرض الكوبون",
+  "clientBookingsChooseDate": "اختيار الموعد",
+  "clientBookingsSendSimilar": "قاعات مشابهة",
+  "clientBookingsSendNew": "طلب جديد",
+  "clientBookingsWriteReview": "كتابة تقييم",
+  "clientBookingsSectionAlternatives": "قاعات متاحة",
+  "clientBookingsSectionEvent": "المناسبة",
+  "clientBookingsSectionPrice": "السعر",
+  "clientBookingsSectionContact": "التواصل",
+  "clientBookingsTerms": "الشروط",
+  "clientBookingsMessage": "مراسلة",
+  "clientBookingsUsuallyReplies": "يرد عادةً خلال",
+  "clientBookingsCallDisplayOnly": "فتح الهاتف",
+  "clientBookingsPriceStandard": "السعر العادي",
+  "clientBookingsPriceSaving": "التوفير",
+  "clientBookingsPricePerGuest": "للضيف",
+  "clientBookingsPriceBasis": "أساس السعر",
+  "clientBookingsPriceGhazal": "كوبون غزل",
+  "clientBookingsPricePaid": "مدفوع",
+  "clientBookingsPriceVenue": "القاعة، دفع مباشر",
+  "clientBookingsPriceSettled": "تمت التسوية",
+  "clientBookingsPriceOffApp": "خارج التطبيق",
+  "clientBookingsPriceInfoTitle": "شروط السعر",
+  "clientBookingsPriceInfoInclusive": "القاعة تحدد هذا السعر شاملًا. غزل لا تضيف عليه شيئًا.",
+  "clientBookingsPriceInfoGhazal": "لا مبلغ إضافي لغزل.",
+  "clientBookingsOutcomeBackTitle": "عاد الكوبون",
+  "clientBookingsOutcomeBackReusable": "استخدموه مجددًا في {venue} حتى {date}.",
+  "@clientBookingsOutcomeBackReusable": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsOutcomeBackCredit": "استخدموه مجددًا في {venue} حتى {date}، أو اطلبوا كوبون رصيد من الدعم.",
+  "@clientBookingsOutcomeBackCredit": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsOutcomeBackPlain": "الكوبون جاهز لطلب آخر.",
+  "clientBookingsOutcomeUsedTitle": "استُخدم الكوبون",
+  "clientBookingsOutcomeUsedBody": "إلغاء الحجز المؤكد يستهلك الكوبون، ولا يُعاد أي مبلغ.",
+  "clientBookingsOutcomeCreditTitle": "صدر كوبون رصيد",
+  "clientBookingsOutcomeCreditBody": "كوبون الرصيد في حسابكم. استخدموه في أي قاعة أو فندق أو خدمة.",
+  "clientBookingsOutcomeExpiredTitle": "انتهى الكوبون",
+  "clientBookingsOutcomeExpiredBody": "انتهت صلاحية الكوبون، ولا يمكن استخدامه.",
+  "clientBookingsOutcomeAction": "إعادة الاستخدام",
+  "clientBookingsOutcomeUntil": "يمكن استخدامه حتى",
+  "clientBookingsOutcomeAskSupport": "اسألوا الدعم",
+  "clientBookingsOutcomeInfoTitle": "شروط الكوبون",
+  "clientBookingsTicketQr": "رمز الاستجابة السريعة للكوبون {code}",
+  "@clientBookingsTicketQr": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsTicketShowFull": "تكبير",
+  "clientBookingsTicketUsedOn": "استُخدم في",
+  "clientBookingsTicketValidUntil": "صالح حتى",
+  "clientBookingsCancelTitleWithdraw": "سحب الطلب",
+  "clientBookingsCancelTitleApproved": "إلغاء الطلب",
+  "clientBookingsCancelTitleConfirmed": "إلغاء الحجز",
+  "clientBookingsCancelDateLabel": "التاريخ",
+  "clientBookingsCancelDateReleased": "إخلاء التاريخ",
+  "clientBookingsCancelVoucherLabel": "الكوبون",
+  "clientBookingsCancelVoucherBack": "يعود الكوبون",
+  "clientBookingsCancelVoucherUsed": "يُستهلك الكوبون",
+  "clientBookingsCancelVoucherBackBody": "يعود الكوبون إليكم ويمكنكم استخدامه من جديد في {venue} حتى {date}.",
+  "@clientBookingsCancelVoucherBackBody": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsCancelVoucherUsedBody": "إلغاء الحجز المؤكد يستهلك الكوبون، ولا يُعاد أي مبلغ.",
+  "clientBookingsCancelDateWithdraw": "تُبلَّغ {venue} فورًا. لم يكن أي تاريخ محجوزًا لكم بعد.",
+  "@clientBookingsCancelDateWithdraw": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsCancelDateApproved": "يُخلى التاريخ المحجوز في {date}.",
+  "@clientBookingsCancelDateApproved": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsCancelDateConfirmed": "يُخلى الحجز في {venue} بتاريخ {date}.",
+  "@clientBookingsCancelDateConfirmed": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsCancelVenueMoney": "أي مبلغ دفعتموه إلى {venue} مباشرةً يُسوّى بينكم وبين القاعة.",
+  "@clientBookingsCancelVenueMoney": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsCancelInfoTitle": "الإلغاء",
+  "clientBookingsCancelAltAction": "مراسلة القاعة",
+  "clientBookingsCancelKeep": "إبقاء الطلب",
+  "clientBookingsCancelKeepBooking": "إبقاء الحجز",
+  "clientBookingsCancelReasonTitle": "السبب؟",
+  "clientBookingsCancelReasonPlans": "تغيّرت الخطط",
+  "clientBookingsCancelReasonVenue": "قاعة أخرى",
+  "clientBookingsCancelReasonDate": "تغيّر الموعد",
+  "clientBookingsCancelReasonBudget": "الميزانية",
+  "clientBookingsCancelReasonOther": "أخرى",
+  "clientBookingsCancelNote": "ملاحظة",
+  "clientBookingsCancelActionWithdraw": "سحب الطلب",
+  "clientBookingsCancelActionApproved": "إلغاء الطلب",
+  "clientBookingsCancelActionConfirmed": "إلغاء الحجز",
+  "clientBookingsCancelErrorTitle": "تعذّر الإلغاء",
+  "clientBookingsCancelErrorBody": "لم يتغيّر شيء.",
+  "clientBookingsCancelDoneWithdrawn": "تم سحب الطلب",
+  "clientBookingsCancelDoneApproved": "تم إلغاء الطلب",
+  "clientBookingsCancelDoneConfirmed": "تم إلغاء الحجز",
+  "clientBookingsProposalCounterTitle": "مواعيد جديدة",
+  "clientBookingsProposalCounterBody": "تعذّر على {venue} استضافتكم في {date}. اختاروا أحد هذه المواعيد. سعر الكوبون يبقى كما هو.",
+  "@clientBookingsProposalCounterBody": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsProposalInfoTitle": "تفاصيل العرض",
+  "clientBookingsProposalFacts": "التفاصيل",
+  "clientBookingsProposalDatesLabel": "المواعيد المقترحة",
+  "clientBookingsProposalOptionLabel": "{date}، سعر الكوبون {price}",
+  "@clientBookingsProposalOptionLabel": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsProposalTaken": "محجوز",
+  "clientBookingsProposalTakenBanner": "تم حجز {date} في هذه الأثناء. اختاروا موعدًا آخر أو راسلوا القاعة.",
+  "@clientBookingsProposalTakenBanner": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsProposalHeld": "سعر الكوبون ثابت في جميع المواعيد.",
+  "clientBookingsNoPenalty": "لا غرامة في حال الاعتذار. كوبونكم يبقى لكم.",
+  "clientBookingsProposalReplyBy": "الرد قبل",
+  "clientBookingsProposalConfirmBy": "التأكيد قبل",
+  "clientBookingsProposalAccept": "قبول الموعد",
+  "clientBookingsProposalDeclineTitle": "الاعتذار عن المواعيد؟",
+  "clientBookingsProposalDeclineAction": "تأكيد الاعتذار",
+  "clientBookingsProposalDeclineKeep": "متابعة الاختيار",
+  "clientBookingsProposalAcceptedTitle": "تم قبول الموعد",
+  "clientBookingsProposalClosedTitle": "تم إغلاق الطلب",
+  "clientBookingsProposalExpiredTitle": "انتهى العرض",
+  "clientBookingsLater": "لاحقًا",
+  "clientBookingsReceiptsTitle": "الإيصالات",
+  "clientBookingsReceiptsInfoTitle": "مدفوعات المناسبة",
+  "clientBookingsReceiptsNote": "مدفوعات المناسبة تتم بينكم وبين القاعة ولا تظهر هنا.",
+  "clientBookingsReceiptsEmptyTitle": "لا إيصالات",
+  "clientBookingsReceiptsReceipt": "إيصال",
+  "clientBookingsReceiptsCredit": "كوبون رصيد",
+  "clientBookingsReceiptsSaved": "محفوظ على الهاتف",
+  "clientBookingsMethodKnet": "كي نت",
+  "clientBookingsMethodApplePay": "أبل باي",
+  "clientBookingsMethodGooglePay": "جوجل باي",
+  "clientBookingsMethodCard": "بطاقة",
+  "clientBookingsViewerPreview": "معاينة المستند بالعربية والإنجليزية",
+  "clientBookingsViewerDownload": "تنزيل",
+  "clientBookingsViewerDownloaded": "تم التنزيل",
+  "clientBookingsViewerSavedAt": "محفوظ على الهاتف",
+  "clientBookingsViewerShareToast": "اختاروا تطبيقًا",
+  "clientBookingsViewerOpen": "فتح",
+  "clientBookingsViewerOpenToast": "جارٍ الفتح",
+  "clientBookingsViewerOpenVoucher": "الكوبون",
+  "clientBookingsOutcomeForfeitedTitle": "الكوبون غير صالح",
+  "clientBookingsOutcomeForfeitedBody": "لم يُؤكَّد في {venue} خلال ⁦{hours}⁩ ساعة، فسقط الكوبون. لا يُعاد أي مبلغ.",
+  "@clientBookingsOutcomeForfeitedBody": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "hours": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverHeroHeadline": "قاعة ليلتكم",
+  "clientDiscoverBellUnread": "{count, plural, =0{الإشعارات} =1{الإشعارات، إشعار واحد غير مقروء} =2{الإشعارات، إشعاران غير مقروءين} few{الإشعارات، ⁦{count}⁩ إشعارات غير مقروءة} many{الإشعارات، ⁦{count}⁩ إشعارًا غير مقروء} other{الإشعارات، ⁦{count}⁩ إشعار غير مقروء}}",
+  "@clientDiscoverBellUnread": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverSwitchLabel": "التصفح",
+  "clientDiscoverVariantsTitle": "بطاقات الحالة",
+  "clientDiscoverCategoryLuxuryHotels": "فنادق",
+  "clientDiscoverCategoryWeddingHalls": "قاعات",
+  "clientDiscoverCategoryGovernment": "حكومية",
+  "clientDiscoverCategoryBeach": "شاطئية",
+  "clientDiscoverCategoryOutdoor": "خارجية",
+  "clientDiscoverCategoryVip": "VIP",
+  "clientDiscoverBrowseTitle": "التصنيفات",
+  "clientDiscoverFreeTitle": "متاحة {date}",
+  "@clientDiscoverFreeTitle": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverShortlistTitle": "المحفوظة",
+  "clientDiscoverShortlistCompare": "مقارنة",
+  "clientDiscoverFeaturedTitle": "مميزة",
+  "clientDiscoverRecommendedTitle": "مقترحة لكم",
+  "clientDiscoverTrendingTitle": "رائجة",
+  "clientDiscoverNearbyTitle": "قريبة",
+  "clientDiscoverEmptyTitle": "محجوزة بالكامل",
+  "clientDiscoverEmptyWiden": "تغيير التاريخ",
+  "clientDiscoverLocateDialogTitle": "استخدام الموقع؟",
+  "clientDiscoverLocateAllow": "السماح",
+  "clientDiscoverLocateNotNow": "ليس الآن",
+  "clientDiscoverEmptyNearLabel": "أقرب التواريخ المتاحة",
+  "clientDiscoverEmptyDateSet": "تحديث التاريخ",
+  "clientDiscoverBrowseAll": "كل القاعات",
+  "clientDiscoverBriefLabel": "تفاصيل زفافكم",
+  "clientDiscoverBriefChooseDate": "التاريخ",
+  "clientDiscoverBriefChooseArea": "المنطقة",
+  "clientDiscoverBriefAddGuests": "الضيوف",
+  "clientDiscoverBriefSetBudget": "الميزانية",
+  "clientDiscoverBriefAreaMore": "{first} +{more}",
+  "@clientDiscoverBriefAreaMore": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "more": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverCtaCount": "{count, plural, =0{عرض القاعات} =1{عرض قاعة} =2{عرض قاعتين} few{عرض ⁦{count}⁩ قاعات} many{عرض ⁦{count}⁩ قاعة} other{عرض ⁦{count}⁩ قاعة}}",
+  "@clientDiscoverCtaCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverCtaShow": "عرض القاعات",
+  "clientDiscoverCtaNearest": "أقرب التواريخ",
+  "clientDiscoverResultsTitle": "القاعات",
+  "clientDiscoverResultsSearchPlaceholder": "قاعة أو منطقة",
+  "clientDiscoverResultsFilters": "التصفية",
+  "clientDiscoverResultsClearAll": "مسح",
+  "clientDiscoverResultsRemoveChip": "إزالة {name}",
+  "@clientDiscoverResultsRemoveChip": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverResultsMap": "الخريطة",
+  "clientDiscoverResultsList": "القائمة",
+  "clientDiscoverResultsBriefHint": "تعديل التفاصيل",
+  "clientDiscoverResultsSeeFreeDates": "التواريخ المتاحة",
+  "clientDiscoverResultsGovernmentNote": "للاطلاع فقط. الحجز عبر القناة الرسمية. بدون كوبون.",
+  "clientDiscoverResultsRefreshed": "تحديث القاعات",
+  "clientDiscoverResultsNoneRelax": "إزالة {filter}",
+  "@clientDiscoverResultsNoneRelax": {
+    "placeholders": {
+      "filter": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverResultsNoneDates": "أقرب التواريخ المتاحة",
+  "clientDiscoverResultsOfflineMap": "الخريطة تحتاج اتصالًا. القائمة تعمل.",
+  "clientDiscoverSearchRecent": "الأخيرة",
+  "clientDiscoverSearchClearRecent": "مسح",
+  "clientDiscoverSortTitle": "الترتيب",
+  "clientDiscoverSortRecommended": "المقترحة",
+  "clientDiscoverSortRating": "التقييم",
+  "clientDiscoverSortNewest": "الأحدث",
+  "clientDiscoverSortPrice": "الأقل سعرًا",
+  "clientDiscoverSortPriceDesc": "الأعلى سعرًا",
+  "clientDiscoverSortDistance": "الأقرب",
+  "clientDiscoverChipAreasAll": "كل المناطق",
+  "clientDiscoverChipRating": "{rating}+",
+  "@clientDiscoverChipRating": {
+    "placeholders": {
+      "rating": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverArrangementWomen": "نسائي",
+  "clientDiscoverArrangementMen": "رجالي",
+  "clientDiscoverArrangementMixed": "مختلط",
+  "clientDiscoverSettingIndoor": "داخلي",
+  "clientDiscoverSettingOutdoor": "خارجي",
+  "clientDiscoverSettingMixed": "كلاهما",
+  "clientDiscoverFacilityParking": "مواقف",
+  "clientDiscoverFacilityValet": "فاليه",
+  "clientDiscoverFacilityBridal": "العروس",
+  "clientDiscoverFacilityBuffet": "بوفيه",
+  "clientDiscoverFacilityDecor": "ديكور",
+  "clientDiscoverFacilityPhotography": "تصوير",
+  "clientDiscoverLevelPrestige": "فاخر",
+  "clientDiscoverLevelSignature": "راقٍ",
+  "clientDiscoverLevelClassic": "كلاسيكي",
+  "clientDiscoverLevelGovernment": "حكومي",
+  "clientDiscoverFiltersTitle": "التصفية",
+  "clientDiscoverFiltersGroupArrangement": "الحفل",
+  "clientDiscoverFiltersGroupType": "نوع المكان",
+  "clientDiscoverFiltersGroupPrice": "السعر العادي",
+  "clientDiscoverFiltersGroupCapacity": "السعة",
+  "clientDiscoverFiltersGroupSetting": "طبيعة المكان",
+  "clientDiscoverFiltersGroupFacilities": "المرافق",
+  "clientDiscoverFiltersGroupRating": "التقييم",
+  "clientDiscoverFiltersGroupLevel": "المستوى",
+  "clientDiscoverFiltersGroupBrand": "سلسلة الفندق",
+  "clientDiscoverFiltersCta": "{count, plural, =0{لا قاعات} =1{عرض قاعة} =2{عرض قاعتين} few{عرض ⁦{count}⁩ قاعات} many{عرض ⁦{count}⁩ قاعة} other{عرض ⁦{count}⁩ قاعة}}",
+  "@clientDiscoverFiltersCta": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverFiltersCtaNone": "لا قاعات",
+  "clientDiscoverFiltersClear": "مسح",
+  "clientDiscoverFiltersExpand": "عرض {group}",
+  "@clientDiscoverFiltersExpand": {
+    "placeholders": {
+      "group": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverFiltersCollapse": "إخفاء {group}",
+  "@clientDiscoverFiltersCollapse": {
+    "placeholders": {
+      "group": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverBriefTitle": "تفاصيل زفافكم",
+  "clientDiscoverBriefClear": "مسح",
+  "clientDiscoverBriefBack": "العودة إلى تفاصيل زفافكم",
+  "clientDiscoverBriefDateTitle": "التاريخ",
+  "clientDiscoverBriefDateFlexible": "أي شهر",
+  "clientDiscoverBriefAreaTitle": "المنطقة",
+  "clientDiscoverBriefGuestsTitle": "الضيوف",
+  "clientDiscoverBriefGuestsPresets": "اختيارات سريعة",
+  "clientDiscoverBriefGuestsSection": "البحث عن",
+  "clientDiscoverBriefBudgetTitle": "الميزانية",
+  "clientDiscoverBriefBudgetHelper": "القاعة والضيافة فقط",
+  "clientDiscoverBriefBudgetBands": "فئات الميزانية",
+  "clientDiscoverBriefBudgetUnder": "دون {amount}",
+  "@clientDiscoverBriefBudgetUnder": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverBriefDone": "تم",
+  "clientDiscoverMergeTitle": "تفاصيل مختلفة",
+  "clientDiscoverMergePhone": "هذا الهاتف",
+  "clientDiscoverMergeAccount": "حسابكم",
+  "clientDiscoverMapTitle": "الخريطة",
+  "clientDiscoverMapPins": "القاعات على الخريطة",
+  "clientDiscoverMapCluster": "{count, plural, =0{لا قاعات هنا} =1{قاعة واحدة هنا، اضغطوا للتقريب} =2{قاعتان هنا، اضغطوا للتقريب} few{⁦{count}⁩ قاعات هنا، اضغطوا للتقريب} many{⁦{count}⁩ قاعة هنا، اضغطوا للتقريب} other{⁦{count}⁩ قاعة هنا، اضغطوا للتقريب}}",
+  "@clientDiscoverMapCluster": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverMapZoomOut": "عرض كل القاعات",
+  "clientDiscoverMapLocate": "موقعي",
+  "clientDiscoverMapSearchArea": "بحث هنا",
+  "clientDiscoverMapDenied": "قرب {area}",
+  "@clientDiscoverMapDenied": {
+    "placeholders": {
+      "area": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverMapLocated": "قربكم",
+  "clientDiscoverMapNoneAction": "كل القاعات",
+  "clientDiscoverMapOfflineAction": "القائمة",
+  "clientDiscoverMapViewLabel": "العرض",
+  "clientDiscoverRefreshed": "تم التحديث",
+  "clientDiscoverVoucherTitle": "أسعار الكوبون",
+  "clientDiscoverWeekTitle": "هذا الأسبوع",
+  "clientDiscoverCardGetVoucher": "شراء كوبون",
+  "clientDiscoverCardView": "عرض",
+  "clientDiscoverChipRegion": "المنطقة",
+  "clientDiscoverChipDate": "التاريخ",
+  "clientDiscoverChipVoucher": "كوبون",
+  "clientDiscoverSortVoucher": "سعر الكوبون",
+  "clientDiscoverMapVoucherPin": "سعر الكوبون",
+  "clientDiscoverFiltersGroupRegion": "المنطقة",
+  "clientDiscoverFiltersGroupStructure": "التسعير",
+  "clientDiscoverFiltersGroupDate": "التاريخ",
+  "clientDiscoverFiltersGroupVoucher": "سعر الكوبون",
+  "clientDiscoverFiltersDateOpen": "التقويم",
+  "clientDiscoverFiltersVoucherTitle": "كوبون فقط",
+  "clientDiscoverBriefAreaAll": "الكل",
+  "clientDiscoverBriefAreaClearGroup": "مسح",
+  "clientDiscoverRegionPlaceholder": "منطقة أو قاعة",
+  "clientDiscoverRegionNear": "قريب مني",
+  "clientDiscoverRegionListLabel": "المحافظات والمناطق",
+  "clientDiscoverDatesTitle": "التواريخ",
+  "clientDiscoverDatesFlexible": "أي شهر",
+  "clientDiscoverDatesHint": "حتى {days, plural, =0{لا أيام} =1{يوم} =2{يومين} few{⁦{days}⁩ أيام} many{⁦{days}⁩ يومًا} other{⁦{days}⁩ يوم}}",
+  "@clientDiscoverDatesHint": {
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverDatesLegend": "القاعات المتاحة في كل يوم",
+  "clientDiscoverDatesMany": "كثيرة",
+  "clientDiscoverDatesFew": "قليلة",
+  "clientDiscoverDatesNoneLegend": "لا شيء",
+  "clientDiscoverDatesNone": "لا قاعات",
+  "clientDiscoverDatesApply": "تطبيق",
+  "clientDiscoverDatesClear": "مسح",
+  "clientDiscoverStatusNoDate": "تحديد التاريخ",
+  "clientDiscoverStatusBrief": "{count, plural, =0{لا قاعات متاحة} =1{قاعة متاحة} =2{قاعتان متاحتان} few{⁦{count}⁩ قاعات متاحة} many{⁦{count}⁩ قاعة متاحة} other{⁦{count}⁩ قاعة متاحة}}",
+  "@clientDiscoverStatusBrief": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverA11yDate": "التاريخ",
+  "clientDiscoverA11yTime": "الوقت",
+  "clientDiscoverA11yTimeLeft": "الوقت المتبقي",
+  "clientDiscoverA11yUpdated": "آخر تحديث",
+  "clientDiscoverA11yDrive": "مدة القيادة",
+  "clientDiscoverMergeKeep": "اعتماد",
+  "clientDiscoverA11yDaysLeft": "الأيام المتبقية",
+  "clientDiscoverMinutes": "{minutes} د",
+  "@clientDiscoverMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverFiltersVoucherCount": "قاعات بكوبون",
+  "clientDiscoverKm": "⁦{km}⁩ كم",
+  "@clientDiscoverKm": {
+    "placeholders": {
+      "km": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverA11yDistance": "المسافة",
+  "clientDiscoverBriefBudgetOver": "{amount} فأكثر",
+  "@clientDiscoverBriefBudgetOver": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesInboxTitle": "الرسائل",
+  "clientMessagesBellUnread": "{count, plural, =0{الإشعارات} =1{الإشعارات، إشعار واحد غير مقروء} =2{الإشعارات، إشعاران غير مقروءين} few{الإشعارات، ⁦{count}⁩ إشعارات غير مقروءة} many{الإشعارات، ⁦{count}⁩ إشعارًا غير مقروء} other{الإشعارات، ⁦{count}⁩ إشعار غير مقروء}}",
+  "@clientMessagesBellUnread": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMessagesFilterGroup": "تصفية المحادثات",
+  "clientMessagesFilterVenues": "القاعات",
+  "clientMessagesFilterVisits": "الزيارات",
+  "clientMessagesFilterPlanner": "التنسيق",
+  "clientMessagesFilterProviders": "الخدمات",
+  "clientMessagesFilterSupport": "الدعم",
+  "clientMessagesPinned": "مثبتة",
+  "clientMessagesYou": "أنتم",
+  "clientMessagesPreviewVoice": "رسالة صوتية",
+  "clientMessagesPreviewPhoto": "صورة",
+  "clientMessagesPreviewDocument": "مستند",
+  "clientMessagesUnreadCount": "{count, plural, =0{لا رسائل غير مقروءة} =1{رسالة واحدة غير مقروءة} =2{رسالتان غير مقروءتين} few{⁦{count}⁩ رسائل غير مقروءة} many{⁦{count}⁩ رسالة غير مقروءة} other{⁦{count}⁩ رسالة غير مقروءة}}",
+  "@clientMessagesUnreadCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMessagesOfflineStamp": "دون اتصال · {time}",
+  "@clientMessagesOfflineStamp": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesDayMonth": "{day} {month}",
+  "@clientMessagesDayMonth": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesEmptyTitle": "لا رسائل بعد",
+  "clientMessagesEmptyAction": "تصفح القاعات",
+  "clientMessagesEmptySupport": "الدعم",
+  "clientMessagesGuestLabel": "تسجيل الدخول لمتابعة الرسائل",
+  "clientMessagesGuestAction": "تسجيل الدخول",
+  "clientMessagesVisitMembers": "أعضاء المحادثة",
+  "clientMessagesInfoTitle": "التفاصيل",
+  "clientMessagesRepliesWithin": "{hours, plural, =0{يرد عادةً في وقت قصير} =1{يرد عادةً خلال ساعة} =2{يرد عادةً خلال ساعتين} few{يرد عادةً خلال ⁦{hours}⁩ ساعات} many{يرد عادةً خلال ⁦{hours}⁩ ساعة} other{يرد عادةً خلال ⁦{hours}⁩ ساعة}}",
+  "@clientMessagesRepliesWithin": {
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMessagesContextView": "عرض الطلب",
+  "clientMessagesContextConfirm": "تأكيد",
+  "clientMessagesFactDate": "تاريخ المناسبة",
+  "clientMessagesFactGuests": "الضيوف",
+  "clientMessagesFactTimeLeft": "الوقت المتبقي للتأكيد",
+  "clientMessagesFactDue": "موعد الاستحقاق",
+  "clientMessagesFactMeeting": "الاجتماع",
+  "clientMessagesFactDaysLeft": "الأيام المتبقية للزفاف",
+  "clientMessagesAudienceWomen": "الحفل النسائي",
+  "clientMessagesAudienceMen": "الحفل الرجالي",
+  "clientMessagesAudienceMixed": "حفل مختلط",
+  "clientMessagesComposerPlaceholder": "رسالة",
+  "clientMessagesComposerLabel": "الرسالة",
+  "clientMessagesAttach": "إرفاق",
+  "clientMessagesRecordHold": "اضغطوا مطولًا لتسجيل رسالة صوتية",
+  "clientMessagesRecording": "قيد التسجيل",
+  "clientMessagesSlideCancel": "إلغاء",
+  "clientMessagesReleaseCancel": "أفلتوا",
+  "clientMessagesRecordDelete": "حذف التسجيل",
+  "clientMessagesRecordSend": "إرسال الرسالة الصوتية",
+  "clientMessagesRecordTooShort": "اضغطوا مطولًا",
+  "clientMessagesMsgSending": "قيد الإرسال",
+  "clientMessagesMsgFailed": "فشل الإرسال",
+  "clientMessagesMsgQueued": "بالانتظار",
+  "clientMessagesUploading": "قيد الرفع",
+  "clientMessagesUploadCancel": "إلغاء الرفع",
+  "clientMessagesOfflineQueue": "دون اتصال",
+  "clientMessagesSuggestAvailability": "التواريخ",
+  "clientMessagesSuggestVisit": "زيارة",
+  "clientMessagesSuggestVoucher": "الكوبون",
+  "clientMessagesSuggestAvailabilityText": "السلام عليكم، هل يوم {date} متاح للحفل النسائي؟",
+  "@clientMessagesSuggestAvailabilityText": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesSuggestAvailabilityAny": "السلام عليكم، ما التواريخ المتاحة لديكم للحفل النسائي؟",
+  "clientMessagesSuggestVoucherText": "السلام عليكم، كم سعر الكوبون للحفل النسائي ليوم {date}؟",
+  "@clientMessagesSuggestVoucherText": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesSuggestVoucherAny": "السلام عليكم، ممكن تعطوننا سعر الكوبون للحفل النسائي؟",
+  "clientMessagesSupportIntro": "أهلًا بكم، كيف نخدمكم؟",
+  "clientMessagesBlockedNote": "محظورة",
+  "clientMessagesUnblock": "إلغاء الحظر",
+  "clientMessagesUnblockedToast": "تم إلغاء الحظر",
+  "clientMessagesSysRequestSent": "تم الإرسال",
+  "clientMessagesSysApproved": "تمت الموافقة",
+  "clientMessagesSysConfirmed": "مؤكد",
+  "clientMessagesSysRedeemed": "تم الاستخدام",
+  "clientMessagesSysNotAccepted": "لم يُقبل",
+  "clientMessagesSysExpired": "لا رد",
+  "clientMessagesSysLapsed": "انتهت المهلة",
+  "clientMessagesSysCancelled": "ملغي",
+  "clientMessagesSysInfoTitle": "الكوبون",
+  "clientMessagesSysInfoKept": "الكوبون ما زال لكم.",
+  "clientMessagesSysInfoPay": "ادفعوا إلى {venue} مباشرةً وأظهروا رمز الكوبون.",
+  "@clientMessagesSysInfoPay": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesOpenPhoto": "صور المحادثة",
+  "clientMessagesPhotoViewer": "عارض الصور",
+  "clientMessagesStatusDelivered": "وصلت",
+  "clientMessagesStatusRead": "قرئت",
+  "clientMessagesCardCalendar": "التقويم",
+  "clientMessagesCardCalendarToast": "تمت الإضافة",
+  "clientMessagesCardChange": "تغيير",
+  "clientMessagesCardVendor": "الصفحة",
+  "clientMessagesAttachTitle": "إرفاق",
+  "clientMessagesAttachCamera": "الكاميرا",
+  "clientMessagesAttachPhoto": "الصور",
+  "clientMessagesAttachDocument": "مستند",
+  "clientMessagesAttachRecent": "أحدث الصور",
+  "clientMessagesAttachLimits": "الصور حتى {photo}، والفيديو حتى {video}. وسائط المحادثة خاصة بينكم وبين الطرف الآخر.",
+  "@clientMessagesAttachLimits": {
+    "placeholders": {
+      "photo": {
+        "type": "String"
+      },
+      "video": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesAttachLimitsTitle": "الحدود",
+  "clientMessagesUnitMb": "⁦{n}⁩ ميغابايت",
+  "@clientMessagesUnitMb": {
+    "placeholders": {
+      "n": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMessagesUnitSeconds": "{n, plural, =0{لا ثوان} =1{ثانية واحدة} =2{ثانيتان} few{⁦{n}⁩ ثوان} many{⁦{n}⁩ ثانية} other{⁦{n}⁩ ثانية}}",
+  "@clientMessagesUnitSeconds": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMessagesUnitKb": "⁦{n}⁩ ك.ب",
+  "@clientMessagesUnitKb": {
+    "placeholders": {
+      "n": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMessagesDocPreview": "معاينة المستند",
+  "clientMessagesDocQuotation": "عرض سعر",
+  "clientMessagesDocEvent": "تاريخ المناسبة",
+  "clientMessagesDocHall": "الصالة",
+  "clientMessagesDocGuests": "الضيوف",
+  "clientMessagesDocPackage": "الباقة",
+  "clientMessagesDocFileSize": "حجم الملف",
+  "clientMessagesDocStandard": "العادي",
+  "clientMessagesDocVoucher": "الكوبون",
+  "clientMessagesDocSaving": "التوفير",
+  "clientMessagesDocDownload": "تنزيل",
+  "clientMessagesDocSaved": "تم الحفظ",
+  "clientMessagesDocOpen": "فتح {name}",
+  "@clientMessagesDocOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesInfoBooking": "الطلب المرتبط",
+  "clientMessagesInfoShared": "الصور والمستندات",
+  "clientMessagesInfoMute": "كتم",
+  "clientMessagesInfoMuted": "تم الكتم",
+  "clientMessagesInfoUnmuted": "تم إلغاء الكتم",
+  "clientMessagesInfoCall": "اتصال",
+  "clientMessagesInfoReport": "إبلاغ",
+  "clientMessagesInfoBlock": "حظر",
+  "clientMessagesInfoMembers": "الأعضاء",
+  "clientMessagesInfoMembersNote": "هؤلاء الثلاثة فقط في المحادثة. أرقام الهواتف غير مشاركة.",
+  "clientMessagesInfoVisit": "الزيارة",
+  "clientMessagesInfoVisitNote": "دعم غزل جزء من هذه المحادثة، لذا لا يمكن حظرها. لإيقافها ألغوا الزيارة.",
+  "clientMessagesInfoSupportNote": "لا يمكن حظر محادثات الدعم.",
+  "clientMessagesInfoPrivate": "وسائط المحادثة خاصة بينكم وبين الطرف الآخر.",
+  "clientMessagesInfoPrivateTitle": "الخصوصية",
+  "clientMessagesInfoNeedsConnection": "يلزم اتصال",
+  "clientMessagesInfoErrorReport": "فشل الإرسال",
+  "clientMessagesReportPick": "اختيار الرسالة",
+  "clientMessagesReportReasonTitle": "السبب",
+  "clientMessagesReasonSpam": "إزعاج",
+  "clientMessagesReasonAbusive": "مسيء",
+  "clientMessagesReasonInappropriate": "غير لائق",
+  "clientMessagesReasonOther": "أخرى",
+  "clientMessagesReportNote": "ملاحظة",
+  "clientMessagesReportSubmit": "إرسال البلاغ",
+  "clientMessagesReportDone": "تم الإبلاغ",
+  "clientMessagesReportDoneDetail": "تبقى الرسالة في محادثتكم. سيطلع عليها فريقنا ويتصرف إذا خالفت قواعدنا.",
+  "clientMessagesReportNoMessages": "لا رسائل",
+  "clientMessagesReportNeedMessage": "اختاروا رسالة",
+  "clientMessagesReportNeedReason": "اختاروا سببًا",
+  "clientMessagesBlockTitle": "حظر المحادثة؟",
+  "clientMessagesBlockBodyBooking": "التحديثات تصلكم. اتصلوا على {phone}",
+  "@clientMessagesBlockBodyBooking": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesBlockConfirm": "حظر",
+  "clientMessagesBlockKeep": "إلغاء",
+  "clientMessagesBlockedDoneTitle": "تم الحظر",
+  "clientMessagesBlockedDoneDetail": "لن تصلكم رسائل من هذا الطرف. يمكنكم إلغاء الحظر في أي وقت.",
+  "clientMessagesNtfTitle": "الإشعارات",
+  "clientMessagesNtfPrefs": "إعدادات الإشعارات",
+  "clientMessagesNtfFilterGroup": "تصفية الإشعارات",
+  "clientMessagesNtfBookings": "الطلبات",
+  "clientMessagesNtfVouchers": "الكوبونات",
+  "clientMessagesNtfVisits": "الزيارات",
+  "clientMessagesNtfMessages": "الرسائل",
+  "clientMessagesNtfPlanning": "التخطيط",
+  "clientMessagesNtfUnreadOnly": "غير المقروءة",
+  "clientMessagesNtfUnread": "غير مقروء",
+  "clientMessagesNtfMarkAll": "قراءة الكل",
+  "clientMessagesNtfAllRead": "تمت القراءة",
+  "clientMessagesNtfEmptyTitle": "لا إشعارات",
+  "clientMessagesNtfUnreadEmptyTitle": "لا جديد",
+  "clientMessagesNtfShowAll": "عرض الكل",
+  "clientMessagesNtfDeniedTitle": "الإشعارات متوقفة",
+  "clientMessagesNtfDeniedInfo": "ما زالت التحديثات تظهر هنا. اسمحوا بالإشعارات من إعدادات الهاتف لتصلكم فور حدوثها.",
+  "clientMessagesNtfOpenSettings": "الإعدادات",
+  "clientMessagesNtfSettingsToast": "يفتح إعدادات الهاتف",
+  "clientMessagesNtfOffer": "عرض",
+  "clientMessagesNtfKindRequestSent": "تم الإرسال",
+  "clientMessagesNtfKindApproved": "تمت الموافقة",
+  "clientMessagesNtfKindConfirmReminder": "تأكيد",
+  "clientMessagesNtfKindConfirmed": "مؤكد",
+  "clientMessagesNtfKindDeclined": "لم يُقبل",
+  "clientMessagesNtfKindExpired": "انتهت المهلة",
+  "clientMessagesNtfKindCancelled": "ملغي",
+  "clientMessagesNtfKindVoucherReady": "الكوبون جاهز",
+  "clientMessagesNtfKindVoucherKept": "الكوبون لكم",
+  "clientMessagesNtfKindRedeemed": "تم الاستخدام",
+  "clientMessagesNtfKindRefunded": "تم الاسترداد",
+  "clientMessagesNtfKindExpiring": "ينتهي قريبًا",
+  "clientMessagesNtfKindVisitRequested": "طلب زيارة",
+  "clientMessagesNtfKindVisitConfirmed": "الزيارة مؤكدة",
+  "clientMessagesNtfKindVisitSoon": "الزيارة قريبًا",
+  "clientMessagesNtfKindVisitChat": "محادثة الزيارة",
+  "clientMessagesNtfKindNewVenue": "قاعة جديدة",
+  "clientMessagesNtfKindReview": "التقييم",
+  "clientMessagesNtfKindCountdown": "الزفاف",
+  "clientMessagesNtfKindChecklist": "المهام",
+  "clientMessagesPromptTitle": "تنبيهات الحجز",
+  "clientMessagesPromptBody": "سنخبركم فور رد القاعة على طلبكم، وحين يصبح الكوبون جاهزًا.",
+  "clientMessagesPromptNote": "لا نرسل إلا ما يلزمكم، ولا نزعجكم ليلًا.",
+  "clientMessagesPromptOn": "تفعيل",
+  "clientMessagesPromptLater": "ليس الآن",
+  "clientMessagesPromptOnToast": "تم التفعيل",
+  "clientMessagesOsTitle": "يرغب «غزل» في إرسال إشعارات إليكم",
+  "clientMessagesOsBody": "تحديثات الطلبات والكوبونات وتذكيرات الزيارات.",
+  "clientMessagesOsAllow": "سماح",
+  "clientMessagesOsDeny": "عدم السماح",
+  "clientMessagesMissingTitle": "غير مدرجة",
+  "clientMessagesMissingArea": "المنطقة",
+  "clientMyWeddingHubTitle": "زفافكم",
+  "clientMyWeddingHubNotifications": "الإشعارات",
+  "clientMyWeddingHeroUnit": "{count, plural, =0{يوم} =1{يوم} =2{يومان} few{أيام} many{يومًا} other{يوم}}",
+  "@clientMyWeddingHeroUnit": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMyWeddingHeroTimeline": "محطات العد",
+  "clientMyWeddingHeroDate": "موعد الزفاف",
+  "clientMyWeddingHeroWordToday": "اليوم",
+  "clientMyWeddingHeroWordTomorrow": "غدًا",
+  "clientMyWeddingHeroSetDate": "تحديد الموعد",
+  "clientMyWeddingDoneTitle": "مبروك",
+  "clientMyWeddingDoneReviewAction": "تقييم",
+  "clientMyWeddingDayDirections": "الاتجاهات",
+  "clientMyWeddingDayCall": "الاتصال بالقاعة",
+  "clientMyWeddingDayMessage": "مراسلة المنسّقة",
+  "clientMyWeddingDayDirectionsToast": "فتح الاتجاهات",
+  "clientMyWeddingDayCallToast": "جارٍ الاتصال بالقاعة",
+  "clientMyWeddingNextTitle": "التالي",
+  "clientMyWeddingNextWaiting": "بانتظار الرد",
+  "clientMyWeddingNextWaitingLabel": "الرد المتوقع قبل {when}",
+  "@clientMyWeddingNextWaitingLabel": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingNextHalls": "عرض القاعات",
+  "clientMyWeddingNextHallsLabel": "قاعات متاحة في موعدكم",
+  "clientMyWeddingVoucherOpen": "فتح",
+  "clientMyWeddingNextConfirmLabel": "التأكيد قبل {when}",
+  "@clientMyWeddingNextConfirmLabel": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingTaskVenue": "القاعة",
+  "clientMyWeddingTaskPhotographer": "المصوّرة",
+  "clientMyWeddingTaskDress": "الفستان",
+  "clientMyWeddingTaskInvitations": "الدعوات",
+  "clientMyWeddingTaskCake": "الكيكة",
+  "clientMyWeddingTaskMusic": "الموسيقى",
+  "clientMyWeddingTaskFlowers": "الزهور",
+  "clientMyWeddingTaskTransport": "السيارات",
+  "clientMyWeddingTasksLeft": "{count, plural, =0{لا مهام متبقية} =1{مهمة واحدة متبقية} =2{مهمتان متبقيتان} few{⁦{count}⁩ مهام متبقية} many{⁦{count}⁩ مهمة متبقية} other{⁦{count}⁩ مهمة متبقية}}",
+  "@clientMyWeddingTasksLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMyWeddingBookingsTitle": "الحجوزات",
+  "clientMyWeddingBookingsEmptyTitle": "لا حجوزات",
+  "clientMyWeddingBookingsEmptyAction": "استكشاف القاعات",
+  "clientMyWeddingBookingGuests": "الضيوف",
+  "clientMyWeddingPlannerTitle": "تنسيق الأعراس",
+  "clientMyWeddingPlannerOfferAction": "عرض الباقات",
+  "clientMyWeddingPlannerDismiss": "إخفاء العرض",
+  "clientMyWeddingPlannerCall": "مكالمة فيديو {when}",
+  "@clientMyWeddingPlannerCall": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingToolsLabel": "أدوات التخطيط",
+  "clientMyWeddingToolChecklist": "المهام",
+  "clientMyWeddingToolBudget": "الميزانية",
+  "clientMyWeddingToolBudgetOver": "تجاوز",
+  "clientMyWeddingToolSaved": "المفضلة",
+  "clientMyWeddingToolServices": "الخدمات",
+  "clientMyWeddingGuestAction": "تسجيل الدخول",
+  "clientMyWeddingSample": "نموذج",
+  "clientMyWeddingUpdated": "آخر تحديث",
+  "clientMyWeddingDateDiffersLabel": "تاريخ الحجز",
+  "clientMyWeddingDateDiffersAction": "اعتماد التاريخ",
+  "clientMyWeddingDateUpdated": "تم تحديث الموعد",
+  "clientMyWeddingChecklistTitle": "المهام",
+  "clientMyWeddingChecklistAdd": "إضافة مهمة",
+  "clientMyWeddingChecklistProgress": "{done} من {total}",
+  "@clientMyWeddingChecklistProgress": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingChecklistBandBooking": "الحجز",
+  "clientMyWeddingChecklistBandMore": "{count}+ أشهر",
+  "@clientMyWeddingChecklistBandMore": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingChecklistBandMonths": "{from}–{to} أشهر",
+  "@clientMyWeddingChecklistBandMonths": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingChecklistBandMonth": "الشهر الأخير",
+  "clientMyWeddingChecklistBandWeek": "الأسبوع الأخير",
+  "clientMyWeddingChecklistBandNoDate": "لاحقًا",
+  "clientMyWeddingChecklistBandDone": "منجزة",
+  "clientMyWeddingChecklistDue": "الموعد {when}",
+  "@clientMyWeddingChecklistDue": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingChecklistOverdue": "تأخرت منذ {when}",
+  "@clientMyWeddingChecklistOverdue": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingChecklistAuto": "تكتمل عند تأكيد الحجز",
+  "clientMyWeddingChecklistBrowseLabel": "{task}: تصفح الخدمات",
+  "@clientMyWeddingChecklistBrowseLabel": {
+    "placeholders": {
+      "task": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingChecklistViewBookingLabel": "{task}: عرض الحجز",
+  "@clientMyWeddingChecklistViewBookingLabel": {
+    "placeholders": {
+      "task": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingChecklistEdit": "تعديل المهمة",
+  "clientMyWeddingChecklistToastDone": "تم إنجاز المهمة",
+  "clientMyWeddingChecklistAllDone": "اكتملت القائمة",
+  "clientMyWeddingChecklistEmptyTitle": "لا موعد بعد",
+  "clientMyWeddingChecklistEmptyAction": "تحديد الموعد",
+  "clientMyWeddingTaskSheetAdd": "إضافة مهمة",
+  "clientMyWeddingTaskSheetEdit": "تعديل المهمة",
+  "clientMyWeddingTaskTitlePlaceholder": "المهمة",
+  "clientMyWeddingTaskTitleError": "أدخلوا الاسم",
+  "clientMyWeddingTaskDueLabel": "الموعد",
+  "clientMyWeddingTaskCategoryLabel": "الفئة",
+  "clientMyWeddingTaskCategoryPlaceholder": "بلا فئة",
+  "clientMyWeddingTaskDelete": "حذف",
+  "clientMyWeddingTaskAdded": "تمت الإضافة",
+  "clientMyWeddingTaskDeleted": "تم الحذف",
+  "clientMyWeddingBudgetTitle": "الميزانية",
+  "clientMyWeddingBudgetEdit": "تعديل الميزانية",
+  "clientMyWeddingBudgetRemaining": "المتبقي",
+  "clientMyWeddingBudgetOver": "تجاوز",
+  "clientMyWeddingBudgetTotalLabel": "إجمالي الميزانية",
+  "clientMyWeddingBudgetPaid": "المدفوع",
+  "clientMyWeddingBudgetCommitted": "المحجوز",
+  "clientMyWeddingBudgetBarLabel": "المدفوع {paid}، المحجوز {committed}، المتبقي {remaining}",
+  "@clientMyWeddingBudgetBarLabel": {
+    "placeholders": {
+      "paid": {
+        "type": "String"
+      },
+      "committed": {
+        "type": "String"
+      },
+      "remaining": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingBudgetAddExpense": "إضافة مصروف",
+  "clientMyWeddingBudgetAlertSoft": "{category} {percent}",
+  "@clientMyWeddingBudgetAlertSoft": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingBudgetAlertOver": "{category} {amount}",
+  "@clientMyWeddingBudgetAlertOver": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingBudgetCategories": "الفئات",
+  "clientMyWeddingBudgetLedger": "المدفوعات",
+  "clientMyWeddingBudgetInfoTitle": "الكوبون والقاعة",
+  "clientMyWeddingBudgetInfoBody": "الكوبون تدفعونه في التطبيق. سعر القاعة تدفعونه للقاعة مباشرةً، خارج غزل.",
+  "clientMyWeddingBudgetUsedLabel": "استُهلك {percent}",
+  "@clientMyWeddingBudgetUsedLabel": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingBudgetOverByLabel": "تجاوز الحصة بمقدار {amount}",
+  "@clientMyWeddingBudgetOverByLabel": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingBudgetLinked": "مرتبط بحجزكم",
+  "clientMyWeddingBudgetPlanned": "مخطط",
+  "clientMyWeddingBudgetEmptyTitle": "لا ميزانية بعد",
+  "clientMyWeddingBudgetEmptyAction": "تحديد الميزانية",
+  "clientMyWeddingBudgetAdded": "تمت الإضافة",
+  "clientMyWeddingExpenseTitleAdd": "إضافة مصروف",
+  "clientMyWeddingExpenseTitleEdit": "تعديل المصروف",
+  "clientMyWeddingExpenseAmount": "المبلغ",
+  "clientMyWeddingExpenseAmountError": "أدخلوا المبلغ",
+  "clientMyWeddingExpenseCategory": "الفئة",
+  "clientMyWeddingExpenseNote": "ملاحظة",
+  "clientMyWeddingExpenseDate": "التاريخ",
+  "clientMyWeddingExpenseStatus": "حالة الدفع",
+  "clientMyWeddingExpensePaid": "مدفوع",
+  "clientMyWeddingExpensePlanned": "مخطط",
+  "clientMyWeddingExpenseDelete": "حذف",
+  "clientMyWeddingExpenseDeleteTitle": "حذف المصروف؟",
+  "clientMyWeddingExpenseKeep": "إبقاء",
+  "clientMyWeddingExpenseSuccessTitle": "تمت الإضافة",
+  "clientMyWeddingExpenseOfflineReason": "يلزم اتصال للحفظ",
+  "clientMyWeddingExpenseDeleted": "تم الحذف",
+  "clientMyWeddingExpenseSampleLabel": "فنانة حناء",
+  "clientMyWeddingSetupTitle": "ميزانيتكم",
+  "clientMyWeddingSetupTotal": "الإجمالي",
+  "clientMyWeddingSetupPresets": "مبالغ مقترحة",
+  "clientMyWeddingSetupCategories": "التوزيع",
+  "clientMyWeddingSetupVenueReference": "نطاق القاعة والضيافة لديكم",
+  "clientMyWeddingSetupUnallocated": "المتبقي",
+  "clientMyWeddingSetupOver": "فوق الإجمالي",
+  "clientMyWeddingSetupAlertSoft": "تنبيه عند {percent}",
+  "@clientMyWeddingSetupAlertSoft": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingSetupAlertHard": "تنبيه عند {percent}",
+  "@clientMyWeddingSetupAlertHard": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingSetupError": "تعذّر الحفظ",
+  "clientMyWeddingSetupErrorDetail": "تعذّر حفظ الميزانية. لم يتم تغيير أي شيء.",
+  "clientMyWeddingSetupSaved": "تم الحفظ",
+  "clientMyWeddingCatVenueCatering": "القاعة",
+  "clientMyWeddingCatPhotoVideo": "التصوير",
+  "clientMyWeddingCatFlowersDecor": "الزهور",
+  "clientMyWeddingCatAttire": "الأزياء",
+  "clientMyWeddingCatMakeupHenna": "المكياج",
+  "clientMyWeddingCatCars": "السيارات",
+  "clientMyWeddingCatInvitations": "الدعوات",
+  "clientMyWeddingCatMusic": "الموسيقى",
+  "clientMyWeddingCatHoneymoon": "شهر العسل",
+  "clientOnboardingAltLanguage": "منصة عرس تحيط بها أقواس من الورود والخضرة وأقمشة وردية وبيضاء مع طاولة زهور طويلة في المقدمة",
+  "clientOnboardingStepProgress": "الخطوة ⁦{current}⁩ من ⁦{total}⁩",
+  "@clientOnboardingStepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientOnboardingLanguageTitle": "اختيار اللغة",
+  "clientOnboardingLanguageGroup": "لغة التطبيق",
+  "clientOnboardingLanguageSignIn": "دخول",
+  "clientOnboardingLanguageSignInOffline": "الدخول يحتاج إلى اتصال بالإنترنت.",
+  "clientOnboardingIntroLabel": "تعريف سريع",
+  "clientOnboardingIntroSlide1Title": "مقارنة ثلاث قاعات",
+  "clientOnboardingIntroSlide2Title": "التواريخ المتاحة",
+  "clientOnboardingIntroSlide3Title": "كوبون بسعر أقل",
+  "clientOnboardingIntroStart": "البدء",
+  "clientOnboardingInfoTitle": "إجاباتكم",
+  "clientOnboardingInfoBody": "كلها اختيارية، وتبقى على هذا الجهاز إلى حين التسجيل. يمكن تعديلها في أي وقت من حسابكم.",
+  "clientOnboardingAboutTitle": "من يخطط؟",
+  "clientOnboardingAboutRoleLabel": "الصفة",
+  "clientOnboardingAboutRoleBride": "العروس",
+  "clientOnboardingAboutRoleGroom": "العريس",
+  "clientOnboardingAboutRoleFamily": "العائلة",
+  "clientOnboardingAboutRolePlanner": "المنسّق",
+  "clientOnboardingAboutNameLabel": "الاسم",
+  "clientOnboardingAboutPartnerDefault": "اسم الشريك",
+  "clientOnboardingAboutPartnerGroom": "اسم العريس",
+  "clientOnboardingAboutPartnerBride": "اسم العروس",
+  "clientOnboardingAboutPartnerCouple": "اسما العروسين",
+  "clientOnboardingAboutMonogram": "معاينة الحرف الأول",
+  "clientOnboardingDateTitle": "موعد الزفاف",
+  "clientOnboardingDateOccasions": "مناسبات هذا الشهر",
+  "clientOnboardingDateOccasionOne": "{name} · {date}",
+  "@clientOnboardingDateOccasionOne": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientOnboardingDateOccasionRange": "{name} · من {from} إلى {to}",
+  "@clientOnboardingDateOccasionRange": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "clientOnboardingDateNotDecided": "لم نحدد",
+  "clientOnboardingDateFlexible": "مرن",
+  "clientOnboardingDateFlexibleTitle": "شهر مرن",
+  "clientOnboardingDatePickDate": "اختيار تاريخ",
+  "clientOnboardingDateMonthsLabel": "الأشهر",
+  "clientOnboardingGuestsTitle": "الضيوف والميزانية",
+  "clientOnboardingGuestsSection": "الضيوف",
+  "clientOnboardingGuestsExpected": "عدد الضيوف المتوقع",
+  "clientOnboardingGuestsPresets": "أعداد شائعة للضيوف",
+  "clientOnboardingGuestsPresetMax": "{count}+",
+  "@clientOnboardingGuestsPresetMax": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "clientOnboardingGuestsSplitTitle": "نسائي ورجالي",
+  "clientOnboardingGuestsSplitLabel": "حفل نسائي وحفل رجالي منفصلان",
+  "clientOnboardingGuestsLadies": "الحفل النسائي",
+  "clientOnboardingGuestsMen": "الحفل الرجالي",
+  "clientOnboardingBudgetSection": "القاعة والضيافة",
+  "clientOnboardingBudgetBands": "شرائح الميزانية",
+  "clientOnboardingBudgetUnder": "أقل من {amount}",
+  "@clientOnboardingBudgetUnder": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientOnboardingBudgetAbove": "{amount} فأكثر",
+  "@clientOnboardingBudgetAbove": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientOnboardingBudgetRange": "نطاق ميزانية مخصص",
+  "clientOnboardingSkipHalf": "لاحقًا",
+  "clientOnboardingAreasTitle": "المناطق",
+  "clientOnboardingAreasSearch": "البحث عن منطقة",
+  "clientOnboardingAreasSelected": "{count, plural, =0{لم تُحدد مناطق} =1{منطقة واحدة محددة} =2{منطقتان محددتان} few{⁦{count}⁩ مناطق محددة} many{⁦{count}⁩ منطقة محددة} other{⁦{count}⁩ منطقة محددة}}",
+  "@clientOnboardingAreasSelected": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientOnboardingAreasDemoQuery": "مشر",
+  "clientOnboardingAreasMore": "{count, plural, =0{لا مناطق أخرى} =1{منطقة أخرى} =2{منطقتان أخريان} few{⁦{count}⁩ مناطق أخرى} many{⁦{count}⁩ منطقة أخرى} other{⁦{count}⁩ منطقة أخرى}}",
+  "@clientOnboardingAreasMore": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientOnboardingAreasNoHallsNote": "لا قاعات هنا. تظهر كل القاعات.",
+  "clientPaymentTopTitle": "الدفع",
+  "clientPaymentSave": "توفير {amount}",
+  "@clientPaymentSave": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPaymentLabelHall": "القاعة",
+  "clientPaymentLabelPackage": "الباقة",
+  "clientPaymentLabelDate": "التاريخ",
+  "clientPaymentLabelGuests": "الضيوف",
+  "clientPaymentLabelOpenUntil": "مفتوحة حتى",
+  "clientPaymentLabelSaving": "التوفير",
+  "clientPaymentLabelAmount": "المبلغ",
+  "clientPaymentLabelMethod": "الطريقة",
+  "clientPaymentLabelVoucherFor": "كوبون لدى",
+  "clientPaymentAmountLabel": "كوبون غزل، دفعة واحدة",
+  "clientPaymentTimerSr": "الوقت المتبقي: {time}",
+  "@clientPaymentTimerSr": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPaymentMethodsTitle": "طريقة الدفع",
+  "clientPaymentMethodsLabel": "طريقة الدفع",
+  "clientPaymentMethodKnet": "KNET",
+  "clientPaymentMethodApplePay": "آبل باي",
+  "clientPaymentMethodGooglePay": "جوجل باي",
+  "clientPaymentMethodCard": "فيزا أو ماستركارد",
+  "clientPaymentMethodCardShort": "بطاقة",
+  "clientPaymentMethodSuggested": "مقترحة",
+  "clientPaymentSecureTitle": "دفع آمن",
+  "clientPaymentHonestKnet": "يفتح كي نت صفحة البنك الآمنة ويعمل ببطاقات البنوك الكويتية فقط.",
+  "clientPaymentHonestWallet": "تؤكدون الدفع من جهازكم، ولا تطّلع غزل على بيانات بطاقتكم أبدًا.",
+  "clientPaymentHonestCard": "تُدخلون بيانات البطاقة في صفحة مزوّد الدفع الآمنة، ولا تطّلع عليها غزل ولا تحفظها.",
+  "clientPaymentCtaPay": "الدفع الآن",
+  "clientPaymentTermPrice": "سعر الكوبون",
+  "clientPaymentTermDirect": "دفع مباشر",
+  "clientPaymentTermReturns": "يعود الكوبون",
+  "clientPaymentHowLink": "كيف يعمل الكوبون",
+  "clientPaymentHasVoucherBanner": "الكوبون لديكم",
+  "clientPaymentSessionErrorTitle": "تعذّر بدء الدفع",
+  "clientPaymentSessionError": "تعذّر بدء الدفع. لم يُخصم أي مبلغ.",
+  "clientPaymentExpiredBanner": "انتهت الجلسة",
+  "clientPaymentCancelledToast": "إلغاء بلا خصم",
+  "clientPaymentGatewayTitle": "دفع آمن",
+  "clientPaymentGatewayBack": "إغلاق الدفع",
+  "clientPaymentLeaveTitle": "مغادرة الدفع؟",
+  "clientPaymentLeaveBody": "لم يُخصم بعد",
+  "clientPaymentLeaveConfirm": "مغادرة",
+  "clientPaymentLeaveStay": "البقاء",
+  "clientPaymentRedirectTitle": "فتح الصفحة الآمنة",
+  "clientPaymentRedirectBody": "ستُكملون الدفع في صفحة آمنة، ولا يُخصم أي مبلغ قبل ذلك.",
+  "clientPaymentRedirectPrivacy": "لا تطّلع غزل على رقم البطاقة أو الرقم السري.",
+  "clientPaymentReturnedTitle": "جارٍ التحقق",
+  "clientPaymentLostTitle": "انقطع الاتصال",
+  "clientPaymentLostBody": "نتحقق من دفعتكم، ولا حاجة للدفع مرة أخرى.",
+  "clientPaymentCancelTitle": "إلغاء الدفع",
+  "clientPaymentNotCharged": "لم يُخصم",
+  "clientPaymentNotChargedLabel": "حالة الخصم",
+  "clientPaymentReceivedLabel": "استلام الدفع",
+  "clientPaymentBankNote": "صفحة البنك",
+  "clientPaymentCardPageNote": "صفحة البطاقة",
+  "clientPaymentBankBank": "البنك",
+  "clientPaymentBankCard": "رقم البطاقة",
+  "clientPaymentBankExpiry": "الانتهاء",
+  "clientPaymentBankPin": "الرقم السري",
+  "clientPaymentBankItemName": "كوبون غزل",
+  "clientPaymentBankSubmit": "إرسال",
+  "clientPaymentCardHolder": "الاسم",
+  "clientPaymentCardCvv": "رمز الأمان",
+  "clientPaymentProtoLabel": "تجريبي",
+  "clientPaymentProtoApproved": "مقبولة",
+  "clientPaymentProtoDeclined": "مرفوضة",
+  "clientPaymentProtoSlow": "بطيئة",
+  "clientPaymentProtoLost": "منقطعة",
+  "clientPaymentProtoLate": "متأخرة",
+  "clientPaymentConfirmTitle": "جارٍ التأكيد",
+  "clientPaymentConfirmLongTitle": "التأكيد مستمر",
+  "clientPaymentConfirmNotify": "سنُعلمكم",
+  "clientPaymentConfirmNotifyLabel": "إشعار",
+  "clientPaymentConfirmKeep": "متابعة الانتظار",
+  "clientPaymentConfirmLeave": "مغادرة",
+  "clientPaymentConfirmOffline": "لا يوجد اتصال. نؤكد دفعتكم وسنُعلمكم فور اكتمال التأكيد.",
+  "clientPaymentConfirmSuccessTitle": "استلمنا الدفع",
+  "clientPaymentConfirmProgress": "جارٍ التحقق",
+  "clientPaymentViewVoucher": "عرض الكوبون",
+  "clientPaymentFailTitleExpired": "انتهت الجلسة",
+  "clientPaymentFailTitleLate": "الكوبون جاهز",
+  "clientPaymentFailBodyDeclined": "لم يقبل البنك العملية. يمكنكم المحاولة مجددًا أو اختيار طريقة دفع أخرى.",
+  "clientPaymentFailBodyCancelled": "غادرتم صفحة الدفع قبل اكتمالها.",
+  "clientPaymentFailBodyExpired": "انتهت جلسة دفع هذا الكوبون في {time}، بعد {minutes}. يمكنكم البدء من جديد بنفس العرض.",
+  "@clientPaymentFailBodyExpired": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPaymentFailBodyLate": "وصلت دفعتكم بعد انتهاء جلسة الدفع، وقد اعتمدناها. الكوبون أصبح لكم.",
+  "clientPaymentFailBodyOffline": "أعيدوا الاتصال للمحاولة مجددًا. لا يُخصم أي مبلغ قبل اكتمال الدفع.",
+  "clientPaymentFailAnother": "طريقة أخرى",
+  "clientPaymentFailStartAgain": "إعادة البدء",
+  "clientPaymentSupport": "الدعم",
+  "clientPaymentDoneTitle": "الكوبون جاهز",
+  "clientPaymentDoneLate": "وصلت الدفعة متأخرة",
+  "clientPaymentDoneLateNote": "وصلت دفعتكم بعد انتهاء جلسة الدفع. الكوبون مفعّل ومرتبط بالتاريخ المعروض.",
+  "clientPaymentDoneReuse": "إذا اعتُذر عن الطلب أو لم يصل رد، يعود الكوبون إليكم.",
+  "clientPaymentDoneCta": "إرسال الطلب",
+  "clientPaymentDoneRowVouchers": "كوبوناتي",
+  "clientPaymentDoneRowReceipt": "الإيصال",
+  "clientPaymentTermsTitle": "شروط الكوبون",
+  "clientPaymentTermsLabel": "شروط الكوبون",
+  "clientPlannerOfferTitle": "تحتاجون منسّقة؟",
+  "clientPlannerTitle": "التنسيق",
+  "clientPlannerCompareTitle": "مقارنة",
+  "clientPlannerCompareLabel": "مقارنة الباقات",
+  "clientPlannerTierPickerLabel": "الباقة",
+  "clientPlannerFromPrefix": "من",
+  "clientPlannerMarks": "{count, plural, =0{بلا علامات} =1{علامة خيط واحدة} =2{علامتا خيط} few{⁦{count}⁩ علامات خيط} many{⁦{count}⁩ علامة خيط} other{⁦{count}⁩ علامة خيط}}",
+  "@clientPlannerMarks": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientPlannerCompareChoose": "اختيار {name}",
+  "@clientPlannerCompareChoose": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPlannerCompareChosen": "{name}، تم الاختيار",
+  "@clientPlannerCompareChosen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPlannerIncluded": "مشمول",
+  "clientPlannerNotIncluded": "غير مشمول",
+  "clientPlannerIncludedLabel": "ما تشمله الباقة",
+  "clientPlannerEverythingIn": "كل ما في",
+  "clientPlannerIncSilver0": "منسّقة الحفل",
+  "clientPlannerIncSilver1": "جدول الحفل",
+  "clientPlannerIncSilver2": "متابعة الموردين",
+  "clientPlannerIncSilver3": "جولة القاعة",
+  "clientPlannerIncGold0": "تخطيط منذ الحجز",
+  "clientPlannerIncGold1": "موردون وعروض",
+  "clientPlannerIncGold2": "فكرة التنسيق",
+  "clientPlannerIncGold3": "اجتماعان",
+  "clientPlannerIncRoyal0": "كوشة مخصصة",
+  "clientPlannerIncRoyal1": "إدارة الإنتاج",
+  "clientPlannerIncRoyal2": "عقود الموردين",
+  "clientPlannerIncRoyal3": "فريق مخصص",
+  "clientPlannerWeddingLabel": "زفافكم",
+  "clientPlannerPriceInfoTitle": "السعر",
+  "clientPlannerPriceInfo": "السعر النهائي يُتفق عليه مع المنسّقة بعد الاستشارة. لا دفع الآن.",
+  "clientPlannerRequestConsultation": "طلب استشارة",
+  "clientPlannerNotNowToast": "متاحة دائمًا في زفافكم",
+  "clientPlannerOtherPlanners": "منسّقون آخرون",
+  "clientPlannerGuestSignIn": "تسجيل الدخول",
+  "clientPlannerRetryToast": "تعذّر الاتصال",
+  "clientPlannerRequestTitle": "استشارة",
+  "clientPlannerRequestChange": "تغيير الباقة",
+  "clientPlannerRequestTimesTitle": "الأوقات",
+  "clientPlannerRequestDayLabel": "اليوم",
+  "clientPlannerRequestWindowLabel": "فترات يوم {day}",
+  "@clientPlannerRequestWindowLabel": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPlannerRequestDayWithChoices": "{day}، {count, plural, =0{بلا فترات} =1{فترة واحدة} =2{فترتان} few{⁦{count}⁩ فترات} many{⁦{count}⁩ فترة} other{⁦{count}⁩ فترة}}",
+  "@clientPlannerRequestDayWithChoices": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientPlannerRequestWindowMorning": "صباحًا",
+  "clientPlannerRequestWindowAfternoon": "عصرًا",
+  "clientPlannerRequestWindowEvening": "مساءً",
+  "clientPlannerRequestWindowsError": "اختاروا فترة",
+  "clientPlannerRequestReachLabel": "التواصل",
+  "clientPlannerRequestReachChat": "محادثة",
+  "clientPlannerRequestReachWhatsapp": "واتساب",
+  "clientPlannerRequestReachPhone": "اتصال",
+  "clientPlannerRequestNotesLabel": "ملاحظات",
+  "clientPlannerRequestSend": "إرسال الطلب",
+  "clientPlannerRequestSuccessTitle": "تم الإرسال",
+  "clientPlannerRequestSentToast": "سنخبركم هنا",
+  "clientPlannerRequestOpenTitle": "طلب مفتوح",
+  "clientPlannerViewRequest": "عرض الطلب",
+  "clientPlannerStatusTitle": "منسّقتكم",
+  "clientPlannerStatusHeadWaiting": "نختار منسّقتكم",
+  "clientPlannerStatusThreadLabel": "مراحل الطلب",
+  "clientPlannerStatusStepRequested": "الطلب",
+  "clientPlannerStatusStepAssigned": "المنسّقة",
+  "clientPlannerStatusStepMeeting": "الموعد",
+  "clientPlannerStatusCancelTitle": "إلغاء الطلب؟",
+  "clientPlannerStatusCancelBody": "لن تخسروا شيئًا.",
+  "clientPlannerStatusCancelConfirm": "إلغاء الطلب",
+  "clientPlannerStatusCancelKeep": "إبقاء",
+  "clientPlannerStatusCancelledToast": "تم الإلغاء",
+  "clientPlannerStatusSchedule": "تحديد موعد",
+  "clientPlannerStatusMessageName": "مراسلة {name}",
+  "@clientPlannerStatusMessageName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPlannerStatusMeetingLabel": "الاجتماع القادم",
+  "clientPlannerStatusAddToCalendar": "إضافة إلى التقويم",
+  "clientPlannerStatusCalendarToast": "تمت الإضافة للتقويم",
+  "clientPlannerStatusAssignedToast": "{name} منسّقتكم",
+  "@clientPlannerStatusAssignedToast": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPlannerTypeVideo": "فيديو",
+  "clientPlannerTypePhone": "اتصال",
+  "clientPlannerTypeVideoName": "مكالمة فيديو",
+  "clientPlannerTypePhoneName": "مكالمة هاتفية",
+  "clientPlannerMeetingTitle": "تحديد موعد",
+  "clientPlannerMeetingDayLabel": "اليوم",
+  "clientPlannerMeetingTimeLabel": "الوقت",
+  "clientPlannerMeetingTypeLabel": "نوع الاجتماع",
+  "clientPlannerMeetingDayNoSlots": "{day}، لا مواعيد متاحة",
+  "@clientPlannerMeetingDayNoSlots": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPlannerMeetingConfirm": "تأكيد",
+  "clientPlannerMeetingNoSlotsTitle": "لا مواعيد متاحة",
+  "clientPlannerMeetingTaken": "الوقت محجوز",
+  "clientPlannerMeetingSuccessTitle": "الموعد مؤكد",
+  "clientPlannerMeetingCalendar": "التقويم",
+  "clientProfileSharedVersion": "{version}",
+  "@clientProfileSharedVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "clientProfileSharedOn": "مفعّل",
+  "clientProfileSharedOff": "متوقف",
+  "clientProfileSharedKeep": "إبقاء الحساب",
+  "clientProfileSharedSupport": "الدعم",
+  "clientProfileSharedTerms": "الشروط",
+  "clientProfileSharedPrivacy": "الخصوصية",
+  "clientProfileSharedSignIn": "تسجيل الدخول",
+  "clientProfileSharedSignOut": "تسجيل الخروج",
+  "clientProfileSharedSignOutTitle": "تسجيل الخروج؟",
+  "clientProfileSharedSignOutStay": "البقاء",
+  "clientProfileSharedSignedOut": "تم الخروج",
+  "clientProfileSharedOpeningSettings": "فتح الإعدادات",
+  "clientProfileSharedSaveFailed": "تعذّر الحفظ",
+  "clientProfileHubTitle": "حسابكم",
+  "clientProfileHubAccount": "الحساب",
+  "clientProfileHubVerified": "موثّق",
+  "clientProfileHubRowWedding": "الزفاف",
+  "clientProfileHubRowBookings": "الحجوزات",
+  "clientProfileHubRowVouchers": "كوبوناتي",
+  "clientProfileHubRowVisits": "الزيارات",
+  "clientProfileHubRowReceipts": "الإيصالات",
+  "clientProfileHubRowSaved": "المفضلة",
+  "clientProfileHubRowPersonal": "البيانات الشخصية",
+  "clientProfileHubRowNotifications": "الإشعارات",
+  "clientProfileHubCountPaid": "المدفوع",
+  "clientProfileHubCountReady": "جاهز",
+  "clientProfileHubCountUpcoming": "قادمة",
+  "clientProfileHubCountHalls": "القاعات",
+  "clientProfileDigitsTitle": "الأرقام",
+  "clientProfileLegalTitle": "الشروط والخصوصية",
+  "clientProfileWedTitle": "بيانات الزفاف",
+  "clientProfileWedRole": "الصفة",
+  "clientProfileWedRoleBride": "العروس",
+  "clientProfileWedRoleGroom": "العريس",
+  "clientProfileWedRoleFamily": "العائلة",
+  "clientProfileWedRolePlanner": "منسّق أعراس",
+  "clientProfileWedName": "اسمكم",
+  "clientProfileWedPartnerDefault": "اسم الشريك",
+  "clientProfileWedPartnerGroom": "اسم العريس",
+  "clientProfileWedPartnerBride": "اسم العروس",
+  "clientProfileWedPartnerCouple": "اسما العروسين",
+  "clientProfileWedDate": "موعد الزفاف",
+  "clientProfileWedCountdown": "الأيام المتبقية",
+  "clientProfileWedDaysUnit": "{count, plural, =0{يوم} =1{يوم} =2{يومان} few{أيام} many{يومًا} other{يوم}}",
+  "@clientProfileWedDaysUnit": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientProfileWedGuests": "الضيوف",
+  "clientProfileWedLadies": "نسائي",
+  "clientProfileWedMen": "رجالي",
+  "clientProfileWedBudget": "القاعة والضيافة",
+  "clientProfileWedAreas": "المناطق",
+  "clientProfileWedTotal": "الميزانية الكاملة",
+  "clientProfileWedDiffersAction": "اعتماد التاريخ",
+  "clientProfileWedDateUpdated": "تم التحديث",
+  "clientProfilePersTitle": "البيانات الشخصية",
+  "clientProfilePersName": "الاسم",
+  "clientProfilePersNameError": "أضيفوا اسمكم",
+  "clientProfilePersMonogram": "الحرف الأول",
+  "clientProfilePersEmail": "البريد",
+  "clientProfilePersEmailError": "راجعوا البريد",
+  "clientProfilePersPhone": "الجوال",
+  "clientProfilePersPhoneChange": "تغيير",
+  "clientProfilePersPhoneNote": "لا يظهر رقمكم للقاعات ومزوّدي الخدمات إلا في الطلبات التي ترسلونها إليهم.",
+  "clientProfilePersPhoneNoteTitle": "رقمكم",
+  "clientProfilePersMethods": "الدخول",
+  "clientProfilePersMethodWhatsapp": "واتساب",
+  "clientProfilePersMethodApple": "آبل",
+  "clientProfilePersMethodGoogle": "جوجل",
+  "clientProfilePersMethodHidden": "بريد مخفي",
+  "clientProfilePersMethodLinked": "مرتبط",
+  "clientProfilePersMethodNotLinked": "غير مرتبط",
+  "clientProfilePhoneTitle": "تغيير الرقم",
+  "clientProfilePhoneNew": "الرقم الجديد",
+  "clientProfilePhoneSend": "إرسال الرمز",
+  "clientProfilePhoneErrorDigits": "يلزم {count, plural, =0{لا أرقام} =1{رقم واحد} =2{رقمان} few{⁦{count}⁩ أرقام} many{⁦{count}⁩ رقمًا} other{⁦{count}⁩ رقم}}",
+  "@clientProfilePhoneErrorDigits": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientProfilePhoneDone": "تم التحديث",
+  "clientProfileNotifTitle": "الإشعارات",
+  "clientProfileNotifDenied": "متوقفة في الهاتف",
+  "clientProfileNotifGroupAlways": "تصلكم دائمًا",
+  "clientProfileNotifRequests": "الطلبات",
+  "clientProfileNotifVouchers": "الكوبونات",
+  "clientProfileNotifVisits": "الزيارات",
+  "clientProfileNotifGroupReminders": "التذكيرات",
+  "clientProfileNotifConfirm": "تأكيد الطلب",
+  "clientProfileNotifConfirmFact": "مهلة التأكيد",
+  "clientProfileNotifVisitReminders": "الزيارة",
+  "clientProfileNotifVoucherExpiry": "انتهاء الكوبون",
+  "clientProfileNotifMilestones": "العد التنازلي",
+  "clientProfileNotifGroupMarketing": "العروض والأخبار",
+  "clientProfileNotifOffers": "عروض القاعات",
+  "clientProfileNotifPriceDrops": "انخفاض الأسعار",
+  "clientProfileNotifNewVenues": "قاعات جديدة",
+  "clientProfileNotifFrequencyTitle": "التكرار",
+  "clientProfileNotifFrequency": "بحد أقصى {count, plural, =0{لا رسائل} =1{رسالة واحدة} =2{رسالتين} few{⁦{count}⁩ رسائل} many{⁦{count}⁩ رسالة} other{⁦{count}⁩ رسالة}} في الأسبوع، ولا رسائل خلال آخر {days, plural, =0{لا أيام} =1{يوم} =2{يومين} few{⁦{days}⁩ أيام} many{⁦{days}⁩ يومًا} other{⁦{days}⁩ يوم}} قبل الزفاف.",
+  "@clientProfileNotifFrequency": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "days": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientProfileNotifChannels": "طريقة الإرسال",
+  "clientProfileNotifChannelPush": "التطبيق",
+  "clientProfileNotifChannelWhatsapp": "واتساب",
+  "clientProfileNotifChannelEmail": "البريد",
+  "clientProfileNotifChannelEmailAdd": "إضافة بريد",
+  "clientProfileNotifQuiet": "ساعات الهدوء",
+  "clientProfileNotifQuietOffers": "العروض",
+  "clientProfileNotifQuietAlerts": "التنبيهات",
+  "clientProfileNotifPhone": "الهاتف",
+  "clientProfileSetBiometric": "{method, select, face{بصمة الوجه} touch{بصمة الإصبع} other{بصمة الإصبع}}",
+  "@clientProfileSetBiometric": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "clientProfileSetBiometricHint": "فعّلوها من إعدادات الهاتف",
+  "clientProfileSetBiometricOff": "تم الإيقاف",
+  "clientProfileSetLocation": "الموقع",
+  "clientProfileSetLocationValue": "أثناء الاستخدام",
+  "clientProfileSetUsage": "بيانات الاستخدام",
+  "clientProfileSetUsageDetail": "لتحسين غزل، دون أي بيانات دفع.",
+  "clientProfileDelTitle": "حذف الحساب",
+  "clientProfileDelItemData": "البيانات الشخصية",
+  "clientProfileDelItemPlans": "الخطط",
+  "clientProfileDelOutAnonymised": "مجهولة الهوية",
+  "clientProfileDelOutKept": "محفوظة",
+  "clientProfileDelOutRemoved": "محذوفة",
+  "clientProfileDelOutWithdrawn": "مسحوب",
+  "clientProfileDelDetailTitle": "ماذا سيحدث",
+  "clientProfileDelSheetData": "تصبح بياناتكم الشخصية مجهولة الهوية.",
+  "clientProfileDelSheetReceipts": "تُحفظ إيصالات الكوبون والسجلات المحاسبية كما يقتضي القانون.",
+  "clientProfileDelSheetSaved": "تُحذف المفضلة وقائمة المهام والميزانية.",
+  "clientProfileDelSheetApple": "يُلغى الدخول عبر آبل.",
+  "clientProfileDelSheetRequest": "سيُسحب طلبكم المعلّق إلى {venue}، وينتهي كوبونه مع حذف الحساب.",
+  "@clientProfileDelSheetRequest": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientProfileDelVoucher": "{count, plural, =0{لا كوبونات جاهزة} =1{كوبون جاهز} =2{كوبونان جاهزان} few{⁦{count}⁩ كوبونات جاهزة} many{⁦{count}⁩ كوبونًا جاهزًا} other{⁦{count}⁩ كوبون جاهز}}",
+  "@clientProfileDelVoucher": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientProfileDelVoucherRefund": "استرداد",
+  "clientProfileDelVoucherDetailRefund": "{count, plural, =0{لا كوبونات جاهزة.} =1{لديكم كوبون جاهز. استردّوا مبلغه أولًا، فبعد حذف الحساب ينتهي ولا يمكن استرداده.} =2{لديكم كوبونان جاهزان. استردّوا مبلغهما أولًا، فبعد حذف الحساب ينتهيان ولا يمكن استرداد المبلغ.} few{لديكم ⁦{count}⁩ كوبونات جاهزة. استردّوا مبالغها أولًا، فبعد حذف الحساب تنتهي ولا يمكن استرداد المبلغ.} many{لديكم ⁦{count}⁩ كوبونًا جاهزًا. استردّوا مبالغها أولًا، فبعد حذف الحساب تنتهي ولا يمكن استرداد المبلغ.} other{لديكم ⁦{count}⁩ كوبون جاهز. استردّوا مبالغها أولًا، فبعد حذف الحساب تنتهي ولا يمكن استرداد المبلغ.}}",
+  "@clientProfileDelVoucherDetailRefund": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientProfileDelVoucherDetailEnds": "{count, plural, =0{لا كوبونات جاهزة.} =1{لديكم كوبون جاهز، وينتهي مع حذف الحساب. استخدموه أولًا إن كنتم تحتاجونه.} =2{لديكم كوبونان جاهزان، وينتهيان مع حذف الحساب. استخدماهما أولًا إن كنتم تحتاجونهما.} few{لديكم ⁦{count}⁩ كوبونات جاهزة، وتنتهي مع حذف الحساب. استخدموها أولًا إن كنتم تحتاجونها.} many{لديكم ⁦{count}⁩ كوبونًا جاهزًا، وتنتهي مع حذف الحساب. استخدموها أولًا إن كنتم تحتاجونها.} other{لديكم ⁦{count}⁩ كوبون جاهز، وتنتهي مع حذف الحساب. استخدموها أولًا إن كنتم تحتاجونها.}}",
+  "@clientProfileDelVoucherDetailEnds": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientProfileDelUndone": "لا يمكن التراجع",
+  "clientProfileDelDeleting": "جارٍ الحذف",
+  "clientProfileDelSuccessTitle": "الحساب محذوف",
+  "clientProfileDelSuccessDetail": "أصبحت بياناتكم الشخصية مجهولة الهوية، وتبقى الإيصالات محفوظة كما يقتضي القانون. يمكنكم إنشاء حساب جديد في أي وقت.",
+  "clientProfileDelErrorTitle": "تعذّر الحذف",
+  "clientProfileDelErrorDetail": "لم يتغيّر شيء. حاولوا مجددًا أو راسلوا الدعم.",
+  "clientProfileDelBlockedTitle": "الحذف متوقف",
+  "clientProfileDelBlockedDetail": "حذف الحساب متوقف مؤقتًا لأن حجزكم في {venue} بتاريخ {date} مؤكد. يمكنكم إلغاؤه، أو طلب الحذف بعد تاريخ الحفل.",
+  "@clientProfileDelBlockedDetail": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientProfileDelBlockedApprovedDetail": "حذف الحساب متوقف مؤقتًا لأن {venue} وافق على طلبكم وينتظر تأكيدكم. أكّدوا الطلب أو ألغوه أولًا.",
+  "@clientProfileDelBlockedApprovedDetail": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientProfileDelBlockedSchedule": "جدولة الحذف",
+  "clientProfileDelBlockedOpen": "فتح الطلب",
+  "clientProfileDelBlockedCancel": "إلغاء الحجز",
+  "clientProfileDelBlockedCancelRequest": "إلغاء الطلب",
+  "clientProfileDelScheduledTitle": "الحذف مجدول",
+  "clientProfileDelScheduledCancel": "إلغاء الحذف",
+  "clientProfileDelScheduledCancelled": "الحذف ملغى",
+  "clientReviewsRewardsStarCount": "{count, plural, =0{لا نجوم} =1{نجمة واحدة} =2{نجمتان} few{⁦{count}⁩ نجوم} many{⁦{count}⁩ نجمة} other{⁦{count}⁩ نجمة}}",
+  "@clientReviewsRewardsStarCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientReviewsRewardsStarsAndBelow": "{count, plural, =0{لا نجوم} =1{نجمة فأقل} =2{نجمتان فأقل} few{⁦{count}⁩ نجوم فأقل} many{⁦{count}⁩ نجمة فأقل} other{⁦{count}⁩ نجمة فأقل}}",
+  "@clientReviewsRewardsStarsAndBelow": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientReviewsRewardsAudienceWomen": "الحفل النسائي",
+  "clientReviewsRewardsAudienceMen": "الحفل الرجالي",
+  "clientReviewsRewardsAudienceMixed": "حفل مختلط",
+  "clientReviewsRewardsRating": "التقييم",
+  "clientReviewsRewardsGuest": "ضيف",
+  "clientReviewsRewardsInReview": "قيد المراجعة",
+  "clientReviewsRewardsOpens": "يُفتح {date}",
+  "@clientReviewsRewardsOpens": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientReviewsRewardsOpensName": "يُفتح التقييم بعد مناسبتكم بتاريخ {date}.",
+  "@clientReviewsRewardsOpensName": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientReviewsRewardsShowMore": "عرض المزيد",
+  "clientReviewsRewardsListTitle": "التقييمات",
+  "clientReviewsRewardsListWrite": "كتابة تقييم",
+  "clientReviewsRewardsListEvent": "مناسبتكم",
+  "clientReviewsRewardsListSignIn": "تسجيل الدخول",
+  "clientReviewsRewardsListSignInName": "لتقييم مناسبتكم",
+  "clientReviewsRewardsListInfoTitle": "تقييمات موثّقة",
+  "clientReviewsRewardsListInfoReal": "التقييم لمن أتمّ حجزه فقط.",
+  "clientReviewsRewardsListInfoVenue": "للقاعة ردّ واحد، ولا يمكنها تعديل التقييم أو حذفه.",
+  "clientReviewsRewardsListInfoNew": "كونوا أول من يقيّم بعد مناسبتكم.",
+  "clientReviewsRewardsListFilterLabel": "تصفية التقييمات",
+  "clientReviewsRewardsListFilterPhotos": "صور",
+  "clientReviewsRewardsListSortRecent": "الأحدث",
+  "clientReviewsRewardsListSortHighest": "الأعلى",
+  "clientReviewsRewardsListSortLowest": "الأدنى",
+  "clientReviewsRewardsListSortTitle": "ترتيب",
+  "clientReviewsRewardsListMore": "خيارات إضافية لهذا التقييم",
+  "clientReviewsRewardsListMoreReviews": "المزيد",
+  "clientReviewsRewardsListVerified": "حجز موثّق",
+  "clientReviewsRewardsListReplyFrom": "ردّ من {venue}",
+  "@clientReviewsRewardsListReplyFrom": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientReviewsRewardsListReportTitle": "إبلاغ",
+  "clientReviewsRewardsListReasonAbusive": "مسيء",
+  "clientReviewsRewardsListReasonNotVenue": "لا يخص القاعة",
+  "clientReviewsRewardsListReasonPeople": "تظهر أشخاصًا",
+  "clientReviewsRewardsListReasonOther": "أخرى",
+  "clientReviewsRewardsListReportReason": "حدّدوا السبب",
+  "clientReviewsRewardsListReportSent": "أُرسل البلاغ",
+  "clientReviewsRewardsListReported": "تم الإبلاغ",
+  "clientReviewsRewardsWriteTitle": "كتابة تقييم",
+  "clientReviewsRewardsWritePrompt": "كيف كانت تجربتكم في {venue}؟",
+  "@clientReviewsRewardsWritePrompt": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientReviewsRewardsWriteOverall": "التقييم العام",
+  "clientReviewsRewardsWriteStar1": "ضعيف",
+  "clientReviewsRewardsWriteStar2": "مقبول",
+  "clientReviewsRewardsWriteStar3": "جيد",
+  "clientReviewsRewardsWriteStar4": "جيد جدًا",
+  "clientReviewsRewardsWriteStar5": "ممتاز",
+  "clientReviewsRewardsWriteCatVenue": "القاعة",
+  "clientReviewsRewardsWriteCatFood": "الطعام",
+  "clientReviewsRewardsWriteCatService": "الخدمة",
+  "clientReviewsRewardsWriteCatValue": "القيمة",
+  "clientReviewsRewardsWriteTextLabel": "تعليق",
+  "clientReviewsRewardsWriteMediaTitle": "الصور",
+  "clientReviewsRewardsWriteMediaNoPeople": "بلا أشخاص",
+  "clientReviewsRewardsWriteMediaInfoTitle": "ضوابط التقييم",
+  "clientReviewsRewardsWriteMediaRule": "لا يمكن نشر الصور أو المقاطع التي يظهر فيها أشخاص.",
+  "clientReviewsRewardsWriteMediaAllowed": "نرحّب بصور القاعة والديكور والطعام والتفاصيل.",
+  "clientReviewsRewardsWriteMediaChecked": "تُفحص التقييمات قبل ظهورها، وتنتظر الصور فريقنا ولا يراها غيركم.",
+  "clientReviewsRewardsWriteMediaAdd": "إضافة صورة أو مقطع",
+  "clientReviewsRewardsWriteMediaUploading": "جارٍ الرفع",
+  "clientReviewsRewardsWriteMediaRejected": "أشخاص",
+  "clientReviewsRewardsWriteMediaRejectedNote": "لا يمكن نشر هذه الصورة لأنها تُظهر أشخاصًا. يمكنكم حذفها أو إضافة صورة أخرى.",
+  "clientReviewsRewardsWriteMediaRemove": "حذف هذه الصورة",
+  "clientReviewsRewardsWriteNameHide": "إخفاء الاسم",
+  "clientReviewsRewardsWriteSubmitReason": "أضيفوا تقييمًا",
+  "clientReviewsRewardsWriteOffline": "لا يوجد اتصال. المسودة محفوظة.",
+  "clientReviewsRewardsWriteOfflineReason": "يلزم اتصال",
+  "clientReviewsRewardsWriteError": "لم يُرسل. المسودة محفوظة.",
+  "clientReviewsRewardsWriteLockedAction": "عرض الحجز",
+  "clientReviewsRewardsWriteDoneTitle": "شكرًا لكم",
+  "clientReviewsRewardsWriteDoneHelper": "يظهر بعد مراجعة سريعة",
+  "clientReviewsRewardsWriteDoneSee": "عرض التقييمات",
+  "clientReviewsRewardsWriteAlreadyTitle": "سبق تقييمكم",
+  "clientSavedCompareSavedTitle": "المفضلة",
+  "clientSavedCompareSavedTabsLabel": "عناصر المفضلة",
+  "clientSavedCompareSavedSummaryFree": "{total, plural, =0{لا قاعات} =1{قاعة واحدة متاحة يوم {date}} =2{⁦{free}⁩ من قاعتين متاحة يوم {date}} few{⁦{free}⁩ من ⁦{total}⁩ قاعات متاحة يوم {date}} many{⁦{free}⁩ من ⁦{total}⁩ قاعة متاحة يوم {date}} other{⁦{free}⁩ من ⁦{total}⁩ قاعة متاحة يوم {date}}}",
+  "@clientSavedCompareSavedSummaryFree": {
+    "placeholders": {
+      "free": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedSummaryOneFree": "القاعة متاحة يوم {date}",
+  "@clientSavedCompareSavedSummaryOneFree": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedSummaryOneBusy": "القاعة غير متاحة يوم {date}",
+  "@clientSavedCompareSavedSummaryOneBusy": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedSelect": "تحديد",
+  "clientSavedCompareSavedSelectNeedTwo": "اختاروا قاعتين على الأقل",
+  "clientSavedCompareSavedSelectRow": "تحديد {name}",
+  "@clientSavedCompareSavedSelectRow": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedDeselectRow": "إلغاء تحديد {name}",
+  "@clientSavedCompareSavedDeselectRow": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedAvailFree": "ما زال متاحًا يوم {date}",
+  "@clientSavedCompareSavedAvailFree": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedAvailHeld": "محجوز مؤقتًا",
+  "clientSavedCompareSavedAvailBooked": "محجوز يوم {date}",
+  "@clientSavedCompareSavedAvailBooked": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedSavingChanged": "تغير التوفير",
+  "clientSavedCompareSavedVoucherReadyOpen": "فتح كوبونكم لدى {name}",
+  "@clientSavedCompareSavedVoucherReadyOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedUnlisted": "غير مدرجة",
+  "clientSavedCompareSavedRemoved": "تمت الإزالة",
+  "clientSavedCompareSavedGuestBanner": "على هذا الهاتف فقط",
+  "clientSavedCompareSavedGuestSignIn": "تسجيل الدخول",
+  "clientSavedCompareLastUpdated": "آخر تحديث",
+  "clientSavedCompareSavedEmptyVenuesTitle": "لا قاعات محفوظة",
+  "clientSavedCompareSavedEmptyVenuesAction": "استكشاف القاعات",
+  "clientSavedCompareSavedEmptyServicesTitle": "لا خدمات محفوظة",
+  "clientSavedCompareSavedEmptyServicesAction": "استكشاف الخدمات",
+  "clientSavedCompareSavedEmptyPackagesTitle": "لا باقات محفوظة",
+  "clientSavedCompareSavedEmptyPackagesAction": "عرض الباقات",
+  "clientSavedCompareSavedPlannerLabel": "تنسيق الأعراس",
+  "clientSavedCompareSavedFrom": "من",
+  "clientSavedCompareFactGuests": "الضيوف",
+  "clientSavedCompareFactDate": "التاريخ",
+  "clientSavedCompareFactFreeHalls": "القاعات المتاحة في تاريخكم",
+  "clientSavedCompareFactWomen": "نسائي",
+  "clientSavedCompareFactMen": "رجالي",
+  "clientSavedCompareFactMixed": "مختلط",
+  "clientSavedCompareFactEdit": "تعديل التفاصيل",
+  "clientSavedCompareTrayTitle": "المقارنة",
+  "clientSavedCompareTrayAddOne": "أضيفوا قاعة أخرى",
+  "clientSavedCompareTrayAction": "مقارنة (⁦{count}⁩)",
+  "@clientSavedCompareTrayAction": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientSavedCompareTrayRemove": "إزالة {name} من المقارنة",
+  "@clientSavedCompareTrayRemove": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareTrayBadge": "{count, plural, =0{مقارنتكم فارغة} =1{فتح المقارنة، قاعة واحدة} =2{فتح المقارنة، قاعتان} few{فتح المقارنة، ⁦{count}⁩ قاعات} many{فتح المقارنة، ⁦{count}⁩ قاعة} other{فتح المقارنة، ⁦{count}⁩ قاعة}}",
+  "@clientSavedCompareTrayBadge": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientSavedCompareReplaceTitle": "استبدال أي قاعة؟",
+  "clientSavedCompareReplaceBody": "يمكن مقارنة ⁦{max}⁩ قاعات كحد أقصى. اختاروا القاعة التي سيحل {name} محلها.",
+  "@clientSavedCompareReplaceBody": {
+    "placeholders": {
+      "max": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareReplaceDone": "تم تحديث المقارنة",
+  "clientSavedCompareCompareTitle": "المقارنة",
+  "clientSavedCompareCompareLinkCopied": "تم نسخ الرابط",
+  "clientSavedCompareCompareRowAvailability": "التوفر",
+  "clientSavedCompareCompareRowPrice": "السعر",
+  "clientSavedCompareCompareRowPriceFrom": "السعر ابتداءً من",
+  "clientSavedCompareCompareRowCapacity": "سعة أكبر قاعة",
+  "clientSavedCompareCompareRowSetting": "نوع المكان",
+  "clientSavedCompareCompareRowValet": "خدمة الفاليه",
+  "clientSavedCompareCompareRowParking": "مواقف مجانية",
+  "clientSavedCompareCompareRowBridal": "جناح العروس",
+  "clientSavedCompareCompareRowBuffet": "البوفيه",
+  "clientSavedCompareCompareRowPhotography": "التصوير",
+  "clientSavedCompareCompareRowRating": "التقييم",
+  "clientSavedCompareCompareRowDistance": "المسافة بالسيارة من {origin}",
+  "@clientSavedCompareCompareRowDistance": {
+    "placeholders": {
+      "origin": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareCompareDriveMinutes": "{minutes, plural, =0{أقل من دقيقة} =1{دقيقة} =2{دقيقتان} few{⁦{minutes}⁩ دقائق} many{⁦{minutes}⁩ دقيقة} other{⁦{minutes}⁩ دقيقة}}",
+  "@clientSavedCompareCompareDriveMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientSavedCompareCompareRowPackages": "الباقات",
+  "clientSavedCompareCompareRowHow": "قناة الحجز",
+  "clientSavedCompareCompareRowPhotos": "الصور",
+  "clientSavedCompareCompareValHowVoucher": "بالكوبون",
+  "clientSavedCompareCompareValHowStandard": "سعر عادي فقط",
+  "clientSavedCompareCompareValHowOfficial": "القناة الرسمية",
+  "clientSavedCompareCompareValIncluded": "مشمولة",
+  "clientSavedCompareCompareValExtra": "برسوم إضافية",
+  "clientSavedCompareCompareValNotOffered": "غير متوفرة",
+  "clientSavedCompareCompareValIndoor": "داخلية",
+  "clientSavedCompareCompareValOutdoor": "خارجية",
+  "clientSavedCompareCompareValWomenOnly": "مصوّرات فقط",
+  "clientSavedCompareCompareValAllowed": "مسموح",
+  "clientSavedCompareCompareValNotAllowed": "غير مسموح",
+  "clientSavedCompareCompareValBelow": "أقل من عددكم",
+  "clientSavedCompareCompareValFrom": "من",
+  "clientSavedCompareCompareShowPackages": "عرض الباقات",
+  "clientSavedCompareCompareHidePackages": "إخفاء الباقات",
+  "clientSavedCompareCompareBadgeRated": "الأعلى تقييمًا",
+  "clientSavedCompareCompareBadgeLowest": "الأقل سعرًا",
+  "clientSavedCompareCompareBadgeClosest": "الأقرب",
+  "clientSavedCompareCompareActionVoucher": "كوبون",
+  "clientSavedCompareCompareActionView": "عرض",
+  "clientSavedCompareCompareActionDates": "التواريخ",
+  "clientSavedCompareCompareActionOfficial": "رسمي",
+  "clientSavedCompareCompareActionFor": "{action}: {name}",
+  "@clientSavedCompareCompareActionFor": {
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareCompareOpen": "فتح {name}",
+  "@clientSavedCompareCompareOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareComparePick": "اختيار {name}",
+  "@clientSavedCompareComparePick": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareCompareUnpick": "تم اختيار {name}",
+  "@clientSavedCompareCompareUnpick": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareComparePicked": "اخترتم {name}.",
+  "@clientSavedCompareComparePicked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareCompareSetDate": "تحديد التاريخ",
+  "clientSavedCompareCompareFewerTitle": "أضيفوا قاعة ثانية",
+  "clientSavedCompareCompareFewerAction": "اختيار قاعة",
+  "clientSavedCompareCompareDiffLabel": "الصفوف المعروضة",
+  "clientSavedCompareCompareDiffOnly": "الفروقات",
+  "clientSavedCompareCompareDiffAll": "الكل",
+  "clientSavedCompareKeyTitle": "الرموز",
+  "clientSavedCompareKeyBest": "الأفضل",
+  "clientSavedCompareKeySave": "التوفير",
+  "clientSavedCompareCompareHidden": "{count, plural, =0{لا صفوف مخفية} =1{صف متشابه مخفي} =2{صفان متشابهان مخفيان} few{⁦{count}⁩ صفوف متشابهة مخفية} many{⁦{count}⁩ صفًا متشابهًا مخفيًا} other{⁦{count}⁩ صف متشابه مخفي}}",
+  "@clientSavedCompareCompareHidden": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientServicesFrom": "من",
+  "clientServicesOpenName": "فتح {name}",
+  "@clientServicesOpenName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesArea": "المنطقة",
+  "clientServicesProviders": "المقدّمون",
+  "clientServicesSoon": "قريبًا",
+  "clientServicesVoucherAvailable": "أسعار الكوبون متاحة",
+  "clientServicesSavedView": "عرض",
+  "clientServicesRequestSent": "تم الإرسال",
+  "clientServicesReconnect": "أعيدوا الاتصال للمتابعة",
+  "clientServicesHowTitle": "كيف يعمل",
+  "clientServicesUnitEvent": "للحفل",
+  "clientServicesUnitCake": "للكيكة",
+  "clientServicesUnitSession": "للجلسة",
+  "clientServicesUnitDress": "للفستان",
+  "clientServicesUnitSuit": "للبدلة",
+  "clientServicesUnitCard": "للبطاقة",
+  "clientServicesUnitBooking": "للحجز",
+  "clientServicesUnitPackage": "للباقة",
+  "clientServicesHubTitle": "الخدمات",
+  "clientServicesHubSwitchLabel": "التصفّح",
+  "clientServicesHubGroupsLabel": "الفئات",
+  "clientServicesHubMoreHeading": "المزيد",
+  "clientServicesHubPlannerTitle": "تنسيق الأعراس",
+  "clientServicesHubSavedTitle": "المحفوظ",
+  "clientServicesHubGovernmentNote": "أضيفوا الضيافة والديكور",
+  "clientServicesHubVoucherLine": "احصلوا على كوبون غزل بقيمة {fee} من صفحة مقدّم الخدمة لتفتحوا أسعارًا أقل. الدفع لمقدّم الخدمة مباشرةً دائمًا.",
+  "@clientServicesHubVoucherLine": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesListTitle": "المقدّمون",
+  "clientServicesListSiblings": "خدمات ذات صلة",
+  "clientServicesListFemaleTeam": "فريق نسائي",
+  "clientServicesListGridLabel": "المقدّمون في {category}",
+  "@clientServicesListGridLabel": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesListNoResultsTitle": "لا نتائج",
+  "clientServicesListClear": "مسح التصفية",
+  "clientServicesListEmptyTitle": "لا نتائج بعد",
+  "clientServicesFilterTitle": "التصفية",
+  "clientServicesFilterLabel": "تصفية",
+  "clientServicesSheetSortLabel": "الترتيب",
+  "clientServicesSheetUpTo": "حتى {price}",
+  "@clientServicesSheetUpTo": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesSheetRatingAtLeast": "{rating}+",
+  "@clientServicesSheetRatingAtLeast": {
+    "placeholders": {
+      "rating": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesSheetShow": "عرض {count}",
+  "@clientServicesSheetShow": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesSortRecommended": "الأنسب",
+  "clientServicesSortPrice": "السعر",
+  "clientServicesSortRating": "التقييم",
+  "clientServicesProfileTitle": "المقدّم",
+  "clientServicesProfileHeroLabel": "صور أعمال {name}",
+  "@clientServicesProfileHeroLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesProfileReply": "يردّ خلال",
+  "clientServicesProfileVerified": "موثّق",
+  "clientServicesProfileEventTitle": "المناسبة",
+  "clientServicesProfileEventInfoTitle": "الموعد",
+  "clientServicesProfileAvailabilityBody": "يؤكّد مقدّم الخدمة توفّره للموعد في المحادثة.",
+  "clientServicesProfileEventNote": "يرتبط الكوبون بهذا التاريخ وهذه الباقة.",
+  "clientServicesProfileAsk": "استفسار",
+  "clientServicesProfilePackagesTitle": "الباقات",
+  "clientServicesProfilePackageChoose": "اختيار {name}",
+  "@clientServicesProfilePackageChoose": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesProfilePackageChosen": "{name}، تم الاختيار",
+  "@clientServicesProfilePackageChosen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesProfileIncludes": "تشمل",
+  "clientServicesProfileBudgetTitle": "إضافة إلى الميزانية",
+  "clientServicesProfileReviewsTitle": "التقييمات",
+  "clientServicesProfileGetVoucher": "طلب كوبون",
+  "clientServicesProfileRequest": "عرض سعر",
+  "clientServicesProfileOpenChat": "فتح المحادثة",
+  "clientServicesHowRequestLabel": "الطلب",
+  "clientServicesHowSettleLabel": "الدفع للمقدّم",
+  "clientServicesHowPayTitle": "ادفعوا {fee} إلكترونيًا",
+  "@clientServicesHowPayTitle": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesHowPayBody": "عبر كي نت أو البطاقة أو أبل باي أو جوجل باي. يرتبط الكوبون بهذا المقدّم وهذه الباقة.",
+  "clientServicesHowRequestTitle": "اطلبوا بسعر الكوبون",
+  "clientServicesHowRequestBody": "يردّ مقدّم الخدمة. وبعد الموافقة لديكم {hours} للتأكيد.",
+  "@clientServicesHowRequestBody": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesHowSettleTitle": "ادفعوا لمقدّم الخدمة مباشرةً",
+  "clientServicesHowSettleBody": "تسدّدون حسب اتفاقكم مع المقدّم وتعرضون رمز الكوبون. غزل لا تستلم أي مبلغ مقابل الخدمة.",
+  "clientServicesQuoteTitle": "عرض سعر",
+  "clientServicesQuotePackage": "الباقة",
+  "clientServicesQuoteDate": "تاريخ المناسبة",
+  "clientServicesQuoteDatePlaceholder": "اختيار التاريخ",
+  "clientServicesQuoteVenue": "القاعة",
+  "clientServicesQuoteGuests": "الضيوف",
+  "clientServicesQuoteNoteLabel": "ملاحظة لمقدّم الخدمة",
+  "clientServicesQuoteNotePlaceholder": "ملاحظة",
+  "clientServicesQuoteSend": "إرسال الطلب",
+  "clientServicesQuoteDateError": "التاريخ مطلوب",
+  "clientServicesQuoteGuestNote": "سجّلوا الدخول للإرسال",
+  "clientServicesQuoteThreadExists": "يضاف إلى المحادثة",
+  "clientServicesQuoteErrorTitle": "تعذّر الإرسال",
+  "clientServicesQuoteErrorBody": "لم يضع شيء مما كتبتموه.",
+  "clientServicesQuoteVoucherFailed": "كوبونكم محفوظ ولم يتم الخصم.",
+  "clientServicesQuoteAttachTitle": "استخدام الكوبون",
+  "clientServicesQuoteAttachInfoTitle": "الطلب بالكوبون",
+  "clientServicesQuoteAttachNote": "يصبح استفساركم طلبًا بسعر الكوبون. يقبله مقدّم الخدمة أو يعتذر أو يقترح موعدًا آخر.",
+  "clientServicesQuoteNextTitle": "الخطوة التالية",
+  "clientServicesQuoteViewRequest": "عرض الطلب",
+  "clientServicesQuoteVoucherSuccessBody": "يردّ {vendor} في الرسائل. وبعد موافقته لديكم {hours} للتأكيد.",
+  "@clientServicesQuoteVoucherSuccessBody": {
+    "placeholders": {
+      "vendor": {
+        "type": "String"
+      },
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "clientShellTabBarLabel": "التنقل الرئيسي",
+  "clientShellTabDiscover": "استكشف",
+  "clientShellTabSaved": "المفضلة",
+  "clientShellTabMyWedding": "زفافكم",
+  "clientShellTabMessages": "الرسائل",
+  "clientShellTabProfile": "حسابكم",
+  "clientShellTabUnread": "{count, plural, =0{لا رسائل غير مقروءة} =1{رسالة واحدة غير مقروءة} =2{رسالتان غير مقروءتين} few{⁦{count}⁩ رسائل غير مقروءة} many{⁦{count}⁩ رسالة غير مقروءة} other{⁦{count}⁩ رسالة غير مقروءة}}",
+  "@clientShellTabUnread": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientShellGreeting": "أهلًا وسهلًا، {name}",
+  "@clientShellGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientShellGreetingAnonymous": "أهلًا وسهلًا",
+  "clientShellBriefTitle": "تفاصيل زفافكم",
+  "clientShellBriefEditLabel": "تعديل التاريخ والضيوف والمنطقة والميزانية",
+  "clientShellBriefDate": "التاريخ",
+  "clientShellBriefGuests": "عدد الضيوف",
+  "clientShellBriefArea": "المنطقة",
+  "clientShellBriefBudget": "ميزانية القاعة والضيافة",
+  "clientShellBriefNotDecided": "لم يتحدد",
+  "clientShellBriefFlexibleMonth": "شهر مرن",
+  "clientShellSwitchVenues": "القاعات",
+  "clientShellSwitchServices": "الخدمات",
+  "clientShellSwitchPackages": "الباقات",
+  "clientShellCompareTray": "مقارنة ({pair})",
+  "@clientShellCompareTray": {
+    "placeholders": {
+      "pair": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueTierPrestige": "فاخر",
+  "clientVenueTierSignature": "راقٍ",
+  "clientVenueTierClassic": "كلاسيكي",
+  "clientVenueTierGovernment": "قاعة حكومية",
+  "clientVenueAboutTitle": "نبذة",
+  "clientVenueTypeHotel": "فندق",
+  "clientVenueTypeHall": "قاعة",
+  "clientVenueTypeResort": "منتجع",
+  "clientVenueTypeVilla": "فيلا",
+  "clientVenueTypeOutdoor": "خارجي",
+  "clientVenueTypeConvention": "مركز مؤتمرات",
+  "clientVenueAddressLine": "قطعة {block}، {street}",
+  "@clientVenueAddressLine": {
+    "placeholders": {
+      "block": {
+        "type": "String"
+      },
+      "street": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueRegionLine": "{area}، {governorate}",
+  "@clientVenueRegionLine": {
+    "placeholders": {
+      "area": {
+        "type": "String"
+      },
+      "governorate": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueHeroLabel": "صور {venue}",
+  "@clientVenueHeroLabel": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueHeroOpen": "فتح معرض الصور",
+  "clientVenueNoPhotos": "الصور قريبًا",
+  "clientVenueZoneHall": "القاعة",
+  "clientVenueZoneStage": "الكوشة والمنصة",
+  "clientVenueZoneBridal": "جناح العروس",
+  "clientVenueZoneBuffet": "البوفيه",
+  "clientVenueZoneOutdoors": "الخارج",
+  "clientVenueZoneEntrance": "المدخل والفاليه",
+  "clientVenueZoneLayout": "ترتيب الجلسات",
+  "clientVenueZoneVideo": "الفيديو",
+  "clientVenueZoneWithHall": "{zone}، {hall}",
+  "@clientVenueZoneWithHall": {
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      },
+      "hall": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueGalleryLabel": "معرض صور {venue}",
+  "@clientVenueGalleryLabel": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueGalleryCounter": "⁦{current}⁩/⁦{total}⁩",
+  "@clientVenueGalleryCounter": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientVenueGalleryZones": "أقسام الصور",
+  "clientVenueVideoPlay": "تشغيل الفيديو",
+  "clientVenueVideoPause": "إيقاف الفيديو مؤقتًا",
+  "clientVenueVideoScrub": "موضع التشغيل",
+  "clientVenueVideoCaption": "المدخل والقاعة والكوشة",
+  "clientVenueDateLabel": "تاريخكم",
+  "clientVenueDateChoose": "اختيار التاريخ",
+  "clientVenueDateChangeLabel": "تغيير التاريخ",
+  "clientVenueGuestsAdd": "إضافة الضيوف",
+  "clientVenueGuestsChangeLabel": "تعديل عدد الضيوف",
+  "clientVenueGuestsLabel": "الضيوف",
+  "clientVenueEstimateLabel": "الإجمالي التقديري",
+  "clientVenueEstimateMinimum": "السعر محسوب على الحد الأدنى: {guests}",
+  "@clientVenueEstimateMinimum": {
+    "placeholders": {
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueHeldSr": "التاريخ محجوز مؤقتًا لحفل آخر، ولا يزال بإمكانكم إرسال طلب.",
+  "clientVenueNearestTitle": "أقرب التواريخ المتاحة",
+  "clientVenueSeeAllDates": "كل التواريخ",
+  "clientVenueWindowApplied": "{title} ينطبق على تاريخكم",
+  "@clientVenueWindowApplied": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueHowTitle": "كيف يعمل الكوبون",
+  "clientVenueThreadTitle": "حجزكم في خمس خطوات",
+  "clientVenueThreadLabel": "خطوات الحجز: الكوبون، الطلب، الموافقة، التأكيد، لدى المكان",
+  "clientVenueThreadVoucher": "الكوبون",
+  "clientVenueThreadRequest": "الطلب",
+  "clientVenueThreadApproval": "الموافقة",
+  "clientVenueThreadConfirm": "التأكيد",
+  "clientVenueThreadAtVenue": "لدى المكان",
+  "clientVenueThreadNote": "تدفعون لغزل {fee} مرة واحدة ثمنًا للكوبون، وأي مبلغ آخر تدفعونه مباشرةً إلى {venue}.",
+  "@clientVenueThreadNote": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      },
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueResponseUsually": "يرد عادةً خلال {hours, plural, =0{أقل من ساعة} =1{ساعة واحدة} =2{ساعتين} few{⁦{hours}⁩ ساعات} many{⁦{hours}⁩ ساعة} other{⁦{hours}⁩ ساعة}}",
+  "@clientVenueResponseUsually": {
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientVenueOwnedView": "عرض",
+  "clientVenueHallsTitle": "القاعات",
+  "clientVenueHallSwitchLabel": "اختيار القاعة",
+  "clientVenueHallFacts": "معلومات",
+  "clientVenueHallCapacity": "السعة",
+  "clientVenueHallIndoor": "داخلية",
+  "clientVenueHallOutdoor": "خارجية",
+  "clientVenueHallMixed": "داخلية وخارجية",
+  "clientVenueHallExclusive": "حفل واحد في اليوم",
+  "clientVenueHallExclusiveShort": "حصرية",
+  "clientVenueSessionSwitchLabel": "اختيار الفترة",
+  "clientVenueMore": "عرض المزيد",
+  "clientVenueLess": "عرض أقل",
+  "clientVenuePackagesTitle": "الباقات",
+  "clientVenuePackagesDetails": "تفاصيل الباقة",
+  "clientVenuePackagesNone": "لا باقات متاحة",
+  "clientVenuePkgMinGuests": "الحد الأدنى للضيوف",
+  "clientVenuePkgIncludes": "المشمولات",
+  "clientVenuePkgIncludesAll": "عرض كل المشمولات",
+  "clientVenuePkgMenu": "القائمة",
+  "clientVenuePkgExtras": "إضافات",
+  "clientVenuePkgSave": "حفظ الباقة",
+  "clientVenuePkgSaved": "إزالة الباقة من المحفوظات",
+  "clientVenuePkgTierWeekday": "أيام الأسبوع",
+  "clientVenuePkgTierWeekend": "نهاية الأسبوع",
+  "clientVenuePkgTierSeason": "الموسم",
+  "clientVenuePkgTierHoliday": "العطلات",
+  "clientVenuePkgTierSpecialDate": "تاريخ مميز",
+  "clientVenuePkgTierLabel": "سعر {date}",
+  "@clientVenuePkgTierLabel": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenuePkgOverTitle": "يتجاوز السعة",
+  "clientVenuePkgOverCap": "تتسع {hall} حتى {guests}. يمكنكم اختيار قاعة أخرى أو عدد ضيوف أقل.",
+  "@clientVenuePkgOverCap": {
+    "placeholders": {
+      "hall": {
+        "type": "String"
+      },
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenuePkgUnavailable": "غير متاحة يوم {date}",
+  "@clientVenuePkgUnavailable": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueFacilitiesTitle": "المرافق",
+  "clientVenueFacilitiesAll": "كل المرافق",
+  "clientVenueFacIncluded": "مشمول",
+  "clientVenueFacExtra": "إضافة",
+  "clientVenueFacOff": "غير متوفر",
+  "clientVenuePoliciesTitle": "السياسات",
+  "clientVenuePolicyTerms": "الشروط",
+  "clientVenuePolicyRules": "قواعد القاعة",
+  "clientVenuePolicyGood": "للعلم",
+  "clientVenueFaqTitle": "أسئلة",
+  "clientVenueReviewsTitle": "التقييمات",
+  "clientVenueReviewsAll": "عرض كل التقييمات ({count})",
+  "@clientVenueReviewsAll": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueReviewsNone": "لا تقييمات بعد",
+  "clientVenueCatVenue": "القاعة",
+  "clientVenueCatFood": "الطعام",
+  "clientVenueCatService": "الخدمة",
+  "clientVenueCatValue": "القيمة",
+  "clientVenueReviewAnon": "ضيف",
+  "clientVenueReviewReply": "ردّ المكان",
+  "clientVenueLocationTitle": "الموقع",
+  "clientVenueDriveFrom": "بالسيارة من {origin}",
+  "@clientVenueDriveFrom": {
+    "placeholders": {
+      "origin": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueMapsShort": "الخرائط",
+  "clientVenueMapsTitle": "الخرائط",
+  "clientVenueMapsGoogle": "خرائط غوغل",
+  "clientVenueMapsApple": "خرائط آبل",
+  "clientVenueMapsWaze": "ويز",
+  "clientVenueMapsOpening": "فتح {app}",
+  "@clientVenueMapsOpening": {
+    "placeholders": {
+      "app": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueSimilarTitle": "قاعات مشابهة",
+  "clientVenueCtaChooseDate": "اختيار التاريخ",
+  "clientVenueCtaSeeDates": "التواريخ المتاحة",
+  "clientVenueCtaGetVoucher": "شراء الكوبون",
+  "clientVenueCtaSendRequest": "إرسال الطلب",
+  "clientVenueCtaVisit": "حجز زيارة",
+  "clientVenueCtaContact": "تواصل",
+  "clientVenueCtaChangeGuests": "تعديل الضيوف",
+  "clientVenueVisitNone": "لا توجد مواعيد زيارة متاحة حاليًا",
+  "clientVenueCtaOffline": "إعادة الاتصال",
+  "clientVenueOfflineBanner": "غير متصل، حُفظ {time}",
+  "@clientVenueOfflineBanner": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueCompareAdded": "أُضيفت للمقارنة",
+  "clientVenueCompareView": "عرض",
+  "clientVenueSavedRemoved": "تمت الإزالة",
+  "clientVenueSavedView": "عرض",
+  "clientVenueShareCopied": "نُسخ الرابط",
+  "clientVenueDelistedTitle": "لم يعد مدرجًا",
+  "clientVenueDelistedCta": "استعراض القاعات",
+  "clientVenueTotalFor": "الإجمالي لعدد {guests}",
+  "@clientVenueTotalFor": {
+    "placeholders": {
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueContactTitle": "تواصل",
+  "clientVenueContactCalling": "اتصال: {venue}",
+  "@clientVenueContactCalling": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueContactWhatsapp": "فتح واتساب",
+  "clientVenueContactChat": "مراسلة",
+  "clientVenueCalTitle": "التواريخ",
+  "clientVenueCalMonthJump": "الانتقال إلى شهر",
+  "clientVenueCalMonthTitle": "الشهر",
+  "clientVenueCalMonthDensity": "{month}: {count, plural, =0{لا تواريخ متاحة} =1{تاريخ واحد متاح} =2{تاريخان متاحان} few{⁦{count}⁩ تواريخ متاحة} many{⁦{count}⁩ تاريخًا متاحًا} other{⁦{count}⁩ تاريخ متاح}}",
+  "@clientVenueCalMonthDensity": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientVenueCalBasis": "الأسعار بالدينار لعدد {guests}",
+  "@clientVenueCalBasis": {
+    "placeholders": {
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueCalGuestsCta": "إضافة الضيوف",
+  "clientVenueCalNone": "لا تواريخ متاحة",
+  "clientVenueCalPickHint": "اختيار تاريخ يعرض التقدير.",
+  "clientVenueCalPickFree": "اختاروا أحد التواريخ المتاحة.",
+  "clientVenueCalOccasionsLabel": "مناسبات هذا الشهر",
+  "clientVenueCalChosen": "تم اعتماد {date}",
+  "@clientVenueCalChosen": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueCalUse": "اعتماد التاريخ",
+  "clientVenuePolTitle": "السياسات",
+  "clientVenuePolTabsLabel": "أقسام السياسات",
+  "clientVenuePolTabTerms": "الشروط",
+  "clientVenuePolTabRules": "القواعد",
+  "clientVenuePolTabGood": "للعلم",
+  "clientVenuePolRulesLabel": "نوع الحفل",
+  "clientVenuePolChildren": "الأطفال",
+  "clientVenuePolDress": "زي الحضور",
+  "clientVenuePolHours": "ساعات العمل",
+  "clientVenuePolClosures": "فترات الإغلاق",
+  "clientVenuePolHoursLine": "{days}: {open} – {close}",
+  "@clientVenuePolHoursLine": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      },
+      "open": {
+        "type": "String"
+      },
+      "close": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenuePolClosureLine": "{name}: {from} – {to}",
+  "@clientVenuePolClosureLine": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueAudWomen": "نسائي",
+  "clientVenueAudMen": "رجالي",
+  "clientVenueAudMixed": "مختلط",
+  "clientVenueRulePhotography": "التصوير",
+  "clientVenueRulePhotoFemale": "نساء فقط",
+  "clientVenueRuleMusic": "الموسيقى",
+  "clientVenueRuleMusicBand": "دي جي أو فرقة",
+  "clientVenueRuleMusicLive": "حيّة",
+  "clientVenueRuleMusicDuff": "دفوف فقط",
+  "clientVenueRuleAllowed": "مسموح",
+  "clientVenueRuleApproval": "بموافقة",
+  "clientVenueRuleNot": "غير مسموح",
+  "clientVenueRuleNone": "بلا",
+  "clientVenueRuleEntrance": "مدخل منفصل",
+  "clientVenueRuleCloakroom": "غرفة العبايات",
+  "clientVenueRulePrayer": "المصلى",
+  "clientVenueRuleSecurity": "حراسة نسائية",
+  "clientVenueRuleBackup": "قاعة بديلة",
+  "clientVenueRuleBoys": "عمر الأولاد",
+  "clientVenueRuleCatering": "ضيافة خارجية",
+  "clientVenueRuleDecor": "ديكور خارجي",
+  "clientVenueRuleBukhoor": "البخور",
+  "clientVenueRuleCutoff": "نهاية الحفل",
+  "clientVenueRuleExtraHour": "ساعة إضافية",
+  "clientVenueTermsVenueTitle": "شروط {venue}",
+  "@clientVenueTermsVenueTitle": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueTermsVoucherTitle": "كوبون غزل",
+  "clientVenueTermsVoucherFee": "{fee} مرة واحدة لغزل",
+  "@clientVenueTermsVoucherFee": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueTermsVoucherBound": "خاص بهذه القاعة وهذا العرض",
+  "clientVenueTermsDirect": "الدفع والإلغاء مع القاعة",
+  "clientVenueTermsVoucherReuse": "اعتذار أو عدم رد: استخدام جديد خلال {days} أو استرداد",
+  "@clientVenueTermsVoucherReuse": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueTermsVoucherConfirm": "التأكيد خلال {hours} من الموافقة",
+  "@clientVenueTermsVoucherConfirm": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueGovFeesTitle": "الرسوم",
+  "clientVenueGovSecurity": "مبلغ التأمين",
+  "clientVenueGovRefundable": "قابل للاسترداد",
+  "clientVenueGovHallOnly": "القاعة فقط: الديكور والضيافة على حسابكم.",
+  "clientVenueGovHallOnlyShort": "القاعة فقط",
+  "clientVenueGovFeesInfoTitle": "عن الرسوم",
+  "clientVenueGovRulesTitle": "القواعد",
+  "clientVenueGovRuleNoChange": "لا تغيير للتاريخ",
+  "clientVenueGovRulePay": "الدفع في الموعد",
+  "clientVenueGovRulePayInfo": "الدفع عبر القناة الرسمية خلال المدة التي تحددها، وإلا يُلغى الحجز تلقائيًا.",
+  "clientVenueGovRuleKnet": "KNET",
+  "clientVenueGovAvail": "التطبيق الرسمي",
+  "clientVenueGovCtaOfficial": "الحجز الرسمي",
+  "clientVenueGovCtaCatering": "خدمات الحفل",
+  "clientVenueGovLeaveTitle": "مغادرة غزل",
+  "clientVenueGovLeaveBody": "الحجز والدفع عبر القناة الرسمية، ولا تضمنه غزل.",
+  "clientVenueGovLeaveToast": "فتح القناة الرسمية",
+  "clientVenueGovSelfLink": "تسجيل الحجز",
+  "clientVenueGovSelfTitle": "تسجيل الحجز",
+  "clientVenueGovSelfDate": "التاريخ",
+  "clientVenueGovSelfFee": "الرسوم المدفوعة",
+  "clientVenueGovSelfNote": "هذا سجل لميزانيتكم وقائمة مهامكم والعد التنازلي فقط، وليس حجزًا عبر غزل.",
+  "clientVenueGovSelfInfoTitle": "ليس حجزًا",
+  "clientVenueGovSelfToast": "تم الحفظ في زفافكم",
+  "clientVenueGovSelfView": "عرض",
+  "clientVenueGovWhyTitle": "سبب غياب الكوبون",
+  "clientVenueGovWhyBody": "رسوم المنشآت الحكومية رسمية وثابتة، فلا يوجد سعر خاص من غزل.",
+  "clientVenueGovBrowse": "استعراض القاعات",
+  "clientVisitsBookTitle": "احجزوا زيارة",
+  "clientVisitsBookAction": "طلب الزيارة",
+  "clientVisitsInfoTitle": "زيارة مجانية",
+  "clientVisitsInfoFree": "الزيارة مجانية ولا تحتاج كوبون.",
+  "clientVisitsInfoChat": "ستفتح لكم محادثة مع {venue} ودعم غزل لتأكيد الموعد.",
+  "@clientVisitsInfoChat": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsInfoWindow": "مدة كل موعد {minutes} دقيقة، ويمكنكم الوصول في أي وقت خلاله.",
+  "@clientVisitsInfoWindow": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsSlotDay": "اليوم",
+  "clientVisitsSlotMorning": "صباحًا",
+  "clientVisitsSlotAfternoon": "بعد الظهر",
+  "clientVisitsSlotEvening": "مساءً",
+  "clientVisitsSlotTaken": "محجوز",
+  "clientVisitsNoWeek": "متاح من {date}",
+  "@clientVisitsNoWeek": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsTakenNext": "أقرب المواعيد",
+  "clientVisitsNotSent": "فشل الإرسال",
+  "clientVisitsVisitors": "الزوار",
+  "clientVisitsVisitorsCount": "{count, plural, zero{لا زوار} one{زائر واحد} two{زائران} few{⁦{count}⁩ زوار} many{⁦{count}⁩ زائرًا} other{⁦{count}⁩ زائر}}",
+  "@clientVisitsVisitorsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientVisitsNoteLabel": "ملاحظة للمكان",
+  "clientVisitsNote": "ملاحظة",
+  "clientVisitsFactDay": "اليوم",
+  "clientVisitsFactWindow": "وقت الوصول",
+  "clientVisitsFactVisitors": "الزوار",
+  "clientVisitsRequestedTitle": "تم طلب الزيارة",
+  "clientVisitsOpenChat": "فتح المحادثة",
+  "clientVisitsBackToVenue": "المكان",
+  "clientVisitsRedirecting": "جاري الفتح",
+  "clientVisitsStay": "البقاء",
+  "clientVisitsSummary": "تفاصيل الزيارة",
+  "clientVisitsStepsLabel": "مراحل الزيارة",
+  "clientVisitsStepRequest": "الطلب",
+  "clientVisitsStepConfirm": "التأكيد",
+  "clientVisitsStepWay": "في الطريق",
+  "clientVisitsStepArrival": "الوصول",
+  "clientVisitsMembersOpen": "أعضاء المحادثة",
+  "clientVisitsRoleHotel": "الفندق",
+  "clientVisitsRoleSupport": "الدعم",
+  "clientVisitsMembersTitle": "أعضاء المحادثة",
+  "clientVisitsMembersPrivateTitle": "خاصة",
+  "clientVisitsMembersPrivate": "الثلاثة فقط يقرؤون هذه المحادثة، ولا تظهر أرقام الهواتف، ولا يمكن حظر دعم غزل.",
+  "clientVisitsMembersVenue": "صفحة المكان",
+  "clientVisitsMembersReport": "إبلاغ أو حظر",
+  "clientVisitsClosed": "مغلقة",
+  "clientVisitsMessageVenue": "مراسلة المكان",
+  "clientVisitsRecordTooShort": "اضغطوا مطولًا للتسجيل",
+  "clientVisitsAttachTitle": "إرفاق",
+  "clientVisitsPhotoViewer": "الصور",
+  "clientVisitsGetVoucher": "الكوبون",
+  "clientVisitsConfirmedToast": "الموعد مؤكد",
+  "clientVisitsGuestTitle": "زياراتكم",
+  "clientVisitsGuestAction": "تسجيل الدخول",
+  "clientVisitsMsgSending": "جاري الإرسال",
+  "clientVisitsMsgQueued": "بانتظار الاتصال",
+  "clientVisitsMsgDelete": "حذف",
+  "clientVisitsPinLabel": "زيارتكم",
+  "clientVisitsConfirmTime": "تأكيد",
+  "clientVisitsChangeOrCancel": "تغيير أو إلغاء",
+  "clientVisitsOnTheWay": "في الطريق",
+  "clientVisitsArrived": "وصلنا",
+  "clientVisitsNeedsConnection": "يلزم اتصال",
+  "clientVisitsChooseAnother": "موعد آخر",
+  "clientVisitsSysOpened": "بدأت المحادثة",
+  "clientVisitsSysConfirmed": "الزيارة مؤكدة",
+  "clientVisitsSysProposed": "وقت جديد مقترح",
+  "clientVisitsSysDeclined": "غير متاح. المحادثة مغلقة.",
+  "clientVisitsSysCancelled": "الزيارة ملغية. المحادثة مغلقة.",
+  "clientVisitsSysArrived": "تم الوصول",
+  "clientVisitsSysCompleted": "اكتملت الزيارة",
+  "clientVisitsSysClosed": "المحادثة مغلقة",
+  "clientVisitsSysMissed": "زيارة فائتة",
+  "clientVisitsSysAccepted": "الموعد الجديد مقبول",
+  "clientVisitsSysAsked": "طلبتم موعدًا آخر: {when}",
+  "@clientVisitsSysAsked": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsTapOnTheWay": "نحن في الطريق إليكم.",
+  "clientVisitsTapArrived": "وصلنا.",
+  "clientVisitsDemoSupport": "أهلًا {name}، معاكم لمى من دعم غزل. أنا هنا معكم ومع الفندق لتأكيد وصولكم.",
+  "@clientVisitsDemoSupport": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsDemoClient": "السلام عليكم، نبي نزور القاعة أنا والوالدة.",
+  "clientVisitsDemoHotelConfirm": "أهلًا {name}. زيارتكم مؤكدة {day} الساعة {time}، وبنستقبلكم عند المدخل الرئيسي.",
+  "@clientVisitsDemoHotelConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "day": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsDemoHotelPropose": "{name}، هذا الموعد ما عاد متاحًا. يناسبكم {day} الساعة {time}؟",
+  "@clientVisitsDemoHotelPropose": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "day": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsDemoHotelDecline": "شكرًا {name}. ما نقدر نستقبل زيارات في هذا الوقت، وتقدرون تختارون يومًا آخر.",
+  "@clientVisitsDemoHotelDecline": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsDemoHere": "وصلنا، نحن عند المدخل الرئيسي.",
+  "clientVisitsDemoPending": "هل يوجد موقف للسيارات قريب من المدخل الرئيسي؟",
+  "clientVisitsDemoHotelAck": "شكرًا {name}، تم التسجيل. نراكم في الموعد.",
+  "@clientVisitsDemoHotelAck": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsDemoHotelAckRequested": "شكرًا {name}. استلمنا طلبكم وبنؤكد الموعد قريبًا.",
+  "@clientVisitsDemoHotelAckRequested": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsListTitle": "زياراتي",
+  "clientVisitsTabUpcoming": "القادمة",
+  "clientVisitsTabPast": "السابقة",
+  "clientVisitsEmptyTitle": "لا زيارات",
+  "clientVisitsEmptyAction": "تصفح القاعات",
+  "clientVisitsChangeTitle": "زيارتكم",
+  "clientVisitsInfoFeeTitle": "بلا رسوم",
+  "clientVisitsInfoNoFee": "لا رسوم، ولا تخسرون شيئًا.",
+  "clientVisitsInfoRecord": "يظهر التغيير في المحادثة ويعلم {venue} به.",
+  "@clientVisitsInfoRecord": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsRowAsk": "موعد آخر",
+  "clientVisitsRowCancel": "إلغاء الزيارة",
+  "clientVisitsAskAction": "إرسال الطلب",
+  "clientVisitsPickReason": "اختيار السبب",
+  "clientVisitsReasonPlans": "تغيرت الخطط",
+  "clientVisitsReasonOtherVenue": "مكان آخر",
+  "clientVisitsReasonOther": "أخرى",
+  "clientVisitsKeepVisit": "إبقاء الزيارة",
+  "clientVisitsDoneAskTitle": "تم الإرسال",
+  "clientVisitsDoneAskDetail": "سيرد {venue} في المحادثة.",
+  "@clientVisitsDoneAskDetail": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsDoneCancelTitle": "تم الإلغاء",
+  "clientVisitsDoneCancelDetail": "لا رسوم. المحادثة مغلقة و{venue} على علم.",
+  "@clientVisitsDoneCancelDetail": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsNothingChanged": "لا تغيير",
+  "clientVouchersAskOpen": "فتح محادثة الدعم",
+  "clientVouchersAskText": "السلام عليكم، تعذّر استخدام الكوبون {code}. هل يمكنكم إصدار كوبون رصيد؟",
+  "@clientVouchersAskText": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersAskTitle": "استخدام أو دعم",
+  "clientVouchersAttachedToast": "الكوبون مرتبط",
+  "clientVouchersBackCredit": "استخدموه هنا حتى {date}، أو اطلبوا كوبون رصيد من الدعم.",
+  "@clientVouchersBackCredit": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersBackKept": "استخدموه هنا حتى {date}.",
+  "@clientVouchersBackKept": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersBackLine": "يعود عند الاعتذار",
+  "clientVouchersBrowseHalls": "تصفح القاعات",
+  "clientVouchersChooseAnother": "اختيار آخر",
+  "clientVouchersChooseLabel": "اختيار كوبون",
+  "clientVouchersCodeCopied": "تم النسخ",
+  "clientVouchersConsumedBody": "ألغيتم لدى {name} بعد التأكيد، فاستهلك الكوبون.",
+  "@clientVouchersConsumedBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersContact": "التواصل",
+  "clientVouchersCreditBody": "من دعم غزل. استخدموه لدى أي قاعة أو فندق أو خدمة خلال {validity}، ثم أكدوا هناك خلال {confirm}.",
+  "@clientVouchersCreditBody": {
+    "placeholders": {
+      "validity": {
+        "type": "String"
+      },
+      "confirm": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersCreditDeclined": "لم يصدر كوبون رصيد",
+  "clientVouchersCreditIssuedBody": "أصدر الدعم لكم كوبون رصيد، يصلح لدى أي قاعة أو فندق أو خدمة.",
+  "clientVouchersCtaSignIn": "تسجيل الدخول",
+  "clientVouchersDetailTitle": "الكوبون",
+  "clientVouchersEmptyHistory": "لا سجل",
+  "clientVouchersEmptyReady": "لا كوبونات",
+  "clientVouchersEmptyRequest": "لا طلبات",
+  "clientVouchersExpiredBody": "انتهت صلاحيته في {date} دون استخدام.",
+  "@clientVouchersExpiredBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersExplainerTitle": "كيف يعمل",
+  "clientVouchersForRequestTitle": "كوبونكم",
+  "clientVouchersForfeitedBody": "انتهت مهلة {hours} للتأكيد لدى المكان أو الخدمة، فلم يعد الكوبون صالحًا ولا يعود.",
+  "@clientVouchersForfeitedBody": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersGetAnother": "كوبون آخر",
+  "clientVouchersGetVoucher": "شراء كوبون",
+  "clientVouchersGuestTitle": "كوبوناتكم",
+  "clientVouchersHistPaid": "الدفع",
+  "clientVouchersHistRequested": "الطلب",
+  "clientVouchersHistReturned": "عاد",
+  "clientVouchersHistoryLabel": "سجل الكوبون",
+  "clientVouchersInfoBack": "سبب العودة",
+  "clientVouchersInfoFit": "السبب",
+  "clientVouchersInfoPay": "دفع مباشر",
+  "clientVouchersInfoPaying": "الدفع",
+  "clientVouchersInfoRequest": "طلبكم",
+  "clientVouchersInfoUsedUp": "تم استهلاكه",
+  "clientVouchersInfoWaiting": "بانتظار رد {name}. يبقى الكوبون مع هذا الطلب حتى يصل الرد.",
+  "@clientVouchersInfoWaiting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersInfoWindow": "مهلة التأكيد",
+  "clientVouchersInvalidSaving": "مع هذه التعديلات يقلّ التوفير لدى المكان عن سعر الكوبون.",
+  "clientVouchersInvalidTarget": "الكوبون يخص {bound}، وطلبكم الآن موجّه إلى {other}.",
+  "@clientVouchersInvalidTarget": {
+    "placeholders": {
+      "bound": {
+        "type": "String"
+      },
+      "other": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersKeep": "إبقاء الكوبون",
+  "clientVouchersLabelConfirmBy": "التأكيد حتى",
+  "clientVouchersLabelEvent": "تاريخ المناسبة",
+  "clientVouchersLabelExpired": "انتهى في",
+  "clientVouchersLabelExpires": "ينتهي في",
+  "clientVouchersLabelHall": "القاعة",
+  "clientVouchersLabelMethod": "طريقة الدفع",
+  "clientVouchersLabelPackage": "الباقة",
+  "clientVouchersLabelReuse": "قابل للاستخدام حتى",
+  "clientVouchersLabelUsed": "تاريخ الاستخدام",
+  "clientVouchersLabelValid": "صالح حتى",
+  "clientVouchersNoLongerFits": "لم يعد مناسبًا",
+  "clientVouchersNoneBody": "الكوبون يتيح لكم طلب {name} بسعر الكوبون. قيمته {fee} وتدفع مرة واحدة إلكترونيًا.",
+  "@clientVouchersNoneBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersNoneTitle": "يلزم كوبون",
+  "clientVouchersOfflineSaved": "بلا اتصال، محفوظ بالهاتف",
+  "clientVouchersOnePer": "كوبون واحد لكل طلب.",
+  "clientVouchersOwned": "لديكم كوبون",
+  "clientVouchersPayBody": "ادفعوا إلى {name} مباشرةً بحسب الاتفاق. يمسح الفريق الرمز ثم يسجّل استخدامه.",
+  "@clientVouchersPayBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersPayFee": "دفع {fee}",
+  "@clientVouchersPayFee": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersPayingBody": "بانتظار تأكيد البنك، ويصبح الكوبون جاهزًا فور ذلك.",
+  "clientVouchersPhaseDirect": "دفع مباشر",
+  "clientVouchersPhaseUsedUp": "تم استهلاكه",
+  "clientVouchersPhaseWaiting": "بانتظار الرد",
+  "clientVouchersPriceChanged": "السعر محدّث",
+  "clientVouchersQrAwake": "تبقى الشاشة مضاءة ومستيقظة أثناء العرض.",
+  "clientVouchersQrLabel": "رمز الاستجابة السريعة للكوبون {code}",
+  "@clientVouchersQrLabel": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersQuoteLabel": "الاختيار المرتبط بالكوبون",
+  "clientVouchersRestore": "استعادة الاختيار",
+  "clientVouchersRestoredToast": "تمت الاستعادة",
+  "clientVouchersReuseOnly": "يصدر الدعم كوبون رصيد فقط إذا تعذّر على المكان أو الخدمة قبول طلبكم. يمكنكم استخدام هذا الكوبون هنا مجددًا.",
+  "clientVouchersSegHistory": "السجل",
+  "clientVouchersSegLabel": "مجموعات الكوبونات",
+  "clientVouchersSegReady": "جاهزة",
+  "clientVouchersSegRequest": "ضمن طلب",
+  "clientVouchersSendRequest": "إرسال الطلب",
+  "clientVouchersShowCode": "عرض الرمز",
+  "clientVouchersStepDirect": "دفع مباشر",
+  "clientVouchersStepRequest": "الطلب",
+  "clientVouchersStepsLabel": "خطوات الكوبون",
+  "clientVouchersStillFits": "ما زال مناسبًا",
+  "clientVouchersSupport": "الدعم",
+  "clientVouchersTermBack": "إذا اعتذر المكان أو لم يرد أو ألغى، يعود الكوبون: استخدموه هنا خلال {days} أو اطلبوا كوبون رصيد من الدعم.",
+  "@clientVouchersTermBack": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersTermDirect": "تدفعون إلى {name} مباشرةً خارج التطبيق بعد التأكيد، وغزل ليست طرفًا في هذه الدفعة.",
+  "@clientVouchersTermDirect": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersTermForfeit": "بعد الموافقة، أكدوا خلال {confirm} بالدفع لدى المكان أو الخدمة، وإلا لم يعد الكوبون صالحًا.",
+  "@clientVouchersTermForfeit": {
+    "placeholders": {
+      "confirm": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersTermUsed": "إذا ألغيتم بعد التأكيد، يستهلك الكوبون.",
+  "clientVouchersTermValid": "صالح {validity} من يوم الدفع.",
+  "@clientVouchersTermValid": {
+    "placeholders": {
+      "validity": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersTermWhat": "كوبون بقيمة {fee} يتيح لكم طلب {name} بسعر الكوبون، وهو خاص بهذا الاختيار فقط.",
+  "@clientVouchersTermWhat": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersTermWindows": "يرد {name} خلال {reply}، وبعد الموافقة تؤكدون خلال {confirm}.",
+  "@clientVouchersTermWindows": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "reply": {
+        "type": "String"
+      },
+      "confirm": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersTermWithdraw": "إذا سحبتم الطلب قبل الموافقة، تستخدمونه هنا مجددًا.",
+  "clientVouchersTermsTitle": "شروط الكوبون",
+  "clientVouchersTooSmallBody": "في هذا الاختيار لن يوفّر الكوبون أكثر من قيمته، لذلك لا نعرضه. تواصلوا مع المكان وادفعوا السعر العادي.",
+  "clientVouchersTooSmallTitle": "لا حاجة لكوبون",
+  "clientVouchersUseAgain": "استخدام مجددًا",
+  "clientVouchersUseThis": "استخدام الكوبون",
+  "clientVouchersUsedUpBody": "ألغيتم بعد التأكيد، فاستهلك الكوبون.",
+  "clientVouchersViewReceipt": "عرض الإيصال",
+  "clientVouchersViewReceiptShort": "الإيصال",
+  "clientVouchersViewRequest": "عرض الطلب",
+  "clientVouchersWalletTitle": "كوبوناتي",
+  "clientVouchersWhyDeclined": "لم يتمكن {name} من قبول الطلب.",
+  "@clientVouchersWhyDeclined": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersWhyNoResponse": "لم يرد {name} في الوقت المحدد.",
+  "@clientVouchersWhyNoResponse": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersWhyRevoked": "سحب {name} موافقته.",
+  "@clientVouchersWhyRevoked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersWhySlotTaken": "حجز طلب آخر هذا التاريخ.",
+  "clientVouchersWhySuspended": "استقبال الطلبات متوقف لدى {name} حاليًا.",
+  "@clientVouchersWhySuspended": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersWhyVenueCancelled": "ألغى {name} الحجز.",
+  "@clientVouchersWhyVenueCancelled": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersWhyWithdrawn": "سحبتم الطلب.",
+  "clientVouchersWindowBody": "التاريخ محجوز حتى انتهاء المهلة، وبعدها تنتهي الموافقة ولا يعود الكوبون صالحًا.",
+  "clientVouchersWindowLeft": "الوقت المتبقي للتأكيد",
+  "clientVouchersWordDeclined": "اعتذر المكان",
+  "clientVouchersWordNoResponse": "لم يرد",
+  "clientVouchersWordRevoked": "موافقة ملغاة",
+  "clientVouchersWordSlotTaken": "التاريخ محجوز",
+  "clientVouchersWordSuspended": "متوقف",
+  "clientVouchersWordVenueCancelled": "ألغاه المكان",
+  "clientVouchersWordWithdrawn": "تم السحب"
 }

@@ -5,5 +5,6 @@ library;
 export 'package:flutter_riverpod/misc.dart' show Override;
 export 'src/device_chrome.dart';
 export 'src/fonts.dart';
+export 'src/foundation_gallery.dart';
 export 'src/harness.dart';
 export 'src/shot_suite.dart';

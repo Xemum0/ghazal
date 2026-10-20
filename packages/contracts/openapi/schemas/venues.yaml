@@ -1,0 +1,623 @@
+# Venue catalogue, search, availability, pricing and quotes. Money is integer fils everywhere.
+Governorate:
+  type: object
+  required: [id, name]
+  properties: { id: { $ref: Id }, name: { $ref: LocalizedText } }
+Area:
+  type: object
+  required: [id, governorateId, name, geo]
+  properties:
+    id: { $ref: Id }
+    governorateId: { $ref: Id }
+    name: { $ref: LocalizedText }
+    aliases: { type: array, items: { type: string }, description: 'Search-only aliases, never shown.' }
+    geo: { $ref: LatLng }
+ReferencePoint:
+  type: object
+  required: [id, name, geo]
+  properties:
+    id: { $ref: Id }
+    name: { $ref: LocalizedText }
+    areaId: { $ref: Id, nullable: true }
+    geo: { $ref: LatLng }
+AreasResponse:
+  type: object
+  required: [governorates, areas, referencePoints]
+  properties:
+    governorates: { type: array, items: { $ref: Governorate } }
+    areas: { type: array, items: { $ref: Area } }
+    referencePoints: { type: array, items: { $ref: ReferencePoint } }
+RegionMatch:
+  type: object
+  required: [kind, id, name, governorateId, venueCount]
+  properties:
+    kind: { type: string, enum: [governorate, area, venue] }
+    id: { $ref: Id }
+    name: { $ref: LocalizedText }
+    governorateId: { $ref: Id, nullable: true }
+    venueCount: { type: integer }
+AmenityGroup: { type: string, enum: [space, service, production, policy] }
+AmenityState: { type: string, enum: [included, extra, not_offered] }
+AmenityDef:
+  type: object
+  required: [id, group, label, icon]
+  properties:
+    id: { $ref: Id }
+    group: { $ref: AmenityGroup }
+    label: { $ref: LocalizedText }
+    icon: { type: string, description: Name from the system icon registry. }
+VenueAmenity:
+  type: object
+  required: [amenityId, state]
+  properties:
+    amenityId: { $ref: Id }
+    state: { $ref: AmenityState }
+    from: { $ref: Money, nullable: true }
+    note: { $ref: LocalizedText, nullable: true }
+    audience: { $ref: Audience, nullable: true }
+PhotographyPolicy: { type: string, enum: [female_only, allowed, none] }
+MusicPolicy: { type: string, enum: [dj_or_band, live, duff_only, none] }
+RulePolicy: { type: string, enum: [allowed, with_approval, not_allowed] }
+PolicyFacts:
+  type: object
+  required: [photography, music, abayaCloakroom, prayerRoom, separateEntrance, femaleSecurity, boysMaxAge, outsideCatering, outsideDecor, bukhoor, cutOff, extraHour, indoorBackup]
+  properties:
+    photography: { $ref: PhotographyPolicy }
+    music: { $ref: MusicPolicy }
+    abayaCloakroom: { type: boolean }
+    prayerRoom: { type: boolean }
+    separateEntrance: { type: boolean }
+    femaleSecurity: { type: boolean }
+    boysMaxAge: { type: integer, nullable: true }
+    outsideCatering: { $ref: RulePolicy }
+    outsideDecor: { $ref: RulePolicy }
+    bukhoor: { $ref: RulePolicy }
+    cutOff: { $ref: LocalTime }
+    extraHour: { $ref: Money, nullable: true }
+    indoorBackup: { type: boolean }
+HallSetting: { type: string, enum: [indoor, outdoor, mixed] }
+Session:
+  type: object
+  required: [id, name, start, end, bufferBeforeMin, bufferAfterMin, weekdays]
+  properties:
+    id: { $ref: Id }
+    name: { $ref: LocalizedText }
+    start: { $ref: LocalTime }
+    end: { $ref: LocalTime }
+    bufferBeforeMin: { type: integer }
+    bufferAfterMin: { type: integer }
+    weekdays: { type: array, items: { $ref: Weekday } }
+HallSection:
+  type: object
+  required: [audience, minGuests, maxGuests, policy]
+  properties:
+    audience: { $ref: Audience }
+    minGuests: { type: integer }
+    maxGuests: { type: integer }
+    policy: { $ref: PolicyFacts }
+GuestRange:
+  type: object
+  required: [min, max]
+  properties: { min: { type: integer }, max: { type: integer } }
+Hall:
+  type: object
+  required: [id, venueId, name, setting, capacity, exclusiveDay, sessions, sections, seasonMonths, description, cover]
+  properties:
+    id: { $ref: Id }
+    venueId: { $ref: Id }
+    name: { $ref: LocalizedText }
+    setting: { $ref: HallSetting }
+    capacity: { $ref: GuestRange }
+    exclusiveDay: { type: boolean }
+    sessions: { type: array, items: { $ref: Session } }
+    sections: { type: array, items: { $ref: HallSection } }
+    seasonMonths: { type: array, items: { type: integer }, nullable: true }
+    description: { $ref: LocalizedText }
+    cover: { $ref: ImageRef, nullable: true }
+VenueType: { type: string, enum: [private-hall, governmental, hotel] }
+VenueStyle: { type: string, enum: [hotel, hall, resort, villa, outdoor, convention, government] }
+LuxuryLevel: { type: string, enum: [prestige, signature, classic, government] }
+BookingChannel: { type: string, enum: [ghazal_voucher, external_link], description: '`external_link` = governmental facility, official channel only.' }
+VenueStatus: { type: string, enum: [published, in_review, suspended] }
+HoursRule:
+  type: object
+  required: [days, open, close]
+  properties: { days: { type: array, items: { $ref: Weekday } }, open: { $ref: LocalTime }, close: { $ref: LocalTime } }
+HoursClosure:
+  type: object
+  required: [label, from, to, approximate]
+  properties: { label: { $ref: LocalizedText }, from: { $ref: IsoDate }, to: { $ref: IsoDate }, approximate: { type: boolean } }
+BusinessHours:
+  type: object
+  required: [rules, closures]
+  properties: { rules: { type: array, items: { $ref: HoursRule } }, closures: { type: array, items: { $ref: HoursClosure } } }
+VenueAddress:
+  type: object
+  required: [block, street]
+  properties: { block: { type: string, nullable: true }, street: { $ref: LocalizedText } }
+ChildrenPolicy:
+  type: object
+  required: [women, men]
+  properties: { women: { $ref: LocalizedText }, men: { $ref: LocalizedText } }
+VenuePolicies:
+  type: object
+  required: [children, dressCode, terms, responseSlaHours, serviceChargeBps]
+  properties:
+    children: { $ref: ChildrenPolicy }
+    dressCode: { $ref: LocalizedText }
+    terms: { $ref: LocalizedText, description: 'Venue terms shown on the detail page, settled off-app (HL-VENU-05).' }
+    responseSlaHours: { type: integer, enum: [12, 24, 48], description: Forced to 4 h by the server when the event is 14 days or less away. }
+    serviceChargeBps: { type: integer, description: Basis points included in the headline price; 0 when none. }
+VisitSlotRule:
+  type: object
+  required: [days, from, to, slotMinutes]
+  properties:
+    days: { type: array, items: { $ref: Weekday } }
+    from: { $ref: LocalTime }
+    to: { $ref: LocalTime }
+    slotMinutes: { type: integer, enum: [30] }
+OfficialFees:
+  type: object
+  required: [rent, securityDeposit, refundableDeposit, note]
+  properties:
+    rent: { $ref: Money }
+    securityDeposit: { $ref: Money }
+    refundableDeposit: { type: boolean }
+    note: { $ref: LocalizedText }
+ResponseStats:
+  type: object
+  required: [usuallyRepliesHours, responseRatePct]
+  properties: { usuallyRepliesHours: { type: number }, responseRatePct: { type: number } }
+VenueFlags:
+  type: object
+  required: [featured, sponsored, isNew]
+  properties:
+    featured: { type: boolean }
+    sponsored: { type: boolean, description: 'Paid placement, always disclosed as Sponsored (ADR 0018).' }
+    isNew: { type: boolean }
+Venue:
+  type: object
+  description: Full venue as clients see it. Server-only fields (partner account, fee exemption, demand weight) are never sent.
+  required: [id, slug, name, type, style, tier, stars, channel, status, governorateId, areaId, address, geo, tagline, description, phone, cover, gallery, hasVideo, halls, amenities, hours, policies, faq, rating, distances, officialFees, response, voucherEnabled, visitSlots, flags, languages]
+  properties:
+    id: { $ref: Id }
+    slug: { type: string }
+    name: { $ref: LocalizedText }
+    type: { $ref: VenueType }
+    style: { $ref: VenueStyle }
+    tier: { $ref: LuxuryLevel }
+    stars: { type: integer, enum: [3, 4, 5], nullable: true }
+    channel: { $ref: BookingChannel }
+    status: { $ref: VenueStatus }
+    governorateId: { $ref: Id }
+    areaId: { $ref: Id }
+    address: { $ref: VenueAddress }
+    geo: { $ref: LatLng }
+    tagline: { $ref: LocalizedText }
+    description: { $ref: LocalizedText }
+    phone: { type: string, description: Contact phone shown on the detail page (E.164). }
+    cover: { $ref: ImageRef, nullable: true }
+    gallery: { type: array, items: { $ref: GalleryItem } }
+    hasVideo: { type: boolean }
+    halls: { type: array, items: { $ref: Hall } }
+    amenities: { type: array, items: { $ref: VenueAmenity } }
+    hours: { $ref: BusinessHours }
+    policies: { $ref: VenuePolicies }
+    faq: { type: array, items: { $ref: FaqItem } }
+    rating: { $ref: RatingSummary }
+    distances: { type: object, additionalProperties: { $ref: Distance }, description: Typical drive time from each reference point id. }
+    officialFees: { $ref: OfficialFees, nullable: true }
+    response: { $ref: ResponseStats, nullable: true }
+    voucherEnabled: { type: boolean }
+    visitSlots: { type: array, items: { $ref: VisitSlotRule } }
+    flags: { $ref: VenueFlags }
+    languages: { type: array, items: { $ref: Lang } }
+VenueSummary:
+  type: object
+  description: The card and compare shape of a venue (no halls, gallery, policies).
+  required: [id, slug, name, type, style, tier, stars, channel, status, governorateId, areaId, address, geo, tagline, cover, hasVideo, rating, voucherEnabled, flags]
+  properties:
+    id: { $ref: Id }
+    slug: { type: string }
+    name: { $ref: LocalizedText }
+    type: { $ref: VenueType }
+    style: { $ref: VenueStyle }
+    tier: { $ref: LuxuryLevel }
+    stars: { type: integer, enum: [3, 4, 5], nullable: true }
+    channel: { $ref: BookingChannel }
+    status: { $ref: VenueStatus }
+    governorateId: { $ref: Id }
+    areaId: { $ref: Id }
+    address: { $ref: VenueAddress }
+    geo: { $ref: LatLng }
+    tagline: { $ref: LocalizedText }
+    cover: { $ref: ImageRef, nullable: true }
+    hasVideo: { type: boolean }
+    rating: { $ref: RatingSummary }
+    voucherEnabled: { type: boolean }
+    flags: { $ref: VenueFlags }
+# ---------------------------------------------------------------- pricing vocabulary (shared by packages, quotes, partner prices)
+PricingBasis: { type: string, enum: [flat, per_guest, flat_plus_per_guest] }
+PriceStructure: { type: string, enum: [per_person, package], description: What the card and filter call the structure. }
+PriceUnit: { type: string, enum: [per_guest, flat], x-dart-name: WirePriceUnit }
+PriceTier: { type: string, enum: [weekday, weekend, season, peak, holiday, special_date], description: 'Precedence: special_date > holiday > peak > season > weekend > weekday.' }
+PackageArchetype: { type: string, enum: [ladies_weekday, ladies_weekend, ladies_signature, ladies_standard, men_reception, men_lunch, full_night, hall_only, villa_night, estate_night, government_fee] }
+PackageComponent:
+  type: object
+  required: [audience, packageId]
+  properties: { audience: { $ref: Audience }, packageId: { $ref: Id } }
+Package:
+  type: object
+  description: A venue package with two prices on the same basis, standard and voucher (ADR 0033 D4). Headline prices are display anchors; the quote endpoint prices a date.
+  required: [id, venueId, hallIds, name, archetype, audiences, pricingBasis, priceStructure, priceUnit, standardFils, voucherFils, voucherDiscountBps, minGuests, maxGuests, guestStep, complimentaryBps, description, inclusions, notes, components, active]
+  properties:
+    id: { $ref: Id }
+    venueId: { $ref: Id }
+    hallIds: { type: array, items: { $ref: Id } }
+    name: { $ref: LocalizedText }
+    archetype: { $ref: PackageArchetype }
+    audiences: { type: array, items: { $ref: Audience } }
+    pricingBasis: { $ref: PricingBasis }
+    priceStructure: { $ref: PriceStructure }
+    priceUnit: { $ref: PriceUnit }
+    standardFils: { type: integer }
+    voucherFils: { type: integer, nullable: true }
+    voucherDiscountBps: { type: integer, nullable: true }
+    minGuests: { type: integer }
+    maxGuests: { type: integer }
+    guestStep: { type: integer }
+    complimentaryBps: { type: integer }
+    description: { $ref: LocalizedText }
+    inclusions: { type: array, items: { $ref: LocalizedText } }
+    notes: { type: array, items: { $ref: LocalizedText } }
+    components: { type: array, items: { $ref: PackageComponent }, nullable: true }
+    active: { type: boolean }
+    sortOrder: { type: integer }
+PackageOffer:
+  type: object
+  description: A package with its price for the Brief (date, guests, audience) when one was sent. `forBrief` is null without a usable Brief.
+  required: [package, forBrief]
+  properties:
+    package: { $ref: Package }
+    forBrief: { $ref: PackageBriefPrice, nullable: true }
+PackageBriefPrice:
+  type: object
+  required: [standard, voucher, savings, voucherOffered, unit]
+  properties:
+    standard: { $ref: Money }
+    voucher: { $ref: Money, nullable: true }
+    savings: { $ref: Money, nullable: true }
+    voucherOffered: { type: boolean, description: True only when the saving beats the voucher fee (voucher-model 4.1). }
+    unit: { $ref: PriceUnit }
+ExtraCategory: { type: string, enum: [kosha, florals, photographer, lighting, led_screens, zaffa, valet, cake, bridal_suite, suite_night, extra_hour, bukhoor, coffee_station, kids_corner, favours, companion_hall] }
+PricingUnit: { type: string, enum: [flat, per_guest, per_unit] }
+Extra:
+  type: object
+  description: Extras are priced by the venue at one price (the same in both columns) and settled with the venue.
+  required: [id, venueId, category, name, description, pricingUnit, price, priceMin, priceMax, maxQty, includedInPackageIds, audiences, unitLabel, active]
+  properties:
+    id: { $ref: Id }
+    venueId: { $ref: Id }
+    category: { $ref: ExtraCategory }
+    name: { $ref: LocalizedText }
+    description: { $ref: LocalizedText }
+    pricingUnit: { $ref: PricingUnit }
+    price: { $ref: Money }
+    priceMin: { $ref: Money, nullable: true }
+    priceMax: { $ref: Money, nullable: true }
+    maxQty: { type: integer }
+    includedInPackageIds: { type: array, items: { $ref: Id } }
+    audiences: { type: array, items: { $ref: Audience } }
+    unitLabel: { $ref: LocalizedText, nullable: true }
+    active: { type: boolean }
+VoucherWindowStatus: { type: string, enum: [active, scheduled, ended] }
+VoucherWindow:
+  type: object
+  description: A time-boxed voucher price (HL-GROW-01..03). Inside the window the voucher column of the listed packages is the window rate when that is lower.
+  required: [id, venueId, title, packageIds, voucherPerGuest, voucherFlat, eventFrom, eventTo, eventDates, eventWeekdays, startsAt, endsAt, status]
+  properties:
+    id: { $ref: Id }
+    venueId: { $ref: Id }
+    title: { $ref: LocalizedText }
+    packageIds: { type: array, items: { $ref: Id } }
+    voucherPerGuest: { $ref: Money, nullable: true }
+    voucherFlat: { $ref: Money, nullable: true }
+    eventFrom: { $ref: IsoDate, nullable: true }
+    eventTo: { $ref: IsoDate, nullable: true }
+    eventDates: { type: array, items: { $ref: IsoDate }, nullable: true }
+    eventWeekdays: { type: array, items: { $ref: Weekday }, nullable: true }
+    startsAt: { $ref: IsoDateTime }
+    endsAt: { $ref: IsoDateTime, nullable: true }
+    status: { $ref: VoucherWindowStatus }
+    vouchersBought: { type: integer, description: Partner analytics only. }
+# ---------------------------------------------------------------- card price grammar (ADR 0004 D6)
+CardPriceVoucher:
+  type: object
+  required: [voucher, savings]
+  properties:
+    voucher: { $ref: Money, nullable: true, description: Voucher price on the same basis as `amount`; null when none for this Brief. }
+    savings: { $ref: Money, nullable: true }
+CardPriceExact:
+  allOf:
+    - { $ref: CardPriceVoucher }
+    - type: object
+      required: [mode, amount, guests, packageId, tier]
+      properties:
+        mode: { type: string, enum: [exact] }
+        amount: { $ref: Money }
+        guests: { type: integer }
+        packageId: { $ref: Id }
+        tier: { $ref: PriceTier }
+CardPriceFromGuests:
+  allOf:
+    - { $ref: CardPriceVoucher }
+    - type: object
+      required: [mode, amount, guests, packageId, tier]
+      properties:
+        mode: { type: string, enum: [from_guests] }
+        amount: { $ref: Money }
+        guests: { type: integer }
+        packageId: { $ref: Id }
+        tier: { $ref: PriceTier }
+CardPriceFromMinimum:
+  allOf:
+    - { $ref: CardPriceVoucher }
+    - type: object
+      required: [mode, amount, guests, perGuest, voucherPerGuest, packageId]
+      properties:
+        mode: { type: string, enum: [from_minimum] }
+        amount: { $ref: Money }
+        guests: { type: integer }
+        perGuest: { $ref: Money, nullable: true }
+        voucherPerGuest: { $ref: Money, nullable: true }
+        packageId: { $ref: Id }
+CardPriceFlatNight:
+  allOf:
+    - { $ref: CardPriceVoucher }
+    - type: object
+      required: [mode, amount, hasSeveralPackages, packageId]
+      properties:
+        mode: { type: string, enum: [flat_night] }
+        amount: { $ref: Money }
+        hasSeveralPackages: { type: boolean }
+        packageId: { $ref: Id }
+CardPriceRentalFee:
+  allOf:
+    - { $ref: CardPriceVoucher }
+    - type: object
+      required: [mode, amount]
+      properties:
+        mode: { type: string, enum: [rental_fee] }
+        amount: { $ref: Money }
+CardPrice:
+  description: The price grammar of a card; `amount` is the standard price and `voucher` the voucher price beside it.
+  oneOf:
+    - { $ref: CardPriceExact }
+    - { $ref: CardPriceFromGuests }
+    - { $ref: CardPriceFromMinimum }
+    - { $ref: CardPriceFlatNight }
+    - { $ref: CardPriceRentalFee }
+  discriminator:
+    propertyName: mode
+    mapping:
+      exact: '#/components/schemas/CardPriceExact'
+      from_guests: '#/components/schemas/CardPriceFromGuests'
+      from_minimum: '#/components/schemas/CardPriceFromMinimum'
+      flat_night: '#/components/schemas/CardPriceFlatNight'
+      rental_fee: '#/components/schemas/CardPriceRentalFee'
+# ---------------------------------------------------------------- filter taxonomy, search results
+VenueSort: { type: string, enum: [recommended, voucher_price, price, rating, distance, newest] }
+VenueTypeOption:
+  type: object
+  required: [id, name, voucherEligible, visits]
+  properties:
+    id: { $ref: VenueType }
+    name: { $ref: LocalizedText }
+    voucherEligible: { type: boolean }
+    visits: { type: boolean }
+CapacityBand:
+  type: object
+  required: [id, name, min, max]
+  properties: { id: { $ref: Id }, name: { $ref: LocalizedText }, min: { type: integer }, max: { type: integer, nullable: true } }
+PriceStructureFilter: { type: string, enum: [per_person, package, either] }
+PriceStructureOption:
+  type: object
+  required: [id, name]
+  properties: { id: { $ref: PriceStructureFilter }, name: { $ref: LocalizedText } }
+SortOption:
+  type: object
+  required: [id, name]
+  properties: { id: { $ref: VenueSort }, name: { $ref: LocalizedText } }
+CapacityRange:
+  type: object
+  required: [min, max, step]
+  properties: { min: { type: integer }, max: { type: integer }, step: { type: integer } }
+FilterTaxonomy:
+  type: object
+  required: [venueTypes, capacityRange, capacityBands, priceStructures, sorts, amenities]
+  properties:
+    venueTypes: { type: array, items: { $ref: VenueTypeOption } }
+    capacityRange: { $ref: CapacityRange }
+    capacityBands: { type: array, items: { $ref: CapacityBand } }
+    priceStructures: { type: array, items: { $ref: PriceStructureOption } }
+    sorts: { type: array, items: { $ref: SortOption } }
+    amenities: { type: array, items: { $ref: AmenityDef } }
+VenueDayState: { type: string, enum: [available, held, unavailable, closed, unknown] }
+VenueBadge: { type: string, enum: [window, featured] }
+VenueResult:
+  type: object
+  description: One search row. Prices are computed for the Brief by the server; the card never computes.
+  required: [venue, price, availability, availabilityHallId, badge, windowId, guestRange, structures, tags, distance, sponsored]
+  properties:
+    venue: { $ref: VenueSummary }
+    price: { $ref: CardPrice, nullable: true }
+    availability: { $ref: VenueDayState, nullable: true }
+    availabilityHallId: { $ref: Id, nullable: true }
+    badge: { $ref: VenueBadge, nullable: true }
+    windowId: { $ref: Id, nullable: true }
+    guestRange: { $ref: GuestRange, nullable: true }
+    structures: { type: array, items: { $ref: PriceStructure } }
+    tags: { type: array, items: { $ref: Audience } }
+    distance: { $ref: Distance, nullable: true }
+    sponsored: { type: boolean }
+VenueResultPage: { x-page-of: VenueResult }
+VenueCount:
+  type: object
+  required: [count]
+  properties: { count: { type: integer, description: Venues matching the filters and the Brief (the hero button live count). } }
+NearbyVenue:
+  type: object
+  required: [venue, minutes, km]
+  properties: { venue: { $ref: VenueSummary }, minutes: { type: integer }, km: { type: number } }
+VenueDetail:
+  type: object
+  required: [venue, packages, extras, windows, price, guestRange, tags, structures]
+  properties:
+    venue: { $ref: Venue }
+    packages: { type: array, items: { $ref: PackageOffer } }
+    extras: { type: array, items: { $ref: Extra } }
+    windows: { type: array, items: { $ref: VoucherWindow }, description: Active voucher price windows of this venue. }
+    price: { $ref: CardPrice, nullable: true }
+    guestRange: { $ref: GuestRange, nullable: true }
+    tags: { type: array, items: { $ref: Audience } }
+    structures: { type: array, items: { $ref: PriceStructure } }
+# ---------------------------------------------------------------- availability
+DayState: { type: string, enum: [available, held, unavailable, closed] }
+SessionAvailability:
+  type: object
+  required: [sessionId, state]
+  properties: { sessionId: { $ref: Id }, state: { $ref: DayState } }
+AvailabilityDay:
+  type: object
+  description: One day of one hall for an audience and guest count. The client app never explains why a day is closed (ADR 0002 D8).
+  required: [date, hallId, state, tier, sessions, fromPrice, voucherPrice, packageId]
+  properties:
+    date: { $ref: IsoDate }
+    hallId: { $ref: Id }
+    state: { $ref: DayState }
+    tier: { $ref: PriceTier }
+    sessions: { type: array, items: { $ref: SessionAvailability } }
+    fromPrice: { $ref: Money, nullable: true }
+    voucherPrice: { $ref: Money, nullable: true }
+    packageId: { $ref: Id, nullable: true }
+VenueAvailability:
+  type: object
+  required: [venueId, hallId, from, to, days]
+  properties:
+    venueId: { $ref: Id }
+    hallId: { $ref: Id }
+    from: { $ref: IsoDate }
+    to: { $ref: IsoDate }
+    days: { type: array, items: { $ref: AvailabilityDay } }
+VenueDayAvailability:
+  type: object
+  required: [state, hallId, day]
+  properties:
+    state: { $ref: VenueDayState }
+    hallId: { $ref: Id, nullable: true }
+    day: { $ref: AvailabilityDay, nullable: true }
+# ---------------------------------------------------------------- quote (frozen price snapshot, both columns)
+PriceLineKind: { type: string, enum: [package, menu, extra, venue_discount, service_charge, adjustment] }
+PriceLine:
+  type: object
+  description: '`unit` and `amount` are the applied column (voucher when eligible); `standardUnit` and `standardAmount` the standard column so a screen can strike it.'
+  required: [kind, section, name, qty, unit, amount, standardUnit, standardAmount]
+  properties:
+    kind: { $ref: PriceLineKind }
+    section: { type: integer, enum: [1, 2], nullable: true }
+    name: { $ref: LocalizedText }
+    qty: { type: integer }
+    unit: { $ref: Money, nullable: true }
+    amount: { $ref: Money, description: Signed; discounts are negative. }
+    standardUnit: { $ref: Money, nullable: true }
+    standardAmount: { $ref: Money }
+    ruleId: { $ref: Id }
+QuoteTotals:
+  type: object
+  required: [standardSubtotal, standardServiceCharge, standardTotal, voucherSubtotal, venueDiscount, voucherServiceCharge, voucherTotal, savings, voucherFee, netSavings]
+  properties:
+    standardSubtotal: { $ref: Money }
+    standardServiceCharge: { $ref: Money }
+    standardTotal: { $ref: Money, description: What the client would pay the venue without a voucher. }
+    voucherSubtotal: { $ref: Money }
+    venueDiscount: { $ref: Money }
+    voucherServiceCharge: { $ref: Money }
+    voucherTotal: { $ref: Money, description: 'What the client pays the venue directly, off-app, after confirming.' }
+    savings: { $ref: Money }
+    voucherFee: { $ref: Money, description: 'KD 2.000, platform configuration.' }
+    netSavings: { type: integer, description: 'Fils; savings minus voucherFee, can be negative.' }
+QuoteTargetType: { type: string, enum: [venue, provider] }
+Quote:
+  type: object
+  required: [targetType, targetId, eventDate, lines, totals, voucherOffered, quoteId, expiresAt]
+  properties:
+    quoteId: { type: string, nullable: true, description: Server handle of this priced quote (valid 30 min); null for display-only quotes. }
+    expiresAt: { $ref: IsoDateTime, nullable: true }
+    targetType: { $ref: QuoteTargetType }
+    targetId: { $ref: Id }
+    eventDate: { $ref: IsoDate }
+    lines: { type: array, items: { $ref: PriceLine } }
+    totals: { $ref: QuoteTotals }
+    voucherOffered: { type: boolean, description: '`savings > voucherFee`: the voucher CTA shows only then.' }
+QuoteSectionInput:
+  type: object
+  required: [hallId, audience, guests, packageId]
+  properties:
+    hallId: { $ref: Id }
+    audience: { $ref: Audience }
+    guests: { type: integer }
+    packageId: { $ref: Id }
+QuoteExtraInput:
+  type: object
+  required: [extraId, qty]
+  properties: { extraId: { $ref: Id }, qty: { type: integer } }
+VenueQuoteInput:
+  type: object
+  required: [eventDate, sections]
+  properties:
+    eventDate: { $ref: IsoDate }
+    sections: { type: array, items: { $ref: QuoteSectionInput }, minItems: 1, maxItems: 2 }
+    extras: { type: array, items: { $ref: QuoteExtraInput } }
+# ---------------------------------------------------------------- compare
+CompareInput:
+  type: object
+  required: [venueIds]
+  properties:
+    venueIds: { type: array, items: { $ref: Id }, minItems: 1, maxItems: 3 }
+    date: { $ref: IsoDate, nullable: true }
+    guests: { type: integer, nullable: true }
+    audience: { $ref: Audience, nullable: true }
+    originId: { $ref: Id, nullable: true, description: Reference point for distances (default ref-salmiya). }
+CompareBest:
+  type: object
+  required: [price, nearest, fit]
+  properties: { price: { type: boolean }, nearest: { type: boolean }, fit: { type: boolean } }
+ComparePackages:
+  type: object
+  required: [count, from, fromVoucher]
+  properties: { count: { type: integer }, from: { $ref: Money, nullable: true }, fromVoucher: { $ref: Money, nullable: true } }
+CompareColumn:
+  type: object
+  required: [venue, channel, availability, price, voucherPrice, savings, fromPerGuest, fromVoucherPerGuest, maxGuests, fits, valet, photography, rating, distance, structures, packages, best]
+  properties:
+    venue: { $ref: VenueSummary }
+    channel: { $ref: BookingChannel }
+    availability: { $ref: VenueDayState, nullable: true }
+    price: { $ref: Money, nullable: true }
+    voucherPrice: { $ref: Money, nullable: true }
+    savings: { $ref: Money, nullable: true }
+    fromPerGuest: { $ref: Money, nullable: true }
+    fromVoucherPerGuest: { $ref: Money, nullable: true }
+    maxGuests: { type: integer }
+    fits: { type: boolean }
+    valet: { $ref: AmenityState, nullable: true }
+    photography: { $ref: PhotographyPolicy, nullable: true }
+    rating: { $ref: RatingSummary }
+    distance: { $ref: Distance, nullable: true }
+    structures: { type: array, items: { $ref: PriceStructure } }
+    packages: { $ref: ComparePackages }
+    best: { $ref: CompareBest }
+CompareResponse:
+  type: object
+  required: [columns]
+  properties: { columns: { type: array, items: { $ref: CompareColumn } } }

@@ -1,0 +1,20 @@
+# Voucher redemption by code or QR (voucher-model 8.2). Allowed for Admin, Manager and Reception.
+RedeemFailure: { type: string, enum: [unknown_code, other_partner, not_confirmed, already_used] }
+VoucherAndRequest:
+  type: object
+  required: [voucher, booking, halls]
+  properties:
+    voucher: { $ref: Voucher }
+    booking: { $ref: Booking }
+    halls: { type: array, items: { $ref: NamedRef } }
+VoucherAndRequestPage: { x-page-of: VoucherAndRequest }
+RedeemCheck:
+  type: object
+  description: The checks of HL-BOOK-06 and HL-BOOK-07. On failure `reason` carries the specific calm error; `usedAt` is set for already_used.
+  required: [ok, reason, usedAt, voucher, booking]
+  properties:
+    ok: { type: boolean }
+    reason: { $ref: RedeemFailure, nullable: true }
+    usedAt: { $ref: IsoDateTime, nullable: true }
+    voucher: { $ref: Voucher, nullable: true }
+    booking: { $ref: Booking, nullable: true }

@@ -1,0 +1,254 @@
+{
+  "booking": {
+    "id": "bk-GZ-2611-0147",
+    "ref": "GZ-2611-0147",
+    "targetType": "venue",
+    "venueId": "V01",
+    "providerId": null,
+    "clientId": "user-reem",
+    "clientName": "ريم الدوسري",
+    "weddingId": "wedding-reem",
+    "status": "pending",
+    "createdAt": "2026-11-12T12:40:00+03:00",
+    "eventDate": "2027-01-14",
+    "sections": [
+      {
+        "position": 1,
+        "hallId": "V01-danah",
+        "sessionId": "V01-danah-evening",
+        "audience": "women",
+        "guests": 350,
+        "billableGuests": 350,
+        "packageId": "V01-ladies-weekend",
+        "start": "21:00",
+        "end": "02:00"
+      }
+    ],
+    "service": null,
+    "lines": [
+      {
+        "kind": "package",
+        "section": 1,
+        "name": {
+          "en": "Ladies’ Reception, Weekend",
+          "ar": "الحفل النسائي · نهاية الأسبوع"
+        },
+        "qty": 350,
+        "unit": {
+          "fils": 44000,
+          "currency": "KWD"
+        },
+        "amount": {
+          "fils": 15400000,
+          "currency": "KWD"
+        },
+        "standardUnit": {
+          "fils": 52000,
+          "currency": "KWD"
+        },
+        "standardAmount": {
+          "fils": 18200000,
+          "currency": "KWD"
+        },
+        "ruleId": "V01-ladies-weekend-r1"
+      }
+    ],
+    "totals": {
+      "standardSubtotal": {
+        "fils": 18200000,
+        "currency": "KWD"
+      },
+      "standardServiceCharge": {
+        "fils": 0,
+        "currency": "KWD"
+      },
+      "standardTotal": {
+        "fils": 18200000,
+        "currency": "KWD"
+      },
+      "voucherSubtotal": {
+        "fils": 15400000,
+        "currency": "KWD"
+      },
+      "venueDiscount": {
+        "fils": 0,
+        "currency": "KWD"
+      },
+      "voucherServiceCharge": {
+        "fils": 0,
+        "currency": "KWD"
+      },
+      "voucherTotal": {
+        "fils": 15400000,
+        "currency": "KWD"
+      },
+      "savings": {
+        "fils": 2800000,
+        "currency": "KWD"
+      },
+      "voucherFee": {
+        "fils": 2000,
+        "currency": "KWD"
+      },
+      "netSavings": 2798000
+    },
+    "voucherId": "vch-GV-2611-K7QM",
+    "respondBy": "2026-11-13T12:40:00+03:00",
+    "approvedAt": null,
+    "confirmBy": null,
+    "confirmedAt": null,
+    "redeemedAt": null,
+    "redeemedBy": null,
+    "completedAt": null,
+    "slaHours": 24,
+    "contact": {
+      "name": "ريم الدوسري",
+      "phone": "+96550000012",
+      "shared": true,
+      "bookingFor": "bride"
+    },
+    "specialRequests": "نحتاج مدخلًا منفصلًا لكبار السن ومكانًا مخصصًا للعبايات.",
+    "firstBooking": true,
+    "verifiedPhone": true,
+    "thread": [
+      {
+        "node": "request",
+        "state": "done",
+        "at": "2026-11-12T12:40:00+03:00"
+      },
+      {
+        "node": "approval",
+        "state": "current",
+        "at": "2026-11-13T12:40:00+03:00"
+      },
+      {
+        "node": "confirmation",
+        "state": "future",
+        "at": null
+      },
+      {
+        "node": "redemption",
+        "state": "future",
+        "at": null
+      },
+      {
+        "node": "day",
+        "state": "future",
+        "at": "2027-01-14T21:00:00+03:00"
+      }
+    ],
+    "events": [
+      {
+        "at": "2026-11-12T12:40:00+03:00",
+        "kind": "transition",
+        "from": null,
+        "to": "pending",
+        "actor": "client",
+        "actorName": "ريم الدوسري"
+      }
+    ],
+    "cancelledBy": null,
+    "reasonCode": null,
+    "rejectReason": null,
+    "expiredReason": null,
+    "proposal": null,
+    "overlays": {},
+    "approvedDiscount": null,
+    "version": 2,
+    "allowedActions": [
+      "message",
+      "withdraw",
+      "call"
+    ]
+  },
+  "voucher": {
+    "id": "vch-GV-2611-K7QM",
+    "kind": "bound",
+    "code": "GV-2611-K7QM",
+    "clientId": "user-reem",
+    "targetType": "venue",
+    "venueOrProviderId": "V01",
+    "hallId": "V01-danah",
+    "packageId": "V01-ladies-weekend",
+    "eventDate": "2027-01-14",
+    "guests": 350,
+    "quoteFils": {
+      "standard": 18200000,
+      "voucher": 15400000
+    },
+    "priceFils": 2000,
+    "status": "bound",
+    "purchasedAt": "2026-11-12T12:31:00+03:00",
+    "validUntil": "2027-01-11T12:31:00+03:00",
+    "reuseUntil": null,
+    "qr": {
+      "payload": "gz:v1:GV-2611-K7QM:V01:CBDA",
+      "version": 1
+    },
+    "bookingId": "bk-GZ-2611-0147",
+    "payment": {
+      "method": "knet",
+      "receiptNo": "RC-050039",
+      "amount": {
+        "fils": 2000,
+        "currency": "KWD"
+      },
+      "status": "succeeded",
+      "at": "2026-11-12T12:32:00+03:00"
+    },
+    "releasedAt": null,
+    "releaseReason": null,
+    "forfeitedAt": null,
+    "creditEligible": false,
+    "refundRequestId": null,
+    "grantedFrom": null,
+    "usedAt": null,
+    "usedReason": null,
+    "redeemedBy": null
+  },
+  "target": {
+    "kind": "venue",
+    "id": "V01",
+    "name": {
+      "en": "Aurelia Gulf Hotel",
+      "ar": "فندق أوريليا الخليج"
+    },
+    "monogram": "A",
+    "areaId": "sharq",
+    "cover": {
+      "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+      "width": 1800,
+      "height": 1196,
+      "orientation": "landscape",
+      "alt": {
+        "en": "Bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+        "ar": "قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+      }
+    },
+    "phone": "+96550000002",
+    "channel": "ghazal_voucher"
+  },
+  "halls": [
+    {
+      "id": "V01-danah",
+      "name": {
+        "en": "Danah Ballroom",
+        "ar": "قاعة الدانة"
+      }
+    }
+  ],
+  "client": {
+    "name": "ريم الدوسري",
+    "phone": "+96550000012",
+    "shared": true,
+    "bookingFor": "bride"
+  },
+  "sla": {
+    "state": "neutral",
+    "elapsed": 0.1388888888888889,
+    "minutesLeft": 1240,
+    "minutesWaiting": 200
+  },
+  "otherRequestsSameDate": 1,
+  "conversationId": null
+}

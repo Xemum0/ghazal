@@ -1,0 +1,41 @@
+/me:
+  get:
+    operationId: getMe
+    summary: Profile, permissions and verification state (CA-PROF-01)
+    x-roles: [client, partner]
+    responses: { 200: Me }
+  patch:
+    operationId: updateMe
+    summary: Update name, email, language, digit style, marketing opt-in (CA-PROF-01, CA-PROF-07)
+    x-roles: [client, partner]
+    body: UpdateMeInput
+    responses: { 200: Me }
+  delete:
+    operationId: deleteAccount
+    summary: Request account deletion (CA-PROF-09)
+    description: Blocked while a confirmed future request exists. Revokes Apple tokens, anonymises personal data, keeps receipt rows.
+    x-roles: [client]
+    x-errors: [ACCOUNT_DELETION_BLOCKED, STEP_UP_REQUIRED]
+    responses: { 202: AccountDeletionStatus }
+/me/devices/{deviceId}:
+  put:
+    operationId: registerDevice
+    summary: Register the install and its push token
+    x-roles: [client, partner]
+    path: { deviceId: string }
+    body: DeviceRegistration
+    responses: { 204: ~ }
+/me/phone:
+  post:
+    operationId: requestPhoneChange
+    summary: Start verifying a new phone number (CL-PROF-03)
+    body: PhoneChangeInput
+    x-errors: [RATE_LIMITED]
+    responses: { 202: OtpChallenge }
+/me/phone/verify:
+  post:
+    operationId: confirmPhoneChange
+    summary: Confirm the new phone with the WhatsApp code
+    body: PhoneVerifyInput
+    x-errors: [OTP_INVALID, OTP_EXPIRED, OTP_LOCKED]
+    responses: { 200: Me }

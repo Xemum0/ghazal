@@ -1,0 +1,35 @@
+/planners/packages:
+  get:
+    operationId: listPlannerPackages
+    summary: Silver, Gold and Royal planner packages (CL-PLAN-01)
+    x-access: optional
+    responses: { 200: 'PlannerPackage[]' }
+/planners/{plannerId}:
+  get:
+    operationId: getPlanner
+    summary: A planner and the packages they serve (CL-PLAN-03)
+    x-access: optional
+    path: { plannerId: Id }
+    responses: { 200: PlannerDetail }
+/planner/consultations:
+  post:
+    operationId: createPlannerRequest
+    summary: Request a consultation (CL-PLAN-02)
+    x-idempotent: true
+    body: PlannerRequestInput
+    x-errors: [PHONE_VERIFICATION_REQUIRED]
+    responses: { 201: PlannerRequest }
+/planner/consultations/current:
+  get:
+    operationId: getCurrentPlannerRequest
+    summary: The couple's open consultation request, if any
+    x-errors: [NOT_FOUND]
+    responses: { 200: PlannerRequest }
+/planner/consultations/{requestId}/meeting:
+  post:
+    operationId: schedulePlannerMeeting
+    summary: Pick a meeting time (CL-PLAN-04)
+    x-idempotent: true
+    path: { requestId: Id }
+    body: MeetingInput
+    responses: { 200: PlannerRequest }

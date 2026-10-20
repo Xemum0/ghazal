@@ -1,0 +1,23 @@
+/home:
+  get:
+    operationId: getHome
+    summary: Composed home feed (CA-HOME)
+    description: Brief-aware shelves, the status card, live free count and unread count in one response.
+    x-access: optional
+    query: { date: IsoDate, guests: integer, audience: Audience, areaIds: 'Id[]', budgetMin: integer, budgetMax: integer, originId: Id }
+    responses: { 200: HomeFeed }
+/config:
+  get:
+    operationId: getAppConfig
+    summary: Platform configuration, server clock and occasions
+    x-access: guest
+    x-roles: [client, partner]
+    responses: { 200: AppConfig }
+/events:
+  post:
+    operationId: ingestEvents
+    summary: Analytics batch (at most 20 events, at-least-once, deduplicated on eventId)
+    x-access: optional
+    x-roles: [client, partner]
+    body: AnalyticsBatch
+    responses: { 202: AnalyticsAccepted }

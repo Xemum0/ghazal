@@ -1,0 +1,2524 @@
+{
+ "AppConfig": {
+  "serverNow": "2026-11-12T16:00:00+03:00",
+  "timezone": "Asia/Kuwait",
+  "config": {
+   "voucherFeeFils": 2000,
+   "voucherValidityDays": 60,
+   "voucherReuseDays": 60,
+   "voucherCheckoutMinutes": 30,
+   "creditVoucherValidityDays": 60,
+   "confirmWindowHours": 24,
+   "approvalUndoSeconds": 8,
+   "counterOfferValidityHours": 48,
+   "maxOpenRequests": 3,
+   "defaultReplyHours": 24,
+   "urgentLeadDays": 14,
+   "urgentReplyHours": 4,
+   "completionDelayHours": 12,
+   "issueReportHours": 72,
+   "visitChatReadonlyHours": 24,
+   "visitChatArchiveDays": 30,
+   "slaDangerPct": 80,
+   "slaGoldPct": 50,
+   "weekendTierDays": [
+    4,
+    5,
+    6
+   ],
+   "peakBandDays": [
+    4,
+    5,
+    6
+   ]
+  },
+  "occasions": [
+   {
+    "id": "new-year",
+    "name": {
+     "en": "New Year’s Day",
+     "ar": "رأس السنة"
+    },
+    "from": "2027-01-01",
+    "to": "2027-01-01",
+    "approximate": false
+   },
+   {
+    "id": "isra-miraj",
+    "name": {
+     "en": "Isra and Miraj (approx.)",
+     "ar": "إسراء ومعراج (تقريبي)"
+    },
+    "from": "2027-01-05",
+    "to": "2027-01-05",
+    "approximate": true
+   },
+   {
+    "id": "ramadan-1448",
+    "name": {
+     "en": "Ramadan 1448 (approx.)",
+     "ar": "رمضان 1448 (تقريبي)"
+    },
+    "from": "2027-02-08",
+    "to": "2027-03-08",
+    "approximate": true
+   },
+   {
+    "id": "national-day",
+    "name": {
+     "en": "National Day",
+     "ar": "العيد الوطني"
+    },
+    "from": "2027-02-25",
+    "to": "2027-02-25",
+    "approximate": false
+   },
+   {
+    "id": "liberation-day",
+    "name": {
+     "en": "Liberation Day",
+     "ar": "يوم التحرير"
+    },
+    "from": "2027-02-26",
+    "to": "2027-02-26",
+    "approximate": false
+   },
+   {
+    "id": "eid-al-fitr",
+    "name": {
+     "en": "Eid al-Fitr (approx.)",
+     "ar": "عيد الفطر (تقريبي)"
+    },
+    "from": "2027-03-09",
+    "to": "2027-03-11",
+    "approximate": true
+   },
+   {
+    "id": "eid-al-adha",
+    "name": {
+     "en": "Eid al-Adha (approx.)",
+     "ar": "عيد الأضحى (تقريبي)"
+    },
+    "from": "2027-05-16",
+    "to": "2027-05-19",
+    "approximate": true
+   }
+  ],
+  "availabilityWindow": {
+   "from": "2026-11-01",
+   "to": "2027-10-31"
+  },
+  "minAppVersion": "1.0.0"
+ },
+ "BlockBatch": {
+  "id": "blk_01JEXAMPLE",
+  "hallIds": [
+   "V01-danah"
+  ],
+  "dates": [
+   "2027-02-04",
+   "2027-02-05"
+  ],
+  "reason": "maintenance",
+  "note": "Chandelier service",
+  "createdAt": "2026-11-12T16:00:00+03:00",
+  "createdBy": "Hind Al-Enezi",
+  "claimIds": [
+   "claim-blk-1",
+   "claim-blk-2"
+  ]
+ },
+ "Booking": {
+  "id": "bk-GZ-2611-0147",
+  "ref": "GZ-2611-0147",
+  "targetType": "venue",
+  "venueId": "V01",
+  "providerId": null,
+  "clientId": "user-reem",
+  "clientName": "ريم الدوسري",
+  "weddingId": "wedding-reem",
+  "status": "pending",
+  "createdAt": "2026-11-12T12:40:00+03:00",
+  "eventDate": "2027-01-14",
+  "sections": [
+   {
+    "position": 1,
+    "hallId": "V01-danah",
+    "sessionId": "V01-danah-evening",
+    "audience": "women",
+    "guests": 350,
+    "billableGuests": 350,
+    "packageId": "V01-ladies-weekend",
+    "start": "21:00",
+    "end": "02:00"
+   }
+  ],
+  "service": null,
+  "lines": [
+   {
+    "kind": "package",
+    "section": 1,
+    "name": {
+     "en": "Ladies’ Reception, Weekend",
+     "ar": "الحفل النسائي · نهاية الأسبوع"
+    },
+    "qty": 350,
+    "unit": {
+     "fils": 44000,
+     "currency": "KWD"
+    },
+    "amount": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "standardUnit": {
+     "fils": 52000,
+     "currency": "KWD"
+    },
+    "standardAmount": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "ruleId": "V01-ladies-weekend-r1"
+   }
+  ],
+  "totals": {
+   "standardSubtotal": {
+    "fils": 18200000,
+    "currency": "KWD"
+   },
+   "standardServiceCharge": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "standardTotal": {
+    "fils": 18200000,
+    "currency": "KWD"
+   },
+   "voucherSubtotal": {
+    "fils": 15400000,
+    "currency": "KWD"
+   },
+   "venueDiscount": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "voucherServiceCharge": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "voucherTotal": {
+    "fils": 15400000,
+    "currency": "KWD"
+   },
+   "savings": {
+    "fils": 2800000,
+    "currency": "KWD"
+   },
+   "voucherFee": {
+    "fils": 2000,
+    "currency": "KWD"
+   },
+   "netSavings": 2798000
+  },
+  "voucherId": "vch-GV-2611-K7QM",
+  "respondBy": "2026-11-13T12:40:00+03:00",
+  "approvedAt": null,
+  "confirmBy": null,
+  "confirmedAt": null,
+  "redeemedAt": null,
+  "redeemedBy": null,
+  "completedAt": null,
+  "slaHours": 24,
+  "contact": {
+   "name": "ريم الدوسري",
+   "phone": "+96550000012",
+   "shared": true,
+   "bookingFor": "bride"
+  },
+  "specialRequests": "نحتاج مدخلًا منفصلًا لكبار السن ومكانًا مخصصًا للعبايات.",
+  "firstBooking": true,
+  "verifiedPhone": true,
+  "thread": [
+   {
+    "node": "request",
+    "state": "done",
+    "at": "2026-11-12T12:40:00+03:00"
+   },
+   {
+    "node": "approval",
+    "state": "current",
+    "at": "2026-11-13T12:40:00+03:00"
+   },
+   {
+    "node": "confirmation",
+    "state": "future",
+    "at": null
+   },
+   {
+    "node": "redemption",
+    "state": "future",
+    "at": null
+   },
+   {
+    "node": "day",
+    "state": "future",
+    "at": "2027-01-14T21:00:00+03:00"
+   }
+  ],
+  "events": [
+   {
+    "at": "2026-11-12T12:40:00+03:00",
+    "kind": "transition",
+    "from": null,
+    "to": "pending",
+    "actor": "client",
+    "actorName": "ريم الدوسري"
+   }
+  ],
+  "cancelledBy": null,
+  "reasonCode": null,
+  "rejectReason": null,
+  "expiredReason": null,
+  "proposal": null,
+  "overlays": {},
+  "approvedDiscount": null,
+  "version": 2,
+  "allowedActions": [
+   "message",
+   "withdraw",
+   "call"
+  ]
+ },
+ "BookingDetail": {
+  "booking": {
+   "id": "bk-GZ-2611-0147",
+   "ref": "GZ-2611-0147",
+   "targetType": "venue",
+   "venueId": "V01",
+   "providerId": null,
+   "clientId": "user-reem",
+   "clientName": "ريم الدوسري",
+   "weddingId": "wedding-reem",
+   "status": "pending",
+   "createdAt": "2026-11-12T12:40:00+03:00",
+   "eventDate": "2027-01-14",
+   "sections": [
+    {
+     "position": 1,
+     "hallId": "V01-danah",
+     "sessionId": "V01-danah-evening",
+     "audience": "women",
+     "guests": 350,
+     "billableGuests": 350,
+     "packageId": "V01-ladies-weekend",
+     "start": "21:00",
+     "end": "02:00"
+    }
+   ],
+   "service": null,
+   "lines": [
+    {
+     "kind": "package",
+     "section": 1,
+     "name": {
+      "en": "Ladies’ Reception, Weekend",
+      "ar": "الحفل النسائي · نهاية الأسبوع"
+     },
+     "qty": 350,
+     "unit": {
+      "fils": 44000,
+      "currency": "KWD"
+     },
+     "amount": {
+      "fils": 15400000,
+      "currency": "KWD"
+     },
+     "standardUnit": {
+      "fils": 52000,
+      "currency": "KWD"
+     },
+     "standardAmount": {
+      "fils": 18200000,
+      "currency": "KWD"
+     },
+     "ruleId": "V01-ladies-weekend-r1"
+    }
+   ],
+   "totals": {
+    "standardSubtotal": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "standardServiceCharge": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "standardTotal": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "voucherSubtotal": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "venueDiscount": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "voucherServiceCharge": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "voucherTotal": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "savings": {
+     "fils": 2800000,
+     "currency": "KWD"
+    },
+    "voucherFee": {
+     "fils": 2000,
+     "currency": "KWD"
+    },
+    "netSavings": 2798000
+   },
+   "voucherId": "vch-GV-2611-K7QM",
+   "respondBy": "2026-11-13T12:40:00+03:00",
+   "approvedAt": null,
+   "confirmBy": null,
+   "confirmedAt": null,
+   "redeemedAt": null,
+   "redeemedBy": null,
+   "completedAt": null,
+   "slaHours": 24,
+   "contact": {
+    "name": "ريم الدوسري",
+    "phone": "+96550000012",
+    "shared": true,
+    "bookingFor": "bride"
+   },
+   "specialRequests": "نحتاج مدخلًا منفصلًا لكبار السن ومكانًا مخصصًا للعبايات.",
+   "firstBooking": true,
+   "verifiedPhone": true,
+   "thread": [
+    {
+     "node": "request",
+     "state": "done",
+     "at": "2026-11-12T12:40:00+03:00"
+    },
+    {
+     "node": "approval",
+     "state": "current",
+     "at": "2026-11-13T12:40:00+03:00"
+    },
+    {
+     "node": "confirmation",
+     "state": "future",
+     "at": null
+    },
+    {
+     "node": "redemption",
+     "state": "future",
+     "at": null
+    },
+    {
+     "node": "day",
+     "state": "future",
+     "at": "2027-01-14T21:00:00+03:00"
+    }
+   ],
+   "events": [
+    {
+     "at": "2026-11-12T12:40:00+03:00",
+     "kind": "transition",
+     "from": null,
+     "to": "pending",
+     "actor": "client",
+     "actorName": "ريم الدوسري"
+    }
+   ],
+   "cancelledBy": null,
+   "reasonCode": null,
+   "rejectReason": null,
+   "expiredReason": null,
+   "proposal": null,
+   "overlays": {},
+   "approvedDiscount": null,
+   "version": 2,
+   "allowedActions": [
+    "message",
+    "withdraw",
+    "call"
+   ]
+  },
+  "voucher": {
+   "id": "vch-GV-2611-K7QM",
+   "kind": "bound",
+   "code": "GV-2611-K7QM",
+   "clientId": "user-reem",
+   "targetType": "venue",
+   "venueOrProviderId": "V01",
+   "hallId": "V01-danah",
+   "packageId": "V01-ladies-weekend",
+   "eventDate": "2027-01-14",
+   "guests": 350,
+   "quoteFils": {
+    "standard": 18200000,
+    "voucher": 15400000
+   },
+   "priceFils": 2000,
+   "status": "bound",
+   "purchasedAt": "2026-11-12T12:31:00+03:00",
+   "validUntil": "2027-01-11T12:31:00+03:00",
+   "reuseUntil": null,
+   "qr": {
+    "payload": "gz:v1:GV-2611-K7QM:V01:CBDA",
+    "version": 1
+   },
+   "bookingId": "bk-GZ-2611-0147",
+   "payment": {
+    "method": "knet",
+    "receiptNo": "RC-050039",
+    "amount": {
+     "fils": 2000,
+     "currency": "KWD"
+    },
+    "status": "succeeded",
+    "at": "2026-11-12T12:32:00+03:00"
+   },
+   "releasedAt": null,
+   "releaseReason": null,
+   "forfeitedAt": null,
+   "creditEligible": false,
+   "refundRequestId": null,
+   "grantedFrom": null,
+   "usedAt": null,
+   "usedReason": null,
+   "redeemedBy": null
+  },
+  "target": {
+   "kind": "venue",
+   "id": "V01",
+   "name": {
+    "en": "Aurelia Gulf Hotel",
+    "ar": "فندق أوريليا الخليج"
+   },
+   "monogram": "A",
+   "areaId": "sharq",
+   "cover": {
+    "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+    "width": 1800,
+    "height": 1196,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+     "ar": "قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+    }
+   },
+   "phone": "+96550000002",
+   "channel": "ghazal_voucher"
+  },
+  "halls": [
+   {
+    "id": "V01-danah",
+    "name": {
+     "en": "Danah Ballroom",
+     "ar": "قاعة الدانة"
+    }
+   }
+  ],
+  "confirmWindow": {
+   "state": "none",
+   "deadline": null,
+   "minutesLeft": 0
+  },
+  "conversationId": null,
+  "review": null
+ },
+ "BookingRow": {
+  "booking": {
+   "id": "bk-GZ-2611-0147",
+   "ref": "GZ-2611-0147",
+   "targetType": "venue",
+   "venueId": "V01",
+   "providerId": null,
+   "clientId": "user-reem",
+   "clientName": "ريم الدوسري",
+   "weddingId": "wedding-reem",
+   "status": "pending",
+   "createdAt": "2026-11-12T12:40:00+03:00",
+   "eventDate": "2027-01-14",
+   "sections": [
+    {
+     "position": 1,
+     "hallId": "V01-danah",
+     "sessionId": "V01-danah-evening",
+     "audience": "women",
+     "guests": 350,
+     "billableGuests": 350,
+     "packageId": "V01-ladies-weekend",
+     "start": "21:00",
+     "end": "02:00"
+    }
+   ],
+   "service": null,
+   "lines": [
+    {
+     "kind": "package",
+     "section": 1,
+     "name": {
+      "en": "Ladies’ Reception, Weekend",
+      "ar": "الحفل النسائي · نهاية الأسبوع"
+     },
+     "qty": 350,
+     "unit": {
+      "fils": 44000,
+      "currency": "KWD"
+     },
+     "amount": {
+      "fils": 15400000,
+      "currency": "KWD"
+     },
+     "standardUnit": {
+      "fils": 52000,
+      "currency": "KWD"
+     },
+     "standardAmount": {
+      "fils": 18200000,
+      "currency": "KWD"
+     },
+     "ruleId": "V01-ladies-weekend-r1"
+    }
+   ],
+   "totals": {
+    "standardSubtotal": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "standardServiceCharge": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "standardTotal": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "voucherSubtotal": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "venueDiscount": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "voucherServiceCharge": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "voucherTotal": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "savings": {
+     "fils": 2800000,
+     "currency": "KWD"
+    },
+    "voucherFee": {
+     "fils": 2000,
+     "currency": "KWD"
+    },
+    "netSavings": 2798000
+   },
+   "voucherId": "vch-GV-2611-K7QM",
+   "respondBy": "2026-11-13T12:40:00+03:00",
+   "approvedAt": null,
+   "confirmBy": null,
+   "confirmedAt": null,
+   "redeemedAt": null,
+   "redeemedBy": null,
+   "completedAt": null,
+   "slaHours": 24,
+   "contact": {
+    "name": "ريم الدوسري",
+    "phone": "+96550000012",
+    "shared": true,
+    "bookingFor": "bride"
+   },
+   "specialRequests": "نحتاج مدخلًا منفصلًا لكبار السن ومكانًا مخصصًا للعبايات.",
+   "firstBooking": true,
+   "verifiedPhone": true,
+   "thread": [
+    {
+     "node": "request",
+     "state": "done",
+     "at": "2026-11-12T12:40:00+03:00"
+    },
+    {
+     "node": "approval",
+     "state": "current",
+     "at": "2026-11-13T12:40:00+03:00"
+    },
+    {
+     "node": "confirmation",
+     "state": "future",
+     "at": null
+    },
+    {
+     "node": "redemption",
+     "state": "future",
+     "at": null
+    },
+    {
+     "node": "day",
+     "state": "future",
+     "at": "2027-01-14T21:00:00+03:00"
+    }
+   ],
+   "events": [
+    {
+     "at": "2026-11-12T12:40:00+03:00",
+     "kind": "transition",
+     "from": null,
+     "to": "pending",
+     "actor": "client",
+     "actorName": "ريم الدوسري"
+    }
+   ],
+   "cancelledBy": null,
+   "reasonCode": null,
+   "rejectReason": null,
+   "expiredReason": null,
+   "proposal": null,
+   "overlays": {},
+   "approvedDiscount": null,
+   "version": 2,
+   "allowedActions": [
+    "message",
+    "withdraw",
+    "call"
+   ]
+  },
+  "target": {
+   "kind": "venue",
+   "id": "V01",
+   "name": {
+    "en": "Aurelia Gulf Hotel",
+    "ar": "فندق أوريليا الخليج"
+   },
+   "monogram": "A",
+   "areaId": "sharq",
+   "cover": {
+    "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+    "width": 1800,
+    "height": 1196,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+     "ar": "قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+    }
+   },
+   "phone": "+96550000002",
+   "channel": "ghazal_voucher"
+  },
+  "halls": [
+   {
+    "id": "V01-danah",
+    "name": {
+     "en": "Danah Ballroom",
+     "ar": "قاعة الدانة"
+    }
+   }
+  ]
+ },
+ "CardPriceExact": {
+  "mode": "exact",
+  "amount": {
+   "fils": 18200000,
+   "currency": "KWD"
+  },
+  "guests": 350,
+  "packageId": "V01-ladies-weekend",
+  "tier": "weekend",
+  "voucher": {
+   "fils": 15400000,
+   "currency": "KWD"
+  },
+  "savings": {
+   "fils": 2800000,
+   "currency": "KWD"
+  }
+ },
+ "ConfirmWindow": {
+  "state": "open",
+  "deadline": "2026-11-13T16:00:00+03:00",
+  "minutesLeft": 1440
+ },
+ "CreateRequestInput": {
+  "targetType": "venue",
+  "venueId": "V01",
+  "eventDate": "2027-01-14",
+  "sections": [
+   {
+    "hallId": "V01-danah",
+    "sessionId": "V01-danah-evening",
+    "audience": "women",
+    "guests": 350,
+    "packageId": "V01-ladies-weekend"
+   }
+  ],
+  "extras": [],
+  "voucherId": "vch-GV-2611-K7QM",
+  "quoteId": "qt_01JEXAMPLEDANAH",
+  "contact": {
+   "name": "ريم الدوسري",
+   "phone": "+96550000012",
+   "bookingFor": "bride",
+   "shared": true
+  },
+  "specialRequests": "نحتاج مدخلًا منفصلًا لكبار السن ومكانًا مخصصًا للعبايات."
+ },
+ "CreditVoucher": {
+  "id": "vch-GV-2611-C4RD",
+  "kind": "credit",
+  "code": "GV-2611-C4RD",
+  "clientId": "user-reem",
+  "priceFils": 2000,
+  "status": "active",
+  "grantedAt": "2026-11-05T10:00:00+03:00",
+  "validUntil": "2027-01-04T23:59:00+03:00",
+  "qr": {
+   "payload": "gz:v1:GV-2611-C4RD:any:D300",
+   "version": 1
+  },
+  "grantedFrom": {
+   "requestId": "rr-GV-2610-H9XB",
+   "voucherId": "vch-GV-2610-H9XB",
+   "grantedBy": "Lama Al-Khalidi"
+  },
+  "bookingId": null,
+  "usedAt": null,
+  "usedReason": null,
+  "redeemedBy": null
+ },
+ "HomeFeed": {
+  "statusCard": {
+   "kind": "pending",
+   "bookingId": "bk-GZ-2611-0147",
+   "voucherId": "vch-GV-2611-K7QM",
+   "visitId": null,
+   "deadline": "2026-11-13T12:40:00+03:00",
+   "target": {
+    "kind": "venue",
+    "id": "V01",
+    "name": {
+     "en": "Aurelia Gulf Hotel",
+     "ar": "فندق أوريليا الخليج"
+    },
+    "monogram": "A",
+    "areaId": "sharq",
+    "cover": {
+     "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+     "width": 1800,
+     "height": 1196,
+     "orientation": "landscape",
+     "alt": {
+      "en": "Bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+      "ar": "قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+     }
+    },
+    "phone": "+96550000002",
+    "channel": "ghazal_voucher"
+   }
+  },
+  "freeCount": 7,
+  "nearestFreeDates": [],
+  "shelves": [
+   {
+    "id": "free",
+    "items": [
+     {
+      "row": {
+       "venue": {
+        "id": "V01",
+        "slug": "aurelia-gulf-hotel",
+        "name": {
+         "en": "Aurelia Gulf Hotel",
+         "ar": "فندق أوريليا الخليج"
+        },
+        "type": "hotel",
+        "style": "hotel",
+        "tier": "prestige",
+        "stars": 5,
+        "channel": "ghazal_voucher",
+        "status": "published",
+        "governorateId": "capital",
+        "areaId": "sharq",
+        "address": {
+         "block": "4",
+         "street": {
+          "en": "Gulf Street",
+          "ar": "شارع الخليج"
+         }
+        },
+        "geo": {
+         "lat": 29.387,
+         "lng": 47.996
+        },
+        "tagline": {
+         "en": "A Gulf-front ballroom for ladies’ receptions",
+         "ar": "قاعة واسعة على واجهة الخليج للحفلات النسائية"
+        },
+        "cover": {
+         "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+         "width": 1800,
+         "height": 1196,
+         "orientation": "landscape",
+         "alt": {
+          "en": "Bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+          "ar": "قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+         }
+        },
+        "hasVideo": true,
+        "rating": {
+         "average": 4.8,
+         "count": 212,
+         "categories": {
+          "venue": 4.8,
+          "food": 4.7,
+          "service": 4.9,
+          "value": 4.6
+         }
+        },
+        "voucherEnabled": true,
+        "flags": {
+         "featured": false,
+         "sponsored": false,
+         "isNew": false
+        }
+       },
+       "price": {
+        "mode": "exact",
+        "amount": {
+         "fils": 18200000,
+         "currency": "KWD"
+        },
+        "guests": 350,
+        "packageId": "V01-ladies-weekend",
+        "tier": "weekend",
+        "voucher": {
+         "fils": 15400000,
+         "currency": "KWD"
+        },
+        "savings": {
+         "fils": 2800000,
+         "currency": "KWD"
+        }
+       },
+       "availability": "available",
+       "availabilityHallId": "V01-danah",
+       "badge": null,
+       "windowId": null,
+       "guestRange": {
+        "min": 200,
+        "max": 650
+       },
+       "structures": [
+        "per_person"
+       ],
+       "tags": [
+        "women",
+        "men"
+       ],
+       "distance": {
+        "km": 13,
+        "minutes": 18
+       },
+       "sponsored": false
+      },
+      "date": null
+     }
+    ]
+   }
+  ],
+  "categories": [
+   {
+    "id": "luxury-hotels",
+    "venueCount": 5
+   },
+   {
+    "id": "wedding-halls",
+    "venueCount": 6
+   }
+  ],
+  "unreadNotifications": 2,
+  "daysToWedding": 63
+ },
+ "Me": {
+  "user": {
+   "id": "user-reem",
+   "role": "client",
+   "name": "ريم الدوسري",
+   "nameLatin": "Reem Al-Dosari",
+   "monogram": "ر",
+   "phone": "+96550000012",
+   "email": null,
+   "locale": "ar",
+   "digitStyle": "western",
+   "createdAt": "2026-10-25T20:10:00+03:00"
+  },
+  "permissions": [],
+  "phoneVerified": true,
+  "emailVerified": false,
+  "hasPassword": true,
+  "marketingOptIn": false
+ },
+ "OtpChallenge": {
+  "challengeId": "ch_01JEXAMPLE0012",
+  "channel": "whatsapp",
+  "destinationHint": "+965 **** 0012",
+  "expiresInSeconds": 300,
+  "resendAfterSeconds": 60,
+  "codeLength": 6
+ },
+ "PartnerLoginResult": {
+  "status": "code_required",
+  "session": null,
+  "challenge": {
+   "challengeId": "ch_01JEXAMPLEMAIL",
+   "channel": "email",
+   "destinationHint": "h***@aurelia-gulf.example",
+   "expiresInSeconds": 600,
+   "resendAfterSeconds": 60,
+   "codeLength": 6
+  }
+ },
+ "PartnerRequestDetail": {
+  "booking": {
+   "id": "bk-GZ-2611-0147",
+   "ref": "GZ-2611-0147",
+   "targetType": "venue",
+   "venueId": "V01",
+   "providerId": null,
+   "clientId": "user-reem",
+   "clientName": "ريم الدوسري",
+   "weddingId": "wedding-reem",
+   "status": "pending",
+   "createdAt": "2026-11-12T12:40:00+03:00",
+   "eventDate": "2027-01-14",
+   "sections": [
+    {
+     "position": 1,
+     "hallId": "V01-danah",
+     "sessionId": "V01-danah-evening",
+     "audience": "women",
+     "guests": 350,
+     "billableGuests": 350,
+     "packageId": "V01-ladies-weekend",
+     "start": "21:00",
+     "end": "02:00"
+    }
+   ],
+   "service": null,
+   "lines": [
+    {
+     "kind": "package",
+     "section": 1,
+     "name": {
+      "en": "Ladies’ Reception, Weekend",
+      "ar": "الحفل النسائي · نهاية الأسبوع"
+     },
+     "qty": 350,
+     "unit": {
+      "fils": 44000,
+      "currency": "KWD"
+     },
+     "amount": {
+      "fils": 15400000,
+      "currency": "KWD"
+     },
+     "standardUnit": {
+      "fils": 52000,
+      "currency": "KWD"
+     },
+     "standardAmount": {
+      "fils": 18200000,
+      "currency": "KWD"
+     },
+     "ruleId": "V01-ladies-weekend-r1"
+    }
+   ],
+   "totals": {
+    "standardSubtotal": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "standardServiceCharge": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "standardTotal": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "voucherSubtotal": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "venueDiscount": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "voucherServiceCharge": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "voucherTotal": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "savings": {
+     "fils": 2800000,
+     "currency": "KWD"
+    },
+    "voucherFee": {
+     "fils": 2000,
+     "currency": "KWD"
+    },
+    "netSavings": 2798000
+   },
+   "voucherId": "vch-GV-2611-K7QM",
+   "respondBy": "2026-11-13T12:40:00+03:00",
+   "approvedAt": null,
+   "confirmBy": null,
+   "confirmedAt": null,
+   "redeemedAt": null,
+   "redeemedBy": null,
+   "completedAt": null,
+   "slaHours": 24,
+   "contact": {
+    "name": "ريم الدوسري",
+    "phone": "+96550000012",
+    "shared": true,
+    "bookingFor": "bride"
+   },
+   "specialRequests": "نحتاج مدخلًا منفصلًا لكبار السن ومكانًا مخصصًا للعبايات.",
+   "firstBooking": true,
+   "verifiedPhone": true,
+   "thread": [
+    {
+     "node": "request",
+     "state": "done",
+     "at": "2026-11-12T12:40:00+03:00"
+    },
+    {
+     "node": "approval",
+     "state": "current",
+     "at": "2026-11-13T12:40:00+03:00"
+    },
+    {
+     "node": "confirmation",
+     "state": "future",
+     "at": null
+    },
+    {
+     "node": "redemption",
+     "state": "future",
+     "at": null
+    },
+    {
+     "node": "day",
+     "state": "future",
+     "at": "2027-01-14T21:00:00+03:00"
+    }
+   ],
+   "events": [
+    {
+     "at": "2026-11-12T12:40:00+03:00",
+     "kind": "transition",
+     "from": null,
+     "to": "pending",
+     "actor": "client",
+     "actorName": "ريم الدوسري"
+    }
+   ],
+   "cancelledBy": null,
+   "reasonCode": null,
+   "rejectReason": null,
+   "expiredReason": null,
+   "proposal": null,
+   "overlays": {},
+   "approvedDiscount": null,
+   "version": 2,
+   "allowedActions": [
+    "message",
+    "withdraw",
+    "call"
+   ]
+  },
+  "voucher": {
+   "id": "vch-GV-2611-K7QM",
+   "kind": "bound",
+   "code": "GV-2611-K7QM",
+   "clientId": "user-reem",
+   "targetType": "venue",
+   "venueOrProviderId": "V01",
+   "hallId": "V01-danah",
+   "packageId": "V01-ladies-weekend",
+   "eventDate": "2027-01-14",
+   "guests": 350,
+   "quoteFils": {
+    "standard": 18200000,
+    "voucher": 15400000
+   },
+   "priceFils": 2000,
+   "status": "bound",
+   "purchasedAt": "2026-11-12T12:31:00+03:00",
+   "validUntil": "2027-01-11T12:31:00+03:00",
+   "reuseUntil": null,
+   "qr": {
+    "payload": "gz:v1:GV-2611-K7QM:V01:CBDA",
+    "version": 1
+   },
+   "bookingId": "bk-GZ-2611-0147",
+   "payment": {
+    "method": "knet",
+    "receiptNo": "RC-050039",
+    "amount": {
+     "fils": 2000,
+     "currency": "KWD"
+    },
+    "status": "succeeded",
+    "at": "2026-11-12T12:32:00+03:00"
+   },
+   "releasedAt": null,
+   "releaseReason": null,
+   "forfeitedAt": null,
+   "creditEligible": false,
+   "refundRequestId": null,
+   "grantedFrom": null,
+   "usedAt": null,
+   "usedReason": null,
+   "redeemedBy": null
+  },
+  "target": {
+   "kind": "venue",
+   "id": "V01",
+   "name": {
+    "en": "Aurelia Gulf Hotel",
+    "ar": "فندق أوريليا الخليج"
+   },
+   "monogram": "A",
+   "areaId": "sharq",
+   "cover": {
+    "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+    "width": 1800,
+    "height": 1196,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+     "ar": "قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+    }
+   },
+   "phone": "+96550000002",
+   "channel": "ghazal_voucher"
+  },
+  "halls": [
+   {
+    "id": "V01-danah",
+    "name": {
+     "en": "Danah Ballroom",
+     "ar": "قاعة الدانة"
+    }
+   }
+  ],
+  "client": {
+   "name": "ريم الدوسري",
+   "phone": "+96550000012",
+   "shared": true,
+   "bookingFor": "bride"
+  },
+  "sla": {
+   "state": "neutral",
+   "elapsed": 0.1388888888888889,
+   "minutesLeft": 1240,
+   "minutesWaiting": 200
+  },
+  "otherRequestsSameDate": 1,
+  "conversationId": null
+ },
+ "PartnerRequestRow": {
+  "booking": {
+   "id": "bk-GZ-2611-0147",
+   "ref": "GZ-2611-0147",
+   "targetType": "venue",
+   "venueId": "V01",
+   "providerId": null,
+   "clientId": "user-reem",
+   "clientName": "ريم الدوسري",
+   "weddingId": "wedding-reem",
+   "status": "pending",
+   "createdAt": "2026-11-12T12:40:00+03:00",
+   "eventDate": "2027-01-14",
+   "sections": [
+    {
+     "position": 1,
+     "hallId": "V01-danah",
+     "sessionId": "V01-danah-evening",
+     "audience": "women",
+     "guests": 350,
+     "billableGuests": 350,
+     "packageId": "V01-ladies-weekend",
+     "start": "21:00",
+     "end": "02:00"
+    }
+   ],
+   "service": null,
+   "lines": [
+    {
+     "kind": "package",
+     "section": 1,
+     "name": {
+      "en": "Ladies’ Reception, Weekend",
+      "ar": "الحفل النسائي · نهاية الأسبوع"
+     },
+     "qty": 350,
+     "unit": {
+      "fils": 44000,
+      "currency": "KWD"
+     },
+     "amount": {
+      "fils": 15400000,
+      "currency": "KWD"
+     },
+     "standardUnit": {
+      "fils": 52000,
+      "currency": "KWD"
+     },
+     "standardAmount": {
+      "fils": 18200000,
+      "currency": "KWD"
+     },
+     "ruleId": "V01-ladies-weekend-r1"
+    }
+   ],
+   "totals": {
+    "standardSubtotal": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "standardServiceCharge": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "standardTotal": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "voucherSubtotal": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "venueDiscount": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "voucherServiceCharge": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "voucherTotal": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "savings": {
+     "fils": 2800000,
+     "currency": "KWD"
+    },
+    "voucherFee": {
+     "fils": 2000,
+     "currency": "KWD"
+    },
+    "netSavings": 2798000
+   },
+   "voucherId": "vch-GV-2611-K7QM",
+   "respondBy": "2026-11-13T12:40:00+03:00",
+   "approvedAt": null,
+   "confirmBy": null,
+   "confirmedAt": null,
+   "redeemedAt": null,
+   "redeemedBy": null,
+   "completedAt": null,
+   "slaHours": 24,
+   "contact": {
+    "name": "ريم الدوسري",
+    "phone": "+96550000012",
+    "shared": true,
+    "bookingFor": "bride"
+   },
+   "specialRequests": "نحتاج مدخلًا منفصلًا لكبار السن ومكانًا مخصصًا للعبايات.",
+   "firstBooking": true,
+   "verifiedPhone": true,
+   "thread": [
+    {
+     "node": "request",
+     "state": "done",
+     "at": "2026-11-12T12:40:00+03:00"
+    },
+    {
+     "node": "approval",
+     "state": "current",
+     "at": "2026-11-13T12:40:00+03:00"
+    },
+    {
+     "node": "confirmation",
+     "state": "future",
+     "at": null
+    },
+    {
+     "node": "redemption",
+     "state": "future",
+     "at": null
+    },
+    {
+     "node": "day",
+     "state": "future",
+     "at": "2027-01-14T21:00:00+03:00"
+    }
+   ],
+   "events": [
+    {
+     "at": "2026-11-12T12:40:00+03:00",
+     "kind": "transition",
+     "from": null,
+     "to": "pending",
+     "actor": "client",
+     "actorName": "ريم الدوسري"
+    }
+   ],
+   "cancelledBy": null,
+   "reasonCode": null,
+   "rejectReason": null,
+   "expiredReason": null,
+   "proposal": null,
+   "overlays": {},
+   "approvedDiscount": null,
+   "version": 2,
+   "allowedActions": [
+    "message",
+    "withdraw",
+    "call"
+   ]
+  },
+  "voucher": {
+   "id": "vch-GV-2611-K7QM",
+   "kind": "bound",
+   "code": "GV-2611-K7QM",
+   "clientId": "user-reem",
+   "targetType": "venue",
+   "venueOrProviderId": "V01",
+   "hallId": "V01-danah",
+   "packageId": "V01-ladies-weekend",
+   "eventDate": "2027-01-14",
+   "guests": 350,
+   "quoteFils": {
+    "standard": 18200000,
+    "voucher": 15400000
+   },
+   "priceFils": 2000,
+   "status": "bound",
+   "purchasedAt": "2026-11-12T12:31:00+03:00",
+   "validUntil": "2027-01-11T12:31:00+03:00",
+   "reuseUntil": null,
+   "qr": {
+    "payload": "gz:v1:GV-2611-K7QM:V01:CBDA",
+    "version": 1
+   },
+   "bookingId": "bk-GZ-2611-0147",
+   "payment": {
+    "method": "knet",
+    "receiptNo": "RC-050039",
+    "amount": {
+     "fils": 2000,
+     "currency": "KWD"
+    },
+    "status": "succeeded",
+    "at": "2026-11-12T12:32:00+03:00"
+   },
+   "releasedAt": null,
+   "releaseReason": null,
+   "forfeitedAt": null,
+   "creditEligible": false,
+   "refundRequestId": null,
+   "grantedFrom": null,
+   "usedAt": null,
+   "usedReason": null,
+   "redeemedBy": null
+  },
+  "halls": [
+   {
+    "id": "V01-danah",
+    "name": {
+     "en": "Danah Ballroom",
+     "ar": "قاعة الدانة"
+    }
+   }
+  ],
+  "sla": {
+   "state": "neutral",
+   "elapsed": 0.1388888888888889,
+   "minutesLeft": 1240,
+   "minutesWaiting": 200
+  },
+  "otherRequestsSameDate": 1
+ },
+ "PaymentSession": {
+  "id": "pay_01JEXAMPLE",
+  "voucherId": "vch-GV-2611-K7QM",
+  "method": "knet",
+  "status": "created",
+  "amount": {
+   "fils": 2000,
+   "currency": "KWD"
+  },
+  "redirectUrl": "https://pay.mock.ghazal.local/s/pay_01JEXAMPLE",
+  "expiresAt": "2026-11-12T16:30:00+03:00"
+ },
+ "PaymentState": {
+  "id": "pay_01JEXAMPLE",
+  "status": "succeeded",
+  "voucher": {
+   "id": "vch-GV-2611-K7QM",
+   "kind": "bound",
+   "code": "GV-2611-K7QM",
+   "clientId": "user-reem",
+   "targetType": "venue",
+   "venueOrProviderId": "V01",
+   "hallId": "V01-danah",
+   "packageId": "V01-ladies-weekend",
+   "eventDate": "2027-01-14",
+   "guests": 350,
+   "quoteFils": {
+    "standard": 18200000,
+    "voucher": 15400000
+   },
+   "priceFils": 2000,
+   "status": "bound",
+   "purchasedAt": "2026-11-12T12:31:00+03:00",
+   "validUntil": "2027-01-11T12:31:00+03:00",
+   "reuseUntil": null,
+   "qr": {
+    "payload": "gz:v1:GV-2611-K7QM:V01:CBDA",
+    "version": 1
+   },
+   "bookingId": "bk-GZ-2611-0147",
+   "payment": {
+    "method": "knet",
+    "receiptNo": "RC-050039",
+    "amount": {
+     "fils": 2000,
+     "currency": "KWD"
+    },
+    "status": "succeeded",
+    "at": "2026-11-12T12:32:00+03:00"
+   },
+   "releasedAt": null,
+   "releaseReason": null,
+   "forfeitedAt": null,
+   "creditEligible": false,
+   "refundRequestId": null,
+   "grantedFrom": null,
+   "usedAt": null,
+   "usedReason": null,
+   "redeemedBy": null
+  },
+  "failureCode": null
+ },
+ "Problem": {
+  "type": "https://api.ghazal.example/problems/slot-unavailable",
+  "title": "Slot unavailable",
+  "status": 409,
+  "code": "SLOT_UNAVAILABLE",
+  "requestId": "6b0f6d1c-3f1f-4e0b-8a5e-1d2c3b4a5f60",
+  "params": {
+   "eventDate": "2027-01-14",
+   "reason": "held"
+  },
+  "alternatives": [
+   {
+    "eventDate": "2027-01-21",
+    "hallId": "V01-danah"
+   }
+  ]
+ },
+ "Quote": {
+  "quoteId": "qt_01JEXAMPLEDANAH",
+  "expiresAt": "2026-11-12T16:30:00+03:00",
+  "targetType": "venue",
+  "targetId": "V01",
+  "eventDate": "2027-01-14",
+  "lines": [
+   {
+    "kind": "package",
+    "section": 1,
+    "name": {
+     "en": "Ladies’ Reception, Weekend",
+     "ar": "الحفل النسائي · نهاية الأسبوع"
+    },
+    "qty": 350,
+    "unit": {
+     "fils": 44000,
+     "currency": "KWD"
+    },
+    "amount": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "standardUnit": {
+     "fils": 52000,
+     "currency": "KWD"
+    },
+    "standardAmount": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "ruleId": "V01-ladies-weekend-r1"
+   }
+  ],
+  "totals": {
+   "standardSubtotal": {
+    "fils": 18200000,
+    "currency": "KWD"
+   },
+   "standardServiceCharge": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "standardTotal": {
+    "fils": 18200000,
+    "currency": "KWD"
+   },
+   "voucherSubtotal": {
+    "fils": 15400000,
+    "currency": "KWD"
+   },
+   "venueDiscount": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "voucherServiceCharge": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "voucherTotal": {
+    "fils": 15400000,
+    "currency": "KWD"
+   },
+   "savings": {
+    "fils": 2800000,
+    "currency": "KWD"
+   },
+   "voucherFee": {
+    "fils": 2000,
+    "currency": "KWD"
+   },
+   "netSavings": 2798000
+  },
+  "voucherOffered": true
+ },
+ "RedeemCheck": {
+  "ok": true,
+  "reason": null,
+  "usedAt": null,
+  "voucher": {
+   "id": "vch-GV-2611-K7QM",
+   "kind": "bound",
+   "code": "GV-2611-K7QM",
+   "clientId": "user-reem",
+   "targetType": "venue",
+   "venueOrProviderId": "V01",
+   "hallId": "V01-danah",
+   "packageId": "V01-ladies-weekend",
+   "eventDate": "2027-01-14",
+   "guests": 350,
+   "quoteFils": {
+    "standard": 18200000,
+    "voucher": 15400000
+   },
+   "priceFils": 2000,
+   "status": "bound",
+   "purchasedAt": "2026-11-12T12:31:00+03:00",
+   "validUntil": "2027-01-11T12:31:00+03:00",
+   "reuseUntil": null,
+   "qr": {
+    "payload": "gz:v1:GV-2611-K7QM:V01:CBDA",
+    "version": 1
+   },
+   "bookingId": "bk-GZ-2611-0147",
+   "payment": {
+    "method": "knet",
+    "receiptNo": "RC-050039",
+    "amount": {
+     "fils": 2000,
+     "currency": "KWD"
+    },
+    "status": "succeeded",
+    "at": "2026-11-12T12:32:00+03:00"
+   },
+   "releasedAt": null,
+   "releaseReason": null,
+   "forfeitedAt": null,
+   "creditEligible": false,
+   "refundRequestId": null,
+   "grantedFrom": null,
+   "usedAt": null,
+   "usedReason": null,
+   "redeemedBy": null
+  },
+  "booking": {
+   "id": "bk-GZ-2611-0147",
+   "ref": "GZ-2611-0147",
+   "targetType": "venue",
+   "venueId": "V01",
+   "providerId": null,
+   "clientId": "user-reem",
+   "clientName": "ريم الدوسري",
+   "weddingId": "wedding-reem",
+   "status": "confirmed",
+   "createdAt": "2026-11-12T12:40:00+03:00",
+   "eventDate": "2027-01-14",
+   "sections": [
+    {
+     "position": 1,
+     "hallId": "V01-danah",
+     "sessionId": "V01-danah-evening",
+     "audience": "women",
+     "guests": 350,
+     "billableGuests": 350,
+     "packageId": "V01-ladies-weekend",
+     "start": "21:00",
+     "end": "02:00"
+    }
+   ],
+   "service": null,
+   "lines": [
+    {
+     "kind": "package",
+     "section": 1,
+     "name": {
+      "en": "Ladies’ Reception, Weekend",
+      "ar": "الحفل النسائي · نهاية الأسبوع"
+     },
+     "qty": 350,
+     "unit": {
+      "fils": 44000,
+      "currency": "KWD"
+     },
+     "amount": {
+      "fils": 15400000,
+      "currency": "KWD"
+     },
+     "standardUnit": {
+      "fils": 52000,
+      "currency": "KWD"
+     },
+     "standardAmount": {
+      "fils": 18200000,
+      "currency": "KWD"
+     },
+     "ruleId": "V01-ladies-weekend-r1"
+    }
+   ],
+   "totals": {
+    "standardSubtotal": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "standardServiceCharge": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "standardTotal": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "voucherSubtotal": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "venueDiscount": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "voucherServiceCharge": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "voucherTotal": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "savings": {
+     "fils": 2800000,
+     "currency": "KWD"
+    },
+    "voucherFee": {
+     "fils": 2000,
+     "currency": "KWD"
+    },
+    "netSavings": 2798000
+   },
+   "voucherId": "vch-GV-2611-K7QM",
+   "respondBy": null,
+   "approvedAt": "2026-11-12T16:00:00+03:00",
+   "confirmBy": "2026-11-13T16:00:00+03:00",
+   "confirmedAt": "2026-11-12T16:12:00+03:00",
+   "redeemedAt": null,
+   "redeemedBy": null,
+   "completedAt": null,
+   "slaHours": 24,
+   "contact": {
+    "name": "ريم الدوسري",
+    "phone": "+96550000012",
+    "shared": true,
+    "bookingFor": "bride"
+   },
+   "specialRequests": "نحتاج مدخلًا منفصلًا لكبار السن ومكانًا مخصصًا للعبايات.",
+   "firstBooking": true,
+   "verifiedPhone": true,
+   "thread": [
+    {
+     "node": "request",
+     "state": "done",
+     "at": "2026-11-12T12:40:00+03:00"
+    },
+    {
+     "node": "approval",
+     "state": "done",
+     "at": "2026-11-12T16:00:00+03:00"
+    },
+    {
+     "node": "confirmation",
+     "state": "done",
+     "at": "2026-11-12T16:12:00+03:00"
+    },
+    {
+     "node": "redemption",
+     "state": "current",
+     "at": null
+    },
+    {
+     "node": "day",
+     "state": "future",
+     "at": "2027-01-14T21:00:00+03:00"
+    }
+   ],
+   "events": [
+    {
+     "at": "2026-11-12T12:40:00+03:00",
+     "kind": "transition",
+     "from": null,
+     "to": "pending",
+     "actor": "client",
+     "actorName": "ريم الدوسري"
+    },
+    {
+     "at": "2026-11-12T16:00:00+03:00",
+     "kind": "transition",
+     "from": "pending",
+     "to": "approved",
+     "actor": "venue",
+     "actorName": "Hind Al-Enezi"
+    },
+    {
+     "at": "2026-11-12T16:12:00+03:00",
+     "kind": "transition",
+     "from": "approved",
+     "to": "confirmed",
+     "actor": "client",
+     "actorName": "ريم الدوسري"
+    }
+   ],
+   "cancelledBy": null,
+   "reasonCode": null,
+   "rejectReason": null,
+   "expiredReason": null,
+   "proposal": null,
+   "overlays": {},
+   "approvedDiscount": null,
+   "version": 4,
+   "allowedActions": [
+    "message",
+    "cancel",
+    "call",
+    "open_voucher"
+   ]
+  }
+ },
+ "VenueAvailability": {
+  "venueId": "V01",
+  "hallId": "V01-danah",
+  "from": "2027-01-14",
+  "to": "2027-01-14",
+  "days": [
+   {
+    "date": "2027-01-14",
+    "hallId": "V01-danah",
+    "state": "available",
+    "tier": "weekend",
+    "sessions": [
+     {
+      "sessionId": "V01-danah-evening",
+      "state": "available"
+     }
+    ],
+    "fromPrice": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "voucherPrice": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "packageId": "V01-ladies-weekend"
+   }
+  ]
+ },
+ "VenueResult": {
+  "venue": {
+   "id": "V01",
+   "slug": "aurelia-gulf-hotel",
+   "name": {
+    "en": "Aurelia Gulf Hotel",
+    "ar": "فندق أوريليا الخليج"
+   },
+   "type": "hotel",
+   "style": "hotel",
+   "tier": "prestige",
+   "stars": 5,
+   "channel": "ghazal_voucher",
+   "status": "published",
+   "governorateId": "capital",
+   "areaId": "sharq",
+   "address": {
+    "block": "4",
+    "street": {
+     "en": "Gulf Street",
+     "ar": "شارع الخليج"
+    }
+   },
+   "geo": {
+    "lat": 29.387,
+    "lng": 47.996
+   },
+   "tagline": {
+    "en": "A Gulf-front ballroom for ladies’ receptions",
+    "ar": "قاعة واسعة على واجهة الخليج للحفلات النسائية"
+   },
+   "cover": {
+    "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+    "width": 1800,
+    "height": 1196,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+     "ar": "قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+    }
+   },
+   "hasVideo": true,
+   "rating": {
+    "average": 4.8,
+    "count": 212,
+    "categories": {
+     "venue": 4.8,
+     "food": 4.7,
+     "service": 4.9,
+     "value": 4.6
+    }
+   },
+   "voucherEnabled": true,
+   "flags": {
+    "featured": false,
+    "sponsored": false,
+    "isNew": false
+   }
+  },
+  "price": {
+   "mode": "exact",
+   "amount": {
+    "fils": 18200000,
+    "currency": "KWD"
+   },
+   "guests": 350,
+   "packageId": "V01-ladies-weekend",
+   "tier": "weekend",
+   "voucher": {
+    "fils": 15400000,
+    "currency": "KWD"
+   },
+   "savings": {
+    "fils": 2800000,
+    "currency": "KWD"
+   }
+  },
+  "availability": "available",
+  "availabilityHallId": "V01-danah",
+  "badge": null,
+  "windowId": null,
+  "guestRange": {
+   "min": 200,
+   "max": 650
+  },
+  "structures": [
+   "per_person"
+  ],
+  "tags": [
+   "women",
+   "men"
+  ],
+  "distance": {
+   "km": 13,
+   "minutes": 18
+  },
+  "sponsored": false
+ },
+ "VenueSummary": {
+  "id": "V01",
+  "slug": "aurelia-gulf-hotel",
+  "name": {
+   "en": "Aurelia Gulf Hotel",
+   "ar": "فندق أوريليا الخليج"
+  },
+  "type": "hotel",
+  "style": "hotel",
+  "tier": "prestige",
+  "stars": 5,
+  "channel": "ghazal_voucher",
+  "status": "published",
+  "governorateId": "capital",
+  "areaId": "sharq",
+  "address": {
+   "block": "4",
+   "street": {
+    "en": "Gulf Street",
+    "ar": "شارع الخليج"
+   }
+  },
+  "geo": {
+   "lat": 29.387,
+   "lng": 47.996
+  },
+  "tagline": {
+   "en": "A Gulf-front ballroom for ladies’ receptions",
+   "ar": "قاعة واسعة على واجهة الخليج للحفلات النسائية"
+  },
+  "cover": {
+   "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+   "width": 1800,
+   "height": 1196,
+   "orientation": "landscape",
+   "alt": {
+    "en": "Bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+    "ar": "قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+   }
+  },
+  "hasVideo": true,
+  "rating": {
+   "average": 4.8,
+   "count": 212,
+   "categories": {
+    "venue": 4.8,
+    "food": 4.7,
+    "service": 4.9,
+    "value": 4.6
+   }
+  },
+  "voucherEnabled": true,
+  "flags": {
+   "featured": false,
+   "sponsored": false,
+   "isNew": false
+  }
+ },
+ "Voucher": {
+  "id": "vch-GV-2611-K7QM",
+  "kind": "bound",
+  "code": "GV-2611-K7QM",
+  "clientId": "user-reem",
+  "targetType": "venue",
+  "venueOrProviderId": "V01",
+  "hallId": "V01-danah",
+  "packageId": "V01-ladies-weekend",
+  "eventDate": "2027-01-14",
+  "guests": 350,
+  "quoteFils": {
+   "standard": 18200000,
+   "voucher": 15400000
+  },
+  "priceFils": 2000,
+  "status": "bound",
+  "purchasedAt": "2026-11-12T12:31:00+03:00",
+  "validUntil": "2027-01-11T12:31:00+03:00",
+  "reuseUntil": null,
+  "qr": {
+   "payload": "gz:v1:GV-2611-K7QM:V01:CBDA",
+   "version": 1
+  },
+  "bookingId": "bk-GZ-2611-0147",
+  "payment": {
+   "method": "knet",
+   "receiptNo": "RC-050039",
+   "amount": {
+    "fils": 2000,
+    "currency": "KWD"
+   },
+   "status": "succeeded",
+   "at": "2026-11-12T12:32:00+03:00"
+  },
+  "releasedAt": null,
+  "releaseReason": null,
+  "forfeitedAt": null,
+  "creditEligible": false,
+  "refundRequestId": null,
+  "grantedFrom": null,
+  "usedAt": null,
+  "usedReason": null,
+  "redeemedBy": null
+ },
+ "VoucherAndRequest": {
+  "voucher": {
+   "id": "vch-GV-2611-K7QM",
+   "kind": "bound",
+   "code": "GV-2611-K7QM",
+   "clientId": "user-reem",
+   "targetType": "venue",
+   "venueOrProviderId": "V01",
+   "hallId": "V01-danah",
+   "packageId": "V01-ladies-weekend",
+   "eventDate": "2027-01-14",
+   "guests": 350,
+   "quoteFils": {
+    "standard": 18200000,
+    "voucher": 15400000
+   },
+   "priceFils": 2000,
+   "status": "bound",
+   "purchasedAt": "2026-11-12T12:31:00+03:00",
+   "validUntil": "2027-01-11T12:31:00+03:00",
+   "reuseUntil": null,
+   "qr": {
+    "payload": "gz:v1:GV-2611-K7QM:V01:CBDA",
+    "version": 1
+   },
+   "bookingId": "bk-GZ-2611-0147",
+   "payment": {
+    "method": "knet",
+    "receiptNo": "RC-050039",
+    "amount": {
+     "fils": 2000,
+     "currency": "KWD"
+    },
+    "status": "succeeded",
+    "at": "2026-11-12T12:32:00+03:00"
+   },
+   "releasedAt": null,
+   "releaseReason": null,
+   "forfeitedAt": null,
+   "creditEligible": false,
+   "refundRequestId": null,
+   "grantedFrom": null,
+   "usedAt": null,
+   "usedReason": null,
+   "redeemedBy": null
+  },
+  "booking": {
+   "id": "bk-GZ-2611-0147",
+   "ref": "GZ-2611-0147",
+   "targetType": "venue",
+   "venueId": "V01",
+   "providerId": null,
+   "clientId": "user-reem",
+   "clientName": "ريم الدوسري",
+   "weddingId": "wedding-reem",
+   "status": "confirmed",
+   "createdAt": "2026-11-12T12:40:00+03:00",
+   "eventDate": "2027-01-14",
+   "sections": [
+    {
+     "position": 1,
+     "hallId": "V01-danah",
+     "sessionId": "V01-danah-evening",
+     "audience": "women",
+     "guests": 350,
+     "billableGuests": 350,
+     "packageId": "V01-ladies-weekend",
+     "start": "21:00",
+     "end": "02:00"
+    }
+   ],
+   "service": null,
+   "lines": [
+    {
+     "kind": "package",
+     "section": 1,
+     "name": {
+      "en": "Ladies’ Reception, Weekend",
+      "ar": "الحفل النسائي · نهاية الأسبوع"
+     },
+     "qty": 350,
+     "unit": {
+      "fils": 44000,
+      "currency": "KWD"
+     },
+     "amount": {
+      "fils": 15400000,
+      "currency": "KWD"
+     },
+     "standardUnit": {
+      "fils": 52000,
+      "currency": "KWD"
+     },
+     "standardAmount": {
+      "fils": 18200000,
+      "currency": "KWD"
+     },
+     "ruleId": "V01-ladies-weekend-r1"
+    }
+   ],
+   "totals": {
+    "standardSubtotal": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "standardServiceCharge": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "standardTotal": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "voucherSubtotal": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "venueDiscount": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "voucherServiceCharge": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "voucherTotal": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "savings": {
+     "fils": 2800000,
+     "currency": "KWD"
+    },
+    "voucherFee": {
+     "fils": 2000,
+     "currency": "KWD"
+    },
+    "netSavings": 2798000
+   },
+   "voucherId": "vch-GV-2611-K7QM",
+   "respondBy": null,
+   "approvedAt": "2026-11-12T16:00:00+03:00",
+   "confirmBy": "2026-11-13T16:00:00+03:00",
+   "confirmedAt": "2026-11-12T16:12:00+03:00",
+   "redeemedAt": null,
+   "redeemedBy": null,
+   "completedAt": null,
+   "slaHours": 24,
+   "contact": {
+    "name": "ريم الدوسري",
+    "phone": "+96550000012",
+    "shared": true,
+    "bookingFor": "bride"
+   },
+   "specialRequests": "نحتاج مدخلًا منفصلًا لكبار السن ومكانًا مخصصًا للعبايات.",
+   "firstBooking": true,
+   "verifiedPhone": true,
+   "thread": [
+    {
+     "node": "request",
+     "state": "done",
+     "at": "2026-11-12T12:40:00+03:00"
+    },
+    {
+     "node": "approval",
+     "state": "done",
+     "at": "2026-11-12T16:00:00+03:00"
+    },
+    {
+     "node": "confirmation",
+     "state": "done",
+     "at": "2026-11-12T16:12:00+03:00"
+    },
+    {
+     "node": "redemption",
+     "state": "current",
+     "at": null
+    },
+    {
+     "node": "day",
+     "state": "future",
+     "at": "2027-01-14T21:00:00+03:00"
+    }
+   ],
+   "events": [
+    {
+     "at": "2026-11-12T12:40:00+03:00",
+     "kind": "transition",
+     "from": null,
+     "to": "pending",
+     "actor": "client",
+     "actorName": "ريم الدوسري"
+    },
+    {
+     "at": "2026-11-12T16:00:00+03:00",
+     "kind": "transition",
+     "from": "pending",
+     "to": "approved",
+     "actor": "venue",
+     "actorName": "Hind Al-Enezi"
+    },
+    {
+     "at": "2026-11-12T16:12:00+03:00",
+     "kind": "transition",
+     "from": "approved",
+     "to": "confirmed",
+     "actor": "client",
+     "actorName": "ريم الدوسري"
+    }
+   ],
+   "cancelledBy": null,
+   "reasonCode": null,
+   "rejectReason": null,
+   "expiredReason": null,
+   "proposal": null,
+   "overlays": {},
+   "approvedDiscount": null,
+   "version": 4,
+   "allowedActions": [
+    "message",
+    "cancel",
+    "call",
+    "open_voucher"
+   ]
+  },
+  "halls": [
+   {
+    "id": "V01-danah",
+    "name": {
+     "en": "Danah Ballroom",
+     "ar": "قاعة الدانة"
+    }
+   }
+  ]
+ },
+ "VoucherCheckout": {
+  "voucher": {
+   "id": "vch-GV-2611-K7QM",
+   "kind": "bound",
+   "code": "GV-2611-K7QM",
+   "clientId": "user-reem",
+   "targetType": "venue",
+   "venueOrProviderId": "V01",
+   "hallId": "V01-danah",
+   "packageId": "V01-ladies-weekend",
+   "eventDate": "2027-01-14",
+   "guests": 350,
+   "quoteFils": {
+    "standard": 18200000,
+    "voucher": 15400000
+   },
+   "priceFils": 2000,
+   "status": "unpaid",
+   "purchasedAt": null,
+   "validUntil": null,
+   "reuseUntil": null,
+   "qr": {
+    "payload": "gz:v1:GV-2611-K7QM:V01:CBDA",
+    "version": 1
+   },
+   "bookingId": null,
+   "payment": null,
+   "releasedAt": null,
+   "releaseReason": null,
+   "forfeitedAt": null,
+   "creditEligible": false,
+   "refundRequestId": null,
+   "grantedFrom": null,
+   "usedAt": null,
+   "usedReason": null,
+   "redeemedBy": null
+  },
+  "amount": {
+   "fils": 2000,
+   "currency": "KWD"
+  },
+  "expiresAt": "2026-11-12T16:30:00+03:00",
+  "methods": [
+   "knet",
+   "apple_pay",
+   "card"
+  ],
+  "quote": {
+   "quoteId": "qt_01JEXAMPLEDANAH",
+   "expiresAt": "2026-11-12T16:30:00+03:00",
+   "targetType": "venue",
+   "targetId": "V01",
+   "eventDate": "2027-01-14",
+   "lines": [
+    {
+     "kind": "package",
+     "section": 1,
+     "name": {
+      "en": "Ladies’ Reception, Weekend",
+      "ar": "الحفل النسائي · نهاية الأسبوع"
+     },
+     "qty": 350,
+     "unit": {
+      "fils": 44000,
+      "currency": "KWD"
+     },
+     "amount": {
+      "fils": 15400000,
+      "currency": "KWD"
+     },
+     "standardUnit": {
+      "fils": 52000,
+      "currency": "KWD"
+     },
+     "standardAmount": {
+      "fils": 18200000,
+      "currency": "KWD"
+     },
+     "ruleId": "V01-ladies-weekend-r1"
+    }
+   ],
+   "totals": {
+    "standardSubtotal": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "standardServiceCharge": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "standardTotal": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "voucherSubtotal": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "venueDiscount": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "voucherServiceCharge": {
+     "fils": 0,
+     "currency": "KWD"
+    },
+    "voucherTotal": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "savings": {
+     "fils": 2800000,
+     "currency": "KWD"
+    },
+    "voucherFee": {
+     "fils": 2000,
+     "currency": "KWD"
+    },
+    "netSavings": 2798000
+   },
+   "voucherOffered": true
+  }
+ },
+ "WalletItem": {
+  "voucher": {
+   "id": "vch-GV-2611-K7QM",
+   "kind": "bound",
+   "code": "GV-2611-K7QM",
+   "clientId": "user-reem",
+   "targetType": "venue",
+   "venueOrProviderId": "V01",
+   "hallId": "V01-danah",
+   "packageId": "V01-ladies-weekend",
+   "eventDate": "2027-01-14",
+   "guests": 350,
+   "quoteFils": {
+    "standard": 18200000,
+    "voucher": 15400000
+   },
+   "priceFils": 2000,
+   "status": "bound",
+   "purchasedAt": "2026-11-12T12:31:00+03:00",
+   "validUntil": "2027-01-11T12:31:00+03:00",
+   "reuseUntil": null,
+   "qr": {
+    "payload": "gz:v1:GV-2611-K7QM:V01:CBDA",
+    "version": 1
+   },
+   "bookingId": "bk-GZ-2611-0147",
+   "payment": {
+    "method": "knet",
+    "receiptNo": "RC-050039",
+    "amount": {
+     "fils": 2000,
+     "currency": "KWD"
+    },
+    "status": "succeeded",
+    "at": "2026-11-12T12:32:00+03:00"
+   },
+   "releasedAt": null,
+   "releaseReason": null,
+   "forfeitedAt": null,
+   "creditEligible": false,
+   "refundRequestId": null,
+   "grantedFrom": null,
+   "usedAt": null,
+   "usedReason": null,
+   "redeemedBy": null
+  },
+  "target": {
+   "kind": "venue",
+   "id": "V01",
+   "name": {
+    "en": "Aurelia Gulf Hotel",
+    "ar": "فندق أوريليا الخليج"
+   },
+   "monogram": "A",
+   "areaId": "sharq",
+   "cover": {
+    "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+    "width": 1800,
+    "height": 1196,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+     "ar": "قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+    }
+   },
+   "phone": "+96550000002",
+   "channel": "ghazal_voucher"
+  },
+  "hallName": {
+   "en": "Danah Ballroom",
+   "ar": "قاعة الدانة"
+  },
+  "packageName": {
+   "en": "Ladies’ Reception, Weekend",
+   "ar": "الحفل النسائي · نهاية الأسبوع"
+  }
+ }
+}

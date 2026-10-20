@@ -3,7 +3,9 @@ import 'package:flutter_localizations/flutter_localizations.dart' show GlobalWid
 import 'package:material_ui/material_ui.dart';
 
 import '../../l10n/generated/gz_localizations.dart';
-import '../theme/placeholder_theme.dart';
+import '../theme/gz_theme.dart';
+import '../tokens/generated/gz_colors.g.dart';
+import '../tokens/generated/gz_type.g.dart';
 
 /// Supported UI locales: Arabic (RTL) first, English (LTR).
 const List<Locale> gzAppLocales = [Locale('ar'), Locale('en')];
@@ -47,13 +49,16 @@ class GzApp extends StatelessWidget {
       locale: locale,
       supportedLocales: gzAppLocales,
       localizationsDelegates: [...extraLocalizationsDelegates, ...gzLocalizationsDelegates],
-      theme: buildPlaceholderTheme(locale),
+      theme: buildGhazalTheme(locale),
       builder: (context, child) {
-        // No Scaffold/Material above plain widgets: give them the body text style (no yellow debug underline).
-        final body = Theme.of(context).textTheme.bodyLarge;
-        final content = DefaultTextStyle(
-          style: (body ?? const TextStyle()).copyWith(decoration: TextDecoration.none),
-          child: child ?? const SizedBox.shrink(),
+        // No Scaffold/Material above plain widgets: give them the body role style (no yellow debug underline) and install the
+        // Gz theme (`context.gz`) for the whole tree, including routes and overlays.
+        final content = GzTheme(
+          locale: locale,
+          child: DefaultTextStyle(
+            style: GzType.style(locale, GzTextRole.body).copyWith(color: GzColors.light.textPrimary, decoration: TextDecoration.none),
+            child: child ?? const SizedBox.shrink(),
+          ),
         );
         return builder == null ? content : builder!(context, content);
       },

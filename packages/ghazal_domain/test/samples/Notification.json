@@ -1,0 +1,87 @@
+[
+ {
+  "id": "ntf-c-01",
+  "audience": "client",
+  "userId": "user-reem",
+  "kind": "request_sent",
+  "title": {
+   "en": "Request sent",
+   "ar": "تم إرسال الطلب"
+  },
+  "body": {
+   "en": "Request sent to Aurelia Gulf Hotel at the voucher price for Thu 14 Jan. Expected reply by Fri 13 Nov, 12:40 PM.",
+   "ar": "تم إرسال طلبكم إلى فندق أوريليا الخليج بسعر الكوبون ليوم الخميس 14 يناير. الرد المتوقع قبل الجمعة 13 نوفمبر، 12:40 م."
+  },
+  "params": {
+   "venue": "V01",
+   "eventDate": "2027-01-14",
+   "replyBy": "2026-11-13T12:40:00+03:00"
+  },
+  "at": "2026-11-12T12:41:00+03:00",
+  "read": false,
+  "tone": "neutral",
+  "tag": null,
+  "bookingId": "bk-GZ-2611-0147",
+  "venueId": "V01",
+  "conversationId": null,
+  "channel": "transactional",
+  "voucherId": "vch-GV-2611-K7QM",
+  "visitId": null
+ },
+ {
+  "id": "ntf-c-02",
+  "audience": "client",
+  "userId": "user-reem",
+  "kind": "voucher_ready",
+  "title": {
+   "en": "Your voucher is ready",
+   "ar": "كوبونكم جاهز"
+  },
+  "body": {
+   "en": "Voucher GV-2611-K7QM is bound to Aurelia Gulf Hotel. Send your request at the voucher price.",
+   "ar": "الكوبون GV-2611-K7QM مرتبط بفندق أوريليا الخليج. أرسلوا طلبكم بسعر الكوبون."
+  },
+  "params": {
+   "venue": "V01",
+   "code": "GV-2611-K7QM"
+  },
+  "at": "2026-11-12T12:31:00+03:00",
+  "read": false,
+  "tone": "success",
+  "tag": null,
+  "bookingId": null,
+  "venueId": "V01",
+  "conversationId": null,
+  "channel": "transactional",
+  "voucherId": "vch-GV-2611-K7QM",
+  "visitId": null
+ },
+ {
+  "id": "ntf-c-03",
+  "audience": "client",
+  "userId": "user-reem",
+  "kind": "planner_assigned",
+  "title": {
+   "en": "Planner assigned",
+   "ar": "تعيين منسّقة"
+  },
+  "body": {
+   "en": "Nouf Al-Otaibi is your wedding planner. Video call on Sun 15 Nov at 7:30 PM, Kuwait time.",
+   "ar": "نوف العتيبي هي منسّقة زفافكم. مكالمة الفيديو الأحد 15 نوفمبر الساعة 7:30 م بتوقيت الكويت."
+  },
+  "params": {
+   "planner": "planner-nouf",
+   "meetingAt": "2026-11-15T19:30:00+03:00"
+  },
+  "at": "2026-11-12T11:05:00+03:00",
+  "read": false,
+  "tone": "neutral",
+  "tag": null,
+  "bookingId": null,
+  "venueId": null,
+  "conversationId": "conv-planner-nouf",
+  "channel": "transactional",
+  "voucherId": null,
+  "visitId": null
+ }
+]

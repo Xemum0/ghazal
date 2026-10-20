@@ -1,0 +1,729 @@
+[
+ {
+  "id": "bk-GZ-2611-0147",
+  "ref": "GZ-2611-0147",
+  "targetType": "venue",
+  "venueId": "V01",
+  "providerId": null,
+  "clientId": "user-reem",
+  "clientName": "ريم الدوسري",
+  "weddingId": "wedding-reem",
+  "status": "pending",
+  "createdAt": "2026-11-12T12:40:00+03:00",
+  "eventDate": "2027-01-14",
+  "sections": [
+   {
+    "position": 1,
+    "hallId": "V01-danah",
+    "sessionId": "V01-danah-evening",
+    "audience": "women",
+    "guests": 350,
+    "billableGuests": 350,
+    "packageId": "V01-ladies-weekend",
+    "start": "21:00",
+    "end": "02:00"
+   }
+  ],
+  "service": null,
+  "lines": [
+   {
+    "kind": "package",
+    "section": 1,
+    "name": {
+     "en": "Ladies’ Reception, Weekend",
+     "ar": "الحفل النسائي · نهاية الأسبوع"
+    },
+    "qty": 350,
+    "unit": {
+     "fils": 44000,
+     "currency": "KWD"
+    },
+    "amount": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "standardUnit": {
+     "fils": 52000,
+     "currency": "KWD"
+    },
+    "standardAmount": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "ruleId": "V01-ladies-weekend-r1"
+   }
+  ],
+  "totals": {
+   "standardSubtotal": {
+    "fils": 18200000,
+    "currency": "KWD"
+   },
+   "standardServiceCharge": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "standardTotal": {
+    "fils": 18200000,
+    "currency": "KWD"
+   },
+   "voucherSubtotal": {
+    "fils": 15400000,
+    "currency": "KWD"
+   },
+   "venueDiscount": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "voucherServiceCharge": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "voucherTotal": {
+    "fils": 15400000,
+    "currency": "KWD"
+   },
+   "savings": {
+    "fils": 2800000,
+    "currency": "KWD"
+   },
+   "voucherFee": {
+    "fils": 2000,
+    "currency": "KWD"
+   },
+   "netSavings": 2798000
+  },
+  "voucherId": "vch-GV-2611-K7QM",
+  "respondBy": "2026-11-13T12:40:00+03:00",
+  "approvedAt": null,
+  "confirmBy": null,
+  "confirmedAt": null,
+  "redeemedAt": null,
+  "redeemedBy": null,
+  "completedAt": null,
+  "slaHours": 24,
+  "contact": {
+   "name": "ريم الدوسري",
+   "phone": "+96550000012",
+   "shared": true,
+   "bookingFor": "bride"
+  },
+  "specialRequests": "نحتاج مدخلًا منفصلًا لكبار السن ومكانًا مخصصًا للعبايات.",
+  "firstBooking": true,
+  "verifiedPhone": true,
+  "thread": [
+   {
+    "node": "request",
+    "state": "done",
+    "at": "2026-11-12T12:40:00+03:00"
+   },
+   {
+    "node": "approval",
+    "state": "current",
+    "at": "2026-11-13T12:40:00+03:00"
+   },
+   {
+    "node": "confirmation",
+    "state": "future",
+    "at": null
+   },
+   {
+    "node": "redemption",
+    "state": "future",
+    "at": null
+   },
+   {
+    "node": "day",
+    "state": "future",
+    "at": "2027-01-14T21:00:00+03:00"
+   }
+  ],
+  "events": [
+   {
+    "at": "2026-11-12T12:40:00+03:00",
+    "kind": "transition",
+    "from": null,
+    "to": "pending",
+    "actor": "client",
+    "actorName": "ريم الدوسري"
+   }
+  ],
+  "cancelledBy": null,
+  "reasonCode": null,
+  "rejectReason": null,
+  "expiredReason": null,
+  "proposal": null,
+  "overlays": {},
+  "approvedDiscount": null,
+  "version": 2,
+  "allowedActions": [
+   "message",
+   "withdraw",
+   "call"
+  ]
+ },
+ {
+  "id": "bk-GZ-2611-3K8D",
+  "ref": "GZ-2611-3K8D",
+  "targetType": "venue",
+  "venueId": "V01",
+  "providerId": null,
+  "clientId": "user-dana-shammari",
+  "clientName": "دانة الشمري",
+  "weddingId": null,
+  "status": "pending",
+  "createdAt": "2026-11-11T19:00:00+03:00",
+  "eventDate": "2027-01-17",
+  "sections": [
+   {
+    "position": 1,
+    "hallId": "V01-majlis",
+    "sessionId": "V01-majlis-evening",
+    "audience": "women",
+    "guests": 250,
+    "billableGuests": 250,
+    "packageId": "V01-ladies-weekday",
+    "start": "20:30",
+    "end": "01:00"
+   }
+  ],
+  "service": null,
+  "lines": [
+   {
+    "kind": "package",
+    "section": 1,
+    "name": {
+     "en": "Ladies’ Reception, Weekday",
+     "ar": "الحفل النسائي · أيام الأسبوع"
+    },
+    "qty": 250,
+    "unit": {
+     "fils": 39000,
+     "currency": "KWD"
+    },
+    "amount": {
+     "fils": 9750000,
+     "currency": "KWD"
+    },
+    "standardUnit": {
+     "fils": 46000,
+     "currency": "KWD"
+    },
+    "standardAmount": {
+     "fils": 11500000,
+     "currency": "KWD"
+    },
+    "ruleId": "V01-ladies-weekday-r1"
+   }
+  ],
+  "totals": {
+   "standardSubtotal": {
+    "fils": 11500000,
+    "currency": "KWD"
+   },
+   "standardServiceCharge": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "standardTotal": {
+    "fils": 11500000,
+    "currency": "KWD"
+   },
+   "voucherSubtotal": {
+    "fils": 9750000,
+    "currency": "KWD"
+   },
+   "venueDiscount": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "voucherServiceCharge": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "voucherTotal": {
+    "fils": 9750000,
+    "currency": "KWD"
+   },
+   "savings": {
+    "fils": 1750000,
+    "currency": "KWD"
+   },
+   "voucherFee": {
+    "fils": 2000,
+    "currency": "KWD"
+   },
+   "netSavings": 1748000
+  },
+  "voucherId": "vch-GV-2611-QHKY",
+  "respondBy": "2026-11-12T19:00:00+03:00",
+  "approvedAt": null,
+  "confirmBy": null,
+  "confirmedAt": null,
+  "redeemedAt": null,
+  "redeemedBy": null,
+  "completedAt": null,
+  "slaHours": 24,
+  "contact": {
+   "name": "دانة الشمري",
+   "phone": "+96550000021",
+   "shared": true,
+   "bookingFor": "bride"
+  },
+  "specialRequests": null,
+  "firstBooking": true,
+  "verifiedPhone": true,
+  "thread": [
+   {
+    "node": "request",
+    "state": "done",
+    "at": "2026-11-11T19:00:00+03:00"
+   },
+   {
+    "node": "approval",
+    "state": "current",
+    "at": "2026-11-12T19:00:00+03:00"
+   },
+   {
+    "node": "confirmation",
+    "state": "future",
+    "at": null
+   },
+   {
+    "node": "redemption",
+    "state": "future",
+    "at": null
+   },
+   {
+    "node": "day",
+    "state": "future",
+    "at": "2027-01-17T20:30:00+03:00"
+   }
+  ],
+  "events": [
+   {
+    "at": "2026-11-11T19:00:00+03:00",
+    "kind": "transition",
+    "from": null,
+    "to": "pending",
+    "actor": "client",
+    "actorName": "دانة الشمري"
+   }
+  ],
+  "cancelledBy": null,
+  "reasonCode": null,
+  "rejectReason": null,
+  "expiredReason": null,
+  "proposal": null,
+  "overlays": {},
+  "approvedDiscount": null,
+  "version": 2,
+  "allowedActions": [
+   "message",
+   "withdraw",
+   "call"
+  ]
+ },
+ {
+  "id": "bk-GZ-2611-5T2W",
+  "ref": "GZ-2611-5T2W",
+  "targetType": "venue",
+  "venueId": "V01",
+  "providerId": null,
+  "clientId": "user-abdullah-hajri",
+  "clientName": "عبدالله الهاجري",
+  "weddingId": null,
+  "status": "pending",
+  "createdAt": "2026-11-12T07:00:00+03:00",
+  "eventDate": "2027-02-05",
+  "sections": [
+   {
+    "position": 1,
+    "hallId": "V01-danah",
+    "sessionId": "V01-danah-evening",
+    "audience": "women",
+    "guests": 380,
+    "billableGuests": 380,
+    "packageId": "V01-ladies-weekend",
+    "start": "21:00",
+    "end": "02:00"
+   },
+   {
+    "position": 2,
+    "hallId": "V01-majlis",
+    "sessionId": "V01-majlis-evening",
+    "audience": "men",
+    "guests": 450,
+    "billableGuests": 450,
+    "packageId": "V01-men-reception",
+    "start": "20:30",
+    "end": "01:00"
+   }
+  ],
+  "service": null,
+  "lines": [
+   {
+    "kind": "package",
+    "section": 1,
+    "name": {
+     "en": "Ladies’ Reception, Weekend",
+     "ar": "الحفل النسائي · نهاية الأسبوع"
+    },
+    "qty": 380,
+    "unit": {
+     "fils": 44000,
+     "currency": "KWD"
+    },
+    "amount": {
+     "fils": 16720000,
+     "currency": "KWD"
+    },
+    "standardUnit": {
+     "fils": 52000,
+     "currency": "KWD"
+    },
+    "standardAmount": {
+     "fils": 19760000,
+     "currency": "KWD"
+    },
+    "ruleId": "V01-ladies-weekend-r1"
+   },
+   {
+    "kind": "package",
+    "section": 2,
+    "name": {
+     "en": "Men’s Reception",
+     "ar": "الحفل الرجالي"
+    },
+    "qty": 450,
+    "unit": {
+     "fils": 27000,
+     "currency": "KWD"
+    },
+    "amount": {
+     "fils": 12150000,
+     "currency": "KWD"
+    },
+    "standardUnit": {
+     "fils": 32000,
+     "currency": "KWD"
+    },
+    "standardAmount": {
+     "fils": 14400000,
+     "currency": "KWD"
+    },
+    "ruleId": "V01-men-reception-r2"
+   }
+  ],
+  "totals": {
+   "standardSubtotal": {
+    "fils": 34160000,
+    "currency": "KWD"
+   },
+   "standardServiceCharge": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "standardTotal": {
+    "fils": 34160000,
+    "currency": "KWD"
+   },
+   "voucherSubtotal": {
+    "fils": 28870000,
+    "currency": "KWD"
+   },
+   "venueDiscount": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "voucherServiceCharge": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "voucherTotal": {
+    "fils": 28870000,
+    "currency": "KWD"
+   },
+   "savings": {
+    "fils": 5290000,
+    "currency": "KWD"
+   },
+   "voucherFee": {
+    "fils": 2000,
+    "currency": "KWD"
+   },
+   "netSavings": 5288000
+  },
+  "voucherId": "vch-GV-2611-FK3Q",
+  "respondBy": "2026-11-13T07:00:00+03:00",
+  "approvedAt": null,
+  "confirmBy": null,
+  "confirmedAt": null,
+  "redeemedAt": null,
+  "redeemedBy": null,
+  "completedAt": null,
+  "slaHours": 24,
+  "contact": {
+   "name": "عبدالله الهاجري",
+   "phone": "+96550000022",
+   "shared": true,
+   "bookingFor": "family"
+  },
+  "specialRequests": "نرغب بكوشة مخصصة وزفّة عند الدخول.",
+  "firstBooking": false,
+  "verifiedPhone": true,
+  "thread": [
+   {
+    "node": "request",
+    "state": "done",
+    "at": "2026-11-12T07:00:00+03:00"
+   },
+   {
+    "node": "approval",
+    "state": "current",
+    "at": "2026-11-13T07:00:00+03:00"
+   },
+   {
+    "node": "confirmation",
+    "state": "future",
+    "at": null
+   },
+   {
+    "node": "redemption",
+    "state": "future",
+    "at": null
+   },
+   {
+    "node": "day",
+    "state": "future",
+    "at": "2027-02-05T21:00:00+03:00"
+   }
+  ],
+  "events": [
+   {
+    "at": "2026-11-12T07:00:00+03:00",
+    "kind": "transition",
+    "from": null,
+    "to": "pending",
+    "actor": "client",
+    "actorName": "عبدالله الهاجري"
+   }
+  ],
+  "cancelledBy": null,
+  "reasonCode": null,
+  "rejectReason": null,
+  "expiredReason": null,
+  "proposal": null,
+  "overlays": {},
+  "approvedDiscount": null,
+  "version": 2,
+  "allowedActions": [
+   "message",
+   "withdraw",
+   "call"
+  ]
+ },
+ {
+  "id": "bk-GZ-2611-0147",
+  "ref": "GZ-2611-0147",
+  "targetType": "venue",
+  "venueId": "V01",
+  "providerId": null,
+  "clientId": "user-reem",
+  "clientName": "ريم الدوسري",
+  "weddingId": "wedding-reem",
+  "status": "completed",
+  "createdAt": "2026-11-12T12:40:00+03:00",
+  "eventDate": "2027-01-14",
+  "sections": [
+   {
+    "position": 1,
+    "hallId": "V01-danah",
+    "sessionId": "V01-danah-evening",
+    "audience": "women",
+    "guests": 350,
+    "billableGuests": 350,
+    "packageId": "V01-ladies-weekend",
+    "start": "21:00",
+    "end": "02:00"
+   }
+  ],
+  "service": null,
+  "lines": [
+   {
+    "kind": "package",
+    "section": 1,
+    "name": {
+     "en": "Ladies’ Reception, Weekend",
+     "ar": "الحفل النسائي · نهاية الأسبوع"
+    },
+    "qty": 350,
+    "unit": {
+     "fils": 44000,
+     "currency": "KWD"
+    },
+    "amount": {
+     "fils": 15400000,
+     "currency": "KWD"
+    },
+    "standardUnit": {
+     "fils": 52000,
+     "currency": "KWD"
+    },
+    "standardAmount": {
+     "fils": 18200000,
+     "currency": "KWD"
+    },
+    "ruleId": "V01-ladies-weekend-r1"
+   }
+  ],
+  "totals": {
+   "standardSubtotal": {
+    "fils": 18200000,
+    "currency": "KWD"
+   },
+   "standardServiceCharge": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "standardTotal": {
+    "fils": 18200000,
+    "currency": "KWD"
+   },
+   "voucherSubtotal": {
+    "fils": 15400000,
+    "currency": "KWD"
+   },
+   "venueDiscount": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "voucherServiceCharge": {
+    "fils": 0,
+    "currency": "KWD"
+   },
+   "voucherTotal": {
+    "fils": 15400000,
+    "currency": "KWD"
+   },
+   "savings": {
+    "fils": 2800000,
+    "currency": "KWD"
+   },
+   "voucherFee": {
+    "fils": 2000,
+    "currency": "KWD"
+   },
+   "netSavings": 2798000
+  },
+  "voucherId": "vch-GV-2611-K7QM",
+  "respondBy": null,
+  "approvedAt": "2026-11-12T16:00:00+03:00",
+  "confirmBy": "2026-11-13T16:00:00+03:00",
+  "confirmedAt": "2026-11-12T16:12:00+03:00",
+  "redeemedAt": "2027-01-03T12:20:00+03:00",
+  "redeemedBy": "Amal Al-Balushi",
+  "completedAt": "2027-01-15T14:00:00+03:00",
+  "slaHours": 24,
+  "contact": {
+   "name": "ريم الدوسري",
+   "phone": "+96550000012",
+   "shared": true,
+   "bookingFor": "bride"
+  },
+  "specialRequests": "نحتاج مدخلًا منفصلًا لكبار السن ومكانًا مخصصًا للعبايات.",
+  "firstBooking": true,
+  "verifiedPhone": true,
+  "thread": [
+   {
+    "node": "request",
+    "state": "done",
+    "at": "2026-11-12T12:40:00+03:00"
+   },
+   {
+    "node": "approval",
+    "state": "done",
+    "at": "2026-11-12T16:00:00+03:00"
+   },
+   {
+    "node": "confirmation",
+    "state": "done",
+    "at": "2026-11-12T16:12:00+03:00"
+   },
+   {
+    "node": "redemption",
+    "state": "done",
+    "at": "2027-01-03T12:20:00+03:00",
+    "by": "Amal Al-Balushi"
+   },
+   {
+    "node": "day",
+    "state": "done",
+    "at": "2027-01-14T21:00:00+03:00"
+   },
+   {
+    "node": "completed",
+    "state": "done",
+    "at": "2027-01-15T14:00:00+03:00"
+   }
+  ],
+  "events": [
+   {
+    "at": "2026-11-12T12:40:00+03:00",
+    "kind": "transition",
+    "from": null,
+    "to": "pending",
+    "actor": "client",
+    "actorName": "ريم الدوسري"
+   },
+   {
+    "at": "2026-11-12T16:00:00+03:00",
+    "kind": "transition",
+    "from": "pending",
+    "to": "approved",
+    "actor": "venue",
+    "actorName": "Hind Al-Enezi"
+   },
+   {
+    "at": "2026-11-12T16:12:00+03:00",
+    "kind": "transition",
+    "from": "approved",
+    "to": "confirmed",
+    "actor": "client",
+    "actorName": "ريم الدوسري"
+   },
+   {
+    "at": "2027-01-03T12:20:00+03:00",
+    "kind": "transition",
+    "from": "confirmed",
+    "to": "redeemed",
+    "actor": "venue",
+    "actorName": "Amal Al-Balushi",
+    "note": {
+     "en": "Voucher redeemed",
+     "ar": "تم استخدام الكوبون"
+    }
+   },
+   {
+    "at": "2027-01-15T14:00:00+03:00",
+    "kind": "transition",
+    "from": "redeemed",
+    "to": "completed",
+    "actor": "system"
+   }
+  ],
+  "cancelledBy": null,
+  "reasonCode": null,
+  "rejectReason": null,
+  "expiredReason": null,
+  "proposal": null,
+  "overlays": {},
+  "approvedDiscount": null,
+  "version": 6,
+  "allowedActions": [
+   "message",
+   "review",
+   "report_issue",
+   "open_voucher"
+  ]
+ }
+]

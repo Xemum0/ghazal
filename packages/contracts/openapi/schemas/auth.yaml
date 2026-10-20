@@ -1,0 +1,142 @@
+# Sign-in and sessions. Client identity is the Kuwait mobile number (WhatsApp OTP, password, Apple, Google); partners use email and password.
+Phone:
+  type: string
+  pattern: '^\+[1-9]\d{7,14}$'
+  description: E.164 on the wire (`+96551234567`); Arabic-Indic digits are normalised by the client and the server.
+OtpPurpose: { type: string, enum: [login, verify_phone, reset_password, change_phone] }
+OtpChannel: { type: string, enum: [whatsapp, email] }
+OtpRequestInput:
+  type: object
+  required: [phone, purpose]
+  properties:
+    phone: { $ref: Phone }
+    purpose: { $ref: OtpPurpose }
+    deviceId: { type: string, nullable: true }
+OtpChallenge:
+  type: object
+  description: Identical for known and unknown numbers (no enumeration). Codes are 6 digits, 5 minutes, 5 attempts; resend after 60 s.
+  required: [challengeId, channel, destinationHint, expiresInSeconds, resendAfterSeconds, codeLength]
+  properties:
+    challengeId: { type: string }
+    channel: { $ref: OtpChannel }
+    destinationHint: { type: string, description: 'Masked destination, for example +965 **** 4567 or n***@hotel.com.' }
+    expiresInSeconds: { type: integer }
+    resendAfterSeconds: { type: integer }
+    codeLength: { type: integer }
+OtpVerifyInput:
+  type: object
+  required: [challengeId, code]
+  properties:
+    challengeId: { type: string }
+    code: { type: string, pattern: '^\d{4,8}$' }
+    deviceId: { type: string, nullable: true }
+RegisterInput:
+  type: object
+  description: Creates (or resumes) a password account; the phone is verified through the returned challenge.
+  required: [phone, name, acceptedTerms, locale]
+  properties:
+    phone: { $ref: Phone }
+    name: { type: string }
+    password: { type: string, nullable: true, minLength: 8 }
+    acceptedTerms: { type: boolean, enum: [true] }
+    locale: { $ref: Lang }
+    deviceId: { type: string, nullable: true }
+PasswordLoginInput:
+  type: object
+  required: [phone, password]
+  properties:
+    phone: { $ref: Phone }
+    password: { type: string }
+    deviceId: { type: string, nullable: true }
+PasswordForgotInput:
+  type: object
+  required: [phone]
+  properties: { phone: { $ref: Phone } }
+PasswordResetInput:
+  type: object
+  required: [challengeId, code, newPassword]
+  properties:
+    challengeId: { type: string }
+    code: { type: string }
+    newPassword: { type: string, minLength: 8 }
+SocialSignInInput:
+  type: object
+  description: The app obtains the identity token; the API verifies it with the provider keys. Terms are accepted on first account creation.
+  required: [identityToken]
+  properties:
+    identityToken: { type: string }
+    nonce: { type: string, nullable: true }
+    name: { type: string, nullable: true }
+    acceptedTerms: { type: boolean, nullable: true }
+    deviceId: { type: string, nullable: true }
+RefreshInput:
+  type: object
+  required: [refreshToken]
+  properties:
+    refreshToken: { type: string }
+    deviceId: { type: string, nullable: true }
+LogoutInput:
+  type: object
+  properties: { refreshToken: { type: string, nullable: true } }
+StepUpMethod: { type: string, enum: [otp, password] }
+StepUpInput:
+  type: object
+  required: [method]
+  properties:
+    method: { $ref: StepUpMethod }
+    challengeId: { type: string, nullable: true }
+    code: { type: string, nullable: true }
+    password: { type: string, nullable: true }
+StepUpToken:
+  type: object
+  description: Short-lived (5 minutes) token sent as `X-Step-Up` on the sensitive call that answered STEP_UP_REQUIRED.
+  required: [token, expiresInSeconds]
+  properties: { token: { type: string }, expiresInSeconds: { type: integer } }
+AuthSession:
+  type: object
+  description: Access token 10 minutes, refresh token rotating and device-bound (client 90 days sliding, partner 14 days sliding).
+  required: [accessToken, refreshToken, tokenType, expiresInSeconds, isNewUser, user]
+  properties:
+    accessToken: { type: string }
+    refreshToken: { type: string }
+    tokenType: { type: string, enum: [Bearer] }
+    expiresInSeconds: { type: integer }
+    isNewUser: { type: boolean, description: True after the first OTP verification of a number; the app then asks for name and terms (CL-AUTH-03). }
+    user: { $ref: Me }
+PartnerLoginInput:
+  type: object
+  required: [email, password]
+  properties:
+    email: { type: string, format: email }
+    password: { type: string }
+    deviceId: { type: string, nullable: true }
+PartnerLoginStatus: { type: string, enum: [signed_in, code_required] }
+PartnerLoginResult:
+  type: object
+  description: A new device needs the emailed code before a session is issued.
+  required: [status, session, challenge]
+  properties:
+    status: { $ref: PartnerLoginStatus }
+    session: { $ref: AuthSession, nullable: true }
+    challenge: { $ref: OtpChallenge, nullable: true }
+PartnerPasswordForgotInput:
+  type: object
+  required: [email]
+  properties: { email: { type: string, format: email } }
+InvitationPreview:
+  type: object
+  required: [email, role, accountName, invitedBy, expiresAt]
+  properties:
+    email: { type: string }
+    role: { $ref: StaffRole }
+    accountName: { $ref: LocalizedText }
+    invitedBy: { type: string }
+    expiresAt: { $ref: IsoDateTime }
+AcceptInvitationInput:
+  type: object
+  required: [token, password, acceptedTerms]
+  properties:
+    token: { type: string }
+    password: { type: string, minLength: 8 }
+    acceptedTerms: { type: boolean, enum: [true] }
+    deviceId: { type: string, nullable: true }

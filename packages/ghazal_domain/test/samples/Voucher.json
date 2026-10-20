@@ -1,0 +1,182 @@
+[
+ {
+  "id": "vch-GV-2607-SRBF",
+  "kind": "bound",
+  "code": "GV-2607-SRBF",
+  "clientId": "user-najla-badr",
+  "targetType": "venue",
+  "venueOrProviderId": "V01",
+  "hallId": "V01-danah",
+  "packageId": "V01-ladies-weekend",
+  "eventDate": "2026-11-12",
+  "guests": 420,
+  "quoteFils": {
+   "standard": 21840000,
+   "voucher": 18480000
+  },
+  "priceFils": 2000,
+  "status": "used",
+  "purchasedAt": "2026-07-02T11:51:00+03:00",
+  "validUntil": "2026-08-31T11:51:00+03:00",
+  "reuseUntil": null,
+  "qr": {
+   "payload": "gz:v1:GV-2607-SRBF:V01:C72A",
+   "version": 1
+  },
+  "bookingId": "bk-GZ-2607-6M2J",
+  "payment": {
+   "method": "knet",
+   "receiptNo": "RC-050001",
+   "amount": {
+    "fils": 2000,
+    "currency": "KWD"
+   },
+   "status": "succeeded",
+   "at": "2026-07-02T11:52:00+03:00"
+  },
+  "releasedAt": null,
+  "releaseReason": null,
+  "forfeitedAt": null,
+  "creditEligible": false,
+  "refundRequestId": null,
+  "grantedFrom": null,
+  "usedAt": "2026-10-28T11:15:00+03:00",
+  "usedReason": "redeemed",
+  "redeemedBy": "Amal Al-Balushi"
+ },
+ {
+  "id": "vch-GV-2608-08BD",
+  "kind": "bound",
+  "code": "GV-2608-08BD",
+  "clientId": "user-jassim-kandari",
+  "targetType": "venue",
+  "venueOrProviderId": "V01",
+  "hallId": "V01-majlis",
+  "packageId": "V01-men-reception",
+  "eventDate": "2026-11-14",
+  "guests": 350,
+  "quoteFils": {
+   "standard": 11200000,
+   "voucher": 9450000
+  },
+  "priceFils": 2000,
+  "status": "bound",
+  "purchasedAt": "2026-08-25T10:21:00+03:00",
+  "validUntil": "2026-10-24T10:21:00+03:00",
+  "reuseUntil": null,
+  "qr": {
+   "payload": "gz:v1:GV-2608-08BD:V01:6C36",
+   "version": 1
+  },
+  "bookingId": "bk-GZ-2608-3C7V",
+  "payment": {
+   "method": "knet",
+   "receiptNo": "RC-050009",
+   "amount": {
+    "fils": 2000,
+    "currency": "KWD"
+   },
+   "status": "succeeded",
+   "at": "2026-08-25T10:22:00+03:00"
+  },
+  "releasedAt": null,
+  "releaseReason": null,
+  "forfeitedAt": null,
+  "creditEligible": false,
+  "refundRequestId": null,
+  "grantedFrom": null,
+  "usedAt": null,
+  "usedReason": null,
+  "redeemedBy": null
+ },
+ {
+  "id": "vch-GV-2608-378X",
+  "kind": "bound",
+  "code": "GV-2608-378X",
+  "clientId": "user-jood-ajmi",
+  "targetType": "venue",
+  "venueOrProviderId": "V01",
+  "hallId": "V01-majlis",
+  "packageId": "V01-ladies-weekday",
+  "eventDate": "2026-11-11",
+  "guests": 220,
+  "quoteFils": {
+   "standard": 10120000,
+   "voucher": 8580000
+  },
+  "priceFils": 2000,
+  "status": "used",
+  "purchasedAt": "2026-08-18T12:21:00+03:00",
+  "validUntil": "2026-10-17T12:21:00+03:00",
+  "reuseUntil": null,
+  "qr": {
+   "payload": "gz:v1:GV-2608-378X:V01:4A9A",
+   "version": 1
+  },
+  "bookingId": "bk-GZ-2608-4G1P",
+  "payment": {
+   "method": "knet",
+   "receiptNo": "RC-050007",
+   "amount": {
+    "fils": 2000,
+    "currency": "KWD"
+   },
+   "status": "succeeded",
+   "at": "2026-08-18T12:22:00+03:00"
+  },
+  "releasedAt": null,
+  "releaseReason": null,
+  "forfeitedAt": null,
+  "creditEligible": false,
+  "refundRequestId": null,
+  "grantedFrom": null,
+  "usedAt": "2026-10-27T10:00:00+03:00",
+  "usedReason": "redeemed",
+  "redeemedBy": "Amal Al-Balushi"
+ },
+ {
+  "id": "vch-GV-2610-C9D3",
+  "kind": "bound",
+  "code": "GV-2610-C9D3",
+  "clientId": "user-talal-failakawi",
+  "targetType": "provider",
+  "venueOrProviderId": "vendor-flowers-zahra",
+  "hallId": null,
+  "packageId": "vp-flowers-zahra-1",
+  "eventDate": "2026-11-21",
+  "guests": 1,
+  "quoteFils": {
+   "standard": 950000,
+   "voucher": 765000
+  },
+  "priceFils": 2000,
+  "status": "used",
+  "purchasedAt": "2026-10-20T14:51:00+03:00",
+  "validUntil": "2026-11-22T14:00:00+03:00",
+  "reuseUntil": null,
+  "qr": {
+   "payload": "gz:v1:GV-2610-C9D3:vendor-flowers-zahra:0E39",
+   "version": 1
+  },
+  "bookingId": "bk-GZ-2610-2X4B",
+  "payment": {
+   "method": "apple_pay",
+   "receiptNo": "RC-050022",
+   "amount": {
+    "fils": 2000,
+    "currency": "KWD"
+   },
+   "status": "succeeded",
+   "at": "2026-10-20T14:52:00+03:00"
+  },
+  "releasedAt": null,
+  "releaseReason": null,
+  "forfeitedAt": null,
+  "creditEligible": false,
+  "refundRequestId": null,
+  "grantedFrom": null,
+  "usedAt": "2026-11-05T12:00:00+03:00",
+  "usedReason": "redeemed",
+  "redeemedBy": "Zahra Al-Mutairi"
+ }
+]

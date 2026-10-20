@@ -1,0 +1,83 @@
+/conversations:
+  get:
+    operationId: listConversations
+    summary: Inbox of the caller's side, pinned first then newest (CA-CHAT-01, HA-MSG-01)
+    x-roles: [client, partner]
+    x-partner: true
+    x-paged: true
+    query: { kind: 'ConversationKind[]', unread: boolean }
+    responses: { 200: ConversationPage }
+  post:
+    operationId: createConversation
+    summary: Open a conversation with a venue, provider or planner
+    x-roles: [client]
+    x-idempotent: true
+    body: CreateConversationInput
+    x-errors: [PHONE_VERIFICATION_REQUIRED]
+    responses: { 201: Conversation }
+/conversations/{conversationId}:
+  get:
+    operationId: getConversation
+    summary: One conversation with its members and read-only state
+    x-roles: [client, partner]
+    x-partner: true
+    path: { conversationId: Id }
+    responses: { 200: Conversation }
+/conversations/{conversationId}/messages:
+  get:
+    operationId: listMessages
+    summary: Message history of a conversation, oldest first
+    description: '`afterSeq` resumes after a reconnect. Partner drafts never reach the client.'
+    x-roles: [client, partner]
+    x-partner: true
+    x-paged: true
+    path: { conversationId: Id }
+    query: { afterSeq: integer }
+    responses: { 200: MessagePage }
+  post:
+    operationId: sendMessage
+    summary: Send a message (idempotent on clientMsgId)
+    x-roles: [client, partner]
+    x-partner: true
+    path: { conversationId: Id }
+    body: SendMessageInput
+    x-errors: [PHONE_VERIFICATION_REQUIRED, FORBIDDEN]
+    responses: { 201: Message }
+/conversations/{conversationId}/read:
+  post:
+    operationId: markConversationRead
+    summary: Mark messages up to a sequence as read
+    x-roles: [client, partner]
+    x-partner: true
+    path: { conversationId: Id }
+    body: ReadMarkerInput
+    responses: { 204: ~ }
+/conversations/{conversationId}/pin:
+  put:
+    operationId: setConversationPinned
+    summary: Pin or unpin a conversation
+    x-roles: [client, partner]
+    x-partner: true
+    path: { conversationId: Id }
+    body: PinInput
+    responses: { 200: Conversation }
+/conversations/{conversationId}/draft:
+  put:
+    operationId: saveReplyDraft
+    summary: Stage a partner reply without sending it
+    x-roles: [partner]
+    x-partner: true
+    x-permissions: ['chat:write']
+    path: { conversationId: Id }
+    body: DraftInput
+    responses: { 200: Message }
+/conversations/{conversationId}/attachments:
+  post:
+    operationId: createAttachmentUpload
+    summary: Signed upload for a voice note, document or image
+    x-roles: [client, partner]
+    x-partner: true
+    path: { conversationId: Id }
+    body: UploadSessionInput
+    x-errors: [MEDIA_TOO_LARGE, MEDIA_TYPE_UNSUPPORTED]
+    responses: { 201: UploadSession }

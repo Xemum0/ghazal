@@ -1,0 +1,47 @@
+NotificationKind:
+  type: string
+  enum: [request_sent, request_approved, confirm_reminder, request_confirmed, request_declined, request_expired, booking_cancelled, voucher_ready, voucher_released, voucher_redeemed, credit_voucher_issued, voucher_forfeited, voucher_expiring, visit_requested, visit_confirmed, visit_reminder, visit_message, new_request, client_confirmed, client_lapsed, voucher_redeemed_by_you, visit_request, listing_submitted, listing_approved, listing_rejected, listing_expiring, review_received, calendar_confirm, invite, countdown, new_venue, planner_assigned, message, review_prompt, checklist_due]
+NotificationAudience: { type: string, enum: [client, hotel], description: '`hotel` is the Partner app side.' }
+NotificationTone: { type: string, enum: [neutral, gold, success, danger] }
+NotificationChannel: { type: string, enum: [transactional, marketing] }
+Notification:
+  type: object
+  x-dart-name: AppNotification
+  description: Copy renders on the device from `kind` and `params` (ARB); `title` and `body` are ready-made fallbacks for the prototype.
+  required: [id, audience, userId, kind, title, body, params, at, read, tone, tag, bookingId, venueId, conversationId, channel]
+  properties:
+    id: { $ref: Id }
+    audience: { $ref: NotificationAudience }
+    userId: { $ref: Id }
+    kind: { $ref: NotificationKind }
+    title: { $ref: LocalizedText }
+    body: { $ref: LocalizedText }
+    params: { type: object, additionalProperties: true }
+    at: { $ref: IsoDateTime }
+    read: { type: boolean }
+    tone: { $ref: NotificationTone }
+    tag: { $ref: LocalizedText, nullable: true }
+    bookingId: { $ref: Id, nullable: true }
+    venueId: { $ref: Id, nullable: true }
+    conversationId: { $ref: Id, nullable: true }
+    channel: { $ref: NotificationChannel }
+    voucherId: { $ref: Id, nullable: true }
+    visitId: { $ref: Id, nullable: true }
+    listingId: { $ref: Id, nullable: true }
+NotificationPage: { x-page-of: Notification }
+UnreadCount:
+  type: object
+  required: [count]
+  properties: { count: { type: integer } }
+QuietHours:
+  type: object
+  required: [start, end]
+  properties: { start: { type: string }, end: { type: string } }
+NotificationPreferences:
+  type: object
+  description: Marketing is opt-in (ADR 0015 D8); transactional notifications always arrive.
+  required: [marketing, quietHours, maxMarketingPerWeek]
+  properties:
+    marketing: { type: boolean }
+    quietHours: { $ref: QuietHours }
+    maxMarketingPerWeek: { type: integer }

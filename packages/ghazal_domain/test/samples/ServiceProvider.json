@@ -1,0 +1,739 @@
+[
+ {
+  "id": "vendor-catering-qahwat-diwan",
+  "categoryId": "catering",
+  "alsoCategoryIds": [],
+  "name": {
+   "en": "Qahwat Al-Diwan Hospitality",
+   "ar": "ضيافة قهوة الديوان"
+  },
+  "monogram": "ض",
+  "areaId": "salmiya",
+  "governorateId": "hawalli",
+  "partnerAccountId": "partner-vendor-catering-qahwat-diwan",
+  "about": {
+   "en": "Hospitality teams for the family gatherings around the wedding: coffee, dates, sweets and dinner.",
+   "ar": "فرق ضيافة لتجمعات العائلة حول الزفاف: قهوة وتمر وحلويات وعشاء."
+  },
+  "rating": {
+   "average": 4.7,
+   "count": 61
+  },
+  "from": {
+   "fils": 7500,
+   "currency": "KWD"
+  },
+  "fromVoucher": {
+   "fils": 5500,
+   "currency": "KWD"
+  },
+  "fromUnit": {
+   "en": "per guest",
+   "ar": "للضيف الواحد"
+  },
+  "packages": [
+   {
+    "id": "vp-catering-qahwat-diwan-1",
+    "name": {
+     "en": "Coffee and dates",
+     "ar": "القهوة والتمر"
+    },
+    "price": {
+     "fils": 7500,
+     "currency": "KWD"
+    },
+    "voucherPrice": {
+     "fils": 5500,
+     "currency": "KWD"
+    },
+    "unit": {
+     "en": "per guest",
+     "ar": "للضيف الواحد"
+    },
+    "priceStructure": "per_person",
+    "minQuantity": 50,
+    "includes": [
+     {
+      "en": "Arabic coffee and dates service",
+      "ar": "خدمة القهوة العربية والتمر"
+     },
+     {
+      "en": "Serving team and cups",
+      "ar": "فريق خدمة وفناجين"
+     }
+    ]
+   },
+   {
+    "id": "vp-catering-qahwat-diwan-2",
+    "name": {
+     "en": "Hospitality and sweets",
+     "ar": "ضيافة وحلويات"
+    },
+    "price": {
+     "fils": 10000,
+     "currency": "KWD"
+    },
+    "voucherPrice": {
+     "fils": 7500,
+     "currency": "KWD"
+    },
+    "unit": {
+     "en": "per guest",
+     "ar": "للضيف الواحد"
+    },
+    "priceStructure": "per_person",
+    "minQuantity": 50,
+    "includes": [
+     {
+      "en": "Coffee, tea and dates",
+      "ar": "قهوة وشاي وتمر"
+     },
+     {
+      "en": "Sweets and chocolates",
+      "ar": "حلويات وشوكولاتة"
+     },
+     {
+      "en": "Serving team",
+      "ar": "فريق خدمة"
+     }
+    ]
+   },
+   {
+    "id": "vp-catering-qahwat-diwan-3",
+    "name": {
+     "en": "Family dinner hospitality",
+     "ar": "ضيافة العشاء العائلي"
+    },
+    "price": {
+     "fils": 13500,
+     "currency": "KWD"
+    },
+    "voucherPrice": {
+     "fils": 10000,
+     "currency": "KWD"
+    },
+    "unit": {
+     "en": "per guest",
+     "ar": "للضيف الواحد"
+    },
+    "priceStructure": "per_person",
+    "minQuantity": 50,
+    "includes": [
+     {
+      "en": "Welcome hospitality",
+      "ar": "ضيافة الاستقبال"
+     },
+     {
+      "en": "Hot dinner for the family",
+      "ar": "عشاء ساخن للعائلة"
+     },
+     {
+      "en": "Serving team and cleanup",
+      "ar": "فريق خدمة وتنظيف"
+     }
+    ]
+   }
+  ],
+  "portfolio": [
+   {
+    "file": "details/details-40-hospitality-dates-gold-tray-lantern.jpg",
+    "width": 1800,
+    "height": 2250,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Medjool dates in a footed bowl and a filigree gold cup on an ornate gold tray with a brass dallah and lantern",
+     "ar": "تمر مجدول في وعاء بقاعدة وكأس ذهبي مفرغ على صينية ذهبية مزخرفة مع دلة نحاسية وفانوس"
+    }
+   },
+   {
+    "file": "details/details-41-hospitality-dates-gold-pattern-cup.jpg",
+    "width": 1800,
+    "height": 2401,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Dates in a white ceramic bowl and an Arabic coffee cup with gold geometric pattern on a gilded glass table",
+     "ar": "تمر في وعاء خزفي أبيض وفنجان قهوة عربية بنقش هندسي ذهبي على طاولة زجاجية مذهبة"
+    }
+   },
+   {
+    "file": "details/details-42-hospitality-chocolate-dates-calligraphy.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Chocolate-dipped dates with rose buds, pistachio, walnuts and Arabic-calligraphy toppers on a round wooden board",
+     "ar": "تمر مغطى بالشوكولاتة مع براعم ورد وفستق وجوز وأقراص بخط عربي على لوح خشبي دائري"
+    }
+   },
+   {
+    "file": "services/services-34-gold-dallah-dates.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Golden dallah coffee pot, cups and dates on a brass tray",
+     "ar": "دلّة قهوة ذهبية وفناجين وتمر على صينية نحاسية"
+    }
+   }
+  ],
+  "tags": [
+   {
+    "en": "Female serving team for ladies’ halls",
+    "ar": "فريق خدمة نسائي للقاعات النسائية"
+   }
+  ],
+  "femaleTeamForLadies": true,
+  "usuallyRepliesHours": 2,
+  "verified": true,
+  "phone": "+96550000200"
+ },
+ {
+  "id": "vendor-catering-mouna",
+  "categoryId": "catering",
+  "alsoCategoryIds": [],
+  "name": {
+   "en": "Mouna Catering",
+   "ar": "مؤونة للتموين"
+  },
+  "monogram": "م",
+  "areaId": "jabriya",
+  "governorateId": "hawalli",
+  "partnerAccountId": "partner-vendor-catering-mouna",
+  "about": {
+   "en": "Hospitality teams for the family gatherings around the wedding: coffee, dates, sweets and dinner.",
+   "ar": "فرق ضيافة لتجمعات العائلة حول الزفاف: قهوة وتمر وحلويات وعشاء."
+  },
+  "rating": {
+   "average": 4.6,
+   "count": 44
+  },
+  "from": {
+   "fils": 9000,
+   "currency": "KWD"
+  },
+  "fromVoucher": {
+   "fils": 7500,
+   "currency": "KWD"
+  },
+  "fromUnit": {
+   "en": "per guest",
+   "ar": "للضيف الواحد"
+  },
+  "packages": [
+   {
+    "id": "vp-catering-mouna-1",
+    "name": {
+     "en": "Coffee and dates",
+     "ar": "القهوة والتمر"
+    },
+    "price": {
+     "fils": 9000,
+     "currency": "KWD"
+    },
+    "voucherPrice": {
+     "fils": 7500,
+     "currency": "KWD"
+    },
+    "unit": {
+     "en": "per guest",
+     "ar": "للضيف الواحد"
+    },
+    "priceStructure": "per_person",
+    "minQuantity": 50,
+    "includes": [
+     {
+      "en": "Arabic coffee and dates service",
+      "ar": "خدمة القهوة العربية والتمر"
+     },
+     {
+      "en": "Serving team and cups",
+      "ar": "فريق خدمة وفناجين"
+     }
+    ]
+   },
+   {
+    "id": "vp-catering-mouna-2",
+    "name": {
+     "en": "Hospitality and sweets",
+     "ar": "ضيافة وحلويات"
+    },
+    "price": {
+     "fils": 12000,
+     "currency": "KWD"
+    },
+    "voucherPrice": {
+     "fils": 9500,
+     "currency": "KWD"
+    },
+    "unit": {
+     "en": "per guest",
+     "ar": "للضيف الواحد"
+    },
+    "priceStructure": "per_person",
+    "minQuantity": 50,
+    "includes": [
+     {
+      "en": "Coffee, tea and dates",
+      "ar": "قهوة وشاي وتمر"
+     },
+     {
+      "en": "Sweets and chocolates",
+      "ar": "حلويات وشوكولاتة"
+     },
+     {
+      "en": "Serving team",
+      "ar": "فريق خدمة"
+     }
+    ]
+   },
+   {
+    "id": "vp-catering-mouna-3",
+    "name": {
+     "en": "Family dinner hospitality",
+     "ar": "ضيافة العشاء العائلي"
+    },
+    "price": {
+     "fils": 16000,
+     "currency": "KWD"
+    },
+    "voucherPrice": {
+     "fils": 13000,
+     "currency": "KWD"
+    },
+    "unit": {
+     "en": "per guest",
+     "ar": "للضيف الواحد"
+    },
+    "priceStructure": "per_person",
+    "minQuantity": 50,
+    "includes": [
+     {
+      "en": "Welcome hospitality",
+      "ar": "ضيافة الاستقبال"
+     },
+     {
+      "en": "Hot dinner for the family",
+      "ar": "عشاء ساخن للعائلة"
+     },
+     {
+      "en": "Serving team and cleanup",
+      "ar": "فريق خدمة وتنظيف"
+     }
+    ]
+   }
+  ],
+  "portfolio": [
+   {
+    "file": "details/details-40-hospitality-dates-gold-tray-lantern.jpg",
+    "width": 1800,
+    "height": 2250,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Medjool dates in a footed bowl and a filigree gold cup on an ornate gold tray with a brass dallah and lantern",
+     "ar": "تمر مجدول في وعاء بقاعدة وكأس ذهبي مفرغ على صينية ذهبية مزخرفة مع دلة نحاسية وفانوس"
+    }
+   },
+   {
+    "file": "details/details-41-hospitality-dates-gold-pattern-cup.jpg",
+    "width": 1800,
+    "height": 2401,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Dates in a white ceramic bowl and an Arabic coffee cup with gold geometric pattern on a gilded glass table",
+     "ar": "تمر في وعاء خزفي أبيض وفنجان قهوة عربية بنقش هندسي ذهبي على طاولة زجاجية مذهبة"
+    }
+   },
+   {
+    "file": "details/details-42-hospitality-chocolate-dates-calligraphy.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Chocolate-dipped dates with rose buds, pistachio, walnuts and Arabic-calligraphy toppers on a round wooden board",
+     "ar": "تمر مغطى بالشوكولاتة مع براعم ورد وفستق وجوز وأقراص بخط عربي على لوح خشبي دائري"
+    }
+   },
+   {
+    "file": "services/services-34-gold-dallah-dates.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Golden dallah coffee pot, cups and dates on a brass tray",
+     "ar": "دلّة قهوة ذهبية وفناجين وتمر على صينية نحاسية"
+    }
+   }
+  ],
+  "tags": [],
+  "femaleTeamForLadies": true,
+  "usuallyRepliesHours": 3,
+  "verified": true,
+  "phone": "+96550000201"
+ },
+ {
+  "id": "vendor-catering-sufra-bayt",
+  "categoryId": "catering",
+  "alsoCategoryIds": [],
+  "name": {
+   "en": "Sufrat Al-Bayt Kitchen",
+   "ar": "مطبخ سفرة البيت"
+  },
+  "monogram": "م",
+  "areaId": "farwaniya",
+  "governorateId": "farwaniya",
+  "partnerAccountId": "partner-vendor-catering-sufra-bayt",
+  "about": {
+   "en": "Hospitality teams for the family gatherings around the wedding: coffee, dates, sweets and dinner.",
+   "ar": "فرق ضيافة لتجمعات العائلة حول الزفاف: قهوة وتمر وحلويات وعشاء."
+  },
+  "rating": {
+   "average": 4.4,
+   "count": 27
+  },
+  "from": {
+   "fils": 6500,
+   "currency": "KWD"
+  },
+  "fromVoucher": {
+   "fils": 5000,
+   "currency": "KWD"
+  },
+  "fromUnit": {
+   "en": "per guest",
+   "ar": "للضيف الواحد"
+  },
+  "packages": [
+   {
+    "id": "vp-catering-sufra-bayt-1",
+    "name": {
+     "en": "Coffee and dates",
+     "ar": "القهوة والتمر"
+    },
+    "price": {
+     "fils": 6500,
+     "currency": "KWD"
+    },
+    "voucherPrice": {
+     "fils": 5000,
+     "currency": "KWD"
+    },
+    "unit": {
+     "en": "per guest",
+     "ar": "للضيف الواحد"
+    },
+    "priceStructure": "per_person",
+    "minQuantity": 50,
+    "includes": [
+     {
+      "en": "Arabic coffee and dates service",
+      "ar": "خدمة القهوة العربية والتمر"
+     },
+     {
+      "en": "Serving team and cups",
+      "ar": "فريق خدمة وفناجين"
+     }
+    ]
+   },
+   {
+    "id": "vp-catering-sufra-bayt-2",
+    "name": {
+     "en": "Hospitality and sweets",
+     "ar": "ضيافة وحلويات"
+    },
+    "price": {
+     "fils": 9000,
+     "currency": "KWD"
+    },
+    "voucherPrice": {
+     "fils": 6500,
+     "currency": "KWD"
+    },
+    "unit": {
+     "en": "per guest",
+     "ar": "للضيف الواحد"
+    },
+    "priceStructure": "per_person",
+    "minQuantity": 50,
+    "includes": [
+     {
+      "en": "Coffee, tea and dates",
+      "ar": "قهوة وشاي وتمر"
+     },
+     {
+      "en": "Sweets and chocolates",
+      "ar": "حلويات وشوكولاتة"
+     },
+     {
+      "en": "Serving team",
+      "ar": "فريق خدمة"
+     }
+    ]
+   },
+   {
+    "id": "vp-catering-sufra-bayt-3",
+    "name": {
+     "en": "Family dinner hospitality",
+     "ar": "ضيافة العشاء العائلي"
+    },
+    "price": {
+     "fils": 11500,
+     "currency": "KWD"
+    },
+    "voucherPrice": {
+     "fils": 8500,
+     "currency": "KWD"
+    },
+    "unit": {
+     "en": "per guest",
+     "ar": "للضيف الواحد"
+    },
+    "priceStructure": "per_person",
+    "minQuantity": 50,
+    "includes": [
+     {
+      "en": "Welcome hospitality",
+      "ar": "ضيافة الاستقبال"
+     },
+     {
+      "en": "Hot dinner for the family",
+      "ar": "عشاء ساخن للعائلة"
+     },
+     {
+      "en": "Serving team and cleanup",
+      "ar": "فريق خدمة وتنظيف"
+     }
+    ]
+   }
+  ],
+  "portfolio": [
+   {
+    "file": "details/details-42-hospitality-chocolate-dates-calligraphy.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Chocolate-dipped dates with rose buds, pistachio, walnuts and Arabic-calligraphy toppers on a round wooden board",
+     "ar": "تمر مغطى بالشوكولاتة مع براعم ورد وفستق وجوز وأقراص بخط عربي على لوح خشبي دائري"
+    }
+   },
+   {
+    "file": "services/services-34-gold-dallah-dates.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Golden dallah coffee pot, cups and dates on a brass tray",
+     "ar": "دلّة قهوة ذهبية وفناجين وتمر على صينية نحاسية"
+    }
+   },
+   {
+    "file": "details/details-39-hospitality-date-coffee-gold-tray.jpg",
+    "width": 1800,
+    "height": 2695,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Hand dipping a date into a cup of Arabic coffee on an engraved gold tray beside a gleaming dallah",
+     "ar": "يد تغمس تمرة في فنجان قهوة عربية على صينية ذهبية منقوشة بجانب دلة لامعة"
+    }
+   },
+   {
+    "file": "details/details-38-hospitality-dallah-dates-woven-tray.jpg",
+    "width": 1800,
+    "height": 2400,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Silver dallah coffee pot, patterned finjan cup and a bowl of fresh dates on a woven tray against a bamboo screen",
+     "ar": "دلة قهوة فضية وفنجان بنقش تقليدي وصحن من التمر الطازج على صينية مجدولة أمام ستارة من الخيزران"
+    }
+   }
+  ],
+  "tags": [],
+  "femaleTeamForLadies": false,
+  "usuallyRepliesHours": 4,
+  "verified": true,
+  "phone": "+96550000202"
+ },
+ {
+  "id": "vendor-photography-gulf-lens",
+  "categoryId": "photography",
+  "alsoCategoryIds": [],
+  "name": {
+   "en": "Gulf Lens Studio",
+   "ar": "عدسة الخليج للتصوير"
+  },
+  "monogram": "ع",
+  "areaId": "jabriya",
+  "governorateId": "hawalli",
+  "partnerAccountId": "partner-vendor-photography-gulf-lens",
+  "about": {
+   "en": "Photographers who work in empty halls and details first, then guests only where the family agrees.",
+   "ar": "مصوّرون يبدأون بالقاعة والتفاصيل، ثم الضيوف فقط حيث توافق العائلة."
+  },
+  "rating": {
+   "average": 4.5,
+   "count": 31
+  },
+  "from": {
+   "fils": 600000,
+   "currency": "KWD"
+  },
+  "fromVoucher": {
+   "fils": 415000,
+   "currency": "KWD"
+  },
+  "fromUnit": {
+   "en": "per event",
+   "ar": "للحفل الواحد"
+  },
+  "packages": [
+   {
+    "id": "vp-photography-gulf-lens-1",
+    "name": {
+     "en": "Wedding-day coverage · 6 hours",
+     "ar": "تغطية يوم الزفاف · 6 ساعات"
+    },
+    "price": {
+     "fils": 600000,
+     "currency": "KWD"
+    },
+    "voucherPrice": {
+     "fils": 415000,
+     "currency": "KWD"
+    },
+    "unit": {
+     "en": "per event",
+     "ar": "للحفل الواحد"
+    },
+    "priceStructure": "package",
+    "minQuantity": null,
+    "includes": [
+     {
+      "en": "Photographer for 6 hours",
+      "ar": "مصوّرة لمدة 6 ساعات"
+     },
+     {
+      "en": "Edited gallery within 3 weeks",
+      "ar": "معرض صور معدّل خلال 3 أسابيع"
+     }
+    ]
+   },
+   {
+    "id": "vp-photography-gulf-lens-2",
+    "name": {
+     "en": "8 hours + album",
+     "ar": "8 ساعات مع ألبوم"
+    },
+    "price": {
+     "fils": 870000,
+     "currency": "KWD"
+    },
+    "voucherPrice": {
+     "fils": 600000,
+     "currency": "KWD"
+    },
+    "unit": {
+     "en": "per event",
+     "ar": "للحفل الواحد"
+    },
+    "priceStructure": "package",
+    "minQuantity": null,
+    "includes": [
+     {
+      "en": "Photographer for 8 hours",
+      "ar": "مصوّرة لمدة 8 ساعات"
+     },
+     {
+      "en": "Printed album",
+      "ar": "ألبوم مطبوع"
+     },
+     {
+      "en": "Edited gallery within 3 weeks",
+      "ar": "معرض صور معدّل خلال 3 أسابيع"
+     }
+    ]
+   },
+   {
+    "id": "vp-photography-gulf-lens-3",
+    "name": {
+     "en": "Full day + album + highlight video",
+     "ar": "يوم كامل مع ألبوم وفيديو مختصر"
+    },
+    "price": {
+     "fils": 1200000,
+     "currency": "KWD"
+    },
+    "voucherPrice": {
+     "fils": 830000,
+     "currency": "KWD"
+    },
+    "unit": {
+     "en": "per event",
+     "ar": "للحفل الواحد"
+    },
+    "priceStructure": "package",
+    "minQuantity": null,
+    "includes": [
+     {
+      "en": "Photographer for the full day",
+      "ar": "مصوّرة ليوم كامل"
+     },
+     {
+      "en": "Printed album",
+      "ar": "ألبوم مطبوع"
+     },
+     {
+      "en": "Highlight video",
+      "ar": "فيديو مختصر"
+     }
+    ]
+   }
+  ],
+  "portfolio": [
+   {
+    "file": "details/details-02-table-gold-cutlery-linen.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Round table dressed in pale linen with white plates, brushed gold cutlery, fluted glasses and blush napkins",
+     "ar": "طاولة دائرية بمفرش كتان فاتح وأطباق بيضاء وأدوات مائدة ذهبية مطفية وكؤوس مضلعة ومناديل بلون وردي هادئ"
+    }
+   },
+   {
+    "file": "ballrooms/ballrooms-20-blush-gold-banquet-lattice-walls.jpg",
+    "width": 1800,
+    "height": 2699,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Round banquet table with blush linen, gold chiavari chairs with silk sashes and a gold chandelier against ivory lattice-panelled arched walls",
+     "ar": "طاولة مأدبة دائرية بمفرش وردي وكراسٍ ذهبية بأوشحة حريرية وثريا ذهبية أمام جدران عاجية مقوّسة بزخارف شبكية"
+    }
+   },
+   {
+    "file": "details/details-22-rings-gold-bands-dark-marble.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Two polished gold wedding bands resting on dark veined marble with soft reflections",
+     "ar": "خاتما زواج ذهبيان لامعان على رخام داكن معرق مع انعكاسات ناعمة"
+    }
+   },
+   {
+    "file": "services/services-01-studio-softbox-camera.jpg",
+    "width": 1800,
+    "height": 1198,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Professional DSLR camera and lens on a wooden desk in front of a studio softbox",
+     "ar": "كاميرا احترافية وعدسة على مكتب خشبي أمام إضاءة سوفت بوكس في استوديو التصوير"
+    }
+   }
+  ],
+  "tags": [],
+  "femaleTeamForLadies": true,
+  "usuallyRepliesHours": 3,
+  "verified": true,
+  "phone": "+96550000223"
+ }
+]

@@ -1,0 +1,132 @@
+/auth/otp/request:
+  post:
+    operationId: requestOtp
+    summary: Send a WhatsApp code (CA-AUTH-05)
+    x-access: guest
+    body: OtpRequestInput
+    x-errors: [RATE_LIMITED]
+    responses: { 202: OtpChallenge }
+/auth/otp/verify:
+  post:
+    operationId: verifyOtp
+    summary: Verify the code and open a session (CA-AUTH-06)
+    x-access: guest
+    body: OtpVerifyInput
+    x-errors: [OTP_INVALID, OTP_EXPIRED, OTP_LOCKED]
+    responses: { 200: AuthSession }
+/auth/register:
+  post:
+    operationId: registerAccount
+    summary: Create a password account and start phone verification (CA-AUTH-01, CA-AUTH-11)
+    x-access: guest
+    body: RegisterInput
+    x-errors: [RATE_LIMITED]
+    responses: { 202: OtpChallenge }
+/auth/password/login:
+  post:
+    operationId: passwordLogin
+    summary: Sign in with phone and password (CA-AUTH-02)
+    x-access: guest
+    body: PasswordLoginInput
+    x-errors: [CREDENTIALS_INVALID, RATE_LIMITED]
+    responses: { 200: AuthSession }
+/auth/password/forgot:
+  post:
+    operationId: requestPasswordReset
+    summary: Send a reset code to the verified number (CA-AUTH-07)
+    x-access: guest
+    body: PasswordForgotInput
+    responses: { 202: OtpChallenge }
+/auth/password/reset:
+  post:
+    operationId: resetPassword
+    summary: Set a new password with the reset code
+    x-access: guest
+    body: PasswordResetInput
+    x-errors: [OTP_INVALID, OTP_EXPIRED, OTP_LOCKED]
+    responses: { 204: ~ }
+/auth/apple:
+  post:
+    operationId: signInWithApple
+    summary: Sign in with Apple identity token (CA-AUTH-03)
+    x-access: guest
+    body: SocialSignInInput
+    responses: { 200: AuthSession }
+/auth/google:
+  post:
+    operationId: signInWithGoogle
+    summary: Sign in with Google identity token (CA-AUTH-04)
+    x-access: guest
+    body: SocialSignInInput
+    responses: { 200: AuthSession }
+/auth/refresh:
+  post:
+    operationId: refreshSession
+    summary: Rotate the refresh token (single-flight in the client)
+    description: Reuse of an old refresh token revokes the whole session family (SESSION_REVOKED).
+    x-access: guest
+    body: RefreshInput
+    x-errors: [SESSION_REVOKED]
+    responses: { 200: AuthSession }
+/auth/logout:
+  post:
+    operationId: signOut
+    summary: End the session and drop the device push token
+    body: LogoutInput
+    x-roles: [client, partner]
+    responses: { 204: ~ }
+/auth/step-up:
+  post:
+    operationId: stepUp
+    summary: Fresh code or password for a sensitive action (5 minute token)
+    body: StepUpInput
+    x-roles: [client, partner]
+    x-errors: [OTP_INVALID, CREDENTIALS_INVALID]
+    responses: { 200: StepUpToken }
+/auth/partner/login:
+  post:
+    operationId: partnerLogin
+    summary: Partner sign-in with email and password (HL-ACCS-01)
+    x-access: guest
+    body: PartnerLoginInput
+    x-errors: [CREDENTIALS_INVALID, RATE_LIMITED]
+    responses: { 200: PartnerLoginResult }
+/auth/partner/verify:
+  post:
+    operationId: partnerVerifyCode
+    summary: Verify the emailed code of a new device (HL-ACCS-02)
+    x-access: guest
+    body: OtpVerifyInput
+    x-errors: [OTP_INVALID, OTP_EXPIRED, OTP_LOCKED]
+    responses: { 200: AuthSession }
+/auth/partner/password/forgot:
+  post:
+    operationId: partnerForgotPassword
+    summary: Email a reset code to a partner
+    x-access: guest
+    body: PartnerPasswordForgotInput
+    responses: { 202: OtpChallenge }
+/auth/partner/password/reset:
+  post:
+    operationId: partnerResetPassword
+    summary: Set a new partner password (HL-ACCS-03)
+    x-access: guest
+    body: PasswordResetInput
+    x-errors: [OTP_INVALID, OTP_EXPIRED, OTP_LOCKED]
+    responses: { 204: ~ }
+/auth/partner/invitations/{token}:
+  get:
+    operationId: getStaffInvitationPreview
+    summary: Who invited you and to what (before choosing a password)
+    x-access: guest
+    path: { token: string }
+    x-errors: [INVITATION_EXPIRED]
+    responses: { 200: InvitationPreview }
+/auth/partner/invitations/accept:
+  post:
+    operationId: acceptStaffInvitation
+    summary: Accept an emailed invitation, set a password and sign in (HL-ACCS-03)
+    x-access: guest
+    body: AcceptInvitationInput
+    x-errors: [INVITATION_EXPIRED]
+    responses: { 200: AuthSession }

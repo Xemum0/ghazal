@@ -1,0 +1,163 @@
+Id:
+  type: string
+  description: Opaque id (fixtures use readable ids such as V01 or vch-GV-2611-K7QM; production uses UUIDs).
+IsoDate:
+  type: string
+  format: date
+  description: Kuwait civil date YYYY-MM-DD. Never converted between time zones.
+IsoDateTime:
+  type: string
+  format: date-time
+  description: Instant with an explicit offset, normally +03:00 (Asia/Kuwait, no DST).
+LocalTime:
+  type: string
+  format: local-time
+  pattern: '^([01]\d|2[0-3]):[0-5]\d$'
+  description: Venue-local HH:mm, 24 hour. A session that ends before it starts crosses midnight.
+Weekday:
+  type: integer
+  minimum: 0
+  maximum: 6
+  description: 0 = Sunday ... 6 = Saturday (ADR 0011).
+Money:
+  type: object
+  description: Integer fils plus currency (ADR 0010). KWD has 3 decimals, 1 KD = 1000 fils. Never formatted by the server.
+  required: [fils, currency]
+  properties:
+    fils: { type: integer }
+    currency: { type: string, enum: [KWD] }
+LocalizedText:
+  type: object
+  description: Authored text in both languages; a missing language is null and the client falls back to the other one.
+  required: [en, ar]
+  properties:
+    en: { type: string, nullable: true }
+    ar: { type: string, nullable: true }
+Lang:
+  x-dart-name: WireLang
+  type: string
+  enum: [en, ar]
+Audience:
+  type: string
+  enum: [women, men, mixed]
+LatLng:
+  type: object
+  required: [lat, lng]
+  properties:
+    lat: { type: number }
+    lng: { type: number }
+MediaZone:
+  type: string
+  enum: [hall, stage_kosha, bridal_suite, buffet, outdoors, entrance_valet, layout]
+ImageRef:
+  type: object
+  description: A photograph. Mock mode resolves `file` against the bundled library; the real API sets `baseUrl` and the client appends `/{width}.webp` (320, 640, 960, 1440).
+  required: [file, width, height, orientation, alt]
+  properties:
+    id: { $ref: Id }
+    file: { type: string }
+    baseUrl: { type: string, nullable: true }
+    width: { type: integer }
+    height: { type: integer }
+    orientation: { type: string, enum: [landscape, portrait] }
+    aspect: { type: number }
+    blurhash: { type: string, nullable: true }
+    alt: { $ref: LocalizedText }
+GalleryItem:
+  allOf:
+    - { $ref: ImageRef }
+    - type: object
+      required: [zone]
+      properties:
+        zone: { $ref: MediaZone }
+        hallId: { $ref: Id, nullable: true }
+FaqItem:
+  type: object
+  required: [id, question, answer]
+  properties:
+    id: { $ref: Id }
+    question: { $ref: LocalizedText }
+    answer: { $ref: LocalizedText }
+RatingSummary:
+  type: object
+  description: 'A venue with no reviews has `average: null` and `count: 0` and shows New, never 0.0.'
+  required: [average, count, categories]
+  properties:
+    average: { type: number, nullable: true }
+    count: { type: integer }
+    categories: { $ref: RatingCategories, nullable: true }
+RatingCategories:
+  type: object
+  required: [venue, food, service, value]
+  properties:
+    venue: { type: number }
+    food: { type: number }
+    service: { type: number }
+    value: { type: number }
+Distance:
+  type: object
+  required: [km, minutes]
+  properties:
+    km: { type: number }
+    minutes: { type: integer }
+FieldError:
+  type: object
+  required: [path, code]
+  properties:
+    path: { type: string }
+    code: { type: string }
+    params: { type: object, additionalProperties: true }
+SlotAlternative:
+  type: object
+  required: [eventDate]
+  properties:
+    eventDate: { $ref: IsoDate }
+    hallId: { $ref: Id, nullable: true }
+ErrorCode:
+  type: string
+  description: Stable error codes. Generated from `x-error-codes` of base.yaml by the bundler. Unknown values must be tolerated.
+  enum: ['@error-codes']
+Problem:
+  type: object
+  description: RFC 9457 problem+json. `title` and `detail` are for developers; clients map `code` plus `params` to a localised string.
+  required: [type, title, status, code]
+  properties:
+    type: { type: string }
+    title: { type: string }
+    status: { type: integer }
+    code: { $ref: ErrorCode }
+    detail: { type: string, nullable: true }
+    requestId: { type: string, nullable: true }
+    params: { type: object, additionalProperties: true }
+    errors: { type: array, items: { $ref: FieldError } }
+    alternatives: { type: array, items: { $ref: SlotAlternative } }
+    currentStatus: { type: string, nullable: true, description: 'BOOKING_STATE_CONFLICT: the status now.' }
+    currentVersion: { type: integer, nullable: true }
+    retryAfterSeconds: { type: integer, nullable: true }
+UploadPurpose: { type: string, enum: [venue_photo, venue_video, listing_photo, provider_portfolio, chat_voice, chat_document, chat_image] }
+UploadSessionInput:
+  type: object
+  description: Files go directly to object storage by a signed URL (never through the API). Limits are enforced twice, on the session and on completion.
+  required: [fileName, contentType, sizeBytes]
+  properties:
+    fileName: { type: string }
+    contentType: { type: string }
+    sizeBytes: { type: integer, minimum: 1 }
+    purpose: { $ref: UploadPurpose, nullable: true }
+UploadSession:
+  type: object
+  required: [id, uploadUrl, method, headers, expiresAt, maxBytes]
+  properties:
+    id: { type: string, description: Asset id; quote it when completing the upload or attaching the file. }
+    uploadUrl: { type: string }
+    method: { type: string, enum: [PUT] }
+    headers: { type: object, additionalProperties: { type: string } }
+    expiresAt: { $ref: IsoDateTime }
+    maxBytes: { type: integer, description: 'Videos 500,000,000 (500 MB, MEDIA.videoMaxBytes).' }
+NamedRef:
+  type: object
+  description: An id with its display name (a hall name on a request card, a package name on a voucher).
+  required: [id, name]
+  properties:
+    id: { $ref: Id }
+    name: { $ref: LocalizedText }

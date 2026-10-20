@@ -1,5 +1,4411 @@
 {
   "@@locale": "en",
-  "appName": "Ghazal",
-  "@appName": { "description": "Stub key so gen_l10n works; the real ARB is merged from packages/i18n by the l10n script (phase F1b)." }
+  "commonActionAccept": "Accept",
+  "commonActionAdd": "Add",
+  "commonActionApply": "Apply",
+  "commonActionBack": "Back",
+  "commonActionCall": "Call",
+  "commonActionCancel": "Cancel",
+  "commonActionClear": "Clear",
+  "commonActionClose": "Close",
+  "commonActionConfirm": "Confirm",
+  "commonActionContinue": "Continue",
+  "commonActionDecline": "Decline",
+  "commonActionDone": "Done",
+  "commonActionEdit": "Edit",
+  "commonActionMessage": "Message",
+  "commonActionNext": "Next",
+  "commonActionOpenWhatsapp": "Open WhatsApp",
+  "commonActionPrevious": "Previous",
+  "commonActionRemove": "Remove",
+  "commonActionReschedule": "Reschedule",
+  "commonActionReset": "Reset",
+  "commonActionRetry": "Try again",
+  "commonActionSave": "Save",
+  "commonActionSearch": "Search",
+  "commonActionSeeAll": "See all",
+  "commonActionSend": "Send",
+  "commonActionShare": "Share",
+  "commonActionShowLess": "Show less",
+  "commonActionSkip": "Skip",
+  "commonActionUndo": "Undo",
+  "commonActionWhatsapp": "WhatsApp",
+  "commonAvailabilityAvailable": "Available",
+  "commonAvailabilityBlocked": "Blocked",
+  "commonAvailabilityBooked": "Booked",
+  "commonAvailabilityFree": "Free",
+  "commonAvailabilityHeld": "On hold",
+  "commonAvailabilityPast": "Past date",
+  "commonAvailabilityUnavailable": "Unavailable",
+  "commonAvailabilityLineFree": "{date} · Free",
+  "@commonAvailabilityLineFree": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonAvailabilityLineBooked": "{date} · Booked",
+  "@commonAvailabilityLineBooked": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonCalendarAvailability": "Availability",
+  "commonCalendarPrices": "Prices",
+  "commonCalendarToday": "Today",
+  "commonCalendarSelected": "Selected",
+  "commonCalendarPeak": "Peak days",
+  "commonCalendarPreviousMonth": "Previous month",
+  "commonCalendarNextMonth": "Next month",
+  "commonCalendarOccasionApproximate": "{occasion} (approx.)",
+  "@commonCalendarOccasionApproximate": {
+    "placeholders": {
+      "occasion": {
+        "type": "String"
+      }
+    }
+  },
+  "commonStatusRequested": "Pending",
+  "commonStatusAwaitingDeposit": "Approved · deposit due",
+  "commonStatusConfirmed": "Confirmed",
+  "commonStatusRejected": "Not accepted",
+  "commonStatusExpired": "Expired",
+  "commonStatusCancelled": "Cancelled",
+  "commonStatusCompleted": "Completed",
+  "commonStatusRefunded": "Refunded",
+  "commonStatusNoShow": "No-show",
+  "commonStatusHeadlineConfirmed": "Confirmed booking",
+  "commonStatusCancelledByYou": "Cancelled by you",
+  "commonStatusCancelledByVenue": "Cancelled by the venue",
+  "commonStatusHotelMissed": "Missed",
+  "commonStatusUrgent": "Urgent",
+  "commonStatusTimeLeft": "{time} remaining",
+  "@commonStatusTimeLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "commonFilterAll": "All",
+  "commonTierWeekday": "Weekday",
+  "commonTierWeekend": "Weekend",
+  "commonTierHoliday": "Holiday",
+  "commonTierSeason": "Season",
+  "commonTierSpecialDate": "Special date",
+  "commonUnitPerGuest": "per guest",
+  "commonUnitPerNight": "per night",
+  "commonUnitPerDay": "per day",
+  "commonUnitPerHour": "per hour",
+  "commonUnitMinGuests": "Minimum {count, plural, one{{count} guest} other{{count} guests}}",
+  "@commonUnitMinGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonUnitUpToGuests": "Up to {count, plural, one{{count} guest} other{{count} guests}}",
+  "@commonUnitUpToGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountGuests": "{count, plural, =0{No guests} one{{count} guest} other{{count} guests}}",
+  "@commonCountGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountDays": "{count, plural, =0{No days} one{{count} day} other{{count} days}}",
+  "@commonCountDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountHours": "{count, plural, =0{No hours} one{{count} hour} other{{count} hours}}",
+  "@commonCountHours": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMinutes": "{count, plural, =0{No minutes} one{{count} minute} other{{count} minutes}}",
+  "@commonCountMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountHalls": "{count, plural, =0{No halls} one{{count} hall} other{{count} halls}}",
+  "@commonCountHalls": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountPackages": "{count, plural, =0{No packages} one{{count} package} other{{count} packages}}",
+  "@commonCountPackages": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMessages": "{count, plural, =0{No messages} one{{count} message} other{{count} messages}}",
+  "@commonCountMessages": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountBookings": "{count, plural, =0{No bookings} one{{count} booking} other{{count} bookings}}",
+  "@commonCountBookings": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountSessions": "{count, plural, =0{No sessions} one{{count} session} other{{count} sessions}}",
+  "@commonCountSessions": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMonths": "{count, plural, =0{No months} one{{count} month} other{{count} months}}",
+  "@commonCountMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountDates": "{count, plural, =0{No dates} one{{count} date} other{{count} dates}}",
+  "@commonCountDates": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountRequests": "{count, plural, =0{No requests} one{{count} request} other{{count} requests}}",
+  "@commonCountRequests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountReviews": "{count, plural, =0{No reviews} one{{count} review} other{{count} reviews}}",
+  "@commonCountReviews": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountPhotos": "{count, plural, =0{No photos} one{{count} photo} other{{count} photos}}",
+  "@commonCountPhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountdownDays": "{count, plural, =0{Today} one{{count} day to go} other{{count} days to go}}",
+  "@commonCountdownDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCounter": "{current} of {total}",
+  "@commonCounter": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonStateLoading": "Loading",
+  "commonStateTitleGeneric": "Something went wrong",
+  "commonStateTitleLoad": "Couldn’t load",
+  "commonStateTitleNetwork": "You’re offline",
+  "commonStateTitlePayment": "Payment failed",
+  "commonStateTitleNoAccess": "No access",
+  "commonStateTitleNotFound": "Not found",
+  "commonStateTitleEmptySearch": "No matches",
+  "commonStateTitleEmpty": "Nothing here",
+  "commonStateOffline": "You’re offline",
+  "commonStateErrorGeneric": "Something went wrong on our side. Nothing was changed. Please try again.",
+  "commonStateErrorLoad": "We couldn’t load this. Please try again.",
+  "commonStateErrorNetwork": "We couldn’t connect. Check your connection and try again.",
+  "commonStateErrorPayment": "The payment could not be completed. No amount was charged.",
+  "commonStateErrorNoAccess": "You do not have access. Ask your manager.",
+  "commonStateErrorNotFound": "This page is no longer available.",
+  "commonStateSaved": "Saved",
+  "commonStateCopied": "Copied",
+  "commonStateSent": "Sent",
+  "commonNoPaymentNowFull": "No payment now. Nothing is charged until the hotel approves.",
+  "commonMoneyDeposit": "Deposit",
+  "commonMoneyBalance": "Remaining balance",
+  "commonMoneyTotal": "Total",
+  "commonMoneyServiceCharge": "Service charge",
+  "commonMoneyRentalFee": "Rental fee",
+  "commonLabelOptional": "Optional",
+  "commonLabelRequired": "Required",
+  "commonLabelNotDecided": "Not decided",
+  "commonLabelToday": "Today",
+  "commonLabelTomorrow": "Tomorrow",
+  "commonLabelKuwaitTime": "Kuwait time",
+  "commonLabelSponsored": "Sponsored",
+  "commonLabelNew": "New",
+  "commonLabelOr": "or",
+  "commonLabelLanguage": "Language",
+  "commonLabelSettings": "Settings",
+  "commonLanguageEnglish": "English",
+  "commonLanguageArabic": "Arabic",
+  "commonFieldRequired": "This field is required.",
+  "commonFieldInvalid": "This value isn’t valid.",
+  "commonFieldPhoneInvalid": "This phone number isn’t valid.",
+  "commonA11yFavouriteAdd": "Save to favourites",
+  "commonA11yFavouriteRemove": "Remove from favourites",
+  "commonA11yCompareAdd": "Add to compare",
+  "commonA11yCompareRemove": "Remove from compare",
+  "commonA11yPhotoCounter": "Photo {current} of {total}",
+  "@commonA11yPhotoCounter": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonA11yRating": "Rated {rating} out of {max}",
+  "@commonA11yRating": {
+    "placeholders": {
+      "rating": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "max": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonA11ySelected": "Selected",
+  "commonStatusPending": "Pending",
+  "commonStatusApproved": "Approved",
+  "commonStatusRedeemed": "Redeemed",
+  "commonStatusDeclined": "Declined",
+  "commonStatusHotelPending": "Pending",
+  "commonStatusHotelApproved": "Waiting",
+  "commonStatusHotelRedeemed": "Redeemed",
+  "commonStatusHotelDeclined": "Declined",
+  "commonStatusHotelLapsed": "Lapsed",
+  "commonStatusDateProposed": "New date",
+  "commonVoucherStatusUnpaid": "Paying",
+  "commonVoucherStatusActive": "Ready",
+  "commonVoucherStatusBound": "In request",
+  "commonVoucherStatusUsed": "Used",
+  "commonVoucherStatusExpired": "Expired",
+  "commonVisitStatusRequested": "Requested",
+  "commonVisitStatusConfirmed": "Confirmed",
+  "commonVisitStatusReschedule": "New time",
+  "commonVisitStatusArrived": "Arrived",
+  "commonVisitStatusCompleted": "Done",
+  "commonVisitStatusDeclined": "Unavailable",
+  "commonVisitStatusCancelled": "Cancelled",
+  "commonVisitStatusMissed": "Missed",
+  "commonListingStatusDraft": "Draft",
+  "commonListingStatusPayment": "Unpaid",
+  "commonListingStatusReview": "In review",
+  "commonListingStatusApproved": "Approved",
+  "commonListingStatusRejected": "Declined",
+  "commonListingStatusActive": "Live",
+  "commonListingStatusExpired": "Ended",
+  "commonListingStatusPaused": "Paused",
+  "commonVoucher": "Voucher",
+  "commonVoucherPrice": "Voucher price",
+  "commonStandardPrice": "Standard price",
+  "commonYouSave": "You save {amount}",
+  "@commonYouSave": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "commonSaveAmount": "Save {amount}",
+  "@commonSaveAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "commonConfirmBooking": "Confirm booking",
+  "commonRedeemVoucher": "Redeem voucher",
+  "commonVoucherCode": "Voucher code",
+  "commonValidUntil": "Valid until {date}",
+  "@commonValidUntil": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonLabelGuestVoucher": "Voucher price after you sign up",
+  "commonRoleClient": "Client",
+  "commonRoleYou": "You",
+  "commonRoleHotelRep": "Hotel representative",
+  "commonRoleSupport": "Ghazal support",
+  "commonVenueTypePrivateHall": "Private hall",
+  "commonVenueTypeGovernmental": "Governmental facility",
+  "commonVenueTypeHotel": "Hotel",
+  "commonPricingPerPerson": "Per person",
+  "commonPricingPackages": "Packages",
+  "commonPricingPackage": "Package",
+  "commonPricingStructure": "Pricing",
+  "commonFilterGovernorate": "Governorate",
+  "commonFilterVenueType": "Venue type",
+  "commonFilterCapacity": "Capacity",
+  "commonPlanWeekly": "Weekly",
+  "commonPlanMonthly": "Monthly",
+  "commonPlanAnnual": "Annual",
+  "commonRatesSoon": "Rates announced soon",
+  "commonExempt": "Exempt",
+  "commonMajorHotel": "Major hotel",
+  "commonA11yInfo": "More info",
+  "commonLabelDetails": "Details",
+  "commonVoucherStatusForfeited": "Not valid",
+  "commonVoucherStatusCredit": "Credit",
+  "commonVoucherStatusCreditIssued": "Credit issued",
+  "commonVoucherCredit": "Credit voucher",
+  "commonVoucherAnyVenue": "Any hall, hotel or service",
+  "commonVoucherNotValidNote": "Not confirmed within {hours, plural, one{{hours} hour} other{{hours} hours}}",
+  "@commonVoucherNotValidNote": {
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonVoucherConfirmIn24h": "Confirm at the hotel or service within {hours, plural, one{{hours} hour} other{{hours} hours}}, or the voucher is not valid",
+  "@commonVoucherConfirmIn24h": {
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonAskSupport": "Ask support",
+  "commonCreditRequested": "Request sent to support",
+  "commonBillingContract": "Business contract",
+  "commonBillingPlan": "Plan",
+  "commonBillingContractTerms": "Terms as contracted",
+  "commonStaffInvitedByEmail": "Invited by email",
+  "commonCalendarByEmail": "Calendar by email",
+  "commonReviewAskSupportHide": "Ask support to hide or delete",
+  "commonVideoLimit": "Up to {size} MB per video",
+  "@commonVideoLimit": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "clientAuthSharedNotNow": "Not now",
+  "clientAuthSharedSupport": "Support",
+  "clientAuthSharedApple": "Apple",
+  "clientAuthSharedGoogle": "Google",
+  "clientAuthSharedUsePassword": "Password",
+  "clientAuthSharedUseCode": "WhatsApp code",
+  "clientAuthSharedSignIn": "Sign in",
+  "clientAuthSharedCreateAccount": "Create account",
+  "clientAuthSharedSignedIn": "Signed in",
+  "clientAuthSharedAccountReady": "Account ready",
+  "clientAuthSharedPhone": "Mobile",
+  "clientAuthSharedSendCode": "Send code",
+  "clientAuthSharedDate": "Date",
+  "clientAuthSharedGuests": "Guests",
+  "clientAuthSharedLegalTerms": "Terms of Use",
+  "clientAuthSharedLegalPrivacy": "Privacy Policy",
+  "clientAuthSharedLegalNote": "Full text before launch",
+  "clientAuthSharedTermsSection1": "Using Ghazal",
+  "clientAuthSharedTermsSection2": "The voucher",
+  "clientAuthSharedTermsSection3": "Paying the venue",
+  "clientAuthSharedTermsSection4": "Your responsibilities",
+  "clientAuthSharedPrivacySection1": "What we collect",
+  "clientAuthSharedPrivacySection2": "How we use it",
+  "clientAuthSharedPrivacySection3": "Who sees it",
+  "clientAuthSharedPrivacySection4": "Your choices",
+  "clientAuthSharedInfoTitle": "Your account",
+  "clientAuthSharedPartnerNote": "Hotel or service provider? Use the Ghazal Partner app.",
+  "clientAuthSharedSmallPrint": "Our <terms>Terms of Use</terms> and <privacy>Privacy Policy</privacy> apply. You confirm them when you create an account.",
+  "clientAuthReasonSendRequest": "Send request",
+  "clientAuthReasonVoucher": "Voucher",
+  "clientAuthReasonVisit": "Visit",
+  "clientAuthReasonChat": "Message",
+  "clientAuthReasonReview": "Review",
+  "clientAuthReasonPlanner": "Consultation",
+  "clientAuthReasonQuote": "Quote",
+  "clientAuthReasonSave": "Shortlist",
+  "clientAuthGateErrorDigits": "Needs {count, plural, one{{count} digit} other{{count} digits}}",
+  "@clientAuthGateErrorDigits": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientAuthGateErrorNotOnWhatsapp": "Not on WhatsApp",
+  "clientAuthGateNotOnWhatsappDetail": "We could not send a code to this number on WhatsApp. Continue with Apple or Google, or contact Support.",
+  "clientAuthOtpTitle": "WhatsApp code",
+  "clientAuthOtpSheetTitle": "Verify number",
+  "clientAuthOtpLabel": "Code",
+  "clientAuthOtpVerify": "Verify",
+  "clientAuthOtpWrong": "Wrong code",
+  "clientAuthOtpAttemptsLeft": "{count, plural, one{{count} attempt remaining} other{{count} attempts remaining}}",
+  "@clientAuthOtpAttemptsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientAuthOtpExpired": "Code expired",
+  "clientAuthOtpResent": "Code sent",
+  "clientAuthOtpResendIn": "{count, plural, one{Resend code in {count} second} other{Resend code in {count} seconds}}",
+  "@clientAuthOtpResendIn": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientAuthOtpTimer": "{count}s",
+  "@clientAuthOtpTimer": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "clientAuthOtpResend": "Resend",
+  "clientAuthOtpChange": "Change",
+  "clientAuthOtpChangeNumber": "Change number",
+  "clientAuthOtpLocked": "Too many attempts",
+  "clientAuthOtpLockedDetail": "Please try again later or contact Support.",
+  "clientAuthOtpDeliveryFailed": "Not delivered",
+  "clientAuthOtpDeliveryFailedDetail": "The code did not reach WhatsApp. Send it again, or continue another way.",
+  "clientAuthOtpSendAgain": "Send again",
+  "clientAuthOtpSuccessTitle": "Verified",
+  "clientAuthOtpOpening": "Opening WhatsApp",
+  "clientAuthNameTitle": "Create account",
+  "clientAuthNameLabel": "Name",
+  "clientAuthNamePlaceholder": "Full name",
+  "clientAuthNameEmailLabel": "Email",
+  "clientAuthNameAccept": "I agree",
+  "clientAuthNameLegalTitle": "Terms and privacy",
+  "clientAuthNameKept": "Saved to your account",
+  "clientAuthNameMonogram": "Your monogram",
+  "clientAuthPwdForgotTitle": "Reset password",
+  "clientAuthPwdResetTitle": "New password",
+  "clientAuthPwdPassword": "Password",
+  "clientAuthPwdShow": "Show password",
+  "clientAuthPwdHide": "Hide password",
+  "clientAuthPwdForgot": "Forgot?",
+  "clientAuthPwdForgotLabel": "Forgot password",
+  "clientAuthPwdEnterCode": "Enter code",
+  "clientAuthPwdVerified": "Number verified on WhatsApp",
+  "clientAuthPwdStrength": "Password strength: {level}",
+  "@clientAuthPwdStrength": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "clientAuthPwdStrengthWeak": "Weak",
+  "clientAuthPwdStrengthFair": "Fair",
+  "clientAuthPwdStrengthStrong": "Strong",
+  "clientAuthPwdRuleLength": "At least {count, plural, one{{count} character} other{{count} characters}}",
+  "@clientAuthPwdRuleLength": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientAuthPwdRuleMix": "A letter and a number",
+  "clientAuthPwdRulePhone": "Not your number",
+  "clientAuthPwdRuleMet": "Done",
+  "clientAuthPwdRuleOpen": "Not yet",
+  "clientAuthPwdInvalid": "Details don’t match",
+  "clientAuthPwdLocked": "Paused",
+  "clientAuthPwdUpdatedTitle": "Password updated",
+  "clientAuthBioTitle": "Biometric unlock",
+  "clientAuthBioMethod": "{method, select, face{Face ID} touch{Touch ID} other{Fingerprint}}",
+  "@clientAuthBioMethod": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "clientAuthBioPromptDetail": "{method, select, face{Face ID} touch{Touch ID} other{Your fingerprint}} only unlocks the sign-in kept on this phone. It never replaces your first sign-in.",
+  "@clientAuthBioPromptDetail": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "clientAuthBioTurnOn": "Turn on",
+  "clientAuthBioUnlock": "Unlock",
+  "clientAuthBioFailedTitle": "Not matched",
+  "clientAuthBioFailedDetail": "You can try again or sign in another way. Your account is not locked.",
+  "clientAuthBioUnavailableRow": "Biometric unlock",
+  "clientAuthBioUnavailableDetail": "Add Face ID or a fingerprint in your phone’s settings to turn this on. Biometrics only unlock the sign-in kept on this phone.",
+  "clientAuthBioEnabledTitle": "Turned on",
+  "clientBookingStepOf": "Step {step} of {total}",
+  "@clientBookingStepOf": {
+    "placeholders": {
+      "step": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingStepsLabel": "Request progress",
+  "clientBookingLeaveTitle": "Leave request?",
+  "clientBookingLeaveBody": "Draft saved.",
+  "clientBookingLeaveConfirm": "Leave",
+  "clientBookingLeaveKeep": "Keep editing",
+  "clientBookingEstimateLabel": "Est.",
+  "clientBookingOfflineBanner": "Offline. Draft saved.",
+  "clientBookingPriceErrorBanner": "Price not updated",
+  "clientBookingPriceTitle": "Price",
+  "clientBookingVoucherTotalLabel": "Voucher price",
+  "clientBookingVoucherEstimateLabel": "Voucher price (est.)",
+  "clientBookingYouSaveNet": "You save {amount} after the voucher fee",
+  "@clientBookingYouSaveNet": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingReplyWithin": "The venue replies within",
+  "clientBookingReplyFast": "The venue is asked to reply within",
+  "clientBookingEventTitle": "Your event",
+  "clientBookingDateChange": "Change the date",
+  "clientBookingDateTakenAction": "Free dates",
+  "clientBookingDateTakenBanner": "{date} unavailable",
+  "@clientBookingDateTakenBanner": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingDateTakenReason": "Pick another date",
+  "clientBookingHostingLabel": "Reception",
+  "clientBookingHostingWomen": "Ladies’ reception",
+  "clientBookingHostingMen": "Men’s reception",
+  "clientBookingHostingMixed": "Mixed celebration",
+  "clientBookingHostingWomenShort": "Ladies’",
+  "clientBookingHostingMenShort": "Men’s",
+  "clientBookingHostingMixedShort": "Mixed",
+  "clientBookingHallLabel": "Hall",
+  "clientBookingSessionLabel": "Session",
+  "clientBookingGuestsLabel": "Guests",
+  "clientBookingGuestsPresets": "Common guest counts",
+  "clientBookingOccasionLabel": "Occasion",
+  "clientBookingOccasionWedding": "Wedding",
+  "clientBookingOccasionMilka": "Milka",
+  "clientBookingOccasionHenna": "Henna",
+  "clientBookingOccasionEngagement": "Engagement",
+  "clientBookingOccasionOther": "Other",
+  "clientBookingNeedVoucherTitle": "Voucher first",
+  "clientBookingNeedVoucherInfoTitle": "Voucher",
+  "clientBookingNeedVoucherBody": "A request needs a voucher. It gives you the voucher price and goes to the venue with your request.",
+  "clientBookingHostingOneVoucher": "One voucher covers one reception. A second reception is its own request with its own voucher.",
+  "clientBookingNeedVoucherAction": "Get voucher {fee}",
+  "@clientBookingNeedVoucherAction": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingFromVoucher": "From your voucher",
+  "clientBookingFromVoucherChange": "Change",
+  "clientBookingFromVoucherChangeAria": "Change what the voucher is bound to",
+  "clientBookingPackageTitle": "Package",
+  "clientBookingPackageSelected": "Selected",
+  "clientBookingPackageIncludes": "Includes",
+  "clientBookingPackageDetails": "Details",
+  "clientBookingPackageFlat": "Package price",
+  "clientBookingPackageNoVoucher": "No voucher",
+  "clientBookingPackageChangeVoucher": "Opens the voucher for this quote",
+  "clientBookingPackageNotCoveredToast": "Not covered by voucher",
+  "clientBookingPackageNoneTitle": "No package fits",
+  "clientBookingPackageNoneBody": "No package fits {guests} in this hall. Change the guests or choose another hall.",
+  "@clientBookingPackageNoneBody": {
+    "placeholders": {
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingPackageNoneInfoTitle": "Packages",
+  "clientBookingPackageNoneAction": "Change guests",
+  "clientBookingPackageMissingReason": "Choose a package",
+  "clientBookingPackageBreakdownOpen": "See the price breakdown",
+  "clientBookingExtrasTitle": "Extras",
+  "clientBookingExtrasInfoTitle": "Extras",
+  "clientBookingExtrasIncluded": "Included",
+  "clientBookingExtrasNone": "No extras",
+  "clientBookingExtrasNoneOffered": "This venue does not sell extras for your booking. You can continue.",
+  "clientBookingExtrasLead": "Optional and priced separately, at your voucher price where the venue has one.",
+  "clientBookingExtrasSettledNote": "Extras are settled directly with the venue.",
+  "clientBookingDetailsTitle": "Details",
+  "clientBookingNameLabel": "Name",
+  "clientBookingNameError": "Add a name",
+  "clientBookingPhoneLabel": "Phone",
+  "clientBookingPhoneVerified": "Verified",
+  "clientBookingPhoneVerify": "Verify",
+  "clientBookingPhoneDigits": "Needs {count, plural, one{{count} digit} other{{count} digits}}",
+  "@clientBookingPhoneDigits": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientBookingEmailLabel": "Email",
+  "clientBookingForLabel": "Booking for",
+  "clientBookingForSelf": "Myself",
+  "clientBookingForOther": "Someone else",
+  "clientBookingForNameLabel": "Their name",
+  "clientBookingForRelationLabel": "Relation",
+  "clientBookingRelationBride": "Bride",
+  "clientBookingRelationGroom": "Groom",
+  "clientBookingRelationFamily": "Family",
+  "clientBookingRelationPlanner": "Planner",
+  "clientBookingRequestsLabel": "Requests",
+  "clientBookingRequestsSuggestions": "Common requests",
+  "clientBookingSuggestPhotographer": "Female photographer only",
+  "clientBookingSuggestKosha": "Kosha team access from {time}",
+  "@clientBookingSuggestKosha": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingSuggestWheelchair": "Wheelchair access",
+  "clientBookingSuggestPhotographerShort": "Photographer",
+  "clientBookingSuggestKoshaShort": "Kosha",
+  "clientBookingSuggestWheelchairShort": "Wheelchair",
+  "clientBookingPrivacyWord": "Privacy",
+  "clientBookingPrivacy": "{venue} sees your name and phone for this request only. It sees your voucher code only when you redeem it.",
+  "@clientBookingPrivacy": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingReviewTitle": "Review",
+  "clientBookingReviewExtras": "Extras",
+  "clientBookingReviewContact": "Contact",
+  "clientBookingReviewPackage": "Package",
+  "clientBookingReviewPriceNote": "All-in, and frozen when you send. Nothing more to pay Ghazal: after you confirm, you pay the venue directly.",
+  "clientBookingNextTitle": "What happens next",
+  "clientBookingNextSend": "Send",
+  "clientBookingNextReply": "Reply",
+  "clientBookingNextConfirm": "Confirm",
+  "clientBookingNextVenue": "Redeem",
+  "clientBookingNextReplyNote": "Expected reply by",
+  "clientBookingNextConfirmNote": "Time to confirm after approval",
+  "clientBookingNextVenueNote": "You pay {venue} directly and show your voucher code.",
+  "@clientBookingNextVenueNote": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingConsent": "I agree",
+  "clientBookingConsentTitle": "Terms",
+  "clientBookingConsentBody": "I agree to the venue terms, the voucher terms and the platform terms.",
+  "clientBookingConsentRead": "Read the terms",
+  "clientBookingSend": "Send request",
+  "clientBookingSendFailed": "Not sent. Try again.",
+  "clientBookingReasonConsent": "Agree to send",
+  "clientBookingReasonLimit": "Requests full",
+  "clientBookingReasonVoucher": "Voucher needed",
+  "clientBookingReasonPhone": "Verify phone",
+  "clientBookingLimitBanner": "{count} of {max} open",
+  "@clientBookingLimitBanner": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingLimitAction": "View",
+  "clientBookingLimitInfoTitle": "Open requests",
+  "clientBookingLimitInfo": "Withdraw an open request to send another.",
+  "clientBookingPhoneBanner": "Phone not verified",
+  "clientBookingVoucherUneconomic": "Saving too low",
+  "clientBookingVoucherUneconomicInfo": "For this quote the saving is no longer more than the voucher price, so the voucher cannot be used for it.",
+  "clientBookingVoucherCardTitle": "Voucher",
+  "clientBookingVoucherChange": "Change voucher",
+  "clientBookingVoucherValid": "Valid until",
+  "clientBookingQuoteChanged": "Your total changed since you got the voucher, because of the extras you added. The voucher still applies.",
+  "clientBookingQuoteChangedShort": "Total changed",
+  "clientBookingSentTitle": "Request sent",
+  "clientBookingSentInfoTitle": "Your request",
+  "clientBookingSentBody": "The date is not held yet. If {venue} approves, we hold it for you for {count, plural, one{{count} hour} other{{count} hours}} so you can confirm. Your voucher is attached to the request.",
+  "@clientBookingSentBody": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientBookingSentWithdraw": "You can withdraw this request. Your voucher comes back and can be used again here.",
+  "clientBookingSentDate": "Date",
+  "clientBookingSentHall": "Hall",
+  "clientBookingSentGuests": "Guests",
+  "clientBookingSentReference": "Reference",
+  "clientBookingSentVoucherPrice": "Voucher price",
+  "clientBookingSentHeld": "Date held",
+  "clientBookingSentHeldLong": "Date held by another couple",
+  "clientBookingSentView": "View request",
+  "clientBookingSentDiscover": "Discover",
+  "clientBookingSentWedding": "My Wedding",
+  "clientBookingSentNotifTitle": "Booking updates",
+  "clientBookingSentNotifYes": "Turn on",
+  "clientBookingSentNotifNo": "Not now",
+  "clientBookingSentNotifToast": "Updates on",
+  "clientBookingSentOffline": "Offline. Summary saved.",
+  "clientBookingPlannerTitle": "Wedding planner",
+  "clientBookingPlannerNo": "Not now",
+  "clientBookingTakenTitle": "Date unavailable",
+  "clientBookingTakenSessionTitle": "Session unavailable",
+  "clientBookingTakenExpiredTitle": "Window ended",
+  "clientBookingTakenLoading": "Looking for free dates",
+  "clientBookingTakenNearest": "Nearest free dates",
+  "clientBookingTakenSimilar": "Similar halls free on {date}",
+  "@clientBookingTakenSimilar": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingTakenAnother": "Other date",
+  "clientBookingTakenResults": "Results",
+  "clientBookingTakenNone": "No dates nearby",
+  "clientBookingTakenNoneInfo": "No free dates near {date} at this hall. Choose another date or see other halls.",
+  "@clientBookingTakenNoneInfo": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingTakenVoucherValid": "Your voucher is still valid",
+  "clientBookingTakenRebindFailed": "Voucher can’t move there",
+  "clientBookingTakenRebound": "Voucher moved to {date}",
+  "@clientBookingTakenRebound": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingConfirmHeading": "Confirm",
+  "clientBookingConfirmByLabel": "Confirm by",
+  "clientBookingConfirmLapsedLabel": "Lapsed on",
+  "clientBookingConfirmWindowLabel": "Time to confirm",
+  "clientBookingConfirmLeft": "{time} remaining to confirm",
+  "@clientBookingConfirmLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingConfirmSummary": "What the venue approved",
+  "clientBookingConfirmSaveNet": "You save after the voucher fee",
+  "clientBookingConfirmPayTitle": "Payment",
+  "clientBookingConfirmPay": "Nothing is paid here. You pay the venue directly after you confirm.",
+  "clientBookingConfirmConsentBody": "I agree to the venue terms and the voucher terms.",
+  "clientBookingConfirmNoteCancel": "Confirming books the date at the voucher price. Cancelling after you confirm releases the date and the voucher is used.",
+  "clientBookingConfirmReasonConsent": "Agree to confirm",
+  "clientBookingConfirmAction": "Confirm booking",
+  "clientBookingConfirmSeeNext": "See options",
+  "clientBookingConfirmCancel": "Cancel request",
+  "clientBookingConfirmViewRequest": "View request",
+  "clientBookingConfirmOffline": "Offline. Reconnect to confirm.",
+  "clientBookingUpdatedTitle": "Request updated",
+  "clientBookingUpdatedAction": "Details",
+  "clientBookingDoneHeading": "Booking confirmed",
+  "clientBookingDoneVoucherTitle": "Voucher",
+  "clientBookingDonePayWord": "Pay venue",
+  "clientBookingDonePayTitle": "At the venue",
+  "clientBookingDonePay": "Pay {venue} directly, then show this code at the venue.",
+  "@clientBookingDonePay": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingDoneCopied": "Code copied",
+  "clientBookingDoneChecklist": "Venue marked done in your checklist",
+  "clientBookingDoneSetDate": "Set wedding date",
+  "clientBookingDoneDateSet": "Wedding date set",
+  "clientBookingDoneActions": "Next steps",
+  "clientBookingDoneDirections": "Directions",
+  "clientBookingDoneVisit": "Book a visit",
+  "clientBookingDoneCall": "Call the venue",
+  "clientBookingDoneCalling": "Calling the venue",
+  "clientBookingDoneCalendar": "Add to calendar",
+  "clientBookingDoneCalendarToast": "Added to calendar",
+  "clientBookingDoneShared": "Link copied",
+  "clientBookingDoneView": "View booking",
+  "clientBookingMapsTitle": "Directions",
+  "clientBookingMapsGoogle": "Google Maps",
+  "clientBookingMapsApple": "Apple Maps",
+  "clientBookingMapsWaze": "Waze",
+  "clientBookingMapsToast": "Opening directions",
+  "clientBookingEndedTitle": "Window ended",
+  "clientBookingEndedRevokedTitle": "Approval withdrawn",
+  "clientBookingEndedTakenTitle": "Date unavailable",
+  "clientBookingEndedLapsed": "The {duration} to confirm have ended. {date} was released and the voucher is no longer valid.",
+  "@clientBookingEndedLapsed": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingEndedRevoked": "{venue} can no longer hold {date}, so the approval was withdrawn.",
+  "@clientBookingEndedRevoked": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingEndedTaken": "{date} is no longer available at {venue}.",
+  "@clientBookingEndedTaken": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingEndedVoucherTitle": "Your voucher",
+  "clientBookingEndedVoucherPlain": "It is back with you and can be used for a new request here.",
+  "clientBookingEndedRefund": "Ask for credit",
+  "clientBookingEndedNew": "New request",
+  "clientBookingEndedFreeDates": "Free dates",
+  "clientBookingEndedViewVenue": "Venue",
+  "clientBookingEndedOffline": "Offline. Reconnect to continue.",
+  "clientBookingEndedReleased": "Hold released",
+  "clientBookingEndedWindow": "Confirmation window",
+  "clientBookingEndedUntil": "Can be used until",
+  "clientBookingEndedVoucherForfeited": "Not valid. A voucher not confirmed at the venue within the window does not come back.",
+  "clientBookingEndedVoucherCredit": "It is back with you. Use it again at {venue} until {date}, or ask support for a credit voucher.",
+  "@clientBookingEndedVoucherCredit": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsTitle": "Bookings",
+  "clientBookingsFindHall": "Find halls",
+  "clientBookingsSectionNeeds": "Needs you",
+  "clientBookingsSectionPending": "Pending",
+  "clientBookingsSectionConfirmed": "Confirmed",
+  "clientBookingsSectionPast": "Past",
+  "clientBookingsPastFilter": "Filter past requests",
+  "clientBookingsPastNone": "No requests with this status",
+  "clientBookingsLimitLabel": "Open requests",
+  "clientBookingsLimitReached": "Close one to send another",
+  "clientBookingsGuestTitle": "Track your requests",
+  "clientBookingsGuestAction": "Sign in",
+  "clientBookingsEmptyTitle": "No requests yet",
+  "clientBookingsEmptyAction": "Find halls",
+  "clientBookingsEmptyActionDate": "Halls on {date}",
+  "@clientBookingsEmptyActionDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsVouchers": "Vouchers",
+  "clientBookingsReceipts": "Receipts",
+  "clientBookingsAudienceWomen": "Ladies’ reception",
+  "clientBookingsAudienceMen": "Men’s reception",
+  "clientBookingsAudienceMixed": "Mixed reception",
+  "clientBookingsSessionDay": "Day reception",
+  "clientBookingsSessionAfternoon": "Afternoon reception",
+  "clientBookingsSessionEvening": "Evening reception",
+  "clientBookingsRowReplyBy": "Reply by",
+  "clientBookingsRowVoucherBack": "Voucher is back",
+  "clientBookingsRowVoucherUsed": "Voucher used",
+  "clientBookingsDetailTitle": "Booking",
+  "clientBookingsThreadLabel": "Booking progress",
+  "clientBookingsHeadFacts": "Booking facts",
+  "clientBookingsFactDate": "Date",
+  "clientBookingsFactHall": "Hall",
+  "clientBookingsFactGuests": "Guests",
+  "clientBookingsFactQuantity": "Quantity",
+  "clientBookingsFactPackage": "Package",
+  "clientBookingsFactNotes": "Notes",
+  "clientBookingsPendingTitle": "Request sent",
+  "clientBookingsPendingBody": "Your voucher is attached. Nothing is held yet.",
+  "clientBookingsPendingHeldTitle": "Date held",
+  "clientBookingsPendingHeld": "Another couple’s approved request is holding this date for now. If it lapses, yours can be approved. Your voucher stays attached.",
+  "clientBookingsPendingWithdraw": "Withdraw",
+  "clientBookingsApprovedCancel": "Cancel request",
+  "clientBookingsCancelBooking": "Cancel booking",
+  "clientBookingsConfirmWindow": "Confirm window",
+  "clientBookingsConfirmLeft": "Time remaining",
+  "clientBookingsConfirmInfoTitle": "Confirm window",
+  "clientBookingsConfirmInfo": "The date is held for you until then. You pay nothing more to Ghazal.",
+  "clientBookingsStepPay": "Pay venue",
+  "clientBookingsStepShow": "Show code",
+  "clientBookingsConfirmedInfoTitle": "Next step",
+  "clientBookingsConfirmedPay": "Pay {venue} directly, then show this code.",
+  "@clientBookingsConfirmedPay": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsAddToCalendar": "Calendar",
+  "clientBookingsCalendarAdded": "Added to calendar",
+  "clientBookingsBookVisit": "Visit",
+  "clientBookingsRedeemedOn": "Redeemed on",
+  "clientBookingsRedeemedPrice": "Venue price applied",
+  "clientBookingsProposedWas": "Original date",
+  "clientBookingsProposedReply": "Reply by",
+  "clientBookingsDeclinedDate": "Date unavailable",
+  "clientBookingsDeclinedCapacity": "Capacity doesn’t fit",
+  "clientBookingsDeclinedPackage": "Package unavailable",
+  "clientBookingsDeclinedOther": "Not accepted",
+  "clientBookingsExpiredTitle": "No reply",
+  "clientBookingsExpiredConfirmTitle": "Confirm time ended",
+  "clientBookingsExpiredConfirm": "The confirmation time ran out, so the hold on {date} was released.",
+  "@clientBookingsExpiredConfirm": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsExpiredDeadline": "Deadline",
+  "clientBookingsCancelledOn": "Cancelled on",
+  "clientBookingsCancelledByYou": "By you",
+  "clientBookingsCancelledByVenue": "By the venue",
+  "clientBookingsIssueOpen": "Report issue",
+  "clientBookingsIssueUntil": "Report until",
+  "clientBookingsIssueReportedTitle": "Report sent",
+  "clientBookingsIssueReportedBody": "Ghazal support has your report and will follow up in your messages.",
+  "clientBookingsIssueTitle": "Report issue",
+  "clientBookingsIssueFacts": "Report details",
+  "clientBookingsIssueReasonPrice": "Price not honoured",
+  "clientBookingsIssueReasonNotRedeemed": "Not redeemed",
+  "clientBookingsIssueReasonOther": "Other",
+  "clientBookingsIssueNote": "Note",
+  "clientBookingsIssueSend": "Send report",
+  "clientBookingsIssueSent": "Report sent",
+  "clientBookingsShowVoucher": "Show voucher",
+  "clientBookingsChooseDate": "Choose date",
+  "clientBookingsSendSimilar": "Similar halls",
+  "clientBookingsSendNew": "New request",
+  "clientBookingsWriteReview": "Write review",
+  "clientBookingsSectionAlternatives": "Free halls",
+  "clientBookingsSectionEvent": "Event",
+  "clientBookingsSectionPrice": "Price",
+  "clientBookingsSectionContact": "Contact",
+  "clientBookingsTerms": "Terms",
+  "clientBookingsMessage": "Message",
+  "clientBookingsUsuallyReplies": "Usually replies in",
+  "clientBookingsCallDisplayOnly": "Opening phone",
+  "clientBookingsPriceStandard": "Standard price",
+  "clientBookingsPriceSaving": "You save",
+  "clientBookingsPricePerGuest": "Per guest",
+  "clientBookingsPriceBasis": "Price basis",
+  "clientBookingsPriceGhazal": "Ghazal voucher",
+  "clientBookingsPricePaid": "Paid",
+  "clientBookingsPriceVenue": "Venue, paid directly",
+  "clientBookingsPriceSettled": "Settled",
+  "clientBookingsPriceOffApp": "Off-app",
+  "clientBookingsPriceInfoTitle": "Price terms",
+  "clientBookingsPriceInfoInclusive": "The venue sets this price, all-in. Ghazal adds nothing to it.",
+  "clientBookingsPriceInfoGhazal": "Nothing more to pay Ghazal.",
+  "clientBookingsOutcomeBackTitle": "Voucher is back",
+  "clientBookingsOutcomeBackReusable": "Use it again at {venue} until {date}.",
+  "@clientBookingsOutcomeBackReusable": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsOutcomeBackCredit": "Use it again at {venue} until {date}, or ask support for a credit voucher.",
+  "@clientBookingsOutcomeBackCredit": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsOutcomeBackPlain": "Your voucher is ready for another request.",
+  "clientBookingsOutcomeUsedTitle": "Voucher used",
+  "clientBookingsOutcomeUsedBody": "Cancelling a confirmed booking uses up the voucher. No money is returned.",
+  "clientBookingsOutcomeCreditTitle": "Credit voucher issued",
+  "clientBookingsOutcomeCreditBody": "A credit voucher is in your account. Claim it at any hall, hotel or service.",
+  "clientBookingsOutcomeExpiredTitle": "Voucher expired",
+  "clientBookingsOutcomeExpiredBody": "The voucher passed its validity date and can no longer be used.",
+  "clientBookingsOutcomeAction": "Use again",
+  "clientBookingsOutcomeUntil": "Use again until",
+  "clientBookingsOutcomeAskSupport": "Ask support",
+  "clientBookingsOutcomeInfoTitle": "Voucher terms",
+  "clientBookingsTicketQr": "QR code of voucher {code}",
+  "@clientBookingsTicketQr": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsTicketShowFull": "Enlarge",
+  "clientBookingsTicketUsedOn": "Used on",
+  "clientBookingsTicketValidUntil": "Valid until",
+  "clientBookingsCancelTitleWithdraw": "Withdraw request",
+  "clientBookingsCancelTitleApproved": "Cancel request",
+  "clientBookingsCancelTitleConfirmed": "Cancel booking",
+  "clientBookingsCancelDateLabel": "Date",
+  "clientBookingsCancelDateReleased": "Date released",
+  "clientBookingsCancelVoucherLabel": "Voucher",
+  "clientBookingsCancelVoucherBack": "Voucher returns",
+  "clientBookingsCancelVoucherUsed": "Voucher used",
+  "clientBookingsCancelVoucherBackBody": "Your voucher returns to you and can be used again at {venue} until {date}.",
+  "@clientBookingsCancelVoucherBackBody": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsCancelVoucherUsedBody": "Cancelling a confirmed booking uses up your voucher. No money is returned.",
+  "clientBookingsCancelDateWithdraw": "{venue} is told straight away. Nothing was held for you yet.",
+  "@clientBookingsCancelDateWithdraw": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsCancelDateApproved": "The hold on {date} is released.",
+  "@clientBookingsCancelDateApproved": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsCancelDateConfirmed": "The booking on {date} at {venue} is released.",
+  "@clientBookingsCancelDateConfirmed": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsCancelVenueMoney": "Anything you paid {venue} directly is settled between you and the venue.",
+  "@clientBookingsCancelVenueMoney": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsCancelInfoTitle": "Cancellation",
+  "clientBookingsCancelAltAction": "Message venue",
+  "clientBookingsCancelKeep": "Keep request",
+  "clientBookingsCancelKeepBooking": "Keep booking",
+  "clientBookingsCancelReasonTitle": "Why?",
+  "clientBookingsCancelReasonPlans": "Plans changed",
+  "clientBookingsCancelReasonVenue": "Other venue",
+  "clientBookingsCancelReasonDate": "Date changed",
+  "clientBookingsCancelReasonBudget": "Budget",
+  "clientBookingsCancelReasonOther": "Other",
+  "clientBookingsCancelNote": "Note",
+  "clientBookingsCancelActionWithdraw": "Withdraw request",
+  "clientBookingsCancelActionApproved": "Cancel request",
+  "clientBookingsCancelActionConfirmed": "Cancel booking",
+  "clientBookingsCancelErrorTitle": "Couldn’t cancel",
+  "clientBookingsCancelErrorBody": "Nothing was changed.",
+  "clientBookingsCancelDoneWithdrawn": "Request withdrawn",
+  "clientBookingsCancelDoneApproved": "Request cancelled",
+  "clientBookingsCancelDoneConfirmed": "Booking cancelled",
+  "clientBookingsProposalCounterTitle": "New dates",
+  "clientBookingsProposalCounterBody": "{venue} cannot host you on {date}. Choose one of these dates. The voucher price stays the same.",
+  "@clientBookingsProposalCounterBody": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsProposalInfoTitle": "Offer details",
+  "clientBookingsProposalFacts": "Details",
+  "clientBookingsProposalDatesLabel": "Dates offered",
+  "clientBookingsProposalOptionLabel": "{date}, voucher price {price}",
+  "@clientBookingsProposalOptionLabel": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsProposalTaken": "Taken",
+  "clientBookingsProposalTakenBanner": "{date} was taken in the meantime. Choose another date or message the venue.",
+  "@clientBookingsProposalTakenBanner": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientBookingsProposalHeld": "The voucher price is held on every date.",
+  "clientBookingsNoPenalty": "No penalty if you decline. Your voucher stays yours.",
+  "clientBookingsProposalReplyBy": "Reply by",
+  "clientBookingsProposalConfirmBy": "Confirm by",
+  "clientBookingsProposalAccept": "Accept date",
+  "clientBookingsProposalDeclineTitle": "Decline these dates?",
+  "clientBookingsProposalDeclineAction": "Decline dates",
+  "clientBookingsProposalDeclineKeep": "Keep choosing",
+  "clientBookingsProposalAcceptedTitle": "Date accepted",
+  "clientBookingsProposalClosedTitle": "Request closed",
+  "clientBookingsProposalExpiredTitle": "Offer lapsed",
+  "clientBookingsLater": "Later",
+  "clientBookingsReceiptsTitle": "Receipts",
+  "clientBookingsReceiptsInfoTitle": "Event payments",
+  "clientBookingsReceiptsNote": "Event payments are between you and the venue and do not appear here.",
+  "clientBookingsReceiptsEmptyTitle": "No receipts",
+  "clientBookingsReceiptsReceipt": "Receipt",
+  "clientBookingsReceiptsCredit": "Credit voucher",
+  "clientBookingsReceiptsSaved": "Saved to phone",
+  "clientBookingsMethodKnet": "KNET",
+  "clientBookingsMethodApplePay": "Apple Pay",
+  "clientBookingsMethodGooglePay": "Google Pay",
+  "clientBookingsMethodCard": "Card",
+  "clientBookingsViewerPreview": "Document preview in Arabic and English",
+  "clientBookingsViewerDownload": "Download",
+  "clientBookingsViewerDownloaded": "Downloaded",
+  "clientBookingsViewerSavedAt": "Saved to phone",
+  "clientBookingsViewerShareToast": "Pick an app",
+  "clientBookingsViewerOpen": "Open",
+  "clientBookingsViewerOpenToast": "Opening app",
+  "clientBookingsViewerOpenVoucher": "Voucher",
+  "clientBookingsOutcomeForfeitedTitle": "Voucher not valid",
+  "clientBookingsOutcomeForfeitedBody": "It was not confirmed at {venue} within {hours} hours, so it is forfeited. No money is returned.",
+  "@clientBookingsOutcomeForfeitedBody": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "hours": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverHeroHeadline": "Your evening hall",
+  "clientDiscoverBellUnread": "{count, plural, =0{Notifications} one{Notifications, {count} unread} other{Notifications, {count} unread}}",
+  "@clientDiscoverBellUnread": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverSwitchLabel": "Browse",
+  "clientDiscoverVariantsTitle": "Status cards",
+  "clientDiscoverCategoryLuxuryHotels": "Hotels",
+  "clientDiscoverCategoryWeddingHalls": "Halls",
+  "clientDiscoverCategoryGovernment": "Government",
+  "clientDiscoverCategoryBeach": "Beach",
+  "clientDiscoverCategoryOutdoor": "Outdoor",
+  "clientDiscoverCategoryVip": "VIP",
+  "clientDiscoverBrowseTitle": "Categories",
+  "clientDiscoverFreeTitle": "Free {date}",
+  "@clientDiscoverFreeTitle": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverShortlistTitle": "Saved",
+  "clientDiscoverShortlistCompare": "Compare",
+  "clientDiscoverFeaturedTitle": "Featured",
+  "clientDiscoverRecommendedTitle": "For you",
+  "clientDiscoverTrendingTitle": "Trending",
+  "clientDiscoverNearbyTitle": "Nearby",
+  "clientDiscoverEmptyTitle": "Fully booked",
+  "clientDiscoverEmptyWiden": "Change date",
+  "clientDiscoverLocateDialogTitle": "Use location?",
+  "clientDiscoverLocateAllow": "Allow",
+  "clientDiscoverLocateNotNow": "Not now",
+  "clientDiscoverEmptyNearLabel": "Nearest free dates",
+  "clientDiscoverEmptyDateSet": "Date updated",
+  "clientDiscoverBrowseAll": "All halls",
+  "clientDiscoverBriefLabel": "Your brief",
+  "clientDiscoverBriefChooseDate": "Date",
+  "clientDiscoverBriefChooseArea": "Area",
+  "clientDiscoverBriefAddGuests": "Guests",
+  "clientDiscoverBriefSetBudget": "Budget",
+  "clientDiscoverBriefAreaMore": "{first} +{more}",
+  "@clientDiscoverBriefAreaMore": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "more": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverCtaCount": "{count, plural, one{Show {count} hall} other{Show {count} halls}}",
+  "@clientDiscoverCtaCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverCtaShow": "Show halls",
+  "clientDiscoverCtaNearest": "Nearest dates",
+  "clientDiscoverResultsTitle": "Halls",
+  "clientDiscoverResultsSearchPlaceholder": "Hall or area",
+  "clientDiscoverResultsFilters": "Filters",
+  "clientDiscoverResultsClearAll": "Clear",
+  "clientDiscoverResultsRemoveChip": "Remove {name}",
+  "@clientDiscoverResultsRemoveChip": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverResultsMap": "Map",
+  "clientDiscoverResultsList": "List",
+  "clientDiscoverResultsBriefHint": "Edit brief",
+  "clientDiscoverResultsSeeFreeDates": "Free dates",
+  "clientDiscoverResultsGovernmentNote": "Browse only. Book through the official channel. No voucher.",
+  "clientDiscoverResultsRefreshed": "Halls updated",
+  "clientDiscoverResultsNoneRelax": "Remove {filter}",
+  "@clientDiscoverResultsNoneRelax": {
+    "placeholders": {
+      "filter": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverResultsNoneDates": "Nearest free dates",
+  "clientDiscoverResultsOfflineMap": "Map needs a connection. List still works.",
+  "clientDiscoverSearchRecent": "Recent",
+  "clientDiscoverSearchClearRecent": "Clear",
+  "clientDiscoverSortTitle": "Sort",
+  "clientDiscoverSortRecommended": "Recommended",
+  "clientDiscoverSortRating": "Rating",
+  "clientDiscoverSortNewest": "Newest",
+  "clientDiscoverSortPrice": "Lowest price",
+  "clientDiscoverSortPriceDesc": "Highest price",
+  "clientDiscoverSortDistance": "Nearest",
+  "clientDiscoverChipAreasAll": "All areas",
+  "clientDiscoverChipRating": "{rating}+",
+  "@clientDiscoverChipRating": {
+    "placeholders": {
+      "rating": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverArrangementWomen": "Ladies",
+  "clientDiscoverArrangementMen": "Men",
+  "clientDiscoverArrangementMixed": "Mixed",
+  "clientDiscoverSettingIndoor": "Indoor",
+  "clientDiscoverSettingOutdoor": "Outdoor",
+  "clientDiscoverSettingMixed": "Both",
+  "clientDiscoverFacilityParking": "Parking",
+  "clientDiscoverFacilityValet": "Valet",
+  "clientDiscoverFacilityBridal": "Bridal",
+  "clientDiscoverFacilityBuffet": "Buffet",
+  "clientDiscoverFacilityDecor": "Decor",
+  "clientDiscoverFacilityPhotography": "Photos",
+  "clientDiscoverLevelPrestige": "Prestige",
+  "clientDiscoverLevelSignature": "Signature",
+  "clientDiscoverLevelClassic": "Classic",
+  "clientDiscoverLevelGovernment": "Government",
+  "clientDiscoverFiltersTitle": "Filters",
+  "clientDiscoverFiltersGroupArrangement": "Reception",
+  "clientDiscoverFiltersGroupType": "Venue type",
+  "clientDiscoverFiltersGroupPrice": "Standard price",
+  "clientDiscoverFiltersGroupCapacity": "Capacity",
+  "clientDiscoverFiltersGroupSetting": "Setting",
+  "clientDiscoverFiltersGroupFacilities": "Facilities",
+  "clientDiscoverFiltersGroupRating": "Rating",
+  "clientDiscoverFiltersGroupLevel": "Level",
+  "clientDiscoverFiltersGroupBrand": "Hotel brand",
+  "clientDiscoverFiltersCta": "{count, plural, one{Show {count} hall} other{Show {count} halls}}",
+  "@clientDiscoverFiltersCta": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverFiltersCtaNone": "No halls",
+  "clientDiscoverFiltersClear": "Clear",
+  "clientDiscoverFiltersExpand": "Show {group}",
+  "@clientDiscoverFiltersExpand": {
+    "placeholders": {
+      "group": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverFiltersCollapse": "Hide {group}",
+  "@clientDiscoverFiltersCollapse": {
+    "placeholders": {
+      "group": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverBriefTitle": "Your brief",
+  "clientDiscoverBriefClear": "Clear",
+  "clientDiscoverBriefBack": "Back to your brief",
+  "clientDiscoverBriefDateTitle": "Date",
+  "clientDiscoverBriefDateFlexible": "Any month",
+  "clientDiscoverBriefAreaTitle": "Area",
+  "clientDiscoverBriefGuestsTitle": "Guests",
+  "clientDiscoverBriefGuestsPresets": "Quick choices",
+  "clientDiscoverBriefGuestsSection": "Searching for",
+  "clientDiscoverBriefBudgetTitle": "Budget",
+  "clientDiscoverBriefBudgetHelper": "Hall and catering only",
+  "clientDiscoverBriefBudgetBands": "Budget bands",
+  "clientDiscoverBriefBudgetUnder": "Under {amount}",
+  "@clientDiscoverBriefBudgetUnder": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverBriefDone": "Done",
+  "clientDiscoverMergeTitle": "Two briefs",
+  "clientDiscoverMergePhone": "This phone",
+  "clientDiscoverMergeAccount": "My account",
+  "clientDiscoverMapTitle": "Map",
+  "clientDiscoverMapPins": "Halls on the map",
+  "clientDiscoverMapCluster": "{count, plural, one{{count} hall here, tap to zoom in} other{{count} halls here, tap to zoom in}}",
+  "@clientDiscoverMapCluster": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverMapZoomOut": "Show all halls",
+  "clientDiscoverMapLocate": "My location",
+  "clientDiscoverMapSearchArea": "Search here",
+  "clientDiscoverMapDenied": "Near {area}",
+  "@clientDiscoverMapDenied": {
+    "placeholders": {
+      "area": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverMapLocated": "Near you",
+  "clientDiscoverMapNoneAction": "All halls",
+  "clientDiscoverMapOfflineAction": "List",
+  "clientDiscoverMapViewLabel": "Show as",
+  "clientDiscoverRefreshed": "Updated",
+  "clientDiscoverVoucherTitle": "Voucher prices",
+  "clientDiscoverWeekTitle": "This week",
+  "clientDiscoverCardGetVoucher": "Get voucher",
+  "clientDiscoverCardView": "View",
+  "clientDiscoverChipRegion": "Region",
+  "clientDiscoverChipDate": "Date",
+  "clientDiscoverChipVoucher": "Voucher",
+  "clientDiscoverSortVoucher": "Voucher price",
+  "clientDiscoverMapVoucherPin": "Voucher price",
+  "clientDiscoverFiltersGroupRegion": "Region",
+  "clientDiscoverFiltersGroupStructure": "Pricing",
+  "clientDiscoverFiltersGroupDate": "Date",
+  "clientDiscoverFiltersGroupVoucher": "Voucher price",
+  "clientDiscoverFiltersDateOpen": "Calendar",
+  "clientDiscoverFiltersVoucherTitle": "Voucher only",
+  "clientDiscoverBriefAreaAll": "All",
+  "clientDiscoverBriefAreaClearGroup": "Clear",
+  "clientDiscoverRegionPlaceholder": "Area or hall",
+  "clientDiscoverRegionNear": "Near me",
+  "clientDiscoverRegionListLabel": "Governorates and areas",
+  "clientDiscoverDatesTitle": "Dates",
+  "clientDiscoverDatesFlexible": "Any month",
+  "clientDiscoverDatesHint": "Up to {days, plural, one{{days} day} other{{days} days}}",
+  "@clientDiscoverDatesHint": {
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverDatesLegend": "Halls free on each day",
+  "clientDiscoverDatesMany": "Many",
+  "clientDiscoverDatesFew": "Few",
+  "clientDiscoverDatesNoneLegend": "None",
+  "clientDiscoverDatesNone": "No halls",
+  "clientDiscoverDatesApply": "Apply",
+  "clientDiscoverDatesClear": "Clear",
+  "clientDiscoverStatusNoDate": "Pick a date",
+  "clientDiscoverStatusBrief": "{count, plural, =0{No halls free} one{{count} hall free} other{{count} halls free}}",
+  "@clientDiscoverStatusBrief": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverA11yDate": "Date",
+  "clientDiscoverA11yTime": "Time",
+  "clientDiscoverA11yTimeLeft": "Time remaining",
+  "clientDiscoverA11yUpdated": "Updated",
+  "clientDiscoverA11yDrive": "Drive time",
+  "clientDiscoverMergeKeep": "Keep",
+  "clientDiscoverA11yDaysLeft": "Days remaining",
+  "clientDiscoverMinutes": "{minutes} min",
+  "@clientDiscoverMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverFiltersVoucherCount": "Voucher venues",
+  "clientDiscoverKm": "{km} km",
+  "@clientDiscoverKm": {
+    "placeholders": {
+      "km": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverA11yDistance": "Distance",
+  "clientDiscoverBriefBudgetOver": "{amount} and above",
+  "@clientDiscoverBriefBudgetOver": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesInboxTitle": "Messages",
+  "clientMessagesBellUnread": "{count, plural, =0{Notifications} one{Notifications, {count} unread} other{Notifications, {count} unread}}",
+  "@clientMessagesBellUnread": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMessagesFilterGroup": "Filter conversations",
+  "clientMessagesFilterVenues": "Halls",
+  "clientMessagesFilterVisits": "Visits",
+  "clientMessagesFilterPlanner": "Planner",
+  "clientMessagesFilterProviders": "Services",
+  "clientMessagesFilterSupport": "Support",
+  "clientMessagesPinned": "Pinned",
+  "clientMessagesYou": "You",
+  "clientMessagesPreviewVoice": "Voice message",
+  "clientMessagesPreviewPhoto": "Photo",
+  "clientMessagesPreviewDocument": "Document",
+  "clientMessagesUnreadCount": "{count, plural, =0{No unread messages} one{{count} unread message} other{{count} unread messages}}",
+  "@clientMessagesUnreadCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMessagesOfflineStamp": "Offline · {time}",
+  "@clientMessagesOfflineStamp": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesDayMonth": "{day} {month}",
+  "@clientMessagesDayMonth": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesEmptyTitle": "No messages yet",
+  "clientMessagesEmptyAction": "Browse halls",
+  "clientMessagesEmptySupport": "Support",
+  "clientMessagesGuestLabel": "Sign in to see your messages",
+  "clientMessagesGuestAction": "Sign in",
+  "clientMessagesVisitMembers": "Chat members",
+  "clientMessagesInfoTitle": "Details",
+  "clientMessagesRepliesWithin": "{hours, plural, one{Usually replies within an hour} other{Usually replies within {hours} hours}}",
+  "@clientMessagesRepliesWithin": {
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMessagesContextView": "View request",
+  "clientMessagesContextConfirm": "Confirm",
+  "clientMessagesFactDate": "Event date",
+  "clientMessagesFactGuests": "Guests",
+  "clientMessagesFactTimeLeft": "Time to confirm",
+  "clientMessagesFactDue": "Due date",
+  "clientMessagesFactMeeting": "Meeting",
+  "clientMessagesFactDaysLeft": "Days to the wedding",
+  "clientMessagesAudienceWomen": "Ladies’ reception",
+  "clientMessagesAudienceMen": "Men’s reception",
+  "clientMessagesAudienceMixed": "Mixed reception",
+  "clientMessagesComposerPlaceholder": "Message",
+  "clientMessagesComposerLabel": "Message",
+  "clientMessagesAttach": "Attach",
+  "clientMessagesRecordHold": "Hold to record a voice message",
+  "clientMessagesRecording": "Recording a voice message",
+  "clientMessagesSlideCancel": "Cancel",
+  "clientMessagesReleaseCancel": "Release",
+  "clientMessagesRecordDelete": "Delete recording",
+  "clientMessagesRecordSend": "Send voice message",
+  "clientMessagesRecordTooShort": "Hold to record",
+  "clientMessagesMsgSending": "Sending",
+  "clientMessagesMsgFailed": "Not sent",
+  "clientMessagesMsgQueued": "Queued",
+  "clientMessagesUploading": "Uploading",
+  "clientMessagesUploadCancel": "Cancel upload",
+  "clientMessagesOfflineQueue": "Offline",
+  "clientMessagesSuggestAvailability": "Dates",
+  "clientMessagesSuggestVisit": "Visit",
+  "clientMessagesSuggestVoucher": "Voucher",
+  "clientMessagesSuggestAvailabilityText": "Peace be upon you. Is {date} available for a ladies’ reception?",
+  "@clientMessagesSuggestAvailabilityText": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesSuggestAvailabilityAny": "Peace be upon you. Which dates do you have available for a ladies’ reception?",
+  "clientMessagesSuggestVoucherText": "Peace be upon you. What is the voucher price for the ladies’ reception on {date}?",
+  "@clientMessagesSuggestVoucherText": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesSuggestVoucherAny": "Peace be upon you. Could you tell us the voucher price for the ladies’ reception?",
+  "clientMessagesSupportIntro": "Hello, how can we help?",
+  "clientMessagesBlockedNote": "Blocked",
+  "clientMessagesUnblock": "Unblock",
+  "clientMessagesUnblockedToast": "Unblocked",
+  "clientMessagesSysRequestSent": "Request sent",
+  "clientMessagesSysApproved": "Approved",
+  "clientMessagesSysConfirmed": "Confirmed",
+  "clientMessagesSysRedeemed": "Voucher redeemed",
+  "clientMessagesSysNotAccepted": "Not accepted",
+  "clientMessagesSysExpired": "No reply",
+  "clientMessagesSysLapsed": "Time ran out",
+  "clientMessagesSysCancelled": "Cancelled",
+  "clientMessagesSysInfoTitle": "Voucher",
+  "clientMessagesSysInfoKept": "Your voucher is still yours.",
+  "clientMessagesSysInfoPay": "Pay {venue} directly and show your voucher code.",
+  "@clientMessagesSysInfoPay": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesOpenPhoto": "Photos in this conversation",
+  "clientMessagesPhotoViewer": "Photo viewer",
+  "clientMessagesStatusDelivered": "Delivered",
+  "clientMessagesStatusRead": "Read",
+  "clientMessagesCardCalendar": "Calendar",
+  "clientMessagesCardCalendarToast": "Added",
+  "clientMessagesCardChange": "Change",
+  "clientMessagesCardVendor": "Profile",
+  "clientMessagesAttachTitle": "Attach",
+  "clientMessagesAttachCamera": "Camera",
+  "clientMessagesAttachPhoto": "Photos",
+  "clientMessagesAttachDocument": "Document",
+  "clientMessagesAttachRecent": "Recent photos",
+  "clientMessagesAttachLimits": "Photos up to {photo}, videos up to {video}. Chat media stays private between you and the other side.",
+  "@clientMessagesAttachLimits": {
+    "placeholders": {
+      "photo": {
+        "type": "String"
+      },
+      "video": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesAttachLimitsTitle": "Limits",
+  "clientMessagesUnitMb": "{n} MB",
+  "@clientMessagesUnitMb": {
+    "placeholders": {
+      "n": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMessagesUnitSeconds": "{n, plural, =0{No seconds} one{{n} second} other{{n} seconds}}",
+  "@clientMessagesUnitSeconds": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMessagesUnitKb": "{n} KB",
+  "@clientMessagesUnitKb": {
+    "placeholders": {
+      "n": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMessagesDocPreview": "Document preview",
+  "clientMessagesDocQuotation": "Quotation",
+  "clientMessagesDocEvent": "Event date",
+  "clientMessagesDocHall": "Hall",
+  "clientMessagesDocGuests": "Guests",
+  "clientMessagesDocPackage": "Package",
+  "clientMessagesDocFileSize": "File size",
+  "clientMessagesDocStandard": "Standard",
+  "clientMessagesDocVoucher": "Voucher",
+  "clientMessagesDocSaving": "Saved",
+  "clientMessagesDocDownload": "Download",
+  "clientMessagesDocSaved": "Saved",
+  "clientMessagesDocOpen": "Open {name}",
+  "@clientMessagesDocOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesInfoBooking": "Linked request",
+  "clientMessagesInfoShared": "Photos and documents",
+  "clientMessagesInfoMute": "Mute",
+  "clientMessagesInfoMuted": "Muted",
+  "clientMessagesInfoUnmuted": "Unmuted",
+  "clientMessagesInfoCall": "Call",
+  "clientMessagesInfoReport": "Report",
+  "clientMessagesInfoBlock": "Block",
+  "clientMessagesInfoMembers": "Members",
+  "clientMessagesInfoMembersNote": "Only these three people are in this chat. Phone numbers are not shared.",
+  "clientMessagesInfoVisit": "Visit",
+  "clientMessagesInfoVisitNote": "Ghazal support is part of this chat, so it cannot be blocked. To stop it, cancel the visit.",
+  "clientMessagesInfoSupportNote": "Support conversations cannot be blocked.",
+  "clientMessagesInfoPrivate": "Chat media is private between you and the other side.",
+  "clientMessagesInfoPrivateTitle": "Privacy",
+  "clientMessagesInfoNeedsConnection": "Needs a connection",
+  "clientMessagesInfoErrorReport": "Could not send",
+  "clientMessagesReportPick": "Select message",
+  "clientMessagesReportReasonTitle": "Reason",
+  "clientMessagesReasonSpam": "Spam",
+  "clientMessagesReasonAbusive": "Abusive",
+  "clientMessagesReasonInappropriate": "Inappropriate",
+  "clientMessagesReasonOther": "Other",
+  "clientMessagesReportNote": "Note",
+  "clientMessagesReportSubmit": "Send report",
+  "clientMessagesReportDone": "Report sent",
+  "clientMessagesReportDoneDetail": "The message stays in your conversation. Our team will take a look and act if it breaks our rules.",
+  "clientMessagesReportNoMessages": "No messages",
+  "clientMessagesReportNeedMessage": "Select a message",
+  "clientMessagesReportNeedReason": "Select a reason",
+  "clientMessagesBlockTitle": "Block chat?",
+  "clientMessagesBlockBodyBooking": "Updates still arrive. Call {phone}",
+  "@clientMessagesBlockBodyBooking": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMessagesBlockConfirm": "Block",
+  "clientMessagesBlockKeep": "Cancel",
+  "clientMessagesBlockedDoneTitle": "Blocked",
+  "clientMessagesBlockedDoneDetail": "You will not receive messages from this side. You can unblock it at any time.",
+  "clientMessagesNtfTitle": "Notifications",
+  "clientMessagesNtfPrefs": "Notification settings",
+  "clientMessagesNtfFilterGroup": "Filter notifications",
+  "clientMessagesNtfBookings": "Requests",
+  "clientMessagesNtfVouchers": "Vouchers",
+  "clientMessagesNtfVisits": "Visits",
+  "clientMessagesNtfMessages": "Messages",
+  "clientMessagesNtfPlanning": "Planning",
+  "clientMessagesNtfUnreadOnly": "Unread",
+  "clientMessagesNtfUnread": "Unread",
+  "clientMessagesNtfMarkAll": "Read all",
+  "clientMessagesNtfAllRead": "All read",
+  "clientMessagesNtfEmptyTitle": "No notifications",
+  "clientMessagesNtfUnreadEmptyTitle": "All caught up",
+  "clientMessagesNtfShowAll": "Show all",
+  "clientMessagesNtfDeniedTitle": "Notifications off",
+  "clientMessagesNtfDeniedInfo": "Updates still appear here. Turn them on in your phone settings to get them as they happen.",
+  "clientMessagesNtfOpenSettings": "Settings",
+  "clientMessagesNtfSettingsToast": "Opens phone settings",
+  "clientMessagesNtfOffer": "Offer",
+  "clientMessagesNtfKindRequestSent": "Request sent",
+  "clientMessagesNtfKindApproved": "Approved",
+  "clientMessagesNtfKindConfirmReminder": "Confirm",
+  "clientMessagesNtfKindConfirmed": "Confirmed",
+  "clientMessagesNtfKindDeclined": "Not accepted",
+  "clientMessagesNtfKindExpired": "Expired",
+  "clientMessagesNtfKindCancelled": "Cancelled",
+  "clientMessagesNtfKindVoucherReady": "Voucher ready",
+  "clientMessagesNtfKindVoucherKept": "Still yours",
+  "clientMessagesNtfKindRedeemed": "Redeemed",
+  "clientMessagesNtfKindRefunded": "Refunded",
+  "clientMessagesNtfKindExpiring": "Expiring",
+  "clientMessagesNtfKindVisitRequested": "Visit requested",
+  "clientMessagesNtfKindVisitConfirmed": "Visit confirmed",
+  "clientMessagesNtfKindVisitSoon": "Visit soon",
+  "clientMessagesNtfKindVisitChat": "Visit chat",
+  "clientMessagesNtfKindNewVenue": "New hall",
+  "clientMessagesNtfKindReview": "Review",
+  "clientMessagesNtfKindCountdown": "Wedding",
+  "clientMessagesNtfKindChecklist": "Checklist",
+  "clientMessagesPromptTitle": "Booking updates",
+  "clientMessagesPromptBody": "We will tell you as soon as a hall replies to your request, and when your voucher is ready.",
+  "clientMessagesPromptNote": "We only send what you need, and never late at night.",
+  "clientMessagesPromptOn": "Turn on",
+  "clientMessagesPromptLater": "Not now",
+  "clientMessagesPromptOnToast": "Updates on",
+  "clientMessagesOsTitle": "“Ghazal” would like to send you notifications",
+  "clientMessagesOsBody": "Request updates, vouchers and visit reminders.",
+  "clientMessagesOsAllow": "Allow",
+  "clientMessagesOsDeny": "Don’t allow",
+  "clientMessagesMissingTitle": "No longer listed",
+  "clientMessagesMissingArea": "Area",
+  "clientMyWeddingHubTitle": "My Wedding",
+  "clientMyWeddingHubNotifications": "Notifications",
+  "clientMyWeddingHeroUnit": "{count, plural, one{day} other{days}}",
+  "@clientMyWeddingHeroUnit": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMyWeddingHeroTimeline": "Countdown milestones",
+  "clientMyWeddingHeroDate": "Wedding date",
+  "clientMyWeddingHeroWordToday": "Today",
+  "clientMyWeddingHeroWordTomorrow": "Tomorrow",
+  "clientMyWeddingHeroSetDate": "Set date",
+  "clientMyWeddingDoneTitle": "Congratulations",
+  "clientMyWeddingDoneReviewAction": "Review",
+  "clientMyWeddingDayDirections": "Directions",
+  "clientMyWeddingDayCall": "Call venue",
+  "clientMyWeddingDayMessage": "Message planner",
+  "clientMyWeddingDayDirectionsToast": "Opening directions",
+  "clientMyWeddingDayCallToast": "Calling the venue",
+  "clientMyWeddingNextTitle": "Next up",
+  "clientMyWeddingNextWaiting": "Waiting",
+  "clientMyWeddingNextWaitingLabel": "Reply expected by {when}",
+  "@clientMyWeddingNextWaitingLabel": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingNextHalls": "View halls",
+  "clientMyWeddingNextHallsLabel": "Halls free on your date",
+  "clientMyWeddingVoucherOpen": "Open",
+  "clientMyWeddingNextConfirmLabel": "Confirm by {when}",
+  "@clientMyWeddingNextConfirmLabel": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingTaskVenue": "Venue",
+  "clientMyWeddingTaskPhotographer": "Photographer",
+  "clientMyWeddingTaskDress": "Dress",
+  "clientMyWeddingTaskInvitations": "Invitations",
+  "clientMyWeddingTaskCake": "Cake",
+  "clientMyWeddingTaskMusic": "Music",
+  "clientMyWeddingTaskFlowers": "Flowers",
+  "clientMyWeddingTaskTransport": "Transport",
+  "clientMyWeddingTasksLeft": "{count, plural, one{{count} task remaining} other{{count} tasks remaining}}",
+  "@clientMyWeddingTasksLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientMyWeddingBookingsTitle": "Bookings",
+  "clientMyWeddingBookingsEmptyTitle": "No bookings",
+  "clientMyWeddingBookingsEmptyAction": "Browse halls",
+  "clientMyWeddingBookingGuests": "Guests",
+  "clientMyWeddingPlannerTitle": "Wedding planner",
+  "clientMyWeddingPlannerOfferAction": "See packages",
+  "clientMyWeddingPlannerDismiss": "Hide this offer",
+  "clientMyWeddingPlannerCall": "Video call {when}",
+  "@clientMyWeddingPlannerCall": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingToolsLabel": "Planning tools",
+  "clientMyWeddingToolChecklist": "Checklist",
+  "clientMyWeddingToolBudget": "Budget",
+  "clientMyWeddingToolBudgetOver": "Over",
+  "clientMyWeddingToolSaved": "Saved",
+  "clientMyWeddingToolServices": "Services",
+  "clientMyWeddingGuestAction": "Sign in",
+  "clientMyWeddingSample": "Sample",
+  "clientMyWeddingUpdated": "Last updated",
+  "clientMyWeddingDateDiffersLabel": "Booking date",
+  "clientMyWeddingDateDiffersAction": "Use date",
+  "clientMyWeddingDateUpdated": "Wedding date updated",
+  "clientMyWeddingChecklistTitle": "Checklist",
+  "clientMyWeddingChecklistAdd": "Add task",
+  "clientMyWeddingChecklistProgress": "{done} of {total} done",
+  "@clientMyWeddingChecklistProgress": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingChecklistBandBooking": "Booking",
+  "clientMyWeddingChecklistBandMore": "{count}+ months",
+  "@clientMyWeddingChecklistBandMore": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingChecklistBandMonths": "{from}–{to} months",
+  "@clientMyWeddingChecklistBandMonths": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingChecklistBandMonth": "Final month",
+  "clientMyWeddingChecklistBandWeek": "Final week",
+  "clientMyWeddingChecklistBandNoDate": "Anytime",
+  "clientMyWeddingChecklistBandDone": "Done",
+  "clientMyWeddingChecklistDue": "Due {when}",
+  "@clientMyWeddingChecklistDue": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingChecklistOverdue": "Overdue since {when}",
+  "@clientMyWeddingChecklistOverdue": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingChecklistAuto": "Completes when your booking is confirmed",
+  "clientMyWeddingChecklistBrowseLabel": "{task}: browse services",
+  "@clientMyWeddingChecklistBrowseLabel": {
+    "placeholders": {
+      "task": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingChecklistViewBookingLabel": "{task}: view booking",
+  "@clientMyWeddingChecklistViewBookingLabel": {
+    "placeholders": {
+      "task": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingChecklistEdit": "Edit task",
+  "clientMyWeddingChecklistToastDone": "Marked as done",
+  "clientMyWeddingChecklistAllDone": "All done",
+  "clientMyWeddingChecklistEmptyTitle": "No date yet",
+  "clientMyWeddingChecklistEmptyAction": "Set date",
+  "clientMyWeddingTaskSheetAdd": "Add task",
+  "clientMyWeddingTaskSheetEdit": "Edit task",
+  "clientMyWeddingTaskTitlePlaceholder": "Task",
+  "clientMyWeddingTaskTitleError": "Enter a name",
+  "clientMyWeddingTaskDueLabel": "Due date",
+  "clientMyWeddingTaskCategoryLabel": "Category",
+  "clientMyWeddingTaskCategoryPlaceholder": "None",
+  "clientMyWeddingTaskDelete": "Delete",
+  "clientMyWeddingTaskAdded": "Task added",
+  "clientMyWeddingTaskDeleted": "Task deleted",
+  "clientMyWeddingBudgetTitle": "Budget",
+  "clientMyWeddingBudgetEdit": "Edit budget",
+  "clientMyWeddingBudgetRemaining": "Remaining",
+  "clientMyWeddingBudgetOver": "Over",
+  "clientMyWeddingBudgetTotalLabel": "Total budget",
+  "clientMyWeddingBudgetPaid": "Paid",
+  "clientMyWeddingBudgetCommitted": "Committed",
+  "clientMyWeddingBudgetBarLabel": "Paid {paid}, committed {committed}, remaining {remaining}",
+  "@clientMyWeddingBudgetBarLabel": {
+    "placeholders": {
+      "paid": {
+        "type": "String"
+      },
+      "committed": {
+        "type": "String"
+      },
+      "remaining": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingBudgetAddExpense": "Add expense",
+  "clientMyWeddingBudgetAlertSoft": "{category} {percent}",
+  "@clientMyWeddingBudgetAlertSoft": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingBudgetAlertOver": "{category} {amount}",
+  "@clientMyWeddingBudgetAlertOver": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingBudgetCategories": "Categories",
+  "clientMyWeddingBudgetLedger": "Payments",
+  "clientMyWeddingBudgetInfoTitle": "Voucher and venue",
+  "clientMyWeddingBudgetInfoBody": "The voucher is paid in the app. The venue price is paid to the venue directly, outside Ghazal.",
+  "clientMyWeddingBudgetUsedLabel": "{percent} used",
+  "@clientMyWeddingBudgetUsedLabel": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingBudgetOverByLabel": "{amount} over its share",
+  "@clientMyWeddingBudgetOverByLabel": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingBudgetLinked": "Linked to your booking",
+  "clientMyWeddingBudgetPlanned": "Planned",
+  "clientMyWeddingBudgetEmptyTitle": "No budget yet",
+  "clientMyWeddingBudgetEmptyAction": "Set budget",
+  "clientMyWeddingBudgetAdded": "Expense added",
+  "clientMyWeddingExpenseTitleAdd": "Add expense",
+  "clientMyWeddingExpenseTitleEdit": "Edit expense",
+  "clientMyWeddingExpenseAmount": "Amount",
+  "clientMyWeddingExpenseAmountError": "Enter an amount",
+  "clientMyWeddingExpenseCategory": "Category",
+  "clientMyWeddingExpenseNote": "Note",
+  "clientMyWeddingExpenseDate": "Date",
+  "clientMyWeddingExpenseStatus": "Payment status",
+  "clientMyWeddingExpensePaid": "Paid",
+  "clientMyWeddingExpensePlanned": "Planned",
+  "clientMyWeddingExpenseDelete": "Delete",
+  "clientMyWeddingExpenseDeleteTitle": "Delete expense?",
+  "clientMyWeddingExpenseKeep": "Keep",
+  "clientMyWeddingExpenseSuccessTitle": "Added",
+  "clientMyWeddingExpenseOfflineReason": "Reconnect to save",
+  "clientMyWeddingExpenseDeleted": "Expense deleted",
+  "clientMyWeddingExpenseSampleLabel": "Henna artist deposit",
+  "clientMyWeddingSetupTitle": "Set budget",
+  "clientMyWeddingSetupTotal": "Total",
+  "clientMyWeddingSetupPresets": "Suggested totals",
+  "clientMyWeddingSetupCategories": "Split",
+  "clientMyWeddingSetupVenueReference": "Your venue and catering range",
+  "clientMyWeddingSetupUnallocated": "Unallocated",
+  "clientMyWeddingSetupOver": "Over total",
+  "clientMyWeddingSetupAlertSoft": "Alert at {percent}",
+  "@clientMyWeddingSetupAlertSoft": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingSetupAlertHard": "Alert at {percent}",
+  "@clientMyWeddingSetupAlertHard": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "clientMyWeddingSetupError": "Couldn’t save",
+  "clientMyWeddingSetupErrorDetail": "We couldn’t save your budget. Nothing was changed.",
+  "clientMyWeddingSetupSaved": "Budget saved",
+  "clientMyWeddingCatVenueCatering": "Venue",
+  "clientMyWeddingCatPhotoVideo": "Photo",
+  "clientMyWeddingCatFlowersDecor": "Flowers",
+  "clientMyWeddingCatAttire": "Attire",
+  "clientMyWeddingCatMakeupHenna": "Makeup",
+  "clientMyWeddingCatCars": "Cars",
+  "clientMyWeddingCatInvitations": "Invitations",
+  "clientMyWeddingCatMusic": "Music",
+  "clientMyWeddingCatHoneymoon": "Honeymoon",
+  "clientOnboardingAltLanguage": "Wedding stage framed by rose-and-greenery arches, blush swags and white drapery, with a long floral table in the foreground",
+  "clientOnboardingStepProgress": "Step {current} of {total}",
+  "@clientOnboardingStepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientOnboardingLanguageTitle": "Choose your language",
+  "clientOnboardingLanguageGroup": "App language",
+  "clientOnboardingLanguageSignIn": "Sign in",
+  "clientOnboardingLanguageSignInOffline": "Signing in needs a connection.",
+  "clientOnboardingIntroLabel": "Introduction",
+  "clientOnboardingIntroSlide1Title": "Compare three halls",
+  "clientOnboardingIntroSlide2Title": "Free dates at a glance",
+  "clientOnboardingIntroSlide3Title": "Lower voucher prices",
+  "clientOnboardingIntroStart": "Get started",
+  "clientOnboardingInfoTitle": "Your answers",
+  "clientOnboardingInfoBody": "All optional. They stay on this device until you sign up, and you can change them anytime in Profile.",
+  "clientOnboardingAboutTitle": "Who’s planning?",
+  "clientOnboardingAboutRoleLabel": "Your role",
+  "clientOnboardingAboutRoleBride": "Bride",
+  "clientOnboardingAboutRoleGroom": "Groom",
+  "clientOnboardingAboutRoleFamily": "Family",
+  "clientOnboardingAboutRolePlanner": "Planner",
+  "clientOnboardingAboutNameLabel": "Name",
+  "clientOnboardingAboutPartnerDefault": "Partner’s name",
+  "clientOnboardingAboutPartnerGroom": "Groom’s name",
+  "clientOnboardingAboutPartnerBride": "Bride’s name",
+  "clientOnboardingAboutPartnerCouple": "Couple’s names",
+  "clientOnboardingAboutMonogram": "Monogram preview",
+  "clientOnboardingDateTitle": "Wedding date",
+  "clientOnboardingDateOccasions": "Around this month",
+  "clientOnboardingDateOccasionOne": "{name} · {date}",
+  "@clientOnboardingDateOccasionOne": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientOnboardingDateOccasionRange": "{name} · {from} to {to}",
+  "@clientOnboardingDateOccasionRange": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "clientOnboardingDateNotDecided": "Undecided",
+  "clientOnboardingDateFlexible": "Flexible",
+  "clientOnboardingDateFlexibleTitle": "Flexible month",
+  "clientOnboardingDatePickDate": "Pick a date",
+  "clientOnboardingDateMonthsLabel": "Months",
+  "clientOnboardingGuestsTitle": "Guests and budget",
+  "clientOnboardingGuestsSection": "Guests",
+  "clientOnboardingGuestsExpected": "Expected guests",
+  "clientOnboardingGuestsPresets": "Common guest counts",
+  "clientOnboardingGuestsPresetMax": "{count}+",
+  "@clientOnboardingGuestsPresetMax": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "clientOnboardingGuestsSplitTitle": "Ladies and men",
+  "clientOnboardingGuestsSplitLabel": "Separate ladies’ and men’s receptions",
+  "clientOnboardingGuestsLadies": "Ladies’ reception",
+  "clientOnboardingGuestsMen": "Men’s reception",
+  "clientOnboardingBudgetSection": "Venue and catering",
+  "clientOnboardingBudgetBands": "Budget bands",
+  "clientOnboardingBudgetUnder": "Under {amount}",
+  "@clientOnboardingBudgetUnder": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientOnboardingBudgetAbove": "{amount} and above",
+  "@clientOnboardingBudgetAbove": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientOnboardingBudgetRange": "Custom budget range",
+  "clientOnboardingSkipHalf": "Later",
+  "clientOnboardingAreasTitle": "Areas",
+  "clientOnboardingAreasSearch": "Search areas",
+  "clientOnboardingAreasSelected": "{count, plural, =0{No areas selected} one{{count} area selected} other{{count} areas selected}}",
+  "@clientOnboardingAreasSelected": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientOnboardingAreasDemoQuery": "Mish",
+  "clientOnboardingAreasMore": "{count, plural, =0{No more areas} one{{count} more area} other{{count} more areas}}",
+  "@clientOnboardingAreasMore": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientOnboardingAreasNoHallsNote": "No halls yet. Home shows all.",
+  "clientPaymentTopTitle": "Payment",
+  "clientPaymentSave": "Save {amount}",
+  "@clientPaymentSave": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPaymentLabelHall": "Hall",
+  "clientPaymentLabelPackage": "Package",
+  "clientPaymentLabelDate": "Date",
+  "clientPaymentLabelGuests": "Guests",
+  "clientPaymentLabelOpenUntil": "Open until",
+  "clientPaymentLabelSaving": "You save",
+  "clientPaymentLabelAmount": "Amount",
+  "clientPaymentLabelMethod": "Method",
+  "clientPaymentLabelVoucherFor": "Voucher for",
+  "clientPaymentAmountLabel": "Ghazal voucher, paid once",
+  "clientPaymentTimerSr": "Time remaining: {time}",
+  "@clientPaymentTimerSr": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPaymentMethodsTitle": "Pay with",
+  "clientPaymentMethodsLabel": "Payment method",
+  "clientPaymentMethodKnet": "KNET",
+  "clientPaymentMethodApplePay": "Apple Pay",
+  "clientPaymentMethodGooglePay": "Google Pay",
+  "clientPaymentMethodCard": "Visa or Mastercard",
+  "clientPaymentMethodCardShort": "Card",
+  "clientPaymentMethodSuggested": "Suggested",
+  "clientPaymentSecureTitle": "Secure payment",
+  "clientPaymentHonestKnet": "KNET opens your bank’s secure page and works with Kuwaiti bank cards only.",
+  "clientPaymentHonestWallet": "You confirm on your device. Ghazal never sees your card details.",
+  "clientPaymentHonestCard": "You enter your card on the payment provider’s secure page. Ghazal never sees or stores it.",
+  "clientPaymentCtaPay": "Pay now",
+  "clientPaymentTermPrice": "Voucher price",
+  "clientPaymentTermDirect": "Pay direct",
+  "clientPaymentTermReturns": "Voucher returns",
+  "clientPaymentHowLink": "How the voucher works",
+  "clientPaymentHasVoucherBanner": "You have this voucher",
+  "clientPaymentSessionErrorTitle": "Couldn’t start payment",
+  "clientPaymentSessionError": "We could not start the payment. No amount was charged.",
+  "clientPaymentExpiredBanner": "Checkout ended",
+  "clientPaymentCancelledToast": "Cancelled, not charged",
+  "clientPaymentGatewayTitle": "Secure payment",
+  "clientPaymentGatewayBack": "Close payment",
+  "clientPaymentLeaveTitle": "Leave payment?",
+  "clientPaymentLeaveBody": "Not charged yet",
+  "clientPaymentLeaveConfirm": "Leave",
+  "clientPaymentLeaveStay": "Stay",
+  "clientPaymentRedirectTitle": "Opening secure page",
+  "clientPaymentRedirectBody": "You will finish the payment on a secure page. Nothing is charged until you do.",
+  "clientPaymentRedirectPrivacy": "Ghazal never sees your card number or PIN.",
+  "clientPaymentReturnedTitle": "Checking payment",
+  "clientPaymentLostTitle": "Connection lost",
+  "clientPaymentLostBody": "We are checking your payment. There is no need to pay again.",
+  "clientPaymentCancelTitle": "Payment cancelled",
+  "clientPaymentNotCharged": "Not charged",
+  "clientPaymentNotChargedLabel": "Charge status",
+  "clientPaymentReceivedLabel": "Payment received",
+  "clientPaymentBankNote": "Bank page",
+  "clientPaymentCardPageNote": "Card page",
+  "clientPaymentBankBank": "Bank",
+  "clientPaymentBankCard": "Card number",
+  "clientPaymentBankExpiry": "Expiry",
+  "clientPaymentBankPin": "PIN",
+  "clientPaymentBankItemName": "Ghazal voucher",
+  "clientPaymentBankSubmit": "Submit",
+  "clientPaymentCardHolder": "Name",
+  "clientPaymentCardCvv": "CVV",
+  "clientPaymentProtoLabel": "Prototype",
+  "clientPaymentProtoApproved": "Approved",
+  "clientPaymentProtoDeclined": "Declined",
+  "clientPaymentProtoSlow": "Slow",
+  "clientPaymentProtoLost": "Lost",
+  "clientPaymentProtoLate": "Late",
+  "clientPaymentConfirmTitle": "Confirming payment",
+  "clientPaymentConfirmLongTitle": "Still confirming",
+  "clientPaymentConfirmNotify": "We’ll notify you",
+  "clientPaymentConfirmNotifyLabel": "Notification",
+  "clientPaymentConfirmKeep": "Keep waiting",
+  "clientPaymentConfirmLeave": "Leave",
+  "clientPaymentConfirmOffline": "You are offline. Your payment is being confirmed and we will notify you.",
+  "clientPaymentConfirmSuccessTitle": "Payment received",
+  "clientPaymentConfirmProgress": "Checking the payment",
+  "clientPaymentViewVoucher": "View voucher",
+  "clientPaymentFailTitleExpired": "Checkout ended",
+  "clientPaymentFailTitleLate": "Voucher ready",
+  "clientPaymentFailBodyDeclined": "Your bank did not accept the payment. You can try again or choose another method.",
+  "clientPaymentFailBodyCancelled": "You closed the payment page before it finished.",
+  "clientPaymentFailBodyExpired": "Your checkout for this voucher ended at {time}, after {minutes}. You can start again with the same quote.",
+  "@clientPaymentFailBodyExpired": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPaymentFailBodyLate": "Your payment arrived after the checkout ended, and we still honoured it. The voucher is yours.",
+  "clientPaymentFailBodyOffline": "Reconnect to try again. Nothing is charged until a payment completes.",
+  "clientPaymentFailAnother": "Another method",
+  "clientPaymentFailStartAgain": "Start again",
+  "clientPaymentSupport": "Support",
+  "clientPaymentDoneTitle": "Voucher ready",
+  "clientPaymentDoneLate": "Payment arrived late",
+  "clientPaymentDoneLateNote": "Your payment arrived after the checkout ended. The voucher is active and bound to the date shown.",
+  "clientPaymentDoneReuse": "If the request is declined or goes unanswered, your voucher comes back to you.",
+  "clientPaymentDoneCta": "Send request",
+  "clientPaymentDoneRowVouchers": "My vouchers",
+  "clientPaymentDoneRowReceipt": "Receipt",
+  "clientPaymentTermsTitle": "Voucher terms",
+  "clientPaymentTermsLabel": "Voucher terms",
+  "clientPlannerOfferTitle": "Need a planner?",
+  "clientPlannerTitle": "Planner",
+  "clientPlannerCompareTitle": "Compare",
+  "clientPlannerCompareLabel": "Compare packages",
+  "clientPlannerTierPickerLabel": "Package",
+  "clientPlannerFromPrefix": "From",
+  "clientPlannerMarks": "{count, plural, one{{count} thread mark} other{{count} thread marks}}",
+  "@clientPlannerMarks": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientPlannerCompareChoose": "Choose {name}",
+  "@clientPlannerCompareChoose": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPlannerCompareChosen": "{name}, chosen",
+  "@clientPlannerCompareChosen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPlannerIncluded": "Included",
+  "clientPlannerNotIncluded": "Not included",
+  "clientPlannerIncludedLabel": "What is included",
+  "clientPlannerEverythingIn": "Everything in",
+  "clientPlannerIncSilver0": "Day coordinator",
+  "clientPlannerIncSilver1": "Event timeline",
+  "clientPlannerIncSilver2": "Vendor checks",
+  "clientPlannerIncSilver3": "Venue walkthrough",
+  "clientPlannerIncGold0": "Planning from booking",
+  "clientPlannerIncGold1": "Vendors and quotes",
+  "clientPlannerIncGold2": "Styling concept",
+  "clientPlannerIncGold3": "Two meetings",
+  "clientPlannerIncRoyal0": "Bespoke kosha",
+  "clientPlannerIncRoyal1": "Production management",
+  "clientPlannerIncRoyal2": "Vendor contracts",
+  "clientPlannerIncRoyal3": "Dedicated team",
+  "clientPlannerWeddingLabel": "Your wedding",
+  "clientPlannerPriceInfoTitle": "Price",
+  "clientPlannerPriceInfo": "You agree the final price with your planner after the consultation. Nothing is paid now.",
+  "clientPlannerRequestConsultation": "Request consultation",
+  "clientPlannerNotNowToast": "Always in My Wedding",
+  "clientPlannerOtherPlanners": "Other planners",
+  "clientPlannerGuestSignIn": "Sign in",
+  "clientPlannerRetryToast": "Still can’t connect",
+  "clientPlannerRequestTitle": "Consultation",
+  "clientPlannerRequestChange": "Change package",
+  "clientPlannerRequestTimesTitle": "Times",
+  "clientPlannerRequestDayLabel": "Day",
+  "clientPlannerRequestWindowLabel": "Time of day for {day}",
+  "@clientPlannerRequestWindowLabel": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPlannerRequestDayWithChoices": "{day}, {count, plural, one{{count} window chosen} other{{count} windows chosen}}",
+  "@clientPlannerRequestDayWithChoices": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientPlannerRequestWindowMorning": "Morning",
+  "clientPlannerRequestWindowAfternoon": "Afternoon",
+  "clientPlannerRequestWindowEvening": "Evening",
+  "clientPlannerRequestWindowsError": "Pick a time",
+  "clientPlannerRequestReachLabel": "Contact",
+  "clientPlannerRequestReachChat": "Chat",
+  "clientPlannerRequestReachWhatsapp": "WhatsApp",
+  "clientPlannerRequestReachPhone": "Call",
+  "clientPlannerRequestNotesLabel": "Notes",
+  "clientPlannerRequestSend": "Send request",
+  "clientPlannerRequestSuccessTitle": "Request sent",
+  "clientPlannerRequestSentToast": "We’ll notify you",
+  "clientPlannerRequestOpenTitle": "Request open",
+  "clientPlannerViewRequest": "View request",
+  "clientPlannerStatusTitle": "Your planner",
+  "clientPlannerStatusHeadWaiting": "Finding your planner",
+  "clientPlannerStatusThreadLabel": "Request progress",
+  "clientPlannerStatusStepRequested": "Request",
+  "clientPlannerStatusStepAssigned": "Planner",
+  "clientPlannerStatusStepMeeting": "Meeting",
+  "clientPlannerStatusCancelTitle": "Cancel request?",
+  "clientPlannerStatusCancelBody": "Nothing is lost.",
+  "clientPlannerStatusCancelConfirm": "Cancel request",
+  "clientPlannerStatusCancelKeep": "Keep",
+  "clientPlannerStatusCancelledToast": "Request cancelled",
+  "clientPlannerStatusSchedule": "Schedule",
+  "clientPlannerStatusMessageName": "Message {name}",
+  "@clientPlannerStatusMessageName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPlannerStatusMeetingLabel": "Next meeting",
+  "clientPlannerStatusAddToCalendar": "Add to calendar",
+  "clientPlannerStatusCalendarToast": "Added to calendar",
+  "clientPlannerStatusAssignedToast": "{name} assigned",
+  "@clientPlannerStatusAssignedToast": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPlannerTypeVideo": "Video",
+  "clientPlannerTypePhone": "Call",
+  "clientPlannerTypeVideoName": "Video call",
+  "clientPlannerTypePhoneName": "Phone call",
+  "clientPlannerMeetingTitle": "Schedule meeting",
+  "clientPlannerMeetingDayLabel": "Day",
+  "clientPlannerMeetingTimeLabel": "Time",
+  "clientPlannerMeetingTypeLabel": "Meeting type",
+  "clientPlannerMeetingDayNoSlots": "{day}, no free times",
+  "@clientPlannerMeetingDayNoSlots": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "clientPlannerMeetingConfirm": "Confirm",
+  "clientPlannerMeetingNoSlotsTitle": "No free times",
+  "clientPlannerMeetingTaken": "Time taken",
+  "clientPlannerMeetingSuccessTitle": "Meeting set",
+  "clientPlannerMeetingCalendar": "Calendar",
+  "clientProfileSharedVersion": "v{version}",
+  "@clientProfileSharedVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "clientProfileSharedOn": "On",
+  "clientProfileSharedOff": "Off",
+  "clientProfileSharedKeep": "Keep account",
+  "clientProfileSharedSupport": "Support",
+  "clientProfileSharedTerms": "Terms",
+  "clientProfileSharedPrivacy": "Privacy",
+  "clientProfileSharedSignIn": "Sign in",
+  "clientProfileSharedSignOut": "Sign out",
+  "clientProfileSharedSignOutTitle": "Sign out?",
+  "clientProfileSharedSignOutStay": "Stay",
+  "clientProfileSharedSignedOut": "Signed out",
+  "clientProfileSharedOpeningSettings": "Opening settings",
+  "clientProfileSharedSaveFailed": "Couldn’t save",
+  "clientProfileHubTitle": "Profile",
+  "clientProfileHubAccount": "Account",
+  "clientProfileHubVerified": "Verified",
+  "clientProfileHubRowWedding": "Wedding",
+  "clientProfileHubRowBookings": "Bookings",
+  "clientProfileHubRowVouchers": "Vouchers",
+  "clientProfileHubRowVisits": "Visits",
+  "clientProfileHubRowReceipts": "Receipts",
+  "clientProfileHubRowSaved": "Saved",
+  "clientProfileHubRowPersonal": "Personal info",
+  "clientProfileHubRowNotifications": "Notifications",
+  "clientProfileHubCountPaid": "Paid",
+  "clientProfileHubCountReady": "Ready",
+  "clientProfileHubCountUpcoming": "Upcoming",
+  "clientProfileHubCountHalls": "Halls",
+  "clientProfileDigitsTitle": "Digits",
+  "clientProfileLegalTitle": "Terms and privacy",
+  "clientProfileWedTitle": "Wedding info",
+  "clientProfileWedRole": "I am",
+  "clientProfileWedRoleBride": "Bride",
+  "clientProfileWedRoleGroom": "Groom",
+  "clientProfileWedRoleFamily": "Family",
+  "clientProfileWedRolePlanner": "Wedding planner",
+  "clientProfileWedName": "Your name",
+  "clientProfileWedPartnerDefault": "Partner’s name",
+  "clientProfileWedPartnerGroom": "Groom’s name",
+  "clientProfileWedPartnerBride": "Bride’s name",
+  "clientProfileWedPartnerCouple": "Couple’s names",
+  "clientProfileWedDate": "Wedding date",
+  "clientProfileWedCountdown": "Days to go",
+  "clientProfileWedDaysUnit": "{count, plural, one{day} other{days}}",
+  "@clientProfileWedDaysUnit": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientProfileWedGuests": "Guests",
+  "clientProfileWedLadies": "Ladies",
+  "clientProfileWedMen": "Men",
+  "clientProfileWedBudget": "Venue and catering",
+  "clientProfileWedAreas": "Areas",
+  "clientProfileWedTotal": "Total budget",
+  "clientProfileWedDiffersAction": "Use date",
+  "clientProfileWedDateUpdated": "Date updated",
+  "clientProfilePersTitle": "Personal info",
+  "clientProfilePersName": "Name",
+  "clientProfilePersNameError": "Add your name",
+  "clientProfilePersMonogram": "Monogram",
+  "clientProfilePersEmail": "Email",
+  "clientProfilePersEmailError": "Check the email",
+  "clientProfilePersPhone": "Phone",
+  "clientProfilePersPhoneChange": "Change",
+  "clientProfilePersPhoneNote": "Venues and providers see your number only for requests you send them.",
+  "clientProfilePersPhoneNoteTitle": "Your number",
+  "clientProfilePersMethods": "Sign in",
+  "clientProfilePersMethodWhatsapp": "WhatsApp",
+  "clientProfilePersMethodApple": "Apple",
+  "clientProfilePersMethodGoogle": "Google",
+  "clientProfilePersMethodHidden": "Hidden email",
+  "clientProfilePersMethodLinked": "Linked",
+  "clientProfilePersMethodNotLinked": "Unlinked",
+  "clientProfilePhoneTitle": "Change number",
+  "clientProfilePhoneNew": "New number",
+  "clientProfilePhoneSend": "Send code",
+  "clientProfilePhoneErrorDigits": "Needs {count, plural, one{{count} digit} other{{count} digits}}",
+  "@clientProfilePhoneErrorDigits": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientProfilePhoneDone": "Number updated",
+  "clientProfileNotifTitle": "Notifications",
+  "clientProfileNotifDenied": "Off on this phone",
+  "clientProfileNotifGroupAlways": "Always on",
+  "clientProfileNotifRequests": "Requests",
+  "clientProfileNotifVouchers": "Vouchers",
+  "clientProfileNotifVisits": "Visits",
+  "clientProfileNotifGroupReminders": "Reminders",
+  "clientProfileNotifConfirm": "Confirm request",
+  "clientProfileNotifConfirmFact": "Time to confirm",
+  "clientProfileNotifVisitReminders": "Visit",
+  "clientProfileNotifVoucherExpiry": "Voucher ending",
+  "clientProfileNotifMilestones": "Countdown",
+  "clientProfileNotifGroupMarketing": "Offers and news",
+  "clientProfileNotifOffers": "Venue offers",
+  "clientProfileNotifPriceDrops": "Price drops",
+  "clientProfileNotifNewVenues": "New halls",
+  "clientProfileNotifFrequencyTitle": "Frequency",
+  "clientProfileNotifFrequency": "At most {count, plural, one{{count} message} other{{count} messages}} a week, and none in the final {days, plural, one{{days} day} other{{days} days}} before your wedding.",
+  "@clientProfileNotifFrequency": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "days": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientProfileNotifChannels": "Send by",
+  "clientProfileNotifChannelPush": "App",
+  "clientProfileNotifChannelWhatsapp": "WhatsApp",
+  "clientProfileNotifChannelEmail": "Email",
+  "clientProfileNotifChannelEmailAdd": "Add email",
+  "clientProfileNotifQuiet": "Quiet hours",
+  "clientProfileNotifQuietOffers": "Offers",
+  "clientProfileNotifQuietAlerts": "Alerts",
+  "clientProfileNotifPhone": "Phone",
+  "clientProfileSetBiometric": "{method, select, face{Face ID} touch{Touch ID} other{Fingerprint}}",
+  "@clientProfileSetBiometric": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "clientProfileSetBiometricHint": "Set up in phone settings",
+  "clientProfileSetBiometricOff": "Turned off",
+  "clientProfileSetLocation": "Location",
+  "clientProfileSetLocationValue": "While using",
+  "clientProfileSetUsage": "Usage data",
+  "clientProfileSetUsageDetail": "Helps us improve Ghazal. Never includes payment details.",
+  "clientProfileDelTitle": "Delete account",
+  "clientProfileDelItemData": "Personal data",
+  "clientProfileDelItemPlans": "Plans",
+  "clientProfileDelOutAnonymised": "Anonymised",
+  "clientProfileDelOutKept": "Kept",
+  "clientProfileDelOutRemoved": "Removed",
+  "clientProfileDelOutWithdrawn": "Withdrawn",
+  "clientProfileDelDetailTitle": "What happens",
+  "clientProfileDelSheetData": "Your personal data is anonymised.",
+  "clientProfileDelSheetReceipts": "Voucher receipts and ledger records are kept, as the law requires.",
+  "clientProfileDelSheetSaved": "Saved halls, checklist and budget are removed.",
+  "clientProfileDelSheetApple": "Sign in with Apple access is revoked.",
+  "clientProfileDelSheetRequest": "Your pending request to {venue} will be withdrawn, and its voucher ends with your account.",
+  "@clientProfileDelSheetRequest": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientProfileDelVoucher": "{count, plural, one{Voucher ready} other{{count} vouchers ready}}",
+  "@clientProfileDelVoucher": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientProfileDelVoucherRefund": "Refund",
+  "clientProfileDelVoucherDetailRefund": "{count, plural, one{You have a voucher ready. Refund it first: once your account is deleted it ends and can’t be refunded.} other{You have {count} vouchers ready. Refund them first: once your account is deleted they end and can’t be refunded.}}",
+  "@clientProfileDelVoucherDetailRefund": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientProfileDelVoucherDetailEnds": "{count, plural, one{You have a voucher ready. It ends with your account, so use it first if you still need it.} other{You have {count} vouchers ready. They end with your account, so use them first if you still need them.}}",
+  "@clientProfileDelVoucherDetailEnds": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientProfileDelUndone": "Can’t be undone",
+  "clientProfileDelDeleting": "Deleting",
+  "clientProfileDelSuccessTitle": "Account deleted",
+  "clientProfileDelSuccessDetail": "Your personal data is anonymised. Receipts are kept as the law requires. You can create a new account any time.",
+  "clientProfileDelErrorTitle": "Couldn’t delete",
+  "clientProfileDelErrorDetail": "Nothing was changed. Try again, or contact Support.",
+  "clientProfileDelBlockedTitle": "Deletion paused",
+  "clientProfileDelBlockedDetail": "Deletion is paused while your booking at {venue} on {date} is confirmed. Cancel it, or request deletion after the event.",
+  "@clientProfileDelBlockedDetail": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientProfileDelBlockedApprovedDetail": "Deletion is paused while {venue} is waiting for you to confirm the approved request. Confirm it or cancel it first.",
+  "@clientProfileDelBlockedApprovedDetail": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientProfileDelBlockedSchedule": "Schedule deletion",
+  "clientProfileDelBlockedOpen": "Open request",
+  "clientProfileDelBlockedCancel": "Cancel booking",
+  "clientProfileDelBlockedCancelRequest": "Cancel request",
+  "clientProfileDelScheduledTitle": "Deletion scheduled",
+  "clientProfileDelScheduledCancel": "Cancel deletion",
+  "clientProfileDelScheduledCancelled": "Deletion cancelled",
+  "clientReviewsRewardsStarCount": "{count, plural, one{{count} star} other{{count} stars}}",
+  "@clientReviewsRewardsStarCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientReviewsRewardsStarsAndBelow": "{count, plural, one{{count} star and below} other{{count} stars and below}}",
+  "@clientReviewsRewardsStarsAndBelow": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientReviewsRewardsAudienceWomen": "Ladies’ reception",
+  "clientReviewsRewardsAudienceMen": "Men’s reception",
+  "clientReviewsRewardsAudienceMixed": "Mixed reception",
+  "clientReviewsRewardsRating": "Rating",
+  "clientReviewsRewardsGuest": "Guest",
+  "clientReviewsRewardsInReview": "In review",
+  "clientReviewsRewardsOpens": "Opens {date}",
+  "@clientReviewsRewardsOpens": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientReviewsRewardsOpensName": "Reviews open after your event on {date}.",
+  "@clientReviewsRewardsOpensName": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientReviewsRewardsShowMore": "Show more",
+  "clientReviewsRewardsListTitle": "Reviews",
+  "clientReviewsRewardsListWrite": "Write review",
+  "clientReviewsRewardsListEvent": "Your event",
+  "clientReviewsRewardsListSignIn": "Sign in",
+  "clientReviewsRewardsListSignInName": "to review your event",
+  "clientReviewsRewardsListInfoTitle": "Verified reviews",
+  "clientReviewsRewardsListInfoReal": "Only guests with a completed booking can review.",
+  "clientReviewsRewardsListInfoVenue": "Venues reply once. They cannot edit or remove reviews.",
+  "clientReviewsRewardsListInfoNew": "Be the first to review after your event.",
+  "clientReviewsRewardsListFilterLabel": "Filter reviews",
+  "clientReviewsRewardsListFilterPhotos": "Photos",
+  "clientReviewsRewardsListSortRecent": "Recent",
+  "clientReviewsRewardsListSortHighest": "Highest",
+  "clientReviewsRewardsListSortLowest": "Lowest",
+  "clientReviewsRewardsListSortTitle": "Sort",
+  "clientReviewsRewardsListMore": "More options for this review",
+  "clientReviewsRewardsListMoreReviews": "More",
+  "clientReviewsRewardsListVerified": "Verified booking",
+  "clientReviewsRewardsListReplyFrom": "Reply from {venue}",
+  "@clientReviewsRewardsListReplyFrom": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientReviewsRewardsListReportTitle": "Report",
+  "clientReviewsRewardsListReasonAbusive": "Abusive",
+  "clientReviewsRewardsListReasonNotVenue": "Not this venue",
+  "clientReviewsRewardsListReasonPeople": "Shows people",
+  "clientReviewsRewardsListReasonOther": "Other",
+  "clientReviewsRewardsListReportReason": "Pick a reason",
+  "clientReviewsRewardsListReportSent": "Report sent",
+  "clientReviewsRewardsListReported": "Reported",
+  "clientReviewsRewardsWriteTitle": "Write review",
+  "clientReviewsRewardsWritePrompt": "How was {venue}?",
+  "@clientReviewsRewardsWritePrompt": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientReviewsRewardsWriteOverall": "Overall",
+  "clientReviewsRewardsWriteStar1": "Poor",
+  "clientReviewsRewardsWriteStar2": "Fair",
+  "clientReviewsRewardsWriteStar3": "Good",
+  "clientReviewsRewardsWriteStar4": "Very good",
+  "clientReviewsRewardsWriteStar5": "Excellent",
+  "clientReviewsRewardsWriteCatVenue": "Venue",
+  "clientReviewsRewardsWriteCatFood": "Food",
+  "clientReviewsRewardsWriteCatService": "Service",
+  "clientReviewsRewardsWriteCatValue": "Value",
+  "clientReviewsRewardsWriteTextLabel": "Comment",
+  "clientReviewsRewardsWriteMediaTitle": "Photos",
+  "clientReviewsRewardsWriteMediaNoPeople": "No people",
+  "clientReviewsRewardsWriteMediaInfoTitle": "Review rules",
+  "clientReviewsRewardsWriteMediaRule": "Photos and videos showing people can’t be published.",
+  "clientReviewsRewardsWriteMediaAllowed": "The hall, décor, food and details are welcome.",
+  "clientReviewsRewardsWriteMediaChecked": "Reviews are checked before they appear. Photos wait for our team and only you see them.",
+  "clientReviewsRewardsWriteMediaAdd": "Add photo or video",
+  "clientReviewsRewardsWriteMediaUploading": "Uploading",
+  "clientReviewsRewardsWriteMediaRejected": "People",
+  "clientReviewsRewardsWriteMediaRejectedNote": "This photo can’t be published because it shows people. Remove it, or add another.",
+  "clientReviewsRewardsWriteMediaRemove": "Remove this photo",
+  "clientReviewsRewardsWriteNameHide": "Hide name",
+  "clientReviewsRewardsWriteSubmitReason": "Add a rating",
+  "clientReviewsRewardsWriteOffline": "You’re offline. Draft saved.",
+  "clientReviewsRewardsWriteOfflineReason": "Connect to send",
+  "clientReviewsRewardsWriteError": "Not sent. Draft saved.",
+  "clientReviewsRewardsWriteLockedAction": "View booking",
+  "clientReviewsRewardsWriteDoneTitle": "Thank you",
+  "clientReviewsRewardsWriteDoneHelper": "Appears after a quick check",
+  "clientReviewsRewardsWriteDoneSee": "See reviews",
+  "clientReviewsRewardsWriteAlreadyTitle": "Already reviewed",
+  "clientSavedCompareSavedTitle": "Saved",
+  "clientSavedCompareSavedTabsLabel": "Saved items",
+  "clientSavedCompareSavedSummaryFree": "{free} of {total} halls free on {date}",
+  "@clientSavedCompareSavedSummaryFree": {
+    "placeholders": {
+      "free": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedSummaryOneFree": "Free on {date}",
+  "@clientSavedCompareSavedSummaryOneFree": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedSummaryOneBusy": "Not free on {date}",
+  "@clientSavedCompareSavedSummaryOneBusy": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedSelect": "Select",
+  "clientSavedCompareSavedSelectNeedTwo": "Select at least two",
+  "clientSavedCompareSavedSelectRow": "Select {name}",
+  "@clientSavedCompareSavedSelectRow": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedDeselectRow": "Deselect {name}",
+  "@clientSavedCompareSavedDeselectRow": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedAvailFree": "Still free on {date}",
+  "@clientSavedCompareSavedAvailFree": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedAvailHeld": "On hold",
+  "clientSavedCompareSavedAvailBooked": "Booked on {date}",
+  "@clientSavedCompareSavedAvailBooked": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedSavingChanged": "Saving changed",
+  "clientSavedCompareSavedVoucherReadyOpen": "Open your voucher for {name}",
+  "@clientSavedCompareSavedVoucherReadyOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareSavedUnlisted": "Unlisted",
+  "clientSavedCompareSavedRemoved": "Removed",
+  "clientSavedCompareSavedGuestBanner": "This phone only",
+  "clientSavedCompareSavedGuestSignIn": "Sign in",
+  "clientSavedCompareLastUpdated": "Last updated",
+  "clientSavedCompareSavedEmptyVenuesTitle": "No halls saved",
+  "clientSavedCompareSavedEmptyVenuesAction": "Browse halls",
+  "clientSavedCompareSavedEmptyServicesTitle": "No services saved",
+  "clientSavedCompareSavedEmptyServicesAction": "Browse services",
+  "clientSavedCompareSavedEmptyPackagesTitle": "No packages saved",
+  "clientSavedCompareSavedEmptyPackagesAction": "See packages",
+  "clientSavedCompareSavedPlannerLabel": "Wedding planner",
+  "clientSavedCompareSavedFrom": "From",
+  "clientSavedCompareFactGuests": "Guests",
+  "clientSavedCompareFactDate": "Date",
+  "clientSavedCompareFactFreeHalls": "Halls free on your date",
+  "clientSavedCompareFactWomen": "Ladies",
+  "clientSavedCompareFactMen": "Men",
+  "clientSavedCompareFactMixed": "Mixed",
+  "clientSavedCompareFactEdit": "Edit your brief",
+  "clientSavedCompareTrayTitle": "Compare",
+  "clientSavedCompareTrayAddOne": "Add one more",
+  "clientSavedCompareTrayAction": "Compare ({count})",
+  "@clientSavedCompareTrayAction": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientSavedCompareTrayRemove": "Remove {name} from compare",
+  "@clientSavedCompareTrayRemove": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareTrayBadge": "{count, plural, =0{Your comparison is empty} one{Open your comparison, {count} hall} other{Open your comparison, {count} halls}}",
+  "@clientSavedCompareTrayBadge": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientSavedCompareReplaceTitle": "Replace which one?",
+  "clientSavedCompareReplaceBody": "You can compare up to {max} halls. Choose the one {name} will replace.",
+  "@clientSavedCompareReplaceBody": {
+    "placeholders": {
+      "max": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareReplaceDone": "Comparison updated",
+  "clientSavedCompareCompareTitle": "Compare",
+  "clientSavedCompareCompareLinkCopied": "Link copied",
+  "clientSavedCompareCompareRowAvailability": "Availability",
+  "clientSavedCompareCompareRowPrice": "Price",
+  "clientSavedCompareCompareRowPriceFrom": "From price",
+  "clientSavedCompareCompareRowCapacity": "Largest hall holds",
+  "clientSavedCompareCompareRowSetting": "Setting",
+  "clientSavedCompareCompareRowValet": "Valet",
+  "clientSavedCompareCompareRowParking": "Free parking",
+  "clientSavedCompareCompareRowBridal": "Bridal suite",
+  "clientSavedCompareCompareRowBuffet": "Buffet",
+  "clientSavedCompareCompareRowPhotography": "Photography",
+  "clientSavedCompareCompareRowRating": "Rating",
+  "clientSavedCompareCompareRowDistance": "Drive from {origin}",
+  "@clientSavedCompareCompareRowDistance": {
+    "placeholders": {
+      "origin": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareCompareDriveMinutes": "{minutes} min",
+  "@clientSavedCompareCompareDriveMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientSavedCompareCompareRowPackages": "Packages",
+  "clientSavedCompareCompareRowHow": "Booking channel",
+  "clientSavedCompareCompareRowPhotos": "Photos",
+  "clientSavedCompareCompareValHowVoucher": "With voucher",
+  "clientSavedCompareCompareValHowStandard": "Standard only",
+  "clientSavedCompareCompareValHowOfficial": "Official channel",
+  "clientSavedCompareCompareValIncluded": "Included",
+  "clientSavedCompareCompareValExtra": "Extra cost",
+  "clientSavedCompareCompareValNotOffered": "Not offered",
+  "clientSavedCompareCompareValIndoor": "Indoor",
+  "clientSavedCompareCompareValOutdoor": "Outdoor",
+  "clientSavedCompareCompareValWomenOnly": "Female only",
+  "clientSavedCompareCompareValAllowed": "Allowed",
+  "clientSavedCompareCompareValNotAllowed": "Not allowed",
+  "clientSavedCompareCompareValBelow": "Below your guests",
+  "clientSavedCompareCompareValFrom": "From",
+  "clientSavedCompareCompareShowPackages": "Show packages",
+  "clientSavedCompareCompareHidePackages": "Hide packages",
+  "clientSavedCompareCompareBadgeRated": "Top rated",
+  "clientSavedCompareCompareBadgeLowest": "Cheapest",
+  "clientSavedCompareCompareBadgeClosest": "Closest",
+  "clientSavedCompareCompareActionVoucher": "Voucher",
+  "clientSavedCompareCompareActionView": "View",
+  "clientSavedCompareCompareActionDates": "Dates",
+  "clientSavedCompareCompareActionOfficial": "Official",
+  "clientSavedCompareCompareActionFor": "{action}: {name}",
+  "@clientSavedCompareCompareActionFor": {
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareCompareOpen": "Open {name}",
+  "@clientSavedCompareCompareOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareComparePick": "Choose {name}",
+  "@clientSavedCompareComparePick": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareCompareUnpick": "Chosen: {name}",
+  "@clientSavedCompareCompareUnpick": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareComparePicked": "{name} is your choice.",
+  "@clientSavedCompareComparePicked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientSavedCompareCompareSetDate": "Set date",
+  "clientSavedCompareCompareFewerTitle": "Add a second hall",
+  "clientSavedCompareCompareFewerAction": "Choose hall",
+  "clientSavedCompareCompareDiffLabel": "Rows shown",
+  "clientSavedCompareCompareDiffOnly": "Differences",
+  "clientSavedCompareCompareDiffAll": "All",
+  "clientSavedCompareKeyTitle": "Symbols",
+  "clientSavedCompareKeyBest": "Best",
+  "clientSavedCompareKeySave": "Saving",
+  "clientSavedCompareCompareHidden": "{count, plural, one{{count} matching row hidden} other{{count} matching rows hidden}}",
+  "@clientSavedCompareCompareHidden": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientServicesFrom": "From",
+  "clientServicesOpenName": "Open {name}",
+  "@clientServicesOpenName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesArea": "Area",
+  "clientServicesProviders": "Providers",
+  "clientServicesSoon": "Soon",
+  "clientServicesVoucherAvailable": "Voucher prices available",
+  "clientServicesSavedView": "View",
+  "clientServicesRequestSent": "Request sent",
+  "clientServicesReconnect": "Reconnect to continue",
+  "clientServicesHowTitle": "How it works",
+  "clientServicesUnitEvent": "/event",
+  "clientServicesUnitCake": "/cake",
+  "clientServicesUnitSession": "/session",
+  "clientServicesUnitDress": "/dress",
+  "clientServicesUnitSuit": "/suit",
+  "clientServicesUnitCard": "/card",
+  "clientServicesUnitBooking": "/booking",
+  "clientServicesUnitPackage": "/package",
+  "clientServicesHubTitle": "Services",
+  "clientServicesHubSwitchLabel": "Browse",
+  "clientServicesHubGroupsLabel": "Categories",
+  "clientServicesHubMoreHeading": "More",
+  "clientServicesHubPlannerTitle": "Wedding planner",
+  "clientServicesHubSavedTitle": "Saved",
+  "clientServicesHubGovernmentNote": "Add catering and decor",
+  "clientServicesHubVoucherLine": "Get a {fee} Ghazal voucher on a provider’s page to unlock lower prices. You always pay the provider directly.",
+  "@clientServicesHubVoucherLine": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesListTitle": "Providers",
+  "clientServicesListSiblings": "Related services",
+  "clientServicesListFemaleTeam": "Female team",
+  "clientServicesListGridLabel": "Providers in {category}",
+  "@clientServicesListGridLabel": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesListNoResultsTitle": "No matches",
+  "clientServicesListClear": "Clear filters",
+  "clientServicesListEmptyTitle": "No providers yet",
+  "clientServicesFilterTitle": "Filters",
+  "clientServicesFilterLabel": "Filter",
+  "clientServicesSheetSortLabel": "Sort",
+  "clientServicesSheetUpTo": "Up to {price}",
+  "@clientServicesSheetUpTo": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesSheetRatingAtLeast": "{rating}+",
+  "@clientServicesSheetRatingAtLeast": {
+    "placeholders": {
+      "rating": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesSheetShow": "Show {count}",
+  "@clientServicesSheetShow": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesSortRecommended": "Featured",
+  "clientServicesSortPrice": "Price",
+  "clientServicesSortRating": "Rating",
+  "clientServicesProfileTitle": "Provider",
+  "clientServicesProfileHeroLabel": "Portfolio photos of {name}",
+  "@clientServicesProfileHeroLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesProfileReply": "Replies within",
+  "clientServicesProfileVerified": "Verified",
+  "clientServicesProfileEventTitle": "Event",
+  "clientServicesProfileEventInfoTitle": "The date",
+  "clientServicesProfileAvailabilityBody": "Availability is confirmed by the provider in chat.",
+  "clientServicesProfileEventNote": "Your voucher is tied to this date and package.",
+  "clientServicesProfileAsk": "Ask",
+  "clientServicesProfilePackagesTitle": "Packages",
+  "clientServicesProfilePackageChoose": "Choose {name}",
+  "@clientServicesProfilePackageChoose": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesProfilePackageChosen": "{name}, chosen",
+  "@clientServicesProfilePackageChosen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesProfileIncludes": "Includes",
+  "clientServicesProfileBudgetTitle": "Add to budget",
+  "clientServicesProfileReviewsTitle": "Reviews",
+  "clientServicesProfileGetVoucher": "Get voucher",
+  "clientServicesProfileRequest": "Request quote",
+  "clientServicesProfileOpenChat": "Open chat",
+  "clientServicesHowRequestLabel": "Request",
+  "clientServicesHowSettleLabel": "Pay provider",
+  "clientServicesHowPayTitle": "Pay {fee} online",
+  "@clientServicesHowPayTitle": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesHowPayBody": "Use KNET, a card, Apple Pay or Google Pay. The voucher is tied to this provider and package.",
+  "clientServicesHowRequestTitle": "Request at the voucher price",
+  "clientServicesHowRequestBody": "The provider answers. After approval you have {hours} to confirm.",
+  "@clientServicesHowRequestBody": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesHowSettleTitle": "Pay the provider directly",
+  "clientServicesHowSettleBody": "Settle as the provider agrees and show your voucher code. Ghazal takes no payment for the service.",
+  "clientServicesQuoteTitle": "Request quote",
+  "clientServicesQuotePackage": "Package",
+  "clientServicesQuoteDate": "Event date",
+  "clientServicesQuoteDatePlaceholder": "Choose a date",
+  "clientServicesQuoteVenue": "Venue",
+  "clientServicesQuoteGuests": "Guests",
+  "clientServicesQuoteNoteLabel": "Note for the provider",
+  "clientServicesQuoteNotePlaceholder": "Note",
+  "clientServicesQuoteSend": "Send request",
+  "clientServicesQuoteDateError": "Date needed",
+  "clientServicesQuoteGuestNote": "Sign in to send",
+  "clientServicesQuoteThreadExists": "Added to your chat",
+  "clientServicesQuoteErrorTitle": "Couldn’t send",
+  "clientServicesQuoteErrorBody": "Nothing you typed was lost.",
+  "clientServicesQuoteVoucherFailed": "Your voucher is safe and nothing was charged.",
+  "clientServicesQuoteAttachTitle": "Use voucher",
+  "clientServicesQuoteAttachInfoTitle": "Voucher request",
+  "clientServicesQuoteAttachNote": "Your enquiry becomes a request at the voucher price. The provider can accept, decline or suggest another date.",
+  "clientServicesQuoteNextTitle": "What’s next",
+  "clientServicesQuoteViewRequest": "View request",
+  "clientServicesQuoteVoucherSuccessBody": "{vendor} will answer in Messages. Once they accept, you have {hours} to confirm.",
+  "@clientServicesQuoteVoucherSuccessBody": {
+    "placeholders": {
+      "vendor": {
+        "type": "String"
+      },
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "clientShellTabBarLabel": "Main navigation",
+  "clientShellTabDiscover": "Discover",
+  "clientShellTabSaved": "Saved",
+  "clientShellTabMyWedding": "My Wedding",
+  "clientShellTabMessages": "Messages",
+  "clientShellTabProfile": "Profile",
+  "clientShellTabUnread": "{count, plural, one{{count} unread message} other{{count} unread messages}}",
+  "@clientShellTabUnread": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientShellGreeting": "Hello, {name}",
+  "@clientShellGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientShellGreetingAnonymous": "Hello",
+  "clientShellBriefTitle": "Your brief",
+  "clientShellBriefEditLabel": "Edit date, guests, area and budget",
+  "clientShellBriefDate": "Date",
+  "clientShellBriefGuests": "Guests",
+  "clientShellBriefArea": "Area",
+  "clientShellBriefBudget": "Venue and catering budget",
+  "clientShellBriefNotDecided": "Not decided",
+  "clientShellBriefFlexibleMonth": "Flexible month",
+  "clientShellSwitchVenues": "Venues",
+  "clientShellSwitchServices": "Services",
+  "clientShellSwitchPackages": "Packages",
+  "clientShellCompareTray": "Compare ({pair})",
+  "@clientShellCompareTray": {
+    "placeholders": {
+      "pair": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueTierPrestige": "Prestige",
+  "clientVenueTierSignature": "Signature",
+  "clientVenueTierClassic": "Classic",
+  "clientVenueTierGovernment": "Government hall",
+  "clientVenueAboutTitle": "About",
+  "clientVenueTypeHotel": "Hotel",
+  "clientVenueTypeHall": "Hall",
+  "clientVenueTypeResort": "Resort",
+  "clientVenueTypeVilla": "Villa",
+  "clientVenueTypeOutdoor": "Outdoor",
+  "clientVenueTypeConvention": "Convention centre",
+  "clientVenueAddressLine": "Block {block}, {street}",
+  "@clientVenueAddressLine": {
+    "placeholders": {
+      "block": {
+        "type": "String"
+      },
+      "street": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueRegionLine": "{area}, {governorate}",
+  "@clientVenueRegionLine": {
+    "placeholders": {
+      "area": {
+        "type": "String"
+      },
+      "governorate": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueHeroLabel": "Photos of {venue}",
+  "@clientVenueHeroLabel": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueHeroOpen": "Open the photo gallery",
+  "clientVenueNoPhotos": "Photos coming soon",
+  "clientVenueZoneHall": "Hall",
+  "clientVenueZoneStage": "Stage and kosha",
+  "clientVenueZoneBridal": "Bridal suite",
+  "clientVenueZoneBuffet": "Buffet",
+  "clientVenueZoneOutdoors": "Outdoors",
+  "clientVenueZoneEntrance": "Entrance and valet",
+  "clientVenueZoneLayout": "Layouts",
+  "clientVenueZoneVideo": "Video",
+  "clientVenueZoneWithHall": "{zone}, {hall}",
+  "@clientVenueZoneWithHall": {
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      },
+      "hall": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueGalleryLabel": "Photo gallery of {venue}",
+  "@clientVenueGalleryLabel": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueGalleryCounter": "{current}/{total}",
+  "@clientVenueGalleryCounter": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientVenueGalleryZones": "Photo zones",
+  "clientVenueVideoPlay": "Play the video",
+  "clientVenueVideoPause": "Pause the video",
+  "clientVenueVideoScrub": "Video position",
+  "clientVenueVideoCaption": "Entrance, hall, stage",
+  "clientVenueDateLabel": "Your date",
+  "clientVenueDateChoose": "Choose date",
+  "clientVenueDateChangeLabel": "Change the date",
+  "clientVenueGuestsAdd": "Add guests",
+  "clientVenueGuestsChangeLabel": "Change the number of guests",
+  "clientVenueGuestsLabel": "Guests",
+  "clientVenueEstimateLabel": "Estimated total",
+  "clientVenueEstimateMinimum": "Priced for the minimum of {guests}",
+  "@clientVenueEstimateMinimum": {
+    "placeholders": {
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueHeldSr": "Date held by another couple. You can still send a request.",
+  "clientVenueNearestTitle": "Nearest free dates",
+  "clientVenueSeeAllDates": "All dates",
+  "clientVenueWindowApplied": "{title} applies to your date",
+  "@clientVenueWindowApplied": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueHowTitle": "How the voucher works",
+  "clientVenueThreadTitle": "Your booking in five steps",
+  "clientVenueThreadLabel": "Booking steps: voucher, request, approval, confirmation, at the venue",
+  "clientVenueThreadVoucher": "Voucher",
+  "clientVenueThreadRequest": "Request",
+  "clientVenueThreadApproval": "Approval",
+  "clientVenueThreadConfirm": "Confirm",
+  "clientVenueThreadAtVenue": "At the venue",
+  "clientVenueThreadNote": "You pay Ghazal {fee} once, for the voucher. Everything else you pay to {venue} directly.",
+  "@clientVenueThreadNote": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      },
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueResponseUsually": "Usually replies within {hours, plural, one{{hours} hour} other{{hours} hours}}",
+  "@clientVenueResponseUsually": {
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientVenueOwnedView": "View",
+  "clientVenueHallsTitle": "Halls",
+  "clientVenueHallSwitchLabel": "Choose a hall",
+  "clientVenueHallFacts": "Facts",
+  "clientVenueHallCapacity": "Capacity",
+  "clientVenueHallIndoor": "Indoor",
+  "clientVenueHallOutdoor": "Outdoor",
+  "clientVenueHallMixed": "Indoor and outdoor",
+  "clientVenueHallExclusive": "One wedding a day",
+  "clientVenueHallExclusiveShort": "Exclusive",
+  "clientVenueSessionSwitchLabel": "Choose a session",
+  "clientVenueMore": "Show more",
+  "clientVenueLess": "Show less",
+  "clientVenuePackagesTitle": "Packages",
+  "clientVenuePackagesDetails": "Package details",
+  "clientVenuePackagesNone": "None on this date",
+  "clientVenuePkgMinGuests": "Minimum guests",
+  "clientVenuePkgIncludes": "Included",
+  "clientVenuePkgIncludesAll": "Show all inclusions",
+  "clientVenuePkgMenu": "Menu",
+  "clientVenuePkgExtras": "Extras",
+  "clientVenuePkgSave": "Save package",
+  "clientVenuePkgSaved": "Remove from saved packages",
+  "clientVenuePkgTierWeekday": "Weekday",
+  "clientVenuePkgTierWeekend": "Weekend",
+  "clientVenuePkgTierSeason": "Season",
+  "clientVenuePkgTierHoliday": "Holiday",
+  "clientVenuePkgTierSpecialDate": "Special date",
+  "clientVenuePkgTierLabel": "Rate for {date}",
+  "@clientVenuePkgTierLabel": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenuePkgOverTitle": "Over capacity",
+  "clientVenuePkgOverCap": "{hall} holds up to {guests}. You can choose another hall or fewer guests.",
+  "@clientVenuePkgOverCap": {
+    "placeholders": {
+      "hall": {
+        "type": "String"
+      },
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenuePkgUnavailable": "Not available on {date}",
+  "@clientVenuePkgUnavailable": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueFacilitiesTitle": "Facilities",
+  "clientVenueFacilitiesAll": "All facilities",
+  "clientVenueFacIncluded": "Included",
+  "clientVenueFacExtra": "Extra",
+  "clientVenueFacOff": "Not offered",
+  "clientVenuePoliciesTitle": "Policies",
+  "clientVenuePolicyTerms": "Terms",
+  "clientVenuePolicyRules": "Hall rules",
+  "clientVenuePolicyGood": "Good to know",
+  "clientVenueFaqTitle": "Questions",
+  "clientVenueReviewsTitle": "Reviews",
+  "clientVenueReviewsAll": "See all {count} reviews",
+  "@clientVenueReviewsAll": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueReviewsNone": "No reviews yet",
+  "clientVenueCatVenue": "Venue",
+  "clientVenueCatFood": "Food",
+  "clientVenueCatService": "Service",
+  "clientVenueCatValue": "Value",
+  "clientVenueReviewAnon": "Guest",
+  "clientVenueReviewReply": "The venue replied",
+  "clientVenueLocationTitle": "Location",
+  "clientVenueDriveFrom": "Drive from {origin}",
+  "@clientVenueDriveFrom": {
+    "placeholders": {
+      "origin": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueMapsShort": "Maps",
+  "clientVenueMapsTitle": "Maps",
+  "clientVenueMapsGoogle": "Google Maps",
+  "clientVenueMapsApple": "Apple Maps",
+  "clientVenueMapsWaze": "Waze",
+  "clientVenueMapsOpening": "Opening {app}",
+  "@clientVenueMapsOpening": {
+    "placeholders": {
+      "app": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueSimilarTitle": "Similar halls",
+  "clientVenueCtaChooseDate": "Choose date",
+  "clientVenueCtaSeeDates": "Free dates",
+  "clientVenueCtaGetVoucher": "Get voucher",
+  "clientVenueCtaSendRequest": "Send request",
+  "clientVenueCtaVisit": "Book visit",
+  "clientVenueCtaContact": "Contact",
+  "clientVenueCtaChangeGuests": "Change guests",
+  "clientVenueVisitNone": "No visit times are open at the moment",
+  "clientVenueCtaOffline": "Reconnect",
+  "clientVenueOfflineBanner": "Offline, saved {time}",
+  "@clientVenueOfflineBanner": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueCompareAdded": "Added to compare",
+  "clientVenueCompareView": "View",
+  "clientVenueSavedRemoved": "Removed",
+  "clientVenueSavedView": "View",
+  "clientVenueShareCopied": "Link copied",
+  "clientVenueDelistedTitle": "No longer listed",
+  "clientVenueDelistedCta": "Browse halls",
+  "clientVenueTotalFor": "Total for {guests}",
+  "@clientVenueTotalFor": {
+    "placeholders": {
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueContactTitle": "Contact",
+  "clientVenueContactCalling": "Calling {venue}",
+  "@clientVenueContactCalling": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueContactWhatsapp": "Opening WhatsApp",
+  "clientVenueContactChat": "Message",
+  "clientVenueCalTitle": "Dates",
+  "clientVenueCalMonthJump": "Jump to a month",
+  "clientVenueCalMonthTitle": "Month",
+  "clientVenueCalMonthDensity": "{month}: {count, plural, =0{no free dates} one{{count} free date} other{{count} free dates}}",
+  "@clientVenueCalMonthDensity": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientVenueCalBasis": "Prices in KD for {guests}",
+  "@clientVenueCalBasis": {
+    "placeholders": {
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueCalGuestsCta": "Add guests",
+  "clientVenueCalNone": "No free dates",
+  "clientVenueCalPickHint": "Pick a date to see the estimate.",
+  "clientVenueCalPickFree": "Choose one of the free dates.",
+  "clientVenueCalOccasionsLabel": "Occasions this month",
+  "clientVenueCalChosen": "Date set {date}",
+  "@clientVenueCalChosen": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueCalUse": "Use date",
+  "clientVenuePolTitle": "Policies",
+  "clientVenuePolTabsLabel": "Policy sections",
+  "clientVenuePolTabTerms": "Terms",
+  "clientVenuePolTabRules": "Rules",
+  "clientVenuePolTabGood": "Good to know",
+  "clientVenuePolRulesLabel": "Reception type",
+  "clientVenuePolChildren": "Children",
+  "clientVenuePolDress": "Dress code",
+  "clientVenuePolHours": "Working hours",
+  "clientVenuePolClosures": "Closures",
+  "clientVenuePolHoursLine": "{days}: {open} – {close}",
+  "@clientVenuePolHoursLine": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      },
+      "open": {
+        "type": "String"
+      },
+      "close": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenuePolClosureLine": "{name}: {from} – {to}",
+  "@clientVenuePolClosureLine": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueAudWomen": "Ladies",
+  "clientVenueAudMen": "Men",
+  "clientVenueAudMixed": "Mixed",
+  "clientVenueRulePhotography": "Photography",
+  "clientVenueRulePhotoFemale": "Women only",
+  "clientVenueRuleMusic": "Music",
+  "clientVenueRuleMusicBand": "DJ or band",
+  "clientVenueRuleMusicLive": "Live",
+  "clientVenueRuleMusicDuff": "Duff only",
+  "clientVenueRuleAllowed": "Allowed",
+  "clientVenueRuleApproval": "With approval",
+  "clientVenueRuleNot": "Not allowed",
+  "clientVenueRuleNone": "None",
+  "clientVenueRuleEntrance": "Separate entrance",
+  "clientVenueRuleCloakroom": "Abaya cloakroom",
+  "clientVenueRulePrayer": "Prayer room",
+  "clientVenueRuleSecurity": "Female security",
+  "clientVenueRuleBackup": "Indoor backup",
+  "clientVenueRuleBoys": "Boys’ age",
+  "clientVenueRuleCatering": "Outside catering",
+  "clientVenueRuleDecor": "Outside decor",
+  "clientVenueRuleBukhoor": "Bukhoor",
+  "clientVenueRuleCutoff": "Event ends by",
+  "clientVenueRuleExtraHour": "Extra hour",
+  "clientVenueTermsVenueTitle": "Terms of {venue}",
+  "@clientVenueTermsVenueTitle": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueTermsVoucherTitle": "The Ghazal voucher",
+  "clientVenueTermsVoucherFee": "{fee}, paid once to Ghazal",
+  "@clientVenueTermsVoucherFee": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueTermsVoucherBound": "Bound to this venue and quote",
+  "clientVenueTermsDirect": "Pay and cancel with the venue",
+  "clientVenueTermsVoucherReuse": "Declined or unanswered: reuse for {days}, or refund",
+  "@clientVenueTermsVoucherReuse": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueTermsVoucherConfirm": "Confirm within {hours} of approval",
+  "@clientVenueTermsVoucherConfirm": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVenueGovFeesTitle": "Fees",
+  "clientVenueGovSecurity": "Security deposit",
+  "clientVenueGovRefundable": "Refundable",
+  "clientVenueGovHallOnly": "Hall only: bring your own decor and catering.",
+  "clientVenueGovHallOnlyShort": "Hall only",
+  "clientVenueGovFeesInfoTitle": "About the fees",
+  "clientVenueGovRulesTitle": "Rules",
+  "clientVenueGovRuleNoChange": "No date changes",
+  "clientVenueGovRulePay": "Pay on time",
+  "clientVenueGovRulePayInfo": "Payment is made on the official channel within the time it states, or the booking is cancelled automatically.",
+  "clientVenueGovRuleKnet": "KNET",
+  "clientVenueGovAvail": "Official app",
+  "clientVenueGovCtaOfficial": "Official booking",
+  "clientVenueGovCtaCatering": "Find services",
+  "clientVenueGovLeaveTitle": "Leaving Ghazal",
+  "clientVenueGovLeaveBody": "Booking and payment happen on the official channel. Ghazal does not hold or guarantee it.",
+  "clientVenueGovLeaveToast": "Opening official site",
+  "clientVenueGovSelfLink": "Mark booked",
+  "clientVenueGovSelfTitle": "Mark booked",
+  "clientVenueGovSelfDate": "Date",
+  "clientVenueGovSelfFee": "Fee paid",
+  "clientVenueGovSelfNote": "This is a record for your budget, checklist and countdown only. It is not a Ghazal booking.",
+  "clientVenueGovSelfInfoTitle": "Not a booking",
+  "clientVenueGovSelfToast": "Saved to your wedding",
+  "clientVenueGovSelfView": "View",
+  "clientVenueGovWhyTitle": "Why no voucher?",
+  "clientVenueGovWhyBody": "Governmental facilities have fixed official fees, so there is no Ghazal price to unlock.",
+  "clientVenueGovBrowse": "Browse halls",
+  "clientVisitsBookTitle": "Book a visit",
+  "clientVisitsBookAction": "Request visit",
+  "clientVisitsInfoTitle": "Free visit",
+  "clientVisitsInfoFree": "A visit is free and needs no voucher.",
+  "clientVisitsInfoChat": "A chat opens with {venue} and Ghazal support to confirm your visit.",
+  "@clientVisitsInfoChat": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsInfoWindow": "Each window lasts {minutes} minutes. Arrive at any time inside it.",
+  "@clientVisitsInfoWindow": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsSlotDay": "Day",
+  "clientVisitsSlotMorning": "Morning",
+  "clientVisitsSlotAfternoon": "Afternoon",
+  "clientVisitsSlotEvening": "Evening",
+  "clientVisitsSlotTaken": "Taken",
+  "clientVisitsNoWeek": "Free from {date}",
+  "@clientVisitsNoWeek": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsTakenNext": "Next free windows",
+  "clientVisitsNotSent": "Not sent",
+  "clientVisitsVisitors": "Visitors",
+  "clientVisitsVisitorsCount": "{count, plural, one{{count} visitor} other{{count} visitors}}",
+  "@clientVisitsVisitorsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientVisitsNoteLabel": "Note for the venue",
+  "clientVisitsNote": "Note",
+  "clientVisitsFactDay": "Day",
+  "clientVisitsFactWindow": "Arrival window",
+  "clientVisitsFactVisitors": "Visitors",
+  "clientVisitsRequestedTitle": "Visit requested",
+  "clientVisitsOpenChat": "Open chat",
+  "clientVisitsBackToVenue": "Venue",
+  "clientVisitsRedirecting": "Opening chat",
+  "clientVisitsStay": "Stay",
+  "clientVisitsSummary": "Visit details",
+  "clientVisitsStepsLabel": "Visit progress",
+  "clientVisitsStepRequest": "Request",
+  "clientVisitsStepConfirm": "Confirmation",
+  "clientVisitsStepWay": "On the way",
+  "clientVisitsStepArrival": "Arrival",
+  "clientVisitsMembersOpen": "Chat members",
+  "clientVisitsRoleHotel": "Hotel",
+  "clientVisitsRoleSupport": "Support",
+  "clientVisitsMembersTitle": "Chat members",
+  "clientVisitsMembersPrivateTitle": "Private",
+  "clientVisitsMembersPrivate": "Only these three can read this chat. Phone numbers are not shared. Ghazal support cannot be blocked.",
+  "clientVisitsMembersVenue": "Venue page",
+  "clientVisitsMembersReport": "Report or block",
+  "clientVisitsClosed": "Closed",
+  "clientVisitsMessageVenue": "Message venue",
+  "clientVisitsRecordTooShort": "Hold to record",
+  "clientVisitsAttachTitle": "Attach",
+  "clientVisitsPhotoViewer": "Photos",
+  "clientVisitsGetVoucher": "Voucher",
+  "clientVisitsConfirmedToast": "Time confirmed",
+  "clientVisitsGuestTitle": "Your visits",
+  "clientVisitsGuestAction": "Sign in",
+  "clientVisitsMsgSending": "Sending",
+  "clientVisitsMsgQueued": "Queued",
+  "clientVisitsMsgDelete": "Delete",
+  "clientVisitsPinLabel": "Your visit",
+  "clientVisitsConfirmTime": "Confirm",
+  "clientVisitsChangeOrCancel": "Change or cancel",
+  "clientVisitsOnTheWay": "En route",
+  "clientVisitsArrived": "Arrived",
+  "clientVisitsNeedsConnection": "Needs a connection",
+  "clientVisitsChooseAnother": "Another time",
+  "clientVisitsSysOpened": "Chat opened",
+  "clientVisitsSysConfirmed": "Visit confirmed",
+  "clientVisitsSysProposed": "New time suggested",
+  "clientVisitsSysDeclined": "Time unavailable. Chat closed.",
+  "clientVisitsSysCancelled": "Visit cancelled. Chat closed.",
+  "clientVisitsSysArrived": "Arrival confirmed",
+  "clientVisitsSysCompleted": "Visit complete",
+  "clientVisitsSysClosed": "Chat closed",
+  "clientVisitsSysMissed": "Visit missed",
+  "clientVisitsSysAccepted": "New time accepted",
+  "clientVisitsSysAsked": "You asked for {when}",
+  "@clientVisitsSysAsked": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsTapOnTheWay": "We are on our way.",
+  "clientVisitsTapArrived": "We have arrived.",
+  "clientVisitsDemoSupport": "Hello {name}, I am Lama from Ghazal support. I am here with you and the hotel to confirm your arrival.",
+  "@clientVisitsDemoSupport": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsDemoClient": "Peace be upon you. We would like to visit the hall, my mother and I.",
+  "clientVisitsDemoHotelConfirm": "Welcome {name}. Your visit is confirmed for {day} at {time}, and we will meet you at the main entrance.",
+  "@clientVisitsDemoHotelConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "day": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsDemoHotelPropose": "{name}, that slot is no longer free. Could we meet you on {day} at {time} instead?",
+  "@clientVisitsDemoHotelPropose": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "day": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsDemoHotelDecline": "Thank you {name}. We cannot host visits at this time. You are welcome to choose another day.",
+  "@clientVisitsDemoHotelDecline": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsDemoHere": "We have arrived, we are at the main entrance.",
+  "clientVisitsDemoPending": "Is there parking close to the main entrance?",
+  "clientVisitsDemoHotelAck": "Thank you {name}, noted. We will see you then.",
+  "@clientVisitsDemoHotelAck": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsDemoHotelAckRequested": "Thank you {name}. We received your request and will confirm shortly.",
+  "@clientVisitsDemoHotelAckRequested": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsListTitle": "Visits",
+  "clientVisitsTabUpcoming": "Upcoming",
+  "clientVisitsTabPast": "Past",
+  "clientVisitsEmptyTitle": "No visits",
+  "clientVisitsEmptyAction": "See halls",
+  "clientVisitsChangeTitle": "Your visit",
+  "clientVisitsInfoFeeTitle": "No fee",
+  "clientVisitsInfoNoFee": "Nothing is charged and nothing is lost.",
+  "clientVisitsInfoRecord": "The chat records the change and {venue} is told.",
+  "@clientVisitsInfoRecord": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsRowAsk": "Another time",
+  "clientVisitsRowCancel": "Cancel visit",
+  "clientVisitsAskAction": "Send request",
+  "clientVisitsPickReason": "Pick a reason",
+  "clientVisitsReasonPlans": "Plans changed",
+  "clientVisitsReasonOtherVenue": "Chose elsewhere",
+  "clientVisitsReasonOther": "Other",
+  "clientVisitsKeepVisit": "Keep visit",
+  "clientVisitsDoneAskTitle": "Request sent",
+  "clientVisitsDoneAskDetail": "{venue} will answer in the chat.",
+  "@clientVisitsDoneAskDetail": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsDoneCancelTitle": "Visit cancelled",
+  "clientVisitsDoneCancelDetail": "Nothing was charged. The chat is closed and {venue} was told.",
+  "@clientVisitsDoneCancelDetail": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVisitsNothingChanged": "Nothing changed",
+  "clientVouchersAskOpen": "Open support chat",
+  "clientVouchersAskText": "Hello, my voucher {code} could not be used. Could you issue a credit voucher?",
+  "@clientVouchersAskText": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersAskTitle": "Use or ask support",
+  "clientVouchersAttachedToast": "Voucher attached",
+  "clientVouchersBackCredit": "Use it again here until {date}, or ask support for a credit voucher.",
+  "@clientVouchersBackCredit": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersBackKept": "Use it again here until {date}.",
+  "@clientVouchersBackKept": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersBackLine": "Back if declined",
+  "clientVouchersBrowseHalls": "Browse halls",
+  "clientVouchersChooseAnother": "Choose another",
+  "clientVouchersChooseLabel": "Choose a voucher",
+  "clientVouchersCodeCopied": "Code copied",
+  "clientVouchersConsumedBody": "You cancelled at {name} after confirming, so the voucher is used up.",
+  "@clientVouchersConsumedBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersContact": "Contact",
+  "clientVouchersCreditBody": "Granted by Ghazal support. Claim it with any hall, hotel or service within {validity}, then confirm there within {confirm}.",
+  "@clientVouchersCreditBody": {
+    "placeholders": {
+      "validity": {
+        "type": "String"
+      },
+      "confirm": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersCreditDeclined": "No credit issued",
+  "clientVouchersCreditIssuedBody": "Support issued you a credit voucher. It works at any hall, hotel or service.",
+  "clientVouchersCtaSignIn": "Sign in",
+  "clientVouchersDetailTitle": "Voucher",
+  "clientVouchersEmptyHistory": "No history",
+  "clientVouchersEmptyReady": "No vouchers",
+  "clientVouchersEmptyRequest": "No requests",
+  "clientVouchersExpiredBody": "Not used before {date}, so it can no longer be used.",
+  "@clientVouchersExpiredBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersExplainerTitle": "How it works",
+  "clientVouchersForRequestTitle": "Your voucher",
+  "clientVouchersForfeitedBody": "The {hours} to confirm at the venue or service ended, so this voucher is not valid and does not come back.",
+  "@clientVouchersForfeitedBody": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersGetAnother": "Get another",
+  "clientVouchersGetVoucher": "Get voucher",
+  "clientVouchersGuestTitle": "Your vouchers",
+  "clientVouchersHistPaid": "Paid",
+  "clientVouchersHistRequested": "Requested",
+  "clientVouchersHistReturned": "Returned",
+  "clientVouchersHistoryLabel": "Voucher history",
+  "clientVouchersInfoBack": "Why returned",
+  "clientVouchersInfoFit": "Why not",
+  "clientVouchersInfoPay": "Pay direct",
+  "clientVouchersInfoPaying": "Payment",
+  "clientVouchersInfoRequest": "Your request",
+  "clientVouchersInfoUsedUp": "Used up",
+  "clientVouchersInfoWaiting": "Waiting for {name} to reply. Your voucher stays with this request until it is answered.",
+  "@clientVouchersInfoWaiting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersInfoWindow": "Confirm window",
+  "clientVouchersInvalidSaving": "On these changes the saving at the venue is smaller than the voucher price.",
+  "clientVouchersInvalidTarget": "This voucher belongs to {bound}, and your request is now for {other}.",
+  "@clientVouchersInvalidTarget": {
+    "placeholders": {
+      "bound": {
+        "type": "String"
+      },
+      "other": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersKeep": "Keep voucher",
+  "clientVouchersLabelConfirmBy": "Confirm by",
+  "clientVouchersLabelEvent": "Event date",
+  "clientVouchersLabelExpired": "Expired on",
+  "clientVouchersLabelExpires": "Expires",
+  "clientVouchersLabelHall": "Hall",
+  "clientVouchersLabelMethod": "Paid with",
+  "clientVouchersLabelPackage": "Package",
+  "clientVouchersLabelReuse": "Reusable until",
+  "clientVouchersLabelUsed": "Used on",
+  "clientVouchersLabelValid": "Valid until",
+  "clientVouchersNoLongerFits": "No longer fits",
+  "clientVouchersNoneBody": "A voucher lets you request {name} at the voucher price. It costs {fee}, paid once, online.",
+  "@clientVouchersNoneBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersNoneTitle": "Voucher needed",
+  "clientVouchersOfflineSaved": "Offline, saved on phone",
+  "clientVouchersOnePer": "One voucher per request.",
+  "clientVouchersOwned": "Already yours",
+  "clientVouchersPayBody": "Pay {name} directly, on the terms you agreed. Their team scans the code, then marks it used.",
+  "@clientVouchersPayBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersPayFee": "Pay {fee}",
+  "@clientVouchersPayFee": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersPayingBody": "We are waiting for the bank to confirm. The voucher is ready the moment it does.",
+  "clientVouchersPhaseDirect": "Pay direct",
+  "clientVouchersPhaseUsedUp": "Used up",
+  "clientVouchersPhaseWaiting": "Waiting",
+  "clientVouchersPriceChanged": "Prices updated",
+  "clientVouchersQrAwake": "The screen stays bright and awake while this is open.",
+  "clientVouchersQrLabel": "QR code of voucher {code}",
+  "@clientVouchersQrLabel": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersQuoteLabel": "The choice your voucher is bound to",
+  "clientVouchersRestore": "Restore choice",
+  "clientVouchersRestoredToast": "Choice restored",
+  "clientVouchersReuseOnly": "Support can issue a credit voucher only when the venue or service could not take your request. This voucher can be used again here.",
+  "clientVouchersSegHistory": "History",
+  "clientVouchersSegLabel": "Voucher groups",
+  "clientVouchersSegReady": "Ready",
+  "clientVouchersSegRequest": "In request",
+  "clientVouchersSendRequest": "Send request",
+  "clientVouchersShowCode": "Show code",
+  "clientVouchersStepDirect": "Pay direct",
+  "clientVouchersStepRequest": "Request",
+  "clientVouchersStepsLabel": "Voucher steps",
+  "clientVouchersStillFits": "Still fits",
+  "clientVouchersSupport": "Support",
+  "clientVouchersTermBack": "If the venue declines, does not reply or cancels, the voucher comes back: use it again here for {days}, or ask support for a credit voucher.",
+  "@clientVouchersTermBack": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersTermDirect": "You pay {name} directly, outside the app, after you confirm. Ghazal takes no part in that payment.",
+  "@clientVouchersTermDirect": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersTermForfeit": "After approval, confirm within {confirm} by paying at the venue or service, or the voucher is not valid.",
+  "@clientVouchersTermForfeit": {
+    "placeholders": {
+      "confirm": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersTermUsed": "If you cancel after confirming, the voucher is used up.",
+  "clientVouchersTermValid": "Valid for {validity} from the day you pay.",
+  "@clientVouchersTermValid": {
+    "placeholders": {
+      "validity": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersTermWhat": "A {fee} voucher lets you request {name} at the voucher price. It belongs to this choice only.",
+  "@clientVouchersTermWhat": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersTermWindows": "{name} replies within {reply}. After approval you have {confirm} to confirm.",
+  "@clientVouchersTermWindows": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "reply": {
+        "type": "String"
+      },
+      "confirm": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersTermWithdraw": "If you withdraw before approval, you can use it again here.",
+  "clientVouchersTermsTitle": "Voucher terms",
+  "clientVouchersTooSmallBody": "On this choice the voucher would not save you more than it costs, so we are not offering one. Contact the venue and pay the standard price.",
+  "clientVouchersTooSmallTitle": "No voucher needed",
+  "clientVouchersUseAgain": "Use again",
+  "clientVouchersUseThis": "Use voucher",
+  "clientVouchersUsedUpBody": "You cancelled after confirming, so this voucher is used up.",
+  "clientVouchersViewReceipt": "View receipt",
+  "clientVouchersViewReceiptShort": "Receipt",
+  "clientVouchersViewRequest": "View request",
+  "clientVouchersWalletTitle": "My vouchers",
+  "clientVouchersWhyDeclined": "{name} could not take this request.",
+  "@clientVouchersWhyDeclined": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersWhyNoResponse": "{name} did not reply in time.",
+  "@clientVouchersWhyNoResponse": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersWhyRevoked": "{name} withdrew its approval.",
+  "@clientVouchersWhyRevoked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersWhySlotTaken": "Another booking took the date.",
+  "clientVouchersWhySuspended": "{name} is not taking requests at the moment.",
+  "@clientVouchersWhySuspended": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersWhyVenueCancelled": "{name} cancelled the booking.",
+  "@clientVouchersWhyVenueCancelled": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientVouchersWhyWithdrawn": "You withdrew the request.",
+  "clientVouchersWindowBody": "The date is held until the window ends. After it, the approval ends and the voucher is not valid.",
+  "clientVouchersWindowLeft": "Time remaining to confirm",
+  "clientVouchersWordDeclined": "Declined",
+  "clientVouchersWordNoResponse": "No reply",
+  "clientVouchersWordRevoked": "Revoked",
+  "clientVouchersWordSlotTaken": "Date taken",
+  "clientVouchersWordSuspended": "Paused",
+  "clientVouchersWordVenueCancelled": "Cancelled",
+  "clientVouchersWordWithdrawn": "Withdrawn"
 }

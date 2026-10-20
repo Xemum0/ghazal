@@ -1,0 +1,102 @@
+/wedding/profile:
+  get:
+    operationId: getWeddingProfile
+    summary: The couple's wedding profile (CA-PROF-02)
+    x-errors: [NOT_FOUND]
+    responses: { 200: WeddingProfile }
+  put:
+    operationId: putWeddingProfile
+    summary: Create or replace the wedding profile (onboarding result syncs here after sign-in)
+    body: WeddingProfileInput
+    responses: { 200: WeddingProfile }
+  patch:
+    operationId: updateWeddingProfile
+    summary: Partial update of the wedding profile (CL-PROF-02)
+    body: WeddingProfileInput
+    responses: { 200: WeddingProfile }
+/wedding/overview:
+  get:
+    operationId: getWeddingOverview
+    summary: My Wedding tab (countdown, checklist progress, budget, open requests, planner)
+    responses: { 200: WeddingOverview }
+/wedding/budget-bands:
+  get:
+    operationId: listBudgetBands
+    summary: Budget bands of the onboarding picker
+    x-access: guest
+    responses: { 200: 'BudgetBand[]' }
+/wedding/checklist:
+  get:
+    operationId: getChecklist
+    summary: Checklist and progress (CA-TOOL-12..16)
+    responses: { 200: ChecklistView }
+/wedding/checklist/items:
+  post:
+    operationId: createChecklistItem
+    summary: Add a custom checklist item
+    body: ChecklistItemInput
+    responses: { 201: ChecklistItem }
+/wedding/checklist/items/{itemId}:
+  patch:
+    operationId: updateChecklistItem
+    summary: Tick, rename or reschedule an item (auto items are read-only)
+    path: { itemId: Id }
+    body: ChecklistItemPatch
+    responses: { 200: ChecklistItem }
+  delete:
+    operationId: deleteChecklistItem
+    summary: Remove a custom item
+    path: { itemId: Id }
+    responses: { 204: ~ }
+/wedding/budget:
+  get:
+    operationId: getBudget
+    summary: Budget with categories, expenses and totals (CA-TOOL-05..11)
+    responses: { 200: BudgetView }
+  put:
+    operationId: setBudget
+    summary: Set the total budget and category allocations (CL-WEDD-05)
+    body: SetBudgetInput
+    responses: { 200: BudgetView }
+/wedding/budget/expenses:
+  post:
+    operationId: addExpense
+    summary: Add an expense (CL-WEDD-04)
+    body: ExpenseInput
+    responses: { 201: BudgetExpense }
+/wedding/budget/expenses/{expenseId}:
+  patch:
+    operationId: updateExpense
+    summary: Edit an expense
+    path: { expenseId: Id }
+    body: ExpensePatch
+    responses: { 200: BudgetExpense }
+  delete:
+    operationId: deleteExpense
+    summary: Remove an expense
+    path: { expenseId: Id }
+    responses: { 204: ~ }
+/wishlist:
+  get:
+    operationId: listWishlist
+    summary: Saved venues, providers and packages with Brief prices (CA-PROF-03)
+    query: { date: IsoDate, guests: integer, audience: Audience }
+    responses: { 200: SavedItemList }
+/wishlist/merge:
+  post:
+    operationId: mergeWishlist
+    summary: Merge a guest's local favourites into the account on sign-in
+    body: WishlistMergeInput
+    responses: { 200: SavedItemList }
+/wishlist/{type}/{id}:
+  put:
+    operationId: saveWishlistItem
+    summary: Save an item (idempotent)
+    path: { type: SavedType, id: Id }
+    body: SavedItemInput
+    responses: { 200: SavedItem }
+  delete:
+    operationId: removeWishlistItem
+    summary: Remove a saved item (idempotent)
+    path: { type: SavedType, id: Id }
+    responses: { 204: ~ }

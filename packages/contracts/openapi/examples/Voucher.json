@@ -1,0 +1,45 @@
+{
+  "id": "vch-GV-2611-K7QM",
+  "kind": "bound",
+  "code": "GV-2611-K7QM",
+  "clientId": "user-reem",
+  "targetType": "venue",
+  "venueOrProviderId": "V01",
+  "hallId": "V01-danah",
+  "packageId": "V01-ladies-weekend",
+  "eventDate": "2027-01-14",
+  "guests": 350,
+  "quoteFils": {
+    "standard": 18200000,
+    "voucher": 15400000
+  },
+  "priceFils": 2000,
+  "status": "bound",
+  "purchasedAt": "2026-11-12T12:31:00+03:00",
+  "validUntil": "2027-01-11T12:31:00+03:00",
+  "reuseUntil": null,
+  "qr": {
+    "payload": "gz:v1:GV-2611-K7QM:V01:CBDA",
+    "version": 1
+  },
+  "bookingId": "bk-GZ-2611-0147",
+  "payment": {
+    "method": "knet",
+    "receiptNo": "RC-050039",
+    "amount": {
+      "fils": 2000,
+      "currency": "KWD"
+    },
+    "status": "succeeded",
+    "at": "2026-11-12T12:32:00+03:00"
+  },
+  "releasedAt": null,
+  "releaseReason": null,
+  "forfeitedAt": null,
+  "creditEligible": false,
+  "refundRequestId": null,
+  "grantedFrom": null,
+  "usedAt": null,
+  "usedReason": null,
+  "redeemedBy": null
+}

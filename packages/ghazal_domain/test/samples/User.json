@@ -1,0 +1,50 @@
+[
+ {
+  "id": "user-reem",
+  "role": "client",
+  "name": "ريم الدوسري",
+  "nameLatin": "Reem Al-Dosari",
+  "monogram": "ر",
+  "phone": "+96550000012",
+  "email": null,
+  "locale": "ar",
+  "digitStyle": "western",
+  "createdAt": "2026-10-25T20:10:00+03:00"
+ },
+ {
+  "id": "user-support",
+  "role": "support",
+  "name": "دعم غزل",
+  "nameLatin": "Ghazal Support",
+  "monogram": "د",
+  "phone": "+96550000001",
+  "email": null,
+  "locale": "ar",
+  "digitStyle": "western",
+  "createdAt": "2026-01-01T00:00:00+03:00"
+ },
+ {
+  "id": "user-hind",
+  "role": "hotel_staff",
+  "name": "هند العنزي",
+  "nameLatin": "Hind Al-Enezi",
+  "monogram": "ه",
+  "phone": "+96550000040",
+  "email": null,
+  "locale": "ar",
+  "digitStyle": "western",
+  "createdAt": "2026-06-02T09:00:00+03:00"
+ },
+ {
+  "id": "user-lumi-manager",
+  "role": "hotel_staff",
+  "name": "بدرية الكندري",
+  "nameLatin": "Badriya Al-Kandari",
+  "monogram": "ب",
+  "phone": "+96550000046",
+  "email": null,
+  "locale": "ar",
+  "digitStyle": "western",
+  "createdAt": "2026-07-01T09:00:00+03:00"
+ }
+]

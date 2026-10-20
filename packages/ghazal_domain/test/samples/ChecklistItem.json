@@ -1,0 +1,62 @@
+[
+ {
+  "id": "chk-venue",
+  "group": "venue",
+  "title": {
+   "en": "Venue",
+   "ar": "اختيار القاعة"
+  },
+  "dueOn": null,
+  "done": false,
+  "doneAt": null,
+  "auto": true,
+  "custom": false,
+  "serviceCategoryId": null,
+  "bookingId": "bk-GZ-2611-0147"
+ },
+ {
+  "id": "chk-photographer",
+  "group": "photographer",
+  "title": {
+   "en": "Photographer",
+   "ar": "اختيار المصوّرة"
+  },
+  "dueOn": "2026-11-15",
+  "done": false,
+  "doneAt": null,
+  "auto": false,
+  "custom": false,
+  "serviceCategoryId": "photography",
+  "bookingId": null
+ },
+ {
+  "id": "chk-dress",
+  "group": "dress",
+  "title": {
+   "en": "Dress",
+   "ar": "فستان الزفاف"
+  },
+  "dueOn": "2026-11-19",
+  "done": false,
+  "doneAt": null,
+  "auto": false,
+  "custom": false,
+  "serviceCategoryId": "wedding_dress",
+  "bookingId": null
+ },
+ {
+  "id": "chk-transport",
+  "group": "transportation",
+  "title": {
+   "en": "Transportation",
+   "ar": "السيارات والتنقل"
+  },
+  "dueOn": "2026-12-24",
+  "done": false,
+  "doneAt": null,
+  "auto": false,
+  "custom": false,
+  "serviceCategoryId": "luxury_cars",
+  "bookingId": null
+ }
+]

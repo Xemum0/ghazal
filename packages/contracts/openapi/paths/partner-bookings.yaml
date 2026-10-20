@@ -1,0 +1,36 @@
+/partner/vouchers/redeemable:
+  get:
+    operationId: listRedeemableVouchers
+    summary: Vouchers bound to a confirmed request that staff can redeem today
+    x-partner: true
+    x-permissions: ['voucher:redeem']
+    x-paged: true
+    responses: { 200: VoucherAndRequestPage }
+/partner/vouchers/redeemed:
+  get:
+    operationId: listRedeemedVouchers
+    summary: Vouchers this partner has redeemed (audit list)
+    x-partner: true
+    x-permissions: ['booking:read']
+    x-paged: true
+    responses: { 200: VoucherAndRequestPage }
+/partner/vouchers/{code}/check:
+  get:
+    operationId: checkVoucherCode
+    summary: Check a typed or scanned code without redeeming (HL-BOOK-06)
+    description: Always 200; a refusal is in the body so the screen can show the specific calm error.
+    x-partner: true
+    x-permissions: ['voucher:redeem']
+    path: { code: string }
+    responses: { 200: RedeemCheck }
+/partner/vouchers/{code}/redeem:
+  post:
+    operationId: redeemVoucher
+    summary: Redeem a voucher (R11; HL-BOOK-07), one confirmation
+    description: Writes redeemedBy and redeemedAt, flips the voucher to used and the request to redeemed.
+    x-partner: true
+    x-permissions: ['voucher:redeem']
+    x-idempotent: true
+    path: { code: string }
+    x-errors: [VOUCHER_UNKNOWN, VOUCHER_OTHER_PARTNER, VOUCHER_NOT_CONFIRMED, VOUCHER_ALREADY_USED]
+    responses: { 200: VoucherAndRequest }

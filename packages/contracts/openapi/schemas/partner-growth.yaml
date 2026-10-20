@@ -1,0 +1,86 @@
+# Voucher price windows and analytics (HL-GROW). There is no revenue: Ghazal holds no event payment (ADR 0033).
+VoucherWindowInput:
+  type: object
+  description: A time-boxed voucher price. Rates apply to the voucher column of the listed packages when lower; the saving bounds of the package rules still hold.
+  required: [title, packageIds, startsAt]
+  properties:
+    title: { $ref: LocalizedText }
+    packageIds: { type: array, items: { $ref: Id }, minItems: 1 }
+    voucherPerGuest: { $ref: Money, nullable: true }
+    voucherFlat: { $ref: Money, nullable: true }
+    eventFrom: { $ref: IsoDate, nullable: true }
+    eventTo: { $ref: IsoDate, nullable: true }
+    eventDates: { type: array, items: { $ref: IsoDate }, nullable: true }
+    eventWeekdays: { type: array, items: { $ref: Weekday }, nullable: true }
+    startsAt: { $ref: IsoDateTime }
+    endsAt: { $ref: IsoDateTime, nullable: true }
+VoucherWindowList:
+  type: object
+  required: [windows]
+  properties: { windows: { type: array, items: { $ref: VoucherWindow } } }
+KpiId: { type: string, enum: [views, clicks, requests, vouchers_bought, vouchers_redeemed, conversion] }
+KpiUnit: { type: string, enum: [count, percent] }
+KpiPoint:
+  type: object
+  required: [date, value]
+  properties: { date: { $ref: IsoDate }, value: { type: integer, description: 'Counts, or basis points of a percent for conversion.' } }
+KpiSeries:
+  type: object
+  required: [id, unit, points]
+  properties: { id: { $ref: KpiId }, unit: { $ref: KpiUnit }, points: { type: array, items: { $ref: KpiPoint } } }
+TopPackage:
+  type: object
+  required: [packageId, confirmed]
+  properties: { packageId: { $ref: Id }, confirmed: { type: integer } }
+AnalyticsRange:
+  type: object
+  required: [from, to, label]
+  properties: { from: { $ref: IsoDate }, to: { $ref: IsoDate }, label: { $ref: LocalizedText } }
+ViewsTile:
+  type: object
+  required: [value, deltaPct]
+  properties: { value: { type: integer }, deltaPct: { type: number } }
+AnalyticsTiles:
+  type: object
+  required: [views, clicks, requests, approved, confirmed, vouchersBought, vouchersRedeemed, openDatesNext30Days, conversionBps]
+  properties:
+    views: { $ref: ViewsTile }
+    clicks: { type: integer }
+    requests: { type: integer }
+    approved: { type: integer }
+    confirmed: { type: integer }
+    vouchersBought: { type: integer }
+    vouchersRedeemed: { type: integer }
+    openDatesNext30Days: { type: integer }
+    conversionBps: { type: integer, description: 'Basis points of a percent: 93 = 0.93%.' }
+Funnel:
+  type: object
+  required: [views, clicks, requests, confirmed, redeemed]
+  properties:
+    views: { type: integer }
+    clicks: { type: integer }
+    requests: { type: integer }
+    confirmed: { type: integer }
+    redeemed: { type: integer }
+Analytics:
+  x-dart-name: PartnerAnalytics
+  type: object
+  required: [venueId, range, window, tiles, funnel, topPackages, series]
+  properties:
+    venueId: { $ref: Id }
+    range: { $ref: AnalyticsRange }
+    window: { $ref: DateRange }
+    tiles: { $ref: AnalyticsTiles }
+    funnel: { $ref: Funnel }
+    topPackages: { type: array, items: { $ref: TopPackage } }
+    series: { type: array, items: { $ref: KpiSeries } }
+ListingPerformance:
+  type: object
+  description: 'Listing performance of a provider (HL-PROV-07): views and requests, never money.'
+  required: [listingId, range, tiles, funnel, series]
+  properties:
+    listingId: { $ref: Id }
+    range: { $ref: AnalyticsRange }
+    tiles: { $ref: AnalyticsTiles }
+    funnel: { $ref: Funnel }
+    series: { type: array, items: { $ref: KpiSeries } }

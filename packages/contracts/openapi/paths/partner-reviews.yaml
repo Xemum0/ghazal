@@ -1,0 +1,57 @@
+/partner/reviews:
+  get:
+    operationId: listPartnerReviews
+    summary: Reviews of the partner's venue (HL-GROW-06)
+    x-partner: true
+    x-permissions: ['review:reply']
+    x-paged: true
+    query: { filter: ReviewFilter }
+    responses: { 200: ReviewPage }
+/partner/reviews/{reviewId}:
+  get:
+    operationId: getPartnerReview
+    summary: One review with its draft and support request
+    x-partner: true
+    x-permissions: ['review:reply']
+    path: { reviewId: Id }
+    responses: { 200: Review }
+/partner/reviews/{reviewId}/reply-draft:
+  put:
+    operationId: saveReviewReplyDraft
+    summary: Stage a reply without publishing it
+    x-partner: true
+    x-permissions: ['review:reply']
+    path: { reviewId: Id }
+    body: ReplyDraftInput
+    responses: { 200: Review }
+/partner/reviews/{reviewId}/reply:
+  post:
+    operationId: replyToReview
+    summary: Publish the one reply
+    x-partner: true
+    x-permissions: ['review:reply']
+    x-idempotent: true
+    path: { reviewId: Id }
+    body: ReplyInput
+    x-errors: [REVIEW_ALREADY_REPLIED]
+    responses: { 200: Review }
+/partner/reviews/{reviewId}/report:
+  post:
+    operationId: reportReview
+    summary: Report a review to Ghazal
+    x-partner: true
+    x-permissions: ['review:report']
+    x-idempotent: true
+    path: { reviewId: Id }
+    body: ReportReviewInput
+    responses: { 202: ~ }
+/partner/reviews/{reviewId}/support-requests:
+  post:
+    operationId: requestReviewRemoval
+    summary: Ask support to hide or delete a review; support performs it
+    x-partner: true
+    x-permissions: ['review:report']
+    x-idempotent: true
+    path: { reviewId: Id }
+    body: ReviewRemovalInput
+    responses: { 200: Review }

@@ -1,0 +1,12 @@
+{
+  "status": "code_required",
+  "session": null,
+  "challenge": {
+    "challengeId": "ch_01JEXAMPLEMAIL",
+    "channel": "email",
+    "destinationHint": "h***@aurelia-gulf.example",
+    "expiresInSeconds": 600,
+    "resendAfterSeconds": 60,
+    "codeLength": 6
+  }
+}

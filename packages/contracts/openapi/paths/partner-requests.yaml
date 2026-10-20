@@ -1,0 +1,101 @@
+/partner/today:
+  get:
+    operationId: getPartnerToday
+    summary: Today tab, a venue or a provider (HL-TODY-01)
+    x-partner: true
+    x-permissions: ['booking:read']
+    responses: { 200: PartnerToday }
+/partner/needs-you:
+  get:
+    operationId: listNeedsYou
+    summary: The Needs-you queue by deadline (HL-TODY-02)
+    x-partner: true
+    x-permissions: ['booking:read']
+    responses: { 200: 'NeedsYouRow[]' }
+/partner/requests:
+  get:
+    operationId: listPartnerRequests
+    summary: Pending, awaiting client, upcoming and past requests (HL-BOOK-01, HL-BOOK-02)
+    x-partner: true
+    x-permissions: ['booking:read']
+    x-paged: true
+    query: { 'segment!': RequestSegment }
+    responses: { 200: PartnerRequestPage }
+/partner/requests/{requestId}:
+  get:
+    operationId: getPartnerRequest
+    summary: Request detail with client contact and SLA (HL-BOOK-03, HL-BOOK-04)
+    x-partner: true
+    x-permissions: ['booking:read']
+    path: { requestId: Id }
+    responses: { 200: PartnerRequestDetail }
+/partner/requests/{requestId}/accept:
+  post:
+    operationId: acceptRequest
+    summary: Approve a pending request (R03; HL-DCSN-01)
+    x-partner: true
+    x-permissions: ['booking:approve']
+    x-idempotent: true
+    x-if-match: true
+    path: { requestId: Id }
+    body: AcceptRequestInput
+    x-errors: [BOOKING_STATE_CONFLICT, SLOT_UNAVAILABLE]
+    responses: { 200: Booking }
+/partner/requests/{requestId}/undo-accept:
+  post:
+    operationId: undoAcceptRequest
+    summary: Undo an approval inside the 8 s window (R03u)
+    x-partner: true
+    x-permissions: ['booking:approve']
+    x-idempotent: true
+    path: { requestId: Id }
+    x-errors: [UNDO_WINDOW_ENDED, BOOKING_STATE_CONFLICT]
+    responses: { 200: Booking }
+/partner/requests/{requestId}/decline:
+  post:
+    operationId: declineRequest
+    summary: Decline with a reason (R04; HL-DCSN-02)
+    x-partner: true
+    x-permissions: ['booking:decline']
+    x-idempotent: true
+    x-if-match: true
+    path: { requestId: Id }
+    body: DeclineRequestInput
+    x-errors: [BOOKING_STATE_CONFLICT]
+    responses: { 200: Booking }
+/partner/requests/{requestId}/proposals:
+  post:
+    operationId: proposeDates
+    summary: Propose 1 to 3 other dates (counter-offer; HL-DCSN-03)
+    x-partner: true
+    x-permissions: ['booking:propose_date']
+    x-idempotent: true
+    x-if-match: true
+    path: { requestId: Id }
+    body: ProposeDatesInput
+    x-errors: [BOOKING_STATE_CONFLICT, SLOT_UNAVAILABLE]
+    responses: { 201: Booking }
+/partner/requests/{requestId}/revoke:
+  post:
+    operationId: revokeApproval
+    summary: Revoke an approval (R10b; Admin or Manager)
+    x-partner: true
+    x-permissions: ['booking:revoke']
+    x-idempotent: true
+    x-if-match: true
+    path: { requestId: Id }
+    body: PartnerCancelInput
+    x-errors: [BOOKING_STATE_CONFLICT]
+    responses: { 200: Booking }
+/partner/requests/{requestId}/cancel:
+  post:
+    operationId: cancelConfirmedRequest
+    summary: Cancel a confirmed request (R13b; HL-DCSN-04; Admin or Manager)
+    x-partner: true
+    x-permissions: ['booking:cancel']
+    x-idempotent: true
+    x-if-match: true
+    path: { requestId: Id }
+    body: PartnerCancelInput
+    x-errors: [BOOKING_STATE_CONFLICT]
+    responses: { 200: Booking }

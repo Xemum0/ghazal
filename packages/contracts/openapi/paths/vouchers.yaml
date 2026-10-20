@@ -1,0 +1,59 @@
+/vouchers:
+  get:
+    operationId: listVouchers
+    summary: The wallet, live vouchers first, credit vouchers included (CA-VCH-06)
+    x-paged: true
+    query: { status: 'VoucherStatus[]' }
+    responses: { 200: WalletItemPage }
+/vouchers/{voucherId}:
+  get:
+    operationId: getVoucher
+    summary: One voucher by id or code, with what it can still do (CL-VCHR-03)
+    path: { voucherId: string }
+    responses: { 200: VoucherDetail }
+/vouchers/checkout:
+  post:
+    operationId: startVoucherCheckout
+    summary: Create an unpaid voucher bound to one target and quote (CA-VCH-04, CA-PAY-01)
+    description: Guests cannot buy; the response to a guest is 401 AUTH_REQUIRED and the app resumes the stored intent after sign-in.
+    x-idempotent: true
+    body: VoucherCheckoutInput
+    x-errors: [VOUCHER_NOT_OFFERED, QUOTE_CHANGED, QUOTE_EXPIRED, SLOT_UNAVAILABLE, CHANNEL_NOT_BOOKABLE, PHONE_VERIFICATION_REQUIRED, PAYMENT_GATEWAY_ERROR]
+    responses: { 201: VoucherCheckout }
+/vouchers/{voucherId}/payment-sessions:
+  post:
+    operationId: createPaymentSession
+    summary: Open a hosted gateway session for an unpaid voucher
+    description: Same method retry returns the live session while valid, otherwise a new attempt.
+    x-idempotent: true
+    path: { voucherId: Id }
+    body: PaymentSessionInput
+    x-errors: [VOUCHER_CHECKOUT_EXPIRED, PAYMENT_GATEWAY_ERROR]
+    responses: { 201: PaymentSession }
+/payments/{paymentId}:
+  get:
+    operationId: getPaymentState
+    summary: Poll a payment session (webhook plus re-query decides)
+    path: { paymentId: string }
+    responses: { 200: PaymentState }
+/vouchers/{voucherId}/rebind:
+  post:
+    operationId: rebindVoucher
+    summary: Use a released voucher again at the same target (CL-VCHR-05)
+    x-idempotent: true
+    path: { voucherId: Id }
+    body: RebindInput
+    x-errors: [VOUCHER_NOT_USABLE, VOUCHER_NOT_OFFERED, SLOT_UNAVAILABLE, QUOTE_CHANGED]
+    responses: { 200: Voucher }
+/receipts:
+  get:
+    operationId: listReceipts
+    summary: Voucher purchase receipts (CL-BKNG-05)
+    x-paged: true
+    responses: { 200: ReceiptPage }
+/receipts/{receiptNo}/pdf:
+  get:
+    operationId: getReceiptPdf
+    summary: Receipt as a PDF (KWD, Western digits, no VAT line)
+    path: { receiptNo: string }
+    responses: { 200: pdf }

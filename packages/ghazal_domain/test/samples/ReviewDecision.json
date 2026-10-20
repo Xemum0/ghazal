@@ -1,0 +1,48 @@
+[
+ {
+  "id": "rev-0001",
+  "listingId": "lst-catering-qahwat-diwan",
+  "at": "2026-03-29T12:00:00+03:00",
+  "from": null,
+  "to": "draft",
+  "actor": "provider"
+ },
+ {
+  "id": "rev-0002",
+  "listingId": "lst-catering-qahwat-diwan",
+  "at": "2026-03-29T13:00:00+03:00",
+  "from": "draft",
+  "to": "pending_review",
+  "actor": "provider",
+  "note": {
+   "en": "Plan chosen. Payment opens when rates are announced.",
+   "ar": "تم اختيار الباقة. يفتح الدفع عند الإعلان عن الأسعار."
+  }
+ },
+ {
+  "id": "rev-0003",
+  "listingId": "lst-catering-qahwat-diwan",
+  "at": "2026-03-30T11:00:00+03:00",
+  "from": "pending_review",
+  "to": "approved",
+  "actor": "moderator",
+  "actorName": "Hessa Al-Awadhi"
+ },
+ {
+  "id": "rev-0201",
+  "listingId": "lst-flowers-zahra-kosha",
+  "at": "2026-11-10T11:30:00+03:00",
+  "from": "pending_review",
+  "to": "rejected",
+  "actor": "moderator",
+  "actorName": "Yousef Al-Kandari",
+  "codes": [
+   "wrong_category",
+   "unclear_pricing"
+  ],
+  "note": {
+   "en": "Wrong category and unclear pricing.",
+   "ar": "التصنيف غير مناسب والسعر غير واضح."
+  }
+ }
+]

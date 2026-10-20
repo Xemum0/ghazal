@@ -1,0 +1,158 @@
+[
+ {
+  "id": "catering",
+  "groupId": "hospitality",
+  "primary": true,
+  "name": {
+   "en": "Hospitality and catering",
+   "ar": "الضيافة والتموين"
+  },
+  "description": {
+   "en": "Coffee, dates, sweets and family dinners for the days around the wedding.",
+   "ar": "قهوة وتمر وحلويات وعشاء عائلي للأيام المحيطة بالزفاف."
+  },
+  "icon": "drinks",
+  "image": {
+   "file": "details/details-39-hospitality-date-coffee-gold-tray.jpg",
+   "width": 1800,
+   "height": 2695,
+   "orientation": "portrait",
+   "alt": {
+    "en": "Hand dipping a date into a cup of Arabic coffee on an engraved gold tray beside a gleaming dallah",
+    "ar": "يد تغمس تمرة في فنجان قهوة عربية على صينية ذهبية منقوشة بجانب دلة لامعة"
+   }
+  },
+  "anchor": {
+   "min": {
+    "fils": 6000,
+    "currency": "KWD"
+   },
+   "max": {
+    "fils": 16000,
+    "currency": "KWD"
+   },
+   "unit": {
+    "en": "per guest",
+    "ar": "للضيف الواحد"
+   }
+  },
+  "order": 1
+ },
+ {
+  "id": "buffet",
+  "groupId": "hospitality",
+  "primary": true,
+  "name": {
+   "en": "Buffet services",
+   "ar": "خدمات البوفيه"
+  },
+  "description": {
+   "en": "Full buffets and live stations, served and cleared by the provider.",
+   "ar": "بوفيهات كاملة ومحطات حية تُقدَّم وتُرفع بفريق المزوّد."
+  },
+  "icon": "catering",
+  "image": {
+   "file": "services/services-33-buffet-gold-vase-florals.jpg",
+   "width": 1800,
+   "height": 1200,
+   "orientation": "landscape",
+   "alt": {
+    "en": "Gourmet buffet platters on wood and silver stands among white flowers and brass vases",
+    "ar": "أطباق بوفيه فاخرة على قواعد خشبية وفضية بين زهور بيضاء وأواني نحاسية"
+   }
+  },
+  "anchor": {
+   "min": {
+    "fils": 9000,
+    "currency": "KWD"
+   },
+   "max": {
+    "fils": 24000,
+    "currency": "KWD"
+   },
+   "unit": {
+    "en": "per guest",
+    "ar": "للضيف الواحد"
+   }
+  },
+  "order": 2
+ },
+ {
+  "id": "flowers",
+  "groupId": "flowers_cake",
+  "primary": true,
+  "name": {
+   "en": "Floral arrangements",
+   "ar": "تنسيق الزهور"
+  },
+  "description": {
+   "en": "Kosha florals, centrepieces and entrance arrangements.",
+   "ar": "زهور الكوشة وتنسيقات الطاولات والمدخل."
+  },
+  "icon": "flower",
+  "image": {
+   "file": "details/details-03-centerpiece-lilies-roses-table.jpg",
+   "width": 1800,
+   "height": 2696,
+   "orientation": "portrait",
+   "alt": {
+    "en": "Lush centrepiece of white lilies, ivory roses and greenery on a long wedding table",
+    "ar": "تنسيق زهور فاخر من الزنبق الأبيض والورد العاجي والخضرة على طاولة زفاف طويلة"
+   }
+  },
+  "anchor": {
+   "min": {
+    "fils": 900000,
+    "currency": "KWD"
+   },
+   "max": {
+    "fils": 4000000,
+    "currency": "KWD"
+   },
+   "unit": {
+    "en": "per event",
+    "ar": "للحفل الواحد"
+   }
+  },
+  "order": 3
+ },
+ {
+  "id": "decor",
+  "groupId": "flowers_cake",
+  "primary": true,
+  "name": {
+   "en": "Event styling and decor",
+   "ar": "تنسيق وديكور المناسبات"
+  },
+  "description": {
+   "en": "Stage, entrance and table styling designed to the hall.",
+   "ar": "تنسيق المنصة والمدخل والطاولات بتصميم يناسب القاعة."
+  },
+  "icon": "decor",
+  "image": {
+   "file": "ballrooms/ballrooms-17-floral-arch-stage-draped-ceiling.jpg",
+   "width": 1800,
+   "height": 1200,
+   "orientation": "landscape",
+   "alt": {
+    "en": "Wedding stage framed by rose-and-greenery arches, blush swags and white drapery, with a long floral table in the foreground",
+    "ar": "منصة عرس تحيط بها أقواس من الورود والخضرة وأقمشة وردية وبيضاء مع طاولة زهور طويلة في المقدمة"
+   }
+  },
+  "anchor": {
+   "min": {
+    "fils": 1200000,
+    "currency": "KWD"
+   },
+   "max": {
+    "fils": 6500000,
+    "currency": "KWD"
+   },
+   "unit": {
+    "en": "per event",
+    "ar": "للحفل الواحد"
+   }
+  },
+  "order": 4
+ }
+]

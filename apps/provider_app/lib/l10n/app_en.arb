@@ -1,5 +1,4105 @@
 {
   "@@locale": "en",
-  "appName": "Ghazal Partner",
-  "@appName": { "description": "Stub key so gen_l10n works; the real ARB is merged from packages/i18n by the l10n script (phase F1b)." }
+  "commonActionAccept": "Accept",
+  "commonActionAdd": "Add",
+  "commonActionApply": "Apply",
+  "commonActionBack": "Back",
+  "commonActionCall": "Call",
+  "commonActionCancel": "Cancel",
+  "commonActionClear": "Clear",
+  "commonActionClose": "Close",
+  "commonActionConfirm": "Confirm",
+  "commonActionContinue": "Continue",
+  "commonActionDecline": "Decline",
+  "commonActionDone": "Done",
+  "commonActionEdit": "Edit",
+  "commonActionMessage": "Message",
+  "commonActionNext": "Next",
+  "commonActionOpenWhatsapp": "Open WhatsApp",
+  "commonActionPrevious": "Previous",
+  "commonActionRemove": "Remove",
+  "commonActionReschedule": "Reschedule",
+  "commonActionReset": "Reset",
+  "commonActionRetry": "Try again",
+  "commonActionSave": "Save",
+  "commonActionSearch": "Search",
+  "commonActionSeeAll": "See all",
+  "commonActionSend": "Send",
+  "commonActionShare": "Share",
+  "commonActionShowLess": "Show less",
+  "commonActionSkip": "Skip",
+  "commonActionUndo": "Undo",
+  "commonActionWhatsapp": "WhatsApp",
+  "commonAvailabilityAvailable": "Available",
+  "commonAvailabilityBlocked": "Blocked",
+  "commonAvailabilityBooked": "Booked",
+  "commonAvailabilityFree": "Free",
+  "commonAvailabilityHeld": "On hold",
+  "commonAvailabilityPast": "Past date",
+  "commonAvailabilityUnavailable": "Unavailable",
+  "commonAvailabilityLineFree": "{date} · Free",
+  "@commonAvailabilityLineFree": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonAvailabilityLineBooked": "{date} · Booked",
+  "@commonAvailabilityLineBooked": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonCalendarAvailability": "Availability",
+  "commonCalendarPrices": "Prices",
+  "commonCalendarToday": "Today",
+  "commonCalendarSelected": "Selected",
+  "commonCalendarPeak": "Peak days",
+  "commonCalendarPreviousMonth": "Previous month",
+  "commonCalendarNextMonth": "Next month",
+  "commonCalendarOccasionApproximate": "{occasion} (approx.)",
+  "@commonCalendarOccasionApproximate": {
+    "placeholders": {
+      "occasion": {
+        "type": "String"
+      }
+    }
+  },
+  "commonStatusRequested": "Pending",
+  "commonStatusAwaitingDeposit": "Approved · deposit due",
+  "commonStatusConfirmed": "Confirmed",
+  "commonStatusRejected": "Not accepted",
+  "commonStatusExpired": "Expired",
+  "commonStatusCancelled": "Cancelled",
+  "commonStatusCompleted": "Completed",
+  "commonStatusRefunded": "Refunded",
+  "commonStatusNoShow": "No-show",
+  "commonStatusHeadlineConfirmed": "Confirmed booking",
+  "commonStatusCancelledByYou": "Cancelled by you",
+  "commonStatusCancelledByVenue": "Cancelled by the venue",
+  "commonStatusHotelMissed": "Missed",
+  "commonStatusUrgent": "Urgent",
+  "commonStatusTimeLeft": "{time} remaining",
+  "@commonStatusTimeLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "commonFilterAll": "All",
+  "commonTierWeekday": "Weekday",
+  "commonTierWeekend": "Weekend",
+  "commonTierHoliday": "Holiday",
+  "commonTierSeason": "Season",
+  "commonTierSpecialDate": "Special date",
+  "commonUnitPerGuest": "per guest",
+  "commonUnitPerNight": "per night",
+  "commonUnitPerDay": "per day",
+  "commonUnitPerHour": "per hour",
+  "commonUnitMinGuests": "Minimum {count, plural, one{{count} guest} other{{count} guests}}",
+  "@commonUnitMinGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonUnitUpToGuests": "Up to {count, plural, one{{count} guest} other{{count} guests}}",
+  "@commonUnitUpToGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountGuests": "{count, plural, =0{No guests} one{{count} guest} other{{count} guests}}",
+  "@commonCountGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountDays": "{count, plural, =0{No days} one{{count} day} other{{count} days}}",
+  "@commonCountDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountHours": "{count, plural, =0{No hours} one{{count} hour} other{{count} hours}}",
+  "@commonCountHours": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMinutes": "{count, plural, =0{No minutes} one{{count} minute} other{{count} minutes}}",
+  "@commonCountMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountHalls": "{count, plural, =0{No halls} one{{count} hall} other{{count} halls}}",
+  "@commonCountHalls": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountPackages": "{count, plural, =0{No packages} one{{count} package} other{{count} packages}}",
+  "@commonCountPackages": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMessages": "{count, plural, =0{No messages} one{{count} message} other{{count} messages}}",
+  "@commonCountMessages": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountBookings": "{count, plural, =0{No bookings} one{{count} booking} other{{count} bookings}}",
+  "@commonCountBookings": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountSessions": "{count, plural, =0{No sessions} one{{count} session} other{{count} sessions}}",
+  "@commonCountSessions": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMonths": "{count, plural, =0{No months} one{{count} month} other{{count} months}}",
+  "@commonCountMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountDates": "{count, plural, =0{No dates} one{{count} date} other{{count} dates}}",
+  "@commonCountDates": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountRequests": "{count, plural, =0{No requests} one{{count} request} other{{count} requests}}",
+  "@commonCountRequests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountReviews": "{count, plural, =0{No reviews} one{{count} review} other{{count} reviews}}",
+  "@commonCountReviews": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountPhotos": "{count, plural, =0{No photos} one{{count} photo} other{{count} photos}}",
+  "@commonCountPhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountdownDays": "{count, plural, =0{Today} one{{count} day to go} other{{count} days to go}}",
+  "@commonCountdownDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCounter": "{current} of {total}",
+  "@commonCounter": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonStateLoading": "Loading",
+  "commonStateTitleGeneric": "Something went wrong",
+  "commonStateTitleLoad": "Couldn’t load",
+  "commonStateTitleNetwork": "You’re offline",
+  "commonStateTitlePayment": "Payment failed",
+  "commonStateTitleNoAccess": "No access",
+  "commonStateTitleNotFound": "Not found",
+  "commonStateTitleEmptySearch": "No matches",
+  "commonStateTitleEmpty": "Nothing here",
+  "commonStateOffline": "You’re offline",
+  "commonStateErrorGeneric": "Something went wrong on our side. Nothing was changed. Please try again.",
+  "commonStateErrorLoad": "We couldn’t load this. Please try again.",
+  "commonStateErrorNetwork": "We couldn’t connect. Check your connection and try again.",
+  "commonStateErrorPayment": "The payment could not be completed. No amount was charged.",
+  "commonStateErrorNoAccess": "You do not have access. Ask your manager.",
+  "commonStateErrorNotFound": "This page is no longer available.",
+  "commonStateSaved": "Saved",
+  "commonStateCopied": "Copied",
+  "commonStateSent": "Sent",
+  "commonNoPaymentNowFull": "No payment now. Nothing is charged until the hotel approves.",
+  "commonMoneyDeposit": "Deposit",
+  "commonMoneyBalance": "Remaining balance",
+  "commonMoneyTotal": "Total",
+  "commonMoneyServiceCharge": "Service charge",
+  "commonMoneyRentalFee": "Rental fee",
+  "commonLabelOptional": "Optional",
+  "commonLabelRequired": "Required",
+  "commonLabelNotDecided": "Not decided",
+  "commonLabelToday": "Today",
+  "commonLabelTomorrow": "Tomorrow",
+  "commonLabelKuwaitTime": "Kuwait time",
+  "commonLabelSponsored": "Sponsored",
+  "commonLabelNew": "New",
+  "commonLabelOr": "or",
+  "commonLabelLanguage": "Language",
+  "commonLabelSettings": "Settings",
+  "commonLanguageEnglish": "English",
+  "commonLanguageArabic": "Arabic",
+  "commonFieldRequired": "This field is required.",
+  "commonFieldInvalid": "This value isn’t valid.",
+  "commonFieldPhoneInvalid": "This phone number isn’t valid.",
+  "commonA11yFavouriteAdd": "Save to favourites",
+  "commonA11yFavouriteRemove": "Remove from favourites",
+  "commonA11yCompareAdd": "Add to compare",
+  "commonA11yCompareRemove": "Remove from compare",
+  "commonA11yPhotoCounter": "Photo {current} of {total}",
+  "@commonA11yPhotoCounter": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonA11yRating": "Rated {rating} out of {max}",
+  "@commonA11yRating": {
+    "placeholders": {
+      "rating": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "max": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonA11ySelected": "Selected",
+  "commonStatusPending": "Pending",
+  "commonStatusApproved": "Approved",
+  "commonStatusRedeemed": "Redeemed",
+  "commonStatusDeclined": "Declined",
+  "commonStatusHotelPending": "Pending",
+  "commonStatusHotelApproved": "Waiting",
+  "commonStatusHotelRedeemed": "Redeemed",
+  "commonStatusHotelDeclined": "Declined",
+  "commonStatusHotelLapsed": "Lapsed",
+  "commonStatusDateProposed": "New date",
+  "commonVoucherStatusUnpaid": "Paying",
+  "commonVoucherStatusActive": "Ready",
+  "commonVoucherStatusBound": "In request",
+  "commonVoucherStatusUsed": "Used",
+  "commonVoucherStatusExpired": "Expired",
+  "commonVisitStatusRequested": "Requested",
+  "commonVisitStatusConfirmed": "Confirmed",
+  "commonVisitStatusReschedule": "New time",
+  "commonVisitStatusArrived": "Arrived",
+  "commonVisitStatusCompleted": "Done",
+  "commonVisitStatusDeclined": "Unavailable",
+  "commonVisitStatusCancelled": "Cancelled",
+  "commonVisitStatusMissed": "Missed",
+  "commonListingStatusDraft": "Draft",
+  "commonListingStatusPayment": "Unpaid",
+  "commonListingStatusReview": "In review",
+  "commonListingStatusApproved": "Approved",
+  "commonListingStatusRejected": "Declined",
+  "commonListingStatusActive": "Live",
+  "commonListingStatusExpired": "Ended",
+  "commonListingStatusPaused": "Paused",
+  "commonVoucher": "Voucher",
+  "commonVoucherPrice": "Voucher price",
+  "commonStandardPrice": "Standard price",
+  "commonYouSave": "You save {amount}",
+  "@commonYouSave": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "commonSaveAmount": "Save {amount}",
+  "@commonSaveAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "commonConfirmBooking": "Confirm booking",
+  "commonRedeemVoucher": "Redeem voucher",
+  "commonVoucherCode": "Voucher code",
+  "commonValidUntil": "Valid until {date}",
+  "@commonValidUntil": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonLabelGuestVoucher": "Voucher price after you sign up",
+  "commonRoleClient": "Client",
+  "commonRoleYou": "You",
+  "commonRoleHotelRep": "Hotel representative",
+  "commonRoleSupport": "Ghazal support",
+  "commonVenueTypePrivateHall": "Private hall",
+  "commonVenueTypeGovernmental": "Governmental facility",
+  "commonVenueTypeHotel": "Hotel",
+  "commonPricingPerPerson": "Per person",
+  "commonPricingPackages": "Packages",
+  "commonPricingPackage": "Package",
+  "commonPricingStructure": "Pricing",
+  "commonFilterGovernorate": "Governorate",
+  "commonFilterVenueType": "Venue type",
+  "commonFilterCapacity": "Capacity",
+  "commonPlanWeekly": "Weekly",
+  "commonPlanMonthly": "Monthly",
+  "commonPlanAnnual": "Annual",
+  "commonRatesSoon": "Rates announced soon",
+  "commonExempt": "Exempt",
+  "commonMajorHotel": "Major hotel",
+  "commonA11yInfo": "More info",
+  "commonLabelDetails": "Details",
+  "commonVoucherStatusForfeited": "Not valid",
+  "commonVoucherStatusCredit": "Credit",
+  "commonVoucherStatusCreditIssued": "Credit issued",
+  "commonVoucherCredit": "Credit voucher",
+  "commonVoucherAnyVenue": "Any hall, hotel or service",
+  "commonVoucherNotValidNote": "Not confirmed within {hours, plural, one{{hours} hour} other{{hours} hours}}",
+  "@commonVoucherNotValidNote": {
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonVoucherConfirmIn24h": "Confirm at the hotel or service within {hours, plural, one{{hours} hour} other{{hours} hours}}, or the voucher is not valid",
+  "@commonVoucherConfirmIn24h": {
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonAskSupport": "Ask support",
+  "commonCreditRequested": "Request sent to support",
+  "commonBillingContract": "Business contract",
+  "commonBillingPlan": "Plan",
+  "commonBillingContractTerms": "Terms as contracted",
+  "commonStaffInvitedByEmail": "Invited by email",
+  "commonCalendarByEmail": "Calendar by email",
+  "commonReviewAskSupportHide": "Ask support to hide or delete",
+  "commonVideoLimit": "Up to {size} MB per video",
+  "@commonVideoLimit": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessLanguageSwitch": "Switch language",
+  "hotelAccessPasswordShow": "Show password",
+  "hotelAccessPasswordHide": "Hide password",
+  "hotelAccessPhotoAlt": "Light-filled vaulted hall with skylights and arched windows, long banquet tables set with white linen and gold chairs on herringbone parquet",
+  "hotelAccessSupportTitle": "Ghazal Support",
+  "hotelAccessSupportAction": "Contact support",
+  "hotelAccessSupportShort": "Support",
+  "hotelAccessAdminTitle": "Account admin",
+  "hotelAccessAdminAction": "Contact admin",
+  "hotelAccessSigninTitle": "Sign in",
+  "hotelAccessSigninEmailLabel": "Email",
+  "hotelAccessSigninPasswordLabel": "Password",
+  "hotelAccessSigninForgot": "Forgot?",
+  "hotelAccessSigninForgotLabel": "Forgot password",
+  "hotelAccessSigninInvite": "Invitation",
+  "hotelAccessSigninSubmit": "Sign in",
+  "hotelAccessSigninInvalid": "Incorrect details",
+  "hotelAccessSigninInvalidTitle": "Not signed in",
+  "hotelAccessSigninInvalidDetail": "The email or password is not correct. You are not signed in.",
+  "hotelAccessSigninPaused": "Attempts paused",
+  "hotelAccessSigninPausedDetail": "Attempts are paused. Try again after {time} Kuwait time.",
+  "@hotelAccessSigninPausedDetail": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessSigninPausedUntil": "Paused until {time}",
+  "@hotelAccessSigninPausedUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessInviteTitle": "Invitation only",
+  "hotelAccessInviteStepLink": "Email link",
+  "hotelAccessInviteStepCode": "Code",
+  "hotelAccessInviteSteps": "How an invitation works",
+  "hotelAccessInviteLink": "Open link",
+  "hotelAccessInviteFrom": "Invited by {name}",
+  "@hotelAccessInviteFrom": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessVerifyTitle": "Enter code",
+  "hotelAccessVerifyLabel": "Verification code",
+  "hotelAccessVerifyStepEmail": "Email",
+  "hotelAccessVerifySentTo": "Code sent by email to {email}",
+  "@hotelAccessVerifySentTo": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessVerifySubmit": "Verify",
+  "hotelAccessVerifyWrong": "Wrong code",
+  "hotelAccessVerifyAttemptsLeft": "{count, plural, =0{No attempts remaining} one{{count} attempt remaining} other{{count} attempts remaining}}",
+  "@hotelAccessVerifyAttemptsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelAccessVerifyExpired": "Code expired",
+  "hotelAccessVerifyTooMany": "Too many attempts",
+  "hotelAccessVerifyResent": "Code sent",
+  "hotelAccessVerifyTimer": "{count}s",
+  "@hotelAccessVerifyTimer": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessVerifyResendIn": "Resend code in {count, plural, one{{count} second} other{{count} seconds}}",
+  "@hotelAccessVerifyResendIn": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelAccessVerifyResend": "Resend",
+  "hotelAccessVerifyFailed": "Not delivered",
+  "hotelAccessVerifyFailedDetail": "The code could not be sent by email. Send it again, or contact Support.",
+  "hotelAccessVerifySuccessTitle": "Device trusted",
+  "hotelAccessVerifyTrustDays": "Trusted for {count, plural, one{{count} day} other{{count} days}}",
+  "@hotelAccessVerifyTrustDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelAccessVerifyTrustFact": "{count}d",
+  "@hotelAccessVerifyTrustFact": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessVerifySteps": "Verification steps",
+  "hotelAccessVerifyStepCounter": "Step {current} of {total}",
+  "@hotelAccessVerifyStepCounter": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelAccessAuthTitle": "Authenticator code",
+  "hotelAccessStepupTitle": "Confirm identity",
+  "hotelAccessStepupActionInvite": "Invite staff",
+  "hotelAccessStepupActionRemove": "Remove staff",
+  "hotelAccessStepupActionBilling": "Billing details",
+  "hotelAccessStepupDone": "Confirmed",
+  "hotelAccessSetupTitle": "New password",
+  "hotelAccessSetupCardLabel": "Invitation",
+  "hotelAccessSetupInvitedEmail": "Invited email",
+  "hotelAccessSetupValidUntil": "Valid until {date}",
+  "@hotelAccessSetupValidUntil": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessSetupRoleInfo": "What this role can do",
+  "hotelAccessSetupPasswordLabel": "Password",
+  "hotelAccessSetupConfirmLabel": "Confirm",
+  "hotelAccessSetupMismatch": "Doesn’t match",
+  "hotelAccessSetupStrength": "Password strength: {level}",
+  "@hotelAccessSetupStrength": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessSetupStrengthWeak": "Weak",
+  "hotelAccessSetupStrengthFair": "Fair",
+  "hotelAccessSetupStrengthStrong": "Strong",
+  "hotelAccessSetupRuleLength": "At least {count, plural, one{{count} character} other{{count} characters}}",
+  "@hotelAccessSetupRuleLength": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelAccessSetupRuleMix": "A letter and a number",
+  "hotelAccessSetupRuleMet": "Done",
+  "hotelAccessSetupRuleOpen": "Not yet",
+  "hotelAccessSetupError": "Not saved",
+  "hotelAccessSetupErrorDetail": "We could not save your password. Nothing was changed. Please try again.",
+  "hotelAccessSetupSuccessTitle": "Password saved",
+  "hotelAccessSetupExpiredTitle": "Invitation expired",
+  "hotelAccessSetupExpiredDetail": "Invitations stop working after a few days. Your account admin or Ghazal Support can send a new one.",
+  "hotelAccessSetupUsedTitle": "Invitation used",
+  "hotelAccessSetupUsedDetail": "Your password is already set. Sign in with your email and password.",
+  "hotelAccessStatusUnderReviewTitle": "Under review",
+  "hotelAccessStatusUnderReviewBody": "Your account is under review. We will email you when it is active.",
+  "hotelAccessStatusUnderReviewProviderNote": "Your first listing is reviewed by Ghazal before it goes live. Nothing is published automatically.",
+  "hotelAccessStatusSuspendedTitle": "Suspended",
+  "hotelAccessStatusSuspendedBody": "This account is suspended. Contact Ghazal Support.",
+  "hotelAccessStatusDeactivatedTitle": "Access off",
+  "hotelAccessStatusDeactivatedBody": "Your access to this account has been turned off. Contact your account admin.",
+  "hotelAccessStatusRevokedTitle": "Session ended",
+  "hotelAccessStatusRevokedBody": "An account admin ended this session. Sign in again.",
+  "hotelAccessStatusNoAccessBody": "You do not have access. Ask your manager.",
+  "hotelAccessStatusSignOut": "Sign out",
+  "hotelAccessStatusSwitchVenue": "Switch venue",
+  "hotelAccessStatusActive": "Active",
+  "hotelBookingsTitle": "Bookings",
+  "hotelBookingsSearch": "Search bookings",
+  "hotelBookingsSearchPlaceholder": "Name, reference, date",
+  "hotelBookingsFilterByDate": "Filter by date",
+  "hotelBookingsSegments": "Booking views",
+  "hotelBookingsSegPending": "Pending",
+  "hotelBookingsSegUpcoming": "Upcoming",
+  "hotelBookingsSegPast": "Past",
+  "hotelBookingsWaitingTitle": "Awaiting couple",
+  "hotelBookingsOpenRequest": "Open request: {date}",
+  "@hotelBookingsOpenRequest": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsTimeLeft": "{time} remaining",
+  "@hotelBookingsTimeLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsAudienceWomen": "Ladies",
+  "hotelBookingsAudienceMen": "Men",
+  "hotelBookingsAudienceMixed": "Mixed",
+  "hotelBookingsVerified": "Verified phone",
+  "hotelBookingsFirstBooking": "First booking",
+  "hotelBookingsMessageName": "Message {name}",
+  "@hotelBookingsMessageName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsCallName": "Call {name}",
+  "@hotelBookingsCallName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsSpecialRequests": "Special requests",
+  "hotelBookingsHeldLine": "Date held",
+  "hotelBookingsOthersSameDate": "{count, plural, one{+{count} other request for this date} other{+{count} other requests for this date}}",
+  "@hotelBookingsOthersSameDate": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelBookingsCompare": "Compare",
+  "hotelBookingsViewOnly": "View only",
+  "hotelBookingsOfflineShort": "Offline",
+  "hotelBookingsOfflineBanner": "Offline · updated {time}",
+  "@hotelBookingsOfflineBanner": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsProposeDate": "Propose another date",
+  "hotelBookingsEmptyPendingTitle": "No pending requests",
+  "hotelBookingsSeeUpcoming": "View upcoming",
+  "hotelBookingsNextEvent": "Next event",
+  "hotelBookingsEmptyUpcomingTitle": "No bookings",
+  "hotelBookingsPastFilter": "Filter past bookings",
+  "hotelBookingsNoResultsTitle": "No match for {query}",
+  "@hotelBookingsNoResultsTitle": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsRecentTitle": "Recent",
+  "hotelBookingsAcceptedToast": "Approved · {name}",
+  "@hotelBookingsAcceptedToast": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsAwaitingCouple": "Awaiting the couple",
+  "hotelBookingsConfirmLeft": "{time} to confirm",
+  "@hotelBookingsConfirmLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsNotRedeemed": "Voucher not redeemed",
+  "hotelBookingsRedeemedBy": "Redeemed by {name}, {date}",
+  "@hotelBookingsRedeemedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsRedeemedPlain": "Redeemed",
+  "hotelBookingsActorVenue": "Hotel",
+  "hotelBookingsActorGhazal": "Ghazal",
+  "hotelBookingsActorSystem": "System",
+  "hotelBookingsActorClient": "Client",
+  "hotelBookingsByVenue": "Cancelled by the hotel",
+  "hotelBookingsByClient": "Cancelled by the client",
+  "hotelBookingsDeclineDate": "Date unavailable",
+  "hotelBookingsDeclineCapacity": "Capacity",
+  "hotelBookingsDeclinePackage": "Package",
+  "hotelBookingsDeclineOther": "Other",
+  "hotelBookingsDeclineReason": "Reason",
+  "hotelBookingsSilence": "No reply for {time}",
+  "@hotelBookingsSilence": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsFactsLabel": "Details",
+  "hotelBookingsFactDate": "Event date",
+  "hotelBookingsFactGuests": "Guests",
+  "hotelBookingsFactHall": "Hall",
+  "hotelBookingsFactTime": "Time",
+  "hotelBookingsSessionDay": "Day session",
+  "hotelBookingsSessionAfternoon": "Afternoon session",
+  "hotelBookingsSessionEvening": "Evening session",
+  "hotelBookingsBillable": "Billed for {count, plural, one{{count} guest} other{{count} guests}}",
+  "@hotelBookingsBillable": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelBookingsFilterTitle": "Dates",
+  "hotelBookingsFilterBy": "Filter by",
+  "hotelBookingsFilterEvent": "Event",
+  "hotelBookingsFilterRequest": "Request",
+  "hotelBookingsRangeLine": "{from} – {to}",
+  "@hotelBookingsRangeLine": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsRangeApplied": "Date filter applied",
+  "hotelBookingsDetailTitle": "Booking",
+  "hotelBookingsReplyLeft": "{time} to reply",
+  "@hotelBookingsReplyLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsDaysToGo": "Days to go",
+  "hotelBookingsEventToday": "Event today",
+  "hotelBookingsKnotVoucher": "Voucher",
+  "hotelBookingsKnotRequest": "Request",
+  "hotelBookingsKnotApproval": "Approval",
+  "hotelBookingsKnotConfirmed": "Confirmed",
+  "hotelBookingsKnotRedeemed": "Redeemed",
+  "hotelBookingsProgressLabel": "Booking progress",
+  "hotelBookingsStepOf": "Step {n} of {total}",
+  "@hotelBookingsStepOf": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsIssueReported": "Client reported an issue",
+  "hotelBookingsIssueLink": "Support",
+  "hotelBookingsCreateWindow": "Set price",
+  "hotelBookingsDateFreeAgain": "Date free",
+  "hotelBookingsShowMore": "Show more",
+  "hotelBookingsShowLess": "Show less",
+  "hotelBookingsRowServiceDate": "Service date",
+  "hotelBookingsEventTitle": "Event",
+  "hotelBookingsRowPackage": "Package",
+  "hotelBookingsRowExtras": "Extras",
+  "hotelBookingsRowHall": "Hall",
+  "hotelBookingsRowDate": "Date",
+  "hotelBookingsRowTime": "Time",
+  "hotelBookingsRowRedeemedBy": "Redeemed by",
+  "hotelBookingsPriceTitle": "Price",
+  "hotelBookingsClientSaves": "Client saves",
+  "hotelBookingsInfoPriceTitle": "Voucher price",
+  "hotelBookingsDirectNote": "You collect this directly from the client. Ghazal never shows a payment status.",
+  "hotelBookingsVoucherBound": "In request",
+  "hotelBookingsVoucherRedeemed": "Redeemed",
+  "hotelBookingsVoucherReturned": "Returned",
+  "hotelBookingsVoucherExpired": "Expired",
+  "hotelBookingsVoucherNotValid": "Not valid",
+  "hotelBookingsProposalTitle": "New dates",
+  "hotelBookingsProposalWindow": "Couple answers by",
+  "hotelBookingsPriceChanged": "Price changes",
+  "hotelBookingsInfoReturned": "The client’s voucher went back to them. The date is free again.",
+  "hotelBookingsInfoClientUsed": "The client cancelled after confirming, so their voucher is used up. The date is free again.",
+  "hotelBookingsInfoVenue": "The client’s voucher was returned. They can ask support for credit. A reliability strike was recorded.",
+  "hotelBookingsMarkCompleted": "Complete",
+  "hotelBookingsCancelBooking": "Cancel booking",
+  "hotelBookingsCancelInfoTitle": "Cancellation",
+  "hotelBookingsCancelNote": "The client’s voucher goes back to them. They can ask support for credit. A reliability strike is recorded.",
+  "hotelBookingsRevokeApproval": "Revoke approval",
+  "hotelBookingsReplyToReview": "Reply",
+  "hotelBookingsCompletedToast": "Completed",
+  "hotelBookingsAuditTitle": "History",
+  "hotelBookingsAuditRequested": "Received",
+  "hotelBookingsAuditApproved": "Approved",
+  "hotelBookingsAuditConfirmed": "Confirmed",
+  "hotelBookingsAuditRedeemed": "Redeemed",
+  "hotelBookingsAuditDeclined": "Declined",
+  "hotelBookingsAuditExpired": "Missed",
+  "hotelBookingsAuditLapsed": "Lapsed",
+  "hotelBookingsAuditRevoked": "Revoked",
+  "hotelBookingsAuditCancelled": "Cancelled",
+  "hotelBookingsAuditCompleted": "Completed",
+  "hotelBookingsAuditProposal": "New date",
+  "hotelBookingsAuditUpdated": "Updated",
+  "hotelBookingsChatRow": "Chat",
+  "hotelBookingsNotShared": "Number not shared",
+  "hotelBookingsContactPrivacy": "This number is shown for this booking only. The client’s voucher code appears only when you redeem it.",
+  "hotelBookingsContactOffline": "You’re offline. Calls still work; messages send when you reconnect.",
+  "hotelBookingsRoleNoContact": "Your role cannot contact clients. Ask your manager.",
+  "hotelBookingsCallToast": "Calling {name}",
+  "@hotelBookingsCallToast": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsWhatsappToast": "WhatsApp {name}",
+  "@hotelBookingsWhatsappToast": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsRedeemMode": "Entry method",
+  "hotelBookingsModeScan": "Scan",
+  "hotelBookingsModeType": "Code",
+  "hotelBookingsTypeCode": "Type code",
+  "hotelBookingsScanDemo": "Simulate",
+  "hotelBookingsTorchOn": "Torch on",
+  "hotelBookingsTorchOff": "Torch off",
+  "hotelBookingsCameraDeniedTitle": "Camera is off",
+  "hotelBookingsCameraDeniedBody": "Allow the camera in your phone settings to scan, or type the code instead.",
+  "hotelBookingsCheckCode": "Check code",
+  "hotelBookingsChecking": "Checking",
+  "hotelBookingsTryAnother": "Try another",
+  "hotelBookingsErrUnknownField": "Code not found",
+  "hotelBookingsErrUnknownTitle": "Code not found",
+  "hotelBookingsErrUnknownBody": "Check it and try again.",
+  "hotelBookingsErrOtherTitle": "Another venue’s voucher",
+  "hotelBookingsErrOtherBody": "It can only be redeemed by the venue it was issued for. No other details are shown.",
+  "hotelBookingsErrNotConfirmedTitle": "Not confirmed yet",
+  "hotelBookingsErrNotConfirmedBody": "The client has to confirm the booking before the voucher can be redeemed.",
+  "hotelBookingsErrUsedPlain": "Already used",
+  "hotelBookingsErrUsedBody": "A voucher works once. Contact support if this looks wrong.",
+  "hotelBookingsErrExpiredTitle": "Not valid",
+  "hotelBookingsErrExpiredBody": "It can no longer be redeemed.",
+  "hotelBookingsRedeemErrorBody": "Nothing was changed. Please try again.",
+  "hotelBookingsRoleHiddenBody": "Ask an Admin, a Manager or Reception to redeem it.",
+  "hotelBookingsRedeemFine": "Redeeming cannot be undone. Support can adjust it if a mistake is made.",
+  "hotelBookingsRedeemedFine": "The client pays you directly. Ghazal shows no amount due.",
+  "hotelBookingsRedeemedCached": "Offline · saved {time}",
+  "@hotelBookingsRedeemedCached": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsViewBooking": "View booking",
+  "hotelBookingsProtoTag": "Demo",
+  "hotelBookingsProtoTitle": "Prototype shortcuts",
+  "hotelBookingsProtoReady": "Ready voucher",
+  "hotelBookingsProtoNotConfirmed": "Not confirmed",
+  "hotelBookingsProtoUsed": "Already used",
+  "hotelBookingsProtoOther": "Other venue",
+  "hotelBookingsBackToList": "Bookings",
+  "hotelBookingsDurJoin": "{first} {second}",
+  "@hotelBookingsDurJoin": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "second": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarTitle": "Calendar",
+  "hotelCalendarViewLabel": "Calendar view",
+  "hotelCalendarViewMonth": "Month",
+  "hotelCalendarViewWeek": "Week",
+  "hotelCalendarViewDay": "Day",
+  "hotelCalendarHallsLabel": "Halls",
+  "hotelCalendarHallsAll": "All",
+  "hotelCalendarGridLabel": "Calendar, {month}",
+  "@hotelCalendarGridLabel": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarPrevWeek": "Previous week",
+  "hotelCalendarNextWeek": "Next week",
+  "hotelCalendarPrevDay": "Previous day",
+  "hotelCalendarNextDay": "Next day",
+  "hotelCalendarWeekLabel": "Week",
+  "hotelCalendarActionBlock": "Block dates",
+  "hotelCalendarActionSelect": "Select dates",
+  "hotelCalendarReadOnly": "View only",
+  "hotelCalendarOfflineStamp": "Offline · {time}",
+  "@hotelCalendarOfflineStamp": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarOfflineNeed": "Needs a connection",
+  "hotelCalendarNudgeTitle": "Calendar up to date?",
+  "hotelCalendarNudgeDone": "Calendar confirmed",
+  "hotelCalendarEmptyTitle": "Nothing booked",
+  "hotelCalendarAgendaTitle": "Agenda, {date}",
+  "@hotelCalendarAgendaTitle": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarOpenDay": "Open day",
+  "hotelCalendarOpenLabel": "Open",
+  "hotelCalendarRequestedLabel": "Requested",
+  "hotelCalendarBlockedBy": "Blocked by {name}",
+  "@hotelCalendarBlockedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarBlock": "Block",
+  "hotelCalendarOffer": "Offer",
+  "hotelCalendarCreateOffer": "Create offer",
+  "hotelCalendarOpenThisDate": "Open date",
+  "hotelCalendarWhyTitle": "Can’t block",
+  "hotelCalendarSoldOutReason": "A confirmed booking can’t be blocked. Cancel it first.",
+  "hotelCalendarSoftTitle": "Open weekends",
+  "hotelCalendarSoftRow": "{count, plural, =0{No open weekend dates in the next {days} days} one{{count} open weekend date in the next {days} days} other{{count} open weekend dates in the next {days} days}}",
+  "@hotelCalendarSoftRow": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarLegendSoft": "Open weekend",
+  "hotelCalendarHallFact": "Hall",
+  "hotelCalendarGuestsFact": "Guests",
+  "hotelCalendarCapacityFact": "Capacity",
+  "hotelCalendarSessionFact": "Session",
+  "hotelCalendarHoldLeft": "Time remaining",
+  "hotelCalendarStartsFact": "Starts in",
+  "hotelCalendarBlockedByFact": "Blocked by",
+  "hotelCalendarAudienceWomen": "Ladies",
+  "hotelCalendarAudienceMen": "Men",
+  "hotelCalendarAudienceMixed": "Mixed",
+  "hotelCalendarKeyTitle": "Key",
+  "hotelCalendarRequestNote": "A request does not hold the date.",
+  "hotelCalendarTimes": "Times",
+  "hotelCalendarSetup": "Setup",
+  "hotelCalendarEvent": "Event",
+  "hotelCalendarTeardown": "Teardown",
+  "hotelCalendarTimelineLabel": "{hall}, timeline",
+  "@hotelCalendarTimelineLabel": {
+    "placeholders": {
+      "hall": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarOpenBooking": "Open booking",
+  "hotelCalendarCall": "Call {name}",
+  "@hotelCalendarCall": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarMessage": "Message {name}",
+  "@hotelCalendarMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarHintDrag": "Press and hold a date, then drag to the last one.",
+  "hotelCalendarHintTap": "Or tap the first date, then the last.",
+  "hotelCalendarRangeNone": "Choose dates",
+  "hotelCalendarRangeSummary": "Dates",
+  "hotelCalendarRangeBlock": "Block",
+  "hotelCalendarRangeOpen": "Open",
+  "hotelCalendarRangeOffer": "Offer",
+  "hotelCalendarSheetBlockTitle": "Block dates",
+  "hotelCalendarSheetOpenTitle": "Open dates",
+  "hotelCalendarModeLabel": "Block or open",
+  "hotelCalendarModeBlock": "Block",
+  "hotelCalendarModeOpen": "Open",
+  "hotelCalendarSumEdit": "Change dates",
+  "hotelCalendarShortcuts": "Shortcuts",
+  "hotelCalendarSession": "Session",
+  "hotelCalendarReason": "Reason",
+  "hotelCalendarNote": "Note",
+  "hotelCalendarReasonOffline": "Booked offline",
+  "hotelCalendarReasonMaintenance": "Maintenance",
+  "hotelCalendarReasonPrivate": "Private event",
+  "hotelCalendarReasonOther": "Other",
+  "hotelCalendarVisibilityHint": "Couples stop seeing blocked dates within seconds.",
+  "hotelCalendarOpenHint": "Opened dates go back on sale for couples.",
+  "hotelCalendarPendingWarn": "{count, plural, =0{No pending requests on {date}} one{{date} has {count} pending request. It will be marked unavailable.} other{{date} has {count} pending requests. They will be marked unavailable.}}",
+  "@hotelCalendarPendingWarn": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarConflictBody": "A date with a confirmed booking can’t be blocked. Cancel the booking first.",
+  "hotelCalendarConflictTip": "Or choose only the hall that is free.",
+  "hotelCalendarConflictCancel": "Cancel booking",
+  "hotelCalendarReasonConflict": "Free dates only",
+  "hotelCalendarReasonChoose": "Pick dates first",
+  "hotelCalendarAlreadyBlocked": "Already blocked",
+  "hotelCalendarCtaBlock": "{count, plural, =0{Block} one{Block {count} date} other{Block {count} dates}}",
+  "@hotelCalendarCtaBlock": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelCalendarCtaOpen": "{count, plural, =0{Open} one{Open {count} date} other{Open {count} dates}}",
+  "@hotelCalendarCtaOpen": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelCalendarOpenListTitle": "Blocked dates",
+  "hotelCalendarOpenEmpty": "No blocked dates",
+  "hotelCalendarToastBlocked": "Hidden from couples",
+  "hotelCalendarToastOpened": "Open for booking",
+  "hotelCalendarPartialTitle": "Some dates skipped",
+  "hotelCalendarSaveFailed": "Couldn’t save",
+  "hotelCalendarEmailTitle": "Calendar by email",
+  "hotelCalendarEmailSwitch": "Invite me by email",
+  "hotelCalendarEmailAdd": "Another address",
+  "hotelCalendarEmailInvalid": "Check the address",
+  "hotelCalendarEmailTest": "Send a test",
+  "hotelCalendarEmailTestSent": "Test sent",
+  "hotelDecisionsFactsLabel": "Details",
+  "hotelDecisionsFactDate": "Date",
+  "hotelDecisionsFactGuests": "Guests",
+  "hotelDecisionsFactSession": "Session",
+  "hotelDecisionsFactLadies": "Ladies",
+  "hotelDecisionsFactMen": "Men",
+  "hotelDecisionsFactMixed": "Mixed",
+  "hotelDecisionsOfflineInfo": "Decisions are never queued, so nothing is half-sent.",
+  "hotelDecisionsTermsTitle": "Terms",
+  "hotelDecisionsReason": "Reason",
+  "hotelDecisionsPickReason": "Pick a reason",
+  "hotelDecisionsNote": "Note",
+  "hotelDecisionsNoteHelper": "Client sees this",
+  "hotelDecisionsNoteRequired": "Note required",
+  "hotelDecisionsViewBooking": "View request",
+  "hotelDecisionsRefresh": "Refresh",
+  "hotelDecisionsAcceptTitle": "Accept request",
+  "hotelDecisionsAcceptCta": "Accept",
+  "hotelDecisionsAcceptConsequence": "This holds <f>{date}</f> for <n>{name}</n> for <f>{duration}</f>.",
+  "@hotelDecisionsAcceptConsequence": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsAcceptConfirmRule": "If the client does not confirm, the date is released and their voucher goes back to them.",
+  "hotelDecisionsAcceptPriceHint": "Paid to you directly, outside the app, after the client confirms.",
+  "hotelDecisionsAcceptLowerHint": "A lower voucher price is optional and never higher than the quote. The client sees the new saving.",
+  "hotelDecisionsAcceptHoldLabel": "Date held for {duration}",
+  "@hotelDecisionsAcceptHoldLabel": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsAcceptDeadlineLabel": "Client confirms by",
+  "hotelDecisionsAcceptOffApp": "Off-app",
+  "hotelDecisionsAcceptOthersLine": "{count, plural, one{{count} other request for this date} other{{count} other requests for this date}}",
+  "@hotelDecisionsAcceptOthersLine": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelDecisionsAcceptCompare": "Compare",
+  "hotelDecisionsAcceptCompareThis": "This",
+  "hotelDecisionsAcceptCompareOther": "Other",
+  "hotelDecisionsAcceptCompareReceived": "Received",
+  "hotelDecisionsAcceptLower": "Lower price",
+  "hotelDecisionsAcceptLowerLabel": "Reduce by",
+  "hotelDecisionsAcceptLowerTooHigh": "Below the voucher price",
+  "hotelDecisionsAcceptedTitle": "Approved",
+  "hotelDecisionsAcceptedBody": "The date is held for <n>{name}</n>, who has until <f>{deadline}</f> to confirm.",
+  "@hotelDecisionsAcceptedBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "deadline": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsAcceptedUndoHint": "The client is told in a few seconds. Undo until then.",
+  "hotelDecisionsNotifying": "Notifying client",
+  "hotelDecisionsUndoneTitle": "Back to pending",
+  "hotelDecisionsUndoneBody": "The date is released and the client was not told.",
+  "hotelDecisionsConflictTitle": "Date on hold",
+  "hotelDecisionsConflictBody": "Another client’s approved request holds <f>{date}</f> while they confirm. You can still offer a different date.",
+  "@hotelDecisionsConflictBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsAlreadyTitle": "Already updated",
+  "hotelDecisionsAlreadyBody": "Someone on your team or the client changed it a moment ago. This is where it stands now.",
+  "hotelDecisionsReleasedTitle": "Request withdrawn",
+  "hotelDecisionsReleasedBody": "The client’s voucher is no longer attached to your venue, so there is nothing to approve. The request leaves your list.",
+  "hotelDecisionsDeclineTitle": "Decline request",
+  "hotelDecisionsDeclineReasonDate": "Date",
+  "hotelDecisionsDeclineReasonCapacity": "Capacity",
+  "hotelDecisionsDeclineReasonPackage": "Package",
+  "hotelDecisionsDeclineReasonOther": "Other",
+  "hotelDecisionsDeclineSuggestTitle": "Suggest dates",
+  "hotelDecisionsDeclineSuggestBody": "The client will see a gentle message and venues that are free on the same date.",
+  "hotelDecisionsDeclineVoucher": "Voucher returns",
+  "hotelDecisionsDeclineVoucherInfo": "The client’s voucher goes back to them. Declining has no payment consequence.",
+  "hotelDecisionsDeclineNoUndo": "A decline cannot be undone.",
+  "hotelDecisionsDeclineNoUndoShort": "Can’t undo",
+  "hotelDecisionsDeclineCtaNext": "Choose dates",
+  "hotelDecisionsDeclineCta": "Decline",
+  "hotelDecisionsDeclinedTitle": "Declined",
+  "hotelDecisionsDeclinedBody": "The client has been told and their voucher is back with them.",
+  "hotelDecisionsProposeTitle": "Propose date",
+  "hotelDecisionsProposeIntro": "Pick one to three free dates for the same hall and session. The client has {window} to reply.",
+  "@hotelDecisionsProposeIntro": {
+    "placeholders": {
+      "window": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsProposeHold": "Every date keeps the quoted voucher price of {amount}. If a date normally costs more, you cover the difference.",
+  "@hotelDecisionsProposeHold": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsProposeHallLabel": "Hall",
+  "hotelDecisionsProposeCalendarLabel": "Free dates for {hall}",
+  "@hotelDecisionsProposeCalendarLabel": {
+    "placeholders": {
+      "hall": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsProposeOriginal": "Original date",
+  "hotelDecisionsProposeChosen": "Your proposal",
+  "hotelDecisionsProposeRemove": "Remove {date}",
+  "@hotelDecisionsProposeRemove": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsProposeTakenBadge": "Date taken",
+  "hotelDecisionsProposeHeldLabel": "Voucher price held",
+  "hotelDecisionsProposeLowerLabel": "Lower by",
+  "hotelDecisionsProposeReplyLabel": "Client reply window",
+  "hotelDecisionsProposeCount": "{count, plural, =0{No dates chosen} one{{count} date chosen} other{{count} dates chosen}}",
+  "@hotelDecisionsProposeCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelDecisionsProposeCta": "Send proposal",
+  "hotelDecisionsProposePick": "Pick a date",
+  "hotelDecisionsProposeEmptyTitle": "No free dates",
+  "hotelDecisionsProposeEmpty": "No free dates in the next {days} for this hall.",
+  "@hotelDecisionsProposeEmpty": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsProposeEmptyAction": "Open calendar",
+  "hotelDecisionsProposeNoHallTitle": "Agree in chat",
+  "hotelDecisionsProposeNoHallBody": "A service request has no hall calendar. Reply to the client in the chat to agree another day.",
+  "hotelDecisionsProposeSentTitle": "Proposal sent",
+  "hotelDecisionsProposeSentBody": "The request stays pending with your dates attached. If the client accepts one, a new {duration} confirm window starts.",
+  "@hotelDecisionsProposeSentBody": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsProposeAwaiting": "Awaiting <n>{name}</n> · answer due <f>{deadline}</f>",
+  "@hotelDecisionsProposeAwaiting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "deadline": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsToastProposed": "Proposal sent · {window}",
+  "@hotelDecisionsToastProposed": {
+    "placeholders": {
+      "window": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsCancelTitle": "Cancel booking",
+  "hotelDecisionsCancelTitleApproved": "Withdraw approval",
+  "hotelDecisionsCancelTalkTitle": "Chat first",
+  "hotelDecisionsCancelTalkBody": "A new date is agreed with the client in the chat. If the date moves, the client may need a new request.",
+  "hotelDecisionsCancelReasonHall": "Unavailable",
+  "hotelDecisionsCancelReasonSafety": "Safety work",
+  "hotelDecisionsCancelReasonOther": "Other",
+  "hotelDecisionsCancelConsequence": "What happens",
+  "hotelDecisionsCancelVoucherInfo": "The client’s voucher goes back to them. They can refund the {fee} or use it again.",
+  "@hotelDecisionsCancelVoucherInfo": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsCancelStrikeInfo": "A reliability strike is recorded and the date opens again.",
+  "hotelDecisionsCancelNoMoney": "No money moves in the app. Anything the client has already paid you is settled between the two of you.",
+  "hotelDecisionsConsReturned": "Returned",
+  "hotelDecisionsConsStrike": "Strike",
+  "hotelDecisionsConsReopens": "Reopens",
+  "hotelDecisionsCancelCta": "Cancel booking",
+  "hotelDecisionsCancelCtaApproved": "Withdraw approval",
+  "hotelDecisionsCancelKeep": "Keep booking",
+  "hotelDecisionsCancelKeepApproved": "Keep approval",
+  "hotelDecisionsCancelDialogTitle": "Cancel booking?",
+  "hotelDecisionsCancelDialogTitleApproved": "Withdraw approval?",
+  "hotelDecisionsCancelDialogBody": "<n>{name}</n> · <f>{date}</f>",
+  "@hotelDecisionsCancelDialogBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsCancelledTitle": "Cancelled",
+  "hotelDecisionsCancelledTitleApproved": "Approval withdrawn",
+  "hotelDecisionsCancelledWindow": "New offer",
+  "hotelDecisionsCancelHiddenTitle": "Managers only",
+  "hotelDecisionsCancelHiddenBody": "Only an Admin or Manager can cancel a confirmed booking.",
+  "hotelGrowOfflineStamp": "Offline · updated {time}",
+  "@hotelGrowOfflineStamp": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowErrorBody": "Nothing was changed. Check your connection and try again.",
+  "hotelGrowTabsLabel": "Voucher prices by state",
+  "hotelGrowTabActive": "Active",
+  "hotelGrowTabScheduled": "Scheduled",
+  "hotelGrowTabEnded": "Ended",
+  "hotelGrowPaused": "Paused",
+  "hotelGrowAppliesAll": "All packages",
+  "hotelGrowSoftInsight": "{count, plural, =0{No open weekend dates in the next {days} days} one{{count} open weekend date in the next {days} days} other{{count} open weekend dates in the next {days} days}}",
+  "@hotelGrowSoftInsight": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowEmptyTitle": "No time-boxed windows",
+  "hotelGrowNoScheduledTitle": "Nothing scheduled",
+  "hotelGrowNoEndedTitle": "No ended windows",
+  "hotelGrowShowActive": "Show active prices",
+  "hotelGrowActionsLabel": "Voucher price actions",
+  "hotelGrowStatStarts": "Starts",
+  "hotelGrowPreviewWaiting": "Enter a valid voucher price to see the card as couples will see it.",
+  "hotelGrowPreviewLabel": "How couples see it",
+  "hotelGrowEffectNote": "Pause and End take effect for couples at once.",
+  "hotelGrowPause": "Pause window",
+  "hotelGrowResume": "Resume window",
+  "hotelGrowDuplicate": "Duplicate",
+  "hotelGrowEndNow": "End now",
+  "hotelGrowToastPaused": "{title} is paused. Couples see the standing voucher price.",
+  "@hotelGrowToastPaused": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowToastResumed": "{title} is live again.",
+  "@hotelGrowToastResumed": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowToastEnded": "{title} has ended.",
+  "@hotelGrowToastEnded": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowEndTitle": "End {title} now?",
+  "@hotelGrowEndTitle": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowEndBody": "Couples go back to the standing voucher price at once. Requests already sent keep their price. This cannot be undone.",
+  "hotelGrowEndConfirm": "End window",
+  "hotelGrowEndKeep": "Keep window",
+  "hotelGrowStepsLabel": "Voucher price window steps",
+  "hotelGrowValueTitle": "Voucher price",
+  "hotelGrowOverError": "The voucher price cannot be above the standard price, {max}.",
+  "@hotelGrowOverError": {
+    "placeholders": {
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowEmptyValueError": "Enter the voucher price in dinars, up to three decimals.",
+  "hotelGrowBestOnly": "Only the best voucher price applies to a request. Prices do not stack.",
+  "hotelGrowScopeTitle": "Applies to",
+  "hotelGrowPackagesLabel": "Packages",
+  "hotelGrowHallsLabel": "Halls",
+  "hotelGrowAllHalls": "All halls",
+  "hotelGrowTitleTitle": "Window title",
+  "hotelGrowTitleEn": "Title in English",
+  "hotelGrowTitleAr": "Title in Arabic",
+  "hotelGrowTitleComplete": "Complete",
+  "hotelGrowCouplesSee": "Couples see",
+  "hotelGrowNextReasonTitles": "Add the title in both languages to continue.",
+  "hotelGrowNextReasonValue": "Correct the voucher price to continue.",
+  "hotelGrowPrefilledTitle": "For these dates",
+  "hotelGrowOfflineEdit": "Offline. You can keep editing; publishing needs a connection.",
+  "hotelGrowGuardTitle": "Discard this window?",
+  "hotelGrowGuardDiscard": "Discard",
+  "hotelGrowGuardKeep": "Keep editing",
+  "hotelGrowEditorErrorBody": "Nothing was saved. Check your connection and try again.",
+  "hotelGrowDatesTitle": "Event dates",
+  "hotelGrowShortcuts": "Shortcuts",
+  "hotelGrowChooseDates": "Choose dates myself",
+  "hotelGrowNoDatesError": "Choose at least one event date.",
+  "hotelGrowDatesChosen": "{count, plural, =0{No dates chosen} one{{count} date chosen} other{{count} dates chosen}}",
+  "@hotelGrowDatesChosen": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowClearDates": "Clear",
+  "hotelGrowUseOpenDates": "Use open weekend dates",
+  "hotelGrowOpenWeekend": "Open weekend date",
+  "hotelGrowOverlap": "{title} at {value} already covers {dates}. The better voucher price applies.",
+  "@hotelGrowOverlap": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      },
+      "dates": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowRunsTitle": "When it runs",
+  "hotelGrowScheduledPill": "Scheduled",
+  "hotelGrowStartsLabel": "Starts on",
+  "hotelGrowEndsLabel": "Ends on",
+  "hotelGrowEndBeforeStart": "The end date is before the start date.",
+  "hotelGrowPublish": "Publish window",
+  "hotelGrowSchedule": "Schedule window",
+  "hotelGrowOfflinePublish": "Reconnect to publish.",
+  "hotelGrowReasonDates": "Choose the event dates first.",
+  "hotelGrowReasonEnd": "Set a valid end date first.",
+  "hotelGrowPublishFailed": "The window was not published. Nothing changed; try again.",
+  "hotelGrowToastPublished": "{title} is live.",
+  "@hotelGrowToastPublished": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowToastScheduled": "{title} is scheduled.",
+  "@hotelGrowToastScheduled": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowView": "View",
+  "hotelGrowAnTitle": "Analytics",
+  "hotelGrowAnRangeLabel": "Period",
+  "hotelGrowAnRangeMonth": "This month",
+  "hotelGrowAnRangeDays": "Last {days} days",
+  "@hotelGrowAnRangeDays": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowAnRangeCustom": "Custom",
+  "hotelGrowAnRangeNote": "Data is available from {date}.",
+  "@hotelGrowAnRangeNote": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowAnKpiViews": "Views",
+  "hotelGrowAnKpiClicks": "Clicks",
+  "hotelGrowAnKpiConversion": "Conversion",
+  "hotelGrowAnVsPrevious": "vs previous period",
+  "hotelGrowAnChartDesc": "{metric}, from {from} to {to}.",
+  "@hotelGrowAnChartDesc": {
+    "placeholders": {
+      "metric": {
+        "type": "String"
+      },
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowAnAsTable": "View as table",
+  "hotelGrowAnAsChart": "View as chart",
+  "hotelGrowAnFunnelTitle": "From view to voucher",
+  "hotelGrowAnFunnelDesc": "Views, clicks, vouchers purchased, requests, confirmed bookings and redeemed vouchers in the period.",
+  "hotelGrowAnStageConfirmed": "Confirmed",
+  "hotelGrowAnValueLabel": "Count",
+  "hotelGrowAnTopTitle": "Top packages",
+  "hotelGrowAnTopDesc": "Confirmed bookings per package in the period.",
+  "hotelGrowAnTopOpen": "Open {name}",
+  "@hotelGrowAnTopOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowAnDefsTitle": "How we count",
+  "hotelGrowAnDefViews": "Each person counts once per {minutes} minutes, however many times they open your listing.",
+  "@hotelGrowAnDefViews": {
+    "placeholders": {
+      "minutes": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowAnDefClicks": "Taps on Message, Call, Directions or Share after viewing your listing.",
+  "hotelGrowAnDefConversion": "Confirmed bookings divided by views in the same period, credited to the last view within {days} days.",
+  "@hotelGrowAnDefConversion": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowAnCustomTitle": "Custom period",
+  "hotelGrowAnCustomOutside": "Days before {date} have no data.",
+  "@hotelGrowAnCustomOutside": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowAnEmptyTitle": "No data yet",
+  "hotelGrowAnInsufBody": "Trends need at least {days} days of views. The totals so far are below.",
+  "@hotelGrowAnInsufBody": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowAnRoleAnalytics": "Your role sees listing performance only.",
+  "hotelGrowRwTitle": "Reviews",
+  "hotelGrowRwCatVenue": "Venue",
+  "hotelGrowRwCatFood": "Food",
+  "hotelGrowRwCatService": "Service",
+  "hotelGrowRwCatValue": "Value",
+  "hotelGrowRwFilterLabel": "Show reviews",
+  "hotelGrowRwFilterAll": "All",
+  "hotelGrowRwFilterNeeds": "Needs reply",
+  "hotelGrowRwFilterReplied": "Replied",
+  "hotelGrowRwFilterReported": "Reported",
+  "hotelGrowRwModerated": "Ghazal moderates reviews. Reply once or report abuse. To hide or delete a review, ask support.",
+  "hotelGrowRwAskSupport": "Ask support to hide or delete",
+  "hotelGrowRwReplyTitle": "Reply to {name}",
+  "@hotelGrowRwReplyTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowRwReplyHelp": "Public, signed with the venue name, and sent once.",
+  "hotelGrowRwReplySend": "Send reply",
+  "hotelGrowRwReplySent": "Your reply is published.",
+  "hotelGrowRwReportTitle": "Report this review",
+  "hotelGrowRwReportBody": "Choose the reason. Ghazal reviews it and the review stays visible until then.",
+  "hotelGrowRwReasonAbuse": "Abusive language",
+  "hotelGrowRwReasonOff": "Not about this venue",
+  "hotelGrowRwReasonPersonal": "Shares personal data",
+  "hotelGrowRwReasonOther": "Other",
+  "hotelGrowRwReportSend": "Report review",
+  "hotelGrowRwReported": "Reported. Ghazal will review it.",
+  "hotelGrowRwEmptyTitle": "No reviews yet",
+  "hotelGrowRwNoNeedsTitle": "Every review has a reply",
+  "hotelGrowRwNoFilterTitle": "Nothing here",
+  "hotelGrowRwShowAll": "Show all reviews",
+  "hotelGrowRwAnonymous": "Anonymous",
+  "hotelGrowRwSummaryLabel": "Overall rating",
+  "hotelGrowListTitle": "Voucher prices",
+  "hotelGrowNewWindow": "New voucher price window",
+  "hotelGrowEditorTitle": "Voucher price window",
+  "hotelGrowAlwaysOn": "Always on",
+  "hotelGrowStandingTitle": "Standing voucher prices",
+  "hotelGrowStandingEditCta": "Edit package prices",
+  "hotelGrowStandingExplain": "Every package with a voucher price shows it beside the standard price all the time. A window lowers it for chosen event dates.",
+  "hotelGrowStandingNote": "Standing prices change in the package editor, not here.",
+  "hotelGrowStatRequests": "Requests",
+  "hotelGrowStatConfirmed": "Confirmed",
+  "hotelGrowStatVouchers": "Vouchers bought",
+  "hotelGrowStatEnds": "Ends",
+  "hotelGrowUnitPackage": "per package",
+  "hotelGrowTitleSuggestion": "Lower voucher price",
+  "hotelGrowPriceLabel": "Voucher price per guest",
+  "hotelGrowPriceLabelFlat": "Voucher price per package",
+  "hotelGrowNoEffect": "This is not below the standing voucher price of {standing}, so it will not change what couples pay.",
+  "@hotelGrowNoEffect": {
+    "placeholders": {
+      "standing": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowBelowFee": "The saving would not be more than the {fee} voucher fee, so couples are not offered a voucher at this price.",
+  "@hotelGrowBelowFee": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowRequestPrice": "Request price",
+  "hotelGrowStandardPrice": "Standard price",
+  "hotelGrowYouSave": "Couples save",
+  "hotelGrowFeeNote": "Couples also pay Ghazal a {fee} voucher fee. It is not part of your price and you do not collect it.",
+  "@hotelGrowFeeNote": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowOpenWeekends": "Open weekend dates",
+  "hotelGrowWeekdays": "Weekdays",
+  "hotelGrowOpenWeekendsBody": "Open Thursday to Saturday dates in the next {days} days",
+  "@hotelGrowOpenWeekendsBody": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowWeekdaysBody": "Open Sunday to Wednesday dates in the next {days} days",
+  "@hotelGrowWeekdaysBody": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowUntilEnd": "Until I end it",
+  "hotelGrowEndRequired": "Choose an end date, or turn on Until I end it.",
+  "hotelGrowAnKpiVouchers": "Vouchers purchased",
+  "hotelGrowAnKpiRequests": "Requests",
+  "hotelGrowAnKpiRedeemed": "Vouchers redeemed",
+  "hotelGrowAnDefVouchers": "Vouchers bought for your venue in the period, counted at payment, not at use.",
+  "hotelGrowFactDates": "Dates",
+  "hotelGrowStatEnded": "Ended",
+  "hotelGrowUnitGuest": "Per guest",
+  "hotelGrowFactsLabel": "Details",
+  "hotelGrowStandingCount": "Standing offers",
+  "hotelGrowFeeTitle": "Voucher fee",
+  "hotelGrowExampleLabel": "Example",
+  "hotelGrowFactGuests": "Guests",
+  "hotelGrowFactDate": "Date",
+  "hotelGrowSaving": "Saving",
+  "hotelGrowCouplesPay": "Couples pay",
+  "hotelGrowOffline": "Offline",
+  "hotelGrowRwReply": "Reply",
+  "hotelGrowAnRangeFrom": "From",
+  "hotelGrowAnRangeTo": "To",
+  "hotelGrowEffectTitle": "Effect",
+  "hotelGrowFactPackages": "Packages",
+  "hotelGrowStandingInfoTitle": "Standing offers",
+  "hotelGrowRwVerified": "Verified",
+  "hotelGrowRwPosted": "Posted",
+  "hotelGrowFactMen": "Men",
+  "hotelGrowFactLadies": "Ladies",
+  "hotelGrowRwYourReply": "Your reply",
+  "hotelGrowRwDraft": "Draft",
+  "hotelGrowRwReport": "Report",
+  "hotelGrowStepPrice": "Price",
+  "hotelGrowStepDates": "Dates",
+  "hotelGrowBoundsLabel": "Price range",
+  "hotelGrowStandingPrice": "Standing price",
+  "hotelGrowNoEffectTitle": "No change",
+  "hotelGrowNoEffectShort": "No change",
+  "hotelGrowBelowFeeTitle": "Below fee",
+  "hotelGrowBelowFeeShort": "Under {fee} fee",
+  "@hotelGrowBelowFeeShort": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowPreviewTitle": "Preview",
+  "hotelGrowRulesTitle": "Rules",
+  "hotelGrowPublishFailedTitle": "Not published",
+  "hotelGrowOverlapTitle": "Overlap",
+  "hotelGrowLowerPrice": "Lower price",
+  "hotelGrowOpenDates": "Open dates",
+  "hotelGrowAnApproved": "Approved",
+  "hotelGrowAnInsufTitle": "Not enough data",
+  "hotelGrowAnInsufShort": "{days} days needed",
+  "@hotelGrowAnInsufShort": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowRwReviews": "Reviews",
+  "hotelGrowRwCategories": "Categories",
+  "hotelGrowRwMore": "More",
+  "hotelGrowRwRulesTitle": "Rules",
+  "hotelProviderOfflineStrip": "Offline · saved {time}",
+  "@hotelProviderOfflineStrip": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderNeedsConnection": "Offline",
+  "hotelProviderLangArabic": "Arabic",
+  "hotelProviderLangEnglish": "English",
+  "hotelProviderFieldInArabic": "{field} · AR",
+  "@hotelProviderFieldInArabic": {
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderFieldInEnglish": "{field} · EN",
+  "@hotelProviderFieldInEnglish": {
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPriceError": "Amount in dinars",
+  "hotelProviderListTitle": "Listings",
+  "hotelProviderListNew": "New",
+  "hotelProviderListRoleReason": "View only",
+  "hotelProviderListGroupAttention": "Action · {count}",
+  "@hotelProviderListGroupAttention": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderListGroupRunning": "Live · {count}",
+  "@hotelProviderListGroupRunning": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderListGroupEnded": "Ended · {count}",
+  "@hotelProviderListGroupEnded": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderListRejectedBanner": "{count} not approved",
+  "@hotelProviderListRejectedBanner": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderListExpiryBanner": "Ends {date}",
+  "@hotelProviderListExpiryBanner": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderListEmptyTitle": "No listings yet",
+  "hotelProviderListErrorTitle": "Not loaded",
+  "hotelProviderListErrorBody": "Nothing changed. Try again.",
+  "hotelProviderStepFinish": "Finish",
+  "hotelProviderStepChoosePlan": "Plan",
+  "hotelProviderStepFix": "Fix",
+  "hotelProviderStepRenew": "Renew",
+  "hotelProviderStepSubmit": "Submit",
+  "hotelProviderPlanContractTitle": "Business contract",
+  "hotelProviderPlanContractBody": "Terms as contracted",
+  "hotelProviderPlanTitle": "Plan",
+  "hotelProviderPlanTitleRenew": "Renew",
+  "hotelProviderPlanEditListing": "Edit",
+  "hotelProviderPlanGroup": "Plan period",
+  "hotelProviderPlanInclTitle": "Included",
+  "hotelProviderPlanIncl1": "Listing",
+  "hotelProviderPlanIncl2": "Requests",
+  "hotelProviderPlanIncl3": "Figures",
+  "hotelProviderPlanContinue": "Pay",
+  "hotelProviderPlanReasonRates": "Rates soon",
+  "hotelProviderPlanReasonChoose": "Pick a plan",
+  "hotelProviderPlanSubmittedToast": "Sent",
+  "hotelProviderPlanSampleNote": "Sample amounts",
+  "hotelProviderPlanPreviewSample": "Sample rates",
+  "hotelProviderPlanRenewLive": "Until {date}",
+  "@hotelProviderPlanRenewLive": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPlanRenewExpired": "Ended {date}",
+  "@hotelProviderPlanRenewExpired": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPlanErrorTitle": "Not loaded",
+  "hotelProviderPlanErrorBody": "Nothing changed. Try again.",
+  "hotelProviderPayTitle": "Pay",
+  "hotelProviderPayTotal": "Plan total",
+  "hotelProviderPayAction": "Pay {amount}",
+  "@hotelProviderPayAction": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPayWith": "Pay with",
+  "hotelProviderChangeMethod": "Change",
+  "hotelProviderMethodsTitle": "Payment method",
+  "hotelProviderMethodKnet": "KNET",
+  "hotelProviderMethodVisa": "Visa",
+  "hotelProviderMethodMastercard": "Mastercard",
+  "hotelProviderMethodApplePay": "Apple Pay",
+  "hotelProviderMethodGooglePay": "Google Pay",
+  "hotelProviderSampleBadge": "Sample",
+  "hotelProviderRefundNote": "Fee refunds are handled by support, on request.",
+  "hotelProviderSumListing": "Listing",
+  "hotelProviderSumPlan": "Plan",
+  "hotelProviderSumAmount": "Amount",
+  "hotelProviderSumPaid": "Paid",
+  "hotelProviderGatewayTitle": "{method}",
+  "@hotelProviderGatewayTitle": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderRedirectTitle": "To {method}",
+  "@hotelProviderRedirectTitle": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderRedirectBody": "Keep the app open.",
+  "hotelProviderConfirmingTitle": "Confirming",
+  "hotelProviderConfirmingBody": "Please do not pay again.",
+  "hotelProviderBankMerchant": "Merchant",
+  "hotelProviderBankMerchantName": "Ghazal",
+  "hotelProviderBankAmount": "Amount",
+  "hotelProviderBankCard": "Card",
+  "hotelProviderBankExpiry": "Expiry",
+  "hotelProviderBankPin": "PIN",
+  "hotelProviderBankSubmit": "Pay",
+  "hotelProviderProtoLabel": "Bank answer",
+  "hotelProviderProtoApproved": "Approved",
+  "hotelProviderProtoDeclined": "Declined",
+  "hotelProviderLeaveTitle": "Leave payment?",
+  "hotelProviderLeaveBody": "Nothing was charged.",
+  "hotelProviderLeaveStay": "Stay",
+  "hotelProviderLeaveConfirm": "Leave",
+  "hotelProviderPaidTitle": "Paid",
+  "hotelProviderPaidBody": "Your listing is in review.",
+  "hotelProviderRenewedTitle": "Renewed",
+  "hotelProviderRenewedBody": "Your listing stays live.",
+  "hotelProviderRenewedNote": "Until {date}",
+  "@hotelProviderRenewedNote": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderReceiptLink": "Receipt",
+  "hotelProviderViewStatus": "Status",
+  "hotelProviderBackToListings": "Listings",
+  "hotelProviderFailedTitle": "Payment failed",
+  "hotelProviderFailedBody": "Nothing was charged.",
+  "hotelProviderRetry": "Try again",
+  "hotelProviderSwitchMethod": "Other method",
+  "hotelProviderCancelledTitle": "Cancelled",
+  "hotelProviderCancelledBody": "Nothing was charged. Your plan is saved.",
+  "hotelProviderBackToPay": "Back",
+  "hotelProviderBlockedTitle": "Rates soon",
+  "hotelProviderBlockedBody": "Rates are not announced yet, so there is nothing to pay. Your listing and plan choice are kept.",
+  "hotelProviderBackToPlans": "Plans",
+  "hotelProviderOfflinePay": "Offline",
+  "hotelProviderPayErrorTitle": "Payment failed",
+  "hotelProviderPayErrorBody": "Nothing was charged. Try again.",
+  "hotelProviderReceiptTitle": "Receipt",
+  "hotelProviderReceiptIssuer": "Ghazal",
+  "hotelProviderReceiptNumber": "No.",
+  "hotelProviderReceiptDate": "Date",
+  "hotelProviderReceiptListing": "Listing",
+  "hotelProviderReceiptPlan": "Plan",
+  "hotelProviderReceiptVia": "Via",
+  "hotelProviderReceiptFoot": "KWD",
+  "hotelProviderReceiptSample": "Sample",
+  "hotelProviderRequired": "Required",
+  "hotelProviderRetryShort": "Retry",
+  "hotelProviderEditorTitle": "Listing",
+  "hotelProviderEditorTitleNew": "New listing",
+  "hotelProviderEditorCategory": "Category",
+  "hotelProviderEditorCategoryPlaceholder": "Choose",
+  "hotelProviderEditorTexts": "Texts",
+  "hotelProviderEditorTitleField": "Title",
+  "hotelProviderEditorDescField": "Description",
+  "hotelProviderEditorPhotos": "Photos",
+  "hotelProviderEditorPackages": "Packages",
+  "hotelProviderEditorContact": "Contact",
+  "hotelProviderEditorChat": "Chat",
+  "hotelProviderEditorPhone": "Phone",
+  "hotelProviderEditorContinue": "Continue",
+  "hotelProviderEditorSubmitChanges": "Submit",
+  "hotelProviderEditorResubmit": "Resubmit",
+  "hotelProviderEditorSaveDraft": "Save draft",
+  "hotelProviderEditorSaved": "Saved",
+  "hotelProviderEditorSavedBanner": "Saved",
+  "hotelProviderEditorDraftSaved": "Draft saved",
+  "hotelProviderEditorDraftNeedsTitle": "Add a title",
+  "hotelProviderEditorFixFields": "Complete the marked fields",
+  "hotelProviderEditorValidationNote": "Complete the marked fields",
+  "hotelProviderEditorError": "Not saved",
+  "hotelProviderEditorLiveNote": "Live version stays",
+  "hotelProviderEditorRejectedNote": "{note}",
+  "@hotelProviderEditorRejectedNote": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderGuardTitle": "Discard changes?",
+  "hotelProviderGuardBody": "Unsaved edits will be lost.",
+  "hotelProviderGuardDiscard": "Discard",
+  "hotelProviderGuardKeep": "Keep",
+  "hotelProviderPhotoAdd": "Add",
+  "hotelProviderPhotoRemove": "Remove photo",
+  "hotelProviderPhotoCover": "Cover",
+  "hotelProviderCatsPrimary": "Main",
+  "hotelProviderCatsMore": "More",
+  "hotelProviderCatsLimit": "{count}/{max}",
+  "@hotelProviderCatsLimit": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "max": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderPkgUnnamed": "Unnamed",
+  "hotelProviderPkgAdd": "Add package",
+  "hotelProviderPkgNeeded": "Add a package",
+  "hotelProviderPkgNoVoucher": "No voucher",
+  "hotelProviderPkgNoVoucherFull": "No voucher. Saving must exceed {fee}.",
+  "@hotelProviderPkgNoVoucherFull": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPkgSaving": "Saves {amount}",
+  "@hotelProviderPkgSaving": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPkgSheetNew": "New package",
+  "hotelProviderPkgSheetEdit": "Package",
+  "hotelProviderPkgSave": "Save",
+  "hotelProviderPkgDelete": "Delete",
+  "hotelProviderPkgName": "Name",
+  "hotelProviderPkgPerPackage": "package",
+  "hotelProviderPkgVoucherOver": "At or below standard",
+  "hotelProviderPkgIncludes": "Included",
+  "hotelProviderPkgInclPlaceholder": "Add item",
+  "hotelProviderPkgRemoveIncl": "Remove {name}",
+  "@hotelProviderPkgRemoveIncl": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPreviewTitle": "Preview",
+  "hotelProviderPreviewNoTitle": "Title",
+  "hotelProviderPreviewNoPackage": "Add a package",
+  "hotelProviderReviewTitle": "Review",
+  "hotelProviderReviewErrorTitle": "Not loaded",
+  "hotelProviderReviewErrorBody": "Nothing changed. Try again.",
+  "hotelProviderHeadPendingTitle": "In review",
+  "hotelProviderHeadApprovedTitle": "Approved",
+  "hotelProviderHeadLiveTitle": "Live",
+  "hotelProviderHeadRevisionTitle": "Changes in review",
+  "hotelProviderHeadRejectedTitle": "Not approved",
+  "hotelProviderLongWait": "{hours} h in review",
+  "@hotelProviderLongWait": {
+    "placeholders": {
+      "hours": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderContactSupport": "Support",
+  "hotelProviderReasons": "Team notes",
+  "hotelProviderReasonContent": "Content",
+  "hotelProviderReasonCategory": "Category",
+  "hotelProviderReasonMissing": "Missing details",
+  "hotelProviderReasonPricing": "Pricing",
+  "hotelProviderReasonOther": "Other",
+  "hotelProviderPlanRetained": "Fee refund: ask support",
+  "hotelProviderPlanRefunded": "Refund recorded",
+  "hotelProviderChoosePlanAgain": "Plan",
+  "hotelProviderListingLabel": "Listing",
+  "hotelProviderTimeline": "History",
+  "hotelProviderFacts": "Details",
+  "hotelProviderFactSubmitted": "Sent",
+  "hotelProviderFactFees": "Fees",
+  "hotelProviderFactNoFees": "None",
+  "hotelProviderFactPaid": "Paid",
+  "hotelProviderFactRatesSoon": "Rates soon",
+  "hotelProviderFactPlanEnds": "Ends",
+  "hotelProviderDaysLeft": "{days} d",
+  "@hotelProviderDaysLeft": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderEditResubmit": "Edit",
+  "hotelProviderViewPerformance": "Performance",
+  "hotelProviderProtoTitle": "Moderator",
+  "hotelProviderProtoApprove": "Approve",
+  "hotelProviderProtoReject": "Reject",
+  "hotelProviderProtoNote": "Wrong category, unclear price.",
+  "hotelProviderPerfTitle": "Performance",
+  "hotelProviderPerfEdit": "Edit",
+  "hotelProviderPerfErrorTitle": "Not loaded",
+  "hotelProviderPerfErrorBody": "Nothing changed. Try again.",
+  "hotelProviderPerfEmptyTitle": "No figures yet",
+  "hotelProviderPerfEnded": "Ended {date}",
+  "@hotelProviderPerfEnded": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPerfRangeLabel": "Period",
+  "hotelProviderPerfRangeMonth": "Month",
+  "hotelProviderPerfRange30": "{days} d",
+  "@hotelProviderPerfRange30": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderPerfRange90": "{days} d",
+  "@hotelProviderPerfRange90": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderPerfRangeCustom": "Custom",
+  "hotelProviderPerfViews": "Views",
+  "hotelProviderPerfSaves": "Saves",
+  "hotelProviderPerfVouchers": "Vouchers",
+  "hotelProviderPerfRequests": "Requests",
+  "hotelProviderPerfRedeemed": "Redeemed",
+  "hotelProviderPerfVsPrevious": "vs before",
+  "hotelProviderPerfFunnel": "Funnel",
+  "hotelProviderPerfFunnelDesc": "Views to redeemed",
+  "hotelProviderPerfCount": "Count",
+  "hotelProviderPerfStep": "{percent}",
+  "@hotelProviderPerfStep": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPerfInsufficient": "Pick {days}+ days",
+  "@hotelProviderPerfInsufficient": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderPerfTop": "Top packages",
+  "hotelProviderPerfTopDesc": "By requests",
+  "hotelProviderPerfAsTable": "Table",
+  "hotelProviderPerfAsChart": "Chart",
+  "hotelProviderPerfVenueAnalytics": "Venue analytics",
+  "hotelProviderPerfAllListings": "All listings",
+  "hotelProviderRangeTitle": "Period",
+  "hotelProviderRangeHint": "Pick dates",
+  "hotelProviderRangeApply": "Apply",
+  "hotelProviderContinue": "Continue",
+  "hotelProviderChooseTitle": "Account type",
+  "hotelProviderChooseReason": "Pick one",
+  "hotelProviderTypeHotelTitle": "Hotel or hall",
+  "hotelProviderTypeProviderTitle": "Provider",
+  "hotelProviderProfileName": "Name",
+  "hotelProviderProfileVenueType": "Type",
+  "hotelProviderVenueTypeHall": "Hall",
+  "hotelProviderVenueTypeHotel": "Hotel",
+  "hotelProviderProfileGovernorate": "Governorate",
+  "hotelProviderProfileArea": "Area",
+  "hotelProviderProfileChoose": "Choose",
+  "hotelProviderProfileCategories": "Categories",
+  "hotelProviderCatsChoose": "Choose",
+  "hotelProviderCatsEdit": "Edit",
+  "hotelProviderProfilePhone": "Phone",
+  "hotelProviderPhoneError": "Invalid number",
+  "hotelProviderLogoTitle": "Logo",
+  "hotelProviderLogoUpload": "Upload",
+  "hotelProviderLogoToast": "In the finished app",
+  "hotelProviderSubmit": "Submit",
+  "hotelProviderSubmitErrorTitle": "Not submitted",
+  "hotelProviderSubmitError": "Nothing was sent. Try again.",
+  "hotelProviderSubmittedBar": "Account",
+  "hotelProviderSubmittedTitle": "Under review",
+  "hotelProviderSubmittedFirst": "First listing",
+  "hotelProviderSubmittedToday": "Today",
+  "hotelProviderSubmittedStatus": "Status",
+  "hotelProviderRejectContent": "Content",
+  "hotelProviderRejectCategory": "Category",
+  "hotelProviderRejectDetails": "Details",
+  "hotelProviderRejectPricing": "Pricing",
+  "hotelProviderRejectOther": "Note",
+  "hotelProviderPlanSampleCta": "Sample amounts, prototype only. Not a real rate.",
+  "hotelProviderRefundTitle": "Refund",
+  "hotelProviderDetails": "Details",
+  "hotelSettingsRoleManager": "Manager",
+  "hotelSettingsRoleReception": "Reception",
+  "hotelSettingsRoleOwner": "Admin",
+  "hotelSettingsStepUpTitle": "Confirm it’s you",
+  "hotelSettingsStepUpBodyStaff": "We send a code to your email.",
+  "hotelSettingsStepUpSend": "Send code",
+  "hotelSettingsMoreTitle": "More",
+  "hotelSettingsMoreListing": "Your listing",
+  "hotelSettingsMoreCompleteness": "Language completeness",
+  "hotelSettingsMoreLangAr": "Arabic",
+  "hotelSettingsMoreLangEn": "English",
+  "hotelSettingsMorePreview": "Preview",
+  "hotelSettingsMorePreviewHeld": "Preview opens once your listing is approved.",
+  "hotelSettingsMoreGroupVenue": "Venue",
+  "hotelSettingsMoreGroupVisits": "Visits",
+  "hotelSettingsMoreGroupGrow": "Grow",
+  "hotelSettingsMoreGroupBusiness": "Business",
+  "hotelSettingsMoreGroupAccount": "Account",
+  "hotelSettingsMoreMedia": "Photos",
+  "hotelSettingsMorePackages": "Packages",
+  "hotelSettingsMoreHalls": "Halls",
+  "hotelSettingsMorePolicies": "Policies",
+  "hotelSettingsMoreRules": "Rules",
+  "hotelSettingsMoreAvailability": "Availability",
+  "hotelSettingsMoreVisitRequests": "Requests",
+  "hotelSettingsMoreVisitAvailability": "Schedule",
+  "hotelSettingsMoreVoucherPrices": "Voucher prices",
+  "hotelSettingsMoreAnalytics": "Analytics",
+  "hotelSettingsMoreReviews": "Reviews",
+  "hotelSettingsMoreListings": "Listings",
+  "hotelSettingsMorePerformance": "Performance",
+  "hotelSettingsMoreNotifications": "Notifications",
+  "hotelSettingsMoreStaff": "Staff",
+  "hotelSettingsMoreHours": "Business hours",
+  "hotelSettingsMoreLanguage": "Language",
+  "hotelSettingsMoreBiometric": "Biometric lock",
+  "hotelSettingsMoreSupport": "Support",
+  "hotelSettingsMoreSupportToast": "Support chat",
+  "hotelSettingsMoreSwitch": "Switch venue",
+  "hotelSettingsMoreLogout": "Log out",
+  "hotelSettingsMoreVersion": "{version}",
+  "@hotelSettingsMoreVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsMoreTerms": "Terms",
+  "hotelSettingsMorePrivacy": "Privacy",
+  "hotelSettingsMoreLegalToast": "Texts managed by Ghazal",
+  "hotelSettingsMoreAccountType": "Account type",
+  "hotelSettingsMoreBilling": "Billing",
+  "hotelSettingsMoreBillingAttention": "Needs attention",
+  "hotelSettingsLanguageTitle": "Language",
+  "hotelSettingsLanguageSaved": "Language saved",
+  "hotelSettingsSwitchTitle": "Switch venue",
+  "hotelSettingsSwitchCurrent": "Current venue",
+  "hotelSettingsLogoutTitle": "Log out?",
+  "hotelSettingsBiometricOnTitle": "Turn on biometric lock?",
+  "hotelSettingsBiometricOnConfirm": "Turn on",
+  "hotelSettingsBiometricOn": "Lock on",
+  "hotelSettingsBiometricOff": "Lock off",
+  "hotelSettingsPreviewTitle": "Preview",
+  "hotelSettingsAcctTitle": "Account type",
+  "hotelSettingsAcctVenue": "Hotel or hall",
+  "hotelSettingsAcctProvider": "Service provider",
+  "hotelSettingsAcctSetup": "Add account",
+  "hotelSettingsAcctSwitchedVenue": "Hotel or hall",
+  "hotelSettingsAcctSwitchedProvider": "Service provider",
+  "hotelSettingsNotifAboutTitle": "About alerts",
+  "hotelSettingsNotifAboutLock": "New request alerts are always on for your role, with a sound of their own.",
+  "hotelSettingsNotifAboutQuiet": "Outside business hours the alert is silent and still appears in your list.",
+  "hotelSettingsNotifAboutChannel": "Alerts arrive as push notifications. Urgent escalations also come by email, and there is no marketing push.",
+  "hotelSettingsNotifPushOffTitle": "Notifications off",
+  "hotelSettingsNotifPushOffBody": "You will not hear about new requests until you turn them on, and the reply clock keeps running. Nothing else here is affected.",
+  "hotelSettingsNotifPushOffAction": "Open Settings",
+  "hotelSettingsNotifPushOffToast": "Opens phone settings",
+  "hotelSettingsNotifNewRequest": "New requests",
+  "hotelSettingsNotifAlwaysOn": "Always on",
+  "hotelSettingsNotifPlaySound": "Play sound",
+  "hotelSettingsNotifPlaying": "Playing",
+  "hotelSettingsNotifConfirmations": "Confirmations",
+  "hotelSettingsNotifCancelled": "Cancellations",
+  "hotelSettingsNotifRedemptions": "Vouchers",
+  "hotelSettingsNotifVisits": "Visits",
+  "hotelSettingsNotifMessages": "Messages",
+  "hotelSettingsNotifReviews": "Reviews",
+  "hotelSettingsNotifListing": "Listing",
+  "hotelSettingsNotifPlan": "Plan",
+  "hotelSettingsStaffInvite": "Invite staff",
+  "hotelSettingsStaffYou": "You",
+  "hotelSettingsStaffSupport": "Support",
+  "hotelSettingsStaffEmptyTitle": "Only you",
+  "hotelSettingsStaffName": "Name",
+  "hotelSettingsStaffNameError": "Enter a name",
+  "hotelSettingsStaffRole": "Role",
+  "hotelSettingsStaffAccept": "Reply to requests",
+  "hotelSettingsStaffSend": "Send invite",
+  "hotelSettingsStaffSent": "Invite sent",
+  "hotelSettingsStaffSaveRole": "Save role",
+  "hotelSettingsStaffSessions": "End sessions",
+  "hotelSettingsStaffSessionsDone": "Signed out",
+  "hotelSettingsStaffDeactivate": "Deactivate",
+  "hotelSettingsStaffDeactivated": "{name} deactivated",
+  "@hotelSettingsStaffDeactivated": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsStaffReactivate": "Reactivate",
+  "hotelSettingsStaffReactivated": "{name} active",
+  "@hotelSettingsStaffReactivated": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsStaffRemove": "Remove",
+  "hotelSettingsStaffRemoveTitle": "Remove {name}?",
+  "@hotelSettingsStaffRemoveTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsStaffRemoveConfirm": "Remove",
+  "hotelSettingsStaffRemoved": "{name} removed",
+  "@hotelSettingsStaffRemoved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsStaffResend": "Resend invite",
+  "hotelSettingsStaffResent": "Invite resent",
+  "hotelSettingsStaffOpen": "Edit {name}",
+  "@hotelSettingsStaffOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsStaffLastSeen": "Last seen",
+  "hotelSettingsStaffExpires": "Invite expires",
+  "hotelSettingsStaffStateDeactivated": "Deactivated",
+  "hotelSettingsStaffAboutTitle": "About roles",
+  "hotelSettingsStaffVisitNote": "Whoever manages visits can read the visit group chats, which also include Ghazal Support.",
+  "hotelSettingsStaffFoot": "Admin can’t be assigned from the app. Ghazal support handles ownership transfers.",
+  "hotelSettingsRoleLineManager": "Everything, including redeeming vouchers, visits, listings and billing; not staff",
+  "hotelSettingsRoleLineReception": "Requests, redeeming vouchers, visits and chat",
+  "hotelSettingsRoleLineAccountant": "Billing and receipts; requests to read only",
+  "hotelSettingsRoleLineMarketing": "Voucher prices, listings, analytics and photos",
+  "hotelSettingsHoursAboutTitle": "About hours",
+  "hotelSettingsHoursAbout": "Couples see these as working hours, and they decide when new-request alerts make a sound.",
+  "hotelSettingsHoursApproxNote": "Ramadan and the Eids are estimates until announced. Adjust them when they are.",
+  "hotelSettingsHoursPreview": "Shown to couples as",
+  "hotelSettingsHoursLine": "{days} {from}–{to}",
+  "@hotelSettingsHoursLine": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      },
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsHoursLineClosed": "{days} closed",
+  "@hotelSettingsHoursLineClosed": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsHoursDaysRange": "{first}–{last}",
+  "@hotelSettingsHoursDaysRange": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "last": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsHoursDaysPair": "{first}, {last}",
+  "@hotelSettingsHoursDaysPair": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "last": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsHoursEveryDay": "Every day",
+  "hotelSettingsHoursAllClosed": "Closed",
+  "hotelSettingsHoursWeek": "Weekly hours",
+  "hotelSettingsHoursTimeFrom": "Opening",
+  "hotelSettingsHoursTimeTo": "Closing",
+  "hotelSettingsHoursHour": "Hour",
+  "hotelSettingsHoursMinute": "Minutes",
+  "hotelSettingsHoursAm": "AM",
+  "hotelSettingsHoursPm": "PM",
+  "hotelSettingsHoursSetTime": "Set",
+  "hotelSettingsHoursClosures": "Closures",
+  "hotelSettingsHoursClosure": "Closure",
+  "hotelSettingsHoursClosureRange": "{from}–{to}",
+  "@hotelSettingsHoursClosureRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsHoursApprox": "Approx.",
+  "hotelSettingsHoursSuggested": "Suggested",
+  "hotelSettingsHoursAddClosure": "Add closure",
+  "hotelSettingsHoursAddTitle": "Add closure",
+  "hotelSettingsHoursAddLabel": "Name",
+  "hotelSettingsHoursAddConfirm": "Add",
+  "hotelSettingsHoursRemoveClosure": "Remove closure {label}",
+  "@hotelSettingsHoursRemoveClosure": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsHoursSave": "Save",
+  "hotelSettingsHoursGuardTitle": "Leave without saving?",
+  "hotelSettingsHoursGuardLeave": "Leave",
+  "hotelSettingsHoursGuardStay": "Stay",
+  "hotelSettingsHoursViewOnly": "View only",
+  "hotelSettingsHoursInvalid": "Times can’t match",
+  "hotelSettingsHoursCopy": "All days",
+  "hotelSettingsHoursNextDay": "Next day",
+  "hotelSettingsHoursOpenOn": "Open on {day}",
+  "@hotelSettingsHoursOpenOn": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsHoursClosedWord": "Closed",
+  "hotelSettingsBillExempt": "Major hotel · no listing fees",
+  "hotelSettingsBillExemptBody": "Your listings are still reviewed before they go live.",
+  "hotelSettingsBillEnds": "Plan ends",
+  "hotelSettingsBillEnded": "Plan ended",
+  "hotelSettingsBillDaysLeft": "Days remaining",
+  "hotelSettingsBillDaysUnit": "d",
+  "hotelSettingsBillHidden": "Hidden",
+  "hotelSettingsBillNone": "No plan",
+  "hotelSettingsBillNoneBody": "Choose a weekly, monthly or annual plan to advertise. Nothing goes live until Ghazal has reviewed it.",
+  "hotelSettingsBillRatesBody": "You can choose a plan now. Payment opens when rates are announced.",
+  "hotelSettingsBillStatusLabel": "Plan status",
+  "hotelSettingsBillPillActive": "Active",
+  "hotelSettingsBillPillExpiring": "Ending",
+  "hotelSettingsBillExpiringNote": "We remind you a week before and again the day before. Renew to keep your listing live.",
+  "hotelSettingsBillExpiredNote": "Your listing is hidden. Renew to bring it back; it returns to review before it goes live again.",
+  "hotelSettingsBillPlanRow": "Plans",
+  "hotelSettingsBillRenew": "Renew",
+  "hotelSettingsBillChoose": "Choose plan",
+  "hotelSettingsBillSeePlans": "See plans",
+  "hotelSettingsBillReceipts": "Receipts",
+  "hotelSettingsBillDirectNote": "Couples pay you directly for the event. Ghazal holds, takes and pays out no event money, so this is the only place billing appears.",
+  "hotelSettingsBillViewOnly": "View only",
+  "hotelSettingsBillDownload": "Download PDF",
+  "hotelSettingsBillDownloaded": "Receipt saved",
+  "hotelSettingsBillMethodKnet": "KNET",
+  "hotelSettingsBillMethodCard": "Card",
+  "hotelSettingsBillMethodApplePay": "Apple Pay",
+  "hotelSettingsBillMethodGooglePay": "Google Pay",
+  "hotelSettingsStaffEmail": "Email",
+  "hotelSettingsStaffEmailError": "Enter a valid email",
+  "hotelSettingsBillContractBody": "Your terms are as contracted with Ghazal. There is no public plan.",
+  "hotelShellTabBarLabel": "Main navigation",
+  "hotelShellTabToday": "Today",
+  "hotelShellTabBookings": "Bookings",
+  "hotelShellTabCalendar": "Calendar",
+  "hotelShellTabMessages": "Messages",
+  "hotelShellTabMore": "More",
+  "hotelShellBadgePending": "{count, plural, one{{count} request needs your reply} other{{count} requests need your reply}}",
+  "@hotelShellBadgePending": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelShellBadgeOverflow": "{max}+",
+  "@hotelShellBadgeOverflow": {
+    "placeholders": {
+      "max": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelShellBannerNewRequest": "New request",
+  "hotelShellGreeting": "Hello, {name}",
+  "@hotelShellGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelShellTodayNeedsReply": "{count, plural, one{{count} request needs your reply} other{{count} requests need your reply}}",
+  "@hotelShellTodayNeedsReply": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelShellTodayFirstIn": "first in {time}",
+  "@hotelShellTodayFirstIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelShellTodayAllClear": "All clear",
+  "hotelShellNeedsYouTitle": "Needs your attention",
+  "hotelShellOfflineBanner": "You’re offline. Showing what was last loaded.",
+  "hotelTodayBell": "Notifications",
+  "hotelTodayBellUnread": "Notifications, {count, plural, one{{count} unread} other{{count} unread}}",
+  "@hotelTodayBellUnread": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodaySwitchVenue": "Switch venue, now {venue}",
+  "@hotelTodaySwitchVenue": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayStatusFirst": "First due in {time}",
+  "@hotelTodayStatusFirst": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayStatusNeeds": "{count, plural, one{{count} request needs your reply} other{{count} requests need your reply}}",
+  "@hotelTodayStatusNeeds": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodayAllClear": "All clear",
+  "hotelTodayStatusMarketing": "{windows, plural, one{{windows} voucher price running} other{{windows} voucher prices running}} · {views} views this week",
+  "@hotelTodayStatusMarketing": {
+    "placeholders": {
+      "windows": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "views": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayNeedsYouTitle": "Needs you",
+  "hotelTodaySeeAllCount": "See all {count}",
+  "@hotelTodaySeeAllCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayWindowEnds": "Reply window ends in {time}",
+  "@hotelTodayWindowEnds": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayWaitingLong": "Waiting for a reply for {time}",
+  "@hotelTodayWaitingLong": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayBlockDate": "Block date",
+  "hotelTodayEventsTitle": "Events",
+  "hotelTodayDayView": "Day view",
+  "hotelTodayAudienceWomen": "Ladies’ reception",
+  "hotelTodayAudienceMen": "Men’s reception",
+  "hotelTodayAudienceMixed": "Mixed reception",
+  "hotelTodayStartsIn": "Starts in {time}",
+  "@hotelTodayStartsIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayStripLabel": "Availability over the next seven days",
+  "hotelTodayCalendar": "Calendar",
+  "hotelTodaySoftDates": "{count, plural, one{{count} open weekend date in {days} days} other{{count} open weekend dates in {days} days}}",
+  "@hotelTodaySoftDates": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayOpenDates": "Open dates in the next thirty days",
+  "hotelTodayGlanceTitle": "Analytics",
+  "hotelTodayAnalytics": "Analytics",
+  "hotelTodayViews7": "Views over the last seven days",
+  "hotelTodayVsPrevious": "vs the seven days before",
+  "hotelTodayViewsTrend": "Views per day, last seven days",
+  "hotelTodayMessagesTitle": "Messages",
+  "hotelTodayUnread": "Unread",
+  "hotelTodayUnreadCount": "{count, plural, one{{count} unread message} other{{count} unread messages}}",
+  "@hotelTodayUnreadCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodayYou": "You",
+  "hotelTodayPinned": "Pinned",
+  "hotelTodayEnquiry": "Enquiry",
+  "hotelTodayPreviewVoice": "Voice message",
+  "hotelTodayPreviewPhoto": "Photo",
+  "hotelTodayPreviewDocument": "Document",
+  "hotelTodayOfflineStamp": "Offline · updated {time}",
+  "@hotelTodayOfflineStamp": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayOfflineReason": "Offline. Reconnect to accept.",
+  "hotelTodaySwitchSister": "Lumi Marina Hotel",
+  "hotelTodayAcceptedToast": "Request approved",
+  "hotelTodayFirstRunNotifTitle": "Allow notifications",
+  "hotelTodayFirstRunNotifBody": "New requests have a limited reply window. With notifications on, you hear about them straight away, even when the app is closed.",
+  "hotelTodayFirstRunNotifPointTime": "Urgent alerts",
+  "hotelTodayFirstRunNotifPointSound": "Own sound",
+  "hotelTodayFirstRunNotifAllow": "Allow",
+  "hotelTodayFirstRunNotNow": "Not now",
+  "hotelTodayFirstRunLockTitle": "App lock",
+  "hotelTodayFirstRunLockBody": "Protects requests, vouchers and visits if the phone is lost or shared. You can turn this on later in More.",
+  "hotelTodayFirstRunLockOn": "Turn on",
+  "hotelTodaySwitchTitle": "Switch venue",
+  "hotelTodaySwitchPending": "{count, plural, one{{count} request waiting} other{{count} requests waiting}}",
+  "@hotelTodaySwitchPending": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodaySwitchCurrent": "Current venue",
+  "hotelTodayRoleManager": "Manager",
+  "hotelTodayRoleReception": "Reception",
+  "hotelTodayDurDays": "{count, plural, one{{count} day} other{{count} days}}",
+  "@hotelTodayDurDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodayDurHours": "{count, plural, one{{count} hour} other{{count} hours}}",
+  "@hotelTodayDurHours": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodayDurMinutes": "{count, plural, one{{count} minute} other{{count} minutes}}",
+  "@hotelTodayDurMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodayDurJoin": "{first} {second}",
+  "@hotelTodayDurJoin": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "second": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayNeedsTitle": "Needs you",
+  "hotelTodayFiltersLabel": "Filter the queue",
+  "hotelTodayFilterAll": "All",
+  "hotelTodayFilterRequests": "Requests",
+  "hotelTodayFilterMessages": "Messages",
+  "hotelTodayFilterReviews": "Reviews",
+  "hotelTodayFilterCalendar": "Calendar",
+  "hotelTodayNotifFilter": "Show notifications",
+  "hotelTodayMarkAllRead": "Mark all as read",
+  "hotelTodayPrefs": "Notification preferences",
+  "hotelTodayNotifEmptyTitle": "No notifications",
+  "hotelTodayNotifUnreadEmptyTitle": "All read",
+  "hotelTodayNotifShowAll": "Show all",
+  "hotelTodayPushDeniedTitle": "Notifications off",
+  "hotelTodayOpenSettings": "Settings",
+  "hotelTodayPushDeniedToast": "Turn on in Settings",
+  "hotelTodayAllRead": "All read",
+  "hotelTodayInboxTitle": "Messages",
+  "hotelTodayInboxSearch": "Name or reference",
+  "hotelTodayInboxSearchLabel": "Search conversations",
+  "hotelTodayInboxFilters": "Filter conversations",
+  "hotelTodayInboxUnread": "Unread",
+  "hotelTodayInboxNeedsReply": "Needs reply",
+  "hotelTodayInboxLinked": "Linked",
+  "hotelTodayInboxEnquiries": "Enquiries",
+  "hotelTodayInboxEmptyTitle": "No messages",
+  "hotelTodayInboxNoResultsTitle": "No match",
+  "hotelTodayClearSearch": "Clear",
+  "hotelTodayInboxSupportOnly": "Reception handles clients",
+  "hotelTodayMarkRead": "Mark read",
+  "hotelTodayMarkUnread": "Mark unread",
+  "hotelTodayConversationMenu": "Options",
+  "hotelTodayHandledBy": "Handled by {name}",
+  "@hotelTodayHandledBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayCallClient": "Call {name}",
+  "@hotelTodayCallClient": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayReport": "Report",
+  "hotelTodayReportSent": "Report sent",
+  "hotelTodayContextLine": "{audience} · {date} · {guests}",
+  "@hotelTodayContextLine": {
+    "placeholders": {
+      "audience": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      },
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayOpenBooking": "Open request, {summary}",
+  "@hotelTodayOpenBooking": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayComposerLabel": "Message",
+  "hotelTodayComposerPlaceholder": "Message",
+  "hotelTodayAttach": "Attach",
+  "hotelTodayAttachTitle": "Attach",
+  "hotelTodayAttachCamera": "Camera",
+  "hotelTodayAttachPhoto": "Photos",
+  "hotelTodayAttachDocument": "Document",
+  "hotelTodayRecordHold": "Hold to record",
+  "hotelTodayRecording": "Recording",
+  "hotelTodaySlideCancel": "Slide to cancel",
+  "hotelTodaySlideLock": "Slide up to lock",
+  "hotelTodayRecordingLocked": "Recording locked",
+  "hotelTodayRecordDelete": "Delete recording",
+  "hotelTodayRecordSend": "Send recording",
+  "hotelTodayQuickLabel": "Quick replies",
+  "hotelTodayQrAvailability": "Availability",
+  "hotelTodayQrPrice": "Price",
+  "hotelTodayQrVisit": "Visit",
+  "hotelTodayQrAddress": "Address",
+  "hotelTodayQrAvailabilityText": "Welcome. {date} is available and we would be glad to host you.",
+  "@hotelTodayQrAvailabilityText": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayQrPriceText": "With a Ghazal voucher, the total for {guests} is {total} instead of {standard}. You settle it with us directly after you confirm.",
+  "@hotelTodayQrPriceText": {
+    "placeholders": {
+      "guests": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      },
+      "standard": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayQrVisitText": "You are welcome to visit the hall. You can book a visit from our page in the Ghazal app and choose the day that suits you.",
+  "hotelTodayQrAddressText": "You will find us at {venue}, {area}.",
+  "@hotelTodayQrAddressText": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "area": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayMsgSending": "Sending",
+  "hotelTodayMsgQueued": "Waiting for connection",
+  "hotelTodayMsgFailed": "Not sent",
+  "hotelTodayDraftTag": "Draft",
+  "hotelTodayThreadEmptyTitle": "No messages",
+  "hotelTodayAllPrices": "All voucher prices",
+  "hotelTodayAwaitingClient": "Awaiting client confirmation",
+  "hotelTodayBillingTitle": "Billing",
+  "hotelTodayConfirmWindowEnds": "Client confirmation window ends in {time}",
+  "@hotelTodayConfirmWindowEnds": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayFilterListing": "Listing",
+  "hotelTodayFilterVisits": "Visits",
+  "hotelTodayInboxVisits": "Visits",
+  "hotelTodayNewPrice": "New price",
+  "hotelTodayNtfListingApproved": "Listing approved",
+  "hotelTodayNtfListingRejected": "Listing not approved",
+  "hotelTodayNtfListingSubmitted": "Listing sent for review",
+  "hotelTodayNtfNewRequest": "New request",
+  "hotelTodayNtfRedeemed": "Voucher redeemed by you",
+  "hotelTodayPricesTitle": "Voucher prices",
+  "hotelTodayRedeem": "Redeem",
+  "hotelTodayRequestsMonth": "Requests this month",
+  "hotelTodayStatusExempt": "Major hotel · no listing fees",
+  "hotelTodayStatusListing": "A listing needs your attention",
+  "hotelTodayStatusNoPlan": "No active listing plan",
+  "hotelTodayStatusPlan": "Listing plan ends {date}",
+  "@hotelTodayStatusPlan": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayStatusVisits": "{count, plural, one{{count} visit request needs your reply} other{{count} visit requests need your reply}}",
+  "@hotelTodayStatusVisits": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodayTilesTitle": "This month",
+  "hotelTodayVisitMembers": "Chat members: client, hotel representative, Ghazal support",
+  "hotelTodayVoucherMonthTitle": "Vouchers",
+  "hotelTodayVouchersRedeemed": "Vouchers redeemed",
+  "hotelTodayFirstRunFaceId": "Face ID",
+  "hotelTodayFirstRunFingerprint": "Fingerprint",
+  "hotelTodayRoleAccountant": "Accountant",
+  "hotelTodayRoleMarketing": "Marketing",
+  "hotelTodayReadOnly": "Read only",
+  "hotelTodayRedeemName": "Redeem voucher",
+  "hotelTodayBlockName": "Block a date",
+  "hotelTodayNewPriceName": "New voucher price",
+  "hotelTodayRedeemedName": "Vouchers redeemed",
+  "hotelTodayReviewLabel": "Listing in review",
+  "hotelTodayNoPlan": "No plan",
+  "hotelTodayFactDate": "Date",
+  "hotelTodayFactGuests": "Guests",
+  "hotelTodayFactHall": "Hall",
+  "hotelTodayFactTime": "Time",
+  "hotelTodayFactRating": "Rating",
+  "hotelTodayFactVisitors": "Visitors",
+  "hotelTodayFactVoucherPrice": "Voucher price",
+  "hotelTodayFactReplyBy": "Reply by",
+  "hotelTodayFactEnds": "Ends",
+  "hotelTodayKindRequest": "Request",
+  "hotelTodayKindAwaiting": "Waiting for client",
+  "hotelTodayKindVisit": "Visit request",
+  "hotelTodayKindMessage": "Message",
+  "hotelTodayKindReview": "Review",
+  "hotelTodayKindCalendar": "Calendar check",
+  "hotelTodayKindListing": "Listing",
+  "hotelTodayKindPrice": "Voucher price ending",
+  "hotelTodayCalendarCheck": "Calendar",
+  "hotelTodayListingEndsIn": "Plan ends in {time}",
+  "@hotelTodayListingEndsIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayWindowEndsIn": "Voucher price ends in {time}",
+  "@hotelTodayWindowEndsIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayListings": "Listings",
+  "hotelTodayNextLabel": "Next event",
+  "hotelTodayVouchersBought": "Vouchers bought",
+  "hotelTodayVouchersTrend": "Vouchers bought per day",
+  "hotelVenueLangBoth": "AR · EN",
+  "hotelVenueLangArMissing": "AR {count}",
+  "@hotelVenueLangArMissing": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueLangEnMissing": "EN {count}",
+  "@hotelVenueLangEnMissing": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueDashboardTitle": "Dashboard",
+  "hotelVenueDashboardCta": "Dashboard",
+  "hotelVenueDashboardLead": "Edited on the dashboard. Existing bookings keep their terms.",
+  "hotelVenueDashboardItemSeason": "Seasonal price grids",
+  "hotelVenueDashboardItemHoliday": "Holiday and occasion prices",
+  "hotelVenueDashboardItemSpecial": "Prices for a single date",
+  "hotelVenueDashboardItemMenus": "Menus and menu tiers",
+  "hotelVenueDashboardItemService": "Service charge",
+  "hotelVenueGuardTitle": "Discard changes?",
+  "hotelVenueGuardBody": "You have edits that are not saved. If you leave now, they are lost.",
+  "hotelVenueGuardDiscard": "Discard",
+  "hotelVenueGuardKeep": "Keep editing",
+  "hotelVenueOfflineStrip": "Offline · {time}",
+  "@hotelVenueOfflineStrip": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueNeedsConnection": "Needs a connection.",
+  "hotelVenueRequired": "Required",
+  "hotelVenueErrorTitle": "Couldn’t load",
+  "hotelVenueErrorBody": "Nothing changed. Check your connection and try again.",
+  "hotelVenueFieldInArabic": "{field} (AR)",
+  "@hotelVenueFieldInArabic": {
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueFieldInEnglish": "{field} (EN)",
+  "@hotelVenueFieldInEnglish": {
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenuePriceError": "Invalid amount",
+  "hotelVenueZoneHall": "Hall",
+  "hotelVenueZoneStage": "Stage and Kosha",
+  "hotelVenueZoneBridal": "Bridal suite",
+  "hotelVenueZoneBuffet": "Buffet",
+  "hotelVenueZoneOutdoors": "Outdoors",
+  "hotelVenueZoneEntrance": "Entrance and valet",
+  "hotelVenueZoneLayouts": "Layouts",
+  "hotelVenueZoneStageShort": "Stage",
+  "hotelVenueZoneBridalShort": "Suite",
+  "hotelVenueZoneEntranceShort": "Entrance",
+  "hotelVenueZoneFilter": "Filter photos by zone",
+  "hotelVenueZoneAll": "All {count}",
+  "@hotelVenueZoneAll": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueZoneCount": "{zone} {count}",
+  "@hotelVenueZoneCount": {
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      },
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueMediaTitle": "Photos and videos",
+  "hotelVenueMediaTabs": "Photos or videos",
+  "hotelVenueMediaTabPhotos": "Photos {count}",
+  "@hotelVenueMediaTabPhotos": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueMediaTabVideos": "Videos {count}",
+  "@hotelVenueMediaTabVideos": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueMediaEmptyTitle": "No photos",
+  "hotelVenueAddPhotosCta": "Add photos",
+  "hotelVenueAddVideoCta": "Add video",
+  "hotelVenueAddPhotoTitle": "Add a photo",
+  "hotelVenueAddVideoTitle": "Add a video",
+  "hotelVenuePhotoSheetTitle": "Photo",
+  "hotelVenueVideoSheetTitle": "Video",
+  "hotelVenuePhotoCount": "{count}",
+  "@hotelVenuePhotoCount": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueReorder": "Reorder",
+  "hotelVenueReorderDone": "Done",
+  "hotelVenueReorderHint": "Use the arrows",
+  "hotelVenueShowAll": "Show all",
+  "hotelVenueEmptyRoomOnly": "Empty rooms only",
+  "hotelVenueAttentionRejected": "{count} to replace",
+  "@hotelVenueAttentionRejected": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueStatusReview": "Review",
+  "hotelVenueStatusRejected": "Replace",
+  "hotelVenueStatusLive": "Live",
+  "hotelVenueReviewNote": "Only you see it",
+  "hotelVenueUploading": "Uploading · {percent}",
+  "@hotelVenueUploading": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueUploadingLabel": "Upload progress",
+  "hotelVenueUploadFailed": "Upload failed",
+  "hotelVenueUploadQueued": "Waiting",
+  "hotelVenueUploadRetry": "Try again",
+  "hotelVenueOfflineQueueNote": "Offline. Uploads wait here.",
+  "hotelVenueVideoOpen": "Open {name}",
+  "@hotelVenueVideoOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueVideoLimits": "Up to {size} MB",
+  "@hotelVenueVideoLimits": {
+    "placeholders": {
+      "size": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueVideoTooLarge": "Too large",
+  "hotelVenueVideoTooLargeBody": "Max {size} MB",
+  "@hotelVenueVideoTooLargeBody": {
+    "placeholders": {
+      "size": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueVideoEmptyTitle": "No videos",
+  "hotelVenueVideoNote": "Plays on tap",
+  "hotelVenueVideoDelete": "Delete video",
+  "hotelVenueVideoDeleteTitle": "Delete this video?",
+  "hotelVenueVideoDeleteBody": "It leaves the listing.",
+  "hotelVenueNewVideoTitle": "New walkthrough video",
+  "hotelVenueToastVideoDeleted": "Video deleted",
+  "hotelVenueToastVideoAdded": "Video added",
+  "hotelVenueCover": "Cover",
+  "hotelVenueSetCover": "Set as cover",
+  "hotelVenueEditPhoto": "Edit details",
+  "hotelVenueDeletePhoto": "Delete photo",
+  "hotelVenueDeleteTitle": "Delete this photo?",
+  "hotelVenueDeleteBody": "It leaves the listing.",
+  "hotelVenueDeleteConfirm": "Delete",
+  "hotelVenueDeleteKeep": "Keep",
+  "hotelVenueReplace": "Replace photo",
+  "hotelVenueReplaceTitle": "Replace photo",
+  "hotelVenueReasonPerson": "A person is visible",
+  "hotelVenueReplaceShort": "Replace",
+  "hotelVenueReasonPersonBody": "Use an empty room.",
+  "hotelVenueFieldZone": "Zone",
+  "hotelVenueFieldAlt": "Alt text",
+  "hotelVenueAltHelper": "For screen readers",
+  "hotelVenueAltBothFirst": "Add both languages",
+  "hotelVenueUploadZoneFirst": "Choose a zone",
+  "hotelVenueToastCover": "Cover photo updated",
+  "hotelVenueToastDeleted": "Photo deleted",
+  "hotelVenueToastPhotoSaved": "Photo details saved",
+  "hotelVenueSourceCamera": "Camera",
+  "hotelVenueSourceLibrary": "Library",
+  "hotelVenueSourceVideo": "Choose a video",
+  "hotelVenueUploadCta": "Upload photo",
+  "hotelVenueFaceTitle": "A person is visible",
+  "hotelVenueFaceBody": "Retake or crop the photo.",
+  "hotelVenueFaceRetake": "Retake",
+  "hotelVenueFaceCrop": "Crop",
+  "hotelVenueFaceFirst": "Retake or crop first",
+  "hotelVenueToastUploadStarted": "Upload started",
+  "hotelVenueToastQueued": "Queued",
+  "hotelVenueToastPhotoAdded": "Photo added",
+  "hotelVenueToastReplaced": "Photo replaced",
+  "hotelVenueChipReview": "Under review {count}",
+  "@hotelVenueChipReview": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueUploadDemoPhoto": "New photo",
+  "hotelVenueSave": "Save changes",
+  "hotelVenueSavedState": "Saved",
+  "hotelVenueFieldName": "Name",
+  "hotelVenueFieldDescription": "Description",
+  "hotelVenueFieldPrice": "Price",
+  "hotelVenueNameRequired": "Name in both languages",
+  "hotelVenueReservedName": "Reserved name",
+  "hotelVenueAudWomen": "Ladies",
+  "hotelVenueAudMen": "Men",
+  "hotelVenueAudMixed": "Mixed",
+  "hotelVenueGuestRange": "{from}–{to}",
+  "@hotelVenueGuestRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueUnitEvent": "per event",
+  "hotelVenueUnitUnit": "per unit",
+  "hotelVenueAllDays": "Every day",
+  "hotelVenueHidden": "Hidden",
+  "hotelVenueOfflineChange": "Needs a connection to change.",
+  "hotelVenuePackagesTitle": "Packages",
+  "hotelVenuePackagesTabs": "Packages or extras",
+  "hotelVenueTabPackages": "Packages ({count})",
+  "@hotelVenueTabPackages": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueTabExtras": "Extras ({count})",
+  "@hotelVenueTabExtras": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenuePkgNew": "New package",
+  "hotelVenueExtraAdd": "Add extra",
+  "hotelVenuePkgEmptyTitle": "No packages",
+  "hotelVenueExtraEmptyTitle": "No extras",
+  "hotelVenuePkgActiveLabel": "Show {name} to couples",
+  "@hotelVenuePkgActiveLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueToastPkgHidden": "{name} hidden",
+  "@hotelVenueToastPkgHidden": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueToastPkgShown": "{name} visible",
+  "@hotelVenueToastPkgShown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueToastExtraHidden": "{name} hidden",
+  "@hotelVenueToastExtraHidden": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueToastExtraShown": "{name} visible",
+  "@hotelVenueToastExtraShown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueArchivedHead": "Archived ({count})",
+  "@hotelVenueArchivedHead": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueRestore": "Restore",
+  "hotelVenueToastRestored": "{name} restored",
+  "@hotelVenueToastRestored": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueToastArchived": "{name} archived",
+  "@hotelVenueToastArchived": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueEditPackage": "Edit {name}",
+  "@hotelVenueEditPackage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueExtraEditTitle": "Edit extra",
+  "hotelVenueExtraNewTitle": "New extra",
+  "hotelVenueFieldUnit": "Charged",
+  "hotelVenueFieldShow": "Show to couples",
+  "hotelVenueExtraRange": "{from}–{to}",
+  "@hotelVenueExtraRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueToastExtraSaved": "Saved",
+  "hotelVenueToastExtraCreated": "Added",
+  "hotelVenueNeedPrice": "Enter a price",
+  "hotelVenuePkgEditTitle": "Edit package",
+  "hotelVenueSecName": "Name",
+  "hotelVenueSecAudience": "Audience",
+  "hotelVenueSecPricing": "Pricing",
+  "hotelVenueSecGuests": "Guests",
+  "hotelVenueSecInclusions": "Included",
+  "hotelVenueSecPreview": "Preview",
+  "hotelVenueSecStatus": "Status",
+  "hotelVenueAudienceLabel": "Audience",
+  "hotelVenueAudienceNeeded": "Choose an audience",
+  "hotelVenueHallsLabel": "Halls",
+  "hotelVenueHallsNeeded": "Choose a hall",
+  "hotelVenueBasisLabel": "Pricing basis",
+  "hotelVenueBasisFlat": "Flat",
+  "hotelVenueBasisFlatPlus": "Flat + guest",
+  "hotelVenueDaysWeekday": "Weekday · {from} to {to}",
+  "@hotelVenueDaysWeekday": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueDaysWeekend": "Weekend · {from} to {to}",
+  "@hotelVenueDaysWeekend": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueDaysSwitch": "Offer on {days}",
+  "@hotelVenueDaysSwitch": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueBundleNote": "Priced from two packages",
+  "hotelVenueTierNeeded": "Offer on some days",
+  "hotelVenueGuestsMin": "Min guests",
+  "hotelVenueGuestsMax": "Max guests",
+  "hotelVenueMaxBelowMin": "Max below min",
+  "hotelVenueMaxOverHall": "Over hall capacity ({max})",
+  "@hotelVenueMaxOverHall": {
+    "placeholders": {
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueInclusionAdd": "Add",
+  "hotelVenueInclusionRemove": "Remove {name}",
+  "@hotelVenueInclusionRemove": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueInclusionSheetTitle": "Add",
+  "hotelVenueInclusionPick": "Facilities",
+  "hotelVenueInclusionOwn": "Your own",
+  "hotelVenueInclusionOwnLabel": "Inclusion",
+  "hotelVenueInclusionBoth": "Both languages",
+  "hotelVenueActiveTitle": "Visible",
+  "hotelVenueArchive": "Archive",
+  "hotelVenueArchiveTitle": "Archive?",
+  "hotelVenueArchiveBody": "Hidden from couples. You can restore it.",
+  "hotelVenueArchiveConfirm": "Archive",
+  "hotelVenuePvDate": "Date and guests",
+  "hotelVenuePvGuests": "Guests only",
+  "hotelVenuePvNone": "Neither",
+  "hotelVenuePvOff": "Not offered",
+  "hotelVenuePvNoName": "Name",
+  "hotelVenueToastPkgSaved": "Saved",
+  "hotelVenueToastPkgCreated": "Added",
+  "hotelVenueReasonPrices": "Enter prices",
+  "hotelVenueReasonGuests": "Fix guest numbers",
+  "hotelVenueExtraActiveOn": "Couples can add this extra to a request.",
+  "hotelVenueExtraActiveOff": "Hidden from couples.",
+  "hotelVenueSettingIndoor": "Indoor",
+  "hotelVenueSettingOutdoor": "Outdoor",
+  "hotelVenueSettingMixed": "Both",
+  "hotelVenueNone": "None",
+  "hotelVenueHallsTitle": "Halls",
+  "hotelVenueHallEditTitle": "Edit hall",
+  "hotelVenueSecCapacity": "Capacity",
+  "hotelVenueSecHallAudience": "Audience",
+  "hotelVenueSecSessions": "Sessions",
+  "hotelVenueSecFacilities": "Facilities",
+  "hotelVenueSecSections": "By section",
+  "hotelVenueCapMax": "Max guests",
+  "hotelVenueCapMin": "Min · {audience}",
+  "@hotelVenueCapMin": {
+    "placeholders": {
+      "audience": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueMinAboveMax": "Min above max",
+  "hotelVenueAudAtLeastOne": "Choose an audience",
+  "hotelVenueSettingLabel": "Setting",
+  "hotelVenueAudienceAllowed": "Audiences allowed",
+  "hotelVenueExclusiveTitle": "Whole day",
+  "hotelVenueSessionAdd": "Add session",
+  "hotelVenueSessionLine": "{from} to {to}",
+  "@hotelVenueSessionLine": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueSessionNeeded": "Add a session",
+  "hotelVenueSessionEditTitle": "Edit session",
+  "hotelVenueSessionNewTitle": "New session",
+  "hotelVenueSessionName": "Name",
+  "hotelVenueSessionStart": "Starts",
+  "hotelVenueSessionEnd": "Ends",
+  "hotelVenueSessionSetup": "Setup",
+  "hotelVenueSessionTeardown": "Teardown",
+  "hotelVenueSessionDelete": "Delete",
+  "hotelVenueSessionAfterMidnight": "After midnight",
+  "hotelVenueSessionNameNeeded": "Name both languages",
+  "hotelVenuePresetsLabel": "Start from a preset",
+  "hotelVenuePresetAfternoon": "Afternoon",
+  "hotelVenuePresetEvening": "Evening",
+  "hotelVenuePresetFull": "Full day",
+  "hotelVenueAmIncluded": "Included",
+  "hotelVenueAmExtra": "Extra cost",
+  "hotelVenueAmNone": "Not offered",
+  "hotelVenueAmenityOf": "{name} · {audience}",
+  "@hotelVenueAmenityOf": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "audience": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueAmenityChoose": "Choose for {name}",
+  "@hotelVenueAmenityChoose": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueSectionWomen": "Ladies",
+  "hotelVenueSectionMen": "Men",
+  "hotelVenueSectionMixed": "Mixed",
+  "hotelVenueFactPhoto": "Photography",
+  "hotelVenueFactMusic": "Music",
+  "hotelVenuePhotoFemale": "Women only",
+  "hotelVenuePhotoAllowed": "Allowed",
+  "hotelVenuePhotoNone": "None",
+  "hotelVenueMusicDj": "DJ",
+  "hotelVenueMusicLive": "Live",
+  "hotelVenueMusicDuff": "Duff",
+  "hotelVenueMusicNone": "None",
+  "hotelVenueLinkRules": "Booking rules",
+  "hotelVenueToastHallSaved": "Saved",
+  "hotelVenuePolTitle": "Policies",
+  "hotelVenueSecChildren": "Boys",
+  "hotelVenueSecDress": "Dress code",
+  "hotelVenueChildrenNoLimit": "No limit",
+  "hotelVenueChildrenLimit": "Limit",
+  "hotelVenueChildrenAge": "Max age",
+  "hotelVenueYears": "{count, plural, one{{count} year} other{{count} years}}",
+  "@hotelVenueYears": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueDressLabel": "Dress code",
+  "hotelVenueDressNeeded": "Dress code in both languages",
+  "hotelVenueToastPolicySaved": "Saved",
+  "hotelVenueRulesTitle": "Booking rules",
+  "hotelVenueRulesHall": "Hall",
+  "hotelVenueSecMode": "Mode",
+  "hotelVenueSecResponse": "Reply",
+  "hotelVenueModeRequest": "Request to book",
+  "hotelVenueRespondLabel": "Reply within",
+  "hotelVenueRespondWarn": "May lower response rate",
+  "hotelVenueNoticeDays": "Notice",
+  "hotelVenueLinkCalendar": "Calendar",
+  "hotelVenueToastRulesSaved": "Saved",
+  "hotelVenueWindowsRow": "Voucher windows",
+  "hotelVenueReasonVoucher": "Voucher above standard",
+  "hotelVenueStdFlat": "Flat",
+  "hotelVenueStdPerGuest": "Per guest",
+  "hotelVenueVchFlat": "Flat",
+  "hotelVenueVchPerGuest": "Per guest",
+  "hotelVenueVoucherAboveFlat": "Above standard",
+  "hotelVenueVoucherAboveGuest": "Above standard",
+  "hotelVenueVchBelowFee": "Saving under {fee}",
+  "@hotelVenueVchBelowFee": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueVchSaving": "Saves {amount}",
+  "@hotelVenueVchSaving": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenuePvStandard": "Standard {standard}",
+  "@hotelVenuePvStandard": {
+    "placeholders": {
+      "standard": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueNoVoucherTag": "No voucher price",
+  "hotelVenueHoursRun": "{from} to {to}",
+  "@hotelVenueHoursRun": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueHoursLine": "{from} to {to}",
+  "@hotelVenueHoursLine": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueHoursOpen": "Opens",
+  "hotelVenueHoursClose": "Closes",
+  "hotelVenueHoursTitle": "Hours",
+  "hotelVenueSecHours": "Hours",
+  "hotelVenueSecTerms": "Terms",
+  "hotelVenueTermsLabel": "Terms",
+  "hotelVenueTermsNeeded": "Terms in both languages",
+  "hotelVenueVoucherTermsTitle": "Voucher terms",
+  "hotelVenueVtFee": "Fee",
+  "hotelVenueVtValidity": "Valid",
+  "hotelVenueVtConfirm": "Confirm",
+  "hotelVenueVtRedeem": "At venue",
+  "hotelVenueVtRedeemValue": "Code",
+  "hotelVenueSecConfirm": "Notice",
+  "hotelVenueConfirmLabel": "Confirm",
+  "hotelVenueConfirmFixed": "{hours}",
+  "@hotelVenueConfirmFixed": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueNoticeShort": "Notice shorter than reply window",
+  "hotelVenueLinkVoucher": "Voucher prices",
+  "hotelVenueLinkVisits": "Visits",
+  "hotelVenueTlRequest": "Request",
+  "hotelVenueTlReply": "Reply {hours}",
+  "@hotelVenueTlReply": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueTlConfirm": "Confirm {hours}",
+  "@hotelVenueTlConfirm": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueTlPay": "Pay venue",
+  "hotelVenueTlPayText": "{voucher} · {standard}",
+  "@hotelVenueTlPayText": {
+    "placeholders": {
+      "voucher": {
+        "type": "String"
+      },
+      "standard": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueSecProfile": "Profile",
+  "hotelVenueTypeLabel": "Venue type",
+  "hotelVenueTypePending": "Pending",
+  "hotelVenueToastTypeSent": "Sent",
+  "hotelVenueSecHalls": "Halls",
+  "hotelVenueStd": "Standard",
+  "hotelVenueVch": "Voucher",
+  "hotelVisitsActorHotel": "Hotel",
+  "hotelVisitsActorSupport": "Ghazal support",
+  "hotelVisitsActorSystem": "Ghazal",
+  "hotelVisitsArrivalTitle": "Arrival",
+  "hotelVisitsArrivalError": "Not saved",
+  "hotelVisitsDemoJump": "Demo: jump to the day of the visit",
+  "hotelVisitsArrivedDoneTitle": "{name} arrived",
+  "@hotelVisitsArrivedDoneTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsMarkArrived": "Mark arrived",
+  "hotelVisitsDidNotArrive": "No-show",
+  "hotelVisitsMissedCta": "No-show",
+  "hotelVisitsMissedDialogTitle": "Mark no-show?",
+  "hotelVisitsMissedDialogBody": "Ghazal support is informed.",
+  "hotelVisitsMissedDoneTitle": "{name} did not arrive",
+  "@hotelVisitsMissedDoneTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsMissedFrom": "From {time}",
+  "@hotelVisitsMissedFrom": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsOnTheWayTitle": "{name} is on the way",
+  "@hotelVisitsOnTheWayTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsOnTheWayBody": "{time}",
+  "@hotelVisitsOnTheWayBody": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsSlotEndedTitle": "Window ended",
+  "hotelVisitsSlotEndedBody": "{name}",
+  "@hotelVisitsSlotEndedBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsAttachTitle": "Attach",
+  "hotelVisitsAttachCamera": "Camera",
+  "hotelVisitsAttachPhoto": "Photos",
+  "hotelVisitsAttachDocument": "Document",
+  "hotelVisitsAvailTitle": "Visit hours",
+  "hotelVisitsAvailabilityAction": "Visit hours",
+  "hotelVisitsAvailErrorTitle": "Did not load",
+  "hotelVisitsAvailHiddenTitle": "Admin and Manager only",
+  "hotelVisitsAvailHiddenBody": "Ask your manager.",
+  "hotelVisitsMasterTitle": "Accept visits",
+  "hotelVisitsOffTitle": "Visits off",
+  "hotelVisitsOffBody": "Hidden from your page",
+  "hotelVisitsSecDays": "Days",
+  "hotelVisitsDayNoVisits": "Off",
+  "hotelVisitsDayFrom": "From",
+  "hotelVisitsDayTo": "To",
+  "hotelVisitsDayOpenLabel": "Visits on {day}",
+  "@hotelVisitsDayOpenLabel": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsDayPick": "{what} at {time}",
+  "@hotelVisitsDayPick": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsDayErrorOrder": "End after start",
+  "hotelVisitsDayErrorBounds": "Within business hours",
+  "hotelVisitsSeeBusinessHours": "Business hours",
+  "hotelVisitsTimeFrom": "From",
+  "hotelVisitsTimeTo": "To",
+  "hotelVisitsTimeSet": "Set",
+  "hotelVisitsSecSlot": "Window",
+  "hotelVisitsSlotChip": "{minutes} min",
+  "@hotelVisitsSlotChip": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsSecRepDefault": "Default rep",
+  "hotelVisitsRepNone": "None",
+  "hotelVisitsSecBlackouts": "Blackout dates",
+  "hotelVisitsBlackoutsAdd": "Add dates",
+  "hotelVisitsBlackoutTitle": "Blackout dates",
+  "hotelVisitsBlackoutNeed": "Pick a day",
+  "hotelVisitsBlackoutAdd": "Add",
+  "hotelVisitsBlackoutRange": "{from} to {to}",
+  "@hotelVisitsBlackoutRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsBlackoutRemove": "Remove blackout {range}",
+  "@hotelVisitsBlackoutRemove": {
+    "placeholders": {
+      "range": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsSave": "Save",
+  "hotelVisitsSaveClean": "No changes",
+  "hotelVisitsSaveInvalid": "Fix days",
+  "hotelVisitsSaveOfflineToast": "Offline",
+  "hotelVisitsSaved": "Saved",
+  "hotelVisitsSavedBanner": "Saved",
+  "hotelVisitsGuardTitle": "Leave unsaved?",
+  "hotelVisitsGuardBody": "Changes are lost.",
+  "hotelVisitsGuardLeave": "Leave",
+  "hotelVisitsGuardStay": "Stay",
+  "hotelVisitsChatTitle": "Visit chat",
+  "hotelVisitsChatErrorTitle": "Chat did not load",
+  "hotelVisitsChatOfflineBanner": "Offline. Last update {time}",
+  "@hotelVisitsChatOfflineBanner": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsChatReadOnlyRole": "Read only",
+  "hotelVisitsChatClosedAfter": "Chat closed",
+  "hotelVisitsChatClosedCancelled": "Cancelled",
+  "hotelVisitsChatClosedDeclined": "Declined",
+  "hotelVisitsMsgFailed": "Not sent",
+  "hotelVisitsMsgQueued": "Queued",
+  "hotelVisitsMsgSending": "Sending",
+  "hotelVisitsRecordHold": "Hold to record",
+  "hotelVisitsQrConfirm": "Confirm visit",
+  "hotelVisitsQrConfirmText": "Visit confirmed. We look forward to welcoming you.",
+  "hotelVisitsQrEntrance": "Main entrance",
+  "hotelVisitsQrEntranceText": "Please use the main entrance.",
+  "hotelVisitsQrParking": "Parking",
+  "hotelVisitsQrParkingText": "Parking is at the front.",
+  "hotelVisitsLineConfirmed": "Confirmed for {when}",
+  "@hotelVisitsLineConfirmed": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsLineReschedule": "{name} proposed {when}",
+  "@hotelVisitsLineReschedule": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsLineArrived": "Welcome, {name}",
+  "@hotelVisitsLineArrived": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsLineCompleted": "Visit complete",
+  "hotelVisitsLineDeclined": "Visit declined",
+  "hotelVisitsLineCancelled": "Visit cancelled",
+  "hotelVisitsLineMissed": "Client did not arrive",
+  "hotelVisitsLineClosed": "Chat closed",
+  "hotelVisitsMembersTitle": "Members",
+  "hotelVisitsRepTitle": "Representative",
+  "hotelVisitsQueueTitle": "Visits",
+  "hotelVisitsSegments": "Visits by status",
+  "hotelVisitsSegRequested": "Requested",
+  "hotelVisitsSegUpcoming": "Upcoming",
+  "hotelVisitsSegPast": "Past",
+  "hotelVisitsRequestedAgo": "{ago}",
+  "@hotelVisitsRequestedAgo": {
+    "placeholders": {
+      "ago": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsOpenVisit": "Open the visit of {name}, {when}",
+  "@hotelVisitsOpenVisit": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsEmptyRequestedTitle": "No requests",
+  "hotelVisitsEmptyRequestedBody": "Clients can book a visit from your venue page.",
+  "hotelVisitsEmptyUpcomingTitle": "No upcoming visits",
+  "hotelVisitsEmptyUpcomingBody": "Confirmed visits appear here with their chat.",
+  "hotelVisitsEmptyPastTitle": "No past visits",
+  "hotelVisitsEmptyPastBody": "Completed, declined and missed visits are kept here.",
+  "hotelVisitsSeeUpcoming": "Upcoming",
+  "hotelVisitsErrorTitle": "Did not load",
+  "hotelVisitsErrorBody": "Try again",
+  "hotelVisitsOfflineBanner": "Offline. Saved {time}",
+  "@hotelVisitsOfflineBanner": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsOfflineBannerShort": "Offline",
+  "hotelVisitsOfflineReason": "Offline",
+  "hotelVisitsReadOnlyNote": "Read only",
+  "hotelVisitsNoAccessTitle": "No access",
+  "hotelVisitsNoAccessBody": "Ask your manager",
+  "hotelVisitsConfirm": "Confirm",
+  "hotelVisitsPropose": "Another time",
+  "hotelVisitsOpenChat": "Open chat",
+  "hotelVisitsComplete": "Complete",
+  "hotelVisitsCorrectMissed": "Client arrived",
+  "hotelVisitsToastConfirmed": "Confirmed",
+  "hotelVisitsToastProposed": "Proposal sent",
+  "hotelVisitsToastDeclined": "Declined",
+  "hotelVisitsToastAssigned": "Assigned",
+  "hotelVisitsToastCompleted": "Completed",
+  "hotelVisitsProposeTitle": "Another time",
+  "hotelVisitsProposeDay": "Day",
+  "hotelVisitsProposeTime": "Time",
+  "hotelVisitsProposeCta": "Send",
+  "hotelVisitsProposeNeed": "Pick day and time",
+  "hotelVisitsDeclineTitle": "Decline",
+  "hotelVisitsDeclineReason": "Reason",
+  "hotelVisitsReasonUnavailable": "Not available",
+  "hotelVisitsReasonClosed": "Venue closed",
+  "hotelVisitsReasonOther": "Other",
+  "hotelVisitsDeclineNote": "Note",
+  "hotelVisitsDeclineNoteRequired": "Add a note",
+  "hotelVisitsDeclineNeed": "Pick a reason",
+  "hotelVisitsDeclineCta": "Decline",
+  "hotelVisitsDetailTitle": "Visit · {when}",
+  "@hotelVisitsDetailTitle": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsDetailErrorTitle": "Did not load",
+  "hotelVisitsSecClient": "Client",
+  "hotelVisitsSecVisit": "Request",
+  "hotelVisitsFactRequested": "Sent",
+  "hotelVisitsFactProposed": "Proposed",
+  "hotelVisitsSecNote": "Note",
+  "hotelVisitsSecRep": "Representative",
+  "hotelVisitsSecChat": "Members",
+  "hotelVisitsSecTimeline": "Timeline",
+  "hotelVisitsLimitedNote": "{name} only",
+  "@hotelVisitsLimitedNote": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsNoteRequested": "Awaiting reply",
+  "hotelVisitsNoteReschedule": "Proposed {when}",
+  "@hotelVisitsNoteReschedule": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsNoteConfirmed": "Confirmed",
+  "hotelVisitsNoteDayOf": "Today {time}",
+  "@hotelVisitsNoteDayOf": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsNoteArrived": "Arrived {time}",
+  "@hotelVisitsNoteArrived": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsNoteCompleted": "Completed",
+  "hotelVisitsNoteDeclined": "Declined",
+  "hotelVisitsNoteDeclinedReason": "Declined: {reason}",
+  "@hotelVisitsNoteDeclinedReason": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsNoteCancelled": "Cancelled",
+  "hotelVisitsNoteMissed": "No-show",
+  "hotelVisitsTlRequested": "Requested",
+  "hotelVisitsTlConfirmed": "Confirmed",
+  "hotelVisitsTlReschedule": "Another time proposed",
+  "hotelVisitsTlArrived": "Arrived",
+  "hotelVisitsTlCompleted": "Completed",
+  "hotelVisitsTlDeclined": "Declined",
+  "hotelVisitsTlCancelled": "Cancelled",
+  "hotelVisitsTlMissed": "Did not arrive",
+  "hotelVisitsVisitors": "{count, plural, =0{No visitors} one{{count} visitor} other{{count} visitors}}",
+  "@hotelVisitsVisitors": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVisitsProposeShort": "Another time"
 }

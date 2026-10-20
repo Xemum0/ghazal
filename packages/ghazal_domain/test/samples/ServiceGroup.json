@@ -1,0 +1,34 @@
+[
+ {
+  "id": "hospitality",
+  "name": {
+   "en": "Hospitality and catering",
+   "ar": "الضيافة والتموين"
+  },
+  "order": 1
+ },
+ {
+  "id": "flowers_cake",
+  "name": {
+   "en": "Flowers, decor and cake",
+   "ar": "الزهور والديكور والكيك"
+  },
+  "order": 2
+ },
+ {
+  "id": "planning",
+  "name": {
+   "en": "Event planning and coordination",
+   "ar": "تخطيط الفعاليات وتنسيقها"
+  },
+  "order": 3
+ },
+ {
+  "id": "cars_invitations",
+  "name": {
+   "en": "Luxury cars and invitations",
+   "ar": "السيارات الفاخرة وبطاقات الدعوة"
+  },
+  "order": 8
+ }
+]

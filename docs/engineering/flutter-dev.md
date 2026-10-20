@@ -9,9 +9,15 @@ Plan: `docs/engineering/flutter-build-plan.md`; decisions: ADR 0022 as amended b
 | `pnpm flutter:get` | `flutter pub get` for the whole workspace (also regenerates the l10n Dart files) |
 | `pnpm flutter:analyze` | `flutter analyze` over every member (one `analysis_options.yaml` at the root) |
 | `pnpm flutter:rules` | `tools/check-dart-rules.sh` (add `--fix-hints` for the remedy of each rule, or pass paths) |
+| `pnpm tokens` / `pnpm tokens:check` | build (or verify freshness of) the web outputs AND the Dart tokens in `packages/ghazal_ui/lib/src/tokens/generated/` |
+| `pnpm flutter:icons` | `node tools/gen-icons.mjs`: icon font `GzIcons.ttf` + `gz_icons.g.dart` from `packages/design-tokens/icons` (`--check` verifies the registry and the codepoint map) |
+| `pnpm flutter:illustrations` | `node tools/export-illustrations.mjs`: the 60 drawings to `packages/ghazal_ui/assets/illustrations/<name>.<sm|md|lg|hero>.svg` + `gz_illustrations.g.dart` (`--check` verifies all 240 files) |
 | `pnpm flutter:routes` | `node tools/gen-routes.mjs` (route stubs, router composition, screen registry; `--check` fails when stale) |
 | `pnpm flutter:test` | `flutter test` in every member with a `test/` folder, concurrently, through `tools/with-slot.mjs` (4 slots) |
 | `pnpm flutter:verify` | analyze + rules + test |
+| `pnpm l10n` | merge `packages/i18n/messages` into the ARB files, `flutter gen-l10n` for client_app, provider_app and ghazal_ui, then regenerate the message-parity table |
+| `pnpm l10n:check` | ARB parity (keys, placeholders, plural categories), freshness of ARB and fixtures, `dart analyze` of the generated code |
+| `pnpm format-cases` | regenerate `packages/contracts/fixtures/format-cases.json` and the Hijri table from the TypeScript formatters |
 | `pnpm fshot --app client --screen CL-DISC-01 --lang ar [--w 360 390] [--state loading]` | headless PNG of one or more screens; `--flow <flow-id>` expands to every screen of a flow, `--all` to every screen |
 
 Heavy runs always go through `node tools/with-slot.mjs <name> -- <command>` (counting semaphore, default 4, lock directories under `tools/.locks`, stale locks removed by pid). Never run several `flutter test` processes by hand in parallel.
@@ -30,7 +36,7 @@ apps/client_app              com.ghazal.client   (CL-* screens)     apps/provide
   lib/l10n/{app_en,app_ar}.arb + generated/   AppL10n (gen_l10n, committed)
   test/shots/shots_test.dart the shot entry; test/registry_test.dart checks the route table against the inventory
 packages/ghazal_ui           theme, tokens, GzApp (the ONLY MaterialApp host), GzStubScreen, fonts, GzL10n; only package importing material_ui / cupertino_ui
-packages/ghazal_core         locale provider now; Money, GzFormat, env, errors, retry in F1b (Flutter package: Riverpod, shared_preferences)
+packages/ghazal_core         Money, GzFormat, PhoneKw, providers (locale, digit style, clock, format), AppEnv, ApiProblem, RetryPolicy, GzLogger, Analytics, ScreenState (Flutter package: Riverpod, shared_preferences)
 packages/ghazal_domain       entities and repository interfaces (pure Dart)
 packages/ghazal_api          dio client and repositories (depends on ghazal_core)
 packages/ghazal_mock_api     shelf mock (pure Dart): in-process dio adapter or standalone server
@@ -55,9 +61,48 @@ Fonts live in `packages/ghazal_ui/assets/fonts` (families `ElMessiri`, `Manrope`
 1. Read the inventory entry (`docs/product/screens/<app>/<nn>-<flow>.json`) and the prototype screen in `design/src/screens/`.
 2. In `lib/features/<flow>/presentation/` write the screen as a widget from `ghazal_ui` components; state in `application/` (hand-written Riverpod `Notifier` / `AsyncNotifier`, no codegen).
 3. Delete the `// GENERATED STUB` line of `<flow>_routes.dart` and replace the `GzStubScreen` builder of that screen with yours (keep the path, the name and the two getters).
-4. Strings: add the keys to your flow's ARB inputs under `packages/i18n/messages/**` (merged into the app ARB by the l10n script, F1b) and read them through `AppL10n.of(context)`; never a literal in `Text(`, never a hand-typed price or date (`useFormat` equivalent: `GzFormat`, F1b).
+4. Strings: add the keys to your flow's namespace under `packages/i18n/messages/**`, run `pnpm l10n`, and read them as `context.l10n.someKey` (see "Localisation" below); never a literal in `Text(`, never a hand-typed price or date (`ref.watch(gzFormatProvider)`).
 5. `pnpm fshot --app <client|provider> --screen <ID> --lang both`, Read the Arabic PNG, compare with the prototype shot, then `pnpm flutter:verify`.
 6. Need a token, component or dependency: append one line to `docs/engineering/requests.md` with `>>`. Nobody runs `pub add`.
+
+## UI foundation (`ghazal_ui`, F1a)
+
+Everything below is exported from `package:ghazal_ui/ghazal_ui.dart` (apps never import `material_ui`; the reference ramps `GzRefColors` are only in `package:ghazal_ui/ghazal_ui_dev.dart` for galleries and tests).
+
+### Tokens: build, use, add
+
+`pnpm tokens` writes the web outputs and four Dart files into `packages/ghazal_ui/lib/src/tokens/generated/` (committed, `// GENERATED`, never edited): `gz_colors.g.dart` (`GzColors` ThemeExtension with every sys role, `copyWith`, `lerp`, `named`), `gz_dimensions.g.dart` (`GzSpace`, `GzRadius`, `GzSize`, `GzStroke`, `GzZ`, `GzLayout`, `GzElevation` BoxShadow lists, `GzGradient`, `GzShape`), `gz_motion.g.dart` (`GzMotion`), `gz_type.g.dart` (`GzFont`, `GzTextRole`, `GzType`, `GzTypeSet`). Names are the token path in camelCase (`color.sys.text.primary` -> `GzColors.textPrimary`, `space.4` -> `GzSpace.s4`, `size.control.cta` -> `GzSize.controlCta`, `type.ar.body` -> `GzType.ar.body`). Font families are exactly `ElMessiri`, `Manrope`, `Almarai` and every style carries `package: 'ghazal_ui'` (so `TextStyle.fontFamily` reads `packages/ghazal_ui/Manrope`). Arabic styles have `letterSpacing: 0` (the generator throws otherwise); numeric roles carry tabular and lining `FontFeature`s.
+
+To add a token: edit `packages/design-tokens/src/tokens.json` (single writer: the tokens owner; others append a line to `docs/engineering/requests.md`), run `pnpm tokens`, commit the generated files. A new type role needs an entry in both `type.en` and `type.ar`; a new colour role is a new `color.sys.*` token (it appears as a `GzColors` field automatically). `packages/ghazal_ui/test/tokens_test.dart` compares sample tokens with `dist/tokens.flat.json`.
+
+### Theme and `context.gz`
+
+```dart
+GzApp(routerConfig: router, locale: locale)            // the only MaterialApp host; installs buildGhazalTheme(locale) and GzTheme
+final gz = context.gz;                                  // GzThemeData
+gz.colors.textPrimary   gz.text(GzTextRole.body)   gz.isRtl   gz.isAr   gz.locale   gz.textDirection
+GzSpace.s4  GzSize.controlCta  GzRadius.mdAll  GzStroke.hair  GzElevation.e2  GzMotion.durationFast   // static token classes
+```
+
+`buildGhazalTheme(Locale)` builds an explicit `ColorScheme` (never `fromSeed`), no ink splash, and a text theme from the locale roles; components read `context.gz`, not `Theme.of`. In a widget test wrap the subject in `GzTheme(locale: ..., child: ...)` (without one `context.gz` falls back to the light colours and the ambient locale).
+
+Text: `GzText('x', role: GzTextRole.body, color: ..., maxLines: 2)` (colour defaults to `textPrimary`; tracked English eyebrows are uppercased by the widget; `figures: true` wraps digit runs as figures islands; `GzText.rich` for spans). Numbers: `GzNum(formatted, role: GzTextRole.price)` for a number that is the whole element, `GzFigures.span(context, '12', role: ...)` / `GzFigures.spans` inline (Manrope tabular digits, U+2066 .. U+2069 isolate, the size of the role's figure role, line height 0 like the web `.gz-num`), `GzLtr(child:)` and `GzBidi.isolateLtr` for other LTR islands. Never type a number or price into a string.
+
+### Motion and `GzPressable`
+
+`GzMotion` (durations 120 / 200 / 320 / 480 / success 640, curves `easeStandard` / `easeEmphasized` / `easeExit` as `Cubic`, `scalePress` .985, `scaleRevealFrom` 1.035, push distances). `GzReducedMotion.of(context)` is `MediaQuery.disableAnimations`; `movement(context, d)` returns 1 ms when reduced, `fade(context, d)` caps a fade at 120 ms. `GzPressable` is the single press behaviour: scale .985 + tone step (`color` -> `pressedColor`, `disabledColor`) in 120 ms on the standard curve, a minimum 44 x 44 target, a 2 dp focus ring 2 dp outside (colour `focusRing`, `onDark: true` for ink surfaces; keyboard focus only), Enter / Space activation, Semantics button (`semanticLabel`, `selected`), a disabled state when `onPressed` is null, and `GzHaptics.fire` (the app installs `GzHaptics.handler` once; the default does nothing). Use `GzPressable.builder` when the content changes with `GzPressState` (pressed, focused, enabled). `GzFadeReveal(child:, revealed:)` is the image reveal (opacity + 3.5% settle, 480 ms; reduced motion keeps only a 120 ms fade). Tests: `test/gz_pressable_test.dart`.
+
+### Icons
+
+`pnpm flutter:icons` builds `assets/fonts/GzIcons.ttf` with fantasticon (`npx`, pinned 4.1.0, the SVGs are filled outline paths so `normalize` is off and every glyph shares the 256-unit em) from the Phosphor Regular set the web uses (`icons/regular`, 177 glyphs) plus `brand-knot` (use at size 8) and `brand-divider` (size 56). Codepoints are stable (`assets/fonts/GzIcons.codepoints.json`, committed; new names take the next free one) and `lib/src/icons/gz_icons.g.dart` has `GzIcons.<camelName>` `IconData` constants, `GzIcons.byName`, `GzIcons.mirrorInRtl` (the manifest mirror flags, ADR 0014; mirrored glyphs also carry `matchTextDirection`). `GzIcon(GzIcons.back, size: GzIconSize.md, tone: GzIconTone.accent, semanticLabel: ...)` or `GzIcon.named('chevron-left')`; sizes 16 / 20 / 24 / 32; decorative unless a label is given; flips in RTL for the mirror set (`mirror:` overrides).
+
+### Illustrations
+
+`pnpm flutter:illustrations` loads the real registry with Vite SSR (no browser), renders each drawing with react-dom/server and resolves the CSS classes (`il-l`, `il-s`, `il-t`, `il-td`, `il-k`, `il-a`, `il-al`, `il-g`, `il-f`, `il-fs`, `il-kl`, `il-dash`) into presentation attributes with the token hex values. flutter_svg has no `vector-effect: non-scaling-stroke`, so each size variant pre-compensates the stroke and dash lengths by 120 / size (1.5 dp at sm 64, md 96, lg 144, hero 200): `assets/illustrations/<name>.<size>.svg`. `GzIllustration(GzIllustrationName.doorway, size: GzIllustrationSize.lg, tone: GzIllustrationTone.standard, semanticLabel: ...)`; tones are applied with a flutter_svg `ColorMapper` over the exact token hex values; drawings with `mirror: true` in the registry flip in RTL. Do not hand-edit the SVGs.
+
+### Foundation gallery and parity
+
+`GzFoundationGallery` (`ghazal_testing`) is the Flutter twin of the web `#/gallery/tokens` and `#/gallery/illustration` pages: colour ramps with contrast, sys roles, every type role in both scripts, space / radius / elevation / control heights, motion, the icon sheet (name under each glyph) and the illustration contact sheet. `packages/ghazal_testing/test/foundation_gallery_test.dart` writes `packages/ghazal_testing/build/foundation/<chunk>.<lang>.png` (390 wide, DPR 2, no device chrome). Compare with the web render (the reference shots are `pnpm shots --route gallery:tokens --lang both --w 390 --full --out design/.shots/ref/gallery`; Chrome stitches full-page shots wrongly beyond 16384 px, so compare the first 16000 px, or screenshot single `.tk-sec` elements) using `node tools/parity/parity.mjs --app client --screen <name> --lang ar --ref <png> --flutter <png> --out <png>` on aligned crops.
 
 ## Rules (`pnpm flutter:rules`)
 
@@ -71,6 +116,54 @@ Fonts live in `packages/ghazal_ui/assets/fonts` (families `ElMessiri`, `Manrope`
 - Riverpod 3: use `Notifier` / `AsyncNotifier`; `StateProvider` lives in `package:flutter_riverpod/legacy.dart` and is not used. `phosphor_flutter` does not compile on this Flutter and is never added. `Override` is imported from `package:flutter_riverpod/misc.dart` (re-exported by `ghazal_testing`).
 - Do not use `rm -rf` (project settings deny it); use `rm -r` on exact paths.
 
-## Known F0 limits (handed to later phases)
+## Known limits (handed to later phases)
 
-The theme and tokens in `ghazal_ui` are placeholders (`lib/src/tokens/placeholder_tokens.dart`, `buildPlaceholderTheme`) until F1a; `packages/design-tokens/dist/dart/gz_tokens.dart` imports `flutter/material.dart` (`ThemeExtension`) and uses family names with spaces, so the F1a generator change must switch it to `material_ui` / `ElMessiri` before it moves into `ghazal_ui`. The tab bar is `GzStubTabBar`. `localeProvider` has no persistence yet. The l10n ARB files hold one stub key each (F1b merges the real strings).
+The tab bar is `GzStubTabBar` until `GzTabBar` (F2). `GzApp` installs `gzPageTransitionsPlaceholder` (the platform default); the navigation owner replaces it with the direction-aware push of the motion list. `flutter_test` draws every shadow as a hard solid shape: a test that must show soft elevation sets `debugDisableShadows = false` BEFORE pumping the frame and back to `true` before the test ends (see `packages/ghazal_testing/test/foundation_gallery_test.dart`); `GzHarness` does not do this yet.
+
+## Formatting (`ghazal_core`, F1b)
+
+Dart twin of `packages/i18n` (`createFormat`). One object per locale, digit style and clock; same method names as the web `useFormat()`; the same golden cases (`packages/contracts/fixtures/format-cases.json`, 1,963 cases generated by `tools/export-format-cases.mjs` from the TypeScript implementation, run by `packages/ghazal_core/test/gz_format_golden_test.dart`).
+
+```dart
+final f = ref.watch(gzFormatProvider);          // GzFormat; rebuilds on locale, digit style or clock change
+f.money(18200000)                                // KD 18,200 | ⁦18,200⁩ د.ك   (input is integer fils)
+f.moneyOf(const Money.kwd(2000), mode: MoneyMode.exact)
+f.moneyParts(5460000, const MoneyOptions(mode: MoneyMode.exact)) // integer, fraction ('.000'), fractionIsZero, currency, amount, text
+```
+
+| Group | Methods (all on `GzFormat`) |
+|---|---|
+| Numbers | `number`, `integer`, `percent`, `numberRange`, `counter`, `pluralCategory`, `plural`, `list`, `digits(String)` (digit style on translated prose) |
+| Money (fils) | `money`, `moneyOf`, `moneyParts`, `moneyPartsOf`, `moneySet`, `moneyRange`, `moneyAxis`, `priceUnit`, `flatFee`, `guests`, `minGuests`, `priceForGuests`, `fromPriceMin`; options `MoneyOptions(mode: browse/exact/axis, currency, legal, fullPrecision)` |
+| Dates (Asia/Kuwait, fixed +03:00) | `date(d, DateStyle)`, `dateTime`, `time`, `timeRange`, `relativeDay`, `countdownDays`, `daysUntil`, `duration(ms)`, `ago`, `weekdayName`, `monthName`, `weekdayHeaders`, `weekdayLabels`, `monthGrid`, `civil`, `instant`, `kuwaitDate`, `isoDay`, `addDays`; `hijri`, `hijriShort`, `hijriDate`, `dateWithHijri` (Umm al-Qura month table 2025-2037, null outside it) and `hijriShortFromLabel(serverLabel)` |
+| Phone | `phone`, `phoneNational`, `normalizePhone`, `isValidPhone`, `e164`, `telHref`, `whatsappHref`; static `PhoneKw.*` |
+| Text | `normalizeDigits`, `plain`; top level `isolateLtr`, `plainText`, `kLri/kPdi/kNbsp/kMinus`, `toEasternDigits`, `DigitNormalizingFormatter` (put first in `inputFormatters`) |
+
+`Money(fils, currency)` is exact integer arithmetic (`+ - * compare sum`, `toJson`/`fromJson` with `{fils, currency}`); a non-integer is rejected. Date inputs are an ISO string (a bare `YYYY-MM-DD` is Kuwait noon, a local `YYYY-MM-DDTHH:mm` is Kuwait wall time, `Z` or an offset is absolute), a `DateTime` or epoch milliseconds. `DigitStyle.easternArabic` is honoured in Arabic only and applied last. Western digits are the default in both languages. Call `await initGzIntl()` once in `bootstrap()` (date symbols for `ar` and `en`).
+
+## Core services (`ghazal_core`)
+
+| Name | What |
+|---|---|
+| `localeProvider` / `LocaleNotifier([forced])` | UI locale: forced arg (tests, harness) > `GZ_LOCALE` (non-prod) > persisted (`gz.locale`) > device language if ar/en > Arabic. `setLocale` persists and emits `language_changed` |
+| `digitStyleProvider` / `DigitStyleNotifier` | Eastern-digits switch, persisted (`gz.digit_style`), off by default |
+| `clockProvider` | `DateTime Function()`; override with a fixed time in tests and shots |
+| `gzFormatProvider` | the `GzFormat` for the three above |
+| `sharedPreferencesProvider`, `loadPreferencesOverride()` | persistence is on only when the app bootstrap passes `await loadPreferencesOverride()` to `ProviderScope` (null in tests and shots) |
+| `AppEnv` / `appEnvProvider` | `--dart-define` values: `API_BASE_URL` (or `GZ_API_BASE_URL`), `USE_MOCK` (default true), `ENV` (dev/staging/prod), `GZ_LOCALE`, `MOCK_LATENCY_MS` (default 0) |
+| `ApiProblem`, `ApiProblemCode`, `ApiFieldError` | RFC 9457 parsing with the stable codes of api-conventions section 5; `messageKey` is the ARB key (`apiErrorSlotUnavailable`) of the user-safe text, `params` fill it; `ApiProblem.offline()` for connectivity |
+| `RetryPolicy` | idempotent GET/HEAD/OPTIONS only, network errors and 5xx, max 3, 300 ms doubling with jitter, cap 4 s; `shouldRetry`, `delayFor`, `run` |
+| `GzLogger('tag')` | levels, replaceable `GzLogger.sink`; never log personal data |
+| `Analytics`, `AnalyticsEvent`, `GzEvents`, `NoopAnalytics`, `RecordingAnalytics`, `analyticsProvider` | ADR 0019 names (snake_case registry); no-op sink until the first-party sink exists |
+| `ScreenState<T>` (`ScreenLoading/Data/Empty/Error/Offline`) | `ScreenState.from(asyncValue, isEmpty:)` then `.when(loading:, data:, empty:, error:, offline:)`: every screen handles the five states the same way |
+| `parseRichTags(String) -> List<RichPart>` | splits `<f>..</f>`, `<n>..</n>`, `<terms>..</terms>`, `<privacy>..</privacy>` for `GzRich` |
+
+## Localisation
+
+`tools/gen-l10n.mjs` merges `packages/i18n/messages/{en,ar}/<namespace>.json` into ARB files: client_app = `common` + every `client-*` (2,326 keys), provider_app = `common` + every `hotel-*` (2,036 keys), ghazal_ui `GzL10n` = `common` + the parts in `packages/ghazal_ui/l10n_src/*.{en,ar}.json` (218 keys; README there). Placeholder metadata is derived from the ICU AST: plural becomes `int` (decimalPattern), `{x, number}` becomes `num` (decimalPattern), select and plain become `String`. Because gen_l10n has no `#`, a plural count is written `{count}`; Arabic numbers get the same LTR isolate the web formatter adds. Rich-text tags stay literal in the string.
+
+- Read strings: `context.l10n.clientBookingReviewTitle` or `context.l10n.clientBookingReviewGuests(350)` (import `lib/l10n/l10n.dart` of the app); `context.gzL10n.commonActionBack` inside ghazal_ui.
+- Prices, dates, times and phones are never formatted in a message: pass `ref.watch(gzFormatProvider).dateTime(...)` as a String argument.
+- Known limits of gen_l10n: counts print with intl's decimal pattern (Western digits, comma grouping, ASCII minus), so the Eastern-digits switch does not reach them: wrap the result in `f.digits(text)`. `{x, number, percent}`, selectordinal, plural offset, literal `'`, `{`, `}`, `#` in prose and exact plural values other than `=0 =1 =2` are rejected by the generator.
+- Parity with the web: `tools/export-message-cases.mjs` formats a (key, args) table through intl-messageformat (1,734 client, 1,684 provider, 334 ui cases, both languages) into `packages/contracts/fixtures/message-cases.json` and writes `test/l10n_calls.g.dart` per package; `test/l10n_parity_test.dart` asserts the generated classes print the same strings.
+- Edit only the JSON in `packages/i18n/messages` (or `l10n_src`); never the `.arb` or `generated/` files. Run `pnpm l10n` after editing, `pnpm l10n:check` before handing back.

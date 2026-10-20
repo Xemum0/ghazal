@@ -1,0 +1,15 @@
+# The partner side of site visits (HL-VIST). Hotels and halls only. The assigned representative is a staff member with `visit:manage`.
+VisitAvailability:
+  type: object
+  description: Weekly windows in which the partner receives visitors; slots are 30-minute arrival windows. `enabled` mirrors the visit switch of the booking rules.
+  required: [enabled, rules]
+  properties:
+    enabled: { type: boolean }
+    rules: { type: array, items: { $ref: VisitSlotRule } }
+DeclineVisitInput:
+  type: object
+  properties: { reason: { type: string, nullable: true } }
+ProposeVisitSlotInput:
+  type: object
+  required: [slotStart]
+  properties: { slotStart: { $ref: IsoDateTime } }

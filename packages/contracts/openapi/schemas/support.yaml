@@ -1,0 +1,36 @@
+# Ghazal support: the client's support conversation and refund (credit voucher) requests. No money goes back (ADR 0035 D5).
+RefundRequestStatus: { type: string, enum: [requested, granted, declined] }
+RefundRequest:
+  type: object
+  required: [id, voucherId, clientId, status, requestedAt, note, conversationId, decidedAt, decidedBy, creditVoucherId, declineReason]
+  properties:
+    id: { $ref: Id }
+    voucherId: { $ref: Id }
+    clientId: { $ref: Id }
+    status: { $ref: RefundRequestStatus }
+    requestedAt: { $ref: IsoDateTime }
+    note: { $ref: LocalizedText, nullable: true }
+    conversationId: { $ref: Id }
+    decidedAt: { $ref: IsoDateTime, nullable: true }
+    decidedBy: { type: string, nullable: true }
+    creditVoucherId: { $ref: Id, nullable: true }
+    declineReason: { $ref: LocalizedText, nullable: true }
+RefundRequestPage: { x-page-of: RefundRequest }
+CreateRefundRequestInput:
+  type: object
+  description: Written in the support conversation, prefilled by the app. Allowed only for a venue-fault release; a lapsed 24 h window is never eligible.
+  required: [voucherId]
+  properties:
+    voucherId: { $ref: Id }
+    note: { type: string, nullable: true, maxLength: 1000 }
+LegalKind: { type: string, enum: [terms, privacy] }
+LegalDocument:
+  type: object
+  description: Terms and Privacy text, editable in the Super Admin panel (ADR 0035 D9); the app shows the current version and its date.
+  required: [kind, version, updatedAt, title, body]
+  properties:
+    kind: { $ref: LegalKind }
+    version: { type: string }
+    updatedAt: { $ref: IsoDateTime }
+    title: { $ref: LocalizedText }
+    body: { $ref: LocalizedText, description: 'Markdown, one per language.' }

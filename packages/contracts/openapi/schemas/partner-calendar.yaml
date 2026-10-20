@@ -1,0 +1,96 @@
+# The partner calendar: what each hall shows per date, blocks, holds, soft dates and email sync (ADR 0001 D5, ADR 0035 D8). Requests never claim.
+ClaimKind: { type: string, enum: [booking, hold, block, requested] }
+BlockReason: { type: string, enum: [offline_booking, maintenance, private_event, other] }
+CalendarClaim:
+  type: object
+  description: '`requested` is informational; a hold is inserted by an approval and lasts until confirm or lapse.'
+  required: [id, venueId, hallId, date, kind, bookingId, audience, guests, clientName, blockReason, blockNote, blockedBy, holdUntil, start, end]
+  properties:
+    id: { $ref: Id }
+    venueId: { $ref: Id }
+    hallId: { $ref: Id }
+    date: { $ref: IsoDate }
+    kind: { $ref: ClaimKind }
+    bookingId: { $ref: Id, nullable: true }
+    audience: { $ref: Audience, nullable: true }
+    guests: { type: integer, nullable: true }
+    clientName: { type: string, nullable: true }
+    blockReason: { $ref: BlockReason, nullable: true }
+    blockNote: { $ref: LocalizedText, nullable: true }
+    blockedBy: { type: string, nullable: true }
+    holdUntil: { $ref: IsoDateTime, nullable: true }
+    start: { $ref: LocalTime, nullable: true }
+    end: { $ref: LocalTime, nullable: true }
+PartnerCalendarDay:
+  type: object
+  required: [date, claims]
+  properties:
+    date: { $ref: IsoDate }
+    claims: { type: array, items: { $ref: CalendarClaim } }
+PartnerCalendar:
+  type: object
+  description: Month, week or day views are the same call with a range of at most 42 days.
+  required: [venueId, from, to, days]
+  properties:
+    venueId: { $ref: Id }
+    from: { $ref: IsoDate }
+    to: { $ref: IsoDate }
+    days: { type: array, items: { $ref: PartnerCalendarDay } }
+PartnerCalendarDayDetail:
+  type: object
+  required: [date, halls, otherRequests]
+  properties:
+    date: { $ref: IsoDate }
+    halls: { type: array, items: { $ref: HallDay } }
+    otherRequests: { type: integer, description: Pending requests for the date (a count only). }
+HallDay:
+  type: object
+  required: [hallId, state, claims, sessions]
+  properties:
+    hallId: { $ref: Id }
+    state: { $ref: DayState }
+    claims: { type: array, items: { $ref: CalendarClaim } }
+    sessions: { type: array, items: { $ref: SessionAvailability } }
+BlockInput:
+  type: object
+  description: Block or open dates for one or more halls (HL-CALN-04). A block reaches couples within seconds.
+  required: [hallIds, dates, reason]
+  properties:
+    hallIds: { type: array, items: { $ref: Id }, minItems: 1 }
+    dates: { type: array, items: { $ref: IsoDate }, minItems: 1, maxItems: 92 }
+    sessionIds: { type: array, items: { $ref: Id }, nullable: true }
+    reason: { $ref: BlockReason }
+    note: { type: string, nullable: true }
+BlockBatch:
+  type: object
+  required: [id, hallIds, dates, reason, note, createdAt, createdBy, claimIds]
+  properties:
+    id: { $ref: Id }
+    hallIds: { type: array, items: { $ref: Id } }
+    dates: { type: array, items: { $ref: IsoDate } }
+    reason: { $ref: BlockReason }
+    note: { type: string, nullable: true }
+    createdAt: { $ref: IsoDateTime }
+    createdBy: { type: string }
+    claimIds: { type: array, items: { $ref: Id } }
+SoftDates:
+  type: object
+  description: Thu-Sat dates in the next 60 days the venue is offering (HL-CALN-01).
+  required: [dates, optedOut]
+  properties:
+    dates: { type: array, items: { $ref: IsoDate } }
+    optedOut: { type: array, items: { $ref: IsoDate } }
+CalendarSync:
+  type: object
+  description: External calendar sync is by email (an .ics or an invitation address), never WhatsApp.
+  required: [channel, address, ics]
+  properties:
+    channel: { type: string, enum: [email] }
+    address: { type: string }
+    ics: { type: boolean }
+UpdateCalendarSyncInput:
+  type: object
+  required: [address, ics]
+  properties:
+    address: { type: string, format: email }
+    ics: { type: boolean }

@@ -1,4 +1,4105 @@
 {
   "@@locale": "ar",
-  "appName": "غزل للشركاء"
+  "commonActionAccept": "قبول",
+  "commonActionAdd": "إضافة",
+  "commonActionApply": "تطبيق",
+  "commonActionBack": "رجوع",
+  "commonActionCall": "اتصال",
+  "commonActionCancel": "إلغاء",
+  "commonActionClear": "مسح",
+  "commonActionClose": "إغلاق",
+  "commonActionConfirm": "تأكيد",
+  "commonActionContinue": "متابعة",
+  "commonActionDecline": "اعتذار",
+  "commonActionDone": "تم",
+  "commonActionEdit": "تعديل",
+  "commonActionMessage": "مراسلة",
+  "commonActionNext": "التالي",
+  "commonActionOpenWhatsapp": "فتح واتساب",
+  "commonActionPrevious": "السابق",
+  "commonActionRemove": "إزالة",
+  "commonActionReschedule": "تغيير الموعد",
+  "commonActionReset": "إعادة الضبط",
+  "commonActionRetry": "إعادة المحاولة",
+  "commonActionSave": "حفظ",
+  "commonActionSearch": "بحث",
+  "commonActionSeeAll": "عرض الكل",
+  "commonActionSend": "إرسال",
+  "commonActionShare": "مشاركة",
+  "commonActionShowLess": "عرض أقل",
+  "commonActionSkip": "تخطي",
+  "commonActionUndo": "تراجع",
+  "commonActionWhatsapp": "واتساب",
+  "commonAvailabilityAvailable": "متاح",
+  "commonAvailabilityBlocked": "مغلق",
+  "commonAvailabilityBooked": "محجوز",
+  "commonAvailabilityFree": "متاح",
+  "commonAvailabilityHeld": "محجوز مؤقتًا",
+  "commonAvailabilityPast": "تاريخ سابق",
+  "commonAvailabilityUnavailable": "غير متاح",
+  "commonAvailabilityLineFree": "{date} · متاح",
+  "@commonAvailabilityLineFree": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonAvailabilityLineBooked": "{date} · محجوز",
+  "@commonAvailabilityLineBooked": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonCalendarAvailability": "التوفر",
+  "commonCalendarPrices": "الأسعار",
+  "commonCalendarToday": "اليوم",
+  "commonCalendarSelected": "محدد",
+  "commonCalendarPeak": "أيام الذروة",
+  "commonCalendarPreviousMonth": "الشهر السابق",
+  "commonCalendarNextMonth": "الشهر التالي",
+  "commonCalendarOccasionApproximate": "{occasion} (تقريبي)",
+  "@commonCalendarOccasionApproximate": {
+    "placeholders": {
+      "occasion": {
+        "type": "String"
+      }
+    }
+  },
+  "commonStatusRequested": "بانتظار الرد",
+  "commonStatusAwaitingDeposit": "تمت الموافقة · بانتظار العربون",
+  "commonStatusConfirmed": "مؤكد",
+  "commonStatusRejected": "لم يُقبل الطلب",
+  "commonStatusExpired": "انتهت المهلة",
+  "commonStatusCancelled": "ملغي",
+  "commonStatusCompleted": "مكتمل",
+  "commonStatusRefunded": "تم الاسترداد",
+  "commonStatusNoShow": "عدم حضور",
+  "commonStatusHeadlineConfirmed": "حجز مؤكد",
+  "commonStatusCancelledByYou": "ملغي بطلب منكم",
+  "commonStatusCancelledByVenue": "ملغي من القاعة",
+  "commonStatusHotelMissed": "انتهت المهلة",
+  "commonStatusUrgent": "عاجل",
+  "commonStatusTimeLeft": "باقي {time}",
+  "@commonStatusTimeLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "commonFilterAll": "الكل",
+  "commonTierWeekday": "أيام الأسبوع",
+  "commonTierWeekend": "نهاية الأسبوع",
+  "commonTierHoliday": "عطلة",
+  "commonTierSeason": "موسم",
+  "commonTierSpecialDate": "تاريخ مميز",
+  "commonUnitPerGuest": "للضيف",
+  "commonUnitPerNight": "لليلة",
+  "commonUnitPerDay": "لليوم",
+  "commonUnitPerHour": "للساعة",
+  "commonUnitMinGuests": "الحد الأدنى {count, plural, =0{لا ضيوف} =1{ضيف واحد} =2{ضيفان} few{⁦{count}⁩ ضيوف} many{⁦{count}⁩ ضيفًا} other{⁦{count}⁩ ضيف}}",
+  "@commonUnitMinGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonUnitUpToGuests": "حتى {count, plural, =0{لا ضيوف} =1{ضيف واحد} =2{ضيفين} few{⁦{count}⁩ ضيوف} many{⁦{count}⁩ ضيفًا} other{⁦{count}⁩ ضيف}}",
+  "@commonUnitUpToGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountGuests": "{count, plural, =0{لا ضيوف} =1{ضيف واحد} =2{ضيفان} few{⁦{count}⁩ ضيوف} many{⁦{count}⁩ ضيفًا} other{⁦{count}⁩ ضيف}}",
+  "@commonCountGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountDays": "{count, plural, =0{لا أيام} =1{يوم واحد} =2{يومان} few{⁦{count}⁩ أيام} many{⁦{count}⁩ يومًا} other{⁦{count}⁩ يوم}}",
+  "@commonCountDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountHours": "{count, plural, =0{لا ساعات} =1{ساعة واحدة} =2{ساعتان} few{⁦{count}⁩ ساعات} many{⁦{count}⁩ ساعة} other{⁦{count}⁩ ساعة}}",
+  "@commonCountHours": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMinutes": "{count, plural, =0{لا دقائق} =1{دقيقة واحدة} =2{دقيقتان} few{⁦{count}⁩ دقائق} many{⁦{count}⁩ دقيقة} other{⁦{count}⁩ دقيقة}}",
+  "@commonCountMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountHalls": "{count, plural, =0{لا قاعات} =1{قاعة واحدة} =2{قاعتان} few{⁦{count}⁩ قاعات} many{⁦{count}⁩ قاعة} other{⁦{count}⁩ قاعة}}",
+  "@commonCountHalls": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountPackages": "{count, plural, =0{لا باقات} =1{باقة واحدة} =2{باقتان} few{⁦{count}⁩ باقات} many{⁦{count}⁩ باقة} other{⁦{count}⁩ باقة}}",
+  "@commonCountPackages": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMessages": "{count, plural, =0{لا رسائل} =1{رسالة واحدة} =2{رسالتان} few{⁦{count}⁩ رسائل} many{⁦{count}⁩ رسالة} other{⁦{count}⁩ رسالة}}",
+  "@commonCountMessages": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountBookings": "{count, plural, =0{لا حجوزات} =1{حجز واحد} =2{حجزان} few{⁦{count}⁩ حجوزات} many{⁦{count}⁩ حجزًا} other{⁦{count}⁩ حجز}}",
+  "@commonCountBookings": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountSessions": "{count, plural, =0{لا فترات} =1{فترة واحدة} =2{فترتان} few{⁦{count}⁩ فترات} many{⁦{count}⁩ فترة} other{⁦{count}⁩ فترة}}",
+  "@commonCountSessions": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMonths": "{count, plural, =0{لا أشهر} =1{شهر واحد} =2{شهران} few{⁦{count}⁩ أشهر} many{⁦{count}⁩ شهرًا} other{⁦{count}⁩ شهر}}",
+  "@commonCountMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountDates": "{count, plural, =0{لا تواريخ} =1{تاريخ واحد} =2{تاريخان} few{⁦{count}⁩ تواريخ} many{⁦{count}⁩ تاريخًا} other{⁦{count}⁩ تاريخ}}",
+  "@commonCountDates": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountRequests": "{count, plural, =0{لا طلبات} =1{طلب واحد} =2{طلبان} few{⁦{count}⁩ طلبات} many{⁦{count}⁩ طلبًا} other{⁦{count}⁩ طلب}}",
+  "@commonCountRequests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountReviews": "{count, plural, =0{لا تقييمات} =1{تقييم واحد} =2{تقييمان} few{⁦{count}⁩ تقييمات} many{⁦{count}⁩ تقييمًا} other{⁦{count}⁩ تقييم}}",
+  "@commonCountReviews": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountPhotos": "{count, plural, =0{لا صور} =1{صورة واحدة} =2{صورتان} few{⁦{count}⁩ صور} many{⁦{count}⁩ صورة} other{⁦{count}⁩ صورة}}",
+  "@commonCountPhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountdownDays": "{count, plural, =0{اليوم} =1{باقي يوم واحد} =2{باقي يومان} few{باقي ⁦{count}⁩ أيام} many{باقي ⁦{count}⁩ يومًا} other{باقي ⁦{count}⁩ يوم}}",
+  "@commonCountdownDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCounter": "⁦{current}⁩ من ⁦{total}⁩",
+  "@commonCounter": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonStateLoading": "جارٍ التحميل",
+  "commonStateTitleGeneric": "حدث خطأ ما",
+  "commonStateTitleLoad": "تعذّر التحميل",
+  "commonStateTitleNetwork": "لا يوجد اتصال",
+  "commonStateTitlePayment": "تعذّر الدفع",
+  "commonStateTitleNoAccess": "لا صلاحية",
+  "commonStateTitleNotFound": "غير موجود",
+  "commonStateTitleEmptySearch": "لا نتائج",
+  "commonStateTitleEmpty": "لا شيء هنا",
+  "commonStateOffline": "لا يوجد اتصال",
+  "commonStateErrorGeneric": "حدث خطأ من جانبنا. لم يتم تغيير أي شيء. يُرجى المحاولة مرة أخرى.",
+  "commonStateErrorLoad": "تعذّر تحميل المحتوى. يُرجى المحاولة مرة أخرى.",
+  "commonStateErrorNetwork": "تعذّر الاتصال. يُرجى التأكد من الاتصال بالإنترنت والمحاولة مرة أخرى.",
+  "commonStateErrorPayment": "تعذّر إتمام الدفع. لم يُخصم أي مبلغ.",
+  "commonStateErrorNoAccess": "لا تملكون صلاحية الوصول. يُرجى مراجعة المدير.",
+  "commonStateErrorNotFound": "هذه الصفحة لم تعد متاحة.",
+  "commonStateSaved": "تم الحفظ",
+  "commonStateCopied": "تم النسخ",
+  "commonStateSent": "تم الإرسال",
+  "commonNoPaymentNowFull": "لا دفع الآن. لا يُخصم أي مبلغ قبل موافقة الفندق.",
+  "commonMoneyDeposit": "العربون",
+  "commonMoneyBalance": "المبلغ المتبقي",
+  "commonMoneyTotal": "الإجمالي",
+  "commonMoneyServiceCharge": "رسوم الخدمة",
+  "commonMoneyRentalFee": "رسوم الإيجار",
+  "commonLabelOptional": "اختياري",
+  "commonLabelRequired": "مطلوب",
+  "commonLabelNotDecided": "لم يتحدد",
+  "commonLabelToday": "اليوم",
+  "commonLabelTomorrow": "غدًا",
+  "commonLabelKuwaitTime": "بتوقيت الكويت",
+  "commonLabelSponsored": "إعلان",
+  "commonLabelNew": "جديد",
+  "commonLabelOr": "أو",
+  "commonLabelLanguage": "اللغة",
+  "commonLabelSettings": "الإعدادات",
+  "commonLanguageEnglish": "الإنجليزية",
+  "commonLanguageArabic": "العربية",
+  "commonFieldRequired": "هذا الحقل مطلوب.",
+  "commonFieldInvalid": "القيمة المدخلة غير صالحة.",
+  "commonFieldPhoneInvalid": "رقم الهاتف غير صالح.",
+  "commonA11yFavouriteAdd": "حفظ في المفضلة",
+  "commonA11yFavouriteRemove": "إزالة من المفضلة",
+  "commonA11yCompareAdd": "إضافة إلى المقارنة",
+  "commonA11yCompareRemove": "إزالة من المقارنة",
+  "commonA11yPhotoCounter": "صورة ⁦{current}⁩ من ⁦{total}⁩",
+  "@commonA11yPhotoCounter": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonA11yRating": "التقييم ⁦{rating}⁩ من ⁦{max}⁩",
+  "@commonA11yRating": {
+    "placeholders": {
+      "rating": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "max": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonA11ySelected": "محدد",
+  "commonStatusPending": "بانتظار الرد",
+  "commonStatusApproved": "تمت الموافقة",
+  "commonStatusRedeemed": "تم الاستخدام",
+  "commonStatusDeclined": "لم يُقبل",
+  "commonStatusHotelPending": "بانتظار الرد",
+  "commonStatusHotelApproved": "بانتظار العميل",
+  "commonStatusHotelRedeemed": "تم الاستخدام",
+  "commonStatusHotelDeclined": "تم الاعتذار",
+  "commonStatusHotelLapsed": "انتهت المهلة",
+  "commonStatusDateProposed": "موعد جديد",
+  "commonVoucherStatusUnpaid": "قيد الدفع",
+  "commonVoucherStatusActive": "جاهز",
+  "commonVoucherStatusBound": "مرتبط بطلب",
+  "commonVoucherStatusUsed": "تم الاستخدام",
+  "commonVoucherStatusExpired": "منتهي الصلاحية",
+  "commonVisitStatusRequested": "طلب زيارة",
+  "commonVisitStatusConfirmed": "مؤكدة",
+  "commonVisitStatusReschedule": "وقت جديد",
+  "commonVisitStatusArrived": "تم الوصول",
+  "commonVisitStatusCompleted": "تمت",
+  "commonVisitStatusDeclined": "غير متاح",
+  "commonVisitStatusCancelled": "ملغية",
+  "commonVisitStatusMissed": "لم تتم",
+  "commonListingStatusDraft": "مسودة",
+  "commonListingStatusPayment": "غير مدفوع",
+  "commonListingStatusReview": "قيد المراجعة",
+  "commonListingStatusApproved": "تمت الموافقة",
+  "commonListingStatusRejected": "لم تُعتمد",
+  "commonListingStatusActive": "منشور",
+  "commonListingStatusExpired": "انتهت المدة",
+  "commonListingStatusPaused": "متوقف مؤقتًا",
+  "commonVoucher": "كوبون",
+  "commonVoucherPrice": "سعر الكوبون",
+  "commonStandardPrice": "السعر العادي",
+  "commonYouSave": "توفّرون {amount}",
+  "@commonYouSave": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "commonSaveAmount": "وفّروا {amount}",
+  "@commonSaveAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "commonConfirmBooking": "تأكيد الحجز",
+  "commonRedeemVoucher": "استخدام الكوبون",
+  "commonVoucherCode": "رمز الكوبون",
+  "commonValidUntil": "صالح حتى {date}",
+  "@commonValidUntil": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonLabelGuestVoucher": "سعر الكوبون بعد التسجيل",
+  "commonRoleClient": "العميل",
+  "commonRoleYou": "أنتم",
+  "commonRoleHotelRep": "ممثل الفندق",
+  "commonRoleSupport": "دعم غزل",
+  "commonVenueTypePrivateHall": "قاعة خاصة",
+  "commonVenueTypeGovernmental": "منشأة حكومية",
+  "commonVenueTypeHotel": "فندق",
+  "commonPricingPerPerson": "سعر للضيف",
+  "commonPricingPackages": "باقات",
+  "commonPricingPackage": "باقة",
+  "commonPricingStructure": "طريقة التسعير",
+  "commonFilterGovernorate": "المحافظة",
+  "commonFilterVenueType": "نوع المكان",
+  "commonFilterCapacity": "السعة",
+  "commonPlanWeekly": "أسبوعي",
+  "commonPlanMonthly": "شهري",
+  "commonPlanAnnual": "سنوي",
+  "commonRatesSoon": "الأسعار تُعلن قريبًا",
+  "commonExempt": "معفى",
+  "commonMajorHotel": "فندق كبير",
+  "commonA11yInfo": "معلومات إضافية",
+  "commonLabelDetails": "التفاصيل",
+  "commonVoucherStatusForfeited": "غير صالح",
+  "commonVoucherStatusCredit": "رصيد",
+  "commonVoucherStatusCreditIssued": "تم إصدار رصيد",
+  "commonVoucherCredit": "كوبون رصيد",
+  "commonVoucherAnyVenue": "أي قاعة أو فندق أو خدمة",
+  "commonVoucherNotValidNote": "لم يُؤكَّد خلال {hours, plural, =0{لا ساعات} =1{ساعة} =2{ساعتين} few{⁦{hours}⁩ ساعات} many{⁦{hours}⁩ ساعة} other{⁦{hours}⁩ ساعة}}",
+  "@commonVoucherNotValidNote": {
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonVoucherConfirmIn24h": "أكدوا لدى الفندق أو الخدمة خلال {hours, plural, =0{لا ساعات} =1{ساعة} =2{ساعتين} few{⁦{hours}⁩ ساعات} many{⁦{hours}⁩ ساعة} other{⁦{hours}⁩ ساعة}}، وإلا أصبح الكوبون غير صالح",
+  "@commonVoucherConfirmIn24h": {
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonAskSupport": "اسألوا الدعم",
+  "commonCreditRequested": "تم إرسال الطلب إلى الدعم",
+  "commonBillingContract": "عقد عمل",
+  "commonBillingPlan": "باقة",
+  "commonBillingContractTerms": "بالشروط المتفق عليها",
+  "commonStaffInvitedByEmail": "دعوة بالبريد",
+  "commonCalendarByEmail": "التقويم بالبريد الإلكتروني",
+  "commonReviewAskSupportHide": "اطلبوا من الدعم إخفاء المراجعة أو حذفها",
+  "commonVideoLimit": "حتى {size} ميغابايت للفيديو الواحد",
+  "@commonVideoLimit": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessLanguageSwitch": "تبديل اللغة",
+  "hotelAccessPasswordShow": "إظهار كلمة المرور",
+  "hotelAccessPasswordHide": "إخفاء كلمة المرور",
+  "hotelAccessPhotoAlt": "قاعة مقبّبة مشرقة بنوافذ سقفية وأقواس وطاولات مأدبة طويلة بمفارش بيضاء وكراسٍ ذهبية على أرضية باركيه",
+  "hotelAccessSupportTitle": "دعم غزل",
+  "hotelAccessSupportAction": "مراسلة الدعم",
+  "hotelAccessSupportShort": "الدعم",
+  "hotelAccessAdminTitle": "مسؤول الحساب",
+  "hotelAccessAdminAction": "مراسلة المسؤول",
+  "hotelAccessSigninTitle": "تسجيل الدخول",
+  "hotelAccessSigninEmailLabel": "البريد الإلكتروني",
+  "hotelAccessSigninPasswordLabel": "كلمة المرور",
+  "hotelAccessSigninForgot": "نسيتم؟",
+  "hotelAccessSigninForgotLabel": "نسيتم كلمة المرور",
+  "hotelAccessSigninInvite": "دعوة",
+  "hotelAccessSigninSubmit": "تسجيل الدخول",
+  "hotelAccessSigninInvalid": "بيانات غير صحيحة",
+  "hotelAccessSigninInvalidTitle": "لم يتم الدخول",
+  "hotelAccessSigninInvalidDetail": "البريد الإلكتروني أو كلمة المرور غير صحيحة. لم يتم تسجيل الدخول.",
+  "hotelAccessSigninPaused": "المحاولات متوقفة",
+  "hotelAccessSigninPausedDetail": "تم إيقاف المحاولات مؤقتًا. يمكنكم المحاولة بعد {time} بتوقيت الكويت.",
+  "@hotelAccessSigninPausedDetail": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessSigninPausedUntil": "متوقف حتى {time}",
+  "@hotelAccessSigninPausedUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessInviteTitle": "بدعوة فقط",
+  "hotelAccessInviteStepLink": "رابط البريد",
+  "hotelAccessInviteStepCode": "الرمز",
+  "hotelAccessInviteSteps": "كيف تعمل الدعوة",
+  "hotelAccessInviteLink": "فتح الرابط",
+  "hotelAccessInviteFrom": "دعوة من {name}",
+  "@hotelAccessInviteFrom": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessVerifyTitle": "إدخال الرمز",
+  "hotelAccessVerifyLabel": "رمز التحقق",
+  "hotelAccessVerifyStepEmail": "البريد",
+  "hotelAccessVerifySentTo": "أُرسل الرمز بالبريد إلى {email}",
+  "@hotelAccessVerifySentTo": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessVerifySubmit": "تأكيد",
+  "hotelAccessVerifyWrong": "رمز خاطئ",
+  "hotelAccessVerifyAttemptsLeft": "{count, plural, =0{لا محاولات متبقية} =1{بقيت محاولة واحدة} =2{بقيت محاولتان} few{بقيت ⁦{count}⁩ محاولات} many{بقيت ⁦{count}⁩ محاولة} other{بقيت ⁦{count}⁩ محاولة}}",
+  "@hotelAccessVerifyAttemptsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelAccessVerifyExpired": "انتهى الرمز",
+  "hotelAccessVerifyTooMany": "محاولات كثيرة",
+  "hotelAccessVerifyResent": "تم الإرسال",
+  "hotelAccessVerifyTimer": "{count} ث",
+  "@hotelAccessVerifyTimer": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessVerifyResendIn": "إعادة إرسال الرمز بعد {count, plural, =0{لحظة} =1{ثانية واحدة} =2{ثانيتين} few{⁦{count}⁩ ثوانٍ} many{⁦{count}⁩ ثانية} other{⁦{count}⁩ ثانية}}",
+  "@hotelAccessVerifyResendIn": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelAccessVerifyResend": "إعادة الإرسال",
+  "hotelAccessVerifyFailed": "لم يصل الرمز",
+  "hotelAccessVerifyFailedDetail": "تعذّر إرسال الرمز بالبريد. يمكنكم إعادة الإرسال أو التواصل مع الدعم.",
+  "hotelAccessVerifySuccessTitle": "الجهاز موثوق",
+  "hotelAccessVerifyTrustDays": "موثوق لمدة {count, plural, =0{لحظة} =1{يوم واحد} =2{يومين} few{⁦{count}⁩ أيام} many{⁦{count}⁩ يومًا} other{⁦{count}⁩ يوم}}",
+  "@hotelAccessVerifyTrustDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelAccessVerifyTrustFact": "{count} يوم",
+  "@hotelAccessVerifyTrustFact": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessVerifySteps": "خطوات التحقق",
+  "hotelAccessVerifyStepCounter": "الخطوة ⁦{current}⁩ من ⁦{total}⁩",
+  "@hotelAccessVerifyStepCounter": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelAccessAuthTitle": "رمز المصادقة",
+  "hotelAccessStepupTitle": "تأكيد الهوية",
+  "hotelAccessStepupActionInvite": "دعوة موظف",
+  "hotelAccessStepupActionRemove": "إزالة موظف",
+  "hotelAccessStepupActionBilling": "بيانات الفوترة",
+  "hotelAccessStepupDone": "تم التأكيد",
+  "hotelAccessSetupTitle": "كلمة المرور",
+  "hotelAccessSetupCardLabel": "الدعوة",
+  "hotelAccessSetupInvitedEmail": "البريد في الدعوة",
+  "hotelAccessSetupValidUntil": "صالحة حتى {date}",
+  "@hotelAccessSetupValidUntil": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessSetupRoleInfo": "صلاحيات هذا الدور",
+  "hotelAccessSetupPasswordLabel": "كلمة المرور",
+  "hotelAccessSetupConfirmLabel": "تأكيد",
+  "hotelAccessSetupMismatch": "غير متطابقة",
+  "hotelAccessSetupStrength": "قوة كلمة المرور: {level}",
+  "@hotelAccessSetupStrength": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelAccessSetupStrengthWeak": "ضعيفة",
+  "hotelAccessSetupStrengthFair": "مقبولة",
+  "hotelAccessSetupStrengthStrong": "قوية",
+  "hotelAccessSetupRuleLength": "{count, plural, =0{لا أحرف} =1{حرف واحد على الأقل} =2{حرفان على الأقل} few{⁦{count}⁩ أحرف على الأقل} many{⁦{count}⁩ حرفًا على الأقل} other{⁦{count}⁩ حرف على الأقل}}",
+  "@hotelAccessSetupRuleLength": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelAccessSetupRuleMix": "حرف ورقم",
+  "hotelAccessSetupRuleMet": "تم",
+  "hotelAccessSetupRuleOpen": "لم يتحقق بعد",
+  "hotelAccessSetupError": "لم يتم الحفظ",
+  "hotelAccessSetupErrorDetail": "تعذّر حفظ كلمة المرور. لم يتم تغيير أي شيء. يمكنكم المحاولة مرة أخرى.",
+  "hotelAccessSetupSuccessTitle": "تم الحفظ",
+  "hotelAccessSetupExpiredTitle": "الدعوة منتهية",
+  "hotelAccessSetupExpiredDetail": "تتوقف الدعوات عن العمل بعد أيام قليلة. يمكن لمسؤول الحساب أو دعم غزل إرسال دعوة جديدة.",
+  "hotelAccessSetupUsedTitle": "الدعوة مستخدمة",
+  "hotelAccessSetupUsedDetail": "كلمة المرور محفوظة بالفعل. يمكنكم الدخول بالبريد وكلمة المرور.",
+  "hotelAccessStatusUnderReviewTitle": "قيد المراجعة",
+  "hotelAccessStatusUnderReviewBody": "حسابكم قيد المراجعة. سنراسلكم بالبريد عند التفعيل.",
+  "hotelAccessStatusUnderReviewProviderNote": "تراجع غزل أول إعلان لكم قبل نشره. لا يُنشر أي شيء تلقائيًا.",
+  "hotelAccessStatusSuspendedTitle": "موقوف مؤقتًا",
+  "hotelAccessStatusSuspendedBody": "تم إيقاف هذا الحساب مؤقتًا. للاستفسار يمكن التواصل مع دعم غزل.",
+  "hotelAccessStatusDeactivatedTitle": "الوصول متوقف",
+  "hotelAccessStatusDeactivatedBody": "تم إيقاف وصولكم إلى هذا الحساب. يمكنكم التواصل مع مسؤول الحساب.",
+  "hotelAccessStatusRevokedTitle": "انتهت الجلسة",
+  "hotelAccessStatusRevokedBody": "أنهى مسؤول الحساب هذه الجلسة. يلزم تسجيل الدخول مجددًا.",
+  "hotelAccessStatusNoAccessBody": "لا تملكون صلاحية الوصول. يمكنكم مراجعة مسؤول الحساب.",
+  "hotelAccessStatusSignOut": "تسجيل الخروج",
+  "hotelAccessStatusSwitchVenue": "تبديل القاعة",
+  "hotelAccessStatusActive": "نشطة",
+  "hotelBookingsTitle": "الحجوزات",
+  "hotelBookingsSearch": "بحث في الحجوزات",
+  "hotelBookingsSearchPlaceholder": "الاسم، المرجع، التاريخ",
+  "hotelBookingsFilterByDate": "تصفية حسب التاريخ",
+  "hotelBookingsSegments": "أقسام الحجوزات",
+  "hotelBookingsSegPending": "المعلقة",
+  "hotelBookingsSegUpcoming": "القادمة",
+  "hotelBookingsSegPast": "السابقة",
+  "hotelBookingsWaitingTitle": "بانتظار العميل",
+  "hotelBookingsOpenRequest": "فتح الطلب: {date}",
+  "@hotelBookingsOpenRequest": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsTimeLeft": "باقي {time}",
+  "@hotelBookingsTimeLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsAudienceWomen": "نسائي",
+  "hotelBookingsAudienceMen": "رجالي",
+  "hotelBookingsAudienceMixed": "مختلط",
+  "hotelBookingsVerified": "رقم موثّق",
+  "hotelBookingsFirstBooking": "أول حجز",
+  "hotelBookingsMessageName": "مراسلة {name}",
+  "@hotelBookingsMessageName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsCallName": "الاتصال بالعميل {name}",
+  "@hotelBookingsCallName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsSpecialRequests": "طلبات خاصة",
+  "hotelBookingsHeldLine": "التاريخ محجوز",
+  "hotelBookingsOthersSameDate": "{count, plural, =0{لا طلبات أخرى} =1{+⁦{count}⁩ طلب آخر لهذا التاريخ} =2{+⁦{count}⁩ طلبان آخران لهذا التاريخ} few{+⁦{count}⁩ طلبات أخرى لهذا التاريخ} many{+⁦{count}⁩ طلبًا آخر لهذا التاريخ} other{+⁦{count}⁩ طلب آخر لهذا التاريخ}}",
+  "@hotelBookingsOthersSameDate": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelBookingsCompare": "مقارنة",
+  "hotelBookingsViewOnly": "للعرض فقط",
+  "hotelBookingsOfflineShort": "غير متصل",
+  "hotelBookingsOfflineBanner": "غير متصل · آخر تحديث {time}",
+  "@hotelBookingsOfflineBanner": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsProposeDate": "اقتراح تاريخ آخر",
+  "hotelBookingsEmptyPendingTitle": "لا طلبات معلقة",
+  "hotelBookingsSeeUpcoming": "عرض القادمة",
+  "hotelBookingsNextEvent": "المناسبة القادمة",
+  "hotelBookingsEmptyUpcomingTitle": "لا حجوزات",
+  "hotelBookingsPastFilter": "تصفية السابقة",
+  "hotelBookingsNoResultsTitle": "لا نتائج عن {query}",
+  "@hotelBookingsNoResultsTitle": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsRecentTitle": "الأخيرة",
+  "hotelBookingsAcceptedToast": "تمت الموافقة · {name}",
+  "@hotelBookingsAcceptedToast": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsAwaitingCouple": "بانتظار العميل",
+  "hotelBookingsConfirmLeft": "باقي {time} للتأكيد",
+  "@hotelBookingsConfirmLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsNotRedeemed": "الكوبون غير مستخدم",
+  "hotelBookingsRedeemedBy": "استُخدم بواسطة {name}، {date}",
+  "@hotelBookingsRedeemedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsRedeemedPlain": "تم الاستخدام",
+  "hotelBookingsActorVenue": "الفندق",
+  "hotelBookingsActorGhazal": "غزل",
+  "hotelBookingsActorSystem": "النظام",
+  "hotelBookingsActorClient": "العميل",
+  "hotelBookingsByVenue": "ألغاه الفندق",
+  "hotelBookingsByClient": "ألغاه العميل",
+  "hotelBookingsDeclineDate": "التاريخ غير متاح",
+  "hotelBookingsDeclineCapacity": "السعة",
+  "hotelBookingsDeclinePackage": "الباقة",
+  "hotelBookingsDeclineOther": "أخرى",
+  "hotelBookingsDeclineReason": "السبب",
+  "hotelBookingsSilence": "دون رد لمدة {time}",
+  "@hotelBookingsSilence": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsFactsLabel": "التفاصيل",
+  "hotelBookingsFactDate": "تاريخ المناسبة",
+  "hotelBookingsFactGuests": "الضيوف",
+  "hotelBookingsFactHall": "القاعة",
+  "hotelBookingsFactTime": "الوقت",
+  "hotelBookingsSessionDay": "فترة نهارية",
+  "hotelBookingsSessionAfternoon": "فترة العصر",
+  "hotelBookingsSessionEvening": "فترة مسائية",
+  "hotelBookingsBillable": "الحساب على أساس {count, plural, =0{بلا ضيوف} =1{ضيف واحد} =2{ضيفين} few{⁦{count}⁩ ضيوف} many{⁦{count}⁩ ضيفًا} other{⁦{count}⁩ ضيف}}",
+  "@hotelBookingsBillable": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelBookingsFilterTitle": "التواريخ",
+  "hotelBookingsFilterBy": "تصفية حسب",
+  "hotelBookingsFilterEvent": "المناسبة",
+  "hotelBookingsFilterRequest": "الطلب",
+  "hotelBookingsRangeLine": "{from} – {to}",
+  "@hotelBookingsRangeLine": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsRangeApplied": "تصفية التاريخ مطبّقة",
+  "hotelBookingsDetailTitle": "الحجز",
+  "hotelBookingsReplyLeft": "باقي {time} للرد",
+  "@hotelBookingsReplyLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsDaysToGo": "الأيام المتبقية",
+  "hotelBookingsEventToday": "المناسبة اليوم",
+  "hotelBookingsKnotVoucher": "كوبون",
+  "hotelBookingsKnotRequest": "الطلب",
+  "hotelBookingsKnotApproval": "الموافقة",
+  "hotelBookingsKnotConfirmed": "التأكيد",
+  "hotelBookingsKnotRedeemed": "الاستخدام",
+  "hotelBookingsProgressLabel": "مراحل الحجز",
+  "hotelBookingsStepOf": "المرحلة {n} من {total}",
+  "@hotelBookingsStepOf": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsIssueReported": "أبلغ العميل عن مشكلة",
+  "hotelBookingsIssueLink": "الدعم",
+  "hotelBookingsCreateWindow": "تحديد السعر",
+  "hotelBookingsDateFreeAgain": "التاريخ متاح",
+  "hotelBookingsShowMore": "عرض المزيد",
+  "hotelBookingsShowLess": "عرض أقل",
+  "hotelBookingsRowServiceDate": "تاريخ الخدمة",
+  "hotelBookingsEventTitle": "المناسبة",
+  "hotelBookingsRowPackage": "الباقة",
+  "hotelBookingsRowExtras": "الإضافات",
+  "hotelBookingsRowHall": "القاعة",
+  "hotelBookingsRowDate": "التاريخ",
+  "hotelBookingsRowTime": "الوقت",
+  "hotelBookingsRowRedeemedBy": "استخدمه",
+  "hotelBookingsPriceTitle": "السعر",
+  "hotelBookingsClientSaves": "توفير العميل",
+  "hotelBookingsInfoPriceTitle": "سعر الكوبون",
+  "hotelBookingsDirectNote": "تحصّلون هذا المبلغ مباشرة من العميل. ولا تعرض غزل أي حالة دفع.",
+  "hotelBookingsVoucherBound": "مرتبط بطلب",
+  "hotelBookingsVoucherRedeemed": "تم الاستخدام",
+  "hotelBookingsVoucherReturned": "أُعيد",
+  "hotelBookingsVoucherExpired": "منتهي",
+  "hotelBookingsVoucherNotValid": "غير صالح",
+  "hotelBookingsProposalTitle": "مواعيد جديدة",
+  "hotelBookingsProposalWindow": "رد العميل قبل",
+  "hotelBookingsPriceChanged": "السعر يتغير",
+  "hotelBookingsInfoReturned": "عاد كوبون العميل إليه، والتاريخ متاح من جديد.",
+  "hotelBookingsInfoClientUsed": "ألغى العميل بعد التأكيد، لذلك استُهلك كوبونه. التاريخ متاح من جديد.",
+  "hotelBookingsInfoVenue": "أُعيد كوبون العميل ويمكنه طلب رصيد من الدعم. وسُجِّل ذلك في سجل الموثوقية.",
+  "hotelBookingsMarkCompleted": "إكمال",
+  "hotelBookingsCancelBooking": "إلغاء الحجز",
+  "hotelBookingsCancelInfoTitle": "الإلغاء",
+  "hotelBookingsCancelNote": "يعود الكوبون إلى العميل، ويمكنه طلب رصيد من الدعم. ويُسجَّل ذلك في سجل الموثوقية.",
+  "hotelBookingsRevokeApproval": "سحب الموافقة",
+  "hotelBookingsReplyToReview": "رد",
+  "hotelBookingsCompletedToast": "تم الإكمال",
+  "hotelBookingsAuditTitle": "السجل",
+  "hotelBookingsAuditRequested": "استلام",
+  "hotelBookingsAuditApproved": "موافقة",
+  "hotelBookingsAuditConfirmed": "تأكيد",
+  "hotelBookingsAuditRedeemed": "استخدام",
+  "hotelBookingsAuditDeclined": "اعتذار",
+  "hotelBookingsAuditExpired": "انتهاء المهلة",
+  "hotelBookingsAuditLapsed": "سقوط الموافقة",
+  "hotelBookingsAuditRevoked": "سحب الموافقة",
+  "hotelBookingsAuditCancelled": "إلغاء",
+  "hotelBookingsAuditCompleted": "إكمال",
+  "hotelBookingsAuditProposal": "موعد جديد",
+  "hotelBookingsAuditUpdated": "تحديث",
+  "hotelBookingsChatRow": "محادثة",
+  "hotelBookingsNotShared": "الرقم غير مشارك",
+  "hotelBookingsContactPrivacy": "يظهر هذا الرقم لهذا الحجز فقط. ولا يظهر رمز كوبون العميل إلا عند استخدامه.",
+  "hotelBookingsContactOffline": "لا يوجد اتصال. الاتصال الهاتفي متاح، وتُرسل الرسائل عند عودة الاتصال.",
+  "hotelBookingsRoleNoContact": "صلاحية حسابكم لا تتيح التواصل مع العملاء. راجعوا المدير.",
+  "hotelBookingsCallToast": "اتصال بالعميل {name}",
+  "@hotelBookingsCallToast": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsWhatsappToast": "واتساب {name}",
+  "@hotelBookingsWhatsappToast": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsRedeemMode": "طريقة الإدخال",
+  "hotelBookingsModeScan": "مسح",
+  "hotelBookingsModeType": "رمز",
+  "hotelBookingsTypeCode": "إدخال الرمز",
+  "hotelBookingsScanDemo": "محاكاة",
+  "hotelBookingsTorchOn": "تشغيل الإضاءة",
+  "hotelBookingsTorchOff": "إيقاف الإضاءة",
+  "hotelBookingsCameraDeniedTitle": "الكاميرا متوقفة",
+  "hotelBookingsCameraDeniedBody": "فعّلوا الكاميرا من إعدادات الهاتف للمسح، أو أدخلوا الرمز يدويًا.",
+  "hotelBookingsCheckCode": "فحص الرمز",
+  "hotelBookingsChecking": "جارٍ التحقق",
+  "hotelBookingsTryAnother": "رمز آخر",
+  "hotelBookingsErrUnknownField": "الرمز غير موجود",
+  "hotelBookingsErrUnknownTitle": "الرمز غير موجود",
+  "hotelBookingsErrUnknownBody": "تحققوا منه وحاولوا مرة أخرى.",
+  "hotelBookingsErrOtherTitle": "كوبون جهة أخرى",
+  "hotelBookingsErrOtherBody": "لا يمكن استخدامه إلا لدى الجهة المخصص لها. ولا تظهر أي تفاصيل أخرى.",
+  "hotelBookingsErrNotConfirmedTitle": "لم يؤكد بعد",
+  "hotelBookingsErrNotConfirmedBody": "يجب أن يؤكد العميل الحجز قبل استخدام الكوبون.",
+  "hotelBookingsErrUsedPlain": "استُخدم سابقًا",
+  "hotelBookingsErrUsedBody": "الكوبون يُستخدم مرة واحدة فقط. تواصلوا مع الدعم إن بدا ذلك خطأً.",
+  "hotelBookingsErrExpiredTitle": "غير صالح",
+  "hotelBookingsErrExpiredBody": "لم يعد بالإمكان استخدامه.",
+  "hotelBookingsRedeemErrorBody": "لم يتم تغيير أي شيء. يُرجى المحاولة مرة أخرى.",
+  "hotelBookingsRoleHiddenBody": "اطلبوا من المسؤول أو المدير أو الاستقبال استخدام الكوبون.",
+  "hotelBookingsRedeemFine": "لا يمكن التراجع عن الاستخدام. ويستطيع فريق الدعم التعديل عند حدوث خطأ.",
+  "hotelBookingsRedeemedFine": "يدفع العميل لكم مباشرة. ولا تعرض غزل أي مبلغ مستحق.",
+  "hotelBookingsRedeemedCached": "غير متصل · محفوظ {time}",
+  "@hotelBookingsRedeemedCached": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelBookingsViewBooking": "عرض الحجز",
+  "hotelBookingsProtoTag": "تجريبي",
+  "hotelBookingsProtoTitle": "اختصارات تجريبية",
+  "hotelBookingsProtoReady": "كوبون جاهز",
+  "hotelBookingsProtoNotConfirmed": "لم يؤكد بعد",
+  "hotelBookingsProtoUsed": "استُخدم سابقًا",
+  "hotelBookingsProtoOther": "جهة أخرى",
+  "hotelBookingsBackToList": "الحجوزات",
+  "hotelBookingsDurJoin": "{first} و{second}",
+  "@hotelBookingsDurJoin": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "second": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarTitle": "التقويم",
+  "hotelCalendarViewLabel": "عرض التقويم",
+  "hotelCalendarViewMonth": "شهر",
+  "hotelCalendarViewWeek": "أسبوع",
+  "hotelCalendarViewDay": "يوم",
+  "hotelCalendarHallsLabel": "القاعات",
+  "hotelCalendarHallsAll": "الكل",
+  "hotelCalendarGridLabel": "التقويم، {month}",
+  "@hotelCalendarGridLabel": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarPrevWeek": "الأسبوع السابق",
+  "hotelCalendarNextWeek": "الأسبوع التالي",
+  "hotelCalendarPrevDay": "اليوم السابق",
+  "hotelCalendarNextDay": "اليوم التالي",
+  "hotelCalendarWeekLabel": "أسبوع",
+  "hotelCalendarActionBlock": "إغلاق التواريخ",
+  "hotelCalendarActionSelect": "تحديد التواريخ",
+  "hotelCalendarReadOnly": "للعرض فقط",
+  "hotelCalendarOfflineStamp": "غير متصل · {time}",
+  "@hotelCalendarOfflineStamp": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarOfflineNeed": "يلزم اتصال",
+  "hotelCalendarNudgeTitle": "التقويم محدَّث؟",
+  "hotelCalendarNudgeDone": "التقويم مؤكد",
+  "hotelCalendarEmptyTitle": "لا حجوزات",
+  "hotelCalendarAgendaTitle": "جدول {date}",
+  "@hotelCalendarAgendaTitle": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarOpenDay": "عرض اليوم",
+  "hotelCalendarOpenLabel": "متاح",
+  "hotelCalendarRequestedLabel": "طلب",
+  "hotelCalendarBlockedBy": "أغلقه {name}",
+  "@hotelCalendarBlockedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarBlock": "إغلاق",
+  "hotelCalendarOffer": "عرض",
+  "hotelCalendarCreateOffer": "إنشاء عرض",
+  "hotelCalendarOpenThisDate": "فتح التاريخ",
+  "hotelCalendarWhyTitle": "تعذّر الإغلاق",
+  "hotelCalendarSoldOutReason": "لا يمكن إغلاق تاريخ عليه حجز مؤكد. يلزم إلغاء الحجز أولًا.",
+  "hotelCalendarSoftTitle": "عطلات متاحة",
+  "hotelCalendarSoftRow": "{count, plural, =0{لا تواريخ متاحة في نهاية الأسبوع خلال {days} يومًا} =1{تاريخ متاح في نهاية الأسبوع خلال {days} يومًا} =2{تاريخان متاحان في نهاية الأسبوع خلال {days} يومًا} few{⁦{count}⁩ تواريخ متاحة في نهاية الأسبوع خلال {days} يومًا} many{⁦{count}⁩ تاريخًا متاحًا في نهاية الأسبوع خلال {days} يومًا} other{⁦{count}⁩ تاريخ متاح في نهاية الأسبوع خلال {days} يومًا}}",
+  "@hotelCalendarSoftRow": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarLegendSoft": "عطلة متاحة",
+  "hotelCalendarHallFact": "القاعة",
+  "hotelCalendarGuestsFact": "الضيوف",
+  "hotelCalendarCapacityFact": "السعة",
+  "hotelCalendarSessionFact": "الفترة",
+  "hotelCalendarHoldLeft": "الوقت المتبقي",
+  "hotelCalendarStartsFact": "يبدأ بعد",
+  "hotelCalendarBlockedByFact": "أغلقه",
+  "hotelCalendarAudienceWomen": "نسائي",
+  "hotelCalendarAudienceMen": "رجالي",
+  "hotelCalendarAudienceMixed": "مختلط",
+  "hotelCalendarKeyTitle": "الرموز",
+  "hotelCalendarRequestNote": "الطلب لا يحجز التاريخ.",
+  "hotelCalendarTimes": "الأوقات",
+  "hotelCalendarSetup": "التجهيز",
+  "hotelCalendarEvent": "الحفل",
+  "hotelCalendarTeardown": "الفك",
+  "hotelCalendarTimelineLabel": "{hall}، الجدول الزمني",
+  "@hotelCalendarTimelineLabel": {
+    "placeholders": {
+      "hall": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarOpenBooking": "فتح الحجز",
+  "hotelCalendarCall": "اتصال بالعميل {name}",
+  "@hotelCalendarCall": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarMessage": "مراسلة العميل {name}",
+  "@hotelCalendarMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarHintDrag": "اضغطوا مطولًا على تاريخ، ثم اسحبوا إلى آخر تاريخ.",
+  "hotelCalendarHintTap": "أو انقروا أول تاريخ ثم آخره.",
+  "hotelCalendarRangeNone": "اختيار التواريخ",
+  "hotelCalendarRangeSummary": "التواريخ",
+  "hotelCalendarRangeBlock": "إغلاق",
+  "hotelCalendarRangeOpen": "فتح",
+  "hotelCalendarRangeOffer": "عرض",
+  "hotelCalendarSheetBlockTitle": "إغلاق التواريخ",
+  "hotelCalendarSheetOpenTitle": "فتح التواريخ",
+  "hotelCalendarModeLabel": "إغلاق أو فتح",
+  "hotelCalendarModeBlock": "إغلاق",
+  "hotelCalendarModeOpen": "فتح",
+  "hotelCalendarSumEdit": "تغيير التواريخ",
+  "hotelCalendarShortcuts": "اختصارات",
+  "hotelCalendarSession": "الفترة",
+  "hotelCalendarReason": "السبب",
+  "hotelCalendarNote": "ملاحظة",
+  "hotelCalendarReasonOffline": "حجز خارجي",
+  "hotelCalendarReasonMaintenance": "صيانة",
+  "hotelCalendarReasonPrivate": "مناسبة خاصة",
+  "hotelCalendarReasonOther": "أخرى",
+  "hotelCalendarVisibilityHint": "يتوقف ظهور التواريخ المغلقة للأزواج خلال ثوانٍ.",
+  "hotelCalendarOpenHint": "تعود التواريخ المفتوحة إلى الحجز أمام الأزواج.",
+  "hotelCalendarPendingWarn": "{count, plural, =0{لا طلبات بانتظار الرد على {date}} =1{لدى {date} طلب واحد بانتظار الرد. سيظهر غير متاح.} =2{لدى {date} طلبان بانتظار الرد. سيظهران غير متاحين.} few{لدى {date} ⁦{count}⁩ طلبات بانتظار الرد. ستظهر غير متاحة.} many{لدى {date} ⁦{count}⁩ طلبًا بانتظار الرد. ستظهر غير متاحة.} other{لدى {date} ⁦{count}⁩ طلب بانتظار الرد. ستظهر غير متاحة.}}",
+  "@hotelCalendarPendingWarn": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelCalendarConflictBody": "لا يمكن إغلاق تاريخ عليه حجز مؤكد. يلزم إلغاء الحجز أولًا.",
+  "hotelCalendarConflictTip": "أو اختاروا القاعة المتاحة فقط.",
+  "hotelCalendarConflictCancel": "إلغاء الحجز",
+  "hotelCalendarReasonConflict": "التواريخ المتاحة فقط",
+  "hotelCalendarReasonChoose": "اختيار التواريخ أولًا",
+  "hotelCalendarAlreadyBlocked": "مغلقة بالفعل",
+  "hotelCalendarCtaBlock": "{count, plural, =0{إغلاق} =1{إغلاق تاريخ واحد} =2{إغلاق تاريخين} few{إغلاق ⁦{count}⁩ تواريخ} many{إغلاق ⁦{count}⁩ تاريخًا} other{إغلاق ⁦{count}⁩ تاريخ}}",
+  "@hotelCalendarCtaBlock": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelCalendarCtaOpen": "{count, plural, =0{فتح} =1{فتح تاريخ واحد} =2{فتح تاريخين} few{فتح ⁦{count}⁩ تواريخ} many{فتح ⁦{count}⁩ تاريخًا} other{فتح ⁦{count}⁩ تاريخ}}",
+  "@hotelCalendarCtaOpen": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelCalendarOpenListTitle": "تواريخ مغلقة",
+  "hotelCalendarOpenEmpty": "لا تواريخ مغلقة",
+  "hotelCalendarToastBlocked": "مخفية عن الأزواج",
+  "hotelCalendarToastOpened": "متاحة للحجز",
+  "hotelCalendarPartialTitle": "تخطي بعض التواريخ",
+  "hotelCalendarSaveFailed": "تعذّر الحفظ",
+  "hotelCalendarEmailTitle": "التقويم عبر البريد",
+  "hotelCalendarEmailSwitch": "أرسلوا لي دعوة بالبريد",
+  "hotelCalendarEmailAdd": "بريد آخر",
+  "hotelCalendarEmailInvalid": "تأكد من العنوان",
+  "hotelCalendarEmailTest": "إرسال تجربة",
+  "hotelCalendarEmailTestSent": "تم الإرسال",
+  "hotelDecisionsFactsLabel": "التفاصيل",
+  "hotelDecisionsFactDate": "التاريخ",
+  "hotelDecisionsFactGuests": "الضيوف",
+  "hotelDecisionsFactSession": "الفترة",
+  "hotelDecisionsFactLadies": "نسائي",
+  "hotelDecisionsFactMen": "رجالي",
+  "hotelDecisionsFactMixed": "مختلط",
+  "hotelDecisionsOfflineInfo": "لا تُؤجَّل القرارات إلى حين عودة الاتصال، لذلك لم يتغيّر شيء.",
+  "hotelDecisionsTermsTitle": "الشروط",
+  "hotelDecisionsReason": "السبب",
+  "hotelDecisionsPickReason": "اختاروا السبب",
+  "hotelDecisionsNote": "ملاحظة",
+  "hotelDecisionsNoteHelper": "يراها العميل",
+  "hotelDecisionsNoteRequired": "الملاحظة مطلوبة",
+  "hotelDecisionsViewBooking": "عرض الطلب",
+  "hotelDecisionsRefresh": "تحديث",
+  "hotelDecisionsAcceptTitle": "قبول الطلب",
+  "hotelDecisionsAcceptCta": "قبول",
+  "hotelDecisionsAcceptConsequence": "هذا يحجز <f>{date}</f> باسم <n>{name}</n> لمدة <f>{duration}</f>.",
+  "@hotelDecisionsAcceptConsequence": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsAcceptConfirmRule": "إن لم يؤكد العميل، يُفرَج عن التاريخ ويعود إليه كوبونه.",
+  "hotelDecisionsAcceptPriceHint": "يُدفع لكم مباشرة خارج التطبيق بعد تأكيد العميل.",
+  "hotelDecisionsAcceptLowerHint": "خفض سعر الكوبون اختياري، ولا يكون أعلى من السعر المعروض. يرى العميل التوفير الجديد.",
+  "hotelDecisionsAcceptHoldLabel": "التاريخ محجوز لمدة {duration}",
+  "@hotelDecisionsAcceptHoldLabel": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsAcceptDeadlineLabel": "يؤكد العميل حتى",
+  "hotelDecisionsAcceptOffApp": "خارج التطبيق",
+  "hotelDecisionsAcceptOthersLine": "{count, plural, =0{لا توجد طلبات أخرى لهذا التاريخ} =1{يوجد طلب آخر لهذا التاريخ} =2{يوجد طلبان آخران لهذا التاريخ} few{يوجد ⁦{count}⁩ طلبات أخرى لهذا التاريخ} many{يوجد ⁦{count}⁩ طلبًا آخر لهذا التاريخ} other{يوجد ⁦{count}⁩ طلب آخر لهذا التاريخ}}",
+  "@hotelDecisionsAcceptOthersLine": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelDecisionsAcceptCompare": "مقارنة",
+  "hotelDecisionsAcceptCompareThis": "هذا",
+  "hotelDecisionsAcceptCompareOther": "الآخر",
+  "hotelDecisionsAcceptCompareReceived": "وصل",
+  "hotelDecisionsAcceptLower": "سعر أقل",
+  "hotelDecisionsAcceptLowerLabel": "خفض بمقدار",
+  "hotelDecisionsAcceptLowerTooHigh": "أقل من سعر الكوبون",
+  "hotelDecisionsAcceptedTitle": "تمت الموافقة",
+  "hotelDecisionsAcceptedBody": "التاريخ محجوز باسم <n>{name}</n>، والمهلة للتأكيد حتى <f>{deadline}</f>.",
+  "@hotelDecisionsAcceptedBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "deadline": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsAcceptedUndoHint": "يصل الإشعار إلى العميل بعد ثوانٍ، ويمكنكم التراجع قبل ذلك.",
+  "hotelDecisionsNotifying": "إبلاغ العميل",
+  "hotelDecisionsUndoneTitle": "عاد للانتظار",
+  "hotelDecisionsUndoneBody": "أُفرج عن التاريخ ولم يُبلَّغ العميل.",
+  "hotelDecisionsConflictTitle": "محجوز مؤقتًا",
+  "hotelDecisionsConflictBody": "طلب موافَق عليه لعميل آخر يحجز <f>{date}</f> إلى حين تأكيده. يمكنكم اقتراح تاريخ مختلف.",
+  "@hotelDecisionsConflictBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsAlreadyTitle": "تم تحديثه",
+  "hotelDecisionsAlreadyBody": "غيّره أحد من فريقكم أو العميل قبل لحظات. هذه حالته الآن.",
+  "hotelDecisionsReleasedTitle": "تم سحب الطلب",
+  "hotelDecisionsReleasedBody": "لم يعد كوبون العميل مرتبطًا بمكانكم، لذلك لا يوجد ما تتم الموافقة عليه. سيختفي الطلب من قائمتكم.",
+  "hotelDecisionsDeclineTitle": "الاعتذار عن الطلب",
+  "hotelDecisionsDeclineReasonDate": "التاريخ",
+  "hotelDecisionsDeclineReasonCapacity": "السعة",
+  "hotelDecisionsDeclineReasonPackage": "الباقة",
+  "hotelDecisionsDeclineReasonOther": "أخرى",
+  "hotelDecisionsDeclineSuggestTitle": "اقتراح مواعيد",
+  "hotelDecisionsDeclineSuggestBody": "سيظهر للعميل اعتذار لطيف مع أماكن متاحة في التاريخ نفسه.",
+  "hotelDecisionsDeclineVoucher": "يعود الكوبون",
+  "hotelDecisionsDeclineVoucherInfo": "يعود كوبون العميل إليه. الاعتذار لا يترتب عليه أي مبلغ.",
+  "hotelDecisionsDeclineNoUndo": "لا يمكن التراجع عن الاعتذار.",
+  "hotelDecisionsDeclineNoUndoShort": "لا تراجع",
+  "hotelDecisionsDeclineCtaNext": "اختيار التواريخ",
+  "hotelDecisionsDeclineCta": "اعتذار",
+  "hotelDecisionsDeclinedTitle": "تم الاعتذار",
+  "hotelDecisionsDeclinedBody": "أُبلغ العميل وعاد إليه كوبونه.",
+  "hotelDecisionsProposeTitle": "اقتراح موعد",
+  "hotelDecisionsProposeIntro": "اختاروا من تاريخ إلى ثلاثة تواريخ متاحة للقاعة والفترة نفسيهما. أمام العميل {window} للرد.",
+  "@hotelDecisionsProposeIntro": {
+    "placeholders": {
+      "window": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsProposeHold": "كل تاريخ يحتفظ بسعر الكوبون المعروض {amount}. إن كان سعره المعتاد أعلى، فالفرق على المكان.",
+  "@hotelDecisionsProposeHold": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsProposeHallLabel": "القاعة",
+  "hotelDecisionsProposeCalendarLabel": "التواريخ المتاحة في {hall}",
+  "@hotelDecisionsProposeCalendarLabel": {
+    "placeholders": {
+      "hall": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsProposeOriginal": "التاريخ الأصلي",
+  "hotelDecisionsProposeChosen": "اقتراحكم",
+  "hotelDecisionsProposeRemove": "إزالة {date}",
+  "@hotelDecisionsProposeRemove": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsProposeTakenBadge": "التاريخ محجوز",
+  "hotelDecisionsProposeHeldLabel": "سعر الكوبون محفوظ",
+  "hotelDecisionsProposeLowerLabel": "أقل بمقدار",
+  "hotelDecisionsProposeReplyLabel": "مهلة رد العميل",
+  "hotelDecisionsProposeCount": "{count, plural, =0{لا تواريخ مختارة} =1{تاريخ واحد مختار} =2{تاريخان مختاران} few{⁦{count}⁩ تواريخ مختارة} many{⁦{count}⁩ تاريخًا مختارًا} other{⁦{count}⁩ تاريخ مختار}}",
+  "@hotelDecisionsProposeCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelDecisionsProposeCta": "إرسال الاقتراح",
+  "hotelDecisionsProposePick": "اختاروا تاريخًا",
+  "hotelDecisionsProposeEmptyTitle": "لا تواريخ متاحة",
+  "hotelDecisionsProposeEmpty": "لا توجد تواريخ متاحة خلال {days} لهذه القاعة.",
+  "@hotelDecisionsProposeEmpty": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsProposeEmptyAction": "فتح التقويم",
+  "hotelDecisionsProposeNoHallTitle": "الاتفاق بالمحادثة",
+  "hotelDecisionsProposeNoHallBody": "طلب الخدمة ليس له تقويم قاعات. راسلوا العميل في المحادثة للاتفاق على يوم آخر.",
+  "hotelDecisionsProposeSentTitle": "تم إرسال الاقتراح",
+  "hotelDecisionsProposeSentBody": "يبقى الطلب بانتظار الرد مع إرفاق تواريخكم. إن قبل العميل أحدها تبدأ مهلة تأكيد جديدة مدتها {duration}.",
+  "@hotelDecisionsProposeSentBody": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsProposeAwaiting": "بانتظار <n>{name}</n> · الرد قبل <f>{deadline}</f>",
+  "@hotelDecisionsProposeAwaiting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "deadline": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsToastProposed": "تم إرسال الاقتراح · {window}",
+  "@hotelDecisionsToastProposed": {
+    "placeholders": {
+      "window": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsCancelTitle": "إلغاء الحجز",
+  "hotelDecisionsCancelTitleApproved": "سحب الموافقة",
+  "hotelDecisionsCancelTalkTitle": "ابدؤوا بالمحادثة",
+  "hotelDecisionsCancelTalkBody": "يُتفق على أي موعد جديد مع العميل في المحادثة. وإن تغيّر التاريخ فقد يحتاج العميل إلى طلب جديد.",
+  "hotelDecisionsCancelReasonHall": "غير متاحة",
+  "hotelDecisionsCancelReasonSafety": "صيانة وسلامة",
+  "hotelDecisionsCancelReasonOther": "أخرى",
+  "hotelDecisionsCancelConsequence": "ماذا يحدث",
+  "hotelDecisionsCancelVoucherInfo": "يعود كوبون العميل إليه. يمكنه استرداد {fee} أو استخدام الكوبون مجددًا.",
+  "@hotelDecisionsCancelVoucherInfo": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsCancelStrikeInfo": "يُسجَّل مؤشر موثوقية ويُتاح التاريخ من جديد.",
+  "hotelDecisionsCancelNoMoney": "لا تنتقل أي مبالغ داخل التطبيق. وأي مبلغ دفعه العميل لكم مسبقًا تتم تسويته بينكما.",
+  "hotelDecisionsConsReturned": "يعود",
+  "hotelDecisionsConsStrike": "مؤشر موثوقية",
+  "hotelDecisionsConsReopens": "يُتاح",
+  "hotelDecisionsCancelCta": "إلغاء الحجز",
+  "hotelDecisionsCancelCtaApproved": "سحب الموافقة",
+  "hotelDecisionsCancelKeep": "إبقاء الحجز",
+  "hotelDecisionsCancelKeepApproved": "إبقاء الموافقة",
+  "hotelDecisionsCancelDialogTitle": "إلغاء الحجز؟",
+  "hotelDecisionsCancelDialogTitleApproved": "سحب الموافقة؟",
+  "hotelDecisionsCancelDialogBody": "<n>{name}</n> · <f>{date}</f>",
+  "@hotelDecisionsCancelDialogBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelDecisionsCancelledTitle": "تم الإلغاء",
+  "hotelDecisionsCancelledTitleApproved": "تم سحب الموافقة",
+  "hotelDecisionsCancelledWindow": "عرض جديد",
+  "hotelDecisionsCancelHiddenTitle": "للمدراء فقط",
+  "hotelDecisionsCancelHiddenBody": "يستطيع المدير أو المشرف فقط إلغاء حجز مؤكد.",
+  "hotelGrowOfflineStamp": "غير متصل · آخر تحديث {time}",
+  "@hotelGrowOfflineStamp": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowErrorBody": "لم يتم تغيير أي شيء. يُرجى التأكد من الاتصال والمحاولة مرة أخرى.",
+  "hotelGrowTabsLabel": "أسعار الكوبون حسب الحالة",
+  "hotelGrowTabActive": "فعّالة",
+  "hotelGrowTabScheduled": "مجدولة",
+  "hotelGrowTabEnded": "منتهية",
+  "hotelGrowPaused": "متوقف مؤقتًا",
+  "hotelGrowAppliesAll": "جميع الباقات",
+  "hotelGrowSoftInsight": "{count, plural, =0{لا تواريخ مفتوحة في نهاية الأسبوع خلال ⁦{days}⁩ يومًا} =1{تاريخ مفتوح في نهاية الأسبوع خلال ⁦{days}⁩ يومًا} =2{تاريخان مفتوحان في نهاية الأسبوع خلال ⁦{days}⁩ يومًا} few{⁦{count}⁩ تواريخ مفتوحة في نهاية الأسبوع خلال ⁦{days}⁩ يومًا} many{⁦{count}⁩ تاريخًا مفتوحًا في نهاية الأسبوع خلال ⁦{days}⁩ يومًا} other{⁦{count}⁩ تاريخ مفتوح في نهاية الأسبوع خلال ⁦{days}⁩ يومًا}}",
+  "@hotelGrowSoftInsight": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowEmptyTitle": "لا توجد نوافذ سعر مؤقتة",
+  "hotelGrowNoScheduledTitle": "لا عروض مجدولة",
+  "hotelGrowNoEndedTitle": "لا توجد نوافذ منتهية",
+  "hotelGrowShowActive": "عرض الأسعار الفعّالة",
+  "hotelGrowActionsLabel": "إجراءات سعر الكوبون",
+  "hotelGrowStatStarts": "يبدأ",
+  "hotelGrowPreviewWaiting": "أدخلوا سعر كوبون صحيحًا لتروا البطاقة كما سيراها العملاء.",
+  "hotelGrowPreviewLabel": "كما يراه العملاء",
+  "hotelGrowEffectNote": "الإيقاف والإنهاء يسريان على العملاء فورًا.",
+  "hotelGrowPause": "إيقاف النافذة مؤقتًا",
+  "hotelGrowResume": "استئناف النافذة",
+  "hotelGrowDuplicate": "نسخ العرض",
+  "hotelGrowEndNow": "إنهاء الآن",
+  "hotelGrowToastPaused": "تم إيقاف {title} مؤقتًا. يرى العملاء سعر الكوبون الدائم.",
+  "@hotelGrowToastPaused": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowToastResumed": "{title} فعّال من جديد.",
+  "@hotelGrowToastResumed": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowToastEnded": "انتهى {title}.",
+  "@hotelGrowToastEnded": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowEndTitle": "إنهاء {title} الآن؟",
+  "@hotelGrowEndTitle": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowEndBody": "يعود العملاء إلى سعر الكوبون الدائم فورًا. الطلبات المرسلة تحتفظ بسعرها. لا يمكن التراجع عن الإنهاء.",
+  "hotelGrowEndConfirm": "إنهاء النافذة",
+  "hotelGrowEndKeep": "إبقاء النافذة",
+  "hotelGrowStepsLabel": "خطوات نافذة سعر الكوبون",
+  "hotelGrowValueTitle": "سعر الكوبون",
+  "hotelGrowOverError": "لا يمكن أن يتجاوز سعر الكوبون السعر العادي {max}.",
+  "@hotelGrowOverError": {
+    "placeholders": {
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowEmptyValueError": "أدخلوا سعر الكوبون بالدينار، حتى ثلاث خانات عشرية.",
+  "hotelGrowBestOnly": "يُطبَّق أفضل سعر كوبون فقط على كل طلب، والأسعار لا تتراكم.",
+  "hotelGrowScopeTitle": "ينطبق على",
+  "hotelGrowPackagesLabel": "الباقات",
+  "hotelGrowHallsLabel": "القاعات",
+  "hotelGrowAllHalls": "جميع القاعات",
+  "hotelGrowTitleTitle": "عنوان النافذة",
+  "hotelGrowTitleEn": "العنوان بالإنجليزية",
+  "hotelGrowTitleAr": "العنوان بالعربية",
+  "hotelGrowTitleComplete": "مكتمل",
+  "hotelGrowCouplesSee": "يراه العملاء",
+  "hotelGrowNextReasonTitles": "أضيفوا العنوان باللغتين للمتابعة.",
+  "hotelGrowNextReasonValue": "صحّحوا سعر الكوبون للمتابعة.",
+  "hotelGrowPrefilledTitle": "لهذه التواريخ",
+  "hotelGrowOfflineEdit": "لا يوجد اتصال. يمكنكم متابعة التعديل، أما النشر فيتطلب اتصالًا.",
+  "hotelGrowGuardTitle": "تجاهل هذه النافذة؟",
+  "hotelGrowGuardDiscard": "تجاهل",
+  "hotelGrowGuardKeep": "متابعة التعديل",
+  "hotelGrowEditorErrorBody": "لم يتم حفظ أي شيء. يُرجى التأكد من الاتصال والمحاولة مرة أخرى.",
+  "hotelGrowDatesTitle": "تواريخ المناسبات",
+  "hotelGrowShortcuts": "اختصارات",
+  "hotelGrowChooseDates": "اختيار التواريخ يدويًا",
+  "hotelGrowNoDatesError": "اختاروا تاريخ مناسبة واحدًا على الأقل.",
+  "hotelGrowDatesChosen": "{count, plural, =0{لم تُختر تواريخ} =1{تم اختيار تاريخ واحد} =2{تم اختيار تاريخين} few{تم اختيار ⁦{count}⁩ تواريخ} many{تم اختيار ⁦{count}⁩ تاريخًا} other{تم اختيار ⁦{count}⁩ تاريخ}}",
+  "@hotelGrowDatesChosen": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowClearDates": "مسح",
+  "hotelGrowUseOpenDates": "استخدام التواريخ المفتوحة",
+  "hotelGrowOpenWeekend": "مفتوح في نهاية الأسبوع",
+  "hotelGrowOverlap": "{title} بسعر {value} يغطي {dates}. سيُطبَّق سعر الكوبون الأفضل.",
+  "@hotelGrowOverlap": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      },
+      "dates": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowRunsTitle": "مدة العرض",
+  "hotelGrowScheduledPill": "مجدول",
+  "hotelGrowStartsLabel": "يبدأ في",
+  "hotelGrowEndsLabel": "ينتهي في",
+  "hotelGrowEndBeforeStart": "تاريخ الانتهاء قبل تاريخ البدء.",
+  "hotelGrowPublish": "نشر النافذة",
+  "hotelGrowSchedule": "جدولة النافذة",
+  "hotelGrowOfflinePublish": "أعيدوا الاتصال للنشر.",
+  "hotelGrowReasonDates": "اختاروا تواريخ المناسبات أولًا.",
+  "hotelGrowReasonEnd": "حدّدوا تاريخ انتهاء صحيحًا أولًا.",
+  "hotelGrowPublishFailed": "لم يتم نشر النافذة. لم يتغير شيء، حاولوا مرة أخرى.",
+  "hotelGrowToastPublished": "تم نشر {title}.",
+  "@hotelGrowToastPublished": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowToastScheduled": "تمت جدولة {title}.",
+  "@hotelGrowToastScheduled": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowView": "عرض",
+  "hotelGrowAnTitle": "التحليلات",
+  "hotelGrowAnRangeLabel": "الفترة",
+  "hotelGrowAnRangeMonth": "هذا الشهر",
+  "hotelGrowAnRangeDays": "آخر ⁦{days}⁩ يومًا",
+  "@hotelGrowAnRangeDays": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowAnRangeCustom": "فترة محددة",
+  "hotelGrowAnRangeNote": "البيانات متاحة اعتبارًا من {date}.",
+  "@hotelGrowAnRangeNote": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowAnKpiViews": "المشاهدات",
+  "hotelGrowAnKpiClicks": "النقرات",
+  "hotelGrowAnKpiConversion": "نسبة التحويل",
+  "hotelGrowAnVsPrevious": "عن الفترة السابقة",
+  "hotelGrowAnChartDesc": "{metric}، من {from} إلى {to}.",
+  "@hotelGrowAnChartDesc": {
+    "placeholders": {
+      "metric": {
+        "type": "String"
+      },
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowAnAsTable": "عرض كجدول",
+  "hotelGrowAnAsChart": "عرض كمخطط",
+  "hotelGrowAnFunnelTitle": "من المشاهدة إلى الكوبون",
+  "hotelGrowAnFunnelDesc": "المشاهدات والنقرات والكوبونات المشتراة والطلبات والحجوزات المؤكدة والكوبونات المستخدمة خلال الفترة.",
+  "hotelGrowAnStageConfirmed": "المؤكدة",
+  "hotelGrowAnValueLabel": "العدد",
+  "hotelGrowAnTopTitle": "أكثر الباقات حجزًا",
+  "hotelGrowAnTopDesc": "الحجوزات المؤكدة لكل باقة خلال الفترة.",
+  "hotelGrowAnTopOpen": "فتح {name}",
+  "@hotelGrowAnTopOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowAnDefsTitle": "كيف نحسب",
+  "hotelGrowAnDefViews": "يُحتسب كل زائر مرة واحدة كل ⁦{minutes}⁩ دقيقة، مهما تكرر فتحه لصفحة القاعة.",
+  "@hotelGrowAnDefViews": {
+    "placeholders": {
+      "minutes": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowAnDefClicks": "الضغط على مراسلة أو اتصال أو الاتجاهات أو مشاركة بعد مشاهدة صفحة القاعة.",
+  "hotelGrowAnDefConversion": "الحجوزات المؤكدة مقسومة على المشاهدات في الفترة نفسها، وتُنسب إلى آخر مشاهدة خلال ⁦{days}⁩ يومًا.",
+  "@hotelGrowAnDefConversion": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowAnCustomTitle": "فترة محددة",
+  "hotelGrowAnCustomOutside": "لا توجد بيانات قبل {date}.",
+  "@hotelGrowAnCustomOutside": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowAnEmptyTitle": "لا توجد بيانات بعد",
+  "hotelGrowAnInsufBody": "تحتاج الاتجاهات إلى ⁦{days}⁩ أيام من المشاهدات على الأقل. المجاميع حتى الآن أدناه.",
+  "@hotelGrowAnInsufBody": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowAnRoleAnalytics": "دوركم يتيح الاطلاع على أداء الصفحة فقط.",
+  "hotelGrowRwTitle": "التقييمات",
+  "hotelGrowRwCatVenue": "القاعة",
+  "hotelGrowRwCatFood": "الطعام",
+  "hotelGrowRwCatService": "الخدمة",
+  "hotelGrowRwCatValue": "القيمة",
+  "hotelGrowRwFilterLabel": "عرض التقييمات",
+  "hotelGrowRwFilterAll": "الكل",
+  "hotelGrowRwFilterNeeds": "بانتظار الرد",
+  "hotelGrowRwFilterReplied": "تم الرد",
+  "hotelGrowRwFilterReported": "تم الإبلاغ",
+  "hotelGrowRwModerated": "تتولى غزل مراجعة التقييمات. رد مرة واحدة أو أبلغ عن إساءة. للإخفاء أو الحذف، اسأل الدعم.",
+  "hotelGrowRwAskSupport": "اطلب من الدعم الإخفاء أو الحذف",
+  "hotelGrowRwReplyTitle": "الرد على {name}",
+  "@hotelGrowRwReplyTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowRwReplyHelp": "علني، يظهر باسم القاعة، ويُرسل مرة واحدة.",
+  "hotelGrowRwReplySend": "إرسال الرد",
+  "hotelGrowRwReplySent": "تم نشر ردكم.",
+  "hotelGrowRwReportTitle": "الإبلاغ عن هذا التقييم",
+  "hotelGrowRwReportBody": "اختاروا السبب. ستراجعه غزل ويبقى التقييم ظاهرًا إلى حين المراجعة.",
+  "hotelGrowRwReasonAbuse": "ألفاظ مسيئة",
+  "hotelGrowRwReasonOff": "لا يخص هذه القاعة",
+  "hotelGrowRwReasonPersonal": "يتضمن بيانات شخصية",
+  "hotelGrowRwReasonOther": "سبب آخر",
+  "hotelGrowRwReportSend": "إرسال البلاغ",
+  "hotelGrowRwReported": "تم الإبلاغ. ستراجعه غزل.",
+  "hotelGrowRwEmptyTitle": "لا توجد تقييمات بعد",
+  "hotelGrowRwNoNeedsTitle": "تم الرد على جميع التقييمات",
+  "hotelGrowRwNoFilterTitle": "لا يوجد شيء هنا",
+  "hotelGrowRwShowAll": "عرض كل التقييمات",
+  "hotelGrowRwAnonymous": "مجهول الهوية",
+  "hotelGrowRwSummaryLabel": "التقييم العام",
+  "hotelGrowListTitle": "أسعار الكوبون",
+  "hotelGrowNewWindow": "نافذة سعر كوبون جديدة",
+  "hotelGrowEditorTitle": "نافذة سعر الكوبون",
+  "hotelGrowAlwaysOn": "يعمل دائمًا",
+  "hotelGrowStandingTitle": "سعر الكوبون الدائم",
+  "hotelGrowStandingEditCta": "تعديل أسعار الباقات",
+  "hotelGrowStandingExplain": "كل باقة لها سعر كوبون تعرضه دائمًا بجانب السعر العادي. والنافذة تخفضه لتواريخ مناسبات محددة.",
+  "hotelGrowStandingNote": "تُعدَّل الأسعار الدائمة من محرر الباقات، وليس من هنا.",
+  "hotelGrowStatRequests": "طلبات",
+  "hotelGrowStatConfirmed": "حجوزات مؤكدة",
+  "hotelGrowStatVouchers": "كوبونات مشتراة",
+  "hotelGrowStatEnds": "ينتهي",
+  "hotelGrowUnitPackage": "للباقة",
+  "hotelGrowTitleSuggestion": "سعر كوبون أقل",
+  "hotelGrowPriceLabel": "سعر الكوبون لكل ضيف",
+  "hotelGrowPriceLabelFlat": "سعر الكوبون للباقة",
+  "hotelGrowNoEffect": "هذا السعر ليس أقل من سعر الكوبون الدائم {standing}، لذلك لن يغيّر ما يدفعه العملاء.",
+  "@hotelGrowNoEffect": {
+    "placeholders": {
+      "standing": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowBelowFee": "الوفر لن يزيد على رسوم الكوبون {fee}، لذلك لن يُعرض الكوبون للعملاء بهذا السعر.",
+  "@hotelGrowBelowFee": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowRequestPrice": "سعر الطلب",
+  "hotelGrowStandardPrice": "السعر العادي",
+  "hotelGrowYouSave": "وفر العميل",
+  "hotelGrowFeeNote": "يدفع العميل أيضًا لغزل رسوم كوبون {fee}. وهي ليست جزءًا من سعركم ولا تحصّلونها أنتم.",
+  "@hotelGrowFeeNote": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowOpenWeekends": "نهايات الأسبوع المتاحة",
+  "hotelGrowWeekdays": "أيام الأسبوع",
+  "hotelGrowOpenWeekendsBody": "تواريخ الخميس إلى السبت المفتوحة خلال ⁦{days}⁩ يومًا القادمة",
+  "@hotelGrowOpenWeekendsBody": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowWeekdaysBody": "تواريخ الأحد إلى الأربعاء المفتوحة خلال ⁦{days}⁩ يومًا القادمة",
+  "@hotelGrowWeekdaysBody": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelGrowUntilEnd": "حتى أنهيها",
+  "hotelGrowEndRequired": "اختاروا تاريخ الانتهاء أو فعّلوا خيار حتى أنهيها.",
+  "hotelGrowAnKpiVouchers": "كوبونات مشتراة",
+  "hotelGrowAnKpiRequests": "الطلبات",
+  "hotelGrowAnKpiRedeemed": "كوبونات مستخدمة",
+  "hotelGrowAnDefVouchers": "الكوبونات التي اشتُريت لقاعتكم في الفترة، وتُحتسب عند الدفع لا عند الاستخدام.",
+  "hotelGrowFactDates": "التواريخ",
+  "hotelGrowStatEnded": "انتهى",
+  "hotelGrowUnitGuest": "للضيف",
+  "hotelGrowFactsLabel": "التفاصيل",
+  "hotelGrowStandingCount": "العروض الدائمة",
+  "hotelGrowFeeTitle": "رسوم الكوبون",
+  "hotelGrowExampleLabel": "مثال",
+  "hotelGrowFactGuests": "الضيوف",
+  "hotelGrowFactDate": "التاريخ",
+  "hotelGrowSaving": "التوفير",
+  "hotelGrowCouplesPay": "يدفع العروسان",
+  "hotelGrowOffline": "غير متصل",
+  "hotelGrowRwReply": "رد",
+  "hotelGrowAnRangeFrom": "من",
+  "hotelGrowAnRangeTo": "إلى",
+  "hotelGrowEffectTitle": "الأثر",
+  "hotelGrowFactPackages": "الباقات",
+  "hotelGrowStandingInfoTitle": "العروض الدائمة",
+  "hotelGrowRwVerified": "موثّق",
+  "hotelGrowRwPosted": "نُشر",
+  "hotelGrowFactMen": "رجال",
+  "hotelGrowFactLadies": "نساء",
+  "hotelGrowRwYourReply": "ردك",
+  "hotelGrowRwDraft": "مسودة",
+  "hotelGrowRwReport": "إبلاغ",
+  "hotelGrowStepPrice": "السعر",
+  "hotelGrowStepDates": "التواريخ",
+  "hotelGrowBoundsLabel": "نطاق السعر",
+  "hotelGrowStandingPrice": "السعر الدائم",
+  "hotelGrowNoEffectTitle": "بلا تغيير",
+  "hotelGrowNoEffectShort": "بلا تغيير",
+  "hotelGrowBelowFeeTitle": "دون الرسوم",
+  "hotelGrowBelowFeeShort": "دون رسوم {fee}",
+  "@hotelGrowBelowFeeShort": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowPreviewTitle": "معاينة",
+  "hotelGrowRulesTitle": "القواعد",
+  "hotelGrowPublishFailedTitle": "لم يُنشر",
+  "hotelGrowOverlapTitle": "تداخل",
+  "hotelGrowLowerPrice": "خفض السعر",
+  "hotelGrowOpenDates": "تواريخ متاحة",
+  "hotelGrowAnApproved": "مقبول",
+  "hotelGrowAnInsufTitle": "بيانات غير كافية",
+  "hotelGrowAnInsufShort": "يلزم {days} أيام",
+  "@hotelGrowAnInsufShort": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelGrowRwReviews": "التقييمات",
+  "hotelGrowRwCategories": "الفئات",
+  "hotelGrowRwMore": "المزيد",
+  "hotelGrowRwRulesTitle": "القواعد",
+  "hotelProviderOfflineStrip": "دون اتصال · محفوظ {time}",
+  "@hotelProviderOfflineStrip": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderNeedsConnection": "دون اتصال",
+  "hotelProviderLangArabic": "العربية",
+  "hotelProviderLangEnglish": "الإنجليزية",
+  "hotelProviderFieldInArabic": "{field} · عربي",
+  "@hotelProviderFieldInArabic": {
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderFieldInEnglish": "{field} · إنجليزي",
+  "@hotelProviderFieldInEnglish": {
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPriceError": "المبلغ بالدينار",
+  "hotelProviderListTitle": "الإعلانات",
+  "hotelProviderListNew": "جديد",
+  "hotelProviderListRoleReason": "للاطلاع فقط",
+  "hotelProviderListGroupAttention": "إجراء · ⁦{count}⁩",
+  "@hotelProviderListGroupAttention": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderListGroupRunning": "منشورة · ⁦{count}⁩",
+  "@hotelProviderListGroupRunning": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderListGroupEnded": "منتهية · ⁦{count}⁩",
+  "@hotelProviderListGroupEnded": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderListRejectedBanner": "⁦{count}⁩ غير معتمدة",
+  "@hotelProviderListRejectedBanner": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderListExpiryBanner": "تنتهي {date}",
+  "@hotelProviderListExpiryBanner": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderListEmptyTitle": "لا إعلانات بعد",
+  "hotelProviderListErrorTitle": "تعذّر التحميل",
+  "hotelProviderListErrorBody": "لم يتغيّر شيء. أعيدوا المحاولة.",
+  "hotelProviderStepFinish": "إكمال",
+  "hotelProviderStepChoosePlan": "الباقة",
+  "hotelProviderStepFix": "تعديل",
+  "hotelProviderStepRenew": "تجديد",
+  "hotelProviderStepSubmit": "إرسال",
+  "hotelProviderPlanContractTitle": "عقد تجاري",
+  "hotelProviderPlanContractBody": "الشروط حسب العقد",
+  "hotelProviderPlanTitle": "الباقة",
+  "hotelProviderPlanTitleRenew": "تجديد",
+  "hotelProviderPlanEditListing": "تعديل",
+  "hotelProviderPlanGroup": "مدة الباقة",
+  "hotelProviderPlanInclTitle": "تشمل",
+  "hotelProviderPlanIncl1": "الإعلان",
+  "hotelProviderPlanIncl2": "الطلبات",
+  "hotelProviderPlanIncl3": "الأرقام",
+  "hotelProviderPlanContinue": "دفع",
+  "hotelProviderPlanReasonRates": "الأسعار قريبًا",
+  "hotelProviderPlanReasonChoose": "اختاروا باقة",
+  "hotelProviderPlanSubmittedToast": "تم الإرسال",
+  "hotelProviderPlanSampleNote": "مبالغ تجريبية",
+  "hotelProviderPlanPreviewSample": "أسعار تجريبية",
+  "hotelProviderPlanRenewLive": "حتى {date}",
+  "@hotelProviderPlanRenewLive": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPlanRenewExpired": "انتهت {date}",
+  "@hotelProviderPlanRenewExpired": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPlanErrorTitle": "تعذّر التحميل",
+  "hotelProviderPlanErrorBody": "لم يتغيّر شيء. أعيدوا المحاولة.",
+  "hotelProviderPayTitle": "الدفع",
+  "hotelProviderPayTotal": "إجمالي الباقة",
+  "hotelProviderPayAction": "دفع {amount}",
+  "@hotelProviderPayAction": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPayWith": "الدفع عبر",
+  "hotelProviderChangeMethod": "تغيير",
+  "hotelProviderMethodsTitle": "طريقة الدفع",
+  "hotelProviderMethodKnet": "كي نت",
+  "hotelProviderMethodVisa": "فيزا",
+  "hotelProviderMethodMastercard": "ماستركارد",
+  "hotelProviderMethodApplePay": "آبل باي",
+  "hotelProviderMethodGooglePay": "جوجل باي",
+  "hotelProviderSampleBadge": "تجريبي",
+  "hotelProviderRefundNote": "يتولى الدعم استرداد الرسوم عند الطلب.",
+  "hotelProviderSumListing": "الإعلان",
+  "hotelProviderSumPlan": "الباقة",
+  "hotelProviderSumAmount": "المبلغ",
+  "hotelProviderSumPaid": "مدفوع",
+  "hotelProviderGatewayTitle": "{method}",
+  "@hotelProviderGatewayTitle": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderRedirectTitle": "إلى {method}",
+  "@hotelProviderRedirectTitle": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderRedirectBody": "أبقوا التطبيق مفتوحًا.",
+  "hotelProviderConfirmingTitle": "جارٍ التأكيد",
+  "hotelProviderConfirmingBody": "لا تدفعوا مرة أخرى.",
+  "hotelProviderBankMerchant": "التاجر",
+  "hotelProviderBankMerchantName": "غزل",
+  "hotelProviderBankAmount": "المبلغ",
+  "hotelProviderBankCard": "البطاقة",
+  "hotelProviderBankExpiry": "الانتهاء",
+  "hotelProviderBankPin": "الرقم السري",
+  "hotelProviderBankSubmit": "دفع",
+  "hotelProviderProtoLabel": "ردّ البنك",
+  "hotelProviderProtoApproved": "موافقة",
+  "hotelProviderProtoDeclined": "رفض",
+  "hotelProviderLeaveTitle": "مغادرة الدفع؟",
+  "hotelProviderLeaveBody": "لم يُخصم أي مبلغ.",
+  "hotelProviderLeaveStay": "بقاء",
+  "hotelProviderLeaveConfirm": "مغادرة",
+  "hotelProviderPaidTitle": "تم الدفع",
+  "hotelProviderPaidBody": "إعلانكم قيد المراجعة.",
+  "hotelProviderRenewedTitle": "تم التجديد",
+  "hotelProviderRenewedBody": "إعلانكم باقٍ منشورًا.",
+  "hotelProviderRenewedNote": "حتى {date}",
+  "@hotelProviderRenewedNote": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderReceiptLink": "الإيصال",
+  "hotelProviderViewStatus": "الحالة",
+  "hotelProviderBackToListings": "الإعلانات",
+  "hotelProviderFailedTitle": "تعذّر الدفع",
+  "hotelProviderFailedBody": "لم يُخصم أي مبلغ.",
+  "hotelProviderRetry": "إعادة المحاولة",
+  "hotelProviderSwitchMethod": "طريقة أخرى",
+  "hotelProviderCancelledTitle": "أُلغي",
+  "hotelProviderCancelledBody": "لم يُخصم أي مبلغ. اختياركم محفوظ.",
+  "hotelProviderBackToPay": "رجوع",
+  "hotelProviderBlockedTitle": "الأسعار قريبًا",
+  "hotelProviderBlockedBody": "لم تُعلن الأسعار بعد، فلا شيء للدفع. إعلانكم واختياركم محفوظان.",
+  "hotelProviderBackToPlans": "الباقات",
+  "hotelProviderOfflinePay": "دون اتصال",
+  "hotelProviderPayErrorTitle": "تعذّر الدفع",
+  "hotelProviderPayErrorBody": "لم يُخصم أي مبلغ. أعيدوا المحاولة.",
+  "hotelProviderReceiptTitle": "الإيصال",
+  "hotelProviderReceiptIssuer": "غزل",
+  "hotelProviderReceiptNumber": "الرقم",
+  "hotelProviderReceiptDate": "التاريخ",
+  "hotelProviderReceiptListing": "الإعلان",
+  "hotelProviderReceiptPlan": "الباقة",
+  "hotelProviderReceiptVia": "عبر",
+  "hotelProviderReceiptFoot": "د.ك",
+  "hotelProviderReceiptSample": "تجريبي",
+  "hotelProviderRequired": "مطلوب",
+  "hotelProviderRetryShort": "إعادة",
+  "hotelProviderEditorTitle": "الإعلان",
+  "hotelProviderEditorTitleNew": "إعلان جديد",
+  "hotelProviderEditorCategory": "الفئة",
+  "hotelProviderEditorCategoryPlaceholder": "اختاروا",
+  "hotelProviderEditorTexts": "النصوص",
+  "hotelProviderEditorTitleField": "العنوان",
+  "hotelProviderEditorDescField": "الوصف",
+  "hotelProviderEditorPhotos": "الصور",
+  "hotelProviderEditorPackages": "الباقات",
+  "hotelProviderEditorContact": "التواصل",
+  "hotelProviderEditorChat": "المحادثة",
+  "hotelProviderEditorPhone": "الهاتف",
+  "hotelProviderEditorContinue": "متابعة",
+  "hotelProviderEditorSubmitChanges": "إرسال",
+  "hotelProviderEditorResubmit": "إعادة الإرسال",
+  "hotelProviderEditorSaveDraft": "حفظ المسودة",
+  "hotelProviderEditorSaved": "تم الحفظ",
+  "hotelProviderEditorSavedBanner": "تم الحفظ",
+  "hotelProviderEditorDraftSaved": "حُفظت المسودة",
+  "hotelProviderEditorDraftNeedsTitle": "أضيفوا عنوانًا",
+  "hotelProviderEditorFixFields": "أكملوا الحقول المحددة",
+  "hotelProviderEditorValidationNote": "أكملوا الحقول المحددة",
+  "hotelProviderEditorError": "لم يُحفظ",
+  "hotelProviderEditorLiveNote": "النسخة المنشورة باقية",
+  "hotelProviderEditorRejectedNote": "{note}",
+  "@hotelProviderEditorRejectedNote": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderGuardTitle": "تجاهل التغييرات؟",
+  "hotelProviderGuardBody": "ستضيع التعديلات غير المحفوظة.",
+  "hotelProviderGuardDiscard": "تجاهل",
+  "hotelProviderGuardKeep": "متابعة",
+  "hotelProviderPhotoAdd": "إضافة",
+  "hotelProviderPhotoRemove": "حذف الصورة",
+  "hotelProviderPhotoCover": "الغلاف",
+  "hotelProviderCatsPrimary": "الرئيسية",
+  "hotelProviderCatsMore": "المزيد",
+  "hotelProviderCatsLimit": "⁦{count}⁩/⁦{max}⁩",
+  "@hotelProviderCatsLimit": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "max": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderPkgUnnamed": "بلا اسم",
+  "hotelProviderPkgAdd": "إضافة باقة",
+  "hotelProviderPkgNeeded": "أضيفوا باقة",
+  "hotelProviderPkgNoVoucher": "بلا كوبون",
+  "hotelProviderPkgNoVoucherFull": "بلا كوبون. يجب أن يتجاوز التوفير {fee}.",
+  "@hotelProviderPkgNoVoucherFull": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPkgSaving": "توفير {amount}",
+  "@hotelProviderPkgSaving": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPkgSheetNew": "باقة جديدة",
+  "hotelProviderPkgSheetEdit": "الباقة",
+  "hotelProviderPkgSave": "حفظ",
+  "hotelProviderPkgDelete": "حذف",
+  "hotelProviderPkgName": "الاسم",
+  "hotelProviderPkgPerPackage": "باقة",
+  "hotelProviderPkgVoucherOver": "أقل من العادي أو يساويه",
+  "hotelProviderPkgIncludes": "تشمل",
+  "hotelProviderPkgInclPlaceholder": "أضيفوا عنصرًا",
+  "hotelProviderPkgRemoveIncl": "حذف {name}",
+  "@hotelProviderPkgRemoveIncl": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPreviewTitle": "المعاينة",
+  "hotelProviderPreviewNoTitle": "العنوان",
+  "hotelProviderPreviewNoPackage": "أضيفوا باقة",
+  "hotelProviderReviewTitle": "المراجعة",
+  "hotelProviderReviewErrorTitle": "تعذّر التحميل",
+  "hotelProviderReviewErrorBody": "لم يتغيّر شيء. أعيدوا المحاولة.",
+  "hotelProviderHeadPendingTitle": "قيد المراجعة",
+  "hotelProviderHeadApprovedTitle": "معتمد",
+  "hotelProviderHeadLiveTitle": "منشور",
+  "hotelProviderHeadRevisionTitle": "التعديل قيد المراجعة",
+  "hotelProviderHeadRejectedTitle": "غير معتمد",
+  "hotelProviderLongWait": "⁦{hours}⁩ س في المراجعة",
+  "@hotelProviderLongWait": {
+    "placeholders": {
+      "hours": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderContactSupport": "الدعم",
+  "hotelProviderReasons": "ملاحظات الفريق",
+  "hotelProviderReasonContent": "المحتوى",
+  "hotelProviderReasonCategory": "الفئة",
+  "hotelProviderReasonMissing": "تفاصيل ناقصة",
+  "hotelProviderReasonPricing": "السعر",
+  "hotelProviderReasonOther": "أخرى",
+  "hotelProviderPlanRetained": "استرداد الرسوم: اطلبوه من الدعم",
+  "hotelProviderPlanRefunded": "سُجّل الاسترداد",
+  "hotelProviderChoosePlanAgain": "الباقة",
+  "hotelProviderListingLabel": "الإعلان",
+  "hotelProviderTimeline": "السجل",
+  "hotelProviderFacts": "التفاصيل",
+  "hotelProviderFactSubmitted": "أُرسل",
+  "hotelProviderFactFees": "الرسوم",
+  "hotelProviderFactNoFees": "لا شيء",
+  "hotelProviderFactPaid": "مدفوعة",
+  "hotelProviderFactRatesSoon": "قريبًا",
+  "hotelProviderFactPlanEnds": "تنتهي",
+  "hotelProviderDaysLeft": "⁦{days}⁩ يوم",
+  "@hotelProviderDaysLeft": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderEditResubmit": "تعديل",
+  "hotelProviderViewPerformance": "الأداء",
+  "hotelProviderProtoTitle": "المشرف",
+  "hotelProviderProtoApprove": "اعتماد",
+  "hotelProviderProtoReject": "رفض",
+  "hotelProviderProtoNote": "فئة خاطئة، سعر غير واضح.",
+  "hotelProviderPerfTitle": "الأداء",
+  "hotelProviderPerfEdit": "تعديل",
+  "hotelProviderPerfErrorTitle": "تعذّر التحميل",
+  "hotelProviderPerfErrorBody": "لم يتغيّر شيء. أعيدوا المحاولة.",
+  "hotelProviderPerfEmptyTitle": "لا أرقام بعد",
+  "hotelProviderPerfEnded": "انتهت {date}",
+  "@hotelProviderPerfEnded": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPerfRangeLabel": "الفترة",
+  "hotelProviderPerfRangeMonth": "الشهر",
+  "hotelProviderPerfRange30": "⁦{days}⁩ يوم",
+  "@hotelProviderPerfRange30": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderPerfRange90": "⁦{days}⁩ يوم",
+  "@hotelProviderPerfRange90": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderPerfRangeCustom": "مخصّصة",
+  "hotelProviderPerfViews": "المشاهدات",
+  "hotelProviderPerfSaves": "الحفظ",
+  "hotelProviderPerfVouchers": "الكوبونات",
+  "hotelProviderPerfRequests": "الطلبات",
+  "hotelProviderPerfRedeemed": "المستخدمة",
+  "hotelProviderPerfVsPrevious": "مقابل السابق",
+  "hotelProviderPerfFunnel": "المسار",
+  "hotelProviderPerfFunnelDesc": "من المشاهدة إلى الاستخدام",
+  "hotelProviderPerfCount": "العدد",
+  "hotelProviderPerfStep": "{percent}",
+  "@hotelProviderPerfStep": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelProviderPerfInsufficient": "اختاروا ⁦{days}⁩ أيام فأكثر",
+  "@hotelProviderPerfInsufficient": {
+    "placeholders": {
+      "days": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelProviderPerfTop": "أعلى الباقات",
+  "hotelProviderPerfTopDesc": "حسب الطلبات",
+  "hotelProviderPerfAsTable": "جدول",
+  "hotelProviderPerfAsChart": "مخطط",
+  "hotelProviderPerfVenueAnalytics": "تحليلات القاعة",
+  "hotelProviderPerfAllListings": "كل الإعلانات",
+  "hotelProviderRangeTitle": "الفترة",
+  "hotelProviderRangeHint": "اختاروا التواريخ",
+  "hotelProviderRangeApply": "تطبيق",
+  "hotelProviderContinue": "متابعة",
+  "hotelProviderChooseTitle": "نوع الحساب",
+  "hotelProviderChooseReason": "اختاروا واحدًا",
+  "hotelProviderTypeHotelTitle": "فندق أو قاعة",
+  "hotelProviderTypeProviderTitle": "مقدّم خدمة",
+  "hotelProviderProfileName": "الاسم",
+  "hotelProviderProfileVenueType": "النوع",
+  "hotelProviderVenueTypeHall": "قاعة",
+  "hotelProviderVenueTypeHotel": "فندق",
+  "hotelProviderProfileGovernorate": "المحافظة",
+  "hotelProviderProfileArea": "المنطقة",
+  "hotelProviderProfileChoose": "اختاروا",
+  "hotelProviderProfileCategories": "الفئات",
+  "hotelProviderCatsChoose": "اختيار",
+  "hotelProviderCatsEdit": "تعديل",
+  "hotelProviderProfilePhone": "الهاتف",
+  "hotelProviderPhoneError": "رقم غير صالح",
+  "hotelProviderLogoTitle": "الشعار",
+  "hotelProviderLogoUpload": "رفع",
+  "hotelProviderLogoToast": "في التطبيق النهائي",
+  "hotelProviderSubmit": "إرسال",
+  "hotelProviderSubmitErrorTitle": "تعذّر الإرسال",
+  "hotelProviderSubmitError": "لم يُرسل شيء. أعيدوا المحاولة.",
+  "hotelProviderSubmittedBar": "الحساب",
+  "hotelProviderSubmittedTitle": "قيد المراجعة",
+  "hotelProviderSubmittedFirst": "أول إعلان",
+  "hotelProviderSubmittedToday": "اليوم",
+  "hotelProviderSubmittedStatus": "الحالة",
+  "hotelProviderRejectContent": "المحتوى",
+  "hotelProviderRejectCategory": "الفئة",
+  "hotelProviderRejectDetails": "التفاصيل",
+  "hotelProviderRejectPricing": "السعر",
+  "hotelProviderRejectOther": "ملاحظة",
+  "hotelProviderPlanSampleCta": "مبالغ تجريبية للنموذج فقط، وليست سعرًا حقيقيًا.",
+  "hotelProviderRefundTitle": "الاسترداد",
+  "hotelProviderDetails": "التفاصيل",
+  "hotelSettingsRoleManager": "المدير",
+  "hotelSettingsRoleReception": "الاستقبال",
+  "hotelSettingsRoleOwner": "المسؤول",
+  "hotelSettingsStepUpTitle": "تأكيد الهوية",
+  "hotelSettingsStepUpBodyStaff": "نرسل رمزًا إلى بريدك الإلكتروني.",
+  "hotelSettingsStepUpSend": "إرسال الرمز",
+  "hotelSettingsMoreTitle": "المزيد",
+  "hotelSettingsMoreListing": "إعلانكم",
+  "hotelSettingsMoreCompleteness": "اكتمال اللغتين",
+  "hotelSettingsMoreLangAr": "العربية",
+  "hotelSettingsMoreLangEn": "الإنجليزية",
+  "hotelSettingsMorePreview": "معاينة",
+  "hotelSettingsMorePreviewHeld": "تتاح المعاينة بعد اعتماد إعلانكم.",
+  "hotelSettingsMoreGroupVenue": "القاعة",
+  "hotelSettingsMoreGroupVisits": "الزيارات",
+  "hotelSettingsMoreGroupGrow": "النمو",
+  "hotelSettingsMoreGroupBusiness": "الأعمال",
+  "hotelSettingsMoreGroupAccount": "الحساب",
+  "hotelSettingsMoreMedia": "الصور",
+  "hotelSettingsMorePackages": "الباقات",
+  "hotelSettingsMoreHalls": "القاعات",
+  "hotelSettingsMorePolicies": "السياسات",
+  "hotelSettingsMoreRules": "القواعد",
+  "hotelSettingsMoreAvailability": "التوفر",
+  "hotelSettingsMoreVisitRequests": "الطلبات",
+  "hotelSettingsMoreVisitAvailability": "المواعيد",
+  "hotelSettingsMoreVoucherPrices": "أسعار الكوبون",
+  "hotelSettingsMoreAnalytics": "التحليلات",
+  "hotelSettingsMoreReviews": "التقييمات",
+  "hotelSettingsMoreListings": "الإعلانات",
+  "hotelSettingsMorePerformance": "الأداء",
+  "hotelSettingsMoreNotifications": "الإشعارات",
+  "hotelSettingsMoreStaff": "الموظفون",
+  "hotelSettingsMoreHours": "ساعات العمل",
+  "hotelSettingsMoreLanguage": "اللغة",
+  "hotelSettingsMoreBiometric": "القفل الحيوي",
+  "hotelSettingsMoreSupport": "الدعم",
+  "hotelSettingsMoreSupportToast": "محادثة الدعم",
+  "hotelSettingsMoreSwitch": "تبديل القاعة",
+  "hotelSettingsMoreLogout": "تسجيل الخروج",
+  "hotelSettingsMoreVersion": "{version}",
+  "@hotelSettingsMoreVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsMoreTerms": "الشروط",
+  "hotelSettingsMorePrivacy": "الخصوصية",
+  "hotelSettingsMoreLegalToast": "النصوص تديرها غزل",
+  "hotelSettingsMoreAccountType": "نوع الحساب",
+  "hotelSettingsMoreBilling": "الفوترة",
+  "hotelSettingsMoreBillingAttention": "يحتاج إلى انتباهكم",
+  "hotelSettingsLanguageTitle": "اللغة",
+  "hotelSettingsLanguageSaved": "تم حفظ اللغة",
+  "hotelSettingsSwitchTitle": "تبديل القاعة",
+  "hotelSettingsSwitchCurrent": "القاعة الحالية",
+  "hotelSettingsLogoutTitle": "تسجيل الخروج؟",
+  "hotelSettingsBiometricOnTitle": "تفعيل القفل الحيوي؟",
+  "hotelSettingsBiometricOnConfirm": "تفعيل",
+  "hotelSettingsBiometricOn": "القفل مفعّل",
+  "hotelSettingsBiometricOff": "القفل متوقف",
+  "hotelSettingsPreviewTitle": "المعاينة",
+  "hotelSettingsAcctTitle": "نوع الحساب",
+  "hotelSettingsAcctVenue": "فندق أو قاعة",
+  "hotelSettingsAcctProvider": "مزوّد خدمة",
+  "hotelSettingsAcctSetup": "إضافة حساب",
+  "hotelSettingsAcctSwitchedVenue": "فندق أو قاعة",
+  "hotelSettingsAcctSwitchedProvider": "مزوّد خدمة",
+  "hotelSettingsNotifAboutTitle": "عن التنبيهات",
+  "hotelSettingsNotifAboutLock": "تنبيهات الطلبات الجديدة تعمل دائمًا لدوركم، بنغمة خاصة بها.",
+  "hotelSettingsNotifAboutQuiet": "خارج ساعات العمل يصل التنبيه بصمت ويظهر في قائمتكم.",
+  "hotelSettingsNotifAboutChannel": "تصل التنبيهات كإشعارات على الهاتف. يصل التصعيد العاجل أيضًا بالبريد الإلكتروني، ولا توجد إشعارات تسويقية.",
+  "hotelSettingsNotifPushOffTitle": "الإشعارات متوقفة",
+  "hotelSettingsNotifPushOffBody": "لن يصلكم تنبيه بالطلبات الجديدة قبل تشغيلها، ومهلة الرد تواصل العدّ. باقي الإعدادات تعمل كالمعتاد.",
+  "hotelSettingsNotifPushOffAction": "فتح الإعدادات",
+  "hotelSettingsNotifPushOffToast": "يفتح إعدادات الهاتف",
+  "hotelSettingsNotifNewRequest": "الطلبات الجديدة",
+  "hotelSettingsNotifAlwaysOn": "يعمل دائمًا",
+  "hotelSettingsNotifPlaySound": "تشغيل النغمة",
+  "hotelSettingsNotifPlaying": "جارٍ التشغيل",
+  "hotelSettingsNotifConfirmations": "التأكيدات",
+  "hotelSettingsNotifCancelled": "الإلغاءات",
+  "hotelSettingsNotifRedemptions": "الكوبونات",
+  "hotelSettingsNotifVisits": "الزيارات",
+  "hotelSettingsNotifMessages": "الرسائل",
+  "hotelSettingsNotifReviews": "التقييمات",
+  "hotelSettingsNotifListing": "الإعلان",
+  "hotelSettingsNotifPlan": "الباقة",
+  "hotelSettingsStaffInvite": "دعوة موظف",
+  "hotelSettingsStaffYou": "أنتم",
+  "hotelSettingsStaffSupport": "الدعم",
+  "hotelSettingsStaffEmptyTitle": "أنتم وحدكم",
+  "hotelSettingsStaffName": "الاسم",
+  "hotelSettingsStaffNameError": "أدخلوا الاسم",
+  "hotelSettingsStaffRole": "الدور",
+  "hotelSettingsStaffAccept": "الرد على الطلبات",
+  "hotelSettingsStaffSend": "إرسال الدعوة",
+  "hotelSettingsStaffSent": "أُرسلت الدعوة",
+  "hotelSettingsStaffSaveRole": "حفظ الدور",
+  "hotelSettingsStaffSessions": "إنهاء الجلسات",
+  "hotelSettingsStaffSessionsDone": "تم الخروج",
+  "hotelSettingsStaffDeactivate": "تعطيل",
+  "hotelSettingsStaffDeactivated": "تعطيل {name}",
+  "@hotelSettingsStaffDeactivated": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsStaffReactivate": "تفعيل",
+  "hotelSettingsStaffReactivated": "تفعيل {name}",
+  "@hotelSettingsStaffReactivated": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsStaffRemove": "إزالة",
+  "hotelSettingsStaffRemoveTitle": "إزالة {name}؟",
+  "@hotelSettingsStaffRemoveTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsStaffRemoveConfirm": "إزالة",
+  "hotelSettingsStaffRemoved": "أُزيل {name}",
+  "@hotelSettingsStaffRemoved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsStaffResend": "إعادة الإرسال",
+  "hotelSettingsStaffResent": "أُعيد الإرسال",
+  "hotelSettingsStaffOpen": "تعديل {name}",
+  "@hotelSettingsStaffOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsStaffLastSeen": "آخر ظهور",
+  "hotelSettingsStaffExpires": "تنتهي الدعوة",
+  "hotelSettingsStaffStateDeactivated": "معطّل",
+  "hotelSettingsStaffAboutTitle": "عن الأدوار",
+  "hotelSettingsStaffVisitNote": "من يدير الزيارات يستطيع قراءة محادثات الزيارة الجماعية، وفيها أيضًا دعم غزل.",
+  "hotelSettingsStaffFoot": "لا يمكن إسناد دور المسؤول من التطبيق. فريق الدعم في غزل يتولى نقل الملكية.",
+  "hotelSettingsRoleLineManager": "كل شيء بما فيه استخدام الكوبونات والزيارات والقوائم والفوترة، عدا الموظفين",
+  "hotelSettingsRoleLineReception": "الطلبات واستخدام الكوبونات والزيارات والمحادثات",
+  "hotelSettingsRoleLineAccountant": "الفوترة والإيصالات، وعرض الطلبات للقراءة فقط",
+  "hotelSettingsRoleLineMarketing": "أسعار الكوبون والقوائم والتحليلات والصور",
+  "hotelSettingsHoursAboutTitle": "عن الساعات",
+  "hotelSettingsHoursAbout": "يراها الأزواج كساعات عمل، وتحدد متى يصدر صوت تنبيه الطلبات الجديدة.",
+  "hotelSettingsHoursApproxNote": "رمضان والعيدان تقديريان إلى حين الإعلان، عدّلوهما عند صدوره.",
+  "hotelSettingsHoursPreview": "يظهر للأزواج هكذا",
+  "hotelSettingsHoursLine": "{days} {from}–{to}",
+  "@hotelSettingsHoursLine": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      },
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsHoursLineClosed": "{days} مغلق",
+  "@hotelSettingsHoursLineClosed": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsHoursDaysRange": "{first}–{last}",
+  "@hotelSettingsHoursDaysRange": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "last": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsHoursDaysPair": "{first} و{last}",
+  "@hotelSettingsHoursDaysPair": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "last": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsHoursEveryDay": "كل يوم",
+  "hotelSettingsHoursAllClosed": "مغلق",
+  "hotelSettingsHoursWeek": "ساعات الأسبوع",
+  "hotelSettingsHoursTimeFrom": "الفتح",
+  "hotelSettingsHoursTimeTo": "الإغلاق",
+  "hotelSettingsHoursHour": "الساعة",
+  "hotelSettingsHoursMinute": "الدقائق",
+  "hotelSettingsHoursAm": "ص",
+  "hotelSettingsHoursPm": "م",
+  "hotelSettingsHoursSetTime": "تأكيد",
+  "hotelSettingsHoursClosures": "الإغلاقات",
+  "hotelSettingsHoursClosure": "إغلاق",
+  "hotelSettingsHoursClosureRange": "{from}–{to}",
+  "@hotelSettingsHoursClosureRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsHoursApprox": "تقريبي",
+  "hotelSettingsHoursSuggested": "مقترحة",
+  "hotelSettingsHoursAddClosure": "إضافة إغلاق",
+  "hotelSettingsHoursAddTitle": "إضافة إغلاق",
+  "hotelSettingsHoursAddLabel": "الاسم",
+  "hotelSettingsHoursAddConfirm": "إضافة",
+  "hotelSettingsHoursRemoveClosure": "إزالة الإغلاق {label}",
+  "@hotelSettingsHoursRemoveClosure": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsHoursSave": "حفظ",
+  "hotelSettingsHoursGuardTitle": "المغادرة بدون حفظ؟",
+  "hotelSettingsHoursGuardLeave": "مغادرة",
+  "hotelSettingsHoursGuardStay": "البقاء",
+  "hotelSettingsHoursViewOnly": "للعرض فقط",
+  "hotelSettingsHoursInvalid": "الوقتان متطابقان",
+  "hotelSettingsHoursCopy": "كل الأيام",
+  "hotelSettingsHoursNextDay": "اليوم التالي",
+  "hotelSettingsHoursOpenOn": "مفتوح يوم {day}",
+  "@hotelSettingsHoursOpenOn": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelSettingsHoursClosedWord": "مغلق",
+  "hotelSettingsBillExempt": "فندق رئيسي · بلا رسوم إدراج",
+  "hotelSettingsBillExemptBody": "تخضع قوائمكم للمراجعة قبل النشر.",
+  "hotelSettingsBillEnds": "تنتهي الباقة",
+  "hotelSettingsBillEnded": "انتهت الباقة",
+  "hotelSettingsBillDaysLeft": "الأيام المتبقية",
+  "hotelSettingsBillDaysUnit": "ي",
+  "hotelSettingsBillHidden": "مخفية",
+  "hotelSettingsBillNone": "لا باقة",
+  "hotelSettingsBillNoneBody": "اختاروا باقة أسبوعية أو شهرية أو سنوية للإعلان. لا يُنشر شيء قبل أن تراجعه غزل.",
+  "hotelSettingsBillRatesBody": "يمكنكم اختيار الباقة الآن، ويُفتح الدفع عند الإعلان عن الأسعار.",
+  "hotelSettingsBillStatusLabel": "حالة الباقة",
+  "hotelSettingsBillPillActive": "سارية",
+  "hotelSettingsBillPillExpiring": "تنتهي قريبًا",
+  "hotelSettingsBillExpiringNote": "نذكّركم قبل أسبوع ومرة أخرى قبل يوم. جدّدوا لتبقى قائمتكم منشورة.",
+  "hotelSettingsBillExpiredNote": "قائمتكم مخفية. جدّدوا الباقة لإعادتها، وتعود إلى المراجعة قبل أن تُنشر من جديد.",
+  "hotelSettingsBillPlanRow": "الباقات",
+  "hotelSettingsBillRenew": "تجديد",
+  "hotelSettingsBillChoose": "اختيار باقة",
+  "hotelSettingsBillSeePlans": "عرض الباقات",
+  "hotelSettingsBillReceipts": "الإيصالات",
+  "hotelSettingsBillDirectNote": "يدفع الأزواج لكم مباشرة مقابل المناسبة. لا تستلم غزل أي مبالغ عن المناسبات ولا تخصم منها ولا تحوّلها، ولذلك هذه هي الشاشة الوحيدة للفوترة.",
+  "hotelSettingsBillViewOnly": "للعرض فقط",
+  "hotelSettingsBillDownload": "تنزيل PDF",
+  "hotelSettingsBillDownloaded": "تم حفظ الإيصال",
+  "hotelSettingsBillMethodKnet": "كي نت",
+  "hotelSettingsBillMethodCard": "بطاقة",
+  "hotelSettingsBillMethodApplePay": "آبل باي",
+  "hotelSettingsBillMethodGooglePay": "جوجل باي",
+  "hotelSettingsStaffEmail": "البريد الإلكتروني",
+  "hotelSettingsStaffEmailError": "أدخل بريدًا صحيحًا",
+  "hotelSettingsBillContractBody": "شروطك كما تم التعاقد عليها مع غزل. لا توجد باقة معلنة.",
+  "hotelShellTabBarLabel": "التنقل الرئيسي",
+  "hotelShellTabToday": "اليوم",
+  "hotelShellTabBookings": "الحجوزات",
+  "hotelShellTabCalendar": "التقويم",
+  "hotelShellTabMessages": "الرسائل",
+  "hotelShellTabMore": "المزيد",
+  "hotelShellBadgePending": "{count, plural, =0{لا طلبات بانتظار ردكم} =1{طلب واحد بانتظار ردكم} =2{طلبان بانتظار ردكم} few{⁦{count}⁩ طلبات بانتظار ردكم} many{⁦{count}⁩ طلبًا بانتظار ردكم} other{⁦{count}⁩ طلب بانتظار ردكم}}",
+  "@hotelShellBadgePending": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelShellBadgeOverflow": "⁦{max}⁩+",
+  "@hotelShellBadgeOverflow": {
+    "placeholders": {
+      "max": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelShellBannerNewRequest": "طلب حجز جديد",
+  "hotelShellGreeting": "أهلًا وسهلًا، {name}",
+  "@hotelShellGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelShellTodayNeedsReply": "{count, plural, =0{لا طلبات بانتظار ردكم} =1{طلب واحد بانتظار ردكم} =2{طلبان بانتظار ردكم} few{⁦{count}⁩ طلبات بانتظار ردكم} many{⁦{count}⁩ طلبًا بانتظار ردكم} other{⁦{count}⁩ طلب بانتظار ردكم}}",
+  "@hotelShellTodayNeedsReply": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelShellTodayFirstIn": "أقربها خلال {time}",
+  "@hotelShellTodayFirstIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelShellTodayAllClear": "لا شيء بانتظار ردكم",
+  "hotelShellNeedsYouTitle": "بحاجة إلى اهتمامكم",
+  "hotelShellOfflineBanner": "لا يوجد اتصال بالإنترنت. يتم عرض آخر ما تم تحميله.",
+  "hotelTodayBell": "الإشعارات",
+  "hotelTodayBellUnread": "الإشعارات، {count, plural, =0{لا شيء غير مقروء} =1{إشعار واحد غير مقروء} =2{إشعاران غير مقروءين} few{⁦{count}⁩ إشعارات غير مقروءة} many{⁦{count}⁩ إشعارًا غير مقروء} other{⁦{count}⁩ إشعار غير مقروء}}",
+  "@hotelTodayBellUnread": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodaySwitchVenue": "تبديل الفندق، الحالية {venue}",
+  "@hotelTodaySwitchVenue": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayStatusFirst": "المهلة الأقرب خلال {time}",
+  "@hotelTodayStatusFirst": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayStatusNeeds": "{count, plural, =0{لا شيء بانتظار ردكم} =1{طلب واحد بانتظار ردكم} =2{طلبان بانتظار ردكم} few{⁦{count}⁩ طلبات بانتظار ردكم} many{⁦{count}⁩ طلبًا بانتظار ردكم} other{⁦{count}⁩ طلب بانتظار ردكم}}",
+  "@hotelTodayStatusNeeds": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodayAllClear": "لا شيء معلق",
+  "hotelTodayStatusMarketing": "{windows, plural, =0{لا أسعار كوبون فعّالة} =1{سعر كوبون فعّال واحد} =2{سعرا كوبون فعّالان} few{⁦{windows}⁩ أسعار كوبون فعّالة} many{⁦{windows}⁩ سعر كوبون فعّال} other{⁦{windows}⁩ سعر كوبون فعّال}} · {views} مشاهدة خلال أسبوع",
+  "@hotelTodayStatusMarketing": {
+    "placeholders": {
+      "windows": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "views": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayNeedsYouTitle": "بانتظاركم",
+  "hotelTodaySeeAllCount": "عرض الكل ({count})",
+  "@hotelTodaySeeAllCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayWindowEnds": "تنتهي مهلة الرد خلال {time}",
+  "@hotelTodayWindowEnds": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayWaitingLong": "بانتظار الرد منذ {time}",
+  "@hotelTodayWaitingLong": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayBlockDate": "إغلاق تاريخ",
+  "hotelTodayEventsTitle": "الفعاليات",
+  "hotelTodayDayView": "عرض اليوم",
+  "hotelTodayAudienceWomen": "الحفل النسائي",
+  "hotelTodayAudienceMen": "الحفل الرجالي",
+  "hotelTodayAudienceMixed": "حفل مختلط",
+  "hotelTodayStartsIn": "يبدأ خلال {time}",
+  "@hotelTodayStartsIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayStripLabel": "التوفر خلال الأيام السبعة القادمة",
+  "hotelTodayCalendar": "التقويم",
+  "hotelTodaySoftDates": "{count, plural, =0{لا تواريخ متاحة في نهاية الأسبوع خلال {days} يومًا} =1{تاريخ متاح في نهاية الأسبوع خلال {days} يومًا} =2{تاريخان متاحان في نهاية الأسبوع خلال {days} يومًا} few{⁦{count}⁩ تواريخ متاحة في نهاية الأسبوع خلال {days} يومًا} many{⁦{count}⁩ تاريخًا متاحًا في نهاية الأسبوع خلال {days} يومًا} other{⁦{count}⁩ تاريخ متاح في نهاية الأسبوع خلال {days} يومًا}}",
+  "@hotelTodaySoftDates": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayOpenDates": "تواريخ متاحة خلال الثلاثين يومًا القادمة",
+  "hotelTodayGlanceTitle": "التحليلات",
+  "hotelTodayAnalytics": "التحليلات",
+  "hotelTodayViews7": "المشاهدات خلال آخر سبعة أيام",
+  "hotelTodayVsPrevious": "مقارنة بالأيام السبعة السابقة",
+  "hotelTodayViewsTrend": "المشاهدات يوميًا خلال آخر سبعة أيام",
+  "hotelTodayMessagesTitle": "الرسائل",
+  "hotelTodayUnread": "غير مقروء",
+  "hotelTodayUnreadCount": "{count, plural, =0{لا رسائل غير مقروءة} =1{رسالة واحدة غير مقروءة} =2{رسالتان غير مقروءتين} few{⁦{count}⁩ رسائل غير مقروءة} many{⁦{count}⁩ رسالة غير مقروءة} other{⁦{count}⁩ رسالة غير مقروءة}}",
+  "@hotelTodayUnreadCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodayYou": "أنتم",
+  "hotelTodayPinned": "مثبتة",
+  "hotelTodayEnquiry": "استفسار",
+  "hotelTodayPreviewVoice": "رسالة صوتية",
+  "hotelTodayPreviewPhoto": "صورة",
+  "hotelTodayPreviewDocument": "مستند",
+  "hotelTodayOfflineStamp": "غير متصل · آخر تحديث {time}",
+  "@hotelTodayOfflineStamp": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayOfflineReason": "غير متصل. يلزم الاتصال بالإنترنت للقبول.",
+  "hotelTodaySwitchSister": "فندق لومي مارينا",
+  "hotelTodayAcceptedToast": "تمت الموافقة",
+  "hotelTodayFirstRunNotifTitle": "السماح بالإشعارات",
+  "hotelTodayFirstRunNotifBody": "للطلبات الجديدة مهلة رد محدودة. عند تفعيل الإشعارات يصلكم تنبيه فوري، حتى والتطبيق مغلق.",
+  "hotelTodayFirstRunNotifPointTime": "تنبيهات عاجلة",
+  "hotelTodayFirstRunNotifPointSound": "نغمة خاصة",
+  "hotelTodayFirstRunNotifAllow": "السماح",
+  "hotelTodayFirstRunNotNow": "ليس الآن",
+  "hotelTodayFirstRunLockTitle": "قفل التطبيق",
+  "hotelTodayFirstRunLockBody": "لحماية الطلبات والكوبونات والزيارات إذا فُقد الجهاز أو استخدمه غيركم. يمكن تفعيله لاحقًا من «المزيد».",
+  "hotelTodayFirstRunLockOn": "تفعيل",
+  "hotelTodaySwitchTitle": "تبديل الفندق",
+  "hotelTodaySwitchPending": "{count, plural, =0{لا طلبات} =1{طلب واحد بانتظار الرد} =2{طلبان بانتظار الرد} few{⁦{count}⁩ طلبات بانتظار الرد} many{⁦{count}⁩ طلبًا بانتظار الرد} other{⁦{count}⁩ طلب بانتظار الرد}}",
+  "@hotelTodaySwitchPending": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodaySwitchCurrent": "القاعة الحالية",
+  "hotelTodayRoleManager": "المدير",
+  "hotelTodayRoleReception": "الاستقبال",
+  "hotelTodayDurDays": "{count, plural, =0{لا أيام} =1{يوم واحد} =2{يومين} few{⁦{count}⁩ أيام} many{⁦{count}⁩ يومًا} other{⁦{count}⁩ يوم}}",
+  "@hotelTodayDurDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodayDurHours": "{count, plural, =0{لا ساعات} =1{ساعة واحدة} =2{ساعتين} few{⁦{count}⁩ ساعات} many{⁦{count}⁩ ساعة} other{⁦{count}⁩ ساعة}}",
+  "@hotelTodayDurHours": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodayDurMinutes": "{count, plural, =0{لا دقائق} =1{دقيقة واحدة} =2{دقيقتين} few{⁦{count}⁩ دقائق} many{⁦{count}⁩ دقيقة} other{⁦{count}⁩ دقيقة}}",
+  "@hotelTodayDurMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodayDurJoin": "{first} و{second}",
+  "@hotelTodayDurJoin": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "second": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayNeedsTitle": "بانتظاركم",
+  "hotelTodayFiltersLabel": "تصفية القائمة",
+  "hotelTodayFilterAll": "الكل",
+  "hotelTodayFilterRequests": "الطلبات",
+  "hotelTodayFilterMessages": "الرسائل",
+  "hotelTodayFilterReviews": "التقييمات",
+  "hotelTodayFilterCalendar": "التقويم",
+  "hotelTodayNotifFilter": "عرض الإشعارات",
+  "hotelTodayMarkAllRead": "تعليم الكل كمقروء",
+  "hotelTodayPrefs": "تفضيلات الإشعارات",
+  "hotelTodayNotifEmptyTitle": "لا إشعارات",
+  "hotelTodayNotifUnreadEmptyTitle": "الكل مقروء",
+  "hotelTodayNotifShowAll": "عرض الكل",
+  "hotelTodayPushDeniedTitle": "الإشعارات متوقفة",
+  "hotelTodayOpenSettings": "الإعدادات",
+  "hotelTodayPushDeniedToast": "فعّلوها من الإعدادات",
+  "hotelTodayAllRead": "الكل مقروء",
+  "hotelTodayInboxTitle": "الرسائل",
+  "hotelTodayInboxSearch": "الاسم أو المرجع",
+  "hotelTodayInboxSearchLabel": "البحث في المحادثات",
+  "hotelTodayInboxFilters": "تصفية المحادثات",
+  "hotelTodayInboxUnread": "غير المقروءة",
+  "hotelTodayInboxNeedsReply": "بانتظار الرد",
+  "hotelTodayInboxLinked": "مرتبطة",
+  "hotelTodayInboxEnquiries": "استفسارات",
+  "hotelTodayInboxEmptyTitle": "لا رسائل",
+  "hotelTodayInboxNoResultsTitle": "لا نتائج",
+  "hotelTodayClearSearch": "مسح",
+  "hotelTodayInboxSupportOnly": "الاستقبال يتولى العملاء",
+  "hotelTodayMarkRead": "تعليم كمقروءة",
+  "hotelTodayMarkUnread": "تعليم كغير مقروءة",
+  "hotelTodayConversationMenu": "الخيارات",
+  "hotelTodayHandledBy": "المتابعة: {name}",
+  "@hotelTodayHandledBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayCallClient": "اتصال بالعميل {name}",
+  "@hotelTodayCallClient": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayReport": "إبلاغ",
+  "hotelTodayReportSent": "تم إرسال البلاغ",
+  "hotelTodayContextLine": "{audience} · {date} · {guests}",
+  "@hotelTodayContextLine": {
+    "placeholders": {
+      "audience": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      },
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayOpenBooking": "فتح الطلب، {summary}",
+  "@hotelTodayOpenBooking": {
+    "placeholders": {
+      "summary": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayComposerLabel": "الرسالة",
+  "hotelTodayComposerPlaceholder": "رسالة",
+  "hotelTodayAttach": "إرفاق",
+  "hotelTodayAttachTitle": "إرفاق",
+  "hotelTodayAttachCamera": "الكاميرا",
+  "hotelTodayAttachPhoto": "الصور",
+  "hotelTodayAttachDocument": "مستند",
+  "hotelTodayRecordHold": "اضغطوا للتسجيل",
+  "hotelTodayRecording": "جارٍ التسجيل",
+  "hotelTodaySlideCancel": "اسحبوا للإلغاء",
+  "hotelTodaySlideLock": "اسحبوا للأعلى للتثبيت",
+  "hotelTodayRecordingLocked": "تم تثبيت التسجيل",
+  "hotelTodayRecordDelete": "حذف التسجيل",
+  "hotelTodayRecordSend": "إرسال التسجيل",
+  "hotelTodayQuickLabel": "ردود سريعة",
+  "hotelTodayQrAvailability": "التوفر",
+  "hotelTodayQrPrice": "السعر",
+  "hotelTodayQrVisit": "زيارة",
+  "hotelTodayQrAddress": "العنوان",
+  "hotelTodayQrAvailabilityText": "هلا فيكم. التاريخ {date} متاح لدينا ويسعدنا استقبالكم.",
+  "@hotelTodayQrAvailabilityText": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayQrPriceText": "بكوبون غزل يصبح إجمالي {guests} هو {total} بدل {standard}، ويتم السداد لنا مباشرة بعد تأكيدكم.",
+  "@hotelTodayQrPriceText": {
+    "placeholders": {
+      "guests": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      },
+      "standard": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayQrVisitText": "يسعدنا استقبالكم لزيارة القاعة. يمكنكم حجز موعد الزيارة من صفحتنا في تطبيق غزل واختيار اليوم المناسب.",
+  "hotelTodayQrAddressText": "موقعنا: {venue}، {area}.",
+  "@hotelTodayQrAddressText": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      },
+      "area": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayMsgSending": "جارٍ الإرسال",
+  "hotelTodayMsgQueued": "بانتظار الاتصال",
+  "hotelTodayMsgFailed": "لم تُرسل",
+  "hotelTodayDraftTag": "مسودة",
+  "hotelTodayThreadEmptyTitle": "لا رسائل",
+  "hotelTodayAllPrices": "كل أسعار الكوبون",
+  "hotelTodayAwaitingClient": "بانتظار تأكيد العميل",
+  "hotelTodayBillingTitle": "الفوترة",
+  "hotelTodayConfirmWindowEnds": "تنتهي مهلة تأكيد العميل خلال {time}",
+  "@hotelTodayConfirmWindowEnds": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayFilterListing": "الإعلان",
+  "hotelTodayFilterVisits": "الزيارات",
+  "hotelTodayInboxVisits": "الزيارات",
+  "hotelTodayNewPrice": "سعر جديد",
+  "hotelTodayNtfListingApproved": "تمت الموافقة على الإعلان",
+  "hotelTodayNtfListingRejected": "لم تتم الموافقة على الإعلان",
+  "hotelTodayNtfListingSubmitted": "تم إرسال الإعلان للمراجعة",
+  "hotelTodayNtfNewRequest": "طلب جديد",
+  "hotelTodayNtfRedeemed": "تم استخدام الكوبون لديكم",
+  "hotelTodayPricesTitle": "أسعار الكوبون",
+  "hotelTodayRedeem": "استخدام",
+  "hotelTodayRequestsMonth": "طلبات هذا الشهر",
+  "hotelTodayStatusExempt": "فندق رئيسي · بلا رسوم إدراج",
+  "hotelTodayStatusListing": "هناك إعلان بانتظار اهتمامكم",
+  "hotelTodayStatusNoPlan": "لا توجد باقة إدراج فعّالة",
+  "hotelTodayStatusPlan": "تنتهي باقة الإدراج {date}",
+  "@hotelTodayStatusPlan": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayStatusVisits": "{count, plural, =0{لا طلبات زيارة بانتظار ردكم} =1{طلب زيارة واحد بانتظار ردكم} =2{طلبا زيارة بانتظار ردكم} few{⁦{count}⁩ طلبات زيارة بانتظار ردكم} many{⁦{count}⁩ طلب زيارة بانتظار ردكم} other{⁦{count}⁩ طلب زيارة بانتظار ردكم}}",
+  "@hotelTodayStatusVisits": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelTodayTilesTitle": "هذا الشهر",
+  "hotelTodayVisitMembers": "أعضاء المحادثة: العميل وممثل الفندق ودعم غزل",
+  "hotelTodayVoucherMonthTitle": "الكوبونات",
+  "hotelTodayVouchersRedeemed": "كوبونات تم استخدامها",
+  "hotelTodayFirstRunFaceId": "بصمة الوجه",
+  "hotelTodayFirstRunFingerprint": "بصمة الإصبع",
+  "hotelTodayRoleAccountant": "المحاسب",
+  "hotelTodayRoleMarketing": "التسويق",
+  "hotelTodayReadOnly": "للاطلاع فقط",
+  "hotelTodayRedeemName": "استخدام الكوبون",
+  "hotelTodayBlockName": "إغلاق تاريخ",
+  "hotelTodayNewPriceName": "سعر كوبون جديد",
+  "hotelTodayRedeemedName": "كوبونات تم استخدامها",
+  "hotelTodayReviewLabel": "الإعلان قيد المراجعة",
+  "hotelTodayNoPlan": "بلا باقة",
+  "hotelTodayFactDate": "التاريخ",
+  "hotelTodayFactGuests": "الضيوف",
+  "hotelTodayFactHall": "القاعة",
+  "hotelTodayFactTime": "الوقت",
+  "hotelTodayFactRating": "التقييم",
+  "hotelTodayFactVisitors": "الزوار",
+  "hotelTodayFactVoucherPrice": "سعر الكوبون",
+  "hotelTodayFactReplyBy": "الرد قبل",
+  "hotelTodayFactEnds": "ينتهي",
+  "hotelTodayKindRequest": "طلب",
+  "hotelTodayKindAwaiting": "بانتظار العميل",
+  "hotelTodayKindVisit": "طلب زيارة",
+  "hotelTodayKindMessage": "رسالة",
+  "hotelTodayKindReview": "تقييم",
+  "hotelTodayKindCalendar": "تأكيد التقويم",
+  "hotelTodayKindListing": "إعلان",
+  "hotelTodayKindPrice": "سعر كوبون ينتهي",
+  "hotelTodayCalendarCheck": "التقويم",
+  "hotelTodayListingEndsIn": "تنتهي الباقة خلال {time}",
+  "@hotelTodayListingEndsIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayWindowEndsIn": "ينتهي السعر خلال {time}",
+  "@hotelTodayWindowEndsIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelTodayListings": "الإعلانات",
+  "hotelTodayNextLabel": "الفعالية التالية",
+  "hotelTodayVouchersBought": "كوبونات تم شراؤها",
+  "hotelTodayVouchersTrend": "الكوبونات المشتراة يوميًا",
+  "hotelVenueLangBoth": "عربي · إنجليزي",
+  "hotelVenueLangArMissing": "عربي ⁦{count}⁩",
+  "@hotelVenueLangArMissing": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueLangEnMissing": "إنجليزي ⁦{count}⁩",
+  "@hotelVenueLangEnMissing": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueDashboardTitle": "لوحة التحكم",
+  "hotelVenueDashboardCta": "لوحة التحكم",
+  "hotelVenueDashboardLead": "تُعدَّل من لوحة التحكم. الحجوزات القائمة تبقى بشروطها.",
+  "hotelVenueDashboardItemSeason": "جداول أسعار المواسم",
+  "hotelVenueDashboardItemHoliday": "أسعار العطل والمناسبات",
+  "hotelVenueDashboardItemSpecial": "أسعار تاريخ محدد",
+  "hotelVenueDashboardItemMenus": "القوائم ومستوياتها",
+  "hotelVenueDashboardItemService": "رسوم الخدمة",
+  "hotelVenueGuardTitle": "تجاهل التغييرات؟",
+  "hotelVenueGuardBody": "لديكم تعديلات غير محفوظة. إذا غادرتم الآن فستُفقد.",
+  "hotelVenueGuardDiscard": "تجاهل",
+  "hotelVenueGuardKeep": "متابعة التعديل",
+  "hotelVenueOfflineStrip": "دون اتصال · {time}",
+  "@hotelVenueOfflineStrip": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueNeedsConnection": "يحتاج إلى اتصال.",
+  "hotelVenueRequired": "مطلوب",
+  "hotelVenueErrorTitle": "تعذّر التحميل",
+  "hotelVenueErrorBody": "لم يتغير شيء. تحقق من الاتصال وأعد المحاولة.",
+  "hotelVenueFieldInArabic": "{field} (عربي)",
+  "@hotelVenueFieldInArabic": {
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueFieldInEnglish": "{field} (إنجليزي)",
+  "@hotelVenueFieldInEnglish": {
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenuePriceError": "مبلغ غير صالح",
+  "hotelVenueZoneHall": "القاعة",
+  "hotelVenueZoneStage": "المنصة والكوشة",
+  "hotelVenueZoneBridal": "جناح العروس",
+  "hotelVenueZoneBuffet": "البوفيه",
+  "hotelVenueZoneOutdoors": "الخارج",
+  "hotelVenueZoneEntrance": "المدخل والفاليه",
+  "hotelVenueZoneLayouts": "التصاميم",
+  "hotelVenueZoneStageShort": "المنصة",
+  "hotelVenueZoneBridalShort": "الجناح",
+  "hotelVenueZoneEntranceShort": "المدخل",
+  "hotelVenueZoneFilter": "تصفية الصور حسب الموقع",
+  "hotelVenueZoneAll": "الكل ⁦{count}⁩",
+  "@hotelVenueZoneAll": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueZoneCount": "{zone} ⁦{count}⁩",
+  "@hotelVenueZoneCount": {
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      },
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueMediaTitle": "الصور والفيديو",
+  "hotelVenueMediaTabs": "الصور أو الفيديو",
+  "hotelVenueMediaTabPhotos": "صور ⁦{count}⁩",
+  "@hotelVenueMediaTabPhotos": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueMediaTabVideos": "فيديو ⁦{count}⁩",
+  "@hotelVenueMediaTabVideos": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueMediaEmptyTitle": "لا صور",
+  "hotelVenueAddPhotosCta": "إضافة صور",
+  "hotelVenueAddVideoCta": "إضافة فيديو",
+  "hotelVenueAddPhotoTitle": "إضافة صورة",
+  "hotelVenueAddVideoTitle": "إضافة فيديو",
+  "hotelVenuePhotoSheetTitle": "الصورة",
+  "hotelVenueVideoSheetTitle": "الفيديو",
+  "hotelVenuePhotoCount": "⁦{count}⁩",
+  "@hotelVenuePhotoCount": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueReorder": "إعادة الترتيب",
+  "hotelVenueReorderDone": "تم",
+  "hotelVenueReorderHint": "استخدم الأسهم",
+  "hotelVenueShowAll": "عرض الكل",
+  "hotelVenueEmptyRoomOnly": "قاعات فارغة فقط",
+  "hotelVenueAttentionRejected": "⁦{count}⁩ للاستبدال",
+  "@hotelVenueAttentionRejected": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueStatusReview": "مراجعة",
+  "hotelVenueStatusRejected": "للاستبدال",
+  "hotelVenueStatusLive": "منشورة",
+  "hotelVenueReviewNote": "تظهر لك فقط",
+  "hotelVenueUploading": "جارٍ الرفع · {percent}",
+  "@hotelVenueUploading": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueUploadingLabel": "تقدم الرفع",
+  "hotelVenueUploadFailed": "فشل الرفع",
+  "hotelVenueUploadQueued": "بالانتظار",
+  "hotelVenueUploadRetry": "إعادة المحاولة",
+  "hotelVenueOfflineQueueNote": "دون اتصال. الرفع ينتظر.",
+  "hotelVenueVideoOpen": "فتح {name}",
+  "@hotelVenueVideoOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueVideoLimits": "حتى ⁦{size}⁩ م.ب",
+  "@hotelVenueVideoLimits": {
+    "placeholders": {
+      "size": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueVideoTooLarge": "الملف كبير",
+  "hotelVenueVideoTooLargeBody": "الحد ⁦{size}⁩ م.ب",
+  "@hotelVenueVideoTooLargeBody": {
+    "placeholders": {
+      "size": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueVideoEmptyTitle": "لا فيديو",
+  "hotelVenueVideoNote": "تُشغَّل بالنقر",
+  "hotelVenueVideoDelete": "حذف الفيديو",
+  "hotelVenueVideoDeleteTitle": "حذف هذا الفيديو؟",
+  "hotelVenueVideoDeleteBody": "يُزال من القائمة.",
+  "hotelVenueNewVideoTitle": "فيديو جولة جديد",
+  "hotelVenueToastVideoDeleted": "تم حذف الفيديو",
+  "hotelVenueToastVideoAdded": "أُضيف الفيديو",
+  "hotelVenueCover": "الغلاف",
+  "hotelVenueSetCover": "تعيين كصورة غلاف",
+  "hotelVenueEditPhoto": "تعديل التفاصيل",
+  "hotelVenueDeletePhoto": "حذف الصورة",
+  "hotelVenueDeleteTitle": "حذف هذه الصورة؟",
+  "hotelVenueDeleteBody": "تُزال من القائمة.",
+  "hotelVenueDeleteConfirm": "حذف",
+  "hotelVenueDeleteKeep": "إبقاء",
+  "hotelVenueReplace": "استبدال الصورة",
+  "hotelVenueReplaceTitle": "استبدال الصورة",
+  "hotelVenueReasonPerson": "يظهر شخص",
+  "hotelVenueReplaceShort": "استبدال",
+  "hotelVenueReasonPersonBody": "استخدم صورة قاعة فارغة.",
+  "hotelVenueFieldZone": "الموقع في القاعة",
+  "hotelVenueFieldAlt": "النص البديل",
+  "hotelVenueAltHelper": "لقارئ الشاشة",
+  "hotelVenueAltBothFirst": "أضف اللغتين",
+  "hotelVenueUploadZoneFirst": "اختيار المنطقة",
+  "hotelVenueToastCover": "تم تحديث صورة الغلاف",
+  "hotelVenueToastDeleted": "تم حذف الصورة",
+  "hotelVenueToastPhotoSaved": "تم حفظ بيانات الصورة",
+  "hotelVenueSourceCamera": "الكاميرا",
+  "hotelVenueSourceLibrary": "المعرض",
+  "hotelVenueSourceVideo": "تحديد فيديو",
+  "hotelVenueUploadCta": "رفع الصورة",
+  "hotelVenueFaceTitle": "يظهر شخص",
+  "hotelVenueFaceBody": "أعد التصوير أو اقتص الصورة.",
+  "hotelVenueFaceRetake": "إعادة التصوير",
+  "hotelVenueFaceCrop": "اقتطاع",
+  "hotelVenueFaceFirst": "إعادة التصوير أو الاقتصاص أولًا",
+  "hotelVenueToastUploadStarted": "بدأ الرفع",
+  "hotelVenueToastQueued": "في الانتظار",
+  "hotelVenueToastPhotoAdded": "أُضيفت الصورة",
+  "hotelVenueToastReplaced": "تم الاستبدال",
+  "hotelVenueChipReview": "قيد المراجعة ⁦{count}⁩",
+  "@hotelVenueChipReview": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueUploadDemoPhoto": "صورة جديدة",
+  "hotelVenueSave": "حفظ التغييرات",
+  "hotelVenueSavedState": "تم الحفظ",
+  "hotelVenueFieldName": "الاسم",
+  "hotelVenueFieldDescription": "الوصف",
+  "hotelVenueFieldPrice": "السعر",
+  "hotelVenueNameRequired": "الاسم باللغتين",
+  "hotelVenueReservedName": "اسم محجوز",
+  "hotelVenueAudWomen": "نسائي",
+  "hotelVenueAudMen": "رجالي",
+  "hotelVenueAudMixed": "مختلط",
+  "hotelVenueGuestRange": "{from}–{to}",
+  "@hotelVenueGuestRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueUnitEvent": "للحفل",
+  "hotelVenueUnitUnit": "للوحدة",
+  "hotelVenueAllDays": "كل الأيام",
+  "hotelVenueHidden": "مخفية",
+  "hotelVenueOfflineChange": "التعديل يحتاج إلى اتصال.",
+  "hotelVenuePackagesTitle": "الباقات",
+  "hotelVenuePackagesTabs": "الباقات أو الإضافات",
+  "hotelVenueTabPackages": "الباقات (⁦{count}⁩)",
+  "@hotelVenueTabPackages": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueTabExtras": "الإضافات (⁦{count}⁩)",
+  "@hotelVenueTabExtras": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenuePkgNew": "باقة جديدة",
+  "hotelVenueExtraAdd": "إضافة جديدة",
+  "hotelVenuePkgEmptyTitle": "لا باقات",
+  "hotelVenueExtraEmptyTitle": "لا إضافات",
+  "hotelVenuePkgActiveLabel": "إظهار {name} للعملاء",
+  "@hotelVenuePkgActiveLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueToastPkgHidden": "أُخفيت {name}",
+  "@hotelVenueToastPkgHidden": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueToastPkgShown": "ظهرت {name}",
+  "@hotelVenueToastPkgShown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueToastExtraHidden": "أُخفيت {name}",
+  "@hotelVenueToastExtraHidden": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueToastExtraShown": "ظهرت {name}",
+  "@hotelVenueToastExtraShown": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueArchivedHead": "المؤرشفة (⁦{count}⁩)",
+  "@hotelVenueArchivedHead": {
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueRestore": "استعادة",
+  "hotelVenueToastRestored": "استُعيدت {name}",
+  "@hotelVenueToastRestored": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueToastArchived": "أُرشفت {name}",
+  "@hotelVenueToastArchived": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueEditPackage": "تعديل {name}",
+  "@hotelVenueEditPackage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueExtraEditTitle": "تعديل الإضافة",
+  "hotelVenueExtraNewTitle": "إضافة جديدة",
+  "hotelVenueFieldUnit": "الاحتساب",
+  "hotelVenueFieldShow": "إظهار للعملاء",
+  "hotelVenueExtraRange": "{from}–{to}",
+  "@hotelVenueExtraRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueToastExtraSaved": "تم الحفظ",
+  "hotelVenueToastExtraCreated": "تمت الإضافة",
+  "hotelVenueNeedPrice": "أدخل السعر",
+  "hotelVenuePkgEditTitle": "تعديل الباقة",
+  "hotelVenueSecName": "الاسم",
+  "hotelVenueSecAudience": "الفئة",
+  "hotelVenueSecPricing": "التسعير",
+  "hotelVenueSecGuests": "عدد الضيوف",
+  "hotelVenueSecInclusions": "تشمل",
+  "hotelVenueSecPreview": "المعاينة",
+  "hotelVenueSecStatus": "الحالة",
+  "hotelVenueAudienceLabel": "الجمهور",
+  "hotelVenueAudienceNeeded": "اختيار الفئة",
+  "hotelVenueHallsLabel": "القاعات",
+  "hotelVenueHallsNeeded": "اختيار قاعة",
+  "hotelVenueBasisLabel": "أساس التسعير",
+  "hotelVenueBasisFlat": "مبلغ ثابت",
+  "hotelVenueBasisFlatPlus": "ثابت + ضيف",
+  "hotelVenueDaysWeekday": "أيام الأسبوع · من {from} إلى {to}",
+  "@hotelVenueDaysWeekday": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueDaysWeekend": "نهاية الأسبوع · من {from} إلى {to}",
+  "@hotelVenueDaysWeekend": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueDaysSwitch": "تقديم الباقة في {days}",
+  "@hotelVenueDaysSwitch": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueBundleNote": "من باقتين",
+  "hotelVenueTierNeeded": "تفعيل أيام",
+  "hotelVenueGuestsMin": "أقل عدد",
+  "hotelVenueGuestsMax": "أكثر عدد",
+  "hotelVenueMaxBelowMin": "الأكثر دون الأقل",
+  "hotelVenueMaxOverHall": "فوق سعة القاعة ({max})",
+  "@hotelVenueMaxOverHall": {
+    "placeholders": {
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueInclusionAdd": "إضافة بند",
+  "hotelVenueInclusionRemove": "إزالة {name}",
+  "@hotelVenueInclusionRemove": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueInclusionSheetTitle": "إضافة",
+  "hotelVenueInclusionPick": "المرافق",
+  "hotelVenueInclusionOwn": "من عندك",
+  "hotelVenueInclusionOwnLabel": "البند",
+  "hotelVenueInclusionBoth": "باللغتين",
+  "hotelVenueActiveTitle": "ظاهرة",
+  "hotelVenueArchive": "أرشفة",
+  "hotelVenueArchiveTitle": "أرشفة؟",
+  "hotelVenueArchiveBody": "تُخفى عن العملاء ويمكن استعادتها.",
+  "hotelVenueArchiveConfirm": "أرشفة",
+  "hotelVenuePvDate": "تاريخ وضيوف",
+  "hotelVenuePvGuests": "ضيوف فقط",
+  "hotelVenuePvNone": "بدونهما",
+  "hotelVenuePvOff": "غير متاحة",
+  "hotelVenuePvNoName": "الاسم",
+  "hotelVenueToastPkgSaved": "تم الحفظ",
+  "hotelVenueToastPkgCreated": "تمت الإضافة",
+  "hotelVenueReasonPrices": "أدخل الأسعار",
+  "hotelVenueReasonGuests": "صحّح الأعداد",
+  "hotelVenueExtraActiveOn": "يمكن للعملاء إضافتها إلى طلبهم.",
+  "hotelVenueExtraActiveOff": "مخفية عن العملاء.",
+  "hotelVenueSettingIndoor": "داخلي",
+  "hotelVenueSettingOutdoor": "في الهواء الطلق",
+  "hotelVenueSettingMixed": "كلاهما",
+  "hotelVenueNone": "لا يوجد",
+  "hotelVenueHallsTitle": "القاعات",
+  "hotelVenueHallEditTitle": "تعديل القاعة",
+  "hotelVenueSecCapacity": "السعة",
+  "hotelVenueSecHallAudience": "الفئة",
+  "hotelVenueSecSessions": "الجلسات",
+  "hotelVenueSecFacilities": "المرافق",
+  "hotelVenueSecSections": "حسب القسم",
+  "hotelVenueCapMax": "أكثر عدد",
+  "hotelVenueCapMin": "أقل · {audience}",
+  "@hotelVenueCapMin": {
+    "placeholders": {
+      "audience": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueMinAboveMax": "الأقل فوق الأكثر",
+  "hotelVenueAudAtLeastOne": "اختيار الفئة",
+  "hotelVenueSettingLabel": "نوع القاعة",
+  "hotelVenueAudienceAllowed": "الجمهور المسموح",
+  "hotelVenueExclusiveTitle": "اليوم كاملًا",
+  "hotelVenueSessionAdd": "إضافة فترة",
+  "hotelVenueSessionLine": "من {from} إلى {to}",
+  "@hotelVenueSessionLine": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueSessionNeeded": "أضف فترة",
+  "hotelVenueSessionEditTitle": "تعديل الجلسة",
+  "hotelVenueSessionNewTitle": "جلسة جديدة",
+  "hotelVenueSessionName": "الاسم",
+  "hotelVenueSessionStart": "البداية",
+  "hotelVenueSessionEnd": "النهاية",
+  "hotelVenueSessionSetup": "التجهيز",
+  "hotelVenueSessionTeardown": "الفك",
+  "hotelVenueSessionDelete": "حذف",
+  "hotelVenueSessionAfterMidnight": "بعد منتصف الليل",
+  "hotelVenueSessionNameNeeded": "الاسم باللغتين",
+  "hotelVenuePresetsLabel": "ابدأوا من نموذج جاهز",
+  "hotelVenuePresetAfternoon": "بعد الظهر",
+  "hotelVenuePresetEvening": "المساء",
+  "hotelVenuePresetFull": "اليوم الكامل",
+  "hotelVenueAmIncluded": "مشمول",
+  "hotelVenueAmExtra": "بتكلفة إضافية",
+  "hotelVenueAmNone": "غير متوفر",
+  "hotelVenueAmenityOf": "{name} · {audience}",
+  "@hotelVenueAmenityOf": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "audience": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueAmenityChoose": "اختاروا حالة {name}",
+  "@hotelVenueAmenityChoose": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueSectionWomen": "النساء",
+  "hotelVenueSectionMen": "الرجال",
+  "hotelVenueSectionMixed": "مختلط",
+  "hotelVenueFactPhoto": "التصوير",
+  "hotelVenueFactMusic": "الموسيقى",
+  "hotelVenuePhotoFemale": "نساء فقط",
+  "hotelVenuePhotoAllowed": "مسموح",
+  "hotelVenuePhotoNone": "غير مسموح",
+  "hotelVenueMusicDj": "دي جي",
+  "hotelVenueMusicLive": "حيّة",
+  "hotelVenueMusicDuff": "دف",
+  "hotelVenueMusicNone": "بدون موسيقى",
+  "hotelVenueLinkRules": "قواعد الحجز",
+  "hotelVenueToastHallSaved": "تم الحفظ",
+  "hotelVenuePolTitle": "السياسات",
+  "hotelVenueSecChildren": "الأولاد",
+  "hotelVenueSecDress": "اللباس",
+  "hotelVenueChildrenNoLimit": "بلا حد",
+  "hotelVenueChildrenLimit": "بحد",
+  "hotelVenueChildrenAge": "أكبر سن",
+  "hotelVenueYears": "{count, plural, =0{⁦{count}⁩ سنة} =1{سنة} =2{سنتان} few{⁦{count}⁩ سنوات} many{⁦{count}⁩ سنة} other{⁦{count}⁩ سنة}}",
+  "@hotelVenueYears": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVenueDressLabel": "اللباس",
+  "hotelVenueDressNeeded": "الزي باللغتين",
+  "hotelVenueToastPolicySaved": "تم الحفظ",
+  "hotelVenueRulesTitle": "قواعد الحجز",
+  "hotelVenueRulesHall": "القاعة",
+  "hotelVenueSecMode": "النمط",
+  "hotelVenueSecResponse": "الرد",
+  "hotelVenueModeRequest": "طلب حجز",
+  "hotelVenueRespondLabel": "الرد خلال",
+  "hotelVenueRespondWarn": "قد ينخفض معدل الرد",
+  "hotelVenueNoticeDays": "الإشعار المسبق",
+  "hotelVenueLinkCalendar": "التقويم",
+  "hotelVenueToastRulesSaved": "تم الحفظ",
+  "hotelVenueWindowsRow": "فترات الكوبون",
+  "hotelVenueReasonVoucher": "الكوبون فوق العادي",
+  "hotelVenueStdFlat": "ثابت",
+  "hotelVenueStdPerGuest": "للضيف",
+  "hotelVenueVchFlat": "ثابت",
+  "hotelVenueVchPerGuest": "للضيف",
+  "hotelVenueVoucherAboveFlat": "فوق العادي",
+  "hotelVenueVoucherAboveGuest": "فوق العادي",
+  "hotelVenueVchBelowFee": "التوفير دون {fee}",
+  "@hotelVenueVchBelowFee": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueVchSaving": "يوفّر {amount}",
+  "@hotelVenueVchSaving": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenuePvStandard": "عادي {standard}",
+  "@hotelVenuePvStandard": {
+    "placeholders": {
+      "standard": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueNoVoucherTag": "بلا سعر كوبون",
+  "hotelVenueHoursRun": "من {from} إلى {to}",
+  "@hotelVenueHoursRun": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueHoursLine": "من {from} إلى {to}",
+  "@hotelVenueHoursLine": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueHoursOpen": "الافتتاح",
+  "hotelVenueHoursClose": "الإغلاق",
+  "hotelVenueHoursTitle": "الدوام",
+  "hotelVenueSecHours": "الدوام",
+  "hotelVenueSecTerms": "الشروط",
+  "hotelVenueTermsLabel": "الشروط",
+  "hotelVenueTermsNeeded": "الشروط باللغتين",
+  "hotelVenueVoucherTermsTitle": "شروط الكوبون",
+  "hotelVenueVtFee": "الرسم",
+  "hotelVenueVtValidity": "الصلاحية",
+  "hotelVenueVtConfirm": "التأكيد",
+  "hotelVenueVtRedeem": "في القاعة",
+  "hotelVenueVtRedeemValue": "الرمز",
+  "hotelVenueSecConfirm": "الإشعار",
+  "hotelVenueConfirmLabel": "التأكيد",
+  "hotelVenueConfirmFixed": "{hours}",
+  "@hotelVenueConfirmFixed": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueNoticeShort": "الإشعار أقصر من مدة الرد",
+  "hotelVenueLinkVoucher": "أسعار الكوبون",
+  "hotelVenueLinkVisits": "الزيارات",
+  "hotelVenueTlRequest": "الطلب",
+  "hotelVenueTlReply": "الرد {hours}",
+  "@hotelVenueTlReply": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueTlConfirm": "التأكيد {hours}",
+  "@hotelVenueTlConfirm": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueTlPay": "الدفع للقاعة",
+  "hotelVenueTlPayText": "{voucher} · {standard}",
+  "@hotelVenueTlPayText": {
+    "placeholders": {
+      "voucher": {
+        "type": "String"
+      },
+      "standard": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVenueSecProfile": "الملف",
+  "hotelVenueTypeLabel": "نوع المكان",
+  "hotelVenueTypePending": "قيد المراجعة",
+  "hotelVenueToastTypeSent": "أُرسل",
+  "hotelVenueSecHalls": "القاعات",
+  "hotelVenueStd": "عادي",
+  "hotelVenueVch": "كوبون",
+  "hotelVisitsActorHotel": "الفندق",
+  "hotelVisitsActorSupport": "دعم غزل",
+  "hotelVisitsActorSystem": "غزل",
+  "hotelVisitsArrivalTitle": "الوصول",
+  "hotelVisitsArrivalError": "لم يُحفظ",
+  "hotelVisitsDemoJump": "عرض تجريبي: الانتقال إلى يوم الزيارة",
+  "hotelVisitsArrivedDoneTitle": "وصل {name}",
+  "@hotelVisitsArrivedDoneTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsMarkArrived": "تأكيد الوصول",
+  "hotelVisitsDidNotArrive": "لم يحضر",
+  "hotelVisitsMissedCta": "لم يحضر",
+  "hotelVisitsMissedDialogTitle": "تسجيل عدم الحضور؟",
+  "hotelVisitsMissedDialogBody": "يُبلَّغ دعم غزل.",
+  "hotelVisitsMissedDoneTitle": "لم يحضر {name}",
+  "@hotelVisitsMissedDoneTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsMissedFrom": "من {time}",
+  "@hotelVisitsMissedFrom": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsOnTheWayTitle": "{name} في الطريق",
+  "@hotelVisitsOnTheWayTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsOnTheWayBody": "{time}",
+  "@hotelVisitsOnTheWayBody": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsSlotEndedTitle": "انتهى الموعد",
+  "hotelVisitsSlotEndedBody": "{name}",
+  "@hotelVisitsSlotEndedBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsAttachTitle": "إرفاق",
+  "hotelVisitsAttachCamera": "الكاميرا",
+  "hotelVisitsAttachPhoto": "الصور",
+  "hotelVisitsAttachDocument": "مستند",
+  "hotelVisitsAvailTitle": "ساعات الزيارة",
+  "hotelVisitsAvailabilityAction": "ساعات الزيارة",
+  "hotelVisitsAvailErrorTitle": "تعذّر التحميل",
+  "hotelVisitsAvailHiddenTitle": "للمدير فقط",
+  "hotelVisitsAvailHiddenBody": "اسأل المدير.",
+  "hotelVisitsMasterTitle": "استقبال الزيارات",
+  "hotelVisitsOffTitle": "الزيارات متوقفة",
+  "hotelVisitsOffBody": "مخفية عن صفحتك",
+  "hotelVisitsSecDays": "الأيام",
+  "hotelVisitsDayNoVisits": "متوقف",
+  "hotelVisitsDayFrom": "من",
+  "hotelVisitsDayTo": "إلى",
+  "hotelVisitsDayOpenLabel": "زيارات يوم {day}",
+  "@hotelVisitsDayOpenLabel": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsDayPick": "{what} الساعة {time}",
+  "@hotelVisitsDayPick": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsDayErrorOrder": "النهاية بعد البداية",
+  "hotelVisitsDayErrorBounds": "ضمن ساعات العمل",
+  "hotelVisitsSeeBusinessHours": "ساعات العمل",
+  "hotelVisitsTimeFrom": "من",
+  "hotelVisitsTimeTo": "إلى",
+  "hotelVisitsTimeSet": "تعيين",
+  "hotelVisitsSecSlot": "المدة",
+  "hotelVisitsSlotChip": "{minutes} دقيقة",
+  "@hotelVisitsSlotChip": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsSecRepDefault": "المسؤول الافتراضي",
+  "hotelVisitsRepNone": "لا أحد",
+  "hotelVisitsSecBlackouts": "أيام الإيقاف",
+  "hotelVisitsBlackoutsAdd": "إضافة",
+  "hotelVisitsBlackoutTitle": "أيام الإيقاف",
+  "hotelVisitsBlackoutNeed": "تحديد يوم",
+  "hotelVisitsBlackoutAdd": "إضافة",
+  "hotelVisitsBlackoutRange": "من {from} إلى {to}",
+  "@hotelVisitsBlackoutRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsBlackoutRemove": "حذف إغلاق {range}",
+  "@hotelVisitsBlackoutRemove": {
+    "placeholders": {
+      "range": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsSave": "حفظ",
+  "hotelVisitsSaveClean": "لا تغييرات",
+  "hotelVisitsSaveInvalid": "صحّح الأيام",
+  "hotelVisitsSaveOfflineToast": "غير متصل",
+  "hotelVisitsSaved": "تم الحفظ",
+  "hotelVisitsSavedBanner": "تم الحفظ",
+  "hotelVisitsGuardTitle": "المغادرة دون حفظ؟",
+  "hotelVisitsGuardBody": "ستضيع التغييرات.",
+  "hotelVisitsGuardLeave": "مغادرة",
+  "hotelVisitsGuardStay": "البقاء",
+  "hotelVisitsChatTitle": "محادثة الزيارة",
+  "hotelVisitsChatErrorTitle": "تعذّر تحميل المحادثة",
+  "hotelVisitsChatOfflineBanner": "غير متصل. آخر تحديث {time}",
+  "@hotelVisitsChatOfflineBanner": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsChatReadOnlyRole": "للقراءة فقط",
+  "hotelVisitsChatClosedAfter": "أُغلقت المحادثة",
+  "hotelVisitsChatClosedCancelled": "أُلغيت الزيارة",
+  "hotelVisitsChatClosedDeclined": "رُفضت الزيارة",
+  "hotelVisitsMsgFailed": "لم تُرسل",
+  "hotelVisitsMsgQueued": "في الانتظار",
+  "hotelVisitsMsgSending": "جارٍ الإرسال",
+  "hotelVisitsRecordHold": "اضغط للتسجيل",
+  "hotelVisitsQrConfirm": "تأكيد الزيارة",
+  "hotelVisitsQrConfirmText": "تم تأكيد الزيارة. بانتظاركم.",
+  "hotelVisitsQrEntrance": "المدخل الرئيسي",
+  "hotelVisitsQrEntranceText": "الدخول من البوابة الرئيسية.",
+  "hotelVisitsQrParking": "الموقف",
+  "hotelVisitsQrParkingText": "المواقف في الواجهة.",
+  "hotelVisitsLineConfirmed": "تم التأكيد: {when}",
+  "@hotelVisitsLineConfirmed": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsLineReschedule": "{name} اقترح {when}",
+  "@hotelVisitsLineReschedule": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsLineArrived": "أهلًا {name}",
+  "@hotelVisitsLineArrived": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsLineCompleted": "اكتملت الزيارة",
+  "hotelVisitsLineDeclined": "رُفضت الزيارة",
+  "hotelVisitsLineCancelled": "أُلغيت الزيارة",
+  "hotelVisitsLineMissed": "لم يحضر العميل",
+  "hotelVisitsLineClosed": "أُغلقت المحادثة",
+  "hotelVisitsMembersTitle": "الأعضاء",
+  "hotelVisitsRepTitle": "المسؤول",
+  "hotelVisitsQueueTitle": "الزيارات",
+  "hotelVisitsSegments": "الزيارات حسب الحالة",
+  "hotelVisitsSegRequested": "الطلبات",
+  "hotelVisitsSegUpcoming": "القادمة",
+  "hotelVisitsSegPast": "السابقة",
+  "hotelVisitsRequestedAgo": "{ago}",
+  "@hotelVisitsRequestedAgo": {
+    "placeholders": {
+      "ago": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsOpenVisit": "فتح زيارة {name}، {when}",
+  "@hotelVisitsOpenVisit": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsEmptyRequestedTitle": "لا طلبات",
+  "hotelVisitsEmptyRequestedBody": "يمكن للعملاء حجز زيارة من صفحة مكانكم.",
+  "hotelVisitsEmptyUpcomingTitle": "لا زيارات قادمة",
+  "hotelVisitsEmptyUpcomingBody": "تظهر هنا الزيارات المؤكدة مع محادثاتها.",
+  "hotelVisitsEmptyPastTitle": "لا زيارات سابقة",
+  "hotelVisitsEmptyPastBody": "تُحفظ هنا الزيارات المكتملة والمرفوضة وتلك التي لم يحضرها أصحابها.",
+  "hotelVisitsSeeUpcoming": "القادمة",
+  "hotelVisitsErrorTitle": "تعذّر التحميل",
+  "hotelVisitsErrorBody": "أعد المحاولة",
+  "hotelVisitsOfflineBanner": "غير متصل. حُفظ {time}",
+  "@hotelVisitsOfflineBanner": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsOfflineBannerShort": "غير متصل",
+  "hotelVisitsOfflineReason": "غير متصل",
+  "hotelVisitsReadOnlyNote": "للقراءة فقط",
+  "hotelVisitsNoAccessTitle": "لا صلاحية",
+  "hotelVisitsNoAccessBody": "اسأل المدير",
+  "hotelVisitsConfirm": "تأكيد",
+  "hotelVisitsPropose": "وقت آخر",
+  "hotelVisitsOpenChat": "فتح المحادثة",
+  "hotelVisitsComplete": "إنهاء",
+  "hotelVisitsCorrectMissed": "العميل حضر",
+  "hotelVisitsToastConfirmed": "تم التأكيد",
+  "hotelVisitsToastProposed": "أُرسل الاقتراح",
+  "hotelVisitsToastDeclined": "تم الرفض",
+  "hotelVisitsToastAssigned": "تم التعيين",
+  "hotelVisitsToastCompleted": "اكتملت",
+  "hotelVisitsProposeTitle": "وقت آخر",
+  "hotelVisitsProposeDay": "اليوم",
+  "hotelVisitsProposeTime": "الوقت",
+  "hotelVisitsProposeCta": "إرسال",
+  "hotelVisitsProposeNeed": "تحديد اليوم والوقت",
+  "hotelVisitsDeclineTitle": "رفض",
+  "hotelVisitsDeclineReason": "السبب",
+  "hotelVisitsReasonUnavailable": "غير متاح في هذا الوقت",
+  "hotelVisitsReasonClosed": "المكان مغلق",
+  "hotelVisitsReasonOther": "سبب آخر",
+  "hotelVisitsDeclineNote": "ملاحظة",
+  "hotelVisitsDeclineNoteRequired": "أضف ملاحظة",
+  "hotelVisitsDeclineNeed": "تحديد السبب",
+  "hotelVisitsDeclineCta": "رفض",
+  "hotelVisitsDetailTitle": "زيارة · {when}",
+  "@hotelVisitsDetailTitle": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsDetailErrorTitle": "تعذّر التحميل",
+  "hotelVisitsSecClient": "العميل",
+  "hotelVisitsSecVisit": "الطلب",
+  "hotelVisitsFactRequested": "أُرسل",
+  "hotelVisitsFactProposed": "المقترح",
+  "hotelVisitsSecNote": "ملاحظة",
+  "hotelVisitsSecRep": "المسؤول",
+  "hotelVisitsSecChat": "الأعضاء",
+  "hotelVisitsSecTimeline": "سجل الزيارة",
+  "hotelVisitsLimitedNote": "{name} فقط",
+  "@hotelVisitsLimitedNote": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsNoteRequested": "بانتظار ردك",
+  "hotelVisitsNoteReschedule": "المقترح {when}",
+  "@hotelVisitsNoteReschedule": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsNoteConfirmed": "مؤكدة",
+  "hotelVisitsNoteDayOf": "اليوم {time}",
+  "@hotelVisitsNoteDayOf": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsNoteArrived": "وصل {time}",
+  "@hotelVisitsNoteArrived": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsNoteCompleted": "اكتملت",
+  "hotelVisitsNoteDeclined": "مرفوضة",
+  "hotelVisitsNoteDeclinedReason": "مرفوضة: {reason}",
+  "@hotelVisitsNoteDeclinedReason": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "hotelVisitsNoteCancelled": "ملغاة",
+  "hotelVisitsNoteMissed": "لم يحضر",
+  "hotelVisitsTlRequested": "طُلبت",
+  "hotelVisitsTlConfirmed": "تم التأكيد",
+  "hotelVisitsTlReschedule": "اقتُرح موعد آخر",
+  "hotelVisitsTlArrived": "تم الوصول",
+  "hotelVisitsTlCompleted": "اكتملت",
+  "hotelVisitsTlDeclined": "رُفضت",
+  "hotelVisitsTlCancelled": "أُلغيت",
+  "hotelVisitsTlMissed": "لم يحضر",
+  "hotelVisitsVisitors": "{count, plural, =0{لا زائرين} =1{زائر واحد} =2{زائران} few{⁦{count}⁩ زائرين} many{⁦{count}⁩ زائرًا} other{⁦{count}⁩ زائر}}",
+  "@hotelVisitsVisitors": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hotelVisitsProposeShort": "موعد آخر"
 }

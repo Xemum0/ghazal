@@ -1,0 +1,36 @@
+IdempotencyKey:
+  name: Idempotency-Key
+  in: header
+  required: true
+  description: UUID generated when the user taps the CTA and kept until the outcome is known; a user-initiated retry reuses it (api-conventions section 7). Stored 24 h.
+  schema: { type: string, format: uuid }
+IfMatch:
+  name: If-Match
+  in: header
+  required: true
+  description: The `ETag` of the document being changed (for example `"v7"`). A stale value answers 412 PRECONDITION_FAILED (or 409 BOOKING_STATE_CONFLICT for requests).
+  schema: { type: string }
+XVenueId:
+  name: X-Venue-Id
+  in: header
+  required: false
+  description: Active venue of a hotel or hall account. Membership is validated on every call. Send this or X-Provider-Id.
+  schema: { type: string }
+XProviderId:
+  name: X-Provider-Id
+  in: header
+  required: false
+  description: Active provider of a service-provider account. Send this or X-Venue-Id.
+  schema: { type: string }
+Cursor:
+  name: cursor
+  in: query
+  required: false
+  description: Opaque cursor from `nextCursor` of the previous page.
+  schema: { type: string }
+Limit:
+  name: limit
+  in: query
+  required: false
+  description: Page size (default 20, max 50).
+  schema: { type: integer, minimum: 1, maximum: 50, default: 20 }

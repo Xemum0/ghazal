@@ -1,0 +1,17 @@
+{
+  "type": "https://api.ghazal.example/problems/slot-unavailable",
+  "title": "Slot unavailable",
+  "status": 409,
+  "code": "SLOT_UNAVAILABLE",
+  "requestId": "6b0f6d1c-3f1f-4e0b-8a5e-1d2c3b4a5f60",
+  "params": {
+    "eventDate": "2027-01-14",
+    "reason": "held"
+  },
+  "alternatives": [
+    {
+      "eventDate": "2027-01-21",
+      "hallId": "V01-danah"
+    }
+  ]
+}

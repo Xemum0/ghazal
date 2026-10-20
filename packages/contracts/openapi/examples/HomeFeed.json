@@ -1,0 +1,153 @@
+{
+  "statusCard": {
+    "kind": "pending",
+    "bookingId": "bk-GZ-2611-0147",
+    "voucherId": "vch-GV-2611-K7QM",
+    "visitId": null,
+    "deadline": "2026-11-13T12:40:00+03:00",
+    "target": {
+      "kind": "venue",
+      "id": "V01",
+      "name": {
+        "en": "Aurelia Gulf Hotel",
+        "ar": "فندق أوريليا الخليج"
+      },
+      "monogram": "A",
+      "areaId": "sharq",
+      "cover": {
+        "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+        "width": 1800,
+        "height": 1196,
+        "orientation": "landscape",
+        "alt": {
+          "en": "Bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+          "ar": "قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+        }
+      },
+      "phone": "+96550000002",
+      "channel": "ghazal_voucher"
+    }
+  },
+  "freeCount": 7,
+  "nearestFreeDates": [],
+  "shelves": [
+    {
+      "id": "free",
+      "items": [
+        {
+          "row": {
+            "venue": {
+              "id": "V01",
+              "slug": "aurelia-gulf-hotel",
+              "name": {
+                "en": "Aurelia Gulf Hotel",
+                "ar": "فندق أوريليا الخليج"
+              },
+              "type": "hotel",
+              "style": "hotel",
+              "tier": "prestige",
+              "stars": 5,
+              "channel": "ghazal_voucher",
+              "status": "published",
+              "governorateId": "capital",
+              "areaId": "sharq",
+              "address": {
+                "block": "4",
+                "street": {
+                  "en": "Gulf Street",
+                  "ar": "شارع الخليج"
+                }
+              },
+              "geo": {
+                "lat": 29.387,
+                "lng": 47.996
+              },
+              "tagline": {
+                "en": "A Gulf-front ballroom for ladies’ receptions",
+                "ar": "قاعة واسعة على واجهة الخليج للحفلات النسائية"
+              },
+              "cover": {
+                "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+                "width": 1800,
+                "height": 1196,
+                "orientation": "landscape",
+                "alt": {
+                  "en": "Bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+                  "ar": "قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+                }
+              },
+              "hasVideo": true,
+              "rating": {
+                "average": 4.8,
+                "count": 212,
+                "categories": {
+                  "venue": 4.8,
+                  "food": 4.7,
+                  "service": 4.9,
+                  "value": 4.6
+                }
+              },
+              "voucherEnabled": true,
+              "flags": {
+                "featured": false,
+                "sponsored": false,
+                "isNew": false
+              }
+            },
+            "price": {
+              "mode": "exact",
+              "amount": {
+                "fils": 18200000,
+                "currency": "KWD"
+              },
+              "guests": 350,
+              "packageId": "V01-ladies-weekend",
+              "tier": "weekend",
+              "voucher": {
+                "fils": 15400000,
+                "currency": "KWD"
+              },
+              "savings": {
+                "fils": 2800000,
+                "currency": "KWD"
+              }
+            },
+            "availability": "available",
+            "availabilityHallId": "V01-danah",
+            "badge": null,
+            "windowId": null,
+            "guestRange": {
+              "min": 200,
+              "max": 650
+            },
+            "structures": [
+              "per_person"
+            ],
+            "tags": [
+              "women",
+              "men"
+            ],
+            "distance": {
+              "km": 13,
+              "minutes": 18
+            },
+            "sponsored": false
+          },
+          "date": null
+        }
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": "luxury-hotels",
+      "venueCount": 5
+    },
+    {
+      "id": "wedding-halls",
+      "venueCount": 6
+    }
+  ],
+  "unreadNotifications": 2,
+  "daysToWedding": 63
+}

@@ -1,0 +1,46 @@
+[
+ {
+  "id": "faq-voucher",
+  "question": {
+   "en": "What is the voucher?",
+   "ar": "ما هو الكوبون؟"
+  },
+  "answer": {
+   "en": "A voucher costs KD 2 and lets you request a hall or a service at Ghazal’s lower voucher price. It is bound to one venue or provider and its quote, with one code and one QR.",
+   "ar": "الكوبون بقيمة 2 د.ك ويتيح لكم طلب قاعة أو خدمة بسعر غزل المخفّض. يرتبط بقاعة أو مزوّد واحد وعرضه، برمز واحد ورمز QR واحد."
+  }
+ },
+ {
+  "id": "faq-request",
+  "question": {
+   "en": "What does “request at the voucher price” mean?",
+   "ar": "ماذا يعني «طلب بسعر الكوبون»؟"
+  },
+  "answer": {
+   "en": "You send your date and details to the venue with your voucher attached. The venue approves or declines. If it approves, the date is held for you for 24 hours.",
+   "ar": "ترسلون التاريخ والتفاصيل إلى القاعة مع الكوبون. توافق القاعة أو تعتذر. وعند الموافقة يُحجز لكم التاريخ 24 ساعة."
+  }
+ },
+ {
+  "id": "faq-confirm",
+  "question": {
+   "en": "Why must I confirm within 24 hours?",
+   "ar": "لماذا يجب التأكيد خلال 24 ساعة؟"
+  },
+  "answer": {
+   "en": "The venue holds the date for you after approving. You confirm by going to the hotel or service and paying the reservation there. If you do not confirm within 24 hours, the date is released for other couples and your voucher is no longer valid.",
+   "ar": "تحجز القاعة التاريخ لكم بعد الموافقة. تؤكدون بالذهاب إلى الفندق أو مزوّد الخدمة ودفع الحجز لديهم. إذا لم تؤكدوا خلال 24 ساعة يُفتح التاريخ لغيركم ويصبح الكوبون غير صالح."
+  }
+ },
+ {
+  "id": "faq-refund",
+  "question": {
+   "en": "Can I get my KD 2 back?",
+   "ar": "هل يمكن استرداد الـ 2 د.ك؟"
+  },
+  "answer": {
+   "en": "Ghazal does not return money. If the venue was the reason (it declined, did not reply in time, or cancelled), send a request to support from your wallet. If support agrees, you get a credit voucher you can use at any hall, hotel or service for 60 days. A voucher that was not confirmed within 24 hours is no longer valid.",
+   "ar": "لا تُعيد غزل أي مبلغ. إذا كان السبب من القاعة (اعتذرت أو لم تردّ في الوقت أو ألغت) أرسلوا طلبًا إلى الدعم من محفظتكم. وإذا وافق الدعم تحصلون على كوبون رصيد تستخدمونه في أي قاعة أو فندق أو خدمة خلال 60 يومًا. أما الكوبون الذي لم يُؤكَّد خلال 24 ساعة فيصبح غير صالح."
+  }
+ }
+]

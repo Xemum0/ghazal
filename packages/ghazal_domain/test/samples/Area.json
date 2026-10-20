@@ -1,0 +1,50 @@
+[
+ {
+  "id": "sharq",
+  "governorateId": "capital",
+  "name": {
+   "en": "Sharq",
+   "ar": "شرق"
+  },
+  "geo": {
+   "lat": 29.383,
+   "lng": 47.993
+  }
+ },
+ {
+  "id": "bneid-al-qar",
+  "governorateId": "capital",
+  "name": {
+   "en": "Bneid Al-Qar",
+   "ar": "بنيد القار"
+  },
+  "geo": {
+   "lat": 29.3975,
+   "lng": 48.001
+  }
+ },
+ {
+  "id": "shuwaikh",
+  "governorateId": "capital",
+  "name": {
+   "en": "Shuwaikh",
+   "ar": "الشويخ"
+  },
+  "geo": {
+   "lat": 29.35,
+   "lng": 47.938
+  }
+ },
+ {
+  "id": "sabah-al-ahmad-sea-city",
+  "governorateId": "ahmadi",
+  "name": {
+   "en": "Sabah Al-Ahmad Sea City",
+   "ar": "مدينة صباح الأحمد البحرية"
+  },
+  "geo": {
+   "lat": 28.716,
+   "lng": 48.256
+  }
+ }
+]

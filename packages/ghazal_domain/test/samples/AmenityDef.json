@@ -1,0 +1,38 @@
+[
+ {
+  "id": "ladies-hall",
+  "group": "space",
+  "label": {
+   "en": "Ladies’ hall",
+   "ar": "قاعة نسائية"
+  },
+  "icon": "hall"
+ },
+ {
+  "id": "men-hall",
+  "group": "space",
+  "label": {
+   "en": "Men’s hall",
+   "ar": "قاعة رجالية"
+  },
+  "icon": "hall"
+ },
+ {
+  "id": "separate-entrance",
+  "group": "space",
+  "label": {
+   "en": "Separate entrance",
+   "ar": "مدخل منفصل"
+  },
+  "icon": "door"
+ },
+ {
+  "id": "coffee-station",
+  "group": "service",
+  "label": {
+   "en": "Arabic coffee station",
+   "ar": "ركن القهوة العربية"
+  },
+  "icon": "dallah"
+ }
+]

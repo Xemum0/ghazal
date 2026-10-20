@@ -1,0 +1,107 @@
+/venues:
+  get:
+    operationId: searchVenues
+    summary: Brief-aware venue search (CA-SRCH, CA-CARD)
+    description: Filters mirror the PRD. Every row carries the price and availability for the Brief already computed in fils. Public, cacheable per Brief (private, ETag).
+    x-access: optional
+    x-paged: true
+    query: &venueFilter
+      q: string
+      governorateIds: 'Id[]'
+      areaIds: 'Id[]'
+      types: 'VenueType[]'
+      styles: 'VenueStyle[]'
+      tiers: 'LuxuryLevel[]'
+      capacityMin: integer
+      capacityMax: integer
+      priceStructure: PriceStructureFilter
+      voucherOnly: boolean
+      audience: Audience
+      minRating: number
+      availableOnDate: boolean
+      availableFrom: IsoDate
+      availableTo: IsoDate
+      date: IsoDate
+      guests: integer
+      budgetMin: integer
+      budgetMax: integer
+      originId: Id
+      sort: VenueSort
+    responses: { 200: VenueResultPage }
+/venues/count:
+  get:
+    operationId: countVenues
+    summary: Live count for the hero button
+    x-access: optional
+    query: *venueFilter
+    responses: { 200: VenueCount }
+/venues/taxonomy:
+  get:
+    operationId: getFilterTaxonomy
+    summary: Filter taxonomy and amenity definitions (CA-FLT)
+    x-access: guest
+    responses: { 200: FilterTaxonomy }
+/venues/{venueId}:
+  get:
+    operationId: getVenue
+    summary: Venue detail with packages, extras, active windows and the Brief price (CA-VDET)
+    x-access: optional
+    path: { venueId: Id }
+    query: { date: IsoDate, guests: integer, audience: Audience }
+    responses: { 200: VenueDetail }
+/venues/{venueId}/availability:
+  get:
+    operationId: getVenueAvailability
+    summary: Per-day availability and from-prices of one hall over a date range (at most 366 days)
+    description: Other couples' requests are never visible. `private, no-cache` with ETag; a partner block reaches couples within seconds.
+    x-access: optional
+    path: { venueId: Id }
+    query: { 'from!': IsoDate, 'to!': IsoDate, hallId: Id, guests: integer, audience: Audience }
+    responses: { 200: VenueAvailability }
+/venues/{venueId}/availability/day:
+  get:
+    operationId: getVenueDayAvailability
+    summary: Availability of the venue on one date across its halls
+    x-access: optional
+    path: { venueId: Id }
+    query: { 'date!': IsoDate, guests: integer, audience: Audience }
+    responses: { 200: VenueDayAvailability }
+/venues/{venueId}/quotes:
+  post:
+    operationId: quoteVenue
+    summary: Server-priced quote for the Review step (both columns, valid 30 min)
+    x-access: optional
+    path: { venueId: Id }
+    body: VenueQuoteInput
+    x-errors: [SLOT_UNAVAILABLE, LEAD_TIME_TOO_SHORT, GUESTS_OUT_OF_RANGE, AUDIENCE_NOT_ALLOWED, CHANNEL_NOT_BOOKABLE]
+    responses: { 200: Quote }
+/venues/{venueId}/nearby:
+  get:
+    operationId: listNearbyVenues
+    summary: Venues nearest to this one
+    x-access: optional
+    path: { venueId: Id }
+    query: { limit: integer }
+    responses: { 200: 'NearbyVenue[]' }
+/compare/prices:
+  post:
+    operationId: compareVenues
+    summary: Price and availability of up to 3 venues on the Brief (CA-CMP)
+    description: The compare tray itself is local state; only this call is server side.
+    x-access: optional
+    body: CompareInput
+    responses: { 200: CompareResponse }
+/areas:
+  get:
+    operationId: listAreas
+    summary: Governorates, areas and reference points
+    x-access: guest
+    responses: { 200: AreasResponse }
+/areas/search:
+  get:
+    operationId: searchRegions
+    summary: Region and venue-name search with the venue count behind each match (CL-DISC-07)
+    description: Arabic-normalised by the server.
+    x-access: optional
+    query: { 'q!': string }
+    responses: { 200: 'RegionMatch[]' }

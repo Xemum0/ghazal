@@ -1,0 +1,200 @@
+# The couple's planning file: profile, checklist, budget, favourites. The compare tray, Brief and draft stay on the device (ADR 0022 C).
+WeddingRole: { type: string, enum: [bride, groom, family, planner] }
+DateMode: { type: string, enum: [exact, flexible_month, undecided] }
+GuestSplit:
+  type: object
+  required: [women, men]
+  properties: { women: { type: integer }, men: { type: integer } }
+MoneyRange:
+  type: object
+  required: [min, max]
+  properties: { min: { $ref: Money }, max: { $ref: Money } }
+WeddingProfile:
+  type: object
+  required: [id, userId, role, brideName, partnerName, weddingDate, dateMode, guests, venueBudget, totalBudget, areaIds, searching]
+  properties:
+    id: { $ref: Id }
+    userId: { $ref: Id }
+    role: { $ref: WeddingRole }
+    brideName: { type: string }
+    partnerName: { type: string, nullable: true }
+    weddingDate: { $ref: IsoDate }
+    dateMode: { $ref: DateMode }
+    guests: { $ref: GuestSplit }
+    venueBudget: { $ref: MoneyRange }
+    totalBudget: { $ref: Money }
+    areaIds: { type: array, items: { $ref: Id } }
+    searching: { type: array, items: { $ref: Audience } }
+WeddingProfileInput:
+  type: object
+  description: Full replace (PUT) or partial update (PATCH) of the signed-in couple's profile. A guest's onboarding answers sync here after sign-in.
+  properties:
+    role: { $ref: WeddingRole }
+    brideName: { type: string }
+    partnerName: { type: string, nullable: true }
+    weddingDate: { $ref: IsoDate, nullable: true }
+    dateMode: { $ref: DateMode }
+    guests: { $ref: GuestSplit }
+    venueBudget: { $ref: MoneyRange, nullable: true }
+    totalBudget: { $ref: Money, nullable: true }
+    areaIds: { type: array, items: { $ref: Id } }
+    searching: { type: array, items: { $ref: Audience } }
+BudgetBand:
+  type: object
+  required: [id, min, max]
+  properties: { id: { $ref: Id }, min: { $ref: Money }, max: { $ref: Money, nullable: true } }
+ChecklistGroup: { type: string, enum: [invitation, dress, venue, photographer, cake, music, flowers, transportation, custom] }
+ChecklistItem:
+  type: object
+  required: [id, group, title, dueOn, done, doneAt, auto, custom, serviceCategoryId, bookingId]
+  properties:
+    id: { $ref: Id }
+    group: { $ref: ChecklistGroup }
+    title: { $ref: LocalizedText }
+    dueOn: { $ref: IsoDate, nullable: true }
+    done: { type: boolean }
+    doneAt: { $ref: IsoDateTime, nullable: true }
+    auto: { type: boolean, description: 'Completed by the system (Venue completes at `confirmed`, never at approval).' }
+    custom: { type: boolean }
+    serviceCategoryId: { $ref: ServiceCategoryId, nullable: true }
+    bookingId: { $ref: Id, nullable: true }
+ChecklistView:
+  type: object
+  required: [items, percent]
+  properties: { items: { type: array, items: { $ref: ChecklistItem } }, percent: { type: integer } }
+ChecklistItemInput:
+  type: object
+  required: [title]
+  properties:
+    title: { type: string, description: 'Typed text, stored as typed.' }
+    group: { $ref: ChecklistGroup, nullable: true }
+    dueOn: { $ref: IsoDate, nullable: true }
+ChecklistItemPatch:
+  type: object
+  properties:
+    done: { type: boolean }
+    title: { type: string }
+    dueOn: { $ref: IsoDate, nullable: true }
+BudgetCategoryId: { type: string, enum: [venue_catering, photo_video, flowers_decor, attire, makeup_henna, cars, invitations, music, honeymoon] }
+ExpenseStatus: { type: string, enum: [paid, committed, planned] }
+BudgetExpense:
+  type: object
+  required: [id, categoryId, label, amount, status, date, bookingId, vendorId]
+  properties:
+    id: { $ref: Id }
+    categoryId: { $ref: BudgetCategoryId }
+    label: { type: string }
+    amount: { $ref: Money }
+    status: { $ref: ExpenseStatus }
+    date: { $ref: IsoDate, nullable: true }
+    bookingId: { $ref: Id, nullable: true }
+    vendorId: { $ref: Id, nullable: true }
+BudgetCategory:
+  type: object
+  required: [id, name, allocated, paid, committed, autoLinked, icon]
+  properties:
+    id: { $ref: BudgetCategoryId }
+    name: { $ref: LocalizedText }
+    allocated: { $ref: Money }
+    paid: { $ref: Money }
+    committed: { $ref: Money }
+    autoLinked: { type: boolean, description: Venue and catering is auto-linked to the request. }
+    icon: { type: string }
+Budget:
+  type: object
+  required: [total, categories, expenses]
+  properties:
+    total: { $ref: Money }
+    categories: { type: array, items: { $ref: BudgetCategory } }
+    expenses: { type: array, items: { $ref: BudgetExpense } }
+BudgetView:
+  type: object
+  required: [budget, paid, committed, remaining]
+  properties:
+    budget: { $ref: Budget }
+    paid: { $ref: Money }
+    committed: { $ref: Money }
+    remaining: { $ref: Money }
+BudgetAllocation:
+  type: object
+  required: [categoryId, allocated]
+  properties: { categoryId: { $ref: BudgetCategoryId }, allocated: { $ref: Money } }
+SetBudgetInput:
+  type: object
+  required: [total]
+  properties:
+    total: { $ref: Money }
+    allocations: { type: array, items: { $ref: BudgetAllocation } }
+ExpenseInput:
+  type: object
+  required: [categoryId, label, amount, status]
+  properties:
+    categoryId: { $ref: BudgetCategoryId }
+    label: { type: string }
+    amount: { $ref: Money }
+    status: { $ref: ExpenseStatus }
+    date: { $ref: IsoDate, nullable: true }
+ExpensePatch:
+  type: object
+  properties:
+    categoryId: { $ref: BudgetCategoryId }
+    label: { type: string }
+    amount: { $ref: Money }
+    status: { $ref: ExpenseStatus }
+    date: { $ref: IsoDate, nullable: true }
+ChecklistProgress:
+  type: object
+  required: [done, total, percent]
+  properties: { done: { type: integer }, total: { type: integer }, percent: { type: integer } }
+BudgetSummary:
+  type: object
+  required: [total, paid, committed, remaining]
+  properties: { total: { $ref: Money }, paid: { $ref: Money }, committed: { $ref: Money }, remaining: { $ref: Money } }
+WeddingOverview:
+  type: object
+  description: The My Wedding tab in one response (CL-WEDD-01).
+  required: [profile, daysToWedding, checklist, budget, openRequests, plannerRequest]
+  properties:
+    profile: { $ref: WeddingProfile, nullable: true }
+    daysToWedding: { type: integer, nullable: true }
+    checklist: { $ref: ChecklistProgress }
+    budget: { $ref: BudgetSummary, nullable: true }
+    openRequests: { type: array, items: { $ref: BookingRow }, description: Pending and approved requests. }
+    plannerRequest: { $ref: PlannerRequest, nullable: true }
+SavedType: { type: string, enum: [venue, vendor, package] }
+SavedItem:
+  type: object
+  required: [type, id, savedAt, lastSeenPrice]
+  properties:
+    type: { $ref: SavedType }
+    id: { $ref: Id }
+    savedAt: { $ref: IsoDateTime }
+    lastSeenPrice: { $ref: Money, nullable: true, description: 'Last price seen, to drive Price dropped (a real price of the last 28 days).' }
+SavedItemInput:
+  type: object
+  properties: { lastSeenPrice: { $ref: Money, nullable: true } }
+WishlistMergeItem:
+  type: object
+  required: [type, id]
+  properties:
+    type: { $ref: SavedType }
+    id: { $ref: Id }
+    savedAt: { $ref: IsoDateTime, nullable: true }
+WishlistMergeInput:
+  type: object
+  description: A guest's local hearts merged into the account after sign-in (union; existing items win).
+  required: [items]
+  properties: { items: { type: array, items: { $ref: WishlistMergeItem } } }
+SavedEntry:
+  type: object
+  description: A saved item hydrated for the Brief. `venue` is set for venue and package entries (the venue card with its Brief price), `provider` for provider entries, `package` for package entries.
+  required: [item, venue, provider, package]
+  properties:
+    item: { $ref: SavedItem }
+    venue: { $ref: VenueResult, nullable: true }
+    provider: { $ref: ServiceProvider, nullable: true }
+    package: { $ref: Package, nullable: true }
+SavedItemList:
+  type: object
+  required: [items]
+  properties: { items: { type: array, items: { $ref: SavedEntry } } }

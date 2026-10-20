@@ -1,0 +1,50 @@
+[
+ {
+  "id": "ref-salmiya",
+  "name": {
+   "en": "Salmiya",
+   "ar": "السالمية"
+  },
+  "areaId": "salmiya",
+  "geo": {
+   "lat": 29.334,
+   "lng": 48.076
+  }
+ },
+ {
+  "id": "ref-sharq",
+  "name": {
+   "en": "Sharq",
+   "ar": "شرق"
+  },
+  "areaId": "sharq",
+  "geo": {
+   "lat": 29.383,
+   "lng": 47.993
+  }
+ },
+ {
+  "id": "ref-hawalli",
+  "name": {
+   "en": "Hawalli",
+   "ar": "حولي"
+  },
+  "areaId": "hawalli",
+  "geo": {
+   "lat": 29.332,
+   "lng": 48.029
+  }
+ },
+ {
+  "id": "ref-airport",
+  "name": {
+   "en": "Kuwait International Airport",
+   "ar": "مطار الكويت الدولي"
+  },
+  "areaId": null,
+  "geo": {
+   "lat": 29.2266,
+   "lng": 47.9689
+  }
+ }
+]

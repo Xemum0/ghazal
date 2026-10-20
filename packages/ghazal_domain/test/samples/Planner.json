@@ -1,0 +1,80 @@
+[
+ {
+  "id": "planner-nouf",
+  "userId": "user-planner-nouf",
+  "name": {
+   "en": "Nouf Al-Otaibi",
+   "ar": "نوف العتيبي"
+  },
+  "role": {
+   "en": "Wedding planner",
+   "ar": "منسّقة أعراس"
+  },
+  "monogram": "ن",
+  "tiers": [
+   "silver",
+   "gold",
+   "royal"
+  ],
+  "languages": [
+   "ar",
+   "en"
+  ],
+  "about": {
+   "en": "Plans ladies’ receptions in five-star hotels, with a focus on kosha design and run-of-show.",
+   "ar": "تخطط للحفلات النسائية في الفنادق الكبرى مع تركيز على تصميم الكوشة وسير البرنامج."
+  },
+  "yearsExperience": 9
+ },
+ {
+  "id": "planner-shahd",
+  "userId": "user-planner-shahd",
+  "name": {
+   "en": "Shahd Al-Mutairi",
+   "ar": "شهد المطيري"
+  },
+  "role": {
+   "en": "Wedding planner",
+   "ar": "منسّقة أعراس"
+  },
+  "monogram": "ش",
+  "tiers": [
+   "silver",
+   "gold"
+  ],
+  "languages": [
+   "ar"
+  ],
+  "about": {
+   "en": "Day-of coordination and vendor management for family weddings.",
+   "ar": "تنسيق يوم الحفل وإدارة الموردين لأفراح العائلات."
+  },
+  "yearsExperience": 6
+ },
+ {
+  "id": "planner-mariam",
+  "userId": "user-planner-mariam",
+  "name": {
+   "en": "Mariam Al-Sabbagh",
+   "ar": "مريم الصباغ"
+  },
+  "role": {
+   "en": "Production planner",
+   "ar": "منسّقة إنتاج"
+  },
+  "monogram": "م",
+  "tiers": [
+   "gold",
+   "royal"
+  ],
+  "languages": [
+   "ar",
+   "en"
+  ],
+  "about": {
+   "en": "Leads full design and production for large weddings.",
+   "ar": "تقود التصميم والإنتاج الكامل للأفراح الكبيرة."
+  },
+  "yearsExperience": 12
+ }
+]

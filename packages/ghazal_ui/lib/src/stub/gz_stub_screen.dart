@@ -1,8 +1,12 @@
 import 'package:flutter/widgets.dart';
 
 import '../../l10n/generated/gz_localizations.dart';
-import '../theme/gz_fonts.dart';
-import '../tokens/placeholder_tokens.dart';
+import '../motion/gz_pressable.dart';
+import '../text/gz_bidi.dart';
+import '../text/gz_text.dart';
+import '../theme/gz_theme.dart';
+import '../tokens/generated/gz_dimensions.g.dart';
+import '../tokens/generated/gz_type.g.dart';
 
 /// A clearly labelled "Not built yet" screen for an inventory screen with no Flutter implementation.
 /// Unbuilt screens stay visible on purpose: the final sweep fails on any route that still renders this widget.
@@ -30,68 +34,37 @@ class GzStubScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = Localizations.localeOf(context);
-    final isAr = locale.languageCode == 'ar';
-    final title = isAr ? titleAr : titleEn;
-    final ui = GzFonts.uiFor(locale);
-    final fallback = GzFonts.fallbackFor(locale);
-    TextStyle style(double size, FontWeight weight, Color color, {String? family}) => TextStyle(
-          fontFamily: family ?? ui,
-          fontFamilyFallback: fallback,
-          package: GzFonts.package,
-          fontSize: size,
-          fontWeight: weight,
-          height: 1.45,
-          letterSpacing: 0,
-          color: color,
-          leadingDistribution: TextLeadingDistribution.even,
-        );
+    final gz = context.gz;
+    final c = gz.colors;
     return ColoredBox(
-      color: GzPlaceholderColors.canvas,
+      color: c.surfaceCanvas,
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsetsDirectional.symmetric(horizontal: 24, vertical: 16),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s6, vertical: GzSpace.s4),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               DecoratedBox(
                 decoration: BoxDecoration(
-                  color: GzPlaceholderColors.gold100,
-                  border: Border.all(color: GzPlaceholderColors.gold500),
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  color: c.statusPendingBg,
+                  border: Border.all(color: c.markKhayt, width: GzStroke.hair),
+                  borderRadius: GzRadius.smAll,
                 ),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 6),
-                  child: Text(
-                    GzL10n.of(context).stubNotBuilt,
-                    style: style(13, FontWeight.w700, GzPlaceholderColors.ink900),
-                  ),
+                  padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s3, vertical: GzSpace.s2),
+                  child: GzText(GzL10n.of(context).stubNotBuilt, role: GzTextRole.button, color: c.textStrong),
                 ),
               ),
-              const SizedBox(height: 20),
-              Directionality(
-                textDirection: TextDirection.ltr,
-                child: Text(id, style: style(15, FontWeight.w600, GzPlaceholderColors.ink700)),
-              ),
-              const SizedBox(height: 8),
-              Text(title, style: style(32, FontWeight.w600, GzPlaceholderColors.ink900, family: GzFonts.display)),
-              const SizedBox(height: 4),
-              Directionality(
-                textDirection: TextDirection.ltr,
-                child: Text(kind, style: style(13, FontWeight.w400, GzPlaceholderColors.ink700)),
-              ),
+              const SizedBox(height: GzSpace.s5),
+              GzLtr(child: GzText(id, role: GzTextRole.title, color: c.textSecondary)),
+              const SizedBox(height: GzSpace.s2),
+              GzText(gz.isAr ? titleAr : titleEn, role: GzTextRole.d3, color: c.textStrong),
+              const SizedBox(height: GzSpace.s1),
+              GzLtr(child: GzText(kind, role: GzTextRole.caption, color: c.textSecondary)),
               if (purpose.isNotEmpty) ...[
-                const SizedBox(height: 16),
-                Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: Text(
-                    purpose,
-                    maxLines: 8,
-                    overflow: TextOverflow.ellipsis,
-                    style: style(14, FontWeight.w400, GzPlaceholderColors.ink700),
-                  ),
-                ),
+                const SizedBox(height: GzSpace.s4),
+                GzLtr(child: GzText(purpose, role: GzTextRole.bodyS, color: c.textSecondary, maxLines: 8)),
               ],
             ],
           ),
@@ -120,39 +93,31 @@ class GzStubTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = Localizations.localeOf(context);
-    final isAr = locale.languageCode == 'ar';
+    final gz = context.gz;
+    final c = gz.colors;
     final bottom = MediaQuery.paddingOf(context).bottom;
     return DecoratedBox(
-      decoration: const BoxDecoration(
-        color: GzPlaceholderColors.paper,
-        border: Border(top: BorderSide(color: GzPlaceholderColors.ink300)),
+      decoration: BoxDecoration(
+        color: c.surfaceRaised,
+        border: Border(top: BorderSide(color: c.borderHairline, width: GzStroke.hair)),
       ),
       child: Padding(
         padding: EdgeInsetsDirectional.only(bottom: bottom),
         child: SizedBox(
-          height: 56,
+          height: GzSize.tabBar,
           child: Row(
             children: [
               for (var i = 0; i < tabs.length; i++)
                 Expanded(
-                  child: GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () => onTap(i),
+                  child: GzPressable(
+                    onPressed: () => onTap(i),
+                    selected: i == currentIndex,
                     child: Center(
-                      child: Text(
-                        isAr ? tabs[i].titleAr : tabs[i].titleEn,
+                      child: GzText(
+                        gz.isAr ? tabs[i].titleAr : tabs[i].titleEn,
+                        role: GzTextRole.tab,
+                        color: i == currentIndex ? c.textStrong : c.textSecondary,
                         maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontFamily: GzFonts.uiFor(locale),
-                          fontFamilyFallback: GzFonts.fallbackFor(locale),
-                          package: GzFonts.package,
-                          fontSize: 12,
-                          fontWeight: i == currentIndex ? FontWeight.w700 : FontWeight.w400,
-                          letterSpacing: 0,
-                          color: i == currentIndex ? GzPlaceholderColors.ink900 : GzPlaceholderColors.ink700,
-                        ),
                       ),
                     ),
                   ),

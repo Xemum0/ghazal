@@ -1,0 +1,80 @@
+# Free site visits, independent of the voucher, each with one dedicated three-way group chat (voucher-model section 11). Hotels and halls only.
+VisitStatus: { type: string, enum: [requested, confirmed, reschedule_proposed, arrived, completed, declined, cancelled, missed] }
+VisitActor: { type: string, enum: [client, hotel_representative, support, system] }
+VisitStatusChange:
+  type: object
+  required: [at, status, actor]
+  properties:
+    at: { $ref: IsoDateTime }
+    status: { $ref: VisitStatus }
+    actor: { $ref: VisitActor }
+    actorName: { type: string }
+VisitAppointment:
+  type: object
+  required: [id, venueId, clientId, clientName, requestedAt, slotStart, slotEnd, visitors, note, status, representativeId, conversationId, proposedSlotStart, arrivedAt, closedAt, history]
+  properties:
+    id: { $ref: Id }
+    venueId: { $ref: Id }
+    clientId: { $ref: Id }
+    clientName: { type: string }
+    requestedAt: { $ref: IsoDateTime }
+    slotStart: { $ref: IsoDateTime, description: Start of the 30-minute arrival window. }
+    slotEnd: { $ref: IsoDateTime }
+    visitors: { type: integer }
+    note: { type: string, nullable: true }
+    status: { $ref: VisitStatus }
+    representativeId: { $ref: Id }
+    conversationId: { $ref: Id }
+    proposedSlotStart: { $ref: IsoDateTime, nullable: true }
+    arrivedAt: { $ref: IsoDateTime, nullable: true }
+    closedAt: { $ref: IsoDateTime, nullable: true, description: 'The group chat became read-only (24 h after the slot, or at once on cancel or decline).' }
+    history: { type: array, items: { $ref: VisitStatusChange } }
+VisitPage: { x-page-of: VisitAppointment }
+VisitRow:
+  type: object
+  description: A visit in the client's list with the venue it is at.
+  required: [visit, target]
+  properties:
+    visit: { $ref: VisitAppointment }
+    target: { $ref: TargetSummary }
+VisitRowPage: { x-page-of: VisitRow }
+VisitSlot:
+  type: object
+  required: [start, available]
+  properties: { start: { $ref: IsoDateTime }, available: { type: boolean } }
+VisitSlotsResponse:
+  type: object
+  required: [venueId, date, slots]
+  properties: { venueId: { $ref: Id }, date: { $ref: IsoDate }, slots: { type: array, items: { $ref: VisitSlot } } }
+VisitDatesResponse:
+  type: object
+  required: [venueId, dates]
+  properties: { venueId: { $ref: Id }, dates: { type: array, items: { $ref: IsoDate }, description: Dates from tomorrow with at least one bookable slot. } }
+VisitBookingInput:
+  type: object
+  required: [venueId, slotStart, visitors]
+  properties:
+    venueId: { $ref: Id }
+    slotStart: { $ref: IsoDateTime }
+    visitors: { type: integer, minimum: 1 }
+    note: { type: string, nullable: true, maxLength: 500 }
+VisitThread:
+  type: object
+  description: The visit with its group chat of exactly three roles (client, hotel representative, Ghazal support) and the messages the caller may read.
+  required: [thread, visit, target, messages]
+  properties:
+    target: { $ref: TargetSummary, description: The hotel or hall of the visit. }
+    thread: { $ref: Conversation }
+    visit: { $ref: VisitAppointment }
+    messages: { type: array, items: { $ref: Message } }
+VisitCancelInput:
+  type: object
+  properties: { reason: { type: string, nullable: true } }
+VisitRescheduleInput:
+  type: object
+  required: [slotStart]
+  properties: { slotStart: { $ref: IsoDateTime } }
+VisitProposalAnswer:
+  type: object
+  required: [accept]
+  properties: { accept: { type: boolean } }

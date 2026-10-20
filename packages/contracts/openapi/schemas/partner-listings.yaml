@@ -1,0 +1,150 @@
+# Provider listings, plans and billing (ADR 0033 D8, ADR 0035 D7). A listing is NEVER published on payment: only a moderator decision publishes it.
+# Rates are not decided: every rate is nullable and the screens say "Rates announced soon".
+AdPlanCycle: { type: string, enum: [weekly, monthly, annual] }
+PartnerBillingMode: { type: string, enum: [plan, contract] }
+AdPlan:
+  type: object
+  required: [id, cycle, name, periodDays, ratesFils, currency, exemptForMajorHotels, active]
+  properties:
+    id: { $ref: Id }
+    cycle: { $ref: AdPlanCycle }
+    name: { $ref: LocalizedText }
+    periodDays: { type: integer, enum: [7, 30, 365] }
+    ratesFils: { type: integer, nullable: true, description: Null = to be announced. Never invent a number. }
+    currency: { type: string, enum: [KWD] }
+    exemptForMajorHotels: { type: boolean, enum: [true] }
+    active: { type: boolean }
+PlanRate:
+  type: object
+  required: [plan, announcedSoon]
+  properties:
+    plan: { $ref: AdPlan }
+    announcedSoon: { type: boolean, description: True while the rate is undecided; the screen shows Rates announced soon. }
+PlanSelection:
+  type: object
+  required: [cycle, endsOn]
+  properties:
+    cycle: { $ref: AdPlanCycle, nullable: true }
+    endsOn: { $ref: IsoDate, nullable: true }
+BillingView:
+  type: object
+  required: [mode, feeExempt, majorHotel, contractSummary, plan, plans, payable]
+  properties:
+    mode: { $ref: PartnerBillingMode }
+    feeExempt: { type: boolean }
+    majorHotel: { type: boolean }
+    contractSummary: { $ref: LocalizedText, nullable: true, description: 'One line about the contract, no price.' }
+    plan: { $ref: PlanSelection, nullable: true }
+    plans: { type: array, items: { $ref: PlanRate } }
+    payable: { type: boolean, description: False while any rate is undecided; the pay step is disabled with a plain reason. }
+ListingStatus: { type: string, enum: [draft, payment_pending, pending_review, approved, rejected, active, expired, paused] }
+ListingRejectionCode: { type: string, enum: [content_not_compliant, wrong_category, missing_details, unclear_pricing, other] }
+ListingBillingStatus: { type: string, enum: [exempt, rates_pending, paid, refund_due, refunded] }
+DecisionActor: { type: string, enum: [provider, system, moderator] }
+ReviewDecision:
+  type: object
+  required: [id, listingId, at, from, to, actor]
+  properties:
+    id: { $ref: Id }
+    listingId: { $ref: Id }
+    at: { $ref: IsoDateTime }
+    from: { $ref: ListingStatus, nullable: true }
+    to: { $ref: ListingStatus }
+    actor: { $ref: DecisionActor }
+    actorName: { type: string }
+    codes: { type: array, items: { $ref: ListingRejectionCode } }
+    note: { $ref: LocalizedText }
+ListingBilling:
+  type: object
+  required: [status, amountFils, paidAt]
+  properties:
+    status: { $ref: ListingBillingStatus }
+    amountFils: { type: integer, nullable: true }
+    paidAt: { $ref: IsoDateTime, nullable: true }
+ListingRejection:
+  type: object
+  required: [codes, note]
+  properties:
+    codes: { type: array, items: { $ref: ListingRejectionCode } }
+    note: { $ref: LocalizedText }
+ListingFeeRefund:
+  type: object
+  description: A listing-fee refund the provider asked support for; money moves outside the gateway and the platform only records it.
+  required: [requestedAt, recordedAt, recordedBy]
+  properties:
+    requestedAt: { $ref: IsoDateTime }
+    recordedAt: { $ref: IsoDateTime, nullable: true }
+    recordedBy: { type: string, nullable: true }
+Listing:
+  type: object
+  required: [id, providerId, partnerAccountId, categoryId, title, description, cover, packageIds, status, planCycle, billing, submittedAt, decidedAt, startsOn, endsOn, rejection, feeRefund, sponsored, history]
+  properties:
+    id: { $ref: Id }
+    providerId: { $ref: Id }
+    partnerAccountId: { $ref: Id }
+    categoryId: { $ref: ServiceCategoryId }
+    title: { $ref: LocalizedText }
+    description: { $ref: LocalizedText }
+    cover: { $ref: ImageRef, nullable: true }
+    packageIds: { type: array, items: { $ref: Id } }
+    status: { $ref: ListingStatus }
+    planCycle: { $ref: AdPlanCycle, nullable: true }
+    billing: { $ref: ListingBilling }
+    submittedAt: { $ref: IsoDateTime, nullable: true }
+    decidedAt: { $ref: IsoDateTime, nullable: true }
+    startsOn: { $ref: IsoDate, nullable: true, description: 'Plan period starts at approval, never at payment.' }
+    endsOn: { $ref: IsoDate, nullable: true }
+    rejection: { $ref: ListingRejection, nullable: true }
+    feeRefund: { $ref: ListingFeeRefund, nullable: true }
+    sponsored: { type: boolean }
+    history: { type: array, items: { $ref: ReviewDecision }, description: 'The review trail, oldest first (HL-PROV-06).' }
+ListingList:
+  type: object
+  required: [listings]
+  properties: { listings: { type: array, items: { $ref: Listing } } }
+ListingInput:
+  type: object
+  description: Create or edit a draft. A material edit to an active listing (category, price, photos, description) returns it to review while the approved version stays live.
+  properties:
+    categoryId: { $ref: ServiceCategoryId }
+    title: { $ref: LocalizedText }
+    description: { $ref: LocalizedText }
+    packageIds: { type: array, items: { $ref: Id } }
+ChoosePlanInput:
+  type: object
+  required: [cycle]
+  properties: { cycle: { $ref: AdPlanCycle } }
+FeeRefundInput:
+  type: object
+  properties: { note: { type: string, nullable: true } }
+ListingMediaRole: { type: string, enum: [cover, portfolio] }
+AttachListingMediaInput:
+  type: object
+  required: [uploadId, role]
+  properties:
+    uploadId: { type: string }
+    role: { $ref: ListingMediaRole }
+    alt: { $ref: LocalizedText, nullable: true }
+ProviderPackageInput:
+  type: object
+  required: [name, price, unit, priceStructure]
+  properties:
+    name: { $ref: LocalizedText }
+    price: { $ref: Money }
+    voucherPrice: { $ref: Money, nullable: true }
+    unit: { $ref: LocalizedText }
+    priceStructure: { $ref: PriceStructure }
+    minQuantity: { type: integer, nullable: true }
+    includes: { type: array, items: { $ref: LocalizedText } }
+ProviderPackageList:
+  type: object
+  required: [packages]
+  properties: { packages: { type: array, items: { $ref: ProviderPackage } } }
+UpdateProviderInput:
+  type: object
+  properties:
+    about: { $ref: LocalizedText }
+    phone: { type: string }
+    areaId: { $ref: Id }
+    tags: { type: array, items: { $ref: LocalizedText } }
+    femaleTeamForLadies: { type: boolean }

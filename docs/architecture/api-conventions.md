@@ -2,11 +2,20 @@
 
 > Status: binding for the API, the generated clients, the prototype's mock store and the dashboards. Source: ADR 0020 (contract kernel, NestJS recommendation, **proposed, needs owner**), 0027 (payments boundary), 0028 (auth), 0010 (money), 0019 (analytics), 0003 (state machine). The conventions are framework-agnostic on purpose: the apps depend only on `packages/contracts/openapi.json` and `packages/contracts/fixtures`, so a Laravel flip in Week 0 (OQ-T-01) changes the generator, not these rules. Requirement IDs follow `docs/product/feature-matrix.json`.
 
+> **Amendment 2026-10-20 (ADR 0033, 0035, 0036): the contract is now `packages/contracts/openapi/ghazal.v1.yaml`.** It is written by hand in per-tag files and bundled by `tools/bundle-openapi.mjs` (OpenAPI 3.1; there is no Zod decorator pipeline, no dart-dio client and no Prism: the Dart models, repository interfaces and REST classes are generated from it by `tools/gen-dart-models.mjs`, and `ghazal_mock_api` serves it stateful). The wire rules of sections 2, 3 and 5 to 8 still hold. What changed, because Ghazal sells only the KD 2 voucher:
+>
+> * **Requests, not bookings with money.** Statuses are `pending, approved, declined, expired, confirmed, redeemed, completed, cancelled`; there is no deposit, balance, payment schedule, `payment-sessions` on a request, invoice, cash, refund or payout. Paths are `/v1/requests` (client) and `/v1/partner/*` (partner), not `/v1/bookings` and `/v1/venue/*`. The only payments are the voucher (`/v1/vouchers/checkout`, `/v1/vouchers/{id}/payment-sessions`) and, when plan rates are decided, a provider listing plan.
+> * **Errors.** New codes: `OPEN_REQUEST_LIMIT` (replaces `OPEN_UNPAID_LIMIT`), `VOUCHER_*`, `CONFIRM_WINDOW_ENDED`, `UNDO_WINDOW_ENDED`, `LISTING_*`, `PLAN_RATES_NOT_ANNOUNCED`, `VISIT_*`, `MEDIA_*`, `REVIEW_*`, `STAFF_LAST_ADMIN`, `INVITATION_EXPIRED`, `CREDIT_NOT_ELIGIBLE`, `REFUND_REQUEST_EXISTS` (table in the `x-error-codes` of `base.yaml`). Removed: `BOOKING_NOT_PAYABLE_YET`, `INSTANT_NOT_ELIGIBLE`, `VENUE_KYC_REQUIRED`, `COUPON_*`, `PAYMENT_WINDOW_CLOSED`.
+> * **Headers.** `X-Venue-Id` (hotel or hall) is joined by `X-Provider-Id` (service-provider account).
+> * **Dates.** Instants carry the `+03:00` offset (fixtures, screens and the wire agree), not `Z`; civil dates, times and money are as in section 2.
+> * **Partner sign-in** is email plus password with an emailed code on a new device; staff are invited by email (ADR 0035 D8).
+> * **Catalogue.** Section 9 is superseded by [api-coverage](api-coverage.md) (generated; every operation with method, path, access, permissions and flags). Section 7 now applies to 54 operations (`x-idempotent`), section 8's `If-Match` to 16 (`x-if-match`). The server implementation guide is [backend-handoff](backend-handoff.md).
+
 ## 1. Contract-first workflow
 
 1. Change the Zod schema or the error/permission registry in `packages/contracts/src/**` (schemas carry `.meta({ id })`; the booking state-machine table, enums, permission keys and fixtures live there too).
 2. Declare the operation with the single decorator `@Api({ summary, auth, permissions, params, query, body, responses, errors })`. It registers the operation, stores permission metadata for the guard and, in dev and test, validates responses against the schema.
-3. `pnpm -F @ghazal/api openapi:emit` writes `packages/contracts/openapi.json` as **OpenAPI 3.0.3** (the Dart generator documents no 3.1). CI fails on drift, runs Spectral, and runs an oasdiff breaking-change check against `main`.
+3. `pnpm -F @ghazal/api openapi:emit` writes `packages/contracts/openapi.json` as **OpenAPI 3.0.3** (the Dart generator documents no 3.1). *(Superseded: see the amendment above, the contract is hand-written OpenAPI 3.1.)* CI fails on drift, runs Spectral, and runs an oasdiff breaking-change check against `main`.
 4. `tools/gen-api-clients.sh` regenerates `packages/api-client-ts` (openapi-typescript + openapi-fetch) and `packages/ghazal_api_client` (dart-dio). Generated code is committed, marked `linguist-generated`, never hand-edited; CI regenerates and fails on diff.
 5. `prism mock packages/contracts/openapi.json` serves the fixtures, so the Flutter apps start against a mock while the API is built. The design prototype reads the same fixtures.
 

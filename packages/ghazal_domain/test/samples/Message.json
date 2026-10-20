@@ -1,0 +1,85 @@
+[
+ {
+  "id": "msg-001",
+  "conversationId": "conv-aurelia-reem",
+  "from": "client",
+  "senderName": "ريم الدوسري",
+  "at": "2026-11-12T15:12:00+03:00",
+  "kind": "text",
+  "text": {
+   "en": "Peace be upon you. Is Thursday 14 January available for the ladies’ reception? About 350 guests.",
+   "ar": "السلام عليكم، هل يوم الخميس 14 يناير متاح للحفل النسائي؟ عدد الضيوف تقريبًا 350."
+  },
+  "origin": "ar",
+  "status": "delivered",
+  "draft": false,
+  "seq": 1
+ },
+ {
+  "id": "msg-002",
+  "conversationId": "conv-aurelia-reem",
+  "from": "venue",
+  "senderName": "Hind Al-Enezi",
+  "at": "2026-11-12T16:05:00+03:00",
+  "kind": "text",
+  "text": {
+   "en": "And peace be upon you, welcome. Yes, the date is available, and once we approve your request you can confirm the booking within 24 hours.",
+   "ar": "وعليكم السلام ورحمة الله، هلا فيكم. نعم التاريخ متاح، ولما نوافق على طلبكم تقدرون تأكدون الحجز خلال 24 ساعة."
+  },
+  "origin": "ar",
+  "status": "sent",
+  "draft": true,
+  "seq": 2
+ },
+ {
+  "id": "msg-003",
+  "conversationId": "conv-aurelia-reem",
+  "from": "venue",
+  "senderName": "Hind Al-Enezi",
+  "at": "2026-11-12T16:06:00+03:00",
+  "kind": "voice",
+  "text": null,
+  "origin": "ar",
+  "status": "sent",
+  "draft": true,
+  "voice": {
+   "seconds": 14
+  },
+  "seq": 3
+ },
+ {
+  "id": "msg-009",
+  "conversationId": "conv-vendor-lamha",
+  "from": "client",
+  "senderName": "ريم الدوسري",
+  "at": "2026-11-11T21:30:00+03:00",
+  "kind": "quote_request_card",
+  "text": null,
+  "origin": "ar",
+  "status": "read",
+  "draft": false,
+  "card": {
+   "kind": "quote_request",
+   "title": {
+    "en": "Quote request",
+    "ar": "طلب عرض سعر"
+   },
+   "lines": [
+    {
+     "en": "Wedding-day coverage · 6 hours",
+     "ar": "تغطية يوم الزفاف · 6 ساعات"
+    },
+    {
+     "en": "Thu 14 Jan 2027 · Aurelia Gulf Hotel · 350 guests (ladies’ hall)",
+     "ar": "الخميس 14 يناير 2027 · فندق أوريليا الخليج · 350 ضيفًا (القاعة النسائية)"
+    },
+    {
+     "en": "We only need a female photographer for the ladies’ hall",
+     "ar": "نحتاج مصوّرة فقط للحفل النسائي"
+    }
+   ],
+   "refId": "vquote-reem-lamha"
+  },
+  "seq": 1
+ }
+]

@@ -1,0 +1,200 @@
+# My venue: profile, halls, packages with two prices, extras, policies, rules, hours and media (HL-VENU, HA-VMGT). Edits to published content are
+# validated server side: the voucher price of a rule must stay 15% to 35% below the standard price and below it always.
+Completeness:
+  type: object
+  required: [ar, en]
+  properties: { ar: { type: integer }, en: { type: integer } }
+PartnerVenue:
+  type: object
+  required: [venue, listingCompleteness, feeExempt]
+  properties:
+    venue: { $ref: Venue }
+    listingCompleteness: { $ref: Completeness }
+    feeExempt: { type: boolean }
+UpdateVenueInput:
+  type: object
+  description: Partial update with If-Match. Name, tagline, description and address are authored in both languages.
+  properties:
+    name: { $ref: LocalizedText }
+    tagline: { $ref: LocalizedText }
+    description: { $ref: LocalizedText }
+    phone: { type: string }
+    address: { $ref: VenueAddress }
+    geo: { $ref: LatLng }
+SessionInput:
+  type: object
+  required: [name, start, end, weekdays]
+  properties:
+    id: { $ref: Id, nullable: true, description: Existing session id when editing; null to add. }
+    name: { $ref: LocalizedText }
+    start: { $ref: LocalTime }
+    end: { $ref: LocalTime }
+    bufferBeforeMin: { type: integer }
+    bufferAfterMin: { type: integer }
+    weekdays: { type: array, items: { $ref: Weekday } }
+HallInput:
+  type: object
+  required: [name, setting, capacity, exclusiveDay, sessions, sections]
+  properties:
+    name: { $ref: LocalizedText }
+    setting: { $ref: HallSetting }
+    capacity: { $ref: GuestRange }
+    exclusiveDay: { type: boolean }
+    sessions: { type: array, items: { $ref: SessionInput } }
+    sections: { type: array, items: { $ref: HallSection } }
+    seasonMonths: { type: array, items: { type: integer }, nullable: true }
+    description: { $ref: LocalizedText }
+HallList:
+  type: object
+  required: [halls]
+  properties: { halls: { type: array, items: { $ref: Hall } } }
+VenueAmenities:
+  type: object
+  required: [amenities]
+  properties: { amenities: { type: array, items: { $ref: VenueAmenity } } }
+PriceRuleScope: { type: string, enum: [package, extra] }
+PriceRule:
+  type: object
+  description: One tier of a package, both columns on the same basis. Both voucher fields null means no voucher price on the rule.
+  required: [id, scope, scopeId, tier, weekdays, validFrom, validTo, specialDate, priority, flat, perGuest, voucherFlat, voucherPerGuest]
+  properties:
+    id: { $ref: Id }
+    scope: { $ref: PriceRuleScope }
+    scopeId: { $ref: Id }
+    tier: { $ref: PriceTier }
+    weekdays: { type: array, items: { $ref: Weekday }, nullable: true }
+    validFrom: { $ref: IsoDate, nullable: true }
+    validTo: { $ref: IsoDate, nullable: true }
+    specialDate: { $ref: IsoDate, nullable: true }
+    priority: { type: integer }
+    flat: { $ref: Money, nullable: true }
+    perGuest: { $ref: Money, nullable: true }
+    voucherFlat: { $ref: Money, nullable: true }
+    voucherPerGuest: { $ref: Money, nullable: true }
+    label: { $ref: LocalizedText }
+PriceRuleInput:
+  type: object
+  required: [tier, priority]
+  properties:
+    id: { $ref: Id, nullable: true }
+    tier: { $ref: PriceTier }
+    weekdays: { type: array, items: { $ref: Weekday }, nullable: true }
+    validFrom: { $ref: IsoDate, nullable: true }
+    validTo: { $ref: IsoDate, nullable: true }
+    specialDate: { $ref: IsoDate, nullable: true }
+    priority: { type: integer }
+    flat: { $ref: Money, nullable: true }
+    perGuest: { $ref: Money, nullable: true }
+    voucherFlat: { $ref: Money, nullable: true }
+    voucherPerGuest: { $ref: Money, nullable: true }
+    label: { $ref: LocalizedText }
+PackageEditor:
+  type: object
+  required: [package, rules]
+  properties:
+    package: { $ref: Package }
+    rules: { type: array, items: { $ref: PriceRule } }
+PackageCatalog:
+  type: object
+  required: [packages, extras]
+  properties:
+    packages: { type: array, items: { $ref: PackageEditor } }
+    extras: { type: array, items: { $ref: Extra } }
+PackageInput:
+  type: object
+  description: The editor of HL-VENU-03. Headline prices of the package are derived by the server from the rules.
+  required: [hallIds, name, archetype, audiences, pricingBasis, priceStructure, priceUnit, minGuests, maxGuests, guestStep, complimentaryBps, rules]
+  properties:
+    hallIds: { type: array, items: { $ref: Id } }
+    name: { $ref: LocalizedText }
+    archetype: { $ref: PackageArchetype }
+    audiences: { type: array, items: { $ref: Audience } }
+    pricingBasis: { $ref: PricingBasis }
+    priceStructure: { $ref: PriceStructure }
+    priceUnit: { $ref: PriceUnit }
+    minGuests: { type: integer }
+    maxGuests: { type: integer }
+    guestStep: { type: integer }
+    complimentaryBps: { type: integer }
+    description: { $ref: LocalizedText }
+    inclusions: { type: array, items: { $ref: LocalizedText } }
+    notes: { type: array, items: { $ref: LocalizedText } }
+    components: { type: array, items: { $ref: PackageComponent }, nullable: true }
+    active: { type: boolean }
+    rules: { type: array, items: { $ref: PriceRuleInput }, minItems: 1 }
+ExtraInput:
+  type: object
+  required: [category, name, pricingUnit, price, maxQty]
+  properties:
+    category: { $ref: ExtraCategory }
+    name: { $ref: LocalizedText }
+    description: { $ref: LocalizedText }
+    pricingUnit: { $ref: PricingUnit }
+    price: { $ref: Money }
+    priceMin: { $ref: Money, nullable: true }
+    priceMax: { $ref: Money, nullable: true }
+    maxQty: { type: integer }
+    includedInPackageIds: { type: array, items: { $ref: Id } }
+    audiences: { type: array, items: { $ref: Audience } }
+    unitLabel: { $ref: LocalizedText, nullable: true }
+    active: { type: boolean }
+BookingRules:
+  type: object
+  required: [responseSlaHours, confirmWindowHours, visitsEnabled]
+  properties:
+    responseSlaHours: { type: integer, enum: [12, 24, 48] }
+    confirmWindowHours: { type: integer, enum: [24], description: Fixed by the owner rule; read-only. }
+    visitsEnabled: { type: boolean }
+MediaKind: { type: string, enum: [photo, video] }
+MediaStatus: { type: string, enum: [processing, ready, rejected] }
+MediaItem:
+  type: object
+  required: [id, kind, zone, hallId, status, sizeBytes, isCover, order, createdAt, image]
+  properties:
+    id: { $ref: Id }
+    kind: { $ref: MediaKind }
+    zone: { $ref: MediaZone }
+    hallId: { $ref: Id, nullable: true }
+    status: { $ref: MediaStatus }
+    sizeBytes: { type: integer }
+    durationSeconds: { type: integer, nullable: true }
+    isCover: { type: boolean }
+    order: { type: integer }
+    createdAt: { $ref: IsoDateTime }
+    image: { $ref: ImageRef, nullable: true, description: The poster or photo once ready. }
+MediaLimits:
+  type: object
+  required: [videoMaxBytes, photoMaxBytes]
+  properties:
+    videoMaxBytes: { type: integer, description: '500 MB per video (500,000,000).' }
+    photoMaxBytes: { type: integer }
+MediaLibrary:
+  type: object
+  required: [items, limits]
+  properties:
+    items: { type: array, items: { $ref: MediaItem } }
+    limits: { $ref: MediaLimits }
+MediaUploadInput:
+  type: object
+  required: [kind, zone, fileName, contentType, sizeBytes]
+  properties:
+    kind: { $ref: MediaKind }
+    zone: { $ref: MediaZone }
+    hallId: { $ref: Id, nullable: true }
+    fileName: { type: string }
+    contentType: { type: string }
+    sizeBytes: { type: integer, minimum: 1 }
+CompleteMediaInput:
+  type: object
+  properties: { alt: { $ref: LocalizedText, nullable: true } }
+UpdateMediaInput:
+  type: object
+  properties:
+    zone: { $ref: MediaZone }
+    hallId: { $ref: Id, nullable: true }
+    alt: { $ref: LocalizedText }
+    isCover: { type: boolean }
+ReorderMediaInput:
+  type: object
+  required: [ids]
+  properties: { ids: { type: array, items: { $ref: Id } } }

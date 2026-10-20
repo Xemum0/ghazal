@@ -1,0 +1,92 @@
+// Localisation pipeline (ADR 0036, phase F1b): merges packages/i18n/messages/{en,ar}/<namespace>.json into the ARB files
+// of the apps and of ghazal_ui, then runs `flutter gen-l10n` for each.
+//   node tools/gen-l10n.mjs          merge only (writes the ARB files)
+//   node tools/gen-l10n.mjs --gen    merge + flutter gen-l10n in client_app, provider_app and ghazal_ui (pnpm l10n)
+//   node tools/gen-l10n.mjs --check  ARB parity and freshness + `dart analyze` of the generated code (pnpm l10n:check)
+// Bundles: client_app = common + client-*; provider_app = common + hotel-*; ghazal_ui (GzL10n) = common + the
+// component-owned parts in packages/ghazal_ui/l10n_src/*.{en,ar}.json.
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { spawnSync } from 'node:child_process'
+import {
+  arbPlaceholders, bundleMessages, bundles, placeholdersOf, pluralGaps, root, toArbMessage,
+} from './lib/icu-arb.mjs'
+
+const args = new Set(process.argv.slice(2))
+const gen = args.has('--gen')
+const check = args.has('--check')
+
+const buildArb = (bundle, lang) => {
+  const msgs = bundleMessages(bundle, lang)
+  const en = bundleMessages(bundle, 'en')
+  const out = { '@@locale': lang }
+  for (const key of Object.keys(en)) {
+    const where = `${bundle.dir}:${key}`
+    if (!(key in msgs)) throw new Error(`${where}: missing in ${lang}`)
+    out[key] = toArbMessage(msgs[key], lang, where)
+    const ph = arbPlaceholders(en[key], where)
+    // Arabic must use the same placeholder set, in the same order (the template's signature is the English one).
+    const own = [...placeholdersOf(msgs[key], where).keys()].sort().join(',')
+    if (own !== Object.keys(ph).sort().join(',')) throw new Error(`${where}: placeholders differ between en and ${lang}`)
+    if (Object.keys(ph).length) out[`@${key}`] = { placeholders: ph }
+  }
+  return out
+}
+
+const arbPath = (bundle, lang) => resolve(root, bundle.dir, `${bundle.prefix}_${lang}.arb`)
+const serialise = (obj) => `${JSON.stringify(obj, null, 2)}\n`
+
+const problems = []
+const counts = {}
+
+for (const [name, bundle] of Object.entries(bundles())) {
+  const arbs = { en: buildArb(bundle, 'en'), ar: buildArb(bundle, 'ar') }
+  counts[name] = Object.keys(arbs.en).filter((k) => !k.startsWith('@')).length
+  if (check) {
+    for (const lang of ['en', 'ar']) {
+      const file = arbPath(bundle, lang)
+      if (!existsSync(file) || readFileSync(file, 'utf8') !== serialise(arbs[lang])) problems.push(`stale ARB: ${bundle.dir}/${bundle.prefix}_${lang}.arb (run pnpm l10n)`)
+    }
+    // ARB parity: same keys, same placeholders, every plural has the categories its language needs.
+    const keys = (a) => Object.keys(a).filter((k) => !k.startsWith('@@')).sort().join('\n')
+    if (keys(arbs.en) !== keys(arbs.ar)) problems.push(`${name}: en and ar ARB keys differ`)
+    const en = bundleMessages(bundle, 'en')
+    const ar = bundleMessages(bundle, 'ar')
+    for (const key of Object.keys(en)) {
+      if (JSON.stringify(arbs.en[`@${key}`]) !== JSON.stringify(arbs.ar[`@${key}`])) problems.push(`${name}.${key}: placeholder metadata differs`)
+      for (const lang of ['en', 'ar']) {
+        const gaps = pluralGaps(lang === 'en' ? en[key] : ar[key], lang)
+        if (gaps.length) problems.push(`${name}.${key} (${lang}): plural lacks ${gaps.join(', ')}`)
+      }
+    }
+  } else {
+    mkdirSync(resolve(root, bundle.dir), { recursive: true })
+    for (const lang of ['en', 'ar']) writeFileSync(arbPath(bundle, lang), serialise(arbs[lang]))
+  }
+}
+
+const run = (cmd, argv, cwd) => {
+  const r = spawnSync(cmd, argv, { cwd, stdio: 'inherit' })
+  return r.status === 0
+}
+
+if (check) {
+  const pkgs = ['apps/client_app', 'apps/provider_app', 'packages/ghazal_ui']
+  for (const p of pkgs) {
+    if (!run('dart', ['analyze', 'lib/l10n'], resolve(root, p))) problems.push(`dart analyze failed in ${p}/lib/l10n`)
+  }
+  if (problems.length) {
+    console.error(problems.slice(0, 40).join('\n'))
+    if (problems.length > 40) console.error(`... and ${problems.length - 40} more`)
+    process.exit(1)
+  }
+  console.log(`l10n ok: ${Object.entries(counts).map(([k, v]) => `${k} ${v} keys`).join(', ')}`)
+} else {
+  console.log(`ARB written: ${Object.entries(counts).map(([k, v]) => `${k} ${v} keys`).join(', ')}`)
+  if (gen) {
+    for (const p of ['apps/client_app', 'apps/provider_app', 'packages/ghazal_ui']) {
+      console.log(`flutter gen-l10n in ${p}`)
+      if (!run('flutter', ['gen-l10n'], resolve(root, p))) process.exit(1)
+    }
+  }
+}

@@ -1,0 +1,97 @@
+/partner/me:
+  get:
+    operationId: getPartnerMe
+    summary: Partner session, memberships and active context (HL-SETT-01, HA-AUTH-03)
+    responses: { 200: PartnerMe }
+/partner/account-type:
+  post:
+    operationId: chooseAccountType
+    summary: Choose Hotel or hall versus Service provider (HL-PROV-01)
+    x-idempotent: true
+    body: ChooseAccountTypeInput
+    responses: { 201: PartnerMe }
+/partner/context:
+  put:
+    operationId: switchPartnerContext
+    summary: Switch the active venue or provider (HA-AUTH-03)
+    description: Persisted for the session so pushes and the next launch open the same context; every call still sends X-Venue-Id or X-Provider-Id.
+    body: SwitchContextInput
+    responses: { 200: PartnerMe }
+/partner/account:
+  get:
+    operationId: getPartnerAccount
+    summary: The account and its review or suspension status (HL-ACCS-04)
+    x-partner: true
+    responses: { 200: PartnerAccount }
+/partner/staff:
+  get:
+    operationId: listStaff
+    summary: Staff and pending invitations (HL-SETT-03)
+    x-partner: true
+    x-permissions: ['staff:write']
+    responses: { 200: StaffList }
+/partner/staff-invitations:
+  post:
+    operationId: inviteStaff
+    summary: Invite a colleague by email (step-up required)
+    x-partner: true
+    x-permissions: ['staff:write']
+    x-idempotent: true
+    body: InviteStaffInput
+    x-errors: [STEP_UP_REQUIRED, EMAIL_ALREADY_INVITED]
+    responses: { 201: StaffInvitation }
+/partner/staff-invitations/{invitationId}/resend:
+  post:
+    operationId: resendStaffInvitation
+    summary: Send the invitation email again
+    x-partner: true
+    x-permissions: ['staff:write']
+    path: { invitationId: Id }
+    responses: { 200: StaffInvitation }
+/partner/staff-invitations/{invitationId}:
+  delete:
+    operationId: revokeStaffInvitation
+    summary: Revoke a pending invitation
+    x-partner: true
+    x-permissions: ['staff:write']
+    path: { invitationId: Id }
+    responses: { 204: ~ }
+/partner/staff/{staffId}:
+  patch:
+    operationId: changeStaffRole
+    summary: Change a colleague's role (step-up required)
+    x-partner: true
+    x-permissions: ['staff:write']
+    path: { staffId: Id }
+    body: ChangeStaffRoleInput
+    x-errors: [STEP_UP_REQUIRED, STAFF_LAST_ADMIN]
+    responses: { 200: StaffMember }
+/partner/staff/{staffId}/deactivate:
+  post:
+    operationId: deactivateStaff
+    summary: Deactivate a colleague and revoke their sessions at once (HA-AUTH-04)
+    x-partner: true
+    x-permissions: ['staff:write']
+    path: { staffId: Id }
+    x-errors: [STEP_UP_REQUIRED, STAFF_LAST_ADMIN]
+    responses: { 200: StaffMember }
+/partner/staff/{staffId}/reactivate:
+  post:
+    operationId: reactivateStaff
+    summary: Reactivate a deactivated colleague
+    x-partner: true
+    x-permissions: ['staff:write']
+    path: { staffId: Id }
+    responses: { 200: StaffMember }
+/partner/notification-preferences:
+  get:
+    operationId: getPartnerNotificationPreferences
+    summary: Partner notification preferences (HL-SETT-02)
+    x-partner: true
+    responses: { 200: PartnerNotificationPreferences }
+  put:
+    operationId: updatePartnerNotificationPreferences
+    summary: Replace the partner notification preferences
+    x-partner: true
+    body: PartnerNotificationPreferences
+    responses: { 200: PartnerNotificationPreferences }

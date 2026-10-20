@@ -1,0 +1,86 @@
+[
+ {
+  "eventFrom": "2026-11-15",
+  "eventTo": "2026-12-29",
+  "eventDates": null,
+  "eventWeekdays": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "endsAt": null,
+  "voucherFlat": null,
+  "voucherPerGuest": {
+   "fils": 36000,
+   "currency": "KWD"
+  },
+  "status": "active",
+  "vouchersBought": 7,
+  "id": "vw-V01-midweek",
+  "venueId": "V01",
+  "title": {
+   "en": "Midweek voucher price",
+   "ar": "سعر الكوبون لأيام الأسبوع"
+  },
+  "packageIds": [
+   "V01-ladies-weekday"
+  ],
+  "startsAt": "2026-11-01T00:00:00+03:00"
+ },
+ {
+  "eventFrom": null,
+  "eventTo": null,
+  "eventDates": [
+   "2026-12-03",
+   "2026-12-05"
+  ],
+  "eventWeekdays": null,
+  "endsAt": "2026-11-13T16:00:00+03:00",
+  "voucherFlat": null,
+  "voucherPerGuest": {
+   "fils": 41000,
+   "currency": "KWD"
+  },
+  "status": "active",
+  "vouchersBought": 3,
+  "id": "vw-V01-flash",
+  "venueId": "V01",
+  "title": {
+   "en": "Thursday 3 and Saturday 5 December voucher price",
+   "ar": "سعر الكوبون ليومي الخميس 3 والسبت 5 ديسمبر"
+  },
+  "packageIds": [
+   "V01-ladies-weekend"
+  ],
+  "startsAt": "2026-11-10T09:00:00+03:00"
+ },
+ {
+  "eventFrom": "2027-04-01",
+  "eventTo": "2027-05-31",
+  "eventDates": null,
+  "eventWeekdays": [
+   4,
+   5,
+   6
+  ],
+  "endsAt": null,
+  "voucherFlat": null,
+  "voucherPerGuest": {
+   "fils": 42000,
+   "currency": "KWD"
+  },
+  "status": "scheduled",
+  "vouchersBought": 0,
+  "id": "vw-V01-early",
+  "venueId": "V01",
+  "title": {
+   "en": "Spring weddings voucher price",
+   "ar": "سعر الكوبون لأفراح الربيع"
+  },
+  "packageIds": [
+   "V01-ladies-weekend"
+  ],
+  "startsAt": "2026-12-01T00:00:00+03:00"
+ }
+]

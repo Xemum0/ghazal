@@ -1,0 +1,76 @@
+# Wedding planner packages and consultation requests (CA-PLAN). The planner is a human at Ghazal; the meeting is a video call.
+PlannerTier: { type: string, enum: [silver, gold, royal] }
+PlannerPackage:
+  type: object
+  required: [id, tier, name, tagline, marks, from, inclusions, suits, image]
+  properties:
+    id: { $ref: Id }
+    tier: { $ref: PlannerTier }
+    name: { $ref: LocalizedText }
+    tagline: { $ref: LocalizedText }
+    marks: { type: integer, enum: [1, 2, 3] }
+    from: { $ref: Money }
+    inclusions: { type: array, items: { $ref: LocalizedText } }
+    suits: { $ref: LocalizedText }
+    image: { $ref: ImageRef }
+Planner:
+  type: object
+  required: [id, userId, name, role, monogram, tiers, languages, about, yearsExperience]
+  properties:
+    id: { $ref: Id }
+    userId: { $ref: Id }
+    name: { $ref: LocalizedText }
+    role: { $ref: LocalizedText }
+    monogram: { type: string }
+    tiers: { type: array, items: { $ref: PlannerTier } }
+    languages: { type: array, items: { $ref: Lang } }
+    about: { $ref: LocalizedText }
+    yearsExperience: { type: integer }
+DayPart: { type: string, enum: [morning, afternoon, evening] }
+TimeWindow:
+  type: object
+  required: [date, part]
+  properties: { date: { $ref: IsoDate }, part: { $ref: DayPart } }
+PlannerRequestStatus: { type: string, enum: [requested, assigned, meeting_scheduled] }
+PlannerMeeting:
+  type: object
+  required: [at, durationMin, channel]
+  properties: { at: { $ref: IsoDateTime }, durationMin: { type: integer }, channel: { type: string, enum: [video_call] } }
+PlannerSlotDay:
+  type: object
+  required: [date, times]
+  properties: { date: { $ref: IsoDate }, times: { type: array, items: { $ref: LocalTime } } }
+PlannerRequest:
+  type: object
+  required: [id, clientId, tier, venueId, eventDate, windows, note, requestedAt, status, plannerId, assignedAt, meeting, slots]
+  properties:
+    id: { $ref: Id }
+    clientId: { $ref: Id }
+    tier: { $ref: PlannerTier }
+    venueId: { $ref: Id, nullable: true }
+    eventDate: { $ref: IsoDate }
+    windows: { type: array, items: { $ref: TimeWindow } }
+    note: { type: string }
+    requestedAt: { $ref: IsoDateTime }
+    status: { $ref: PlannerRequestStatus }
+    plannerId: { $ref: Id, nullable: true }
+    assignedAt: { $ref: IsoDateTime, nullable: true }
+    meeting: { $ref: PlannerMeeting, nullable: true }
+    slots: { type: array, items: { $ref: PlannerSlotDay }, description: Bookable meeting times once a planner is assigned. }
+PlannerRequestInput:
+  type: object
+  required: [tier, eventDate, windows]
+  properties:
+    tier: { $ref: PlannerTier }
+    venueId: { $ref: Id, nullable: true }
+    eventDate: { $ref: IsoDate }
+    windows: { type: array, items: { $ref: TimeWindow }, minItems: 1 }
+    note: { type: string, nullable: true }
+MeetingInput:
+  type: object
+  required: [date, time]
+  properties: { date: { $ref: IsoDate }, time: { $ref: LocalTime } }
+PlannerDetail:
+  type: object
+  required: [planner, packages]
+  properties: { planner: { $ref: Planner }, packages: { type: array, items: { $ref: PlannerPackage } } }

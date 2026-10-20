@@ -1,0 +1,111 @@
+{
+  "serverNow": "2026-11-12T16:00:00+03:00",
+  "timezone": "Asia/Kuwait",
+  "config": {
+    "voucherFeeFils": 2000,
+    "voucherValidityDays": 60,
+    "voucherReuseDays": 60,
+    "voucherCheckoutMinutes": 30,
+    "creditVoucherValidityDays": 60,
+    "confirmWindowHours": 24,
+    "approvalUndoSeconds": 8,
+    "counterOfferValidityHours": 48,
+    "maxOpenRequests": 3,
+    "defaultReplyHours": 24,
+    "urgentLeadDays": 14,
+    "urgentReplyHours": 4,
+    "completionDelayHours": 12,
+    "issueReportHours": 72,
+    "visitChatReadonlyHours": 24,
+    "visitChatArchiveDays": 30,
+    "slaDangerPct": 80,
+    "slaGoldPct": 50,
+    "weekendTierDays": [
+      4,
+      5,
+      6
+    ],
+    "peakBandDays": [
+      4,
+      5,
+      6
+    ]
+  },
+  "occasions": [
+    {
+      "id": "new-year",
+      "name": {
+        "en": "New Year’s Day",
+        "ar": "رأس السنة"
+      },
+      "from": "2027-01-01",
+      "to": "2027-01-01",
+      "approximate": false
+    },
+    {
+      "id": "isra-miraj",
+      "name": {
+        "en": "Isra and Miraj (approx.)",
+        "ar": "إسراء ومعراج (تقريبي)"
+      },
+      "from": "2027-01-05",
+      "to": "2027-01-05",
+      "approximate": true
+    },
+    {
+      "id": "ramadan-1448",
+      "name": {
+        "en": "Ramadan 1448 (approx.)",
+        "ar": "رمضان 1448 (تقريبي)"
+      },
+      "from": "2027-02-08",
+      "to": "2027-03-08",
+      "approximate": true
+    },
+    {
+      "id": "national-day",
+      "name": {
+        "en": "National Day",
+        "ar": "العيد الوطني"
+      },
+      "from": "2027-02-25",
+      "to": "2027-02-25",
+      "approximate": false
+    },
+    {
+      "id": "liberation-day",
+      "name": {
+        "en": "Liberation Day",
+        "ar": "يوم التحرير"
+      },
+      "from": "2027-02-26",
+      "to": "2027-02-26",
+      "approximate": false
+    },
+    {
+      "id": "eid-al-fitr",
+      "name": {
+        "en": "Eid al-Fitr (approx.)",
+        "ar": "عيد الفطر (تقريبي)"
+      },
+      "from": "2027-03-09",
+      "to": "2027-03-11",
+      "approximate": true
+    },
+    {
+      "id": "eid-al-adha",
+      "name": {
+        "en": "Eid al-Adha (approx.)",
+        "ar": "عيد الأضحى (تقريبي)"
+      },
+      "from": "2027-05-16",
+      "to": "2027-05-19",
+      "approximate": true
+    }
+  ],
+  "availabilityWindow": {
+    "from": "2026-11-01",
+    "to": "2027-10-31"
+  },
+  "minAppVersion": "1.0.0"
+}

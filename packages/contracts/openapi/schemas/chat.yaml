@@ -1,0 +1,124 @@
+# Conversations and messages for both apps. The same objects serve the client and the partner side; the caller's token decides the side.
+ConversationKind: { type: string, enum: [venue, planner, vendor, support, enquiry, visit_group] }
+MessageKind: { type: string, enum: [text, voice, document, image, meeting_card, quote_request_card, booking_card, visit_card, credit_card, system] }
+MessageFrom: { type: string, enum: [client, venue, planner, vendor, support, system], description: 'In a visit group chat `venue` is the hotel representative and `support` the Ghazal support representative.' }
+MessageStatus: { type: string, enum: [sent, delivered, read] }
+MessageCardKind: { type: string, enum: [meeting, quote_request, booking, visit, voucher_offer, credit_voucher] }
+MessageCard:
+  type: object
+  required: [kind, title, lines]
+  properties:
+    kind: { $ref: MessageCardKind }
+    title: { $ref: LocalizedText }
+    lines: { type: array, items: { $ref: LocalizedText } }
+    at: { $ref: IsoDateTime }
+    refId: { $ref: Id }
+MessageVoice:
+  type: object
+  required: [seconds]
+  properties: { seconds: { type: integer } }
+MessageDocument:
+  type: object
+  required: [name, sizeKb, mime]
+  properties: { name: { type: string }, sizeKb: { type: integer }, mime: { type: string, enum: [application/pdf] } }
+MessageImage:
+  type: object
+  required: [file, alt]
+  properties: { file: { type: string }, alt: { $ref: LocalizedText } }
+Message:
+  type: object
+  description: A real chat shows the text as typed (`origin`); a fixture may carry both languages.
+  required: [id, conversationId, seq, from, senderName, at, kind, text, origin, status, draft]
+  properties:
+    id: { $ref: Id }
+    conversationId: { $ref: Id }
+    seq: { type: integer, description: Server sequence per conversation; history resumes with afterSeq. }
+    clientMsgId: { type: string, nullable: true, description: Client-generated id that makes a send idempotent. }
+    from: { $ref: MessageFrom }
+    senderName: { type: string, nullable: true }
+    at: { $ref: IsoDateTime }
+    kind: { $ref: MessageKind }
+    text: { $ref: LocalizedText, nullable: true }
+    origin: { $ref: Lang }
+    voice: { $ref: MessageVoice }
+    document: { $ref: MessageDocument }
+    image: { $ref: MessageImage }
+    card: { $ref: MessageCard }
+    status: { $ref: MessageStatus }
+    draft: { type: boolean, description: A partner-side draft that is never visible to the client until sent. }
+MessagePage: { x-page-of: Message }
+ThreadRole: { type: string, enum: [client, hotel_representative, support] }
+ThreadMember:
+  type: object
+  required: [userId, role, name, nameLatin, monogram, chip, organisation]
+  properties:
+    userId: { $ref: Id }
+    role: { $ref: ThreadRole }
+    name: { type: string }
+    nameLatin: { type: string }
+    monogram: { type: string }
+    chip: { $ref: LocalizedText }
+    organisation: { $ref: LocalizedText, nullable: true }
+ConversationUnread:
+  type: object
+  required: [client, hotel]
+  properties: { client: { type: integer }, hotel: { type: integer } }
+Conversation:
+  type: object
+  required: [id, kind, title, subtitle, monogram, clientId, clientName, venueId, bookingId, plannerId, vendorId, pinned, unread, handledBy, lastMessageAt, awaitingReplySince, usuallyRepliesHours]
+  properties:
+    id: { $ref: Id }
+    kind: { $ref: ConversationKind }
+    title: { $ref: LocalizedText }
+    subtitle: { $ref: LocalizedText }
+    monogram: { type: string }
+    clientId: { $ref: Id, nullable: true }
+    clientName: { type: string }
+    venueId: { $ref: Id, nullable: true }
+    bookingId: { $ref: Id, nullable: true }
+    plannerId: { $ref: Id, nullable: true }
+    vendorId: { $ref: Id, nullable: true, description: The service provider id (legacy field name). }
+    pinned: { type: boolean }
+    unread: { $ref: ConversationUnread }
+    handledBy: { type: string, nullable: true }
+    lastMessageAt: { $ref: IsoDateTime }
+    awaitingReplySince: { $ref: IsoDateTime, nullable: true }
+    usuallyRepliesHours: { type: number, nullable: true }
+    visitId: { $ref: Id, nullable: true }
+    members: { type: array, items: { $ref: ThreadMember }, description: Visit group chat only; exactly three members. }
+    readOnlyFrom: { $ref: IsoDateTime, nullable: true }
+    archiveOn: { $ref: IsoDate, nullable: true }
+ConversationPage: { x-page-of: Conversation }
+CreateConversationInput:
+  type: object
+  description: Opens (or returns the existing) conversation. Visit group chats are created by booking a visit, never here.
+  required: [kind]
+  properties:
+    kind: { type: string, enum: [venue, enquiry, vendor, planner] }
+    venueId: { $ref: Id, nullable: true }
+    providerId: { $ref: Id, nullable: true }
+    plannerId: { $ref: Id, nullable: true }
+    bookingId: { $ref: Id, nullable: true }
+    firstMessage: { type: string, nullable: true }
+SendMessageInput:
+  type: object
+  required: [clientMsgId, kind]
+  properties:
+    clientMsgId: { type: string, description: Client UUID; a repeat returns the stored message. }
+    kind: { type: string, enum: [text, voice, document, image] }
+    text: { type: string, nullable: true }
+    origin: { $ref: Lang, nullable: true }
+    attachmentId: { type: string, nullable: true, description: Id of a completed upload session. }
+    voiceSeconds: { type: integer, nullable: true }
+ReadMarkerInput:
+  type: object
+  required: [upToSeq]
+  properties: { upToSeq: { type: integer } }
+PinInput:
+  type: object
+  required: [pinned]
+  properties: { pinned: { type: boolean } }
+DraftInput:
+  type: object
+  required: [text]
+  properties: { text: { type: string } }

@@ -1,0 +1,12 @@
+{
+  "id": "pay_01JEXAMPLE",
+  "voucherId": "vch-GV-2611-K7QM",
+  "method": "knet",
+  "status": "created",
+  "amount": {
+    "fils": 2000,
+    "currency": "KWD"
+  },
+  "redirectUrl": "https://pay.mock.ghazal.local/s/pay_01JEXAMPLE",
+  "expiresAt": "2026-11-12T16:30:00+03:00"
+}

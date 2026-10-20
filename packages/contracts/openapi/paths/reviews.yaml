@@ -1,0 +1,18 @@
+/venues/{venueId}/reviews:
+  get:
+    operationId: listVenueReviews
+    summary: Reviews of a venue (CA-VDET-20, CA-REV-05)
+    x-access: optional
+    x-paged: true
+    path: { venueId: Id }
+    query: { sort: ReviewSort, audience: ReviewAudience, hallId: Id }
+    responses: { 200: ReviewPage }
+/requests/{requestId}/review:
+  post:
+    operationId: createReview
+    summary: Review a completed request (CA-REV-01..04)
+    x-idempotent: true
+    path: { requestId: Id }
+    body: CreateReviewInput
+    x-errors: [REVIEW_NOT_ALLOWED]
+    responses: { 201: Review }

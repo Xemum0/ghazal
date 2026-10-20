@@ -1,0 +1,8 @@
+{
+  "challengeId": "ch_01JEXAMPLE0012",
+  "channel": "whatsapp",
+  "destinationHint": "+965 **** 0012",
+  "expiresInSeconds": 300,
+  "resendAfterSeconds": 60,
+  "codeLength": 6
+}

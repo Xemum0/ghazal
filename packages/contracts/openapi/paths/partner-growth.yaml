@@ -1,0 +1,51 @@
+/partner/voucher-windows:
+  get:
+    operationId: listVoucherWindows
+    summary: Voucher price windows (HL-GROW-01)
+    x-partner: true
+    x-permissions: ['offer:write']
+    query: { status: 'VoucherWindowStatus[]' }
+    responses: { 200: VoucherWindowList }
+  post:
+    operationId: createVoucherWindow
+    summary: Create a voucher price window (HL-GROW-02, HL-GROW-03)
+    x-partner: true
+    x-permissions: ['offer:write']
+    x-idempotent: true
+    body: VoucherWindowInput
+    responses: { 201: VoucherWindow }
+/partner/voucher-windows/{windowId}:
+  put:
+    operationId: updateVoucherWindow
+    summary: Replace a window that has not ended
+    x-partner: true
+    x-permissions: ['offer:write']
+    path: { windowId: Id }
+    body: VoucherWindowInput
+    responses: { 200: VoucherWindow }
+/partner/voucher-windows/{windowId}/end:
+  post:
+    operationId: endVoucherWindow
+    summary: End a window now
+    x-partner: true
+    x-permissions: ['offer:write']
+    x-idempotent: true
+    path: { windowId: Id }
+    responses: { 200: VoucherWindow }
+/partner/analytics:
+  get:
+    operationId: getPartnerAnalytics
+    summary: Venue analytics tiles, funnel and series (HL-GROW-04)
+    x-partner: true
+    x-permissions: ['analytics:read']
+    query: { from: IsoDate, to: IsoDate }
+    responses: { 200: Analytics }
+/partner/analytics/listings/{listingId}:
+  get:
+    operationId: getListingPerformance
+    summary: Performance of one provider listing (HL-PROV-07)
+    x-partner: true
+    x-permissions: ['analytics:read']
+    path: { listingId: Id }
+    query: { from: IsoDate, to: IsoDate }
+    responses: { 200: ListingPerformance }

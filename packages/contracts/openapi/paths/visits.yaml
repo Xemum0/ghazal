@@ -1,0 +1,71 @@
+/venues/{venueId}/visit-dates:
+  get:
+    operationId: listVisitDates
+    summary: Next dates with a bookable visit slot (CL-VIST-01)
+    x-access: optional
+    path: { venueId: Id }
+    query: { days: integer }
+    x-errors: [VISIT_NOT_ALLOWED]
+    responses: { 200: VisitDatesResponse }
+/venues/{venueId}/visit-slots:
+  get:
+    operationId: listVisitSlots
+    summary: 30-minute arrival windows of one date
+    x-access: optional
+    path: { venueId: Id }
+    query: { 'date!': IsoDate }
+    x-errors: [VISIT_NOT_ALLOWED]
+    responses: { 200: VisitSlotsResponse }
+/visits:
+  post:
+    operationId: bookVisit
+    summary: Book a free visit and create its group chat (CA-VIS-01, CA-VIS-02)
+    x-idempotent: true
+    body: VisitBookingInput
+    x-errors: [VISIT_SLOT_TAKEN, VISIT_NOT_ALLOWED, PHONE_VERIFICATION_REQUIRED]
+    responses: { 201: VisitThread }
+  get:
+    operationId: listVisits
+    summary: The client's visits (CL-VIST-04)
+    x-paged: true
+    query: { status: 'VisitStatus[]' }
+    responses: { 200: VisitRowPage }
+/visits/{visitId}:
+  get:
+    operationId: getVisit
+    summary: One visit
+    path: { visitId: Id }
+    responses: { 200: VisitAppointment }
+/visits/{visitId}/thread:
+  get:
+    operationId: getVisitThread
+    summary: The visit group chat with its messages (CL-VIST-03)
+    path: { visitId: Id }
+    responses: { 200: VisitThread }
+/visits/{visitId}/cancel:
+  post:
+    operationId: cancelVisit
+    summary: Cancel a visit (CL-VIST-05); the group chat closes at once
+    x-idempotent: true
+    path: { visitId: Id }
+    body: VisitCancelInput
+    x-errors: [VISIT_STATE_CONFLICT]
+    responses: { 200: VisitAppointment }
+/visits/{visitId}/reschedule:
+  post:
+    operationId: rescheduleVisit
+    summary: Ask for another arrival window
+    x-idempotent: true
+    path: { visitId: Id }
+    body: VisitRescheduleInput
+    x-errors: [VISIT_SLOT_TAKEN, VISIT_STATE_CONFLICT]
+    responses: { 200: VisitAppointment }
+/visits/{visitId}/proposal:
+  post:
+    operationId: answerVisitProposal
+    summary: Accept or decline the partner's proposed other slot
+    x-idempotent: true
+    path: { visitId: Id }
+    body: VisitProposalAnswer
+    x-errors: [VISIT_STATE_CONFLICT, VISIT_SLOT_TAKEN]
+    responses: { 200: VisitAppointment }

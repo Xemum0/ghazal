@@ -1,0 +1,157 @@
+[
+ {
+  "id": "planner-silver",
+  "tier": "silver",
+  "name": {
+   "en": "Silver",
+   "ar": "الفضية"
+  },
+  "tagline": {
+   "en": "Day-of coordination",
+   "ar": "تنسيق يوم الحفل"
+  },
+  "marks": 1,
+  "from": {
+   "fils": 650000,
+   "currency": "KWD"
+  },
+  "inclusions": [
+   {
+    "en": "Coordinator on the day",
+    "ar": "منسّقة يوم الحفل"
+   },
+   {
+    "en": "Run-of-show timeline",
+    "ar": "جدول زمني لسير الحفل"
+   },
+   {
+    "en": "Vendor arrival checks",
+    "ar": "متابعة وصول الموردين"
+   },
+   {
+    "en": "Venue walkthrough",
+    "ar": "جولة تفقد في القاعة"
+   }
+  ],
+  "suits": {
+   "en": "Couples who have planned everything and want a calm day",
+   "ar": "لأزواج أنهوا كل التحضيرات ويريدون يومًا هادئًا"
+  },
+  "image": {
+   "file": "context/context-42-planner-phone-cream-surface-weekly.jpg",
+   "width": 1800,
+   "height": 1200,
+   "orientation": "landscape",
+   "alt": {
+    "en": "Weekly planner pad and smartphone on a cream surface with a tan charging cable",
+    "ar": "مفكرة أسبوعية وهاتف ذكي على سطح كريمي مع كابل شحن بلون بيج"
+   }
+  }
+ },
+ {
+  "id": "planner-gold",
+  "tier": "gold",
+  "name": {
+   "en": "Gold",
+   "ar": "الذهبية"
+  },
+  "tagline": {
+   "en": "Planning and styling",
+   "ar": "تخطيط وتنسيق"
+  },
+  "marks": 2,
+  "from": {
+   "fils": 1900000,
+   "currency": "KWD"
+  },
+  "inclusions": [
+   {
+    "en": "Everything in Silver",
+    "ar": "كل ما في الفضية"
+   },
+   {
+    "en": "Planning from the booking date",
+    "ar": "التخطيط من تاريخ الحجز"
+   },
+   {
+    "en": "Vendor shortlist and quotes",
+    "ar": "قائمة موردين وعروض أسعار"
+   },
+   {
+    "en": "Styling concept and moodboard",
+    "ar": "فكرة التنسيق ولوحة الإلهام"
+   },
+   {
+    "en": "Two planning meetings",
+    "ar": "اجتماعا تخطيط"
+   }
+  ],
+  "suits": {
+   "en": "Couples who want help choosing and styling, with a plan to follow",
+   "ar": "لأزواج يريدون مساعدة في الاختيار والتنسيق مع خطة واضحة"
+  },
+  "image": {
+   "file": "context/context-41-planner-phone-open-calendar-blush-marble.jpg",
+   "width": 1800,
+   "height": 2700,
+   "orientation": "portrait",
+   "alt": {
+    "en": "Smartphone resting on an open weekly planner on blush marble with two gold rings",
+    "ar": "هاتف ذكي فوق مخطط أسبوعي مفتوح على رخام وردي مع خاتمين ذهبيين"
+   }
+  }
+ },
+ {
+  "id": "planner-royal",
+  "tier": "royal",
+  "name": {
+   "en": "Royal",
+   "ar": "الملكية"
+  },
+  "tagline": {
+   "en": "Full design and production",
+   "ar": "تصميم وإنتاج متكامل"
+  },
+  "marks": 3,
+  "from": {
+   "fils": 5500000,
+   "currency": "KWD"
+  },
+  "inclusions": [
+   {
+    "en": "Everything in Gold",
+    "ar": "كل ما في الذهبية"
+   },
+   {
+    "en": "Bespoke kosha and decor design",
+    "ar": "تصميم مخصص للكوشة والديكور"
+   },
+   {
+    "en": "Production management",
+    "ar": "إدارة الإنتاج"
+   },
+   {
+    "en": "Vendor contracting",
+    "ar": "التعاقد مع الموردين"
+   },
+   {
+    "en": "A dedicated planner team",
+    "ar": "فريق تخطيط مخصص"
+   }
+  ],
+  "suits": {
+   "en": "Couples who want the whole wedding designed and produced for them",
+   "ar": "لأزواج يريدون تصميم الزفاف وإنتاجه بالكامل"
+  },
+  "image": {
+   "file": "context/context-53-hero-staircase-blush-roses-copper-lanterns.jpg",
+   "width": 1800,
+   "height": 2700,
+   "orientation": "portrait",
+   "alt": {
+    "en": "Staircase garlanded with blush roses, white orchids and copper lanterns",
+    "ar": "درج مزيّن بأكاليل ورد وردي وأوركيد أبيض وفوانيس نحاسية"
+   }
+  }
+ }
+]

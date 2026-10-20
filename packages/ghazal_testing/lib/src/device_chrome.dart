@@ -4,7 +4,7 @@ import 'package:ghazal_ui/ghazal_ui.dart';
 /// Tone of the system chrome: `dark` ink on light screens, `light` on photos (prototype `ChromeTone`).
 enum GzChromeTone { dark, light }
 
-Color _ink(GzChromeTone tone) => tone == GzChromeTone.dark ? GzPlaceholderColors.ink900 : GzPlaceholderColors.onDark;
+Color _ink(GzChromeTone tone) => tone == GzChromeTone.dark ? GzColors.light.iconPrimary : GzColors.light.iconOnDark;
 
 /// The iOS status bar of the prototype device (`design/src/shell/device/StatusBar.tsx`): [height] 47, time in the left ear,
 /// signal / wifi / battery in the right ear, a 160 wide notch gap between. Always LTR (the OS draws it from the system locale).
@@ -31,17 +31,8 @@ class GzHarnessStatusBar extends StatelessWidget {
                   child: Center(
                     child: Text(
                       time,
-                      style: TextStyle(
-                        fontFamily: GzFonts.uiLatin,
-                        fontFamilyFallback: const [GzFonts.uiArabic],
-                        package: GzFonts.package,
-                        fontSize: 15,
-                        height: 20 / 15,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0,
-                        color: color,
-                        decoration: TextDecoration.none,
-                      ),
+                      // The device status bar is always Latin (the OS draws it from the system locale): the statusbar role of the English set.
+                      style: GzType.en.statusbar.copyWith(color: color, decoration: TextDecoration.none),
                     ),
                   ),
                 ),

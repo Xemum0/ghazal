@@ -1,0 +1,37 @@
+[
+ {
+  "voucherFeeFils": 2000,
+  "voucherValidityDays": 60,
+  "voucherReuseDays": 60,
+  "voucherCheckoutMinutes": 30,
+  "creditVoucherValidityDays": 60,
+  "confirmWindowHours": 24,
+  "approvalUndoSeconds": 8,
+  "counterOfferValidityHours": 48,
+  "maxOpenRequests": 3,
+  "defaultReplyHours": 24,
+  "urgentLeadDays": 14,
+  "urgentReplyHours": 4,
+  "completionDelayHours": 12,
+  "issueReportHours": 72,
+  "visitChatReadonlyHours": 24,
+  "visitChatArchiveDays": 30,
+  "listingRejectedRetentionDays": 14,
+  "slaDangerPct": 80,
+  "slaGoldPct": 50,
+  "weekendTierDays": [
+   4,
+   5,
+   6
+  ],
+  "peakBandDays": [
+   4,
+   5,
+   6
+  ],
+  "seedVoucherDiscountBps": {
+   "min": 1500,
+   "max": 3500
+  }
+ }
+]

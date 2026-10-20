@@ -1,0 +1,42 @@
+/services/categories:
+  get:
+    operationId: listServiceCategories
+    summary: Five primary categories then More services (CA-SVC-01..08)
+    x-access: optional
+    responses: { 200: ServiceCategoriesResponse }
+/services/providers:
+  get:
+    operationId: listServiceProviders
+    summary: Providers with an active listing (CL-SERV-02)
+    x-access: optional
+    x-paged: true
+    query: { categoryId: ServiceCategoryId, areaIds: 'Id[]', governorateIds: 'Id[]', q: string, femaleTeamOnly: boolean, sort: ProviderSort }
+    responses: { 200: ServiceProviderPage }
+/services/providers/{providerId}:
+  get:
+    operationId: getServiceProvider
+    summary: Provider profile with packages and portfolio (CL-SERV-03)
+    x-access: optional
+    path: { providerId: Id }
+    responses: { 200: ServiceProvider }
+/services/providers/{providerId}/quote:
+  get:
+    operationId: quoteProvider
+    summary: Quantity times unit price, standard and voucher
+    x-access: optional
+    path: { providerId: Id }
+    query: { 'packageId!': Id, 'qty!': integer, date: IsoDate }
+    responses: { 200: Quote }
+/services/quote-requests:
+  post:
+    operationId: createQuoteRequest
+    summary: Ask a provider for a quote (CL-SERV-04)
+    x-idempotent: true
+    body: CreateQuoteRequestInput
+    x-errors: [PHONE_VERIFICATION_REQUIRED]
+    responses: { 201: VendorQuoteRequest }
+  get:
+    operationId: listQuoteRequests
+    summary: The client's quote requests
+    x-paged: true
+    responses: { 200: VendorQuoteRequestPage }

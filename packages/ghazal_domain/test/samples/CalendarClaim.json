@@ -1,0 +1,73 @@
+[
+ {
+  "venueId": "V01",
+  "audience": "women",
+  "guests": 300,
+  "clientName": "علياء الظفيري",
+  "bookingId": "bk-GZ-2608-7G4N",
+  "blockReason": null,
+  "blockNote": null,
+  "blockedBy": null,
+  "holdUntil": null,
+  "start": "21:00",
+  "end": "02:00",
+  "id": "claim-GZ-2608-7G4N-1",
+  "hallId": "V01-danah",
+  "date": "2026-10-31",
+  "kind": "booking"
+ },
+ {
+  "venueId": "V01",
+  "audience": "women",
+  "guests": 360,
+  "clientName": "نورة الفهد",
+  "bookingId": "bk-GZ-2608-6N8F",
+  "blockReason": null,
+  "blockNote": null,
+  "blockedBy": null,
+  "holdUntil": null,
+  "start": "21:00",
+  "end": "02:00",
+  "id": "claim-GZ-2608-6N8F-1",
+  "hallId": "V01-danah",
+  "date": "2026-11-06",
+  "kind": "booking"
+ },
+ {
+  "venueId": "V01",
+  "audience": "men",
+  "guests": 320,
+  "clientName": "ثامر المطوع",
+  "bookingId": "bk-GZ-2608-9J2H",
+  "blockReason": null,
+  "blockNote": null,
+  "blockedBy": null,
+  "holdUntil": null,
+  "start": "20:30",
+  "end": "01:00",
+  "id": "claim-GZ-2608-9J2H-1",
+  "hallId": "V01-majlis",
+  "date": "2026-11-08",
+  "kind": "booking"
+ },
+ {
+  "venueId": "V01",
+  "audience": null,
+  "guests": null,
+  "clientName": null,
+  "bookingId": null,
+  "blockReason": "maintenance",
+  "blockNote": {
+   "en": "Maintenance",
+   "ar": "صيانة"
+  },
+  "blockedBy": "Hind Al-Enezi",
+  "holdUntil": null,
+  "start": null,
+  "end": null,
+  "id": "claim-block-2026-11-23-V01-majlis",
+  "hallId": "V01-majlis",
+  "date": "2026-11-23",
+  "kind": "block"
+ }
+]

@@ -1,0 +1,85 @@
+/requests:
+  post:
+    operationId: createRequest
+    summary: Send a request with a voucher (R01; CA-BOOK-10)
+    description: Requires a signed-in client with a verified phone, an active voucher for this target and quote, fewer than 3 open requests and a free slot. Claim and voucher binding are one transaction.
+    x-idempotent: true
+    body: CreateRequestInput
+    x-errors: [SLOT_UNAVAILABLE, OPEN_REQUEST_LIMIT, VOUCHER_NOT_USABLE, VOUCHER_TARGET_MISMATCH, QUOTE_CHANGED, QUOTE_EXPIRED, PHONE_VERIFICATION_REQUIRED, LEAD_TIME_TOO_SHORT, GUESTS_OUT_OF_RANGE, AUDIENCE_NOT_ALLOWED, CHANNEL_NOT_BOOKABLE]
+    responses: { 201: Booking }
+  get:
+    operationId: listRequests
+    summary: The client's requests (CA-STAT-01)
+    x-paged: true
+    query: { status: 'BookingStatus[]' }
+    responses: { 200: BookingPage }
+/requests/{requestId}:
+  get:
+    operationId: getRequest
+    summary: Request detail with voucher, target and the confirm window (CL-BKNG-02)
+    description: Sets `ETag` to the booking version.
+    path: { requestId: Id }
+    responses: { 200: BookingDetail }
+/requests/{requestId}/confirm-window:
+  get:
+    operationId: getConfirmWindow
+    summary: The 24 h confirm window of an approved request
+    description: The client ticks locally; this gives the authoritative deadline.
+    path: { requestId: Id }
+    responses: { 200: ConfirmWindow }
+/requests/{requestId}/confirm:
+  post:
+    operationId: confirmRequest
+    summary: Confirm inside the 24 h window (R08; CL-BOOK-08)
+    x-idempotent: true
+    x-if-match: true
+    path: { requestId: Id }
+    x-errors: [CONFIRM_WINDOW_ENDED, BOOKING_STATE_CONFLICT]
+    responses: { 200: Booking }
+/requests/{requestId}/withdraw:
+  post:
+    operationId: withdrawRequest
+    summary: Withdraw a pending request (R07); the voucher is released
+    x-idempotent: true
+    x-if-match: true
+    path: { requestId: Id }
+    x-errors: [BOOKING_STATE_CONFLICT]
+    responses: { 200: Booking }
+/requests/{requestId}/cancel:
+  post:
+    operationId: cancelRequest
+    summary: Cancel an approved (R10a, voucher released) or confirmed (R13a, voucher consumed) request
+    x-idempotent: true
+    x-if-match: true
+    path: { requestId: Id }
+    body: CancelRequestInput
+    x-errors: [BOOKING_STATE_CONFLICT]
+    responses: { 200: Booking }
+/requests/{requestId}/proposals/{proposalId}/accept:
+  post:
+    operationId: acceptProposal
+    summary: Accept one date of the partner's counter-offer (R05; CL-BKNG-04)
+    description: The request becomes approved and the 24 h confirm window starts.
+    x-idempotent: true
+    x-if-match: true
+    path: { requestId: Id, proposalId: Id }
+    body: ProposalAnswerInput
+    x-errors: [BOOKING_STATE_CONFLICT, SLOT_UNAVAILABLE]
+    responses: { 200: Booking }
+/requests/{requestId}/proposals/{proposalId}/decline:
+  post:
+    operationId: declineProposal
+    summary: Decline the counter-offer; the request is cancelled (counter_offer_declined) and the voucher released
+    x-idempotent: true
+    x-if-match: true
+    path: { requestId: Id, proposalId: Id }
+    x-errors: [BOOKING_STATE_CONFLICT]
+    responses: { 200: Booking }
+/requests/{requestId}/issues:
+  post:
+    operationId: reportIssue
+    summary: Report an issue within 72 hours of the event
+    x-idempotent: true
+    path: { requestId: Id }
+    body: ReportIssueInput
+    responses: { 200: Booking }

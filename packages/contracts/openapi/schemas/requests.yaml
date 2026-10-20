@@ -1,0 +1,232 @@
+# A request is the booking object (table `bookings`, ref GZ-YYMM-XXXX): a REQUEST FOR A PRICE. No money moves inside it (ADR 0033 D3).
+BookingStatus: { type: string, enum: [pending, approved, declined, expired, confirmed, redeemed, completed, cancelled] }
+CancelledBy: { type: string, enum: [client, venue, system, admin] }
+ExpiredReason: { type: string, enum: [venue_no_response, client_no_confirmation, slot_taken, client_no_response] }
+RejectReason: { type: string, enum: [date_unavailable, capacity_mismatch, package_not_offered, other] }
+CancelReason: { type: string, enum: [withdrawn, counter_offer_declined, plans_changed, found_other_venue, date_changed, budget, approval_revoked, hall_unavailable, safety_or_maintenance, authority_order, system_error, admin_override, other] }
+BookingTargetType: { type: string, enum: [venue, provider] }
+BookingFor: { type: string, enum: [bride, groom, family, planner] }
+BookingSection:
+  type: object
+  required: [position, hallId, sessionId, audience, guests, billableGuests, packageId, start, end]
+  properties:
+    position: { type: integer, enum: [1, 2] }
+    hallId: { $ref: Id }
+    sessionId: { $ref: Id }
+    audience: { $ref: Audience }
+    guests: { type: integer }
+    billableGuests: { type: integer, description: 'max(guests, minimum) less complimentary guests (ADR 0004 D2).' }
+    packageId: { $ref: Id }
+    start: { $ref: LocalTime }
+    end: { $ref: LocalTime }
+ProviderServiceRequest:
+  type: object
+  required: [providerId, listingId, packageId, quantity, venueId]
+  properties:
+    providerId: { $ref: Id }
+    listingId: { $ref: Id }
+    packageId: { $ref: Id }
+    quantity: { type: integer }
+    venueId: { $ref: Id, nullable: true }
+ContactPerson:
+  type: object
+  required: [name, phone, shared, bookingFor]
+  properties:
+    name: { type: string }
+    phone: { type: string }
+    shared: { type: boolean, description: 'Whether the client shared the number with the partner (ADR 0003, OQ-B-19).' }
+    bookingFor: { $ref: BookingFor }
+ThreadNodeKind: { type: string, enum: [request, approval, confirmation, redemption, day, completed] }
+ThreadNodeState: { type: string, enum: [done, current, future, closed] }
+ThreadKnot:
+  type: object
+  required: [node, state, at]
+  properties:
+    node: { $ref: ThreadNodeKind }
+    state: { $ref: ThreadNodeState }
+    at: { $ref: IsoDateTime, nullable: true }
+    label: { $ref: LocalizedText }
+    by: { type: string }
+BookingEventKind: { type: string, enum: [transition, overlay, note] }
+BookingActor: { type: string, enum: [client, venue, system, admin] }
+BookingEvent:
+  type: object
+  required: [at, kind, from, to, actor]
+  properties:
+    at: { $ref: IsoDateTime }
+    kind: { $ref: BookingEventKind }
+    from: { $ref: BookingStatus, nullable: true }
+    to: { $ref: BookingStatus, nullable: true }
+    actor: { $ref: BookingActor }
+    actorName: { type: string }
+    note: { $ref: LocalizedText }
+DateProposalOption:
+  type: object
+  required: [eventDate, hallId, sessionId, quotedTotal, delta]
+  properties:
+    eventDate: { $ref: IsoDate }
+    hallId: { $ref: Id }
+    sessionId: { $ref: Id }
+    quotedTotal: { $ref: Money }
+    delta: { $ref: Money }
+ProposalStatus: { type: string, enum: [proposed, accepted, declined, expired, withdrawn] }
+DateProposal:
+  type: object
+  description: The only proposal kind (counter-offer, 1 to 3 dates, 48 h, voucher price held). No reschedule after confirmation.
+  required: [id, kind, status, proposedAt, expiresAt, originalPriceHeld, options]
+  properties:
+    id: { $ref: Id }
+    kind: { type: string, enum: [counter_offer] }
+    status: { $ref: ProposalStatus }
+    proposedAt: { $ref: IsoDateTime }
+    expiresAt: { $ref: IsoDateTime }
+    originalPriceHeld: { type: boolean }
+    options: { type: array, items: { $ref: DateProposalOption } }
+BookingOverlays:
+  type: object
+  description: Overlays that are never statuses (booking-state-machine section 6).
+  properties:
+    blockedByHold: { type: boolean }
+    reviewPrompted: { type: boolean }
+    reliabilityStrike: { type: boolean }
+    issueReported: { type: boolean }
+RequestAction: { type: string, enum: [withdraw, cancel, confirm, accept_proposal, decline_proposal, message, call, visit, review, report_issue, redeem, accept, decline, propose, revoke, open_voucher], description: 'Intersection of the state machine, the caller relation and permission keys. The UI hides what is absent and never re-derives it.' }
+Booking:
+  type: object
+  description: A request as both apps receive it (the server computes prices, deadlines, thread and allowedActions).
+  required: [id, ref, version, targetType, venueId, providerId, clientId, clientName, weddingId, status, createdAt, eventDate, sections, service, lines, totals, voucherId, respondBy, approvedAt, confirmBy, confirmedAt, redeemedAt, redeemedBy, completedAt, slaHours, contact, specialRequests, firstBooking, verifiedPhone, thread, events, cancelledBy, reasonCode, rejectReason, expiredReason, proposal, overlays, approvedDiscount, allowedActions]
+  properties:
+    id: { $ref: Id }
+    ref: { type: string, pattern: '^GZ-\d{4}-[0-9A-HJKMNP-TV-Z]{4}$', description: 'GZ-YYMM-XXXX, LTR isolate.' }
+    version: { type: integer, description: Optimistic-concurrency version; also the ETag (`"v7"`). }
+    targetType: { $ref: BookingTargetType }
+    venueId: { $ref: Id, nullable: true }
+    providerId: { $ref: Id, nullable: true }
+    clientId: { $ref: Id }
+    clientName: { type: string }
+    weddingId: { $ref: Id, nullable: true }
+    status: { $ref: BookingStatus }
+    createdAt: { $ref: IsoDateTime }
+    eventDate: { $ref: IsoDate }
+    sections: { type: array, items: { $ref: BookingSection } }
+    service: { $ref: ProviderServiceRequest, nullable: true }
+    lines: { type: array, items: { $ref: PriceLine } }
+    totals: { $ref: QuoteTotals }
+    voucherId: { $ref: Id }
+    respondBy: { $ref: IsoDateTime, nullable: true }
+    approvedAt: { $ref: IsoDateTime, nullable: true }
+    confirmBy: { $ref: IsoDateTime, nullable: true, description: approvedAt plus 24 h; the client must confirm by then. }
+    confirmedAt: { $ref: IsoDateTime, nullable: true }
+    redeemedAt: { $ref: IsoDateTime, nullable: true }
+    redeemedBy: { type: string, nullable: true }
+    completedAt: { $ref: IsoDateTime, nullable: true }
+    slaHours: { type: integer, nullable: true }
+    contact: { $ref: ContactPerson }
+    specialRequests: { type: string, nullable: true }
+    firstBooking: { type: boolean }
+    verifiedPhone: { type: boolean }
+    thread: { type: array, items: { $ref: ThreadKnot } }
+    events: { type: array, items: { $ref: BookingEvent } }
+    cancelledBy: { $ref: CancelledBy, nullable: true }
+    reasonCode: { $ref: CancelReason, nullable: true }
+    rejectReason: { $ref: RejectReason, nullable: true }
+    expiredReason: { $ref: ExpiredReason, nullable: true }
+    proposal: { $ref: DateProposal, nullable: true }
+    overlays: { $ref: BookingOverlays }
+    approvedDiscount: { $ref: Money, nullable: true, description: Venue-approved lower voucher total (never higher). }
+    allowedActions: { type: array, items: { $ref: RequestAction } }
+    undoUntil: { $ref: IsoDateTime, nullable: true, description: Partner view only; the 8 s approval undo window. The client view masks an approval still inside it. }
+BookingRow:
+  type: object
+  description: 'A request in a list: the booking, who it is addressed to and the names of its halls (the card never looks anything up).'
+  required: [booking, target, halls]
+  properties:
+    booking: { $ref: Booking }
+    target: { $ref: TargetSummary }
+    halls: { type: array, items: { $ref: NamedRef } }
+BookingPage: { x-page-of: BookingRow }
+TargetSummary:
+  type: object
+  description: Who a request or voucher is addressed to, for headers and chips.
+  required: [kind, id, name, monogram, areaId, cover, phone, channel]
+  properties:
+    kind: { $ref: BookingTargetType }
+    id: { $ref: Id }
+    name: { $ref: LocalizedText }
+    monogram: { type: string, nullable: true }
+    areaId: { $ref: Id, nullable: true }
+    cover: { $ref: ImageRef, nullable: true }
+    phone: { type: string, nullable: true }
+    channel: { $ref: BookingChannel, nullable: true }
+ConfirmWindowState: { type: string, enum: [none, open, last_hour, ended], description: '`last_hour`: live mm:ss shows only in the final 60 minutes.' }
+ConfirmWindow:
+  type: object
+  required: [state, deadline, minutesLeft]
+  properties:
+    state: { $ref: ConfirmWindowState }
+    deadline: { $ref: IsoDateTime, nullable: true }
+    minutesLeft: { type: integer }
+BookingDetail:
+  type: object
+  required: [booking, voucher, target, halls, confirmWindow, conversationId, review]
+  properties:
+    booking: { $ref: Booking }
+    halls: { type: array, items: { $ref: NamedRef } }
+    voucher: { $ref: Voucher, nullable: true }
+    target: { $ref: TargetSummary }
+    confirmWindow: { $ref: ConfirmWindow }
+    conversationId: { $ref: Id, nullable: true, description: The enquiry conversation with the target. }
+    review: { $ref: Review, nullable: true }
+RequestSectionInput:
+  type: object
+  required: [hallId, sessionId, audience, guests, packageId]
+  properties:
+    hallId: { $ref: Id }
+    sessionId: { $ref: Id }
+    audience: { $ref: Audience }
+    guests: { type: integer }
+    packageId: { $ref: Id }
+RequestServiceInput:
+  type: object
+  required: [listingId, packageId, quantity]
+  properties:
+    listingId: { $ref: Id }
+    packageId: { $ref: Id }
+    quantity: { type: integer }
+    venueId: { $ref: Id, nullable: true }
+ContactInput:
+  type: object
+  required: [name, phone, bookingFor, shared]
+  properties:
+    name: { type: string }
+    phone: { type: string }
+    bookingFor: { $ref: BookingFor }
+    shared: { type: boolean }
+CreateRequestInput:
+  type: object
+  description: R01. Sends the request at the voucher price and binds the voucher. Validated server side; the quote is re-priced and compared with `quoteId`.
+  required: [targetType, eventDate, voucherId, contact]
+  properties:
+    targetType: { $ref: BookingTargetType }
+    venueId: { $ref: Id, nullable: true }
+    providerId: { $ref: Id, nullable: true }
+    eventDate: { $ref: IsoDate }
+    sections: { type: array, items: { $ref: RequestSectionInput }, maxItems: 2 }
+    service: { $ref: RequestServiceInput, nullable: true }
+    extras: { type: array, items: { $ref: QuoteExtraInput } }
+    voucherId: { $ref: Id }
+    quoteId: { type: string, nullable: true }
+    contact: { $ref: ContactInput }
+    specialRequests: { type: string, nullable: true }
+CancelRequestInput:
+  type: object
+  properties: { reason: { $ref: CancelReason, nullable: true } }
+ProposalAnswerInput:
+  type: object
+  required: [optionIndex]
+  properties: { optionIndex: { type: integer, minimum: 0, maximum: 2, description: Index of the chosen date in `options`. } }
+ReportIssueInput:
+  type: object
+  description: '72 hour Report an issue (ADR 0035 D6): sets the issueReported overlay; no compensation is promised in the app.'
+  required: [text]
+  properties: { text: { type: string, maxLength: 1000 } }

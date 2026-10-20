@@ -9,7 +9,7 @@ import { dirname, relative, resolve } from 'node:path'
 import { model, pkgRoot, validate } from './lib/tokens.mjs'
 import { buildCss, HEADER } from './lib/css.mjs'
 import { buildTs, buildFlat } from './lib/ts.mjs'
-import { buildDart } from './lib/dart.mjs'
+import { buildDartFiles } from './lib/dart.mjs'
 import { buildIcons, loadIcons } from './lib/icons.mjs'
 import { buildRolesCss } from './lib/roles-css.mjs'
 import { runContrast } from './lib/contrast.mjs'
@@ -22,7 +22,7 @@ const outputs = {
   'dist/tokens.css': buildCss(m) + '\n',
   'dist/tokens.ts': buildTs(m),
   'dist/tokens.flat.json': buildFlat(m),
-  'dist/dart/gz_tokens.dart': buildDart(m, HEADER('Dart: const tokens for ghazal_ui (ADR 0023 D5 c).')),
+  ...buildDartFiles(m, HEADER('Dart: const tokens for ghazal_ui (ADR 0023 D5 c).')),
   'dist/icons.ts': buildIcons(icons),
   '../../design/src/styles/typography.roles.css': buildRolesCss(m),
   'dist/index.ts': `/* ${HEADER('Entry for @gz/tokens.')} */\nexport * from './tokens'\nexport * from './icons'\n`,

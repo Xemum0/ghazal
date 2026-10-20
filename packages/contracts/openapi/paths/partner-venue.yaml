@@ -1,0 +1,187 @@
+/partner/venue:
+  get:
+    operationId: getPartnerVenue
+    summary: The partner's own venue with completeness (HL-VENU)
+    description: Sets ETag; edits send If-Match.
+    x-partner: true
+    x-permissions: ['booking:read']
+    responses: { 200: PartnerVenue }
+  patch:
+    operationId: updatePartnerVenue
+    summary: Edit the venue profile
+    x-partner: true
+    x-permissions: ['package:write']
+    x-if-match: true
+    body: UpdateVenueInput
+    responses: { 200: PartnerVenue }
+/partner/venue/halls:
+  get:
+    operationId: listPartnerHalls
+    summary: Halls with sessions, sections and policy facts (HL-VENU-04)
+    x-partner: true
+    x-permissions: ['booking:read']
+    responses: { 200: HallList }
+  post:
+    operationId: createHall
+    summary: Add a hall
+    x-partner: true
+    x-permissions: ['package:write']
+    x-idempotent: true
+    body: HallInput
+    responses: { 201: Hall }
+/partner/venue/halls/{hallId}:
+  put:
+    operationId: updateHall
+    summary: Replace a hall's capacity, sessions and sections
+    x-partner: true
+    x-permissions: ['package:write']
+    x-if-match: true
+    path: { hallId: Id }
+    body: HallInput
+    responses: { 200: Hall }
+/partner/venue/amenities:
+  put:
+    operationId: setVenueAmenities
+    summary: Set the three-state facility list (included, extra, not offered)
+    x-partner: true
+    x-permissions: ['package:write']
+    body: VenueAmenities
+    responses: { 200: VenueAmenities }
+/partner/venue/packages:
+  get:
+    operationId: listPartnerPackages
+    summary: Packages with their price rules, and extras (HL-VENU-02)
+    x-partner: true
+    x-permissions: ['booking:read']
+    responses: { 200: PackageCatalog }
+  post:
+    operationId: createPackage
+    summary: Create a package with both price columns (HL-VENU-03)
+    x-partner: true
+    x-permissions: ['package:write']
+    x-idempotent: true
+    body: PackageInput
+    responses: { 201: PackageEditor }
+/partner/venue/packages/{packageId}:
+  put:
+    operationId: updatePackage
+    summary: 'Replace a package and its rules; `active: false` hides it'
+    x-partner: true
+    x-permissions: ['package:write']
+    x-if-match: true
+    path: { packageId: Id }
+    body: PackageInput
+    responses: { 200: PackageEditor }
+/partner/venue/extras:
+  post:
+    operationId: createExtra
+    summary: Add an extra priced by the venue
+    x-partner: true
+    x-permissions: ['package:write']
+    x-idempotent: true
+    body: ExtraInput
+    responses: { 201: Extra }
+/partner/venue/extras/{extraId}:
+  put:
+    operationId: updateExtra
+    summary: Replace an extra
+    x-partner: true
+    x-permissions: ['package:write']
+    path: { extraId: Id }
+    body: ExtraInput
+    responses: { 200: Extra }
+/partner/venue/policies:
+  get:
+    operationId: getVenuePolicies
+    summary: Venue terms and policy facts (HL-VENU-05)
+    x-partner: true
+    x-permissions: ['booking:read']
+    responses: { 200: VenuePolicies }
+  put:
+    operationId: putVenuePolicies
+    summary: Replace the venue policies
+    x-partner: true
+    x-permissions: ['policy:write']
+    x-if-match: true
+    body: VenuePolicies
+    responses: { 200: VenuePolicies }
+/partner/venue/booking-rules:
+  get:
+    operationId: getBookingRules
+    summary: Reply window and visit switch (HL-VENU-06)
+    x-partner: true
+    x-permissions: ['booking:read']
+    responses: { 200: BookingRules }
+  put:
+    operationId: putBookingRules
+    summary: Replace the booking rules
+    x-partner: true
+    x-permissions: ['policy:write']
+    x-if-match: true
+    body: BookingRules
+    responses: { 200: BookingRules }
+/partner/venue/hours:
+  get:
+    operationId: getBusinessHours
+    summary: Business hours and closures (HL-SETT-05)
+    x-partner: true
+    x-permissions: ['booking:read']
+    responses: { 200: BusinessHours }
+  put:
+    operationId: putBusinessHours
+    summary: Replace the business hours
+    x-partner: true
+    x-permissions: ['policy:write']
+    body: BusinessHours
+    responses: { 200: BusinessHours }
+/partner/venue/media:
+  get:
+    operationId: listVenueMedia
+    summary: Photos and videos with the upload limits (HL-VENU-01)
+    x-partner: true
+    x-permissions: ['booking:read']
+    responses: { 200: MediaLibrary }
+/partner/venue/media/upload-sessions:
+  post:
+    operationId: createMediaUploadSession
+    summary: Signed upload for a photo or a video (video limit 500 MB)
+    x-partner: true
+    x-permissions: ['media:write']
+    body: MediaUploadInput
+    x-errors: [MEDIA_TOO_LARGE, MEDIA_TYPE_UNSUPPORTED]
+    responses: { 201: UploadSession }
+/partner/venue/media/upload-sessions/{uploadId}/complete:
+  post:
+    operationId: completeMediaUpload
+    summary: Finish an upload; the file is processed and moderated
+    x-partner: true
+    x-permissions: ['media:write']
+    x-idempotent: true
+    path: { uploadId: string }
+    body: CompleteMediaInput
+    x-errors: [MEDIA_TOO_LARGE, MEDIA_TYPE_UNSUPPORTED]
+    responses: { 201: MediaItem }
+/partner/venue/media/order:
+  put:
+    operationId: reorderMedia
+    summary: Set the display order of media items
+    x-partner: true
+    x-permissions: ['media:write']
+    body: ReorderMediaInput
+    responses: { 200: MediaLibrary }
+/partner/venue/media/{mediaId}:
+  patch:
+    operationId: updateMediaItem
+    summary: Change zone, caption or cover of a media item
+    x-partner: true
+    x-permissions: ['media:write']
+    path: { mediaId: Id }
+    body: UpdateMediaInput
+    responses: { 200: MediaItem }
+  delete:
+    operationId: deleteMediaItem
+    summary: Remove a media item
+    x-partner: true
+    x-permissions: ['media:write']
+    path: { mediaId: Id }
+    responses: { 204: ~ }

@@ -1,0 +1,18 @@
+{
+  "mode": "exact",
+  "amount": {
+    "fils": 18200000,
+    "currency": "KWD"
+  },
+  "guests": 350,
+  "packageId": "V01-ladies-weekend",
+  "tier": "weekend",
+  "voucher": {
+    "fils": 15400000,
+    "currency": "KWD"
+  },
+  "savings": {
+    "fils": 2800000,
+    "currency": "KWD"
+  }
+}

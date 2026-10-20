@@ -1,0 +1,41 @@
+/notifications:
+  get:
+    operationId: listNotifications
+    summary: Notification centre of the caller's side (CA-NOTI, HA-NOTI)
+    x-roles: [client, partner]
+    x-partner: true
+    x-paged: true
+    query: { unread: boolean }
+    responses: { 200: NotificationPage }
+/notifications/unread-count:
+  get:
+    operationId: getUnreadNotificationCount
+    summary: Badge count
+    x-roles: [client, partner]
+    x-partner: true
+    responses: { 200: UnreadCount }
+/notifications/{notificationId}/read:
+  post:
+    operationId: markNotificationRead
+    summary: Mark one notification read
+    x-roles: [client, partner]
+    x-partner: true
+    path: { notificationId: Id }
+    responses: { 204: ~ }
+/notifications/read-all:
+  post:
+    operationId: markAllNotificationsRead
+    summary: Mark every notification of the caller's side read
+    x-roles: [client, partner]
+    x-partner: true
+    responses: { 204: ~ }
+/notification-preferences:
+  get:
+    operationId: getNotificationPreferences
+    summary: Client notification preferences (CL-PROF-04)
+    responses: { 200: NotificationPreferences }
+  put:
+    operationId: updateNotificationPreferences
+    summary: Replace the client notification preferences
+    body: NotificationPreferences
+    responses: { 200: NotificationPreferences }

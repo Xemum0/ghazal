@@ -1,0 +1,29 @@
+{
+  "venueId": "V01",
+  "hallId": "V01-danah",
+  "from": "2027-01-14",
+  "to": "2027-01-14",
+  "days": [
+    {
+      "date": "2027-01-14",
+      "hallId": "V01-danah",
+      "state": "available",
+      "tier": "weekend",
+      "sessions": [
+        {
+          "sessionId": "V01-danah-evening",
+          "state": "available"
+        }
+      ],
+      "fromPrice": {
+        "fils": 18200000,
+        "currency": "KWD"
+      },
+      "voucherPrice": {
+        "fils": 15400000,
+        "currency": "KWD"
+      },
+      "packageId": "V01-ladies-weekend"
+    }
+  ]
+}

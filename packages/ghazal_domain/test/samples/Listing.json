@@ -1,0 +1,334 @@
+[
+ {
+  "cover": {
+   "file": "details/details-40-hospitality-dates-gold-tray-lantern.jpg",
+   "width": 1800,
+   "height": 2250,
+   "orientation": "portrait",
+   "alt": {
+    "en": "Medjool dates in a footed bowl and a filigree gold cup on an ornate gold tray with a brass dallah and lantern",
+    "ar": "تمر مجدول في وعاء بقاعدة وكأس ذهبي مفرغ على صينية ذهبية مزخرفة مع دلة نحاسية وفانوس"
+   }
+  },
+  "packageIds": [
+   "vp-catering-qahwat-diwan-1",
+   "vp-catering-qahwat-diwan-2",
+   "vp-catering-qahwat-diwan-3"
+  ],
+  "planCycle": "annual",
+  "billing": {
+   "status": "rates_pending",
+   "amountFils": null,
+   "paidAt": null
+  },
+  "submittedAt": "2026-03-29T13:00:00+03:00",
+  "decidedAt": "2026-03-30T11:00:00+03:00",
+  "startsOn": "2026-03-30",
+  "endsOn": "2027-03-30",
+  "rejection": null,
+  "planKeptUntil": null,
+  "feeRefund": null,
+  "sponsored": true,
+  "history": [
+   {
+    "id": "rev-0001",
+    "listingId": "lst-catering-qahwat-diwan",
+    "at": "2026-03-29T12:00:00+03:00",
+    "from": null,
+    "to": "draft",
+    "actor": "provider"
+   },
+   {
+    "id": "rev-0002",
+    "listingId": "lst-catering-qahwat-diwan",
+    "at": "2026-03-29T13:00:00+03:00",
+    "from": "draft",
+    "to": "pending_review",
+    "actor": "provider",
+    "note": {
+     "en": "Plan chosen. Payment opens when rates are announced.",
+     "ar": "تم اختيار الباقة. يفتح الدفع عند الإعلان عن الأسعار."
+    }
+   },
+   {
+    "id": "rev-0003",
+    "listingId": "lst-catering-qahwat-diwan",
+    "at": "2026-03-30T11:00:00+03:00",
+    "from": "pending_review",
+    "to": "approved",
+    "actor": "moderator",
+    "actorName": "Hessa Al-Awadhi"
+   },
+   {
+    "id": "rev-0004",
+    "listingId": "lst-catering-qahwat-diwan",
+    "at": "2026-03-30T11:01:12+03:00",
+    "from": "approved",
+    "to": "active",
+    "actor": "system"
+   }
+  ],
+  "id": "lst-catering-qahwat-diwan",
+  "providerId": "vendor-catering-qahwat-diwan",
+  "partnerAccountId": "partner-vendor-catering-qahwat-diwan",
+  "categoryId": "catering",
+  "title": {
+   "en": "Qahwat Al-Diwan Hospitality",
+   "ar": "ضيافة قهوة الديوان"
+  },
+  "description": {
+   "en": "Hospitality teams for the family gatherings around the wedding: coffee, dates, sweets and dinner.",
+   "ar": "فرق ضيافة لتجمعات العائلة حول الزفاف: قهوة وتمر وحلويات وعشاء."
+  },
+  "status": "active"
+ },
+ {
+  "cover": {
+   "file": "details/details-40-hospitality-dates-gold-tray-lantern.jpg",
+   "width": 1800,
+   "height": 2250,
+   "orientation": "portrait",
+   "alt": {
+    "en": "Medjool dates in a footed bowl and a filigree gold cup on an ornate gold tray with a brass dallah and lantern",
+    "ar": "تمر مجدول في وعاء بقاعدة وكأس ذهبي مفرغ على صينية ذهبية مزخرفة مع دلة نحاسية وفانوس"
+   }
+  },
+  "packageIds": [
+   "vp-catering-mouna-1",
+   "vp-catering-mouna-2",
+   "vp-catering-mouna-3"
+  ],
+  "planCycle": "annual",
+  "billing": {
+   "status": "rates_pending",
+   "amountFils": null,
+   "paidAt": null
+  },
+  "submittedAt": "2026-04-03T13:00:00+03:00",
+  "decidedAt": "2026-04-04T11:00:00+03:00",
+  "startsOn": "2026-04-04",
+  "endsOn": "2027-04-04",
+  "rejection": null,
+  "planKeptUntil": null,
+  "feeRefund": null,
+  "sponsored": false,
+  "history": [
+   {
+    "id": "rev-0005",
+    "listingId": "lst-catering-mouna",
+    "at": "2026-04-03T12:00:00+03:00",
+    "from": null,
+    "to": "draft",
+    "actor": "provider"
+   },
+   {
+    "id": "rev-0006",
+    "listingId": "lst-catering-mouna",
+    "at": "2026-04-03T13:00:00+03:00",
+    "from": "draft",
+    "to": "pending_review",
+    "actor": "provider",
+    "note": {
+     "en": "Plan chosen. Payment opens when rates are announced.",
+     "ar": "تم اختيار الباقة. يفتح الدفع عند الإعلان عن الأسعار."
+    }
+   },
+   {
+    "id": "rev-0007",
+    "listingId": "lst-catering-mouna",
+    "at": "2026-04-04T11:00:00+03:00",
+    "from": "pending_review",
+    "to": "approved",
+    "actor": "moderator",
+    "actorName": "Yousef Al-Kandari"
+   },
+   {
+    "id": "rev-0008",
+    "listingId": "lst-catering-mouna",
+    "at": "2026-04-04T11:01:12+03:00",
+    "from": "approved",
+    "to": "active",
+    "actor": "system"
+   }
+  ],
+  "id": "lst-catering-mouna",
+  "providerId": "vendor-catering-mouna",
+  "partnerAccountId": "partner-vendor-catering-mouna",
+  "categoryId": "catering",
+  "title": {
+   "en": "Mouna Catering",
+   "ar": "مؤونة للتموين"
+  },
+  "description": {
+   "en": "Hospitality teams for the family gatherings around the wedding: coffee, dates, sweets and dinner.",
+   "ar": "فرق ضيافة لتجمعات العائلة حول الزفاف: قهوة وتمر وحلويات وعشاء."
+  },
+  "status": "active"
+ },
+ {
+  "cover": {
+   "file": "details/details-42-hospitality-chocolate-dates-calligraphy.jpg",
+   "width": 1800,
+   "height": 1200,
+   "orientation": "landscape",
+   "alt": {
+    "en": "Chocolate-dipped dates with rose buds, pistachio, walnuts and Arabic-calligraphy toppers on a round wooden board",
+    "ar": "تمر مغطى بالشوكولاتة مع براعم ورد وفستق وجوز وأقراص بخط عربي على لوح خشبي دائري"
+   }
+  },
+  "packageIds": [
+   "vp-catering-sufra-bayt-1",
+   "vp-catering-sufra-bayt-2",
+   "vp-catering-sufra-bayt-3"
+  ],
+  "planCycle": "monthly",
+  "billing": {
+   "status": "rates_pending",
+   "amountFils": null,
+   "paidAt": null
+  },
+  "submittedAt": "2026-10-21T13:00:00+03:00",
+  "decidedAt": "2026-10-22T11:00:00+03:00",
+  "startsOn": "2026-10-22",
+  "endsOn": "2026-11-21",
+  "rejection": null,
+  "planKeptUntil": null,
+  "feeRefund": null,
+  "sponsored": false,
+  "history": [
+   {
+    "id": "rev-0009",
+    "listingId": "lst-catering-sufra-bayt",
+    "at": "2026-10-21T12:00:00+03:00",
+    "from": null,
+    "to": "draft",
+    "actor": "provider"
+   },
+   {
+    "id": "rev-0010",
+    "listingId": "lst-catering-sufra-bayt",
+    "at": "2026-10-21T13:00:00+03:00",
+    "from": "draft",
+    "to": "pending_review",
+    "actor": "provider",
+    "note": {
+     "en": "Plan chosen. Payment opens when rates are announced.",
+     "ar": "تم اختيار الباقة. يفتح الدفع عند الإعلان عن الأسعار."
+    }
+   },
+   {
+    "id": "rev-0011",
+    "listingId": "lst-catering-sufra-bayt",
+    "at": "2026-10-22T11:00:00+03:00",
+    "from": "pending_review",
+    "to": "approved",
+    "actor": "moderator",
+    "actorName": "Hessa Al-Awadhi"
+   },
+   {
+    "id": "rev-0012",
+    "listingId": "lst-catering-sufra-bayt",
+    "at": "2026-10-22T11:01:12+03:00",
+    "from": "approved",
+    "to": "active",
+    "actor": "system"
+   }
+  ],
+  "id": "lst-catering-sufra-bayt",
+  "providerId": "vendor-catering-sufra-bayt",
+  "partnerAccountId": "partner-vendor-catering-sufra-bayt",
+  "categoryId": "catering",
+  "title": {
+   "en": "Sufrat Al-Bayt Kitchen",
+   "ar": "مطبخ سفرة البيت"
+  },
+  "description": {
+   "en": "Hospitality teams for the family gatherings around the wedding: coffee, dates, sweets and dinner.",
+   "ar": "فرق ضيافة لتجمعات العائلة حول الزفاف: قهوة وتمر وحلويات وعشاء."
+  },
+  "status": "active"
+ },
+ {
+  "cover": {
+   "file": "details/details-02-table-gold-cutlery-linen.jpg",
+   "width": 1800,
+   "height": 1200,
+   "orientation": "landscape",
+   "alt": {
+    "en": "Round table dressed in pale linen with white plates, brushed gold cutlery, fluted glasses and blush napkins",
+    "ar": "طاولة دائرية بمفرش كتان فاتح وأطباق بيضاء وأدوات مائدة ذهبية مطفية وكؤوس مضلعة ومناديل بلون وردي هادئ"
+   }
+  },
+  "packageIds": [
+   "vp-photography-gulf-lens-1",
+   "vp-photography-gulf-lens-2",
+   "vp-photography-gulf-lens-3"
+  ],
+  "planCycle": "annual",
+  "billing": {
+   "status": "rates_pending",
+   "amountFils": null,
+   "paidAt": null
+  },
+  "submittedAt": "2026-04-06T13:00:00+03:00",
+  "decidedAt": "2026-04-07T11:00:00+03:00",
+  "startsOn": "2026-04-07",
+  "endsOn": "2027-04-07",
+  "rejection": null,
+  "planKeptUntil": null,
+  "feeRefund": null,
+  "sponsored": false,
+  "history": [
+   {
+    "id": "rev-0089",
+    "listingId": "lst-photography-gulf-lens",
+    "at": "2026-04-06T12:00:00+03:00",
+    "from": null,
+    "to": "draft",
+    "actor": "provider"
+   },
+   {
+    "id": "rev-0090",
+    "listingId": "lst-photography-gulf-lens",
+    "at": "2026-04-06T13:00:00+03:00",
+    "from": "draft",
+    "to": "pending_review",
+    "actor": "provider",
+    "note": {
+     "en": "Plan chosen. Payment opens when rates are announced.",
+     "ar": "تم اختيار الباقة. يفتح الدفع عند الإعلان عن الأسعار."
+    }
+   },
+   {
+    "id": "rev-0091",
+    "listingId": "lst-photography-gulf-lens",
+    "at": "2026-04-07T11:00:00+03:00",
+    "from": "pending_review",
+    "to": "approved",
+    "actor": "moderator",
+    "actorName": "Yousef Al-Kandari"
+   },
+   {
+    "id": "rev-0092",
+    "listingId": "lst-photography-gulf-lens",
+    "at": "2026-04-07T11:01:12+03:00",
+    "from": "approved",
+    "to": "active",
+    "actor": "system"
+   }
+  ],
+  "id": "lst-photography-gulf-lens",
+  "providerId": "vendor-photography-gulf-lens",
+  "partnerAccountId": "partner-vendor-photography-gulf-lens",
+  "categoryId": "photography",
+  "title": {
+   "en": "Gulf Lens Studio",
+   "ar": "عدسة الخليج للتصوير"
+  },
+  "description": {
+   "en": "Photographers who work in empty halls and details first, then guests only where the family agrees.",
+   "ar": "مصوّرون يبدأون بالقاعة والتفاصيل، ثم الضيوف فقط حيث توافق العائلة."
+  },
+  "status": "active"
+ }
+]

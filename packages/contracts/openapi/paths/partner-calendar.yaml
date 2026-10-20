@@ -1,0 +1,70 @@
+/partner/calendar:
+  get:
+    operationId: getPartnerCalendar
+    summary: Calendar claims for a date range (month, week; HL-CALN-01, HL-CALN-02)
+    x-partner: true
+    x-permissions: ['calendar:read']
+    query: { 'from!': IsoDate, 'to!': IsoDate, hallId: Id }
+    responses: { 200: PartnerCalendar }
+/partner/calendar/days/{date}:
+  get:
+    operationId: getPartnerCalendarDay
+    summary: One day across halls (HL-CALN-03)
+    x-partner: true
+    x-permissions: ['calendar:read']
+    path: { date: IsoDate }
+    responses: { 200: PartnerCalendarDayDetail }
+/partner/calendar/blocks:
+  post:
+    operationId: createCalendarBlocks
+    summary: Block dates (HL-CALN-04)
+    x-partner: true
+    x-permissions: ['calendar:block']
+    x-idempotent: true
+    body: BlockInput
+    x-errors: [SLOT_UNAVAILABLE]
+    responses: { 201: BlockBatch }
+/partner/calendar/blocks/{batchId}:
+  delete:
+    operationId: removeCalendarBlockBatch
+    summary: Open the dates of a block batch again
+    x-partner: true
+    x-permissions: ['calendar:block']
+    path: { batchId: Id }
+    responses: { 204: ~ }
+/partner/calendar/holds:
+  get:
+    operationId: listCalendarHolds
+    summary: Active holds (an approval holds the date until the client confirms or the 24 h lapse)
+    x-partner: true
+    x-permissions: ['calendar:read']
+    responses: { 200: 'CalendarClaim[]' }
+/partner/calendar/soft-dates:
+  get:
+    operationId: getSoftDates
+    summary: Open weekend dates offered in the next 60 days
+    x-partner: true
+    x-permissions: ['calendar:read']
+    responses: { 200: SoftDates }
+/partner/calendar/sync:
+  get:
+    operationId: getCalendarSync
+    summary: Calendar-by-email settings (HL-CALN-05)
+    x-partner: true
+    x-permissions: ['calendar:read']
+    responses: { 200: CalendarSync }
+  put:
+    operationId: updateCalendarSync
+    summary: Set the sync address and the .ics option
+    x-partner: true
+    x-permissions: ['calendar:block']
+    body: UpdateCalendarSyncInput
+    responses: { 200: CalendarSync }
+/partner/calendar/sync/send:
+  post:
+    operationId: sendCalendarIcs
+    summary: Email the current calendar as an .ics now
+    x-partner: true
+    x-permissions: ['calendar:read']
+    x-idempotent: true
+    responses: { 202: ~ }

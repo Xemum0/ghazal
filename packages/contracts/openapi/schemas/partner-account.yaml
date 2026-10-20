@@ -1,0 +1,123 @@
+# The Partner app account: sessions, account type, context (venue or provider), staff and email invitations (ADR 0035 D8).
+StaffRole: { type: string, enum: [admin, manager, reception, accountant, marketing] }
+StaffStatus: { type: string, enum: [active, invited, deactivated] }
+PartnerAccountType: { type: string, enum: [venue, service_provider], description: 'Hotel or wedding hall, or service provider.' }
+PartnerAccountStatus: { type: string, enum: [invited, active, under_review, suspended] }
+PartnerAccount:
+  type: object
+  required: [id, type, name, venueIds, providerId, ownerUserId, feeExempt, status, createdAt]
+  properties:
+    id: { $ref: Id }
+    type: { $ref: PartnerAccountType }
+    name: { $ref: LocalizedText }
+    venueIds: { type: array, items: { $ref: Id } }
+    providerId: { $ref: Id, nullable: true }
+    ownerUserId: { $ref: Id, nullable: true }
+    feeExempt: { type: boolean, description: Major hotel; set only by the Super Admin and never visible to clients. }
+    status: { $ref: PartnerAccountStatus }
+    createdAt: { $ref: IsoDateTime }
+PartnerContext:
+  type: object
+  required: [accountId, venueId, providerId]
+  properties:
+    accountId: { $ref: Id }
+    venueId: { $ref: Id, nullable: true }
+    providerId: { $ref: Id, nullable: true }
+PartnerMembership:
+  type: object
+  description: One account and target the signed-in person works for, with their role and permission keys there.
+  required: [accountId, accountType, accountName, venueId, providerId, role, permissions, pendingRequests, feeExempt, status]
+  properties:
+    accountId: { $ref: Id }
+    accountType: { $ref: PartnerAccountType }
+    accountName: { $ref: LocalizedText }
+    venueId: { $ref: Id, nullable: true }
+    providerId: { $ref: Id, nullable: true }
+    role: { $ref: StaffRole }
+    permissions: { type: array, items: { type: string }, description: 'Permission keys such as booking:approve. The apps hide what is missing; the server stays the authority.' }
+    pendingRequests: { type: integer }
+    feeExempt: { type: boolean }
+    status: { $ref: PartnerAccountStatus }
+PartnerMe:
+  type: object
+  required: [user, memberships, active]
+  properties:
+    user: { $ref: User }
+    memberships: { type: array, items: { $ref: PartnerMembership } }
+    active: { $ref: PartnerContext, nullable: true }
+ChooseAccountTypeInput:
+  type: object
+  description: First sign-in of a partner without a pre-assigned account (HL-PROV-01). The account starts `under_review`.
+  required: [accountType, name]
+  properties:
+    accountType: { $ref: PartnerAccountType }
+    name: { $ref: LocalizedText }
+SwitchContextInput:
+  type: object
+  required: [accountId]
+  properties:
+    accountId: { $ref: Id }
+    venueId: { $ref: Id, nullable: true }
+    providerId: { $ref: Id, nullable: true }
+StaffMember:
+  type: object
+  required: [id, userId, venueId, name, nameLatin, monogram, role, roleLabel, roleSummary, phone, status, uiLang, lastSeenAt, invitedAt, inviteExpiresAt, invitedBy, isYou]
+  properties:
+    id: { $ref: Id }
+    userId: { $ref: Id }
+    venueId: { $ref: Id, description: The venue (or provider) the membership belongs to. }
+    name: { type: string }
+    nameLatin: { type: string }
+    monogram: { type: string }
+    email: { type: string, nullable: true }
+    role: { $ref: StaffRole }
+    roleLabel: { $ref: LocalizedText }
+    roleSummary: { $ref: LocalizedText }
+    phone: { type: string }
+    status: { $ref: StaffStatus }
+    uiLang: { $ref: Lang }
+    lastSeenAt: { $ref: IsoDateTime, nullable: true }
+    invitedAt: { $ref: IsoDateTime, nullable: true }
+    inviteExpiresAt: { $ref: IsoDateTime, nullable: true }
+    invitedBy: { type: string, nullable: true }
+    isYou: { type: boolean }
+InvitationStatus: { type: string, enum: [invited, accepted] }
+StaffInvitation:
+  type: object
+  description: Invitations go by email through Resend, never by WhatsApp.
+  required: [id, venueId, email, role, status, sentAt, expiresAt, invitedBy, staffId]
+  properties:
+    id: { $ref: Id }
+    venueId: { $ref: Id }
+    email: { type: string }
+    role: { $ref: StaffRole }
+    status: { $ref: InvitationStatus }
+    sentAt: { $ref: IsoDateTime }
+    expiresAt: { $ref: IsoDateTime, nullable: true }
+    invitedBy: { type: string }
+    staffId: { $ref: Id, nullable: true }
+StaffList:
+  type: object
+  required: [staff, invitations]
+  properties:
+    staff: { type: array, items: { $ref: StaffMember } }
+    invitations: { type: array, items: { $ref: StaffInvitation } }
+InviteStaffInput:
+  type: object
+  required: [email, role]
+  properties:
+    email: { type: string, format: email }
+    role: { $ref: StaffRole }
+ChangeStaffRoleInput:
+  type: object
+  required: [role]
+  properties: { role: { $ref: StaffRole } }
+PartnerNotificationPreferences:
+  type: object
+  required: [newRequestAlwaysOn, messages, reviews, vouchers, visits]
+  properties:
+    newRequestAlwaysOn: { type: boolean, description: New requests always notify; the value is informational and cannot be turned off. }
+    messages: { type: boolean }
+    reviews: { type: boolean }
+    vouchers: { type: boolean }
+    visits: { type: boolean }

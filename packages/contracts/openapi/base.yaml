@@ -1,0 +1,107 @@
+# Ghazal API v1: the root of the contract. Everything else is assembled from paths/<tag>.yaml and schemas/<tag>.yaml
+# by tools/bundle-openapi.mjs into ghazal.v1.yaml (GENERATED, never edit that file). See README.md for the authoring sugar.
+openapi: 3.1.0
+info:
+  title: Ghazal API
+  version: 1.0.0
+  summary: Contract of the Ghazal wedding marketplace (voucher model, ADR 0033 and 0035).
+  description: |
+    One backend for the Client app and the Partner app (hotels, wedding halls and service providers). Ghazal sells one thing in the app,
+    a KD 2 voucher; prices, contracts and payment between client and partner are off-app. Conventions: docs/architecture/api-conventions.md.
+
+    * Base path `/v1`, JSON UTF-8, `camelCase` properties, lowercase `snake_case` enum values, ids are opaque strings.
+    * Auth: bearer JWT (ES256, 10 min) plus rotating refresh token. Guests may call the operations marked `x-access: guest | optional`.
+    * Money is `{ fils, currency }` with integer fils, never formatted by the server. Civil dates are `YYYY-MM-DD` (Kuwait), instants are
+      ISO 8601 with the `+03:00` offset (Asia/Kuwait has no DST). Venue-authored text is `{ en, ar }`.
+    * Errors are RFC 9457 problem+json with a stable `code` (see `x-error-codes`); the API sends no user-facing prose.
+    * Lists are cursor pages `{ items, nextCursor }`. Mutating POSTs that spend money, claim a slot or change a request take an
+      `Idempotency-Key`. Concurrency-controlled documents use `ETag` and `If-Match`.
+    * Realtime chat (Socket.IO) is outside OpenAPI: see docs/architecture/backend-handoff.md. The REST chat endpoints are the fallback and the mock.
+  license: { name: Proprietary, identifier: LicenseRef-Proprietary }
+servers:
+  - { url: 'https://api.ghazal.example/v1', description: Production (placeholder host) }
+  - { url: 'http://mock.ghazal.local/v1', description: 'Mock (in-process or standalone, ADR 0036)' }
+security:
+  - bearerAuth: []
+tags:
+  - { name: auth, description: 'Sign-in, sessions, OTP, password, step-up (client and partner).' }
+  - { name: home, description: 'Composed home feed, platform configuration, analytics ingestion.' }
+  - { name: venues, description: 'Search, filters and taxonomy, venue detail, availability calendar, quotes, compare.' }
+  - { name: vouchers, description: 'Wallet, voucher checkout, gateway session, reuse, receipts.' }
+  - { name: requests, description: 'Client requests (bookings): send with a voucher, detail, confirm window, confirm, withdraw, cancel, proposals.' }
+  - { name: visits, description: 'Client site visits: slots, booking, list, change or cancel, group thread.' }
+  - { name: chat, description: 'Conversations and messages for both apps (REST fallback of the realtime chat).' }
+  - { name: notifications, description: 'Notification centre and preferences (client).' }
+  - { name: reviews, description: 'Venue reviews and writing a review.' }
+  - { name: wedding, description: 'Wedding profile, checklist, budget, favourites.' }
+  - { name: services, description: 'Additional services: categories, providers, provider quotes and quote requests.' }
+  - { name: planners, description: 'Wedding planner packages, consultation requests, meetings.' }
+  - { name: profile, description: 'Me, settings, devices, phone change, account deletion.' }
+  - { name: support, description: 'Support conversation, refund (credit voucher) requests, FAQ.' }
+  - { name: partner-account, description: 'Partner session, account type, context switch, staff and invitations, settings.' }
+  - { name: partner-requests, description: 'Partner Today, Needs you, request inbox, accept, decline, propose, revoke, cancel.' }
+  - { name: partner-bookings, description: 'Voucher redemption by code or QR and the redeemed list.' }
+  - { name: partner-calendar, description: 'Calendar month, week and day, blocks, holds, soft dates, email sync.' }
+  - { name: partner-venue, description: 'Venue profile, halls, packages and prices, extras, policies, rules, hours, media upload.' }
+  - { name: partner-visits, description: 'Partner side of site visits: requests, confirm, decline, propose, arrival, availability.' }
+  - { name: partner-growth, description: 'Voucher price windows and analytics.' }
+  - { name: partner-listings, description: 'Provider listings, review status, plans and billing, fee refund records.' }
+  - { name: partner-reviews, description: 'Review inbox, reply once, report, hide or delete through support.' }
+components:
+  securitySchemes:
+    bearerAuth: { type: http, scheme: bearer, bearerFormat: JWT, description: 'ES256 access token, 10 minutes. The partner context is chosen by X-Venue-Id or X-Provider-Id.' }
+x-error-codes:
+  VALIDATION_FAILED: { status: 422, summary: Body or query invalid }
+  AUTH_REQUIRED: { status: 401, summary: Gated route without a valid session }
+  TOKEN_EXPIRED: { status: 401, summary: Access token expired }
+  SESSION_REVOKED: { status: 401, summary: Refresh token reused or session revoked }
+  PHONE_VERIFICATION_REQUIRED: { status: 403, summary: Request, payment or chat without a verified phone }
+  FORBIDDEN: { status: 403, summary: Role lacks the permission }
+  STEP_UP_REQUIRED: { status: 403, summary: Staff, listing-fee or sensitive action needs a fresh code or password }
+  NOT_FOUND: { status: 404, summary: Unknown or inaccessible resource }
+  VENUE_CONTEXT_REQUIRED: { status: 400, summary: Partner call without X-Venue-Id or X-Provider-Id }
+  OTP_INVALID: { status: 400, summary: Wrong code }
+  OTP_EXPIRED: { status: 410, summary: Code too old }
+  OTP_LOCKED: { status: 423, summary: Attempts exhausted }
+  CREDENTIALS_INVALID: { status: 401, summary: Wrong identifier or password (identical for unknown accounts) }
+  RATE_LIMITED: { status: 429, summary: Over a limit (Retry-After) }
+  IDEMPOTENCY_KEY_REUSED: { status: 422, summary: Same key with a different body }
+  IDEMPOTENCY_IN_PROGRESS: { status: 409, summary: Original call still running }
+  PRECONDITION_FAILED: { status: 412, summary: If-Match did not match the current ETag }
+  BOOKING_STATE_CONFLICT: { status: 409, summary: Compare-and-swap lost; body carries currentStatus and currentVersion }
+  SLOT_UNAVAILABLE: { status: 409, summary: Date or session not available (booked, blocked, held); body carries alternatives }
+  OPEN_REQUEST_LIMIT: { status: 409, summary: Already 3 open requests (pending plus approved) }
+  QUOTE_EXPIRED: { status: 410, summary: Quote stale }
+  QUOTE_CHANGED: { status: 409, summary: Quote repriced since it was shown }
+  LEAD_TIME_TOO_SHORT: { status: 422, summary: Event date inside the minimum lead time }
+  GUESTS_OUT_OF_RANGE: { status: 422, summary: Guests outside the package or hall range }
+  AUDIENCE_NOT_ALLOWED: { status: 422, summary: Audience not allowed by the hall }
+  CHANNEL_NOT_BOOKABLE: { status: 409, summary: Governmental facility (official channel only) }
+  VOUCHER_NOT_OFFERED: { status: 409, summary: The saving does not beat the voucher fee for this quote }
+  VOUCHER_NOT_USABLE: { status: 409, summary: Voucher is not active, expired, forfeited or already bound }
+  VOUCHER_TARGET_MISMATCH: { status: 409, summary: Voucher is bound to another venue or provider }
+  VOUCHER_CHECKOUT_EXPIRED: { status: 409, summary: Checkout lapsed after 30 minutes unpaid }
+  VOUCHER_UNKNOWN: { status: 404, summary: Redeem code not found }
+  VOUCHER_OTHER_PARTNER: { status: 409, summary: Voucher belongs to another venue or provider }
+  VOUCHER_NOT_CONFIRMED: { status: 409, summary: Client has not confirmed the request yet }
+  VOUCHER_ALREADY_USED: { status: 409, summary: Voucher already redeemed }
+  CREDIT_NOT_ELIGIBLE: { status: 409, summary: Voucher is not eligible for a credit voucher request }
+  REFUND_REQUEST_EXISTS: { status: 409, summary: A refund request for this voucher already exists }
+  CONFIRM_WINDOW_ENDED: { status: 409, summary: The 24 h confirm window passed }
+  UNDO_WINDOW_ENDED: { status: 409, summary: The 8 s approval undo window passed }
+  PAYMENT_GATEWAY_ERROR: { status: 502, summary: Gateway unavailable }
+  PLAN_RATES_NOT_ANNOUNCED: { status: 409, summary: Plan rates are not decided; the pay step is disabled }
+  LISTING_NOT_EDITABLE: { status: 409, summary: Listing status does not allow this edit }
+  LISTING_STATE_CONFLICT: { status: 409, summary: Listing is not in a status that allows this command }
+  MEDIA_TOO_LARGE: { status: 422, summary: File over the limit (video 500 MB) }
+  MEDIA_TYPE_UNSUPPORTED: { status: 422, summary: File type not accepted }
+  REVIEW_ALREADY_REPLIED: { status: 409, summary: A venue replies to a review once }
+  REVIEW_NOT_ALLOWED: { status: 409, summary: Request not completed or already reviewed }
+  VISIT_SLOT_TAKEN: { status: 409, summary: Arrival window no longer free }
+  VISIT_NOT_ALLOWED: { status: 409, summary: Governmental facility or provider (no visits) }
+  VISIT_STATE_CONFLICT: { status: 409, summary: Visit is not in a status that allows this command }
+  STAFF_LAST_ADMIN: { status: 409, summary: The last Admin cannot be removed or demoted }
+  INVITATION_EXPIRED: { status: 410, summary: Invitation link expired or used }
+  EMAIL_ALREADY_INVITED: { status: 409, summary: A pending invitation for this email exists }
+  ACCOUNT_DELETION_BLOCKED: { status: 409, summary: Future confirmed request exists }
+  APP_UPDATE_REQUIRED: { status: 426, summary: X-App-Version below the minimum }

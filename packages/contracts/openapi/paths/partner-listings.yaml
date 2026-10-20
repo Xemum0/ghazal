@@ -1,0 +1,159 @@
+/partner/listings:
+  get:
+    operationId: listListings
+    summary: My listings (HL-PROV-02)
+    x-partner: true
+    responses: { 200: ListingList }
+  post:
+    operationId: createListing
+    summary: Create a draft listing
+    x-partner: true
+    x-idempotent: true
+    body: ListingInput
+    responses: { 201: Listing }
+/partner/listings/{listingId}:
+  get:
+    operationId: getListing
+    summary: A listing with its review trail and rejection notes (HL-PROV-03, HL-PROV-06)
+    x-partner: true
+    path: { listingId: Id }
+    responses: { 200: Listing }
+  patch:
+    operationId: updateListing
+    summary: Edit a draft, rejected or active listing
+    x-partner: true
+    x-if-match: true
+    path: { listingId: Id }
+    body: ListingInput
+    x-errors: [LISTING_NOT_EDITABLE]
+    responses: { 200: Listing }
+/partner/listings/{listingId}/plan:
+  put:
+    operationId: chooseListingPlan
+    summary: Choose the weekly, monthly or annual plan (HL-PROV-04)
+    description: Nothing is charged; contract partners have no plan.
+    x-partner: true
+    path: { listingId: Id }
+    body: ChoosePlanInput
+    x-errors: [LISTING_STATE_CONFLICT]
+    responses: { 200: Listing }
+/partner/listings/{listingId}/submit:
+  post:
+    operationId: submitListing
+    summary: Send the listing to review (never published on payment)
+    x-partner: true
+    x-idempotent: true
+    path: { listingId: Id }
+    x-errors: [LISTING_STATE_CONFLICT, VALIDATION_FAILED]
+    responses: { 200: Listing }
+/partner/listings/{listingId}/payment-sessions:
+  post:
+    operationId: createListingPaymentSession
+    summary: Open a gateway session for the plan fee (HL-PROV-05)
+    description: Disabled while rates are undecided (409 PLAN_RATES_NOT_ANNOUNCED). Payment moves the listing to pending_review only.
+    x-partner: true
+    x-idempotent: true
+    path: { listingId: Id }
+    body: PaymentSessionInput
+    x-errors: [PLAN_RATES_NOT_ANNOUNCED, LISTING_STATE_CONFLICT, PAYMENT_GATEWAY_ERROR]
+    responses: { 201: PaymentSession }
+/partner/listings/{listingId}/pause:
+  post:
+    operationId: pauseListing
+    summary: Pause an active listing
+    x-partner: true
+    x-idempotent: true
+    path: { listingId: Id }
+    x-errors: [LISTING_STATE_CONFLICT]
+    responses: { 200: Listing }
+/partner/listings/{listingId}/resume:
+  post:
+    operationId: resumeListing
+    summary: Resume a paused listing
+    x-partner: true
+    x-idempotent: true
+    path: { listingId: Id }
+    x-errors: [LISTING_STATE_CONFLICT]
+    responses: { 200: Listing }
+/partner/listings/{listingId}/renew:
+  post:
+    operationId: renewListing
+    summary: Renew an expired listing (a new payment; no auto-debit)
+    x-partner: true
+    x-idempotent: true
+    path: { listingId: Id }
+    x-errors: [LISTING_STATE_CONFLICT]
+    responses: { 200: Listing }
+/partner/listings/{listingId}/fee-refund-request:
+  post:
+    operationId: requestListingFeeRefund
+    summary: Ask support for a listing-fee refund; recorded by the platform, paid outside the gateway
+    x-partner: true
+    x-idempotent: true
+    path: { listingId: Id }
+    body: FeeRefundInput
+    x-errors: [LISTING_STATE_CONFLICT]
+    responses: { 200: Listing }
+/partner/listings/{listingId}/media-uploads:
+  post:
+    operationId: createListingUpload
+    summary: Signed upload for a listing photo
+    x-partner: true
+    path: { listingId: Id }
+    body: UploadSessionInput
+    x-errors: [MEDIA_TOO_LARGE, MEDIA_TYPE_UNSUPPORTED]
+    responses: { 201: UploadSession }
+/partner/listings/{listingId}/media:
+  post:
+    operationId: attachListingMedia
+    summary: Attach a completed upload as cover or portfolio photo
+    x-partner: true
+    x-idempotent: true
+    path: { listingId: Id }
+    body: AttachListingMediaInput
+    responses: { 200: Listing }
+/partner/billing:
+  get:
+    operationId: getPartnerBilling
+    summary: Plans and rates or the business contract (HL-SETT-04, HL-PROV-04)
+    x-partner: true
+    responses: { 200: BillingView }
+/partner/provider:
+  get:
+    operationId: getPartnerProvider
+    summary: The provider profile as clients see it
+    x-partner: true
+    responses: { 200: ServiceProvider }
+  patch:
+    operationId: updatePartnerProvider
+    summary: Edit the provider profile
+    x-partner: true
+    body: UpdateProviderInput
+    responses: { 200: ServiceProvider }
+/partner/provider/packages:
+  get:
+    operationId: listProviderPackages
+    summary: Provider packages with both prices
+    x-partner: true
+    responses: { 200: ProviderPackageList }
+  post:
+    operationId: createProviderPackage
+    summary: Add a provider package
+    x-partner: true
+    x-idempotent: true
+    body: ProviderPackageInput
+    responses: { 201: ProviderPackage }
+/partner/provider/packages/{packageId}:
+  put:
+    operationId: updateProviderPackage
+    summary: Replace a provider package
+    x-partner: true
+    path: { packageId: Id }
+    body: ProviderPackageInput
+    responses: { 200: ProviderPackage }
+  delete:
+    operationId: deleteProviderPackage
+    summary: Remove a provider package
+    x-partner: true
+    path: { packageId: Id }
+    responses: { 204: ~ }

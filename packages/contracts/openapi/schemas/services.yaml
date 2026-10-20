@@ -1,0 +1,100 @@
+# Additional services: providers with an active listing, shown to clients (ADR 0033 D7, D8). A provider is visible only while its listing is active.
+ServiceGroupId: { type: string, enum: [hospitality, flowers_cake, planning, photo_video, music, henna_makeup, attire, cars_invitations, travel] }
+ServiceGroup:
+  type: object
+  required: [id, name, order]
+  properties: { id: { $ref: ServiceGroupId }, name: { $ref: LocalizedText }, order: { type: integer } }
+ServiceCategoryId: { type: string, enum: [catering, buffet, flowers, decor, event_planning, photography, videography, cake, dj, mc, live_music, henna, bridal_makeup, wedding_dress, suit_rental, luxury_cars, invitations, travel, honeymoon] }
+PriceAnchor:
+  type: object
+  required: [min, max, unit]
+  properties: { min: { $ref: Money }, max: { $ref: Money }, unit: { $ref: LocalizedText } }
+ServiceCategory:
+  type: object
+  required: [id, groupId, primary, name, description, icon, image, anchor, order]
+  properties:
+    id: { $ref: ServiceCategoryId }
+    groupId: { $ref: ServiceGroupId }
+    primary: { type: boolean, description: 'One of the five primary categories (catering, buffet, flowers, decor, event planning).' }
+    name: { $ref: LocalizedText }
+    description: { $ref: LocalizedText }
+    icon: { type: string }
+    image: { $ref: ImageRef }
+    anchor: { $ref: PriceAnchor }
+    order: { type: integer }
+ServiceCategoriesResponse:
+  type: object
+  required: [groups, primary, secondary]
+  properties:
+    groups: { type: array, items: { $ref: ServiceGroup } }
+    primary: { type: array, items: { $ref: ServiceCategory } }
+    secondary: { type: array, items: { $ref: ServiceCategory } }
+ProviderPackage:
+  type: object
+  description: A provider package with two prices on the same basis, like a venue package.
+  required: [id, name, price, voucherPrice, unit, priceStructure, minQuantity, includes]
+  properties:
+    id: { $ref: Id }
+    name: { $ref: LocalizedText }
+    price: { $ref: Money }
+    voucherPrice: { $ref: Money, nullable: true }
+    unit: { $ref: LocalizedText }
+    priceStructure: { $ref: PriceStructure }
+    minQuantity: { type: integer, nullable: true }
+    includes: { type: array, items: { $ref: LocalizedText } }
+ProviderRating:
+  type: object
+  required: [average, count]
+  properties: { average: { type: number }, count: { type: integer } }
+ServiceProvider:
+  type: object
+  required: [id, categoryId, alsoCategoryIds, name, monogram, areaId, governorateId, about, rating, from, fromVoucher, fromUnit, packages, portfolio, tags, femaleTeamForLadies, usuallyRepliesHours, verified, phone]
+  properties:
+    id: { $ref: Id }
+    categoryId: { $ref: ServiceCategoryId }
+    alsoCategoryIds: { type: array, items: { $ref: ServiceCategoryId } }
+    name: { $ref: LocalizedText }
+    monogram: { type: string }
+    areaId: { $ref: Id }
+    governorateId: { $ref: Id }
+    about: { $ref: LocalizedText }
+    rating: { $ref: ProviderRating, nullable: true, description: 'Null = new provider, shown as New.' }
+    from: { $ref: Money }
+    fromVoucher: { $ref: Money, nullable: true }
+    fromUnit: { $ref: LocalizedText }
+    packages: { type: array, items: { $ref: ProviderPackage } }
+    portfolio: { type: array, items: { $ref: ImageRef } }
+    tags: { type: array, items: { $ref: LocalizedText } }
+    femaleTeamForLadies: { type: boolean }
+    usuallyRepliesHours: { type: number }
+    verified: { type: boolean }
+    phone: { type: string }
+ServiceProviderPage: { x-page-of: ServiceProvider }
+ProviderSort: { type: string, enum: [recommended, rating, price, newest] }
+QuoteRequestStatus: { type: string, enum: [sent, replied] }
+VendorQuoteRequest:
+  type: object
+  required: [id, clientId, vendorId, vendorPackageId, eventDate, venueId, guests, note, requestedAt, status]
+  properties:
+    id: { $ref: Id }
+    clientId: { $ref: Id }
+    vendorId: { $ref: Id, description: The service provider id (legacy field name). }
+    vendorPackageId: { $ref: Id }
+    eventDate: { $ref: IsoDate }
+    venueId: { $ref: Id, nullable: true }
+    guests: { type: integer, nullable: true }
+    note: { type: string }
+    requestedAt: { $ref: IsoDateTime }
+    status: { $ref: QuoteRequestStatus }
+    conversationId: { $ref: Id, nullable: true }
+CreateQuoteRequestInput:
+  type: object
+  required: [providerId, packageId, eventDate]
+  properties:
+    providerId: { $ref: Id }
+    packageId: { $ref: Id }
+    eventDate: { $ref: IsoDate }
+    venueId: { $ref: Id, nullable: true }
+    guests: { type: integer, nullable: true }
+    note: { type: string, nullable: true }
+VendorQuoteRequestPage: { x-page-of: VendorQuoteRequest }

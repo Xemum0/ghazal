@@ -1,0 +1,103 @@
+[
+ {
+  "id": "V01-ladies-weekday-r1",
+  "scope": "package",
+  "scopeId": "V01-ladies-weekday",
+  "tier": "weekday",
+  "weekdays": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "validFrom": null,
+  "validTo": null,
+  "specialDate": null,
+  "priority": 0,
+  "flat": null,
+  "perGuest": {
+   "fils": 46000,
+   "currency": "KWD"
+  },
+  "voucherFlat": null,
+  "voucherPerGuest": {
+   "fils": 39000,
+   "currency": "KWD"
+  }
+ },
+ {
+  "id": "V01-ladies-weekend-r1",
+  "scope": "package",
+  "scopeId": "V01-ladies-weekend",
+  "tier": "weekend",
+  "weekdays": [
+   4,
+   5,
+   6
+  ],
+  "validFrom": null,
+  "validTo": null,
+  "specialDate": null,
+  "priority": 0,
+  "flat": null,
+  "perGuest": {
+   "fils": 52000,
+   "currency": "KWD"
+  },
+  "voucherFlat": null,
+  "voucherPerGuest": {
+   "fils": 44000,
+   "currency": "KWD"
+  }
+ },
+ {
+  "id": "V01-ladies-weekend-r2",
+  "scope": "package",
+  "scopeId": "V01-ladies-weekend",
+  "tier": "special_date",
+  "weekdays": null,
+  "validFrom": null,
+  "validTo": null,
+  "specialDate": "2026-12-31",
+  "priority": 10,
+  "flat": null,
+  "perGuest": {
+   "fils": 58000,
+   "currency": "KWD"
+  },
+  "voucherFlat": null,
+  "voucherPerGuest": {
+   "fils": 49000,
+   "currency": "KWD"
+  },
+  "label": {
+   "en": "New Year’s Eve",
+   "ar": "ليلة رأس السنة"
+  }
+ },
+ {
+  "id": "V01-ladies-signature-r3",
+  "scope": "package",
+  "scopeId": "V01-ladies-signature",
+  "tier": "special_date",
+  "weekdays": null,
+  "validFrom": null,
+  "validTo": null,
+  "specialDate": "2026-12-31",
+  "priority": 10,
+  "flat": null,
+  "perGuest": {
+   "fils": 63000,
+   "currency": "KWD"
+  },
+  "voucherFlat": null,
+  "voucherPerGuest": {
+   "fils": 53500,
+   "currency": "KWD"
+  },
+  "label": {
+   "en": "New Year’s Eve",
+   "ar": "ليلة رأس السنة"
+  }
+ }
+]

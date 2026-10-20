@@ -1,0 +1,123 @@
+# Partner Today, Needs you and the request inbox (ADR 0008, ADR 0033 D3). The same request object as the client sees, with the partner's commands.
+SlaState: { type: string, enum: [neutral, gold, danger, expired] }
+SlaReading:
+  type: object
+  description: Neutral below 50% elapsed, gold from 50%, danger from 80% or under 1 hour left; expired at 100%. The thresholds are PlatformConfig.
+  required: [state, elapsed, minutesLeft, minutesWaiting]
+  properties:
+    state: { $ref: SlaState }
+    elapsed: { type: number, description: 'Share of the SLA elapsed, 0..1+.' }
+    minutesLeft: { type: integer }
+    minutesWaiting: { type: integer }
+TriageType: { type: string, enum: [request, awaiting_client, visit_request, message, review_reply, calendar_confirm] }
+RequestItem:
+  type: object
+  description: One row of the Needs-you queue.
+  required: [id, type, venueId, raisedAt, dueAt, slaHours, bookingId, conversationId, reviewId, visitId, voucherId, voucherCode, title, subtitle, order]
+  properties:
+    id: { $ref: Id }
+    type: { $ref: TriageType }
+    venueId: { $ref: Id, description: The venue or provider the row belongs to. }
+    raisedAt: { $ref: IsoDateTime }
+    dueAt: { $ref: IsoDateTime, nullable: true }
+    slaHours: { type: integer, nullable: true }
+    bookingId: { $ref: Id, nullable: true }
+    conversationId: { $ref: Id, nullable: true }
+    reviewId: { $ref: Id, nullable: true }
+    visitId: { $ref: Id, nullable: true }
+    voucherId: { $ref: Id, nullable: true }
+    voucherCode: { type: string, nullable: true }
+    title: { $ref: LocalizedText }
+    subtitle: { $ref: LocalizedText, nullable: true }
+    order: { type: integer }
+NeedsYouRow:
+  type: object
+  required: [item, sla]
+  properties:
+    item: { $ref: RequestItem }
+    sla: { $ref: SlaReading, nullable: true }
+PartnerRequestRow:
+  type: object
+  description: A request with its voucher and SLA reading. `otherRequestsSameDate` is a count only, never identities (ADR 0008 D5).
+  required: [booking, voucher, halls, sla, otherRequestsSameDate]
+  properties:
+    booking: { $ref: Booking }
+    halls: { type: array, items: { $ref: NamedRef } }
+    voucher: { $ref: Voucher, nullable: true }
+    sla: { $ref: SlaReading, nullable: true }
+    otherRequestsSameDate: { type: integer }
+PartnerRequestPage: { x-page-of: PartnerRequestRow }
+RequestSegment: { type: string, enum: [pending, awaiting_client, upcoming, past] }
+PartnerTodayTiles:
+  type: object
+  description: Counts only, never money (the partner holds no event payment).
+  required: [requests, awaitingClient, vouchersRedeemed, vouchersBought, openDatesNext30Days, softDateCount, unreadMessages]
+  properties:
+    requests: { type: integer, description: Requests this month. }
+    awaitingClient: { type: integer }
+    vouchersRedeemed: { type: integer }
+    vouchersBought: { type: integer }
+    openDatesNext30Days: { type: integer }
+    softDateCount: { type: integer }
+    unreadMessages: { type: integer }
+PartnerToday:
+  type: object
+  required: [tiles, needsYou, events, activeListings]
+  properties:
+    tiles: { $ref: PartnerTodayTiles }
+    needsYou: { type: array, items: { $ref: NeedsYouRow } }
+    events: { type: array, items: { $ref: PartnerRequestRow }, description: Confirmed and redeemable requests in the next 7 days. }
+    activeListings: { type: integer, nullable: true, description: Provider accounts only. }
+ClientContact:
+  type: object
+  description: The contact person. The number is sent only when the client shared it (ADR 0003).
+  required: [name, phone, shared, bookingFor]
+  properties:
+    name: { type: string }
+    phone: { type: string, nullable: true }
+    shared: { type: boolean }
+    bookingFor: { $ref: BookingFor }
+PartnerRequestDetail:
+  type: object
+  required: [booking, voucher, target, halls, client, sla, otherRequestsSameDate, conversationId]
+  properties:
+    booking: { $ref: Booking }
+    halls: { type: array, items: { $ref: NamedRef } }
+    voucher: { $ref: Voucher, nullable: true }
+    target: { $ref: TargetSummary }
+    client: { $ref: ClientContact }
+    sla: { $ref: SlaReading, nullable: true }
+    otherRequestsSameDate: { type: integer }
+    conversationId: { $ref: Id, nullable: true }
+AcceptRequestInput:
+  type: object
+  description: R03. Approves at the voucher price or lower, never higher; starts the fixed 24 h confirm window and the 8 s undo window.
+  properties:
+    lowerVoucherTotal: { $ref: Money, nullable: true }
+DeclineRequestInput:
+  type: object
+  description: R04. A reason is required; the voucher is released and credit-eligible.
+  required: [reason]
+  properties:
+    reason: { $ref: RejectReason }
+    note: { type: string, nullable: true, maxLength: 500 }
+ProposedDateInput:
+  type: object
+  required: [eventDate, hallId, sessionId]
+  properties:
+    eventDate: { $ref: IsoDate }
+    hallId: { $ref: Id }
+    sessionId: { $ref: Id }
+ProposeDatesInput:
+  type: object
+  description: A counter-offer of 1 to 3 dates, valid 48 h, voucher price held. The request stays pending.
+  required: [options]
+  properties:
+    options: { type: array, items: { $ref: ProposedDateInput }, minItems: 1, maxItems: 3 }
+PartnerCancelInput:
+  type: object
+  description: R10b (revoke an approval) or R13b (cancel a confirmed request). A reason is required and a reliability strike is recorded.
+  required: [reason]
+  properties:
+    reason: { $ref: CancelReason }
+    note: { type: string, nullable: true }

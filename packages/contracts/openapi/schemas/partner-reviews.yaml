@@ -1,0 +1,24 @@
+# The partner review inbox. A venue replies once and reports; hiding or deleting a review is a request to Ghazal support (ADR 0035 D9).
+ReviewFilter: { type: string, enum: [all, awaiting_reply], description: A review waits for a reply once it is 7+ days old without one. }
+ReplyInput:
+  type: object
+  required: [text]
+  properties:
+    text: { type: string, maxLength: 1000 }
+    origin: { $ref: Lang, nullable: true }
+ReplyDraftInput:
+  type: object
+  required: [text]
+  properties: { text: { type: string } }
+ReportReviewInput:
+  type: object
+  required: [reason]
+  properties:
+    reason: { type: string, enum: [not_a_guest, offensive, wrong_venue, other] }
+    note: { type: string, nullable: true }
+ReviewRemovalInput:
+  type: object
+  required: [action]
+  properties:
+    action: { $ref: ReviewSupportAction }
+    note: { type: string, nullable: true }

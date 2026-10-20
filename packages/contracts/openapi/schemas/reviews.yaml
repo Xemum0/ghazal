@@ -1,0 +1,46 @@
+# Venue reviews. Photos in reviews are empty-room only and stay in moderation (ADR 0015 D7).
+ReviewAudience: { type: string, enum: [women, men] }
+OwnerReply:
+  type: object
+  required: [text, repliedAt, by]
+  properties: { text: { $ref: LocalizedText }, repliedAt: { $ref: IsoDateTime }, by: { type: string } }
+ReviewSupportAction: { type: string, enum: [request_hide, request_delete] }
+ReviewSupportStatus: { type: string, enum: [requested, done, declined] }
+ReviewSupportRequest:
+  type: object
+  required: [action, requestedAt, status]
+  properties: { action: { $ref: ReviewSupportAction }, requestedAt: { $ref: IsoDateTime }, status: { $ref: ReviewSupportStatus } }
+Review:
+  type: object
+  required: [id, venueId, author, monogram, anonymous, rating, categories, text, origin, audience, hallId, eventDate, postedAt, ownerReply, supportRequest, replyDraft, verifiedBooking, photos]
+  properties:
+    id: { $ref: Id }
+    venueId: { $ref: Id }
+    author: { $ref: LocalizedText, description: 'First name plus initial, or anonymous.' }
+    monogram: { type: string }
+    anonymous: { type: boolean }
+    rating: { type: number, description: 0.5 steps. }
+    categories: { $ref: RatingCategories }
+    text: { $ref: LocalizedText }
+    origin: { $ref: Lang }
+    audience: { $ref: ReviewAudience }
+    hallId: { $ref: Id, nullable: true }
+    eventDate: { $ref: IsoDate }
+    postedAt: { $ref: IsoDateTime }
+    ownerReply: { $ref: OwnerReply, nullable: true }
+    supportRequest: { $ref: ReviewSupportRequest, nullable: true }
+    replyDraft: { $ref: LocalizedText, nullable: true, description: Partner view only; never shown to couples. }
+    verifiedBooking: { type: boolean }
+    photos: { type: array, items: { type: string } }
+ReviewPage: { x-page-of: Review }
+ReviewSort: { type: string, enum: [newest, highest, lowest] }
+CreateReviewInput:
+  type: object
+  required: [rating, categories, text, anonymous]
+  properties:
+    rating: { type: number, minimum: 0.5, maximum: 5 }
+    categories: { $ref: RatingCategories }
+    text: { type: string, maxLength: 2000 }
+    origin: { $ref: Lang, nullable: true }
+    anonymous: { type: boolean }
+    photoIds: { type: array, items: { type: string }, description: 'Completed upload ids, moderated before they show.' }

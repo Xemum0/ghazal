@@ -1,0 +1,25 @@
+[
+ {
+  "id": "vch-GV-2611-C4RD",
+  "kind": "credit",
+  "code": "GV-2611-C4RD",
+  "clientId": "user-reem",
+  "priceFils": 2000,
+  "status": "active",
+  "grantedAt": "2026-11-05T10:00:00+03:00",
+  "validUntil": "2027-01-04T23:59:00+03:00",
+  "qr": {
+   "payload": "gz:v1:GV-2611-C4RD:any:D300",
+   "version": 1
+  },
+  "grantedFrom": {
+   "requestId": "rr-GV-2610-H9XB",
+   "voucherId": "vch-GV-2610-H9XB",
+   "grantedBy": "Lama Al-Khalidi"
+  },
+  "bookingId": null,
+  "usedAt": null,
+  "usedReason": null,
+  "redeemedBy": null
+ }
+]

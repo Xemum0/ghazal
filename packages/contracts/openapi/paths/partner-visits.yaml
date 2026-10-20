@@ -1,0 +1,91 @@
+/partner/visits:
+  get:
+    operationId: listPartnerVisits
+    summary: Visit requests and upcoming visits (HL-VIST-01)
+    x-partner: true
+    x-permissions: ['visit:manage']
+    x-paged: true
+    query: { status: 'VisitStatus[]' }
+    responses: { 200: VisitPage }
+/partner/visits/{visitId}:
+  get:
+    operationId: getPartnerVisit
+    summary: One visit (HL-VIST-02)
+    x-partner: true
+    x-permissions: ['visit:manage']
+    path: { visitId: Id }
+    responses: { 200: VisitAppointment }
+/partner/visits/{visitId}/thread:
+  get:
+    operationId: getPartnerVisitThread
+    summary: The visit group chat with its messages (HL-VIST-03)
+    x-partner: true
+    x-permissions: ['visit:manage']
+    path: { visitId: Id }
+    responses: { 200: VisitThread }
+/partner/visits/{visitId}/confirm:
+  post:
+    operationId: confirmVisit
+    summary: Confirm a requested visit
+    x-partner: true
+    x-permissions: ['visit:manage']
+    x-idempotent: true
+    path: { visitId: Id }
+    x-errors: [VISIT_STATE_CONFLICT]
+    responses: { 200: VisitAppointment }
+/partner/visits/{visitId}/decline:
+  post:
+    operationId: declineVisit
+    summary: Decline a visit; the group chat closes at once
+    x-partner: true
+    x-permissions: ['visit:manage']
+    x-idempotent: true
+    path: { visitId: Id }
+    body: DeclineVisitInput
+    x-errors: [VISIT_STATE_CONFLICT]
+    responses: { 200: VisitAppointment }
+/partner/visits/{visitId}/propose:
+  post:
+    operationId: proposeVisitSlot
+    summary: Propose another arrival window
+    x-partner: true
+    x-permissions: ['visit:manage']
+    x-idempotent: true
+    path: { visitId: Id }
+    body: ProposeVisitSlotInput
+    x-errors: [VISIT_STATE_CONFLICT, VISIT_SLOT_TAKEN]
+    responses: { 200: VisitAppointment }
+/partner/visits/{visitId}/arrived:
+  post:
+    operationId: markVisitArrived
+    summary: Mark the couple as arrived (HL-VIST-04)
+    x-partner: true
+    x-permissions: ['visit:manage']
+    x-idempotent: true
+    path: { visitId: Id }
+    x-errors: [VISIT_STATE_CONFLICT]
+    responses: { 200: VisitAppointment }
+/partner/visits/{visitId}/missed:
+  post:
+    operationId: markVisitMissed
+    summary: Flag a visit as missed
+    x-partner: true
+    x-permissions: ['visit:manage']
+    x-idempotent: true
+    path: { visitId: Id }
+    x-errors: [VISIT_STATE_CONFLICT]
+    responses: { 200: VisitAppointment }
+/partner/visit-availability:
+  get:
+    operationId: getVisitAvailability
+    summary: Weekly visit windows (HL-VIST-05)
+    x-partner: true
+    x-permissions: ['visit:manage']
+    responses: { 200: VisitAvailability }
+  put:
+    operationId: putVisitAvailability
+    summary: Replace the weekly visit windows
+    x-partner: true
+    x-permissions: ['visit:manage']
+    body: VisitAvailability
+    responses: { 200: VisitAvailability }

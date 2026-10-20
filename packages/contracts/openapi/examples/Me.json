@@ -1,0 +1,19 @@
+{
+  "user": {
+    "id": "user-reem",
+    "role": "client",
+    "name": "ريم الدوسري",
+    "nameLatin": "Reem Al-Dosari",
+    "monogram": "ر",
+    "phone": "+96550000012",
+    "email": null,
+    "locale": "ar",
+    "digitStyle": "western",
+    "createdAt": "2026-10-25T20:10:00+03:00"
+  },
+  "permissions": [],
+  "phoneVerified": true,
+  "emailVerified": false,
+  "hasPassword": true,
+  "marketingOptIn": false
+}

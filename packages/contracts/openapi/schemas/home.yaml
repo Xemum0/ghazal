@@ -1,0 +1,112 @@
+# Composed home feed, platform configuration and analytics ingestion.
+HomeStatusKind: { type: string, enum: [no-date, brief-set, voucher-ready, pending, approved, confirmed, visit-soon], description: 'Urgency ladder of the one status card (a decision waiting on you beats everything).' }
+HomeStatusCard:
+  type: object
+  required: [kind, bookingId, voucherId, visitId, deadline, target]
+  properties:
+    kind: { $ref: HomeStatusKind }
+    target: { $ref: TargetSummary, nullable: true, description: The venue or provider the card is about. }
+    bookingId: { $ref: Id, nullable: true }
+    voucherId: { $ref: Id, nullable: true }
+    visitId: { $ref: Id, nullable: true }
+    deadline: { $ref: IsoDateTime, nullable: true, description: Reply-by or confirm-by instant when the card is about a request. }
+ShelfId: { type: string, enum: [free, featured, voucher, week, recommended, trending, nearby] }
+HomeShelfItem:
+  type: object
+  required: [row, date]
+  properties:
+    row: { $ref: VenueResult }
+    date: { $ref: IsoDate, nullable: true, description: 'The free date a row is shown for (shelf `week`).' }
+HomeShelf:
+  type: object
+  required: [id, items]
+  properties:
+    id: { $ref: ShelfId }
+    items: { type: array, items: { $ref: HomeShelfItem } }
+HomeCategoryId: { type: string, enum: [luxury-hotels, wedding-halls, government, beach, outdoor, vip] }
+HomeCategory:
+  type: object
+  required: [id, venueCount]
+  properties: { id: { $ref: HomeCategoryId }, venueCount: { type: integer } }
+HomeFeed:
+  type: object
+  description: One composed response (at most 30 KB gzip, private, must-revalidate). The client paints the cached payload while revalidating.
+  required: [statusCard, freeCount, nearestFreeDates, shelves, categories, unreadNotifications, daysToWedding]
+  properties:
+    statusCard: { $ref: HomeStatusCard }
+    freeCount: { type: integer, nullable: true, description: Venues free on the Brief date; null without a date. }
+    nearestFreeDates: { type: array, items: { $ref: IsoDate }, description: Offered when `freeCount` is 0. }
+    shelves: { type: array, items: { $ref: HomeShelf } }
+    categories: { type: array, items: { $ref: HomeCategory } }
+    unreadNotifications: { type: integer }
+    daysToWedding: { type: integer, nullable: true }
+PlatformConfig:
+  type: object
+  description: Every voucher-model number lives here, never as a literal in the UI (voucher-model sections 4, 5, 13).
+  required: [voucherFeeFils, voucherValidityDays, voucherReuseDays, voucherCheckoutMinutes, creditVoucherValidityDays, confirmWindowHours, approvalUndoSeconds, counterOfferValidityHours, maxOpenRequests, defaultReplyHours, urgentLeadDays, urgentReplyHours, completionDelayHours, issueReportHours, visitChatReadonlyHours, visitChatArchiveDays, slaDangerPct, slaGoldPct, weekendTierDays, peakBandDays]
+  properties:
+    voucherFeeFils: { type: integer, description: 'KD 2.000 = 2000.' }
+    voucherValidityDays: { type: integer }
+    voucherReuseDays: { type: integer }
+    voucherCheckoutMinutes: { type: integer }
+    creditVoucherValidityDays: { type: integer }
+    confirmWindowHours: { type: integer }
+    approvalUndoSeconds: { type: integer }
+    counterOfferValidityHours: { type: integer }
+    maxOpenRequests: { type: integer }
+    defaultReplyHours: { type: integer }
+    urgentLeadDays: { type: integer }
+    urgentReplyHours: { type: integer }
+    completionDelayHours: { type: integer }
+    issueReportHours: { type: integer }
+    visitChatReadonlyHours: { type: integer }
+    visitChatArchiveDays: { type: integer }
+    slaDangerPct: { type: integer }
+    slaGoldPct: { type: integer }
+    weekendTierDays: { type: array, items: { $ref: Weekday } }
+    peakBandDays: { type: array, items: { type: integer } }
+Occasion:
+  type: object
+  required: [id, name, from, to, approximate]
+  properties:
+    id: { $ref: Id }
+    name: { $ref: LocalizedText }
+    from: { $ref: IsoDate }
+    to: { $ref: IsoDate }
+    approximate: { type: boolean }
+DateRange:
+  type: object
+  required: [from, to]
+  properties: { from: { $ref: IsoDate }, to: { $ref: IsoDate } }
+AppConfig:
+  type: object
+  required: [serverNow, timezone, config, occasions, availabilityWindow, minAppVersion]
+  properties:
+    serverNow: { $ref: IsoDateTime, description: The server clock; the mock pins it to 2026-11-12T16:00+03:00 by default. }
+    timezone: { type: string, enum: [Asia/Kuwait] }
+    config: { $ref: PlatformConfig }
+    occasions: { type: array, items: { $ref: Occasion }, description: Approximate occasion markers for calendars. }
+    availabilityWindow: { $ref: DateRange }
+    minAppVersion: { type: string }
+AnalyticsEvent:
+  x-dart-name: WireAnalyticsEvent
+  type: object
+  description: '`object_verb_pastTense` snake_case, registered in the analytics catalogue. No names, phones, emails or free text.'
+  required: [eventId, name, at]
+  properties:
+    eventId: { type: string }
+    name: { type: string }
+    at: { $ref: IsoDateTime }
+    props: { type: object, additionalProperties: true }
+AnalyticsBatch:
+  type: object
+  required: [events]
+  properties: { events: { type: array, items: { $ref: AnalyticsEvent }, maxItems: 20 } }
+AnalyticsRejection:
+  type: object
+  required: [eventId, code]
+  properties: { eventId: { type: string }, code: { type: string } }
+AnalyticsAccepted:
+  type: object
+  required: [accepted, rejected]
+  properties: { accepted: { type: integer }, rejected: { type: array, items: { $ref: AnalyticsRejection } } }

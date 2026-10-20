@@ -1,0 +1,234 @@
+[
+ {
+  "id": "V01",
+  "slug": "aurelia-gulf-hotel",
+  "name": {
+   "en": "Aurelia Gulf Hotel",
+   "ar": "فندق أوريليا الخليج"
+  },
+  "type": "hotel",
+  "style": "hotel",
+  "tier": "prestige",
+  "stars": 5,
+  "channel": "ghazal_voucher",
+  "status": "published",
+  "governorateId": "capital",
+  "areaId": "sharq",
+  "address": {
+   "block": "4",
+   "street": {
+    "en": "Gulf Street",
+    "ar": "شارع الخليج"
+   }
+  },
+  "geo": {
+   "lat": 29.387,
+   "lng": 47.996
+  },
+  "tagline": {
+   "en": "A Gulf-front ballroom for ladies’ receptions",
+   "ar": "قاعة واسعة على واجهة الخليج للحفلات النسائية"
+  },
+  "cover": {
+   "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+   "width": 1800,
+   "height": 1196,
+   "orientation": "landscape",
+   "alt": {
+    "en": "Bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+    "ar": "قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+   }
+  },
+  "hasVideo": true,
+  "rating": {
+   "average": 4.8,
+   "count": 212,
+   "categories": {
+    "venue": 4.8,
+    "food": 4.7,
+    "service": 4.9,
+    "value": 4.6
+   }
+  },
+  "voucherEnabled": true,
+  "flags": {
+   "featured": false,
+   "sponsored": false,
+   "isNew": false
+  }
+ },
+ {
+  "id": "V02",
+  "slug": "madar-grand-hotel",
+  "name": {
+   "en": "Madar Grand Hotel",
+   "ar": "فندق مدار جراند"
+  },
+  "type": "hotel",
+  "style": "hotel",
+  "tier": "prestige",
+  "stars": 5,
+  "channel": "ghazal_voucher",
+  "status": "published",
+  "governorateId": "capital",
+  "areaId": "bneid-al-qar",
+  "address": {
+   "block": "2",
+   "street": {
+    "en": "Palm Street",
+    "ar": "شارع النخيل"
+   }
+  },
+  "geo": {
+   "lat": 29.3955,
+   "lng": 48.005
+  },
+  "tagline": {
+   "en": "A gilded grand ballroom in Bneid Al-Qar",
+   "ar": "قاعة كبرى بسقف مذهّب في بنيد القار"
+  },
+  "cover": {
+   "file": "ballrooms/ballrooms-05-white-gold-ceiling-chandelier.jpg",
+   "width": 1800,
+   "height": 2400,
+   "orientation": "portrait",
+   "alt": {
+    "en": "Crystal chandelier beneath a domed ivory ceiling with gold leaf mouldings and arched gilded wall panels in a grand hall",
+    "ar": "ثريا كريستال تحت سقف عاجي مقبّب بزخارف مذهّبة وألواح جدارية مقوّسة بالذهب في قاعة كبرى"
+   }
+  },
+  "hasVideo": true,
+  "rating": {
+   "average": 4.7,
+   "count": 167,
+   "categories": {
+    "venue": 4.8,
+    "food": 4.6,
+    "service": 4.7,
+    "value": 4.4
+   }
+  },
+  "voucherEnabled": true,
+  "flags": {
+   "featured": true,
+   "sponsored": false,
+   "isNew": false
+  }
+ },
+ {
+  "id": "V03",
+  "slug": "nawar-beach-resort",
+  "name": {
+   "en": "Nawar Beach Resort",
+   "ar": "منتجع نوّار الشاطئي"
+  },
+  "type": "hotel",
+  "style": "resort",
+  "tier": "prestige",
+  "stars": 5,
+  "channel": "ghazal_voucher",
+  "status": "published",
+  "governorateId": "mubarak-al-kabeer",
+  "areaId": "messila",
+  "address": {
+   "block": "1",
+   "street": {
+    "en": "Beach Road",
+    "ar": "طريق الشاطئ"
+   }
+  },
+  "geo": {
+   "lat": 29.265,
+   "lng": 48.095
+  },
+  "tagline": {
+   "en": "Seaside receptions on the lawn or by the glass hall",
+   "ar": "حفلات على الشاطئ في المرج أو في القاعة الزجاجية"
+  },
+  "cover": {
+   "file": "outdoor/outdoor-01-ring-arch-oceanfront-aisle.jpg",
+   "width": 1800,
+   "height": 1200,
+   "orientation": "landscape",
+   "alt": {
+    "en": "A circular floral ceremony arch of ivory roses and pampas grass at the end of a wooden aisle, with rows of chiffon-draped chairs facing the open sea",
+    "ar": "قوس دائري من الورود العاجية وعشب البمباس في نهاية ممر خشبي، تحيط به صفوف من الكراسي المزيّنة بالشيفون وتطل على البحر المفتوح"
+   }
+  },
+  "hasVideo": true,
+  "rating": {
+   "average": 4.9,
+   "count": 96,
+   "categories": {
+    "venue": 4.9,
+    "food": 4.8,
+    "service": 4.9,
+    "value": 4.7
+   }
+  },
+  "voucherEnabled": true,
+  "flags": {
+   "featured": true,
+   "sponsored": true,
+   "isNew": false
+  }
+ },
+ {
+  "id": "V05",
+  "slug": "lumi-marina-hotel",
+  "name": {
+   "en": "Lumi Marina Hotel",
+   "ar": "فندق لومي مارينا"
+  },
+  "type": "hotel",
+  "style": "hotel",
+  "tier": "signature",
+  "stars": 4,
+  "channel": "ghazal_voucher",
+  "status": "published",
+  "governorateId": "hawalli",
+  "areaId": "salmiya",
+  "address": {
+   "block": "3",
+   "street": {
+    "en": "Marina Street",
+    "ar": "شارع المارينا"
+   }
+  },
+  "geo": {
+   "lat": 29.338,
+   "lng": 48.082
+  },
+  "tagline": {
+   "en": "Champagne-toned marina ballroom in Salmiya",
+   "ar": "قاعة بلمسات الشامبانيا على المارينا في السالمية"
+  },
+  "cover": {
+   "file": "ballrooms/ballrooms-01-striped-chair-ballroom-wide.jpg",
+   "width": 1800,
+   "height": 1200,
+   "orientation": "landscape",
+   "alt": {
+    "en": "Grand hotel ballroom with tall champagne silk curtains, gilded columns, crystal chandeliers and round tables with blush floral centrepieces on a parquet floor",
+    "ar": "قاعة فندقية كبيرة بستائر حريرية شامبانيا عالية وأعمدة مذهّبة وثريات كريستال وطاولات دائرية بتنسيقات ورد وردية على أرضية باركيه"
+   }
+  },
+  "hasVideo": false,
+  "rating": {
+   "average": 4.5,
+   "count": 138,
+   "categories": {
+    "venue": 4.6,
+    "food": 4.4,
+    "service": 4.6,
+    "value": 4.4
+   }
+  },
+  "voucherEnabled": true,
+  "flags": {
+   "featured": false,
+   "sponsored": false,
+   "isNew": false
+  }
+ }
+]

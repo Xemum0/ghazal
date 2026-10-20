@@ -1,0 +1,64 @@
+[
+ {
+  "id": "partner-V01",
+  "type": "venue",
+  "name": {
+   "en": "Aurelia Gulf Hotel",
+   "ar": "فندق أوريليا الخليج"
+  },
+  "venueIds": [
+   "V01"
+  ],
+  "providerId": null,
+  "ownerUserId": "user-khalid",
+  "feeExempt": true,
+  "status": "active",
+  "createdAt": "2026-06-01T09:00:00+03:00"
+ },
+ {
+  "id": "partner-V02",
+  "type": "venue",
+  "name": {
+   "en": "Madar Grand Hotel",
+   "ar": "فندق مدار جراند"
+  },
+  "venueIds": [
+   "V02"
+  ],
+  "providerId": null,
+  "ownerUserId": null,
+  "feeExempt": true,
+  "status": "active",
+  "createdAt": "2026-06-01T09:00:00+03:00"
+ },
+ {
+  "id": "partner-V03",
+  "type": "venue",
+  "name": {
+   "en": "Nawar Beach Resort",
+   "ar": "منتجع نوّار الشاطئي"
+  },
+  "venueIds": [
+   "V03"
+  ],
+  "providerId": null,
+  "ownerUserId": null,
+  "feeExempt": true,
+  "status": "active",
+  "createdAt": "2026-06-01T09:00:00+03:00"
+ },
+ {
+  "id": "partner-vendor-event_planning-khutwa",
+  "type": "service_provider",
+  "name": {
+   "en": "Khutwa Wedding Coordination",
+   "ar": "خطوة لتنسيق الأفراح"
+  },
+  "venueIds": [],
+  "providerId": "vendor-event_planning-khutwa",
+  "ownerUserId": null,
+  "feeExempt": false,
+  "status": "active",
+  "createdAt": "2026-09-15T10:00:00+03:00"
+ }
+]

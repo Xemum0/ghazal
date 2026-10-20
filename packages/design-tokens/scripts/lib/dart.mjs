@@ -1,7 +1,9 @@
-// Dart generator (ADR 0023 D5 c, ADR 0024 D9): const values plus TextStyle / Curve / Duration / EdgeInsetsDirectional helpers.
-// References are resolved to literals. Semantic colours are a ThemeExtension (GzColors.light); the ref tier is separate
-// (GzRefColors) and must not be exported from the ghazal_ui barrel.
+// Dart generator (ADR 0023 D5 c, ADR 0024 D9, F1a): const values plus TextStyle / Curve / Duration / EdgeInsetsDirectional helpers,
+// written into packages/ghazal_ui/lib/src/tokens/generated/ (four files). References are resolved to literals. Semantic colours
+// are a ThemeExtension (GzColors.light); the ref tier is separate (GzRefColors) and is not exported from the ghazal_ui barrel.
+// Imports: material_ui (ThemeExtension) or widgets only, never the framework material library (ADR 0036 item 6).
 import { LANGS } from './tokens.mjs'
+import { NUM_CONTEXT } from './roles-css.mjs'
 
 const cap = s => (s ? s[0].toUpperCase() + s.slice(1) : s)
 /** ['text','on-gold'] -> textOnGold */
@@ -28,6 +30,11 @@ function colors(tokens) {
   return `/// Reference ramps. Components never read these (ADR 0023 D7): not exported from the package barrel.
 abstract final class GzRefColors {
 ${ref.map(t => `  static const ${camel(t.path.replace(/^color\.ref\./, '').split('.'))} = ${color(t.value)};`).join('\n')}
+
+  /// Every step by token path (\`ink.50\`), in source order: for galleries and tests only.
+  static const Map<String, Color> all = {
+${ref.map(t => `    '${t.path.replace(/^color\.ref\./, '')}': ${camel(t.path.replace(/^color\.ref\./, '').split('.'))},`).join('\n')}
+  };
 }
 
 /// Semantic colour roles: the only colour surface for widgets (ADR 0022 F). Light theme only for the MVP.
@@ -42,6 +49,11 @@ ${sys.map(t => `  final Color ${name(t)};`).join('\n')}
   static const GzColors light = GzColors(
 ${sys.map(t => `    ${name(t)}: ${color(t.value)},`).join('\n')}
   );
+
+  /// Every role by token path (\`text.primary\`), in source order: for galleries and tests only.
+  Map<String, Color> get named => {
+${sys.map(t => `        '${t.path.replace(/^color\.sys\./, '')}': ${name(t)},`).join('\n')}
+      };
 
   @override
   GzColors copyWith({
@@ -146,60 +158,85 @@ ${di.map(t => `  static const double ${camel(['distance', t.path.split('.').at(-
 `
 }
 
+/** Web family name -> the family name declared in packages/ghazal_ui/pubspec.yaml. */
+const FAMILY = { 'El Messiri': 'ElMessiri', Manrope: 'Manrope', Almarai: 'Almarai' }
+const family = name => {
+  if (!(name in FAMILY)) throw new Error(`dart generator: no pubspec family for font "${name}"`)
+  return FAMILY[name]
+}
+const chain = list => list.filter(f => !GENERIC.has(f)).map(family)
+const PKG = "package: 'ghazal_ui'"
+
 function fonts(tokens) {
-  const fam = (path, lang) => {
-    const [first, ...rest] = tokens.get(path).value
-    return { first, fallback: rest.filter(f => !GENERIC.has(f)) }
+  const fam = path => {
+    const [first, ...rest] = chain(tokens.get(path).value)
+    return { first, fallback: rest }
   }
-  const f = {
-    en: { ui: fam('font.en.ui'), display: fam('font.en.display') },
-    ar: { ui: fam('font.ar.ui'), display: fam('font.ar.display') },
-    fig: fam('font.fig'),
-  }
+  const f = { uiEn: fam('font.en.ui'), displayEn: fam('font.en.display'), uiAr: fam('font.ar.ui'), displayAr: fam('font.ar.display'), fig: fam('font.fig') }
   const list = fb => `[${fb.map(q).join(', ')}]`
-  return { f, text: `/// Font families (static files from design/public/fonts/ttf, declared in pubspec as Poppins, Cairo, Newsreader, Amiri).
+  return `/// Font families as declared in the pubspec of ghazal_ui (static TTFs in assets/fonts). Web "El Messiri" is ElMessiri.
+/// Every TextStyle that names one also passes package: 'ghazal_ui' (GzFont.package).
 abstract final class GzFont {
-  static const String uiEn = ${q(f.en.ui.first)};
-  static const List<String> uiEnFallback = ${list(f.en.ui.fallback)};
-  static const String displayEn = ${q(f.en.display.first)};
-  static const List<String> displayEnFallback = ${list(f.en.display.fallback)};
-  static const String uiAr = ${q(f.ar.ui.first)};
-  static const List<String> uiArFallback = ${list(f.ar.ui.fallback)};
-  static const String displayAr = ${q(f.ar.display.first)};
-  static const List<String> displayArFallback = ${list(f.ar.display.fallback)};
-  static const String fig = ${q(f.fig.first)};
-  static const List<String> figFallback = ${list(f.fig.fallback)};
+  static const String package = 'ghazal_ui';
+${Object.entries(f).map(([k, v]) => `  static const String ${k} = ${q(v.first)};\n  static const List<String> ${k}Fallback = ${list(v.fallback)};`).join('\n')}
 }
-` }
+`
 }
 
-const WEIGHT = { 300: 'w300', 400: 'w400', 500: 'w500', 600: 'w600', 700: 'w700' }
-const FEATURE = { 'lining-nums': "FontFeature.liningFigures()", 'proportional-nums': 'FontFeature.proportionalFigures()', 'tabular-nums': 'FontFeature.tabularFigures()' }
+const WEIGHT = { 300: 'w300', 400: 'w400', 500: 'w500', 600: 'w600', 700: 'w700', 800: 'w800' }
+const FEATURE = { 'lining-nums': 'FontFeature.liningFigures()', 'proportional-nums': 'FontFeature.proportionalFigures()', 'tabular-nums': 'FontFeature.tabularFigures()' }
 
-function types(tokens, flat) {
+function types(tokens) {
   const roles = byPrefix(tokens, 'type.en').map(t => t.path.slice(8))
+  const nm = r => camel([r])
   const style = (lang, role) => {
     const v = tokens.get(`type.${lang}.${role}`).value
-    const first = v.fontFamily[0]
-    const fallback = v.fontFamily.slice(1).filter(x => !GENERIC.has(x))
+    if (lang === 'ar' && v.letterSpacing !== 0) throw new Error(`type.ar.${role}: Arabic letterSpacing must be 0`)
+    const [first, ...fallback] = chain(v.fontFamily)
     const feats = v.numeric === 'normal' ? [] : v.numeric.split(' ').map(n => FEATURE[n])
+    const lh = v.lineHeight % v.fontSize === 0 ? `${v.lineHeight / v.fontSize}` : `${v.lineHeight} / ${v.fontSize}`
     const parts = [
-      `fontFamily: ${q(first)}`,
+      `fontFamily: ${q(first)}`, PKG,
       `fontFamilyFallback: [${fallback.map(q).join(', ')}]`,
       `fontSize: ${num(v.fontSize)}`,
-      `height: ${v.lineHeight} / ${v.fontSize}`,
+      `height: ${lh}`,
       `fontWeight: FontWeight.${WEIGHT[v.fontWeight]}`,
       `letterSpacing: ${num(v.letterSpacing)}`,
       `wordSpacing: ${num(v.wordSpacing)}`,
       'leadingDistribution: TextLeadingDistribution.even',
     ]
     if (feats.length) parts.push(`fontFeatures: [${feats.join(', ')}]`)
-    return `TextStyle(${parts.join(', ')})`
+    return `TextStyle(\n${parts.map(p => `      ${p},`).join('\n')}\n    )`
   }
-  const nm = r => camel([r])
-  const upper = roles.filter(r => tokens.get(`type.en.${r}`).value.textTransform === 'uppercase').map(q)
-  return `/// A full set of text styles for one script. Colour is never in a style: widgets take it from GzColors.
-/// Line heights are explicit (height = line / size) with even leading distribution.
+  const upper = roles.filter(r => tokens.get(`type.en.${r}`).value.textTransform === 'uppercase')
+  const numeric = roles.filter(r => tokens.get(`type.en.${r}`).value.numeric.includes('tabular'))
+  return `/// Every type role (docs/design/01-direction.md 2.4). The same names exist in both scripts; the size, line height and
+/// weight differ per locale (the Arabic scale is already applied in the token). Read one with GzType.style(locale, role)
+/// or, in a widget, context.gz.text(role).
+enum GzTextRole {
+${roles.map(r => `  ${nm(r)}('${r}'),`).join('\n')}
+  ;
+
+  const GzTextRole(this.id);
+
+  /// The token / CSS name (\`.gz-t-<id>\`).
+  final String id;
+
+  /// English roles authored in sentence case and uppercased by GzText (no textTransform in Flutter): tracked eyebrows.
+  bool get uppercaseEn => const {${upper.map(r => `GzTextRole.${nm(r)}`).join(', ')}}.contains(this);
+
+  /// Roles that use tabular lining figures (prices, KPIs, calendar numbers).
+  bool get isNumeric => const {${numeric.map(r => `GzTextRole.${nm(r)}`).join(', ')}}.contains(this);
+
+  /// The figure role whose size inline numbers take inside this role (the web --gz-num-size), or null to keep the size.
+  GzTextRole? get figureRole => switch (this) {
+${Object.entries(NUM_CONTEXT).map(([r, f]) => `        GzTextRole.${nm(r)} => GzTextRole.${nm(f)},`).join('\n')}
+        _ => null,
+      };
+}
+
+/// A full set of text styles for one script. Colour is never in a style: widgets take it from GzColors.
+/// Line heights are explicit (height = line / size) with even leading distribution (the CSS half-leading).
 @immutable
 class GzTypeSet {
   const GzTypeSet({
@@ -207,36 +244,52 @@ ${roles.map(r => `    required this.${nm(r)},`).join('\n')}
   });
 
 ${roles.map(r => `  final TextStyle ${nm(r)};`).join('\n')}
+
+  /// The style of one role by name.
+  TextStyle of(GzTextRole role) => switch (role) {
+${roles.map(r => `        GzTextRole.${nm(r)} => ${nm(r)},`).join('\n')}
+      };
 }
 
-/// Type roles per script (docs/design/01-direction.md 2.4). Use GzType.forLocale(locale).body.
+/// Type roles per script. Use GzType.style(locale, role) or GzType.forLocale(locale).body.
 abstract final class GzType {
 ${LANGS.map(lang => `  static const GzTypeSet ${lang} = GzTypeSet(\n${roles.map(r => `    ${nm(r)}: ${style(lang, r)},`).join('\n')}\n  );\n`).join('\n')}
   static GzTypeSet forLocale(Locale locale) => locale.languageCode == 'ar' ? ar : en;
 
-  /// English roles authored in sentence case and uppercased by the shared label component (no textTransform in Flutter).
-  static const Set<String> uppercaseRolesEn = {${upper.join(', ')}};
+  static TextStyle style(Locale locale, GzTextRole role) => forLocale(locale).of(role);
 }
 `
 }
 
-export function buildDart({ tokens, flat }, header) {
-  const f = fonts(tokens)
-  return `${header.split('\n').map(l => '// ' + l).join('\n')}
-// ignore_for_file: lines_longer_than_80_chars, prefer_int_literals, unnecessary_const
-// Units: every double is dp (1 px on the web = 1 dp). Hex values live only in GzRefColors.
-
-import 'package:flutter/animation.dart' show Cubic, Curve;
-import 'package:flutter/foundation.dart' show immutable;
-import 'package:flutter/material.dart' show ThemeExtension;
+const FILE_IMPORTS = {
+  colors: `import 'package:flutter/foundation.dart' show immutable;
 import 'package:flutter/painting.dart';
-import 'package:flutter/physics.dart' show SpringDescription;
+import 'package:material_ui/material_ui.dart' show ThemeExtension;`,
+  dimensions: `import 'package:flutter/foundation.dart' show immutable;
+import 'package:flutter/painting.dart';`,
+  motion: `import 'package:flutter/animation.dart' show Cubic, Curve;
+import 'package:flutter/physics.dart' show SpringDescription;`,
+  type: `import 'package:flutter/foundation.dart' show immutable;
+import 'package:flutter/painting.dart';`,
+}
 
-${colors(tokens)}
-${space(tokens)}
+const wrap = (header, kind, body) => `${header.split('\n').map(l => '// ' + l).join('\n')}
+// ignore_for_file: lines_longer_than_80_chars, prefer_int_literals, unnecessary_const, require_trailing_commas
+// Units: every double is dp (1 px on the web = 1 dp). Hex values live only in this folder (tools/check-dart-rules.sh).
+
+${FILE_IMPORTS[kind]}
+
+${body}`
+
+/** The generated Dart files, keyed by path relative to packages/design-tokens (they land in packages/ghazal_ui). */
+export function buildDartFiles({ tokens }, header) {
+  const dir = '../ghazal_ui/lib/src/tokens/generated/'
+  return {
+    [`${dir}gz_colors.g.dart`]: wrap(header, 'colors', colors(tokens)),
+    [`${dir}gz_dimensions.g.dart`]: wrap(header, 'dimensions', `${space(tokens)}
 ${radius(tokens)}
 ${dims(tokens, 'GzSize', 'size', 'Sizes: control heights 44 / 48 / 52 / 56, touch minimum 44, icons, rows, knots.')}
-${dims(tokens, 'GzStroke', 'stroke', 'Stroke widths (icon 1.5 on the 24 grid, thread 2, hairline 1).')}
+${dims(tokens, 'GzStroke', 'stroke', 'Stroke widths (icon 1.5 on the 24 grid, thread 2, hairline 1, focus ring 2).')}
 ${dims(tokens, 'GzZ', 'z', 'Layer order (web z-index; in Flutter the widget tree order follows it).')}
 ${dims(tokens, 'GzLayout', 'layout', 'Device frame (390 x 844), safe areas (use real MediaQuery insets on device), breakpoints, aspect ratios (width / height).', '')}
 ${elevation(tokens)}
@@ -246,8 +299,8 @@ abstract final class GzShape {
   static const String archPath = '${tokens.get('shape.arch.path').value}';
   static const double archRise = ${num(tokens.get('shape.arch.rise').value.value)};
 }
-
-${motion(tokens)}
-${f.text}
-${types(tokens, flat)}`
+`),
+    [`${dir}gz_motion.g.dart`]: wrap(header, 'motion', motion(tokens)),
+    [`${dir}gz_type.g.dart`]: wrap(header, 'type', `${fonts(tokens)}\n${types(tokens)}`),
+  }
 }

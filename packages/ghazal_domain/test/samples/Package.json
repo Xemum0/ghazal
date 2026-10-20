@@ -1,0 +1,236 @@
+[
+ {
+  "id": "V01-ladies-weekday",
+  "venueId": "V01",
+  "hallIds": [
+   "V01-danah",
+   "V01-majlis"
+  ],
+  "name": {
+   "en": "Ladies’ Reception, Weekday",
+   "ar": "الحفل النسائي · أيام الأسبوع"
+  },
+  "archetype": "ladies_weekday",
+  "audiences": [
+   "women"
+  ],
+  "pricingBasis": "per_guest",
+  "priceStructure": "per_person",
+  "priceUnit": "per_guest",
+  "standardFils": 46000,
+  "voucherFils": 39000,
+  "voucherDiscountBps": 1522,
+  "minGuests": 200,
+  "maxGuests": 650,
+  "guestStep": 5,
+  "complimentaryBps": 0,
+  "description": {
+   "en": "Evening reception for Sunday to Wednesday, with the full hotel buffet.",
+   "ar": "حفل مسائي من الأحد إلى الأربعاء مع البوفيه الكامل للفندق."
+  },
+  "inclusions": [
+   {
+    "en": "Buffet dinner with hot and cold stations",
+    "ar": "بوفيه عشاء بمحطات ساخنة وباردة"
+   },
+   {
+    "en": "Arabic coffee and dates reception",
+    "ar": "استقبال بالقهوة العربية والتمر"
+   },
+   {
+    "en": "Mocktails and fresh juices",
+    "ar": "مشروبات استقبال طازجة من الموكتيل والعصائر"
+   },
+   {
+    "en": "Valet for guests",
+    "ar": "فاليه للضيوف"
+   },
+   {
+    "en": "Bridal suite on the day",
+    "ar": "جناح العروس يوم الحفل"
+   },
+   {
+    "en": "One suite night",
+    "ar": "ليلة واحدة في الجناح"
+   },
+   {
+    "en": "Show cake",
+    "ar": "كيكة العرض"
+   },
+   {
+    "en": "Basic kosha (bridal stage)",
+    "ar": "كوشة أساسية"
+   },
+   {
+    "en": "Sound and lighting",
+    "ar": "صوت وإضاءة"
+   }
+  ],
+  "notes": [
+   {
+    "en": "In-house catering only; outside catering is not allowed",
+    "ar": "الضيافة من المكان فقط ولا تُسمح الضيافة الخارجية"
+   }
+  ],
+  "components": null,
+  "active": true,
+  "sortOrder": 1
+ },
+ {
+  "id": "V01-ladies-weekend",
+  "venueId": "V01",
+  "hallIds": [
+   "V01-danah",
+   "V01-majlis"
+  ],
+  "name": {
+   "en": "Ladies’ Reception, Weekend",
+   "ar": "الحفل النسائي · نهاية الأسبوع"
+  },
+  "archetype": "ladies_weekend",
+  "audiences": [
+   "women"
+  ],
+  "pricingBasis": "per_guest",
+  "priceStructure": "per_person",
+  "priceUnit": "per_guest",
+  "standardFils": 48000,
+  "voucherFils": 40500,
+  "voucherDiscountBps": 1563,
+  "minGuests": 200,
+  "maxGuests": 650,
+  "guestStep": 5,
+  "complimentaryBps": 0,
+  "description": {
+   "en": "Evening reception for Thursday to Saturday, with the full hotel buffet.",
+   "ar": "حفل مسائي من الخميس إلى السبت مع البوفيه الكامل للفندق."
+  },
+  "inclusions": [
+   {
+    "en": "Buffet dinner with hot and cold stations",
+    "ar": "بوفيه عشاء بمحطات ساخنة وباردة"
+   },
+   {
+    "en": "Arabic coffee and dates reception",
+    "ar": "استقبال بالقهوة العربية والتمر"
+   },
+   {
+    "en": "Mocktails and fresh juices",
+    "ar": "مشروبات استقبال طازجة من الموكتيل والعصائر"
+   },
+   {
+    "en": "Valet for guests",
+    "ar": "فاليه للضيوف"
+   },
+   {
+    "en": "Bridal suite on the day",
+    "ar": "جناح العروس يوم الحفل"
+   },
+   {
+    "en": "One suite night",
+    "ar": "ليلة واحدة في الجناح"
+   },
+   {
+    "en": "Show cake",
+    "ar": "كيكة العرض"
+   },
+   {
+    "en": "Basic kosha (bridal stage)",
+    "ar": "كوشة أساسية"
+   },
+   {
+    "en": "Sound and lighting",
+    "ar": "صوت وإضاءة"
+   }
+  ],
+  "notes": [
+   {
+    "en": "In-house catering only; outside catering is not allowed",
+    "ar": "الضيافة من المكان فقط ولا تُسمح الضيافة الخارجية"
+   }
+  ],
+  "components": null,
+  "active": true,
+  "sortOrder": 2
+ },
+ {
+  "id": "V01-ladies-signature",
+  "venueId": "V01",
+  "hallIds": [
+   "V01-danah"
+  ],
+  "name": {
+   "en": "Ladies’ Signature Evening",
+   "ar": "الحفل النسائي المتكامل"
+  },
+  "archetype": "ladies_signature",
+  "audiences": [
+   "women"
+  ],
+  "pricingBasis": "per_guest",
+  "priceStructure": "per_person",
+  "priceUnit": "per_guest",
+  "standardFils": 50000,
+  "voucherFils": 42500,
+  "voucherDiscountBps": 1500,
+  "minGuests": 300,
+  "maxGuests": 650,
+  "guestStep": 5,
+  "complimentaryBps": 0,
+  "description": {
+   "en": "The full evening: kosha design, zaffa entrance, bridal suite and a suite night.",
+   "ar": "الأمسية المتكاملة: تصميم الكوشة ومدخل الزفّة وجناح العروس وليلة في الجناح."
+  },
+  "inclusions": [
+   {
+    "en": "Buffet dinner with hot and cold stations",
+    "ar": "بوفيه عشاء بمحطات ساخنة وباردة"
+   },
+   {
+    "en": "Arabic coffee and dates reception",
+    "ar": "استقبال بالقهوة العربية والتمر"
+   },
+   {
+    "en": "Mocktails and fresh juices",
+    "ar": "مشروبات استقبال طازجة من الموكتيل والعصائر"
+   },
+   {
+    "en": "Valet for guests",
+    "ar": "فاليه للضيوف"
+   },
+   {
+    "en": "Bridal suite on the day",
+    "ar": "جناح العروس يوم الحفل"
+   },
+   {
+    "en": "One suite night",
+    "ar": "ليلة واحدة في الجناح"
+   },
+   {
+    "en": "Show cake",
+    "ar": "كيكة العرض"
+   },
+   {
+    "en": "Kosha design (bridal stage) with floral styling",
+    "ar": "تصميم الكوشة مع تنسيق الزهور"
+   },
+   {
+    "en": "Zaffa (bridal procession) entrance",
+    "ar": "مدخل الزفّة"
+   },
+   {
+    "en": "Sound and lighting",
+    "ar": "صوت وإضاءة"
+   }
+  ],
+  "notes": [
+   {
+    "en": "In-house catering only; outside catering is not allowed",
+    "ar": "الضيافة من المكان فقط ولا تُسمح الضيافة الخارجية"
+   }
+  ],
+  "components": null,
+  "active": true,
+  "sortOrder": 3
+ }
+]

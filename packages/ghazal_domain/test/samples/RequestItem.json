@@ -1,0 +1,85 @@
+[
+ {
+  "conversationId": null,
+  "reviewId": null,
+  "visitId": null,
+  "voucherId": "vch-GV-2611-K7QM",
+  "voucherCode": "GV-2611-K7QM",
+  "slaHours": 24,
+  "dueAt": "2026-11-13T12:40:00+03:00",
+  "subtitle": null,
+  "bookingId": "bk-GZ-2611-0147",
+  "id": "triage-GZ-2611-0147",
+  "type": "request",
+  "venueId": "V01",
+  "raisedAt": "2026-11-12T12:40:00+03:00",
+  "title": {
+   "en": "ريم الدوسري",
+   "ar": "ريم الدوسري"
+  },
+  "order": 10
+ },
+ {
+  "conversationId": null,
+  "reviewId": null,
+  "visitId": null,
+  "voucherId": "vch-GV-2611-QHKY",
+  "voucherCode": "GV-2611-QHKY",
+  "slaHours": 24,
+  "dueAt": "2026-11-12T19:00:00+03:00",
+  "subtitle": null,
+  "bookingId": "bk-GZ-2611-3K8D",
+  "id": "triage-GZ-2611-3K8D",
+  "type": "request",
+  "venueId": "V01",
+  "raisedAt": "2026-11-11T19:00:00+03:00",
+  "title": {
+   "en": "دانة الشمري",
+   "ar": "دانة الشمري"
+  },
+  "order": 11
+ },
+ {
+  "conversationId": null,
+  "reviewId": null,
+  "visitId": null,
+  "voucherId": "vch-GV-2611-FK3Q",
+  "voucherCode": "GV-2611-FK3Q",
+  "slaHours": 24,
+  "dueAt": "2026-11-13T07:00:00+03:00",
+  "subtitle": null,
+  "bookingId": "bk-GZ-2611-5T2W",
+  "id": "triage-GZ-2611-5T2W",
+  "type": "request",
+  "venueId": "V01",
+  "raisedAt": "2026-11-12T07:00:00+03:00",
+  "title": {
+   "en": "عبدالله الهاجري",
+   "ar": "عبدالله الهاجري"
+  },
+  "order": 12
+ },
+ {
+  "conversationId": null,
+  "reviewId": null,
+  "visitId": null,
+  "voucherId": "vch-GV-2611-ZDTP",
+  "voucherCode": "GV-2611-ZDTP",
+  "slaHours": 24,
+  "dueAt": "2026-11-12T19:30:00+03:00",
+  "subtitle": {
+   "en": "Thu 10 Dec · the client confirms within 24 hours",
+   "ar": "الخميس 10 ديسمبر · يؤكد العميل خلال 24 ساعة"
+  },
+  "bookingId": "bk-GZ-2611-9H3D",
+  "id": "triage-await-GZ-2611-9H3D",
+  "type": "awaiting_client",
+  "venueId": "V01",
+  "raisedAt": "2026-11-11T19:30:00+03:00",
+  "title": {
+   "en": "Waiting for هيا المطيري to confirm",
+   "ar": "بانتظار تأكيد هيا المطيري"
+  },
+  "order": 20
+ }
+]

@@ -1,0 +1,60 @@
+# The signed-in person: profile, settings, devices, phone change, account deletion.
+UserRole: { type: string, enum: [client, hotel_staff, provider_staff, planner, support] }
+DigitStyle: { type: string, enum: [western, easternArabic], x-dart-name: WireDigitStyle }
+User:
+  type: object
+  required: [id, role, name, monogram, phone, email, locale, digitStyle, createdAt]
+  properties:
+    id: { $ref: Id }
+    role: { $ref: UserRole }
+    name: { type: string, description: 'Name as typed (stored as typed, rendered with dir=auto).' }
+    nameLatin: { type: string, nullable: true }
+    monogram: { type: string }
+    phone: { type: string, description: E.164 for clients; display value for staff. }
+    email: { type: string, nullable: true }
+    locale: { $ref: Lang }
+    digitStyle: { $ref: DigitStyle }
+    createdAt: { $ref: IsoDateTime }
+Me:
+  type: object
+  description: The profile plus what the apps hide or show. `permissions` lists the permission keys of the active partner context (empty for clients).
+  required: [user, permissions, phoneVerified, emailVerified, hasPassword, marketingOptIn]
+  properties:
+    user: { $ref: User }
+    permissions: { type: array, items: { type: string } }
+    phoneVerified: { type: boolean }
+    emailVerified: { type: boolean }
+    hasPassword: { type: boolean }
+    marketingOptIn: { type: boolean }
+UpdateMeInput:
+  type: object
+  description: Partial update. Changing the phone goes through the phone-change operations.
+  properties:
+    name: { type: string }
+    email: { type: string, format: email, nullable: true }
+    locale: { $ref: Lang }
+    digitStyle: { $ref: DigitStyle }
+    marketingOptIn: { type: boolean }
+DevicePlatform: { type: string, enum: [ios, android, web] }
+DeviceRegistration:
+  type: object
+  required: [platform, locale]
+  properties:
+    platform: { $ref: DevicePlatform }
+    pushToken: { type: string, nullable: true }
+    locale: { $ref: Lang }
+    appVersion: { type: string, nullable: true }
+PhoneChangeInput:
+  type: object
+  required: [phone]
+  properties: { phone: { $ref: Phone } }
+PhoneVerifyInput:
+  type: object
+  required: [challengeId, code]
+  properties: { challengeId: { type: string }, code: { type: string } }
+AccountDeletionStatus:
+  type: object
+  required: [status, effectiveAt]
+  properties:
+    status: { type: string, enum: [scheduled] }
+    effectiveAt: { $ref: IsoDateTime, description: 'Personal data is anonymised then; ledger and receipt rows are kept.' }

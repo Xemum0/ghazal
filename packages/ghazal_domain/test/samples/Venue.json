@@ -1,0 +1,2299 @@
+[
+ {
+  "id": "V01",
+  "slug": "aurelia-gulf-hotel",
+  "name": {
+   "en": "Aurelia Gulf Hotel",
+   "ar": "فندق أوريليا الخليج"
+  },
+  "type": "hotel",
+  "style": "hotel",
+  "tier": "prestige",
+  "stars": 5,
+  "channel": "ghazal_voucher",
+  "status": "published",
+  "partnerAccountId": "partner-V01",
+  "major": true,
+  "governorateId": "capital",
+  "areaId": "sharq",
+  "address": {
+   "block": "4",
+   "street": {
+    "en": "Gulf Street",
+    "ar": "شارع الخليج"
+   }
+  },
+  "geo": {
+   "lat": 29.387,
+   "lng": 47.996
+  },
+  "tagline": {
+   "en": "A Gulf-front ballroom for ladies’ receptions",
+   "ar": "قاعة واسعة على واجهة الخليج للحفلات النسائية"
+  },
+  "description": {
+   "en": "A five-star hotel in Sharq with two event halls: Danah Ballroom for ladies’ and family receptions, and Majlis Hall for men’s gatherings and smaller evenings. Separate entrances, an in-house kitchen and a dedicated events team.",
+   "ar": "فندق خمس نجوم في شرق يضم قاعتين للمناسبات: قاعة الدانة للحفلات النسائية والعائلية، وقاعة المجلس لاستقبالات الرجال والأمسيات الأصغر. مداخل منفصلة ومطبخ خاص وفريق مناسبات مخصص."
+  },
+  "phone": "+96550000002",
+  "cover": {
+   "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+   "width": 1800,
+   "height": 1196,
+   "orientation": "landscape",
+   "alt": {
+    "en": "Bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+    "ar": "قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+   }
+  },
+  "gallery": [
+   {
+    "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+    "width": 1800,
+    "height": 1196,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Hall: bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+     "ar": "فندق أوريليا الخليج، القاعة: قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+    },
+    "zone": "hall",
+    "hallId": "V01-danah"
+   },
+   {
+    "file": "ballrooms/ballrooms-09-blush-marble-gilt-ballroom.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Hall: marble ballroom with blush-pink panels, gold-leaf ceiling, crystal chandeliers, gilded chairs and a diamond-pattern marble floor",
+     "ar": "فندق أوريليا الخليج، القاعة: قاعة رخامية بألواح وردية وسقف مذهّب وثريات كريستال وكراسٍ ذهبية وأرضية رخام بنقشة معينات"
+    },
+    "zone": "hall",
+    "hallId": "V01-danah"
+   },
+   {
+    "file": "ballrooms/ballrooms-10-colonnade-hall-glass-ceiling.jpg",
+    "width": 1800,
+    "height": 1350,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Hall: vast marble hall with fluted columns, a stained-glass skylight ceiling and crystal chandeliers above an inlaid stone floor",
+     "ar": "فندق أوريليا الخليج، القاعة: قاعة رخامية ضخمة بأعمدة مخددة وسقف زجاجي مضيء وثريات كريستال فوق أرضية حجرية مطعّمة"
+    },
+    "zone": "hall",
+    "hallId": "V01-danah"
+   },
+   {
+    "file": "ballrooms/ballrooms-26-checkered-marble-ballroom.jpg",
+    "width": 1800,
+    "height": 2700,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Hall: neoclassical ballroom with white columns, a coffered domed ceiling, two crystal chandeliers and a black-and-cream marble floor",
+     "ar": "فندق أوريليا الخليج، القاعة: قاعة كلاسيكية جديدة بأعمدة بيضاء وسقف مقبّب مزخرف وثريتين من الكريستال وأرضية رخام بنقشة أسود وكريمي"
+    },
+    "zone": "hall",
+    "hallId": "V01-danah"
+   },
+   {
+    "file": "ballrooms/ballrooms-12-columned-hall-gold-chandelier-chairs.jpg",
+    "width": 1800,
+    "height": 2700,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Hall: double-height columned ballroom with a gold tiered chandelier, coffered vault ceiling and white chairs arranged for a ceremony",
+     "ar": "فندق أوريليا الخليج، القاعة: قاعة مرتفعة بأعمدة وثريا ذهبية متعددة الطبقات وسقف مقبّب مزخرف وكراسٍ بيضاء مرتبة لحفل عقد القران"
+    },
+    "zone": "hall",
+    "hallId": "V01-danah"
+   },
+   {
+    "file": "ballrooms/ballrooms-29-gold-chandelier-textured-wall.jpg",
+    "width": 1800,
+    "height": 2598,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Hall: tall gold-framed crystal chandelier hanging against a champagne textured wall beneath a stepped, softly lit ceiling",
+     "ar": "فندق أوريليا الخليج، القاعة: ثريا كريستال طويلة بإطار ذهبي معلقة أمام جدار شامبانيا مزخرف تحت سقف متدرج بإضاءة ناعمة"
+    },
+    "zone": "hall",
+    "hallId": "V01-danah"
+   },
+   {
+    "file": "halls/halls-08-grand-ballroom-crystal-chandelier.jpg",
+    "width": 1800,
+    "height": 2700,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Hall: classical grand ballroom with a coffered ceiling, tiered crystal chandeliers, cream columns and a checkerboard marble floor",
+     "ar": "فندق أوريليا الخليج، القاعة: قاعة احتفالات كلاسيكية فخمة بسقف مزخرف وثريات كريستال متدرجة وأعمدة كريمية وأرضية رخامية بنقشة رقعة الشطرنج"
+    },
+    "zone": "hall",
+    "hallId": "V01-danah"
+   },
+   {
+    "file": "halls/halls-23-arched-niche-majlis-seating.jpg",
+    "width": 1800,
+    "height": 2400,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Hall: arabic-style seating area with illuminated pointed-arch niches, carved silver-grey armchairs with teal upholstery and a cherry-blossom branch",
+     "ar": "فندق أوريليا الخليج، القاعة: ركن جلوس بطراز عربي مع تجاويف مقوّسة مضاءة وكراسي منحوتة بلون فضي ومقاعد بقماش أزرق مخضر وغصن زهر الكرز"
+    },
+    "zone": "hall",
+    "hallId": "V01-majlis"
+   },
+   {
+    "file": "ballrooms/ballrooms-16-ivory-sofas-floral-stage-detail.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Stage and kosha: ivory velvet sofas on a raised wedding stage with cascading roses, hanging lanterns, blush drapes and a curtain of fairy lights",
+     "ar": "فندق أوريليا الخليج، الكوشة والمنصة: أرائك مخملية عاجية على منصة العرس مع ورود متدلية وفوانيس معلقة وستائر وردية وستارة من الأضواء الناعمة"
+    },
+    "zone": "stage_kosha",
+    "hallId": "V01-danah"
+   },
+   {
+    "file": "ballrooms/ballrooms-17-floral-arch-stage-draped-ceiling.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Stage and kosha: wedding stage framed by rose-and-greenery arches, blush swags and white drapery, with a long floral table in the foreground",
+     "ar": "فندق أوريليا الخليج، الكوشة والمنصة: منصة عرس تحيط بها أقواس من الورود والخضرة وأقمشة وردية وبيضاء مع طاولة زهور طويلة في المقدمة"
+    },
+    "zone": "stage_kosha",
+    "hallId": "V01-danah"
+   },
+   {
+    "file": "ballrooms/ballrooms-18-hotel-ballroom-gold-arch-stage-wide.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Stage and kosha: luxury hotel ballroom with a grand crystal chandelier, gold-sashed chairs along a patterned aisle and a floral-arch wedding stage at the far end",
+     "ar": "فندق أوريليا الخليج، الكوشة والمنصة: قاعة فندقية فاخرة بثريا كريستال ضخمة وكراسٍ بأوشحة ذهبية على ممر منقوش ومنصة عرس بأقواس زهور في نهاية القاعة"
+    },
+    "zone": "stage_kosha",
+    "hallId": "V01-danah"
+   },
+   {
+    "file": "ballrooms/ballrooms-22-floral-staircase-crystal-chandelier.jpg",
+    "width": 1800,
+    "height": 2700,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Stage and kosha: sweeping grand staircase garlanded with blush and white flowers and lanterns beneath a cascading crystal chandelier",
+     "ar": "فندق أوريليا الخليج، الكوشة والمنصة: درج كبير منحنٍ تزيّنه أكاليل من الزهور الوردية والبيضاء وفوانيس تحت ثريا كريستال متدلية"
+    },
+    "zone": "stage_kosha"
+   },
+   {
+    "file": "ballrooms/ballrooms-21-floral-aisle-arch-glass-roof.jpg",
+    "width": 1800,
+    "height": 2520,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Stage and kosha: ceremony aisle lined with white baby’s-breath flowers leading to a floral arch against a pale stone wall under a glass roof",
+     "ar": "فندق أوريليا الخليج، الكوشة والمنصة: ممر مراسم تحيط به أزهار بيضاء ناعمة يقود إلى قوس زهور أمام جدار حجري فاتح تحت سقف زجاجي"
+    },
+    "zone": "stage_kosha"
+   },
+   {
+    "file": "halls/halls-29-bridal-dressing-room-vanity.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Bridal suite: spacious white dressing room with built-in shelves, a vanity with a scalloped mirror, a tufted grey ottoman and a lace curtain at the skylight",
+     "ar": "فندق أوريليا الخليج، جناح العروس: غرفة تجهيز العروس واسعة بأرفف مدمجة وطاولة مكياج بمرآة منحنية الحواف ومقعد مبطّن رمادي وستارة دانتيل عند النافذة السقفية"
+    },
+    "zone": "bridal_suite"
+   },
+   {
+    "file": "halls/halls-36-white-marble-hotel-suite.jpg",
+    "width": 1800,
+    "height": 2400,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Bridal suite: calm white hotel suite with a tall panelled headboard, crisp linen, lattice pendant lamps and a white marble floor",
+     "ar": "فندق أوريليا الخليج، جناح العروس: جناح فندقي هادئ بالأبيض مع لوح رأس سرير مرتفع وبياضات ناصعة ومصابيح معلّقة بزخارف شبكية وأرضية رخامية بيضاء"
+    },
+    "zone": "bridal_suite"
+   },
+   {
+    "file": "halls/halls-35-bridal-gown-round-bed.jpg",
+    "width": 1800,
+    "height": 1201,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Bridal suite: overhead view of a bridal suite with a white gown and small blush bouquet laid across a round bed with taupe cushions and a wood floor",
+     "ar": "فندق أوريليا الخليج، جناح العروس: منظر علوي لجناح العروس مع فستان أبيض وباقة صغيرة بلون وردي هادئ فوق سرير دائري بوسائد بلون التوب وأرضية خشبية"
+    },
+    "zone": "bridal_suite"
+   },
+   {
+    "file": "services/services-33-buffet-gold-vase-florals.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Buffet: gourmet buffet platters on wood and silver stands among white flowers and brass vases",
+     "ar": "فندق أوريليا الخليج، البوفيه: أطباق بوفيه فاخرة على قواعد خشبية وفضية بين زهور بيضاء وأواني نحاسية"
+    },
+    "zone": "buffet"
+   },
+   {
+    "file": "services/services-37-dessert-gold-stands-orchids.jpg",
+    "width": 1800,
+    "height": 2700,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Buffet: wedding dessert table with golden stands, truffles and tartlets beneath white orchids",
+     "ar": "فندق أوريليا الخليج، البوفيه: طاولة حلويات زفاف بحوامل ذهبية وحلويات وتارتات تحت زهور أوركيد بيضاء"
+    },
+    "zone": "buffet"
+   },
+   {
+    "file": "services/services-38-dessert-glass-stand-candlelight.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Buffet: mini meringue-topped desserts on a glass stand beside candlelight and cream roses",
+     "ar": "فندق أوريليا الخليج، البوفيه: حلويات صغيرة بالمرنغ على حامل زجاجي بجانب ضوء الشموع وورود كريمية"
+    },
+    "zone": "buffet"
+   },
+   {
+    "file": "halls/halls-25-marble-staircase-foyer.jpg",
+    "width": 1800,
+    "height": 2400,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Entrance and valet: grand hotel foyer with a sweeping marble staircase, wrought-iron balustrade and a cascading crystal chandelier",
+     "ar": "فندق أوريليا الخليج، المدخل والفاليه: ردهة فندقية فخمة بدرج رخامي منحنٍ وحاجز حديدي مشغول وثريا كريستال متدلية"
+    },
+    "zone": "entrance_valet"
+   },
+   {
+    "file": "halls/halls-26-heritage-foyer-inlaid-floor.jpg",
+    "width": 1800,
+    "height": 2400,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Entrance and valet: cream heritage foyer with an ornate arch, a floral marble-inlay floor and a small seating group framed by table lamps",
+     "ar": "فندق أوريليا الخليج، المدخل والفاليه: ردهة تراثية بألوان الكريمي مع قوس مزخرف وأرضية رخامية مطعّمة بنقش زهري ومجموعة جلوس صغيرة تحيط بها مصابيح الطاولة"
+    },
+    "zone": "entrance_valet"
+   },
+   {
+    "file": "ballrooms/ballrooms-14-skylight-vault-long-tables.jpg",
+    "width": 1800,
+    "height": 1198,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Seating layout: light-filled vaulted hall with skylights and arched windows, long banquet tables set with white linen and gold chairs on herringbone parquet",
+     "ar": "فندق أوريليا الخليج، ترتيب الجلسات: قاعة مقبّبة مشرقة بنوافذ سقفية وأقواس وطاولات مأدبة طويلة بمفارش بيضاء وكراسٍ ذهبية على أرضية باركيه"
+    },
+    "zone": "layout",
+    "hallId": "V01-danah"
+   },
+   {
+    "file": "ballrooms/ballrooms-20-blush-gold-banquet-lattice-walls.jpg",
+    "width": 1800,
+    "height": 2699,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Seating layout: round banquet table with blush linen, gold chiavari chairs with silk sashes and a gold chandelier against ivory lattice-panelled arched walls",
+     "ar": "فندق أوريليا الخليج، ترتيب الجلسات: طاولة مأدبة دائرية بمفرش وردي وكراسٍ ذهبية بأوشحة حريرية وثريا ذهبية أمام جدران عاجية مقوّسة بزخارف شبكية"
+    },
+    "zone": "layout",
+    "hallId": "V01-danah"
+   },
+   {
+    "file": "ballrooms/ballrooms-27-olive-columns-long-table-candlelight.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Aurelia Gulf Hotel, Seating layout: symmetrical ballroom with sage-green columns, a crystal chandelier, tall windows and long candlelit banquet tables set for a wedding dinner",
+     "ar": "فندق أوريليا الخليج، ترتيب الجلسات: قاعة متناظرة بأعمدة خضراء رمادية وثريا كريستال ونوافذ عالية وطاولات مأدبة طويلة مضاءة بالشموع لعشاء الزفاف"
+    },
+    "zone": "layout",
+    "hallId": "V01-majlis"
+   }
+  ],
+  "hasVideo": true,
+  "halls": [
+   {
+    "id": "V01-danah",
+    "venueId": "V01",
+    "name": {
+     "en": "Danah Ballroom",
+     "ar": "قاعة الدانة"
+    },
+    "setting": "indoor",
+    "capacity": {
+     "min": 300,
+     "max": 650
+    },
+    "exclusiveDay": true,
+    "sessions": [
+     {
+      "id": "V01-danah-evening",
+      "name": {
+       "en": "Evening",
+       "ar": "الفترة المسائية"
+      },
+      "start": "21:00",
+      "end": "02:00",
+      "bufferBeforeMin": 240,
+      "bufferAfterMin": 120,
+      "weekdays": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ]
+     }
+    ],
+    "sections": [
+     {
+      "audience": "women",
+      "minGuests": 300,
+      "maxGuests": 650,
+      "policy": {
+       "photography": "female_only",
+       "music": "dj_or_band",
+       "abayaCloakroom": true,
+       "prayerRoom": true,
+       "separateEntrance": true,
+       "femaleSecurity": true,
+       "boysMaxAge": 8,
+       "outsideCatering": "not_allowed",
+       "outsideDecor": "with_approval",
+       "bukhoor": "allowed",
+       "cutOff": "02:00",
+       "extraHour": {
+        "fils": 450000,
+        "currency": "KWD"
+       },
+       "indoorBackup": false
+      }
+     },
+     {
+      "audience": "men",
+      "minGuests": 300,
+      "maxGuests": 650,
+      "policy": {
+       "photography": "allowed",
+       "music": "duff_only",
+       "abayaCloakroom": false,
+       "prayerRoom": true,
+       "separateEntrance": true,
+       "femaleSecurity": false,
+       "boysMaxAge": null,
+       "outsideCatering": "not_allowed",
+       "outsideDecor": "with_approval",
+       "bukhoor": "allowed",
+       "cutOff": "01:00",
+       "extraHour": {
+        "fils": 450000,
+        "currency": "KWD"
+       },
+       "indoorBackup": false
+      }
+     }
+    ],
+    "seasonMonths": null,
+    "description": {
+     "en": "A double-height ballroom with a raised kosha stage, crystal chandeliers and a separate ladies’ entrance.",
+     "ar": "قاعة عالية السقف بمنصة كوشة مرتفعة وثريات كريستال ومدخل منفصل للسيدات."
+    },
+    "cover": {
+     "file": "ballrooms/ballrooms-08-ivory-arched-ballroom-parquet.jpg",
+     "width": 1800,
+     "height": 1196,
+     "orientation": "landscape",
+     "alt": {
+      "en": "Bright ivory ballroom with tall arches, ornate plaster mouldings, crystal basket chandeliers and a glossy parquet floor",
+      "ar": "قاعة عاجية مشرقة بأقواس عالية وزخارف جصية فاخرة وثريات كريستال وأرضية باركيه لامعة"
+     }
+    }
+   },
+   {
+    "id": "V01-majlis",
+    "venueId": "V01",
+    "name": {
+     "en": "Majlis Hall",
+     "ar": "قاعة المجلس"
+    },
+    "setting": "indoor",
+    "capacity": {
+     "min": 200,
+     "max": 450
+    },
+    "exclusiveDay": false,
+    "sessions": [
+     {
+      "id": "V01-majlis-evening",
+      "name": {
+       "en": "Evening",
+       "ar": "الفترة المسائية"
+      },
+      "start": "20:30",
+      "end": "01:00",
+      "bufferBeforeMin": 240,
+      "bufferAfterMin": 120,
+      "weekdays": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ]
+     }
+    ],
+    "sections": [
+     {
+      "audience": "women",
+      "minGuests": 200,
+      "maxGuests": 450,
+      "policy": {
+       "photography": "female_only",
+       "music": "dj_or_band",
+       "abayaCloakroom": true,
+       "prayerRoom": true,
+       "separateEntrance": true,
+       "femaleSecurity": true,
+       "boysMaxAge": 8,
+       "outsideCatering": "not_allowed",
+       "outsideDecor": "with_approval",
+       "bukhoor": "allowed",
+       "cutOff": "02:00",
+       "extraHour": {
+        "fils": 450000,
+        "currency": "KWD"
+       },
+       "indoorBackup": false
+      }
+     },
+     {
+      "audience": "men",
+      "minGuests": 300,
+      "maxGuests": 450,
+      "policy": {
+       "photography": "allowed",
+       "music": "duff_only",
+       "abayaCloakroom": false,
+       "prayerRoom": true,
+       "separateEntrance": true,
+       "femaleSecurity": false,
+       "boysMaxAge": null,
+       "outsideCatering": "not_allowed",
+       "outsideDecor": "with_approval",
+       "bukhoor": "allowed",
+       "cutOff": "01:00",
+       "extraHour": {
+        "fils": 450000,
+        "currency": "KWD"
+       },
+       "indoorBackup": false
+      }
+     }
+    ],
+    "seasonMonths": null,
+    "description": {
+     "en": "A warm majlis-style hall for men’s receptions and smaller ladies’ evenings.",
+     "ar": "قاعة بطابع المجلس الدافئ لاستقبالات الرجال والأمسيات النسائية الأصغر."
+    },
+    "cover": {
+     "file": "halls/halls-23-arched-niche-majlis-seating.jpg",
+     "width": 1800,
+     "height": 2400,
+     "orientation": "portrait",
+     "alt": {
+      "en": "Arabic-style seating area with illuminated pointed-arch niches, carved silver-grey armchairs with teal upholstery and a cherry-blossom branch",
+      "ar": "ركن جلوس بطراز عربي مع تجاويف مقوّسة مضاءة وكراسي منحوتة بلون فضي ومقاعد بقماش أزرق مخضر وغصن زهر الكرز"
+     }
+    }
+   }
+  ],
+  "amenities": [
+   {
+    "amenityId": "valet",
+    "state": "included"
+   },
+   {
+    "amenityId": "parking",
+    "state": "included"
+   },
+   {
+    "amenityId": "bridal-suite",
+    "state": "included"
+   },
+   {
+    "amenityId": "groom-room",
+    "state": "extra",
+    "from": {
+     "fils": 250000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "buffet",
+    "state": "included"
+   },
+   {
+    "amenityId": "welcome-drinks",
+    "state": "included"
+   },
+   {
+    "amenityId": "gahwa-tea",
+    "state": "included"
+   },
+   {
+    "amenityId": "show-cake",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "suite-night",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "prayer-room",
+    "state": "included"
+   },
+   {
+    "amenityId": "abaya-cloakroom",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "separate-entrance",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "female-security",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "sound-lighting",
+    "state": "included"
+   },
+   {
+    "amenityId": "basic-decor",
+    "state": "included"
+   },
+   {
+    "amenityId": "kosha",
+    "state": "extra",
+    "from": {
+     "fils": 1800000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "florals",
+    "state": "extra",
+    "from": {
+     "fils": 900000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "led-screens",
+    "state": "extra",
+    "from": {
+     "fils": 350000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "female-photographer",
+    "state": "extra",
+    "from": {
+     "fils": 450000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "zaffa",
+    "state": "extra",
+    "from": {
+     "fils": 350000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "bukhoor-service",
+    "state": "included"
+   },
+   {
+    "amenityId": "accessibility",
+    "state": "included"
+   },
+   {
+    "amenityId": "kids-corner",
+    "state": "extra",
+    "from": {
+     "fils": 200000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "outside-catering",
+    "state": "not_offered"
+   },
+   {
+    "amenityId": "outside-decor",
+    "state": "extra"
+   }
+  ],
+  "hours": {
+   "rules": [
+    {
+     "days": [
+      0,
+      1,
+      2,
+      3,
+      4
+     ],
+     "open": "09:00",
+     "close": "22:00"
+    },
+    {
+     "days": [
+      5,
+      6
+     ],
+     "open": "16:00",
+     "close": "01:00"
+    }
+   ],
+   "closures": [
+    {
+     "label": {
+      "en": "Ramadan 1448 (approx.)",
+      "ar": "رمضان 1448 (تقريبي)"
+     },
+     "from": "2027-02-08",
+     "to": "2027-03-08",
+     "approximate": true
+    }
+   ]
+  },
+  "policies": {
+   "children": {
+    "women": {
+     "en": "Boys up to 8 years may attend",
+     "ar": "يُسمح بحضور الأولاد حتى عمر 8 سنوات"
+    },
+    "men": {
+     "en": "No age limit",
+     "ar": "لا يوجد حد للعمر"
+    }
+   },
+   "dressCode": {
+    "en": "Formal, modest dress",
+    "ar": "لباس رسمي محتشم"
+   },
+   "terms": {
+    "en": "Payment, schedule and any changes are agreed directly between you and the venue. Show your voucher code or QR at the venue to receive the voucher price.",
+    "ar": "يتم الاتفاق على الدفع والمواعيد وأي تعديل مباشرة بينكم وبين القاعة. أظهروا رمز الكوبون أو الـ QR في القاعة للحصول على سعر الكوبون."
+   },
+   "responseSlaHours": 24,
+   "serviceChargeBps": 0
+  },
+  "faq": [
+   {
+    "id": "V01-faq-how",
+    "question": {
+     "en": "How does booking work?",
+     "ar": "كيف يتم الحجز؟"
+    },
+    "answer": {
+     "en": "You get a voucher for KD 2 and send a request at the voucher price. The venue replies, and if it approves, the date is held for you for 24 hours while you confirm. You settle with the venue directly.",
+     "ar": "تحصلون على كوبون بـ 2 د.ك وترسلون طلبًا بسعر الكوبون. ترد القاعة، وعند الموافقة يُحجز التاريخ لكم 24 ساعة لتأكيد الحجز. وتسدّدون للقاعة مباشرة."
+    }
+   },
+   {
+    "id": "V01-faq-visit",
+    "question": {
+     "en": "Can we visit the hall before booking?",
+     "ar": "هل يمكن زيارة القاعة قبل الحجز؟"
+    },
+    "answer": {
+     "en": "Yes. Book a visit from this page: a chat opens with the venue and Ghazal support to confirm your arrival. No voucher is needed.",
+     "ar": "نعم. احجزوا زيارة من هذه الصفحة وتُفتح محادثة مع القاعة ودعم غزل لتأكيد وصولكم. لا حاجة إلى كوبون."
+    }
+   },
+   {
+    "id": "V01-faq-children",
+    "question": {
+     "en": "Are children allowed?",
+     "ar": "هل يُسمح بحضور الأطفال؟"
+    },
+    "answer": {
+     "en": "Children rules are listed per hall under Hall rules. Ladies’ receptions follow the boys’ age rule shown there.",
+     "ar": "تظهر قواعد الأطفال لكل قاعة ضمن قواعد القاعة. تتبع الحفلات النسائية الحد العمري للأولاد المذكور هناك."
+    }
+   },
+   {
+    "id": "V01-faq-parking",
+    "question": {
+     "en": "What is the parking and arrival like?",
+     "ar": "كيف هي المواقف والوصول؟"
+    },
+    "answer": {
+     "en": "Parking and valet details are listed under Facilities. A separate entrance for the ladies’ hall is shown where it is offered.",
+     "ar": "تفاصيل المواقف والفاليه ضمن المرافق. ويظهر المدخل المنفصل للقاعة النسائية حيثما يتوفر."
+    }
+   },
+   {
+    "id": "V01-faq-cut-off",
+    "question": {
+     "en": "What time does the event end?",
+     "ar": "متى ينتهي الحفل؟"
+    },
+    "answer": {
+     "en": "Each hall has a cut-off time, shown under Hall rules, with the price of an extra hour.",
+     "ar": "لكل قاعة وقت انتهاء ظاهر ضمن قواعد القاعة، مع سعر الساعة الإضافية."
+    }
+   },
+   {
+    "id": "V01-faq-x1",
+    "question": {
+     "en": "Is valet parking included?",
+     "ar": "هل الفاليه مشمول؟"
+    },
+    "answer": {
+     "en": "Valet is included for guests in every reception package. Extra attendants can be added for busy arrivals.",
+     "ar": "الفاليه مشمول للضيوف في جميع باقات الحفلات. ويمكن إضافة مرافقين لأوقات الذروة."
+    }
+   },
+   {
+    "id": "V01-faq-x2",
+    "question": {
+     "en": "Can the ladies’ and men’s receptions be on the same night?",
+     "ar": "هل يمكن إقامة الحفل النسائي والرجالي في الليلة نفسها؟"
+    },
+    "answer": {
+     "en": "Yes. Danah Ballroom and Majlis Hall have separate entrances, so both receptions can run on the same evening.",
+     "ar": "نعم. لقاعة الدانة وقاعة المجلس مدخلان منفصلان، ويمكن إقامة الحفلين في المساء نفسه."
+    }
+   }
+  ],
+  "rating": {
+   "average": 4.8,
+   "count": 212,
+   "categories": {
+    "venue": 4.8,
+    "food": 4.7,
+    "service": 4.9,
+    "value": 4.6
+   }
+  },
+  "distances": {
+   "ref-salmiya": {
+    "km": 13,
+    "minutes": 18
+   },
+   "ref-sharq": {
+    "km": 1,
+    "minutes": 3
+   },
+   "ref-hawalli": {
+    "km": 9,
+    "minutes": 13
+   },
+   "ref-farwaniya": {
+    "km": 16,
+    "minutes": 19
+   },
+   "ref-jahra": {
+    "km": 41,
+    "minutes": 35
+   },
+   "ref-fahaheel": {
+    "km": 47,
+    "minutes": 39
+   },
+   "ref-airport": {
+    "km": 23,
+    "minutes": 24
+   }
+  },
+  "officialFees": null,
+  "response": {
+   "usuallyRepliesHours": 2,
+   "responseRatePct": 96
+  },
+  "voucherEnabled": true,
+  "visitSlots": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "from": "10:00",
+    "to": "20:00",
+    "slotMinutes": 30
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "16:00",
+    "to": "21:00",
+    "slotMinutes": 30
+   }
+  ],
+  "flags": {
+   "featured": false,
+   "sponsored": false,
+   "isNew": false
+  },
+  "demand": 1.1,
+  "languages": [
+   "ar",
+   "en"
+  ]
+ },
+ {
+  "id": "V02",
+  "slug": "madar-grand-hotel",
+  "name": {
+   "en": "Madar Grand Hotel",
+   "ar": "فندق مدار جراند"
+  },
+  "type": "hotel",
+  "style": "hotel",
+  "tier": "prestige",
+  "stars": 5,
+  "channel": "ghazal_voucher",
+  "status": "published",
+  "partnerAccountId": "partner-V02",
+  "major": true,
+  "governorateId": "capital",
+  "areaId": "bneid-al-qar",
+  "address": {
+   "block": "2",
+   "street": {
+    "en": "Palm Street",
+    "ar": "شارع النخيل"
+   }
+  },
+  "geo": {
+   "lat": 29.3955,
+   "lng": 48.005
+  },
+  "tagline": {
+   "en": "A gilded grand ballroom in Bneid Al-Qar",
+   "ar": "قاعة كبرى بسقف مذهّب في بنيد القار"
+  },
+  "description": {
+   "en": "A five-star hotel with Qamar Ballroom for large receptions and Nujoum Hall for intimate evenings. Gold-leaf ceilings, crystal chandeliers and a private bridal floor.",
+   "ar": "فندق خمس نجوم فيه قاعة القمر للحفلات الكبيرة وقاعة النجوم للأمسيات الأصغر. أسقف مذهّبة وثريات كريستال وطابق خاص بالعروس."
+  },
+  "phone": "+96550000061",
+  "cover": {
+   "file": "ballrooms/ballrooms-05-white-gold-ceiling-chandelier.jpg",
+   "width": 1800,
+   "height": 2400,
+   "orientation": "portrait",
+   "alt": {
+    "en": "Crystal chandelier beneath a domed ivory ceiling with gold leaf mouldings and arched gilded wall panels in a grand hall",
+    "ar": "ثريا كريستال تحت سقف عاجي مقبّب بزخارف مذهّبة وألواح جدارية مقوّسة بالذهب في قاعة كبرى"
+   }
+  },
+  "gallery": [
+   {
+    "file": "ballrooms/ballrooms-05-white-gold-ceiling-chandelier.jpg",
+    "width": 1800,
+    "height": 2400,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Madar Grand Hotel, Hall: crystal chandelier beneath a domed ivory ceiling with gold leaf mouldings and arched gilded wall panels in a grand hall",
+     "ar": "فندق مدار جراند، القاعة: ثريا كريستال تحت سقف عاجي مقبّب بزخارف مذهّبة وألواح جدارية مقوّسة بالذهب في قاعة كبرى"
+    },
+    "zone": "hall",
+    "hallId": "V02-qamar"
+   },
+   {
+    "file": "ballrooms/ballrooms-07-gilded-mirror-ballroom-parquet.jpg",
+    "width": 1800,
+    "height": 1350,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Madar Grand Hotel, Hall: spacious empty ballroom with gilded mirror doors, ornate gold-leaf panelling and a large crystal chandelier over a warm parquet floor",
+     "ar": "فندق مدار جراند، القاعة: قاعة واسعة فارغة بأبواب مرايا مذهّبة وزخارف ذهبية فاخرة وثريا كريستال كبيرة فوق أرضية باركيه دافئة"
+    },
+    "zone": "hall",
+    "hallId": "V02-qamar"
+   },
+   {
+    "file": "ballrooms/ballrooms-24-white-gold-baroque-ballroom.jpg",
+    "width": 1800,
+    "height": 2718,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Madar Grand Hotel, Hall: white and gold baroque ballroom with sculpted stucco, gilded candelabra chandeliers, mirrored doors and a polished parquet floor",
+     "ar": "فندق مدار جراند، القاعة: قاعة باروكية بيضاء وذهبية بجص منحوت وثريات مذهّبة وأبواب مرايا وأرضية باركيه لامعة"
+    },
+    "zone": "hall",
+    "hallId": "V02-qamar"
+   },
+   {
+    "file": "ballrooms/ballrooms-30-frescoed-ballroom-parquet.jpg",
+    "width": 1800,
+    "height": 2398,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Madar Grand Hotel, Hall: empty frescoed ballroom with a coffered painted ceiling, gilt wall panels, crystal chandeliers and a reflective parquet floor",
+     "ar": "فندق مدار جراند، القاعة: قاعة فارغة بسقف مزخرف مرسوم وألواح جدارية مذهّبة وثريات كريستال وأرضية باركيه عاكسة"
+    },
+    "zone": "hall",
+    "hallId": "V02-qamar"
+   },
+   {
+    "file": "ballrooms/ballrooms-31-gilded-hall-fountain-chandelier.jpg",
+    "width": 1800,
+    "height": 2700,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Madar Grand Hotel, Hall: opulent gilded hall with a monumental crystal chandelier, mirrored alcoves, velvet drapes and a marble fountain on an inlaid floor",
+     "ar": "فندق مدار جراند، القاعة: قاعة مذهّبة فخمة بثريا كريستال ضخمة ومحاريب مرايا وستائر مخملية ونافورة رخامية على أرضية مطعّمة"
+    },
+    "zone": "hall",
+    "hallId": "V02-qamar"
+   },
+   {
+    "file": "ballrooms/ballrooms-23-crystal-chandelier-gilt-pilasters.jpg",
+    "width": 1800,
+    "height": 2400,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Madar Grand Hotel, Hall: large crystal chandelier with a gilded ceiling rose, fluted pilasters and warm cream walls in a ballroom",
+     "ar": "فندق مدار جراند، القاعة: ثريا كريستال كبيرة مع وردة سقف مذهّبة وأعمدة جدارية مخددة وجدران كريمية دافئة في قاعة احتفالات"
+    },
+    "zone": "hall",
+    "hallId": "V02-nujoum"
+   },
+   {
+    "file": "ballrooms/ballrooms-11-chandelier-hall-polished-floor.jpg",
+    "width": 1800,
+    "height": 1326,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Madar Grand Hotel, Hall: long ballroom lit by rows of candle-style crystal chandeliers and wall sconces, reflected in a polished marble floor",
+     "ar": "فندق مدار جراند، القاعة: قاعة طويلة تضيئها صفوف من ثريات الكريستال وفوانيس الجدران تنعكس على أرضية رخام لامعة"
+    },
+    "zone": "hall",
+    "hallId": "V02-nujoum"
+   },
+   {
+    "file": "ballrooms/ballrooms-13-gold-arabesque-grand-hall.jpg",
+    "width": 1800,
+    "height": 1140,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Madar Grand Hotel, Seating layout: monumental Arabian-style grand hall with a gold arabesque ceiling, crystal chandeliers and long rows of seating along a patterned carpet",
+     "ar": "فندق مدار جراند، ترتيب الجلسات: قاعة كبرى بطراز عربي بسقف ذهبي مزخرف بالأرابيسك وثريات كريستال وصفوف مقاعد طويلة على سجادة منقوشة"
+    },
+    "zone": "layout",
+    "hallId": "V02-qamar"
+   },
+   {
+    "file": "halls/halls-30-bridal-gown-lace-window.jpg",
+    "width": 1800,
+    "height": 2647,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Madar Grand Hotel, Bridal suite: long-sleeved lace wedding gown hanging from a brass rod in front of a bright window beside a white-dressed bed",
+     "ar": "فندق مدار جراند، جناح العروس: فستان زفاف دانتيل بأكمام طويلة معلّق على عمود نحاسي أمام نافذة مضيئة بجانب سرير أبيض"
+    },
+    "zone": "bridal_suite"
+   },
+   {
+    "file": "halls/halls-31-bridal-gown-balcony-door.jpg",
+    "width": 1800,
+    "height": 2696,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Madar Grand Hotel, Bridal suite: lace wedding gown hanging in the open French doors of a bridal room with a balcony and a green view beyond",
+     "ar": "فندق مدار جراند، جناح العروس: فستان زفاف دانتيل معلّق عند الأبواب الفرنسية المفتوحة في غرفة العروس المطلة على شرفة ومنظر أخضر"
+    },
+    "zone": "bridal_suite"
+   },
+   {
+    "file": "halls/halls-28-arched-corridor-lanterns.jpg",
+    "width": 1800,
+    "height": 2400,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Madar Grand Hotel, Entrance and valet: vaulted hotel arcade with hanging lanterns, latticed arched windows and a polished marble floor inlaid in a circular pattern",
+     "ar": "فندق مدار جراند، المدخل والفاليه: ممر فندقي مقبّب بفوانيس معلّقة ونوافذ مقوّسة بزخارف شبكية وأرضية رخامية لامعة بتطعيمات دائرية"
+    },
+    "zone": "entrance_valet"
+   },
+   {
+    "file": "halls/halls-27-arched-hall-palm-foyer.jpg",
+    "width": 1800,
+    "height": 2700,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Madar Grand Hotel, Entrance and valet: heritage hotel hall with Moorish arches, carved wooden doors, a central palm and a circular wooden bench on a patterned tile floor",
+     "ar": "فندق مدار جراند، المدخل والفاليه: ردهة فندق تراثي بأقواس أندلسية وأبواب خشبية منحوتة ونخلة في الوسط ومقعد خشبي دائري فوق أرضية بلاط مزخرفة"
+    },
+    "zone": "entrance_valet"
+   }
+  ],
+  "hasVideo": true,
+  "halls": [
+   {
+    "id": "V02-qamar",
+    "venueId": "V02",
+    "name": {
+     "en": "Qamar Ballroom",
+     "ar": "قاعة القمر"
+    },
+    "setting": "indoor",
+    "capacity": {
+     "min": 250,
+     "max": 800
+    },
+    "exclusiveDay": true,
+    "sessions": [
+     {
+      "id": "V02-qamar-evening",
+      "name": {
+       "en": "Evening",
+       "ar": "الفترة المسائية"
+      },
+      "start": "20:00",
+      "end": "01:30",
+      "bufferBeforeMin": 240,
+      "bufferAfterMin": 120,
+      "weekdays": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ]
+     }
+    ],
+    "sections": [
+     {
+      "audience": "women",
+      "minGuests": 250,
+      "maxGuests": 800,
+      "policy": {
+       "photography": "female_only",
+       "music": "dj_or_band",
+       "abayaCloakroom": true,
+       "prayerRoom": true,
+       "separateEntrance": true,
+       "femaleSecurity": true,
+       "boysMaxAge": 8,
+       "outsideCatering": "not_allowed",
+       "outsideDecor": "with_approval",
+       "bukhoor": "allowed",
+       "cutOff": "02:00",
+       "extraHour": {
+        "fils": 450000,
+        "currency": "KWD"
+       },
+       "indoorBackup": false
+      }
+     },
+     {
+      "audience": "men",
+      "minGuests": 250,
+      "maxGuests": 800,
+      "policy": {
+       "photography": "allowed",
+       "music": "duff_only",
+       "abayaCloakroom": false,
+       "prayerRoom": true,
+       "separateEntrance": true,
+       "femaleSecurity": false,
+       "boysMaxAge": null,
+       "outsideCatering": "not_allowed",
+       "outsideDecor": "with_approval",
+       "bukhoor": "allowed",
+       "cutOff": "01:00",
+       "extraHour": {
+        "fils": 450000,
+        "currency": "KWD"
+       },
+       "indoorBackup": false
+      }
+     }
+    ],
+    "seasonMonths": null,
+    "description": {
+     "en": "The hotel’s largest hall, with a gold-leaf ceiling and a full-width stage.",
+     "ar": "أكبر قاعات الفندق بسقف مذهّب ومنصة بعرض القاعة."
+    },
+    "cover": {
+     "file": "ballrooms/ballrooms-05-white-gold-ceiling-chandelier.jpg",
+     "width": 1800,
+     "height": 2400,
+     "orientation": "portrait",
+     "alt": {
+      "en": "Crystal chandelier beneath a domed ivory ceiling with gold leaf mouldings and arched gilded wall panels in a grand hall",
+      "ar": "ثريا كريستال تحت سقف عاجي مقبّب بزخارف مذهّبة وألواح جدارية مقوّسة بالذهب في قاعة كبرى"
+     }
+    }
+   },
+   {
+    "id": "V02-nujoum",
+    "venueId": "V02",
+    "name": {
+     "en": "Nujoum Hall",
+     "ar": "قاعة النجوم"
+    },
+    "setting": "indoor",
+    "capacity": {
+     "min": 150,
+     "max": 400
+    },
+    "exclusiveDay": true,
+    "sessions": [
+     {
+      "id": "V02-nujoum-evening",
+      "name": {
+       "en": "Evening",
+       "ar": "الفترة المسائية"
+      },
+      "start": "20:00",
+      "end": "01:00",
+      "bufferBeforeMin": 240,
+      "bufferAfterMin": 120,
+      "weekdays": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ]
+     }
+    ],
+    "sections": [
+     {
+      "audience": "women",
+      "minGuests": 150,
+      "maxGuests": 400,
+      "policy": {
+       "photography": "female_only",
+       "music": "dj_or_band",
+       "abayaCloakroom": true,
+       "prayerRoom": true,
+       "separateEntrance": true,
+       "femaleSecurity": true,
+       "boysMaxAge": 8,
+       "outsideCatering": "not_allowed",
+       "outsideDecor": "with_approval",
+       "bukhoor": "allowed",
+       "cutOff": "02:00",
+       "extraHour": {
+        "fils": 450000,
+        "currency": "KWD"
+       },
+       "indoorBackup": false
+      }
+     },
+     {
+      "audience": "men",
+      "minGuests": 200,
+      "maxGuests": 400,
+      "policy": {
+       "photography": "allowed",
+       "music": "duff_only",
+       "abayaCloakroom": false,
+       "prayerRoom": true,
+       "separateEntrance": true,
+       "femaleSecurity": false,
+       "boysMaxAge": null,
+       "outsideCatering": "not_allowed",
+       "outsideDecor": "with_approval",
+       "bukhoor": "allowed",
+       "cutOff": "01:00",
+       "extraHour": {
+        "fils": 450000,
+        "currency": "KWD"
+       },
+       "indoorBackup": false
+      }
+     }
+    ],
+    "seasonMonths": null,
+    "description": {
+     "en": "An intimate hall for family receptions and henna evenings.",
+     "ar": "قاعة أصغر للحفلات العائلية وأمسيات الحناء."
+    },
+    "cover": {
+     "file": "ballrooms/ballrooms-23-crystal-chandelier-gilt-pilasters.jpg",
+     "width": 1800,
+     "height": 2400,
+     "orientation": "portrait",
+     "alt": {
+      "en": "Large crystal chandelier with a gilded ceiling rose, fluted pilasters and warm cream walls in a ballroom",
+      "ar": "ثريا كريستال كبيرة مع وردة سقف مذهّبة وأعمدة جدارية مخددة وجدران كريمية دافئة في قاعة احتفالات"
+     }
+    }
+   }
+  ],
+  "amenities": [
+   {
+    "amenityId": "valet",
+    "state": "included"
+   },
+   {
+    "amenityId": "parking",
+    "state": "included"
+   },
+   {
+    "amenityId": "bridal-suite",
+    "state": "included"
+   },
+   {
+    "amenityId": "groom-room",
+    "state": "extra",
+    "from": {
+     "fils": 250000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "buffet",
+    "state": "included"
+   },
+   {
+    "amenityId": "welcome-drinks",
+    "state": "included"
+   },
+   {
+    "amenityId": "gahwa-tea",
+    "state": "included"
+   },
+   {
+    "amenityId": "show-cake",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "suite-night",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "prayer-room",
+    "state": "included"
+   },
+   {
+    "amenityId": "abaya-cloakroom",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "separate-entrance",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "female-security",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "sound-lighting",
+    "state": "included"
+   },
+   {
+    "amenityId": "basic-decor",
+    "state": "included"
+   },
+   {
+    "amenityId": "kosha",
+    "state": "extra",
+    "from": {
+     "fils": 1800000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "florals",
+    "state": "extra",
+    "from": {
+     "fils": 900000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "led-screens",
+    "state": "extra",
+    "from": {
+     "fils": 350000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "female-photographer",
+    "state": "extra",
+    "from": {
+     "fils": 450000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "zaffa",
+    "state": "extra",
+    "from": {
+     "fils": 350000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "bukhoor-service",
+    "state": "included"
+   },
+   {
+    "amenityId": "accessibility",
+    "state": "included"
+   },
+   {
+    "amenityId": "kids-corner",
+    "state": "extra",
+    "from": {
+     "fils": 200000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "outside-catering",
+    "state": "not_offered"
+   },
+   {
+    "amenityId": "outside-decor",
+    "state": "extra"
+   }
+  ],
+  "hours": {
+   "rules": [
+    {
+     "days": [
+      0,
+      1,
+      2,
+      3,
+      4
+     ],
+     "open": "09:00",
+     "close": "22:00"
+    },
+    {
+     "days": [
+      5,
+      6
+     ],
+     "open": "16:00",
+     "close": "01:00"
+    }
+   ],
+   "closures": []
+  },
+  "policies": {
+   "children": {
+    "women": {
+     "en": "Boys up to 8 years may attend",
+     "ar": "يُسمح بحضور الأولاد حتى عمر 8 سنوات"
+    },
+    "men": {
+     "en": "No age limit",
+     "ar": "لا يوجد حد للعمر"
+    }
+   },
+   "dressCode": {
+    "en": "Formal, modest dress",
+    "ar": "لباس رسمي محتشم"
+   },
+   "terms": {
+    "en": "Payment, schedule and any changes are agreed directly between you and the venue. Show your voucher code or QR at the venue to receive the voucher price.",
+    "ar": "يتم الاتفاق على الدفع والمواعيد وأي تعديل مباشرة بينكم وبين القاعة. أظهروا رمز الكوبون أو الـ QR في القاعة للحصول على سعر الكوبون."
+   },
+   "responseSlaHours": 24,
+   "serviceChargeBps": 0
+  },
+  "faq": [
+   {
+    "id": "V02-faq-how",
+    "question": {
+     "en": "How does booking work?",
+     "ar": "كيف يتم الحجز؟"
+    },
+    "answer": {
+     "en": "You get a voucher for KD 2 and send a request at the voucher price. The venue replies, and if it approves, the date is held for you for 24 hours while you confirm. You settle with the venue directly.",
+     "ar": "تحصلون على كوبون بـ 2 د.ك وترسلون طلبًا بسعر الكوبون. ترد القاعة، وعند الموافقة يُحجز التاريخ لكم 24 ساعة لتأكيد الحجز. وتسدّدون للقاعة مباشرة."
+    }
+   },
+   {
+    "id": "V02-faq-visit",
+    "question": {
+     "en": "Can we visit the hall before booking?",
+     "ar": "هل يمكن زيارة القاعة قبل الحجز؟"
+    },
+    "answer": {
+     "en": "Yes. Book a visit from this page: a chat opens with the venue and Ghazal support to confirm your arrival. No voucher is needed.",
+     "ar": "نعم. احجزوا زيارة من هذه الصفحة وتُفتح محادثة مع القاعة ودعم غزل لتأكيد وصولكم. لا حاجة إلى كوبون."
+    }
+   },
+   {
+    "id": "V02-faq-children",
+    "question": {
+     "en": "Are children allowed?",
+     "ar": "هل يُسمح بحضور الأطفال؟"
+    },
+    "answer": {
+     "en": "Children rules are listed per hall under Hall rules. Ladies’ receptions follow the boys’ age rule shown there.",
+     "ar": "تظهر قواعد الأطفال لكل قاعة ضمن قواعد القاعة. تتبع الحفلات النسائية الحد العمري للأولاد المذكور هناك."
+    }
+   },
+   {
+    "id": "V02-faq-parking",
+    "question": {
+     "en": "What is the parking and arrival like?",
+     "ar": "كيف هي المواقف والوصول؟"
+    },
+    "answer": {
+     "en": "Parking and valet details are listed under Facilities. A separate entrance for the ladies’ hall is shown where it is offered.",
+     "ar": "تفاصيل المواقف والفاليه ضمن المرافق. ويظهر المدخل المنفصل للقاعة النسائية حيثما يتوفر."
+    }
+   },
+   {
+    "id": "V02-faq-cut-off",
+    "question": {
+     "en": "What time does the event end?",
+     "ar": "متى ينتهي الحفل؟"
+    },
+    "answer": {
+     "en": "Each hall has a cut-off time, shown under Hall rules, with the price of an extra hour.",
+     "ar": "لكل قاعة وقت انتهاء ظاهر ضمن قواعد القاعة، مع سعر الساعة الإضافية."
+    }
+   }
+  ],
+  "rating": {
+   "average": 4.7,
+   "count": 167,
+   "categories": {
+    "venue": 4.8,
+    "food": 4.6,
+    "service": 4.7,
+    "value": 4.4
+   }
+  },
+  "distances": {
+   "ref-salmiya": {
+    "km": 13,
+    "minutes": 17
+   },
+   "ref-sharq": {
+    "km": 2,
+    "minutes": 4
+   },
+   "ref-hawalli": {
+    "km": 10,
+    "minutes": 14
+   },
+   "ref-farwaniya": {
+    "km": 18,
+    "minutes": 20
+   },
+   "ref-jahra": {
+    "km": 43,
+    "minutes": 36
+   },
+   "ref-fahaheel": {
+    "km": 48,
+    "minutes": 40
+   },
+   "ref-airport": {
+    "km": 25,
+    "minutes": 25
+   }
+  },
+  "officialFees": null,
+  "response": {
+   "usuallyRepliesHours": 3,
+   "responseRatePct": 94
+  },
+  "voucherEnabled": true,
+  "visitSlots": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "from": "10:00",
+    "to": "20:00",
+    "slotMinutes": 30
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "16:00",
+    "to": "21:00",
+    "slotMinutes": 30
+   }
+  ],
+  "flags": {
+   "featured": true,
+   "sponsored": false,
+   "isNew": false
+  },
+  "demand": 1.05,
+  "languages": [
+   "ar",
+   "en"
+  ]
+ },
+ {
+  "id": "V03",
+  "slug": "nawar-beach-resort",
+  "name": {
+   "en": "Nawar Beach Resort",
+   "ar": "منتجع نوّار الشاطئي"
+  },
+  "type": "hotel",
+  "style": "resort",
+  "tier": "prestige",
+  "stars": 5,
+  "channel": "ghazal_voucher",
+  "status": "published",
+  "partnerAccountId": "partner-V03",
+  "major": true,
+  "governorateId": "mubarak-al-kabeer",
+  "areaId": "messila",
+  "address": {
+   "block": "1",
+   "street": {
+    "en": "Beach Road",
+    "ar": "طريق الشاطئ"
+   }
+  },
+  "geo": {
+   "lat": 29.265,
+   "lng": 48.095
+  },
+  "tagline": {
+   "en": "Seaside receptions on the lawn or by the glass hall",
+   "ar": "حفلات على الشاطئ في المرج أو في القاعة الزجاجية"
+  },
+  "description": {
+   "en": "A beach resort in Messila with Seaview Hall for year-round evenings and Lawn Terrace for open-air receptions from November to March, with an indoor backup if the weather turns.",
+   "ar": "منتجع شاطئي في المسيلة فيه قاعة الواجهة البحرية طوال العام وتراس المرج للحفلات المفتوحة من نوفمبر إلى مارس، مع قاعة داخلية بديلة عند تغيّر الطقس."
+  },
+  "phone": "+96550000062",
+  "cover": {
+   "file": "outdoor/outdoor-01-ring-arch-oceanfront-aisle.jpg",
+   "width": 1800,
+   "height": 1200,
+   "orientation": "landscape",
+   "alt": {
+    "en": "A circular floral ceremony arch of ivory roses and pampas grass at the end of a wooden aisle, with rows of chiffon-draped chairs facing the open sea",
+    "ar": "قوس دائري من الورود العاجية وعشب البمباس في نهاية ممر خشبي، تحيط به صفوف من الكراسي المزيّنة بالشيفون وتطل على البحر المفتوح"
+   }
+  },
+  "gallery": [
+   {
+    "file": "outdoor/outdoor-01-ring-arch-oceanfront-aisle.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Nawar Beach Resort, Outdoors: a circular floral ceremony arch of ivory roses and pampas grass at the end of a wooden aisle, with rows of chiffon-draped chairs facing the open sea",
+     "ar": "منتجع نوّار الشاطئي، المساحة الخارجية: قوس دائري من الورود العاجية وعشب البمباس في نهاية ممر خشبي، تحيط به صفوف من الكراسي المزيّنة بالشيفون وتطل على البحر المفتوح"
+    },
+    "zone": "outdoors",
+    "hallId": "V03-lawn"
+   },
+   {
+    "file": "outdoor/outdoor-03-string-lights-beach-arch.jpg",
+    "width": 1800,
+    "height": 2700,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Nawar Beach Resort, Outdoors: festoon string lights strung between poles above a draped seaside ceremony arch in soft evening light",
+     "ar": "منتجع نوّار الشاطئي، المساحة الخارجية: أسلاك إضاءة معلّقة بين أعمدة فوق قوس مراسم مزيّن بالأقمشة على شاطئ البحر في ضوء مسائي ناعم"
+    },
+    "zone": "outdoors",
+    "hallId": "V03-lawn"
+   },
+   {
+    "file": "outdoor/outdoor-02-white-arch-beach-ceremony.jpg",
+    "width": 1800,
+    "height": 2700,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Nawar Beach Resort, Outdoors: a white draped wedding canopy with foliage and soft pink flowers on an empty sandy beach under a mottled morning sky",
+     "ar": "منتجع نوّار الشاطئي، المساحة الخارجية: مظلة زفاف بيضاء منسدلة بالأقمشة والأوراق الخضراء وزهور وردية ناعمة على شاطئ رملي خالٍ تحت سماء صباحية مبقّعة بالغيوم"
+    },
+    "zone": "outdoors",
+    "hallId": "V03-lawn"
+   },
+   {
+    "file": "outdoor/outdoor-05-beach-table-peonies-gold.jpg",
+    "width": 1800,
+    "height": 2696,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Nawar Beach Resort, Outdoors: a beachside table set with cream linen, woven placemats, gold cutlery, coupe glasses and blush peonies on warm sand",
+     "ar": "منتجع نوّار الشاطئي، المساحة الخارجية: طاولة على الشاطئ بمفرش كتاني كريمي وأطباق على حصائر منسوجة وأدوات مائدة ذهبية وكؤوس وورود الفاوانيا الوردية فوق الرمال الدافئة"
+    },
+    "zone": "outdoors",
+    "hallId": "V03-lawn"
+   },
+   {
+    "file": "outdoor/outdoor-09-white-canopy-palms-sand.jpg",
+    "width": 1800,
+    "height": 3200,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Nawar Beach Resort, Outdoors: a white draped canopy daybed under palm fronds on pale ivory sand",
+     "ar": "منتجع نوّار الشاطئي، المساحة الخارجية: سرير استرخاء تحت مظلة بيضاء منسدلة بين سعف النخيل على رمال عاجية ناعمة"
+    },
+    "zone": "outdoors",
+    "hallId": "V03-lawn"
+   },
+   {
+    "file": "halls/halls-04-conservatory-reception-hall.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Nawar Beach Resort, Hall: glass-roofed reception hall with soft green steel framing, a crystal chandelier and long tables dressed in white linen",
+     "ar": "منتجع نوّار الشاطئي، القاعة: قاعة حفلات بسقف زجاجي وإطار حديدي أخضر هادئ وثريا كريستال وطاولات طويلة مكسوّة بالكتان الأبيض"
+    },
+    "zone": "hall",
+    "hallId": "V03-seaview"
+   },
+   {
+    "file": "halls/halls-02-ivory-draped-ballroom.jpg",
+    "width": 1800,
+    "height": 1200,
+    "orientation": "landscape",
+    "alt": {
+     "en": "Nawar Beach Resort, Hall: modern wedding ballroom with a draped ivory fabric ceiling, white marble dance floor and rows of round tables with white chairs",
+     "ar": "منتجع نوّار الشاطئي، القاعة: قاعة أفراح عصرية بسقف من القماش العاجي المنسدل وأرضية رخامية بيضاء وصفوف من الطاولات الدائرية بكراسي بيضاء"
+    },
+    "zone": "hall",
+    "hallId": "V03-seaview"
+   },
+   {
+    "file": "halls/halls-32-bridal-veil-vintage-chair.jpg",
+    "width": 1800,
+    "height": 2700,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Nawar Beach Resort, Bridal suite: long lace-trimmed bridal veil draped over a tan vintage armchair beside an arched mirror and a white console table",
+     "ar": "منتجع نوّار الشاطئي، جناح العروس: طرحة عروس طويلة بحواف دانتيل منسدلة فوق كرسي عتيق بلون الكراميل بجانب مرآة مقوّسة وطاولة بيضاء"
+    },
+    "zone": "bridal_suite"
+   },
+   {
+    "file": "halls/halls-34-bridal-gown-sheer-curtains.jpg",
+    "width": 1800,
+    "height": 2700,
+    "orientation": "portrait",
+    "alt": {
+     "en": "Nawar Beach Resort, Bridal suite: ruffled tulle wedding gown with a lace bodice hanging against sheer white curtains in soft daylight",
+     "ar": "منتجع نوّار الشاطئي، جناح العروس: فستان زفاف من التول المكشّكش بصدر دانتيل معلّق أمام ستائر بيضاء شفافة في ضوء نهار ناعم"
+    },
+    "zone": "bridal_suite"
+   }
+  ],
+  "hasVideo": true,
+  "halls": [
+   {
+    "id": "V03-seaview",
+    "venueId": "V03",
+    "name": {
+     "en": "Seaview Hall",
+     "ar": "قاعة الواجهة البحرية"
+    },
+    "setting": "indoor",
+    "capacity": {
+     "min": 150,
+     "max": 300
+    },
+    "exclusiveDay": true,
+    "sessions": [
+     {
+      "id": "V03-seaview-evening",
+      "name": {
+       "en": "Evening",
+       "ar": "الفترة المسائية"
+      },
+      "start": "19:30",
+      "end": "00:30",
+      "bufferBeforeMin": 240,
+      "bufferAfterMin": 120,
+      "weekdays": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ]
+     }
+    ],
+    "sections": [
+     {
+      "audience": "women",
+      "minGuests": 150,
+      "maxGuests": 300,
+      "policy": {
+       "photography": "female_only",
+       "music": "dj_or_band",
+       "abayaCloakroom": true,
+       "prayerRoom": true,
+       "separateEntrance": true,
+       "femaleSecurity": true,
+       "boysMaxAge": 8,
+       "outsideCatering": "not_allowed",
+       "outsideDecor": "with_approval",
+       "bukhoor": "allowed",
+       "cutOff": "02:00",
+       "extraHour": {
+        "fils": 450000,
+        "currency": "KWD"
+       },
+       "indoorBackup": false
+      }
+     },
+     {
+      "audience": "men",
+      "minGuests": 150,
+      "maxGuests": 300,
+      "policy": {
+       "photography": "allowed",
+       "music": "duff_only",
+       "abayaCloakroom": false,
+       "prayerRoom": true,
+       "separateEntrance": true,
+       "femaleSecurity": false,
+       "boysMaxAge": null,
+       "outsideCatering": "not_allowed",
+       "outsideDecor": "with_approval",
+       "bukhoor": "allowed",
+       "cutOff": "01:00",
+       "extraHour": {
+        "fils": 450000,
+        "currency": "KWD"
+       },
+       "indoorBackup": false
+      }
+     }
+    ],
+    "seasonMonths": null,
+    "description": {
+     "en": "A glass-walled hall facing the sea, available all year.",
+     "ar": "قاعة بجدران زجاجية تطل على البحر، متاحة طوال العام."
+    },
+    "cover": {
+     "file": "halls/halls-04-conservatory-reception-hall.jpg",
+     "width": 1800,
+     "height": 1200,
+     "orientation": "landscape",
+     "alt": {
+      "en": "Glass-roofed reception hall with soft green steel framing, a crystal chandelier and long tables dressed in white linen",
+      "ar": "قاعة حفلات بسقف زجاجي وإطار حديدي أخضر هادئ وثريا كريستال وطاولات طويلة مكسوّة بالكتان الأبيض"
+     }
+    }
+   },
+   {
+    "id": "V03-lawn",
+    "venueId": "V03",
+    "name": {
+     "en": "Lawn Terrace",
+     "ar": "تراس المرج"
+    },
+    "setting": "outdoor",
+    "capacity": {
+     "min": 150,
+     "max": 450
+    },
+    "exclusiveDay": true,
+    "sessions": [
+     {
+      "id": "V03-lawn-evening",
+      "name": {
+       "en": "Evening",
+       "ar": "الفترة المسائية"
+      },
+      "start": "18:30",
+      "end": "00:00",
+      "bufferBeforeMin": 300,
+      "bufferAfterMin": 120,
+      "weekdays": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6
+      ]
+     }
+    ],
+    "sections": [
+     {
+      "audience": "women",
+      "minGuests": 150,
+      "maxGuests": 450,
+      "policy": {
+       "photography": "female_only",
+       "music": "dj_or_band",
+       "abayaCloakroom": true,
+       "prayerRoom": true,
+       "separateEntrance": true,
+       "femaleSecurity": true,
+       "boysMaxAge": 8,
+       "outsideCatering": "not_allowed",
+       "outsideDecor": "with_approval",
+       "bukhoor": "allowed",
+       "cutOff": "02:00",
+       "extraHour": {
+        "fils": 450000,
+        "currency": "KWD"
+       },
+       "indoorBackup": true
+      }
+     },
+     {
+      "audience": "men",
+      "minGuests": 150,
+      "maxGuests": 450,
+      "policy": {
+       "photography": "allowed",
+       "music": "duff_only",
+       "abayaCloakroom": false,
+       "prayerRoom": true,
+       "separateEntrance": true,
+       "femaleSecurity": false,
+       "boysMaxAge": null,
+       "outsideCatering": "not_allowed",
+       "outsideDecor": "with_approval",
+       "bukhoor": "allowed",
+       "cutOff": "01:00",
+       "extraHour": {
+        "fils": 450000,
+        "currency": "KWD"
+       },
+       "indoorBackup": true
+      }
+     },
+     {
+      "audience": "mixed",
+      "minGuests": 150,
+      "maxGuests": 450,
+      "policy": {
+       "photography": "allowed",
+       "music": "dj_or_band",
+       "abayaCloakroom": false,
+       "prayerRoom": true,
+       "separateEntrance": false,
+       "femaleSecurity": false,
+       "boysMaxAge": null,
+       "outsideCatering": "not_allowed",
+       "outsideDecor": "with_approval",
+       "bukhoor": "allowed",
+       "cutOff": "01:00",
+       "extraHour": {
+        "fils": 450000,
+        "currency": "KWD"
+       },
+       "indoorBackup": true
+      }
+     }
+    ],
+    "seasonMonths": [
+     11,
+     12,
+     1,
+     2,
+     3
+    ],
+    "description": {
+     "en": "An open-air lawn on the sea edge. Winter evenings only, with Seaview Hall as the indoor backup.",
+     "ar": "مرج مفتوح على حافة البحر. أمسيات الشتاء فقط، وقاعة الواجهة البحرية بديلًا داخليًا."
+    },
+    "cover": {
+     "file": "outdoor/outdoor-01-ring-arch-oceanfront-aisle.jpg",
+     "width": 1800,
+     "height": 1200,
+     "orientation": "landscape",
+     "alt": {
+      "en": "A circular floral ceremony arch of ivory roses and pampas grass at the end of a wooden aisle, with rows of chiffon-draped chairs facing the open sea",
+      "ar": "قوس دائري من الورود العاجية وعشب البمباس في نهاية ممر خشبي، تحيط به صفوف من الكراسي المزيّنة بالشيفون وتطل على البحر المفتوح"
+     }
+    }
+   }
+  ],
+  "amenities": [
+   {
+    "amenityId": "valet",
+    "state": "included"
+   },
+   {
+    "amenityId": "parking",
+    "state": "included"
+   },
+   {
+    "amenityId": "bridal-suite",
+    "state": "included"
+   },
+   {
+    "amenityId": "groom-room",
+    "state": "extra",
+    "from": {
+     "fils": 250000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "buffet",
+    "state": "included"
+   },
+   {
+    "amenityId": "welcome-drinks",
+    "state": "included"
+   },
+   {
+    "amenityId": "gahwa-tea",
+    "state": "included"
+   },
+   {
+    "amenityId": "show-cake",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "suite-night",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "prayer-room",
+    "state": "included"
+   },
+   {
+    "amenityId": "abaya-cloakroom",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "separate-entrance",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "female-security",
+    "state": "included",
+    "audience": "women"
+   },
+   {
+    "amenityId": "sound-lighting",
+    "state": "included"
+   },
+   {
+    "amenityId": "basic-decor",
+    "state": "included"
+   },
+   {
+    "amenityId": "kosha",
+    "state": "extra",
+    "from": {
+     "fils": 1800000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "florals",
+    "state": "extra",
+    "from": {
+     "fils": 900000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "led-screens",
+    "state": "extra",
+    "from": {
+     "fils": 350000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "female-photographer",
+    "state": "extra",
+    "from": {
+     "fils": 450000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "zaffa",
+    "state": "extra",
+    "from": {
+     "fils": 350000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "bukhoor-service",
+    "state": "included"
+   },
+   {
+    "amenityId": "accessibility",
+    "state": "included"
+   },
+   {
+    "amenityId": "kids-corner",
+    "state": "extra",
+    "from": {
+     "fils": 200000,
+     "currency": "KWD"
+    }
+   },
+   {
+    "amenityId": "outside-catering",
+    "state": "not_offered"
+   },
+   {
+    "amenityId": "outside-decor",
+    "state": "extra"
+   },
+   {
+    "amenityId": "garden-terrace",
+    "state": "included"
+   },
+   {
+    "amenityId": "indoor-backup",
+    "state": "included"
+   }
+  ],
+  "hours": {
+   "rules": [
+    {
+     "days": [
+      0,
+      1,
+      2,
+      3,
+      4
+     ],
+     "open": "09:00",
+     "close": "22:00"
+    },
+    {
+     "days": [
+      5,
+      6
+     ],
+     "open": "16:00",
+     "close": "01:00"
+    }
+   ],
+   "closures": []
+  },
+  "policies": {
+   "children": {
+    "women": {
+     "en": "Boys up to 8 years may attend",
+     "ar": "يُسمح بحضور الأولاد حتى عمر 8 سنوات"
+    },
+    "men": {
+     "en": "No age limit",
+     "ar": "لا يوجد حد للعمر"
+    }
+   },
+   "dressCode": {
+    "en": "Formal, modest dress",
+    "ar": "لباس رسمي محتشم"
+   },
+   "terms": {
+    "en": "Payment, schedule and any changes are agreed directly between you and the venue. Show your voucher code or QR at the venue to receive the voucher price.",
+    "ar": "يتم الاتفاق على الدفع والمواعيد وأي تعديل مباشرة بينكم وبين القاعة. أظهروا رمز الكوبون أو الـ QR في القاعة للحصول على سعر الكوبون."
+   },
+   "responseSlaHours": 24,
+   "serviceChargeBps": 0
+  },
+  "faq": [
+   {
+    "id": "V03-faq-how",
+    "question": {
+     "en": "How does booking work?",
+     "ar": "كيف يتم الحجز؟"
+    },
+    "answer": {
+     "en": "You get a voucher for KD 2 and send a request at the voucher price. The venue replies, and if it approves, the date is held for you for 24 hours while you confirm. You settle with the venue directly.",
+     "ar": "تحصلون على كوبون بـ 2 د.ك وترسلون طلبًا بسعر الكوبون. ترد القاعة، وعند الموافقة يُحجز التاريخ لكم 24 ساعة لتأكيد الحجز. وتسدّدون للقاعة مباشرة."
+    }
+   },
+   {
+    "id": "V03-faq-visit",
+    "question": {
+     "en": "Can we visit the hall before booking?",
+     "ar": "هل يمكن زيارة القاعة قبل الحجز؟"
+    },
+    "answer": {
+     "en": "Yes. Book a visit from this page: a chat opens with the venue and Ghazal support to confirm your arrival. No voucher is needed.",
+     "ar": "نعم. احجزوا زيارة من هذه الصفحة وتُفتح محادثة مع القاعة ودعم غزل لتأكيد وصولكم. لا حاجة إلى كوبون."
+    }
+   },
+   {
+    "id": "V03-faq-children",
+    "question": {
+     "en": "Are children allowed?",
+     "ar": "هل يُسمح بحضور الأطفال؟"
+    },
+    "answer": {
+     "en": "Children rules are listed per hall under Hall rules. Ladies’ receptions follow the boys’ age rule shown there.",
+     "ar": "تظهر قواعد الأطفال لكل قاعة ضمن قواعد القاعة. تتبع الحفلات النسائية الحد العمري للأولاد المذكور هناك."
+    }
+   },
+   {
+    "id": "V03-faq-parking",
+    "question": {
+     "en": "What is the parking and arrival like?",
+     "ar": "كيف هي المواقف والوصول؟"
+    },
+    "answer": {
+     "en": "Parking and valet details are listed under Facilities. A separate entrance for the ladies’ hall is shown where it is offered.",
+     "ar": "تفاصيل المواقف والفاليه ضمن المرافق. ويظهر المدخل المنفصل للقاعة النسائية حيثما يتوفر."
+    }
+   },
+   {
+    "id": "V03-faq-cut-off",
+    "question": {
+     "en": "What time does the event end?",
+     "ar": "متى ينتهي الحفل؟"
+    },
+    "answer": {
+     "en": "Each hall has a cut-off time, shown under Hall rules, with the price of an extra hour.",
+     "ar": "لكل قاعة وقت انتهاء ظاهر ضمن قواعد القاعة، مع سعر الساعة الإضافية."
+    }
+   }
+  ],
+  "rating": {
+   "average": 4.9,
+   "count": 96,
+   "categories": {
+    "venue": 4.9,
+    "food": 4.8,
+    "service": 4.9,
+    "value": 4.7
+   }
+  },
+  "distances": {
+   "ref-salmiya": {
+    "km": 10,
+    "minutes": 15
+   },
+   "ref-sharq": {
+    "km": 21,
+    "minutes": 22
+   },
+   "ref-hawalli": {
+    "km": 13,
+    "minutes": 17
+   },
+   "ref-farwaniya": {
+    "km": 17,
+    "minutes": 20
+   },
+   "ref-jahra": {
+    "km": 54,
+    "minutes": 44
+   },
+   "ref-fahaheel": {
+    "km": 27,
+    "minutes": 26
+   },
+   "ref-airport": {
+    "km": 17,
+    "minutes": 19
+   }
+  },
+  "officialFees": null,
+  "response": {
+   "usuallyRepliesHours": 3,
+   "responseRatePct": 92
+  },
+  "voucherEnabled": true,
+  "visitSlots": [
+   {
+    "days": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "from": "10:00",
+    "to": "20:00",
+    "slotMinutes": 30
+   },
+   {
+    "days": [
+     5,
+     6
+    ],
+    "from": "16:00",
+    "to": "21:00",
+    "slotMinutes": 30
+   }
+  ],
+  "flags": {
+   "featured": true,
+   "sponsored": true,
+   "isNew": false
+  },
+  "demand": 0.95,
+  "languages": [
+   "ar",
+   "en"
+  ]
+ }
+]

@@ -4,8 +4,14 @@ publish_to: none
 resolution: workspace
 environment:
   sdk: ^3.13.4
+  flutter: '>=3.47.5 <3.48.0'
 
 dependencies:
   collection: ^1.19.1
   equatable: ^3.0.0
   meta: ^1.19.0
+
+# Tests only: the runtime code of this package imports no Flutter (lib/ is pure Dart); `flutter test` is the workspace's single test runner.
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

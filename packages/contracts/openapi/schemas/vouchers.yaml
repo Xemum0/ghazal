@@ -1,0 +1,190 @@
+# The KD 2 voucher: wallet, checkout, gateway session, reuse, receipts (ADR 0033, ADR 0035). Money here is the only client payment.
+VoucherStatus: { type: string, enum: [unpaid, active, bound, used, expired, forfeited, credit_issued] }
+VoucherTargetType: { type: string, enum: [venue, provider] }
+VoucherReleaseReason: { type: string, enum: [declined, venue_no_response, withdrawn, slot_taken, approval_revoked, venue_cancelled, partner_suspended] }
+VoucherUsedReason: { type: string, enum: [redeemed, completed, cancelled_after_confirm] }
+GatewayMethod: { type: string, enum: [knet, apple_pay, card, google_pay] }
+VoucherPaymentStatus: { type: string, enum: [succeeded, failed, pending] }
+VoucherPayment:
+  type: object
+  description: The gateway receipt. KWD, Western digits, no VAT line (ADR 0035 D2).
+  required: [method, receiptNo, amount, status, at]
+  properties:
+    method: { $ref: GatewayMethod }
+    receiptNo: { type: string, description: 'RC-000123, gapless per issuer.' }
+    amount: { $ref: Money }
+    status: { $ref: VoucherPaymentStatus }
+    at: { $ref: IsoDateTime }
+VoucherQr:
+  type: object
+  required: [payload, version]
+  properties:
+    payload: { type: string, description: 'Signed `gz:v1:<code>:<target>:<check>`; the app renders it as a QR and never shows it as text.' }
+    version: { type: integer, enum: [1] }
+QuoteFils:
+  type: object
+  required: [standard, voucher]
+  properties: { standard: { type: integer }, voucher: { type: integer } }
+VoucherCommon:
+  type: object
+  x-abstract: true
+  required: [id, code, clientId, priceFils, status, validUntil, qr, usedAt, usedReason, redeemedBy]
+  properties:
+    id: { $ref: Id }
+    code: { type: string, pattern: '^GV-\d{4}-[0-9A-HJKMNP-TV-Z]{4}$', description: 'GV-YYMM-XXXX, rendered as an LTR isolate.' }
+    clientId: { $ref: Id }
+    priceFils: { type: integer, description: 'The voucher price, 2000 fils, no VAT.' }
+    status: { $ref: VoucherStatus }
+    validUntil: { $ref: IsoDateTime, nullable: true, description: Null while unpaid. }
+    qr: { $ref: VoucherQr }
+    usedAt: { $ref: IsoDateTime, nullable: true }
+    usedReason: { $ref: VoucherUsedReason, nullable: true }
+    redeemedBy: { type: string, nullable: true, description: Staff member who redeemed it (audit trail). }
+Voucher:
+  description: A voucher bound at purchase to ONE venue or provider and to its quote.
+  allOf:
+    - { $ref: VoucherCommon }
+    - type: object
+      required: [kind, targetType, venueOrProviderId, hallId, packageId, eventDate, guests, quoteFils, purchasedAt, reuseUntil, bookingId, payment, releasedAt, releaseReason, forfeitedAt, creditEligible, refundRequestId]
+      properties:
+        kind: { type: string, enum: [bound] }
+        targetType: { $ref: VoucherTargetType }
+        venueOrProviderId: { $ref: Id }
+        hallId: { $ref: Id, nullable: true }
+        packageId: { $ref: Id }
+        eventDate: { $ref: IsoDate }
+        guests: { type: integer, nullable: true }
+        quoteFils: { $ref: QuoteFils }
+        purchasedAt: { $ref: IsoDateTime, nullable: true }
+        reuseUntil: { $ref: IsoDate, nullable: true, description: 'While released, the 60-day reuse window at the same target.' }
+        bookingId: { $ref: Id, nullable: true }
+        payment: { $ref: VoucherPayment, nullable: true }
+        releasedAt: { $ref: IsoDateTime, nullable: true }
+        releaseReason: { $ref: VoucherReleaseReason, nullable: true }
+        forfeitedAt: { $ref: IsoDateTime, nullable: true }
+        creditEligible: { type: boolean }
+        refundRequestId: { $ref: Id, nullable: true }
+CreditGrantSource:
+  type: object
+  required: [requestId, voucherId, grantedBy]
+  properties: { requestId: { $ref: Id }, voucherId: { $ref: Id }, grantedBy: { type: string } }
+CreditVoucher:
+  description: Granted by support after a request; unbound, usable at any hall, hotel or service, 60 days from the grant, never money.
+  allOf:
+    - { $ref: VoucherCommon }
+    - type: object
+      required: [kind, grantedAt, grantedFrom, bookingId]
+      properties:
+        kind: { type: string, enum: [credit] }
+        grantedAt: { $ref: IsoDateTime }
+        grantedFrom: { $ref: CreditGrantSource }
+        bookingId: { $ref: Id, nullable: true }
+WalletVoucher:
+  oneOf:
+    - { $ref: Voucher }
+    - { $ref: CreditVoucher }
+  discriminator:
+    propertyName: kind
+    mapping:
+      bound: '#/components/schemas/Voucher'
+      credit: '#/components/schemas/CreditVoucher'
+WalletItem:
+  type: object
+  description: A voucher with the names its card shows (target, hall, package).
+  required: [voucher, target, hallName, packageName]
+  properties:
+    voucher: { $ref: WalletVoucher }
+    target: { $ref: TargetSummary, nullable: true, description: Null for an unbound credit voucher. }
+    hallName: { $ref: LocalizedText, nullable: true }
+    packageName: { $ref: LocalizedText, nullable: true }
+WalletItemPage: { x-page-of: WalletItem }
+VoucherOptions:
+  type: object
+  description: What a released voucher can still do (reuse at the same target, or ask support for a credit voucher; never money).
+  required: [reusable, creditEligible, reusableUntil]
+  properties:
+    reusable: { type: boolean }
+    creditEligible: { type: boolean }
+    reusableUntil: { $ref: IsoDate, nullable: true }
+VoucherDetail:
+  type: object
+  required: [voucher, options, booking, refundRequest, target, hallName, packageName]
+  properties:
+    voucher: { $ref: WalletVoucher }
+    hallName: { $ref: LocalizedText, nullable: true }
+    packageName: { $ref: LocalizedText, nullable: true }
+    options: { $ref: VoucherOptions, nullable: true }
+    booking: { $ref: Booking, nullable: true, description: 'The live request while bound, or the request that consumed it.' }
+    refundRequest: { $ref: RefundRequest, nullable: true }
+    target: { $ref: TargetSummary, nullable: true }
+VoucherCheckoutInput:
+  type: object
+  description: Binds a new unpaid voucher to one target and the server-priced quote. The server re-prices and refuses when the saving does not beat the fee.
+  required: [targetType, targetId, packageId, eventDate]
+  properties:
+    targetType: { $ref: VoucherTargetType }
+    targetId: { $ref: Id }
+    hallId: { $ref: Id, nullable: true }
+    packageId: { $ref: Id }
+    eventDate: { $ref: IsoDate }
+    guests: { type: integer, nullable: true }
+    quoteId: { type: string, nullable: true }
+VoucherCheckout:
+  type: object
+  required: [voucher, amount, expiresAt, methods, quote]
+  properties:
+    voucher: { $ref: Voucher }
+    amount: { $ref: Money }
+    expiresAt: { $ref: IsoDateTime, description: 'The checkout lapses after 30 minutes unpaid; nothing is charged.' }
+    methods: { type: array, items: { $ref: GatewayMethod }, description: 'Ordered by platform (X-Platform); Apple Pay on iOS only, Google Pay on Android only.' }
+    quote: { $ref: Quote }
+PaymentSessionInput:
+  type: object
+  required: [method]
+  properties:
+    method: { $ref: GatewayMethod }
+    returnUrl: { type: string, nullable: true }
+PaymentSessionStatus: { type: string, enum: [created, processing, verifying, succeeded, failed, cancelled] }
+PaymentSession:
+  type: object
+  description: A hosted gateway session (ADR 0027). Success is decided by the webhook plus a status re-query, never by the redirect.
+  required: [id, voucherId, method, status, amount, redirectUrl, expiresAt]
+  properties:
+    id: { type: string }
+    voucherId: { $ref: Id }
+    method: { $ref: GatewayMethod }
+    status: { $ref: PaymentSessionStatus }
+    amount: { $ref: Money }
+    redirectUrl: { type: string, nullable: true }
+    expiresAt: { $ref: IsoDateTime }
+PaymentState:
+  type: object
+  required: [id, status, voucher, failureCode]
+  properties:
+    id: { type: string }
+    status: { $ref: PaymentSessionStatus }
+    voucher: { $ref: Voucher, nullable: true, description: The active voucher once the payment succeeded. }
+    failureCode: { type: string, nullable: true }
+RebindInput:
+  type: object
+  description: Re-bind a released voucher to a new quote at the SAME target within its reuse window (the code stays).
+  required: [packageId, eventDate]
+  properties:
+    packageId: { $ref: Id }
+    eventDate: { $ref: IsoDate }
+    hallId: { $ref: Id, nullable: true }
+    guests: { type: integer, nullable: true }
+Receipt:
+  type: object
+  description: The gateway receipt of one voucher purchase (CL-BKNG-05).
+  required: [receiptNo, voucherId, voucherCode, amount, method, status, at, target]
+  properties:
+    receiptNo: { type: string }
+    voucherId: { $ref: Id }
+    voucherCode: { type: string }
+    amount: { $ref: Money }
+    method: { $ref: GatewayMethod }
+    status: { $ref: VoucherPaymentStatus }
+    at: { $ref: IsoDateTime }
+    target: { $ref: TargetSummary, nullable: true }
+ReceiptPage: { x-page-of: Receipt }

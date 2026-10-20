@@ -1,5 +1,465 @@
 {
   "@@locale": "en",
-  "stubNotBuilt": "Not built yet",
-  "@stubNotBuilt": { "description": "Label on a placeholder screen that exists in the inventory but has no Flutter implementation yet." }
+  "commonActionAccept": "Accept",
+  "commonActionAdd": "Add",
+  "commonActionApply": "Apply",
+  "commonActionBack": "Back",
+  "commonActionCall": "Call",
+  "commonActionCancel": "Cancel",
+  "commonActionClear": "Clear",
+  "commonActionClose": "Close",
+  "commonActionConfirm": "Confirm",
+  "commonActionContinue": "Continue",
+  "commonActionDecline": "Decline",
+  "commonActionDone": "Done",
+  "commonActionEdit": "Edit",
+  "commonActionMessage": "Message",
+  "commonActionNext": "Next",
+  "commonActionOpenWhatsapp": "Open WhatsApp",
+  "commonActionPrevious": "Previous",
+  "commonActionRemove": "Remove",
+  "commonActionReschedule": "Reschedule",
+  "commonActionReset": "Reset",
+  "commonActionRetry": "Try again",
+  "commonActionSave": "Save",
+  "commonActionSearch": "Search",
+  "commonActionSeeAll": "See all",
+  "commonActionSend": "Send",
+  "commonActionShare": "Share",
+  "commonActionShowLess": "Show less",
+  "commonActionSkip": "Skip",
+  "commonActionUndo": "Undo",
+  "commonActionWhatsapp": "WhatsApp",
+  "commonAvailabilityAvailable": "Available",
+  "commonAvailabilityBlocked": "Blocked",
+  "commonAvailabilityBooked": "Booked",
+  "commonAvailabilityFree": "Free",
+  "commonAvailabilityHeld": "On hold",
+  "commonAvailabilityPast": "Past date",
+  "commonAvailabilityUnavailable": "Unavailable",
+  "commonAvailabilityLineFree": "{date} · Free",
+  "@commonAvailabilityLineFree": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonAvailabilityLineBooked": "{date} · Booked",
+  "@commonAvailabilityLineBooked": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonCalendarAvailability": "Availability",
+  "commonCalendarPrices": "Prices",
+  "commonCalendarToday": "Today",
+  "commonCalendarSelected": "Selected",
+  "commonCalendarPeak": "Peak days",
+  "commonCalendarPreviousMonth": "Previous month",
+  "commonCalendarNextMonth": "Next month",
+  "commonCalendarOccasionApproximate": "{occasion} (approx.)",
+  "@commonCalendarOccasionApproximate": {
+    "placeholders": {
+      "occasion": {
+        "type": "String"
+      }
+    }
+  },
+  "commonStatusRequested": "Pending",
+  "commonStatusAwaitingDeposit": "Approved · deposit due",
+  "commonStatusConfirmed": "Confirmed",
+  "commonStatusRejected": "Not accepted",
+  "commonStatusExpired": "Expired",
+  "commonStatusCancelled": "Cancelled",
+  "commonStatusCompleted": "Completed",
+  "commonStatusRefunded": "Refunded",
+  "commonStatusNoShow": "No-show",
+  "commonStatusHeadlineConfirmed": "Confirmed booking",
+  "commonStatusCancelledByYou": "Cancelled by you",
+  "commonStatusCancelledByVenue": "Cancelled by the venue",
+  "commonStatusHotelMissed": "Missed",
+  "commonStatusUrgent": "Urgent",
+  "commonStatusTimeLeft": "{time} remaining",
+  "@commonStatusTimeLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "commonFilterAll": "All",
+  "commonTierWeekday": "Weekday",
+  "commonTierWeekend": "Weekend",
+  "commonTierHoliday": "Holiday",
+  "commonTierSeason": "Season",
+  "commonTierSpecialDate": "Special date",
+  "commonUnitPerGuest": "per guest",
+  "commonUnitPerNight": "per night",
+  "commonUnitPerDay": "per day",
+  "commonUnitPerHour": "per hour",
+  "commonUnitMinGuests": "Minimum {count, plural, one{{count} guest} other{{count} guests}}",
+  "@commonUnitMinGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonUnitUpToGuests": "Up to {count, plural, one{{count} guest} other{{count} guests}}",
+  "@commonUnitUpToGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountGuests": "{count, plural, =0{No guests} one{{count} guest} other{{count} guests}}",
+  "@commonCountGuests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountDays": "{count, plural, =0{No days} one{{count} day} other{{count} days}}",
+  "@commonCountDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountHours": "{count, plural, =0{No hours} one{{count} hour} other{{count} hours}}",
+  "@commonCountHours": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMinutes": "{count, plural, =0{No minutes} one{{count} minute} other{{count} minutes}}",
+  "@commonCountMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountHalls": "{count, plural, =0{No halls} one{{count} hall} other{{count} halls}}",
+  "@commonCountHalls": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountPackages": "{count, plural, =0{No packages} one{{count} package} other{{count} packages}}",
+  "@commonCountPackages": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMessages": "{count, plural, =0{No messages} one{{count} message} other{{count} messages}}",
+  "@commonCountMessages": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountBookings": "{count, plural, =0{No bookings} one{{count} booking} other{{count} bookings}}",
+  "@commonCountBookings": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountSessions": "{count, plural, =0{No sessions} one{{count} session} other{{count} sessions}}",
+  "@commonCountSessions": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountMonths": "{count, plural, =0{No months} one{{count} month} other{{count} months}}",
+  "@commonCountMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountDates": "{count, plural, =0{No dates} one{{count} date} other{{count} dates}}",
+  "@commonCountDates": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountRequests": "{count, plural, =0{No requests} one{{count} request} other{{count} requests}}",
+  "@commonCountRequests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountReviews": "{count, plural, =0{No reviews} one{{count} review} other{{count} reviews}}",
+  "@commonCountReviews": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountPhotos": "{count, plural, =0{No photos} one{{count} photo} other{{count} photos}}",
+  "@commonCountPhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCountdownDays": "{count, plural, =0{Today} one{{count} day to go} other{{count} days to go}}",
+  "@commonCountdownDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonCounter": "{current} of {total}",
+  "@commonCounter": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonStateLoading": "Loading",
+  "commonStateTitleGeneric": "Something went wrong",
+  "commonStateTitleLoad": "Couldn’t load",
+  "commonStateTitleNetwork": "You’re offline",
+  "commonStateTitlePayment": "Payment failed",
+  "commonStateTitleNoAccess": "No access",
+  "commonStateTitleNotFound": "Not found",
+  "commonStateTitleEmptySearch": "No matches",
+  "commonStateTitleEmpty": "Nothing here",
+  "commonStateOffline": "You’re offline",
+  "commonStateErrorGeneric": "Something went wrong on our side. Nothing was changed. Please try again.",
+  "commonStateErrorLoad": "We couldn’t load this. Please try again.",
+  "commonStateErrorNetwork": "We couldn’t connect. Check your connection and try again.",
+  "commonStateErrorPayment": "The payment could not be completed. No amount was charged.",
+  "commonStateErrorNoAccess": "You do not have access. Ask your manager.",
+  "commonStateErrorNotFound": "This page is no longer available.",
+  "commonStateSaved": "Saved",
+  "commonStateCopied": "Copied",
+  "commonStateSent": "Sent",
+  "commonNoPaymentNowFull": "No payment now. Nothing is charged until the hotel approves.",
+  "commonMoneyDeposit": "Deposit",
+  "commonMoneyBalance": "Remaining balance",
+  "commonMoneyTotal": "Total",
+  "commonMoneyServiceCharge": "Service charge",
+  "commonMoneyRentalFee": "Rental fee",
+  "commonLabelOptional": "Optional",
+  "commonLabelRequired": "Required",
+  "commonLabelNotDecided": "Not decided",
+  "commonLabelToday": "Today",
+  "commonLabelTomorrow": "Tomorrow",
+  "commonLabelKuwaitTime": "Kuwait time",
+  "commonLabelSponsored": "Sponsored",
+  "commonLabelNew": "New",
+  "commonLabelOr": "or",
+  "commonLabelLanguage": "Language",
+  "commonLabelSettings": "Settings",
+  "commonLanguageEnglish": "English",
+  "commonLanguageArabic": "Arabic",
+  "commonFieldRequired": "This field is required.",
+  "commonFieldInvalid": "This value isn’t valid.",
+  "commonFieldPhoneInvalid": "This phone number isn’t valid.",
+  "commonA11yFavouriteAdd": "Save to favourites",
+  "commonA11yFavouriteRemove": "Remove from favourites",
+  "commonA11yCompareAdd": "Add to compare",
+  "commonA11yCompareRemove": "Remove from compare",
+  "commonA11yPhotoCounter": "Photo {current} of {total}",
+  "@commonA11yPhotoCounter": {
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonA11yRating": "Rated {rating} out of {max}",
+  "@commonA11yRating": {
+    "placeholders": {
+      "rating": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "max": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonA11ySelected": "Selected",
+  "commonStatusPending": "Pending",
+  "commonStatusApproved": "Approved",
+  "commonStatusRedeemed": "Redeemed",
+  "commonStatusDeclined": "Declined",
+  "commonStatusHotelPending": "Pending",
+  "commonStatusHotelApproved": "Waiting",
+  "commonStatusHotelRedeemed": "Redeemed",
+  "commonStatusHotelDeclined": "Declined",
+  "commonStatusHotelLapsed": "Lapsed",
+  "commonStatusDateProposed": "New date",
+  "commonVoucherStatusUnpaid": "Paying",
+  "commonVoucherStatusActive": "Ready",
+  "commonVoucherStatusBound": "In request",
+  "commonVoucherStatusUsed": "Used",
+  "commonVoucherStatusExpired": "Expired",
+  "commonVisitStatusRequested": "Requested",
+  "commonVisitStatusConfirmed": "Confirmed",
+  "commonVisitStatusReschedule": "New time",
+  "commonVisitStatusArrived": "Arrived",
+  "commonVisitStatusCompleted": "Done",
+  "commonVisitStatusDeclined": "Unavailable",
+  "commonVisitStatusCancelled": "Cancelled",
+  "commonVisitStatusMissed": "Missed",
+  "commonListingStatusDraft": "Draft",
+  "commonListingStatusPayment": "Unpaid",
+  "commonListingStatusReview": "In review",
+  "commonListingStatusApproved": "Approved",
+  "commonListingStatusRejected": "Declined",
+  "commonListingStatusActive": "Live",
+  "commonListingStatusExpired": "Ended",
+  "commonListingStatusPaused": "Paused",
+  "commonVoucher": "Voucher",
+  "commonVoucherPrice": "Voucher price",
+  "commonStandardPrice": "Standard price",
+  "commonYouSave": "You save {amount}",
+  "@commonYouSave": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "commonSaveAmount": "Save {amount}",
+  "@commonSaveAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "commonConfirmBooking": "Confirm booking",
+  "commonRedeemVoucher": "Redeem voucher",
+  "commonVoucherCode": "Voucher code",
+  "commonValidUntil": "Valid until {date}",
+  "@commonValidUntil": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "commonLabelGuestVoucher": "Voucher price after you sign up",
+  "commonRoleClient": "Client",
+  "commonRoleYou": "You",
+  "commonRoleHotelRep": "Hotel representative",
+  "commonRoleSupport": "Ghazal support",
+  "commonVenueTypePrivateHall": "Private hall",
+  "commonVenueTypeGovernmental": "Governmental facility",
+  "commonVenueTypeHotel": "Hotel",
+  "commonPricingPerPerson": "Per person",
+  "commonPricingPackages": "Packages",
+  "commonPricingPackage": "Package",
+  "commonPricingStructure": "Pricing",
+  "commonFilterGovernorate": "Governorate",
+  "commonFilterVenueType": "Venue type",
+  "commonFilterCapacity": "Capacity",
+  "commonPlanWeekly": "Weekly",
+  "commonPlanMonthly": "Monthly",
+  "commonPlanAnnual": "Annual",
+  "commonRatesSoon": "Rates announced soon",
+  "commonExempt": "Exempt",
+  "commonMajorHotel": "Major hotel",
+  "commonA11yInfo": "More info",
+  "commonLabelDetails": "Details",
+  "commonVoucherStatusForfeited": "Not valid",
+  "commonVoucherStatusCredit": "Credit",
+  "commonVoucherStatusCreditIssued": "Credit issued",
+  "commonVoucherCredit": "Credit voucher",
+  "commonVoucherAnyVenue": "Any hall, hotel or service",
+  "commonVoucherNotValidNote": "Not confirmed within {hours, plural, one{{hours} hour} other{{hours} hours}}",
+  "@commonVoucherNotValidNote": {
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonVoucherConfirmIn24h": "Confirm at the hotel or service within {hours, plural, one{{hours} hour} other{{hours} hours}}, or the voucher is not valid",
+  "@commonVoucherConfirmIn24h": {
+    "placeholders": {
+      "hours": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "commonAskSupport": "Ask support",
+  "commonCreditRequested": "Request sent to support",
+  "commonBillingContract": "Business contract",
+  "commonBillingPlan": "Plan",
+  "commonBillingContractTerms": "Terms as contracted",
+  "commonStaffInvitedByEmail": "Invited by email",
+  "commonCalendarByEmail": "Calendar by email",
+  "commonReviewAskSupportHide": "Ask support to hide or delete",
+  "commonVideoLimit": "Up to {size} MB per video",
+  "@commonVideoLimit": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "stubNotBuilt": "Not built yet"
 }

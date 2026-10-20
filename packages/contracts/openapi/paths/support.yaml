@@ -1,0 +1,40 @@
+/support/conversation:
+  get:
+    operationId: getSupportConversation
+    summary: Open the client's support conversation (CL-MSGS-02 with support)
+    x-roles: [client, partner]
+    x-partner: true
+    responses: { 200: Conversation }
+/support/refund-requests:
+  post:
+    operationId: createRefundRequest
+    summary: Ask support for a credit voucher after a venue-fault release (CL-VCHR-05)
+    x-idempotent: true
+    body: CreateRefundRequestInput
+    x-errors: [CREDIT_NOT_ELIGIBLE, REFUND_REQUEST_EXISTS, VOUCHER_NOT_USABLE]
+    responses: { 201: RefundRequest }
+  get:
+    operationId: listRefundRequests
+    summary: The client's refund requests, newest first
+    x-paged: true
+    responses: { 200: RefundRequestPage }
+/support/refund-requests/{requestId}:
+  get:
+    operationId: getRefundRequest
+    summary: One refund request and its decision
+    path: { requestId: Id }
+    responses: { 200: RefundRequest }
+/support/faq:
+  get:
+    operationId: listFaq
+    summary: Platform FAQ
+    x-access: guest
+    responses: { 200: 'FaqItem[]' }
+/legal/{kind}:
+  get:
+    operationId: getLegalDocument
+    summary: Terms or Privacy text (CL-PROF-05, CL-AUTH-03)
+    x-access: guest
+    x-roles: [client, partner]
+    path: { kind: LegalKind }
+    responses: { 200: LegalDocument }
