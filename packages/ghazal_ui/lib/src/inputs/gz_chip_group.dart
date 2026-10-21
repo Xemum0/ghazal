@@ -222,8 +222,9 @@ class _FigChip extends StatelessWidget {
           duration: GzMotion.durationBase,
           curve: GzMotion.easeStandard,
           constraints: const BoxConstraints(minHeight: GzSize.controlSm),
-          // The same measured padding as GzChip (the web border-box is about 0.5 dp tighter per side).
-          padding: EdgeInsetsDirectional.only(start: selected ? GzSpace.s3 - 1.5 : GzSpace.s4 - 0.5, end: GzSpace.s4 - 0.5),
+          // The web padding exactly (computed: 16 + 1 hairline per side, 12 before the bead): a 3-digit chip is 63.77 dp, so four fit a
+          // 350 dp row and the fifth wraps like the web. The border adds its width to this padding.
+          padding: EdgeInsetsDirectional.only(start: selected ? GzSpace.s3 : GzSpace.s4, end: GzSpace.s4),
           decoration: BoxDecoration(
             color: bg,
             borderRadius: GzRadius.smAll,

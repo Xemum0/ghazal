@@ -97,9 +97,8 @@ class _GzChipBody extends StatelessWidget {
       duration: GzMotion.durationBase,
       curve: GzMotion.easeStandard,
       constraints: const BoxConstraints(minHeight: GzSize.controlSm),
-      // Measured against the reference renders: the web chip's border-box is about 0.5 dp tighter per side than padding + border
-      // (and 1.5 dp tighter before the bead), so the padding here is the token minus that measured amount.
-      padding: EdgeInsetsDirectional.only(start: sel ? GzSpace.s3 - 1.5 : GzSpace.s4 - 0.5, end: GzSpace.s4 - 0.5),
+      // The web padding exactly (computed in Chrome: 16 + 1 hairline per side, 12 before the bead); the border adds its width to it.
+      padding: EdgeInsetsDirectional.only(start: sel ? GzSpace.s3 : GzSpace.s4, end: GzSpace.s4),
       decoration: BoxDecoration(color: bg, borderRadius: GzRadius.smAll, border: Border.all(color: border, width: GzStroke.hair)),
       child: Row(
         mainAxisSize: MainAxisSize.min,

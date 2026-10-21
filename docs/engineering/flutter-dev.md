@@ -133,7 +133,7 @@ Rules of this group. Numbers and money go through the shared formatter: `GzPrice
 
 Parity notes (gallery `core`, `node tools/parity/parity.mjs --gallery core`; `ghazal_testing/test/gallery/core_gallery_test.dart` renders it and also writes each Arabic render under the Arabic section name the web reference files use):
 - The prototype's `.gz-reset { font: inherit }` is declared after the type role classes, so a web `<button class="gz-reset gz-t-button">` renders its label in the page type (`body`: 16/24 regular), not the 15/500 `button` role. Button, Chip and the toast action reproduce what the reference renders (`gzResetLabelStyle`, one function to change if the web CSS is fixed). The tertiary rule hangs under that 24 dp line box.
-- A web chip's border box is about 0.5 dp tighter per side than padding + border (measured); Flutter text sits about 0.5 dp lower than Chrome's inside the same line box (all sections show a 1 to 2 px height difference from this).
+- A web chip is exactly padding 16 + 1 hairline per side (12 before the bead), measured in Chrome (a 3-digit chip is 63.77 dp); `GzChip` and the chip group use the tokens as they are. Flutter text sits about 0.5 to 1 dp lower than Chrome's inside the same line box (all sections show a 1 to 2 px height difference from this): Chrome rounds each font's ascent and descent to whole pixels.
 - Web `weights` row of the Icon section shows light and regular glyphs; the Flutter font has regular only.
 - `FileImage` never completes under `flutter_test` fake async: galleries load photographs with `MemoryImage`.
 
@@ -172,7 +172,7 @@ Parity notes (gallery `inputs`, `node tools/parity/parity.mjs --gallery inputs`;
 - The web hint icon (`gz-field__msg`) hangs from the line top: the margin rule targets a class the icon does not carry.
 - A disabled segmented control keeps its selected label (web rule order: the `[data-selected]` colour wins over `:disabled`).
 - Text rendered by Flutter sits about 0.5 to 1 dp lower than Chrome inside the same line box; every section shows it.
-- Chips score 0.119: the geometry matches (a 3-digit chip is 64 dp so four fit a 350 dp row like the web); the remainder is the digit glyphs, which render about 3 percent larger than the web figures inside a chip (the web chip label is body face with the body-s figure size; Flutter figures at body size give the right chip width, body-s figures give 62.5 dp chips and a wrong wrap). Left as is until the core chip is fixed once for both.
+- Chips (0.083 ar / 0.062 en): the label is the body face (the web `.gz-reset { font: inherit }`, see `gzResetLabelStyle`) with the digit islands at the `body-s` figure size (16 in both languages, `--gz-num-size` survives the reset), padding exactly 16 + 1 per side, so a 3-digit chip is 63.77 dp and four fit a 350 dp row like the web (the earlier version used 17 px digits and a padding tweak to hide it, which put five in a row once the digits were right).
 
 ## Navigation, overlays and motion (`ghazal_ui`, F2 group G3)
 
