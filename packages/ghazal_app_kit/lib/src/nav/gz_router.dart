@@ -11,11 +11,12 @@ import 'nav_providers.dart';
 import 'nav_spec.dart';
 
 /// Redirect rule of both apps (pure, so it is testable): a signed-in person never sees the first-start screen again (they go to the
-/// first tab root), and in an app that [GzRouterSpec.requireSession] a signed-out person only sees the public flows (access).
+/// first tab root, or to the [landing] the flow named for this sign-in: `signInLandingProvider`), and in an app that
+/// [GzRouterSpec.requireSession] a signed-out person only sees the public flows (access).
 /// Returns the location to go to, or null to stay. The client app is open to guests (ADR 0007), so only its first-start rule applies.
-String? gzRedirect(GzRouterSpec spec, {required bool signedIn, required String location}) {
+String? gzRedirect(GzRouterSpec spec, {required bool signedIn, required String location, GateResume? landing}) {
   final path = location.startsWith(kRootPathPrefix) ? location.substring(kRootPathPrefix.length) : location;
-  if (signedIn && path == spec.startPath) return spec.homePath;
+  if (signedIn && path == spec.startPath) return (landing == null ? null : spec.paths[landing.routeName]) ?? spec.homePath;
   if (!signedIn && spec.requireSession && path != spec.startPath && !spec.publicPrefixes.any((p) => path == p || path.startsWith('$p/'))) {
     return spec.startPath;
   }
@@ -52,7 +53,12 @@ GoRoute _withPage(GoRoute r, GzRouterSpec spec, {String? rename, String pathPref
 ///   its stack). A screen that hides the bar, belongs to no tab, or is a sheet goes on the root navigator, above the bar. The decision
 ///   comes from `spec.chrome` (the port of `chromeFor`), never from where the flow file declared the route.
 /// - Each branch screen also gets a root-level twin (`<id>@root`, see [kRootRouteSuffix]) for pushes made from a screen above the bar.
-/// - [ref] connects the redirect and the refresh listenable to `sessionProvider`; without it there is no redirect (tests).
+/// - [ref] connects the redirect and the refresh listenable to `sessionProvider`; without it there is no redirect (tests). The router
+///   follows the session through `ref.container`, NOT through `ref.listen`: a `listen` makes the router (and the navigator that watches it)
+///   a dependent of the session provider, and the session notifier then could not read the navigator (a CircularDependencyError in
+///   debug builds, `SessionNotifier.completeGate`).
+/// - A sign-in with a landing set (`signInLandingProvider`) goes straight to that route with its params in ONE navigation: the session
+///   change would otherwise redirect to the home tab, dispose the sign-in screen and drop the params.
 GoRouter buildGzRouter({
   required GzRouterSpec spec,
   required List<RouteBase> routes,
@@ -66,9 +72,7 @@ GoRouter buildGzRouter({
   final rootKey = GlobalKey<NavigatorState>(debugLabel: 'gz-root');
   final branchRoutes = <String, List<RouteBase>>{
     for (final t in spec.tabs)
-      t.id: <RouteBase>[
-        _withPage(tabRoots[t.rootScreen] ?? (throw StateError('No route for the root of tab ${t.id} (${t.rootScreen})')), spec),
-      ],
+      t.id: <RouteBase>[_withPage(tabRoots[t.rootScreen] ?? (throw StateError('No route for the root of tab ${t.id} (${t.rootScreen})')), spec)],
   };
   final rootRoutes = <RouteBase>[];
   for (final route in routes) {
@@ -86,10 +90,24 @@ GoRouter buildGzRouter({
   }
 
   ValueNotifier<int>? refresh;
+  GoRouter? built;
   if (ref != null) {
-    refresh = ValueNotifier<int>(0);
-    ref.listen<AppSession>(sessionProvider, (_, _) => refresh!.value++);
-    ref.onDispose(refresh.dispose);
+    final container = ref.container;
+    final changes = ValueNotifier<int>(0);
+    refresh = changes;
+    final subscription = container.listen<AppSession>(sessionProvider, (_, next) {
+      final landing = next.isSignedIn ? container.read(signInLandingProvider.notifier).take() : null;
+      final target = built;
+      if (landing != null && target != null && spec.paths.containsKey(landing.routeName)) {
+        container.read(gateProvider.notifier).dismiss();
+        target.goNamed(landing.routeName, extra: landing.params);
+      }
+      changes.value++;
+    });
+    ref.onDispose(() {
+      subscription.close();
+      changes.dispose();
+    });
   }
 
   final router = GoRouter(
@@ -100,8 +118,12 @@ GoRouter buildGzRouter({
     refreshListenable: refresh,
     redirect: ref == null
         ? null
-        : (BuildContext context, GoRouterState state) =>
-            gzRedirect(spec, signedIn: ref.read(sessionProvider).isSignedIn, location: state.uri.path),
+        : (BuildContext context, GoRouterState state) => gzRedirect(
+            spec,
+            signedIn: ref.container.read(sessionProvider).isSignedIn,
+            location: state.uri.path,
+            landing: ref.container.read(signInLandingProvider),
+          ),
     routes: <RouteBase>[
       ...rootRoutes,
       StatefulShellRoute(
@@ -110,11 +132,16 @@ GoRouter buildGzRouter({
         navigatorContainerBuilder: (BuildContext context, StatefulNavigationShell shell, List<Widget> children) =>
             GzTabContainer(shell: shell, branches: children),
         branches: <StatefulShellBranch>[
-          for (final t in spec.tabs) StatefulShellBranch(navigatorKey: GlobalKey<NavigatorState>(debugLabel: 'gz-tab-${t.id}'), routes: branchRoutes[t.id]!),
+          for (final t in spec.tabs)
+            StatefulShellBranch(
+              navigatorKey: GlobalKey<NavigatorState>(debugLabel: 'gz-tab-${t.id}'),
+              routes: branchRoutes[t.id]!,
+            ),
         ],
       ),
     ],
   );
   gzRouterSpecs[router] = spec;
+  built = router;
   return router;
 }

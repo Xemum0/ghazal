@@ -206,7 +206,9 @@ void main() {
       expect(rig.nav.scrollSignals[0].value, 0);
     });
 
-    testWidgets('system back on the root of a later tab goes to the first tab; on the first tab root it is not handled (the app exits)', (tester) async {
+    testWidgets('system back on the root of a later tab goes to the first tab; on the first tab root it is not handled (the app exits)', (
+      tester,
+    ) async {
       final rig = await pumpNav(tester, initialLocation: '/saved/home');
       expect(rig.nav.activeTab, 'saved');
       final handled = await tester.binding.handlePopRoute();
@@ -291,7 +293,10 @@ void main() {
     testWidgets('openSheet by id goes over the screen with its options; closeSheet closes it and calls onClose once', (tester) async {
       final rig = await pumpNav(tester);
       var closed = 0;
-      final key = rig.nav.openSheet('T-SHET-01', options: GzSheetOptions(params: <String, Object?>{'a': 1}, title: 'Sheet title', onClose: () => closed++));
+      final key = rig.nav.openSheet(
+        'T-SHET-01',
+        options: GzSheetOptions(params: <String, Object?>{'a': 1}, title: 'Sheet title', onClose: () => closed++),
+      );
       await rig.settle();
       expect(key, isNotEmpty);
       expect(rig.shows('T-SHET-01'), isTrue);
@@ -392,8 +397,12 @@ void main() {
     testWidgets('a signed-in session at the first-start location lands on the tab root; sign-in later re-evaluates', (tester) async {
       final rig = await pumpNav(tester, initialLocation: '/onboarding/start', useSession: true);
       expect(rig.shows('T-ONBD-01'), isTrue);
-      rig.container.read(sessionProvider.notifier).setSession(
-            const ClientSession(user: AuthUser(id: 'u1', name: 'Reem', phone: '+96550000000', monogram: 'R')),
+      rig.container
+          .read(sessionProvider.notifier)
+          .setSession(
+            const ClientSession(
+              user: AuthUser(id: 'u1', name: 'Reem', phone: '+96550000000', monogram: 'R'),
+            ),
           );
       await rig.settle();
       expect(rig.shows('T-DISC-01'), isTrue);

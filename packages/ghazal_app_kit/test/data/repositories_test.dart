@@ -56,7 +56,10 @@ void main() {
   test('the offline scenario becomes ApiProblem.offline', () async {
     final c = world.container();
     world.world.control.setScenario('offline');
-    await expectLater(c.read(venuesRepositoryProvider).searchVenues(limit: 3), throwsA(isA<ApiProblem>().having((p) => p.isOffline, 'isOffline', true)));
+    await expectLater(
+      c.read(venuesRepositoryProvider).searchVenues(limit: 3),
+      throwsA(isA<ApiProblem>().having((p) => p.isOffline, 'isOffline', true)),
+    );
   });
 
   test('the empty scenario answers empty pages', () async {
@@ -89,11 +92,35 @@ void main() {
 
   test('the 29 voucher-model contract codes parse and have message keys', () {
     const wires = [
-      'OPEN_REQUEST_LIMIT', 'VOUCHER_NOT_OFFERED', 'VOUCHER_NOT_USABLE', 'VOUCHER_TARGET_MISMATCH', 'VOUCHER_CHECKOUT_EXPIRED', 'VOUCHER_UNKNOWN',
-      'VOUCHER_OTHER_PARTNER', 'VOUCHER_NOT_CONFIRMED', 'VOUCHER_ALREADY_USED', 'CREDIT_NOT_ELIGIBLE', 'REFUND_REQUEST_EXISTS',
-      'CONFIRM_WINDOW_ENDED', 'UNDO_WINDOW_ENDED', 'PLAN_RATES_NOT_ANNOUNCED', 'LISTING_NOT_EDITABLE', 'LISTING_STATE_CONFLICT', 'MEDIA_TOO_LARGE',
-      'MEDIA_TYPE_UNSUPPORTED', 'REVIEW_ALREADY_REPLIED', 'REVIEW_NOT_ALLOWED', 'VISIT_SLOT_TAKEN', 'VISIT_NOT_ALLOWED', 'VISIT_STATE_CONFLICT',
-      'STAFF_LAST_ADMIN', 'INVITATION_EXPIRED', 'EMAIL_ALREADY_INVITED', 'CREDENTIALS_INVALID', 'VENUE_CONTEXT_REQUIRED', 'PRECONDITION_FAILED',
+      'OPEN_REQUEST_LIMIT',
+      'VOUCHER_NOT_OFFERED',
+      'VOUCHER_NOT_USABLE',
+      'VOUCHER_TARGET_MISMATCH',
+      'VOUCHER_CHECKOUT_EXPIRED',
+      'VOUCHER_UNKNOWN',
+      'VOUCHER_OTHER_PARTNER',
+      'VOUCHER_NOT_CONFIRMED',
+      'VOUCHER_ALREADY_USED',
+      'CREDIT_NOT_ELIGIBLE',
+      'REFUND_REQUEST_EXISTS',
+      'CONFIRM_WINDOW_ENDED',
+      'UNDO_WINDOW_ENDED',
+      'PLAN_RATES_NOT_ANNOUNCED',
+      'LISTING_NOT_EDITABLE',
+      'LISTING_STATE_CONFLICT',
+      'MEDIA_TOO_LARGE',
+      'MEDIA_TYPE_UNSUPPORTED',
+      'REVIEW_ALREADY_REPLIED',
+      'REVIEW_NOT_ALLOWED',
+      'VISIT_SLOT_TAKEN',
+      'VISIT_NOT_ALLOWED',
+      'VISIT_STATE_CONFLICT',
+      'STAFF_LAST_ADMIN',
+      'INVITATION_EXPIRED',
+      'EMAIL_ALREADY_INVITED',
+      'CREDENTIALS_INVALID',
+      'VENUE_CONTEXT_REQUIRED',
+      'PRECONDITION_FAILED',
     ];
     expect(wires, hasLength(29));
     for (final w in wires) {

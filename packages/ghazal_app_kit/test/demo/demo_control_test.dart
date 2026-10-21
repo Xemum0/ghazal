@@ -78,10 +78,7 @@ void main() {
 
   test('the tools exist outside production with a mock, and nowhere else', () {
     expect(world.container().read(demoToolsAvailableProvider), isTrue);
-    expect(
-      world.container(env: const AppEnv(environment: GzEnvironment.prod)).read(demoToolsAvailableProvider),
-      isFalse,
-    );
+    expect(world.container(env: const AppEnv(environment: GzEnvironment.prod)).read(demoToolsAvailableProvider), isFalse);
     expect(world.container(withMock: false).read(demoToolsAvailableProvider), isFalse);
   });
 

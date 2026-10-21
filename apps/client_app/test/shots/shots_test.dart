@@ -20,7 +20,13 @@ void main() {
     appBuilder: (path, state) => const ClientApp(),
     prepare: (shot) async {
       final setup = await prepareShotWorld(mock: world.mock, screenId: shot.id, state: shot.state, persona: shot.persona, story: shot.story);
-      return GzShotWorldSetup(overrides: [...setup.overrides, clientRouterOverride(initialLocation: shot.path, initialExtra: shot.params)], flush: setup.flush);
+      return GzShotWorldSetup(
+        overrides: [
+          ...setup.overrides,
+          clientRouterOverride(initialLocation: shot.path, initialExtra: shot.params),
+        ],
+        flush: setup.flush,
+      );
     },
   );
 }

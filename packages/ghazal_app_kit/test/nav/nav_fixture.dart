@@ -2,7 +2,7 @@
 // (`buildGzRouter`), the real tab shell and the real navigator, with probe screens that record what they were told.
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/misc.dart' show Override;
+import 'package:flutter_riverpod/misc.dart' show Override, ProviderListenable;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart';
 import 'package:ghazal_core/ghazal_core.dart';
@@ -46,11 +46,11 @@ class Seen {
   GzNavigator of(String id) => navigators[id]!;
 }
 
-GoRoute _route(String id, Seen seen) => GoRoute(
-      path: fixtureSpec.paths[id]!,
-      name: id,
-      builder: (BuildContext context, GoRouterState state) => Probe(id: id, seen: seen),
-    );
+GoRoute _route(String id, Seen seen, GzRouterSpec spec) => GoRoute(
+  path: spec.paths[id]!,
+  name: id,
+  builder: (BuildContext context, GoRouterState state) => Probe(id: id, seen: seen),
+);
 
 class Probe extends StatelessWidget {
   const Probe({required this.id, required this.seen, super.key});
@@ -67,18 +67,17 @@ class Probe extends StatelessWidget {
 }
 
 GoRouter buildFixtureRouter(Seen seen, {String? initialLocation, Ref? ref, GzRouterSpec spec = fixtureSpec}) => buildGzRouter(
-      spec: spec,
-      routes: <RouteBase>[for (final id in spec.chrome.keys) if (!spec.isTabRoot(id)) _route(id, seen)],
-      tabRoots: <String, GoRoute>{for (final t in spec.tabs) t.rootScreen: _route(t.rootScreen, seen)},
-      tabShellBuilder: (BuildContext context, StatefulNavigationShell shell) => GzTabShell(
-        navigationShell: shell,
-        kind: GzAppKind.client,
-        labelOf: (BuildContext context, String id) => 'tab:$id',
-        barLabel: 'main',
-      ),
-      ref: ref,
-      initialLocation: initialLocation,
-    );
+  spec: spec,
+  routes: <RouteBase>[
+    for (final id in spec.chrome.keys)
+      if (!spec.isTabRoot(id)) _route(id, seen, spec),
+  ],
+  tabRoots: <String, GoRoute>{for (final t in spec.tabs) t.rootScreen: _route(t.rootScreen, seen, spec)},
+  tabShellBuilder: (BuildContext context, StatefulNavigationShell shell) =>
+      GzTabShell(navigationShell: shell, kind: spec.app, labelOf: (BuildContext context, String id) => 'tab:$id', barLabel: 'main'),
+  ref: ref,
+  initialLocation: initialLocation,
+);
 
 class NavRig {
   NavRig(this.tester, this.container, this.router, this.seen);
@@ -110,6 +109,8 @@ Future<NavRig> pumpNav(
   bool useSession = false,
   GzRouterSpec spec = fixtureSpec,
   List<Override> overrides = const <Override>[],
+  List<void Function(WidgetRef ref)> onResume = const <void Function(WidgetRef ref)>[],
+  List<ProviderListenable<Object?>> warmUp = const <ProviderListenable<Object?>>[],
 }) async {
   tester.view
     ..devicePixelRatio = 2
@@ -128,7 +129,7 @@ Future<NavRig> pumpNav(
         }),
         ...overrides,
       ],
-      child: const GzAppRoot(kind: GzAppKind.client),
+      child: GzAppRoot(kind: spec.app, onResume: onResume, warmUp: warmUp),
     ),
   );
   final container = ProviderScope.containerOf(tester.element(find.byType(GzAppRoot)));

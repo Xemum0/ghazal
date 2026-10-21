@@ -18,17 +18,23 @@ void main() {
 
   /// A draft for Danah Ballroom on the first free evening of late January 2027 (the way the venue page leaves it before the voucher).
   Future<void> startDraft(ProviderContainer c) async {
-    final days = (await world.repos('new_client').venues.getVenueAvailability(
-              venueId: 'V01',
-              from: LocalDate.parse('2027-01-20'),
-              to: LocalDate.parse('2027-02-06'),
-              hallId: 'V01-danah',
-              guests: 300,
-              audience: Audience.women,
-            ))
-        .days;
+    final days =
+        (await world
+                .repos('new_client')
+                .venues
+                .getVenueAvailability(
+                  venueId: 'V01',
+                  from: LocalDate.parse('2027-01-20'),
+                  to: LocalDate.parse('2027-02-06'),
+                  hallId: 'V01-danah',
+                  guests: 300,
+                  audience: Audience.women,
+                ))
+            .days;
     final free = days.firstWhere((d) => d.state == DayState.available && d.voucherPrice != null && d.packageId != null);
-    c.read(bookingDraftProvider.notifier).start(
+    c
+        .read(bookingDraftProvider.notifier)
+        .start(
           venueId: 'V01',
           hallId: 'V01-danah',
           sessionId: 'V01-danah-evening',
@@ -167,7 +173,11 @@ void main() {
       final hind = world.repos('hotel_manager', venueId: 'V01');
       final before = await hind.partnerRequests.getPartnerRequest(requestId: heroId);
       expect(before.booking.status, BookingStatus.pending);
-      final approved = await hind.partnerRequests.acceptRequest(requestId: heroId, body: const AcceptRequestInput(), ifMatch: versionTag(before.booking.version));
+      final approved = await hind.partnerRequests.acceptRequest(
+        requestId: heroId,
+        body: const AcceptRequestInput(),
+        ifMatch: versionTag(before.booking.version),
+      );
 
       final rev = c.read(clientDataRevisionProvider);
       final stale = await c.read(voucherActionsProvider.notifier).confirm(heroId, version: approved.version - 1);
@@ -208,8 +218,11 @@ void main() {
       final c = await asReem();
       final hind = world.repos('hotel_manager', venueId: 'V01');
       final before = await hind.partnerRequests.getPartnerRequest(requestId: heroId);
-      await hind.partnerRequests
-          .declineRequest(requestId: heroId, body: const DeclineRequestInput(reason: RejectReason.dateUnavailable), ifMatch: versionTag(before.booking.version));
+      await hind.partnerRequests.declineRequest(
+        requestId: heroId,
+        body: const DeclineRequestInput(reason: RejectReason.dateUnavailable),
+        ifMatch: versionTag(before.booking.version),
+      );
       final voucherId = before.voucher!.id;
 
       final ask = await c.read(voucherActionsProvider.notifier).askSupportCredit(voucherId);

@@ -4806,6 +4806,12 @@ class AppL10nAr extends AppL10n {
       'لا قاعات هنا. تظهر كل القاعات.';
 
   @override
+  String get clientOnboardingLanguageNativeAr => 'العربية';
+
+  @override
+  String get clientOnboardingLanguageNativeEn => 'English';
+
+  @override
   String get clientPaymentTopTitle => 'الدفع';
 
   @override

@@ -14,9 +14,9 @@ enum GateReason {
 
   /// The web spelling (`send-request`), used in route params and analytics.
   String get wire => switch (this) {
-        GateReason.sendRequest => 'send-request',
-        _ => name,
-      };
+    GateReason.sendRequest => 'send-request',
+    _ => name,
+  };
 
   static GateReason parse(Object? wire) => GateReason.values.firstWhere((r) => r.wire == wire, orElse: () => GateReason.save);
 }

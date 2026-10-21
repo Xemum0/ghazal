@@ -53,14 +53,18 @@ void main() {
       final prefs = await SharedPreferences.getInstance();
       final c = world.container(prefs: prefs);
       expect(c.read(searchBriefProvider).isEmpty, isTrue);
-      c.read(searchBriefProvider.notifier).update((b) => b.copyWith(
-            date: LocalDate.parse('2027-01-14'),
-            guests: 350,
-            audience: Audience.women,
-            areaIds: const ['salmiya'],
-            budget: const MoneyRange(min: MoneyAmount(20000000), max: MoneyAmount(35000000)),
-            dateMode: DateMode.exact,
-          ));
+      c
+          .read(searchBriefProvider.notifier)
+          .update(
+            (b) => b.copyWith(
+              date: LocalDate.parse('2027-01-14'),
+              guests: 350,
+              audience: Audience.women,
+              areaIds: const ['salmiya'],
+              budget: const MoneyRange(min: MoneyAmount(20000000), max: MoneyAmount(35000000)),
+              dateMode: DateMode.exact,
+            ),
+          );
       final b = c.read(searchBriefProvider);
       expect(b.hasQuoteInputs, isTrue);
 
@@ -93,21 +97,51 @@ void main() {
       expect((await world.repos('reem').wedding.getWeddingProfile()).guests.women, 300);
     });
 
+    test('sign-in as Reem seeds an empty Brief from her profile on the first GET (14 Jan 2027, Salmiya, 350, KD 20,000 to 35,000)', () async {
+      final c = world.container();
+      expect(c.read(searchBriefProvider).isEmpty, isTrue);
+      await c.read(sessionProvider.notifier).loadPersona('reem');
+      await c.read(weddingProfileProvider.future);
+      final b = c.read(searchBriefProvider);
+      expect(b.date, LocalDate.parse('2027-01-14'));
+      expect(b.guests, 350);
+      expect(b.areaIds, contains('salmiya'));
+      expect(b.budget, const MoneyRange(min: MoneyAmount(20000000), max: MoneyAmount(35000000)));
+    });
+
+    test('the seed is once: a Brief the person changed is never overwritten, and Clear does not bring the profile back on a refetch', () async {
+      final c = world.container();
+      c.read(searchBriefProvider.notifier).update((b) => b.copyWith(guests: 120));
+      await c.read(sessionProvider.notifier).loadPersona('reem');
+      await c.read(weddingProfileProvider.future);
+      expect(c.read(searchBriefProvider).guests, 120, reason: 'the guests the person set stay');
+      expect(c.read(searchBriefProvider).date, LocalDate.parse('2027-01-14'), reason: 'a blank is filled');
+
+      c.read(searchBriefProvider.notifier).clear();
+      c.invalidate(weddingProfileProvider);
+      await c.read(weddingProfileProvider.future);
+      expect(c.read(searchBriefProvider).isEmpty, isTrue, reason: 'one seed per account per run');
+    });
+
     test('a new client has none (null: the empty state); a guest draft is sent at the first sign-in and seeds the Brief', () async {
       final prefs = await SharedPreferences.getInstance();
       final c = world.container(prefs: prefs);
       // as a guest: onboarding answers stay on the device
       expect(await c.read(weddingProfileProvider.future), isNull);
       await c.read(weddingProfileProvider.notifier).save(const WeddingProfileInput(role: WeddingRole.bride, brideName: 'Nora', weddingDate: null));
-      await c.read(weddingProfileProvider.notifier).save(WeddingProfileInput(
-            weddingDate: LocalDate.parse('2027-03-04'),
-            dateMode: DateMode.exact,
-            guests: const GuestSplit(women: 200, men: 100),
-            venueBudget: const MoneyRange(min: MoneyAmount(10000000), max: MoneyAmount(20000000)),
-            totalBudget: const MoneyAmount(40000000),
-            areaIds: const <String>[],
-            searching: const [Audience.women],
-          ));
+      await c
+          .read(weddingProfileProvider.notifier)
+          .save(
+            WeddingProfileInput(
+              weddingDate: LocalDate.parse('2027-03-04'),
+              dateMode: DateMode.exact,
+              guests: const GuestSplit(women: 200, men: 100),
+              venueBudget: const MoneyRange(min: MoneyAmount(10000000), max: MoneyAmount(20000000)),
+              totalBudget: const MoneyAmount(40000000),
+              areaIds: const <String>[],
+              searching: const [Audience.women],
+            ),
+          );
       expect(c.read(weddingDraftProvider).brideName, 'Nora');
       expect(c.read(searchBriefProvider).guests, 200);
 
@@ -156,7 +190,9 @@ void main() {
 
     test('a service request carries a listing and a quantity', () {
       final c = world.container();
-      c.read(bookingDraftProvider.notifier).start(providerId: 'P01', listingId: 'L01', packageId: 'pk', eventDate: LocalDate.parse('2027-02-01'), guests: 2);
+      c
+          .read(bookingDraftProvider.notifier)
+          .start(providerId: 'P01', listingId: 'L01', packageId: 'pk', eventDate: LocalDate.parse('2027-02-01'), guests: 2);
       final d = c.read(bookingDraftProvider);
       expect(d.isProvider, isTrue);
       final body = d.toCreateRequestInput(voucherId: 'v1');

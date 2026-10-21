@@ -6,6 +6,7 @@ import 'package:ghazal_domain/ghazal_domain.dart';
 import '../data/api_providers.dart';
 import '../data/client_environment.dart';
 import '../data/mock_backend.dart';
+import '../nav/go_router_navigator.dart' show GoRouterNavigator;
 import '../nav/nav_providers.dart' show gzNavigatorProvider;
 import 'gate.dart';
 import 'session_types.dart';
@@ -36,7 +37,9 @@ class SessionNotifier extends Notifier<AppSession> {
   /// Step 1 of the client sign-in: sends the code to [phone] (any Kuwaiti spelling, normalised to E.164). Returns the challenge.
   Future<OtpChallenge> requestOtp(String phone, {OtpPurpose purpose = OtpPurpose.login}) async {
     final e164 = PhoneKw.toE164(phone) ?? phone;
-    final challenge = await ref.read(authRepositoryProvider).requestOtp(
+    final challenge = await ref
+        .read(authRepositoryProvider)
+        .requestOtp(
           body: OtpRequestInput(phone: e164, purpose: purpose, deviceId: ref.read(deviceIdProvider)),
         );
     _challenge = challenge;
@@ -49,7 +52,9 @@ class SessionNotifier extends Notifier<AppSession> {
   Future<ClientSession> verifyOtp(String code) async {
     final challenge = _challenge;
     if (challenge == null || _partnerChallenge) throw StateError('verifyOtp without requestOtp');
-    final auth = await ref.read(authRepositoryProvider).verifyOtp(
+    final auth = await ref
+        .read(authRepositoryProvider)
+        .verifyOtp(
           body: OtpVerifyInput(challengeId: challenge.challengeId, code: code, deviceId: ref.read(deviceIdProvider)),
         );
     _challenge = null;
@@ -58,7 +63,9 @@ class SessionNotifier extends Notifier<AppSession> {
 
   /// Phone and password sign-in (CL-AUTH-04).
   Future<ClientSession> passwordLogin(String phone, String password) async {
-    final auth = await ref.read(authRepositoryProvider).passwordLogin(
+    final auth = await ref
+        .read(authRepositoryProvider)
+        .passwordLogin(
           body: PasswordLoginInput(phone: PhoneKw.toE164(phone) ?? phone, password: password, deviceId: ref.read(deviceIdProvider)),
         );
     return _adoptClient(auth);
@@ -72,22 +79,43 @@ class SessionNotifier extends Notifier<AppSession> {
     return session;
   }
 
-  /// A sign-in finished while a gate request was open (a guest tapped Send request, Get voucher ...): closes the gate sheet and the sign-in
-  /// screens above the place the guest came from, then continues at the request's [GateResume] (a route name with its params), unless that
-  /// screen is already the one showing. Does nothing without an open gate request.
+  /// A sign-in finished: closes the gate sheet and the sign-in screens above the place the guest came from, then continues at the gate
+  /// request's [GateResume] (a route name with its params), unless that screen is already the one showing. A landing the flow named
+  /// (`signInLandingProvider`) wins: it replaces the stack (the router does the same when it sees the session change first).
+  /// Does nothing without an open gate request or a landing.
+  ///
+  /// The navigator is read here, inside the callback, and the router follows the session through `ref.container` (see `buildGzRouter`),
+  /// so the session provider is not part of the navigator's dependency chain.
   void completeGate() {
-    if (ref.read(gateProvider) == null) return;
+    final landing = ref.read(signInLandingProvider.notifier).take();
+    if (ref.read(gateProvider) == null && landing == null) return;
     final resume = ref.read(gateProvider.notifier).takeResume();
     final nav = ref.read(gzNavigatorProvider);
+    if (landing != null) {
+      nav.reset(landing.routeName, params: landing.params);
+      return;
+    }
+    closeAuthScreens();
+    if (resume != null && nav.currentId != resume.routeName) nav.push(resume.routeName, params: resume.params);
+  }
+
+  /// Closes the gate sheet and the sign-in screens (`CL-AUTH-*`) at the top of the stack, without a gate request to resume. The router
+  /// adapter does it in one step (`GoRouterNavigator.popWhile`); any other navigator pops one by one.
+  void closeAuthScreens() {
+    final nav = ref.read(gzNavigatorProvider);
+    bool isAuth(String id) => id.startsWith('CL-AUTH-');
+    if (nav is GoRouterNavigator) {
+      nav.popWhile(isAuth);
+      return;
+    }
     var guard = 0;
-    while (nav.currentId.startsWith('CL-AUTH-') && nav.canGoBack && guard++ < 8) {
+    while (isAuth(nav.currentId) && nav.canGoBack && guard++ < 8) {
       if (nav.currentId == kGateSheetId) {
         nav.closeSheet();
       } else {
         nav.pop();
       }
     }
-    if (resume != null && nav.currentId != resume.routeName) nav.push(resume.routeName, params: resume.params);
   }
 
   /// Opens the session kept in the token store (app start). A client, partner or no session; a refresh that fails leaves a guest.
@@ -113,7 +141,9 @@ class SessionNotifier extends Notifier<AppSession> {
   /// Partner sign-in (HL-ACCS-01). A known device opens the session; a new device answers `codeRequired` and a code is emailed: continue
   /// with [partnerVerifyCode]. Returns the server answer.
   Future<PartnerLoginResult> partnerLogin(String email, String password) async {
-    final result = await ref.read(authRepositoryProvider).partnerLogin(
+    final result = await ref
+        .read(authRepositoryProvider)
+        .partnerLogin(
           body: PartnerLoginInput(email: email.trim(), password: password, deviceId: ref.read(deviceIdProvider)),
         );
     final session = result.session;
@@ -130,7 +160,9 @@ class SessionNotifier extends Notifier<AppSession> {
   Future<PartnerSession> partnerVerifyCode(String code) async {
     final challenge = _challenge;
     if (challenge == null || !_partnerChallenge) throw StateError('partnerVerifyCode without partnerLogin');
-    final auth = await ref.read(authRepositoryProvider).partnerVerifyCode(
+    final auth = await ref
+        .read(authRepositoryProvider)
+        .partnerVerifyCode(
           body: OtpVerifyInput(challengeId: challenge.challengeId, code: code, deviceId: ref.read(deviceIdProvider)),
         );
     _challenge = null;
@@ -142,7 +174,9 @@ class SessionNotifier extends Notifier<AppSession> {
 
   /// Accepts the emailed invitation: sets the password and signs in (HL-ACCS-03).
   Future<PartnerSession> acceptInvitation({required String token, required String password, bool acceptedTerms = true}) async {
-    final auth = await ref.read(authRepositoryProvider).acceptStaffInvitation(
+    final auth = await ref
+        .read(authRepositoryProvider)
+        .acceptStaffInvitation(
           body: AcceptInvitationInput(token: token, password: password, acceptedTerms: acceptedTerms, deviceId: ref.read(deviceIdProvider)),
         );
     return _adoptPartner(auth);
@@ -162,10 +196,7 @@ class SessionNotifier extends Notifier<AppSession> {
     if (memberships.isEmpty) {
       return PartnerSession(user: _user(user), accountType: PartnerAccountType.unknown, role: StaffRole.unknown);
     }
-    final m = memberships.firstWhere(
-      (m) => active != null && m.accountId == active.accountId,
-      orElse: () => memberships.first,
-    );
+    final m = memberships.firstWhere((m) => active != null && m.accountId == active.accountId, orElse: () => memberships.first);
     return PartnerSession(
       user: _user(me.user),
       accountType: m.accountType,
@@ -182,7 +213,9 @@ class SessionNotifier extends Notifier<AppSession> {
   /// Chooses another account of the same staff member (a person who works for two venues): the next calls carry its id.
   Future<PartnerSession> switchPartnerContext(String accountId, {String? venueId, String? providerId}) async {
     if (state is! PartnerSession) throw StateError('switchPartnerContext without a partner session');
-    final me = await ref.read(partnerAccountRepositoryProvider).switchPartnerContext(
+    final me = await ref
+        .read(partnerAccountRepositoryProvider)
+        .switchPartnerContext(
           body: SwitchContextInput(accountId: accountId, venueId: venueId, providerId: providerId),
         );
     final session = await _partnerSessionFromServer(me.user, known: me);

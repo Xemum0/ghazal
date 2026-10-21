@@ -39,10 +39,10 @@ final Provider<Map<String, GzTabBadge>> gzTabBadgesProvider = Provider<Map<Strin
 /// Overrides that install an already built [router] for a `ProviderScope` (widget tests, harnesses): the router and the navigator that
 /// reads it, so the nested scope never falls back to the parent's `routerProvider`.
 List<Override> gzFixedRouterOverrides(GoRouter router) => <Override>[
-      routerProvider.overrideWithValue(router),
-      goRouterNavigatorProvider.overrideWith((ref) {
-        final spec = gzRouterSpecs[router];
-        if (spec == null) throw StateError('The router was not built with buildGzRouter (no GzRouterSpec).');
-        return GoRouterNavigator(router: router, spec: spec, toasts: ref.watch(gzToastControllerProvider));
-      }),
-    ];
+  routerProvider.overrideWithValue(router),
+  goRouterNavigatorProvider.overrideWith((ref) {
+    final spec = gzRouterSpecs[router];
+    if (spec == null) throw StateError('The router was not built with buildGzRouter (no GzRouterSpec).');
+    return GoRouterNavigator(router: router, spec: spec, toasts: ref.watch(gzToastControllerProvider));
+  }),
+];

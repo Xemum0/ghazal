@@ -58,7 +58,10 @@ class FakeNavigator implements GzNavigator {
   void dismissToast([String? key]) {}
 }
 
-final _gate = Provider<bool Function(GateReason, GateResume?)>((ref) => (reason, resume) => ref.requireSignIn(reason, resume: resume));
+final _gate = Provider<bool Function(GateReason, GateResume?)>(
+  (ref) =>
+      (reason, resume) => ref.requireSignIn(reason, resume: resume),
+);
 
 void main() {
   late KitWorld world;

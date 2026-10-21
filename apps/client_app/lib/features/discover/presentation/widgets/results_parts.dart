@@ -1,0 +1,192 @@
+import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ghazal_domain/ghazal_domain.dart' show Area, RegionMatchKind;
+import 'package:ghazal_ui/ghazal_ui.dart';
+
+import '../../../../app/state/state.dart' show SearchBrief;
+import '../../../../l10n/l10n.dart';
+import '../../application/discover_regions.dart';
+import 'brief_rows.dart';
+import 'discover_labels.dart';
+
+/// The Brief as the facts it holds (Results header): date, guests with the section glyph, area, each a glyph and its value, a quiet pencil
+/// at inline-end. One 44+ target that opens the Brief sheet. A fact that is not known is omitted; with none set the muted word "Date".
+class BriefFacts extends StatelessWidget {
+  const BriefFacts({required this.brief, required this.areas, required this.onEdit, super.key});
+
+  final SearchBrief brief;
+  final List<Area> areas;
+  final VoidCallback onEdit;
+
+  @override
+  Widget build(BuildContext context) {
+    final f = context.gzFormat;
+    final l = context.l10n;
+    final c = context.gz.colors;
+    final lang = context.gz.locale.languageCode;
+    final date = briefDateText(f, brief);
+    final names = briefAreaNames(areas, brief.areaIds, lang);
+    final areaText = names.join(f.isArabic ? '، ' : ', ');
+    final spoken = <String>[?date, if (brief.guests != null) f.integer(brief.guests!), if (areaText.isNotEmpty) areaText].join(', ');
+    final facts = <Widget>[
+      if (date != null) GzFactChip(icon: briefDateIcon(brief), label: l.clientShellBriefDate, value: date),
+      if (brief.guests != null && brief.guests != 0)
+        GzFactChip(
+          icon: GzIcons.usersThree,
+          label: l.clientShellBriefGuests,
+          value: f.integer(brief.guests!),
+          unit: null,
+          valueWidget: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              gzFigText(context, f.integer(brief.guests!), role: GzTextRole.figBodyS, color: c.textStrong),
+              if (brief.audience != null) ...[const SizedBox(width: GzSpace.s1), GzIcon(arrangementIcon(brief.audience!), size: GzIconSize.xs, color: c.iconSecondary)],
+            ],
+          ),
+        ),
+      if (areaText.isNotEmpty) GzFactChip(icon: GzIcons.pin, label: l.clientShellBriefArea, value: areaText),
+      if (date == null && brief.guests == null && areaText.isEmpty)
+        GzFactChip(icon: GzIcons.calendar, label: l.clientShellBriefDate, value: l.clientDiscoverBriefChooseDate, tone: GzFactTone.muted),
+    ];
+    return GzPressable(
+      onPressed: onEdit,
+      semanticLabel: '${l.clientShellBriefTitle}: $spoken',
+      borderRadius: GzRadius.smAll,
+      builder: (context, st) => Container(
+        key: const ValueKey<String>('discover.facts'),
+        constraints: const BoxConstraints(minHeight: GzSize.touchMin),
+        padding: const EdgeInsetsDirectional.symmetric(vertical: GzSpace.s2),
+        decoration: BoxDecoration(color: st.pressed ? c.surfaceQuiet : null, borderRadius: GzRadius.smAll),
+        child: Row(
+          children: [
+            Expanded(child: GzFactRow(children: facts)),
+            const SizedBox(width: GzSpace.s3),
+            GzIcon(GzIcons.edit, size: GzIconSize.sm, color: c.iconSecondary),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// A signed-out visitor: the voucher price is locked behind sign-in; one 44 row under the chips says so and opens the gate.
+class VoucherLockRow extends StatelessWidget {
+  const VoucherLockRow({required this.onPressed, super.key});
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.gz.colors;
+    return GzPressable(
+      onPressed: onPressed,
+      semanticLabel: context.gzL10n.commonVoucherPrice,
+      builder: (context, st) => Container(
+        key: const ValueKey<String>('discover.voucherlock'),
+        constraints: const BoxConstraints(minHeight: GzSize.touchMin),
+        margin: const EdgeInsetsDirectional.only(top: GzSpace.s2),
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.gutter),
+        child: Row(
+          children: [
+            GzIcon(GzIcons.lock, size: GzIconSize.sm, color: c.iconSecondary),
+            const SizedBox(width: GzSpace.s2),
+            Expanded(child: GzText(context.gzL10n.commonVoucherPrice, role: GzTextRole.bodyS, color: c.textPrimary)),
+            GzIcon(GzIcons.chevronRight, size: GzIconSize.sm, color: c.iconSecondary),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// What the list becomes while the name search has focus. Empty field: recent searches (the Brief's areas). Typing: the regions and halls
+/// that match (the server folds alef, ya, ta marbuta and tashkeel, so «مشرف» finds Mishref). Choosing an area narrows Results; a hall opens.
+class Typeahead extends ConsumerWidget {
+  const Typeahead({required this.query, required this.brief, required this.onPickArea, required this.onPickVenue, required this.onPickRecent, required this.onClearRecent, super.key});
+
+  final String query;
+  final SearchBrief brief;
+  final ValueChanged<String> onPickArea;
+  final ValueChanged<String> onPickVenue;
+  final ValueChanged<String> onPickRecent;
+  final VoidCallback onClearRecent;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = context.l10n;
+    final c = context.gz.colors;
+    final f = context.gzFormat;
+    final lang = context.gz.locale.languageCode;
+    final areas = ref.watch(areasProvider).value?.areas ?? const <Area>[];
+    Widget row(IconData icon, String text, VoidCallback onTap, {Widget? trailing, Key? key}) => GzPressable(
+      key: key,
+      onPressed: onTap,
+      semanticLabel: text,
+      builder: (context, st) => Container(
+        constraints: const BoxConstraints(minHeight: GzSize.touchMin),
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.gutter, vertical: GzSpace.s2),
+        color: st.pressed ? c.surfaceQuiet : null,
+        child: Row(
+          children: [
+            GzIcon(icon, size: GzIconSize.sm, color: c.iconSecondary),
+            const SizedBox(width: GzSpace.s3),
+            Expanded(child: GzText(text, role: GzTextRole.body, color: c.textPrimary, maxLines: 1, overflow: TextOverflow.ellipsis)),
+            ?trailing,
+          ],
+        ),
+      ),
+    );
+
+    if (query.trim().isEmpty) {
+      final recents = briefAreaNames(areas, brief.areaIds, lang);
+      return Column(
+        key: const ValueKey<String>('discover.typeahead'),
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Align(
+            alignment: AlignmentDirectional.centerEnd,
+            child: Padding(
+              padding: const EdgeInsetsDirectional.only(end: GzSpace.gutter, top: GzSpace.s2),
+              child: GzPressable(
+                onPressed: onClearRecent,
+                semanticLabel: l.clientDiscoverSearchClearRecent,
+                child: Padding(padding: const EdgeInsetsDirectional.symmetric(vertical: GzSpace.s2), child: GzText(l.clientDiscoverSearchClearRecent, role: GzTextRole.caption, color: c.textSecondary)),
+              ),
+            ),
+          ),
+          for (final r in recents) row(GzIcons.clock, r, () => onPickRecent(r)),
+        ],
+      );
+    }
+    final matches = ref.watch(regionSearchProvider(query));
+    return matches.when(
+      loading: () => const SizedBox(height: GzSpace.s16),
+      error: (e, _) => const SizedBox.shrink(),
+      data: (items) {
+        final regions = items.where((m) => m.kind == RegionMatchKind.area).toList();
+        final halls = items.where((m) => m.kind == RegionMatchKind.venue).take(5).toList();
+        if (regions.isEmpty && halls.isEmpty) {
+          return Padding(
+            padding: const EdgeInsetsDirectional.only(top: GzSpace.s4),
+            child: GzEmptyState(illustration: GzIllustrationName.noResult, title: context.gzL10n.commonStateTitleEmptySearch, fill: false),
+          );
+        }
+        return Column(
+          key: const ValueKey<String>('discover.typeahead'),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (final m in regions)
+              row(
+                GzIcons.pin,
+                m.name.of(lang),
+                () => onPickArea(m.id),
+                trailing: GzFactChip(icon: GzIcons.hall, label: l.clientDiscoverResultsTitle, value: f.integer(m.venueCount)),
+                key: ValueKey<String>('discover.match.area.${m.id}'),
+              ),
+            for (final m in halls) row(GzIcons.hall, m.name.of(lang), () => onPickVenue(m.id), key: ValueKey<String>('discover.match.venue.${m.id}')),
+          ],
+        );
+      },
+    );
+  }
+}

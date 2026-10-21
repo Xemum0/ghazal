@@ -93,11 +93,18 @@ class _Branch extends StatelessWidget {
     Widget content = child;
     final s = signal;
     if (s != null) {
-      content = ValueListenableBuilder<int>(valueListenable: s, builder: (context, value, child) => GzScrollToTopSignal(signal: value, child: child!), child: content);
+      content = ValueListenableBuilder<int>(
+        valueListenable: s,
+        builder: (context, value, child) => GzScrollToTopSignal(signal: value, child: child!),
+        child: content,
+      );
     }
     content = ExcludeSemantics(
       excluding: !active,
-      child: IgnorePointer(ignoring: !active, child: TickerMode(enabled: shown, child: content)),
+      child: IgnorePointer(
+        ignoring: !active,
+        child: TickerMode(enabled: shown, child: content),
+      ),
     );
     if (fade != null) content = FadeTransition(opacity: fade!, child: content);
     return Offstage(offstage: !shown, child: content);
@@ -176,12 +183,7 @@ class _GzTabShellState extends ConsumerState<GzTabShell> {
         GzTabBar(
           items: [
             for (final t in tabs)
-              GzTabItem(
-                id: t.id,
-                icon: defs.firstWhere((d) => d.id == t.id).icon,
-                label: widget.labelOf(context, t.id),
-                badge: badges[t.id],
-              ),
+              GzTabItem(id: t.id, icon: defs.firstWhere((d) => d.id == t.id).icon, label: widget.labelOf(context, t.id), badge: badges[t.id]),
           ],
           activeId: tabs[current].id,
           ariaLabel: widget.barLabel,

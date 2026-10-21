@@ -7817,6 +7817,18 @@ abstract class AppL10n {
   /// **'No halls yet. Home shows all.'**
   String get clientOnboardingAreasNoHallsNote;
 
+  /// No description provided for @clientOnboardingLanguageNativeAr.
+  ///
+  /// In en, this message translates to:
+  /// **'العربية'**
+  String get clientOnboardingLanguageNativeAr;
+
+  /// No description provided for @clientOnboardingLanguageNativeEn.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get clientOnboardingLanguageNativeEn;
+
   /// No description provided for @clientPaymentTopTitle.
   ///
   /// In en, this message translates to:

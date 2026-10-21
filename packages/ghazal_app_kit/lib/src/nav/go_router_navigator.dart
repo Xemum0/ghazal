@@ -136,6 +136,31 @@ class GoRouterNavigator extends GzNavigatorBase {
     }
   }
 
+  /// Takes the screens at the top of the stack whose id satisfies [test] off it AT ONCE (the sign-in screens and the gate sheet after a
+  /// sign-in), so the next `push` is made against the stack that is really left. [pop] cannot do this: go_router removes a popped page from
+  /// its configuration only after the page's exit animation, so `pop(); push()` in one go pushes onto the pages that were just popped and
+  /// they come back under the new screen. Only imperative pages (pushed screens and sheets) are removed, never the last one. Returns how
+  /// many were dropped; their `push` futures complete (a sheet's `onClose` runs).
+  int popWhile(bool Function(String id) test) {
+    final delegate = router.routerDelegate;
+    var list = delegate.currentConfiguration;
+    final dropped = <ImperativeRouteMatch>[];
+    while (list.matches.length > 1) {
+      final top = list.matches.last;
+      if (top is! ImperativeRouteMatch || !test(gzScreenIdOf(top.route.name))) break;
+      list = list.remove(top);
+      dropped.add(top);
+    }
+    if (dropped.isEmpty) return 0;
+    delegate.currentConfiguration = list;
+    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+    delegate.notifyListeners();
+    for (final match in dropped) {
+      match.complete(null);
+    }
+    return dropped.length;
+  }
+
   @override
   void replace(String id, {GzParams params = const {}}) {
     if (spec.isTabRoot(id)) {
@@ -160,7 +185,10 @@ class GoRouterNavigator extends GzNavigatorBase {
     if (dropOtherStacks) {
       _stale
         ..clear()
-        ..addAll(<int>[for (var i = 0; i < spec.tabs.length; i++) if (i != branch) i]);
+        ..addAll(<int>[
+          for (var i = 0; i < spec.tabs.length; i++)
+            if (i != branch) i,
+        ]);
     }
     _stale.remove(branch);
     router.goNamed(id, extra: params);

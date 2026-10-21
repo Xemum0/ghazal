@@ -16,10 +16,10 @@ GzParams gzParamsOf(GoRouterState state) {
 /// `pageBuilder: (context, state) => gzScreenPage(state, MyScreen())`. Routes that only give a `builder:` get this page from
 /// `buildGzRouter`.
 Page<T> gzScreenPage<T>(GoRouterState state, Widget child) => GzPage<T>(
-      key: state.pageKey,
-      name: gzScreenIdOf(state.name),
-      child: GzEntryScope(id: gzScreenIdOf(state.name), params: gzParamsOf(state), child: child),
-    );
+  key: state.pageKey,
+  name: gzScreenIdOf(state.name),
+  child: GzEntryScope(id: gzScreenIdOf(state.name), params: gzParamsOf(state), child: child),
+);
 
 /// A sheet page: [GzSheetPage] with the same entry scope. The options of `GzNavigator.openSheet` (title, dismissible) travel in a
 /// [GzSheetExtra]. A sheet that is the first route (the shot harness, a deep link) draws over the canvas and the scrim.
@@ -102,7 +102,8 @@ class GzEntryNavigator implements GzNavigator {
   @override
   String openSheet(String screenId, {GzSheetOptions options = const GzSheetOptions()}) => base.openSheet(screenId, options: options);
   @override
-  String openSheetBuilder(WidgetBuilder builder, {GzSheetOptions options = const GzSheetOptions()}) => base.openSheetBuilder(builder, options: options);
+  String openSheetBuilder(WidgetBuilder builder, {GzSheetOptions options = const GzSheetOptions()}) =>
+      base.openSheetBuilder(builder, options: options);
   @override
   void closeSheet([String? key]) => base.closeSheet(key);
   @override
@@ -114,7 +115,12 @@ class GzEntryNavigator implements GzNavigator {
 
   @override
   bool operator ==(Object other) =>
-      other is GzEntryNavigator && other.base == base && other.id == id && other.canGoBack == canGoBack && other.tabHint == tabHint && identical(other.params, params);
+      other is GzEntryNavigator &&
+      other.base == base &&
+      other.id == id &&
+      other.canGoBack == canGoBack &&
+      other.tabHint == tabHint &&
+      identical(other.params, params);
 
   @override
   int get hashCode => Object.hash(base, id, canGoBack, tabHint, identityHashCode(params));

@@ -12,8 +12,9 @@ final GzLogger _log = GzLogger('wedding-profile');
 
 /// The onboarding answers of a guest (everything optional: the person may stop at any step). Persisted on the device (`gz.state.wedding`)
 /// and sent with `putWeddingProfile` at the first sign-in that finds no profile on the server.
-final NotifierProvider<WeddingDraftNotifier, WeddingProfileInput> weddingDraftProvider =
-    NotifierProvider<WeddingDraftNotifier, WeddingProfileInput>(WeddingDraftNotifier.new);
+final NotifierProvider<WeddingDraftNotifier, WeddingProfileInput> weddingDraftProvider = NotifierProvider<WeddingDraftNotifier, WeddingProfileInput>(
+  WeddingDraftNotifier.new,
+);
 
 class WeddingDraftNotifier extends Notifier<WeddingProfileInput> {
   static const String _key = 'wedding';
@@ -44,17 +45,17 @@ class WeddingDraftNotifier extends Notifier<WeddingProfileInput> {
 
   /// The non-null fields of [b] over [a].
   static WeddingProfileInput merge(WeddingProfileInput a, WeddingProfileInput b) => WeddingProfileInput(
-        role: b.role ?? a.role,
-        brideName: b.brideName ?? a.brideName,
-        partnerName: b.partnerName ?? a.partnerName,
-        weddingDate: b.weddingDate ?? a.weddingDate,
-        dateMode: b.dateMode ?? a.dateMode,
-        guests: b.guests ?? a.guests,
-        venueBudget: b.venueBudget ?? a.venueBudget,
-        totalBudget: b.totalBudget ?? a.totalBudget,
-        areaIds: b.areaIds ?? a.areaIds,
-        searching: b.searching ?? a.searching,
-      );
+    role: b.role ?? a.role,
+    brideName: b.brideName ?? a.brideName,
+    partnerName: b.partnerName ?? a.partnerName,
+    weddingDate: b.weddingDate ?? a.weddingDate,
+    dateMode: b.dateMode ?? a.dateMode,
+    guests: b.guests ?? a.guests,
+    venueBudget: b.venueBudget ?? a.venueBudget,
+    totalBudget: b.totalBudget ?? a.totalBudget,
+    areaIds: b.areaIds ?? a.areaIds,
+    searching: b.searching ?? a.searching,
+  );
 }
 
 /// The couple's wedding profile as the server has it; null when the account has none yet (the empty state of My Wedding). A guest has no
@@ -63,12 +64,19 @@ final AsyncNotifierProvider<WeddingProfileNotifier, WeddingProfile?> weddingProf
     AsyncNotifierProvider<WeddingProfileNotifier, WeddingProfile?>(WeddingProfileNotifier.new);
 
 class WeddingProfileNotifier extends AsyncNotifier<WeddingProfile?> {
+  /// The account whose profile already seeded the Brief: once per account per run, so "Clear all" in the Brief sheet does not bring the
+  /// profile back on the next refetch.
+  String? _seededFor;
+
   @override
   Future<WeddingProfile?> build() async {
-    if (ref.watch(clientUserIdProvider) == null) return null;
+    final userId = ref.watch(clientUserIdProvider);
+    if (userId == null) return null;
     final repo = ref.read(weddingRepositoryProvider);
     try {
-      return await repo.getWeddingProfile();
+      final profile = await repo.getWeddingProfile();
+      _seedBriefOnce(userId, profile);
+      return profile;
     } on ApiProblem catch (e) {
       if (e.code != ApiProblemCode.notFound) rethrow;
       return _syncDraft(repo);
@@ -82,7 +90,7 @@ class WeddingProfileNotifier extends AsyncNotifier<WeddingProfile?> {
     try {
       final created = await repo.putWeddingProfile(body: draft);
       ref.read(weddingDraftProvider.notifier).clear();
-      _seedBrief(created);
+      _seedBriefOnce(ref.read(clientUserIdProvider), created);
       return created;
     } on ApiProblem catch (e) {
       if (e.isTransient) rethrow;
@@ -91,7 +99,17 @@ class WeddingProfileNotifier extends AsyncNotifier<WeddingProfile?> {
     }
   }
 
-  void _seedBrief(WeddingProfile p) => ref.read(searchBriefProvider.notifier).fillBlanks(
+  /// The first profile of this account (sign-in, or the first successful GET): fills the blanks of the Brief. A field the person already
+  /// set is never overwritten (`fillBlanks`), and an account seeds once.
+  void _seedBriefOnce(String? userId, WeddingProfile p) {
+    if (userId == null || _seededFor == userId) return;
+    _seededFor = userId;
+    _seedBrief(p);
+  }
+
+  void _seedBrief(WeddingProfile p) => ref
+      .read(searchBriefProvider.notifier)
+      .fillBlanks(
         SearchBrief.fromWedding(
           weddingDate: p.weddingDate,
           dateMode: p.dateMode,
@@ -108,7 +126,9 @@ class WeddingProfileNotifier extends AsyncNotifier<WeddingProfile?> {
     if (ref.read(clientUserIdProvider) == null) {
       ref.read(weddingDraftProvider.notifier).patch(input);
       final d = ref.read(weddingDraftProvider);
-      ref.read(searchBriefProvider.notifier).fillBlanks(
+      ref
+          .read(searchBriefProvider.notifier)
+          .fillBlanks(
             SearchBrief.fromWedding(
               weddingDate: d.weddingDate,
               dateMode: d.dateMode ?? DateMode.undecided,

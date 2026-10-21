@@ -57,7 +57,9 @@ void main() {
       final memberships = await c.read(partnerMembershipsProvider.future);
       expect(memberships, isNotEmpty);
       expect(memberships.any((m) => m.venueId == 'V01'), isTrue);
-      final switched = await c.read(partnerContextProvider.notifier).switchTo(memberships.first.accountId, venueId: memberships.first.venueId, providerId: memberships.first.providerId);
+      final switched = await c
+          .read(partnerContextProvider.notifier)
+          .switchTo(memberships.first.accountId, venueId: memberships.first.venueId, providerId: memberships.first.providerId);
       expect(switched.isSuccess, isTrue);
       await c.read(sessionProvider.notifier).signOut();
       expect(c.read(partnerContextProvider), isNull);
@@ -211,10 +213,12 @@ void main() {
     });
 
     test('an SLA danger tints the Bookings badge; no one signed in means no badges', () async {
-      final danger = world.container(overrides: [
-        partnerBadgeCountsProvider.overrideWith((ref) async => const PartnerBadgeCounts(pending: 3, unreadMessages: 2, danger: true)),
-        gzTabBadgesProvider.overrideWith((ref) => ref.watch(partnerTabBadgesProvider)),
-      ]);
+      final danger = world.container(
+        overrides: [
+          partnerBadgeCountsProvider.overrideWith((ref) async => const PartnerBadgeCounts(pending: 3, unreadMessages: 2, danger: true)),
+          gzTabBadgesProvider.overrideWith((ref) => ref.watch(partnerTabBadgesProvider)),
+        ],
+      );
       await danger.read(partnerBadgeCountsProvider.future);
       final badges = danger.read(gzTabBadgesProvider);
       expect(badges['bookings']!.tone, GzCountTone.danger);

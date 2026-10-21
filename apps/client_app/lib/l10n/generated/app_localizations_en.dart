@@ -4681,6 +4681,12 @@ class AppL10nEn extends AppL10n {
       'No halls yet. Home shows all.';
 
   @override
+  String get clientOnboardingLanguageNativeAr => 'العربية';
+
+  @override
+  String get clientOnboardingLanguageNativeEn => 'English';
+
+  @override
   String get clientPaymentTopTitle => 'Payment';
 
   @override

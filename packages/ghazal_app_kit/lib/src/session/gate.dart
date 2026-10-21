@@ -50,15 +50,38 @@ class GateNotifier extends Notifier<GateRequest?> {
   }
 }
 
+/// Where the NEXT sign-in lands: a route name with its params, set by the flow before it calls the sign-in (`ref.read(signInLandingProvider
+/// .notifier).set(const GateResume('HL-TODY-01', {'firstRun': true}))`). The session change would otherwise make the router leave the
+/// sign-in screens at once (to the home tab, dropping every param and disposing the screen that started the sign-in); with a landing set,
+/// the router goes straight to it in that same navigation, params included, and clears it. `SessionNotifier.completeGate` honours it too.
+final NotifierProvider<SignInLandingNotifier, GateResume?> signInLandingProvider = NotifierProvider<SignInLandingNotifier, GateResume?>(
+  SignInLandingNotifier.new,
+);
+
+class SignInLandingNotifier extends Notifier<GateResume?> {
+  @override
+  GateResume? build() => null;
+
+  /// Names where the next sign-in lands.
+  void set(GateResume landing) => state = landing;
+
+  /// Forgets it (the flow was abandoned).
+  void clear() => state = null;
+
+  /// Takes the landing: returns it and clears it, so it is used once.
+  GateResume? take() {
+    final landing = state;
+    state = null;
+    return landing;
+  }
+}
+
 bool _requireSignIn(AppSession session, GateNotifier gate, GzNavigator Function() navigator, GateReason reason, GateResume? resume) {
   if (session.isSignedIn) return true;
   gate.open(reason, resume);
   navigator().openSheet(
     kGateSheetId,
-    options: GzSheetOptions(
-      params: <String, Object?>{'reason': reason.wire, if (resume != null) 'resume': resume.routeName},
-      onClose: gate.dismiss,
-    ),
+    options: GzSheetOptions(params: <String, Object?>{'reason': reason.wire, if (resume != null) 'resume': resume.routeName}, onClose: gate.dismiss),
   );
   return false;
 }

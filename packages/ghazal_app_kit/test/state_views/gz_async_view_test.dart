@@ -9,19 +9,19 @@ import 'package:ghazal_core/ghazal_core.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 Widget host(Widget child, {Locale locale = const Locale('en'), bool reduced = false}) => MediaQuery(
-      data: MediaQueryData(size: const Size(390, 844), disableAnimations: reduced),
-      child: Directionality(
-        textDirection: locale.languageCode == 'ar' ? TextDirection.rtl : TextDirection.ltr,
-        child: GzTheme(
-          locale: locale,
-          child: Localizations(
-            locale: locale,
-            delegates: const [GzL10n.delegate, DefaultWidgetsLocalizations.delegate],
-            child: SizedBox(width: 390, height: 844, child: child),
-          ),
-        ),
+  data: MediaQueryData(size: const Size(390, 844), disableAnimations: reduced),
+  child: Directionality(
+    textDirection: locale.languageCode == 'ar' ? TextDirection.rtl : TextDirection.ltr,
+    child: GzTheme(
+      locale: locale,
+      child: Localizations(
+        locale: locale,
+        delegates: const [GzL10n.delegate, DefaultWidgetsLocalizations.delegate],
+        child: SizedBox(width: 390, height: 844, child: child),
       ),
-    );
+    ),
+  ),
+);
 
 const _slotProblem = ApiProblem(status: 409, code: ApiProblemCode.slotUnavailable);
 
@@ -38,17 +38,28 @@ void main() {
   });
 
   testWidgets('data builds the content; isEmpty switches to the empty state, default or given', (tester) async {
-    await tester.pumpWidget(host(GzAsyncView<List<int>>(value: const AsyncData([1, 2]), data: (d) => Text('count ${d.length}'), isEmpty: (d) => d.isEmpty)));
+    await tester.pumpWidget(
+      host(GzAsyncView<List<int>>(value: const AsyncData([1, 2]), data: (d) => Text('count ${d.length}'), isEmpty: (d) => d.isEmpty)),
+    );
     expect(find.text('count 2'), findsOneWidget);
 
-    await tester.pumpWidget(host(GzAsyncView<List<int>>(value: const AsyncData(<int>[]), data: (d) => Text('count ${d.length}'), isEmpty: (d) => d.isEmpty)));
+    await tester.pumpWidget(
+      host(GzAsyncView<List<int>>(value: const AsyncData(<int>[]), data: (d) => Text('count ${d.length}'), isEmpty: (d) => d.isEmpty)),
+    );
     await tester.pump(const Duration(milliseconds: 300));
     expect(find.byType(GzEmptyState), findsOneWidget);
     expect(find.text('Nothing here'), findsOneWidget);
     expect(find.textContaining('count'), findsNothing);
 
     await tester.pumpWidget(
-      host(GzAsyncView<List<int>>(value: const AsyncData(<int>[]), data: (d) => const SizedBox(), isEmpty: (d) => d.isEmpty, empty: const Text('no venues'))),
+      host(
+        GzAsyncView<List<int>>(
+          value: const AsyncData(<int>[]),
+          data: (d) => const SizedBox(),
+          isEmpty: (d) => d.isEmpty,
+          empty: const Text('no venues'),
+        ),
+      ),
     );
     await tester.pump(const Duration(milliseconds: 300));
     expect(find.text('no venues'), findsOneWidget);
@@ -68,7 +79,10 @@ void main() {
 
   testWidgets('the error sentence is Arabic in Arabic', (tester) async {
     await tester.pumpWidget(
-      host(GzAsyncView<int>(value: AsyncError<int>(_slotProblem, StackTrace.empty), data: (d) => Text('$d')), locale: const Locale('ar')),
+      host(
+        GzAsyncView<int>(value: AsyncError<int>(_slotProblem, StackTrace.empty), data: (d) => Text('$d')),
+        locale: const Locale('ar'),
+      ),
     );
     expect(tester.widget<GzErrorState>(find.byType(GzErrorState)).body, 'هذا التاريخ لم يعد متاحاً. يُرجى تحديد تاريخ آخر.');
     expect(find.text('تعذّر التحميل'), findsOneWidget); // the title
@@ -107,7 +121,12 @@ void main() {
   });
 
   testWidgets('states cross-fade: both are present part-way, only the new one after 200 ms', (tester) async {
-    Widget view(AsyncValue<int> v) => host(GzAsyncView<int>(value: v, data: (d) => Text('value $d', key: const ValueKey('data'))));
+    Widget view(AsyncValue<int> v) => host(
+      GzAsyncView<int>(
+        value: v,
+        data: (d) => Text('value $d', key: const ValueKey('data')),
+      ),
+    );
     await tester.pumpWidget(view(const AsyncLoading<int>()));
     await tester.pumpWidget(view(const AsyncData(7)));
     await tester.pump(const Duration(milliseconds: 60));

@@ -1,4 +1,3 @@
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,25 +9,25 @@ import 'package:ghazal_ui/ghazal_ui.dart';
 import '../data/kit_world.dart';
 
 Widget host(Widget child, ProviderContainer container, {Locale locale = const Locale('en')}) => UncontrolledProviderScope(
-      container: container,
-      child: MediaQuery(
-        data: const MediaQueryData(size: Size(390, 844)),
-        child: Directionality(
-          textDirection: locale.languageCode == 'ar' ? TextDirection.rtl : TextDirection.ltr,
-          child: GzTheme(
+  container: container,
+  child: MediaQuery(
+    data: const MediaQueryData(size: Size(390, 844)),
+    child: Directionality(
+      textDirection: locale.languageCode == 'ar' ? TextDirection.rtl : TextDirection.ltr,
+      child: GzTheme(
+        locale: locale,
+        child: GzFormatScope(
+          format: container.read(gzFormatProvider),
+          child: Localizations(
             locale: locale,
-            child: GzFormatScope(
-              format: container.read(gzFormatProvider),
-              child: Localizations(
-                locale: locale,
-                delegates: const [GzL10n.delegate, DefaultWidgetsLocalizations.delegate],
-                child: SizedBox(width: 390, height: 844, child: child),
-              ),
-            ),
+            delegates: const [GzL10n.delegate, DefaultWidgetsLocalizations.delegate],
+            child: SizedBox(width: 390, height: 844, child: child),
           ),
         ),
       ),
-    );
+    ),
+  ),
+);
 
 void main() {
   late KitWorld world;
@@ -42,7 +41,9 @@ void main() {
     await tester.pumpWidget(
       Directionality(
         textDirection: TextDirection.ltr,
-        child: Stack(children: [GzDemoHotspot(onActivated: () => opened++, now: () => now)]),
+        child: Stack(
+          children: [GzDemoHotspot(onActivated: () => opened++, now: () => now)],
+        ),
       ),
     );
     final spot = find.byType(GzDemoHotspot);
@@ -62,7 +63,12 @@ void main() {
 
   testWidgets('the hotspot sits at the top-start corner in both directions', (tester) async {
     for (final dir in [TextDirection.ltr, TextDirection.rtl]) {
-      await tester.pumpWidget(Directionality(textDirection: dir, child: Stack(children: [GzDemoHotspot(onActivated: () {})])));
+      await tester.pumpWidget(
+        Directionality(
+          textDirection: dir,
+          child: Stack(children: [GzDemoHotspot(onActivated: () {})]),
+        ),
+      );
       final rect = tester.getRect(find.descendant(of: find.byType(GzDemoHotspot), matching: find.byType(SizedBox)).first);
       expect(rect.top, 0);
       if (dir == TextDirection.ltr) {
@@ -77,7 +83,18 @@ void main() {
     final c = world.container();
     await tester.pumpWidget(host(const GzDemoToolsSheet(), c));
     await tester.pump();
-    for (final label in ['Guest', 'Reem', 'Hotel manager', 'Service provider', 'Slow', 'Offline', 'Awaiting reply', 'Forfeited', 'Advance one day', 'Reset the story']) {
+    for (final label in [
+      'Guest',
+      'Reem',
+      'Hotel manager',
+      'Service provider',
+      'Slow',
+      'Offline',
+      'Awaiting reply',
+      'Forfeited',
+      'Advance one day',
+      'Reset the story',
+    ]) {
       expect(find.text(label), findsWidgets, reason: label);
     }
     expect(find.text('In-process mock'), findsOneWidget);

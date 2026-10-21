@@ -53,5 +53,7 @@
   "clientOnboardingAreasSelected": "{count, plural, =0{No areas selected} one{# area selected} other{# areas selected}}",
   "clientOnboardingAreasDemoQuery": "Mish",
   "clientOnboardingAreasMore": "{count, plural, =0{No more areas} one{# more area} other{# more areas}}",
-  "clientOnboardingAreasNoHallsNote": "No halls yet. Home shows all."
+  "clientOnboardingAreasNoHallsNote": "No halls yet. Home shows all.",
+  "clientOnboardingLanguageNativeAr": "العربية",
+  "clientOnboardingLanguageNativeEn": "English"
 }

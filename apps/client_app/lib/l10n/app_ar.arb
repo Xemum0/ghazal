@@ -2351,6 +2351,8 @@
     }
   },
   "clientOnboardingAreasNoHallsNote": "لا قاعات هنا. تظهر كل القاعات.",
+  "clientOnboardingLanguageNativeAr": "العربية",
+  "clientOnboardingLanguageNativeEn": "English",
   "clientPaymentTopTitle": "الدفع",
   "clientPaymentSave": "توفير {amount}",
   "@clientPaymentSave": {

@@ -1,18 +1,16 @@
 // The client app's router composition and tab shell on the real inventory: tab bar present or absent exactly as the web chrome says
-// (`chromeFor`), through the real `buildAppRouter`, the stub screens and the shared shell.
+// (`chromeFor`), through the real `buildAppRouter`, the built screens (a stub for the rest) and the shared shell.
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart';
-import 'package:ghazal_testing/ghazal_testing.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
-import 'package:client_app/app/app.dart';
 import 'package:client_app/app/app_router.dart';
 import 'package:client_app/app/screen_registry.dart';
 
-Future<void> open(WidgetTester tester, String id, {Locale locale = const Locale('en')}) async {
-  await GzHarness.pump(tester, app: const ClientApp(), locale: locale, overrides: <Override>[clientRouterOverride(initialLocation: kScreenRegistry[id]!.path)]);
-}
+import 'support/flow_world.dart';
+
+Future<void> open(WidgetTester tester, String id, {Locale locale = const Locale('en')}) => openScreen(tester, id, locale: locale);
 
 bool get barVisible => find.byType(GzTabBar).hitTestable().evaluate().isNotEmpty;
 
@@ -31,9 +29,9 @@ void main() {
     ('CL-MSGS-02', false, null), // chat composer
   ];
   for (final c in cases) {
-    testWidgets('${c.$1}: tab bar ${c.$2 ? 'present' : 'absent'}', (tester) async {
+    flowTest('${c.$1}: tab bar ${c.$2 ? 'present' : 'absent'}', (tester) async {
       await open(tester, c.$1);
-      expect(find.text(c.$1), findsWidgets, reason: 'the stub of ${c.$1} is on screen');
+      expect(nav(tester).currentId, c.$1, reason: '${c.$1} is the screen on top');
       expect(barVisible, c.$2);
       if (c.$3 != null) {
         expect(tester.widget<GzTabBar>(find.byType(GzTabBar)).activeId, c.$3);
@@ -41,7 +39,7 @@ void main() {
     });
   }
 
-  testWidgets('the five client tabs are in inventory order and mirror in Arabic', (tester) async {
+  flowTest('the five client tabs are in inventory order and mirror in Arabic', (tester) async {
     await open(tester, 'CL-DISC-01', locale: const Locale('ar'));
     final bar = tester.widget<GzTabBar>(find.byType(GzTabBar));
     expect(bar.items.map((i) => i.id), <String>['discover', 'saved', 'my-wedding', 'messages', 'profile']);

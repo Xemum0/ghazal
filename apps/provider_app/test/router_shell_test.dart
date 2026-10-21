@@ -3,35 +3,16 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart';
-import 'package:ghazal_domain/ghazal_domain.dart' show PartnerAccountType, StaffRole;
-import 'package:ghazal_testing/ghazal_testing.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
-import 'package:provider_app/app/app.dart';
 import 'package:provider_app/app/app_router.dart';
 import 'package:provider_app/app/screen_registry.dart';
 
-class _SignedInManager extends SessionNotifier {
-  @override
-  AppSession build() => const PartnerSession(
-        user: AuthUser(id: 'u-hind', name: 'Hind', phone: '+96550000001', monogram: 'H'),
-        accountType: PartnerAccountType.venue,
-        role: StaffRole.manager,
-        venueId: 'V01',
-      );
-}
+import 'support/flow_world.dart';
 
-Future<void> open(WidgetTester tester, String id, {Locale locale = const Locale('en'), bool signedIn = true}) async {
-  await GzHarness.pump(
-    tester,
-    app: const ProviderApp(),
-    locale: locale,
-    overrides: <Override>[
-      partnerRouterOverride(initialLocation: kScreenRegistry[id]!.path),
-      if (signedIn) sessionProvider.overrideWith(_SignedInManager.new),
-    ],
-  );
-}
+/// [signedIn] false opens as a guest (the access flow is public, a tab screen is not).
+Future<void> open(WidgetTester tester, String id, {Locale locale = const Locale('en'), bool signedIn = true}) =>
+    openScreen(tester, id, locale: locale, persona: signedIn ? 'hotel_manager' : 'guest');
 
 bool get barVisible => find.byType(GzTabBar).hitTestable().evaluate().isNotEmpty;
 
@@ -47,27 +28,27 @@ void main() {
     ('HL-DCSN-01', false, null), // sheet
   ];
   for (final c in cases) {
-    testWidgets('${c.$1}: tab bar ${c.$2 ? 'present' : 'absent'}', (tester) async {
+    flowTest('${c.$1}: tab bar ${c.$2 ? 'present' : 'absent'}', (tester) async {
       await open(tester, c.$1);
-      expect(find.text(c.$1), findsWidgets);
+      expect(nav(tester).currentId, c.$1, reason: '${c.$1} is the screen on top');
       expect(barVisible, c.$2);
       if (c.$3 != null) expect(tester.widget<GzTabBar>(find.byType(GzTabBar)).activeId, c.$3);
     });
   }
 
-  testWidgets('a signed-in manager opening the access screen goes to Today', (tester) async {
+  flowTest('a signed-in manager opening the access screen goes to Today', (tester) async {
     await open(tester, 'HL-ACCS-01');
-    expect(find.text('HL-TODY-01'), findsWidgets);
+    expect(nav(tester).currentId, 'HL-TODY-01');
     expect(barVisible, isTrue);
   });
 
-  testWidgets('a signed-out person asking for a tab screen lands on the access flow', (tester) async {
+  flowTest('a signed-out person asking for a tab screen lands on the access flow', (tester) async {
     await open(tester, 'HL-TODY-01', signedIn: false);
-    expect(find.text('HL-ACCS-01'), findsWidgets);
+    expect(nav(tester).currentId, 'HL-ACCS-01');
     expect(barVisible, isFalse);
   });
 
-  testWidgets('the five partner tabs are in inventory order and mirror in Arabic', (tester) async {
+  flowTest('the five partner tabs are in inventory order and mirror in Arabic', (tester) async {
     await open(tester, 'HL-TODY-01', locale: const Locale('ar'));
     final bar = tester.widget<GzTabBar>(find.byType(GzTabBar));
     expect(bar.items.map((i) => i.id), <String>['today', 'bookings', 'calendar', 'messages', 'more']);

@@ -2351,6 +2351,8 @@
     }
   },
   "clientOnboardingAreasNoHallsNote": "No halls yet. Home shows all.",
+  "clientOnboardingLanguageNativeAr": "العربية",
+  "clientOnboardingLanguageNativeEn": "English",
   "clientPaymentTopTitle": "Payment",
   "clientPaymentSave": "Save {amount}",
   "@clientPaymentSave": {
