@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // The visible text of every prototype screen, for the content parity check (tools/parity/content.mjs).
 //   node tools/parity/web-text.mjs [--only ID,ID] [--app client|hotel] [--lang ar|en|both] [--force]
-// Output: design/.shots/text/<id>.<lang>.json  { id, lang, texts: [...] }  (the whole frame: height auto, so nothing is below a fold).
+// Output: design/.shots/text/<id>.<lang>.json  { id, lang, texts: [...] }  (the whole frame: the DOM holds all of a screen's content, scrolled or not).
 // Text nodes in DOM order inside [data-gz-route], without the status bar, without anything hidden (display none, visibility hidden, zero
 // size) or visually hidden for screen readers (.gz-sr-only, clip rect): those texts are not drawn, so Flutter draws no twin of them.
 // The same cleaning as ShotHealth.clean in packages/ghazal_testing: isolates and no-break spaces out, white space collapsed.
@@ -44,8 +44,8 @@ try {
       const file = join(outDir, `${it.id}.${lang}.json`)
       if (!force && existsSync(file)) { skipped++; continue }
       await page.goto('about:blank')
-      await page.goto(`${origin}/#/frame/${encodeURIComponent(it.id)}?lang=${lang}&w=390&h=auto&story=${storyFor(it)}`, { waitUntil: 'networkidle' })
-      await page.waitForSelector('[data-gz-route]', { timeout: 15_000 })
+      await page.goto(`${origin}/#/frame/${encodeURIComponent(it.id)}?lang=${lang}&w=390&story=${storyFor(it)}`, { waitUntil: 'networkidle' })
+      await page.waitForSelector('[data-gz-route]', { state: 'attached', timeout: 15_000 })
       await page.waitForFunction(() => !document.querySelector('.gz-shell-loading'), null, { timeout: 15_000 })
       await page.evaluate(() => document.fonts && document.fonts.ready)
       await sleep(500)
