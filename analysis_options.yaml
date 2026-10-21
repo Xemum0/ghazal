@@ -21,6 +21,10 @@ analyzer:
     - 'packages/i18n/**'
     - 'tools/**'
 
+# `dart format` at the width the code is written in (an agent that formats without it rewraps whole files at 80 columns)
+formatter:
+  page_width: 150
+
 linter:
   rules:
     - avoid_print
