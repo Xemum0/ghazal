@@ -1399,6 +1399,120 @@ abstract class GzL10n {
   /// **'Up to {size} MB per video'**
   String commonVideoLimit(String size);
 
+  /// No description provided for @uiInputsOtpGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification code'**
+  String get uiInputsOtpGroup;
+
+  /// No description provided for @uiInputsOtpCell.
+  ///
+  /// In en, this message translates to:
+  /// **'Digit {n} of {total}'**
+  String uiInputsOtpCell(String n, String total);
+
+  /// No description provided for @uiInputsPhoneCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Country code'**
+  String get uiInputsPhoneCountry;
+
+  /// No description provided for @uiInputsPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile number'**
+  String get uiInputsPhoneNumber;
+
+  /// No description provided for @uiInputsStepperIncrease.
+  ///
+  /// In en, this message translates to:
+  /// **'Increase'**
+  String get uiInputsStepperIncrease;
+
+  /// No description provided for @uiInputsStepperDecrease.
+  ///
+  /// In en, this message translates to:
+  /// **'Decrease'**
+  String get uiInputsStepperDecrease;
+
+  /// No description provided for @uiInputsRangeMinimum.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum'**
+  String get uiInputsRangeMinimum;
+
+  /// No description provided for @uiInputsRangeMaximum.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum'**
+  String get uiInputsRangeMaximum;
+
+  /// No description provided for @uiInputsSelectChoose.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose'**
+  String get uiInputsSelectChoose;
+
+  /// No description provided for @uiInputsSelectCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} selected'**
+  String uiInputsSelectCount(String n);
+
+  /// No description provided for @uiInputsSelectNoResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No matches'**
+  String get uiInputsSelectNoResults;
+
+  /// No description provided for @uiInputsCalendarStartDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start date'**
+  String get uiInputsCalendarStartDate;
+
+  /// No description provided for @uiInputsCalendarEndDate.
+  ///
+  /// In en, this message translates to:
+  /// **'End date'**
+  String get uiInputsCalendarEndDate;
+
+  /// No description provided for @uiInputsCalendarHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the arrow keys to move between days.'**
+  String get uiInputsCalendarHint;
+
+  /// No description provided for @uiInputsCalendarPriceBasis.
+  ///
+  /// In en, this message translates to:
+  /// **'{currency} · {unit}'**
+  String uiInputsCalendarPriceBasis(String currency, String unit);
+
+  /// No description provided for @uiInputsDateFieldRange.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} to {to}'**
+  String uiInputsDateFieldRange(String from, String to);
+
+  /// No description provided for @uiInputsDateFieldChooseDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a date'**
+  String get uiInputsDateFieldChooseDate;
+
+  /// No description provided for @uiInputsDateFieldChooseDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose dates'**
+  String get uiInputsDateFieldChooseDates;
+
+  /// No description provided for @uiInputsSlotSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Session'**
+  String get uiInputsSlotSession;
+
   /// No description provided for @stubNotBuilt.
   ///
   /// In en, this message translates to:

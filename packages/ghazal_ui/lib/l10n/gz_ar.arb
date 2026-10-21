@@ -461,5 +461,61 @@
       }
     }
   },
+  "uiInputsOtpGroup": "رمز التحقق",
+  "uiInputsOtpCell": "الخانة {n} من {total}",
+  "@uiInputsOtpCell": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "uiInputsPhoneCountry": "رمز الدولة",
+  "uiInputsPhoneNumber": "رقم الجوال",
+  "uiInputsStepperIncrease": "زيادة",
+  "uiInputsStepperDecrease": "إنقاص",
+  "uiInputsRangeMinimum": "الحد الأدنى",
+  "uiInputsRangeMaximum": "الحد الأقصى",
+  "uiInputsSelectChoose": "اختيار",
+  "uiInputsSelectCount": "تم اختيار {n}",
+  "@uiInputsSelectCount": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiInputsSelectNoResults": "لا توجد نتائج",
+  "uiInputsCalendarStartDate": "تاريخ البداية",
+  "uiInputsCalendarEndDate": "تاريخ النهاية",
+  "uiInputsCalendarHint": "استخدم مفاتيح الأسهم للتنقل بين الأيام.",
+  "uiInputsCalendarPriceBasis": "{currency} · {unit}",
+  "@uiInputsCalendarPriceBasis": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "uiInputsDateFieldRange": "من {from} إلى {to}",
+  "@uiInputsDateFieldRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "uiInputsDateFieldChooseDate": "اختيار التاريخ",
+  "uiInputsDateFieldChooseDates": "اختيار التواريخ",
+  "uiInputsSlotSession": "الفترة",
   "stubNotBuilt": "لم تُبنَ بعد"
 }

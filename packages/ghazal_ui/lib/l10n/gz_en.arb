@@ -461,5 +461,61 @@
       }
     }
   },
+  "uiInputsOtpGroup": "Verification code",
+  "uiInputsOtpCell": "Digit {n} of {total}",
+  "@uiInputsOtpCell": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "uiInputsPhoneCountry": "Country code",
+  "uiInputsPhoneNumber": "Mobile number",
+  "uiInputsStepperIncrease": "Increase",
+  "uiInputsStepperDecrease": "Decrease",
+  "uiInputsRangeMinimum": "Minimum",
+  "uiInputsRangeMaximum": "Maximum",
+  "uiInputsSelectChoose": "Choose",
+  "uiInputsSelectCount": "{n} selected",
+  "@uiInputsSelectCount": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiInputsSelectNoResults": "No matches",
+  "uiInputsCalendarStartDate": "Start date",
+  "uiInputsCalendarEndDate": "End date",
+  "uiInputsCalendarHint": "Use the arrow keys to move between days.",
+  "uiInputsCalendarPriceBasis": "{currency} · {unit}",
+  "@uiInputsCalendarPriceBasis": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "uiInputsDateFieldRange": "{from} to {to}",
+  "@uiInputsDateFieldRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "uiInputsDateFieldChooseDate": "Choose a date",
+  "uiInputsDateFieldChooseDates": "Choose dates",
+  "uiInputsSlotSession": "Session",
   "stubNotBuilt": "Not built yet"
 }

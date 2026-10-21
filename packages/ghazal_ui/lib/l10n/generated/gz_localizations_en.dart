@@ -953,5 +953,70 @@ class GzL10nEn extends GzL10n {
   }
 
   @override
+  String get uiInputsOtpGroup => 'Verification code';
+
+  @override
+  String uiInputsOtpCell(String n, String total) {
+    return 'Digit $n of $total';
+  }
+
+  @override
+  String get uiInputsPhoneCountry => 'Country code';
+
+  @override
+  String get uiInputsPhoneNumber => 'Mobile number';
+
+  @override
+  String get uiInputsStepperIncrease => 'Increase';
+
+  @override
+  String get uiInputsStepperDecrease => 'Decrease';
+
+  @override
+  String get uiInputsRangeMinimum => 'Minimum';
+
+  @override
+  String get uiInputsRangeMaximum => 'Maximum';
+
+  @override
+  String get uiInputsSelectChoose => 'Choose';
+
+  @override
+  String uiInputsSelectCount(String n) {
+    return '$n selected';
+  }
+
+  @override
+  String get uiInputsSelectNoResults => 'No matches';
+
+  @override
+  String get uiInputsCalendarStartDate => 'Start date';
+
+  @override
+  String get uiInputsCalendarEndDate => 'End date';
+
+  @override
+  String get uiInputsCalendarHint => 'Use the arrow keys to move between days.';
+
+  @override
+  String uiInputsCalendarPriceBasis(String currency, String unit) {
+    return '$currency · $unit';
+  }
+
+  @override
+  String uiInputsDateFieldRange(String from, String to) {
+    return '$from to $to';
+  }
+
+  @override
+  String get uiInputsDateFieldChooseDate => 'Choose a date';
+
+  @override
+  String get uiInputsDateFieldChooseDates => 'Choose dates';
+
+  @override
+  String get uiInputsSlotSession => 'Session';
+
+  @override
   String get stubNotBuilt => 'Not built yet';
 }

@@ -171,4 +171,10 @@ final Map<String, String Function(GzL10n)> kL10nCalls = <String, String Function
   "commonVoucherConfirmIn24h#5": (l) => l.commonVoucherConfirmIn24h(100),
   "commonStaffInvitedByEmail#0": (l) => l.commonStaffInvitedByEmail,
   "commonVideoLimit#0": (l) => l.commonVideoLimit("Sample"),
+  "uiInputsOtpCell#0": (l) => l.uiInputsOtpCell("Sample", "Sample"),
+  "uiInputsRangeMinimum#0": (l) => l.uiInputsRangeMinimum,
+  "uiInputsSelectCount#0": (l) => l.uiInputsSelectCount("Sample"),
+  "uiInputsCalendarPriceBasis#0": (l) => l.uiInputsCalendarPriceBasis("Sample", "Sample"),
+  "uiInputsDateFieldRange#0": (l) => l.uiInputsDateFieldRange("Sample", "Sample"),
+  "uiInputsDateFieldChooseDates#0": (l) => l.uiInputsDateFieldChooseDates,
 };

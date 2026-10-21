@@ -1,0 +1,21 @@
+{
+  "uiInputsOtpGroup": "Verification code",
+  "uiInputsOtpCell": "Digit {n} of {total}",
+  "uiInputsPhoneCountry": "Country code",
+  "uiInputsPhoneNumber": "Mobile number",
+  "uiInputsStepperIncrease": "Increase",
+  "uiInputsStepperDecrease": "Decrease",
+  "uiInputsRangeMinimum": "Minimum",
+  "uiInputsRangeMaximum": "Maximum",
+  "uiInputsSelectChoose": "Choose",
+  "uiInputsSelectCount": "{n} selected",
+  "uiInputsSelectNoResults": "No matches",
+  "uiInputsCalendarStartDate": "Start date",
+  "uiInputsCalendarEndDate": "End date",
+  "uiInputsCalendarHint": "Use the arrow keys to move between days.",
+  "uiInputsCalendarPriceBasis": "{currency} · {unit}",
+  "uiInputsDateFieldRange": "{from} to {to}",
+  "uiInputsDateFieldChooseDate": "Choose a date",
+  "uiInputsDateFieldChooseDates": "Choose dates",
+  "uiInputsSlotSession": "Session"
+}

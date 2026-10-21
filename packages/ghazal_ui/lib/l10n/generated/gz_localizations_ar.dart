@@ -1015,5 +1015,70 @@ class GzL10nAr extends GzL10n {
   }
 
   @override
+  String get uiInputsOtpGroup => 'رمز التحقق';
+
+  @override
+  String uiInputsOtpCell(String n, String total) {
+    return 'الخانة $n من $total';
+  }
+
+  @override
+  String get uiInputsPhoneCountry => 'رمز الدولة';
+
+  @override
+  String get uiInputsPhoneNumber => 'رقم الجوال';
+
+  @override
+  String get uiInputsStepperIncrease => 'زيادة';
+
+  @override
+  String get uiInputsStepperDecrease => 'إنقاص';
+
+  @override
+  String get uiInputsRangeMinimum => 'الحد الأدنى';
+
+  @override
+  String get uiInputsRangeMaximum => 'الحد الأقصى';
+
+  @override
+  String get uiInputsSelectChoose => 'اختيار';
+
+  @override
+  String uiInputsSelectCount(String n) {
+    return 'تم اختيار $n';
+  }
+
+  @override
+  String get uiInputsSelectNoResults => 'لا توجد نتائج';
+
+  @override
+  String get uiInputsCalendarStartDate => 'تاريخ البداية';
+
+  @override
+  String get uiInputsCalendarEndDate => 'تاريخ النهاية';
+
+  @override
+  String get uiInputsCalendarHint => 'استخدم مفاتيح الأسهم للتنقل بين الأيام.';
+
+  @override
+  String uiInputsCalendarPriceBasis(String currency, String unit) {
+    return '$currency · $unit';
+  }
+
+  @override
+  String uiInputsDateFieldRange(String from, String to) {
+    return 'من $from إلى $to';
+  }
+
+  @override
+  String get uiInputsDateFieldChooseDate => 'اختيار التاريخ';
+
+  @override
+  String get uiInputsDateFieldChooseDates => 'اختيار التواريخ';
+
+  @override
+  String get uiInputsSlotSession => 'الفترة';
+
+  @override
   String get stubNotBuilt => 'لم تُبنَ بعد';
 }

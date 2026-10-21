@@ -1,0 +1,21 @@
+{
+  "uiInputsOtpGroup": "رمز التحقق",
+  "uiInputsOtpCell": "الخانة {n} من {total}",
+  "uiInputsPhoneCountry": "رمز الدولة",
+  "uiInputsPhoneNumber": "رقم الجوال",
+  "uiInputsStepperIncrease": "زيادة",
+  "uiInputsStepperDecrease": "إنقاص",
+  "uiInputsRangeMinimum": "الحد الأدنى",
+  "uiInputsRangeMaximum": "الحد الأقصى",
+  "uiInputsSelectChoose": "اختيار",
+  "uiInputsSelectCount": "تم اختيار {n}",
+  "uiInputsSelectNoResults": "لا توجد نتائج",
+  "uiInputsCalendarStartDate": "تاريخ البداية",
+  "uiInputsCalendarEndDate": "تاريخ النهاية",
+  "uiInputsCalendarHint": "استخدم مفاتيح الأسهم للتنقل بين الأيام.",
+  "uiInputsCalendarPriceBasis": "{currency} · {unit}",
+  "uiInputsDateFieldRange": "من {from} إلى {to}",
+  "uiInputsDateFieldChooseDate": "اختيار التاريخ",
+  "uiInputsDateFieldChooseDates": "اختيار التواريخ",
+  "uiInputsSlotSession": "الفترة"
+}

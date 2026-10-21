@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 // Reference renders of the web design-system galleries, one PNG per section, for the component parity loop (plan section 6).
-//   node tools/parity/gallery-ref.mjs [--pages core,inputs,nav,client,hotel,charts,voucher] [--lang ar|en|both] [--w 390] [--force]
+//   node tools/parity/gallery-ref.mjs [--pages core,inputs,nav,client,hotel,charts,voucher] [--lang ar|en|both] [--w 390] [--force] [--live]
+// --live: motion on, each section scrolled into view and given time to finish its reveal (charts draw and fade in after a delay, so a
+//   reduced-motion capture lacks the delayed layers: area tints, end beads, dashed series, rings). Use it with --force for those pages.
 // Output: design/.shots/ref/galleries/<page>/<NN>-<slug>.<lang>.png (+ index.json: page, lang, sections[{n, title, file, w, h}]).
 // Sections are the elements marked [data-gz-section]; a page without markers falls back to its top-level <section> blocks, then to
 // the direct children of the gallery root. Element screenshots are taken at scale 2 (390 wide gives 780 px wide PNGs), which is the
 // size the Flutter gallery harness (packages/ghazal_testing) renders, so tools/parity/parity.mjs can compare them with --ref/--flutter.
 import { createRequire } from 'node:module'
 import { spawn } from 'node:child_process'
-import { closeSync, existsSync, mkdirSync, openSync, writeFileSync } from 'node:fs'
+import { closeSync, existsSync, mkdirSync, openSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { checkService, computePort, repoRoot, resolveSlot } from '../ports.mjs'
 
@@ -19,6 +21,7 @@ for (let i = 0; i < args.length; i++) {
   if (a === '--') continue
   const k = a.slice(2)
   if (k === 'force') opt.force = true
+  else if (k === 'live') opt.live = true
   else if (['pages', 'lang', 'w', 'slot'].includes(k)) opt[k] = args[++i]
   else { console.error(`unknown flag ${a}`); process.exit(64) }
 }
@@ -46,7 +49,7 @@ const out = join(repoRoot, 'design/.shots/ref/galleries')
 const index = []
 try {
   for (const lang of langs) {
-    const ctx = await browser.newContext({ viewport: { width: W, height: 900 }, deviceScaleFactor: 2, reducedMotion: 'reduce', locale: lang === 'ar' ? 'ar' : 'en-US' })
+    const ctx = await browser.newContext({ viewport: { width: W, height: 900 }, deviceScaleFactor: 2, reducedMotion: opt.live ? 'no-preference' : 'reduce', locale: lang === 'ar' ? 'ar' : 'en-US' })
     const page = await ctx.newPage()
     const errors = []
     page.on('pageerror', e => errors.push(String(e.message).slice(0, 160)))
@@ -78,7 +81,8 @@ try {
         const dest = join(dir, file)
         const box = await loc.boundingBox()
         if (!box || box.height < 8) continue
-        if (opt.force || !existsSync(dest)) await loc.screenshot({ path: dest, animations: 'disabled' })
+        if (opt.live) { await loc.scrollIntoViewIfNeeded(); await sleep(1800) }
+        if (opt.force || !existsSync(dest)) await loc.screenshot({ path: dest, animations: opt.live ? 'allow' : 'disabled' })
         sections.push({ n: i + 1, title, file, w: Math.round(box.width), h: Math.round(box.height) })
       }
       index.push({ page: name, lang, sections: sections.length, items: sections, errors })
@@ -89,5 +93,13 @@ try {
 } finally {
   await browser.close()
 }
-writeFileSync(join(out, 'index.json'), JSON.stringify(index, null, 1))
+// Merge into the existing index: a run for some pages must not drop the entries of the others.
+const indexFile = join(out, 'index.json')
+let previous = []
+try { previous = JSON.parse(readFileSync(indexFile, 'utf8')) } catch { /* first run */ }
+const touched = new Set(index.map(e => `${e.page}.${e.lang}`))
+const order = ['core', 'inputs', 'nav', 'client', 'hotel', 'charts', 'voucher']
+const merged = [...previous.filter(e => !touched.has(`${e.page}.${e.lang}`)), ...index]
+  .sort((a, b) => (order.indexOf(a.page) - order.indexOf(b.page)) || (a.lang === 'en' ? -1 : 1))
+writeFileSync(indexFile, JSON.stringify(merged, null, 1))
 console.log(`wrote ${join(out, 'index.json')}`)
