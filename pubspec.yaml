@@ -17,3 +17,4 @@ workspace:
   - packages/ghazal_api
   - packages/ghazal_mock_api
   - packages/ghazal_testing
+  - packages/ghazal_app_kit

@@ -34,6 +34,7 @@
     "l10n:check": "node tools/gen-l10n.mjs --check && node tools/export-message-cases.mjs --check && node tools/export-format-cases.mjs --check",
     "format-cases": "node tools/export-format-cases.mjs",
     "ports": "node tools/ports.mjs",
-    "parity:gallery": "node tools/parity/gallery-ref.mjs"
+    "parity:gallery": "node tools/parity/gallery-ref.mjs",
+    "probe": "node tools/parity/probe.mjs"
   }
 }

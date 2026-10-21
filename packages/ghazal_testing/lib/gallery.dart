@@ -4,3 +4,4 @@ library;
 
 export 'src/fonts.dart';
 export 'src/gallery/gz_gallery.dart';
+export 'src/world.dart';

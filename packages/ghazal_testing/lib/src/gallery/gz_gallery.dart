@@ -12,10 +12,15 @@ import '../fonts.dart';
 /// One section of a design-system gallery page. The [title] must equal the web gallery's `data-gz-section` title (or its heading)
 /// so `node tools/parity/gallery-ref.mjs` references pair with the Flutter render by file name (`NN-<slug>.<lang>.png`).
 class GzGallerySection {
-  const GzGallerySection(this.title, this.builder, {this.width = 350});
+  const GzGallerySection(this.title, this.builder, {this.width = 350, this.number});
 
   final String title;
   final WidgetBuilder builder;
+
+  /// The 1-based position of this section on the web gallery page (the `NN` of `NN-<slug>.<lang>.png`). Leave it out when the list
+  /// holds every section of the page in order; set it when several test files split one page (each file writes only its own
+  /// numbers, so the files never collide and `parity.mjs --gallery <page>` pairs each render with its reference).
+  final int? number;
 
   /// Logical width of the section (the web gallery content column: 390 minus 2 x 20 gutter).
   final double width;
@@ -50,7 +55,7 @@ void gzGalleryShots({
     group('$page gallery ($lang)', () {
       for (var i = 0; i < all.length; i++) {
         final section = all[i];
-        final n = (i + 1).toString().padLeft(2, '0');
+        final n = (section.number ?? i + 1).toString().padLeft(2, '0');
         testWidgets('$n ${section.title}', (tester) async {
           const dpr = 2.0;
           final key = GlobalKey();

@@ -2,6 +2,7 @@
 // Parity instrument: reference (prototype) PNG vs Flutter PNG -> composite `reference | flutter | difference` + score.
 //   node tools/parity/parity.mjs --app client --screen CL-DISC-01 --lang ar [--w 390] [--flutter <png>] [--out <png>]
 //   node tools/parity/parity.mjs --app client --flow discover [--lang ar|en|both] [--w 390] [--strict]
+//   node tools/parity/parity.mjs --gallery client [--sections 1,2,8] [--lang ar|en|both]    (component galleries; --sections = web section numbers)
 // Needs ImageMagick (`magick`). Exit code is 0 always (it is an instrument); --strict exits 1 on any fail or missing file.
 import { execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, readdirSync, unlinkSync } from 'node:fs'
@@ -68,7 +69,7 @@ function parse(argv) {
     if (!a.startsWith('--')) throw new Error(`unexpected argument "${a}"`)
     const k = a.slice(2)
     if (k === 'strict') o.strict = true
-    else if (['app', 'screen', 'flow', 'lang', 'w', 'flutter', 'out', 'ref', 'gallery'].includes(k)) o[k] = argv[++i]
+    else if (['app', 'screen', 'flow', 'lang', 'w', 'flutter', 'out', 'ref', 'gallery', 'sections'].includes(k)) o[k] = argv[++i]
     else throw new Error(`unknown flag --${k}`)
   }
   return o
@@ -84,7 +85,9 @@ function galleryMode(o) {
   const outDir = join(root, 'packages/ghazal_testing/build/gallery-parity', page)
   if (!existsSync(refDir)) { console.error(`no reference sections for "${page}" (run pnpm parity:gallery)`); return [] }
   const langs = (o.lang ?? 'both') === 'both' ? ['ar', 'en'] : [o.lang]
-  const files = readdirSync(refDir).filter(f => f.endsWith('.png') && langs.some(l => f.endsWith(`.${l}.png`))).sort()
+  // --sections 1,2,8 scores only those web section numbers (an agent that owns part of a page).
+  const only = o.sections ? new Set(o.sections.split(',').map(n => Number(n))) : null
+  const files = readdirSync(refDir).filter(f => f.endsWith('.png') && langs.some(l => f.endsWith(`.${l}.png`)) && (!only || only.has(Number(f.slice(0, 2))))).sort()
   const rows = []
   for (const f of files) {
     const ref = join(refDir, f)

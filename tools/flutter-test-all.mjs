@@ -11,7 +11,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const members = process.argv.slice(2).length
   ? process.argv.slice(2)
   : [...fs.readdirSync(path.join(ROOT, 'apps')).map((d) => `apps/${d}`), ...fs.readdirSync(path.join(ROOT, 'packages')).filter((d) => d.startsWith('ghazal_')).map((d) => `packages/${d}`)]
-const withTests = members.filter((m) => fs.existsSync(path.join(ROOT, m, 'pubspec.yaml')) && fs.existsSync(path.join(ROOT, m, 'test')))
+// A test/ folder counts only when it holds a *_test.dart file (a freshly scaffolded package must not fail the gate).
+const hasTests = (dir) => fs.readdirSync(dir, { withFileTypes: true }).some((e) => (e.isDirectory() ? hasTests(path.join(dir, e.name)) : e.name.endsWith('_test.dart')))
+const withTests = members.filter((m) => fs.existsSync(path.join(ROOT, m, 'pubspec.yaml')) && fs.existsSync(path.join(ROOT, m, 'test')) && hasTests(path.join(ROOT, m, 'test')))
 
 const run = (m) =>
   new Promise((resolve) => {

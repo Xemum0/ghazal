@@ -15,9 +15,11 @@ dependencies:
   cupertino_ui: ^1.1.4
   flutter_svg: ^2.3.0
   ghazal_core: any
+  ghazal_domain: any
   intl: ^0.20.3
   material_ui: ^1.8.0
   meta: ^1.19.0
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:
