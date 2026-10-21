@@ -131,6 +131,7 @@ InvitationPreview:
     role: { $ref: StaffRole }
     accountName: { $ref: LocalizedText }
     invitedBy: { type: string }
+    invitedByName: { $ref: LocalizedText, nullable: true, description: The inviter in both languages. }
     expiresAt: { $ref: IsoDateTime }
 AcceptInvitationInput:
   type: object

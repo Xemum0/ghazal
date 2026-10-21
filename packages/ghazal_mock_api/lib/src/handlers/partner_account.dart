@@ -19,7 +19,7 @@ Json _roleSummary(String role) => {
       'marketing': {'en': 'Marketing: listing, voucher prices and reviews', 'ar': 'التسويق: الإعلان وأسعار الكوبون والتقييمات'},
     }[role]!;
 
-int _pending(MockApp app, Membership m) => app.db.raw('Booking').where((b) => b['status'] == 'pending' && (m.venueId != null ? b['venueId'] == m.venueId : b['providerId'] == m.providerId)).length;
+int _pending(MockApp app, Membership m) => m.pendingRequests ?? app.db.raw('Booking').where((b) => b['status'] == 'pending' && (m.venueId != null ? b['venueId'] == m.venueId : b['providerId'] == m.providerId)).length;
 
 Json _membership(MockApp app, Membership m) => {
       'accountId': m.accountId,
@@ -42,7 +42,7 @@ Json _partnerMe(MockApp app, Req r) {
   return {'user': publicUser(app.requireUser(r.userId)), 'memberships': [for (final m in ms) _membership(app, m)], 'active': ctx};
 }
 
-Json _staffView(Json s, String viewer) => {...wire(s), 'isYou': s['userId'] == viewer};
+Json _staffView(MockApp app, Json s, String viewer) => {...wire(s), 'isYou': s['userId'] == viewer, 'invitedByName': invitedByName(app, s.strOrNull('invitedBy'))};
 
 int _activeAdmins(MockApp app, String venueId) => app.db.raw('StaffMember').where((s) => s['venueId'] == venueId && s['role'] == 'admin' && s['status'] == 'active').length;
 
@@ -110,7 +110,7 @@ Map<String, Handler> partnerAccountHandlers(MockApp app) => {
         if (venueId == null) return {'staff': <Json>[], 'invitations': <Json>[]};
         final staff = app.db.raw('StaffMember').where((s) => s['venueId'] == venueId).toList();
         final inv = stableSorted(app.db.raw('StaffInvitation').where((i) => i['venueId'] == venueId), (a, b) => b.str('sentAt').compareTo(a.str('sentAt')));
-        return {'staff': [for (final s in staff) _staffView(s, r.userId)], 'invitations': inv.map(wire).toList()};
+        return {'staff': [for (final s in staff) _staffView(app, s, r.userId)], 'invitations': [for (final i in inv) invitationView(app, i)]};
       },
       'inviteStaff': (r) {
         app.requirePermission(r, 'staff:manage');
@@ -132,7 +132,7 @@ Map<String, Handler> partnerAccountHandlers(MockApp app) => {
         for (final uid in app.notifyTargets(venueId: venueId)) {
           notify(app, userId: uid, kind: 'invite', audience: 'hotel', vars: {'email': email, 'role': _roleLabel(role)}, params: {'staff': local}, venueId: venueId);
         }
-        return inv;
+        return invitationView(app, inv);
       },
       'resendStaffInvitation': (r) {
         app.requirePermission(r, 'staff:manage');
@@ -143,7 +143,7 @@ Map<String, Handler> partnerAccountHandlers(MockApp app) => {
         inv['expiresAt'] = app.clock.after(const Duration(days: 3));
         app.db.put('StaffInvitation', inv);
         app.outbox.add({'at': app.now, 'to': inv['email'], 'kind': 'staff_invitation', 'role': inv['role'], 'venueId': inv['venueId'], 'token': inv['id'], 'link': 'ghazal://partner/invitation/${inv['id']}', 'resent': true});
-        return inv;
+        return invitationView(app, inv);
       },
       'revokeStaffInvitation': (r) {
         app.requirePermission(r, 'staff:manage');
@@ -163,7 +163,7 @@ Map<String, Handler> partnerAccountHandlers(MockApp app) => {
         s['roleLabel'] = _roleLabel(role);
         s['roleSummary'] = _roleSummary(role);
         app.db.put('StaffMember', s);
-        return _staffView(s, r.userId);
+        return _staffView(app, s, r.userId);
       },
       'deactivateStaff': (r) {
         app.requirePermission(r, 'staff:manage');
@@ -171,14 +171,14 @@ Map<String, Handler> partnerAccountHandlers(MockApp app) => {
         if (s['role'] == 'admin' && s['status'] == 'active' && _activeAdmins(app, s.str('venueId')) <= 1) throw ApiError('STAFF_LAST_ADMIN');
         s['status'] = 'deactivated';
         app.db.put('StaffMember', s);
-        return _staffView(s, r.userId);
+        return _staffView(app, s, r.userId);
       },
       'reactivateStaff': (r) {
         app.requirePermission(r, 'staff:manage');
         final s = _staff(app, r);
         if (s['status'] == 'deactivated') s['status'] = 'active';
         app.db.put('StaffMember', s);
-        return _staffView(s, r.userId);
+        return _staffView(app, s, r.userId);
       },
       'getPartnerNotificationPreferences': (r) {
         final venueId = r.ctx.venueId;

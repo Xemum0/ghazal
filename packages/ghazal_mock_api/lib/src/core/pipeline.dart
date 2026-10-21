@@ -231,6 +231,8 @@ void _validate(_Route route, Req req, SchemaValidator v, Json? body, bool hasBod
       continue;
     }
     final schema = p['schema'];
+    // `limit` is clamped to 1..50 by the handlers (`Req.limit`), never refused: an integer of any size is valid, only a non-integer is a 422.
+    if (name == 'limit' && int.tryParse(raw.first) != null) continue;
     if (schema is Map && schema['type'] == 'array') {
       for (final item in raw.expand((s) => s.split(','))) {
         errs.addAll(v.validate(SchemaValidator.coerce(item, schema['items']), schema['items'], '/$name'));

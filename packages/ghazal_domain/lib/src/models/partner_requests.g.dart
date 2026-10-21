@@ -504,7 +504,7 @@ final class PartnerToday {
 
   final PartnerTodayTiles tiles;
   final List<NeedsYouRow> needsYou;
-  /// Confirmed and redeemable requests in the next 7 days.
+  /// The requests whose event is today (the venue's `booking` claims of the day, in start order; a provider's confirmed or redeemed requests for the day). The week and the month are `getPartnerCalendar`.
   final List<PartnerRequestRow> events;
   /// Provider accounts only.
   final int? activeListings;

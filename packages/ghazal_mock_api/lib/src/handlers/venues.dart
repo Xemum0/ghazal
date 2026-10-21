@@ -15,27 +15,50 @@ const _internalVenueKeys = {'demand', 'partnerAccountId', 'major'};
 /// A venue as clients see it (internal fields stripped).
 Json publicVenue(Json v) => {for (final e in v.entries) if (!_internalVenueKeys.contains(e.key)) e.key: e.value};
 
+/// The search query of `searchVenues` and `countVenues` as the Discover logic takes it (see `engine/discover.dart`): the Brief (date, guests,
+/// audience, areaIds) and the Filters sheet. `areaIds` is the Brief's area list: it narrows the list and ranks it; with a `shelf` it only ranks.
 ({Json filter, Json brief}) searchParams(Req r) {
+  List<String>? list(String k) => r.qList(k).isEmpty ? null : r.qList(k);
+  final areas = list('areaIds');
+  final briefAreas = list('briefAreaIds') ?? areas;
+  List<int>? range(String lo, String hi) => r.qInt(lo) != null || r.qInt(hi) != null ? [r.qInt(lo) ?? 0, r.qInt(hi) ?? 1 << 40] : null;
   final filter = <String, dynamic>{
     'query': r.q('q'),
-    'governorateIds': r.qList('governorateIds').isEmpty ? null : r.qList('governorateIds'),
-    'areaIds': r.qList('areaIds').isEmpty ? null : r.qList('areaIds'),
-    'types': r.qList('types').isEmpty ? null : r.qList('types'),
-    'styles': r.qList('styles').isEmpty ? null : r.qList('styles'),
-    'tiers': r.qList('tiers').isEmpty ? null : r.qList('tiers'),
+    'areaIds': areas ?? (r.qBool('allAreas') == true ? const <String>[] : null),
+    'governorateIds': list('governorateIds'),
+    'types': list('types'),
+    'styles': list('styles'),
+    'levels': list('tiers'),
     'capacity': r.qInt('capacityMin') != null || r.qInt('capacityMax') != null ? {'min': r.qInt('capacityMin'), 'max': r.qInt('capacityMax')} : null,
     'priceStructure': r.q('priceStructure'),
     'voucherOnly': r.qBool('voucherOnly') == true ? true : null,
-    'audience': r.q('audience'),
+    'arrangement': r.q('arrangement'),
     'minRating': r.qNum('minRating'),
-    'availableOnDate': r.qBool('availableOnDate') == true ? true : null,
+    'available': r.qBool('availableOnDate') == true ? true : null,
     'availableBetween': r.q('availableFrom') != null && r.q('availableTo') != null ? {'from': r.q('availableFrom'), 'to': r.q('availableTo')} : null,
+    'withinMinutes': r.qInt('withinMinutes'),
+    'perGuest': range('perGuestMin', 'perGuestMax'),
+    'voucherPerGuest': range('voucherPerGuestMin', 'voucherPerGuestMax'),
+    'settings': list('settings'),
+    'facilities': list('facilities'),
+    'brands': list('brands'),
+    'category': r.q('category'),
+    'shelf': r.q('shelf'),
     'sort': r.q('sort'),
     'origin': r.q('originId'),
   }..removeWhere((k, v) => v == null);
   if (filter['capacity'] is Map) (filter['capacity'] as Map).removeWhere((k, v) => v == null);
-  final brief = <String, dynamic>{'date': r.q('date'), 'guests': r.qInt('guests'), 'audience': r.q('audience')}..removeWhere((k, v) => v == null);
+  final brief = <String, dynamic>{'date': r.q('date'), 'guests': r.qInt('guests'), 'audience': r.q('audience'), 'areaIds': briefAreas}..removeWhere((k, v) => v == null);
   return (filter: filter, brief: brief);
+}
+
+/// The Results rows of a search: published venues only, in the web's order.
+List<Json> searchRows(MockApp app, Req r) {
+  final p = searchParams(r);
+  final f = p.filter;
+  final rows = searchResults(app.engine(), p.brief, f, sort: f['sort'] as String?, origin: f['origin'] as String?);
+  final styles = (f['styles'] as List?)?.cast<String>();
+  return rows.where((x) => x.obj('venue')['status'] == 'published' && (styles == null || styles.contains(x.obj('venue')['style']))).toList();
 }
 
 Json _stripDay(Json d) => {for (final e in d.entries) if (e.key != 'internalReason') e.key: e.value};
@@ -44,13 +67,10 @@ List<Json> _visibleVenues(MockApp app) => app.db.raw('Venue').where((v) => v['st
 
 Map<String, Handler> venuesHandlers(MockApp app) => {
       'searchVenues': (r) {
-        final p = searchParams(r);
-        final rows = app.engine().listVenues(p.filter, p.brief).where((x) => x.obj('venue')['status'] == 'published').toList();
-        return pageMap(r, rows, venueResult);
+        return pageMap(r, searchRows(app, r), venueResult);
       },
       'countVenues': (r) {
-        final p = searchParams(r);
-        return {'count': app.engine().listVenues(p.filter, p.brief).where((x) => x.obj('venue')['status'] == 'published').length};
+        return {'count': searchRows(app, r).length};
       },
       'getFilterTaxonomy': (r) {
         final t = app.seed.rows('FilterTaxonomy').first;
@@ -64,35 +84,62 @@ Map<String, Handler> venuesHandlers(MockApp app) => {
         final engine = app.engine();
         final date = brief['date'] as String?;
         final offers = <Json>[];
+        final wantedHall = r.q('hallId');
+        if (wantedHall != null && !v.list('halls').any((h) => h['id'] == wantedHall)) throw ApiError.validation('/hallId', 'unknown_hall');
         for (final pkg in engine.packagesFor(id)) {
           if (!pkg.flag('active')) continue;
           Json? forBrief;
-          if (date != null) {
-            final hallId = pkg.strings('hallIds').isEmpty ? null : pkg.strings('hallIds').first;
-            final hall = v.list('halls').cast<Json?>().firstWhere((h) => h!['id'] == hallId, orElse: () => null);
-            if (hall != null && pkg['components'] == null) {
-              final audience = (brief['audience'] as String?) != null && pkg.strings('audiences').contains(brief['audience']) ? brief['audience'] as String : pkg.strings('audiences').first;
-              final sec = hall.list('sections').cast<Json?>().firstWhere((s) => s!['audience'] == audience, orElse: () => null);
-              if (sec != null) {
-                final minEff = effectiveMinGuests(pkg, sec.integer('minGuests'));
-                final guests = (brief['guests'] as int?) ?? minEff;
-                if (guests <= pkg.integer('maxGuests')) {
-                  final pp = packagePrice(
-                    pkg: pkg,
-                    rules: engine.priceRules.where((x) => x['scopeId'] == pkg['id']).toList(),
-                    windows: engine.activeWindows().where((w) => w['venueId'] == id).toList(),
-                    eventDate: date,
-                    now: app.now,
-                    hallId: hall.str('id'),
-                    guests: guests,
-                    hallMinGuests: sec.integer('minGuests'),
-                    serviceChargeBps: v.obj('policies').integer('serviceChargeBps'),
-                    voucherFeeFils: app.voucherFeeFils,
-                  );
-                  if (pp != null) {
-                    final offered = pp.flag('voucherEligible');
-                    forBrief = {'standard': pp['standard'], 'voucher': offered ? pp['voucher'] : null, 'savings': offered ? pp['savings'] : null, 'voucherOffered': offered, 'unit': pkg['priceUnit']};
-                  }
+          if (date != null && pkg['components'] == null) {
+            // The hall being booked: the one asked for (its packages only), else the first hall of the package that has the Brief's audience.
+            final audience = (brief['audience'] as String?) != null && pkg.strings('audiences').contains(brief['audience']) ? brief['audience'] as String : pkg.strings('audiences').first;
+            Json? hall;
+            if (wantedHall != null) {
+              hall = pkg.strings('hallIds').contains(wantedHall) ? v.list('halls').firstWhere((h) => h['id'] == wantedHall) : null;
+            } else {
+              for (final hid in pkg.strings('hallIds')) {
+                final cand = v.list('halls').cast<Json?>().firstWhere((h) => h!['id'] == hid, orElse: () => null);
+                if (cand != null && cand.list('sections').any((s) => s['audience'] == audience)) {
+                  hall = cand;
+                  break;
+                }
+              }
+              hall ??= pkg.strings('hallIds').isEmpty ? null : v.list('halls').cast<Json?>().firstWhere((h) => h!['id'] == pkg.strings('hallIds').first, orElse: () => null);
+            }
+            final sec = hall?.list('sections').cast<Json?>().firstWhere((s) => s!['audience'] == audience, orElse: () => null);
+            if (hall != null && sec != null) {
+              final minEff = effectiveMinGuests(pkg, sec.integer('minGuests'));
+              final guests = (brief['guests'] as int?) ?? minEff;
+              if (guests <= pkg.integer('maxGuests')) {
+                final pp = packagePrice(
+                  pkg: pkg,
+                  rules: engine.priceRules.where((x) => x['scopeId'] == pkg['id']).toList(),
+                  windows: engine.activeWindows().where((w) => w['venueId'] == id).toList(),
+                  eventDate: date,
+                  now: app.now,
+                  hallId: hall.str('id'),
+                  guests: guests,
+                  hallMinGuests: sec.integer('minGuests'),
+                  serviceChargeBps: v.obj('policies').integer('serviceChargeBps'),
+                  voucherFeeFils: app.voucherFeeFils,
+                );
+                if (pp != null) {
+                  final offered = pp.flag('voucherEligible');
+                  forBrief = {
+                    'standard': pp['standard'],
+                    'voucher': offered ? pp['voucher'] : null,
+                    'savings': offered ? pp['savings'] : null,
+                    'voucherOffered': offered,
+                    'unit': pkg['priceUnit'],
+                    'hallId': hall['id'],
+                    'audience': audience,
+                    'perGuest': pp['perGuest'],
+                    'flat': pp['flat'],
+                    'voucherPerGuest': pp['voucherPerGuest'],
+                    'voucherFlat': pp['voucherFlat'],
+                    'billedGuests': pp['billed'],
+                    'billableGuests': pp['billable'],
+                    'tier': pp['tier'],
+                  };
                 }
               }
             }
@@ -146,6 +193,7 @@ Map<String, Handler> venuesHandlers(MockApp app) => {
       },
       'quoteVenue': (r) {
         final id = r.p('venueId');
+        checkExtras(app, id, r.b.list('extras'));
         final built = buildSections(app, id, r.b.str('eventDate'), r.b.list('sections'), sessionRequired: false);
         final q = app.engine().quoteFor(venueId: id, eventDate: r.b.str('eventDate'), sections: built.quoteSections, extras: r.b.list('extras'));
         final qid = 'qt-${app.db.next('quote').toString().padLeft(5, '0')}';
@@ -156,7 +204,7 @@ Map<String, Handler> venuesHandlers(MockApp app) => {
       'listNearbyVenues': (r) {
         final id = r.p('venueId');
         app.db.peek('Venue', id) ?? (throw ApiError.notFound('venue'));
-        return [for (final n in app.engine().nearby(id, r.qInt('limit') ?? 6)) {'venue': venueSummary(n.obj('venue')), 'minutes': n['minutes'], 'km': n['km']}];
+        return [for (final n in app.engine().nearby(id, (r.qInt('limit') ?? 6).clamp(1, 50))) {'venue': venueSummary(n.obj('venue')), 'minutes': n['minutes'], 'km': n['km']}];
       },
       'compareVenues': (r) {
         final ids = r.b.strings('venueIds');
@@ -175,6 +223,6 @@ Map<String, Handler> venuesHandlers(MockApp app) => {
       'listAreas': (r) => {'governorates': app.seed.rows('Governorate'), 'areas': app.seed.rows('Area'), 'referencePoints': app.seed.rows('ReferencePoint')},
       'searchRegions': (r) {
         final published = _visibleVenues(app).map((v) => v['id']).toSet();
-        return app.engine().searchRegions(r.q('q') ?? '').where((m) => m['kind'] != 'venue' || published.contains(m['id'])).toList();
+        return regionMatches(app.engine(), r.q('q') ?? '').where((m) => m['kind'] != 'venue' || published.contains(m['id'])).toList();
       },
     };

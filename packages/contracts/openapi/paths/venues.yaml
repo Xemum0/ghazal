@@ -2,7 +2,7 @@
   get:
     operationId: searchVenues
     summary: Brief-aware venue search (CA-SRCH, CA-CARD)
-    description: Filters mirror the PRD. Every row carries the price and availability for the Brief already computed in fils. Public, cacheable per Brief (private, ETag).
+    description: 'Filters mirror the PRD and the Filters sheet of the prototype. Every row carries the price and availability for the Brief already computed in fils. `briefAreaIds` is the Brief''s area list: it ranks the list and, when nothing else is said, narrows it (default: `areaIds`); `areaIds` is an explicit area selection that replaces it; `allAreas` lifts the narrowing (the All areas chip); a governorate or a `shelf` lifts it too; `availableOnDate` keeps free and held halls; `perGuestMin/Max` and `voucherPerGuestMin/Max` are fils compared to the lowest per-guest rate rounded to KD 0.500; `q` folds Arabic (tashkeel, alef and ya forms, the article). `limit` above 50 is clamped. Public, cacheable per Brief (private, ETag).'
     x-access: optional
     x-paged: true
     query: &venueFilter
@@ -27,6 +27,19 @@
       budgetMax: integer
       originId: Id
       sort: VenueSort
+      briefAreaIds: 'Id[]'
+      allAreas: boolean
+      arrangement: Audience
+      withinMinutes: integer
+      perGuestMin: integer
+      perGuestMax: integer
+      voucherPerGuestMin: integer
+      voucherPerGuestMax: integer
+      settings: 'HallSetting[]'
+      facilities: 'FacilityKey[]'
+      brands: 'BrandName[]'
+      category: HomeCategoryId
+      shelf: ShelfId
     responses: { 200: VenueResultPage }
 /venues/count:
   get:
@@ -47,7 +60,7 @@
     summary: Venue detail with packages, extras, active windows and the Brief price (CA-VDET)
     x-access: optional
     path: { venueId: Id }
-    query: { date: IsoDate, guests: integer, audience: Audience }
+    query: { date: IsoDate, guests: integer, audience: Audience, hallId: Id }
     responses: { 200: VenueDetail }
 /venues/{venueId}/availability:
   get:

@@ -66,7 +66,7 @@ PartnerToday:
   properties:
     tiles: { $ref: PartnerTodayTiles }
     needsYou: { type: array, items: { $ref: NeedsYouRow } }
-    events: { type: array, items: { $ref: PartnerRequestRow }, description: Confirmed and redeemable requests in the next 7 days. }
+    events: { type: array, items: { $ref: PartnerRequestRow }, description: "The requests whose event is today (the venue's `booking` claims of the day, in start order; a provider's confirmed or redeemed requests for the day). The week and the month are `getPartnerCalendar`." }
     activeListings: { type: integer, nullable: true, description: Provider accounts only. }
 ClientContact:
   type: object

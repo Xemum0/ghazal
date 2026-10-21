@@ -69,6 +69,8 @@ Future<shelf.Response?> handleControl(MockApp app, MockControl control, shelf.Re
       case ('POST', ['story']):
         control.jumpToStory(body['point'] as String? ?? 'pending');
         return _ok(control.state);
+      case ('POST', ['rival']):
+        return _ok({'booking': control.simulateRival()});
       case ('POST', ['flush']):
         await control.flush();
         return _ok(control.state);

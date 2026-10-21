@@ -5,6 +5,7 @@ library;
 export 'availability.dart';
 export 'catalog.dart';
 export 'dates.dart';
+export 'discover.dart';
 export 'json.dart';
 export 'money.dart';
 export 'pricing.dart';

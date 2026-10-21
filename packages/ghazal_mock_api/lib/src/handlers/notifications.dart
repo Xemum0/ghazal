@@ -14,7 +14,10 @@ Map<String, Handler> notificationsHandlers(MockApp app) => {
       'listNotifications': (r) {
         final onlyUnread = r.qBool('unread') == true;
         final rows = _mine(app, r).where((n) => !onlyUnread || n['read'] != true).toList();
-        return pageMap(r, stableSorted(rows, (a, b) => b.str('at').compareTo(a.str('at'))), wire);
+        // Newest first. The partner list reproduces the web's own comparator (`a.at < b.at ? 1 : -1`), under which notifications of the same
+        // minute come out in reverse fixture order (Fatima before Faisal at 11:00); the client list keeps fixture order for ties.
+        final ordered = r.partner != null ? rows.reversed.toList() : rows;
+        return pageMap(r, stableSorted(ordered, (a, b) => b.str('at').compareTo(a.str('at'))), wire);
       },
       'getUnreadNotificationCount': (r) => {'count': _mine(app, r).where((n) => n['read'] != true).length},
       'markNotificationRead': (r) {

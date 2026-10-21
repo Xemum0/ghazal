@@ -1,4 +1,4 @@
-/// auth: client sign-in by WhatsApp code (any 6 digits or 123456; 000000 is locked, 111111 expired), password, social, partner sign-in by
+/// auth: client sign-in by WhatsApp code (any 6 digits or 123456; 000000 is locked, 111111 expired, 222222 wrong), password, social, partner sign-in by
 /// email and password with a code on a new device, staff invitations, step-up. The mock sends nothing; codes and emails land in the outbox.
 library;
 
@@ -9,6 +9,7 @@ import '../core/problem.dart';
 import '../core/request.dart';
 import '../engine/engine.dart';
 import 'common.dart';
+import 'partner_common.dart' show invitedByName;
 
 const _standardPassword = 'Ghazal#2026';
 
@@ -25,13 +26,25 @@ Json newChallenge(MockApp app, {required String purpose, required String channel
   return {'challengeId': id, 'channel': channel, 'destinationHint': hint, 'expiresInSeconds': 300, 'resendAfterSeconds': 60, 'codeLength': 6};
 }
 
-/// Checks a code against an open challenge; returns the challenge.
+/// The wrong code of the mock (`222222`) and how many wrong codes one challenge takes before it locks.
+const wrongOtp = '222222';
+const maxOtpAttempts = 5;
+
+/// Checks a code against an open challenge; returns the challenge. The mock's codes (client WhatsApp codes and partner email codes alike):
+/// `123456` and any other six digits are right; `000000` is locked (423 `OTP_LOCKED`); `111111` is expired (410 `OTP_EXPIRED`); `222222` is wrong
+/// (400 `OTP_INVALID` with `params.remainingAttempts`), as is anything that is not six digits. The fifth wrong code locks the challenge for good
+/// (a right code no longer helps; ask for a new one).
 Json checkOtp(MockApp app, String challengeId, String code) {
-  final c = app.db.get('OtpChallenge', challengeId) ?? (throw ApiError('OTP_INVALID'));
+  final c = app.db.get('OtpChallenge', challengeId) ?? (throw ApiError('OTP_INVALID', params: {'remainingAttempts': 0}));
   final cred = app.seed.extra.obj('credentials');
-  if (code == cred.str('lockedOtp')) throw ApiError('OTP_LOCKED', retryAfterSeconds: 900);
+  final attempts = c.intOrNull('attempts') ?? 0;
+  if (code == cred.str('lockedOtp') || attempts >= maxOtpAttempts) throw ApiError('OTP_LOCKED', retryAfterSeconds: 900);
   if (c['used'] == true || code == cred.str('expiredOtp') || instantMs(app.now) > instantMs(c.str('expiresAt'))) throw ApiError('OTP_EXPIRED');
-  if (!RegExp(r'^\d{6}$').hasMatch(code)) throw ApiError('OTP_INVALID');
+  if (code == wrongOtp || !RegExp(r'^\d{6}$').hasMatch(code)) {
+    app.db.put('OtpChallenge', {...c, 'attempts': attempts + 1});
+    if (attempts + 1 >= maxOtpAttempts) throw ApiError('OTP_LOCKED', retryAfterSeconds: 900);
+    throw ApiError('OTP_INVALID', params: {'remainingAttempts': maxOtpAttempts - attempts - 1});
+  }
   return c;
 }
 
@@ -187,6 +200,7 @@ Map<String, Handler> authHandlers(MockApp app) => {
           'role': inv['role'],
           'accountName': app.targetName(venueId: inv.str('venueId')),
           'invitedBy': inv['invitedBy'],
+          'invitedByName': invitedByName(app, inv.strOrNull('invitedBy')),
           'expiresAt': inv['expiresAt'],
         };
       },

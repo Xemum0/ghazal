@@ -76,6 +76,8 @@ PolicyFacts:
     extraHour: { $ref: Money, nullable: true }
     indoorBackup: { type: boolean }
 HallSetting: { type: string, enum: [indoor, outdoor, mixed] }
+FacilityKey: { type: string, enum: [parking, valet, bridal, buffet, decor, photography], description: 'Facility filter of the Filters sheet: parking and buffet included; valet included or extra; a bridal suite offered; basic decor, kosha or florals included; a hall section that allows photography.' }
+BrandName: { type: string, description: 'Hotel brand filter: the first word of a hotel name in English (Aurelia, Madar, Lumi, Rawnaq).' }
 Session:
   type: object
   required: [id, name, start, end, bufferBeforeMin, bufferAfterMin, weekdays]
@@ -289,6 +291,15 @@ PackageBriefPrice:
     savings: { $ref: Money, nullable: true }
     voucherOffered: { type: boolean, description: True only when the saving beats the voucher fee (voucher-model 4.1). }
     unit: { $ref: PriceUnit }
+    hallId: { $ref: Id, description: The hall this price is for (the `hallId` asked for, else the first hall of the package that has the Brief's audience). }
+    audience: { $ref: Audience, description: The section the price is for (the Brief's audience when the package sells it, else the package's first audience). }
+    perGuest: { $ref: Money, nullable: true, description: The standard per-guest rate of the winning price rule (null for a flat package). }
+    flat: { $ref: Money, nullable: true, description: The standard flat amount of the winning price rule (null for a per-guest package). }
+    voucherPerGuest: { $ref: Money, nullable: true, description: The voucher per-guest rate (a window rate when lower); null when the rule has none. }
+    voucherFlat: { $ref: Money, nullable: true, description: The voucher flat amount; null when the rule has none. }
+    billedGuests: { type: integer, description: Guests billed after the package and hall minimum (the Brief's guests, or the minimum when fewer). }
+    billableGuests: { type: integer, description: Billed guests minus the complimentary share; the quantity the per-guest rate multiplies. }
+    tier: { $ref: PriceTier, description: The price tier that won on the date. }
 ExtraCategory: { type: string, enum: [kosha, florals, photographer, lighting, led_screens, zaffa, valet, cake, bridal_suite, suite_night, extra_hour, bukhoor, coffee_station, kids_corner, favours, companion_hall] }
 PricingUnit: { type: string, enum: [flat, per_guest, per_unit] }
 Extra:

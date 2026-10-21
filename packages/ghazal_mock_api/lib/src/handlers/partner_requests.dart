@@ -49,28 +49,50 @@ List<Json> needsYou(MockApp app, Req r) {
       items.add(item(id: 'triage-await-${b['ref']}', type: 'awaiting_client', raisedAt: b.strOrNull('approvedAt') ?? b.str('createdAt'), dueAt: b.strOrNull('confirmBy'), slaHours: 24, bookingId: b.str('id'), voucherId: b.str('voucherId'), voucherCode: v?.strOrNull('code'), title: {'en': 'Waiting for ${_clientLT(b)} to confirm', 'ar': 'بانتظار تأكيد ${_clientLT(b)}'}, subtitle: {'en': '${dateText(b.str('eventDate'), 'en')} · the client confirms within 24 hours', 'ar': '${dateText(b.str('eventDate'), 'ar')} · يؤكد العميل خلال 24 ساعة'}, order: 20 + order++));
     }
   }
+  // The queue the web seeds (RequestItem rows) is the baseline: a row shows while what it is about still waits. What came up after the story
+  // start (a message that began awaiting a reply later, a visit asked later, a review that turned seven days old later) adds a row of its own, so
+  // the old unanswered message of another couple is NOT a row (the web has exactly one message row).
+  final storyStart = app.seed.now;
+  final seededRows = c.venueId == null ? const <Json>[] : [for (final x in app.seed.rows('RequestItem')) if (x['venueId'] == c.venueId) x];
+  Json? seededOf(String type, String key, String? id) => seededRows.cast<Json?>().firstWhere((x) => x!['type'] == type && x[key] == id, orElse: () => null);
   if (c.venueId != null) {
     for (final v in app.db.raw('VisitAppointment')) {
       if (v['venueId'] == c.venueId && v['status'] == 'requested') {
-        items.add(item(id: 'triage-visit-${v['id']}', type: 'visit_request', raisedAt: v.str('requestedAt'), conversationId: v.str('conversationId'), visitId: v.str('id'), title: {'en': 'Visit request · ${v['clientName']}', 'ar': 'طلب زيارة · ${v['clientName']}'}, subtitle: {'en': '${dateText(kuwaitDateOf(v.str('slotStart')), 'en')} · ${v['visitors']} visitors', 'ar': '${dateText(kuwaitDateOf(v.str('slotStart')), 'ar')} · ${v['visitors']} زائرين'}, order: 35));
+        final seeded = seededOf('visit_request', 'visitId', v.str('id'));
+        if (seeded != null) {
+          items.add({...seeded});
+        } else if (v.str('requestedAt').compareTo(storyStart) > 0) {
+          items.add(item(id: 'triage-visit-${v['id']}', type: 'visit_request', raisedAt: v.str('requestedAt'), conversationId: v.str('conversationId'), visitId: v.str('id'), title: {'en': 'Visit request · ${v['clientName']}', 'ar': 'طلب زيارة · ${v['clientName']}'}, subtitle: {'en': '${dateText(kuwaitDateOf(v.str('slotStart')), 'en')} · ${v['visitors']} visitors', 'ar': '${dateText(kuwaitDateOf(v.str('slotStart')), 'ar')} · ${v['visitors']} زائرين'}, order: 35));
+        }
       }
     }
   }
   for (final cv in app.db.raw('Conversation')) {
     final mine = c.venueId != null ? cv['venueId'] == c.venueId : cv['vendorId'] == c.providerId;
     if (mine && cv['awaitingReplySince'] != null && {'venue', 'enquiry', 'vendor'}.contains(cv['kind'])) {
-      items.add(item(id: 'triage-msg-${cv['id']}', type: 'message', raisedAt: cv.str('awaitingReplySince'), conversationId: cv.str('id'), bookingId: cv.strOrNull('bookingId'), title: {'en': 'Unanswered message · ${cv['clientName']}', 'ar': 'رسالة بانتظار الرد · ${cv['clientName']}'}, order: 30));
+      final seeded = seededOf('message', 'conversationId', cv.str('id'));
+      if (seeded != null) {
+        items.add({...seeded});
+      } else if (cv.str('awaitingReplySince').compareTo(storyStart) > 0) {
+        items.add(item(id: 'triage-msg-${cv['id']}', type: 'message', raisedAt: cv.str('awaitingReplySince'), conversationId: cv.str('id'), bookingId: cv.strOrNull('bookingId'), title: {'en': 'Unanswered message · ${cv['clientName']}', 'ar': 'رسالة بانتظار الرد · ${cv['clientName']}'}, order: 30));
+      }
     }
   }
   if (c.venueId != null) {
     for (final rv in app.db.raw('Review')) {
       if (rv['venueId'] == c.venueId && rv['ownerReply'] == null && diffDays(kuwaitDateOf(rv.str('postedAt')), app.today()) >= 7) {
-        final a = rv.obj('author');
-        items.add(item(id: 'triage-review-${rv['id']}', type: 'review_reply', raisedAt: rv.str('postedAt'), reviewId: rv.str('id'), title: {'en': 'Review awaiting a reply · ${a['en']}', 'ar': 'تقييم بانتظار الرد · ${a['ar']}'}, subtitle: {'en': '${rv['rating']} stars · posted ${diffDays(kuwaitDateOf(rv.str('postedAt')), app.today())} days ago', 'ar': '${rv['rating']} نجوم · نُشر قبل ${diffDays(kuwaitDateOf(rv.str('postedAt')), app.today())} يومًا'}, order: 40));
+        final seeded = seededOf('review_reply', 'reviewId', rv.str('id'));
+        final turnedSeven = addDays(kuwaitDateOf(rv.str('postedAt')), 7).compareTo(kuwaitDateOf(storyStart)) > 0;
+        if (seeded != null) {
+          items.add({...seeded});
+        } else if (turnedSeven) {
+          final a = rv.obj('author');
+          items.add(item(id: 'triage-review-${rv['id']}', type: 'review_reply', raisedAt: rv.str('postedAt'), reviewId: rv.str('id'), title: {'en': 'Review awaiting a reply · ${a['en']}', 'ar': 'تقييم بانتظار الرد · ${a['ar']}'}, subtitle: {'en': '${rv['rating']} stars · posted ${diffDays(kuwaitDateOf(rv.str('postedAt')), app.today())} days ago', 'ar': '${rv['rating']} نجوم · نُشر قبل ${diffDays(kuwaitDateOf(rv.str('postedAt')), app.today())} يومًا'}, order: 40));
+        }
       }
     }
-    for (final seeded in app.seed.rows('RequestItem')) {
-      if (seeded['venueId'] == c.venueId && seeded['type'] == 'calendar_confirm') items.add({...seeded});
+    for (final seeded in seededRows) {
+      if (seeded['type'] == 'calendar_confirm') items.add({...seeded});
     }
   }
   final goldPct = app.platformConfig.integer('slaGoldPct'), dangerPct = app.platformConfig.integer('slaDangerPct');
@@ -93,7 +115,8 @@ Map<String, Handler> partnerRequestsHandlers(MockApp app) => {
       'getPartnerToday': (r) {
         final c = r.ctx;
         final bookings = ctxBookings(app, r);
-        final pending = bookings.where((b) => b['status'] == 'pending').length;
+        // requests waiting for the partner: pending without a counter-offer out (a counter-offer waits for the couple)
+        final pending = bookings.where((b) => b['status'] == 'pending' && b['proposal'] == null).length;
         final awaiting = bookings.where((b) => b['status'] == 'approved').length;
         final month = app.today().substring(0, 7);
         final vouchers = app.db.raw('Voucher').where((v) => v['venueOrProviderId'] == c.targetId && v['kind'] == 'bound').toList();
@@ -118,38 +141,53 @@ Map<String, Handler> partnerRequestsHandlers(MockApp app) => {
         }
         final soft = c.venueId == null ? 0 : _soft(app, c.venueId!).length;
         final unread = app.db.raw('Conversation').where((x) => (c.venueId != null ? x['venueId'] == c.venueId : x['vendorId'] == c.providerId)).fold<int>(0, (s, x) => s + x.obj('unread').integer('hotel'));
-        final events = stableSorted(bookings.where((b) => {'confirmed', 'redeemed'}.contains(b['status']) && diffDays(app.today(), b.str('eventDate')) >= 0 && diffDays(app.today(), b.str('eventDate')) <= 30), (a, b) => a.str('eventDate').compareTo(b.str('eventDate')));
+        // today's events (the story day only): the venue's `booking` claims of today in start order, each with its request; a provider's
+        // confirmed or redeemed requests for today
+        final today = app.today();
+        final List<Json> events;
+        if (c.venueId != null) {
+          final venue = app.db.peek('Venue', c.venueId!);
+          final seen = <String>{};
+          final dated = <(String, Json)>[];
+          for (final cl in app.db.raw('CalendarClaim')) {
+            if (cl['venueId'] != c.venueId || cl['date'] != today || cl['kind'] != 'booking' || cl['bookingId'] == null) continue;
+            final b = app.db.peek('Booking', cl.str('bookingId'));
+            if (b == null || !seen.add(b.str('id'))) continue;
+            final hall = venue?.list('halls').cast<Json?>().firstWhere((h) => h!['id'] == cl['hallId'], orElse: () => null);
+            final sessions = hall?.list('sessions') ?? const <Json>[];
+            dated.add((cl.strOrNull('start') ?? (sessions.isEmpty ? '21:00' : sessions.first.str('start')), b));
+          }
+          events = [for (final e in stableSorted(dated, (a, b) => a.$1.compareTo(b.$1))) e.$2];
+        } else {
+          events = bookings.where((b) => {'confirmed', 'redeemed'}.contains(b['status']) && b['eventDate'] == today).toList();
+        }
         final listings = c.providerId == null ? null : app.db.raw('Listing').where((l) => l['providerId'] == c.providerId && l['status'] == 'active').length;
         return {
           'tiles': {'requests': pending, 'awaitingClient': awaiting, 'vouchersRedeemed': redeemed, 'vouchersBought': bought, 'openDatesNext30Days': open, 'softDateCount': soft, 'unreadMessages': unread},
           'needsYou': needsYou(app, r),
-          'events': events.take(10).map((b) => _row(app, b)).toList(),
+          'events': events.map((b) => _row(app, b)).toList(),
           'activeListings': listings,
         };
       },
       'listNeedsYou': (r) => needsYou(app, r),
       'listPartnerRequests': (r) {
+        // The segments of the Bookings tab (hotel/bookings/_components/model.ts useSplit): pending (nearest deadline first), awaiting the client
+        // (approved, earliest confirm deadline first), upcoming (confirmed by date, then redeemed by date) and past (ended ones, the last thing that
+        // happened first). Dates do not move a confirmed request out of upcoming: it leaves when it is redeemed or completed.
         final seg = r.q('segment')!;
         final all = ctxBookings(app, r);
-        bool upcoming(Json b) => {'confirmed', 'redeemed'}.contains(b['status']) && b.str('eventDate').compareTo(app.today()) >= 0;
-        var rows = switch (seg) {
-          'pending' => all.where((b) => b['status'] == 'pending').toList(),
-          'awaiting_client' => all.where((b) => b['status'] == 'approved').toList(),
-          'upcoming' => all.where(upcoming).toList(),
-          _ => all.where((b) => !{'pending', 'approved'}.contains(b['status']) && !upcoming(b)).toList(),
+        String lastEventAt(Json b) {
+          final ev = b.list('events');
+          return ev.isEmpty ? b.str('createdAt') : ev.last.str('at');
+        }
+
+        List<Json> sortedBy(Iterable<Json> rows, String Function(Json) key, {bool desc = false}) => stableSorted(rows, (a, b) => desc ? key(b).compareTo(key(a)) : key(a).compareTo(key(b)));
+        final rows = switch (seg) {
+          'pending' => sortedBy(all.where((b) => b['status'] == 'pending'), (b) => b.strOrNull('respondBy') ?? ''),
+          'awaiting_client' => sortedBy(all.where((b) => b['status'] == 'approved'), (b) => b.strOrNull('confirmBy') ?? ''),
+          'upcoming' => [...sortedBy(all.where((b) => b['status'] == 'confirmed'), (b) => b.str('eventDate')), ...sortedBy(all.where((b) => b['status'] == 'redeemed'), (b) => b.str('eventDate'))],
+          _ => sortedBy(all.where((b) => !{'pending', 'approved', 'confirmed', 'redeemed'}.contains(b['status'])), lastEventAt, desc: true),
         };
-        rows = stableSorted(rows, (a, b) {
-          switch (seg) {
-            case 'pending':
-              return (a.strOrNull('respondBy') ?? '').compareTo(b.strOrNull('respondBy') ?? '');
-            case 'awaiting_client':
-              return (a.strOrNull('confirmBy') ?? '').compareTo(b.strOrNull('confirmBy') ?? '');
-            case 'upcoming':
-              return a.str('eventDate').compareTo(b.str('eventDate'));
-            default:
-              return b.str('createdAt').compareTo(a.str('createdAt'));
-          }
-        });
         return pageMap(r, rows, (b) => _row(app, b));
       },
       'getPartnerRequest': (r) {

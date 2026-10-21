@@ -80,6 +80,7 @@ StaffMember:
     invitedAt: { $ref: IsoDateTime, nullable: true }
     inviteExpiresAt: { $ref: IsoDateTime, nullable: true }
     invitedBy: { type: string, nullable: true }
+    invitedByName: { $ref: LocalizedText, nullable: true, description: 'The inviter in both languages (Arabic name, Latin name); `invitedBy` stays the Latin name.' }
     isYou: { type: boolean }
 InvitationStatus: { type: string, enum: [invited, accepted] }
 StaffInvitation:
@@ -95,6 +96,7 @@ StaffInvitation:
     sentAt: { $ref: IsoDateTime }
     expiresAt: { $ref: IsoDateTime, nullable: true }
     invitedBy: { type: string }
+    invitedByName: { $ref: LocalizedText, nullable: true, description: The inviter in both languages. }
     staffId: { $ref: Id, nullable: true }
 StaffList:
   type: object

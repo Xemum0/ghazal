@@ -527,6 +527,7 @@ final class StaffMember {
     required this.invitedAt,
     required this.inviteExpiresAt,
     required this.invitedBy,
+    this.invitedByName,
     required this.isYou,
   });
 
@@ -550,6 +551,7 @@ final class StaffMember {
         invitedAt: optField(json, 'invitedAt', (v) => asInstant(v)),
         inviteExpiresAt: optField(json, 'inviteExpiresAt', (v) => asInstant(v)),
         invitedBy: optField(json, 'invitedBy', (v) => asString(v)),
+        invitedByName: optField(json, 'invitedByName', (v) => LocalizedText.fromJson(asMap(v))),
         isYou: reqField(json, 'isYou', (v) => asBool(v)),
       );
     } on FormatException catch (e) {
@@ -575,6 +577,8 @@ final class StaffMember {
   final DateTime? invitedAt;
   final DateTime? inviteExpiresAt;
   final String? invitedBy;
+  /// The inviter in both languages (Arabic name, Latin name); `invitedBy` stays the Latin name.
+  final LocalizedText? invitedByName;
   final bool isYou;
 
   Map<String, Object?> toJson() => {
@@ -595,6 +599,7 @@ final class StaffMember {
       'invitedAt': invitedAt == null ? null : instantToJson(invitedAt!),
       'inviteExpiresAt': inviteExpiresAt == null ? null : instantToJson(inviteExpiresAt!),
       'invitedBy': invitedBy == null ? null : invitedBy!,
+      if (invitedByName != null) 'invitedByName': invitedByName!.toJson(),
       'isYou': isYou,
       };
 
@@ -616,6 +621,7 @@ final class StaffMember {
     Object? invitedAt = unsetValue,
     Object? inviteExpiresAt = unsetValue,
     Object? invitedBy = unsetValue,
+    Object? invitedByName = unsetValue,
     bool? isYou,
   }) => StaffMember(
       id: id ?? this.id,
@@ -635,6 +641,7 @@ final class StaffMember {
       invitedAt: identical(invitedAt, unsetValue) ? this.invitedAt : invitedAt as DateTime?,
       inviteExpiresAt: identical(inviteExpiresAt, unsetValue) ? this.inviteExpiresAt : inviteExpiresAt as DateTime?,
       invitedBy: identical(invitedBy, unsetValue) ? this.invitedBy : invitedBy as String?,
+      invitedByName: identical(invitedByName, unsetValue) ? this.invitedByName : invitedByName as LocalizedText?,
       isYou: isYou ?? this.isYou,
       );
 
@@ -659,10 +666,11 @@ final class StaffMember {
           other.invitedAt == invitedAt &&
           other.inviteExpiresAt == inviteExpiresAt &&
           other.invitedBy == invitedBy &&
+          other.invitedByName == invitedByName &&
           other.isYou == isYou;
 
   @override
-  int get hashCode => Object.hashAll([id, userId, venueId, name, nameLatin, monogram, email, role, roleLabel, roleSummary, phone, status, uiLang, lastSeenAt, invitedAt, inviteExpiresAt, invitedBy, isYou]);
+  int get hashCode => Object.hashAll([id, userId, venueId, name, nameLatin, monogram, email, role, roleLabel, roleSummary, phone, status, uiLang, lastSeenAt, invitedAt, inviteExpiresAt, invitedBy, invitedByName, isYou]);
 
   @override
   String toString() => 'StaffMember(${toJson()})';
@@ -700,6 +708,7 @@ final class StaffInvitation {
     required this.sentAt,
     required this.expiresAt,
     required this.invitedBy,
+    this.invitedByName,
     required this.staffId,
   });
 
@@ -714,6 +723,7 @@ final class StaffInvitation {
         sentAt: reqField(json, 'sentAt', (v) => asInstant(v)),
         expiresAt: optField(json, 'expiresAt', (v) => asInstant(v)),
         invitedBy: reqField(json, 'invitedBy', (v) => asString(v)),
+        invitedByName: optField(json, 'invitedByName', (v) => LocalizedText.fromJson(asMap(v))),
         staffId: optField(json, 'staffId', (v) => asString(v)),
       );
     } on FormatException catch (e) {
@@ -729,6 +739,8 @@ final class StaffInvitation {
   final DateTime sentAt;
   final DateTime? expiresAt;
   final String invitedBy;
+  /// The inviter in both languages.
+  final LocalizedText? invitedByName;
   final String? staffId;
 
   Map<String, Object?> toJson() => {
@@ -740,6 +752,7 @@ final class StaffInvitation {
       'sentAt': instantToJson(sentAt),
       'expiresAt': expiresAt == null ? null : instantToJson(expiresAt!),
       'invitedBy': invitedBy,
+      if (invitedByName != null) 'invitedByName': invitedByName!.toJson(),
       'staffId': staffId == null ? null : staffId!,
       };
 
@@ -752,6 +765,7 @@ final class StaffInvitation {
     DateTime? sentAt,
     Object? expiresAt = unsetValue,
     String? invitedBy,
+    Object? invitedByName = unsetValue,
     Object? staffId = unsetValue,
   }) => StaffInvitation(
       id: id ?? this.id,
@@ -762,6 +776,7 @@ final class StaffInvitation {
       sentAt: sentAt ?? this.sentAt,
       expiresAt: identical(expiresAt, unsetValue) ? this.expiresAt : expiresAt as DateTime?,
       invitedBy: invitedBy ?? this.invitedBy,
+      invitedByName: identical(invitedByName, unsetValue) ? this.invitedByName : invitedByName as LocalizedText?,
       staffId: identical(staffId, unsetValue) ? this.staffId : staffId as String?,
       );
 
@@ -777,10 +792,11 @@ final class StaffInvitation {
           other.sentAt == sentAt &&
           other.expiresAt == expiresAt &&
           other.invitedBy == invitedBy &&
+          other.invitedByName == invitedByName &&
           other.staffId == staffId;
 
   @override
-  int get hashCode => Object.hashAll([id, venueId, email, role, status, sentAt, expiresAt, invitedBy, staffId]);
+  int get hashCode => Object.hashAll([id, venueId, email, role, status, sentAt, expiresAt, invitedBy, invitedByName, staffId]);
 
   @override
   String toString() => 'StaffInvitation(${toJson()})';

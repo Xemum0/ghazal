@@ -89,7 +89,7 @@ void main() {
   test('partner: Today, Needs you, request inbox with the hero request on top', () async {
     final a = w.actor('hotel_manager', venueId: 'V01');
     final me = await a.repos.partnerAccount.getPartnerMe();
-    expect(me.memberships.single.venueId, 'V01');
+    expect(me.memberships.map((m) => m.venueId), ['V01', 'V-sister-marina'], reason: 'Hind also works at the sister venue, so Switch venue shows');
     final today = await a.repos.partnerRequests.getPartnerToday();
     expect(today.tiles.requests, greaterThan(0));
     expect(today.needsYou, isNotEmpty);

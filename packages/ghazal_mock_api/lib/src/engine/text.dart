@@ -23,7 +23,8 @@ String _decompose(String s) {
   return b.toString();
 }
 
-final _diacritics = RegExp('[ؐ-ًؚ-ٟۖ-ۭـ]');
+// Tashkeel and tatweel only, equal to the TypeScript DIACRITICS (U+0610-U+061A, U+064B-U+065F, U+0670, U+06D6-U+06ED, U+0640).
+final _diacritics = RegExp('[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]');
 
 String normalizeSearch(String input) => _decompose(input)
     .replaceAll(_diacritics, '')

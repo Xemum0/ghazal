@@ -102,7 +102,12 @@ Map<String, Handler> vouchersHandlers(MockApp app) => {
         final v = asSeen(app, raw);
         if (v['status'] != 'active' || v['kind'] != 'bound') throw ApiError('VOUCHER_NOT_USABLE', params: {'status': v['status']});
         final b = r.b;
-        final q = quoteForVoucher(app, targetType: v.str('targetType'), targetId: v.str('venueOrProviderId'), hallId: b.strOrNull('hallId'), packageId: b.str('packageId'), eventDate: b.str('eventDate'), guests: b.intOrNull('guests'));
+        // The voucher stays tied to its venue or provider: only the date, the package, the hall and the guests may move. What the body leaves out
+        // keeps its value (the hall when the new package sells in it, the guest count always), as the web's `rebindVoucherDate` does.
+        final pkg = v.str('targetType') == 'venue' ? app.db.peek('Package', b.str('packageId')) : null;
+        final keepHall = v.strOrNull('hallId');
+        final hall = b.strOrNull('hallId') ?? (keepHall != null && (pkg == null || pkg.strings('hallIds').contains(keepHall)) ? keepHall : null);
+        final q = quoteForVoucher(app, targetType: v.str('targetType'), targetId: v.str('venueOrProviderId'), hallId: hall, packageId: b.str('packageId'), eventDate: b.str('eventDate'), guests: b.intOrNull('guests') ?? v.intOrNull('guests'));
         if (q.quote['voucherEligible'] != true) throw ApiError('VOUCHER_NOT_OFFERED');
         final t = q.quote.obj('totals');
         raw

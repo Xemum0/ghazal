@@ -5,13 +5,24 @@ import '../core/app.dart';
 import '../core/request.dart';
 import '../domain/views.dart';
 import '../engine/engine.dart';
+import '../engine/discover.dart' as web;
 
-Json _homeBrief(Req r, Json? profile) => {
-      'date': r.q('date') ?? profile?.strOrNull('weddingDate'),
-      'guests': r.qInt('guests'),
-      'audience': r.q('audience'),
-      'areaIds': r.qList('areaIds').isNotEmpty ? r.qList('areaIds') : (profile?.strings('areaIds') ?? const <String>[]),
-    }..removeWhere((k, v) => v == null);
+/// The Brief of the Home: the query as sent; with no Brief field in the query, the signed-in couple's wedding profile (the web store starts from
+/// `storyBrief()`: the wedding date, the women's guest count, the first audience searched, the areas).
+Json _homeBrief(Req r, Json? profile) {
+  final areas = r.qList('areaIds');
+  final given = r.q('date') != null || r.qInt('guests') != null || r.q('audience') != null || areas.isNotEmpty;
+  if (given || profile == null) {
+    return {'date': r.q('date'), 'guests': r.qInt('guests'), 'audience': r.q('audience'), 'areaIds': areas}..removeWhere((k, v) => v == null);
+  }
+  final searching = profile.strings('searching');
+  return {
+    'date': profile.strOrNull('weddingDate'),
+    'guests': (profile.objOrNull('guests')?['women'] as num?)?.toInt(),
+    'audience': searching.isEmpty ? null : searching.first,
+    'areaIds': profile.strings('areaIds'),
+  }..removeWhere((k, v) => v == null);
+}
 
 Json _statusCard(MockApp app, Req r, String? date) {
   Json card(String kind, {Json? target, String? bookingId, String? voucherId, String? visitId, String? deadline}) => {'kind': kind, 'target': target, 'bookingId': bookingId, 'voucherId': voucherId, 'visitId': visitId, 'deadline': deadline};
@@ -37,28 +48,6 @@ Json _statusCard(MockApp app, Req r, String? date) {
   return card(date != null ? 'brief-set' : 'no-date');
 }
 
-/// Up to three dates from [date] on where at least one venue has a free hall (month tables are computed once per hall).
-List<String> _nearestFree(MockApp app, String date, Json brief) {
-  final engine = app.engine();
-  final start = diffDays(app.today(), date) < minLeadDays ? addDays(app.today(), minLeadDays) : date;
-  final candidates = datesBetween(addDays(start, -10).compareTo(addDays(app.today(), minLeadDays)) < 0 ? addDays(app.today(), minLeadDays) : addDays(start, -10), addDays(start, 21));
-  final free = <String>{};
-  final cache = <String, List<Json>>{};
-  for (final v in engine.venues) {
-    if (v['channel'] == 'external_link') continue;
-    for (final h in v.list('halls')) {
-      for (final d in candidates) {
-        final key = '${h['id']}|${monthOf(d)}';
-        final days = cache[key] ??= engine.availabilityFor(v.str('id'), h.str('id'), monthOf(d), brief);
-        final day = days.cast<Json?>().firstWhere((x) => x!['date'] == d, orElse: () => null);
-        if (day != null && day['state'] == 'available') free.add(d);
-      }
-    }
-  }
-  final sorted = free.toList()..sort((a, b) => (diffDays(date, a).abs() - diffDays(date, b).abs()) != 0 ? diffDays(date, a).abs() - diffDays(date, b).abs() : a.compareTo(b));
-  return (sorted.take(3).toList()..sort());
-}
-
 Map<String, Handler> homeHandlers(MockApp app) => {
       'getHome': (r) {
         final uid = r.identity?.userId;
@@ -67,41 +56,31 @@ Map<String, Handler> homeHandlers(MockApp app) => {
         final date = brief['date'] as String?;
         final engine = app.engine();
         final shelves = <Json>[];
-        Json item(Json row) => {'row': venueResult(row), 'date': date};
-        final all = engine.listVenues({}, brief);
-        int? freeCount;
-        if (date != null) {
-          final free = engine.listVenues({'availableOnDate': true}, brief);
-          freeCount = free.length;
-          if (free.isNotEmpty) shelves.add({'id': 'free', 'items': free.take(10).map(item).toList()});
+        Json item(Json row, [String? at]) => {'row': venueResult(row), 'date': at ?? date};
+        final s = web.shelves(engine, brief);
+        void shelf(String id, Iterable<Json> rows, {List<String>? dates}) {
+          if (rows.isEmpty) return;
+          shelves.add({'id': id, 'items': [for (final x in rows.indexed) item(x.$2, dates?[x.$1])]});
         }
-        final featured = all.where((x) => x.obj('venue').obj('flags').flag('featured')).take(10).toList();
-        if (featured.isNotEmpty) shelves.add({'id': 'featured', 'items': featured.map(item).toList()});
-        final voucher = all.where((x) => x['windowId'] != null || engine.activeWindows().any((w) => w['venueId'] == x.obj('venue')['id'])).take(10).toList();
-        if (voucher.isNotEmpty) shelves.add({'id': 'voucher', 'items': voucher.map(item).toList()});
-        shelves.add({'id': 'recommended', 'items': all.take(10).map(item).toList()});
-        final trending = stableSorted(all, (a, b) => b.obj('venue').obj('rating').integer('count') - a.obj('venue').obj('rating').integer('count')).take(10).toList();
-        shelves.add({'id': 'trending', 'items': trending.map(item).toList()});
-        final areas = (brief['areaIds'] as List?)?.cast<String>() ?? const <String>[];
-        if (areas.isNotEmpty) {
-          final near = engine.listVenues({'sort': 'distance'}, brief);
-          shelves.add({'id': 'nearby', 'items': near.take(10).map(item).toList()});
-        }
-        int count(bool Function(Json v) test) => engine.venues.where(test).length;
-        final categories = [
-          {'id': 'luxury-hotels', 'venueCount': count((v) => v['type'] == 'hotel')},
-          {'id': 'wedding-halls', 'venueCount': count((v) => v['type'] == 'private-hall')},
-          {'id': 'government', 'venueCount': count((v) => v['type'] == 'governmental')},
-          {'id': 'beach', 'venueCount': count((v) => v['style'] == 'resort' || v.obj('name')['en'].toString().toLowerCase().contains('beach'))},
-          {'id': 'outdoor', 'venueCount': count((v) => v['style'] == 'outdoor' || v['style'] == 'villa')},
-          {'id': 'vip', 'venueCount': count((v) => v['tier'] == 'prestige')},
-        ];
+
+        // The order of the Home rails and their rules are the web's (data.ts `shelves`): free (needs a date), featured (one card), voucher prices,
+        // this week (one card per venue on its soonest free day, `date` is that day), for you, trending, nearby.
+        if (date != null) shelf('free', s.free);
+        shelf('featured', [if (s.featured != null) s.featured!]);
+        shelf('voucher', s.voucher);
+        shelf('week', s.week.map((x) => x.row), dates: s.week.map((x) => x.date).toList());
+        shelf('recommended', s.recommended);
+        shelf('trending', s.trending);
+        shelf('nearby', s.nearby);
+        final everyone = engine.listVenues(const {}, brief);
+        int count(String id) => everyone.where((x) => web.inCategory(x.obj('venue'), x.objOrNull('price'), id)).length;
+        final categories = [for (final id in const ['luxury-hotels', 'wedding-halls', 'government', 'beach', 'outdoor', 'vip']) {'id': id, 'venueCount': count(id)}];
         final unread = uid == null ? 0 : app.db.raw('Notification').where((n) => n['userId'] == uid && n['read'] != true).length;
         final wedding = profile?.strOrNull('weddingDate');
         return {
           'statusCard': _statusCard(app, r, date),
-          'freeCount': freeCount,
-          'nearestFreeDates': date == null ? <String>[] : _nearestFree(app, date, {...brief}..remove('date')),
+          'freeCount': date == null ? null : web.freeCount(engine, brief),
+          'nearestFreeDates': date == null ? <String>[] : web.nearestFreeDates(engine, brief),
           'shelves': shelves,
           'categories': categories,
           'unreadNotifications': unread,

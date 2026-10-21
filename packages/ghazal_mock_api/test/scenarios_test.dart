@@ -127,8 +127,12 @@ void main() {
   test('roles: a client token on a partner route is 403, a reception role cannot approve, a missing context is 400', () async {
     final reem = w.actor('reem');
     expect((await raw(reem, 'GET', '/partner/today', headers: {'X-Venue-Id': 'V01'})).statusCode, 403);
+    final khalid = w.actor('hotel_admin');
+    expect((await raw(khalid, 'GET', '/partner/today')).statusCode, 200, reason: 'a single membership is the default context');
     final hind = w.actor('hotel_manager');
-    expect((await raw(hind, 'GET', '/partner/today')).statusCode, 200, reason: 'a single membership is the default context');
+    final undecided = await raw(hind, 'GET', '/partner/today');
+    expect(undecided.statusCode, 400, reason: 'two memberships (Aurelia Gulf and its sister venue): the person has to choose');
+    expect((undecided.data as Map)['code'], 'VENUE_CONTEXT_REQUIRED');
     final other = w.actor('hotel_manager', venueId: 'V05');
     expect((await raw(other, 'GET', '/partner/today')).statusCode, 403, reason: 'no membership at another venue');
   });

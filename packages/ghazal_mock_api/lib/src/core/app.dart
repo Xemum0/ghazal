@@ -58,7 +58,7 @@ class MockConfig {
 
 /// A partner membership of a user (what `GET /partner/me` lists).
 class Membership {
-  Membership({required this.accountId, required this.accountType, required this.accountName, this.venueId, this.providerId, required this.role, required this.feeExempt, required this.status});
+  Membership({required this.accountId, required this.accountType, required this.accountName, this.venueId, this.providerId, required this.role, required this.feeExempt, required this.status, this.pendingRequests});
   final String accountId;
   final String accountType;
   final Json accountName;
@@ -67,6 +67,9 @@ class Membership {
   final String role;
   final bool feeExempt;
   final String status;
+
+  /// A stored count for a venue the mock keeps as state only (the sister venue); null counts the pending requests.
+  final int? pendingRequests;
 }
 
 const rolePermissions = <String, List<String>>{
@@ -165,7 +168,7 @@ class MockApp {
   List<Membership> membershipsOf(String userId) {
     final out = <Membership>[];
     final seen = <String>{};
-    void add(Json account, String role, {String? venueId}) {
+    void add(Json account, String role, {String? venueId, int? pending}) {
       final key = '${account['id']}|${venueId ?? account['providerId']}';
       if (!seen.add(key)) return;
       out.add(Membership(
@@ -177,6 +180,7 @@ class MockApp {
         role: role,
         feeExempt: account.flag('feeExempt'),
         status: account.str('status'),
+        pendingRequests: pending,
       ));
     }
 
@@ -194,6 +198,12 @@ class MockApp {
       if (m['userId'] == userId) {
         final a = accountForVenue(m.str('venueId'));
         if (a != null) add(a, m.str('role'), venueId: m.str('venueId'));
+      }
+    }
+    for (final m in db.raw('Membership')) {
+      if (m['userId'] == userId) {
+        final a = accountForVenue(m.str('venueId'));
+        if (a != null) add(a, m.str('role'), venueId: m.str('venueId'), pending: m.intOrNull('pendingRequests'));
       }
     }
     for (final s in db.raw('StaffMember')) {

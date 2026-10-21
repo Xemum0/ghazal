@@ -282,6 +282,17 @@ String _nextRef(MockApp app, List<Object> seed) {
   return (sections: sections, quoteSections: quoteSections);
 }
 
+/// The extras of a quote or a request: each one a live extra of the venue, with a quantity between 1 and its `maxQty` (a per-guest extra takes the
+/// billable guests, so its quantity is only checked to be at least 1). Errors: 422 `unknown_extra`, `out_of_range` (with `params.max`).
+void checkExtras(MockApp app, String venueId, List<Json> extras) {
+  for (final e in extras.indexed) {
+    final x = app.db.peek('Extra', e.$2.str('extraId'));
+    if (x == null || x['venueId'] != venueId || !x.flag('active')) throw ApiError.validation('/extras/${e.$1}/extraId', 'unknown_extra');
+    final qty = e.$2.integer('qty');
+    if (qty < 1 || (x['pricingUnit'] != 'per_guest' && qty > x.integer('maxQty'))) throw ApiError.validation('/extras/${e.$1}/qty', 'out_of_range', params: {'max': x.integer('maxQty')});
+  }
+}
+
 /// R01: sends a request with an active voucher. Returns the stored booking (client view is built by the caller).
 Json createRequest(MockApp app, Identity who, Json input) {
   final cfg = app.platformConfig;
@@ -322,6 +333,7 @@ Json createRequest(MockApp app, Identity who, Json input) {
     service = {'providerId': targetId, 'listingId': s['listingId'] ?? listing['id'], 'packageId': s['packageId'], 'quantity': qty, 'venueId': s['venueId']};
     packageIdForVoucher = s.str('packageId');
   } else {
+    checkExtras(app, targetId, input.list('extras'));
     final built = buildSections(app, targetId, eventDate, input.list('sections'), sessionRequired: true);
     sections = built.sections;
     final quoteSections = built.quoteSections;

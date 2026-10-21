@@ -4,6 +4,7 @@ library;
 import '../core/app.dart';
 import '../core/problem.dart';
 import '../core/request.dart';
+import '../db/mock_db.dart' show wire;
 import '../engine/engine.dart';
 import '../domain/requests.dart' as dom;
 
@@ -64,3 +65,14 @@ List<Json> ctxBookings(MockApp app, Req r) {
   final c = r.ctx;
   return [for (final b in app.db.raw('Booking')) if (c.venueId != null ? b['venueId'] == c.venueId : b['providerId'] == c.providerId) b];
 }
+
+/// The inviter of a staff member or an invitation in both languages (`invitedByName`, next to the Latin `invitedBy` the contract has always carried):
+/// the name of the staff member whose Latin name it is, else the Latin name in both slots. Null without an inviter.
+Json? invitedByName(MockApp app, String? latin) {
+  if (latin == null) return null;
+  final m = app.db.firstWhere('StaffMember', (x) => x['nameLatin'] == latin);
+  return {'en': latin, 'ar': m?['name'] ?? latin};
+}
+
+/// An invitation as the apps read it (with `invitedByName`).
+Json invitationView(MockApp app, Json inv) => {...wire(inv), 'invitedByName': invitedByName(app, inv.strOrNull('invitedBy'))};

@@ -65,6 +65,33 @@ void seedDatabase(MockDb db, SeedData seed) {
   final settings = hotel.obj('settings');
   db.put('VenueSettings', {...deepCopy(settings), 'id': settings.str('venueId')}, id: settings.str('venueId'));
   db.put('SoftDates', {'id': settings.str('venueId'), 'dates': hotel.strings('softDates'), 'optedOut': hotel.strings('softDateOptOut')});
+  _applyMockOverlay(db, seed);
+}
+
+/// The two places where the mock's story differs from the stored fixtures on purpose (docs/architecture/mock-api.md, "Seed overlay"):
+///
+/// 1. **The rival request.** The fixtures carry a second pending request for Thursday 14 January (Dalal, `competingRequest`), which the web adds only
+///    when its Decision screen runs `simulateCompeting`. At the story start Aurelia has FIVE pending requests, so the mock keeps the rival
+///    out of the database (collection `Rival`) until `MockControl.simulateRival()` puts it in.
+/// 2. **The sister venue.** The web account of the hero partner (Hind) also belongs to Aurelia Marina Hall (`hotel.settings.sister`: reception, two
+///    requests waiting), which is what makes "Switch venue" appear. The mock gives that account a second membership; the sister venue has a name,
+///    a role and a count and nothing else (the web keeps it as state only), so calls in its context answer 404 for the venue.
+void _applyMockOverlay(MockDb db, SeedData seed) {
+  final rivalId = seed.extra.obj('hotel').objOrNull('variants')?.objOrNull('competingRequest')?['bookingId'] as String?;
+  final rival = rivalId == null ? null : db.get('Booking', rivalId);
+  if (rival != null) {
+    final voucher = db.get('Voucher', rival.str('voucherId'));
+    db.remove('Booking', rivalId!);
+    db.remove('Voucher', rival.str('voucherId'));
+    db.put('Rival', {'id': 'rival', 'booking': rival, 'voucher': voucher});
+  }
+  final sister = seed.extra.obj('hotel').obj('settings').objOrNull('sister');
+  final hero = seed.extra.list('personas').cast<Json?>().firstWhere((p) => p!['key'] == 'hotel_manager', orElse: () => null);
+  if (sister != null && hero != null) {
+    final id = sister.str('id');
+    db.put('PartnerAccount', {'id': 'partner-$id', 'type': 'venue', 'name': sister['name'], 'venueIds': [id], 'providerId': null, 'ownerUserId': null, 'feeExempt': true, 'status': 'active', 'createdAt': '2026-06-01T09:00:00+03:00'});
+    db.put('Membership', {'id': '${hero.str('userId')}|$id', 'userId': hero['userId'], 'venueId': id, 'role': sister['role'], 'pendingRequests': sister['pending']});
+  }
 }
 
 /// The partner media library: one item per gallery photo of each venue, plus a ready video when the venue has one.

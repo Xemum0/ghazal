@@ -187,6 +187,41 @@ class MockControl {
     _app.logEvent('story_point', {'point': point});
   }
 
+  /// The competing request of the web Decision screen (`simulateCompeting`): Dalal asks Aurelia for the same Thursday (14 Jan 2027, Danah Ballroom).
+  /// The seed keeps it out of the database (a sixth pending request would not match the story: five wait at the start); this puts it in, with its
+  /// voucher and its `requested` claim, so the partner's request counts and Needs-you gain a row and "other requests for this date" reads 2.
+  /// Idempotent; returns the booking, or null when it is already there or the seed has none.
+  Json? simulateRival() {
+    final stash = _app.db.get('Rival', 'rival');
+    if (stash == null) return null;
+    final booking = stash.obj('booking');
+    final voucher = stash.objOrNull('voucher');
+    _app.db.put('Booking', booking);
+    if (voucher != null) _app.db.put('Voucher', voucher);
+    for (final s in booking.list('sections')) {
+      _app.db.put('CalendarClaim', {
+        'id': 'claim-req-${booking['ref']}-${s['position']}',
+        'venueId': booking['venueId'],
+        'hallId': s['hallId'],
+        'date': booking['eventDate'],
+        'kind': 'requested',
+        'bookingId': booking['id'],
+        'audience': s['audience'],
+        'guests': s['guests'],
+        'clientName': booking['clientName'],
+        'blockReason': null,
+        'blockNote': null,
+        'blockedBy': null,
+        'holdUntil': null,
+        'start': s['start'],
+        'end': s['end'],
+      });
+    }
+    _app.db.remove('Rival', 'rival');
+    _app.logEvent('rival_request', {'bookingId': booking['id']});
+    return wire(booking);
+  }
+
   /// The emails the mock "sent" (partner codes, staff invitations, password resets, calendar files), oldest first.
   List<Json> get outbox => List.unmodifiable(_app.outbox);
 

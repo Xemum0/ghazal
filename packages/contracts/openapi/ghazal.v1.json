@@ -1710,7 +1710,7 @@
         ],
         "operationId": "searchVenues",
         "summary": "Brief-aware venue search (CA-SRCH, CA-CARD)",
-        "description": "Filters mirror the PRD. Every row carries the price and availability for the Brief already computed in fils. Public, cacheable per Brief (private, ETag).",
+        "description": "Filters mirror the PRD and the Filters sheet of the prototype. Every row carries the price and availability for the Brief already computed in fils. `briefAreaIds` is the Brief's area list: it ranks the list and, when nothing else is said, narrows it (default: `areaIds`); `areaIds` is an explicit area selection that replaces it; `allAreas` lifts the narrowing (the All areas chip); a governorate or a `shelf` lifts it too; `availableOnDate` keeps free and held halls; `perGuestMin/Max` and `voucherPerGuestMin/Max` are fils compared to the lowest per-guest rate rounded to KD 0.500; `q` folds Arabic (tashkeel, alef and ya forms, the article). `limit` above 50 is clamped. Public, cacheable per Brief (private, ETag).",
         "security": [
           {},
           {
@@ -1909,6 +1909,130 @@
             "required": false,
             "schema": {
               "$ref": "#/components/schemas/VenueSort"
+            }
+          },
+          {
+            "name": "briefAreaIds",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Id"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "allAreas",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "arrangement",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Audience"
+            }
+          },
+          {
+            "name": "withinMinutes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perGuestMin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perGuestMax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "voucherPerGuestMin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "voucherPerGuestMax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "settings",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/HallSetting"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "facilities",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/FacilityKey"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "brands",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/BrandName"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/HomeCategoryId"
+            }
+          },
+          {
+            "name": "shelf",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/ShelfId"
             }
           },
           {
@@ -2183,6 +2307,130 @@
             "schema": {
               "$ref": "#/components/schemas/VenueSort"
             }
+          },
+          {
+            "name": "briefAreaIds",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Id"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "allAreas",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "arrangement",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Audience"
+            }
+          },
+          {
+            "name": "withinMinutes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perGuestMin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perGuestMax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "voucherPerGuestMin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "voucherPerGuestMax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "settings",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/HallSetting"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "facilities",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/FacilityKey"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "brands",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/BrandName"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/HomeCategoryId"
+            }
+          },
+          {
+            "name": "shelf",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/ShelfId"
+            }
           }
         ],
         "responses": {
@@ -2333,6 +2581,14 @@
             "required": false,
             "schema": {
               "$ref": "#/components/schemas/Audience"
+            }
+          },
+          {
+            "name": "hallId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Id"
             }
           }
         ],
@@ -21870,6 +22126,17 @@
           "invitedBy": {
             "type": "string"
           },
+          "invitedByName": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedText"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The inviter in both languages."
+          },
           "expiresAt": {
             "$ref": "#/components/schemas/IsoDateTime"
           }
@@ -22991,6 +23258,24 @@
         ],
         "x-tag": "venues"
       },
+      "FacilityKey": {
+        "type": "string",
+        "enum": [
+          "parking",
+          "valet",
+          "bridal",
+          "buffet",
+          "decor",
+          "photography"
+        ],
+        "description": "Facility filter of the Filters sheet: parking and buffet included; valet included or extra; a bridal suite offered; basic decor, kosha or florals included; a hall section that allows photography.",
+        "x-tag": "venues"
+      },
+      "BrandName": {
+        "type": "string",
+        "description": "Hotel brand filter: the first word of a hotel name in English (Aurelia, Madar, Lumi, Rawnaq).",
+        "x-tag": "venues"
+      },
       "Session": {
         "type": "object",
         "required": [
@@ -24027,6 +24312,73 @@
           },
           "unit": {
             "$ref": "#/components/schemas/PriceUnit"
+          },
+          "hallId": {
+            "$ref": "#/components/schemas/Id",
+            "description": "The hall this price is for (the `hallId` asked for",
+            "else the first hall of the package that has the Brief's audience).": null
+          },
+          "audience": {
+            "$ref": "#/components/schemas/Audience",
+            "description": "The section the price is for (the Brief's audience when the package sells it",
+            "else the package's first audience).": null
+          },
+          "perGuest": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Money"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The standard per-guest rate of the winning price rule (null for a flat package)."
+          },
+          "flat": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Money"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The standard flat amount of the winning price rule (null for a per-guest package)."
+          },
+          "voucherPerGuest": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Money"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The voucher per-guest rate (a window rate when lower); null when the rule has none."
+          },
+          "voucherFlat": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Money"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The voucher flat amount; null when the rule has none."
+          },
+          "billedGuests": {
+            "type": "integer",
+            "description": "Guests billed after the package and hall minimum (the Brief's guests",
+            "or the minimum when fewer).": null
+          },
+          "billableGuests": {
+            "type": "integer",
+            "description": "Billed guests minus the complimentary share; the quantity the per-guest rate multiplies."
+          },
+          "tier": {
+            "$ref": "#/components/schemas/PriceTier",
+            "description": "The price tier that won on the date."
           }
         },
         "x-tag": "venues"
@@ -33041,6 +33393,17 @@
               "null"
             ]
           },
+          "invitedByName": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedText"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The inviter in both languages (Arabic name, Latin name); `invitedBy` stays the Latin name."
+          },
           "isYou": {
             "type": "boolean"
           }
@@ -33100,6 +33463,17 @@
           },
           "invitedBy": {
             "type": "string"
+          },
+          "invitedByName": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LocalizedText"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The inviter in both languages."
           },
           "staffId": {
             "oneOf": [
@@ -33757,7 +34131,7 @@
             "items": {
               "$ref": "#/components/schemas/PartnerRequestRow"
             },
-            "description": "Confirmed and redeemable requests in the next 7 days."
+            "description": "The requests whose event is today (the venue's `booking` claims of the day, in start order; a provider's confirmed or redeemed requests for the day). The week and the month are `getPartnerCalendar`."
           },
           "activeListings": {
             "type": [
@@ -37383,7 +37757,7 @@
     },
     "OTP_INVALID": {
       "status": 400,
-      "summary": "Wrong code"
+      "summary": "Wrong code; params.remainingAttempts says how many tries are left before OTP_LOCKED"
     },
     "OTP_EXPIRED": {
       "status": 410,

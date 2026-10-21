@@ -10,7 +10,7 @@ import '../models/models.g.dart';
 abstract interface class VenuesRepository {
   /// Brief-aware venue search (CA-SRCH, CA-CARD)
   ///
-  /// Filters mirror the PRD. Every row carries the price and availability for the Brief already computed in fils. Public, cacheable per Brief (private, ETag).
+  /// Filters mirror the PRD and the Filters sheet of the prototype. Every row carries the price and availability for the Brief already computed in fils. `briefAreaIds` is the Brief's area list: it ranks the list and, when nothing else is said, narrows it (default: `areaIds`); `areaIds` is an explicit area selection that replaces it; `allAreas` lifts the narrowing (the All areas chip); a governorate or a `shelf` lifts it too; `availableOnDate` keeps free and held halls; `perGuestMin/Max` and `voucherPerGuestMin/Max` are fils compared to the lowest per-guest rate rounded to KD 0.500; `q` folds Arabic (tashkeel, alef and ya forms, the article). `limit` above 50 is clamped. Public, cacheable per Brief (private, ETag).
   /// `GET /venues`
   /// Access: optional; roles: client.
   Future<Page<VenueResult>> searchVenues({
@@ -35,6 +35,19 @@ abstract interface class VenuesRepository {
     int? budgetMax,
     String? originId,
     VenueSort? sort,
+    List<String>? briefAreaIds,
+    bool? allAreas,
+    Audience? arrangement,
+    int? withinMinutes,
+    int? perGuestMin,
+    int? perGuestMax,
+    int? voucherPerGuestMin,
+    int? voucherPerGuestMax,
+    List<HallSetting>? settings,
+    List<FacilityKey>? facilities,
+    List<String>? brands,
+    HomeCategoryId? category,
+    ShelfId? shelf,
     String? cursor,
     int? limit,
   });
@@ -65,6 +78,19 @@ abstract interface class VenuesRepository {
     int? budgetMax,
     String? originId,
     VenueSort? sort,
+    List<String>? briefAreaIds,
+    bool? allAreas,
+    Audience? arrangement,
+    int? withinMinutes,
+    int? perGuestMin,
+    int? perGuestMax,
+    int? voucherPerGuestMin,
+    int? voucherPerGuestMax,
+    List<HallSetting>? settings,
+    List<FacilityKey>? facilities,
+    List<String>? brands,
+    HomeCategoryId? category,
+    ShelfId? shelf,
   });
 
   /// Filter taxonomy and amenity definitions (CA-FLT)
@@ -82,6 +108,7 @@ abstract interface class VenuesRepository {
     LocalDate? date,
     int? guests,
     Audience? audience,
+    String? hallId,
   });
 
   /// Per-day availability and from-prices of one hall over a date range (at most 366 days)

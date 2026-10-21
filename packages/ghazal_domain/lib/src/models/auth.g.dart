@@ -998,6 +998,7 @@ final class InvitationPreview {
     required this.role,
     required this.accountName,
     required this.invitedBy,
+    this.invitedByName,
     required this.expiresAt,
   });
 
@@ -1008,6 +1009,7 @@ final class InvitationPreview {
         role: reqField(json, 'role', (v) => StaffRole.fromJson(v)),
         accountName: reqField(json, 'accountName', (v) => LocalizedText.fromJson(asMap(v))),
         invitedBy: reqField(json, 'invitedBy', (v) => asString(v)),
+        invitedByName: optField(json, 'invitedByName', (v) => LocalizedText.fromJson(asMap(v))),
         expiresAt: reqField(json, 'expiresAt', (v) => asInstant(v)),
       );
     } on FormatException catch (e) {
@@ -1019,6 +1021,8 @@ final class InvitationPreview {
   final StaffRole role;
   final LocalizedText accountName;
   final String invitedBy;
+  /// The inviter in both languages.
+  final LocalizedText? invitedByName;
   final DateTime expiresAt;
 
   Map<String, Object?> toJson() => {
@@ -1026,6 +1030,7 @@ final class InvitationPreview {
       'role': role.toJson(),
       'accountName': accountName.toJson(),
       'invitedBy': invitedBy,
+      if (invitedByName != null) 'invitedByName': invitedByName!.toJson(),
       'expiresAt': instantToJson(expiresAt),
       };
 
@@ -1034,12 +1039,14 @@ final class InvitationPreview {
     StaffRole? role,
     LocalizedText? accountName,
     String? invitedBy,
+    Object? invitedByName = unsetValue,
     DateTime? expiresAt,
   }) => InvitationPreview(
       email: email ?? this.email,
       role: role ?? this.role,
       accountName: accountName ?? this.accountName,
       invitedBy: invitedBy ?? this.invitedBy,
+      invitedByName: identical(invitedByName, unsetValue) ? this.invitedByName : invitedByName as LocalizedText?,
       expiresAt: expiresAt ?? this.expiresAt,
       );
 
@@ -1051,10 +1058,11 @@ final class InvitationPreview {
           other.role == role &&
           other.accountName == accountName &&
           other.invitedBy == invitedBy &&
+          other.invitedByName == invitedByName &&
           other.expiresAt == expiresAt;
 
   @override
-  int get hashCode => Object.hashAll([email, role, accountName, invitedBy, expiresAt]);
+  int get hashCode => Object.hashAll([email, role, accountName, invitedBy, invitedByName, expiresAt]);
 
   @override
   String toString() => 'InvitationPreview(${toJson()})';

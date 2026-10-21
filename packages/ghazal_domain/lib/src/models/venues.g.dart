@@ -692,6 +692,32 @@ enum HallSetting {
   String toJson() => value;
 }
 
+/// Facility filter of the Filters sheet: parking and buffet included; valet included or extra; a bridal suite offered; basic decor, kosha or florals included; a hall section that allows photography.
+enum FacilityKey {
+  parking('parking'),
+  valet('valet'),
+  bridal('bridal'),
+  buffet('buffet'),
+  decor('decor'),
+  photography('photography'),
+  unknown('unknown');
+
+  const FacilityKey(this.value);
+
+  /// The wire value.
+  final String value;
+
+  /// Unknown values never crash a client: they read as [unknown] (api-conventions section 2).
+  static FacilityKey fromJson(Object? v) {
+    for (final e in values) {
+      if (e.value == v) return e;
+    }
+    return FacilityKey.unknown;
+  }
+
+  String toJson() => value;
+}
+
 final class Session {
   const Session({
     required this.id,
@@ -2496,6 +2522,15 @@ final class PackageBriefPrice {
     required this.savings,
     required this.voucherOffered,
     required this.unit,
+    this.hallId,
+    this.audience,
+    this.perGuest,
+    this.flat,
+    this.voucherPerGuest,
+    this.voucherFlat,
+    this.billedGuests,
+    this.billableGuests,
+    this.tier,
   });
 
   factory PackageBriefPrice.fromJson(Map<String, Object?> json) {
@@ -2506,6 +2541,15 @@ final class PackageBriefPrice {
         savings: optField(json, 'savings', (v) => MoneyAmount.fromJson(asMap(v))),
         voucherOffered: reqField(json, 'voucherOffered', (v) => asBool(v)),
         unit: reqField(json, 'unit', (v) => WirePriceUnit.fromJson(v)),
+        hallId: optField(json, 'hallId', (v) => asString(v)),
+        audience: optField(json, 'audience', (v) => Audience.fromJson(v)),
+        perGuest: optField(json, 'perGuest', (v) => MoneyAmount.fromJson(asMap(v))),
+        flat: optField(json, 'flat', (v) => MoneyAmount.fromJson(asMap(v))),
+        voucherPerGuest: optField(json, 'voucherPerGuest', (v) => MoneyAmount.fromJson(asMap(v))),
+        voucherFlat: optField(json, 'voucherFlat', (v) => MoneyAmount.fromJson(asMap(v))),
+        billedGuests: optField(json, 'billedGuests', (v) => asInt(v)),
+        billableGuests: optField(json, 'billableGuests', (v) => asInt(v)),
+        tier: optField(json, 'tier', (v) => PriceTier.fromJson(v)),
       );
     } on FormatException catch (e) {
       throw FormatException('PackageBriefPrice: ${e.message}');
@@ -2518,6 +2562,24 @@ final class PackageBriefPrice {
   /// True only when the saving beats the voucher fee (voucher-model 4.1).
   final bool voucherOffered;
   final WirePriceUnit unit;
+  /// The hall this price is for (the `hallId` asked for
+  final String? hallId;
+  /// The section the price is for (the Brief's audience when the package sells it
+  final Audience? audience;
+  /// The standard per-guest rate of the winning price rule (null for a flat package).
+  final MoneyAmount? perGuest;
+  /// The standard flat amount of the winning price rule (null for a per-guest package).
+  final MoneyAmount? flat;
+  /// The voucher per-guest rate (a window rate when lower); null when the rule has none.
+  final MoneyAmount? voucherPerGuest;
+  /// The voucher flat amount; null when the rule has none.
+  final MoneyAmount? voucherFlat;
+  /// Guests billed after the package and hall minimum (the Brief's guests
+  final int? billedGuests;
+  /// Billed guests minus the complimentary share; the quantity the per-guest rate multiplies.
+  final int? billableGuests;
+  /// The price tier that won on the date.
+  final PriceTier? tier;
 
   Map<String, Object?> toJson() => {
       'standard': standard.toJson(),
@@ -2525,6 +2587,15 @@ final class PackageBriefPrice {
       'savings': savings == null ? null : savings!.toJson(),
       'voucherOffered': voucherOffered,
       'unit': unit.toJson(),
+      if (hallId != null) 'hallId': hallId!,
+      if (audience != null) 'audience': audience!.toJson(),
+      if (perGuest != null) 'perGuest': perGuest!.toJson(),
+      if (flat != null) 'flat': flat!.toJson(),
+      if (voucherPerGuest != null) 'voucherPerGuest': voucherPerGuest!.toJson(),
+      if (voucherFlat != null) 'voucherFlat': voucherFlat!.toJson(),
+      if (billedGuests != null) 'billedGuests': billedGuests!,
+      if (billableGuests != null) 'billableGuests': billableGuests!,
+      if (tier != null) 'tier': tier!.toJson(),
       };
 
   PackageBriefPrice copyWith({
@@ -2533,12 +2604,30 @@ final class PackageBriefPrice {
     Object? savings = unsetValue,
     bool? voucherOffered,
     WirePriceUnit? unit,
+    Object? hallId = unsetValue,
+    Object? audience = unsetValue,
+    Object? perGuest = unsetValue,
+    Object? flat = unsetValue,
+    Object? voucherPerGuest = unsetValue,
+    Object? voucherFlat = unsetValue,
+    Object? billedGuests = unsetValue,
+    Object? billableGuests = unsetValue,
+    Object? tier = unsetValue,
   }) => PackageBriefPrice(
       standard: standard ?? this.standard,
       voucher: identical(voucher, unsetValue) ? this.voucher : voucher as MoneyAmount?,
       savings: identical(savings, unsetValue) ? this.savings : savings as MoneyAmount?,
       voucherOffered: voucherOffered ?? this.voucherOffered,
       unit: unit ?? this.unit,
+      hallId: identical(hallId, unsetValue) ? this.hallId : hallId as String?,
+      audience: identical(audience, unsetValue) ? this.audience : audience as Audience?,
+      perGuest: identical(perGuest, unsetValue) ? this.perGuest : perGuest as MoneyAmount?,
+      flat: identical(flat, unsetValue) ? this.flat : flat as MoneyAmount?,
+      voucherPerGuest: identical(voucherPerGuest, unsetValue) ? this.voucherPerGuest : voucherPerGuest as MoneyAmount?,
+      voucherFlat: identical(voucherFlat, unsetValue) ? this.voucherFlat : voucherFlat as MoneyAmount?,
+      billedGuests: identical(billedGuests, unsetValue) ? this.billedGuests : billedGuests as int?,
+      billableGuests: identical(billableGuests, unsetValue) ? this.billableGuests : billableGuests as int?,
+      tier: identical(tier, unsetValue) ? this.tier : tier as PriceTier?,
       );
 
   @override
@@ -2549,10 +2638,19 @@ final class PackageBriefPrice {
           other.voucher == voucher &&
           other.savings == savings &&
           other.voucherOffered == voucherOffered &&
-          other.unit == unit;
+          other.unit == unit &&
+          other.hallId == hallId &&
+          other.audience == audience &&
+          other.perGuest == perGuest &&
+          other.flat == flat &&
+          other.voucherPerGuest == voucherPerGuest &&
+          other.voucherFlat == voucherFlat &&
+          other.billedGuests == billedGuests &&
+          other.billableGuests == billableGuests &&
+          other.tier == tier;
 
   @override
-  int get hashCode => Object.hashAll([standard, voucher, savings, voucherOffered, unit]);
+  int get hashCode => Object.hashAll([standard, voucher, savings, voucherOffered, unit, hallId, audience, perGuest, flat, voucherPerGuest, voucherFlat, billedGuests, billableGuests, tier]);
 
   @override
   String toString() => 'PackageBriefPrice(${toJson()})';
