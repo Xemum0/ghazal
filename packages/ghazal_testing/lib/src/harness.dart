@@ -51,14 +51,22 @@ abstract final class GzHarness {
     tester.platformDispatcher.textScaleFactorTestValue = textScale;
     addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
 
-    final clock = (fixedClock ?? gzFixedClock).toUtc().add(const Duration(hours: 3));
+    final fixed = fixedClock ?? gzFixedClock;
+    final clock = fixed.toUtc().add(const Duration(hours: 3));
     final hour = clock.hour % 12 == 0 ? 12 : clock.hour % 12;
     final time = '$hour:${clock.minute.toString().padLeft(2, '0')}';
 
     final content = app ?? GzApp(routerConfig: router!, locale: locale);
     await tester.pumpWidget(
       ProviderScope(
-        overrides: <Override>[localeProvider.overrideWith(() => LocaleNotifier(locale)), ...overrides],
+        // no automatic provider retry (the apps' `gzProviderRetry`): a failed load must show its error state, not stay loading
+        retry: (_, _) => null,
+        overrides: <Override>[
+          localeProvider.overrideWith(() => LocaleNotifier(locale)),
+          // the story clock: countdowns, relative days and "today" read the prototype's fixed instant, like the web frames
+          clockProvider.overrideWithValue(() => fixed),
+          ...overrides,
+        ],
         child: Directionality(
           textDirection: TextDirection.ltr,
           child: RepaintBoundary(

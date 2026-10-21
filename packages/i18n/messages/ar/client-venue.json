@@ -188,7 +188,7 @@
   "clientVenueTermsVoucherFee": "{fee} مرة واحدة لغزل",
   "clientVenueTermsVoucherBound": "خاص بهذه القاعة وهذا العرض",
   "clientVenueTermsDirect": "الدفع والإلغاء مع القاعة",
-  "clientVenueTermsVoucherReuse": "اعتذار أو عدم رد: استخدام جديد خلال {days} أو استرداد",
+  "clientVenueTermsVoucherReuse": "اعتذار أو عدم رد: استخدام جديد خلال {days} أو طلب رصيد من الدعم",
   "clientVenueTermsVoucherConfirm": "التأكيد خلال {hours} من الموافقة",
   "clientVenueGovFeesTitle": "الرسوم",
   "clientVenueGovSecurity": "مبلغ التأمين",

@@ -1908,7 +1908,7 @@
   "clientMessagesNtfKindVoucherReady": "Voucher ready",
   "clientMessagesNtfKindVoucherKept": "Still yours",
   "clientMessagesNtfKindRedeemed": "Redeemed",
-  "clientMessagesNtfKindRefunded": "Refunded",
+  "clientMessagesNtfKindRefunded": "Credit",
   "clientMessagesNtfKindExpiring": "Expiring",
   "clientMessagesNtfKindVisitRequested": "Visit requested",
   "clientMessagesNtfKindVisitConfirmed": "Visit confirmed",
@@ -2796,8 +2796,8 @@
       }
     }
   },
-  "clientProfileDelVoucherRefund": "Refund",
-  "clientProfileDelVoucherDetailRefund": "{count, plural, one{You have a voucher ready. Refund it first: once your account is deleted it ends and can’t be refunded.} other{You have {count} vouchers ready. Refund them first: once your account is deleted they end and can’t be refunded.}}",
+  "clientProfileDelVoucherRefund": "Use voucher",
+  "clientProfileDelVoucherDetailRefund": "{count, plural, one{You have a voucher ready. Use it first: once your account is deleted it ends and does not come back.} other{You have {count} vouchers ready. Use them first: once your account is deleted they end and do not come back.}}",
   "@clientProfileDelVoucherDetailRefund": {
     "placeholders": {
       "count": {
@@ -3847,7 +3847,7 @@
   },
   "clientVenueTermsVoucherBound": "Bound to this venue and quote",
   "clientVenueTermsDirect": "Pay and cancel with the venue",
-  "clientVenueTermsVoucherReuse": "Declined or unanswered: reuse for {days}, or refund",
+  "clientVenueTermsVoucherReuse": "Declined or unanswered: reuse for {days}, or ask support for credit",
   "@clientVenueTermsVoucherReuse": {
     "placeholders": {
       "days": {

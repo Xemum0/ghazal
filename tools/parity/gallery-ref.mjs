@@ -60,19 +60,33 @@ try {
       await page.goto(`${base}#/gallery/${name}?lang=${lang}`, { waitUntil: 'networkidle' })
       await page.evaluate(() => document.fonts && document.fonts.ready)
       await sleep(700)
-      // mark sections
+      // mark sections (the picker stays on the page so a section can be re-marked right before its capture: a re-render while scrolling
+      // removes attributes set earlier)
       const count = await page.evaluate(() => {
-        let els = [...document.querySelectorAll('[data-gz-section]')]
-        if (!els.length) els = [...document.querySelectorAll('main section, [data-gz-route] > section, section')]
-        if (!els.length) {
-          const root = document.querySelector('[data-gz-route]') || document.body
-          els = [...root.children].filter(e => e.getBoundingClientRect().height > 40)
+        window.__gzPick = () => {
+          let els = [...document.querySelectorAll('[data-gz-section]')]
+          if (!els.length) els = [...document.querySelectorAll('main section, [data-gz-route] > section, section')]
+          if (!els.length) {
+            const root = document.querySelector('[data-gz-route]') || document.body
+            els = [...root.children].filter(e => e.getBoundingClientRect().height > 40)
+          }
+          return els
         }
-        els.forEach((e, i) => { e.setAttribute('data-ref-i', String(i)); e.setAttribute('data-ref-title', e.getAttribute('data-gz-section') || (e.querySelector('h1,h2,h3')?.textContent ?? '').trim() || `section ${i + 1}`) })
+        window.__gzMark = i => {
+          const e = window.__gzPick()[i]
+          if (!e) return false
+          document.querySelectorAll('[data-ref-i="' + i + '"]').forEach(x => x.removeAttribute('data-ref-i'))
+          e.setAttribute('data-ref-i', String(i))
+          e.setAttribute('data-ref-title', e.getAttribute('data-gz-section') || (e.querySelector('h1,h2,h3')?.textContent ?? '').trim() || `section ${i + 1}`)
+          return true
+        }
+        const els = window.__gzPick()
+        els.forEach((_, i) => window.__gzMark(i))
         return els.length
       })
       const sections = []
       for (let i = 0; i < count; i++) {
+        await page.evaluate(i => window.__gzMark(i), i)
         const loc = page.locator(`[data-ref-i="${i}"]`).first()
         const title = (await loc.getAttribute('data-ref-title')) ?? `section ${i + 1}`
         const useSlug = (slugsByPage[name] ??= [])
@@ -81,7 +95,18 @@ try {
         const dest = join(dir, file)
         const box = await loc.boundingBox()
         if (!box || box.height < 8) continue
-        if (opt.live) { await loc.scrollIntoViewIfNeeded(); await sleep(1800) }
+        // Walk the section top to bottom in viewport steps so every lazy photo and viewport-triggered reveal below the fold has run, wait for
+        // the images, return to the top, then let the reveals finish (a tall section only intersects the viewport in part).
+        await loc.evaluate(async (el, ms) => {
+          const nap = t => new Promise(r => setTimeout(r, t))
+          const top = el.getBoundingClientRect().top + window.scrollY
+          const bottom = top + el.getBoundingClientRect().height
+          for (let y = top; y < bottom; y += window.innerHeight * 0.7) { window.scrollTo(0, y); await nap(260) }
+          window.scrollTo(0, bottom); await nap(260)
+          await Promise.all([...el.querySelectorAll('img')].map(i => (i.complete && i.naturalWidth > 0 ? 0 : new Promise(r => { i.onload = i.onerror = r; setTimeout(r, 5000) }))))
+          window.scrollTo(0, top); await nap(ms)
+        }, opt.live ? 1800 : 600)
+        await page.evaluate(i => window.__gzMark(i), i)
         if (opt.force || !existsSync(dest)) await loc.screenshot({ path: dest, animations: opt.live ? 'allow' : 'disabled' })
         sections.push({ n: i + 1, title, file, w: Math.round(box.width), h: Math.round(box.height) })
       }

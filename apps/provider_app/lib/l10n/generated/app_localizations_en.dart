@@ -2606,9 +2606,8 @@ class AppL10nEn extends AppL10n {
   String get hotelDecisionsCancelConsequence => 'What happens';
 
   @override
-  String hotelDecisionsCancelVoucherInfo(String fee) {
-    return 'The client’s voucher goes back to them. They can refund the $fee or use it again.';
-  }
+  String get hotelDecisionsCancelVoucherInfo =>
+      'The client’s voucher goes back to them to use again.';
 
   @override
   String get hotelDecisionsCancelStrikeInfo =>

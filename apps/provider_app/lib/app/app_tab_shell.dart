@@ -1,26 +1,31 @@
 import 'package:flutter/widgets.dart';
+import 'package:ghazal_app_kit/ghazal_app_kit.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 import 'package:go_router/go_router.dart';
 
-import 'screen_registry.dart';
+import '../l10n/l10n.dart';
 
-/// The tab shell: the current branch above a tab bar. PLACEHOLDER bar (GzStubTabBar) until `GzTabBar` lands in phase F2.
+/// The tab shell of the partner app: the shared [GzTabShell] with this app's tab names (Today, Bookings, Calendar, Messages, More).
+/// Badges come from `gzTabBadgesProvider` (the partner flows fill it: pending requests on Bookings, unread on Messages).
 class AppTabShell extends StatelessWidget {
   const AppTabShell({required this.navigationShell, super.key});
 
   final StatefulNavigationShell navigationShell;
 
+  static String _label(BuildContext context, String tabId) {
+    final l = context.l10n;
+    return switch (tabId) {
+      'today' => l.hotelShellTabToday,
+      'bookings' => l.hotelShellTabBookings,
+      'calendar' => l.hotelShellTabCalendar,
+      'messages' => l.hotelShellTabMessages,
+      'more' => l.hotelShellTabMore,
+      _ => tabId,
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(child: MediaQuery.removePadding(context: context, removeBottom: true, child: navigationShell)),
-        GzStubTabBar(
-          tabs: [for (final t in kAppTabs) GzStubTab(titleEn: t.titleEn, titleAr: t.titleAr)],
-          currentIndex: navigationShell.currentIndex,
-          onTap: (i) => navigationShell.goBranch(i, initialLocation: i == navigationShell.currentIndex),
-        ),
-      ],
-    );
+    return GzTabShell(navigationShell: navigationShell, kind: GzAppKind.partner, labelOf: _label, barLabel: context.l10n.hotelShellTabBarLabel);
   }
 }

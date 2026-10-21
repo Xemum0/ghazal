@@ -1,7 +1,7 @@
 // BookingActionList: what the partner may do with a request (ADR 0033 D3, ADR 0008 D12): Propose another date (a counter-offer on a pending
 // request), Revoke approval (an approved request, before the client confirms) and Cancel booking (a confirmed request), each a 64 row with
 // the consequence in a caption, so nobody taps into a surprise. Revoke and Cancel are the danger tone and say what happens to the client's
-// voucher: it goes back to them and the KD 2 can be refunded; nothing else moves because the event is paid between client and venue. Only
+// voucher: it goes back to them to use again (a support-granted credit is the only money-side remedy, ADR 0035); nothing else moves because the event is paid between client and venue. Only
 // Admin and Manager see Revoke and Cancel (the screen passes `actions` for the role); an action the role cannot use is not drawn, never locked.
 import type { IconName } from '@gz/tokens'
 import { Icon, ListRow } from '../../core'
@@ -14,9 +14,9 @@ const useW = defineWords({
   reschedule: p('Propose another date', 'اقتراح موعد آخر'),
   rescheduleWhy: p('Offer up to three dates at the same voucher price. The client has 48 hours to answer.', 'اقتراح حتى ثلاثة مواعيد بسعر الكوبون نفسه. أمام العميل 48 ساعة للرد.'),
   revoke: p('Revoke approval', 'سحب الموافقة'),
-  revokeWhy: p('The date is released and the voucher goes back to the client, who can ask for a refund.', 'يُخلى التاريخ ويعود الكوبون إلى العميل، ويحق له طلب الاسترداد.'),
+  revokeWhy: p('The date is released and the voucher goes back to the client.', 'يُخلى التاريخ ويعود الكوبون إلى العميل.'),
   cancel: p('Cancel booking', 'إلغاء الحجز'),
-  cancelWhy: p('The voucher goes back to the client and can be refunded. The cancellation counts on your record.', 'يعود الكوبون إلى العميل ويمكن استرداده. ويُسجَّل الإلغاء في سجلكم.'),
+  cancelWhy: p('The voucher goes back to the client. The cancellation counts on your record.', 'يعود الكوبون إلى العميل. ويُسجَّل الإلغاء في سجلكم.'),
 })
 
 export type BookingAction = 'reschedule' | 'revoke' | 'cancel'

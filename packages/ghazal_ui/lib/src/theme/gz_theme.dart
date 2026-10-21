@@ -1,5 +1,6 @@
 import 'package:material_ui/material_ui.dart';
 
+import '../nav/gz_page_transitions.dart' show gzPageTransitionsTheme;
 import '../tokens/generated/gz_colors.g.dart';
 import '../tokens/generated/gz_type.g.dart';
 
@@ -129,11 +130,7 @@ ThemeData buildGhazalTheme(Locale locale) {
     primaryTextTheme: text,
     visualDensity: VisualDensity.standard,
     materialTapTargetSize: MaterialTapTargetSize.padded,
-    pageTransitionsTheme: gzPageTransitionsPlaceholder,
+    pageTransitionsTheme: gzPageTransitionsTheme,
     extensions: const <ThemeExtension<dynamic>>[c],
   );
 }
-
-/// PLACEHOLDER page transitions (platform default). The navigation owner replaces this with the direction-aware push of the
-/// motion list (24% travel + fade, flipped in RTL; the iOS interactive back swipe stays).
-const PageTransitionsTheme gzPageTransitionsPlaceholder = PageTransitionsTheme();

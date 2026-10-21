@@ -1,0 +1,13 @@
+{
+  "uiSharedGuests": "Guests",
+  "uiSharedFrom": "From",
+  "uiSharedPerNight": "Per night",
+  "uiSharedRentalFee": "Rental fee",
+  "uiSharedLockedVoucher": "Voucher price after you sign up",
+  "uiSharedVoucher": "Voucher",
+  "uiSharedLessThanMinute": "Less than a minute left",
+  "uiSharedSpokenDays": "{count, plural, one{{count} day} other{{count} days}}",
+  "uiSharedSpokenHours": "{count, plural, one{{count} hour} other{{count} hours}}",
+  "uiSharedSpokenMinutes": "{count, plural, one{{count} minute} other{{count} minutes}}",
+  "uiSharedSpokenJoin": "{first} {second}"
+}

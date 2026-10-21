@@ -20,7 +20,7 @@ const useW = defineWords({
   held: p('The date is held for you until then. You pay nothing more to Ghazal.', 'التاريخ محجوز لكم حتى ذلك الوقت. لا مبلغ إضافي لغزل.'),
   lessThanMinute: p('Less than a minute left', 'أقل من دقيقة متبقية'),
   lapsedTitle: p('The confirm window ended', 'انتهت مهلة التأكيد'),
-  lapsedBody: p('The date was released and your voucher is free to use again.', 'تم إخلاء التاريخ، والكوبون متاح للاستخدام من جديد.'),
+  lapsedBody: p('The date was released and the voucher is no longer valid.', 'تم إخلاء التاريخ ولم يعد الكوبون صالحًا.'),
   doneTitle: p('You confirmed this booking', 'تم تأكيد الحجز'),
   doneAt: p('Confirmed on {when}', 'تم التأكيد في {when}'),
   thread: p('Share of the confirm window that has passed', 'المدة المنقضية من مهلة التأكيد'),

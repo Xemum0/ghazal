@@ -2705,9 +2705,8 @@ class AppL10nAr extends AppL10n {
   String get hotelDecisionsCancelConsequence => 'ماذا يحدث';
 
   @override
-  String hotelDecisionsCancelVoucherInfo(String fee) {
-    return 'يعود كوبون العميل إليه. يمكنه استرداد $fee أو استخدام الكوبون مجددًا.';
-  }
+  String get hotelDecisionsCancelVoucherInfo =>
+      'يعود كوبون العميل إليه ليستخدمه مجددًا.';
 
   @override
   String get hotelDecisionsCancelStrikeInfo =>

@@ -91,7 +91,7 @@
   "hotelDecisionsCancelReasonSafety": "صيانة وسلامة",
   "hotelDecisionsCancelReasonOther": "أخرى",
   "hotelDecisionsCancelConsequence": "ماذا يحدث",
-  "hotelDecisionsCancelVoucherInfo": "يعود كوبون العميل إليه. يمكنه استرداد {fee} أو استخدام الكوبون مجددًا.",
+  "hotelDecisionsCancelVoucherInfo": "يعود كوبون العميل إليه ليستخدمه مجددًا.",
   "hotelDecisionsCancelStrikeInfo": "يُسجَّل مؤشر موثوقية ويُتاح التاريخ من جديد.",
   "hotelDecisionsCancelNoMoney": "لا تنتقل أي مبالغ داخل التطبيق. وأي مبلغ دفعه العميل لكم مسبقًا تتم تسويته بينكما.",
   "hotelDecisionsConsReturned": "يعود",

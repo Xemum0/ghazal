@@ -4018,7 +4018,7 @@ class AppL10nAr extends AppL10n {
   String get clientMessagesNtfKindRedeemed => 'تم الاستخدام';
 
   @override
-  String get clientMessagesNtfKindRefunded => 'تم الاسترداد';
+  String get clientMessagesNtfKindRefunded => 'رصيد';
 
   @override
   String get clientMessagesNtfKindExpiring => 'ينتهي قريبًا';
@@ -5872,7 +5872,7 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get clientProfileDelVoucherRefund => 'استرداد';
+  String get clientProfileDelVoucherRefund => 'استخدموه';
 
   @override
   String clientProfileDelVoucherDetailRefund(int count) {
@@ -5884,13 +5884,13 @@ class AppL10nAr extends AppL10n {
       count,
       locale: localeName,
       other:
-          'لديكم ⁦$countString⁩ كوبون جاهز. استردّوا مبالغها أولًا، فبعد حذف الحساب تنتهي ولا يمكن استرداد المبلغ.',
+          'لديكم ⁦$countString⁩ كوبون جاهز. استخدموها أولًا، فبعد حذف الحساب تنتهي ولا تعود.',
       many:
-          'لديكم ⁦$countString⁩ كوبونًا جاهزًا. استردّوا مبالغها أولًا، فبعد حذف الحساب تنتهي ولا يمكن استرداد المبلغ.',
+          'لديكم ⁦$countString⁩ كوبونًا جاهزًا. استخدموها أولًا، فبعد حذف الحساب تنتهي ولا تعود.',
       few:
-          'لديكم ⁦$countString⁩ كوبونات جاهزة. استردّوا مبالغها أولًا، فبعد حذف الحساب تنتهي ولا يمكن استرداد المبلغ.',
-      two: 'لديكم كوبونان جاهزان. استردّوا مبلغهما أولًا، فبعد حذف الحساب ينتهيان ولا يمكن استرداد المبلغ.',
-      one: 'لديكم كوبون جاهز. استردّوا مبلغه أولًا، فبعد حذف الحساب ينتهي ولا يمكن استرداده.',
+          'لديكم ⁦$countString⁩ كوبونات جاهزة. استخدموها أولًا، فبعد حذف الحساب تنتهي ولا تعود.',
+      two: 'لديكم كوبونان جاهزان. استخدموهما أولًا، فبعد حذف الحساب ينتهيان ولا يعودان.',
+      one: 'لديكم كوبون جاهز. استخدموه أولًا، فبعد حذف الحساب ينتهي ولا يعود.',
       zero: 'لا كوبونات جاهزة.',
     );
     return '$_temp0';
@@ -7673,7 +7673,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String clientVenueTermsVoucherReuse(String days) {
-    return 'اعتذار أو عدم رد: استخدام جديد خلال $days أو استرداد';
+    return 'اعتذار أو عدم رد: استخدام جديد خلال $days أو طلب رصيد من الدعم';
   }
 
   @override

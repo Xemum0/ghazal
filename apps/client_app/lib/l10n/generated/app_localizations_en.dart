@@ -3903,7 +3903,7 @@ class AppL10nEn extends AppL10n {
   String get clientMessagesNtfKindRedeemed => 'Redeemed';
 
   @override
-  String get clientMessagesNtfKindRefunded => 'Refunded';
+  String get clientMessagesNtfKindRefunded => 'Credit';
 
   @override
   String get clientMessagesNtfKindExpiring => 'Expiring';
@@ -5721,7 +5721,7 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientProfileDelVoucherRefund => 'Refund';
+  String get clientProfileDelVoucherRefund => 'Use voucher';
 
   @override
   String clientProfileDelVoucherDetailRefund(int count) {
@@ -5733,8 +5733,8 @@ class AppL10nEn extends AppL10n {
       count,
       locale: localeName,
       other:
-          'You have $countString vouchers ready. Refund them first: once your account is deleted they end and can’t be refunded.',
-      one: 'You have a voucher ready. Refund it first: once your account is deleted it ends and can’t be refunded.',
+          'You have $countString vouchers ready. Use them first: once your account is deleted they end and do not come back.',
+      one: 'You have a voucher ready. Use it first: once your account is deleted it ends and does not come back.',
     );
     return '$_temp0';
   }
@@ -7465,7 +7465,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientVenueTermsVoucherReuse(String days) {
-    return 'Declined or unanswered: reuse for $days, or refund';
+    return 'Declined or unanswered: reuse for $days, or ask support for credit';
   }
 
   @override

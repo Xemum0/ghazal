@@ -173,7 +173,7 @@
   "clientMessagesNtfKindVoucherReady": "الكوبون جاهز",
   "clientMessagesNtfKindVoucherKept": "الكوبون لكم",
   "clientMessagesNtfKindRedeemed": "تم الاستخدام",
-  "clientMessagesNtfKindRefunded": "تم الاسترداد",
+  "clientMessagesNtfKindRefunded": "رصيد",
   "clientMessagesNtfKindExpiring": "ينتهي قريبًا",
   "clientMessagesNtfKindVisitRequested": "طلب زيارة",
   "clientMessagesNtfKindVisitConfirmed": "الزيارة مؤكدة",

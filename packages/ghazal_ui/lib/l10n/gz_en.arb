@@ -461,6 +461,1233 @@
       }
     }
   },
+  "uiClientBriefCardDate": "Date",
+  "uiClientBriefCardArea": "Area",
+  "uiClientBriefCardGuests": "Guests",
+  "uiClientBriefCardBudget": "Budget",
+  "uiClientBriefCardNameDate": "Date",
+  "uiClientBriefCardNameArea": "Area",
+  "uiClientBriefCardNameGuests": "Guests",
+  "uiClientBriefCardNameBudget": "Venue and catering budget",
+  "uiClientBriefCardRow": "{label}: {value}",
+  "@uiClientBriefCardRow": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBriefCardShowHalls": "Show halls",
+  "uiClientBriefCardShowCount": "Show {count}",
+  "@uiClientBriefCardShowCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBriefCardMore": "+{n}",
+  "@uiClientBriefCardMore": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBriefCardTitle": "Your brief",
+  "uiClientBriefSentenceWomen": "Ladies’ reception",
+  "uiClientBriefSentenceMen": "Men’s reception",
+  "uiClientBriefSentenceMixed": "Mixed celebration",
+  "uiClientBriefSentenceReception": "Reception",
+  "uiClientBriefSentenceForGuests": "for",
+  "uiClientBriefSentenceOn": "on",
+  "uiClientBriefSentenceIn": "in",
+  "uiClientBriefSentenceBudgetOf": "budget",
+  "uiClientBriefSentenceChooseGuests": "add guests",
+  "uiClientBriefSentenceChooseDate": "choose a date",
+  "uiClientBriefSentenceChooseArea": "choose an area",
+  "uiClientBriefSentenceChooseBudget": "set a budget",
+  "uiClientBriefSentenceField": "Change {what}",
+  "@uiClientBriefSentenceField": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBriefSentenceWhatDate": "the date",
+  "uiClientBriefSentenceWhatGuests": "the guests",
+  "uiClientBriefSentenceWhatArea": "the area",
+  "uiClientBriefSentenceWhatBudget": "the budget",
+  "uiClientBriefSentenceEditLabel": "Edit date, guests, area and budget",
+  "uiClientVoucherWindowEyebrow": "Voucher price",
+  "uiClientVoucherWindowEvents": "For events {window}",
+  "@uiClientVoucherWindowEvents": {
+    "placeholders": {
+      "window": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVoucherWindowEventsOn": "For events on {days}",
+  "@uiClientVoucherWindowEventsOn": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVoucherWindowEventsDates": "For events on selected dates",
+  "uiClientVoucherWindowUntil": "Price available until {date}",
+  "@uiClientVoucherWindowUntil": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVoucherWindowView": "See the hall",
+  "uiClientVoucherWindowEnded": "This price has ended",
+  "uiClientVoucherWindowScheduled": "Starts soon",
+  "uiClientVoucherWindowFromTo": "{from} – {to}",
+  "@uiClientVoucherWindowFromTo": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCountdownEyebrow": "Your wedding",
+  "uiClientCountdownUnit": "{count, plural, =1{day} other{days}}",
+  "@uiClientCountdownUnit": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiClientCountdownToGo": "until your wedding",
+  "uiClientCountdownYear": "A year of planning ahead.",
+  "uiClientCountdownHalf": "Six months to go.",
+  "uiClientCountdownMonth": "One month to go. A good time to settle the details.",
+  "uiClientCountdownWeek": "One week to go. Your guest count is now locked.",
+  "uiClientCountdownTomorrowLine": "Everything is set for tomorrow.",
+  "uiClientCountdownTodayLine": "Today is your day.",
+  "uiClientCountdownProgress": "Waiting time elapsed",
+  "uiClientCountdownTomorrow": "Tomorrow",
+  "uiClientCountdownToday": "Today",
+  "uiClientVenueCardTagWomen": "Ladies",
+  "uiClientVenueCardTagMen": "Men",
+  "uiClientVenueCardTagMixed": "Mixed",
+  "uiClientVenueCardBookedOnDate": "Booked on your date",
+  "uiClientVenueCardGovernment": "Booked through the Ministry of Social Affairs",
+  "uiClientVenueCardGovernmentTag": "Government",
+  "uiClientVenueCardFeatured": "Featured",
+  "uiClientVenueCardWindow": "Special voucher price",
+  "uiClientVenueCardNoPhotos": "Photos coming soon",
+  "uiClientVenueCardHasVideo": "Has a video tour",
+  "uiClientVenueCardPriceDropped": "Price dropped",
+  "uiClientVenueCardSelect": "Choose this hall",
+  "uiClientVenueCardPhotosOf": "Photos of {name}",
+  "@uiClientVenueCardPhotosOf": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVenueCardOpen": "Open {name}",
+  "@uiClientVenueCardOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareAddOne": "Add one more to compare",
+  "uiClientCompareCompare": "Compare",
+  "uiClientCompareRemoveFrom": "Remove {name} from compare",
+  "@uiClientCompareRemoveFrom": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareClear": "Clear the comparison",
+  "uiClientCompareExpand": "Show the comparison tray",
+  "uiClientCompareEmptySlot": "Empty slot {n}",
+  "@uiClientCompareEmptySlot": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareTrayLabel": "Compare ({pair})",
+  "@uiClientCompareTrayLabel": {
+    "placeholders": {
+      "pair": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareBest": "Best in row",
+  "uiClientCompareDifferences": "Differences only",
+  "uiClientCompareHidden": "{n} matching rows hidden",
+  "@uiClientCompareHidden": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareHiddenOne": "1 matching row hidden",
+  "uiClientCompareAllShown": "All rows shown",
+  "uiClientCompareNoLonger": "No longer listed",
+  "uiClientCompareYours": "your {n}",
+  "@uiClientCompareYours": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareOpen": "Open {name}",
+  "@uiClientCompareOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientComparePick": "Choose {name}",
+  "@uiClientComparePick": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareUnpick": "Unchoose {name}",
+  "@uiClientCompareUnpick": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareGroupDate": "Your date",
+  "uiClientCompareGroupPrice": "Price",
+  "uiClientCompareGroupCapacity": "Capacity and layout",
+  "uiClientCompareGroupFacilities": "Facilities",
+  "uiClientCompareRating": "Rating",
+  "uiClientCompareGroupDistance": "Distance",
+  "uiClientCompareGroupBooking": "Type and structure",
+  "uiClientComparePhotos": "Photos",
+  "uiClientCompareRowAvailability": "Availability",
+  "uiClientCompareRowPriceDate": "Voucher price for your date",
+  "uiClientCompareRowPriceFrom": "Voucher price from",
+  "uiClientCompareRowStandard": "Standard price",
+  "uiClientCompareRowSavings": "You save",
+  "uiClientCompareNoVoucher": "No voucher price",
+  "uiClientCompareRowPerGuest": "Per guest",
+  "uiClientCompareRowCapacity": "Largest hall",
+  "uiClientCompareRowValet": "Valet",
+  "uiClientCompareRowPhotography": "Photography",
+  "uiClientCompareRowDistance": "Drive from {origin}",
+  "@uiClientCompareRowDistance": {
+    "placeholders": {
+      "origin": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareRowPackages": "Packages",
+  "uiClientCompareRowType": "Venue type",
+  "uiClientComparePickDate": "Pick a date",
+  "uiClientCompareIncluded": "Included",
+  "uiClientCompareExtra": "Extra",
+  "uiClientCompareNotOffered": "Not offered",
+  "uiClientCompareWomenOnly": "Women only",
+  "uiClientCompareAllowed": "Allowed",
+  "uiClientCompareNotAllowed": "Not allowed",
+  "uiClientCompareFits": "Fits {n}",
+  "@uiClientCompareFits": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareBelow": "Below {n}",
+  "@uiClientCompareBelow": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareUpTo": "Up to {n}",
+  "@uiClientCompareUpTo": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientComparePerGuestUnit": "per guest",
+  "uiClientCompareGetVoucher": "Get voucher",
+  "uiClientCompareOfficial": "Official",
+  "uiClientCompareSeeDates": "See dates",
+  "uiClientCompareBestRated": "Best rated",
+  "uiClientCompareLowest": "Lowest price",
+  "uiClientCompareClosest": "Closest",
+  "uiClientCompareTypeOfficial": "Official channel",
+  "uiClientComparePerPerson": "Per person",
+  "uiClientComparePackagesWord": "Packages",
+  "uiClientCompareBoth": "Both",
+  "uiClientReviewAnonymous": "Anonymous guest",
+  "uiClientReviewVerified": "Verified booking",
+  "uiClientReviewReply": "Reply from {venue}",
+  "@uiClientReviewReply": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientReviewMore": "Read more",
+  "uiClientReviewLess": "Show less",
+  "uiClientReviewPhotos": "Photos from this event",
+  "uiClientReviewLadies": "Ladies’ reception",
+  "uiClientReviewMen": "Men’s reception",
+  "uiClientReviewCatVenue": "Venue",
+  "uiClientReviewCatFood": "Food",
+  "uiClientReviewCatService": "Service",
+  "uiClientReviewCatValue": "Value",
+  "uiClientReviewNone": "No reviews yet. The first guests will write here after their event.",
+  "uiClientReviewScore": "{label}: {value}",
+  "@uiClientReviewScore": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVenueInfoGroupSpace": "Spaces",
+  "uiClientVenueInfoGroupService": "Services",
+  "uiClientVenueInfoGroupProduction": "Production",
+  "uiClientVenueInfoGroupPolicy": "House rules",
+  "uiClientVenueInfoIncluded": "Included",
+  "uiClientVenueInfoExtra": "Extra",
+  "uiClientVenueInfoExtraFrom": "Extra, from {price}",
+  "@uiClientVenueInfoExtraFrom": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVenueInfoNotOffered": "Not offered",
+  "uiClientVenueInfoShowAll": "Show all {n} facilities",
+  "@uiClientVenueInfoShowAll": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVenueInfoShowLess": "Show fewer",
+  "uiClientVenueInfoPhotography": "Photography",
+  "uiClientVenueInfoMusic": "Music",
+  "uiClientVenueInfoEntrance": "Entrance",
+  "uiClientVenueInfoCloakroom": "Abaya cloakroom",
+  "uiClientVenueInfoPrayer": "Prayer room",
+  "uiClientVenueInfoSecurity": "Security",
+  "uiClientVenueInfoBoys": "Boys",
+  "uiClientVenueInfoCatering": "Outside catering",
+  "uiClientVenueInfoDecor": "Outside decor",
+  "uiClientVenueInfoBukhoor": "Bukhoor",
+  "uiClientVenueInfoCutOff": "Event ends by",
+  "uiClientVenueInfoExtraHour": "Extra hour",
+  "uiClientVenueInfoBackup": "Indoor backup",
+  "uiClientVenueInfoPhotoFemale": "Female photographers only",
+  "uiClientVenueInfoPhotoAllowed": "Photography allowed",
+  "uiClientVenueInfoPhotoNone": "No photography",
+  "uiClientVenueInfoMusicBand": "DJ or band",
+  "uiClientVenueInfoMusicLive": "Live music",
+  "uiClientVenueInfoMusicDuff": "Duff and nasheed only",
+  "uiClientVenueInfoMusicNone": "No music",
+  "uiClientVenueInfoNo": "No",
+  "uiClientVenueInfoSeparate": "Separate entrance",
+  "uiClientVenueInfoSecurityFemale": "Female security",
+  "uiClientVenueInfoBoysUpTo": "Up to age {n}",
+  "@uiClientVenueInfoBoysUpTo": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVenueInfoBoysAny": "Any age",
+  "uiClientVenueInfoAllowed": "Allowed",
+  "uiClientVenueInfoApproval": "With the hotel’s approval",
+  "uiClientVenueInfoNotAllowed": "Not allowed",
+  "uiClientVenueInfoAvailable": "Available",
+  "uiClientVenueInfoMapOpen": "Open in Maps",
+  "uiClientVenueInfoMapDrive": "{time} from {origin}",
+  "@uiClientVenueInfoMapDrive": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "origin": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVenueInfoMapPin": "Location of {name}",
+  "@uiClientVenueInfoMapPin": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVenueInfoBlock": "Block {n}",
+  "@uiClientVenueInfoBlock": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChecklistDone": "{done} of {total} done",
+  "@uiClientChecklistDone": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChecklistProgress": "Checklist progress",
+  "uiClientChecklistDue": "Due {date}",
+  "@uiClientChecklistDue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChecklistOverdue": "Overdue since {date}",
+  "@uiClientChecklistOverdue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChecklistNoDate": "No date set",
+  "uiClientChecklistAuto": "Completes when your booking is confirmed",
+  "uiClientChecklistCompletedOn": "Done {date}",
+  "@uiClientChecklistCompletedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChecklistChoose": "Choose",
+  "uiClientChecklistYours": "Your task",
+  "uiClientBudgetTotal": "Wedding budget",
+  "uiClientBudgetPaid": "Paid",
+  "uiClientBudgetCommitted": "Committed",
+  "uiClientBudgetRemaining": "Remaining",
+  "uiClientBudgetOf": "{paid} of {allocated}",
+  "@uiClientBudgetOf": {
+    "placeholders": {
+      "paid": {
+        "type": "String"
+      },
+      "allocated": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBudgetOver": "Over by {amount}",
+  "@uiClientBudgetOver": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBudgetAlertCategory": "{name} is over its share of the budget.",
+  "@uiClientBudgetAlertCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBudgetAlertTotal": "Your plans are above your total budget.",
+  "uiClientBudgetLinked": "Linked to your booking",
+  "uiClientBudgetCategories": "By category",
+  "uiClientBudgetBarLabel": "{paid}: {paidAmount}, {committed}: {committedAmount}, {remaining}: {remainingAmount}",
+  "@uiClientBudgetBarLabel": {
+    "placeholders": {
+      "paid": {
+        "type": "String"
+      },
+      "paidAmount": {
+        "type": "String"
+      },
+      "committed": {
+        "type": "String"
+      },
+      "committedAmount": {
+        "type": "String"
+      },
+      "remaining": {
+        "type": "String"
+      },
+      "remainingAmount": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientTierSuits": "Suits",
+  "uiClientTierConsult": "Request consultation",
+  "uiClientTierMarks": "{n} of 3 marks",
+  "@uiClientTierMarks": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientServiceOpen": "Open {name}",
+  "@uiClientServiceOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVendorVerified": "Verified",
+  "uiClientVendorFemaleTeam": "Female team for ladies’ halls",
+  "uiClientVendorReplies": "Usually replies within {time}",
+  "@uiClientVendorReplies": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChatSent": "Sent",
+  "uiClientChatDelivered": "Delivered",
+  "uiClientChatRead": "Read",
+  "uiClientChatPlay": "Play voice message",
+  "uiClientChatPause": "Pause voice message",
+  "uiClientChatVoice": "Voice message",
+  "uiClientChatPhoto": "Photo",
+  "uiClientChatDownload": "Download {name}",
+  "@uiClientChatDownload": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChatOpenPhoto": "Open photo",
+  "uiClientChatPdf": "PDF",
+  "uiClientChatKb": "{n} KB",
+  "@uiClientChatKb": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChatDraft": "Draft",
+  "uiClientChatYou": "You: ",
+  "uiClientChatPinned": "Pinned",
+  "uiClientChatUnread": "{count, plural, one{{count} unread message} other{{count} unread messages}}",
+  "@uiClientChatUnread": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiClientThreadVoucher": "Voucher",
+  "uiClientThreadRequest": "Request",
+  "uiClientThreadApproval": "Approval",
+  "uiClientThreadConfirmation": "Confirmed",
+  "uiClientThreadRedemption": "Redeemed",
+  "uiClientThreadVoucherLong": "Voucher bought",
+  "uiClientThreadRequestLong": "Request sent",
+  "uiClientThreadApprovalLong": "Venue approval",
+  "uiClientThreadConfirmationLong": "You confirmed",
+  "uiClientThreadRedemptionLong": "Redeemed",
+  "uiClientThreadConfirmationStep": "Confirm",
+  "uiClientThreadRedemptionStep": "At venue",
+  "uiClientThreadConfirmationStepLong": "Your confirmation",
+  "uiClientThreadRedemptionStepLong": "At the venue",
+  "uiClientThreadNotRedeemed": "Not redeemed",
+  "uiClientThreadLabel": "Booking progress",
+  "uiClientThreadStepOf": "Step {n} of {total}",
+  "@uiClientThreadStepOf": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBookingCardDate": "Date",
+  "uiClientBookingCardVoucherPrice": "Voucher price",
+  "uiClientBookingCardQuantity": "Quantity",
+  "uiClientBookingCardOpen": "Open booking {ref}",
+  "@uiClientBookingCardOpen": {
+    "placeholders": {
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBookingCardConfirmBy": "Confirm by {when} · {left}",
+  "@uiClientBookingCardConfirmBy": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      },
+      "left": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientPackageHallOnly": "hall hire",
+  "uiClientPackagePlus": "plus",
+  "uiClientPackageForGuests": "for {guests}",
+  "@uiClientPackageForGuests": {
+    "placeholders": {
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientPackageUpTo": "up to {guests}",
+  "@uiClientPackageUpTo": {
+    "placeholders": {
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientPackageIncluded": "Included",
+  "uiClientPackageNotCovered": "Good to know",
+  "uiClientPackageSelected": "Selected",
+  "uiClientPackageUnavailable": "Not available on your date",
+  "uiClientPackageShowAll": "Show all {n} inclusions",
+  "@uiClientPackageShowAll": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientPackageShowLess": "Show fewer",
+  "uiClientPackageLadies": "Ladies",
+  "uiClientPackageMen": "Men",
+  "uiClientPackageMixed": "Mixed",
+  "uiClientBreakdownLines": "Price details",
+  "uiClientBreakdownStandardTotal": "Standard price",
+  "uiClientBreakdownVoucherTotal": "Voucher price",
+  "uiClientBreakdownSave": "You save",
+  "uiClientBreakdownWho": "Who you pay",
+  "uiClientBreakdownGhazal": "Ghazal · your voucher",
+  "uiClientBreakdownGhazalPaid": "Paid once, when you got the voucher",
+  "uiClientBreakdownVenue": "{venue} · directly",
+  "@uiClientBreakdownVenue": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBreakdownVenueReview": "After you confirm, you pay the venue yourself at this price.",
+  "uiClientBreakdownVenueConfirmed": "Pay the venue directly, then show your voucher code.",
+  "uiClientBreakdownVenueRedeemed": "Settled with the venue. The voucher was redeemed.",
+  "uiClientBreakdownInclusive": "All-in at the venue’s own terms. Ghazal adds nothing to this price.",
+  "uiClientBreakdownNoMore": "Nothing more to pay Ghazal.",
+  "uiClientPaymentKnet": "KNET",
+  "uiClientPaymentKnetNote": "Kuwaiti bank cards",
+  "uiClientPaymentVisa": "Visa",
+  "uiClientPaymentMastercard": "Mastercard",
+  "uiClientPaymentCardNote": "Credit or debit card",
+  "uiClientPaymentApplePay": "Apple Pay",
+  "uiClientPaymentApplePayNote": "With the card on your device",
+  "uiClientPaymentGooglePay": "Google Pay",
+  "uiClientPaymentGooglePayNote": "With the card on your device",
+  "uiClientPaymentRecommended": "Recommended after a KNET limit",
+  "uiClientPaymentUnavailable": "Not available on this device",
+  "uiClientPaymentSelected": "Selected",
+  "uiClientReceiptTitle": "Receipt",
+  "uiClientReceiptIssuer": "Ghazal",
+  "uiClientReceiptNumber": "Receipt number",
+  "uiClientReceiptVoucherCode": "Voucher code",
+  "uiClientReceiptIssued": "Paid on",
+  "uiClientReceiptVia": "Paid with",
+  "uiClientReceiptLine": "Voucher for {name}",
+  "@uiClientReceiptLine": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientReceiptTotal": "Total",
+  "uiClientReceiptFooter": "Issued in Kuwaiti dinars (KWD). Western digits, three decimals.",
+  "uiClientNotificationUnread": "Unread",
+  "uiClientNotificationMarketing": "Offer",
+  "uiFiltersGovernorateAll": "All Kuwait",
+  "uiFiltersCapacityFrom": "From",
+  "uiFiltersCapacityTo": "To",
+  "uiFiltersCapacitySummary": "{range} guests",
+  "@uiFiltersCapacitySummary": {
+    "placeholders": {
+      "range": {
+        "type": "String"
+      }
+    }
+  },
+  "uiFiltersCapacityMin": "Fewest guests",
+  "uiFiltersCapacityMax": "Most guests",
+  "uiHotelTimeLeft": "{time} left",
+  "@uiHotelTimeLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelRowNew": "New",
+  "uiHotelCardPackage": "Package",
+  "uiHotelCardVoucherPrice": "Voucher price",
+  "uiHotelCardNoOther": "No other request for this date",
+  "uiHotelCardVerified": "Verified phone",
+  "uiHotelCardFirstBooking": "First booking",
+  "uiHotelCardCompare": "Compare",
+  "uiHotelCardHeld": "Date held",
+  "uiHotelCardHeldReason": "Date on hold",
+  "uiHotelCardConfirmBy": "Client confirms by",
+  "uiHotelCardUndoMessage": "Request approved",
+  "uiHotelCardChat": "Message {name}",
+  "@uiHotelCardChat": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelCardCall": "Call {name}",
+  "@uiHotelCardCall": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelCardOpen": "Open request: {date}",
+  "@uiHotelCardOpen": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelCardTagWomen": "Ladies",
+  "uiHotelCardTagMen": "Men",
+  "uiHotelCardTagMixed": "Mixed",
+  "uiHotelCardHours": "Hours",
+  "uiHotelCardSpecialRequests": "Special requests",
+  "uiHotelCardOthers": "{count, plural, one{other request for this date} other{other requests for this date}}",
+  "@uiHotelCardOthers": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiHotelTimelineNow": "Now",
+  "uiHotelTimelineEmpty": "Nothing scheduled today",
+  "uiHotelStripConfirmed": "Confirmed",
+  "uiHotelStripPending": "Pending or on hold",
+  "uiHotelStripOpen": "Open",
+  "uiHotelStripToday": "Today",
+  "uiHotelStripSep": ", ",
+  "uiHotelStripConfirmedCount": "{count, plural, other{{count} confirmed}}",
+  "@uiHotelStripConfirmedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiHotelStripPendingCount": "{count, plural, other{{count} pending}}",
+  "@uiHotelStripPendingCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiHotelStripOpenCount": "{count, plural, other{{count} open}}",
+  "@uiHotelStripOpenCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiHotelKpiUp": "up {pct}",
+  "@uiHotelKpiUp": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelKpiDown": "down {pct}",
+  "@uiHotelKpiDown": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelKpiFlat": "unchanged",
+  "uiHotelOccBooked": "Booked",
+  "uiHotelOccHeld": "On hold",
+  "uiHotelOccBlocked": "Blocked",
+  "uiHotelOccOpen": "Open",
+  "uiHotelOccOf": "{booked} of {total} hall-nights booked",
+  "@uiHotelOccOf": {
+    "placeholders": {
+      "booked": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelOccNights": "{count, plural, one{hall-night} other{hall-nights}}",
+  "@uiHotelOccNights": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiHotelVactRequests": "Requests received",
+  "uiHotelVactAwaiting": "Waiting for the client to confirm",
+  "uiHotelVactRedeemed": "Vouchers redeemed",
+  "uiHotelVactChart": "Vouchers bought per day",
+  "uiHotelVactDaily": "Bought per day",
+  "uiHotelCalFree": "open",
+  "uiHotelCalRequest": "Request",
+  "uiHotelCalRequestLegend": "Pending request",
+  "uiHotelCalSep": ", ",
+  "uiHotelCalHoldUntil": "Held until {time}",
+  "@uiHotelCalHoldUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelCalOpen": "Open",
+  "uiHotelCalBlock": "Block",
+  "uiHotelCalBlockDate": "Block this date",
+  "uiHotelCalBy": "by {name}",
+  "@uiHotelCalBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelCalAgenda": "Agenda for {date}",
+  "@uiHotelCalAgenda": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelCalRequests": "{count, plural, one{{count} pending request for this date} other{{count} pending requests for this date}}",
+  "@uiHotelCalRequests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiHotelCalReasonOfflineBooking": "Booked offline",
+  "uiHotelCalReasonMaintenance": "Maintenance",
+  "uiHotelCalReasonPrivateEvent": "Private event",
+  "uiHotelCalReasonOther": "Other",
+  "uiHotelCalSetup": "Setup",
+  "uiHotelCalTeardown": "Teardown",
+  "uiHotelCalOpenDay": "Open: nothing booked or held on this date",
+  "uiHotelCalDragHint": "Press and hold a date, then drag across. Or tap a start date and an end date.",
+  "uiHotelCalSheetTitle": "Block dates",
+  "uiHotelCalSheetShortcuts": "Shortcuts",
+  "uiHotelCalSheetReason": "Reason",
+  "uiHotelCalSheetHalls": "Halls",
+  "uiHotelCalSheetOpen": "Open",
+  "uiHotelCalSheetOffer": "Offer",
+  "uiHotelCalSheetNone": "Choose the dates",
+  "uiHotelCalSheetGrid": "Choose dates to block",
+  "uiHotelCalSheetNote": "Hidden from couples as soon as you block.",
+  "uiHotelCalSheetDates": "{count, plural, one{{count} date} other{{count} dates}}",
+  "@uiHotelCalSheetDates": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiHotelActionsReschedule": "Propose another date",
+  "uiHotelActionsRescheduleWhy": "Offer up to three dates at the same voucher price. The client has 48 hours to answer.",
+  "uiHotelActionsRevoke": "Revoke approval",
+  "uiHotelActionsRevokeWhy": "The date is released and the voucher goes back to the client.",
+  "uiHotelActionsCancel": "Cancel booking",
+  "uiHotelActionsCancelWhy": "The voucher goes back to the client. The cancellation counts on your record.",
+  "uiHotelStatusRef": "Booking reference",
+  "uiHotelStatusVoucher": "Voucher",
+  "uiHotelStatusClientPays": "The client pays you directly",
+  "uiHotelStatusStandard": "Standard price",
+  "uiHotelStatusDirect": "Settled between you and the client, off the app.",
+  "uiHotelStatusAwaiting": "Waiting for the client to confirm by {when} · {left}",
+  "@uiHotelStatusAwaiting": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      },
+      "left": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelStatusRedeem": "Redeem voucher",
+  "uiHotelStatusRedeemed": "Redeemed {when} by {name}",
+  "@uiHotelStatusRedeemed": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelStatusRedeemedNoName": "Redeemed {when}",
+  "@uiHotelStatusRedeemedNoName": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelGuestBookingFor": "Booking for",
+  "uiHotelGuestContact": "Contact",
+  "uiHotelGuestPhone": "Phone",
+  "uiHotelGuestNotShared": "Not shared yet. Message in chat.",
+  "uiHotelGuestVerified": "Verified phone",
+  "uiHotelGuestFirst": "First booking",
+  "uiHotelGuestCall": "Call",
+  "uiHotelGuestChat": "Chat",
+  "uiHotelGuestVoucher": "Voucher",
+  "uiHotelGuestCallWhy": "The client has not shared the number",
+  "uiHotelGuestBride": "The bride",
+  "uiHotelGuestGroom": "The groom",
+  "uiHotelGuestFamily": "A family member",
+  "uiHotelGuestPlanner": "A wedding planner",
+  "uiHotelValidityEventDates": "Event dates",
+  "uiHotelValidityHelper": "The lower voucher price applies to events on these dates.",
+  "uiHotelValidityWindow": "This price runs for",
+  "uiHotelValidityHours": "{n} hours",
+  "@uiHotelValidityHours": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelValidityEnds": "Ends {time}",
+  "@uiHotelValidityEnds": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelValidityScheduled": "Scheduled",
+  "uiHotelValidityActive": "Active",
+  "uiHotelValidityEnded": "Ended",
+  "uiHotelValidityStarts": "Starts {time}",
+  "@uiHotelValidityStarts": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelWindowLabel": "How couples see it",
+  "uiHotelWindowSaving": "Saving against the standard price",
+  "uiHotelPackageGuests": "{from} to {to} guests",
+  "@uiHotelPackageGuests": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackagePrice": "Standard price per guest",
+  "uiHotelPackagePriceFlat": "Standard price",
+  "uiHotelPackageVoucherPrice": "Voucher price per guest",
+  "uiHotelPackageVoucherPriceFlat": "Voucher price",
+  "uiHotelPackagePriceHelper": "In KD, up to three decimals. What a client pays you without a voucher.",
+  "uiHotelPackageVoucherHelper": "Lower than the standard price. What a client pays you with a Ghazal voucher.",
+  "uiHotelPackagePriceError": "Enter an amount such as 52 or 52.500.",
+  "uiHotelPackageVoucherError": "The voucher price must be lower than the standard price.",
+  "uiHotelPackageVoucherSmall": "Clients save {amount}, which is not more than the voucher fee, so no voucher is offered.",
+  "@uiHotelPackageVoucherSmall": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackageSaving": "Clients save {amount}{unit} with the voucher",
+  "@uiHotelPackageSaving": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackageStructure": "Pricing: {structure}",
+  "@uiHotelPackageStructure": {
+    "placeholders": {
+      "structure": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackagePerPerson": "per person",
+  "uiHotelPackagePackage": "package",
+  "uiHotelPackageMin": "Minimum guests",
+  "uiHotelPackageMax": "Maximum guests",
+  "uiHotelPackageRule": "Moves by {step}",
+  "@uiHotelPackageRule": {
+    "placeholders": {
+      "step": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackageInclusions": "Inclusions",
+  "uiHotelPackageRemove": "Remove {name}",
+  "@uiHotelPackageRemove": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackageAdd": "Add inclusion",
+  "uiHotelPackageActiveOf": "{name} is active",
+  "@uiHotelPackageActiveOf": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackageDashboard": "Seasonal, holiday and special-date prices are edited on the dashboard.",
+  "uiHotelPackageEdit": "Edit {name}",
+  "@uiHotelPackageEdit": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackageKd": "KD",
+  "uiHotelPhotosCover": "Cover",
+  "uiHotelPhotosAdd": "Add photos",
+  "uiHotelPhotosReview": "In review",
+  "uiHotelPhotosRejected": "Rejected",
+  "uiHotelPhotosEarlier": "Move {n} earlier",
+  "@uiHotelPhotosEarlier": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPhotosLater": "Move {n} later",
+  "@uiHotelPhotosLater": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPhotosDrag": "Drag to reorder",
+  "uiHotelPhotosOpen": "Photo {n}: {zone}",
+  "@uiHotelPhotosOpen": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "zone": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPhotosHall": "Hall",
+  "uiHotelPhotosStageKosha": "Stage and Kosha",
+  "uiHotelPhotosBridalSuite": "Bridal suite",
+  "uiHotelPhotosBuffet": "Buffet",
+  "uiHotelPhotosOutdoors": "Outdoors",
+  "uiHotelPhotosEntranceValet": "Entrance and valet",
+  "uiHotelPhotosLayout": "Layouts",
+  "uiHotelHoursClosed": "Closed",
+  "uiHotelHoursOpen": "Open on {day}",
+  "@uiHotelHoursOpen": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelHoursFrom": "Opens",
+  "uiHotelHoursTo": "Closes",
+  "uiHotelHoursNextDay": "next day",
+  "uiHotelHoursCopy": "Copy to all days",
+  "uiHotelHoursInvalid": "The closing time is before the opening time.",
+  "uiHotelHoursPick": "{what} at {time}",
+  "@uiHotelHoursPick": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelReviewAnonymous": "Anonymous",
+  "uiHotelReviewVerified": "Verified booking",
+  "uiHotelReviewNeeds": "Needs reply",
+  "uiHotelReviewReported": "Reported · under review by Ghazal",
+  "uiHotelReviewEvent": "Event in {month}",
+  "@uiHotelReviewEvent": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelReviewReply": "Reply",
+  "uiHotelReviewReport": "Report",
+  "uiHotelReviewDraft": "Your draft",
+  "uiHotelReviewYours": "Reply from {name}",
+  "@uiHotelReviewYours": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelReviewOnce": "A reply is public and can be sent once.",
+  "uiHotelStaffYou": "You",
+  "uiHotelStaffActive": "Active",
+  "uiHotelStaffLastSeen": "last seen {time}",
+  "@uiHotelStaffLastSeen": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelStaffPending": "Invite pending",
+  "uiHotelStaffExpires": "expires {date}",
+  "@uiHotelStaffExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelStaffDeactivated": "Deactivated",
+  "uiHotelStaffAllowed": "Allowed",
+  "uiHotelStaffNotAllowed": "Not for this role",
+  "uiHotelStaffOpen": "Permissions of {name}",
+  "@uiHotelStaffOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelStaffAccept": "Accept, decline and propose dates",
+  "uiHotelStaffBlock": "Block and open dates",
+  "uiHotelStaffCancel": "Reschedule or cancel a confirmed booking",
+  "uiHotelStaffCash": "Record cash received",
+  "uiHotelStaffRevenue": "See revenue and payments",
+  "uiHotelStaffOffers": "Create and end offers",
+  "uiHotelStaffManage": "Staff and bank information",
+  "uiHotelStaffSwitchable": "Can be switched off by the owner",
+  "uiHotelPhotosMakeCover": "Make cover",
+  "uiHotelPhotosDelete": "Delete",
+  "uiHotelPhotosOpenAction": "Open",
+  "uiHotelPhotosDeleted": "Photo deleted",
   "uiInputsOtpGroup": "Verification code",
   "uiInputsOtpCell": "Digit {n} of {total}",
   "@uiInputsOtpCell": {
@@ -517,5 +1744,327 @@
   "uiInputsDateFieldChooseDate": "Choose a date",
   "uiInputsDateFieldChooseDates": "Choose dates",
   "uiInputsSlotSession": "Session",
-  "stubNotBuilt": "Not built yet"
+  "uiKitErrorValidationFailed": "Some details need another look. Check the highlighted fields.",
+  "uiKitErrorAuthRequired": "Sign in to continue.",
+  "uiKitErrorTokenExpired": "Your session ended. Please sign in again.",
+  "uiKitErrorSessionRevoked": "You were signed out on this device. Please sign in again.",
+  "uiKitErrorPhoneVerificationRequired": "Verify your mobile number first, then try again.",
+  "uiKitErrorForbidden": "Your role cannot do this. Ask your manager.",
+  "uiKitErrorStepUpRequired": "Confirm with a fresh code or your password to continue.",
+  "uiKitErrorNotFound": "This is no longer available.",
+  "uiKitErrorVenueContextRequired": "Choose the venue or service account you are working in.",
+  "uiKitErrorOtpInvalid": "That code is not right. Check it and try again.",
+  "uiKitErrorOtpExpired": "That code has expired. Ask for a new one.",
+  "uiKitErrorOtpLocked": "Too many wrong codes. Try again later.",
+  "uiKitErrorCredentialsInvalid": "The details do not match an account. Check them and try again.",
+  "uiKitErrorRateLimited": "Too many attempts. Please wait a moment and try again.",
+  "uiKitErrorIdempotencyInProgress": "This is already being processed. Give it a moment.",
+  "uiKitErrorPreconditionFailed": "This was changed elsewhere. Reload and try again.",
+  "uiKitErrorBookingStateConflict": "This request was updated meanwhile. Reload to see where it stands.",
+  "uiKitErrorSlotUnavailable": "That date is no longer available. Pick another date.",
+  "uiKitErrorOpenRequestLimit": "You have reached the limit of open requests. Wait for a reply or withdraw one.",
+  "uiKitErrorQuoteExpired": "This quote has expired. Review it again.",
+  "uiKitErrorQuoteChanged": "The price changed since you saw it. Review the new quote.",
+  "uiKitErrorLeadTimeTooShort": "This date is too close. Pick a later date.",
+  "uiKitErrorGuestsOutOfRange": "The number of guests is outside what this option allows.",
+  "uiKitErrorAudienceNotAllowed": "This hall does not offer this option for your group.",
+  "uiKitErrorChannelNotBookable": "This venue takes requests through its official channel only.",
+  "uiKitErrorVoucherNotOffered": "A voucher does not lower the price for this choice.",
+  "uiKitErrorVoucherNotUsable": "This voucher cannot be used. It may be expired, forfeited or already tied to a request.",
+  "uiKitErrorVoucherTargetMismatch": "This voucher is tied to another venue or service.",
+  "uiKitErrorVoucherCheckoutExpired": "The checkout timed out and nothing was charged. Start again.",
+  "uiKitErrorVoucherUnknown": "No voucher matches this code. Check it and try again.",
+  "uiKitErrorVoucherOtherPartner": "This voucher belongs to another venue or service.",
+  "uiKitErrorVoucherNotConfirmed": "The client has not confirmed this request yet.",
+  "uiKitErrorVoucherAlreadyUsed": "This voucher has already been used.",
+  "uiKitErrorCreditNotEligible": "This voucher cannot be considered for a credit voucher.",
+  "uiKitErrorRefundRequestExists": "A request for this voucher is already with support.",
+  "uiKitErrorConfirmWindowEnded": "The time to confirm has passed.",
+  "uiKitErrorUndoWindowEnded": "The time to undo has passed.",
+  "uiKitErrorPaymentGatewayError": "The payment service is unavailable. Nothing was charged. Try again shortly.",
+  "uiKitErrorPlanRatesNotAnnounced": "Plan rates will be announced soon.",
+  "uiKitErrorListingNotEditable": "This listing cannot be edited in its current status.",
+  "uiKitErrorListingStateConflict": "This listing is not in a status that allows this action.",
+  "uiKitErrorMediaTooLarge": "This file is too large. Choose a smaller one.",
+  "uiKitErrorMediaTypeUnsupported": "This file type is not accepted.",
+  "uiKitErrorReviewAlreadyReplied": "This review already has a reply.",
+  "uiKitErrorReviewNotAllowed": "A review is possible once the event is completed, and only once.",
+  "uiKitErrorVisitSlotTaken": "That arrival window is taken. Pick another one.",
+  "uiKitErrorVisitNotAllowed": "This venue does not take site visits through the app.",
+  "uiKitErrorVisitStateConflict": "This visit was updated meanwhile. Reload to see where it stands.",
+  "uiKitErrorStaffLastAdmin": "The last admin cannot be removed or changed.",
+  "uiKitErrorInvitationExpired": "This invitation has expired or was already used. Ask for a new one.",
+  "uiKitErrorEmailAlreadyInvited": "This email already has a pending invitation.",
+  "uiKitErrorAccountDeletionBlocked": "The account cannot be deleted while a confirmed request is coming up.",
+  "uiKitErrorAppUpdateRequired": "Please update the app to continue.",
+  "uiKitErrorOffline": "You are offline. Check your connection and try again.",
+  "uiKitErrorTimeout": "This is taking too long. Please try again.",
+  "uiKitDemoTitle": "Demo tools",
+  "uiKitDemoHotspot": "Demo tools",
+  "uiKitDemoModeTitle": "Backend",
+  "uiKitDemoModeInProcess": "In-process mock",
+  "uiKitDemoModeRemote": "Remote API at {url}",
+  "@uiKitDemoModeRemote": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "uiKitDemoStoryTitle": "Story",
+  "uiKitDemoReset": "Reset the story",
+  "uiKitDemoResetDone": "The story is back at the start.",
+  "uiKitDemoPersonaTitle": "Who is using the app",
+  "uiKitDemoPersonaGuest": "Guest",
+  "uiKitDemoPersonaNewClient": "New client",
+  "uiKitDemoPersonaReem": "Reem",
+  "uiKitDemoPersonaHotelManager": "Hotel manager",
+  "uiKitDemoPersonaHotelAdmin": "Hotel admin",
+  "uiKitDemoPersonaProvider": "Service provider",
+  "uiKitDemoScenarioTitle": "Next requests",
+  "uiKitDemoScenarioNone": "Normal",
+  "uiKitDemoScenarioSlow": "Slow",
+  "uiKitDemoScenarioError": "Error",
+  "uiKitDemoScenarioOffline": "Offline",
+  "uiKitDemoScenarioEmpty": "Empty",
+  "uiKitDemoScenarioExpired": "Session expires",
+  "uiKitDemoClockTitle": "Clock",
+  "uiKitDemoClockNow": "Story time: {time}",
+  "@uiKitDemoClockNow": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiKitDemoAdvanceHour": "Advance one hour",
+  "uiKitDemoAdvanceDay": "Advance one day",
+  "uiKitDemoJumpTitle": "Jump to a story point",
+  "uiKitDemoPointPending": "Awaiting reply",
+  "uiKitDemoPointApproved": "Approved",
+  "uiKitDemoPointConfirmed": "Confirmed",
+  "uiKitDemoPointRedeemed": "Redeemed",
+  "uiKitDemoPointCompleted": "Completed",
+  "uiKitDemoPointDeclined": "Declined",
+  "uiKitDemoPointExpired": "Expired",
+  "uiKitDemoPointLapsed": "Forfeited",
+  "uiKitDemoPointCancelled": "Cancelled",
+  "uiKitDemoPointCounterOffer": "Counter-offer",
+  "uiKitDemoLanguageTitle": "Language and digits",
+  "uiKitDemoDigitsEastern": "Eastern Arabic digits",
+  "uiKitDemoDigitsWestern": "Western digits",
+  "uiProviderAdPlanExemptBody": "No fee for major hotels",
+  "uiProviderAdPlanPerPeriod": "per {period}",
+  "@uiProviderAdPlanPerPeriod": {
+    "placeholders": {
+      "period": {
+        "type": "String"
+      }
+    }
+  },
+  "uiProviderAdPlanWeek": "week",
+  "uiProviderAdPlanMonth": "month",
+  "uiProviderAdPlanYear": "year",
+  "uiProviderAdPlanStarts": "Runs from the day it is approved",
+  "uiProviderAdPlanChoose": "Choose {name}",
+  "@uiProviderAdPlanChoose": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiProviderMajorHotelExemptFee": "Fee exempt",
+  "uiProviderMajorHotelExplain": "Major hotels pay no listing or advertising fees. Every listing is still reviewed before it goes live.",
+  "uiProviderListingEndsOn": "Ends {date}",
+  "@uiProviderListingEndsOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiProviderListingStartsAfter": "Starts when approved",
+  "uiProviderListingNoPlan": "No plan chosen yet",
+  "uiProviderListingReview": "With the review team",
+  "uiProviderListingRejectContentNotCompliant": "Content does not meet our guidelines",
+  "uiProviderListingRejectWrongCategory": "Wrong category",
+  "uiProviderListingRejectMissingDetails": "Details are missing",
+  "uiProviderListingRejectUnclearPricing": "Pricing is unclear",
+  "uiProviderListingRejectOther": "See the moderator note",
+  "uiProviderTimelineLabel": "Review history",
+  "uiProviderTimelineDraft": "Draft saved",
+  "uiProviderTimelinePaymentPending": "Waiting for payment",
+  "uiProviderTimelinePendingReview": "Sent for review",
+  "uiProviderTimelineApproved": "Approved",
+  "uiProviderTimelineRejected": "Not approved",
+  "uiProviderTimelineActive": "Live on Ghazal",
+  "uiProviderTimelineExpired": "Plan ended",
+  "uiProviderTimelinePaused": "Paused",
+  "uiProviderTimelineYou": "You",
+  "uiProviderTimelineSystem": "Ghazal",
+  "uiProviderTimelineModerator": "Ghazal review team",
+  "uiProviderTimelineModeratorBy": "Ghazal review team · {name}",
+  "@uiProviderTimelineModeratorBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiProviderTimelineNextReview": "A person at Ghazal reviews it",
+  "uiProviderTimelineNextReviewNote": "Every listing is checked for content and category before it goes live. Paying never publishes it by itself.",
+  "uiProviderTimelineNextLive": "Goes live",
+  "uiProviderTimelineNextLiveNote": "Your plan starts the day it goes live.",
+  "uiProviderTimelineKeptUntil": "Your plan is kept until {date} so you can resubmit.",
+  "@uiProviderTimelineKeptUntil": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiProviderTimelineReasonContentNotCompliant": "Content does not meet our guidelines",
+  "uiProviderTimelineReasonWrongCategory": "Wrong category",
+  "uiProviderTimelineReasonMissingDetails": "Details are missing",
+  "uiProviderTimelineReasonUnclearPricing": "Pricing is unclear",
+  "uiProviderTimelineReasonOther": "See the note",
+  "uiSharedGuests": "Guests",
+  "uiSharedFrom": "From",
+  "uiSharedPerNight": "Per night",
+  "uiSharedRentalFee": "Rental fee",
+  "uiSharedLockedVoucher": "Voucher price after you sign up",
+  "uiSharedVoucher": "Voucher",
+  "uiSharedLessThanMinute": "Less than a minute left",
+  "uiSharedSpokenDays": "{count, plural, one{{count} day} other{{count} days}}",
+  "@uiSharedSpokenDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiSharedSpokenHours": "{count, plural, one{{count} hour} other{{count} hours}}",
+  "@uiSharedSpokenHours": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiSharedSpokenMinutes": "{count, plural, one{{count} minute} other{{count} minutes}}",
+  "@uiSharedSpokenMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiSharedSpokenJoin": "{first} {second}",
+  "@uiSharedSpokenJoin": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "second": {
+        "type": "String"
+      }
+    }
+  },
+  "stubNotBuilt": "Not built yet",
+  "uiVisitsStripLabel": "Chat members",
+  "uiVisitsStripOpen": "Show chat members",
+  "uiVisitsCardWith": "With {name}",
+  "@uiVisitsCardWith": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiVisitsCardChat": "Open group chat",
+  "uiVisitsCardReadOnly": "Chat is read-only",
+  "uiVoucherCardCode": "Code",
+  "uiVoucherCardQrLabel": "QR code of voucher {code}",
+  "@uiVoucherCardQrLabel": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "uiVoucherCardCopy": "Copy",
+  "uiVoucherCardFull": "Full screen",
+  "uiVoucherCardDate": "Event date",
+  "uiVoucherCardPackage": "Package",
+  "uiVoucherCardValidUntil": "Valid until",
+  "uiVoucherCardUsedOn": "Redeemed on",
+  "uiVoucherPriceSignUp": "Sign up",
+  "uiVoucherPriceNetTitle": "Your saving",
+  "uiVoucherPriceNet": "You save {amount} after the {fee} voucher.",
+  "@uiVoucherPriceNet": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "uiVoucherPricePackage": "Package price",
+  "uiVoucherSummaryHead": "Your voucher",
+  "uiVoucherSummaryBoundTo": "Bound to",
+  "uiVoucherSummaryDate": "Event date",
+  "uiVoucherSummaryPackage": "Package",
+  "uiVoucherSummaryGuests": "Guests",
+  "uiVoucherSummarySave": "You save",
+  "uiVoucherSummaryPayToday": "You pay Ghazal today",
+  "uiVoucherSummaryPayOnce": "For the voucher, once",
+  "uiVoucherSummaryDirectly": "The rest, {amount}, you pay to {venue} directly after you confirm. Ghazal takes no part in that payment.",
+  "@uiVoucherSummaryDirectly": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "uiVoucherSummaryRuleBound": "The voucher belongs to this venue and this quote.",
+  "uiVoucherSummaryRuleReuse": "If the venue declines, you can use it again here for {days}.",
+  "@uiVoucherSummaryRuleReuse": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "uiVoucherSummaryRuleCredit": "If the venue declines or does not reply, ask support for a credit voucher.",
+  "uiVoucherConfirmEyebrow": "Confirm your booking",
+  "uiVoucherConfirmBy": "Confirm by {when}",
+  "@uiVoucherConfirmBy": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "uiVoucherConfirmHeld": "The date is held for you until then. You pay nothing more to Ghazal.",
+  "uiVoucherConfirmLapsedTitle": "The confirm window ended",
+  "uiVoucherConfirmLapsedBody": "The date was released and the voucher is no longer valid.",
+  "uiVoucherConfirmDoneTitle": "You confirmed this booking",
+  "uiVoucherConfirmDoneAt": "Confirmed on {when}",
+  "@uiVoucherConfirmDoneAt": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "uiVoucherConfirmThread": "Share of the confirm window that has passed"
 }

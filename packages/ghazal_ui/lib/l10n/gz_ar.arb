@@ -461,6 +461,1233 @@
       }
     }
   },
+  "uiClientBriefCardDate": "التاريخ",
+  "uiClientBriefCardArea": "المنطقة",
+  "uiClientBriefCardGuests": "الضيوف",
+  "uiClientBriefCardBudget": "الميزانية",
+  "uiClientBriefCardNameDate": "التاريخ",
+  "uiClientBriefCardNameArea": "المنطقة",
+  "uiClientBriefCardNameGuests": "عدد الضيوف",
+  "uiClientBriefCardNameBudget": "ميزانية القاعة والضيافة",
+  "uiClientBriefCardRow": "{label}: {value}",
+  "@uiClientBriefCardRow": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBriefCardShowHalls": "عرض القاعات",
+  "uiClientBriefCardShowCount": "عرض {count}",
+  "@uiClientBriefCardShowCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBriefCardMore": "+{n}",
+  "@uiClientBriefCardMore": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBriefCardTitle": "تفاصيل زفافكم",
+  "uiClientBriefSentenceWomen": "حفل نسائي",
+  "uiClientBriefSentenceMen": "حفل رجالي",
+  "uiClientBriefSentenceMixed": "حفل مختلط",
+  "uiClientBriefSentenceReception": "حفل",
+  "uiClientBriefSentenceForGuests": "لعدد",
+  "uiClientBriefSentenceOn": "يوم",
+  "uiClientBriefSentenceIn": "في",
+  "uiClientBriefSentenceBudgetOf": "بميزانية",
+  "uiClientBriefSentenceChooseGuests": "إضافة الضيوف",
+  "uiClientBriefSentenceChooseDate": "اختيار التاريخ",
+  "uiClientBriefSentenceChooseArea": "اختيار المنطقة",
+  "uiClientBriefSentenceChooseBudget": "تحديد الميزانية",
+  "uiClientBriefSentenceField": "تغيير {what}",
+  "@uiClientBriefSentenceField": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBriefSentenceWhatDate": "التاريخ",
+  "uiClientBriefSentenceWhatGuests": "عدد الضيوف",
+  "uiClientBriefSentenceWhatArea": "المنطقة",
+  "uiClientBriefSentenceWhatBudget": "الميزانية",
+  "uiClientBriefSentenceEditLabel": "تعديل التاريخ والضيوف والمنطقة والميزانية",
+  "uiClientVoucherWindowEyebrow": "سعر الكوبون",
+  "uiClientVoucherWindowEvents": "للمناسبات {window}",
+  "@uiClientVoucherWindowEvents": {
+    "placeholders": {
+      "window": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVoucherWindowEventsOn": "للمناسبات يوم {days}",
+  "@uiClientVoucherWindowEventsOn": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVoucherWindowEventsDates": "للمناسبات في تواريخ محددة",
+  "uiClientVoucherWindowUntil": "السعر متاح حتى {date}",
+  "@uiClientVoucherWindowUntil": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVoucherWindowView": "عرض القاعة",
+  "uiClientVoucherWindowEnded": "انتهى هذا السعر",
+  "uiClientVoucherWindowScheduled": "يبدأ قريبًا",
+  "uiClientVoucherWindowFromTo": "من {from} إلى {to}",
+  "@uiClientVoucherWindowFromTo": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCountdownEyebrow": "زفافكم",
+  "uiClientCountdownUnit": "{count, plural, zero{يوم} =1{يوم} =2{يومان} few{أيام} many{يومًا} other{يوم}}",
+  "@uiClientCountdownUnit": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiClientCountdownToGo": "حتى زفافكم",
+  "uiClientCountdownYear": "عام كامل من التحضير أمامكم.",
+  "uiClientCountdownHalf": "ستة أشهر تفصلكم عن الحفل.",
+  "uiClientCountdownMonth": "شهر واحد يفصلكم عن الحفل، وقت مناسب لحسم التفاصيل.",
+  "uiClientCountdownWeek": "أسبوع واحد يفصلكم عن الحفل. تم تثبيت عدد الضيوف.",
+  "uiClientCountdownTomorrowLine": "كل شيء جاهز ليوم غدٍ.",
+  "uiClientCountdownTodayLine": "اليوم يومكم.",
+  "uiClientCountdownProgress": "الوقت المنقضي من الانتظار",
+  "uiClientCountdownTomorrow": "غدًا",
+  "uiClientCountdownToday": "اليوم",
+  "uiClientVenueCardTagWomen": "نسائي",
+  "uiClientVenueCardTagMen": "رجالي",
+  "uiClientVenueCardTagMixed": "مختلط",
+  "uiClientVenueCardBookedOnDate": "محجوز في تاريخكم",
+  "uiClientVenueCardGovernment": "الحجز عبر وزارة الشؤون الاجتماعية",
+  "uiClientVenueCardGovernmentTag": "قاعة حكومية",
+  "uiClientVenueCardFeatured": "مميزة",
+  "uiClientVenueCardWindow": "سعر كوبون خاص",
+  "uiClientVenueCardNoPhotos": "الصور قريبًا",
+  "uiClientVenueCardHasVideo": "يتوفر جولة مرئية",
+  "uiClientVenueCardPriceDropped": "انخفض السعر",
+  "uiClientVenueCardSelect": "اختيار هذه القاعة",
+  "uiClientVenueCardPhotosOf": "صور {name}",
+  "@uiClientVenueCardPhotosOf": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVenueCardOpen": "فتح {name}",
+  "@uiClientVenueCardOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareAddOne": "أضيفوا قاعة أخرى للمقارنة",
+  "uiClientCompareCompare": "مقارنة",
+  "uiClientCompareRemoveFrom": "إزالة {name} من المقارنة",
+  "@uiClientCompareRemoveFrom": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareClear": "مسح المقارنة",
+  "uiClientCompareExpand": "عرض شريط المقارنة",
+  "uiClientCompareEmptySlot": "خانة فارغة {n}",
+  "@uiClientCompareEmptySlot": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareTrayLabel": "مقارنة ({pair})",
+  "@uiClientCompareTrayLabel": {
+    "placeholders": {
+      "pair": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareBest": "الأفضل في هذا الصف",
+  "uiClientCompareDifferences": "الفروقات فقط",
+  "uiClientCompareHidden": "تم إخفاء {n} من الصفوف المتشابهة",
+  "@uiClientCompareHidden": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareHiddenOne": "تم إخفاء صف متشابه واحد",
+  "uiClientCompareAllShown": "عرض كل الصفوف",
+  "uiClientCompareNoLonger": "لم تعد مدرجة",
+  "uiClientCompareYours": "عددكم {n}",
+  "@uiClientCompareYours": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareOpen": "فتح {name}",
+  "@uiClientCompareOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientComparePick": "اختيار {name}",
+  "@uiClientComparePick": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareUnpick": "إلغاء اختيار {name}",
+  "@uiClientCompareUnpick": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareGroupDate": "تاريخكم",
+  "uiClientCompareGroupPrice": "السعر",
+  "uiClientCompareGroupCapacity": "السعة والتجهيز",
+  "uiClientCompareGroupFacilities": "المرافق",
+  "uiClientCompareRating": "التقييم",
+  "uiClientCompareGroupDistance": "المسافة",
+  "uiClientCompareGroupBooking": "النوع والتسعير",
+  "uiClientComparePhotos": "الصور",
+  "uiClientCompareRowAvailability": "التوفر",
+  "uiClientCompareRowPriceDate": "سعر الكوبون لتاريخكم",
+  "uiClientCompareRowPriceFrom": "سعر الكوبون ابتداءً من",
+  "uiClientCompareRowStandard": "السعر العادي",
+  "uiClientCompareRowSavings": "توفّرون",
+  "uiClientCompareNoVoucher": "لا يوجد سعر كوبون",
+  "uiClientCompareRowPerGuest": "للضيف",
+  "uiClientCompareRowCapacity": "أكبر قاعة",
+  "uiClientCompareRowValet": "فاليه",
+  "uiClientCompareRowPhotography": "التصوير",
+  "uiClientCompareRowDistance": "المسافة من {origin}",
+  "@uiClientCompareRowDistance": {
+    "placeholders": {
+      "origin": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareRowPackages": "الباقات",
+  "uiClientCompareRowType": "نوع المكان",
+  "uiClientComparePickDate": "اختاروا تاريخًا",
+  "uiClientCompareIncluded": "مشمول",
+  "uiClientCompareExtra": "برسوم إضافية",
+  "uiClientCompareNotOffered": "غير متوفر",
+  "uiClientCompareWomenOnly": "مصوّرات فقط",
+  "uiClientCompareAllowed": "مسموح",
+  "uiClientCompareNotAllowed": "غير مسموح",
+  "uiClientCompareFits": "تستوعب {n}",
+  "@uiClientCompareFits": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareBelow": "أقل من {n}",
+  "@uiClientCompareBelow": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientCompareUpTo": "حتى {n}",
+  "@uiClientCompareUpTo": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientComparePerGuestUnit": "للضيف",
+  "uiClientCompareGetVoucher": "الحصول على كوبون",
+  "uiClientCompareOfficial": "رسمي",
+  "uiClientCompareSeeDates": "التواريخ",
+  "uiClientCompareBestRated": "الأعلى تقييمًا",
+  "uiClientCompareLowest": "الأقل سعرًا",
+  "uiClientCompareClosest": "الأقرب",
+  "uiClientCompareTypeOfficial": "القناة الرسمية",
+  "uiClientComparePerPerson": "سعر للضيف",
+  "uiClientComparePackagesWord": "باقات",
+  "uiClientCompareBoth": "الاثنان",
+  "uiClientReviewAnonymous": "ضيف",
+  "uiClientReviewVerified": "حجز موثّق",
+  "uiClientReviewReply": "ردّ من {venue}",
+  "@uiClientReviewReply": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientReviewMore": "قراءة المزيد",
+  "uiClientReviewLess": "عرض أقل",
+  "uiClientReviewPhotos": "صور من هذه المناسبة",
+  "uiClientReviewLadies": "الحفل النسائي",
+  "uiClientReviewMen": "الحفل الرجالي",
+  "uiClientReviewCatVenue": "القاعة",
+  "uiClientReviewCatFood": "الطعام",
+  "uiClientReviewCatService": "الخدمة",
+  "uiClientReviewCatValue": "القيمة",
+  "uiClientReviewNone": "لا توجد تقييمات بعد. سيكتب الضيوف الأوائل هنا بعد مناسبتهم.",
+  "uiClientReviewScore": "{label}: {value}",
+  "@uiClientReviewScore": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVenueInfoGroupSpace": "المساحات",
+  "uiClientVenueInfoGroupService": "الخدمات",
+  "uiClientVenueInfoGroupProduction": "الإنتاج",
+  "uiClientVenueInfoGroupPolicy": "قواعد المكان",
+  "uiClientVenueInfoIncluded": "مشمول",
+  "uiClientVenueInfoExtra": "إضافة",
+  "uiClientVenueInfoExtraFrom": "إضافة، تبدأ من {price}",
+  "@uiClientVenueInfoExtraFrom": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVenueInfoNotOffered": "غير متوفر",
+  "uiClientVenueInfoShowAll": "عرض كل المرافق ({n})",
+  "@uiClientVenueInfoShowAll": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVenueInfoShowLess": "عرض أقل",
+  "uiClientVenueInfoPhotography": "التصوير",
+  "uiClientVenueInfoMusic": "الموسيقى",
+  "uiClientVenueInfoEntrance": "المدخل",
+  "uiClientVenueInfoCloakroom": "غرفة العبايات",
+  "uiClientVenueInfoPrayer": "المصلى",
+  "uiClientVenueInfoSecurity": "الحراسة",
+  "uiClientVenueInfoBoys": "الأولاد",
+  "uiClientVenueInfoCatering": "الضيافة الخارجية",
+  "uiClientVenueInfoDecor": "الديكور الخارجي",
+  "uiClientVenueInfoBukhoor": "البخور",
+  "uiClientVenueInfoCutOff": "نهاية المناسبة",
+  "uiClientVenueInfoExtraHour": "ساعة إضافية",
+  "uiClientVenueInfoBackup": "قاعة بديلة داخلية",
+  "uiClientVenueInfoPhotoFemale": "مصوّرات فقط",
+  "uiClientVenueInfoPhotoAllowed": "التصوير مسموح",
+  "uiClientVenueInfoPhotoNone": "لا تصوير",
+  "uiClientVenueInfoMusicBand": "منسّق أو فرقة",
+  "uiClientVenueInfoMusicLive": "موسيقى حيّة",
+  "uiClientVenueInfoMusicDuff": "دفوف وأناشيد فقط",
+  "uiClientVenueInfoMusicNone": "بلا موسيقى",
+  "uiClientVenueInfoNo": "غير متوفر",
+  "uiClientVenueInfoSeparate": "مدخل منفصل",
+  "uiClientVenueInfoSecurityFemale": "حراسة نسائية",
+  "uiClientVenueInfoBoysUpTo": "حتى عمر {n} سنوات",
+  "@uiClientVenueInfoBoysUpTo": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVenueInfoBoysAny": "لجميع الأعمار",
+  "uiClientVenueInfoAllowed": "مسموح",
+  "uiClientVenueInfoApproval": "بموافقة المكان",
+  "uiClientVenueInfoNotAllowed": "غير مسموح",
+  "uiClientVenueInfoAvailable": "متوفرة",
+  "uiClientVenueInfoMapOpen": "فتح في الخرائط",
+  "uiClientVenueInfoMapDrive": "{time} من {origin}",
+  "@uiClientVenueInfoMapDrive": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "origin": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVenueInfoMapPin": "موقع {name}",
+  "@uiClientVenueInfoMapPin": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVenueInfoBlock": "قطعة {n}",
+  "@uiClientVenueInfoBlock": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChecklistDone": "تم إنجاز {done} من {total}",
+  "@uiClientChecklistDone": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChecklistProgress": "تقدم القائمة",
+  "uiClientChecklistDue": "الموعد {date}",
+  "@uiClientChecklistDue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChecklistOverdue": "تأخر منذ {date}",
+  "@uiClientChecklistOverdue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChecklistNoDate": "بلا موعد",
+  "uiClientChecklistAuto": "يكتمل عند تأكيد الحجز",
+  "uiClientChecklistCompletedOn": "تم {date}",
+  "@uiClientChecklistCompletedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChecklistChoose": "اختيار",
+  "uiClientChecklistYours": "مهمتكم",
+  "uiClientBudgetTotal": "ميزانية الزفاف",
+  "uiClientBudgetPaid": "المدفوع",
+  "uiClientBudgetCommitted": "الملتزم به",
+  "uiClientBudgetRemaining": "المتبقي",
+  "uiClientBudgetOf": "{paid} من {allocated}",
+  "@uiClientBudgetOf": {
+    "placeholders": {
+      "paid": {
+        "type": "String"
+      },
+      "allocated": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBudgetOver": "تجاوز بمقدار {amount}",
+  "@uiClientBudgetOver": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBudgetAlertCategory": "تجاوزت «{name}» حصتها من الميزانية.",
+  "@uiClientBudgetAlertCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBudgetAlertTotal": "خططكم أعلى من إجمالي الميزانية.",
+  "uiClientBudgetLinked": "مرتبط بحجزكم",
+  "uiClientBudgetCategories": "حسب الفئة",
+  "uiClientBudgetBarLabel": "{paid}: {paidAmount}، {committed}: {committedAmount}، {remaining}: {remainingAmount}",
+  "@uiClientBudgetBarLabel": {
+    "placeholders": {
+      "paid": {
+        "type": "String"
+      },
+      "paidAmount": {
+        "type": "String"
+      },
+      "committed": {
+        "type": "String"
+      },
+      "committedAmount": {
+        "type": "String"
+      },
+      "remaining": {
+        "type": "String"
+      },
+      "remainingAmount": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientTierSuits": "مناسبة لـ",
+  "uiClientTierConsult": "طلب استشارة",
+  "uiClientTierMarks": "{n} من 3 علامات",
+  "@uiClientTierMarks": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientServiceOpen": "فتح {name}",
+  "@uiClientServiceOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientVendorVerified": "موثّق",
+  "uiClientVendorFemaleTeam": "فريق نسائي للقاعات النسائية",
+  "uiClientVendorReplies": "يرد عادةً خلال {time}",
+  "@uiClientVendorReplies": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChatSent": "أُرسلت",
+  "uiClientChatDelivered": "وصلت",
+  "uiClientChatRead": "قُرئت",
+  "uiClientChatPlay": "تشغيل الرسالة الصوتية",
+  "uiClientChatPause": "إيقاف الرسالة الصوتية",
+  "uiClientChatVoice": "رسالة صوتية",
+  "uiClientChatPhoto": "صورة",
+  "uiClientChatDownload": "تنزيل {name}",
+  "@uiClientChatDownload": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChatOpenPhoto": "فتح الصورة",
+  "uiClientChatPdf": "PDF",
+  "uiClientChatKb": "{n} ك.ب",
+  "@uiClientChatKb": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientChatDraft": "مسودة",
+  "uiClientChatYou": "أنتم: ",
+  "uiClientChatPinned": "مثبتة",
+  "uiClientChatUnread": "{count, plural, =0{لا رسائل غير مقروءة} =1{رسالة واحدة غير مقروءة} =2{رسالتان غير مقروءتين} few{⁦{count}⁩ رسائل غير مقروءة} many{⁦{count}⁩ رسالة غير مقروءة} other{⁦{count}⁩ رسالة غير مقروءة}}",
+  "@uiClientChatUnread": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiClientThreadVoucher": "الكوبون",
+  "uiClientThreadRequest": "الطلب",
+  "uiClientThreadApproval": "الموافقة",
+  "uiClientThreadConfirmation": "التأكيد",
+  "uiClientThreadRedemption": "الاستخدام",
+  "uiClientThreadVoucherLong": "شراء الكوبون",
+  "uiClientThreadRequestLong": "إرسال الطلب",
+  "uiClientThreadApprovalLong": "موافقة المكان",
+  "uiClientThreadConfirmationLong": "تأكيدكم",
+  "uiClientThreadRedemptionLong": "تم الاستخدام",
+  "uiClientThreadConfirmationStep": "التأكيد",
+  "uiClientThreadRedemptionStep": "في القاعة",
+  "uiClientThreadConfirmationStepLong": "تأكيدكم",
+  "uiClientThreadRedemptionStepLong": "في القاعة",
+  "uiClientThreadNotRedeemed": "لم يُستخدم",
+  "uiClientThreadLabel": "مراحل الحجز",
+  "uiClientThreadStepOf": "المرحلة {n} من {total}",
+  "@uiClientThreadStepOf": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBookingCardDate": "التاريخ",
+  "uiClientBookingCardVoucherPrice": "سعر الكوبون",
+  "uiClientBookingCardQuantity": "الكمية",
+  "uiClientBookingCardOpen": "فتح الحجز {ref}",
+  "@uiClientBookingCardOpen": {
+    "placeholders": {
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBookingCardConfirmBy": "التأكيد حتى {when} · {left}",
+  "@uiClientBookingCardConfirmBy": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      },
+      "left": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientPackageHallOnly": "تأجير القاعة",
+  "uiClientPackagePlus": "إضافة إلى",
+  "uiClientPackageForGuests": "لعدد {guests}",
+  "@uiClientPackageForGuests": {
+    "placeholders": {
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientPackageUpTo": "حتى {guests}",
+  "@uiClientPackageUpTo": {
+    "placeholders": {
+      "guests": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientPackageIncluded": "يشمل",
+  "uiClientPackageNotCovered": "للعلم",
+  "uiClientPackageSelected": "تم اختيار هذه الباقة",
+  "uiClientPackageUnavailable": "غير متاحة في تاريخكم",
+  "uiClientPackageShowAll": "عرض كل المشمولات ({n})",
+  "@uiClientPackageShowAll": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientPackageShowLess": "عرض أقل",
+  "uiClientPackageLadies": "نسائي",
+  "uiClientPackageMen": "رجالي",
+  "uiClientPackageMixed": "مختلط",
+  "uiClientBreakdownLines": "تفاصيل السعر",
+  "uiClientBreakdownStandardTotal": "السعر العادي",
+  "uiClientBreakdownVoucherTotal": "سعر الكوبون",
+  "uiClientBreakdownSave": "توفّرون",
+  "uiClientBreakdownWho": "لمن تدفعون",
+  "uiClientBreakdownGhazal": "غزل · الكوبون",
+  "uiClientBreakdownGhazalPaid": "تم دفعه مرة واحدة عند شراء الكوبون",
+  "uiClientBreakdownVenue": "{venue} · مباشرة",
+  "@uiClientBreakdownVenue": {
+    "placeholders": {
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientBreakdownVenueReview": "بعد التأكيد تدفعون للمكان مباشرة بهذا السعر.",
+  "uiClientBreakdownVenueConfirmed": "ادفعوا للمكان مباشرة، ثم اعرضوا رمز الكوبون.",
+  "uiClientBreakdownVenueRedeemed": "تمت التسوية مع المكان وتم استخدام الكوبون.",
+  "uiClientBreakdownInclusive": "السعر شامل وفق شروط المكان. غزل لا تضيف أي مبلغ.",
+  "uiClientBreakdownNoMore": "لا مبلغ إضافي لغزل.",
+  "uiClientPaymentKnet": "كي نت",
+  "uiClientPaymentKnetNote": "بطاقات البنوك الكويتية",
+  "uiClientPaymentVisa": "فيزا",
+  "uiClientPaymentMastercard": "ماستركارد",
+  "uiClientPaymentCardNote": "بطاقة ائتمان أو خصم",
+  "uiClientPaymentApplePay": "Apple Pay",
+  "uiClientPaymentApplePayNote": "بالبطاقة المحفوظة في جهازكم",
+  "uiClientPaymentGooglePay": "Google Pay",
+  "uiClientPaymentGooglePayNote": "بالبطاقة المحفوظة في جهازكم",
+  "uiClientPaymentRecommended": "موصى بها عند بلوغ حد كي نت",
+  "uiClientPaymentUnavailable": "غير متاحة على هذا الجهاز",
+  "uiClientPaymentSelected": "محددة",
+  "uiClientReceiptTitle": "إيصال",
+  "uiClientReceiptIssuer": "غزل",
+  "uiClientReceiptNumber": "رقم الإيصال",
+  "uiClientReceiptVoucherCode": "رمز الكوبون",
+  "uiClientReceiptIssued": "تاريخ الدفع",
+  "uiClientReceiptVia": "وسيلة الدفع",
+  "uiClientReceiptLine": "كوبون خاص بـ {name}",
+  "@uiClientReceiptLine": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiClientReceiptTotal": "الإجمالي",
+  "uiClientReceiptFooter": "صادر بالدينار الكويتي (KWD). أرقام غربية بثلاث خانات عشرية.",
+  "uiClientNotificationUnread": "غير مقروء",
+  "uiClientNotificationMarketing": "عرض",
+  "uiFiltersGovernorateAll": "كل الكويت",
+  "uiFiltersCapacityFrom": "من",
+  "uiFiltersCapacityTo": "إلى",
+  "uiFiltersCapacitySummary": "{range} ضيف",
+  "@uiFiltersCapacitySummary": {
+    "placeholders": {
+      "range": {
+        "type": "String"
+      }
+    }
+  },
+  "uiFiltersCapacityMin": "أقل عدد من الضيوف",
+  "uiFiltersCapacityMax": "أكثر عدد من الضيوف",
+  "uiHotelTimeLeft": "باقي {time}",
+  "@uiHotelTimeLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelRowNew": "جديد",
+  "uiHotelCardPackage": "الباقة",
+  "uiHotelCardVoucherPrice": "سعر الكوبون",
+  "uiHotelCardNoOther": "لا توجد طلبات أخرى لهذا التاريخ",
+  "uiHotelCardVerified": "رقم موثّق",
+  "uiHotelCardFirstBooking": "أول حجز",
+  "uiHotelCardCompare": "مقارنة",
+  "uiHotelCardHeld": "التاريخ محجوز",
+  "uiHotelCardHeldReason": "التاريخ محجوز مؤقتًا",
+  "uiHotelCardConfirmBy": "يؤكد العميل حتى",
+  "uiHotelCardUndoMessage": "تمت الموافقة على الطلب",
+  "uiHotelCardChat": "مراسلة {name}",
+  "@uiHotelCardChat": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelCardCall": "الاتصال بـ{name}",
+  "@uiHotelCardCall": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelCardOpen": "فتح الطلب: {date}",
+  "@uiHotelCardOpen": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelCardTagWomen": "نسائي",
+  "uiHotelCardTagMen": "رجالي",
+  "uiHotelCardTagMixed": "مختلط",
+  "uiHotelCardHours": "الوقت",
+  "uiHotelCardSpecialRequests": "طلبات خاصة",
+  "uiHotelCardOthers": "{count, plural, =1{طلب آخر لهذا التاريخ} =2{طلبان آخران لهذا التاريخ} few{طلبات أخرى لهذا التاريخ} many{طلبًا آخر لهذا التاريخ} other{طلب آخر لهذا التاريخ}}",
+  "@uiHotelCardOthers": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiHotelTimelineNow": "الآن",
+  "uiHotelTimelineEmpty": "لا شيء مجدول اليوم",
+  "uiHotelStripConfirmed": "مؤكد",
+  "uiHotelStripPending": "بانتظار الرد أو محجوز مؤقتًا",
+  "uiHotelStripOpen": "متاح",
+  "uiHotelStripToday": "اليوم",
+  "uiHotelStripSep": "، ",
+  "uiHotelStripConfirmedCount": "{count, plural, =1{حجز مؤكد} =2{حجزان مؤكدان} few{{count} حجوزات مؤكدة} many{{count} حجزًا مؤكدًا} other{{count} حجز مؤكد}}",
+  "@uiHotelStripConfirmedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiHotelStripPendingCount": "{count, plural, =1{طلب بانتظار الرد} =2{طلبان بانتظار الرد} few{{count} طلبات بانتظار الرد} many{{count} طلبًا بانتظار الرد} other{{count} طلب بانتظار الرد}}",
+  "@uiHotelStripPendingCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiHotelStripOpenCount": "{count, plural, =1{فترة متاحة} =2{فترتان متاحتان} few{{count} فترات متاحة} many{{count} فترة متاحة} other{{count} فترة متاحة}}",
+  "@uiHotelStripOpenCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiHotelKpiUp": "ارتفاع {pct}",
+  "@uiHotelKpiUp": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelKpiDown": "انخفاض {pct}",
+  "@uiHotelKpiDown": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelKpiFlat": "دون تغيير",
+  "uiHotelOccBooked": "محجوز",
+  "uiHotelOccHeld": "محجوز مؤقتًا",
+  "uiHotelOccBlocked": "مغلق",
+  "uiHotelOccOpen": "متاح",
+  "uiHotelOccOf": "{booked} من {total} ليلة قاعة محجوزة",
+  "@uiHotelOccOf": {
+    "placeholders": {
+      "booked": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelOccNights": "{count, plural, =1{ليلة قاعة} =2{ليلتا قاعة} few{ليالي قاعات} many{ليلة قاعة} other{ليلة قاعة}}",
+  "@uiHotelOccNights": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiHotelVactRequests": "الطلبات الواردة",
+  "uiHotelVactAwaiting": "بانتظار تأكيد العميل",
+  "uiHotelVactRedeemed": "كوبونات تم استخدامها",
+  "uiHotelVactChart": "الكوبونات المشتراة يوميًا",
+  "uiHotelVactDaily": "المشتراة يوميًا",
+  "uiHotelCalFree": "متاح",
+  "uiHotelCalRequest": "طلب",
+  "uiHotelCalRequestLegend": "طلب بانتظار الرد",
+  "uiHotelCalSep": "، ",
+  "uiHotelCalHoldUntil": "محجوز حتى {time}",
+  "@uiHotelCalHoldUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelCalOpen": "متاح",
+  "uiHotelCalBlock": "إغلاق",
+  "uiHotelCalBlockDate": "إغلاق هذا التاريخ",
+  "uiHotelCalBy": "بواسطة {name}",
+  "@uiHotelCalBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelCalAgenda": "مواعيد {date}",
+  "@uiHotelCalAgenda": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelCalRequests": "{count, plural, =1{طلب واحد بانتظار الرد لهذا التاريخ} =2{طلبان بانتظار الرد لهذا التاريخ} few{⁦{count}⁩ طلبات بانتظار الرد لهذا التاريخ} many{⁦{count}⁩ طلبًا بانتظار الرد لهذا التاريخ} other{⁦{count}⁩ طلب بانتظار الرد لهذا التاريخ}}",
+  "@uiHotelCalRequests": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiHotelCalReasonOfflineBooking": "حجز خارج غزل",
+  "uiHotelCalReasonMaintenance": "صيانة",
+  "uiHotelCalReasonPrivateEvent": "مناسبة خاصة",
+  "uiHotelCalReasonOther": "أخرى",
+  "uiHotelCalSetup": "التجهيز",
+  "uiHotelCalTeardown": "الفك والتنظيف",
+  "uiHotelCalOpenDay": "متاح: لا حجز ولا تثبيت في هذا التاريخ",
+  "uiHotelCalDragHint": "اضغطوا مطوّلًا على تاريخ ثم اسحبوا عبر التواريخ. أو انقروا على تاريخ البداية ثم تاريخ النهاية.",
+  "uiHotelCalSheetTitle": "إغلاق التواريخ",
+  "uiHotelCalSheetShortcuts": "اختصارات",
+  "uiHotelCalSheetReason": "السبب",
+  "uiHotelCalSheetHalls": "القاعات",
+  "uiHotelCalSheetOpen": "فتح",
+  "uiHotelCalSheetOffer": "عرض",
+  "uiHotelCalSheetNone": "اختاروا التواريخ",
+  "uiHotelCalSheetGrid": "اختيار التواريخ المراد إغلاقها",
+  "uiHotelCalSheetNote": "تختفي من نتائج العملاء فور الإغلاق.",
+  "uiHotelCalSheetDates": "{count, plural, =1{تاريخ واحد} =2{تاريخان} few{⁦{count}⁩ تواريخ} many{⁦{count}⁩ تاريخًا} other{⁦{count}⁩ تاريخ}}",
+  "@uiHotelCalSheetDates": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiHotelActionsReschedule": "اقتراح موعد آخر",
+  "uiHotelActionsRescheduleWhy": "اقتراح حتى ثلاثة مواعيد بسعر الكوبون نفسه. أمام العميل 48 ساعة للرد.",
+  "uiHotelActionsRevoke": "سحب الموافقة",
+  "uiHotelActionsRevokeWhy": "يُخلى التاريخ ويعود الكوبون إلى العميل.",
+  "uiHotelActionsCancel": "إلغاء الحجز",
+  "uiHotelActionsCancelWhy": "يعود الكوبون إلى العميل. ويُسجَّل الإلغاء في سجلكم.",
+  "uiHotelStatusRef": "رقم الحجز",
+  "uiHotelStatusVoucher": "الكوبون",
+  "uiHotelStatusClientPays": "يدفع العميل لكم مباشرة",
+  "uiHotelStatusStandard": "السعر العادي",
+  "uiHotelStatusDirect": "تتم التسوية بينكم وبين العميل خارج التطبيق.",
+  "uiHotelStatusAwaiting": "بانتظار تأكيد العميل حتى {when} · {left}",
+  "@uiHotelStatusAwaiting": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      },
+      "left": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelStatusRedeem": "استخدام الكوبون",
+  "uiHotelStatusRedeemed": "تم الاستخدام {when} بواسطة {name}",
+  "@uiHotelStatusRedeemed": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelStatusRedeemedNoName": "تم الاستخدام {when}",
+  "@uiHotelStatusRedeemedNoName": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelGuestBookingFor": "الحجز باسم",
+  "uiHotelGuestContact": "التواصل",
+  "uiHotelGuestPhone": "الهاتف",
+  "uiHotelGuestNotShared": "لم يُشارَك بعد. راسلوا عبر المحادثة.",
+  "uiHotelGuestVerified": "رقم موثّق",
+  "uiHotelGuestFirst": "أول حجز",
+  "uiHotelGuestCall": "اتصال",
+  "uiHotelGuestChat": "محادثة",
+  "uiHotelGuestVoucher": "الكوبون",
+  "uiHotelGuestCallWhy": "لم يشارك العميل رقمه",
+  "uiHotelGuestBride": "العروس",
+  "uiHotelGuestGroom": "العريس",
+  "uiHotelGuestFamily": "أحد أفراد العائلة",
+  "uiHotelGuestPlanner": "منسّق أعراس",
+  "uiHotelValidityEventDates": "تواريخ المناسبة",
+  "uiHotelValidityHelper": "يسري سعر الكوبون الأقل على المناسبات في هذه التواريخ.",
+  "uiHotelValidityWindow": "مدة هذا السعر",
+  "uiHotelValidityHours": "{n} ساعة",
+  "@uiHotelValidityHours": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelValidityEnds": "ينتهي {time}",
+  "@uiHotelValidityEnds": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelValidityScheduled": "مجدول",
+  "uiHotelValidityActive": "نشط",
+  "uiHotelValidityEnded": "منتهٍ",
+  "uiHotelValidityStarts": "يبدأ {time}",
+  "@uiHotelValidityStarts": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelWindowLabel": "كما يراه العملاء",
+  "uiHotelWindowSaving": "التوفير مقارنة بالسعر العادي",
+  "uiHotelPackageGuests": "من {from} إلى {to} ضيف",
+  "@uiHotelPackageGuests": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackagePrice": "السعر العادي للضيف",
+  "uiHotelPackagePriceFlat": "السعر العادي",
+  "uiHotelPackageVoucherPrice": "سعر الكوبون للضيف",
+  "uiHotelPackageVoucherPriceFlat": "سعر الكوبون",
+  "uiHotelPackagePriceHelper": "بالدينار الكويتي حتى ثلاث خانات عشرية. ما يدفعه العميل لكم دون كوبون.",
+  "uiHotelPackageVoucherHelper": "أقل من السعر العادي. ما يدفعه العميل لكم بكوبون غزل.",
+  "uiHotelPackagePriceError": "أدخلوا مبلغًا مثل 52 أو 52.500.",
+  "uiHotelPackageVoucherError": "يجب أن يكون سعر الكوبون أقل من السعر العادي.",
+  "uiHotelPackageVoucherSmall": "يوفّر العميل {amount} وهو لا يزيد على ثمن الكوبون، لذلك لا يُعرض الكوبون.",
+  "@uiHotelPackageVoucherSmall": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackageSaving": "يوفّر العميل {amount}{unit} بالكوبون",
+  "@uiHotelPackageSaving": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackageStructure": "التسعير: {structure}",
+  "@uiHotelPackageStructure": {
+    "placeholders": {
+      "structure": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackagePerPerson": "للضيف",
+  "uiHotelPackagePackage": "باقة",
+  "uiHotelPackageMin": "الحد الأدنى للضيوف",
+  "uiHotelPackageMax": "الحد الأقصى للضيوف",
+  "uiHotelPackageRule": "يتغير بمقدار {step}",
+  "@uiHotelPackageRule": {
+    "placeholders": {
+      "step": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackageInclusions": "ما تشمله الباقة",
+  "uiHotelPackageRemove": "إزالة {name}",
+  "@uiHotelPackageRemove": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackageAdd": "إضافة",
+  "uiHotelPackageActiveOf": "الباقة {name} مفعّلة",
+  "@uiHotelPackageActiveOf": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackageDashboard": "تُعدَّل أسعار المواسم والعطل والتواريخ الخاصة من لوحة التحكم.",
+  "uiHotelPackageEdit": "تعديل {name}",
+  "@uiHotelPackageEdit": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPackageKd": "د.ك",
+  "uiHotelPhotosCover": "الغلاف",
+  "uiHotelPhotosAdd": "إضافة صور",
+  "uiHotelPhotosReview": "قيد المراجعة",
+  "uiHotelPhotosRejected": "مرفوضة",
+  "uiHotelPhotosEarlier": "نقل الصورة {n} للأمام",
+  "@uiHotelPhotosEarlier": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPhotosLater": "نقل الصورة {n} للخلف",
+  "@uiHotelPhotosLater": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPhotosDrag": "اسحبوا لإعادة الترتيب",
+  "uiHotelPhotosOpen": "الصورة {n}: {zone}",
+  "@uiHotelPhotosOpen": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "zone": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelPhotosHall": "القاعة",
+  "uiHotelPhotosStageKosha": "المنصة والكوشة",
+  "uiHotelPhotosBridalSuite": "جناح العروس",
+  "uiHotelPhotosBuffet": "البوفيه",
+  "uiHotelPhotosOutdoors": "الخارج",
+  "uiHotelPhotosEntranceValet": "المدخل والفاليه",
+  "uiHotelPhotosLayout": "التصاميم",
+  "uiHotelHoursClosed": "مغلق",
+  "uiHotelHoursOpen": "مفتوح يوم {day}",
+  "@uiHotelHoursOpen": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelHoursFrom": "يفتح",
+  "uiHotelHoursTo": "يغلق",
+  "uiHotelHoursNextDay": "اليوم التالي",
+  "uiHotelHoursCopy": "نسخ إلى كل الأيام",
+  "uiHotelHoursInvalid": "وقت الإغلاق يسبق وقت الفتح.",
+  "uiHotelHoursPick": "{what} الساعة {time}",
+  "@uiHotelHoursPick": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelReviewAnonymous": "مجهول الهوية",
+  "uiHotelReviewVerified": "حجز موثّق",
+  "uiHotelReviewNeeds": "بانتظار الرد",
+  "uiHotelReviewReported": "تم الإبلاغ · قيد مراجعة غزل",
+  "uiHotelReviewEvent": "مناسبة في {month}",
+  "@uiHotelReviewEvent": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelReviewReply": "الرد",
+  "uiHotelReviewReport": "إبلاغ",
+  "uiHotelReviewDraft": "مسودتكم",
+  "uiHotelReviewYours": "رد من {name}",
+  "@uiHotelReviewYours": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelReviewOnce": "الرد علني ويُرسل مرة واحدة.",
+  "uiHotelStaffYou": "أنتم",
+  "uiHotelStaffActive": "نشط",
+  "uiHotelStaffLastSeen": "آخر ظهور {time}",
+  "@uiHotelStaffLastSeen": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelStaffPending": "الدعوة قيد الانتظار",
+  "uiHotelStaffExpires": "تنتهي {date}",
+  "@uiHotelStaffExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelStaffDeactivated": "معطّل",
+  "uiHotelStaffAllowed": "مسموح",
+  "uiHotelStaffNotAllowed": "ليس لهذا الدور",
+  "uiHotelStaffOpen": "صلاحيات {name}",
+  "@uiHotelStaffOpen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiHotelStaffAccept": "قبول الطلبات والاعتذار واقتراح موعد آخر",
+  "uiHotelStaffBlock": "إغلاق التواريخ وفتحها",
+  "uiHotelStaffCancel": "تغيير موعد حجز مؤكد أو إلغاؤه",
+  "uiHotelStaffCash": "تسجيل مبلغ نقدي مستلم",
+  "uiHotelStaffRevenue": "الاطلاع على الإيرادات والدفعات",
+  "uiHotelStaffOffers": "إنشاء العروض وإنهاؤها",
+  "uiHotelStaffManage": "الموظفون وبيانات الحساب البنكي",
+  "uiHotelStaffSwitchable": "يمكن للمالك إيقافه",
+  "uiHotelPhotosMakeCover": "جعلها الغلاف",
+  "uiHotelPhotosDelete": "حذف",
+  "uiHotelPhotosOpenAction": "فتح",
+  "uiHotelPhotosDeleted": "تم حذف الصورة",
   "uiInputsOtpGroup": "رمز التحقق",
   "uiInputsOtpCell": "الخانة {n} من {total}",
   "@uiInputsOtpCell": {
@@ -517,5 +1744,327 @@
   "uiInputsDateFieldChooseDate": "اختيار التاريخ",
   "uiInputsDateFieldChooseDates": "اختيار التواريخ",
   "uiInputsSlotSession": "الفترة",
-  "stubNotBuilt": "لم تُبنَ بعد"
+  "uiKitErrorValidationFailed": "بعض البيانات تحتاج إلى مراجعة. يُرجى التحقق من الحقول المحددة.",
+  "uiKitErrorAuthRequired": "يُرجى تسجيل الدخول للمتابعة.",
+  "uiKitErrorTokenExpired": "انتهت الجلسة. يُرجى تسجيل الدخول مرة أخرى.",
+  "uiKitErrorSessionRevoked": "تم تسجيل خروجكم من هذا الجهاز. يُرجى تسجيل الدخول مرة أخرى.",
+  "uiKitErrorPhoneVerificationRequired": "يُرجى توثيق رقم الجوال أولاً ثم المحاولة مرة أخرى.",
+  "uiKitErrorForbidden": "دوركم لا يتيح هذا الإجراء. يُرجى مراجعة المدير.",
+  "uiKitErrorStepUpRequired": "أكدوا برمز جديد أو بكلمة المرور للمتابعة.",
+  "uiKitErrorNotFound": "لم يعد هذا متاحاً.",
+  "uiKitErrorVenueContextRequired": "اختاروا القاعة أو حساب الخدمة الذي تعملون عليه.",
+  "uiKitErrorOtpInvalid": "الرمز غير صحيح. يُرجى التحقق منه والمحاولة مرة أخرى.",
+  "uiKitErrorOtpExpired": "انتهت صلاحية الرمز. اطلبوا رمزاً جديداً.",
+  "uiKitErrorOtpLocked": "تكررت المحاولات الخاطئة. يُرجى المحاولة لاحقاً.",
+  "uiKitErrorCredentialsInvalid": "البيانات لا تطابق أي حساب. يُرجى التحقق منها والمحاولة مرة أخرى.",
+  "uiKitErrorRateLimited": "محاولات كثيرة. يُرجى الانتظار قليلاً ثم المحاولة مرة أخرى.",
+  "uiKitErrorIdempotencyInProgress": "هذا الطلب قيد المعالجة. يُرجى الانتظار لحظة.",
+  "uiKitErrorPreconditionFailed": "تم تغيير هذا من مكان آخر. أعيدوا التحميل وحاولوا مرة أخرى.",
+  "uiKitErrorBookingStateConflict": "تم تحديث هذا الطلب في هذه الأثناء. أعيدوا التحميل لمعرفة حالته.",
+  "uiKitErrorSlotUnavailable": "هذا التاريخ لم يعد متاحاً. يُرجى تحديد تاريخ آخر.",
+  "uiKitErrorOpenRequestLimit": "وصلتم إلى الحد الأقصى للطلبات المفتوحة. انتظروا رداً أو اسحبوا أحد الطلبات.",
+  "uiKitErrorQuoteExpired": "انتهت صلاحية هذا العرض. يُرجى مراجعته مرة أخرى.",
+  "uiKitErrorQuoteChanged": "تغيّر السعر منذ عرضه. يُرجى مراجعة العرض الجديد.",
+  "uiKitErrorLeadTimeTooShort": "هذا التاريخ قريب جداً. يُرجى تحديد تاريخ لاحق.",
+  "uiKitErrorGuestsOutOfRange": "عدد الضيوف خارج النطاق الذي يتيحه هذا الخيار.",
+  "uiKitErrorAudienceNotAllowed": "هذه القاعة لا تتيح هذا الخيار لفئتكم.",
+  "uiKitErrorChannelNotBookable": "تستقبل هذه الجهة الطلبات عبر قناتها الرسمية فقط.",
+  "uiKitErrorVoucherNotOffered": "الكوبون لا يخفض السعر لهذا الخيار.",
+  "uiKitErrorVoucherNotUsable": "لا يمكن استخدام هذا الكوبون. قد يكون منتهياً أو ملغى أو مرتبطاً بطلب.",
+  "uiKitErrorVoucherTargetMismatch": "هذا الكوبون مرتبط بقاعة أو خدمة أخرى.",
+  "uiKitErrorVoucherCheckoutExpired": "انتهت مهلة الدفع ولم يُخصم أي مبلغ. ابدؤوا من جديد.",
+  "uiKitErrorVoucherUnknown": "لا يوجد كوبون بهذا الرمز. يُرجى التحقق منه والمحاولة مرة أخرى.",
+  "uiKitErrorVoucherOtherPartner": "هذا الكوبون يخص قاعة أو خدمة أخرى.",
+  "uiKitErrorVoucherNotConfirmed": "لم يؤكد العميل هذا الطلب بعد.",
+  "uiKitErrorVoucherAlreadyUsed": "تم استخدام هذا الكوبون من قبل.",
+  "uiKitErrorCreditNotEligible": "لا يمكن النظر في هذا الكوبون لإصدار كوبون رصيد.",
+  "uiKitErrorRefundRequestExists": "يوجد طلب لهذا الكوبون لدى الدعم بالفعل.",
+  "uiKitErrorConfirmWindowEnded": "انتهت مهلة التأكيد.",
+  "uiKitErrorUndoWindowEnded": "انتهت مهلة التراجع.",
+  "uiKitErrorPaymentGatewayError": "خدمة الدفع غير متاحة. لم يُخصم أي مبلغ. يُرجى المحاولة بعد قليل.",
+  "uiKitErrorPlanRatesNotAnnounced": "سيتم الإعلان عن أسعار الباقات قريباً.",
+  "uiKitErrorListingNotEditable": "لا يمكن تعديل هذا الإعلان في حالته الحالية.",
+  "uiKitErrorListingStateConflict": "هذا الإعلان ليس في حالة تتيح هذا الإجراء.",
+  "uiKitErrorMediaTooLarge": "حجم الملف كبير جداً. يُرجى استخدام ملف أصغر.",
+  "uiKitErrorMediaTypeUnsupported": "نوع الملف غير مقبول.",
+  "uiKitErrorReviewAlreadyReplied": "لهذا التقييم رد بالفعل.",
+  "uiKitErrorReviewNotAllowed": "يمكن كتابة التقييم بعد اكتمال المناسبة، ومرة واحدة فقط.",
+  "uiKitErrorVisitSlotTaken": "هذا الموعد لم يعد متاحاً. يُرجى تحديد موعد آخر.",
+  "uiKitErrorVisitNotAllowed": "هذه الجهة لا تستقبل الزيارات عبر التطبيق.",
+  "uiKitErrorVisitStateConflict": "تم تحديث هذه الزيارة في هذه الأثناء. أعيدوا التحميل لمعرفة حالتها.",
+  "uiKitErrorStaffLastAdmin": "لا يمكن إزالة آخر مسؤول أو تغيير دوره.",
+  "uiKitErrorInvitationExpired": "انتهت صلاحية هذه الدعوة أو تم استخدامها. اطلبوا دعوة جديدة.",
+  "uiKitErrorEmailAlreadyInvited": "هذا البريد لديه دعوة قيد الانتظار بالفعل.",
+  "uiKitErrorAccountDeletionBlocked": "لا يمكن حذف الحساب بوجود طلب مؤكد قادم.",
+  "uiKitErrorAppUpdateRequired": "يُرجى تحديث التطبيق للمتابعة.",
+  "uiKitErrorOffline": "لا يوجد اتصال. يُرجى التأكد من الاتصال بالإنترنت والمحاولة مرة أخرى.",
+  "uiKitErrorTimeout": "استغرق الأمر وقتاً طويلاً. يُرجى المحاولة مرة أخرى.",
+  "uiKitDemoTitle": "أدوات العرض",
+  "uiKitDemoHotspot": "أدوات العرض",
+  "uiKitDemoModeTitle": "الخادم",
+  "uiKitDemoModeInProcess": "نموذج محاكاة داخل التطبيق",
+  "uiKitDemoModeRemote": "واجهة خارجية على {url}",
+  "@uiKitDemoModeRemote": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "uiKitDemoStoryTitle": "القصة",
+  "uiKitDemoReset": "إعادة ضبط القصة",
+  "uiKitDemoResetDone": "عادت القصة إلى البداية.",
+  "uiKitDemoPersonaTitle": "من يستخدم التطبيق",
+  "uiKitDemoPersonaGuest": "زائر",
+  "uiKitDemoPersonaNewClient": "عميلة جديدة",
+  "uiKitDemoPersonaReem": "ريم",
+  "uiKitDemoPersonaHotelManager": "مدير الفندق",
+  "uiKitDemoPersonaHotelAdmin": "مسؤول الفندق",
+  "uiKitDemoPersonaProvider": "مزوّد خدمة",
+  "uiKitDemoScenarioTitle": "الطلبات القادمة",
+  "uiKitDemoScenarioNone": "عادي",
+  "uiKitDemoScenarioSlow": "بطيء",
+  "uiKitDemoScenarioError": "خطأ",
+  "uiKitDemoScenarioOffline": "دون اتصال",
+  "uiKitDemoScenarioEmpty": "فارغ",
+  "uiKitDemoScenarioExpired": "انتهاء الجلسة",
+  "uiKitDemoClockTitle": "الساعة",
+  "uiKitDemoClockNow": "وقت القصة: {time}",
+  "@uiKitDemoClockNow": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "uiKitDemoAdvanceHour": "تقديم ساعة",
+  "uiKitDemoAdvanceDay": "تقديم يوم",
+  "uiKitDemoJumpTitle": "الانتقال إلى مرحلة من القصة",
+  "uiKitDemoPointPending": "بانتظار الرد",
+  "uiKitDemoPointApproved": "تمت الموافقة",
+  "uiKitDemoPointConfirmed": "مؤكد",
+  "uiKitDemoPointRedeemed": "تم الاستخدام",
+  "uiKitDemoPointCompleted": "مكتمل",
+  "uiKitDemoPointDeclined": "لم يُقبل",
+  "uiKitDemoPointExpired": "انتهت المهلة",
+  "uiKitDemoPointLapsed": "سقط الكوبون",
+  "uiKitDemoPointCancelled": "ملغي",
+  "uiKitDemoPointCounterOffer": "عرض بديل",
+  "uiKitDemoLanguageTitle": "اللغة والأرقام",
+  "uiKitDemoDigitsEastern": "الأرقام العربية الشرقية",
+  "uiKitDemoDigitsWestern": "الأرقام الغربية",
+  "uiProviderAdPlanExemptBody": "بلا رسوم للفنادق الكبيرة",
+  "uiProviderAdPlanPerPeriod": "لكل {period}",
+  "@uiProviderAdPlanPerPeriod": {
+    "placeholders": {
+      "period": {
+        "type": "String"
+      }
+    }
+  },
+  "uiProviderAdPlanWeek": "أسبوع",
+  "uiProviderAdPlanMonth": "شهر",
+  "uiProviderAdPlanYear": "سنة",
+  "uiProviderAdPlanStarts": "تبدأ من يوم الموافقة",
+  "uiProviderAdPlanChoose": "اختيار الباقة {name}",
+  "@uiProviderAdPlanChoose": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiProviderMajorHotelExemptFee": "معفى من الرسوم",
+  "uiProviderMajorHotelExplain": "لا تُحتسب على الفنادق الكبيرة رسوم إدراج أو إعلان. وتخضع كل قوائمها للمراجعة قبل النشر.",
+  "uiProviderListingEndsOn": "تنتهي {date}",
+  "@uiProviderListingEndsOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiProviderListingStartsAfter": "تبدأ عند الموافقة",
+  "uiProviderListingNoPlan": "لم تُختر باقة بعد",
+  "uiProviderListingReview": "لدى فريق المراجعة",
+  "uiProviderListingRejectContentNotCompliant": "المحتوى لا يتوافق مع إرشادات النشر",
+  "uiProviderListingRejectWrongCategory": "الفئة غير مناسبة",
+  "uiProviderListingRejectMissingDetails": "بعض البيانات ناقصة",
+  "uiProviderListingRejectUnclearPricing": "الأسعار غير واضحة",
+  "uiProviderListingRejectOther": "راجعوا ملاحظة المراجع",
+  "uiProviderTimelineLabel": "سجل المراجعة",
+  "uiProviderTimelineDraft": "تم حفظ المسودة",
+  "uiProviderTimelinePaymentPending": "بانتظار الدفع",
+  "uiProviderTimelinePendingReview": "أُرسلت للمراجعة",
+  "uiProviderTimelineApproved": "تمت الموافقة",
+  "uiProviderTimelineRejected": "لم تتم الموافقة",
+  "uiProviderTimelineActive": "نُشرت على غزل",
+  "uiProviderTimelineExpired": "انتهت مدة الباقة",
+  "uiProviderTimelinePaused": "تم الإيقاف المؤقت",
+  "uiProviderTimelineYou": "أنتم",
+  "uiProviderTimelineSystem": "غزل",
+  "uiProviderTimelineModerator": "فريق مراجعة غزل",
+  "uiProviderTimelineModeratorBy": "فريق مراجعة غزل · {name}",
+  "@uiProviderTimelineModeratorBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiProviderTimelineNextReview": "مراجعة يدوية من فريق غزل",
+  "uiProviderTimelineNextReviewNote": "تُراجع كل قائمة من حيث المحتوى والفئة قبل النشر. الدفع وحده لا يؤدي إلى النشر.",
+  "uiProviderTimelineNextLive": "النشر",
+  "uiProviderTimelineNextLiveNote": "تبدأ مدة الباقة من يوم النشر.",
+  "uiProviderTimelineKeptUntil": "تبقى باقتكم محفوظة حتى {date} لإعادة الإرسال.",
+  "@uiProviderTimelineKeptUntil": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "uiProviderTimelineReasonContentNotCompliant": "المحتوى لا يتوافق مع إرشادات النشر",
+  "uiProviderTimelineReasonWrongCategory": "الفئة غير مناسبة",
+  "uiProviderTimelineReasonMissingDetails": "بعض البيانات ناقصة",
+  "uiProviderTimelineReasonUnclearPricing": "الأسعار غير واضحة",
+  "uiProviderTimelineReasonOther": "راجعوا الملاحظة",
+  "uiSharedGuests": "الضيوف",
+  "uiSharedFrom": "من",
+  "uiSharedPerNight": "لليلة",
+  "uiSharedRentalFee": "رسوم الإيجار",
+  "uiSharedLockedVoucher": "سعر الكوبون بعد التسجيل",
+  "uiSharedVoucher": "كوبون",
+  "uiSharedLessThanMinute": "أقل من دقيقة متبقية",
+  "uiSharedSpokenDays": "{count, plural, =1{يوم} =2{يومان} few{{count} أيام} many{{count} يومًا} other{{count} يوم}}",
+  "@uiSharedSpokenDays": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiSharedSpokenHours": "{count, plural, =1{ساعة} =2{ساعتان} few{{count} ساعات} many{{count} ساعة} other{{count} ساعة}}",
+  "@uiSharedSpokenHours": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiSharedSpokenMinutes": "{count, plural, =1{دقيقة} =2{دقيقتان} few{{count} دقائق} many{{count} دقيقة} other{{count} دقيقة}}",
+  "@uiSharedSpokenMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "uiSharedSpokenJoin": "{first} و{second}",
+  "@uiSharedSpokenJoin": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "second": {
+        "type": "String"
+      }
+    }
+  },
+  "stubNotBuilt": "لم تُبنَ بعد",
+  "uiVisitsStripLabel": "أعضاء المحادثة",
+  "uiVisitsStripOpen": "عرض أعضاء المحادثة",
+  "uiVisitsCardWith": "مع {name}",
+  "@uiVisitsCardWith": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uiVisitsCardChat": "فتح المحادثة الجماعية",
+  "uiVisitsCardReadOnly": "المحادثة للقراءة فقط",
+  "uiVoucherCardCode": "الرمز",
+  "uiVoucherCardQrLabel": "رمز QR للكوبون {code}",
+  "@uiVoucherCardQrLabel": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "uiVoucherCardCopy": "نسخ",
+  "uiVoucherCardFull": "ملء الشاشة",
+  "uiVoucherCardDate": "تاريخ المناسبة",
+  "uiVoucherCardPackage": "الباقة",
+  "uiVoucherCardValidUntil": "صالح حتى",
+  "uiVoucherCardUsedOn": "استُخدم في",
+  "uiVoucherPriceSignUp": "تسجيل",
+  "uiVoucherPriceNetTitle": "التوفير",
+  "uiVoucherPriceNet": "توفّرون {amount} بعد كوبون بقيمة {fee}.",
+  "@uiVoucherPriceNet": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "uiVoucherPricePackage": "سعر الباقة",
+  "uiVoucherSummaryHead": "كوبونكم",
+  "uiVoucherSummaryBoundTo": "خاص بـ",
+  "uiVoucherSummaryDate": "تاريخ الحفل",
+  "uiVoucherSummaryPackage": "الباقة",
+  "uiVoucherSummaryGuests": "عدد الضيوف",
+  "uiVoucherSummarySave": "توفّرون",
+  "uiVoucherSummaryPayToday": "تدفعون لغزل اليوم",
+  "uiVoucherSummaryPayOnce": "ثمن الكوبون، مرة واحدة",
+  "uiVoucherSummaryDirectly": "والباقي، {amount}، تدفعونه إلى {venue} مباشرة بعد التأكيد. غزل ليست طرفًا في هذه الدفعة.",
+  "@uiVoucherSummaryDirectly": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "venue": {
+        "type": "String"
+      }
+    }
+  },
+  "uiVoucherSummaryRuleBound": "الكوبون خاص بهذا المكان وهذا العرض.",
+  "uiVoucherSummaryRuleReuse": "إذا اعتذر المكان، يمكنكم استخدامه هنا من جديد خلال {days}.",
+  "@uiVoucherSummaryRuleReuse": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "uiVoucherSummaryRuleCredit": "إذا اعتذر المكان أو لم يرد، اطلبوا كوبون رصيد من الدعم.",
+  "uiVoucherConfirmEyebrow": "أكدوا حجزكم",
+  "uiVoucherConfirmBy": "التأكيد حتى {when}",
+  "@uiVoucherConfirmBy": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "uiVoucherConfirmHeld": "التاريخ محجوز لكم حتى ذلك الوقت. لا مبلغ إضافي لغزل.",
+  "uiVoucherConfirmLapsedTitle": "انتهت مهلة التأكيد",
+  "uiVoucherConfirmLapsedBody": "تم إخلاء التاريخ، ولم يعد الكوبون صالحًا.",
+  "uiVoucherConfirmDoneTitle": "تم تأكيد الحجز",
+  "uiVoucherConfirmDoneAt": "تم التأكيد في {when}",
+  "@uiVoucherConfirmDoneAt": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "uiVoucherConfirmThread": "المدة المنقضية من مهلة التأكيد"
 }

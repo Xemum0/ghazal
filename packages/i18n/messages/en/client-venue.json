@@ -188,7 +188,7 @@
   "clientVenueTermsVoucherFee": "{fee}, paid once to Ghazal",
   "clientVenueTermsVoucherBound": "Bound to this venue and quote",
   "clientVenueTermsDirect": "Pay and cancel with the venue",
-  "clientVenueTermsVoucherReuse": "Declined or unanswered: reuse for {days}, or refund",
+  "clientVenueTermsVoucherReuse": "Declined or unanswered: reuse for {days}, or ask support for credit",
   "clientVenueTermsVoucherConfirm": "Confirm within {hours} of approval",
   "clientVenueGovFeesTitle": "Fees",
   "clientVenueGovSecurity": "Security deposit",

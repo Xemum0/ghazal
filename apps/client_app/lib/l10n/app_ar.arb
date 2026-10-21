@@ -1908,7 +1908,7 @@
   "clientMessagesNtfKindVoucherReady": "الكوبون جاهز",
   "clientMessagesNtfKindVoucherKept": "الكوبون لكم",
   "clientMessagesNtfKindRedeemed": "تم الاستخدام",
-  "clientMessagesNtfKindRefunded": "تم الاسترداد",
+  "clientMessagesNtfKindRefunded": "رصيد",
   "clientMessagesNtfKindExpiring": "ينتهي قريبًا",
   "clientMessagesNtfKindVisitRequested": "طلب زيارة",
   "clientMessagesNtfKindVisitConfirmed": "الزيارة مؤكدة",
@@ -2796,8 +2796,8 @@
       }
     }
   },
-  "clientProfileDelVoucherRefund": "استرداد",
-  "clientProfileDelVoucherDetailRefund": "{count, plural, =0{لا كوبونات جاهزة.} =1{لديكم كوبون جاهز. استردّوا مبلغه أولًا، فبعد حذف الحساب ينتهي ولا يمكن استرداده.} =2{لديكم كوبونان جاهزان. استردّوا مبلغهما أولًا، فبعد حذف الحساب ينتهيان ولا يمكن استرداد المبلغ.} few{لديكم ⁦{count}⁩ كوبونات جاهزة. استردّوا مبالغها أولًا، فبعد حذف الحساب تنتهي ولا يمكن استرداد المبلغ.} many{لديكم ⁦{count}⁩ كوبونًا جاهزًا. استردّوا مبالغها أولًا، فبعد حذف الحساب تنتهي ولا يمكن استرداد المبلغ.} other{لديكم ⁦{count}⁩ كوبون جاهز. استردّوا مبالغها أولًا، فبعد حذف الحساب تنتهي ولا يمكن استرداد المبلغ.}}",
+  "clientProfileDelVoucherRefund": "استخدموه",
+  "clientProfileDelVoucherDetailRefund": "{count, plural, =0{لا كوبونات جاهزة.} =1{لديكم كوبون جاهز. استخدموه أولًا، فبعد حذف الحساب ينتهي ولا يعود.} =2{لديكم كوبونان جاهزان. استخدموهما أولًا، فبعد حذف الحساب ينتهيان ولا يعودان.} few{لديكم ⁦{count}⁩ كوبونات جاهزة. استخدموها أولًا، فبعد حذف الحساب تنتهي ولا تعود.} many{لديكم ⁦{count}⁩ كوبونًا جاهزًا. استخدموها أولًا، فبعد حذف الحساب تنتهي ولا تعود.} other{لديكم ⁦{count}⁩ كوبون جاهز. استخدموها أولًا، فبعد حذف الحساب تنتهي ولا تعود.}}",
   "@clientProfileDelVoucherDetailRefund": {
     "placeholders": {
       "count": {
@@ -3847,7 +3847,7 @@
   },
   "clientVenueTermsVoucherBound": "خاص بهذه القاعة وهذا العرض",
   "clientVenueTermsDirect": "الدفع والإلغاء مع القاعة",
-  "clientVenueTermsVoucherReuse": "اعتذار أو عدم رد: استخدام جديد خلال {days} أو استرداد",
+  "clientVenueTermsVoucherReuse": "اعتذار أو عدم رد: استخدام جديد خلال {days} أو طلب رصيد من الدعم",
   "@clientVenueTermsVoucherReuse": {
     "placeholders": {
       "days": {

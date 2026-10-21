@@ -68,7 +68,6 @@ export default function CancelBooking({ state }: { state?: string }) {
   const noteMissing = reason === 'other' && note.trim() === ''
   const name = useClientName(booking).first
   const date = f.date(booking.eventDate, 'short')
-  const fee = f.money(booking.totals.voucherFee.fils, { mode: 'browse' })
   const close = () => nav.closeSheet()
 
   const finish = () => {
@@ -168,7 +167,7 @@ export default function CancelBooking({ state }: { state?: string }) {
   const info =
     !allowed || failed || offline || phase === 'success' ? undefined : (
       <InfoButton title={t('hotelDecisionsCancelConsequence')}>
-        <p>{t('hotelDecisionsCancelVoucherInfo', { fee })}</p>
+        <p>{t('hotelDecisionsCancelVoucherInfo')}</p>
         <p>{t('hotelDecisionsCancelStrikeInfo')}</p>
         <p>{t('hotelDecisionsCancelNoMoney')}</p>
         <p>{t('hotelDecisionsCancelTalkBody')}</p>

@@ -5,7 +5,7 @@
 //   pnpm fshot --app client --all
 // Flags: --app client|provider (required) | --screen ID[,ID...] | --flow <flow-id> | --all
 //        --lang ar|en|both (default both) | --w <px>... (default 390) | --h <px> (844) | --scale <dpr> (2)
-//        --text-scale <n> (1) | --state <name> | --out <dir> (default apps/<app>_app/build/shots)
+//        --text-scale <n> (1) | --state <name> | --persona <id> (guest, reem, new_client, hotel_manager ...; default by the persona rule) | --out <dir> (default apps/<app>_app/build/shots)
 // Runs `flutter test test/shots/shots_test.dart` through tools/with-slot.mjs (max 4 concurrent runs) and prints the PNG paths.
 // Never starts a simulator or an emulator.
 import { spawn } from 'node:child_process'
@@ -62,6 +62,7 @@ const defines = [
   `SHOT_SCALE=${one('scale', '2')}`,
   `SHOT_TEXT_SCALE=${one('text-scale', '1')}`,
   `SHOT_STATE=${one('state', '')}`,
+  `SHOT_PERSONA=${one('persona', '')}`,
   `SHOT_OUT=${out}`,
 ]
 const cmd = [

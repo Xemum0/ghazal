@@ -6508,7 +6508,7 @@ abstract class AppL10n {
   /// No description provided for @clientMessagesNtfKindRefunded.
   ///
   /// In en, this message translates to:
-  /// **'Refunded'**
+  /// **'Credit'**
   String get clientMessagesNtfKindRefunded;
 
   /// No description provided for @clientMessagesNtfKindExpiring.
@@ -9638,13 +9638,13 @@ abstract class AppL10n {
   /// No description provided for @clientProfileDelVoucherRefund.
   ///
   /// In en, this message translates to:
-  /// **'Refund'**
+  /// **'Use voucher'**
   String get clientProfileDelVoucherRefund;
 
   /// No description provided for @clientProfileDelVoucherDetailRefund.
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, one{You have a voucher ready. Refund it first: once your account is deleted it ends and can’t be refunded.} other{You have {count} vouchers ready. Refund them first: once your account is deleted they end and can’t be refunded.}}'**
+  /// **'{count, plural, one{You have a voucher ready. Use it first: once your account is deleted it ends and does not come back.} other{You have {count} vouchers ready. Use them first: once your account is deleted they end and do not come back.}}'**
   String clientProfileDelVoucherDetailRefund(int count);
 
   /// No description provided for @clientProfileDelVoucherDetailEnds.
@@ -12560,7 +12560,7 @@ abstract class AppL10n {
   /// No description provided for @clientVenueTermsVoucherReuse.
   ///
   /// In en, this message translates to:
-  /// **'Declined or unanswered: reuse for {days}, or refund'**
+  /// **'Declined or unanswered: reuse for {days}, or ask support for credit'**
   String clientVenueTermsVoucherReuse(String days);
 
   /// No description provided for @clientVenueTermsVoucherConfirm.

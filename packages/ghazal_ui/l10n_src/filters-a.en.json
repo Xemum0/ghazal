@@ -1,0 +1,8 @@
+{
+  "uiFiltersGovernorateAll": "All Kuwait",
+  "uiFiltersCapacityFrom": "From",
+  "uiFiltersCapacityTo": "To",
+  "uiFiltersCapacitySummary": "{range} guests",
+  "uiFiltersCapacityMin": "Fewest guests",
+  "uiFiltersCapacityMax": "Most guests"
+}

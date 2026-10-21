@@ -177,3 +177,8 @@ class GzNavigatorScope extends InheritedWidget {
   @override
   bool updateShouldNotify(GzNavigatorScope oldWidget) => oldWidget.navigator != navigator;
 }
+
+/// `context.gzNav.push('CL-VENU-01', params: {'venueId': id})`: the navigator of the surrounding scope (inert outside the app).
+extension GzNavContext on BuildContext {
+  GzNavigator get gzNav => GzNavigatorScope.of(this);
+}

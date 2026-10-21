@@ -53,11 +53,13 @@ class GzApp extends StatelessWidget {
       builder: (context, child) {
         // No Scaffold/Material above plain widgets: give them the body role style (no yellow debug underline) and install the
         // Gz theme (`context.gz`) for the whole tree, including routes and overlays.
+        // The canvas under the router: a sheet that is the first route (a deep link, the shot harness) draws over it and the scrim, like
+        // the web StaticFrame, instead of over nothing.
         final content = GzTheme(
           locale: locale,
           child: DefaultTextStyle(
             style: GzType.style(locale, GzTextRole.body).copyWith(color: GzColors.light.textPrimary, decoration: TextDecoration.none),
-            child: child ?? const SizedBox.shrink(),
+            child: ColoredBox(color: GzColors.light.surfaceCanvas, child: child ?? const SizedBox.shrink()),
           ),
         );
         return builder == null ? content : builder!(context, content);

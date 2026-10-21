@@ -173,7 +173,7 @@
   "clientMessagesNtfKindVoucherReady": "Voucher ready",
   "clientMessagesNtfKindVoucherKept": "Still yours",
   "clientMessagesNtfKindRedeemed": "Redeemed",
-  "clientMessagesNtfKindRefunded": "Refunded",
+  "clientMessagesNtfKindRefunded": "Credit",
   "clientMessagesNtfKindExpiring": "Expiring",
   "clientMessagesNtfKindVisitRequested": "Visit requested",
   "clientMessagesNtfKindVisitConfirmed": "Visit confirmed",

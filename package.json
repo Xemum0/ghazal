@@ -25,6 +25,7 @@
     "flutter:analyze": "flutter analyze",
     "flutter:rules": "bash tools/check-dart-rules.sh",
     "flutter:routes": "node tools/gen-routes.mjs",
+    "flutter:edges": "node tools/check-nav-edges.mjs",
     "flutter:icons": "node tools/gen-icons.mjs",
     "flutter:illustrations": "node tools/export-illustrations.mjs",
     "flutter:test": "node tools/flutter-test-all.mjs",

@@ -4112,8 +4112,8 @@ abstract class AppL10n {
   /// No description provided for @hotelDecisionsCancelVoucherInfo.
   ///
   /// In en, this message translates to:
-  /// **'The client’s voucher goes back to them. They can refund the {fee} or use it again.'**
-  String hotelDecisionsCancelVoucherInfo(String fee);
+  /// **'The client’s voucher goes back to them to use again.'**
+  String get hotelDecisionsCancelVoucherInfo;
 
   /// No description provided for @hotelDecisionsCancelStrikeInfo.
   ///

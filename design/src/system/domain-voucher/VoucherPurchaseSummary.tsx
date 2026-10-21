@@ -1,7 +1,7 @@
 // VoucherPurchaseSummary (CL-VCHR explainer and checkout, ADR 0033 D1, voucher-model section 5.2 step 3 and 4): what the KD 2 buys and
 // what it does not. Ruled list of the bound quote, the two prices and the saving, then the ONE amount paid to Ghazal today (exact, three
 // decimals, the figures voice) and the plain sentence that the rest is settled with the venue directly. Three rules in words: bound to this
-// venue and quote, reusable if the venue declines, refundable on a venue-fault release. Nothing here is a deposit, a balance or a fee.
+// venue and quote, reusable if the venue declines, a credit voucher from support when it cannot be used (ADR 0035). Nothing here is a deposit, a balance or a fee.
 import type { IsoDate } from '@gz/contracts'
 import { useFormat } from '../../i18n'
 import { Icon, Price } from '../core'
@@ -23,8 +23,8 @@ const useW = defineWords({
   payToday2: p('For the voucher, once', 'ثمن الكوبون، مرة واحدة'),
   directly: p('The rest, {amount}, you pay to {venue} directly after you confirm. Ghazal takes no part in that payment.', 'والباقي، {amount}، تدفعونه إلى {venue} مباشرة بعد التأكيد. غزل ليست طرفًا في هذه الدفعة.'),
   ruleBound: p('The voucher belongs to this venue and this quote.', 'الكوبون خاص بهذا المكان وهذا العرض.'),
-  ruleReuse: p('If the venue declines, you can use it again here for {days} days.', 'إذا اعتذر المكان، يمكنكم استخدامه هنا من جديد خلال {days}.'),
-  ruleRefund: p('If the venue declines or does not reply, you can ask for your payment back.', 'إذا اعتذر المكان أو لم يرد، يمكنكم طلب استرداد المبلغ.'),
+  ruleReuse: p('If the venue declines, you can use it again here for {days}.', 'إذا اعتذر المكان، يمكنكم استخدامه هنا من جديد خلال {days}.'),
+  ruleCredit: p('If the venue declines or does not reply, ask support for a credit voucher.', 'إذا اعتذر المكان أو لم يرد، اطلبوا كوبون رصيد من الدعم.'),
   days: p('{n} days', '{n} يومًا'),
 })
 
@@ -106,7 +106,7 @@ export function VoucherPurchaseSummary({ targetName, packageName, eventDate, gue
       </p>
 
       <ul className="gz-vps__rules" data-gz-id="rules">
-        {(['ruleBound', 'ruleReuse', 'ruleRefund'] as const).map(k => (
+        {(['ruleBound', 'ruleReuse', 'ruleCredit'] as const).map(k => (
           <li key={k} className="gz-vps__rule gz-t-caption">
             <Icon name="check" size="xs" tone="success" />
             <span>
