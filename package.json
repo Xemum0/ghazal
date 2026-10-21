@@ -31,6 +31,7 @@
     "flutter:verify": "pnpm flutter:analyze && pnpm flutter:rules && pnpm flutter:test",
     "fshot": "node tools/fshot.mjs",
     "l10n": "node tools/gen-l10n.mjs --gen && node tools/export-message-cases.mjs",
+    "l10n:ui": "node tools/gen-l10n.mjs --gen --only ui",
     "l10n:check": "node tools/gen-l10n.mjs --check && node tools/export-message-cases.mjs --check && node tools/export-format-cases.mjs --check",
     "format-cases": "node tools/export-format-cases.mjs",
     "ports": "node tools/ports.mjs",

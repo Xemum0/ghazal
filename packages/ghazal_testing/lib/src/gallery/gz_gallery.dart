@@ -4,10 +4,24 @@ import 'dart:ui' as ui;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ghazal_core/ghazal_core.dart' show GzFormat;
 import 'package:ghazal_ui/src/app/gz_host.dart';
+import 'package:ghazal_ui/src/core/gz_format_scope.dart';
 import 'package:ghazal_ui/src/foundation.dart';
 
 import '../fonts.dart';
+
+/// The prototype's story clock: 2026-11-12 16:00 Asia/Kuwait (the mock's default clock and the web gallery's "today").
+final DateTime gzStoryNow = DateTime.parse('2026-11-12T16:00:00+03:00');
+
+/// Wraps a gallery section in the shared formatter with the story clock (what the apps install from `gzFormatProvider`). Pass it as
+/// `gzGalleryShots(wrap: gzStoryWrap)`; domain galleries need it for dates, countdowns and "x ago".
+Widget gzStoryWrap(Widget child) => Builder(
+  builder: (context) => GzFormatScope(
+    format: GzFormat(locale: Locale(context.gz.locale.languageCode), now: () => gzStoryNow),
+    child: child,
+  ),
+);
 
 /// One section of a design-system gallery page. The [title] must equal the web gallery's `data-gz-section` title (or its heading)
 /// so `node tools/parity/gallery-ref.mjs` references pair with the Flutter render by file name (`NN-<slug>.<lang>.png`).

@@ -17,9 +17,20 @@ const toInt = (v: string | null, fallback: number) => {
   return Number.isFinite(n) && n >= 280 && n <= 1200 ? Math.round(n) : fallback
 }
 
-/** #/frame/<screenId>?lang=&state=&w=&h= : the screen in a Device (390 x 844, real chrome). */
+/**
+ * #/frame/<screenId>?lang=&state=&w=&h=&story= : the screen in a Device (390 x 844, real chrome).
+ * `story` seeds the prototype store before the first paint: `start` (guest, the story start), `client` (Reem, signed in) or `hotel`
+ * (Hind, Aurelia). Without it the store keeps whatever it holds (a fresh load is the story start). The reference renders for the Flutter
+ * parity loop pass the story by flow (tools/parity/ref-shots.mjs): signed in for every screen except onboarding, auth and hotel access.
+ */
 export function StaticFrameRoute() {
   const route = useRoute()
+  const story = route.params.get('story')
+  // Runs once, during the first render and therefore before any child reads the store.
+  useState(() => {
+    if (story === 'start') usePrototype.getState().resetToStoryStart()
+    else if (story === 'client' || story === 'hotel') usePrototype.getState().loadStory(story)
+  })
   const screenId = route.segments[1] ?? ''
   const width = toInt(route.params.get('w'), 390)
   const hParam = route.params.get('h')

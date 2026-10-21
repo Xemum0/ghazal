@@ -46,6 +46,10 @@ for (const app of ['client', 'hotel']) {
 }
 if (!items.length) { console.error('no screens selected'); process.exit(64) }
 
+// The prototype state a screen is captured in (and the persona the Flutter shot harness uses): signed in as Reem for every client screen
+// except onboarding and auth (a first-time guest), signed in as the hotel manager for every partner screen except access.
+export const storyFor = it => (it.app === 'hotel' ? (it.id.startsWith('HL-ACCS-') ? 'start' : 'hotel') : /^CL-(ONBD|AUTH)-/.test(it.id) ? 'start' : 'client')
+
 // ---- server (identity checked; start detached if down)
 async function ensureServer() {
   let r = await checkService('design', slot)
@@ -107,7 +111,7 @@ try {
       const key = `${it.id}|${state ?? ''}|${lang}`
       if (upToDate(file) && entries.has(key)) { skipped++; continue }
       errs = []
-      const q = new URLSearchParams({ lang, w: String(W) })
+      const q = new URLSearchParams({ lang, w: String(W), story: storyFor(it) })
       if (state) q.set('state', state)
       let ok = true
       try {
