@@ -99,9 +99,11 @@ try {
         // the images, return to the top, then let the reveals finish (a tall section only intersects the viewport in part).
         await loc.evaluate(async (el, ms) => {
           const nap = t => new Promise(r => setTimeout(r, t))
+          // lazy photos: ask for them now (the browser then loads the ones below the fold without waiting for the scroll to reach them)
+          el.querySelectorAll('img').forEach(i => { i.loading = 'eager'; i.decoding = 'sync' })
           const top = el.getBoundingClientRect().top + window.scrollY
           const bottom = top + el.getBoundingClientRect().height
-          for (let y = top; y < bottom; y += window.innerHeight * 0.7) { window.scrollTo(0, y); await nap(260) }
+          for (let y = top; y < bottom; y += window.innerHeight * 0.7) { window.scrollTo(0, y); await nap(420) }
           window.scrollTo(0, bottom); await nap(260)
           await Promise.all([...el.querySelectorAll('img')].map(i => (i.complete && i.naturalWidth > 0 ? 0 : new Promise(r => { i.onload = i.onerror = r; setTimeout(r, 5000) }))))
           window.scrollTo(0, top); await nap(ms)
