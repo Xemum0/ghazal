@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // The visible text of every prototype screen, for the content parity check (tools/parity/content.mjs).
 //   node tools/parity/web-text.mjs [--only ID,ID] [--app client|hotel] [--lang ar|en|both] [--force]
-// Output: design/.shots/text/<id>.<lang>.json  { id, lang, texts: [...] }  (the whole frame: the DOM holds all of a screen's content, scrolled or not).
+// Output: design/.shots/text/<id>.<lang>.json  { id, lang, texts: [...], words: [{ t, x, y, w, h }] } (words: every visible word with its box in
+// dp from the top-left of the screen, for tools/parity/geo.mjs)  (the whole frame: the DOM holds all of a screen's content, scrolled or not).
 // Text nodes in DOM order inside [data-gz-route], without the status bar, without anything hidden (display none, visibility hidden, zero
 // size) or visually hidden for screen readers (.gz-sr-only, clip rect): those texts are not drawn, so Flutter draws no twin of them.
 // The same cleaning as ShotHealth.clean in packages/ghazal_testing: isolates and no-break spaces out, white space collapsed.
@@ -49,9 +50,12 @@ try {
       await page.waitForFunction(() => !document.querySelector('.gz-shell-loading'), null, { timeout: 15_000 })
       await page.evaluate(() => document.fonts && document.fonts.ready)
       await sleep(500)
-      const texts = await page.evaluate(() => {
+      const { texts, words } = await page.evaluate(() => {
         const root = document.querySelector('[data-gz-route]')
+        const origin = root.getBoundingClientRect()
         const out = []
+        const words = []
+        const clean = (t) => t.replace(/[\u2066-\u2069\u200e\u200f\u061c\u202a-\u202e]/g, '').replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim()
         const hidden = (el) => {
           for (let e = el; e && e !== root.parentElement; e = e.parentElement) {
             const cs = getComputedStyle(e)
@@ -62,14 +66,36 @@ try {
           const r = el.getBoundingClientRect()
           return r.width === 0 && r.height === 0
         }
+        const range = document.createRange()
+        const wordsOf = (node) => {
+          const raw = node.textContent
+          for (const m of raw.matchAll(/\S+/g)) {
+            const token = clean(m[0])
+            if (!token) continue
+            range.setStart(node, m.index)
+            range.setEnd(node, m.index + m[0].length)
+            const r = range.getBoundingClientRect()
+            if (r.width === 0 && r.height === 0) continue
+            words.push({ t: token, x: +(r.left - origin.left).toFixed(2), y: +(r.top - origin.top).toFixed(2), w: +r.width.toFixed(2), h: +r.height.toFixed(2) })
+          }
+        }
         const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
         for (let n = walker.nextNode(); n; n = walker.nextNode()) {
-          const t = n.textContent.replace(/[⁦-⁩‎‏؜‪-‮]/g, '').replace(/ /g, ' ').replace(/\s+/g, ' ').trim()
-          if (t && !hidden(n.parentElement)) out.push(t)
+          const t = clean(n.textContent)
+          if (t && !hidden(n.parentElement)) { out.push(t); wordsOf(n) }
         }
-        return out
+        // a placeholder is text the user sees: Flutter draws it as the hint of the field
+        for (const el of root.querySelectorAll('input[placeholder], textarea[placeholder]')) {
+          const t = clean(el.getAttribute('placeholder') || '')
+          if (t && !hidden(el)) {
+            out.push(t)
+            const r = el.getBoundingClientRect()
+            for (const w of t.split(' ')) words.push({ t: w, x: +(r.left - origin.left).toFixed(2), y: +(r.top - origin.top).toFixed(2), w: 0, h: +r.height.toFixed(2), placeholder: true })
+          }
+        }
+        return { texts: out, words }
       })
-      writeFileSync(file, JSON.stringify({ id: it.id, lang, texts }))
+      writeFileSync(file, JSON.stringify({ id: it.id, lang, texts, words }))
       written++
     }
     await ctx.close()
