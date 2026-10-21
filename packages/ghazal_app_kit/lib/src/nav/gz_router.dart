@@ -60,6 +60,7 @@ GoRouter buildGzRouter({
   required Widget Function(BuildContext context, StatefulNavigationShell shell) tabShellBuilder,
   Ref? ref,
   String? initialLocation,
+  Object? initialExtra,
   List<NavigatorObserver> observers = const <NavigatorObserver>[],
 }) {
   final rootKey = GlobalKey<NavigatorState>(debugLabel: 'gz-root');
@@ -94,6 +95,7 @@ GoRouter buildGzRouter({
   final router = GoRouter(
     navigatorKey: rootKey,
     initialLocation: initialLocation ?? spec.startPath,
+    initialExtra: initialExtra,
     observers: observers,
     refreshListenable: refresh,
     redirect: ref == null

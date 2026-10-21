@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/widgets.dart';
@@ -20,6 +21,9 @@ const String _out = String.fromEnvironment('SHOT_OUT');
 const String _persona = String.fromEnvironment('SHOT_PERSONA');
 // `SHOT_HEALTH=1` (the sweep): framework errors are recorded in the health file instead of failing the shot.
 const String _health = String.fromEnvironment('SHOT_HEALTH');
+// `SHOT_STORY`: a hero story point (approved, confirmed, lapsed ...); `SHOT_PARAMS`: a JSON object, the route params the screen is opened with.
+const String _story = String.fromEnvironment('SHOT_STORY');
+const String _params = String.fromEnvironment('SHOT_PARAMS');
 
 /// `SHOT_PERSONA` overrides the persona rule (client screens as Reem except onboarding and auth, partner screens as the hotel manager
 /// except access): a `--dart-define`, or the environment variable of the same name (`SHOT_PERSONA=guest pnpm fshot ...`).
@@ -31,7 +35,7 @@ String? get _personaOverride {
 
 /// One shot to take: the screen, its router location, the language and width, the `SHOT_STATE` ('' for none) and the persona override.
 class GzShotCase {
-  const GzShotCase({required this.id, required this.path, required this.lang, required this.width, required this.state, this.persona});
+  const GzShotCase({required this.id, required this.path, required this.lang, required this.width, required this.state, this.persona, this.story, this.params});
 
   final String id;
   final String path;
@@ -39,6 +43,12 @@ class GzShotCase {
   final double width;
   final String state;
   final String? persona;
+
+  /// The hero story point the mock is moved to before the screen opens (null: the default story).
+  final String? story;
+
+  /// The route params the screen opens with (`extra` of the first route; null: none, so the screen shows its hero default).
+  final Map<String, Object?>? params;
 }
 
 /// The world prepared for one shot: provider [overrides] (the in-process mock, the persona's session, a forced scenario, the screen's
@@ -98,9 +108,18 @@ void runShotSuite({
   for (final id in requested) {
     for (final lang in langs) {
       for (final width in widths) {
-        final label = '$id.$lang.${width.round()}${_state.isEmpty ? '' : '.$_state'}';
+        final label = '$id.$lang.${width.round()}${_state.isEmpty ? '' : '.$_state'}${_story.isEmpty ? '' : '.story-$_story'}';
         testWidgets('shot $label', (tester) async {
-          final shot = GzShotCase(id: id, path: paths[id]!, lang: lang, width: width, state: _state, persona: _personaOverride);
+          final shot = GzShotCase(
+            id: id,
+            path: paths[id]!,
+            lang: lang,
+            width: width,
+            state: _state,
+            persona: _personaOverride,
+            story: _story.isEmpty ? null : _story,
+            params: _params.isEmpty ? null : (jsonDecode(_params) as Map).cast<String, Object?>(),
+          );
           final errors = <String>[];
           await recordingErrors(errors, () async {
             final setup = prepare == null ? const GzShotWorldSetup() : (await tester.runAsync(() => prepare(shot)))!;

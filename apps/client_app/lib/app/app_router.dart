@@ -41,7 +41,7 @@ final GzRouterSpec kRouterSpec = GzRouterSpec(
 
 /// The app router. [initialLocation] defaults to the first screen of a first start (CL-ONBD-01). [ref] connects the redirect and the
 /// refresh listenable to `sessionProvider` (the app root override passes it; tests may omit it).
-GoRouter buildAppRouter({Ref? ref, String? initialLocation, List<NavigatorObserver> observers = const <NavigatorObserver>[]}) {
+GoRouter buildAppRouter({Ref? ref, String? initialLocation, Object? initialExtra, List<NavigatorObserver> observers = const <NavigatorObserver>[]}) {
   return buildGzRouter(
     spec: kRouterSpec,
     routes: <RouteBase>[
@@ -72,6 +72,7 @@ GoRouter buildAppRouter({Ref? ref, String? initialLocation, List<NavigatorObserv
     tabShellBuilder: (BuildContext context, StatefulNavigationShell navigationShell) => AppTabShell(navigationShell: navigationShell),
     ref: ref,
     initialLocation: initialLocation,
+    initialExtra: initialExtra,
     observers: observers,
   );
 }

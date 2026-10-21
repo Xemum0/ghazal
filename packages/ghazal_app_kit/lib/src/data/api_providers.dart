@@ -30,6 +30,10 @@ class BackendEpoch extends Notifier<int> {
 /// The one HTTP client: the in-process mock adapter when `USE_MOCK` is on and a backend exists, otherwise the real `API_BASE_URL`.
 /// Tokens come from [tokenStoreProvider], language and partner context from [clientEnvironmentProvider]; a revoked session or a failed
 /// refresh signs the app out.
+/// The retry policy of the API client (ADR 0022 C): idempotent GETs retry with timers. Shots and tests of error and offline states
+/// override it with `RetryPolicy.none`, so no retry timer outlives the screen (and the state shows at once).
+final Provider<RetryPolicy> gzRetryPolicyProvider = Provider<RetryPolicy>((ref) => const RetryPolicy());
+
 final Provider<GzApiClient> apiClientProvider = Provider<GzApiClient>((ref) {
   ref.watch(backendEpochProvider);
   final env = ref.watch(appEnvProvider);
@@ -39,6 +43,7 @@ final Provider<GzApiClient> apiClientProvider = Provider<GzApiClient>((ref) {
     environment: ref.watch(clientEnvironmentProvider),
     tokens: ref.watch(tokenStoreProvider),
     adapter: mock?.httpClientAdapter,
+    retry: ref.watch(gzRetryPolicyProvider),
     onSessionEnded: () => ref.read(sessionProvider.notifier).endedByServer(),
   );
   ref.onDispose(() => client.dio.close(force: true));

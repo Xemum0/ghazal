@@ -55,12 +55,16 @@ final class _PresetSession extends SessionNotifier {
 /// Prepares the world for one shot of the real app (real async: call it inside `tester.runAsync`):
 /// resets the mock (story clock at 2026-11-12 16:00 Kuwait, no background timers, zero latency), signs the persona in with real tokens
 /// held by a memory store, and maps the shot [state]: `loading` (requests never answer), `empty`, `error`, `offline`, `expired` (the mock
-/// scenarios), `slow`, `guest` (the guest persona), or none. The persona defaults to the rule of [gzShotPersona].
+/// scenarios), `slow`, `guest` (the guest persona), or none. The persona defaults to the rule of [gzShotPersona]. [story] jumps the hero story
+/// (Reem, Danah Ballroom, 14 Jan 2027) to one of its prepared points before the screen opens: pending, approved, confirmed, redeemed,
+/// completed, declined, expired, lapsed, cancelled, counter_offer. No shot retries a failed GET (`RetryPolicy.none`): an error or offline
+/// frame shows at once and leaves no timer behind.
 Future<GzShotSetup> prepareShotWorld({
   required MockBackend mock,
   required String screenId,
   String state = '',
   String? persona,
+  String? story,
 }) async {
   final control = mock.control;
   await control.reset();
@@ -74,6 +78,7 @@ Future<GzShotSetup> prepareShotWorld({
     mockBackendProvider.overrideWithValue(mock),
     appEnvProvider.overrideWithValue(const AppEnv()),
     tokenStoreProvider.overrideWithValue(store),
+    gzRetryPolicyProvider.overrideWithValue(RetryPolicy.none),
   ];
 
   // The session is opened on a scratch container with the world still healthy, so a forced error or offline state later cannot sign the
@@ -86,6 +91,7 @@ Future<GzShotSetup> prepareShotWorld({
     scratch.dispose();
   }
 
+  if (story != null && story.isNotEmpty) mock.control.jumpToStory(story);
   final overrides = <Override>[...base, sessionProvider.overrideWith(() => _PresetSession(session))];
   switch (state) {
     case 'loading':

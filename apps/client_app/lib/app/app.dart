@@ -10,8 +10,8 @@ import 'app_router.dart';
 
 /// The override that gives `routerProvider` this app's router (the router reads `sessionProvider` for its redirect and refresh).
 /// The bootstrap passes it to `runGhazalApp(overrides: [clientRouterOverride()])`; the shot harness passes an [initialLocation].
-Override clientRouterOverride({String? initialLocation}) => routerProvider.overrideWith((ref) {
-      final router = buildAppRouter(ref: ref, initialLocation: initialLocation);
+Override clientRouterOverride({String? initialLocation, Object? initialExtra}) => routerProvider.overrideWith((ref) {
+      final router = buildAppRouter(ref: ref, initialLocation: initialLocation, initialExtra: initialExtra);
       ref.onDispose(router.dispose);
       return router;
     });

@@ -19,8 +19,8 @@ void main() {
     paths: {for (final e in kScreenRegistry.entries) e.key: e.value.path},
     appBuilder: (path, state) => const ProviderApp(),
     prepare: (shot) async {
-      final setup = await prepareShotWorld(mock: world.mock, screenId: shot.id, state: shot.state, persona: shot.persona);
-      return GzShotWorldSetup(overrides: [...setup.overrides, partnerRouterOverride(initialLocation: shot.path)], flush: setup.flush);
+      final setup = await prepareShotWorld(mock: world.mock, screenId: shot.id, state: shot.state, persona: shot.persona, story: shot.story);
+      return GzShotWorldSetup(overrides: [...setup.overrides, partnerRouterOverride(initialLocation: shot.path, initialExtra: shot.params)], flush: setup.flush);
     },
   );
 }

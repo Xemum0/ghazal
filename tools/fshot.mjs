@@ -5,7 +5,7 @@
 //   pnpm fshot --app client --all
 // Flags: --app client|provider (required) | --screen ID[,ID...] | --flow <flow-id> | --all
 //        --lang ar|en|both (default both) | --w <px>... (default 390) | --h <px> (844) | --scale <dpr> (2)
-//        --text-scale <n> (1) | --state <name> | --persona <id> (guest, reem, new_client, hotel_manager ...; default by the persona rule) | --health (record framework errors in <label>.health.json instead of failing) | --out <dir> (default apps/<app>_app/build/shots)
+//        --text-scale <n> (1) | --state <name> | --persona <id> (guest, reem, new_client, hotel_manager ...; default by the persona rule) | --health (record framework errors in <label>.health.json instead of failing) | --story pending|approved|confirmed|redeemed|completed|declined|expired|lapsed|cancelled|counter_offer (the hero story point) | --params '{"venueId":"V05"}' (route params) | --out <dir> (default apps/<app>_app/build/shots)
 // Runs `flutter test test/shots/shots_test.dart` through tools/with-slot.mjs (max 4 concurrent runs) and prints the PNG paths.
 // Never starts a simulator or an emulator.
 import { spawn } from 'node:child_process'
@@ -64,6 +64,8 @@ const defines = [
   `SHOT_STATE=${one('state', '')}`,
   `SHOT_PERSONA=${one('persona', '')}`,
   `SHOT_HEALTH=${flags.health ? '1' : ''}`,
+  `SHOT_STORY=${one('story', '')}`,
+  `SHOT_PARAMS=${flags.params ? flags.params.join(' ') : ''}`,
   `SHOT_OUT=${out}`,
 ]
 const cmd = [
@@ -93,9 +95,19 @@ const onData = (d) => {
 child.stdout.on('data', onData)
 child.stderr.on('data', onData)
 child.on('exit', (code) => {
+  fs.mkdirSync(out, { recursive: true })
+  const logFile = path.join(out, 'fshot.log')
+  fs.writeFileSync(logFile, lines.join('\n'))
   if (code !== 0) {
-    console.error(lines.filter((l) => !/^\s*\d+:\d+ \+\d+/.test(l) || /\[E\]|-\d+/.test(l)).slice(-80).join('\n'))
-    console.error(`fshot: flutter test failed (exit ${code})`)
+    // The FIRST exception is the cause (the rest cascades): print it whole, then the tail of the run.
+    const first = lines.findIndex((l) => /EXCEPTION CAUGHT|A Timer is still pending|Test failed|Failed assertion|Null check operator/.test(l))
+    if (first >= 0) {
+      console.error(`--- first problem (line ${first + 1} of ${logFile})`)
+      console.error(lines.slice(Math.max(0, first - 1), first + 40).join('\n'))
+    }
+    console.error('--- end of the run')
+    console.error(lines.filter((l) => !/^\s*\d+:\d+ \+\d+/.test(l) || /\[E\]|-\d+/.test(l)).slice(-30).join('\n'))
+    console.error(`fshot: flutter test failed (exit ${code}); full log: ${path.relative(ROOT, logFile)}; add --health to keep going past framework errors and read <label>.health.json`)
     process.exit(code ?? 1)
   }
   if (!paths.length) console.log('fshot: no shot written (check ids)')

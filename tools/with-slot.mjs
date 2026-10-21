@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 // Counting semaphore for heavy runs (plan section 5): at most N holders of a named slot pool at a time.
-//   node tools/with-slot.mjs <name> [--max N] [--timeout-min M] -- <command...>
+//   node tools/with-slot.mjs <name> [--max N] [--timeout-min M] [--idle-min I] [--run-min R] -- <command...>
 // Slots are atomic lock directories under tools/.locks/<name>/slot-<i> (mkdir is atomic) holding the owner pid.
 // A lock whose pid is gone (crash, kill -9) is stale and is removed by the next waiter. Default N is 4 (env GZ_SLOTS overrides).
-// Exit code = the command's exit code. Never kills anything it did not start.
+// Exit code = the command's exit code. Never kills anything it did not start. --timeout-min is the longest WAIT for a slot (default 60);
+// the run itself is guarded too, because a hung `flutter test` (real IO inside fake async, a pending timer) holds a slot forever and no
+// agent may kill it: --idle-min (default 6) kills the command's process group when it prints nothing for that long, --run-min (default 45;
+// a full sweep passes more) when it runs longer; the slot is released and the exit code is 124.
 import { spawn } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -22,6 +25,8 @@ const name = head[0].replace(/[^a-zA-Z0-9_-]/g, '_')
 const opt = (flag, dflt) => (head.includes(flag) ? Number(head[head.indexOf(flag) + 1]) : dflt)
 const max = opt('--max', Number(process.env.GZ_SLOTS ?? 4))
 const timeoutMs = opt('--timeout-min', 60) * 60_000
+const idleMs = opt('--idle-min', Number(process.env.GZ_SLOT_IDLE_MIN ?? 6)) * 60_000
+const runMs = opt('--run-min', Number(process.env.GZ_SLOT_RUN_MIN ?? 45)) * 60_000
 const dir = path.join(HERE, '.locks', name)
 fs.mkdirSync(dir, { recursive: true })
 
@@ -86,10 +91,39 @@ const release = () => {
   fs.rmSync(slot, { recursive: true, force: true })
 }
 process.on('exit', release)
-const child = spawn(cmd[0], cmd.slice(1), { stdio: 'inherit' })
+const child = spawn(cmd[0], cmd.slice(1), { stdio: ['inherit', 'pipe', 'pipe'], detached: true })
+let lastOutput = Date.now()
+const runStarted = Date.now()
+child.stdout.on('data', (d) => {
+  lastOutput = Date.now()
+  process.stdout.write(d)
+})
+child.stderr.on('data', (d) => {
+  lastOutput = Date.now()
+  process.stderr.write(d)
+})
+let timedOut = false
+const killGroup = (sig) => {
+  try {
+    process.kill(-child.pid, sig) // the group this run started, nothing else
+  } catch {
+    /* already gone */
+  }
+}
+const watchdog = setInterval(() => {
+  const idle = Date.now() - lastOutput
+  const ran = Date.now() - runStarted
+  if (idle > idleMs || ran > runMs) {
+    timedOut = true
+    console.error(`[with-slot ${name}] ${idle > idleMs ? `no output for ${Math.round(idle / 60_000)} min` : `running for ${Math.round(ran / 60_000)} min`}: killing the hung run and freeing the slot`)
+    killGroup('SIGTERM')
+    setTimeout(() => killGroup('SIGKILL'), 5000).unref()
+    clearInterval(watchdog)
+  }
+}, 10_000)
 for (const sig of ['SIGINT', 'SIGTERM', 'SIGHUP']) {
   process.on(sig, () => {
-    child.kill(sig)
+    killGroup(sig)
   })
 }
 child.on('error', (e) => {
@@ -98,6 +132,7 @@ child.on('error', (e) => {
   process.exit(127)
 })
 child.on('exit', (code, signal) => {
+  clearInterval(watchdog)
   release()
-  process.exit(code ?? (signal ? 128 : 1))
+  process.exit(timedOut ? 124 : (code ?? (signal ? 128 : 1)))
 })
