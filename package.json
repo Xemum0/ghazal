@@ -41,6 +41,7 @@
     "parity:board": "node tools/parity/board.mjs",
     "parity:text": "node tools/parity/web-text.mjs",
     "parity:content": "node tools/parity/content.mjs",
+    "parity:geo": "node tools/parity/geo.mjs",
     "probe": "node tools/parity/probe.mjs"
   }
 }

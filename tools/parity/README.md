@@ -45,6 +45,7 @@ So 1 px shifts and text anti-aliasing pass, a 1 dp shift needs a look, a 2 dp sh
 | `pnpm parity:board` (`board.mjs`) | one table of every component gallery against the web references; `--save` / `--baseline` mark regressions (`!!`) and improvements (`+`) |
 | `pnpm probe` (`probe.mjs`) | the computed boxes and styles of any web element (screen or gallery), with a box tree: the number to build to |
 | `pnpm parity:text` + `pnpm parity:content` | content parity: the words of a Flutter shot against the web frame as bags of words; catches a missing subtitle, a missing section below the fold, a wrong name (render tall: `pnpm fshot ... --h 4000 --health`) |
+| `pnpm parity:geo -- --app client --only CL-DISC-01 --lang ar` (`geo.mjs`) | the geometry diff in numbers: every visible word of the web frame matched with the same word of the Flutter shot (dy, dx per 60 dp band down the page, the first band that drifts, the largest offsets, words only on one side); the composite shows THAT something moved, this shows by how much and from where |
 | `pnpm flutter:edges` (`tools/check-nav-edges.mjs`) | every `navigatesTo` edge of the inventory has a route name in the flow's source; every screen reachable; no stub |
 | `pnpm flutter:sweep` (`tools/flutter-sweep.mjs`) | the route sweep: layout at 360 / 390 / 430, text scale 1.3, content, scenario states; framework errors, overflow, stubs, blank renders, stuck skeletons, error states, missing words |
 

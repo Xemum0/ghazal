@@ -25,7 +25,12 @@ const EASTERN = { '٠': '0', '١': '1', '٢': '2', '٣': '3', '٤': '4', '٥': '
 const tokens = (texts) => {
   const bag = new Map()
   for (const t of texts) {
-    const s = t.replace(/[٠-٩۰-۹]/g, (c) => EASTERN[c]).replace(/[⁦-⁩‎‏؜‪-‮]/g, '')
+    // digits and letters are separate words ("38 s" and "38s" are the same words), isolates out, Eastern digits to Western
+    const s = t
+      .replace(/[٠-٩۰-۹]/g, (c) => EASTERN[c])
+      .replace(/[\u2066-\u2069\u200e\u200f\u061c\u202a-\u202e]/g, '')
+      .replace(/(\d)(\p{L})/gu, '$1 $2')
+      .replace(/(\p{L})(\d)/gu, '$1 $2')
     for (const raw of s.split(/\s+/)) {
       const w = raw.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '').toLowerCase()
       if (w) bag.set(w, (bag.get(w) ?? 0) + 1)
