@@ -111,7 +111,7 @@ class GzVoucherWindowCard extends StatelessWidget {
             ),
             if (rate != null) ...[
               const SizedBox(height: GzSpace.s2),
-              GzPrice(fils: rate.fils, size: GzPriceSize.total, unit: win.voucherPerGuest != null ? GzPriceUnit.perGuest : GzPriceUnit.perNight),
+              GzInlineStrut(role: GzTextRole.body, child: GzPrice(fils: rate.fils, size: GzPriceSize.total, unit: win.voucherPerGuest != null ? GzPriceUnit.perGuest : GzPriceUnit.perNight)),
             ],
             const SizedBox(height: GzSpace.s2),
             GzText(win.title.of(lang), role: GzTextRole.d1, color: c.textPrimary, header: true),

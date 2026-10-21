@@ -2,8 +2,6 @@ import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
-import 'obd_chip.dart';
-
 /// The 12-month picker of the "Flexible" alternative (web `PickerSheet`): chips in six rows of two, Done pins at the foot. Resolves with
 /// the chosen month, or null when dismissed.
 Future<GzYm?> showObdMonthSheet(BuildContext context, {required List<GzYm> months, required GzYm initial, required String Function(GzYm) monthText}) {
@@ -34,8 +32,8 @@ class _MonthsState extends State<_Months> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     Widget chip(GzYm m) => Expanded(
-          child: ObdChip(label: widget.monthText(m), figures: true, selected: _picked == m, onPressed: () => setState(() => _picked = m)),
-        );
+      child: GzChip(label: widget.monthText(m), expand: true, figures: true, selected: _picked == m, onPressed: () => setState(() => _picked = m)),
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -48,14 +46,19 @@ class _MonthsState extends State<_Months> {
                 if (i > 0) const SizedBox(height: GzSpace.s2),
                 Row(
                   children: [
-                    for (var j = i; j < i + 2 && j < widget.months.length; j++) ...[if (j > i) const SizedBox(width: GzSpace.s2), chip(widget.months[j])],
+                    for (var j = i; j < i + 2 && j < widget.months.length; j++) ...[
+                      if (j > i) const SizedBox(width: GzSpace.s2),
+                      chip(widget.months[j]),
+                    ],
                   ],
                 ),
               ],
             ],
           ),
         ),
-        GzSheetFooter(child: GzButton(label: l10n.commonActionDone, fullWidth: true, onPressed: () => Navigator.of(context).pop(_picked))),
+        GzSheetFooter(
+          child: GzButton(label: l10n.commonActionDone, fullWidth: true, onPressed: () => Navigator.of(context).pop(_picked)),
+        ),
       ],
     );
   }

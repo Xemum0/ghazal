@@ -89,13 +89,16 @@ class GzUserText extends StatelessWidget {
     final gz = context.gz;
     final screen = Directionality.of(context);
     final style = GzType.style(Locale(gzScriptOf(text)), role).copyWith(color: color ?? gz.colors.textPrimary, decoration: TextDecoration.none);
+    final own = gzFirstStrongOr(text, screen);
     return Align(
       alignment: AlignmentDirectional.centerStart,
       heightFactor: 1,
       child: Text(
         text,
         style: style,
-        textDirection: gzFirstStrongOr(text, screen),
+        textDirection: own,
+        // Every line aligns to the screen's start, not to the paragraph's own start (an Arabic note in the English UI sits at the left).
+        textAlign: own == screen ? TextAlign.start : TextAlign.end,
         maxLines: maxLines,
         overflow: maxLines != null ? TextOverflow.ellipsis : null,
         softWrap: softWrap,

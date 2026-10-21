@@ -30,6 +30,7 @@ class GzActionBar extends StatefulWidget {
     this.summaryValue,
     this.secondary,
     this.note,
+    this.noteWidget,
     this.safeBottom,
     super.key,
   });
@@ -46,6 +47,10 @@ class GzActionBar extends StatefulWidget {
 
   /// Caption under the row.
   final String? note;
+
+  /// The same slot as a widget (the web `note` is a ReactNode): a quiet link or two text buttons under the primary. It takes the caption
+  /// type and the secondary ink as its default text style and the full width of the bar (centre or align it yourself); wins over [note].
+  final Widget? noteWidget;
 
   /// Gallery only: force the bottom inset on or off. Default follows what is below (tab bar or not).
   final bool? safeBottom;
@@ -161,7 +166,10 @@ class _GzActionBarState extends State<GzActionBar> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           row,
-                          if (w.note != null) ...[
+                          if (w.noteWidget != null) ...[
+                            const SizedBox(height: GzSpace.s2),
+                            DefaultTextStyle.merge(style: context.gz.text(GzTextRole.caption).copyWith(color: c.textSecondary, decoration: TextDecoration.none), child: w.noteWidget!),
+                          ] else if (w.note != null) ...[
                             const SizedBox(height: GzSpace.s2),
                             GzText(w.note!, role: GzTextRole.caption, color: c.textSecondary, textAlign: TextAlign.start),
                           ],

@@ -57,9 +57,13 @@ class GzCompareActionBar extends StatelessWidget {
                     children: [
                       GzText(columns[i].name, role: GzTextRole.caption, color: c.textSecondary, maxLines: 1),
                       const SizedBox(height: GzSpace.s1),
-                      GzCompareButton(
+                      GzButton(
                         label: columns[i].label,
-                        primary: pickedId == columns[i].id,
+                        variant: pickedId == columns[i].id ? GzButtonVariant.primary : GzButtonVariant.secondary,
+                        size: GzButtonSize.md,
+                        compact: true,
+                        ellipsize: true,
+                        fullWidth: true,
                         onPressed: () => onAction?.call(columns[i].id, columns[i].kind),
                       ),
                     ],
@@ -70,57 +74,6 @@ class GzCompareActionBar extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-/// The compare button: the web `Button` (secondary, or the one gold primary) with its inline padding trimmed to 8, which is what the
-/// compare surfaces ask of it (a third of a row, or the tray's free width). [height] is 48 (md) in the action bar and 44 (sm) in the tray.
-/// It fills the width it is given and keeps its label to one ellipsised line.
-class GzCompareButton extends StatelessWidget {
-  const GzCompareButton({required this.label, required this.onPressed, this.primary = false, this.height = GzSize.controlMd, super.key});
-
-  final String label;
-  final bool primary;
-  final double height;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final gz = context.gz;
-    final c = gz.colors;
-    return GzPressable(
-      semanticLabel: label,
-      onPressed: onPressed,
-      borderRadius: GzRadius.smAll,
-      builder: (context, st) {
-        final bg = primary ? (st.pressed ? c.actionPrimaryBgPressed : c.actionPrimaryBg) : (st.pressed ? c.actionSecondaryBgPressed : null);
-        final fg = primary ? c.actionPrimaryLabel : c.actionSecondaryLabel;
-        return ClipRRect(
-          borderRadius: GzRadius.smAll,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: bg,
-              borderRadius: GzRadius.smAll,
-              border: primary ? null : Border.all(color: c.actionSecondaryBorder, width: GzStroke.hair),
-            ),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: height),
-              child: Padding(
-                padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s2 + GzStroke.hair),
-                child: Center(
-                  child: Text(
-                    label,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: gzResetLabelStyle(gz).copyWith(color: fg, decoration: TextDecoration.none),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart' show OverflowBoxFit;
 import 'package:flutter/widgets.dart';
 
 import '../foundation.dart';
@@ -42,6 +43,10 @@ class GzButton extends StatelessWidget {
     this.reason,
     this.onDark = false,
     this.flushInline = false,
+    this.compact = false,
+    this.spill = false,
+    this.figures = false,
+    this.ellipsize = false,
     this.previewState,
     super.key,
   });
@@ -67,6 +72,18 @@ class GzButton extends StatelessWidget {
 
   /// Tertiary only: no inline padding, so the label lines up with the gutter edge (the section header's See all).
   final bool flushInline;
+
+  /// Inline padding 8 + hairline instead of 24 + hairline: a button inside a table cell or a dense row.
+  final bool compact;
+
+  /// Content wider than the box is centred and spills into the padding (the web flex button) instead of raising a RenderFlex overflow.
+  final bool spill;
+
+  /// The digit runs of [label] are figures islands (the web `<Figures>` child): Manrope digits at the figure size of the role.
+  final bool figures;
+
+  /// A label wider than the box is cut with an ellipsis on one line (a third of a row, the tray's free width) instead of spilling.
+  final bool ellipsize;
 
   /// Gallery only.
   final GzPreviewState? previewState;
@@ -96,6 +113,10 @@ class GzButton extends StatelessWidget {
           block: block,
           onDark: onDark,
           flush: flushInline,
+          compact: compact,
+          spill: spill,
+          figures: figures,
+          ellipsize: ellipsize,
           pressed: pressed,
           disabled: disabled,
         );
@@ -128,6 +149,10 @@ class _GzButtonBody extends StatelessWidget {
     required this.block,
     required this.onDark,
     required this.flush,
+    required this.compact,
+    required this.spill,
+    required this.figures,
+    required this.ellipsize,
     required this.pressed,
     required this.disabled,
   });
@@ -141,6 +166,10 @@ class _GzButtonBody extends StatelessWidget {
   final bool block;
   final bool onDark;
   final bool flush;
+  final bool compact;
+  final bool spill;
+  final bool figures;
+  final bool ellipsize;
   final bool pressed;
   final bool disabled;
 
@@ -171,7 +200,15 @@ class _GzButtonBody extends StatelessWidget {
     final ruleColor = disabled ? c.actionSecondaryBorderDisabled : (onDark ? c.textOnDark : c.actionTertiaryUnderline);
 
     // The label type is the prototype's rendered one (see gzResetLabelStyle): the page body type, not the 15/500 `button` role.
-    Widget text = Text(label, softWrap: false, style: gzResetLabelStyle(context.gz).copyWith(color: fg, decoration: TextDecoration.none));
+    final labelStyle = gzResetLabelStyle(context.gz).copyWith(color: fg, decoration: TextDecoration.none);
+    Widget text = figures
+        ? Text.rich(
+            TextSpan(children: GzFigures.spans(context, label, role: GzTextRole.button)),
+            softWrap: false,
+            style: labelStyle,
+            strutStyle: StrutStyle.fromTextStyle(labelStyle, forceStrutHeight: true, leadingDistribution: TextLeadingDistribution.even),
+          )
+        : Text(label, softWrap: false, maxLines: ellipsize ? 1 : null, overflow: ellipsize ? TextOverflow.ellipsis : null, style: labelStyle);
     if (tertiary) {
       text = Stack(
         children: [
@@ -197,19 +234,22 @@ class _GzButtonBody extends StatelessWidget {
       );
     }
 
-    final row = Row(
-      mainAxisSize: block ? MainAxisSize.max : MainAxisSize.min,
+    Widget row = Row(
+      mainAxisSize: block && !spill ? MainAxisSize.max : MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         if (iconStart != null) ...[GzIcon(iconStart!, size: GzIconSize.sm, color: fg), const SizedBox(width: GzSpace.s2)],
-        text,
+        ellipsize ? Flexible(child: text) : text,
         if (iconEnd != null) ...[const SizedBox(width: GzSpace.s2), GzIcon(iconEnd!, size: GzIconSize.sm, color: fg)],
       ],
     );
 
+    // Spill: the content is measured unconstrained and centred; the box keeps the width it was given and the overflow shows in the padding.
+    if (spill) row = OverflowBox(minWidth: 0, maxWidth: double.infinity, fit: OverflowBoxFit.deferToChild, child: row);
+
     final hair = bordered ? GzStroke.hair : 0.0;
-    final pad = (tertiary ? (flush ? 0.0 : GzSpace.s2) : GzSpace.s6) + hair;
+    final pad = compact ? GzSpace.s2 + hair : (tertiary ? (flush ? 0.0 : GzSpace.s2) : GzSpace.s6) + hair;
     Widget box = DecoratedBox(
       decoration: BoxDecoration(
         color: bg,

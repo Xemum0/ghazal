@@ -96,9 +96,12 @@ class GzRangeBar extends StatelessWidget {
 /// BestInRow (web `BestInRow`): the gold-ink bead before the winning value of an objective row. Never colour alone: the words travel
 /// with it as the semantics value.
 class GzBestInRow extends StatelessWidget {
-  const GzBestInRow({required this.child, super.key});
+  const GzBestInRow({required this.child, this.role = GzTextRole.bodyS, super.key});
 
   final Widget child;
+
+  /// The text role the web value block inherits: the cell's (body-s), or a figure role when a `gz-t-fig-*` span wraps the whole row item.
+  final GzTextRole role;
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +120,8 @@ class GzBestInRow extends StatelessWidget {
               ),
             ),
             const SizedBox(width: GzSpace.s1),
-            Flexible(child: child),
+            // The web `.gz-best__value` is a block: its line box holds the cell's strut around the inline-level value.
+            Flexible(child: GzInlineStrut(role: role, child: child)),
           ],
         ),
       ),

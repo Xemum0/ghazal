@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter/rendering.dart' show OverflowBoxFit;
 
 import '../brand/gz_thread_knot.dart';
 import '../foundation.dart';
@@ -118,13 +119,15 @@ class GzIconProgress extends StatelessWidget {
                 SizedBox(width: GzSize.iconLg, height: GzSize.iconMd, child: Center(child: GzIcon(s.icon, size: GzIconSize.md, color: iconColor))),
                 const SizedBox(height: GzSpace.s1),
                 head,
-                const SizedBox(height: GzSpace.s1),
-                if (shown)
+                if (shown) ...[
+                  const SizedBox(height: GzSpace.s1),
                   SizedBox(
                     width: GzSize.iconLg,
+                    // deferToChild: the box takes the word's height; the default (max) throws in a column with unbounded height (a scroll view).
                     child: OverflowBox(
                       minWidth: 0,
                       maxWidth: double.infinity,
+                      fit: OverflowBoxFit.deferToChild,
                       child: Text(
                         s.label,
                         softWrap: false,
@@ -132,6 +135,7 @@ class GzIconProgress extends StatelessWidget {
                       ),
                     ),
                   ),
+                ],
               ],
             ),
           ),

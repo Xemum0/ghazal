@@ -69,7 +69,7 @@ List<GzTabDef> gzTabsOf(GzAppKind app) => app == GzAppKind.client ? gzClientTabs
 
 /// TabBar (direction section 3): canvas with a 1 dp ink-200 top rule, never ink. Five items, icon + label always visible; active =
 /// ink label step-up and a 24 x 2 gold khayt on the top edge that slides between items (320 ms, follows the reading direction);
-/// inactive = secondary. Count badge 20 gold with a 2 dp canvas ring. Height 60 (the prototype measures it: the 56 token is the minimum and the label's line box is 20) + the home-indicator inset. The first tab is always
+/// inactive = secondary. Count badge 20 gold with a 2 dp canvas ring. Height 56 (`GzSize.tabBar`: glyph box 32 + gap 4 + label line 20, the web item measured at 390: 56, the label top 36 below the bar top; the web `gz-reset` zeroes the item's bottom padding) + the home-indicator inset. The first tab is always
 /// at inline-start. The bar is a pure view: the app's `StatefulShellRoute` drives [activeId] and [onSelect].
 class GzTabBar extends StatelessWidget {
   const GzTabBar({
@@ -95,8 +95,8 @@ class GzTabBar extends StatelessWidget {
   /// Override the bottom inset (default: the home-indicator padding of the media query).
   final double? safeBottom;
 
-  /// The bar without the inset: 60 (`GzSize.tabBar` 56 is the minimum; glyph box 32 + 4 + label line 20 + 4).
-  static double heightOf(double safeBottom) => 60 + safeBottom;
+  /// The bar with the inset: 56 (`GzSize.tabBar`; glyph box 32 + 4 + label line 20) + the home-indicator [safeBottom].
+  static double heightOf(double safeBottom) => GzSize.tabBar + safeBottom;
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +115,6 @@ class GzTabBar extends StatelessWidget {
             builder: (context, box) {
               // Formula, not a measurement: item width = bar width / item count; the khayt travels index x item width.
               final itemWidth = box.maxWidth / items.length;
-              // min 56, growing with the label's line (14/20 Arabic: 60), like the web `min-block-size`.
               return Stack(
                   clipBehavior: Clip.none,
                   children: [
@@ -186,7 +185,7 @@ class _TabCell extends StatelessWidget {
           child: SizedBox(
             width: double.infinity,
             child: Padding(
-            padding: const EdgeInsetsDirectional.only(start: GzSpace.s1, end: GzSpace.s1, bottom: GzSpace.s1),
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s1),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.end,
@@ -226,7 +225,7 @@ class _TabCell extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: GzSpace.s1),
-                // The label's line box is 20 (the prototype measures 60 for the item in both languages): the text centres in it.
+                // The label's line box is 20 (the prototype measures 56 for the item: 32 + 4 + 20, no bottom padding): the text centres in it.
                 SizedBox(
                   height: _labelLine,
                   child: Center(

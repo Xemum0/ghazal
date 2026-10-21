@@ -4,12 +4,30 @@ import '../core/core.dart';
 import '../foundation.dart';
 import 'gz_roving.dart';
 
-/// One option of a [GzChipGroup].
+/// One option of a [GzChipGroup]. [label] is the words (digit runs become figure islands unless [figures] is false); [labelWidget]
+/// replaces them. [icon] is the glyph in front of the words (the web `glyphLabel`), [count] a muted figure after them, and
+/// [semanticLabel] the accessible name when it is not the words.
 class GzChipOption<V> {
-  const GzChipOption({required this.value, required this.label, this.disabled = false});
+  const GzChipOption({
+    required this.value,
+    required this.label,
+    this.labelWidget,
+    this.icon,
+    this.semanticLabel,
+    this.count,
+    this.figures = true,
+    this.disabled = false,
+  });
 
   final V value;
   final String label;
+  final Widget? labelWidget;
+  final IconData? icon;
+  final String? semanticLabel;
+
+  /// A muted number after the label, already formatted (`12`).
+  final String? count;
+  final bool figures;
   final bool disabled;
 }
 
@@ -141,8 +159,14 @@ class _GzChipGroupState<V> extends State<GzChipGroup<V>> {
           },
           child: Semantics(
             inMutuallyExclusiveGroup: !w.multiple,
-            child: _FigChip(
+            child: GzChip(
               label: w.options[i].label,
+              labelWidget: w.options[i].labelWidget,
+              semanticLabel: w.options[i].semanticLabel,
+              figures: w.options[i].figures,
+              countText: w.options[i].count,
+              iconStart: w.options[i].icon,
+              iconSize: GzIconSize.xs,
               selected: selected.contains(w.options[i].value),
               disabled: flags[i],
               onPressed: () => _toggle(w.options[i].value),
@@ -161,85 +185,5 @@ class _GzChipGroupState<V> extends State<GzChipGroup<V>> {
           )
         : Wrap(spacing: GzSpace.s2, runSpacing: GzSpace.s2, children: chips);
     return Semantics(container: true, label: w.label, child: body);
-  }
-}
-
-/// The chip of the group: the anatomy of [GzChip] (44 high, radius 8, hairline border, selected = ink border + gold bead + weight 500,
-/// the hidden 500 copy reserves the label width) with the label set in the figures voice (the web `Figures` inside a chip label), so
-/// digit runs are Manrope tabular LTR islands (`35,000+` keeps its plus on the right in Arabic). [GzChip] takes a plain string, so
-/// the group draws its own body over the same [GzPressable] and tokens.
-class _FigChip extends StatelessWidget {
-  const _FigChip({required this.label, required this.selected, required this.disabled, required this.onPressed});
-
-  final String label;
-  final bool selected;
-  final bool disabled;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return GzPressable(
-      onPressed: disabled ? null : onPressed,
-      semanticLabel: label,
-      selected: selected,
-      borderRadius: GzRadius.smAll,
-      scale: 1,
-      builder: (context, st) {
-        final gz = context.gz;
-        final c = gz.colors;
-        final off = !st.enabled;
-        final border = off ? c.borderHairline : (selected ? c.controlChipBorderSelected : c.controlChipBorder);
-        final fg = off ? c.textDisabled : (selected ? c.textStrong : c.textPrimary);
-        final bg = selected ? c.controlBg : (st.pressed && !off ? c.surfaceQuiet : null);
-        final base = gzResetLabelStyle(gz);
-        final heavy = gz.text(GzTextRole.title).fontWeight;
-        // The label inherits the body type (`.gz-reset { font: inherit }`, see gzResetLabelStyle) but `--gz-num-size` survives the
-        // reset: the web digits are the `body-s` figure size (16 in both languages), one step under the 17 px Arabic words.
-        Widget text(TextStyle style) => Text.rich(
-          TextSpan(children: GzFigures.spans(context, label, role: GzTextRole.bodyS)),
-          style: style,
-          softWrap: false,
-        );
-        final body = Stack(
-          alignment: Alignment.center,
-          children: [
-            Visibility(
-              visible: false,
-              maintainSize: true,
-              maintainAnimation: true,
-              maintainState: true,
-              child: text(base.copyWith(fontWeight: heavy)),
-            ),
-            AnimatedDefaultTextStyle(
-              duration: GzMotion.durationBase,
-              curve: GzMotion.easeStandard,
-              style: base.copyWith(color: fg, fontWeight: selected ? heavy : base.fontWeight, decoration: TextDecoration.none),
-              child: text(base.copyWith(color: fg, fontWeight: selected ? heavy : base.fontWeight, decoration: TextDecoration.none)),
-            ),
-          ],
-        );
-        return AnimatedContainer(
-          duration: GzMotion.durationBase,
-          curve: GzMotion.easeStandard,
-          constraints: const BoxConstraints(minHeight: GzSize.controlSm),
-          // The web padding exactly (computed: 16 + 1 hairline per side, 12 before the bead): a 3-digit chip is 63.77 dp, so four fit a
-          // 350 dp row and the fifth wraps like the web. The border adds its width to this padding.
-          padding: EdgeInsetsDirectional.only(start: selected ? GzSpace.s3 : GzSpace.s4, end: GzSpace.s4),
-          decoration: BoxDecoration(
-            color: bg,
-            borderRadius: GzRadius.smAll,
-            border: Border.all(color: border, width: GzStroke.hair),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (selected) ...[const GzBeadBox(), const SizedBox(width: GzSpace.s2)],
-              body,
-            ],
-          ),
-        );
-      },
-    );
   }
 }

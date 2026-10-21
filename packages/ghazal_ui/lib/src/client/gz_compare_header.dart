@@ -97,7 +97,8 @@ class _HeaderColumn extends StatelessWidget {
     final nameText = col.unlisted ? l.uiClientCompareNoLonger : name;
     Widget nameWidget = Text(
       nameText,
-      style: gz.text(GzTextRole.compareName).copyWith(color: canOpen ? c.textStrong : c.textPrimary, decoration: TextDecoration.none),
+      // A tappable name is a web <button class="gz-reset ...">: its label renders in the page body type (see gzResetLabelStyle), not the serif role.
+      style: (canOpen ? gzResetLabelStyle(gz) : gz.text(GzTextRole.compareName)).copyWith(color: canOpen ? c.textStrong : c.textPrimary, decoration: TextDecoration.none),
       maxLines: compact ? 1 : header.nameLines,
       overflow: TextOverflow.ellipsis,
       textAlign: TextAlign.start,

@@ -270,6 +270,7 @@ class GzSegmentTrack extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsetsDirectional.only(start: GzSpace.s3, end: GzSpace.s3, bottom: GzSpace.s1),
                             child: SizedBox(
+                              width: double.infinity,
                               height: GzStroke.thread,
                               child: ColoredBox(color: c.markKhayt),
                             ),

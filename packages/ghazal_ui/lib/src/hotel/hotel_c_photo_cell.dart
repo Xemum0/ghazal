@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart' show OverflowBoxFit;
 import 'package:flutter/widgets.dart';
 import 'package:ghazal_domain/ghazal_domain.dart' show GalleryItem, LocalizedText, MediaZone;
 
@@ -141,16 +142,14 @@ class GzPhotoCell extends StatelessWidget {
                 children: [
                   if (tile.status != GzPhotoStatus.live)
                     // the web pill keeps its natural width and the cell clips it (a long Arabic label is wider than the 8 dp insets allow)
-                    SizedBox(
-                      height: 30, // the pill's own height (20 line + 2 x 5)
-                      child: OverflowBox(
-                        alignment: AlignmentDirectional.topStart,
-                        minWidth: 0,
-                        maxWidth: double.infinity,
-                        child: GzStatusPill(
-                          status: tile.status == GzPhotoStatus.review ? GzStatus.requested : GzStatus.rejected,
-                          label: tile.status == GzPhotoStatus.review ? l.uiHotelPhotosReview : l.uiHotelPhotosRejected,
-                        ),
+                    OverflowBox(
+                      alignment: AlignmentDirectional.topStart,
+                      fit: OverflowBoxFit.deferToChild,
+                      minWidth: 0,
+                      maxWidth: double.infinity,
+                      child: GzStatusPill(
+                        status: tile.status == GzPhotoStatus.review ? GzStatus.requested : GzStatus.rejected,
+                        label: tile.status == GzPhotoStatus.review ? l.uiHotelPhotosReview : l.uiHotelPhotosRejected,
                       ),
                     ),
                   if (tile.status != GzPhotoStatus.live && isCover) const SizedBox(height: GzSpace.s1),

@@ -12,7 +12,6 @@ import '../application/booking_flow_providers.dart' show keepStale;
 import '../application/booking_request.dart';
 import 'booking_glyphs.dart';
 import 'widgets/booking_async.dart';
-import 'widgets/booking_info.dart';
 import 'widgets/booking_layout.dart';
 import 'widgets/sent_parts.dart';
 
@@ -125,7 +124,7 @@ class _Confirmed extends ConsumerWidget {
                 onCopy: () => say(l10n.clientBookingDoneCopied),
                 onShowFull: () => nav.push('CL-VCHR-03', params: <String, Object?>{'voucherId': voucher.id}),
               ),
-            BookingAsideInfo(
+            GzAsideInfo(
               icon: GzIcons.receipt,
               word: l10n.clientBookingDonePayWord,
               title: l10n.clientBookingDonePayTitle,

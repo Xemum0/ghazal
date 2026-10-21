@@ -9,7 +9,7 @@
   "uiHotelCalBlockDate": "إغلاق هذا التاريخ",
   "uiHotelCalBy": "بواسطة {name}",
   "uiHotelCalAgenda": "مواعيد {date}",
-  "uiHotelCalRequests": "{count, plural, =1{طلب واحد بانتظار الرد لهذا التاريخ} =2{طلبان بانتظار الرد لهذا التاريخ} few{⁦{count}⁩ طلبات بانتظار الرد لهذا التاريخ} many{⁦{count}⁩ طلبًا بانتظار الرد لهذا التاريخ} other{⁦{count}⁩ طلب بانتظار الرد لهذا التاريخ}}",
+  "uiHotelCalRequests": "{count, plural, =0{لا طلبات بانتظار الرد لهذا التاريخ} =1{طلب واحد بانتظار الرد لهذا التاريخ} =2{طلبان بانتظار الرد لهذا التاريخ} few{⁦{count}⁩ طلبات بانتظار الرد لهذا التاريخ} many{⁦{count}⁩ طلبًا بانتظار الرد لهذا التاريخ} other{⁦{count}⁩ طلب بانتظار الرد لهذا التاريخ}}",
   "uiHotelCalReasonOfflineBooking": "حجز خارج غزل",
   "uiHotelCalReasonMaintenance": "صيانة",
   "uiHotelCalReasonPrivateEvent": "مناسبة خاصة",
@@ -27,5 +27,5 @@
   "uiHotelCalSheetNone": "اختاروا التواريخ",
   "uiHotelCalSheetGrid": "اختيار التواريخ المراد إغلاقها",
   "uiHotelCalSheetNote": "تختفي من نتائج العملاء فور الإغلاق.",
-  "uiHotelCalSheetDates": "{count, plural, =1{تاريخ واحد} =2{تاريخان} few{⁦{count}⁩ تواريخ} many{⁦{count}⁩ تاريخًا} other{⁦{count}⁩ تاريخ}}"
+  "uiHotelCalSheetDates": "{count, plural, =0{لا تواريخ} =1{تاريخ واحد} =2{تاريخان} few{⁦{count}⁩ تواريخ} many{⁦{count}⁩ تاريخًا} other{⁦{count}⁩ تاريخ}}"
 }

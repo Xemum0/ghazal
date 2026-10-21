@@ -29,7 +29,7 @@ class BookingStepScaffold extends ConsumerStatefulWidget {
   final String venueName;
   final String title;
 
-  /// The info glyph beside the title (a [BookingInfoButton]).
+  /// The info glyph beside the title (a [GzInfoButton]).
   final Widget? info;
 
   /// A state line under the progress thread (offline, price error, a taken date).

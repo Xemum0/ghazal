@@ -9,7 +9,6 @@ import '../../application/discover_search.dart';
 import 'brief_panels_b.dart' show Histogram;
 import 'discover_labels.dart';
 import 'filter_group.dart';
-import 'results_misc.dart';
 
 const (int, int) kCapacityBounds = (50, 1500);
 const int kCapacityStep = 50;
@@ -174,7 +173,7 @@ Widget filterGroupBody(BuildContext context, String id, FilterCtx x) {
               label: l.clientDiscoverBriefAreaTitle,
               values: <String>[for (final id in selectedAreas) if (shown.any((a) => a.id == id)) id],
               onChanged: (ids) => x.patch((v) => v.copyWith(areaIds: <String>[for (final id in selectedAreas) if (!shown.any((a) => a.id == id)) id, ...ids])),
-              options: [for (final a in shown) GzChipOption<String>(value: a.id, label: '${a.name.of(lang)} ${f.integer(per[a.id] ?? 0)}')],
+              options: [for (final a in shown) GzChipOption<String>(value: a.id, label: a.name.of(lang), count: f.integer(per[a.id] ?? 0))],
             ),
           ],
           gap,
@@ -197,7 +196,11 @@ Widget filterGroupBody(BuildContext context, String id, FilterCtx x) {
               options: [for (final t in VenueType.values.where((t) => t != VenueType.unknown)) (value: t, label: L.venueType(t), icon: typeIcon(t))],
             ),
           ),
-          InfoSheetButton(title: context.gzL10n.commonVenueTypeGovernmental, text: l.clientDiscoverResultsGovernmentNote),
+          GzInfoButton(
+ key: const ValueKey<String>('discover.info'),
+ title: context.gzL10n.commonVenueTypeGovernmental,
+ paragraphs: [l.clientDiscoverResultsGovernmentNote],
+ ),
         ],
       );
     case 'arrangement':
@@ -334,6 +337,7 @@ Widget _moneySlider(BuildContext context, FilterCtx x, String label, (int, int) 
     label: label,
     value: (v.$1.toDouble(), v.$2.toDouble()),
     showCaptions: false,
+    valuesAt: GzRangeValues.below,
     valueText: (n, _) => x.labels.money(n.round()),
     formatValue: (context, n, _) => Text.rich(
       TextSpan(children: GzFigures.spans(context, x.labels.money(n.round()), role: GzTextRole.figBodyS)),

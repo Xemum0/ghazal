@@ -4,6 +4,7 @@ import 'package:ghazal_core/ghazal_core.dart' show DecimalOptions;
 import '../foundation.dart';
 import 'gz_fig_text.dart';
 import 'gz_format_scope.dart';
+import 'gz_glyph_baseline.dart';
 
 enum GzRatingVariant { compact, stars }
 
@@ -111,20 +112,24 @@ class GzRating extends StatelessWidget {
       label: name,
       image: true,
       excludeSemantics: true,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          stars,
-          if (variant == GzRatingVariant.compact || showValue) ...[
-            const SizedBox(width: GzSpace.s1),
-            valueText,
+      // The first flex item is the star row, so the web baseline of a rating is the bottom edge of its glyph (not the figure's baseline).
+      child: GzGlyphBaseline(
+        glyphSize: GzSize.iconXs,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            stars,
+            if (variant == GzRatingVariant.compact || showValue) ...[
+              const SizedBox(width: GzSpace.s1),
+              valueText,
+            ],
+            if (countWidget != null) ...[
+              const SizedBox(width: GzSpace.s1),
+              countWidget,
+            ],
           ],
-          if (countWidget != null) ...[
-            const SizedBox(width: GzSpace.s1),
-            countWidget,
-          ],
-        ],
+        ),
       ),
     );
   }

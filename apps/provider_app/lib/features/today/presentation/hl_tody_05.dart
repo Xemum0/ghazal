@@ -232,7 +232,24 @@ class _HlTody05ScreenState extends ConsumerState<HlTody05Screen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         GzTopBar(
-          title: name,
+          // the web `.ht-th__who`: a 24 dp monogram and the name on one line, 8 apart, centred
+          titleWidget: Semantics(
+            header: true,
+            label: name,
+            excludeSemantics: true,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GzAvatar(name: name, initial: support ? 'غ' : null, size: GzAvatarSize.xs, voice: GzAvatarVoice.sans),
+                const SizedBox(width: GzSpace.s2),
+                Flexible(
+                  child: support
+                      ? GzText(name, role: GzTextRole.title, color: context.gz.colors.textStrong, maxLines: 1)
+                      : GzUserText(name, role: GzTextRole.title, color: context.gz.colors.textStrong, maxLines: 1),
+                ),
+              ],
+            ),
+          ),
           actions: [
             if (canCall) GzTopBarAction(icon: GzIcons.phone, label: l.hotelTodayCallClient(name), onPressed: () => nav.openSheet('HL-BOOK-04', options: GzSheetOptions(params: {'bookingId': bookingId}))),
             GzTopBarAction(icon: GzIcons.moreVertical, label: l.hotelTodayConversationMenu, onPressed: _openMenu),

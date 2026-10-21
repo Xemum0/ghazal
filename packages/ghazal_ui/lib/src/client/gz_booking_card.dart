@@ -9,6 +9,7 @@ import '../foundation.dart';
 import '../overlays/gz_photo.dart';
 import '../voucher/gz_confirm_left.dart';
 import '../voucher/gz_voucher_chip.dart';
+import 'client_bits.dart' show GzWrapPushEnd;
 import 'gz_booking_thread.dart';
 
 enum GzBookingCardVariant { card, row }
@@ -150,22 +151,16 @@ class GzBookingCard extends StatelessWidget {
     );
 
     final voucherTone = b.status == BookingStatus.redeemed || b.status == BookingStatus.completed ? GzVoucherChipTone.quiet : GzVoucherChipTone.bound;
-    final statusRow = Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    // One wrapping row like the web `.gz-bcard__status`: the pills, the voucher chip and the ref (a figure-role LTR item with
+    // `margin-inline-start: auto`, the PHYSICAL left margin: in English the ref sits at the far right of its line, in Arabic it follows the chips).
+    final statusRow = GzWrapPushEnd(
+      spacing: GzSpace.s2,
+      runSpacing: GzSpace.s2,
+      pushLastRight: !gz.isAr,
       children: [
-        Expanded(
-          child: Wrap(
-            spacing: GzSpace.s2,
-            runSpacing: GzSpace.s2,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              GzStatusPill(status: gzBookingStatus(b.status)),
-              if (b.proposal?.status == ProposalStatus.proposed) const GzStatusPill(status: GzStatus.dateProposed),
-              if (voucherCode != null) GzVoucherChip(code: voucherCode!, tone: voucherTone),
-            ],
-          ),
-        ),
-        const SizedBox(width: GzSpace.s2),
+        GzStatusPill(status: gzBookingStatus(b.status)),
+        if (b.proposal?.status == ProposalStatus.proposed) const GzStatusPill(status: GzStatus.dateProposed),
+        if (voucherCode != null) GzVoucherChip(code: voucherCode!, tone: voucherTone),
         gzFigText(context, b.ref, role: GzTextRole.figCaption, color: c.textSecondary),
       ],
     );
@@ -214,7 +209,7 @@ class GzBookingCard extends StatelessWidget {
                   fact(
                     l.uiClientBookingCardVoucherPrice,
                     // the web price is a flex item with min-width 0 and does not clip: a long amount overflows its column
-                    OverflowBox(fit: OverflowBoxFit.deferToChild, alignment: AlignmentDirectional.centerStart, minWidth: 0, maxWidth: double.infinity, child: GzPrice(fils: b.totals.voucherTotal.fils, size: GzPriceSize.card)),
+                    OverflowBox(fit: OverflowBoxFit.deferToChild, alignment: AlignmentDirectional.centerStart, minWidth: 0, maxWidth: double.infinity, child: GzInlineStrut(child: GzPrice(fils: b.totals.voucherTotal.fils, size: GzPriceSize.card))),
                   ),
                 ],
               ),

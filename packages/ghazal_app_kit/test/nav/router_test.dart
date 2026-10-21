@@ -358,7 +358,7 @@ void main() {
     testWidgets('toast shows above the bar, dismiss removes it, the bar height is told to the controller', (tester) async {
       final rig = await pumpNav(tester);
       final controller = rig.container.read(gzToastControllerProvider);
-      expect(controller.bottomChrome.value, greaterThanOrEqualTo(60));
+      expect(controller.bottomChrome.value, greaterThanOrEqualTo(GzTabBar.heightOf(0)));
       final key = rig.nav.toast(const GzToastSpec(message: 'Saved to your list'));
       await tester.pump(const Duration(milliseconds: 300));
       expect(find.text('Saved to your list'), findsOneWidget);

@@ -4,7 +4,6 @@ import 'package:ghazal_domain/ghazal_domain.dart' show CreditVoucher, Voucher, V
 
 import '../core/core.dart';
 import '../foundation.dart';
-import 'gz_price_compare.dart' show GzStruckMoney;
 import 'gz_qr_code.dart';
 
 enum GzVoucherCardVariant { full, compact, slim }
@@ -168,10 +167,10 @@ class GzVoucherCard extends StatelessWidget {
       padding: const EdgeInsets.only(top: GzSpace.s4),
       child: Row(
         children: [
-          if (onCopy != null) Expanded(child: _Action(label: l.uiVoucherCardCopy, icon: GzIcons.copy, onPressed: onCopy)),
+          if (onCopy != null) Expanded(child: GzButton(label: l.uiVoucherCardCopy, iconStart: GzIcons.copy, variant: GzButtonVariant.secondary, size: GzButtonSize.md, fullWidth: true, spill: true, onPressed: onCopy)),
           if (onCopy != null && onShowFull != null && _live) const SizedBox(width: GzSpace.s3),
           if (onShowFull != null && _live)
-            Expanded(child: _Action(label: l.uiVoucherCardFull, icon: GzIcons.qrCode, onPressed: onShowFull)),
+            Expanded(child: GzButton(label: l.uiVoucherCardFull, iconStart: GzIcons.qrCode, variant: GzButtonVariant.secondary, size: GzButtonSize.md, fullWidth: true, spill: true, onPressed: onShowFull)),
         ],
       ),
     );
@@ -287,7 +286,8 @@ class GzVoucherCard extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [GzIcon(icon, size: size, color: color), price],
+            // The web `dd` is a block: its line box holds the page line (28 in Arabic, 24 in English) around the inline price.
+            children: [GzIcon(icon, size: size, color: color), Align(alignment: AlignmentDirectional.centerStart, child: GzInlineStrut(role: GzTextRole.body, child: price))],
           ),
         );
     return Row(
@@ -416,51 +416,4 @@ class _PerfPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_PerfPainter old) => old.ground != ground || old.fill != fill || old.line != line;
-}
-
-/// The secondary button of the ticket's two half-width actions. Like the web button it centres its content and lets it spill past
-/// the padding when the half is narrower than the content ("Full screen" at 350: 157 dp of content in 152), where [GzButton] would
-/// raise a layout overflow. Same colours, 48 high, hairline border, radius 8, press scale.
-class _Action extends StatelessWidget {
-  const _Action({required this.label, required this.icon, required this.onPressed});
-
-  final String label;
-  final IconData icon;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final gz = context.gz;
-    final c = gz.colors;
-    return GzPressable(
-      onPressed: onPressed,
-      semanticLabel: label,
-      borderRadius: GzRadius.smAll,
-      builder: (context, st) => ClipRRect(
-        borderRadius: GzRadius.smAll,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: st.pressed ? c.actionSecondaryBgPressed : null,
-            borderRadius: GzRadius.smAll,
-            border: Border.all(color: c.actionSecondaryBorder, width: GzStroke.hair),
-          ),
-          child: SizedBox(
-            height: GzButtonSize.md.dp,
-            child: OverflowBox(
-              minWidth: 0,
-              maxWidth: double.infinity,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  GzIcon(icon, size: GzIconSize.sm, color: c.actionSecondaryLabel),
-                  const SizedBox(width: GzSpace.s2),
-                  Text(label, softWrap: false, style: gzResetLabelStyle(gz).copyWith(color: c.actionSecondaryLabel, decoration: TextDecoration.none)),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }

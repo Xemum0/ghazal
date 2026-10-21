@@ -4,7 +4,8 @@ import 'dart:math' as math;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ghazal_core/ghazal_core.dart' show GzFormat, MoneyMode, MoneyOptions, isolateLtr, kNbsp;
-import 'package:ghazal_domain/ghazal_domain.dart' show CardPrice, CardPriceExact, CardPriceFlatNight, CardPriceFromGuests, CardPriceFromMinimum, CardPriceRentalFee;
+import 'package:ghazal_domain/ghazal_domain.dart'
+    show CardPrice, CardPriceExact, CardPriceFlatNight, CardPriceFromGuests, CardPriceFromMinimum, CardPriceRentalFee;
 
 import '../core/core.dart';
 import '../foundation.dart';
@@ -41,7 +42,14 @@ enum GzPriceAudience { member, guest }
 /// night, a key for a rental fee); the words are accessible names. "From" stays. A [GzPriceAudience.guest] sees the standard price as
 /// headline and one locked line. [lean] keeps only headline and basis. Takes the generated `CardPrice` model.
 class GzCardPriceLine extends StatelessWidget {
-  const GzCardPriceLine({required this.price, this.size = GzPriceLineSize.card, this.alignEnd = false, this.audience = GzPriceAudience.member, this.lean = false, super.key});
+  const GzCardPriceLine({
+    required this.price,
+    this.size = GzPriceLineSize.card,
+    this.alignEnd = false,
+    this.audience = GzPriceAudience.member,
+    this.lean = false,
+    super.key,
+  });
 
   final CardPrice price;
   final GzPriceLineSize size;
@@ -66,8 +74,7 @@ class GzCardPriceLine extends StatelessWidget {
       GzPriceLineSize.display => GzPriceSize.display,
     };
     Widget amount([String? prefix]) => GzPrice(fils: headline, size: priceSize, prefix: prefix, was: voucher != null && !lean ? price.amount.fils : null);
-    Widget basis(IconData icon, String label, [String? value]) =>
-        _IconBottomBaseline(iconSize: GzIconSize.xs.dp, child: GzFactChip(icon: icon, label: label, value: value, small: true, tone: GzFactTone.muted));
+    Widget basis(IconData icon, String label, [String? value]) => GzFactChip(icon: icon, label: label, value: value, small: true, tone: GzFactTone.muted);
 
     final List<Widget> body = switch (price) {
       CardPriceExact(:final guests) => [amount(), basis(GzIcons.usersThree, l.uiSharedGuests, f.integer(guests))],
@@ -86,19 +93,23 @@ class GzCardPriceLine extends StatelessWidget {
           Semantics(
             label: l.commonSaveAmount(f.money(saving.fils, const MoneyOptions(mode: MoneyMode.browse))),
             excludeSemantics: true,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: GzSize.pillMin),
-              child: DecoratedBox(
-                decoration: BoxDecoration(color: c.statusSuccessBg, borderRadius: GzRadius.xsAll),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s2),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      GzIcon(GzIcons.trendDown, size: GzIconSize.xs, color: c.statusSuccessText),
-                      const SizedBox(width: GzSpace.s1),
-                      GzMoney(fils: saving.fils, inline: true, amountRole: GzTextRole.figLabel, amountColor: c.statusSuccessText),
-                    ],
+            // The pill's first flex item is the trend glyph, so its web baseline is the glyph's bottom edge.
+            child: GzGlyphBaseline(
+              glyphSize: GzSize.iconXs,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: GzSize.pillMin),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(color: c.statusSuccessBg, borderRadius: GzRadius.xsAll),
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s2),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GzIcon(GzIcons.trendDown, size: GzIconSize.xs, color: c.statusSuccessText),
+                        const SizedBox(width: GzSpace.s1),
+                        GzMoney(fils: saving.fils, inline: true, amountRole: GzTextRole.figLabel, amountColor: c.statusSuccessText),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -131,7 +142,6 @@ class GzCardPriceLine extends StatelessWidget {
   }
 }
 
-
 /// A wrapping row whose children share one text baseline per run (CSS `display:flex; flex-wrap:wrap; align-items:baseline`).
 /// Flutter's `Wrap` only knows start / center / end cross alignment, which drifts a 17 dp price against a 13 dp figure.
 /// A child without a baseline sits on the run's bottom edge. [alignEnd] pushes each run to the end side and makes the
@@ -161,10 +171,10 @@ class _WrapData extends ContainerBoxParentData<RenderBox> {}
 
 class _RenderBaselineWrap extends RenderBox with ContainerRenderObjectMixin<RenderBox, _WrapData>, RenderBoxContainerDefaultsMixin<RenderBox, _WrapData> {
   _RenderBaselineWrap({required double spacing, required double runSpacing, required bool alignEnd, required TextDirection textDirection})
-      : _spacing = spacing,
-        _runSpacing = runSpacing,
-        _alignEnd = alignEnd,
-        _textDirection = textDirection;
+    : _spacing = spacing,
+      _runSpacing = runSpacing,
+      _alignEnd = alignEnd,
+      _textDirection = textDirection;
 
   double _spacing;
   double _runSpacing;
@@ -201,7 +211,13 @@ class _RenderBaselineWrap extends RenderBox with ContainerRenderObjectMixin<Rend
     if (child.parentData is! _WrapData) child.parentData = _WrapData();
   }
 
-  double _baselineOf(RenderBox c) => c.getDistanceToBaseline(TextBaseline.alphabetic, onlyReal: true) ?? c.size.height;
+  /// Chrome snaps each item's baseline to a whole pixel before it aligns a baseline run; Flutter keeps the fractional value of the same
+  /// font metrics. Measured against the prototype (see GzChromeBaseline): browser baseline = floor(flutter baseline + 0.22). A glyph-bottom
+  /// baseline (a chip or rating whose first item is an icon) is already a whole number and does not move.
+  double _baselineOf(RenderBox c) {
+    final b = c.getDistanceToBaseline(TextBaseline.alphabetic, onlyReal: true);
+    return b == null ? c.size.height : (b + 0.22).floorToDouble();
+  }
 
   Size _layout(BoxConstraints constraints) {
     final maxW = constraints.maxWidth;
@@ -291,34 +307,129 @@ class _RenderBaselineWrap extends RenderBox with ContainerRenderObjectMixin<Rend
   bool hitTestChildren(BoxHitTestResult result, {required Offset position}) => defaultHitTestChildren(result, position: position);
 }
 
-/// A flex row whose first item is a glyph has no text baseline of its own: CSS takes the glyph's bottom edge (the web
-/// `.gz-fchip` inside a baseline-aligned price line sits with its 16 px icon's bottom on the price baseline). This reports the
-/// same baseline for a vertically centred icon of [iconSize] so [GzBaselineWrap] lines up like the browser.
-class _IconBottomBaseline extends SingleChildRenderObjectWidget {
-  const _IconBottomBaseline({required this.iconSize, required super.child});
+/// A wrapping row of centred items whose LAST item can be pushed to the physical right end of the run it lands on: the web
+/// `display: flex; flex-wrap: wrap; align-items: center` with `margin-left: auto` on the last item (a figure-role, LTR item). Items
+/// flow in the reading direction (mirrored in RTL); with [pushLastRight] false the last item simply follows the others.
+class GzWrapPushEnd extends MultiChildRenderObjectWidget {
+  const GzWrapPushEnd({required super.children, this.spacing = 0, this.runSpacing = 0, this.pushLastRight = true, super.key});
 
-  final double iconSize;
+  final double spacing;
+  final double runSpacing;
+  final bool pushLastRight;
 
   @override
-  RenderObject createRenderObject(BuildContext context) => _RenderIconBottomBaseline(iconSize);
+  RenderObject createRenderObject(BuildContext context) =>
+      _RenderWrapPushEnd(spacing: spacing, runSpacing: runSpacing, pushLast: pushLastRight, textDirection: Directionality.of(context));
 
   @override
   void updateRenderObject(BuildContext context, covariant RenderObject renderObject) {
-    (renderObject as _RenderIconBottomBaseline).iconSize = iconSize;
+    (renderObject as _RenderWrapPushEnd)
+      ..spacing = spacing
+      ..runSpacing = runSpacing
+      ..pushLast = pushLastRight
+      ..textDirection = Directionality.of(context);
   }
 }
 
-class _RenderIconBottomBaseline extends RenderProxyBox {
-  _RenderIconBottomBaseline(this._iconSize);
+class _RenderWrapPushEnd extends RenderBox with ContainerRenderObjectMixin<RenderBox, _WrapData>, RenderBoxContainerDefaultsMixin<RenderBox, _WrapData> {
+  _RenderWrapPushEnd({required double spacing, required double runSpacing, required bool pushLast, required TextDirection textDirection})
+      : _spacing = spacing,
+        _runSpacing = runSpacing,
+        _pushLast = pushLast,
+        _textDirection = textDirection;
 
-  double _iconSize;
+  double _spacing;
+  double _runSpacing;
+  bool _pushLast;
+  TextDirection _textDirection;
 
-  set iconSize(double v) {
-    if (v == _iconSize) return;
-    _iconSize = v;
+  set spacing(double v) {
+    if (v == _spacing) return;
+    _spacing = v;
+    markNeedsLayout();
+  }
+
+  set runSpacing(double v) {
+    if (v == _runSpacing) return;
+    _runSpacing = v;
+    markNeedsLayout();
+  }
+
+  set pushLast(bool v) {
+    if (v == _pushLast) return;
+    _pushLast = v;
+    markNeedsLayout();
+  }
+
+  set textDirection(TextDirection v) {
+    if (v == _textDirection) return;
+    _textDirection = v;
     markNeedsLayout();
   }
 
   @override
-  double? computeDistanceToActualBaseline(TextBaseline baseline) => (size.height + _iconSize) / 2;
+  void setupParentData(RenderBox child) {
+    if (child.parentData is! _WrapData) child.parentData = _WrapData();
+  }
+
+  Size _layout(BoxConstraints constraints, {required bool dry}) {
+    final maxW = constraints.maxWidth;
+    final loose = BoxConstraints(maxWidth: maxW);
+    final runs = <List<RenderBox>>[<RenderBox>[]];
+    final sizes = <RenderBox, Size>{};
+    var x = 0.0;
+    var widest = 0.0;
+    var child = firstChild;
+    while (child != null) {
+      final Size s;
+      if (dry) {
+        s = child.getDryLayout(loose);
+      } else {
+        child.layout(loose, parentUsesSize: true);
+        s = child.size;
+      }
+      sizes[child] = s;
+      if (runs.last.isNotEmpty && x + _spacing + s.width > maxW + 0.01) {
+        runs.add(<RenderBox>[]);
+        x = 0;
+      }
+      runs.last.add(child);
+      x += (runs.last.length > 1 ? _spacing : 0) + s.width;
+      widest = math.max(widest, x);
+      child = childAfter(child);
+    }
+    final width = constraints.constrainWidth(_pushLast && maxW.isFinite ? maxW : widest);
+    var y = 0.0;
+    for (var i = 0; i < runs.length; i++) {
+      final run = runs[i];
+      if (run.isEmpty) continue;
+      final h = run.map((c) => sizes[c]!.height).reduce(math.max);
+      var cursor = 0.0;
+      for (var j = 0; j < run.length; j++) {
+        final c = run[j];
+        final w = sizes[c]!.width;
+        var start = cursor;
+        if (_pushLast && j == run.length - 1 && i == runs.length - 1 && c == lastChild && _textDirection == TextDirection.ltr) start = width - w;
+        if (!dry) {
+          final dx = _textDirection == TextDirection.rtl ? width - start - w : start;
+          (c.parentData! as _WrapData).offset = Offset(dx, y + (h - sizes[c]!.height) / 2);
+        }
+        cursor = start + w + _spacing;
+      }
+      y += h + (i < runs.length - 1 ? _runSpacing : 0);
+    }
+    return constraints.constrain(Size(width, y));
+  }
+
+  @override
+  void performLayout() => size = _layout(constraints, dry: false);
+
+  @override
+  Size computeDryLayout(BoxConstraints constraints) => _layout(constraints, dry: true);
+
+  @override
+  void paint(PaintingContext context, Offset offset) => defaultPaint(context, offset);
+
+  @override
+  bool hitTestChildren(BoxHitTestResult result, {required Offset position}) => defaultHitTestChildren(result, position: position);
 }

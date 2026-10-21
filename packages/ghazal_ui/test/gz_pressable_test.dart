@@ -140,6 +140,18 @@ void main() {
     expect(tester.widget<FadeTransition>(find.byType(FadeTransition)).opacity.value, closeTo(1.0, 1e-6));
   });
 
+  testWidgets('expanded: a disclosure control says expanded or collapsed, an ordinary one says neither', (tester) async {
+    final handle = tester.ensureSemantics();
+    Widget head(bool? expanded) => GzPressable(onPressed: () {}, semanticLabel: 'More', expanded: expanded, child: const SizedBox(width: 20, height: 20));
+    await tester.pumpWidget(_host(head(true)));
+    expect(tester.getSemantics(find.bySemanticsLabel('More')).flagsCollection.isExpanded, Tristate.isTrue);
+    await tester.pumpWidget(_host(head(false)));
+    expect(tester.getSemantics(find.bySemanticsLabel('More')).flagsCollection.isExpanded, Tristate.isFalse);
+    await tester.pumpWidget(_host(head(null)));
+    expect(tester.getSemantics(find.bySemanticsLabel('More')).flagsCollection.isExpanded, Tristate.none);
+    handle.dispose();
+  });
+
   test('GzReducedMotion helpers', () {
     expect(GzMotion.durationInstant, const Duration(milliseconds: 1));
   });

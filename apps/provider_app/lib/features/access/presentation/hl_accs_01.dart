@@ -173,6 +173,7 @@ class _HlAccs01ScreenState extends ConsumerState<HlAccs01Screen> {
               child: GzTextField(
                 value: _email,
                 dir: GzFieldDir.ltr,
+                textAlign: TextAlign.start,
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 autofillHints: const ['username'],

@@ -14,7 +14,6 @@ import '../application/booking_flow_providers.dart';
 import '../application/booking_request.dart';
 import 'booking_glyphs.dart';
 import 'widgets/booking_async.dart';
-import 'widgets/booking_info.dart';
 import 'widgets/booking_layout.dart';
 import 'widgets/booking_parts.dart';
 import 'widgets/confirm_clock.dart';
@@ -267,7 +266,7 @@ class _Confirm extends ConsumerWidget {
                         child: GzPrice(fils: b.totals.voucherTotal.fils, mode: GzMoneyMode.exact, size: GzPriceSize.total),
                       ),
                     ),
-                    BookingInfoButton(title: l10n.clientBookingConfirmPayTitle, paragraphs: [l10n.clientBookingConfirmPay]),
+                    GzInfoButton(title: l10n.clientBookingConfirmPayTitle, paragraphs: [l10n.clientBookingConfirmPay], bleed: true),
                   ],
                 ),
                 Semantics(

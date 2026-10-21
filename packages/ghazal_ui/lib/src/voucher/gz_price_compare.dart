@@ -8,47 +8,6 @@ import '../core/core.dart';
 import '../foundation.dart';
 import '../overlays/gz_sheet.dart';
 
-/// A price quiet and struck through (the web `<Money inline className="gz-t-fig-* gz-strike">`): currency and figure in one ink, a
-/// line through both. Internal to the voucher group (the barrel hides it); the shared [GzPrice] strikes only the figure.
-class GzStruckMoney extends StatelessWidget {
-  const GzStruckMoney({required this.fils, this.role = GzTextRole.figBodyS, super.key});
-
-  final int fils;
-  final GzTextRole role;
-
-  @override
-  Widget build(BuildContext context) {
-    final gz = context.gz;
-    final c = gz.colors;
-    final parts = context.gzFormat.moneyParts(fils, const MoneyOptions(mode: MoneyMode.browse));
-    final style = gz.text(role).copyWith(
-      color: c.textSecondary,
-      decoration: TextDecoration.lineThrough,
-      decorationColor: c.textSecondary,
-      decorationThickness: 1,
-    );
-    const gap = '\u2005';
-    final amount = '${parts.integer}${parts.fraction}';
-    return Semantics(
-      label: GzBidi.strip(parts.text),
-      excludeSemantics: true,
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          textBaseline: TextBaseline.alphabetic,
-          crossAxisAlignment: CrossAxisAlignment.baseline,
-          children: [
-            Text(parts.currency, style: style, softWrap: false),
-            Text(gap, style: style),
-            Text(amount, style: style, softWrap: false),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 /// A flex row that starts with a glyph has no text baseline of its own: CSS takes the glyph's bottom edge. This reports that
 /// baseline (a centred icon of [iconSize]) so [GzBaselineWrap] lines it up like the browser.
 class GzIconBaseline extends SingleChildRenderObjectWidget {
@@ -167,7 +126,10 @@ class GzPriceCompare extends StatelessWidget {
     final savingChip = Semantics(
       label: l.commonYouSave(saving),
       excludeSemantics: true,
-      child: ConstrainedBox(
+      // The chip's first flex item is the trend glyph: its web baseline is the glyph's bottom edge.
+      child: GzGlyphBaseline(
+        glyphSize: GzSize.iconXs,
+        child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: GzSize.pillMin),
         child: DecoratedBox(
           decoration: BoxDecoration(color: c.statusSuccessBg, borderRadius: GzRadius.xsAll),
@@ -182,6 +144,7 @@ class GzPriceCompare extends StatelessWidget {
               ],
             ),
           ),
+        ),
         ),
       ),
     );
@@ -201,8 +164,8 @@ class GzPriceCompare extends StatelessWidget {
             GzPrice(fils: voucher!, size: GzPriceSize.strong),
           Semantics(
             label: l.commonStandardPrice,
-            // The web wraps the 20 high figure in a 24 high span: the figure sits 3 dp below its top and shares the line baseline.
-            child: Padding(padding: const EdgeInsets.only(top: 3, bottom: 1), child: GzStruckMoney(fils: standard, role: GzTextRole.figCaption)),
+            // The web wraps the figure in a block span (`.gz-pcmp__strike`): its line box holds the page strut around the inline figure.
+            child: GzInlineStrut(role: GzTextRole.body, child: GzStruckMoney(fils: standard, role: GzTextRole.figCaption)),
           ),
           if (!guest) savingChip,
           basis(baseline: true),
@@ -239,7 +202,7 @@ class GzPriceCompare extends StatelessWidget {
               excludeSemantics: true,
               child: GzIconBaseline(iconSize: GzIconSize.xs.dp, child: GzIcon(GzIcons.offer, size: GzIconSize.xs, color: c.iconSecondary)),
             ),
-            GzStruckMoney(fils: standard),
+            GzInlineStrut(role: GzTextRole.body, child: GzStruckMoney(fils: standard)),
           ],
         ),
         if (!guest) ...[

@@ -8,48 +8,6 @@ import 'package:ghazal_ui/ghazal_ui.dart';
 import '../booking_glyphs.dart';
 import 'booking_layout.dart';
 
-/// A standard price struck through (exact figures when [exact]); one LTR island.
-class BookingStruck extends ConsumerWidget {
-  const BookingStruck({required this.fils, this.role = GzTextRole.figBodyS, this.exact = false, super.key});
-
-  final int fils;
-  final GzTextRole role;
-  final bool exact;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final gz = context.gz;
-    final parts = ref.watch(gzFormatProvider).moneyParts(fils, MoneyOptions(mode: exact ? MoneyMode.exact : MoneyMode.browse));
-    final style = gz
-        .text(role)
-        .copyWith(
-          color: gz.colors.textSecondary,
-          decoration: TextDecoration.lineThrough,
-          decorationColor: gz.colors.textSecondary,
-          decorationThickness: 1,
-        );
-    Widget part(String v) => Text(v, style: style, softWrap: false); // gz-rules-ok: a struck price needs a decoration GzText does not carry
-    return Semantics(
-      label: context.gzL10n.commonStandardPrice,
-      excludeSemantics: true,
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          textBaseline: TextBaseline.alphabetic,
-          crossAxisAlignment: CrossAxisAlignment.baseline,
-          // English draws the currency before the figure, Arabic after it (the web `Money inline` in an LTR island)
-          children: [
-            if (!gz.isAr) ...[part(parts.currency), part('\u2005')],
-            part('${parts.integer}${parts.fraction}'),
-            if (gz.isAr) ...[part('\u2005'), part(parts.currency)],
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 /// The saving after the voucher fee as a green chip with the trend-down glyph (web `.bk-pkg__save`).
 class BookingSavePill extends ConsumerWidget {
   const BookingSavePill({required this.fils, required this.semantic, this.exact = false, super.key});
@@ -194,7 +152,13 @@ class BookingQuoteLines extends ConsumerWidget {
                                       ? GzMoney(fils: line.amount.fils, mode: GzMoneyMode.exact, amountColor: c.textSuccess)
                                       : GzPrice(fils: line.amount.fils, mode: GzMoneyMode.exact, size: GzPriceSize.strong),
                                   if (has && !credit && !single && struck)
-                                    BookingStruck(fils: line.standardAmount.fils, role: GzTextRole.figCaption, exact: true),
+                                    GzStruckMoney(
+                                      fils: line.standardAmount.fils,
+                                      role: GzTextRole.figCaption,
+                                      mode: GzMoneyMode.exact,
+                                      arabicFigureFirst: true,
+                                      semanticLabel: context.gzL10n.commonStandardPrice,
+                                    ),
                                 ],
                               ),
                             ],
@@ -235,7 +199,12 @@ class BookingQuoteLines extends ConsumerWidget {
                               children: [
                                 GzIcon(GzIcons.offer, size: GzIconSize.xs, color: c.iconSecondary, semanticLabel: context.gzL10n.commonStandardPrice),
                                 const SizedBox(width: GzSpace.s1),
-                                BookingStruck(fils: totals.standardTotal.fils, exact: true),
+                                GzStruckMoney(
+                                  fils: totals.standardTotal.fils,
+                                  mode: GzMoneyMode.exact,
+                                  arabicFigureFirst: true,
+                                  semanticLabel: context.gzL10n.commonStandardPrice,
+                                ),
                               ],
                             ),
                           ),

@@ -67,52 +67,6 @@ Widget _fact(BuildContext context, IconData icon, Color iconColor, String text) 
   );
 }
 
-/// The availability pill in a compare cell: it fills the cell (a flex item of the column) and the web trims its inline padding to 4 so
-/// "Unavailable" keeps inside a third.
-class _CellPill extends StatelessWidget {
-  const _CellPill({required this.status});
-
-  final GzStatus status;
-
-  @override
-  Widget build(BuildContext context) {
-    final c = context.gz.colors;
-    final (Color? bg, Color? border, Color text, Color icon) = switch (status.tone) {
-      GzStatusTone.success => (c.statusSuccessBg, null, c.statusSuccessText, c.iconSuccess),
-      GzStatusTone.pending => (c.statusPendingBg, null, c.statusPendingText, c.iconAccent),
-      _ => (null, c.borderStrong, c.textSecondary, c.iconSecondary),
-    };
-    final word = status.label(context.gzL10n);
-    return Semantics(
-      label: word,
-      excludeSemantics: true,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: bg,
-          borderRadius: GzRadius.xsAll,
-          border: Border.all(color: border ?? c.scrimClear, width: GzStroke.hair),
-        ),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: GzSize.pillMin),
-          child: Padding(
-            padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s1, vertical: GzSpace.s1 + GzStroke.hair),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GzIcon(status.icon, size: GzIconSize.xs, color: icon),
-                const SizedBox(width: GzSpace.s1),
-                Flexible(
-                  child: GzText(word, role: GzTextRole.pill, color: text, softWrap: false),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 /// Builds every row of the compare table for [x] (the web `rows` memo of `CompareTable`).
 List<GzCompareRowDef> gzCompareRows(BuildContext context, GzCompareContext x) {
   final f = context.gzFormat;
@@ -156,7 +110,7 @@ List<GzCompareRowDef> gzCompareRows(BuildContext context, GzCompareContext x) {
         VenueDayState.held => GzStatus.held,
         _ => GzStatus.unavailable,
       };
-      return cell([_CellPill(status: s)]);
+      return cell([GzStatusPill(status: s, compact: true)]);
     }),
     keys((k) => '${k.availability}'),
   );
@@ -222,7 +176,7 @@ List<GzCompareRowDef> gzCompareRows(BuildContext context, GzCompareContext x) {
     all((k) {
       final upTo = _fig(context, l.uiClientCompareUpTo(f.integer(k.maxGuests)), role: GzTextRole.figBodyS);
       return cell([
-        _ltrBlock(k.best.fit ? GzBestInRow(child: upTo) : upTo),
+        _ltrBlock(k.best.fit ? GzBestInRow(role: GzTextRole.figBodyS, child: upTo) : upTo),
         GzRangeBar(
           decorative: true,
           value: k.maxGuests,

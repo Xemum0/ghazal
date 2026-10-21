@@ -5,7 +5,6 @@ import 'package:ghazal_domain/ghazal_domain.dart' show Booking, BookingStatus, P
 import '../client/client.dart' show GzBookingThread, GzBookingThreadVariant;
 import '../core/core.dart';
 import '../foundation.dart';
-import 'hotel_c_kit.dart';
 import '../voucher/gz_confirm_left.dart';
 import '../voucher/gz_voucher_chip.dart';
 
@@ -160,11 +159,11 @@ class GzBookingStatusCard extends StatelessWidget {
                         GzIcon(GzIcons.checkCircle, size: GzIconSize.xs, color: c.iconSuccess),
                         const SizedBox(width: GzSpace.s1),
                         Expanded(
-                          child: GzFigText(
+                          child: GzText(
                             booking.redeemedBy != null
                                 ? l.uiHotelStatusRedeemed(f.dateTime(redeemedAt, DateStyle.short), booking.redeemedBy!)
                                 : l.uiHotelStatusRedeemedNoName(f.dateTime(redeemedAt, DateStyle.short)),
-                            role: GzTextRole.caption,
+                            figures: true, role: GzTextRole.caption,
                             color: c.textSuccess,
                           ),
                         ),
@@ -202,9 +201,9 @@ class _AwaitingLine extends StatelessWidget {
         GzIcon(GzIcons.hourglass, size: GzIconSize.xs, color: c.iconAccent),
         const SizedBox(width: GzSpace.s1),
         Expanded(
-          child: GzFigText(
+          child: GzText(
             l.uiHotelStatusAwaiting(f.dateTime(deadline, DateStyle.short), left.text),
-            role: GzTextRole.caption,
+            figures: true, role: GzTextRole.caption,
             color: c.textSecondary,
           ),
         ),

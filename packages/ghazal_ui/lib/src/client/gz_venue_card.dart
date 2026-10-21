@@ -17,6 +17,7 @@ import '../foundation.dart';
 import '../overlays/overlays.dart';
 import 'client_a_kit.dart';
 import 'client_bits.dart';
+import 'gz_service_tile.dart' show gzImageSrc;
 
 part 'gz_venue_card_label.dart';
 part 'gz_venue_card_media.dart';

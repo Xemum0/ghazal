@@ -77,16 +77,7 @@ class FirstRunContent extends StatelessWidget {
               child: ExcludeSemantics(child: Row(mainAxisSize: MainAxisSize.min, children: [dot(notifications), const SizedBox(width: GzSpace.s2), dot(!notifications)])),
             ),
             const SizedBox(width: GzSpace.s3),
-            GzIconButton(
-              icon: GzIcons.info,
-              iconSize: GzIconSize.sm,
-              label: context.gzL10n.commonA11yInfo,
-              onPressed: () => showGzSheet<void>(
-                context,
-                title: firstRunTitle(l, step),
-                builder: (_) => GzText(notifications ? l.hotelTodayFirstRunNotifBody : l.hotelTodayFirstRunLockBody, role: GzTextRole.body),
-              ),
-            ),
+            GzInfoButton(title: firstRunTitle(l, step), paragraphs: [notifications ? l.hotelTodayFirstRunNotifBody : l.hotelTodayFirstRunLockBody]),
           ],
         ),
         GzSheetFooter(

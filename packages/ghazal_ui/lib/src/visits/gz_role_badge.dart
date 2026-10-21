@@ -8,10 +8,14 @@ import '../foundation.dart';
 /// hairline, hotel representative = neutral tint, support = rose tint. [you] swaps the chip to "You" on the viewer's own phone.
 /// Non-interactive: 24 high, no 44 dp target.
 class GzRoleBadge extends StatelessWidget {
-  const GzRoleBadge({required this.role, this.you = false, super.key});
+  const GzRoleBadge({required this.role, this.you = false, this.wrap = false, super.key});
 
   final ThreadRole role;
   final bool you;
+
+  /// The words may wrap to two lines and are centred (a narrow column such as the participant strip). Default: one line, and a label
+  /// wider than its box spills past the padding (the web chip is `white-space: nowrap` with visible overflow).
+  final bool wrap;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,9 @@ class GzRoleBadge extends StatelessWidget {
           constraints: const BoxConstraints(minHeight: GzSize.pillMin),
           child: Padding(
             padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s2 + GzStroke.hair, vertical: GzSpace.s1 + GzStroke.hair),
-            child: GzText(label, role: GzTextRole.pill, color: fg, softWrap: false),
+            child: wrap
+                ? GzText(label, role: GzTextRole.pill, color: fg, textAlign: TextAlign.center)
+                : GzText(label, role: GzTextRole.pill, color: fg, softWrap: false, overflow: TextOverflow.visible),
           ),
         ),
       ),

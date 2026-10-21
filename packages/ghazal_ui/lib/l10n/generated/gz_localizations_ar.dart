@@ -235,8 +235,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonUnitMinGuests(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -254,8 +253,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonUnitUpToGuests(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -273,8 +271,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountGuests(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -292,8 +289,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountDays(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -311,8 +307,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountHours(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -330,8 +325,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountMinutes(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -349,8 +343,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountHalls(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -368,8 +361,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountPackages(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -387,8 +379,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountMessages(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -406,8 +397,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountBookings(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -425,8 +415,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountSessions(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -444,8 +433,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountMonths(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -463,8 +451,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountDates(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -482,8 +469,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountRequests(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -501,8 +487,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountReviews(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -520,8 +505,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountPhotos(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -539,8 +523,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCountdownDays(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -558,11 +541,9 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonCounter(num current, num total) {
-    final intl.NumberFormat currentNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat currentNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String currentString = currentNumberFormat.format(current);
-    final intl.NumberFormat totalNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat totalNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String totalString = totalNumberFormat.format(total);
 
     return '⁦$currentString⁩ من ⁦$totalString⁩';
@@ -599,23 +580,19 @@ class GzL10nAr extends GzL10n {
   String get commonStateOffline => 'لا يوجد اتصال';
 
   @override
-  String get commonStateErrorGeneric =>
-      'حدث خطأ من جانبنا. لم يتم تغيير أي شيء. يُرجى المحاولة مرة أخرى.';
+  String get commonStateErrorGeneric => 'حدث خطأ من جانبنا. لم يتم تغيير أي شيء. يُرجى المحاولة مرة أخرى.';
 
   @override
-  String get commonStateErrorLoad =>
-      'تعذّر تحميل المحتوى. يُرجى المحاولة مرة أخرى.';
+  String get commonStateErrorLoad => 'تعذّر تحميل المحتوى. يُرجى المحاولة مرة أخرى.';
 
   @override
-  String get commonStateErrorNetwork =>
-      'تعذّر الاتصال. يُرجى التأكد من الاتصال بالإنترنت والمحاولة مرة أخرى.';
+  String get commonStateErrorNetwork => 'تعذّر الاتصال. يُرجى التأكد من الاتصال بالإنترنت والمحاولة مرة أخرى.';
 
   @override
   String get commonStateErrorPayment => 'تعذّر إتمام الدفع. لم يُخصم أي مبلغ.';
 
   @override
-  String get commonStateErrorNoAccess =>
-      'لا تملكون صلاحية الوصول. يُرجى مراجعة المدير.';
+  String get commonStateErrorNoAccess => 'لا تملكون صلاحية الوصول. يُرجى مراجعة المدير.';
 
   @override
   String get commonStateErrorNotFound => 'هذه الصفحة لم تعد متاحة.';
@@ -630,8 +607,7 @@ class GzL10nAr extends GzL10n {
   String get commonStateSent => 'تم الإرسال';
 
   @override
-  String get commonNoPaymentNowFull =>
-      'لا دفع الآن. لا يُخصم أي مبلغ قبل موافقة الفندق.';
+  String get commonNoPaymentNowFull => 'لا دفع الآن. لا يُخصم أي مبلغ قبل موافقة الفندق.';
 
   @override
   String get commonMoneyDeposit => 'العربون';
@@ -710,11 +686,9 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonA11yPhotoCounter(num current, num total) {
-    final intl.NumberFormat currentNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat currentNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String currentString = currentNumberFormat.format(current);
-    final intl.NumberFormat totalNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat totalNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String totalString = totalNumberFormat.format(total);
 
     return 'صورة ⁦$currentString⁩ من ⁦$totalString⁩';
@@ -722,12 +696,9 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonA11yRating(num rating, num max) {
-    final intl.NumberFormat ratingNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat ratingNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String ratingString = ratingNumberFormat.format(rating);
-    final intl.NumberFormat maxNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat maxNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String maxString = maxNumberFormat.format(max);
 
     return 'التقييم ⁦$ratingString⁩ من ⁦$maxString⁩';
@@ -948,8 +919,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonVoucherNotValidNote(int hours) {
-    final intl.NumberFormat hoursNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat hoursNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String hoursString = hoursNumberFormat.format(hours);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -967,8 +937,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String commonVoucherConfirmIn24h(int hours) {
-    final intl.NumberFormat hoursNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat hoursNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String hoursString = hoursNumberFormat.format(hours);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -1006,8 +975,7 @@ class GzL10nAr extends GzL10n {
   String get commonCalendarByEmail => 'التقويم بالبريد الإلكتروني';
 
   @override
-  String get commonReviewAskSupportHide =>
-      'اطلبوا من الدعم إخفاء المراجعة أو حذفها';
+  String get commonReviewAskSupportHide => 'اطلبوا من الدعم إخفاء المراجعة أو حذفها';
 
   @override
   String commonVideoLimit(String size) {
@@ -1113,8 +1081,7 @@ class GzL10nAr extends GzL10n {
   String get uiClientBriefSentenceWhatBudget => 'الميزانية';
 
   @override
-  String get uiClientBriefSentenceEditLabel =>
-      'تعديل التاريخ والضيوف والمنطقة والميزانية';
+  String get uiClientBriefSentenceEditLabel => 'تعديل التاريخ والضيوف والمنطقة والميزانية';
 
   @override
   String get uiClientVoucherWindowEyebrow => 'سعر الكوبون';
@@ -1156,20 +1123,10 @@ class GzL10nAr extends GzL10n {
 
   @override
   String uiClientCountdownUnit(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: 'يوم',
-      many: 'يومًا',
-      few: 'أيام',
-      two: 'يومان',
-      one: 'يوم',
-      zero: 'يوم',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: 'يوم', many: 'يومًا', few: 'أيام', two: 'يومان', one: 'يوم', zero: 'يوم');
     return '$_temp0';
   }
 
@@ -1183,12 +1140,10 @@ class GzL10nAr extends GzL10n {
   String get uiClientCountdownHalf => 'ستة أشهر تفصلكم عن الحفل.';
 
   @override
-  String get uiClientCountdownMonth =>
-      'شهر واحد يفصلكم عن الحفل، وقت مناسب لحسم التفاصيل.';
+  String get uiClientCountdownMonth => 'شهر واحد يفصلكم عن الحفل، وقت مناسب لحسم التفاصيل.';
 
   @override
-  String get uiClientCountdownWeek =>
-      'أسبوع واحد يفصلكم عن الحفل. تم تثبيت عدد الضيوف.';
+  String get uiClientCountdownWeek => 'أسبوع واحد يفصلكم عن الحفل. تم تثبيت عدد الضيوف.';
 
   @override
   String get uiClientCountdownTomorrowLine => 'كل شيء جاهز ليوم غدٍ.';
@@ -1491,8 +1446,7 @@ class GzL10nAr extends GzL10n {
   String get uiClientReviewCatValue => 'القيمة';
 
   @override
-  String get uiClientReviewNone =>
-      'لا توجد تقييمات بعد. سيكتب الضيوف الأوائل هنا بعد مناسبتهم.';
+  String get uiClientReviewNone => 'لا توجد تقييمات بعد. سيكتب الضيوف الأوائل هنا بعد مناسبتهم.';
 
   @override
   String uiClientReviewScore(String label, String value) {
@@ -1712,14 +1666,7 @@ class GzL10nAr extends GzL10n {
   String get uiClientBudgetCategories => 'حسب الفئة';
 
   @override
-  String uiClientBudgetBarLabel(
-    String paid,
-    String paidAmount,
-    String committed,
-    String committedAmount,
-    String remaining,
-    String remainingAmount,
-  ) {
+  String uiClientBudgetBarLabel(String paid, String paidAmount, String committed, String committedAmount, String remaining, String remainingAmount) {
     return '$paid: $paidAmount، $committed: $committedAmount، $remaining: $remainingAmount';
   }
 
@@ -1798,8 +1745,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String uiClientChatUnread(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -1951,8 +1897,7 @@ class GzL10nAr extends GzL10n {
   String get uiClientBreakdownGhazal => 'غزل · الكوبون';
 
   @override
-  String get uiClientBreakdownGhazalPaid =>
-      'تم دفعه مرة واحدة عند شراء الكوبون';
+  String get uiClientBreakdownGhazalPaid => 'تم دفعه مرة واحدة عند شراء الكوبون';
 
   @override
   String uiClientBreakdownVenue(String venue) {
@@ -1960,20 +1905,16 @@ class GzL10nAr extends GzL10n {
   }
 
   @override
-  String get uiClientBreakdownVenueReview =>
-      'بعد التأكيد تدفعون للمكان مباشرة بهذا السعر.';
+  String get uiClientBreakdownVenueReview => 'بعد التأكيد تدفعون للمكان مباشرة بهذا السعر.';
 
   @override
-  String get uiClientBreakdownVenueConfirmed =>
-      'ادفعوا للمكان مباشرة، ثم اعرضوا رمز الكوبون.';
+  String get uiClientBreakdownVenueConfirmed => 'ادفعوا للمكان مباشرة، ثم اعرضوا رمز الكوبون.';
 
   @override
-  String get uiClientBreakdownVenueRedeemed =>
-      'تمت التسوية مع المكان وتم استخدام الكوبون.';
+  String get uiClientBreakdownVenueRedeemed => 'تمت التسوية مع المكان وتم استخدام الكوبون.';
 
   @override
-  String get uiClientBreakdownInclusive =>
-      'السعر شامل وفق شروط المكان. غزل لا تضيف أي مبلغ.';
+  String get uiClientBreakdownInclusive => 'السعر شامل وفق شروط المكان. غزل لا تضيف أي مبلغ.';
 
   @override
   String get uiClientBreakdownNoMore => 'لا مبلغ إضافي لغزل.';
@@ -2041,8 +1982,7 @@ class GzL10nAr extends GzL10n {
   String get uiClientReceiptTotal => 'الإجمالي';
 
   @override
-  String get uiClientReceiptFooter =>
-      'صادر بالدينار الكويتي (KWD). أرقام غربية بثلاث خانات عشرية.';
+  String get uiClientReceiptFooter => 'صادر بالدينار الكويتي (KWD). أرقام غربية بثلاث خانات عشرية.';
 
   @override
   String get uiClientNotificationUnread => 'غير مقروء';
@@ -2140,8 +2080,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String uiHotelCardOthers(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -2152,6 +2091,7 @@ class GzL10nAr extends GzL10n {
       few: 'طلبات أخرى لهذا التاريخ',
       two: 'طلبان آخران لهذا التاريخ',
       one: 'طلب آخر لهذا التاريخ',
+      zero: 'لا طلبات أخرى لهذا التاريخ',
     );
     return '$_temp0';
   }
@@ -2179,8 +2119,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String uiHotelStripConfirmedCount(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -2191,14 +2130,14 @@ class GzL10nAr extends GzL10n {
       few: '$countString حجوزات مؤكدة',
       two: 'حجزان مؤكدان',
       one: 'حجز مؤكد',
+      zero: 'لا حجوزات مؤكدة',
     );
     return '$_temp0';
   }
 
   @override
   String uiHotelStripPendingCount(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -2209,14 +2148,14 @@ class GzL10nAr extends GzL10n {
       few: '$countString طلبات بانتظار الرد',
       two: 'طلبان بانتظار الرد',
       one: 'طلب بانتظار الرد',
+      zero: 'لا طلبات بانتظار الرد',
     );
     return '$_temp0';
   }
 
   @override
   String uiHotelStripOpenCount(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -2227,6 +2166,7 @@ class GzL10nAr extends GzL10n {
       few: '$countString فترات متاحة',
       two: 'فترتان متاحتان',
       one: 'فترة متاحة',
+      zero: 'لا فترات متاحة',
     );
     return '$_temp0';
   }
@@ -2263,8 +2203,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String uiHotelOccNights(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -2275,6 +2214,7 @@ class GzL10nAr extends GzL10n {
       few: 'ليالي قاعات',
       two: 'ليلتا قاعة',
       one: 'ليلة قاعة',
+      zero: 'ليلة قاعة',
     );
     return '$_temp0';
   }
@@ -2332,8 +2272,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String uiHotelCalRequests(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -2344,6 +2283,7 @@ class GzL10nAr extends GzL10n {
       few: '⁦$countString⁩ طلبات بانتظار الرد لهذا التاريخ',
       two: 'طلبان بانتظار الرد لهذا التاريخ',
       one: 'طلب واحد بانتظار الرد لهذا التاريخ',
+      zero: 'لا طلبات بانتظار الرد لهذا التاريخ',
     );
     return '$_temp0';
   }
@@ -2370,8 +2310,7 @@ class GzL10nAr extends GzL10n {
   String get uiHotelCalOpenDay => 'متاح: لا حجز ولا تثبيت في هذا التاريخ';
 
   @override
-  String get uiHotelCalDragHint =>
-      'اضغطوا مطوّلًا على تاريخ ثم اسحبوا عبر التواريخ. أو انقروا على تاريخ البداية ثم تاريخ النهاية.';
+  String get uiHotelCalDragHint => 'اضغطوا مطوّلًا على تاريخ ثم اسحبوا عبر التواريخ. أو انقروا على تاريخ البداية ثم تاريخ النهاية.';
 
   @override
   String get uiHotelCalSheetTitle => 'إغلاق التواريخ';
@@ -2402,8 +2341,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String uiHotelCalSheetDates(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -2414,6 +2352,7 @@ class GzL10nAr extends GzL10n {
       few: '⁦$countString⁩ تواريخ',
       two: 'تاريخان',
       one: 'تاريخ واحد',
+      zero: 'لا تواريخ',
     );
     return '$_temp0';
   }
@@ -2422,22 +2361,19 @@ class GzL10nAr extends GzL10n {
   String get uiHotelActionsReschedule => 'اقتراح موعد آخر';
 
   @override
-  String get uiHotelActionsRescheduleWhy =>
-      'اقتراح حتى ثلاثة مواعيد بسعر الكوبون نفسه. أمام العميل 48 ساعة للرد.';
+  String get uiHotelActionsRescheduleWhy => 'اقتراح حتى ثلاثة مواعيد بسعر الكوبون نفسه. أمام العميل 48 ساعة للرد.';
 
   @override
   String get uiHotelActionsRevoke => 'سحب الموافقة';
 
   @override
-  String get uiHotelActionsRevokeWhy =>
-      'يُخلى التاريخ ويعود الكوبون إلى العميل.';
+  String get uiHotelActionsRevokeWhy => 'يُخلى التاريخ ويعود الكوبون إلى العميل.';
 
   @override
   String get uiHotelActionsCancel => 'إلغاء الحجز';
 
   @override
-  String get uiHotelActionsCancelWhy =>
-      'يعود الكوبون إلى العميل. ويُسجَّل الإلغاء في سجلكم.';
+  String get uiHotelActionsCancelWhy => 'يعود الكوبون إلى العميل. ويُسجَّل الإلغاء في سجلكم.';
 
   @override
   String get uiHotelStatusRef => 'رقم الحجز';
@@ -2452,8 +2388,7 @@ class GzL10nAr extends GzL10n {
   String get uiHotelStatusStandard => 'السعر العادي';
 
   @override
-  String get uiHotelStatusDirect =>
-      'تتم التسوية بينكم وبين العميل خارج التطبيق.';
+  String get uiHotelStatusDirect => 'تتم التسوية بينكم وبين العميل خارج التطبيق.';
 
   @override
   String uiHotelStatusAwaiting(String when, String left) {
@@ -2519,8 +2454,7 @@ class GzL10nAr extends GzL10n {
   String get uiHotelValidityEventDates => 'تواريخ المناسبة';
 
   @override
-  String get uiHotelValidityHelper =>
-      'يسري سعر الكوبون الأقل على المناسبات في هذه التواريخ.';
+  String get uiHotelValidityHelper => 'يسري سعر الكوبون الأقل على المناسبات في هذه التواريخ.';
 
   @override
   String get uiHotelValidityWindow => 'مدة هذا السعر';
@@ -2573,19 +2507,16 @@ class GzL10nAr extends GzL10n {
   String get uiHotelPackageVoucherPriceFlat => 'سعر الكوبون';
 
   @override
-  String get uiHotelPackagePriceHelper =>
-      'بالدينار الكويتي حتى ثلاث خانات عشرية. ما يدفعه العميل لكم دون كوبون.';
+  String get uiHotelPackagePriceHelper => 'بالدينار الكويتي حتى ثلاث خانات عشرية. ما يدفعه العميل لكم دون كوبون.';
 
   @override
-  String get uiHotelPackageVoucherHelper =>
-      'أقل من السعر العادي. ما يدفعه العميل لكم بكوبون غزل.';
+  String get uiHotelPackageVoucherHelper => 'أقل من السعر العادي. ما يدفعه العميل لكم بكوبون غزل.';
 
   @override
   String get uiHotelPackagePriceError => 'أدخلوا مبلغًا مثل 52 أو 52.500.';
 
   @override
-  String get uiHotelPackageVoucherError =>
-      'يجب أن يكون سعر الكوبون أقل من السعر العادي.';
+  String get uiHotelPackageVoucherError => 'يجب أن يكون سعر الكوبون أقل من السعر العادي.';
 
   @override
   String uiHotelPackageVoucherSmall(String amount) {
@@ -2636,8 +2567,7 @@ class GzL10nAr extends GzL10n {
   }
 
   @override
-  String get uiHotelPackageDashboard =>
-      'تُعدَّل أسعار المواسم والعطل والتواريخ الخاصة من لوحة التحكم.';
+  String get uiHotelPackageDashboard => 'تُعدَّل أسعار المواسم والعطل والتواريخ الخاصة من لوحة التحكم.';
 
   @override
   String uiHotelPackageEdit(String name) {
@@ -2895,125 +2825,97 @@ class GzL10nAr extends GzL10n {
   String get uiInputsSlotSession => 'الفترة';
 
   @override
-  String get uiKitErrorValidationFailed =>
-      'بعض البيانات تحتاج إلى مراجعة. يُرجى التحقق من الحقول المحددة.';
+  String get uiKitErrorValidationFailed => 'بعض البيانات تحتاج إلى مراجعة. يُرجى التحقق من الحقول المحددة.';
 
   @override
   String get uiKitErrorAuthRequired => 'يُرجى تسجيل الدخول للمتابعة.';
 
   @override
-  String get uiKitErrorTokenExpired =>
-      'انتهت الجلسة. يُرجى تسجيل الدخول مرة أخرى.';
+  String get uiKitErrorTokenExpired => 'انتهت الجلسة. يُرجى تسجيل الدخول مرة أخرى.';
 
   @override
-  String get uiKitErrorSessionRevoked =>
-      'تم تسجيل خروجكم من هذا الجهاز. يُرجى تسجيل الدخول مرة أخرى.';
+  String get uiKitErrorSessionRevoked => 'تم تسجيل خروجكم من هذا الجهاز. يُرجى تسجيل الدخول مرة أخرى.';
 
   @override
-  String get uiKitErrorPhoneVerificationRequired =>
-      'يُرجى توثيق رقم الجوال أولاً ثم المحاولة مرة أخرى.';
+  String get uiKitErrorPhoneVerificationRequired => 'يُرجى توثيق رقم الجوال أولاً ثم المحاولة مرة أخرى.';
 
   @override
-  String get uiKitErrorForbidden =>
-      'دوركم لا يتيح هذا الإجراء. يُرجى مراجعة المدير.';
+  String get uiKitErrorForbidden => 'دوركم لا يتيح هذا الإجراء. يُرجى مراجعة المدير.';
 
   @override
-  String get uiKitErrorStepUpRequired =>
-      'أكدوا برمز جديد أو بكلمة المرور للمتابعة.';
+  String get uiKitErrorStepUpRequired => 'أكدوا برمز جديد أو بكلمة المرور للمتابعة.';
 
   @override
   String get uiKitErrorNotFound => 'لم يعد هذا متاحاً.';
 
   @override
-  String get uiKitErrorVenueContextRequired =>
-      'اختاروا القاعة أو حساب الخدمة الذي تعملون عليه.';
+  String get uiKitErrorVenueContextRequired => 'اختاروا القاعة أو حساب الخدمة الذي تعملون عليه.';
 
   @override
-  String get uiKitErrorOtpInvalid =>
-      'الرمز غير صحيح. يُرجى التحقق منه والمحاولة مرة أخرى.';
+  String get uiKitErrorOtpInvalid => 'الرمز غير صحيح. يُرجى التحقق منه والمحاولة مرة أخرى.';
 
   @override
   String get uiKitErrorOtpExpired => 'انتهت صلاحية الرمز. اطلبوا رمزاً جديداً.';
 
   @override
-  String get uiKitErrorOtpLocked =>
-      'تكررت المحاولات الخاطئة. يُرجى المحاولة لاحقاً.';
+  String get uiKitErrorOtpLocked => 'تكررت المحاولات الخاطئة. يُرجى المحاولة لاحقاً.';
 
   @override
-  String get uiKitErrorCredentialsInvalid =>
-      'البيانات لا تطابق أي حساب. يُرجى التحقق منها والمحاولة مرة أخرى.';
+  String get uiKitErrorCredentialsInvalid => 'البيانات لا تطابق أي حساب. يُرجى التحقق منها والمحاولة مرة أخرى.';
 
   @override
-  String get uiKitErrorRateLimited =>
-      'محاولات كثيرة. يُرجى الانتظار قليلاً ثم المحاولة مرة أخرى.';
+  String get uiKitErrorRateLimited => 'محاولات كثيرة. يُرجى الانتظار قليلاً ثم المحاولة مرة أخرى.';
 
   @override
-  String get uiKitErrorIdempotencyInProgress =>
-      'هذا الطلب قيد المعالجة. يُرجى الانتظار لحظة.';
+  String get uiKitErrorIdempotencyInProgress => 'هذا الطلب قيد المعالجة. يُرجى الانتظار لحظة.';
 
   @override
-  String get uiKitErrorPreconditionFailed =>
-      'تم تغيير هذا من مكان آخر. أعيدوا التحميل وحاولوا مرة أخرى.';
+  String get uiKitErrorPreconditionFailed => 'تم تغيير هذا من مكان آخر. أعيدوا التحميل وحاولوا مرة أخرى.';
 
   @override
-  String get uiKitErrorBookingStateConflict =>
-      'تم تحديث هذا الطلب في هذه الأثناء. أعيدوا التحميل لمعرفة حالته.';
+  String get uiKitErrorBookingStateConflict => 'تم تحديث هذا الطلب في هذه الأثناء. أعيدوا التحميل لمعرفة حالته.';
 
   @override
-  String get uiKitErrorSlotUnavailable =>
-      'هذا التاريخ لم يعد متاحاً. يُرجى تحديد تاريخ آخر.';
+  String get uiKitErrorSlotUnavailable => 'هذا التاريخ لم يعد متاحاً. يُرجى تحديد تاريخ آخر.';
 
   @override
-  String get uiKitErrorOpenRequestLimit =>
-      'وصلتم إلى الحد الأقصى للطلبات المفتوحة. انتظروا رداً أو اسحبوا أحد الطلبات.';
+  String get uiKitErrorOpenRequestLimit => 'وصلتم إلى الحد الأقصى للطلبات المفتوحة. انتظروا رداً أو اسحبوا أحد الطلبات.';
 
   @override
-  String get uiKitErrorQuoteExpired =>
-      'انتهت صلاحية هذا العرض. يُرجى مراجعته مرة أخرى.';
+  String get uiKitErrorQuoteExpired => 'انتهت صلاحية هذا العرض. يُرجى مراجعته مرة أخرى.';
 
   @override
-  String get uiKitErrorQuoteChanged =>
-      'تغيّر السعر منذ عرضه. يُرجى مراجعة العرض الجديد.';
+  String get uiKitErrorQuoteChanged => 'تغيّر السعر منذ عرضه. يُرجى مراجعة العرض الجديد.';
 
   @override
-  String get uiKitErrorLeadTimeTooShort =>
-      'هذا التاريخ قريب جداً. يُرجى تحديد تاريخ لاحق.';
+  String get uiKitErrorLeadTimeTooShort => 'هذا التاريخ قريب جداً. يُرجى تحديد تاريخ لاحق.';
 
   @override
-  String get uiKitErrorGuestsOutOfRange =>
-      'عدد الضيوف خارج النطاق الذي يتيحه هذا الخيار.';
+  String get uiKitErrorGuestsOutOfRange => 'عدد الضيوف خارج النطاق الذي يتيحه هذا الخيار.';
 
   @override
-  String get uiKitErrorAudienceNotAllowed =>
-      'هذه القاعة لا تتيح هذا الخيار لفئتكم.';
+  String get uiKitErrorAudienceNotAllowed => 'هذه القاعة لا تتيح هذا الخيار لفئتكم.';
 
   @override
-  String get uiKitErrorChannelNotBookable =>
-      'تستقبل هذه الجهة الطلبات عبر قناتها الرسمية فقط.';
+  String get uiKitErrorChannelNotBookable => 'تستقبل هذه الجهة الطلبات عبر قناتها الرسمية فقط.';
 
   @override
-  String get uiKitErrorVoucherNotOffered =>
-      'الكوبون لا يخفض السعر لهذا الخيار.';
+  String get uiKitErrorVoucherNotOffered => 'الكوبون لا يخفض السعر لهذا الخيار.';
 
   @override
-  String get uiKitErrorVoucherNotUsable =>
-      'لا يمكن استخدام هذا الكوبون. قد يكون منتهياً أو ملغى أو مرتبطاً بطلب.';
+  String get uiKitErrorVoucherNotUsable => 'لا يمكن استخدام هذا الكوبون. قد يكون منتهياً أو ملغى أو مرتبطاً بطلب.';
 
   @override
-  String get uiKitErrorVoucherTargetMismatch =>
-      'هذا الكوبون مرتبط بقاعة أو خدمة أخرى.';
+  String get uiKitErrorVoucherTargetMismatch => 'هذا الكوبون مرتبط بقاعة أو خدمة أخرى.';
 
   @override
-  String get uiKitErrorVoucherCheckoutExpired =>
-      'انتهت مهلة الدفع ولم يُخصم أي مبلغ. ابدؤوا من جديد.';
+  String get uiKitErrorVoucherCheckoutExpired => 'انتهت مهلة الدفع ولم يُخصم أي مبلغ. ابدؤوا من جديد.';
 
   @override
-  String get uiKitErrorVoucherUnknown =>
-      'لا يوجد كوبون بهذا الرمز. يُرجى التحقق منه والمحاولة مرة أخرى.';
+  String get uiKitErrorVoucherUnknown => 'لا يوجد كوبون بهذا الرمز. يُرجى التحقق منه والمحاولة مرة أخرى.';
 
   @override
-  String get uiKitErrorVoucherOtherPartner =>
-      'هذا الكوبون يخص قاعة أو خدمة أخرى.';
+  String get uiKitErrorVoucherOtherPartner => 'هذا الكوبون يخص قاعة أو خدمة أخرى.';
 
   @override
   String get uiKitErrorVoucherNotConfirmed => 'لم يؤكد العميل هذا الطلب بعد.';
@@ -3022,12 +2924,10 @@ class GzL10nAr extends GzL10n {
   String get uiKitErrorVoucherAlreadyUsed => 'تم استخدام هذا الكوبون من قبل.';
 
   @override
-  String get uiKitErrorCreditNotEligible =>
-      'لا يمكن النظر في هذا الكوبون لإصدار كوبون رصيد.';
+  String get uiKitErrorCreditNotEligible => 'لا يمكن النظر في هذا الكوبون لإصدار كوبون رصيد.';
 
   @override
-  String get uiKitErrorRefundRequestExists =>
-      'يوجد طلب لهذا الكوبون لدى الدعم بالفعل.';
+  String get uiKitErrorRefundRequestExists => 'يوجد طلب لهذا الكوبون لدى الدعم بالفعل.';
 
   @override
   String get uiKitErrorConfirmWindowEnded => 'انتهت مهلة التأكيد.';
@@ -3036,24 +2936,19 @@ class GzL10nAr extends GzL10n {
   String get uiKitErrorUndoWindowEnded => 'انتهت مهلة التراجع.';
 
   @override
-  String get uiKitErrorPaymentGatewayError =>
-      'خدمة الدفع غير متاحة. لم يُخصم أي مبلغ. يُرجى المحاولة بعد قليل.';
+  String get uiKitErrorPaymentGatewayError => 'خدمة الدفع غير متاحة. لم يُخصم أي مبلغ. يُرجى المحاولة بعد قليل.';
 
   @override
-  String get uiKitErrorPlanRatesNotAnnounced =>
-      'سيتم الإعلان عن أسعار الباقات قريباً.';
+  String get uiKitErrorPlanRatesNotAnnounced => 'سيتم الإعلان عن أسعار الباقات قريباً.';
 
   @override
-  String get uiKitErrorListingNotEditable =>
-      'لا يمكن تعديل هذا الإعلان في حالته الحالية.';
+  String get uiKitErrorListingNotEditable => 'لا يمكن تعديل هذا الإعلان في حالته الحالية.';
 
   @override
-  String get uiKitErrorListingStateConflict =>
-      'هذا الإعلان ليس في حالة تتيح هذا الإجراء.';
+  String get uiKitErrorListingStateConflict => 'هذا الإعلان ليس في حالة تتيح هذا الإجراء.';
 
   @override
-  String get uiKitErrorMediaTooLarge =>
-      'حجم الملف كبير جداً. يُرجى استخدام ملف أصغر.';
+  String get uiKitErrorMediaTooLarge => 'حجم الملف كبير جداً. يُرجى استخدام ملف أصغر.';
 
   @override
   String get uiKitErrorMediaTypeUnsupported => 'نوع الملف غير مقبول.';
@@ -3062,47 +2957,37 @@ class GzL10nAr extends GzL10n {
   String get uiKitErrorReviewAlreadyReplied => 'لهذا التقييم رد بالفعل.';
 
   @override
-  String get uiKitErrorReviewNotAllowed =>
-      'يمكن كتابة التقييم بعد اكتمال المناسبة، ومرة واحدة فقط.';
+  String get uiKitErrorReviewNotAllowed => 'يمكن كتابة التقييم بعد اكتمال المناسبة، ومرة واحدة فقط.';
 
   @override
-  String get uiKitErrorVisitSlotTaken =>
-      'هذا الموعد لم يعد متاحاً. يُرجى تحديد موعد آخر.';
+  String get uiKitErrorVisitSlotTaken => 'هذا الموعد لم يعد متاحاً. يُرجى تحديد موعد آخر.';
 
   @override
-  String get uiKitErrorVisitNotAllowed =>
-      'هذه الجهة لا تستقبل الزيارات عبر التطبيق.';
+  String get uiKitErrorVisitNotAllowed => 'هذه الجهة لا تستقبل الزيارات عبر التطبيق.';
 
   @override
-  String get uiKitErrorVisitStateConflict =>
-      'تم تحديث هذه الزيارة في هذه الأثناء. أعيدوا التحميل لمعرفة حالتها.';
+  String get uiKitErrorVisitStateConflict => 'تم تحديث هذه الزيارة في هذه الأثناء. أعيدوا التحميل لمعرفة حالتها.';
 
   @override
-  String get uiKitErrorStaffLastAdmin =>
-      'لا يمكن إزالة آخر مسؤول أو تغيير دوره.';
+  String get uiKitErrorStaffLastAdmin => 'لا يمكن إزالة آخر مسؤول أو تغيير دوره.';
 
   @override
-  String get uiKitErrorInvitationExpired =>
-      'انتهت صلاحية هذه الدعوة أو تم استخدامها. اطلبوا دعوة جديدة.';
+  String get uiKitErrorInvitationExpired => 'انتهت صلاحية هذه الدعوة أو تم استخدامها. اطلبوا دعوة جديدة.';
 
   @override
-  String get uiKitErrorEmailAlreadyInvited =>
-      'هذا البريد لديه دعوة قيد الانتظار بالفعل.';
+  String get uiKitErrorEmailAlreadyInvited => 'هذا البريد لديه دعوة قيد الانتظار بالفعل.';
 
   @override
-  String get uiKitErrorAccountDeletionBlocked =>
-      'لا يمكن حذف الحساب بوجود طلب مؤكد قادم.';
+  String get uiKitErrorAccountDeletionBlocked => 'لا يمكن حذف الحساب بوجود طلب مؤكد قادم.';
 
   @override
   String get uiKitErrorAppUpdateRequired => 'يُرجى تحديث التطبيق للمتابعة.';
 
   @override
-  String get uiKitErrorOffline =>
-      'لا يوجد اتصال. يُرجى التأكد من الاتصال بالإنترنت والمحاولة مرة أخرى.';
+  String get uiKitErrorOffline => 'لا يوجد اتصال. يُرجى التأكد من الاتصال بالإنترنت والمحاولة مرة أخرى.';
 
   @override
-  String get uiKitErrorTimeout =>
-      'استغرق الأمر وقتاً طويلاً. يُرجى المحاولة مرة أخرى.';
+  String get uiKitErrorTimeout => 'استغرق الأمر وقتاً طويلاً. يُرجى المحاولة مرة أخرى.';
 
   @override
   String get uiKitDemoTitle => 'أدوات العرض';
@@ -3257,8 +3142,7 @@ class GzL10nAr extends GzL10n {
   String get uiProviderMajorHotelExemptFee => 'معفى من الرسوم';
 
   @override
-  String get uiProviderMajorHotelExplain =>
-      'لا تُحتسب على الفنادق الكبيرة رسوم إدراج أو إعلان. وتخضع كل قوائمها للمراجعة قبل النشر.';
+  String get uiProviderMajorHotelExplain => 'لا تُحتسب على الفنادق الكبيرة رسوم إدراج أو إعلان. وتخضع كل قوائمها للمراجعة قبل النشر.';
 
   @override
   String uiProviderListingEndsOn(String date) {
@@ -3275,8 +3159,7 @@ class GzL10nAr extends GzL10n {
   String get uiProviderListingReview => 'لدى فريق المراجعة';
 
   @override
-  String get uiProviderListingRejectContentNotCompliant =>
-      'المحتوى لا يتوافق مع إرشادات النشر';
+  String get uiProviderListingRejectContentNotCompliant => 'المحتوى لا يتوافق مع إرشادات النشر';
 
   @override
   String get uiProviderListingRejectWrongCategory => 'الفئة غير مناسبة';
@@ -3335,8 +3218,7 @@ class GzL10nAr extends GzL10n {
   String get uiProviderTimelineNextReview => 'مراجعة يدوية من فريق غزل';
 
   @override
-  String get uiProviderTimelineNextReviewNote =>
-      'تُراجع كل قائمة من حيث المحتوى والفئة قبل النشر. الدفع وحده لا يؤدي إلى النشر.';
+  String get uiProviderTimelineNextReviewNote => 'تُراجع كل قائمة من حيث المحتوى والفئة قبل النشر. الدفع وحده لا يؤدي إلى النشر.';
 
   @override
   String get uiProviderTimelineNextLive => 'النشر';
@@ -3350,8 +3232,7 @@ class GzL10nAr extends GzL10n {
   }
 
   @override
-  String get uiProviderTimelineReasonContentNotCompliant =>
-      'المحتوى لا يتوافق مع إرشادات النشر';
+  String get uiProviderTimelineReasonContentNotCompliant => 'المحتوى لا يتوافق مع إرشادات النشر';
 
   @override
   String get uiProviderTimelineReasonWrongCategory => 'الفئة غير مناسبة';
@@ -3388,8 +3269,7 @@ class GzL10nAr extends GzL10n {
 
   @override
   String uiSharedSpokenDays(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -3400,14 +3280,14 @@ class GzL10nAr extends GzL10n {
       few: '$countString أيام',
       two: 'يومان',
       one: 'يوم',
+      zero: '$countString يوم',
     );
     return '$_temp0';
   }
 
   @override
   String uiSharedSpokenHours(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -3418,14 +3298,14 @@ class GzL10nAr extends GzL10n {
       few: '$countString ساعات',
       two: 'ساعتان',
       one: 'ساعة',
+      zero: '$countString ساعة',
     );
     return '$_temp0';
   }
 
   @override
   String uiSharedSpokenMinutes(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -3436,6 +3316,7 @@ class GzL10nAr extends GzL10n {
       few: '$countString دقائق',
       two: 'دقيقتان',
       one: 'دقيقة',
+      zero: '$countString دقيقة',
     );
     return '$_temp0';
   }
@@ -3543,8 +3424,7 @@ class GzL10nAr extends GzL10n {
   }
 
   @override
-  String get uiVoucherSummaryRuleCredit =>
-      'إذا اعتذر المكان أو لم يرد، اطلبوا كوبون رصيد من الدعم.';
+  String get uiVoucherSummaryRuleCredit => 'إذا اعتذر المكان أو لم يرد، اطلبوا كوبون رصيد من الدعم.';
 
   @override
   String get uiVoucherConfirmEyebrow => 'أكدوا حجزكم';
@@ -3555,15 +3435,13 @@ class GzL10nAr extends GzL10n {
   }
 
   @override
-  String get uiVoucherConfirmHeld =>
-      'التاريخ محجوز لكم حتى ذلك الوقت. لا مبلغ إضافي لغزل.';
+  String get uiVoucherConfirmHeld => 'التاريخ محجوز لكم حتى ذلك الوقت. لا مبلغ إضافي لغزل.';
 
   @override
   String get uiVoucherConfirmLapsedTitle => 'انتهت مهلة التأكيد';
 
   @override
-  String get uiVoucherConfirmLapsedBody =>
-      'تم إخلاء التاريخ، ولم يعد الكوبون صالحًا.';
+  String get uiVoucherConfirmLapsedBody => 'تم إخلاء التاريخ، ولم يعد الكوبون صالحًا.';
 
   @override
   String get uiVoucherConfirmDoneTitle => 'تم تأكيد الحجز';

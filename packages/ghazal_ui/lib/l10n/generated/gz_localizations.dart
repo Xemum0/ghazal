@@ -62,8 +62,7 @@ import 'gz_localizations_en.dart';
 /// be consistent with the languages listed in the GzL10n.supportedLocales
 /// property.
 abstract class GzL10n {
-  GzL10n(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  GzL10n(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -83,19 +82,15 @@ abstract class GzL10n {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('ar'),
-    Locale('en'),
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('ar'), Locale('en')];
 
   /// No description provided for @commonActionAccept.
   ///
@@ -2609,14 +2604,7 @@ abstract class GzL10n {
   ///
   /// In en, this message translates to:
   /// **'{paid}: {paidAmount}, {committed}: {committedAmount}, {remaining}: {remainingAmount}'**
-  String uiClientBudgetBarLabel(
-    String paid,
-    String paidAmount,
-    String committed,
-    String committedAmount,
-    String remaining,
-    String remainingAmount,
-  );
+  String uiClientBudgetBarLabel(String paid, String paidAmount, String committed, String committedAmount, String remaining, String remainingAmount);
 
   /// No description provided for @uiClientTierSuits.
   ///
@@ -3383,19 +3371,19 @@ abstract class GzL10n {
   /// No description provided for @uiHotelStripConfirmedCount.
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, other{{count} confirmed}}'**
+  /// **'{count, plural, one{{count} confirmed} other{{count} confirmed}}'**
   String uiHotelStripConfirmedCount(int count);
 
   /// No description provided for @uiHotelStripPendingCount.
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, other{{count} pending}}'**
+  /// **'{count, plural, one{{count} pending} other{{count} pending}}'**
   String uiHotelStripPendingCount(int count);
 
   /// No description provided for @uiHotelStripOpenCount.
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, other{{count} open}}'**
+  /// **'{count, plural, one{{count} open} other{{count} open}}'**
   String uiHotelStripOpenCount(int count);
 
   /// No description provided for @uiHotelKpiUp.
@@ -5598,8 +5586,7 @@ class _GzL10nDelegate extends LocalizationsDelegate<GzL10n> {
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_GzL10nDelegate old) => false;

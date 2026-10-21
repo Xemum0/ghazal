@@ -176,7 +176,7 @@ class _TimeButton extends StatelessWidget {
               runSpacing: GzSpace.s1,
               children: [
                 GzIcon(GzIcons.clock, size: GzIconSize.xs, color: invalid ? c.iconDanger : c.iconSecondary),
-                GzFigText(time, role: GzTextRole.bodyS, color: c.textStrong),
+                GzText(time, figures: true, role: GzTextRole.bodyS, color: c.textStrong),
                 if (nextDay != null) GzText(nextDay!, role: GzTextRole.caption, color: c.textSecondary),
               ],
             ),

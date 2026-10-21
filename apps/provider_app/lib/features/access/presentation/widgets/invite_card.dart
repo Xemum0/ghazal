@@ -7,7 +7,6 @@ import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../../../l10n/l10n.dart';
 import 'access_labels.dart';
-import 'access_parts.dart';
 
 BoxDecoration _panel(GzColors c) => BoxDecoration(
   color: c.surfaceRaised,
@@ -45,7 +44,7 @@ class _Head extends StatelessWidget {
                   if (info)
                     Transform.translate(
                       offset: Offset(context.gz.isRtl ? 8 : -8, 0),
-                      child: AccessInfoGlyph(title: role, body: staffRoleSummary(l, preview.role), label: l.hotelAccessSetupRoleInfo),
+                      child: GzInfoButton(title: role, paragraphs: [staffRoleSummary(l, preview.role)], label: l.hotelAccessSetupRoleInfo),
                     ),
                 ],
               ),

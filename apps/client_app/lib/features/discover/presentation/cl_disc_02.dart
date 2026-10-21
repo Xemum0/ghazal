@@ -246,91 +246,87 @@ class _ClDisc02ScreenState extends ConsumerState<ClDisc02Screen> {
             ),
           );
 
-    // The sheet is 90% of the frame with the footer pinned at its foot (the web `useSheetFill`): the body takes what the grab zone, the
-    // padding and the footer leave.
-    final mq = MediaQuery.of(context);
-    final cap = (mq.size.height * 0.9 / 4).floor() * 4.0;
-    final footerHeight = GzSpace.sheetPadBottom + GzSpace.s3 + GzSize.controlCta + (panel == null ? GzSpace.s2 + GzSize.controlSm : 0);
-    final bodyMin = cap - GzSpace.sheetPadTop - GzSpace.s5 - mq.padding.bottom - GzSpace.sheetPadBottom - footerHeight;
-    return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: bodyMin),
-      child: Column(
-        key: const ValueKey<String>('discover.brief.sheet'),
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (panel != null)
-            Row(
-              children: [
-                GzBarButton(
-                  key: const ValueKey<String>('discover.brief.back'),
-                  icon: GzIcons.back,
-                  label: l.clientDiscoverBriefBack,
-                  onPressed: () => setState(() => _panel = null),
-                ),
-                const SizedBox(width: GzSpace.s1),
-                Expanded(
-                  child: GzText(titles[panel]!, role: GzTextRole.d1, color: c.textStrong, header: true),
-                ),
-              ],
-            )
-          else
-            ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: GzSize.controlMd),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: GzText(l.clientDiscoverBriefTitle, role: GzTextRole.d1, color: c.textStrong, header: true),
-                  ),
-                  const SizedBox(width: GzSpace.s3),
-                  GzBarButton(
-                    key: const ValueKey<String>('gz:sheet.close'),
-                    icon: GzIcons.close,
-                    label: context.gzL10n.commonActionClose,
-                    onPressed: _nav.closeSheet,
-                  ),
-                ],
-              ),
-            ),
-          if (offline)
-            Padding(
-              padding: const EdgeInsetsDirectional.only(bottom: GzSpace.s3),
-              child: GzBanner(message: context.gzL10n.commonStateOffline, tone: GzBannerTone.offline, shape: GzBannerShape.card),
-            ),
-          if (panel == null) ...[
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: c.borderHairline, width: GzStroke.hair),
-                ),
-              ),
-              child: Column(
-                children: [
-                  for (final r in rows)
-                    Builder(
-                      builder: (context) => BriefRowTile(
-                        key: ValueKey<String>('discover.brief.row.${r.$1.name}'),
-                        icon: r.$2,
-                        name: r.$3,
-                        value: r.$4,
-                        placeholder: r.$5,
-                        chevron: true,
-                        border: true,
-                        inset: 0,
-                        extra: r.$6,
-                        onPressed: () => setState(() => _panel = r.$1),
+    return Column(
+      key: const ValueKey<String>('discover.brief.sheet'),
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const GzSheetFill(),
+        GzSheetPinnedHeader(
+          child: Padding(
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.gutter),
+            child: panel != null
+                ? Row(
+                    children: [
+                      GzBarButton(
+                        key: const ValueKey<String>('discover.brief.back'),
+                        icon: GzIcons.back,
+                        label: l.clientDiscoverBriefBack,
+                        onPressed: () => setState(() => _panel = null),
                       ),
+                      const SizedBox(width: GzSpace.s1),
+                      Expanded(
+                        child: GzText(titles[panel]!, role: GzTextRole.d1, color: c.textStrong, header: true),
+                      ),
+                    ],
+                  )
+                : ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: GzSize.controlMd),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: GzText(l.clientDiscoverBriefTitle, role: GzTextRole.d1, color: c.textStrong, header: true),
+                        ),
+                        const SizedBox(width: GzSpace.s3),
+                        GzBarButton(
+                          key: const ValueKey<String>('gz:sheet.close'),
+                          icon: GzIcons.close,
+                          label: context.gzL10n.commonActionClose,
+                          onPressed: _nav.closeSheet,
+                        ),
+                      ],
                     ),
-                ],
+                  ),
+          ),
+        ),
+        if (offline)
+          Padding(
+            padding: const EdgeInsetsDirectional.only(bottom: GzSpace.s3),
+            child: GzBanner(message: context.gzL10n.commonStateOffline, tone: GzBannerTone.offline, shape: GzBannerShape.card),
+          ),
+        if (panel == null) ...[
+          Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: c.borderHairline, width: GzStroke.hair),
               ),
             ),
-            if (!loading && !offline && fit.isNotEmpty) _Preview(rows: fit, onTap: () => _apply(fromHome), label: l.clientDiscoverResultsTitle),
-            if (rowsAsync.hasError && !offline) DiscoverFailure(error: rowsAsync.error!, onRetry: () => ref.invalidate(discoverSearchProvider)),
-          ] else
-            panelBody(),
-          GzSheetFooter(child: footer),
-        ],
-      ),
+            child: Column(
+              children: [
+                for (final r in rows)
+                  Builder(
+                    builder: (context) => BriefRowTile(
+                      key: ValueKey<String>('discover.brief.row.${r.$1.name}'),
+                      icon: r.$2,
+                      name: r.$3,
+                      value: r.$4,
+                      placeholder: r.$5,
+                      chevron: true,
+                      border: true,
+                      inset: 0,
+                      extra: r.$6,
+                      onPressed: () => setState(() => _panel = r.$1),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          if (!loading && !offline && fit.isNotEmpty) _Preview(rows: fit, onTap: () => _apply(fromHome), label: l.clientDiscoverResultsTitle),
+          if (rowsAsync.hasError && !offline) DiscoverFailure(error: rowsAsync.error!, onRetry: () => ref.invalidate(discoverSearchProvider)),
+        ] else
+          panelBody(),
+        GzSheetFooter(child: footer),
+      ],
     );
   }
 }

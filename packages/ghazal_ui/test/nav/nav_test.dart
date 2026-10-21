@@ -74,11 +74,30 @@ void main() {
       handle.dispose();
     });
 
-    testWidgets('height: 60 above the home indicator inset (label line box 20), 56 minimum', (tester) async {
-      await pumpNav(tester, Align(alignment: Alignment.bottomCenter, child: GzTabBar(items: _items(), activeId: 'discover', ariaLabel: 'x')));
-      final h = tester.getSize(find.byType(GzTabBar)).height;
-      expect(h, greaterThanOrEqualTo(GzSize.tabBar + 34));
-      expect(h, closeTo(60 + 34, 4));
+    testWidgets('height: 56 (glyph 32 + 4 + label 20, as the web) above the home indicator inset; the label sits 36 below the bar top', (tester) async {
+      await pumpNav(tester, Align(alignment: Alignment.bottomCenter, child: GzTabBar(items: _items(), activeId: 'discover', ariaLabel: 'x', safeBottom: 34)));
+      final bar = tester.getRect(find.byType(GzTabBar));
+      expect(bar.height, 56 + 34); // web nav 90 = row 56 + 34 inset (pnpm probe CL-DISC-01 '[class*=tabbar]')
+      expect(GzTabBar.heightOf(34), 90);
+      final cell = tester.getRect(find.byKey(const ValueKey('gz:tab.discover')));
+      expect(cell.height, 56);
+      expect(tester.getRect(find.text('Discover')).top - bar.top, closeTo(36 + 2, 3)); // text box inside the 20 line box
+    });
+
+    testWidgets('the count badge sits at the glyph box top inline-end, 4 from the edge (web: x 253 of glyph 249..297 in ar, 273 in en)', (tester) async {
+      for (final lang in ['en', 'ar']) {
+        await pumpNav(
+          tester,
+          Align(alignment: Alignment.bottomCenter, child: GzTabBar(items: _items(messages: const GzTabBadge.count(3)), activeId: 'discover', ariaLabel: 'x', safeBottom: 0)),
+          lang: lang,
+        );
+        final bar = tester.getRect(find.byType(GzTabBar));
+        final badge = tester.getRect(find.byKey(const ValueKey('gz:tab.badge')));
+        expect(badge.top, closeTo(bar.top, 0.5));
+        // messages is item 3: cell 234..312 in en, 78..156 in ar; the glyph box is the 48 wide centre of the cell.
+        final glyphLeft = lang == 'en' ? 249.0 : 93.0;
+        expect(badge.right, closeTo(lang == 'en' ? glyphLeft + 48 - 4 : glyphLeft + 4 + 20, 1), reason: lang);
+      }
     });
   });
 

@@ -62,8 +62,7 @@ import 'app_localizations_en.dart';
 /// be consistent with the languages listed in the AppL10n.supportedLocales
 /// property.
 abstract class AppL10n {
-  AppL10n(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppL10n(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -83,19 +82,15 @@ abstract class AppL10n {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('ar'),
-    Locale('en'),
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('ar'), Locale('en')];
 
   /// No description provided for @commonActionAccept.
   ///
@@ -7169,11 +7164,7 @@ abstract class AppL10n {
   ///
   /// In en, this message translates to:
   /// **'Paid {paid}, committed {committed}, remaining {remaining}'**
-  String clientMyWeddingBudgetBarLabel(
-    String paid,
-    String committed,
-    String remaining,
-  );
+  String clientMyWeddingBudgetBarLabel(String paid, String committed, String remaining);
 
   /// No description provided for @clientMyWeddingBudgetAddExpense.
   ///
@@ -14079,8 +14070,7 @@ class _AppL10nDelegate extends LocalizationsDelegate<AppL10n> {
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppL10nDelegate old) => false;

@@ -110,25 +110,12 @@ class _TypeChip extends StatelessWidget {
         final fg = selected ? c.textStrong : c.textPrimary;
         final bg = selected ? c.controlBg : (st.pressed ? c.surfaceQuiet : null);
         final base = gzResetLabelStyle(gz);
-        final heavy = gz.text(GzTextRole.title).fontWeight;
-        Widget content(TextStyle style) => Row(
+        // The label never changes width when it turns heavy: GzSteadyLabel measures the 500 weight instead of drawing a hidden copy.
+        final body = Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            GzIcon(icon, size: GzIconSize.xs, color: style.color ?? fg),
-            Text(label, style: style, softWrap: false),
-          ],
-        );
-        final body = Stack(
-          alignment: Alignment.center,
-          children: [
-            // The hidden 500 copy reserves the width of the selected label.
-            Visibility(visible: false, maintainSize: true, maintainAnimation: true, maintainState: true, child: content(base.copyWith(fontWeight: heavy))),
-            AnimatedDefaultTextStyle(
-              duration: GzMotion.durationBase,
-              curve: GzMotion.easeStandard,
-              style: base.copyWith(color: fg, fontWeight: selected ? heavy : base.fontWeight, decoration: TextDecoration.none),
-              child: content(base.copyWith(color: fg, fontWeight: selected ? heavy : base.fontWeight, decoration: TextDecoration.none)),
-            ),
+            GzIcon(icon, size: GzIconSize.xs, color: fg),
+            GzSteadyLabel(span: TextSpan(text: label), style: base.copyWith(color: fg), selected: selected),
           ],
         );
         return AnimatedContainer(

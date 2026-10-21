@@ -41,7 +41,9 @@ class _ClOnbd02State extends ConsumerState<ClOnbd02Screen> {
     final last = _index == _count - 1;
     return GzScreen(
       fixed: true,
-      bottom: GzActionBar(action: GzActionBarAction(label: last ? l10n.clientOnboardingIntroStart : l10n.commonActionNext, onPressed: _next)),
+      bottom: GzActionBar(
+        action: GzActionBarAction(label: last ? l10n.clientOnboardingIntroStart : l10n.commonActionNext, onPressed: _next),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

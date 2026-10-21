@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:ghazal_core/ghazal_core.dart' show MoneyMode, MoneyOptions;
 
 import '../foundation.dart';
+import 'gz_chrome_baseline.dart';
 import 'gz_fig_text.dart';
 import 'gz_format_scope.dart';
 import 'gz_money.dart';
@@ -70,9 +71,9 @@ class GzPrice extends StatelessWidget {
       textBaseline: TextBaseline.alphabetic,
       crossAxisAlignment: CrossAxisAlignment.baseline,
       children: [
-        if (prefix != null) ...[Text(prefix!, style: caption), gap],
+        if (prefix != null) ...[gzSnappedText(prefix!, style: caption), gap],
         GzMoney(fils: fils, mode: mode, amountRole: role, filsRole: fils0),
-        if (unitText != null) ...[gap, Text(unitText, style: caption)],
+        if (unitText != null) ...[gap, gzSnappedText(unitText, style: caption)],
         if (struck != null) ...[
           gap,
           ExcludeSemantics(

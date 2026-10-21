@@ -41,8 +41,8 @@ enum GzTabsLayout { fill, hug }
 
 /// Tabs (web `Tabs`): 48 high, label body-s muted, the selected tab ink-900 at 500 with a 2 dp gold thread sliding under it over
 /// 320 ms on a 1 dp ink-300 baseline. The thread is positioned from the start edge (a directional offset), so Arabic mirrors with no
-/// second code path. Arrow keys activate and follow what you see; Home / End jump. The label reserves its selected (500) width so
-/// selecting a tab never nudges its neighbours.
+/// second code path. Arrow keys activate and follow what you see; Home / End jump. The label reserves its selected (500) width
+/// ([GzSteadyLabel], measured, not a hidden copy) so selecting a tab never nudges its neighbours.
 class GzTabs<V> extends StatefulWidget {
   const GzTabs({
     required this.items,
@@ -118,7 +118,6 @@ class _GzTabsState<V> extends State<GzTabs<V>> {
     final hug = w.layout == GzTabsLayout.hug;
     final active = _active;
     SchedulerBinding.instance.addPostFrameCallback((_) => _measure());
-    final heavy = gz.text(GzTextRole.title).fontWeight;
     final flags = [for (final i in w.items) i.disabled];
 
     Widget tab(int i) {
@@ -126,25 +125,7 @@ class _GzTabsState<V> extends State<GzTabs<V>> {
       final selected = i == active;
       final color = it.disabled ? c.textDisabled : (selected ? c.textStrong : c.textSecondary);
       final base = gz.text(GzTextRole.bodyS);
-      final label = Stack(
-        alignment: Alignment.center,
-        children: [
-          // The hidden 500 copy reserves the width of the selected label.
-          Visibility(
-            visible: false,
-            maintainSize: true,
-            maintainAnimation: true,
-            maintainState: true,
-            child: Text(it.label, style: base.copyWith(fontWeight: heavy), softWrap: false),
-          ),
-          AnimatedDefaultTextStyle(
-            duration: GzMotion.durationBase,
-            curve: GzMotion.easeStandard,
-            style: base.copyWith(color: color, fontWeight: selected ? heavy : base.fontWeight, decoration: TextDecoration.none),
-            child: Text(it.label, softWrap: false),
-          ),
-        ],
-      );
+      final label = GzSteadyLabel(span: TextSpan(text: it.label), style: base.copyWith(color: color), selected: selected);
       final body = Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -205,7 +186,9 @@ class _GzTabsState<V> extends State<GzTabs<V>> {
           );
 
     final content = Stack(key: _content, children: [row, ?thread]);
-    final list = DecoratedBox(
+    // A Container (not a DecoratedBox): the 1 dp baseline is a border of the list that ADDS its width to the box (web: 56 + 1, 48 + 1),
+    // and the thread sits above it.
+    final list = Container(
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(color: c.borderStrong, width: GzStroke.hair),
@@ -296,18 +279,24 @@ class _GzIconTabsState<V> extends State<GzIconTabs<V>> {
       final color = it.disabled ? c.textDisabled : (selected ? c.textStrong : c.textSecondary);
       final iconColor = selected ? c.iconPrimary : (it.disabled ? c.iconDisabled : c.iconSecondary);
       final showLabel = w.labels == GzIconTabsLabels.all || selected;
+      // The count badge sits at the PHYSICAL right corner of the glyph in both languages: the web badge is a number island
+      // (`direction: ltr`), and an absolutely positioned box resolves `inset-inline-end` against its own direction (measured:
+      // HL-TODY-02 in Arabic, badge right edge = glyph right edge). An LTR scope makes `end` the right edge here.
       final glyph = SizedBox(
         height: GzSize.iconMd,
-        child: Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: GzSpace.s2),
-              child: GzIcon(it.icon, size: GzIconSize.md, color: iconColor),
-            ),
-            if (it.count != null && it.count! > 0) PositionedDirectional(top: 0, end: 0, child: GzCountBadge(count: it.count!)),
-          ],
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: GzSpace.s2),
+                child: GzIcon(it.icon, size: GzIconSize.md, color: iconColor),
+              ),
+              if (it.count != null && it.count! > 0) PositionedDirectional(top: 0, end: 0, child: GzCountBadge(count: it.count!)),
+            ],
+          ),
         ),
       );
       return Expanded(
@@ -329,7 +318,9 @@ class _GzIconTabsState<V> extends State<GzIconTabs<V>> {
               height: GzSize.controlLg,
               width: double.infinity,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: GzSpace.s2, horizontal: GzSpace.s1),
+                // The web item is 56 high with 8 above and 4 below: glyph 24 + 4 + label 16 = 44 (the block-size cuts the bottom padding to
+                // 4, so the content overflows the padding, not the box).
+                padding: const EdgeInsetsDirectional.only(top: GzSpace.s2, bottom: GzSpace.s1, start: GzSpace.s1, end: GzSpace.s1),
                 child: Column(
                   children: [
                     glyph,
@@ -341,6 +332,8 @@ class _GzIconTabsState<V> extends State<GzIconTabs<V>> {
                               it.label,
                               maxLines: 1,
                               softWrap: false,
+                              // The web label block is 16 high and its taller line box overflows it unclipped (Arabic tails).
+                              overflow: TextOverflow.visible,
                               style: gz
                                   .text(GzTextRole.tab)
                                   .copyWith(
@@ -360,7 +353,9 @@ class _GzIconTabsState<V> extends State<GzIconTabs<V>> {
       );
     }
 
-    final list = DecoratedBox(
+    // A Container (not a DecoratedBox): the 1 dp baseline is a border of the list that ADDS its width to the box (web: 56 + 1, 48 + 1),
+    // and the thread sits above it.
+    final list = Container(
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(color: c.borderStrong, width: GzStroke.hair),

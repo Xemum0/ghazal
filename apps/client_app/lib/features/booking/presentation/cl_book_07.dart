@@ -12,7 +12,6 @@ import '../application/booking_flow_model.dart';
 import '../application/booking_flow_providers.dart';
 import 'booking_glyphs.dart';
 import 'widgets/booking_async.dart';
-import 'widgets/booking_info.dart';
 import 'widgets/booking_layout.dart';
 
 /// CL-BOOK-07 That date is no longer available (sheet). Covers CA-BOOK-16, CA-VDET-22, CA-VCH-11.
@@ -190,10 +189,9 @@ class _Taken extends ConsumerWidget {
                       child: GzText(l10n.clientBookingTakenNone, role: GzTextRole.title, color: c.textStrong, textAlign: TextAlign.center),
                     ),
                     const SizedBox(width: GzSpace.s2),
-                    BookingInfoButton(
+                    GzInfoButton(
                       title: l10n.clientBookingTakenNone,
                       paragraphs: [l10n.clientBookingTakenNoneInfo(f.date(date.toString(), DateStyle.short))],
-                      bleed: false,
                     ),
                   ],
                 );

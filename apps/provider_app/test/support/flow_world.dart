@@ -163,12 +163,12 @@ Future<ProviderContainer> openScreen(
   return container;
 }
 
-/// Render errors of a screen that belongs to another flow are not this flow's failures: `GzIconTabs` overflows its box by 4 dp
-/// (pilot-findings, Components), and a test sets [ignoreRenderErrors] once it has left the flow under test. Everything else still fails.
+/// Render errors of a screen that belongs to another flow are not this flow's failures: a test sets [ignoreRenderErrors] once it has left
+/// the flow under test. Everything else still fails (an overflow in the screen under test is a defect).
 void _filterRenderErrors() {
   final previous = FlutterError.onError;
   FlutterError.onError = (details) {
-    if (ignoreRenderErrors || (details.exceptionAsString().contains('overflowed') && details.toString().contains('gz_tabs.dart'))) return;
+    if (ignoreRenderErrors) return;
     previous?.call(details);
   };
   _restoreErrorFilter = () {

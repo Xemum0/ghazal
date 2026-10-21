@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_domain/ghazal_domain.dart' show PriceStructure;
 import 'package:ghazal_ui/src/core/core.dart';
 import 'package:ghazal_ui/src/foundation.dart';
-import 'package:ghazal_ui/src/voucher/gz_price_compare.dart' show GzStruckMoney;
 import 'package:ghazal_ui/src/voucher/voucher.dart';
 
 import 'voucher_harness.dart';

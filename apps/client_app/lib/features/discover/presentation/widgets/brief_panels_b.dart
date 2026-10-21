@@ -153,6 +153,7 @@ class BriefBudgetPanel extends ConsumerWidget {
           label: l.clientDiscoverBriefBudgetTitle,
           value: (lo.toDouble(), hi.toDouble()),
           showCaptions: false,
+          valuesAt: GzRangeValues.below,
           valueText: (n, edge) => edge == GzRangeEdge.max && n >= _budgetMax ? open(_budgetMax) : money(n.round()),
           formatValue: (context, n, edge) => Text.rich(
             TextSpan(children: GzFigures.spans(context, edge == GzRangeEdge.max && n >= _budgetMax ? open(_budgetMax) : money(n.round()), role: GzTextRole.figBodyS)),

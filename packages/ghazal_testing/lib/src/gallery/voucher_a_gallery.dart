@@ -286,14 +286,8 @@ Widget _groupChat(BuildContext context, VoucherAData d) {
     ),
     specs: [
       gcSpec(context, t('The client’s phone', 'هاتف العميل'), [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            GzChatDateDivider(date: d.clientThread.messages.first.at.toIso8601String()),
-            const SizedBox(height: GzSpace.s3),
-            ...run(d.clientThread.messages, GzChatSide.client),
-          ],
-        ),
+        GzChatDateDivider(date: d.clientThread.messages.first.at.toIso8601String()),
+        Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: run(d.clientThread.messages, GzChatSide.client)),
       ]),
       gcSpec(context, t('The hotel representative’s phone (same chat, own messages flip sides)', 'هاتف ممثل الفندق (المحادثة نفسها وتنقلب رسائله)'), [
         Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: run(d.hotelThread.messages, GzChatSide.hotel)),

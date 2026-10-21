@@ -124,7 +124,7 @@ class _ClAuth01State extends ConsumerState<ClAuth01Screen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        AuthSheetHead(title: l10n.clientAuthSharedSignIn, onClose: () => nav.closeSheet()),
+        GzSheetPinnedHeader(child: GzSheetHeader(title: l10n.clientAuthSharedSignIn, onClose: nav.closeSheet)),
         const SizedBox(height: GzSpace.s4),
         AuthResumeStrip(reason: reason, compact: true),
         if (reason != null) const SizedBox(height: GzSpace.s4),
@@ -140,6 +140,7 @@ class _ClAuth01State extends ConsumerState<ClAuth01Screen> {
           const SizedBox(height: GzSpace.s4),
         ],
         GzPhoneField(
+          valueAlign: GzPhoneValueAlign.chip,
           label: l10n.clientAuthSharedPhone,
           value: _phone,
           onChange: (national, _) => setState(() {

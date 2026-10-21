@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import '../foundation.dart';
 import 'gz_fig_text.dart';
 import 'gz_format_scope.dart';
+import 'gz_glyph_baseline.dart';
 
 enum GzFactLayout { stack, inline }
 
@@ -111,14 +112,18 @@ class GzFactChip extends StatelessWidget {
     return Semantics(
       label: [label, if (value != null) GzBidi.strip(value!), ?unit].join(' '),
       excludeSemantics: valueWidget == null,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          GzIcon(icon, size: small ? GzIconSize.xs : GzIconSize.sm, color: tone == GzFactTone.accent ? c.iconAccent : c.iconSecondary),
-          if (v != null) ...[const SizedBox(width: GzSpace.s1), v],
-          if (unit != null) ...[const SizedBox(width: GzSpace.s1), GzText(unit!, role: GzTextRole.caption, color: c.textSecondary)],
-        ],
+      // The first flex item is the glyph, so the web baseline of a chip is the bottom edge of its icon.
+      child: GzGlyphBaseline(
+        glyphSize: small ? GzSize.iconXs : GzSize.iconSm,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            GzIcon(icon, size: small ? GzIconSize.xs : GzIconSize.sm, color: tone == GzFactTone.accent ? c.iconAccent : c.iconSecondary),
+            if (v != null) ...[const SizedBox(width: GzSpace.s1), v],
+            if (unit != null) ...[const SizedBox(width: GzSpace.s1), GzText(unit!, role: GzTextRole.caption, color: c.textSecondary)],
+          ],
+        ),
       ),
     );
   }

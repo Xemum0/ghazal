@@ -46,6 +46,8 @@ class GzPressable extends StatefulWidget {
     this.focusNode,
     this.autofocus = false,
     this.selected,
+    this.expanded,
+    this.expand = false,
     super.key,
   }) : assert(child != null || builder != null, 'GzPressable needs a child or a builder');
 
@@ -80,6 +82,13 @@ class GzPressable extends StatefulWidget {
 
   /// Semantics `selected` for tabs, chips and segments.
   final bool? selected;
+
+  /// Semantics `expanded` for a control that opens and closes something (a menu chip, an accordion head); null = not applicable.
+  final bool? expanded;
+
+  /// Fill the width the parent gives instead of shrink-wrapping the child (equal-width tiles, a chip that fills its cell). In an
+  /// unbounded width it still wraps.
+  final bool expand;
 
   bool get enabled => onPressed != null;
 
@@ -153,7 +162,7 @@ class _GzPressableState extends State<GzPressable> {
         minWidth: widget.minWidth < GzSize.touchMin ? GzSize.touchMin : widget.minWidth,
         minHeight: widget.minHeight < GzSize.touchMin ? GzSize.touchMin : widget.minHeight,
       ),
-      child: Center(widthFactor: 1, heightFactor: 1, child: body),
+      child: Center(widthFactor: widget.expand ? null : 1, heightFactor: 1, child: body),
     );
 
     // Focus ring: 2 dp stroke, 2 dp outside the box (direction: focus-visible), only when focused.
@@ -212,6 +221,7 @@ class _GzPressableState extends State<GzPressable> {
       button: true,
       enabled: enabled,
       selected: widget.selected,
+      expanded: widget.expanded,
       label: widget.semanticLabel,
       excludeSemantics: widget.semanticLabel != null,
       onTap: enabled ? _activate : null,

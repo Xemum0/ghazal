@@ -151,9 +151,9 @@ class _GzPackageEditorRowState extends State<GzPackageEditorRow> {
                                         size: GzPriceSize.card,
                                         unit: unit,
                                       ),
-                                      GzFigText(
+                                      GzText(
                                         l.uiHotelPackageGuests(f.integer(_min), f.integer(_max)),
-                                        role: GzTextRole.caption,
+                                        figures: true, role: GzTextRole.caption,
                                         color: c.textSecondary,
                                       ),
                                     ],
@@ -224,11 +224,11 @@ class _GzPackageEditorRowState extends State<GzPackageEditorRow> {
                   ),
                   if (saving != null && saving > 0) ...[
                     const SizedBox(height: GzSpace.s5),
-                    GzFigText(
+                    GzText(
                       saving > _feeFils
                           ? l.uiHotelPackageSaving(f.money(saving), flat ? '' : ' ${l.commonUnitPerGuest}')
                           : l.uiHotelPackageVoucherSmall(f.money(saving)),
-                      role: GzTextRole.caption,
+                      figures: true, role: GzTextRole.caption,
                       color: saving > _feeFils ? c.textSuccess : c.textSecondary,
                     ),
                   ],

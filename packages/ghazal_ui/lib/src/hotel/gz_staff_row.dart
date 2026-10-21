@@ -127,9 +127,9 @@ class _GzStaffRowState extends State<GzStaffRow> {
                             ],
                           ),
                           const SizedBox(height: GzSpace.s1),
-                          GzFigText(
+                          GzText(
                             state,
-                            role: GzTextRole.caption,
+                            figures: true, role: GzTextRole.caption,
                             color: staff.status == StaffStatus.deactivated ? c.textDisabled : c.textSecondary,
                           ),
                         ],

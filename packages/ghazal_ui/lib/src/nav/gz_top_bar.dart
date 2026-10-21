@@ -2,6 +2,7 @@ import 'package:flutter/services.dart' show SystemUiOverlayStyle, TextInputActio
 import 'package:flutter/widgets.dart';
 
 import '../foundation.dart';
+import '../core/gz_button.dart';
 import 'gz_bar_button.dart';
 import 'gz_nav_scope.dart';
 import 'gz_navigator.dart';
@@ -32,15 +33,26 @@ class GzTopBarAction {
   final bool? pressed;
 }
 
+/// A word at the end of the bar (Skip, Done, Save): a tertiary text button after the icon actions. Its text edge sits on the 20 gutter.
+@immutable
+class GzTopBarTextAction {
+  const GzTopBarTextAction({required this.label, this.onPressed});
+
+  final String label;
+  final VoidCallback? onPressed;
+}
+
 /// The search field of the `search` variant. With [onChanged] it is a real input; without it a button that opens search ([onPressed]).
+/// [onFocusChange] reports the field gaining and losing focus (a screen swaps its body for suggestions while it is focused).
 @immutable
 class GzTopBarSearch {
-  const GzTopBarSearch({required this.placeholder, this.value, this.onChanged, this.onPressed});
+  const GzTopBarSearch({required this.placeholder, this.value, this.onChanged, this.onPressed, this.onFocusChange});
 
   final String placeholder;
   final String? value;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onPressed;
+  final ValueChanged<bool>? onFocusChange;
 }
 
 /// TopBar (direction sections 3 and 5): the 56 high bar row under the status bar (the bar includes the safe-top inset). The 20
@@ -54,11 +66,13 @@ class GzTopBar extends StatelessWidget {
   const GzTopBar({
     this.variant = GzTopBarVariant.standard,
     this.title,
+    this.titleWidget,
     this.subtitle,
     this.back = GzTopBarBack.auto,
     this.onBack,
     this.backLabel,
     this.actions = const [],
+    this.textAction,
     this.search,
     this.leading,
     this.solidAfter,
@@ -71,6 +85,10 @@ class GzTopBar extends StatelessWidget {
   final GzTopBarVariant variant;
   final String? title;
 
+  /// The title as a widget (a monogram with the name, a thread of steps): centred in the title slot like [title], which it replaces on
+  /// a standard bar. Name it for assistive technology yourself (`Semantics(header: true, ...)`).
+  final Widget? titleWidget;
+
   /// One caption line under a standard title (a venue's area, a booking reference).
   final String? subtitle;
   final GzTopBarBack back;
@@ -79,6 +97,10 @@ class GzTopBar extends StatelessWidget {
   final VoidCallback? onBack;
   final String? backLabel;
   final List<GzTopBarAction> actions;
+
+  /// A word at the end, after the icon actions. With it the end slot is as wide as its content and the title takes the rest (it is no
+  /// longer centred on the bar).
+  final GzTopBarTextAction? textAction;
   final GzTopBarSearch? search;
 
   /// Custom start content instead of the back button (a wordmark, a venue switcher).
@@ -152,6 +174,7 @@ class GzTopBar extends StatelessWidget {
         GzBarButton(icon: a.icon, iconActive: a.iconActive, label: a.label, onPressed: a.onPressed, count: a.count, pressed: a.pressed, tone: tone),
     ];
 
+    final word = textAction == null ? null : GzButton(label: textAction!.label, variant: GzButtonVariant.tertiary, onPressed: textAction!.onPressed);
     final slots = [if (start != null) 1, actions.length, 1].reduce((a, b) => a > b ? a : b);
     final slotWidth = slots * _slotUnit;
 
@@ -164,13 +187,17 @@ class GzTopBar extends StatelessWidget {
           Expanded(child: _SearchField(search: search!)),
           if (actionButtons.isNotEmpty) const SizedBox(width: GzSpace.s1),
           ...actionButtons,
+          ?word,
         ],
       );
     } else {
       final fadedTitle = (large && !compact) || (transparent && !isSolid);
       row = Row(
         children: [
-          SizedBox(width: slotWidth, child: Align(alignment: AlignmentDirectional.centerStart, child: start)),
+          if (word == null)
+            SizedBox(width: slotWidth, child: Align(alignment: AlignmentDirectional.centerStart, child: start))
+          else
+            ConstrainedBox(constraints: const BoxConstraints(minWidth: _slotUnit), child: start),
           const SizedBox(width: GzSpace.s1),
           Expanded(
             child: AnimatedOpacity(
@@ -181,14 +208,23 @@ class GzTopBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  if (title != null) GzText(title!, role: GzTextRole.title, color: c.textStrong, maxLines: 1, textAlign: TextAlign.center, header: true),
+                  if (titleWidget != null)
+                    Center(child: titleWidget)
+                  else if (title != null)
+                    GzText(title!, role: GzTextRole.title, color: c.textStrong, maxLines: 1, textAlign: TextAlign.center, header: true),
                   if (subtitle != null) GzText(subtitle!, role: GzTextRole.caption, color: c.textSecondary, maxLines: 1, textAlign: TextAlign.center),
                 ],
               ),
             ),
           ),
           const SizedBox(width: GzSpace.s1),
-          SizedBox(width: slotWidth, child: Align(alignment: AlignmentDirectional.centerEnd, child: Row(mainAxisSize: MainAxisSize.min, children: actionButtons))),
+          if (word == null)
+            SizedBox(width: slotWidth, child: Align(alignment: AlignmentDirectional.centerEnd, child: Row(mainAxisSize: MainAxisSize.min, children: actionButtons)))
+          else
+            ConstrainedBox(
+              constraints: const BoxConstraints(minWidth: _slotUnit),
+              child: Row(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.end, children: [...actionButtons, word]),
+            ),
         ],
       );
     }
@@ -242,7 +278,7 @@ class GzTopBar extends StatelessWidget {
               ),
             ),
           Padding(
-            padding: EdgeInsetsDirectional.only(start: barPad, end: barPad, top: safeTop),
+            padding: EdgeInsetsDirectional.only(start: barPad, end: word == null ? barPad : GzSpace.gutter - GzSpace.s2, top: safeTop),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -291,7 +327,10 @@ class _SearchFieldState extends State<_SearchField> {
   @override
   void initState() {
     super.initState();
-    _focus.addListener(() => setState(() {}));
+    _focus.addListener(() {
+      setState(() {});
+      widget.search.onFocusChange?.call(_focus.hasFocus);
+    });
   }
 
   @override

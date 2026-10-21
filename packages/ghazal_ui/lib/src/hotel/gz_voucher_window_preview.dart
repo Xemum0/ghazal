@@ -5,7 +5,6 @@ import 'package:ghazal_domain/ghazal_domain.dart'
 import '../client/client.dart' show GzVenueCard, GzVenueCardVariant, gzVenueSummaryOf;
 import '../core/core.dart';
 import '../foundation.dart';
-import 'hotel_c_kit.dart';
 
 /// VoucherWindowPreview: "what couples see" while the partner edits a voucher-price window (HL-GROW-02 / 03; HA-OFFR superseded by
 /// ADR 0033). It is the client's own venue card, drawn with the draft window: the photo with the "Special voucher price" badge, the
@@ -84,7 +83,7 @@ class GzVoucherWindowPreview extends StatelessWidget {
             textBaseline: TextBaseline.alphabetic,
             children: [
               Expanded(
-                child: GzFigText('$title · ${l.uiHotelWindowSaving}'.trim(), role: GzTextRole.bodyS, color: c.textPrimary),
+                child: GzText('$title · ${l.uiHotelWindowSaving}'.trim(), figures: true, role: GzTextRole.bodyS, color: c.textPrimary),
               ),
               const SizedBox(width: GzSpace.s4),
               GzMoney(fils: saving, mode: GzMoneyMode.exact, amountRole: GzTextRole.priceStrong),

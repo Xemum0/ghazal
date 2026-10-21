@@ -6,8 +6,8 @@
   "uiSharedLockedVoucher": "سعر الكوبون بعد التسجيل",
   "uiSharedVoucher": "كوبون",
   "uiSharedLessThanMinute": "أقل من دقيقة متبقية",
-  "uiSharedSpokenDays": "{count, plural, =1{يوم} =2{يومان} few{{count} أيام} many{{count} يومًا} other{{count} يوم}}",
-  "uiSharedSpokenHours": "{count, plural, =1{ساعة} =2{ساعتان} few{{count} ساعات} many{{count} ساعة} other{{count} ساعة}}",
-  "uiSharedSpokenMinutes": "{count, plural, =1{دقيقة} =2{دقيقتان} few{{count} دقائق} many{{count} دقيقة} other{{count} دقيقة}}",
+  "uiSharedSpokenDays": "{count, plural, =0{{count} يوم} =1{يوم} =2{يومان} few{{count} أيام} many{{count} يومًا} other{{count} يوم}}",
+  "uiSharedSpokenHours": "{count, plural, =0{{count} ساعة} =1{ساعة} =2{ساعتان} few{{count} ساعات} many{{count} ساعة} other{{count} ساعة}}",
+  "uiSharedSpokenMinutes": "{count, plural, =0{{count} دقيقة} =1{دقيقة} =2{دقيقتان} few{{count} دقائق} many{{count} دقيقة} other{{count} دقيقة}}",
   "uiSharedSpokenJoin": "{first} و{second}"
 }

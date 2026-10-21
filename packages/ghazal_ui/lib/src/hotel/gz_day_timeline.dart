@@ -16,6 +16,8 @@ class GzTimelineEvent {
     required this.title,
     this.nextDay = false,
     this.meta,
+    this.metaWidget,
+    this.metaLabel,
     this.kind = GzTimelineKind.event,
     this.userTitle = false,
     this.status,
@@ -32,6 +34,14 @@ class GzTimelineEvent {
 
   /// Hall, guests, session: already formatted by the shared formatter; the numbers are set in the figures voice.
   final String? meta;
+
+  /// The meta line as a widget (the web `meta` is a ReactNode: a hall, an audience chip, a guests chip and a starts-in fact as a fact row).
+  /// It replaces [meta] and takes the caption type and the secondary ink as its default text style; a next-day mark stays in front of it.
+  /// Give [metaLabel] for the row's accessible name.
+  final Widget? metaWidget;
+
+  /// The spoken form of [metaWidget] (the visible chips are not read twice).
+  final String? metaLabel;
   final GzTimelineKind kind;
 
   /// A user-typed title (a guest's name) takes its own script.
@@ -202,7 +212,18 @@ class _RowView extends StatelessWidget {
             ],
           ),
         ),
-        if (metaText != null && metaText.isNotEmpty) ...[
+        if (e?.metaWidget != null) ...[
+          const SizedBox(height: GzSpace.s1),
+          DefaultTextStyle.merge(
+            style: gz.text(GzTextRole.caption).copyWith(color: c.textSecondary, decoration: TextDecoration.none),
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: GzSpace.s2,
+              runSpacing: GzSpace.s1,
+              children: [if (nextDate != null) GzText(nextDate!, role: GzTextRole.caption, color: c.textSecondary, figures: true), e!.metaWidget!],
+            ),
+          ),
+        ] else if (metaText != null && metaText.isNotEmpty) ...[
           const SizedBox(height: GzSpace.s1),
           GzText(metaText, role: GzTextRole.caption, color: c.textSecondary, figures: true),
         ],
@@ -215,7 +236,7 @@ class _RowView extends StatelessWidget {
     final content = onPressed != null && e != null
         ? GzPressable(
             onPressed: () => onPressed!(e.id),
-            semanticLabel: [e.title, if (e.meta != null) GzBidi.strip(e.meta!)].join(', '),
+            semanticLabel: [e.title, ?(e.metaWidget != null ? e.metaLabel : (e.meta == null ? null : GzBidi.strip(e.meta!)))].join(', '),
             borderRadius: GzRadius.smAll,
             scale: 1,
             minHeight: GzSize.touchMin,

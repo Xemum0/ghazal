@@ -74,16 +74,13 @@ class BookingExtraRow extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsetsDirectional.symmetric(vertical: GzSpace.s3),
           child: _Row(
-            trailing: SizedBox(
-              height: GzSize.touchMin,
-              width: 2 * GzSize.touchMin + GzSize.controlLg + 2 * GzSpace.s1 + GzSpace.s4,
-              child: GzStepper(
-                value: choice.selected ? choice.qty : 0,
-                min: 0,
-                max: extra.maxQty,
-                onChanged: onQty,
-                valueText: (n) => '${context.bi(extra.name)} ${f.integer(n)}',
-              ),
+            trailing: GzStepper(
+              compact: true,
+              value: choice.selected ? choice.qty : 0,
+              min: 0,
+              max: extra.maxQty,
+              onChanged: onQty,
+              valueText: (n) => '${context.bi(extra.name)} ${f.integer(n)}',
             ),
             children: body,
           ),

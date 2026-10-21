@@ -1,4 +1,13 @@
 {
   "_readme": "Per-key exceptions to i18n:check. Shape: { \"<key>\": [\"<rule>\", ...] }. Rules: digits, latin, arabic-in-en, left-right, banned, punctuation, plural, icu-format, length, tanween. Every entry needs a reason in _reasons. Keep this file nearly empty.",
-  "_reasons": {}
+  "_reasons": {
+    "clientOnboardingLanguageNativeAr": "A language tile always shows the language's own name in its own script (an endonym): 'العربية' stays Arabic in the English catalogue so the tile reads the same in both interface languages (CL-ONBD-01).",
+    "clientOnboardingLanguageNativeEn": "The same for English: 'English' stays Latin in the Arabic catalogue (CL-ONBD-01)."
+  },
+  "clientOnboardingLanguageNativeAr": [
+    "arabic-in-en"
+  ],
+  "clientOnboardingLanguageNativeEn": [
+    "latin"
+  ]
 }

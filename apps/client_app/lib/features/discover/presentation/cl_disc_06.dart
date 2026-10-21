@@ -176,10 +176,6 @@ class _ClDisc06ScreenState extends ConsumerState<ClDisc06Screen> {
         : count == 0
         ? l.clientDiscoverDatesNone
         : f.digits(l.clientDiscoverCtaCount(count ?? 0));
-    final mq = MediaQuery.of(context);
-    final cap = (mq.size.height * 0.9 / 4).floor() * 4.0;
-    final footerHeight = GzSpace.sheetPadBottom + GzSpace.s3 + GzSize.controlCta + GzSpace.s2 + GzSize.controlSm;
-    final bodyMin = cap - GzSpace.sheetPadTop - GzSpace.s5 - mq.padding.bottom - GzSpace.sheetPadBottom - footerHeight;
 
     final footer = Column(
       mainAxisSize: MainAxisSize.min,
@@ -205,122 +201,125 @@ class _ClDisc06ScreenState extends ConsumerState<ClDisc06Screen> {
       ],
     );
 
-    return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: bodyMin),
-      child: Column(
-        key: const ValueKey<String>('discover.dates.sheet'),
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: GzSize.controlMd),
-            child: Row(
-              children: [
-                Expanded(
-                  child: GzText(l.clientDiscoverDatesTitle, role: GzTextRole.d1, color: c.textStrong, header: true),
-                ),
-                if (!_months && !loading && !offline && !errored)
-                  GzIconButton(
-                    key: const ValueKey<String>('discover.dates.info'),
-                    icon: GzIcons.info,
-                    label: context.gzL10n.commonCalendarAvailability,
-                    onPressed: () => _nav.openSheetBuilder((ctx) => _Legend(title: context.gzL10n.commonCalendarAvailability, nav: _nav)),
+    return Column(
+      key: const ValueKey<String>('discover.dates.sheet'),
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const GzSheetFill(),
+        GzSheetPinnedHeader(
+          child: Padding(
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.gutter),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: GzSize.controlMd),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: GzText(l.clientDiscoverDatesTitle, role: GzTextRole.d1, color: c.textStrong, header: true),
                   ),
-                GzBarButton(
-                  key: const ValueKey<String>('gz:sheet.close'),
-                  icon: GzIcons.close,
-                  label: context.gzL10n.commonActionClose,
-                  onPressed: _nav.closeSheet,
-                ),
-              ],
+                  if (!_months && !loading && !offline && !errored)
+                    GzIconButton(
+                      key: const ValueKey<String>('discover.dates.info'),
+                      icon: GzIcons.info,
+                      label: context.gzL10n.commonCalendarAvailability,
+                      onPressed: () => _nav.openSheetBuilder((ctx) => _Legend(title: context.gzL10n.commonCalendarAvailability, nav: _nav)),
+                    ),
+                  GzBarButton(
+                    key: const ValueKey<String>('gz:sheet.close'),
+                    icon: GzIcons.close,
+                    label: context.gzL10n.commonActionClose,
+                    onPressed: _nav.closeSheet,
+                  ),
+                ],
+              ),
             ),
           ),
-          if (offline)
-            Padding(
-              padding: const EdgeInsetsDirectional.only(bottom: GzSpace.s3),
-              child: GzBanner(message: context.gzL10n.commonStateOffline, tone: GzBannerTone.offline, shape: GzBannerShape.card),
+        ),
+        if (offline)
+          Padding(
+            padding: const EdgeInsetsDirectional.only(bottom: GzSpace.s3),
+            child: GzBanner(message: context.gzL10n.commonStateOffline, tone: GzBannerTone.offline, shape: GzBannerShape.card),
+          ),
+        if (errored && !offline)
+          DiscoverFailure(error: density.error!, onRetry: () => ref.invalidate(dateDensityProvider((brief, key))))
+        else ...[
+          Wrap(
+            spacing: GzSpace.s2,
+            runSpacing: GzSpace.s2,
+            children: [
+              GzChip(
+                key: const ValueKey<String>('discover.dates.undecided'),
+                label: context.gzL10n.commonLabelNotDecided,
+                selected: !_months && from == null && _flex == null && !loading,
+                onPressed: _undecided,
+              ),
+              GzChip(
+                key: const ValueKey<String>('discover.dates.anymonth'),
+                label: flexYm != null ? monthText(flexYm) : l.clientDiscoverDatesFlexible,
+                iconStart: GzIcons.calendarDots,
+                menu: true,
+                selected: _months || _flex != null,
+                onPressed: () => setState(() => _months = !_months),
+              ),
+            ],
+          ),
+          const SizedBox(height: GzSpace.s4),
+          if (!_months) ...[
+            GzCalendar.range(
+              value: _range,
+              onChanged: _pick,
+              days: days,
+              month: _month,
+              onMonthChange: (m) => setState(() => _month = m),
+              maxDate: maxDate,
+              isSelectable: (iso, status) => status != GzDayStatus.closed && iso.compareTo(today) >= 0,
+              summary: false,
+              legend: false,
+              label: l.clientDiscoverDatesTitle,
             ),
-          if (errored && !offline)
-            DiscoverFailure(error: density.error!, onRetry: () => ref.invalidate(dateDensityProvider((brief, key))))
-          else ...[
+            if (near.isNotEmpty) ...[
+              const SizedBox(height: GzSpace.s3),
+              Semantics(
+                container: true,
+                label: l.clientDiscoverResultsNoneDates,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      for (var i = 0; i < near.length; i++) ...[
+                        if (i > 0) const SizedBox(width: GzSpace.s2),
+                        GzChip(
+                          label: shelfDayLabel(context, near[i].toString()),
+                          iconStart: GzIcons.calendar,
+                          onPressed: () => _pick(GzDateRange(start: near[i].toString(), end: near[i].toString())),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ] else
             Wrap(
               spacing: GzSpace.s2,
               runSpacing: GzSpace.s2,
               children: [
-                GzChip(
-                  key: const ValueKey<String>('discover.dates.undecided'),
-                  label: context.gzL10n.commonLabelNotDecided,
-                  selected: !_months && from == null && _flex == null && !loading,
-                  onPressed: _undecided,
-                ),
-                GzChip(
-                  key: const ValueKey<String>('discover.dates.anymonth'),
-                  label: flexYm != null ? monthText(flexYm) : l.clientDiscoverDatesFlexible,
-                  iconStart: GzIcons.calendarDots,
-                  menu: true,
-                  selected: _months || _flex != null,
-                  onPressed: () => setState(() => _months = !_months),
-                ),
+                for (final m in months)
+                  GzChip(
+                    key: ValueKey<String>('discover.dates.month.${m.year}-${m.month}'),
+                    label: monthText(m),
+                    selected: flexYm == m,
+                    onPressed: () => setState(() {
+                      _touched = true;
+                      _flex = LocalDate(m.year, m.month, 1);
+                      _range = GzDateRange.empty;
+                    }),
+                  ),
               ],
             ),
-            const SizedBox(height: GzSpace.s4),
-            if (!_months) ...[
-              GzCalendar.range(
-                value: _range,
-                onChanged: _pick,
-                days: days,
-                month: _month,
-                onMonthChange: (m) => setState(() => _month = m),
-                maxDate: maxDate,
-                isSelectable: (iso, status) => status != GzDayStatus.closed && iso.compareTo(today) >= 0,
-                summary: false,
-                legend: false,
-                label: l.clientDiscoverDatesTitle,
-              ),
-              if (near.isNotEmpty) ...[
-                const SizedBox(height: GzSpace.s3),
-                Semantics(
-                  container: true,
-                  label: l.clientDiscoverResultsNoneDates,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        for (var i = 0; i < near.length; i++) ...[
-                          if (i > 0) const SizedBox(width: GzSpace.s2),
-                          GzChip(
-                            label: shelfDayLabel(context, near[i].toString()),
-                            iconStart: GzIcons.calendar,
-                            onPressed: () => _pick(GzDateRange(start: near[i].toString(), end: near[i].toString())),
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ] else
-              Wrap(
-                spacing: GzSpace.s2,
-                runSpacing: GzSpace.s2,
-                children: [
-                  for (final m in months)
-                    GzChip(
-                      key: ValueKey<String>('discover.dates.month.${m.year}-${m.month}'),
-                      label: monthText(m),
-                      selected: flexYm == m,
-                      onPressed: () => setState(() {
-                        _touched = true;
-                        _flex = LocalDate(m.year, m.month, 1);
-                        _range = GzDateRange.empty;
-                      }),
-                    ),
-                ],
-              ),
-          ],
-          GzSheetFooter(child: footer),
         ],
-      ),
+        GzSheetFooter(child: footer),
+      ],
     );
   }
 }

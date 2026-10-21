@@ -15,8 +15,6 @@ import 'package:ghazal_ui/ghazal_ui.dart';
 import '../application/onboarding_data.dart';
 import '../application/onboarding_profile.dart';
 import 'widgets/form_section.dart';
-import 'widgets/hero_stepper.dart';
-import 'widgets/obd_chip.dart';
 import 'widgets/price_histogram.dart';
 import 'widgets/step_bar.dart';
 
@@ -72,18 +70,24 @@ class _ClOnbd05State extends ConsumerState<ClOnbd05Screen> {
     _next();
   }
 
-  Widget _later(AppL10n l10n, VoidCallback onPressed) => GzButton(label: l10n.clientOnboardingSkipHalf, variant: GzButtonVariant.tertiary, flushInline: true, onPressed: onPressed);
+  Widget _later(AppL10n l10n, VoidCallback onPressed) =>
+      GzButton(label: l10n.clientOnboardingSkipHalf, variant: GzButtonVariant.tertiary, flushInline: true, onPressed: onPressed);
 
   /// What a put-off question leaves: a drawing, its one word, and the way back in. Nothing is lost by putting it off.
   Widget _putOff(AppL10n l10n, VoidCallback onAdd) => GzIconListRow(
-        flush: true,
-        last: true,
-        illustration: GzIllustrationName.hourglass,
-        title: l10n.clientOnboardingSkipHalf,
-        trailing: GzButton(label: l10n.commonActionAdd, variant: GzButtonVariant.secondary, size: GzButtonSize.sm, onPressed: onAdd),
-      );
+    flush: true,
+    last: true,
+    illustration: GzIllustrationName.hourglass,
+    title: l10n.clientOnboardingSkipHalf,
+    trailing: GzButton(label: l10n.commonActionAdd, variant: GzButtonVariant.secondary, size: GzButtonSize.sm, onPressed: onAdd),
+  );
 
-  Widget _who(IconData glyph, String label) => Semantics(label: label, child: ExcludeSemantics(child: GzIcon(glyph, size: GzIconSize.md, color: context.gz.colors.iconPrimary)));
+  Widget _who(IconData glyph, String label) => Semantics(
+    label: label,
+    child: ExcludeSemantics(
+      child: GzIcon(glyph, size: GzIconSize.md, color: context.gz.colors.iconPrimary),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +103,9 @@ class _ClOnbd05State extends ConsumerState<ClOnbd05Screen> {
 
     return GzScreen(
       top: ObdStepBar(step: 3, total: 4, onSkip: _next),
-      bottom: GzActionBar(action: GzActionBarAction(label: l10n.commonActionContinue, onPressed: _confirm)),
+      bottom: GzActionBar(
+        action: GzActionBarAction(label: l10n.commonActionContinue, onPressed: _confirm),
+      ),
       child: Padding(
         padding: const EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: GzSpace.s2, bottom: GzSpace.s8),
         child: Column(
@@ -132,19 +138,46 @@ class _ClOnbd05State extends ConsumerState<ClOnbd05Screen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (_split) ...[
-          Row(children: [
-            _who(GzIcons.sectionWomen, l10n.clientOnboardingGuestsLadies),
-            Expanded(child: GzStepper(value: _guests, onChanged: (v) => setState(() => _guests = v), min: _guestMin, max: _guestMax, step: _guestStep, valueText: spoken)),
-          ]),
-          Row(children: [
-            _who(GzIcons.sectionMen, l10n.clientOnboardingGuestsMen),
-            Expanded(child: GzStepper(value: _men, onChanged: (v) => setState(() => _men = v), min: _guestMin, max: _guestMax, step: _guestStep, valueText: spoken)),
-          ]),
+          Row(
+            children: [
+              _who(GzIcons.sectionWomen, l10n.clientOnboardingGuestsLadies),
+              Expanded(
+                child: GzStepper(
+                  value: _guests,
+                  onChanged: (v) => setState(() => _guests = v),
+                  min: _guestMin,
+                  max: _guestMax,
+                  step: _guestStep,
+                  valueText: spoken,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              _who(GzIcons.sectionMen, l10n.clientOnboardingGuestsMen),
+              Expanded(
+                child: GzStepper(
+                  value: _men,
+                  onChanged: (v) => setState(() => _men = v),
+                  min: _guestMin,
+                  max: _guestMax,
+                  step: _guestStep,
+                  valueText: spoken,
+                ),
+              ),
+            ],
+          ),
         ] else ...[
-          Semantics(
-            label: l10n.clientOnboardingGuestsExpected,
-            container: true,
-            child: ObdHeroStepper(value: _guests, onChanged: (v) => setState(() => _guests = v), min: _guestMin, max: _guestMax, step: _guestStep, valueText: spoken),
+          GzStepper(
+            variant: GzStepperVariant.hero,
+            semanticLabel: l10n.clientOnboardingGuestsExpected,
+            value: _guests,
+            onChanged: (v) => setState(() => _guests = v),
+            min: _guestMin,
+            max: _guestMax,
+            step: _guestStep,
+            valueText: spoken,
           ),
           const SizedBox(height: GzSpace.s4),
           Semantics(
@@ -159,9 +192,12 @@ class _ClOnbd05State extends ConsumerState<ClOnbd05Screen> {
                       for (var i = r * 3; i < r * 3 + 3; i++) ...[
                         if (i > r * 3) const SizedBox(width: GzSpace.s2),
                         Expanded(
-                          child: ObdChip(
+                          child: GzChip(
+                            expand: true,
                             figures: true,
-                            label: _presets[i] == 1000 ? GzBidi.isolateLtr(l10n.clientOnboardingGuestsPresetMax(f.integer(_presets[i]))) : f.integer(_presets[i]),
+                            label: _presets[i] == 1000
+                                ? GzBidi.isolateLtr(l10n.clientOnboardingGuestsPresetMax(f.integer(_presets[i])))
+                                : f.integer(_presets[i]),
                             selected: _guests == _presets[i],
                             onPressed: () => setState(() => _guests = _presets[i]),
                           ),
@@ -184,14 +220,23 @@ class _ClOnbd05State extends ConsumerState<ClOnbd05Screen> {
             child: Row(
               children: [
                 ExcludeSemantics(
-                  child: Row(children: [
-                    GzIcon(GzIcons.sectionWomen, size: GzIconSize.md, color: context.gz.colors.iconPrimary),
-                    const SizedBox(width: GzSpace.s1),
-                    GzIcon(GzIcons.sectionMen, size: GzIconSize.md, color: context.gz.colors.iconPrimary),
-                  ]),
+                  child: Row(
+                    children: [
+                      GzIcon(GzIcons.sectionWomen, size: GzIconSize.md, color: context.gz.colors.iconPrimary),
+                      const SizedBox(width: GzSpace.s1),
+                      GzIcon(GzIcons.sectionMen, size: GzIconSize.md, color: context.gz.colors.iconPrimary),
+                    ],
+                  ),
                 ),
                 const SizedBox(width: GzSpace.s3),
-                Expanded(child: GzText(l10n.clientOnboardingGuestsSplitTitle, role: GzTextRole.body, color: context.gz.colors.textStrong, excludeSemantics: true)),
+                Expanded(
+                  child: GzText(
+                    l10n.clientOnboardingGuestsSplitTitle,
+                    role: GzTextRole.body,
+                    color: context.gz.colors.textStrong,
+                    excludeSemantics: true,
+                  ),
+                ),
                 const SizedBox(width: GzSpace.s3),
                 GzSwitch(label: l10n.clientOnboardingGuestsSplitLabel, checked: _split, onChanged: (v) => setState(() => _split = v)),
               ],
@@ -230,9 +275,7 @@ class _ClOnbd05State extends ConsumerState<ClOnbd05Screen> {
           label: l10n.clientOnboardingBudgetBands,
           child: _BandRail(
             activeIndex: spec.indexWhere((b) => b.id == active),
-            chips: [
-              for (final b in spec) GzChip(label: b.label, selected: active == b.id, onPressed: () => setState(() => _range = b.range)),
-            ],
+            chips: [for (final b in spec) GzChip(label: b.label, selected: active == b.id, onPressed: () => setState(() => _range = b.range))],
           ),
         ),
         const SizedBox(height: GzSpace.s4 + GzSpace.s2),
@@ -247,12 +290,20 @@ class _ClOnbd05State extends ConsumerState<ClOnbd05Screen> {
           value: _range,
           onChanged: (r) => setState(() => _range = r),
           showCaptions: false,
-          formatValue: (context, n, edge) => GzText(money(n, openEnd: edge == GzRangeEdge.max && n == _budgetMax), role: GzTextRole.figBody, color: c.textStrong, figures: true),
+          formatValue: (context, n, edge) => GzText(
+            money(n, openEnd: edge == GzRangeEdge.max && n == _budgetMax),
+            role: GzTextRole.figBody,
+            color: c.textStrong,
+            figures: true,
+          ),
           valueText: (n, edge) => edge == GzRangeEdge.max && n == _budgetMax ? l10n.clientOnboardingBudgetAbove(money(n)) : money(n),
         ),
         if (perGuest != null) ...[
           const SizedBox(height: GzSpace.s4),
-          Align(alignment: AlignmentDirectional.centerStart, child: GzFactChip(icon: GzIcons.perGuest, label: l10n.commonUnitPerGuest, value: perGuest)),
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: GzFactChip(icon: GzIcons.perGuest, label: l10n.commonUnitPerGuest, value: perGuest),
+          ),
         ],
       ],
     );

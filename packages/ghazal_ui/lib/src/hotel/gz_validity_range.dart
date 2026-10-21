@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 
 import '../core/core.dart';
 import '../foundation.dart';
-import 'hotel_c_kit.dart';
 import '../inputs/inputs.dart';
 
 /// Where a voucher-price window stands.
@@ -100,7 +99,7 @@ class GzValidityRange extends StatelessWidget {
                     GzValidityStatus.ended => l.uiHotelValidityEnded,
                   },
                 ),
-              GzFigText(line, role: GzTextRole.caption, color: c.textSecondary),
+              GzText(line, figures: true, role: GzTextRole.caption, color: c.textSecondary),
             ],
           ),
         ],

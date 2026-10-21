@@ -29,9 +29,9 @@ class _Legal extends StatelessWidget {
           textBaseline: TextBaseline.alphabetic,
           crossAxisAlignment: CrossAxisAlignment.baseline,
           children: [
-            Text(m.currency, style: gz.text(GzTextRole.label).copyWith(color: c.textSecondary, decoration: TextDecoration.none), softWrap: false),
+            gzSnappedText(m.currency, style: gz.text(GzTextRole.label).copyWith(color: c.textSecondary, decoration: TextDecoration.none), softWrap: false),
             const SizedBox(width: GzSpace.s1),
-            Text(figure, style: amount, softWrap: false),
+            gzSnappedText(figure, style: amount, softWrap: false),
           ],
         ),
       ),

@@ -14,8 +14,6 @@ import '../application/booking_flow_model.dart';
 import '../application/booking_flow_providers.dart';
 import 'booking_glyphs.dart';
 import 'widgets/booking_async.dart';
-import 'widgets/booking_fields.dart';
-import 'widgets/booking_info.dart';
 import 'widgets/booking_layout.dart';
 import 'widgets/step_scaffold.dart';
 
@@ -290,11 +288,14 @@ class _DetailsFormState extends ConsumerState<_DetailsForm> {
                 onValueChange: (v) => setState(() => _otherName = v),
                 error: otherError,
               ),
-              BookingGlyphChips<BookingFor>(
+              GzChipGroup<BookingFor>(
                 label: l10n.clientBookingForRelationLabel,
-                options: [for (final e in relations.entries) BookingGlyphOption<BookingFor>(value: e.key, label: e.value.$2, icon: e.value.$1)],
-                selected: [_relation],
-                onSelect: (v) {
+                options: [
+                  for (final e in relations.entries) GzChipOption<BookingFor>(value: e.key, label: e.value.$2, icon: e.value.$1, figures: false),
+                ],
+                value: _relation,
+                onChanged: (v) {
+                  if (v == null) return;
                   setState(() => _relation = v);
                   _save(relation: v);
                 },
@@ -315,16 +316,18 @@ class _DetailsFormState extends ConsumerState<_DetailsForm> {
                 _save(requests: v);
               },
             ),
-            BookingGlyphChips<String>(
+            GzChipGroup<String>.multiple(
               label: l10n.clientBookingRequestsSuggestions,
-              options: [for (final s in suggestions) BookingGlyphOption<String>(value: s.$1, label: s.$3, icon: s.$2, semantic: s.$4)],
-              selected: [
+              options: [for (final s in suggestions) GzChipOption<String>(value: s.$1, label: s.$3, icon: s.$2, semanticLabel: s.$4, figures: false)],
+              values: [
                 for (final s in suggestions)
                   if (_requests.contains(s.$4)) s.$1,
               ],
-              onSelect: (v) {
-                final s = suggestions.firstWhere((x) => x.$1 == v);
-                if (_requests.contains(s.$4)) return;
+              onChanged: (next) {
+                // A suggestion only adds its sentence: the tapped chip is the one not yet chosen.
+                final tapped = next.where((id) => !_requests.contains(suggestions.firstWhere((x) => x.$1 == id).$4)).firstOrNull;
+                if (tapped == null) return;
+                final s = suggestions.firstWhere((x) => x.$1 == tapped);
                 final text = _requests.trim().isEmpty ? s.$4 : '${_requests.trim()}\n${s.$4}';
                 setState(() => _requests = text);
                 _save(requests: text);
@@ -334,7 +337,7 @@ class _DetailsFormState extends ConsumerState<_DetailsForm> {
         ),
         StepSection(
           children: [
-            BookingAsideInfo(
+            GzAsideInfo(
               icon: GzIcons.lock,
               word: l10n.clientBookingPrivacyWord,
               title: l10n.clientBookingPrivacyWord,

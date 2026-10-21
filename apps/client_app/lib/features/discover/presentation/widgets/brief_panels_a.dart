@@ -231,7 +231,7 @@ class BriefAreaPanel extends ConsumerWidget {
                     label: g.governorate.name.of(lang),
                     values: <String>[for (final id in selected) if (ids.contains(id)) id],
                     onChanged: (next) => setAreas(<String>[for (final id in selected) if (!ids.contains(id)) id, ...next]),
-                    options: [for (final a in g.areas) GzChipOption<String>(value: a.area.id, label: '${a.area.name.of(lang)} ${f.integer(a.count)}')],
+                    options: [for (final a in g.areas) GzChipOption<String>(value: a.area.id, label: a.area.name.of(lang), count: f.integer(a.count))],
                   ),
                 ],
               );

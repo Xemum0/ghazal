@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:ghazal_core/ghazal_core.dart' show MoneyMode, MoneyOptions, MoneyParts;
 
 import '../foundation.dart';
+import 'gz_chrome_baseline.dart';
 import 'gz_format_scope.dart';
 
 /// `browse`: integer dinars when the fils are zero, else three decimals (cards, shelves, compare cells, KPIs).
@@ -40,6 +41,21 @@ class GzMoney extends StatelessWidget {
   final TextStyle? amountStyle;
   final bool inline;
 
+  /// The web `.gz-money__fils` sets a face and a size but no line height, so the quiet fils inherit the page line (body: 24 in English, 28 in
+  /// Arabic): its box is taller than the figure's own role line, and the baseline row of figure and fils grows with it (the exact price is 25
+  /// and 28 high on the web, 24 and 26 with the fils role's own 16 line).
+  TextStyle _filsStyle(GzThemeData gz, GzColors c) {
+    final fils = gz.text(filsRole);
+    final body = gz.text(GzTextRole.body);
+    final line = (body.height ?? 1) * (body.fontSize ?? 16);
+    return fils.copyWith(
+      fontWeight: (amountStyle ?? gz.text(amountRole)).fontWeight,
+      color: c.textSecondary,
+      decoration: TextDecoration.none,
+      height: line / (fils.fontSize ?? 14),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final gz = context.gz;
@@ -51,6 +67,7 @@ class GzMoney extends StatelessWidget {
     final TextStyle currency = inline
         ? amount.copyWith(color: amountColor ?? c.textStrong)
         : gz.text(GzTextRole.label).copyWith(color: c.textSecondary, decoration: TextDecoration.none);
+    final filsStyle = _filsStyle(gz, c);
     final cur = inline || gz.isAr ? parts.currency : parts.currency.toUpperCase();
     return Semantics(
       label: GzBidi.strip(parts.text),
@@ -62,15 +79,11 @@ class GzMoney extends StatelessWidget {
           textBaseline: TextBaseline.alphabetic,
           crossAxisAlignment: CrossAxisAlignment.baseline,
           children: [
-            Text(cur, style: currency, softWrap: false),
+            // Each text keeps the browser's whole-pixel baseline, so the baseline row is a whole number of dp high like the web line box.
+            GzChromeBaseline(style: currency, child: Text(cur, style: currency, softWrap: false)),
             SizedBox(width: inline ? GzSpace.s1 : GzSpace.s1),
-            Text(amountText, style: amount, softWrap: false),
-            if (quiet)
-              Text(
-                parts.fraction,
-                style: gz.text(filsRole).copyWith(fontWeight: amount.fontWeight, color: c.textSecondary, decoration: TextDecoration.none),
-                softWrap: false,
-              ),
+            GzChromeBaseline(style: amount, child: Text(amountText, style: amount, softWrap: false)),
+            if (quiet) GzChromeBaseline(style: filsStyle, child: Text(parts.fraction, style: filsStyle, softWrap: false)),
           ],
         ),
       ),

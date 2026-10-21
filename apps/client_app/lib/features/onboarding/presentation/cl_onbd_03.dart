@@ -11,7 +11,6 @@ import 'package:ghazal_domain/ghazal_domain.dart' show WeddingRole;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../application/onboarding_profile.dart';
-import 'widgets/obd_chip.dart';
 import 'widgets/step_bar.dart';
 import 'widgets/step_head.dart';
 
@@ -54,11 +53,11 @@ class _ClOnbd03State extends ConsumerState<ClOnbd03Screen> {
   }
 
   String _roleLabel(AppL10n l10n, WeddingRole r) => switch (r) {
-        WeddingRole.bride => l10n.clientOnboardingAboutRoleBride,
-        WeddingRole.groom => l10n.clientOnboardingAboutRoleGroom,
-        WeddingRole.family => l10n.clientOnboardingAboutRoleFamily,
-        _ => l10n.clientOnboardingAboutRolePlanner,
-      };
+    WeddingRole.bride => l10n.clientOnboardingAboutRoleBride,
+    WeddingRole.groom => l10n.clientOnboardingAboutRoleGroom,
+    WeddingRole.family => l10n.clientOnboardingAboutRoleFamily,
+    _ => l10n.clientOnboardingAboutRolePlanner,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -70,11 +69,19 @@ class _ClOnbd03State extends ConsumerState<ClOnbd03Screen> {
       _ => l10n.clientOnboardingAboutPartnerDefault,
     };
     Widget chip(WeddingRole r) => Expanded(
-          child: ObdChip(label: _roleLabel(l10n, r), iconStart: _roleIcon[r], selected: _role == r, onPressed: () => setState(() => _role = r)),
-        );
+      child: GzChip(
+        label: _roleLabel(l10n, r),
+        expand: true,
+        iconStart: _roleIcon[r],
+        selected: _role == r,
+        onPressed: () => setState(() => _role = r),
+      ),
+    );
     return GzScreen(
       top: ObdStepBar(step: 1, total: 4, onSkip: _next),
-      bottom: GzActionBar(action: GzActionBarAction(label: l10n.commonActionContinue, onPressed: _confirm)),
+      bottom: GzActionBar(
+        action: GzActionBarAction(label: l10n.commonActionContinue, onPressed: _confirm),
+      ),
       child: Padding(
         padding: const EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: GzSpace.s2, bottom: GzSpace.s8),
         child: Column(
@@ -88,9 +95,21 @@ class _ClOnbd03State extends ConsumerState<ClOnbd03Screen> {
               label: l10n.clientOnboardingAboutRoleLabel,
               child: Column(
                 children: [
-                  Row(children: [chip(_roles[0]), const SizedBox(width: GzSpace.s2), chip(_roles[1])]),
+                  Row(
+                    children: [
+                      chip(_roles[0]),
+                      const SizedBox(width: GzSpace.s2),
+                      chip(_roles[1]),
+                    ],
+                  ),
                   const SizedBox(height: GzSpace.s2),
-                  Row(children: [chip(_roles[2]), const SizedBox(width: GzSpace.s2), chip(_roles[3])]),
+                  Row(
+                    children: [
+                      chip(_roles[2]),
+                      const SizedBox(width: GzSpace.s2),
+                      chip(_roles[3]),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -112,7 +131,12 @@ class _ClOnbd03State extends ConsumerState<ClOnbd03Screen> {
               ],
             ),
             const SizedBox(height: GzSpace.s4),
-            GzTextField(label: partnerLabel, value: _partner, onValueChange: (v) => setState(() => _partner = v), textInputAction: TextInputAction.done),
+            GzTextField(
+              label: partnerLabel,
+              value: _partner,
+              onValueChange: (v) => setState(() => _partner = v),
+              textInputAction: TextInputAction.done,
+            ),
           ],
         ),
       ),

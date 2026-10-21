@@ -23,14 +23,21 @@ class ObdArchHero extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            ColoredBox(color: c.surfacePlaceholder, child: GzPhoto(src: src, alt: alt, priority: true)),
+            ColoredBox(
+              color: c.surfacePlaceholder,
+              child: GzPhoto(src: src, alt: alt, priority: true),
+            ),
             PositionedDirectional(
               start: 0,
               end: 0,
               top: 0,
               height: GzShape.archRise,
               child: IgnorePointer(
-                child: ExcludeSemantics(child: CustomPaint(painter: _CrownPainter(fill: c.surfaceCanvas, line: c.markKhayt))),
+                child: ExcludeSemantics(
+                  child: CustomPaint(
+                    painter: _CrownPainter(fill: c.surfaceCanvas, line: c.markKhayt),
+                  ),
+                ),
               ),
             ),
           ],

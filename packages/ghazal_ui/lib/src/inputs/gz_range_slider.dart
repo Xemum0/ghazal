@@ -12,6 +12,10 @@ typedef GzRange = (double, double);
 /// Which end of the range a value label or thumb belongs to.
 enum GzRangeEdge { min, max }
 
+/// Where the From / To value labels sit: `above` the rail (the system component), or `below` it (after the edge labels), the order the
+/// prototype's discover filters and Brief give them (`.gz-range__values { order: 3 }`).
+enum GzRangeValues { above, below }
+
 /// Range slider (budget band, guest range; web `RangeSlider`). Two 24 dp handles with 44 x 44 hit areas on a 4 dp rail: ink-200
 /// track, gold fill between the handles (a gold LINE). Positions are measured from the START edge, so the minimum sits at the
 /// inline-start (the right in Arabic, ADR 0014 D2) with no second formula. Pointer drag, tap-to-move the nearest handle, and a full
@@ -34,6 +38,7 @@ class GzRangeSlider extends StatefulWidget {
     this.valueText,
     this.edgeLabels,
     this.minGap = 0,
+    this.valuesAt = GzRangeValues.above,
     this.disabled = false,
     super.key,
   });
@@ -69,6 +74,9 @@ class GzRangeSlider extends StatefulWidget {
 
   /// Least distance between the handles, in value units. Default 0 (they may meet, never cross).
   final double minGap;
+
+  /// Where the two value labels sit (default: above the rail, like the web component; discover passes `below`).
+  final GzRangeValues valuesAt;
   final bool disabled;
 
   @override
@@ -348,6 +356,32 @@ class _GzRangeSliderState extends State<GzRangeSlider> {
       },
     );
 
+    final values = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        value(0),
+        const SizedBox(width: GzSpace.s4),
+        value(1),
+      ],
+    );
+    final edges = w.edgeLabels == null
+        ? null
+        : DefaultTextStyle.merge(
+            style: gz.text(GzTextRole.caption).copyWith(color: c.textSecondary),
+            child: ExcludeSemantics(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  w.edgeLabels!.$1,
+                  const SizedBox(width: GzSpace.s4),
+                  w.edgeLabels!.$2,
+                ],
+              ),
+            ),
+          );
+    final below = w.valuesAt == GzRangeValues.below;
+    final parts = <Widget>[if (!below) values, rail, ?edges, if (below) values];
     return Semantics(
       container: true,
       label: w.label,
@@ -355,33 +389,7 @@ class _GzRangeSliderState extends State<GzRangeSlider> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              value(0),
-              const SizedBox(width: GzSpace.s4),
-              value(1),
-            ],
-          ),
-          const SizedBox(height: GzSpace.s2),
-          rail,
-          if (w.edgeLabels != null) ...[
-            const SizedBox(height: GzSpace.s2),
-            DefaultTextStyle.merge(
-              style: gz.text(GzTextRole.caption).copyWith(color: c.textSecondary),
-              child: ExcludeSemantics(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    w.edgeLabels!.$1,
-                    const SizedBox(width: GzSpace.s4),
-                    w.edgeLabels!.$2,
-                  ],
-                ),
-              ),
-            ),
-          ],
+          for (var i = 0; i < parts.length; i++) ...[if (i > 0) const SizedBox(height: GzSpace.s2), parts[i]],
         ],
       ),
     );

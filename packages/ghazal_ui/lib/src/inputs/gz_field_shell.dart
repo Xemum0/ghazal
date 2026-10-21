@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/widgets.dart';
 
 import '../foundation.dart';
+import '../core/gz_chrome_baseline.dart';
 
 /// The one anatomy shared by every text-like input (web `FieldShell`, field.css): a label above (label role, with the shared
 /// "Optional" word), a 56 high box (radius 8, paper, 1 dp ink-500 hairline) with start and end adornments, and a hint or error line
@@ -114,7 +115,7 @@ class _GzFieldShellState extends State<GzFieldShell> {
           ),
           if (w.optional) ...[
             const SizedBox(width: GzSpace.s2),
-            Text(
+            gzSnappedText(
               gz.isAr ? optional : optional.toUpperCase(),
               style: style.copyWith(
                 color: c.textSecondary,

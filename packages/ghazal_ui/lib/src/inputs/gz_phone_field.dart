@@ -44,6 +44,11 @@ class GzPhoneMaskFormatter extends TextInputFormatter {
   static String _cut(String national) => national.length > 8 ? national.substring(0, 8) : national;
 }
 
+/// Where the typed digits sit in the input of [GzPhoneField]. `screenStart`: at the screen's start edge, so the right edge in Arabic (the
+/// kit rule `[dir=rtl] .gz-field__input[dir=ltr] { text-align: end }`). `chip`: against the +965 chip (the left edge of the LTR compound) in
+/// both languages (the web auth screens override the kit rule with `text-align: start`).
+enum GzPhoneValueAlign { screenStart, chip }
+
 /// Kuwait phone, one LTR compound field (ADR 0012 D2): a fixed non-interactive `+965` chip, then eight digits grouped 4 + 4. The
 /// compound reads left to right in both languages; label, hint and error follow the screen direction, and the typed value starts
 /// at the screen's start edge (the right edge in Arabic). A green check shows when the number is valid; the shared "not valid"
@@ -64,6 +69,7 @@ class GzPhoneField extends StatefulWidget {
     this.autofocus = false,
     this.onSubmitted,
     this.focusNode,
+    this.valueAlign = GzPhoneValueAlign.screenStart,
     super.key,
   });
 
@@ -83,6 +89,7 @@ class GzPhoneField extends StatefulWidget {
   final bool autofocus;
   final ValueChanged<String>? onSubmitted;
   final FocusNode? focusNode;
+  final GzPhoneValueAlign valueAlign;
 
   @override
   State<GzPhoneField> createState() => _GzPhoneFieldState();
@@ -188,6 +195,7 @@ class _GzPhoneFieldState extends State<GzPhoneField> {
               placeholder: f.phoneNational('50000000'),
               disabled: w.disabled,
               dir: GzFieldDir.ltr,
+              textAlign: w.valueAlign == GzPhoneValueAlign.chip ? TextAlign.start : null,
               role: GzTextRole.figBody,
               fontWeight: weight,
               keyboardType: TextInputType.number,

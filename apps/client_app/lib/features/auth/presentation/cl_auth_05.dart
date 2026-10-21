@@ -74,11 +74,7 @@ class _AuthBiometricSheetState extends ConsumerState<AuthBiometricSheet> {
           children: [
             AuthEndShift(
               toStart: true,
-              child: GzIconButton(
-                icon: GzIcons.info,
-                label: l10n.commonA11yInfo,
-                onPressed: () => showGzSheet<void>(context, title: name, builder: (_) => GzText(l10n.clientAuthBioPromptDetail(method), role: GzTextRole.body, color: c.textPrimary)),
-              ),
+              child: GzInfoButton(title: name, paragraphs: [l10n.clientAuthBioPromptDetail(method)]),
             ),
             const Spacer(),
             AuthEndShift(child: GzBarButton(icon: GzIcons.close, label: l10n.commonActionClose, onPressed: nav.closeSheet)),
@@ -162,11 +158,7 @@ class _ClAuth05State extends ConsumerState<ClAuth05Screen> {
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                GzIconButton(
-                  icon: GzIcons.info,
-                  label: l10n.commonA11yInfo,
-                  onPressed: () => showGzSheet<void>(context, title: l10n.clientAuthBioUnavailableRow, builder: (_) => GzText(l10n.clientAuthBioUnavailableDetail, role: GzTextRole.body, color: c.textPrimary)),
-                ),
+                GzInfoButton(title: l10n.clientAuthBioUnavailableRow, paragraphs: [l10n.clientAuthBioUnavailableDetail]),
                 const SizedBox(width: GzSpace.s2),
                 GzSwitch(label: l10n.clientAuthBioUnavailableRow, checked: false, disabled: true),
               ],

@@ -12,6 +12,7 @@ import 'package:ghazal_ui/src/overlays/overlays.dart';
 
 import 'gz_gallery.dart';
 import 'nav_demo.dart';
+import 'nav_extras_gallery.dart';
 import 'nav_gallery_kit.dart';
 
 const List<String> navGalleryTitles = ['proto', 'bars', 'overlays', 'media', 'frames'];
@@ -19,7 +20,7 @@ const List<String> navGalleryTitles = ['proto', 'bars', 'overlays', 'media', 'fr
 /// The sections of the nav gallery page (column of 310 dp, like the web reference crops).
 List<GzGallerySection> navGallerySections() {
   final builders = <WidgetBuilder>[_proto, _bars, _overlays, _media, _frames];
-  return [for (var i = 0; i < builders.length; i++) GzGallerySection(navGalleryTitles[i], builders[i], width: 310)];
+  return [for (var i = 0; i < builders.length; i++) GzGallerySection(navGalleryTitles[i], builders[i], width: 310), ...navExtrasGallerySections()];
 }
 
 // ------------------------------------------------------------------------------------------------------------------ copy

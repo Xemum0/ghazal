@@ -235,8 +235,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonUnitMinGuests(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -254,8 +253,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonUnitUpToGuests(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -273,8 +271,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountGuests(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -292,8 +289,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountDays(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -311,8 +307,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountHours(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -330,8 +325,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountMinutes(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -349,8 +343,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountHalls(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -368,8 +361,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountPackages(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -387,8 +379,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountMessages(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -406,8 +397,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountBookings(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -425,8 +415,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountSessions(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -444,8 +433,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountMonths(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -463,8 +451,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountDates(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -482,8 +469,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountRequests(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -501,8 +487,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountReviews(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -520,8 +505,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountPhotos(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -539,8 +523,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCountdownDays(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -558,11 +541,9 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonCounter(num current, num total) {
-    final intl.NumberFormat currentNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat currentNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String currentString = currentNumberFormat.format(current);
-    final intl.NumberFormat totalNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat totalNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String totalString = totalNumberFormat.format(total);
 
     return '⁦$currentString⁩ من ⁦$totalString⁩';
@@ -599,23 +580,19 @@ class AppL10nAr extends AppL10n {
   String get commonStateOffline => 'لا يوجد اتصال';
 
   @override
-  String get commonStateErrorGeneric =>
-      'حدث خطأ من جانبنا. لم يتم تغيير أي شيء. يُرجى المحاولة مرة أخرى.';
+  String get commonStateErrorGeneric => 'حدث خطأ من جانبنا. لم يتم تغيير أي شيء. يُرجى المحاولة مرة أخرى.';
 
   @override
-  String get commonStateErrorLoad =>
-      'تعذّر تحميل المحتوى. يُرجى المحاولة مرة أخرى.';
+  String get commonStateErrorLoad => 'تعذّر تحميل المحتوى. يُرجى المحاولة مرة أخرى.';
 
   @override
-  String get commonStateErrorNetwork =>
-      'تعذّر الاتصال. يُرجى التأكد من الاتصال بالإنترنت والمحاولة مرة أخرى.';
+  String get commonStateErrorNetwork => 'تعذّر الاتصال. يُرجى التأكد من الاتصال بالإنترنت والمحاولة مرة أخرى.';
 
   @override
   String get commonStateErrorPayment => 'تعذّر إتمام الدفع. لم يُخصم أي مبلغ.';
 
   @override
-  String get commonStateErrorNoAccess =>
-      'لا تملكون صلاحية الوصول. يُرجى مراجعة المدير.';
+  String get commonStateErrorNoAccess => 'لا تملكون صلاحية الوصول. يُرجى مراجعة المدير.';
 
   @override
   String get commonStateErrorNotFound => 'هذه الصفحة لم تعد متاحة.';
@@ -630,8 +607,7 @@ class AppL10nAr extends AppL10n {
   String get commonStateSent => 'تم الإرسال';
 
   @override
-  String get commonNoPaymentNowFull =>
-      'لا دفع الآن. لا يُخصم أي مبلغ قبل موافقة الفندق.';
+  String get commonNoPaymentNowFull => 'لا دفع الآن. لا يُخصم أي مبلغ قبل موافقة الفندق.';
 
   @override
   String get commonMoneyDeposit => 'العربون';
@@ -710,11 +686,9 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonA11yPhotoCounter(num current, num total) {
-    final intl.NumberFormat currentNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat currentNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String currentString = currentNumberFormat.format(current);
-    final intl.NumberFormat totalNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat totalNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String totalString = totalNumberFormat.format(total);
 
     return 'صورة ⁦$currentString⁩ من ⁦$totalString⁩';
@@ -722,12 +696,9 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonA11yRating(num rating, num max) {
-    final intl.NumberFormat ratingNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat ratingNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String ratingString = ratingNumberFormat.format(rating);
-    final intl.NumberFormat maxNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat maxNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String maxString = maxNumberFormat.format(max);
 
     return 'التقييم ⁦$ratingString⁩ من ⁦$maxString⁩';
@@ -948,8 +919,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonVoucherNotValidNote(int hours) {
-    final intl.NumberFormat hoursNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat hoursNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String hoursString = hoursNumberFormat.format(hours);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -967,8 +937,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String commonVoucherConfirmIn24h(int hours) {
-    final intl.NumberFormat hoursNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat hoursNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String hoursString = hoursNumberFormat.format(hours);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -1006,8 +975,7 @@ class AppL10nAr extends AppL10n {
   String get commonCalendarByEmail => 'التقويم بالبريد الإلكتروني';
 
   @override
-  String get commonReviewAskSupportHide =>
-      'اطلبوا من الدعم إخفاء المراجعة أو حذفها';
+  String get commonReviewAskSupportHide => 'اطلبوا من الدعم إخفاء المراجعة أو حذفها';
 
   @override
   String commonVideoLimit(String size) {
@@ -1024,8 +992,7 @@ class AppL10nAr extends AppL10n {
   String get hotelAccessPasswordHide => 'إخفاء كلمة المرور';
 
   @override
-  String get hotelAccessPhotoAlt =>
-      'قاعة مقبّبة مشرقة بنوافذ سقفية وأقواس وطاولات مأدبة طويلة بمفارش بيضاء وكراسٍ ذهبية على أرضية باركيه';
+  String get hotelAccessPhotoAlt => 'قاعة مقبّبة مشرقة بنوافذ سقفية وأقواس وطاولات مأدبة طويلة بمفارش بيضاء وكراسٍ ذهبية على أرضية باركيه';
 
   @override
   String get hotelAccessSupportTitle => 'دعم غزل';
@@ -1070,8 +1037,7 @@ class AppL10nAr extends AppL10n {
   String get hotelAccessSigninInvalidTitle => 'لم يتم الدخول';
 
   @override
-  String get hotelAccessSigninInvalidDetail =>
-      'البريد الإلكتروني أو كلمة المرور غير صحيحة. لم يتم تسجيل الدخول.';
+  String get hotelAccessSigninInvalidDetail => 'البريد الإلكتروني أو كلمة المرور غير صحيحة. لم يتم تسجيل الدخول.';
 
   @override
   String get hotelAccessSigninPaused => 'المحاولات متوقفة';
@@ -1128,8 +1094,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelAccessVerifyAttemptsLeft(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -1161,8 +1126,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelAccessVerifyResendIn(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -1185,16 +1149,14 @@ class AppL10nAr extends AppL10n {
   String get hotelAccessVerifyFailed => 'لم يصل الرمز';
 
   @override
-  String get hotelAccessVerifyFailedDetail =>
-      'تعذّر إرسال الرمز بالبريد. يمكنكم إعادة الإرسال أو التواصل مع الدعم.';
+  String get hotelAccessVerifyFailedDetail => 'تعذّر إرسال الرمز بالبريد. يمكنكم إعادة الإرسال أو التواصل مع الدعم.';
 
   @override
   String get hotelAccessVerifySuccessTitle => 'الجهاز موثوق';
 
   @override
   String hotelAccessVerifyTrustDays(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -1220,11 +1182,9 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelAccessVerifyStepCounter(num current, num total) {
-    final intl.NumberFormat currentNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat currentNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String currentString = currentNumberFormat.format(current);
-    final intl.NumberFormat totalNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat totalNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String totalString = totalNumberFormat.format(total);
 
     return 'الخطوة ⁦$currentString⁩ من ⁦$totalString⁩';
@@ -1290,8 +1250,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelAccessSetupRuleLength(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -1320,8 +1279,7 @@ class AppL10nAr extends AppL10n {
   String get hotelAccessSetupError => 'لم يتم الحفظ';
 
   @override
-  String get hotelAccessSetupErrorDetail =>
-      'تعذّر حفظ كلمة المرور. لم يتم تغيير أي شيء. يمكنكم المحاولة مرة أخرى.';
+  String get hotelAccessSetupErrorDetail => 'تعذّر حفظ كلمة المرور. لم يتم تغيير أي شيء. يمكنكم المحاولة مرة أخرى.';
 
   @override
   String get hotelAccessSetupSuccessTitle => 'تم الحفظ';
@@ -1330,51 +1288,43 @@ class AppL10nAr extends AppL10n {
   String get hotelAccessSetupExpiredTitle => 'الدعوة منتهية';
 
   @override
-  String get hotelAccessSetupExpiredDetail =>
-      'تتوقف الدعوات عن العمل بعد أيام قليلة. يمكن لمسؤول الحساب أو دعم غزل إرسال دعوة جديدة.';
+  String get hotelAccessSetupExpiredDetail => 'تتوقف الدعوات عن العمل بعد أيام قليلة. يمكن لمسؤول الحساب أو دعم غزل إرسال دعوة جديدة.';
 
   @override
   String get hotelAccessSetupUsedTitle => 'الدعوة مستخدمة';
 
   @override
-  String get hotelAccessSetupUsedDetail =>
-      'كلمة المرور محفوظة بالفعل. يمكنكم الدخول بالبريد وكلمة المرور.';
+  String get hotelAccessSetupUsedDetail => 'كلمة المرور محفوظة بالفعل. يمكنكم الدخول بالبريد وكلمة المرور.';
 
   @override
   String get hotelAccessStatusUnderReviewTitle => 'قيد المراجعة';
 
   @override
-  String get hotelAccessStatusUnderReviewBody =>
-      'حسابكم قيد المراجعة. سنراسلكم بالبريد عند التفعيل.';
+  String get hotelAccessStatusUnderReviewBody => 'حسابكم قيد المراجعة. سنراسلكم بالبريد عند التفعيل.';
 
   @override
-  String get hotelAccessStatusUnderReviewProviderNote =>
-      'تراجع غزل أول إعلان لكم قبل نشره. لا يُنشر أي شيء تلقائيًا.';
+  String get hotelAccessStatusUnderReviewProviderNote => 'تراجع غزل أول إعلان لكم قبل نشره. لا يُنشر أي شيء تلقائيًا.';
 
   @override
   String get hotelAccessStatusSuspendedTitle => 'موقوف مؤقتًا';
 
   @override
-  String get hotelAccessStatusSuspendedBody =>
-      'تم إيقاف هذا الحساب مؤقتًا. للاستفسار يمكن التواصل مع دعم غزل.';
+  String get hotelAccessStatusSuspendedBody => 'تم إيقاف هذا الحساب مؤقتًا. للاستفسار يمكن التواصل مع دعم غزل.';
 
   @override
   String get hotelAccessStatusDeactivatedTitle => 'الوصول متوقف';
 
   @override
-  String get hotelAccessStatusDeactivatedBody =>
-      'تم إيقاف وصولكم إلى هذا الحساب. يمكنكم التواصل مع مسؤول الحساب.';
+  String get hotelAccessStatusDeactivatedBody => 'تم إيقاف وصولكم إلى هذا الحساب. يمكنكم التواصل مع مسؤول الحساب.';
 
   @override
   String get hotelAccessStatusRevokedTitle => 'انتهت الجلسة';
 
   @override
-  String get hotelAccessStatusRevokedBody =>
-      'أنهى مسؤول الحساب هذه الجلسة. يلزم تسجيل الدخول مجددًا.';
+  String get hotelAccessStatusRevokedBody => 'أنهى مسؤول الحساب هذه الجلسة. يلزم تسجيل الدخول مجددًا.';
 
   @override
-  String get hotelAccessStatusNoAccessBody =>
-      'لا تملكون صلاحية الوصول. يمكنكم مراجعة مسؤول الحساب.';
+  String get hotelAccessStatusNoAccessBody => 'لا تملكون صلاحية الوصول. يمكنكم مراجعة مسؤول الحساب.';
 
   @override
   String get hotelAccessStatusSignOut => 'تسجيل الخروج';
@@ -1455,8 +1405,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelBookingsOthersSameDate(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -1600,8 +1549,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelBookingsBillable(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -1726,8 +1674,7 @@ class AppL10nAr extends AppL10n {
   String get hotelBookingsInfoPriceTitle => 'سعر الكوبون';
 
   @override
-  String get hotelBookingsDirectNote =>
-      'تحصّلون هذا المبلغ مباشرة من العميل. ولا تعرض غزل أي حالة دفع.';
+  String get hotelBookingsDirectNote => 'تحصّلون هذا المبلغ مباشرة من العميل. ولا تعرض غزل أي حالة دفع.';
 
   @override
   String get hotelBookingsVoucherBound => 'مرتبط بطلب';
@@ -1754,16 +1701,13 @@ class AppL10nAr extends AppL10n {
   String get hotelBookingsPriceChanged => 'السعر يتغير';
 
   @override
-  String get hotelBookingsInfoReturned =>
-      'عاد كوبون العميل إليه، والتاريخ متاح من جديد.';
+  String get hotelBookingsInfoReturned => 'عاد كوبون العميل إليه، والتاريخ متاح من جديد.';
 
   @override
-  String get hotelBookingsInfoClientUsed =>
-      'ألغى العميل بعد التأكيد، لذلك استُهلك كوبونه. التاريخ متاح من جديد.';
+  String get hotelBookingsInfoClientUsed => 'ألغى العميل بعد التأكيد، لذلك استُهلك كوبونه. التاريخ متاح من جديد.';
 
   @override
-  String get hotelBookingsInfoVenue =>
-      'أُعيد كوبون العميل ويمكنه طلب رصيد من الدعم. وسُجِّل ذلك في سجل الموثوقية.';
+  String get hotelBookingsInfoVenue => 'أُعيد كوبون العميل ويمكنه طلب رصيد من الدعم. وسُجِّل ذلك في سجل الموثوقية.';
 
   @override
   String get hotelBookingsMarkCompleted => 'إكمال';
@@ -1775,8 +1719,7 @@ class AppL10nAr extends AppL10n {
   String get hotelBookingsCancelInfoTitle => 'الإلغاء';
 
   @override
-  String get hotelBookingsCancelNote =>
-      'يعود الكوبون إلى العميل، ويمكنه طلب رصيد من الدعم. ويُسجَّل ذلك في سجل الموثوقية.';
+  String get hotelBookingsCancelNote => 'يعود الكوبون إلى العميل، ويمكنه طلب رصيد من الدعم. ويُسجَّل ذلك في سجل الموثوقية.';
 
   @override
   String get hotelBookingsRevokeApproval => 'سحب الموافقة';
@@ -1833,16 +1776,13 @@ class AppL10nAr extends AppL10n {
   String get hotelBookingsNotShared => 'الرقم غير مشارك';
 
   @override
-  String get hotelBookingsContactPrivacy =>
-      'يظهر هذا الرقم لهذا الحجز فقط. ولا يظهر رمز كوبون العميل إلا عند استخدامه.';
+  String get hotelBookingsContactPrivacy => 'يظهر هذا الرقم لهذا الحجز فقط. ولا يظهر رمز كوبون العميل إلا عند استخدامه.';
 
   @override
-  String get hotelBookingsContactOffline =>
-      'لا يوجد اتصال. الاتصال الهاتفي متاح، وتُرسل الرسائل عند عودة الاتصال.';
+  String get hotelBookingsContactOffline => 'لا يوجد اتصال. الاتصال الهاتفي متاح، وتُرسل الرسائل عند عودة الاتصال.';
 
   @override
-  String get hotelBookingsRoleNoContact =>
-      'صلاحية حسابكم لا تتيح التواصل مع العملاء. راجعوا المدير.';
+  String get hotelBookingsRoleNoContact => 'صلاحية حسابكم لا تتيح التواصل مع العملاء. راجعوا المدير.';
 
   @override
   String hotelBookingsCallToast(String name) {
@@ -1879,8 +1819,7 @@ class AppL10nAr extends AppL10n {
   String get hotelBookingsCameraDeniedTitle => 'الكاميرا متوقفة';
 
   @override
-  String get hotelBookingsCameraDeniedBody =>
-      'فعّلوا الكاميرا من إعدادات الهاتف للمسح، أو أدخلوا الرمز يدويًا.';
+  String get hotelBookingsCameraDeniedBody => 'فعّلوا الكاميرا من إعدادات الهاتف للمسح، أو أدخلوا الرمز يدويًا.';
 
   @override
   String get hotelBookingsCheckCode => 'فحص الرمز';
@@ -1904,22 +1843,19 @@ class AppL10nAr extends AppL10n {
   String get hotelBookingsErrOtherTitle => 'كوبون جهة أخرى';
 
   @override
-  String get hotelBookingsErrOtherBody =>
-      'لا يمكن استخدامه إلا لدى الجهة المخصص لها. ولا تظهر أي تفاصيل أخرى.';
+  String get hotelBookingsErrOtherBody => 'لا يمكن استخدامه إلا لدى الجهة المخصص لها. ولا تظهر أي تفاصيل أخرى.';
 
   @override
   String get hotelBookingsErrNotConfirmedTitle => 'لم يؤكد بعد';
 
   @override
-  String get hotelBookingsErrNotConfirmedBody =>
-      'يجب أن يؤكد العميل الحجز قبل استخدام الكوبون.';
+  String get hotelBookingsErrNotConfirmedBody => 'يجب أن يؤكد العميل الحجز قبل استخدام الكوبون.';
 
   @override
   String get hotelBookingsErrUsedPlain => 'استُخدم سابقًا';
 
   @override
-  String get hotelBookingsErrUsedBody =>
-      'الكوبون يُستخدم مرة واحدة فقط. تواصلوا مع الدعم إن بدا ذلك خطأً.';
+  String get hotelBookingsErrUsedBody => 'الكوبون يُستخدم مرة واحدة فقط. تواصلوا مع الدعم إن بدا ذلك خطأً.';
 
   @override
   String get hotelBookingsErrExpiredTitle => 'غير صالح';
@@ -1928,20 +1864,16 @@ class AppL10nAr extends AppL10n {
   String get hotelBookingsErrExpiredBody => 'لم يعد بالإمكان استخدامه.';
 
   @override
-  String get hotelBookingsRedeemErrorBody =>
-      'لم يتم تغيير أي شيء. يُرجى المحاولة مرة أخرى.';
+  String get hotelBookingsRedeemErrorBody => 'لم يتم تغيير أي شيء. يُرجى المحاولة مرة أخرى.';
 
   @override
-  String get hotelBookingsRoleHiddenBody =>
-      'اطلبوا من المسؤول أو المدير أو الاستقبال استخدام الكوبون.';
+  String get hotelBookingsRoleHiddenBody => 'اطلبوا من المسؤول أو المدير أو الاستقبال استخدام الكوبون.';
 
   @override
-  String get hotelBookingsRedeemFine =>
-      'لا يمكن التراجع عن الاستخدام. ويستطيع فريق الدعم التعديل عند حدوث خطأ.';
+  String get hotelBookingsRedeemFine => 'لا يمكن التراجع عن الاستخدام. ويستطيع فريق الدعم التعديل عند حدوث خطأ.';
 
   @override
-  String get hotelBookingsRedeemedFine =>
-      'يدفع العميل لكم مباشرة. ولا تعرض غزل أي مبلغ مستحق.';
+  String get hotelBookingsRedeemedFine => 'يدفع العميل لكم مباشرة. ولا تعرض غزل أي مبلغ مستحق.';
 
   @override
   String hotelBookingsRedeemedCached(String time) {
@@ -2079,16 +2011,14 @@ class AppL10nAr extends AppL10n {
   String get hotelCalendarWhyTitle => 'تعذّر الإغلاق';
 
   @override
-  String get hotelCalendarSoldOutReason =>
-      'لا يمكن إغلاق تاريخ عليه حجز مؤكد. يلزم إلغاء الحجز أولًا.';
+  String get hotelCalendarSoldOutReason => 'لا يمكن إغلاق تاريخ عليه حجز مؤكد. يلزم إلغاء الحجز أولًا.';
 
   @override
   String get hotelCalendarSoftTitle => 'عطلات متاحة';
 
   @override
   String hotelCalendarSoftRow(int count, String days) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -2174,8 +2104,7 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get hotelCalendarHintDrag =>
-      'اضغطوا مطولًا على تاريخ، ثم اسحبوا إلى آخر تاريخ.';
+  String get hotelCalendarHintDrag => 'اضغطوا مطولًا على تاريخ، ثم اسحبوا إلى آخر تاريخ.';
 
   @override
   String get hotelCalendarHintTap => 'أو انقروا أول تاريخ ثم آخره.';
@@ -2238,17 +2167,14 @@ class AppL10nAr extends AppL10n {
   String get hotelCalendarReasonOther => 'أخرى';
 
   @override
-  String get hotelCalendarVisibilityHint =>
-      'يتوقف ظهور التواريخ المغلقة للأزواج خلال ثوانٍ.';
+  String get hotelCalendarVisibilityHint => 'يتوقف ظهور التواريخ المغلقة للأزواج خلال ثوانٍ.';
 
   @override
-  String get hotelCalendarOpenHint =>
-      'تعود التواريخ المفتوحة إلى الحجز أمام الأزواج.';
+  String get hotelCalendarOpenHint => 'تعود التواريخ المفتوحة إلى الحجز أمام الأزواج.';
 
   @override
   String hotelCalendarPendingWarn(int count, String date) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -2265,8 +2191,7 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get hotelCalendarConflictBody =>
-      'لا يمكن إغلاق تاريخ عليه حجز مؤكد. يلزم إلغاء الحجز أولًا.';
+  String get hotelCalendarConflictBody => 'لا يمكن إغلاق تاريخ عليه حجز مؤكد. يلزم إلغاء الحجز أولًا.';
 
   @override
   String get hotelCalendarConflictTip => 'أو اختاروا القاعة المتاحة فقط.';
@@ -2285,8 +2210,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelCalendarCtaBlock(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -2304,8 +2228,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelCalendarCtaOpen(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -2379,8 +2302,7 @@ class AppL10nAr extends AppL10n {
   String get hotelDecisionsFactMixed => 'مختلط';
 
   @override
-  String get hotelDecisionsOfflineInfo =>
-      'لا تُؤجَّل القرارات إلى حين عودة الاتصال، لذلك لم يتغيّر شيء.';
+  String get hotelDecisionsOfflineInfo => 'لا تُؤجَّل القرارات إلى حين عودة الاتصال، لذلك لم يتغيّر شيء.';
 
   @override
   String get hotelDecisionsTermsTitle => 'الشروط';
@@ -2413,25 +2335,18 @@ class AppL10nAr extends AppL10n {
   String get hotelDecisionsAcceptCta => 'قبول';
 
   @override
-  String hotelDecisionsAcceptConsequence(
-    String date,
-    String name,
-    String duration,
-  ) {
+  String hotelDecisionsAcceptConsequence(String date, String name, String duration) {
     return 'هذا يحجز <f>$date</f> باسم <n>$name</n> لمدة <f>$duration</f>.';
   }
 
   @override
-  String get hotelDecisionsAcceptConfirmRule =>
-      'إن لم يؤكد العميل، يُفرَج عن التاريخ ويعود إليه كوبونه.';
+  String get hotelDecisionsAcceptConfirmRule => 'إن لم يؤكد العميل، يُفرَج عن التاريخ ويعود إليه كوبونه.';
 
   @override
-  String get hotelDecisionsAcceptPriceHint =>
-      'يُدفع لكم مباشرة خارج التطبيق بعد تأكيد العميل.';
+  String get hotelDecisionsAcceptPriceHint => 'يُدفع لكم مباشرة خارج التطبيق بعد تأكيد العميل.';
 
   @override
-  String get hotelDecisionsAcceptLowerHint =>
-      'خفض سعر الكوبون اختياري، ولا يكون أعلى من السعر المعروض. يرى العميل التوفير الجديد.';
+  String get hotelDecisionsAcceptLowerHint => 'خفض سعر الكوبون اختياري، ولا يكون أعلى من السعر المعروض. يرى العميل التوفير الجديد.';
 
   @override
   String hotelDecisionsAcceptHoldLabel(String duration) {
@@ -2446,8 +2361,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelDecisionsAcceptOthersLine(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -2493,8 +2407,7 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get hotelDecisionsAcceptedUndoHint =>
-      'يصل الإشعار إلى العميل بعد ثوانٍ، ويمكنكم التراجع قبل ذلك.';
+  String get hotelDecisionsAcceptedUndoHint => 'يصل الإشعار إلى العميل بعد ثوانٍ، ويمكنكم التراجع قبل ذلك.';
 
   @override
   String get hotelDecisionsNotifying => 'إبلاغ العميل';
@@ -2517,15 +2430,13 @@ class AppL10nAr extends AppL10n {
   String get hotelDecisionsAlreadyTitle => 'تم تحديثه';
 
   @override
-  String get hotelDecisionsAlreadyBody =>
-      'غيّره أحد من فريقكم أو العميل قبل لحظات. هذه حالته الآن.';
+  String get hotelDecisionsAlreadyBody => 'غيّره أحد من فريقكم أو العميل قبل لحظات. هذه حالته الآن.';
 
   @override
   String get hotelDecisionsReleasedTitle => 'تم سحب الطلب';
 
   @override
-  String get hotelDecisionsReleasedBody =>
-      'لم يعد كوبون العميل مرتبطًا بمكانكم، لذلك لا يوجد ما تتم الموافقة عليه. سيختفي الطلب من قائمتكم.';
+  String get hotelDecisionsReleasedBody => 'لم يعد كوبون العميل مرتبطًا بمكانكم، لذلك لا يوجد ما تتم الموافقة عليه. سيختفي الطلب من قائمتكم.';
 
   @override
   String get hotelDecisionsDeclineTitle => 'الاعتذار عن الطلب';
@@ -2546,15 +2457,13 @@ class AppL10nAr extends AppL10n {
   String get hotelDecisionsDeclineSuggestTitle => 'اقتراح مواعيد';
 
   @override
-  String get hotelDecisionsDeclineSuggestBody =>
-      'سيظهر للعميل اعتذار لطيف مع أماكن متاحة في التاريخ نفسه.';
+  String get hotelDecisionsDeclineSuggestBody => 'سيظهر للعميل اعتذار لطيف مع أماكن متاحة في التاريخ نفسه.';
 
   @override
   String get hotelDecisionsDeclineVoucher => 'يعود الكوبون';
 
   @override
-  String get hotelDecisionsDeclineVoucherInfo =>
-      'يعود كوبون العميل إليه. الاعتذار لا يترتب عليه أي مبلغ.';
+  String get hotelDecisionsDeclineVoucherInfo => 'يعود كوبون العميل إليه. الاعتذار لا يترتب عليه أي مبلغ.';
 
   @override
   String get hotelDecisionsDeclineNoUndo => 'لا يمكن التراجع عن الاعتذار.';
@@ -2620,8 +2529,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelDecisionsProposeCount(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -2658,8 +2566,7 @@ class AppL10nAr extends AppL10n {
   String get hotelDecisionsProposeNoHallTitle => 'الاتفاق بالمحادثة';
 
   @override
-  String get hotelDecisionsProposeNoHallBody =>
-      'طلب الخدمة ليس له تقويم قاعات. راسلوا العميل في المحادثة للاتفاق على يوم آخر.';
+  String get hotelDecisionsProposeNoHallBody => 'طلب الخدمة ليس له تقويم قاعات. راسلوا العميل في المحادثة للاتفاق على يوم آخر.';
 
   @override
   String get hotelDecisionsProposeSentTitle => 'تم إرسال الاقتراح';
@@ -2689,8 +2596,7 @@ class AppL10nAr extends AppL10n {
   String get hotelDecisionsCancelTalkTitle => 'ابدؤوا بالمحادثة';
 
   @override
-  String get hotelDecisionsCancelTalkBody =>
-      'يُتفق على أي موعد جديد مع العميل في المحادثة. وإن تغيّر التاريخ فقد يحتاج العميل إلى طلب جديد.';
+  String get hotelDecisionsCancelTalkBody => 'يُتفق على أي موعد جديد مع العميل في المحادثة. وإن تغيّر التاريخ فقد يحتاج العميل إلى طلب جديد.';
 
   @override
   String get hotelDecisionsCancelReasonHall => 'غير متاحة';
@@ -2705,16 +2611,13 @@ class AppL10nAr extends AppL10n {
   String get hotelDecisionsCancelConsequence => 'ماذا يحدث';
 
   @override
-  String get hotelDecisionsCancelVoucherInfo =>
-      'يعود كوبون العميل إليه ليستخدمه مجددًا.';
+  String get hotelDecisionsCancelVoucherInfo => 'يعود كوبون العميل إليه ليستخدمه مجددًا.';
 
   @override
-  String get hotelDecisionsCancelStrikeInfo =>
-      'يُسجَّل مؤشر موثوقية ويُتاح التاريخ من جديد.';
+  String get hotelDecisionsCancelStrikeInfo => 'يُسجَّل مؤشر موثوقية ويُتاح التاريخ من جديد.';
 
   @override
-  String get hotelDecisionsCancelNoMoney =>
-      'لا تنتقل أي مبالغ داخل التطبيق. وأي مبلغ دفعه العميل لكم مسبقًا تتم تسويته بينكما.';
+  String get hotelDecisionsCancelNoMoney => 'لا تنتقل أي مبالغ داخل التطبيق. وأي مبلغ دفعه العميل لكم مسبقًا تتم تسويته بينكما.';
 
   @override
   String get hotelDecisionsConsReturned => 'يعود';
@@ -2761,8 +2664,7 @@ class AppL10nAr extends AppL10n {
   String get hotelDecisionsCancelHiddenTitle => 'للمدراء فقط';
 
   @override
-  String get hotelDecisionsCancelHiddenBody =>
-      'يستطيع المدير أو المشرف فقط إلغاء حجز مؤكد.';
+  String get hotelDecisionsCancelHiddenBody => 'يستطيع المدير أو المشرف فقط إلغاء حجز مؤكد.';
 
   @override
   String hotelGrowOfflineStamp(String time) {
@@ -2770,8 +2672,7 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get hotelGrowErrorBody =>
-      'لم يتم تغيير أي شيء. يُرجى التأكد من الاتصال والمحاولة مرة أخرى.';
+  String get hotelGrowErrorBody => 'لم يتم تغيير أي شيء. يُرجى التأكد من الاتصال والمحاولة مرة أخرى.';
 
   @override
   String get hotelGrowTabsLabel => 'أسعار الكوبون حسب الحالة';
@@ -2793,23 +2694,17 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelGrowSoftInsight(int count, num days) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
-    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String daysString = daysNumberFormat.format(days);
 
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other:
-          '⁦$countString⁩ تاريخ مفتوح في نهاية الأسبوع خلال ⁦$daysString⁩ يومًا',
-      many:
-          '⁦$countString⁩ تاريخًا مفتوحًا في نهاية الأسبوع خلال ⁦$daysString⁩ يومًا',
-      few:
-          '⁦$countString⁩ تواريخ مفتوحة في نهاية الأسبوع خلال ⁦$daysString⁩ يومًا',
+      other: '⁦$countString⁩ تاريخ مفتوح في نهاية الأسبوع خلال ⁦$daysString⁩ يومًا',
+      many: '⁦$countString⁩ تاريخًا مفتوحًا في نهاية الأسبوع خلال ⁦$daysString⁩ يومًا',
+      few: '⁦$countString⁩ تواريخ مفتوحة في نهاية الأسبوع خلال ⁦$daysString⁩ يومًا',
       two: 'تاريخان مفتوحان في نهاية الأسبوع خلال ⁦$daysString⁩ يومًا',
       one: 'تاريخ مفتوح في نهاية الأسبوع خلال ⁦$daysString⁩ يومًا',
       zero: 'لا تواريخ مفتوحة في نهاية الأسبوع خلال ⁦$daysString⁩ يومًا',
@@ -2836,15 +2731,13 @@ class AppL10nAr extends AppL10n {
   String get hotelGrowStatStarts => 'يبدأ';
 
   @override
-  String get hotelGrowPreviewWaiting =>
-      'أدخلوا سعر كوبون صحيحًا لتروا البطاقة كما سيراها العملاء.';
+  String get hotelGrowPreviewWaiting => 'أدخلوا سعر كوبون صحيحًا لتروا البطاقة كما سيراها العملاء.';
 
   @override
   String get hotelGrowPreviewLabel => 'كما يراه العملاء';
 
   @override
-  String get hotelGrowEffectNote =>
-      'الإيقاف والإنهاء يسريان على العملاء فورًا.';
+  String get hotelGrowEffectNote => 'الإيقاف والإنهاء يسريان على العملاء فورًا.';
 
   @override
   String get hotelGrowPause => 'إيقاف النافذة مؤقتًا';
@@ -2879,8 +2772,7 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get hotelGrowEndBody =>
-      'يعود العملاء إلى سعر الكوبون الدائم فورًا. الطلبات المرسلة تحتفظ بسعرها. لا يمكن التراجع عن الإنهاء.';
+  String get hotelGrowEndBody => 'يعود العملاء إلى سعر الكوبون الدائم فورًا. الطلبات المرسلة تحتفظ بسعرها. لا يمكن التراجع عن الإنهاء.';
 
   @override
   String get hotelGrowEndConfirm => 'إنهاء النافذة';
@@ -2900,12 +2792,10 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get hotelGrowEmptyValueError =>
-      'أدخلوا سعر الكوبون بالدينار، حتى ثلاث خانات عشرية.';
+  String get hotelGrowEmptyValueError => 'أدخلوا سعر الكوبون بالدينار، حتى ثلاث خانات عشرية.';
 
   @override
-  String get hotelGrowBestOnly =>
-      'يُطبَّق أفضل سعر كوبون فقط على كل طلب، والأسعار لا تتراكم.';
+  String get hotelGrowBestOnly => 'يُطبَّق أفضل سعر كوبون فقط على كل طلب، والأسعار لا تتراكم.';
 
   @override
   String get hotelGrowScopeTitle => 'ينطبق على';
@@ -2944,8 +2834,7 @@ class AppL10nAr extends AppL10n {
   String get hotelGrowPrefilledTitle => 'لهذه التواريخ';
 
   @override
-  String get hotelGrowOfflineEdit =>
-      'لا يوجد اتصال. يمكنكم متابعة التعديل، أما النشر فيتطلب اتصالًا.';
+  String get hotelGrowOfflineEdit => 'لا يوجد اتصال. يمكنكم متابعة التعديل، أما النشر فيتطلب اتصالًا.';
 
   @override
   String get hotelGrowGuardTitle => 'تجاهل هذه النافذة؟';
@@ -2957,8 +2846,7 @@ class AppL10nAr extends AppL10n {
   String get hotelGrowGuardKeep => 'متابعة التعديل';
 
   @override
-  String get hotelGrowEditorErrorBody =>
-      'لم يتم حفظ أي شيء. يُرجى التأكد من الاتصال والمحاولة مرة أخرى.';
+  String get hotelGrowEditorErrorBody => 'لم يتم حفظ أي شيء. يُرجى التأكد من الاتصال والمحاولة مرة أخرى.';
 
   @override
   String get hotelGrowDatesTitle => 'تواريخ المناسبات';
@@ -2974,8 +2862,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelGrowDatesChosen(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -3036,8 +2923,7 @@ class AppL10nAr extends AppL10n {
   String get hotelGrowReasonEnd => 'حدّدوا تاريخ انتهاء صحيحًا أولًا.';
 
   @override
-  String get hotelGrowPublishFailed =>
-      'لم يتم نشر النافذة. لم يتغير شيء، حاولوا مرة أخرى.';
+  String get hotelGrowPublishFailed => 'لم يتم نشر النافذة. لم يتغير شيء، حاولوا مرة أخرى.';
 
   @override
   String hotelGrowToastPublished(String title) {
@@ -3063,9 +2949,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelGrowAnRangeDays(num days) {
-    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String daysString = daysNumberFormat.format(days);
 
     return 'آخر ⁦$daysString⁩ يومًا';
@@ -3106,8 +2990,7 @@ class AppL10nAr extends AppL10n {
   String get hotelGrowAnFunnelTitle => 'من المشاهدة إلى الكوبون';
 
   @override
-  String get hotelGrowAnFunnelDesc =>
-      'المشاهدات والنقرات والكوبونات المشتراة والطلبات والحجوزات المؤكدة والكوبونات المستخدمة خلال الفترة.';
+  String get hotelGrowAnFunnelDesc => 'المشاهدات والنقرات والكوبونات المشتراة والطلبات والحجوزات المؤكدة والكوبونات المستخدمة خلال الفترة.';
 
   @override
   String get hotelGrowAnStageConfirmed => 'المؤكدة';
@@ -3131,22 +3014,18 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelGrowAnDefViews(num minutes) {
-    final intl.NumberFormat minutesNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat minutesNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String minutesString = minutesNumberFormat.format(minutes);
 
     return 'يُحتسب كل زائر مرة واحدة كل ⁦$minutesString⁩ دقيقة، مهما تكرر فتحه لصفحة القاعة.';
   }
 
   @override
-  String get hotelGrowAnDefClicks =>
-      'الضغط على مراسلة أو اتصال أو الاتجاهات أو مشاركة بعد مشاهدة صفحة القاعة.';
+  String get hotelGrowAnDefClicks => 'الضغط على مراسلة أو اتصال أو الاتجاهات أو مشاركة بعد مشاهدة صفحة القاعة.';
 
   @override
   String hotelGrowAnDefConversion(num days) {
-    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String daysString = daysNumberFormat.format(days);
 
     return 'الحجوزات المؤكدة مقسومة على المشاهدات في الفترة نفسها، وتُنسب إلى آخر مشاهدة خلال ⁦$daysString⁩ يومًا.';
@@ -3165,17 +3044,14 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelGrowAnInsufBody(num days) {
-    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String daysString = daysNumberFormat.format(days);
 
     return 'تحتاج الاتجاهات إلى ⁦$daysString⁩ أيام من المشاهدات على الأقل. المجاميع حتى الآن أدناه.';
   }
 
   @override
-  String get hotelGrowAnRoleAnalytics =>
-      'دوركم يتيح الاطلاع على أداء الصفحة فقط.';
+  String get hotelGrowAnRoleAnalytics => 'دوركم يتيح الاطلاع على أداء الصفحة فقط.';
 
   @override
   String get hotelGrowRwTitle => 'التقييمات';
@@ -3208,8 +3084,7 @@ class AppL10nAr extends AppL10n {
   String get hotelGrowRwFilterReported => 'تم الإبلاغ';
 
   @override
-  String get hotelGrowRwModerated =>
-      'تتولى غزل مراجعة التقييمات. رد مرة واحدة أو أبلغ عن إساءة. للإخفاء أو الحذف، اسأل الدعم.';
+  String get hotelGrowRwModerated => 'تتولى غزل مراجعة التقييمات. رد مرة واحدة أو أبلغ عن إساءة. للإخفاء أو الحذف، اسأل الدعم.';
 
   @override
   String get hotelGrowRwAskSupport => 'اطلب من الدعم الإخفاء أو الحذف';
@@ -3220,8 +3095,7 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get hotelGrowRwReplyHelp =>
-      'علني، يظهر باسم القاعة، ويُرسل مرة واحدة.';
+  String get hotelGrowRwReplyHelp => 'علني، يظهر باسم القاعة، ويُرسل مرة واحدة.';
 
   @override
   String get hotelGrowRwReplySend => 'إرسال الرد';
@@ -3233,8 +3107,7 @@ class AppL10nAr extends AppL10n {
   String get hotelGrowRwReportTitle => 'الإبلاغ عن هذا التقييم';
 
   @override
-  String get hotelGrowRwReportBody =>
-      'اختاروا السبب. ستراجعه غزل ويبقى التقييم ظاهرًا إلى حين المراجعة.';
+  String get hotelGrowRwReportBody => 'اختاروا السبب. ستراجعه غزل ويبقى التقييم ظاهرًا إلى حين المراجعة.';
 
   @override
   String get hotelGrowRwReasonAbuse => 'ألفاظ مسيئة';
@@ -3291,12 +3164,10 @@ class AppL10nAr extends AppL10n {
   String get hotelGrowStandingEditCta => 'تعديل أسعار الباقات';
 
   @override
-  String get hotelGrowStandingExplain =>
-      'كل باقة لها سعر كوبون تعرضه دائمًا بجانب السعر العادي. والنافذة تخفضه لتواريخ مناسبات محددة.';
+  String get hotelGrowStandingExplain => 'كل باقة لها سعر كوبون تعرضه دائمًا بجانب السعر العادي. والنافذة تخفضه لتواريخ مناسبات محددة.';
 
   @override
-  String get hotelGrowStandingNote =>
-      'تُعدَّل الأسعار الدائمة من محرر الباقات، وليس من هنا.';
+  String get hotelGrowStandingNote => 'تُعدَّل الأسعار الدائمة من محرر الباقات، وليس من هنا.';
 
   @override
   String get hotelGrowStatRequests => 'طلبات';
@@ -3354,9 +3225,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelGrowOpenWeekendsBody(num days) {
-    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String daysString = daysNumberFormat.format(days);
 
     return 'تواريخ الخميس إلى السبت المفتوحة خلال ⁦$daysString⁩ يومًا القادمة';
@@ -3364,9 +3233,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelGrowWeekdaysBody(num days) {
-    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String daysString = daysNumberFormat.format(days);
 
     return 'تواريخ الأحد إلى الأربعاء المفتوحة خلال ⁦$daysString⁩ يومًا القادمة';
@@ -3376,8 +3243,7 @@ class AppL10nAr extends AppL10n {
   String get hotelGrowUntilEnd => 'حتى أنهيها';
 
   @override
-  String get hotelGrowEndRequired =>
-      'اختاروا تاريخ الانتهاء أو فعّلوا خيار حتى أنهيها.';
+  String get hotelGrowEndRequired => 'اختاروا تاريخ الانتهاء أو فعّلوا خيار حتى أنهيها.';
 
   @override
   String get hotelGrowAnKpiVouchers => 'كوبونات مشتراة';
@@ -3389,8 +3255,7 @@ class AppL10nAr extends AppL10n {
   String get hotelGrowAnKpiRedeemed => 'كوبونات مستخدمة';
 
   @override
-  String get hotelGrowAnDefVouchers =>
-      'الكوبونات التي اشتُريت لقاعتكم في الفترة، وتُحتسب عند الدفع لا عند الاستخدام.';
+  String get hotelGrowAnDefVouchers => 'الكوبونات التي اشتُريت لقاعتكم في الفترة، وتُحتسب عند الدفع لا عند الاستخدام.';
 
   @override
   String get hotelGrowFactDates => 'التواريخ';
@@ -3572,8 +3437,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelProviderListGroupAttention(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return 'إجراء · ⁦$countString⁩';
@@ -3581,8 +3445,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelProviderListGroupRunning(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return 'منشورة · ⁦$countString⁩';
@@ -3590,8 +3453,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelProviderListGroupEnded(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return 'منتهية · ⁦$countString⁩';
@@ -3599,8 +3461,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelProviderListRejectedBanner(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return '⁦$countString⁩ غير معتمدة';
@@ -3864,8 +3725,7 @@ class AppL10nAr extends AppL10n {
   String get hotelProviderBlockedTitle => 'الأسعار قريبًا';
 
   @override
-  String get hotelProviderBlockedBody =>
-      'لم تُعلن الأسعار بعد، فلا شيء للدفع. إعلانكم واختياركم محفوظان.';
+  String get hotelProviderBlockedBody => 'لم تُعلن الأسعار بعد، فلا شيء للدفع. إعلانكم واختياركم محفوظان.';
 
   @override
   String get hotelProviderBackToPlans => 'الباقات';
@@ -4018,12 +3878,9 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelProviderCatsLimit(num count, num max) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
-    final intl.NumberFormat maxNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat maxNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String maxString = maxNumberFormat.format(max);
 
     return '⁦$countString⁩/⁦$maxString⁩';
@@ -4118,8 +3975,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelProviderLongWait(num hours) {
-    final intl.NumberFormat hoursNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat hoursNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String hoursString = hoursNumberFormat.format(hours);
 
     return '⁦$hoursString⁩ س في المراجعة';
@@ -4184,9 +4040,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelProviderDaysLeft(num days) {
-    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String daysString = daysNumberFormat.format(days);
 
     return '⁦$daysString⁩ يوم';
@@ -4238,9 +4092,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelProviderPerfRange30(num days) {
-    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String daysString = daysNumberFormat.format(days);
 
     return '⁦$daysString⁩ يوم';
@@ -4248,9 +4100,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelProviderPerfRange90(num days) {
-    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String daysString = daysNumberFormat.format(days);
 
     return '⁦$daysString⁩ يوم';
@@ -4293,9 +4143,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelProviderPerfInsufficient(num days) {
-    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String daysString = daysNumberFormat.format(days);
 
     return 'اختاروا ⁦$daysString⁩ أيام فأكثر';
@@ -4428,8 +4276,7 @@ class AppL10nAr extends AppL10n {
   String get hotelProviderRejectOther => 'ملاحظة';
 
   @override
-  String get hotelProviderPlanSampleCta =>
-      'مبالغ تجريبية للنموذج فقط، وليست سعرًا حقيقيًا.';
+  String get hotelProviderPlanSampleCta => 'مبالغ تجريبية للنموذج فقط، وليست سعرًا حقيقيًا.';
 
   @override
   String get hotelProviderRefundTitle => 'الاسترداد';
@@ -4474,8 +4321,7 @@ class AppL10nAr extends AppL10n {
   String get hotelSettingsMorePreview => 'معاينة';
 
   @override
-  String get hotelSettingsMorePreviewHeld =>
-      'تتاح المعاينة بعد اعتماد إعلانكم.';
+  String get hotelSettingsMorePreviewHeld => 'تتاح المعاينة بعد اعتماد إعلانكم.';
 
   @override
   String get hotelSettingsMoreGroupVenue => 'القاعة';
@@ -4633,12 +4479,10 @@ class AppL10nAr extends AppL10n {
   String get hotelSettingsNotifAboutTitle => 'عن التنبيهات';
 
   @override
-  String get hotelSettingsNotifAboutLock =>
-      'تنبيهات الطلبات الجديدة تعمل دائمًا لدوركم، بنغمة خاصة بها.';
+  String get hotelSettingsNotifAboutLock => 'تنبيهات الطلبات الجديدة تعمل دائمًا لدوركم، بنغمة خاصة بها.';
 
   @override
-  String get hotelSettingsNotifAboutQuiet =>
-      'خارج ساعات العمل يصل التنبيه بصمت ويظهر في قائمتكم.';
+  String get hotelSettingsNotifAboutQuiet => 'خارج ساعات العمل يصل التنبيه بصمت ويظهر في قائمتكم.';
 
   @override
   String get hotelSettingsNotifAboutChannel =>
@@ -4648,8 +4492,7 @@ class AppL10nAr extends AppL10n {
   String get hotelSettingsNotifPushOffTitle => 'الإشعارات متوقفة';
 
   @override
-  String get hotelSettingsNotifPushOffBody =>
-      'لن يصلكم تنبيه بالطلبات الجديدة قبل تشغيلها، ومهلة الرد تواصل العدّ. باقي الإعدادات تعمل كالمعتاد.';
+  String get hotelSettingsNotifPushOffBody => 'لن يصلكم تنبيه بالطلبات الجديدة قبل تشغيلها، ومهلة الرد تواصل العدّ. باقي الإعدادات تعمل كالمعتاد.';
 
   @override
   String get hotelSettingsNotifPushOffAction => 'فتح الإعدادات';
@@ -4788,39 +4631,31 @@ class AppL10nAr extends AppL10n {
   String get hotelSettingsStaffAboutTitle => 'عن الأدوار';
 
   @override
-  String get hotelSettingsStaffVisitNote =>
-      'من يدير الزيارات يستطيع قراءة محادثات الزيارة الجماعية، وفيها أيضًا دعم غزل.';
+  String get hotelSettingsStaffVisitNote => 'من يدير الزيارات يستطيع قراءة محادثات الزيارة الجماعية، وفيها أيضًا دعم غزل.';
 
   @override
-  String get hotelSettingsStaffFoot =>
-      'لا يمكن إسناد دور المسؤول من التطبيق. فريق الدعم في غزل يتولى نقل الملكية.';
+  String get hotelSettingsStaffFoot => 'لا يمكن إسناد دور المسؤول من التطبيق. فريق الدعم في غزل يتولى نقل الملكية.';
 
   @override
-  String get hotelSettingsRoleLineManager =>
-      'كل شيء بما فيه استخدام الكوبونات والزيارات والقوائم والفوترة، عدا الموظفين';
+  String get hotelSettingsRoleLineManager => 'كل شيء بما فيه استخدام الكوبونات والزيارات والقوائم والفوترة، عدا الموظفين';
 
   @override
-  String get hotelSettingsRoleLineReception =>
-      'الطلبات واستخدام الكوبونات والزيارات والمحادثات';
+  String get hotelSettingsRoleLineReception => 'الطلبات واستخدام الكوبونات والزيارات والمحادثات';
 
   @override
-  String get hotelSettingsRoleLineAccountant =>
-      'الفوترة والإيصالات، وعرض الطلبات للقراءة فقط';
+  String get hotelSettingsRoleLineAccountant => 'الفوترة والإيصالات، وعرض الطلبات للقراءة فقط';
 
   @override
-  String get hotelSettingsRoleLineMarketing =>
-      'أسعار الكوبون والقوائم والتحليلات والصور';
+  String get hotelSettingsRoleLineMarketing => 'أسعار الكوبون والقوائم والتحليلات والصور';
 
   @override
   String get hotelSettingsHoursAboutTitle => 'عن الساعات';
 
   @override
-  String get hotelSettingsHoursAbout =>
-      'يراها الأزواج كساعات عمل، وتحدد متى يصدر صوت تنبيه الطلبات الجديدة.';
+  String get hotelSettingsHoursAbout => 'يراها الأزواج كساعات عمل، وتحدد متى يصدر صوت تنبيه الطلبات الجديدة.';
 
   @override
-  String get hotelSettingsHoursApproxNote =>
-      'رمضان والعيدان تقديريان إلى حين الإعلان، عدّلوهما عند صدوره.';
+  String get hotelSettingsHoursApproxNote => 'رمضان والعيدان تقديريان إلى حين الإعلان، عدّلوهما عند صدوره.';
 
   @override
   String get hotelSettingsHoursPreview => 'يظهر للأزواج هكذا';
@@ -4966,12 +4801,10 @@ class AppL10nAr extends AppL10n {
   String get hotelSettingsBillNone => 'لا باقة';
 
   @override
-  String get hotelSettingsBillNoneBody =>
-      'اختاروا باقة أسبوعية أو شهرية أو سنوية للإعلان. لا يُنشر شيء قبل أن تراجعه غزل.';
+  String get hotelSettingsBillNoneBody => 'اختاروا باقة أسبوعية أو شهرية أو سنوية للإعلان. لا يُنشر شيء قبل أن تراجعه غزل.';
 
   @override
-  String get hotelSettingsBillRatesBody =>
-      'يمكنكم اختيار الباقة الآن، ويُفتح الدفع عند الإعلان عن الأسعار.';
+  String get hotelSettingsBillRatesBody => 'يمكنكم اختيار الباقة الآن، ويُفتح الدفع عند الإعلان عن الأسعار.';
 
   @override
   String get hotelSettingsBillStatusLabel => 'حالة الباقة';
@@ -4983,12 +4816,10 @@ class AppL10nAr extends AppL10n {
   String get hotelSettingsBillPillExpiring => 'تنتهي قريبًا';
 
   @override
-  String get hotelSettingsBillExpiringNote =>
-      'نذكّركم قبل أسبوع ومرة أخرى قبل يوم. جدّدوا لتبقى قائمتكم منشورة.';
+  String get hotelSettingsBillExpiringNote => 'نذكّركم قبل أسبوع ومرة أخرى قبل يوم. جدّدوا لتبقى قائمتكم منشورة.';
 
   @override
-  String get hotelSettingsBillExpiredNote =>
-      'قائمتكم مخفية. جدّدوا الباقة لإعادتها، وتعود إلى المراجعة قبل أن تُنشر من جديد.';
+  String get hotelSettingsBillExpiredNote => 'قائمتكم مخفية. جدّدوا الباقة لإعادتها، وتعود إلى المراجعة قبل أن تُنشر من جديد.';
 
   @override
   String get hotelSettingsBillPlanRow => 'الباقات';
@@ -5037,8 +4868,7 @@ class AppL10nAr extends AppL10n {
   String get hotelSettingsStaffEmailError => 'أدخل بريدًا صحيحًا';
 
   @override
-  String get hotelSettingsBillContractBody =>
-      'شروطك كما تم التعاقد عليها مع غزل. لا توجد باقة معلنة.';
+  String get hotelSettingsBillContractBody => 'شروطك كما تم التعاقد عليها مع غزل. لا توجد باقة معلنة.';
 
   @override
   String get hotelShellTabBarLabel => 'التنقل الرئيسي';
@@ -5060,8 +4890,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelShellBadgePending(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -5079,9 +4908,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelShellBadgeOverflow(num max) {
-    final intl.NumberFormat maxNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat maxNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String maxString = maxNumberFormat.format(max);
 
     return '⁦$maxString⁩+';
@@ -5097,8 +4924,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelShellTodayNeedsReply(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -5126,16 +4952,14 @@ class AppL10nAr extends AppL10n {
   String get hotelShellNeedsYouTitle => 'بحاجة إلى اهتمامكم';
 
   @override
-  String get hotelShellOfflineBanner =>
-      'لا يوجد اتصال بالإنترنت. يتم عرض آخر ما تم تحميله.';
+  String get hotelShellOfflineBanner => 'لا يوجد اتصال بالإنترنت. يتم عرض آخر ما تم تحميله.';
 
   @override
   String get hotelTodayBell => 'الإشعارات';
 
   @override
   String hotelTodayBellUnread(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -5163,8 +4987,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelTodayStatusNeeds(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -5185,8 +5008,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelTodayStatusMarketing(int windows, String views) {
-    final intl.NumberFormat windowsNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat windowsNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String windowsString = windowsNumberFormat.format(windows);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -5251,8 +5073,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelTodaySoftDates(int count, String days) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -5294,8 +5115,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelTodayUnreadCount(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -5335,8 +5155,7 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get hotelTodayOfflineReason =>
-      'غير متصل. يلزم الاتصال بالإنترنت للقبول.';
+  String get hotelTodayOfflineReason => 'غير متصل. يلزم الاتصال بالإنترنت للقبول.';
 
   @override
   String get hotelTodaySwitchSister => 'فندق لومي مارينا';
@@ -5348,8 +5167,7 @@ class AppL10nAr extends AppL10n {
   String get hotelTodayFirstRunNotifTitle => 'السماح بالإشعارات';
 
   @override
-  String get hotelTodayFirstRunNotifBody =>
-      'للطلبات الجديدة مهلة رد محدودة. عند تفعيل الإشعارات يصلكم تنبيه فوري، حتى والتطبيق مغلق.';
+  String get hotelTodayFirstRunNotifBody => 'للطلبات الجديدة مهلة رد محدودة. عند تفعيل الإشعارات يصلكم تنبيه فوري، حتى والتطبيق مغلق.';
 
   @override
   String get hotelTodayFirstRunNotifPointTime => 'تنبيهات عاجلة';
@@ -5367,8 +5185,7 @@ class AppL10nAr extends AppL10n {
   String get hotelTodayFirstRunLockTitle => 'قفل التطبيق';
 
   @override
-  String get hotelTodayFirstRunLockBody =>
-      'لحماية الطلبات والكوبونات والزيارات إذا فُقد الجهاز أو استخدمه غيركم. يمكن تفعيله لاحقًا من «المزيد».';
+  String get hotelTodayFirstRunLockBody => 'لحماية الطلبات والكوبونات والزيارات إذا فُقد الجهاز أو استخدمه غيركم. يمكن تفعيله لاحقًا من «المزيد».';
 
   @override
   String get hotelTodayFirstRunLockOn => 'تفعيل';
@@ -5378,8 +5195,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelTodaySwitchPending(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -5406,8 +5222,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelTodayDurDays(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -5425,8 +5240,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelTodayDurHours(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -5444,8 +5258,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelTodayDurMinutes(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -5656,8 +5469,7 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get hotelTodayQrVisitText =>
-      'يسعدنا استقبالكم لزيارة القاعة. يمكنكم حجز موعد الزيارة من صفحتنا في تطبيق غزل واختيار اليوم المناسب.';
+  String get hotelTodayQrVisitText => 'يسعدنا استقبالكم لزيارة القاعة. يمكنكم حجز موعد الزيارة من صفحتنا في تطبيق غزل واختيار اليوم المناسب.';
 
   @override
   String hotelTodayQrAddressText(String venue, String area) {
@@ -5745,8 +5557,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelTodayStatusVisits(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -5766,8 +5577,7 @@ class AppL10nAr extends AppL10n {
   String get hotelTodayTilesTitle => 'هذا الشهر';
 
   @override
-  String get hotelTodayVisitMembers =>
-      'أعضاء المحادثة: العميل وممثل الفندق ودعم غزل';
+  String get hotelTodayVisitMembers => 'أعضاء المحادثة: العميل وممثل الفندق ودعم غزل';
 
   @override
   String get hotelTodayVoucherMonthTitle => 'الكوبونات';
@@ -5889,8 +5699,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueLangArMissing(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return 'عربي ⁦$countString⁩';
@@ -5898,8 +5707,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueLangEnMissing(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return 'إنجليزي ⁦$countString⁩';
@@ -5912,8 +5720,7 @@ class AppL10nAr extends AppL10n {
   String get hotelVenueDashboardCta => 'لوحة التحكم';
 
   @override
-  String get hotelVenueDashboardLead =>
-      'تُعدَّل من لوحة التحكم. الحجوزات القائمة تبقى بشروطها.';
+  String get hotelVenueDashboardLead => 'تُعدَّل من لوحة التحكم. الحجوزات القائمة تبقى بشروطها.';
 
   @override
   String get hotelVenueDashboardItemSeason => 'جداول أسعار المواسم';
@@ -5934,8 +5741,7 @@ class AppL10nAr extends AppL10n {
   String get hotelVenueGuardTitle => 'تجاهل التغييرات؟';
 
   @override
-  String get hotelVenueGuardBody =>
-      'لديكم تعديلات غير محفوظة. إذا غادرتم الآن فستُفقد.';
+  String get hotelVenueGuardBody => 'لديكم تعديلات غير محفوظة. إذا غادرتم الآن فستُفقد.';
 
   @override
   String get hotelVenueGuardDiscard => 'تجاهل';
@@ -5958,8 +5764,7 @@ class AppL10nAr extends AppL10n {
   String get hotelVenueErrorTitle => 'تعذّر التحميل';
 
   @override
-  String get hotelVenueErrorBody =>
-      'لم يتغير شيء. تحقق من الاتصال وأعد المحاولة.';
+  String get hotelVenueErrorBody => 'لم يتغير شيء. تحقق من الاتصال وأعد المحاولة.';
 
   @override
   String hotelVenueFieldInArabic(String field) {
@@ -6009,8 +5814,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueZoneAll(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return 'الكل ⁦$countString⁩';
@@ -6018,8 +5822,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueZoneCount(String zone, num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return '$zone ⁦$countString⁩';
@@ -6033,8 +5836,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueMediaTabPhotos(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return 'صور ⁦$countString⁩';
@@ -6042,8 +5844,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueMediaTabVideos(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return 'فيديو ⁦$countString⁩';
@@ -6072,8 +5873,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenuePhotoCount(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return '⁦$countString⁩';
@@ -6096,8 +5896,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueAttentionRejected(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return '⁦$countString⁩ للاستبدال';
@@ -6142,9 +5941,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueVideoLimits(num size) {
-    final intl.NumberFormat sizeNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat sizeNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String sizeString = sizeNumberFormat.format(size);
 
     return 'حتى ⁦$sizeString⁩ م.ب';
@@ -6155,9 +5952,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueVideoTooLargeBody(num size) {
-    final intl.NumberFormat sizeNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat sizeNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String sizeString = sizeNumberFormat.format(size);
 
     return 'الحد ⁦$sizeString⁩ م.ب';
@@ -6291,8 +6086,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueChipReview(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return 'قيد المراجعة ⁦$countString⁩';
@@ -6359,8 +6153,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueTabPackages(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return 'الباقات (⁦$countString⁩)';
@@ -6368,8 +6161,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueTabExtras(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return 'الإضافات (⁦$countString⁩)';
@@ -6414,8 +6206,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueArchivedHead(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return 'المؤرشفة (⁦$countString⁩)';
@@ -6806,8 +6597,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueYears(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -7344,22 +7134,19 @@ class AppL10nAr extends AppL10n {
   String get hotelVisitsEmptyRequestedTitle => 'لا طلبات';
 
   @override
-  String get hotelVisitsEmptyRequestedBody =>
-      'يمكن للعملاء حجز زيارة من صفحة مكانكم.';
+  String get hotelVisitsEmptyRequestedBody => 'يمكن للعملاء حجز زيارة من صفحة مكانكم.';
 
   @override
   String get hotelVisitsEmptyUpcomingTitle => 'لا زيارات قادمة';
 
   @override
-  String get hotelVisitsEmptyUpcomingBody =>
-      'تظهر هنا الزيارات المؤكدة مع محادثاتها.';
+  String get hotelVisitsEmptyUpcomingBody => 'تظهر هنا الزيارات المؤكدة مع محادثاتها.';
 
   @override
   String get hotelVisitsEmptyPastTitle => 'لا زيارات سابقة';
 
   @override
-  String get hotelVisitsEmptyPastBody =>
-      'تُحفظ هنا الزيارات المكتملة والمرفوضة وتلك التي لم يحضرها أصحابها.';
+  String get hotelVisitsEmptyPastBody => 'تُحفظ هنا الزيارات المكتملة والمرفوضة وتلك التي لم يحضرها أصحابها.';
 
   @override
   String get hotelVisitsSeeUpcoming => 'القادمة';
@@ -7563,8 +7350,7 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVisitsVisitors(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(

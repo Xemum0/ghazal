@@ -3,6 +3,7 @@ import 'package:ghazal_domain/ghazal_domain.dart' show LocalizedText, ThreadMemb
 
 import '../core/core.dart';
 import '../foundation.dart';
+import 'gz_role_badge.dart';
 
 /// ParticipantStrip: the three members of a visit group chat side by side, each a monogram, a name and a role badge, in the fixed
 /// order Client, Hotel representative, Ghazal support. Names show in the viewer's script (Arabic name in Arabic, Latin in English);
@@ -49,7 +50,7 @@ class GzParticipantStrip extends StatelessWidget {
                     const SizedBox(height: GzSpace.s1),
                     GzText(ar ? sorted[i].name : sorted[i].nameLatin, role: GzTextRole.caption, color: c.textStrong, textAlign: TextAlign.center, maxLines: 2),
                     const SizedBox(height: GzSpace.s1),
-                    _StripBadge(role: sorted[i].role, you: sorted[i].userId == meId),
+                    GzRoleBadge(role: sorted[i].role, you: sorted[i].userId == meId, wrap: true),
                     if (showOrganisation && sorted[i].organisation != null) ...[
                       const SizedBox(height: GzSpace.s1),
                       GzText(_text(sorted[i].organisation!, lang), role: GzTextRole.caption, color: c.textSecondary, textAlign: TextAlign.center),
@@ -69,45 +70,4 @@ class GzParticipantStrip extends StatelessWidget {
   }
 
   static String _text(LocalizedText t, String lang) => t.of(lang);
-}
-
-/// The role badge as the strip draws it: the same chip as [GzRoleBadge], but its words may wrap to two lines in a 106 dp column
-/// ("Hotel representative" at 360), centred (the web `.gz-pstrip .gz-role`).
-class _StripBadge extends StatelessWidget {
-  const _StripBadge({required this.role, required this.you});
-
-  final ThreadRole role;
-  final bool you;
-
-  @override
-  Widget build(BuildContext context) {
-    final c = context.gz.colors;
-    final l = context.gzL10n;
-    final label = you
-        ? l.commonRoleYou
-        : switch (role) {
-            ThreadRole.client => l.commonRoleClient,
-            ThreadRole.hotelRepresentative => l.commonRoleHotelRep,
-            _ => l.commonRoleSupport,
-          };
-    final (Color? bg, Color? border, Color fg) = switch (role) {
-      ThreadRole.client => (null, c.borderStrong, c.textPrimary),
-      ThreadRole.hotelRepresentative => (c.statusNeutralBg, null, c.statusNeutralText),
-      _ => (c.surfaceTint, null, c.textStrong),
-    };
-    return Semantics(
-      label: label,
-      excludeSemantics: true,
-      child: DecoratedBox(
-        decoration: BoxDecoration(color: bg, borderRadius: GzRadius.xsAll, border: Border.all(color: border ?? c.scrimClear, width: GzStroke.hair)),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: GzSize.pillMin),
-          child: Padding(
-            padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s2 + GzStroke.hair, vertical: GzSpace.s1 + GzStroke.hair),
-            child: GzText(label, role: GzTextRole.pill, color: fg, textAlign: TextAlign.center),
-          ),
-        ),
-      ),
-    );
-  }
 }

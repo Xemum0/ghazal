@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import '../core/gz_chrome_baseline.dart';
 import '../theme/gz_theme.dart';
 import '../tokens/generated/gz_type.g.dart';
 import 'gz_num.dart';
@@ -56,6 +57,15 @@ class GzText extends StatelessWidget {
   final String? semanticLabel;
   final bool excludeSemantics;
 
+  /// The web text block carries a strut of its own role: a line that holds only a figures run (the figures face has other metrics and
+  /// a zero line height inline) is still one full role line high. Flutter has no strut unless it is asked for.
+  ///
+  /// [force] pins every line to the role's line height: the figures branch holds one role in two faces (Manrope digits, Almarai or
+  /// Manrope words), and a fallback face with another ascent/descent split would otherwise add 1 dp (an Arabic fact chip value
+  /// measured 27 where the web line is 26). The rich branch only sets a minimum: its spans may be larger on purpose.
+  static StrutStyle _strut(TextStyle style, {bool force = false}) =>
+      StrutStyle.fromTextStyle(style, forceStrutHeight: force, leadingDistribution: TextLeadingDistribution.even);
+
   @override
   Widget build(BuildContext context) {
     final gz = context.gz;
@@ -63,7 +73,7 @@ class GzText extends StatelessWidget {
     final over = overflow ?? (maxLines != null ? TextOverflow.ellipsis : null);
     final Widget text;
     if (span != null) {
-      text = Text.rich(span!, style: style, maxLines: maxLines, overflow: over, textAlign: textAlign, softWrap: softWrap, semanticsLabel: semanticLabel);
+      text = Text.rich(span!, style: style, strutStyle: _strut(style), maxLines: maxLines, overflow: over, textAlign: textAlign, softWrap: softWrap, semanticsLabel: semanticLabel);
     } else {
       var value = data!;
       if (role.uppercaseEn && !gz.isAr) value = value.toUpperCase();
@@ -71,6 +81,7 @@ class GzText extends StatelessWidget {
           ? Text.rich(
               TextSpan(children: GzFigures.spans(context, value, role: role)),
               style: style,
+              strutStyle: _strut(style, force: true),
               maxLines: maxLines,
               overflow: over,
               textAlign: textAlign,
@@ -79,7 +90,8 @@ class GzText extends StatelessWidget {
             )
           : Text(value, style: style, maxLines: maxLines, overflow: over, textAlign: textAlign, softWrap: softWrap, semanticsLabel: semanticLabel);
     }
-    if (!header && !excludeSemantics) return text;
-    return Semantics(header: header, excludeSemantics: excludeSemantics, child: text);
+    final snapped = GzChromeBaseline(style: style, paint: false, child: text);
+    if (!header && !excludeSemantics) return snapped;
+    return Semantics(header: header, excludeSemantics: excludeSemantics, child: snapped);
   }
 }

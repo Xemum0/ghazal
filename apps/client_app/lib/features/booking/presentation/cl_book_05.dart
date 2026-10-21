@@ -13,7 +13,6 @@ import '../application/booking_flow_providers.dart';
 import 'booking_glyphs.dart';
 import 'widgets/bar_total.dart';
 import 'widgets/booking_async.dart';
-import 'widgets/booking_info.dart';
 import 'widgets/booking_layout.dart';
 import 'widgets/booking_parts.dart';
 import 'widgets/quote_lines.dart';
@@ -388,9 +387,10 @@ class _ReviewBody extends ConsumerWidget {
                   Expanded(
                     child: GzText(l10n.clientBookingPriceTitle, role: GzTextRole.title, color: c.textStrong),
                   ),
-                  BookingInfoButton(
+                  GzInfoButton(
                     title: l10n.clientBookingPriceTitle,
                     paragraphs: [l10n.clientBookingReviewPriceNote, l10n.clientBookingNextVenueNote(venueName)],
+                    bleed: true,
                   ),
                 ],
               ),

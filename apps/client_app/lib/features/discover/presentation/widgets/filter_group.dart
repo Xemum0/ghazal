@@ -76,8 +76,8 @@ class FilterGroup extends StatelessWidget {
   }
 }
 
-/// Chips with a glyph in front of their one word (the glyph names the option). Single choice (optionally deselectable) or multiple; chips
-/// never resize on selection.
+/// Chips with a glyph in front of their one word (the glyph names the option; the web `glyphLabel`). [onToggle] gets the value that was
+/// tapped (single choice, deselectable, or multiple: the caller decides what a toggle means); chips never resize on selection.
 class ChoiceChips<T> extends StatelessWidget {
   const ChoiceChips({required this.label, required this.options, required this.selected, required this.onToggle, super.key});
 
@@ -88,23 +88,17 @@ class ChoiceChips<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      container: true,
+    return GzChipGroup<T>.multiple(
       label: label,
-      child: Wrap(
-        spacing: GzSpace.s2,
-        runSpacing: GzSpace.s2,
-        children: [
-          for (final o in options)
-            GzChip(
-              key: ValueKey<String>('discover.chip.${label.hashCode}.${o.value}'),
-              label: o.label,
-              iconStart: o.icon,
-              selected: selected.contains(o.value),
-              onPressed: () => onToggle(o.value),
-            ),
-        ],
-      ),
+      values: selected,
+      onChanged: (next) {
+        // The one value that differs from the current selection is the one that was tapped.
+        final added = next.where((v) => !selected.contains(v));
+        final removed = selected.where((v) => !next.contains(v));
+        final tapped = added.followedBy(removed).firstOrNull;
+        if (tapped != null) onToggle(tapped);
+      },
+      options: [for (final o in options) GzChipOption<T>(value: o.value, label: o.label, icon: o.icon)],
     );
   }
 }

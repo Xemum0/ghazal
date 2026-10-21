@@ -103,7 +103,8 @@ class _AccordionRow extends StatelessWidget {
         ),
       ),
     );
-    return DecoratedBox(
+    // A Container, not a DecoratedBox: the border insets the child, so the row is its content plus the 1 dp hairline, like the web row.
+    return Container(
       decoration: BoxDecoration(border: Border(bottom: BorderSide(color: c.borderHairline, width: GzStroke.hair))),
       child: Column(
         mainAxisSize: MainAxisSize.min,

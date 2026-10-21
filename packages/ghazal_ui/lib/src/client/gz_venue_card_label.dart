@@ -79,16 +79,13 @@ class _HeadRow extends StatelessWidget {
       textBaseline: TextBaseline.alphabetic,
       children: [
         Expanded(
-          child: GzChromeBaseline(
-            style: context.gz.text(role),
-            child: GzText(name, role: role, color: c.textPrimary, maxLines: 2, header: true),
-          ),
+          child: GzText(name, role: role, color: c.textPrimary, maxLines: 2, header: true),
         ),
         const SizedBox(width: GzSpace.s3),
         if (fresh)
           GzText(context.gzL10n.commonLabelNew, role: GzTextRole.bodyS, color: c.textSecondary, softWrap: false)
         else
-          GzGlyphBaseline(glyphSize: GzSize.iconXs, child: GzRating(value: average, count: venue.rating.count)),
+          GzRating(value: average, count: venue.rating.count),
       ],
     );
   }

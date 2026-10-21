@@ -21,8 +21,9 @@ abstract final class ObdStory {
 final FutureProvider<AreasResponse> onboardingAreasProvider = FutureProvider<AreasResponse>((ref) => ref.watch(venuesRepositoryProvider).listAreas());
 
 /// The five budget bands of the venue-and-catering question.
-final FutureProvider<List<BudgetBand>> onboardingBudgetBandsProvider =
-    FutureProvider<List<BudgetBand>>((ref) => ref.watch(weddingRepositoryProvider).listBudgetBands());
+final FutureProvider<List<BudgetBand>> onboardingBudgetBandsProvider = FutureProvider<List<BudgetBand>>(
+  (ref) => ref.watch(weddingRepositoryProvider).listBudgetBands(),
+);
 
 /// Occasion markers and the availability window (the calendar's upper bound).
 final FutureProvider<AppConfig> onboardingConfigProvider = FutureProvider<AppConfig>((ref) => ref.watch(homeRepositoryProvider).getAppConfig());
@@ -36,7 +37,10 @@ final FutureProvider<List<VenueResult>> onboardingRosterProvider = FutureProvide
 /// The roster's hall prices (dinars) for [guests] ladies: the data of the budget histogram (null guests: each hall's minimum).
 final onboardingPricesProvider = FutureProvider.family<List<int>, int?>((ref, guests) async {
   final page = await ref.watch(venuesRepositoryProvider).searchVenues(guests: guests, audience: Audience.women, limit: 50);
-  return <int>[for (final r in page.items) if (r.price != null) (r.price!.amount.fils / 1000).round()];
+  return <int>[
+    for (final r in page.items)
+      if (r.price != null) (r.price!.amount.fils / 1000).round(),
+  ];
 });
 
 /// The live count of halls the area choice shows on Home (the same query the Brief runs). The key is the comma-joined area ids (a record

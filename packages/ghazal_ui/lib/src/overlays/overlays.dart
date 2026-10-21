@@ -8,6 +8,7 @@ export 'gz_banner.dart';
 export 'gz_dialog.dart';
 export 'gz_gallery_viewer.dart';
 export 'gz_image_carousel.dart';
+export 'gz_info.dart';
 export 'gz_pager.dart';
 export 'gz_photo.dart';
 export 'gz_pull.dart';

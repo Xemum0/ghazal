@@ -45,8 +45,13 @@ class ObdPriceHistogram extends StatelessWidget {
                     alignment: AlignmentDirectional.bottomCenter,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: (min + i * width + width > range.$1 && min + i * width < range.$2 && counts[i] > 0) ? c.iconSecondary : c.borderHairline,
-                        borderRadius: const BorderRadiusDirectional.only(topStart: Radius.circular(GzRadius.xs), topEnd: Radius.circular(GzRadius.xs)),
+                        color: (min + i * width + width > range.$1 && min + i * width < range.$2 && counts[i] > 0)
+                            ? c.iconSecondary
+                            : c.borderHairline,
+                        borderRadius: const BorderRadiusDirectional.only(
+                          topStart: Radius.circular(GzRadius.xs),
+                          topEnd: Radius.circular(GzRadius.xs),
+                        ),
                       ),
                       child: SizedBox(
                         width: double.infinity,

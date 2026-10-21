@@ -13,7 +13,6 @@ import '../application/discover_filters.dart' show discoverStateProvider;
 import '../application/discover_home.dart';
 import '../application/discover_regions.dart';
 import '../application/discover_search.dart' show briefCountProvider;
-import 'widgets/browse_switch.dart';
 import 'widgets/compare_dock.dart';
 import 'widgets/discover_failure.dart';
 import 'widgets/home_brief_card.dart';
@@ -169,7 +168,18 @@ class _ClDisc01ScreenState extends ConsumerState<ClDisc01Screen> {
         ),
         Padding(
           padding: const EdgeInsetsDirectional.only(top: GzSpace.s4, start: GzSpace.gutter, end: GzSpace.gutter),
-          child: BrowseSwitch(onServices: () => _nav.push('CL-SERV-01')),
+          child: GzIconTabs<String>(
+            label: l.clientDiscoverSwitchLabel,
+            labels: GzIconTabsLabels.all,
+            value: 'venues',
+            onChanged: (v) {
+              if (v == 'services') _nav.push('CL-SERV-01');
+            },
+            items: [
+              GzIconTabItem(value: 'venues', icon: GzIcons.hall, label: l.clientShellSwitchVenues),
+              GzIconTabItem(value: 'services', icon: GzIcons.flower, label: l.clientShellSwitchServices),
+            ],
+          ),
         ),
         if (loading)
           const ShelvesSkeleton()

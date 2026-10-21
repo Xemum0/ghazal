@@ -61,30 +61,3 @@ BoxDecoration gzRuleBelow(GzColors c, {bool last = false}) => BoxDecoration(
     bottom: BorderSide(color: last ? c.scrimClear : c.borderHairline, width: GzStroke.hair),
   ),
 );
-
-/// Running text with figures islands (the web `Figures`) whose every line keeps the role's own line height: the web block carries a
-/// strut, so a line that holds only a number (`2026` wrapped onto its own line, a figures face with another line height) is still one
-/// full line high; Flutter has no strut unless it is asked for.
-class GzFigText extends StatelessWidget {
-  const GzFigText(this.text, {required this.role, this.color, this.maxLines, this.textAlign, super.key});
-
-  final String text;
-  final GzTextRole role;
-  final Color? color;
-  final int? maxLines;
-  final TextAlign? textAlign;
-
-  @override
-  Widget build(BuildContext context) {
-    final gz = context.gz;
-    final style = gz.text(role).copyWith(color: color ?? gz.colors.textPrimary, decoration: TextDecoration.none);
-    return Text.rich(
-      TextSpan(children: GzFigures.spans(context, text, role: role)),
-      style: style,
-      strutStyle: StrutStyle.fromTextStyle(style, forceStrutHeight: false, leadingDistribution: TextLeadingDistribution.even),
-      maxLines: maxLines,
-      overflow: maxLines != null ? TextOverflow.ellipsis : null,
-      textAlign: textAlign,
-    );
-  }
-}

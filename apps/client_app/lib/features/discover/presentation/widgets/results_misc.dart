@@ -40,37 +40,6 @@ class MapPill extends StatelessWidget {
   }
 }
 
-/// An info glyph that opens a small sheet with a title and one rule (the web `InfoButton`; a system component is requested).
-class InfoSheetButton extends StatelessWidget {
-  const InfoSheetButton({required this.title, required this.text, super.key});
-
-  final String title;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    final nav = context.gzNav;
-    return GzIconButton(
-      key: const ValueKey<String>('discover.info'),
-      icon: GzIcons.info,
-      label: title,
-      onPressed: () => nav.openSheetBuilder(
-        (ctx) => Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            GzSheetHeader(title: title, onClose: nav.closeSheet),
-            Padding(
-              padding: const EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: GzSpace.s2),
-              child: GzText(text, role: GzTextRole.body, color: ctx.gz.colors.textPrimary),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 /// Results while they load: two static 16:10 blocks with text lines, nothing shimmers.
 class ResultsSkeleton extends StatelessWidget {
   const ResultsSkeleton({super.key});

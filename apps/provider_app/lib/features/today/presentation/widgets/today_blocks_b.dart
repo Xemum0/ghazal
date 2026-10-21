@@ -30,11 +30,16 @@ class EventsBlock extends ConsumerWidget {
     final events = <GzTimelineEvent>[];
     final bookingOf = <String, String>{};
     final List<PartnerRequestRow> todays = eventsOnDay(today, now);
+    var upcoming = true;
     for (final e in todays) {
       final s = e.booking.sections.isEmpty ? null : e.booking.sections.first;
       if (s == null) continue;
       final redeemed = e.booking.redeemedAt != null;
       final hall = e.halls.where((h) => h.id == s.hallId).map((h) => h.name.of(lang)).firstOrNull ?? '';
+      final guests = s.guests;
+      final startsIn = _minutesUntil(now, s.start.toString());
+      final first = upcoming && startsIn > 0;
+      if (first) upcoming = false;
       events.add(
         GzTimelineEvent(
           id: e.booking.id,
@@ -42,7 +47,16 @@ class EventsBlock extends ConsumerWidget {
           title: e.booking.clientName,
           userTitle: true,
           status: redeemed ? GzStatus.redeemed : GzStatus.confirmed,
-          meta: hall,
+          // the web `FactRow`: hall, audience, guests and, for the next event only, how long until it starts
+          metaWidget: GzFactRow(
+            children: [
+              if (hall.isNotEmpty) TextFact(icon: GzIcons.hall, label: l.hotelTodayFactHall, text: hall),
+              GzFactChip(icon: audienceIcon(s.audience), label: audienceWord(l, s.audience)),
+              if (guests > 0) GzFactChip(icon: GzIcons.usersThree, label: l.hotelTodayFactGuests, value: f.integer(guests)),
+              if (first) TimeLeft(minutes: startsIn, say: l.hotelTodayStartsIn),
+            ],
+          ),
+          metaLabel: [hall, audienceWord(l, s.audience), if (guests > 0) '${l.hotelTodayFactGuests} ${f.integer(guests)}'].where((x) => x.isNotEmpty).join(', '),
         ),
       );
       bookingOf[e.booking.id] = e.booking.id;
@@ -368,4 +382,11 @@ class TodayBodySkeleton extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Whole minutes from the venue clock [now] to today's `HH:MM` [start] (0 when it has started).
+int _minutesUntil(DateTime now, String start) {
+  int minutes(String hhmm) => int.parse(hhmm.substring(0, 2)) * 60 + int.parse(hhmm.substring(3, 5));
+  final left = minutes(start) - minutes(kuwaitHhmm(now));
+  return left > 0 ? left : 0;
 }

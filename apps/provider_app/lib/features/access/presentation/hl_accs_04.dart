@@ -81,7 +81,11 @@ class HlAccs04Screen extends ConsumerWidget {
     final safeTop = MediaQuery.paddingOf(context).top;
     return GzScreen(
       top: fullScreen ? null : const GzTopBar(),
-      bottom: _StatusBottom(action: primary, quiet: quiet),
+      bottom: GzActionBar(
+        action: primary,
+        // the one gold action, then quiet links under it (the shared bar takes a widget under the button)
+        noteWidget: quiet.isEmpty ? null : Wrap(alignment: WrapAlignment.center, crossAxisAlignment: WrapCrossAlignment.center, spacing: GzSpace.s6, children: quiet),
+      ),
       fixed: true,
       child: Padding(
         padding: EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: fullScreen ? safeTop : GzSpace.s2, bottom: GzSpace.s8),
@@ -125,45 +129,3 @@ final _venueNameProvider = FutureProvider.autoDispose.family<String, String>((re
   final detail = await ref.read(venuesRepositoryProvider).getVenue(venueId: 'V01');
   return detail.venue.name.of(lang);
 });
-
-/// The pinned bar of the status screens: the one gold action, then quiet links (the system action bar takes a sentence under the button, not links).
-class _StatusBottom extends StatelessWidget {
-  const _StatusBottom({required this.action, required this.quiet});
-
-  final GzActionBarAction action;
-  final List<Widget> quiet;
-
-  @override
-  Widget build(BuildContext context) {
-    final c = context.gz.colors;
-    final bottom = MediaQuery.paddingOf(context).bottom;
-    return ColoredBox(
-      color: c.surfaceCanvas,
-      child: Stack(
-        children: [
-          Padding(
-            padding: EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: GzSpace.s3, bottom: GzSpace.s3 + bottom),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                GzButton(label: action.label, onPressed: action.onPressed, iconEnd: action.iconEnd, fullWidth: true),
-                if (quiet.isNotEmpty) ...[
-                  const SizedBox(height: GzSpace.s2),
-                  Wrap(alignment: WrapAlignment.center, crossAxisAlignment: WrapCrossAlignment.center, spacing: GzSpace.s6, children: quiet),
-                ],
-              ],
-            ),
-          ),
-          PositionedDirectional(
-            start: 0,
-            end: 0,
-            top: 0,
-            height: GzStroke.hair,
-            child: ColoredBox(color: c.borderHairline),
-          ),
-        ],
-      ),
-    );
-  }
-}

@@ -101,33 +101,9 @@ class AccessStateNote extends StatelessWidget {
               child: GzText(text, role: GzTextRole.bodyS, color: fg),
             ),
             ?facts,
-            if (detail != null) AccessInfoGlyph(title: detailTitle ?? text, body: detail!),
+            if (detail != null) GzInfoButton(title: detailTitle ?? text, paragraphs: [detail!]),
           ],
         ),
-      ),
-    );
-  }
-}
-
-/// The info glyph: the sentence one tap away in a sheet (error recovery, a rule).
-class AccessInfoGlyph extends StatelessWidget {
-  const AccessInfoGlyph({required this.title, required this.body, this.label, super.key});
-
-  final String title;
-  final String body;
-  final String? label;
-
-  @override
-  Widget build(BuildContext context) {
-    final c = context.gz.colors;
-    return GzIconButton(
-      icon: GzIcons.info,
-      iconSize: GzIconSize.sm,
-      label: label ?? context.gzL10n.commonA11yInfo,
-      onPressed: () => showGzSheet<void>(
-        context,
-        title: title,
-        builder: (context) => GzText(body, role: GzTextRole.body, color: c.textPrimary),
       ),
     );
   }

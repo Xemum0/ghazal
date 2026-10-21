@@ -235,118 +235,70 @@ class AppL10nEn extends AppL10n {
 
   @override
   String commonUnitMinGuests(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString guests',
-      one: '$countString guest',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString guests', one: '$countString guest');
     return 'Minimum $_temp0';
   }
 
   @override
   String commonUnitUpToGuests(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString guests',
-      one: '$countString guest',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString guests', one: '$countString guest');
     return 'Up to $_temp0';
   }
 
   @override
   String commonCountGuests(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString guests',
-      one: '$countString guest',
-      zero: 'No guests',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString guests', one: '$countString guest', zero: 'No guests');
     return '$_temp0';
   }
 
   @override
   String commonCountDays(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString days',
-      one: '$countString day',
-      zero: 'No days',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString days', one: '$countString day', zero: 'No days');
     return '$_temp0';
   }
 
   @override
   String commonCountHours(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString hours',
-      one: '$countString hour',
-      zero: 'No hours',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString hours', one: '$countString hour', zero: 'No hours');
     return '$_temp0';
   }
 
   @override
   String commonCountMinutes(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString minutes',
-      one: '$countString minute',
-      zero: 'No minutes',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString minutes', one: '$countString minute', zero: 'No minutes');
     return '$_temp0';
   }
 
   @override
   String commonCountHalls(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString halls',
-      one: '$countString hall',
-      zero: 'No halls',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString halls', one: '$countString hall', zero: 'No halls');
     return '$_temp0';
   }
 
   @override
   String commonCountPackages(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -361,8 +313,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String commonCountMessages(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -377,8 +328,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String commonCountBookings(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -393,8 +343,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String commonCountSessions(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -409,40 +358,25 @@ class AppL10nEn extends AppL10n {
 
   @override
   String commonCountMonths(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString months',
-      one: '$countString month',
-      zero: 'No months',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString months', one: '$countString month', zero: 'No months');
     return '$_temp0';
   }
 
   @override
   String commonCountDates(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString dates',
-      one: '$countString date',
-      zero: 'No dates',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString dates', one: '$countString date', zero: 'No dates');
     return '$_temp0';
   }
 
   @override
   String commonCountRequests(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -457,59 +391,36 @@ class AppL10nEn extends AppL10n {
 
   @override
   String commonCountReviews(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString reviews',
-      one: '$countString review',
-      zero: 'No reviews',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString reviews', one: '$countString review', zero: 'No reviews');
     return '$_temp0';
   }
 
   @override
   String commonCountPhotos(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString photos',
-      one: '$countString photo',
-      zero: 'No photos',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString photos', one: '$countString photo', zero: 'No photos');
     return '$_temp0';
   }
 
   @override
   String commonCountdownDays(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString days to go',
-      one: '$countString day to go',
-      zero: 'Today',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString days to go', one: '$countString day to go', zero: 'Today');
     return '$_temp0';
   }
 
   @override
   String commonCounter(num current, num total) {
-    final intl.NumberFormat currentNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat currentNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String currentString = currentNumberFormat.format(current);
-    final intl.NumberFormat totalNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat totalNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String totalString = totalNumberFormat.format(total);
 
     return '$currentString of $totalString';
@@ -546,23 +457,19 @@ class AppL10nEn extends AppL10n {
   String get commonStateOffline => 'You’re offline';
 
   @override
-  String get commonStateErrorGeneric =>
-      'Something went wrong on our side. Nothing was changed. Please try again.';
+  String get commonStateErrorGeneric => 'Something went wrong on our side. Nothing was changed. Please try again.';
 
   @override
   String get commonStateErrorLoad => 'We couldn’t load this. Please try again.';
 
   @override
-  String get commonStateErrorNetwork =>
-      'We couldn’t connect. Check your connection and try again.';
+  String get commonStateErrorNetwork => 'We couldn’t connect. Check your connection and try again.';
 
   @override
-  String get commonStateErrorPayment =>
-      'The payment could not be completed. No amount was charged.';
+  String get commonStateErrorPayment => 'The payment could not be completed. No amount was charged.';
 
   @override
-  String get commonStateErrorNoAccess =>
-      'You do not have access. Ask your manager.';
+  String get commonStateErrorNoAccess => 'You do not have access. Ask your manager.';
 
   @override
   String get commonStateErrorNotFound => 'This page is no longer available.';
@@ -577,8 +484,7 @@ class AppL10nEn extends AppL10n {
   String get commonStateSent => 'Sent';
 
   @override
-  String get commonNoPaymentNowFull =>
-      'No payment now. Nothing is charged until the hotel approves.';
+  String get commonNoPaymentNowFull => 'No payment now. Nothing is charged until the hotel approves.';
 
   @override
   String get commonMoneyDeposit => 'Deposit';
@@ -657,11 +563,9 @@ class AppL10nEn extends AppL10n {
 
   @override
   String commonA11yPhotoCounter(num current, num total) {
-    final intl.NumberFormat currentNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat currentNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String currentString = currentNumberFormat.format(current);
-    final intl.NumberFormat totalNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat totalNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String totalString = totalNumberFormat.format(total);
 
     return 'Photo $currentString of $totalString';
@@ -669,12 +573,9 @@ class AppL10nEn extends AppL10n {
 
   @override
   String commonA11yRating(num rating, num max) {
-    final intl.NumberFormat ratingNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat ratingNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String ratingString = ratingNumberFormat.format(rating);
-    final intl.NumberFormat maxNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat maxNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String maxString = maxNumberFormat.format(max);
 
     return 'Rated $ratingString out of $maxString';
@@ -895,31 +796,19 @@ class AppL10nEn extends AppL10n {
 
   @override
   String commonVoucherNotValidNote(int hours) {
-    final intl.NumberFormat hoursNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat hoursNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String hoursString = hoursNumberFormat.format(hours);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      hours,
-      locale: localeName,
-      other: '$hoursString hours',
-      one: '$hoursString hour',
-    );
+    String _temp0 = intl.Intl.pluralLogic(hours, locale: localeName, other: '$hoursString hours', one: '$hoursString hour');
     return 'Not confirmed within $_temp0';
   }
 
   @override
   String commonVoucherConfirmIn24h(int hours) {
-    final intl.NumberFormat hoursNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat hoursNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String hoursString = hoursNumberFormat.format(hours);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      hours,
-      locale: localeName,
-      other: '$hoursString hours',
-      one: '$hoursString hour',
-    );
+    String _temp0 = intl.Intl.pluralLogic(hours, locale: localeName, other: '$hoursString hours', one: '$hoursString hour');
     return 'Confirm at the hotel or service within $_temp0, or the voucher is not valid';
   }
 
@@ -1031,8 +920,7 @@ class AppL10nEn extends AppL10n {
   String get clientAuthSharedInfoTitle => 'Your account';
 
   @override
-  String get clientAuthSharedPartnerNote =>
-      'Hotel or service provider? Use the Ghazal Partner app.';
+  String get clientAuthSharedPartnerNote => 'Hotel or service provider? Use the Ghazal Partner app.';
 
   @override
   String get clientAuthSharedSmallPrint =>
@@ -1064,16 +952,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientAuthGateErrorDigits(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString digits',
-      one: '$countString digit',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString digits', one: '$countString digit');
     return 'Needs $_temp0';
   }
 
@@ -1101,16 +983,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientAuthOtpAttemptsLeft(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString attempts remaining',
-      one: '$countString attempt remaining',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString attempts remaining', one: '$countString attempt remaining');
     return '$_temp0';
   }
 
@@ -1122,8 +998,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientAuthOtpResendIn(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -1153,15 +1028,13 @@ class AppL10nEn extends AppL10n {
   String get clientAuthOtpLocked => 'Too many attempts';
 
   @override
-  String get clientAuthOtpLockedDetail =>
-      'Please try again later or contact Support.';
+  String get clientAuthOtpLockedDetail => 'Please try again later or contact Support.';
 
   @override
   String get clientAuthOtpDeliveryFailed => 'Not delivered';
 
   @override
-  String get clientAuthOtpDeliveryFailedDetail =>
-      'The code did not reach WhatsApp. Send it again, or continue another way.';
+  String get clientAuthOtpDeliveryFailedDetail => 'The code did not reach WhatsApp. Send it again, or continue another way.';
 
   @override
   String get clientAuthOtpSendAgain => 'Send again';
@@ -1239,16 +1112,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientAuthPwdRuleLength(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString characters',
-      one: '$countString character',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString characters', one: '$countString character');
     return 'At least $_temp0';
   }
 
@@ -1278,21 +1145,13 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientAuthBioMethod(String method) {
-    String _temp0 = intl.Intl.selectLogic(method, {
-      'face': 'Face ID',
-      'touch': 'Touch ID',
-      'other': 'Fingerprint',
-    });
+    String _temp0 = intl.Intl.selectLogic(method, {'face': 'Face ID', 'touch': 'Touch ID', 'other': 'Fingerprint'});
     return '$_temp0';
   }
 
   @override
   String clientAuthBioPromptDetail(String method) {
-    String _temp0 = intl.Intl.selectLogic(method, {
-      'face': 'Face ID',
-      'touch': 'Touch ID',
-      'other': 'Your fingerprint',
-    });
+    String _temp0 = intl.Intl.selectLogic(method, {'face': 'Face ID', 'touch': 'Touch ID', 'other': 'Your fingerprint'});
     return '$_temp0 only unlocks the sign-in kept on this phone. It never replaces your first sign-in.';
   }
 
@@ -1306,8 +1165,7 @@ class AppL10nEn extends AppL10n {
   String get clientAuthBioFailedTitle => 'Not matched';
 
   @override
-  String get clientAuthBioFailedDetail =>
-      'You can try again or sign in another way. Your account is not locked.';
+  String get clientAuthBioFailedDetail => 'You can try again or sign in another way. Your account is not locked.';
 
   @override
   String get clientAuthBioUnavailableRow => 'Biometric unlock';
@@ -1443,12 +1301,10 @@ class AppL10nEn extends AppL10n {
   String get clientBookingNeedVoucherInfoTitle => 'Voucher';
 
   @override
-  String get clientBookingNeedVoucherBody =>
-      'A request needs a voucher. It gives you the voucher price and goes to the venue with your request.';
+  String get clientBookingNeedVoucherBody => 'A request needs a voucher. It gives you the voucher price and goes to the venue with your request.';
 
   @override
-  String get clientBookingHostingOneVoucher =>
-      'One voucher covers one reception. A second reception is its own request with its own voucher.';
+  String get clientBookingHostingOneVoucher => 'One voucher covers one reception. A second reception is its own request with its own voucher.';
 
   @override
   String clientBookingNeedVoucherAction(String fee) {
@@ -1462,8 +1318,7 @@ class AppL10nEn extends AppL10n {
   String get clientBookingFromVoucherChange => 'Change';
 
   @override
-  String get clientBookingFromVoucherChangeAria =>
-      'Change what the voucher is bound to';
+  String get clientBookingFromVoucherChangeAria => 'Change what the voucher is bound to';
 
   @override
   String get clientBookingPackageTitle => 'Package';
@@ -1484,8 +1339,7 @@ class AppL10nEn extends AppL10n {
   String get clientBookingPackageNoVoucher => 'No voucher';
 
   @override
-  String get clientBookingPackageChangeVoucher =>
-      'Opens the voucher for this quote';
+  String get clientBookingPackageChangeVoucher => 'Opens the voucher for this quote';
 
   @override
   String get clientBookingPackageNotCoveredToast => 'Not covered by voucher';
@@ -1523,16 +1377,13 @@ class AppL10nEn extends AppL10n {
   String get clientBookingExtrasNone => 'No extras';
 
   @override
-  String get clientBookingExtrasNoneOffered =>
-      'This venue does not sell extras for your booking. You can continue.';
+  String get clientBookingExtrasNoneOffered => 'This venue does not sell extras for your booking. You can continue.';
 
   @override
-  String get clientBookingExtrasLead =>
-      'Optional and priced separately, at your voucher price where the venue has one.';
+  String get clientBookingExtrasLead => 'Optional and priced separately, at your voucher price where the venue has one.';
 
   @override
-  String get clientBookingExtrasSettledNote =>
-      'Extras are settled directly with the venue.';
+  String get clientBookingExtrasSettledNote => 'Extras are settled directly with the venue.';
 
   @override
   String get clientBookingDetailsTitle => 'Details';
@@ -1554,16 +1405,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientBookingPhoneDigits(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString digits',
-      one: '$countString digit',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString digits', one: '$countString digit');
     return 'Needs $_temp0';
   }
 
@@ -1680,8 +1525,7 @@ class AppL10nEn extends AppL10n {
   String get clientBookingConsentTitle => 'Terms';
 
   @override
-  String get clientBookingConsentBody =>
-      'I agree to the venue terms, the voucher terms and the platform terms.';
+  String get clientBookingConsentBody => 'I agree to the venue terms, the voucher terms and the platform terms.';
 
   @override
   String get clientBookingConsentRead => 'Read the terms';
@@ -1716,8 +1560,7 @@ class AppL10nEn extends AppL10n {
   String get clientBookingLimitInfoTitle => 'Open requests';
 
   @override
-  String get clientBookingLimitInfo =>
-      'Withdraw an open request to send another.';
+  String get clientBookingLimitInfo => 'Withdraw an open request to send another.';
 
   @override
   String get clientBookingPhoneBanner => 'Phone not verified';
@@ -1739,8 +1582,7 @@ class AppL10nEn extends AppL10n {
   String get clientBookingVoucherValid => 'Valid until';
 
   @override
-  String get clientBookingQuoteChanged =>
-      'Your total changed since you got the voucher, because of the extras you added. The voucher still applies.';
+  String get clientBookingQuoteChanged => 'Your total changed since you got the voucher, because of the extras you added. The voucher still applies.';
 
   @override
   String get clientBookingQuoteChangedShort => 'Total changed';
@@ -1753,22 +1595,15 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientBookingSentBody(String venue, int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString hours',
-      one: '$countString hour',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString hours', one: '$countString hour');
     return 'The date is not held yet. If $venue approves, we hold it for you for $_temp0 so you can confirm. Your voucher is attached to the request.';
   }
 
   @override
-  String get clientBookingSentWithdraw =>
-      'You can withdraw this request. Your voucher comes back and can be used again here.';
+  String get clientBookingSentWithdraw => 'You can withdraw this request. Your voucher comes back and can be used again here.';
 
   @override
   String get clientBookingSentDate => 'Date';
@@ -1893,12 +1728,10 @@ class AppL10nEn extends AppL10n {
   String get clientBookingConfirmPayTitle => 'Payment';
 
   @override
-  String get clientBookingConfirmPay =>
-      'Nothing is paid here. You pay the venue directly after you confirm.';
+  String get clientBookingConfirmPay => 'Nothing is paid here. You pay the venue directly after you confirm.';
 
   @override
-  String get clientBookingConfirmConsentBody =>
-      'I agree to the venue terms and the voucher terms.';
+  String get clientBookingConfirmConsentBody => 'I agree to the venue terms and the voucher terms.';
 
   @override
   String get clientBookingConfirmNoteCancel =>
@@ -1949,8 +1782,7 @@ class AppL10nEn extends AppL10n {
   String get clientBookingDoneCopied => 'Code copied';
 
   @override
-  String get clientBookingDoneChecklist =>
-      'Venue marked done in your checklist';
+  String get clientBookingDoneChecklist => 'Venue marked done in your checklist';
 
   @override
   String get clientBookingDoneSetDate => 'Set wedding date';
@@ -2028,8 +1860,7 @@ class AppL10nEn extends AppL10n {
   String get clientBookingEndedVoucherTitle => 'Your voucher';
 
   @override
-  String get clientBookingEndedVoucherPlain =>
-      'It is back with you and can be used for a new request here.';
+  String get clientBookingEndedVoucherPlain => 'It is back with you and can be used for a new request here.';
 
   @override
   String get clientBookingEndedRefund => 'Ask for credit';
@@ -2056,8 +1887,7 @@ class AppL10nEn extends AppL10n {
   String get clientBookingEndedUntil => 'Can be used until';
 
   @override
-  String get clientBookingEndedVoucherForfeited =>
-      'Not valid. A voucher not confirmed at the venue within the window does not come back.';
+  String get clientBookingEndedVoucherForfeited => 'Not valid. A voucher not confirmed at the venue within the window does not come back.';
 
   @override
   String clientBookingEndedVoucherCredit(String venue, String date) {
@@ -2175,8 +2005,7 @@ class AppL10nEn extends AppL10n {
   String get clientBookingsPendingTitle => 'Request sent';
 
   @override
-  String get clientBookingsPendingBody =>
-      'Your voucher is attached. Nothing is held yet.';
+  String get clientBookingsPendingBody => 'Your voucher is attached. Nothing is held yet.';
 
   @override
   String get clientBookingsPendingHeldTitle => 'Date held';
@@ -2204,8 +2033,7 @@ class AppL10nEn extends AppL10n {
   String get clientBookingsConfirmInfoTitle => 'Confirm window';
 
   @override
-  String get clientBookingsConfirmInfo =>
-      'The date is held for you until then. You pay nothing more to Ghazal.';
+  String get clientBookingsConfirmInfo => 'The date is held for you until then. You pay nothing more to Ghazal.';
 
   @override
   String get clientBookingsStepPay => 'Pay venue';
@@ -2287,8 +2115,7 @@ class AppL10nEn extends AppL10n {
   String get clientBookingsIssueReportedTitle => 'Report sent';
 
   @override
-  String get clientBookingsIssueReportedBody =>
-      'Ghazal support has your report and will follow up in your messages.';
+  String get clientBookingsIssueReportedBody => 'Ghazal support has your report and will follow up in your messages.';
 
   @override
   String get clientBookingsIssueTitle => 'Report issue';
@@ -2384,8 +2211,7 @@ class AppL10nEn extends AppL10n {
   String get clientBookingsPriceInfoTitle => 'Price terms';
 
   @override
-  String get clientBookingsPriceInfoInclusive =>
-      'The venue sets this price, all-in. Ghazal adds nothing to it.';
+  String get clientBookingsPriceInfoInclusive => 'The venue sets this price, all-in. Ghazal adds nothing to it.';
 
   @override
   String get clientBookingsPriceInfoGhazal => 'Nothing more to pay Ghazal.';
@@ -2404,29 +2230,25 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientBookingsOutcomeBackPlain =>
-      'Your voucher is ready for another request.';
+  String get clientBookingsOutcomeBackPlain => 'Your voucher is ready for another request.';
 
   @override
   String get clientBookingsOutcomeUsedTitle => 'Voucher used';
 
   @override
-  String get clientBookingsOutcomeUsedBody =>
-      'Cancelling a confirmed booking uses up the voucher. No money is returned.';
+  String get clientBookingsOutcomeUsedBody => 'Cancelling a confirmed booking uses up the voucher. No money is returned.';
 
   @override
   String get clientBookingsOutcomeCreditTitle => 'Credit voucher issued';
 
   @override
-  String get clientBookingsOutcomeCreditBody =>
-      'A credit voucher is in your account. Claim it at any hall, hotel or service.';
+  String get clientBookingsOutcomeCreditBody => 'A credit voucher is in your account. Claim it at any hall, hotel or service.';
 
   @override
   String get clientBookingsOutcomeExpiredTitle => 'Voucher expired';
 
   @override
-  String get clientBookingsOutcomeExpiredBody =>
-      'The voucher passed its validity date and can no longer be used.';
+  String get clientBookingsOutcomeExpiredBody => 'The voucher passed its validity date and can no longer be used.';
 
   @override
   String get clientBookingsOutcomeAction => 'Use again';
@@ -2484,8 +2306,7 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientBookingsCancelVoucherUsedBody =>
-      'Cancelling a confirmed booking uses up your voucher. No money is returned.';
+  String get clientBookingsCancelVoucherUsedBody => 'Cancelling a confirmed booking uses up your voucher. No money is returned.';
 
   @override
   String clientBookingsCancelDateWithdraw(String venue) {
@@ -2595,12 +2416,10 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientBookingsProposalHeld =>
-      'The voucher price is held on every date.';
+  String get clientBookingsProposalHeld => 'The voucher price is held on every date.';
 
   @override
-  String get clientBookingsNoPenalty =>
-      'No penalty if you decline. Your voucher stays yours.';
+  String get clientBookingsNoPenalty => 'No penalty if you decline. Your voucher stays yours.';
 
   @override
   String get clientBookingsProposalReplyBy => 'Reply by';
@@ -2639,8 +2458,7 @@ class AppL10nEn extends AppL10n {
   String get clientBookingsReceiptsInfoTitle => 'Event payments';
 
   @override
-  String get clientBookingsReceiptsNote =>
-      'Event payments are between you and the venue and do not appear here.';
+  String get clientBookingsReceiptsNote => 'Event payments are between you and the venue and do not appear here.';
 
   @override
   String get clientBookingsReceiptsEmptyTitle => 'No receipts';
@@ -2667,8 +2485,7 @@ class AppL10nEn extends AppL10n {
   String get clientBookingsMethodCard => 'Card';
 
   @override
-  String get clientBookingsViewerPreview =>
-      'Document preview in Arabic and English';
+  String get clientBookingsViewerPreview => 'Document preview in Arabic and English';
 
   @override
   String get clientBookingsViewerDownload => 'Download';
@@ -2696,8 +2513,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientBookingsOutcomeForfeitedBody(String venue, num hours) {
-    final intl.NumberFormat hoursNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat hoursNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String hoursString = hoursNumberFormat.format(hours);
 
     return 'It was not confirmed at $venue within $hoursString hours, so it is forfeited. No money is returned.';
@@ -2708,8 +2524,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientDiscoverBellUnread(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -2818,16 +2633,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientDiscoverCtaCount(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: 'Show $countString halls',
-      one: 'Show $countString hall',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: 'Show $countString halls', one: 'Show $countString hall');
     return '$_temp0';
   }
 
@@ -2867,8 +2676,7 @@ class AppL10nEn extends AppL10n {
   String get clientDiscoverResultsSeeFreeDates => 'Free dates';
 
   @override
-  String get clientDiscoverResultsGovernmentNote =>
-      'Browse only. Book through the official channel. No voucher.';
+  String get clientDiscoverResultsGovernmentNote => 'Browse only. Book through the official channel. No voucher.';
 
   @override
   String get clientDiscoverResultsRefreshed => 'Halls updated';
@@ -2882,8 +2690,7 @@ class AppL10nEn extends AppL10n {
   String get clientDiscoverResultsNoneDates => 'Nearest free dates';
 
   @override
-  String get clientDiscoverResultsOfflineMap =>
-      'Map needs a connection. List still works.';
+  String get clientDiscoverResultsOfflineMap => 'Map needs a connection. List still works.';
 
   @override
   String get clientDiscoverSearchRecent => 'Recent';
@@ -3000,16 +2807,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientDiscoverFiltersCta(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: 'Show $countString halls',
-      one: 'Show $countString hall',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: 'Show $countString halls', one: 'Show $countString hall');
     return '$_temp0';
   }
 
@@ -3090,8 +2891,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientDiscoverMapCluster(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -3200,17 +3000,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientDiscoverDatesHint(int days) {
-    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String daysString = daysNumberFormat.format(days);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      days,
-      locale: localeName,
-      other: '$daysString days',
-      one: '$daysString day',
-    );
+    String _temp0 = intl.Intl.pluralLogic(days, locale: localeName, other: '$daysString days', one: '$daysString day');
     return 'Up to $_temp0';
   }
 
@@ -3240,8 +3033,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientDiscoverStatusBrief(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -3285,9 +3077,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientDiscoverKm(num km) {
-    final intl.NumberFormat kmNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat kmNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String kmString = kmNumberFormat.format(km);
 
     return '$kmString km';
@@ -3306,8 +3096,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientMessagesBellUnread(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -3355,8 +3144,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientMessagesUnreadCount(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -3402,8 +3190,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientMessagesRepliesWithin(int hours) {
-    final intl.NumberFormat hoursNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat hoursNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String hoursString = hoursNumberFormat.format(hours);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -3511,8 +3298,7 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientMessagesSuggestAvailabilityAny =>
-      'Peace be upon you. Which dates do you have available for a ladies’ reception?';
+  String get clientMessagesSuggestAvailabilityAny => 'Peace be upon you. Which dates do you have available for a ladies’ reception?';
 
   @override
   String clientMessagesSuggestVoucherText(String date) {
@@ -3520,8 +3306,7 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientMessagesSuggestVoucherAny =>
-      'Peace be upon you. Could you tell us the voucher price for the ladies’ reception?';
+  String get clientMessagesSuggestVoucherAny => 'Peace be upon you. Could you tell us the voucher price for the ladies’ reception?';
 
   @override
   String get clientMessagesSupportIntro => 'Hello, how can we help?';
@@ -3619,9 +3404,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientMessagesUnitMb(num n) {
-    final intl.NumberFormat nNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat nNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String nString = nNumberFormat.format(n);
 
     return '$nString MB';
@@ -3629,26 +3412,16 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientMessagesUnitSeconds(int n) {
-    final intl.NumberFormat nNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat nNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String nString = nNumberFormat.format(n);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      n,
-      locale: localeName,
-      other: '$nString seconds',
-      one: '$nString second',
-      zero: 'No seconds',
-    );
+    String _temp0 = intl.Intl.pluralLogic(n, locale: localeName, other: '$nString seconds', one: '$nString second', zero: 'No seconds');
     return '$_temp0';
   }
 
   @override
   String clientMessagesUnitKb(num n) {
-    final intl.NumberFormat nNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat nNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String nString = nNumberFormat.format(n);
 
     return '$nString KB';
@@ -3723,23 +3496,19 @@ class AppL10nEn extends AppL10n {
   String get clientMessagesInfoMembers => 'Members';
 
   @override
-  String get clientMessagesInfoMembersNote =>
-      'Only these three people are in this chat. Phone numbers are not shared.';
+  String get clientMessagesInfoMembersNote => 'Only these three people are in this chat. Phone numbers are not shared.';
 
   @override
   String get clientMessagesInfoVisit => 'Visit';
 
   @override
-  String get clientMessagesInfoVisitNote =>
-      'Ghazal support is part of this chat, so it cannot be blocked. To stop it, cancel the visit.';
+  String get clientMessagesInfoVisitNote => 'Ghazal support is part of this chat, so it cannot be blocked. To stop it, cancel the visit.';
 
   @override
-  String get clientMessagesInfoSupportNote =>
-      'Support conversations cannot be blocked.';
+  String get clientMessagesInfoSupportNote => 'Support conversations cannot be blocked.';
 
   @override
-  String get clientMessagesInfoPrivate =>
-      'Chat media is private between you and the other side.';
+  String get clientMessagesInfoPrivate => 'Chat media is private between you and the other side.';
 
   @override
   String get clientMessagesInfoPrivateTitle => 'Privacy';
@@ -3778,8 +3547,7 @@ class AppL10nEn extends AppL10n {
   String get clientMessagesReportDone => 'Report sent';
 
   @override
-  String get clientMessagesReportDoneDetail =>
-      'The message stays in your conversation. Our team will take a look and act if it breaks our rules.';
+  String get clientMessagesReportDoneDetail => 'The message stays in your conversation. Our team will take a look and act if it breaks our rules.';
 
   @override
   String get clientMessagesReportNoMessages => 'No messages';
@@ -3808,8 +3576,7 @@ class AppL10nEn extends AppL10n {
   String get clientMessagesBlockedDoneTitle => 'Blocked';
 
   @override
-  String get clientMessagesBlockedDoneDetail =>
-      'You will not receive messages from this side. You can unblock it at any time.';
+  String get clientMessagesBlockedDoneDetail => 'You will not receive messages from this side. You can unblock it at any time.';
 
   @override
   String get clientMessagesNtfTitle => 'Notifications';
@@ -3860,8 +3627,7 @@ class AppL10nEn extends AppL10n {
   String get clientMessagesNtfDeniedTitle => 'Notifications off';
 
   @override
-  String get clientMessagesNtfDeniedInfo =>
-      'Updates still appear here. Turn them on in your phone settings to get them as they happen.';
+  String get clientMessagesNtfDeniedInfo => 'Updates still appear here. Turn them on in your phone settings to get them as they happen.';
 
   @override
   String get clientMessagesNtfOpenSettings => 'Settings';
@@ -3936,12 +3702,10 @@ class AppL10nEn extends AppL10n {
   String get clientMessagesPromptTitle => 'Booking updates';
 
   @override
-  String get clientMessagesPromptBody =>
-      'We will tell you as soon as a hall replies to your request, and when your voucher is ready.';
+  String get clientMessagesPromptBody => 'We will tell you as soon as a hall replies to your request, and when your voucher is ready.';
 
   @override
-  String get clientMessagesPromptNote =>
-      'We only send what you need, and never late at night.';
+  String get clientMessagesPromptNote => 'We only send what you need, and never late at night.';
 
   @override
   String get clientMessagesPromptOn => 'Turn on';
@@ -3953,12 +3717,10 @@ class AppL10nEn extends AppL10n {
   String get clientMessagesPromptOnToast => 'Updates on';
 
   @override
-  String get clientMessagesOsTitle =>
-      '“Ghazal” would like to send you notifications';
+  String get clientMessagesOsTitle => '“Ghazal” would like to send you notifications';
 
   @override
-  String get clientMessagesOsBody =>
-      'Request updates, vouchers and visit reminders.';
+  String get clientMessagesOsBody => 'Request updates, vouchers and visit reminders.';
 
   @override
   String get clientMessagesOsAllow => 'Allow';
@@ -3980,16 +3742,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientMyWeddingHeroUnit(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: 'days',
-      one: 'day',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: 'days', one: 'day');
     return '$_temp0';
   }
 
@@ -4080,16 +3836,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientMyWeddingTasksLeft(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString tasks remaining',
-      one: '$countString task remaining',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString tasks remaining', one: '$countString task remaining');
     return '$_temp0';
   }
 
@@ -4202,8 +3952,7 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientMyWeddingChecklistAuto =>
-      'Completes when your booking is confirmed';
+  String get clientMyWeddingChecklistAuto => 'Completes when your booking is confirmed';
 
   @override
   String clientMyWeddingChecklistBrowseLabel(String task) {
@@ -4282,11 +4031,7 @@ class AppL10nEn extends AppL10n {
   String get clientMyWeddingBudgetCommitted => 'Committed';
 
   @override
-  String clientMyWeddingBudgetBarLabel(
-    String paid,
-    String committed,
-    String remaining,
-  ) {
+  String clientMyWeddingBudgetBarLabel(String paid, String committed, String remaining) {
     return 'Paid $paid, committed $committed, remaining $remaining';
   }
 
@@ -4313,8 +4058,7 @@ class AppL10nEn extends AppL10n {
   String get clientMyWeddingBudgetInfoTitle => 'Voucher and venue';
 
   @override
-  String get clientMyWeddingBudgetInfoBody =>
-      'The voucher is paid in the app. The venue price is paid to the venue directly, outside Ghazal.';
+  String get clientMyWeddingBudgetInfoBody => 'The voucher is paid in the app. The venue price is paid to the venue directly, outside Ghazal.';
 
   @override
   String clientMyWeddingBudgetUsedLabel(String percent) {
@@ -4405,8 +4149,7 @@ class AppL10nEn extends AppL10n {
   String get clientMyWeddingSetupCategories => 'Split';
 
   @override
-  String get clientMyWeddingSetupVenueReference =>
-      'Your venue and catering range';
+  String get clientMyWeddingSetupVenueReference => 'Your venue and catering range';
 
   @override
   String get clientMyWeddingSetupUnallocated => 'Unallocated';
@@ -4428,8 +4171,7 @@ class AppL10nEn extends AppL10n {
   String get clientMyWeddingSetupError => 'Couldn’t save';
 
   @override
-  String get clientMyWeddingSetupErrorDetail =>
-      'We couldn’t save your budget. Nothing was changed.';
+  String get clientMyWeddingSetupErrorDetail => 'We couldn’t save your budget. Nothing was changed.';
 
   @override
   String get clientMyWeddingSetupSaved => 'Budget saved';
@@ -4467,11 +4209,9 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientOnboardingStepProgress(num current, num total) {
-    final intl.NumberFormat currentNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat currentNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String currentString = currentNumberFormat.format(current);
-    final intl.NumberFormat totalNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat totalNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String totalString = totalNumberFormat.format(total);
 
     return 'Step $currentString of $totalString';
@@ -4487,8 +4227,7 @@ class AppL10nEn extends AppL10n {
   String get clientOnboardingLanguageSignIn => 'Sign in';
 
   @override
-  String get clientOnboardingLanguageSignInOffline =>
-      'Signing in needs a connection.';
+  String get clientOnboardingLanguageSignInOffline => 'Signing in needs a connection.';
 
   @override
   String get clientOnboardingIntroLabel => 'Introduction';
@@ -4509,8 +4248,7 @@ class AppL10nEn extends AppL10n {
   String get clientOnboardingInfoTitle => 'Your answers';
 
   @override
-  String get clientOnboardingInfoBody =>
-      'All optional. They stay on this device until you sign up, and you can change them anytime in Profile.';
+  String get clientOnboardingInfoBody => 'All optional. They stay on this device until you sign up, and you can change them anytime in Profile.';
 
   @override
   String get clientOnboardingAboutTitle => 'Who’s planning?';
@@ -4560,11 +4298,7 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String clientOnboardingDateOccasionRange(
-    String name,
-    String from,
-    String to,
-  ) {
+  String clientOnboardingDateOccasionRange(String name, String from, String to) {
     return '$name · $from to $to';
   }
 
@@ -4604,8 +4338,7 @@ class AppL10nEn extends AppL10n {
   String get clientOnboardingGuestsSplitTitle => 'Ladies and men';
 
   @override
-  String get clientOnboardingGuestsSplitLabel =>
-      'Separate ladies’ and men’s receptions';
+  String get clientOnboardingGuestsSplitLabel => 'Separate ladies’ and men’s receptions';
 
   @override
   String get clientOnboardingGuestsLadies => 'Ladies’ reception';
@@ -4643,8 +4376,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientOnboardingAreasSelected(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -4662,8 +4394,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientOnboardingAreasMore(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -4677,8 +4408,7 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientOnboardingAreasNoHallsNote =>
-      'No halls yet. Home shows all.';
+  String get clientOnboardingAreasNoHallsNote => 'No halls yet. Home shows all.';
 
   @override
   String get clientOnboardingLanguageNativeAr => 'العربية';
@@ -4757,16 +4487,13 @@ class AppL10nEn extends AppL10n {
   String get clientPaymentSecureTitle => 'Secure payment';
 
   @override
-  String get clientPaymentHonestKnet =>
-      'KNET opens your bank’s secure page and works with Kuwaiti bank cards only.';
+  String get clientPaymentHonestKnet => 'KNET opens your bank’s secure page and works with Kuwaiti bank cards only.';
 
   @override
-  String get clientPaymentHonestWallet =>
-      'You confirm on your device. Ghazal never sees your card details.';
+  String get clientPaymentHonestWallet => 'You confirm on your device. Ghazal never sees your card details.';
 
   @override
-  String get clientPaymentHonestCard =>
-      'You enter your card on the payment provider’s secure page. Ghazal never sees or stores it.';
+  String get clientPaymentHonestCard => 'You enter your card on the payment provider’s secure page. Ghazal never sees or stores it.';
 
   @override
   String get clientPaymentCtaPay => 'Pay now';
@@ -4790,8 +4517,7 @@ class AppL10nEn extends AppL10n {
   String get clientPaymentSessionErrorTitle => 'Couldn’t start payment';
 
   @override
-  String get clientPaymentSessionError =>
-      'We could not start the payment. No amount was charged.';
+  String get clientPaymentSessionError => 'We could not start the payment. No amount was charged.';
 
   @override
   String get clientPaymentExpiredBanner => 'Checkout ended';
@@ -4821,12 +4547,10 @@ class AppL10nEn extends AppL10n {
   String get clientPaymentRedirectTitle => 'Opening secure page';
 
   @override
-  String get clientPaymentRedirectBody =>
-      'You will finish the payment on a secure page. Nothing is charged until you do.';
+  String get clientPaymentRedirectBody => 'You will finish the payment on a secure page. Nothing is charged until you do.';
 
   @override
-  String get clientPaymentRedirectPrivacy =>
-      'Ghazal never sees your card number or PIN.';
+  String get clientPaymentRedirectPrivacy => 'Ghazal never sees your card number or PIN.';
 
   @override
   String get clientPaymentReturnedTitle => 'Checking payment';
@@ -4835,8 +4559,7 @@ class AppL10nEn extends AppL10n {
   String get clientPaymentLostTitle => 'Connection lost';
 
   @override
-  String get clientPaymentLostBody =>
-      'We are checking your payment. There is no need to pay again.';
+  String get clientPaymentLostBody => 'We are checking your payment. There is no need to pay again.';
 
   @override
   String get clientPaymentCancelTitle => 'Payment cancelled';
@@ -4917,8 +4640,7 @@ class AppL10nEn extends AppL10n {
   String get clientPaymentConfirmLeave => 'Leave';
 
   @override
-  String get clientPaymentConfirmOffline =>
-      'You are offline. Your payment is being confirmed and we will notify you.';
+  String get clientPaymentConfirmOffline => 'You are offline. Your payment is being confirmed and we will notify you.';
 
   @override
   String get clientPaymentConfirmSuccessTitle => 'Payment received';
@@ -4936,12 +4658,10 @@ class AppL10nEn extends AppL10n {
   String get clientPaymentFailTitleLate => 'Voucher ready';
 
   @override
-  String get clientPaymentFailBodyDeclined =>
-      'Your bank did not accept the payment. You can try again or choose another method.';
+  String get clientPaymentFailBodyDeclined => 'Your bank did not accept the payment. You can try again or choose another method.';
 
   @override
-  String get clientPaymentFailBodyCancelled =>
-      'You closed the payment page before it finished.';
+  String get clientPaymentFailBodyCancelled => 'You closed the payment page before it finished.';
 
   @override
   String clientPaymentFailBodyExpired(String time, String minutes) {
@@ -4949,12 +4669,10 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientPaymentFailBodyLate =>
-      'Your payment arrived after the checkout ended, and we still honoured it. The voucher is yours.';
+  String get clientPaymentFailBodyLate => 'Your payment arrived after the checkout ended, and we still honoured it. The voucher is yours.';
 
   @override
-  String get clientPaymentFailBodyOffline =>
-      'Reconnect to try again. Nothing is charged until a payment completes.';
+  String get clientPaymentFailBodyOffline => 'Reconnect to try again. Nothing is charged until a payment completes.';
 
   @override
   String get clientPaymentFailAnother => 'Another method';
@@ -4972,12 +4690,10 @@ class AppL10nEn extends AppL10n {
   String get clientPaymentDoneLate => 'Payment arrived late';
 
   @override
-  String get clientPaymentDoneLateNote =>
-      'Your payment arrived after the checkout ended. The voucher is active and bound to the date shown.';
+  String get clientPaymentDoneLateNote => 'Your payment arrived after the checkout ended. The voucher is active and bound to the date shown.';
 
   @override
-  String get clientPaymentDoneReuse =>
-      'If the request is declined or goes unanswered, your voucher comes back to you.';
+  String get clientPaymentDoneReuse => 'If the request is declined or goes unanswered, your voucher comes back to you.';
 
   @override
   String get clientPaymentDoneCta => 'Send request';
@@ -5014,16 +4730,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientPlannerMarks(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString thread marks',
-      one: '$countString thread mark',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString thread marks', one: '$countString thread mark');
     return '$_temp0';
   }
 
@@ -5092,8 +4802,7 @@ class AppL10nEn extends AppL10n {
   String get clientPlannerPriceInfoTitle => 'Price';
 
   @override
-  String get clientPlannerPriceInfo =>
-      'You agree the final price with your planner after the consultation. Nothing is paid now.';
+  String get clientPlannerPriceInfo => 'You agree the final price with your planner after the consultation. Nothing is paid now.';
 
   @override
   String get clientPlannerRequestConsultation => 'Request consultation';
@@ -5129,16 +4838,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientPlannerRequestDayWithChoices(String day, int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString windows chosen',
-      one: '$countString window chosen',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString windows chosen', one: '$countString window chosen');
     return '$day, $_temp0';
   }
 
@@ -5419,16 +5122,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientProfileWedDaysUnit(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: 'days',
-      one: 'day',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: 'days', one: 'day');
     return '$_temp0';
   }
 
@@ -5481,8 +5178,7 @@ class AppL10nEn extends AppL10n {
   String get clientProfilePersPhoneChange => 'Change';
 
   @override
-  String get clientProfilePersPhoneNote =>
-      'Venues and providers see your number only for requests you send them.';
+  String get clientProfilePersPhoneNote => 'Venues and providers see your number only for requests you send them.';
 
   @override
   String get clientProfilePersPhoneNoteTitle => 'Your number';
@@ -5519,16 +5215,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientProfilePhoneErrorDigits(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString digits',
-      one: '$countString digit',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString digits', one: '$countString digit');
     return 'Needs $_temp0';
   }
 
@@ -5588,26 +5278,13 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientProfileNotifFrequency(int count, int days) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
-    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat daysNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String daysString = daysNumberFormat.format(days);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString messages',
-      one: '$countString message',
-    );
-    String _temp1 = intl.Intl.pluralLogic(
-      days,
-      locale: localeName,
-      other: '$daysString days',
-      one: '$daysString day',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString messages', one: '$countString message');
+    String _temp1 = intl.Intl.pluralLogic(days, locale: localeName, other: '$daysString days', one: '$daysString day');
     return 'At most $_temp0 a week, and none in the final $_temp1 before your wedding.';
   }
 
@@ -5640,11 +5317,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientProfileSetBiometric(String method) {
-    String _temp0 = intl.Intl.selectLogic(method, {
-      'face': 'Face ID',
-      'touch': 'Touch ID',
-      'other': 'Fingerprint',
-    });
+    String _temp0 = intl.Intl.selectLogic(method, {'face': 'Face ID', 'touch': 'Touch ID', 'other': 'Fingerprint'});
     return '$_temp0';
   }
 
@@ -5664,8 +5337,7 @@ class AppL10nEn extends AppL10n {
   String get clientProfileSetUsage => 'Usage data';
 
   @override
-  String get clientProfileSetUsageDetail =>
-      'Helps us improve Ghazal. Never includes payment details.';
+  String get clientProfileSetUsageDetail => 'Helps us improve Ghazal. Never includes payment details.';
 
   @override
   String get clientProfileDelTitle => 'Delete account';
@@ -5695,16 +5367,13 @@ class AppL10nEn extends AppL10n {
   String get clientProfileDelSheetData => 'Your personal data is anonymised.';
 
   @override
-  String get clientProfileDelSheetReceipts =>
-      'Voucher receipts and ledger records are kept, as the law requires.';
+  String get clientProfileDelSheetReceipts => 'Voucher receipts and ledger records are kept, as the law requires.';
 
   @override
-  String get clientProfileDelSheetSaved =>
-      'Saved halls, checklist and budget are removed.';
+  String get clientProfileDelSheetSaved => 'Saved halls, checklist and budget are removed.';
 
   @override
-  String get clientProfileDelSheetApple =>
-      'Sign in with Apple access is revoked.';
+  String get clientProfileDelSheetApple => 'Sign in with Apple access is revoked.';
 
   @override
   String clientProfileDelSheetRequest(String venue) {
@@ -5713,16 +5382,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientProfileDelVoucher(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString vouchers ready',
-      one: 'Voucher ready',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString vouchers ready', one: 'Voucher ready');
     return '$_temp0';
   }
 
@@ -5731,15 +5394,13 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientProfileDelVoucherDetailRefund(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other:
-          'You have $countString vouchers ready. Use them first: once your account is deleted they end and do not come back.',
+      other: 'You have $countString vouchers ready. Use them first: once your account is deleted they end and do not come back.',
       one: 'You have a voucher ready. Use it first: once your account is deleted it ends and does not come back.',
     );
     return '$_temp0';
@@ -5747,15 +5408,13 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientProfileDelVoucherDetailEnds(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other:
-          'You have $countString vouchers ready. They end with your account, so use them first if you still need them.',
+      other: 'You have $countString vouchers ready. They end with your account, so use them first if you still need them.',
       one: 'You have a voucher ready. It ends with your account, so use it first if you still need it.',
     );
     return '$_temp0';
@@ -5778,8 +5437,7 @@ class AppL10nEn extends AppL10n {
   String get clientProfileDelErrorTitle => 'Couldn’t delete';
 
   @override
-  String get clientProfileDelErrorDetail =>
-      'Nothing was changed. Try again, or contact Support.';
+  String get clientProfileDelErrorDetail => 'Nothing was changed. Try again, or contact Support.';
 
   @override
   String get clientProfileDelBlockedTitle => 'Deletion paused';
@@ -5817,31 +5475,19 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientReviewsRewardsStarCount(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString stars',
-      one: '$countString star',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString stars', one: '$countString star');
     return '$_temp0';
   }
 
   @override
   String clientReviewsRewardsStarsAndBelow(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString stars and below',
-      one: '$countString star and below',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString stars and below', one: '$countString star and below');
     return '$_temp0';
   }
 
@@ -5895,16 +5541,13 @@ class AppL10nEn extends AppL10n {
   String get clientReviewsRewardsListInfoTitle => 'Verified reviews';
 
   @override
-  String get clientReviewsRewardsListInfoReal =>
-      'Only guests with a completed booking can review.';
+  String get clientReviewsRewardsListInfoReal => 'Only guests with a completed booking can review.';
 
   @override
-  String get clientReviewsRewardsListInfoVenue =>
-      'Venues reply once. They cannot edit or remove reviews.';
+  String get clientReviewsRewardsListInfoVenue => 'Venues reply once. They cannot edit or remove reviews.';
 
   @override
-  String get clientReviewsRewardsListInfoNew =>
-      'Be the first to review after your event.';
+  String get clientReviewsRewardsListInfoNew => 'Be the first to review after your event.';
 
   @override
   String get clientReviewsRewardsListFilterLabel => 'Filter reviews';
@@ -6013,16 +5656,13 @@ class AppL10nEn extends AppL10n {
   String get clientReviewsRewardsWriteMediaInfoTitle => 'Review rules';
 
   @override
-  String get clientReviewsRewardsWriteMediaRule =>
-      'Photos and videos showing people can’t be published.';
+  String get clientReviewsRewardsWriteMediaRule => 'Photos and videos showing people can’t be published.';
 
   @override
-  String get clientReviewsRewardsWriteMediaAllowed =>
-      'The hall, décor, food and details are welcome.';
+  String get clientReviewsRewardsWriteMediaAllowed => 'The hall, décor, food and details are welcome.';
 
   @override
-  String get clientReviewsRewardsWriteMediaChecked =>
-      'Reviews are checked before they appear. Photos wait for our team and only you see them.';
+  String get clientReviewsRewardsWriteMediaChecked => 'Reviews are checked before they appear. Photos wait for our team and only you see them.';
 
   @override
   String get clientReviewsRewardsWriteMediaAdd => 'Add photo or video';
@@ -6034,8 +5674,7 @@ class AppL10nEn extends AppL10n {
   String get clientReviewsRewardsWriteMediaRejected => 'People';
 
   @override
-  String get clientReviewsRewardsWriteMediaRejectedNote =>
-      'This photo can’t be published because it shows people. Remove it, or add another.';
+  String get clientReviewsRewardsWriteMediaRejectedNote => 'This photo can’t be published because it shows people. Remove it, or add another.';
 
   @override
   String get clientReviewsRewardsWriteMediaRemove => 'Remove this photo';
@@ -6062,8 +5701,7 @@ class AppL10nEn extends AppL10n {
   String get clientReviewsRewardsWriteDoneTitle => 'Thank you';
 
   @override
-  String get clientReviewsRewardsWriteDoneHelper =>
-      'Appears after a quick check';
+  String get clientReviewsRewardsWriteDoneHelper => 'Appears after a quick check';
 
   @override
   String get clientReviewsRewardsWriteDoneSee => 'See reviews';
@@ -6079,12 +5717,9 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientSavedCompareSavedSummaryFree(num free, num total, String date) {
-    final intl.NumberFormat freeNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat freeNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String freeString = freeNumberFormat.format(free);
-    final intl.NumberFormat totalNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat totalNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String totalString = totalNumberFormat.format(total);
 
     return '$freeString of $totalString halls free on $date';
@@ -6205,8 +5840,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientSavedCompareTrayAction(num count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     return 'Compare ($countString)';
@@ -6219,8 +5853,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientSavedCompareTrayBadge(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -6238,9 +5871,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientSavedCompareReplaceBody(num max, String name) {
-    final intl.NumberFormat maxNumberFormat = intl.NumberFormat.decimalPattern(
-      localeName,
-    );
+    final intl.NumberFormat maxNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String maxString = maxNumberFormat.format(max);
 
     return 'You can compare up to $maxString halls. Choose the one $name will replace.';
@@ -6295,8 +5926,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientSavedCompareCompareDriveMinutes(num minutes) {
-    final intl.NumberFormat minutesNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat minutesNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String minutesString = minutesNumberFormat.format(minutes);
 
     return '$minutesString min';
@@ -6431,8 +6061,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientSavedCompareCompareHidden(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -6603,12 +6232,10 @@ class AppL10nEn extends AppL10n {
   String get clientServicesProfileEventInfoTitle => 'The date';
 
   @override
-  String get clientServicesProfileAvailabilityBody =>
-      'Availability is confirmed by the provider in chat.';
+  String get clientServicesProfileAvailabilityBody => 'Availability is confirmed by the provider in chat.';
 
   @override
-  String get clientServicesProfileEventNote =>
-      'Your voucher is tied to this date and package.';
+  String get clientServicesProfileEventNote => 'Your voucher is tied to this date and package.';
 
   @override
   String get clientServicesProfileAsk => 'Ask';
@@ -6656,8 +6283,7 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientServicesHowPayBody =>
-      'Use KNET, a card, Apple Pay or Google Pay. The voucher is tied to this provider and package.';
+  String get clientServicesHowPayBody => 'Use KNET, a card, Apple Pay or Google Pay. The voucher is tied to this provider and package.';
 
   @override
   String get clientServicesHowRequestTitle => 'Request at the voucher price';
@@ -6671,8 +6297,7 @@ class AppL10nEn extends AppL10n {
   String get clientServicesHowSettleTitle => 'Pay the provider directly';
 
   @override
-  String get clientServicesHowSettleBody =>
-      'Settle as the provider agrees and show your voucher code. Ghazal takes no payment for the service.';
+  String get clientServicesHowSettleBody => 'Settle as the provider agrees and show your voucher code. Ghazal takes no payment for the service.';
 
   @override
   String get clientServicesQuoteTitle => 'Request quote';
@@ -6717,8 +6342,7 @@ class AppL10nEn extends AppL10n {
   String get clientServicesQuoteErrorBody => 'Nothing you typed was lost.';
 
   @override
-  String get clientServicesQuoteVoucherFailed =>
-      'Your voucher is safe and nothing was charged.';
+  String get clientServicesQuoteVoucherFailed => 'Your voucher is safe and nothing was charged.';
 
   @override
   String get clientServicesQuoteAttachTitle => 'Use voucher';
@@ -6761,16 +6385,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientShellTabUnread(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString unread messages',
-      one: '$countString unread message',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString unread messages', one: '$countString unread message');
     return '$_temp0';
   }
 
@@ -6910,11 +6528,9 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientVenueGalleryCounter(num current, num total) {
-    final intl.NumberFormat currentNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat currentNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String currentString = currentNumberFormat.format(current);
-    final intl.NumberFormat totalNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat totalNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String totalString = totalNumberFormat.format(total);
 
     return '$currentString/$totalString';
@@ -6962,8 +6578,7 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientVenueHeldSr =>
-      'Date held by another couple. You can still send a request.';
+  String get clientVenueHeldSr => 'Date held by another couple. You can still send a request.';
 
   @override
   String get clientVenueNearestTitle => 'Nearest free dates';
@@ -6983,8 +6598,7 @@ class AppL10nEn extends AppL10n {
   String get clientVenueThreadTitle => 'Your booking in five steps';
 
   @override
-  String get clientVenueThreadLabel =>
-      'Booking steps: voucher, request, approval, confirmation, at the venue';
+  String get clientVenueThreadLabel => 'Booking steps: voucher, request, approval, confirmation, at the venue';
 
   @override
   String get clientVenueThreadVoucher => 'Voucher';
@@ -7008,16 +6622,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientVenueResponseUsually(int hours) {
-    final intl.NumberFormat hoursNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat hoursNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String hoursString = hoursNumberFormat.format(hours);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      hours,
-      locale: localeName,
-      other: '$hoursString hours',
-      one: '$hoursString hour',
-    );
+    String _temp0 = intl.Intl.pluralLogic(hours, locale: localeName, other: '$hoursString hours', one: '$hoursString hour');
     return 'Usually replies within $_temp0';
   }
 
@@ -7296,8 +6904,7 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientVenueCalMonthDensity(String month, int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
     String _temp0 = intl.Intl.pluralLogic(
@@ -7489,8 +7096,7 @@ class AppL10nEn extends AppL10n {
   String get clientVenueGovRefundable => 'Refundable';
 
   @override
-  String get clientVenueGovHallOnly =>
-      'Hall only: bring your own decor and catering.';
+  String get clientVenueGovHallOnly => 'Hall only: bring your own decor and catering.';
 
   @override
   String get clientVenueGovHallOnlyShort => 'Hall only';
@@ -7527,8 +7133,7 @@ class AppL10nEn extends AppL10n {
   String get clientVenueGovLeaveTitle => 'Leaving Ghazal';
 
   @override
-  String get clientVenueGovLeaveBody =>
-      'Booking and payment happen on the official channel. Ghazal does not hold or guarantee it.';
+  String get clientVenueGovLeaveBody => 'Booking and payment happen on the official channel. Ghazal does not hold or guarantee it.';
 
   @override
   String get clientVenueGovLeaveToast => 'Opening official site';
@@ -7546,8 +7151,7 @@ class AppL10nEn extends AppL10n {
   String get clientVenueGovSelfFee => 'Fee paid';
 
   @override
-  String get clientVenueGovSelfNote =>
-      'This is a record for your budget, checklist and countdown only. It is not a Ghazal booking.';
+  String get clientVenueGovSelfNote => 'This is a record for your budget, checklist and countdown only. It is not a Ghazal booking.';
 
   @override
   String get clientVenueGovSelfInfoTitle => 'Not a booking';
@@ -7562,8 +7166,7 @@ class AppL10nEn extends AppL10n {
   String get clientVenueGovWhyTitle => 'Why no voucher?';
 
   @override
-  String get clientVenueGovWhyBody =>
-      'Governmental facilities have fixed official fees, so there is no Ghazal price to unlock.';
+  String get clientVenueGovWhyBody => 'Governmental facilities have fixed official fees, so there is no Ghazal price to unlock.';
 
   @override
   String get clientVenueGovBrowse => 'Browse halls';
@@ -7621,16 +7224,10 @@ class AppL10nEn extends AppL10n {
 
   @override
   String clientVisitsVisitorsCount(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString visitors',
-      one: '$countString visitor',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString visitors', one: '$countString visitor');
     return '$_temp0';
   }
 
@@ -7698,8 +7295,7 @@ class AppL10nEn extends AppL10n {
   String get clientVisitsMembersPrivateTitle => 'Private';
 
   @override
-  String get clientVisitsMembersPrivate =>
-      'Only these three can read this chat. Phone numbers are not shared. Ghazal support cannot be blocked.';
+  String get clientVisitsMembersPrivate => 'Only these three can read this chat. Phone numbers are not shared. Ghazal support cannot be blocked.';
 
   @override
   String get clientVisitsMembersVenue => 'Venue page';
@@ -7811,8 +7407,7 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientVisitsDemoClient =>
-      'Peace be upon you. We would like to visit the hall, my mother and I.';
+  String get clientVisitsDemoClient => 'Peace be upon you. We would like to visit the hall, my mother and I.';
 
   @override
   String clientVisitsDemoHotelConfirm(String name, String day, String time) {
@@ -7830,12 +7425,10 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientVisitsDemoHere =>
-      'We have arrived, we are at the main entrance.';
+  String get clientVisitsDemoHere => 'We have arrived, we are at the main entrance.';
 
   @override
-  String get clientVisitsDemoPending =>
-      'Is there parking close to the main entrance?';
+  String get clientVisitsDemoPending => 'Is there parking close to the main entrance?';
 
   @override
   String clientVisitsDemoHotelAck(String name) {
@@ -7975,8 +7568,7 @@ class AppL10nEn extends AppL10n {
   String get clientVouchersCreditDeclined => 'No credit issued';
 
   @override
-  String get clientVouchersCreditIssuedBody =>
-      'Support issued you a credit voucher. It works at any hall, hotel or service.';
+  String get clientVouchersCreditIssuedBody => 'Support issued you a credit voucher. It works at any hall, hotel or service.';
 
   @override
   String get clientVouchersCtaSignIn => 'Sign in';
@@ -8057,8 +7649,7 @@ class AppL10nEn extends AppL10n {
   String get clientVouchersInfoWindow => 'Confirm window';
 
   @override
-  String get clientVouchersInvalidSaving =>
-      'On these changes the saving at the venue is smaller than the voucher price.';
+  String get clientVouchersInvalidSaving => 'On these changes the saving at the venue is smaller than the voucher price.';
 
   @override
   String clientVouchersInvalidTarget(String bound, String other) {
@@ -8129,8 +7720,7 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientVouchersPayingBody =>
-      'We are waiting for the bank to confirm. The voucher is ready the moment it does.';
+  String get clientVouchersPayingBody => 'We are waiting for the bank to confirm. The voucher is ready the moment it does.';
 
   @override
   String get clientVouchersPhaseDirect => 'Pay direct';
@@ -8145,8 +7735,7 @@ class AppL10nEn extends AppL10n {
   String get clientVouchersPriceChanged => 'Prices updated';
 
   @override
-  String get clientVouchersQrAwake =>
-      'The screen stays bright and awake while this is open.';
+  String get clientVouchersQrAwake => 'The screen stays bright and awake while this is open.';
 
   @override
   String clientVouchersQrLabel(String code) {
@@ -8215,8 +7804,7 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientVouchersTermUsed =>
-      'If you cancel after confirming, the voucher is used up.';
+  String get clientVouchersTermUsed => 'If you cancel after confirming, the voucher is used up.';
 
   @override
   String clientVouchersTermValid(String validity) {
@@ -8234,8 +7822,7 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientVouchersTermWithdraw =>
-      'If you withdraw before approval, you can use it again here.';
+  String get clientVouchersTermWithdraw => 'If you withdraw before approval, you can use it again here.';
 
   @override
   String get clientVouchersTermsTitle => 'Voucher terms';
@@ -8254,8 +7841,7 @@ class AppL10nEn extends AppL10n {
   String get clientVouchersUseThis => 'Use voucher';
 
   @override
-  String get clientVouchersUsedUpBody =>
-      'You cancelled after confirming, so this voucher is used up.';
+  String get clientVouchersUsedUpBody => 'You cancelled after confirming, so this voucher is used up.';
 
   @override
   String get clientVouchersViewReceipt => 'View receipt';
@@ -8301,8 +7887,7 @@ class AppL10nEn extends AppL10n {
   String get clientVouchersWhyWithdrawn => 'You withdrew the request.';
 
   @override
-  String get clientVouchersWindowBody =>
-      'The date is held until the window ends. After it, the approval ends and the voucher is not valid.';
+  String get clientVouchersWindowBody => 'The date is held until the window ends. After it, the approval ends and the voucher is not valid.';
 
   @override
   String get clientVouchersWindowLeft => 'Time remaining to confirm';

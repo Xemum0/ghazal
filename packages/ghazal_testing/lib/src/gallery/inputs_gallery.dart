@@ -9,6 +9,7 @@ import 'package:ghazal_ui/src/foundation.dart';
 import 'package:ghazal_ui/src/inputs/inputs.dart';
 
 import 'gz_gallery.dart';
+import 'inputs_gallery_variants.dart';
 
 /// The prototype's fixed clock: 2026-11-12 16:00 Asia/Kuwait (the web gallery reads the same "today").
 final DateTime _fixedNow = DateTime.parse('2026-11-12T16:00:00+03:00');
@@ -57,7 +58,7 @@ List<GzGallerySection> inputsGallerySections() {
     _slotsSection,
     _dateFieldSection,
   ];
-  return [for (var i = 0; i < builders.length; i++) GzGallerySection(inputsGalleryIds[i], builders[i])];
+  return [for (var i = 0; i < builders.length; i++) GzGallerySection(inputsGalleryIds[i], builders[i]), ...inputsVariantSections()];
 }
 
 // ---------------------------------------------------------------------------------------------------------------- kit

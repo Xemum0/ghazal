@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import '../core/gz_chrome_baseline.dart';
 import '../theme/gz_theme.dart';
 import '../tokens/generated/gz_type.g.dart';
 import 'gz_bidi.dart';
@@ -75,13 +76,19 @@ class GzNum extends StatelessWidget {
     final figure = gz.text(role.figureRole ?? role);
     // A standalone number takes the figure role's own line height (the web figure role classes carry their own).
     final line = style.copyWith(height: figure.height);
-    return Text(
-      GzBidi.isolateLtr(value),
+    return GzChromeBaseline(
       style: line,
-      maxLines: maxLines,
-      overflow: TextOverflow.ellipsis,
-      textAlign: textAlign,
-      semanticsLabel: semanticLabel ?? GzBidi.strip(value),
+      paint: false,
+      child: Text(
+        GzBidi.isolateLtr(value),
+        style: line,
+        // The role's own line height holds even when a fallback face (an Arabic currency sign) has other metrics.
+        strutStyle: StrutStyle.fromTextStyle(line, forceStrutHeight: true, leadingDistribution: TextLeadingDistribution.even),
+        maxLines: maxLines,
+        overflow: TextOverflow.ellipsis,
+        textAlign: textAlign,
+        semanticsLabel: semanticLabel ?? GzBidi.strip(value),
+      ),
     );
   }
 }

@@ -17,23 +17,23 @@ extension ObdCommit on WidgetRef {
   WeddingDraftNotifier get _draft => read(weddingDraftProvider.notifier);
 
   void commitAbout({required WeddingRole? role, required String name, required String partnerName}) => _draft.patch(
-        WeddingProfileInput(
-          // The neutral role until the couple says otherwise: no gendered form is ever chosen for them (ADR 0013 D2).
-          role: role ?? read(weddingDraftProvider).role ?? WeddingRole.family,
-          brideName: name.trim().isEmpty ? null : name.trim(),
-          partnerName: partnerName.trim().isEmpty ? null : partnerName.trim(),
-        ),
-      );
+    WeddingProfileInput(
+      // The neutral role until the couple says otherwise: no gendered form is ever chosen for them (ADR 0013 D2).
+      role: role ?? read(weddingDraftProvider).role ?? WeddingRole.family,
+      brideName: name.trim().isEmpty ? null : name.trim(),
+      partnerName: partnerName.trim().isEmpty ? null : partnerName.trim(),
+    ),
+  );
 
   void commitDate({required LocalDate? date, required DateMode mode}) => _draft.patch(WeddingProfileInput(weddingDate: date, dateMode: mode));
 
   void commitGuestsBudget({required int women, required int men, required MoneyRange? budget}) => _draft.patch(
-        WeddingProfileInput(
-          guests: GuestSplit(women: women, men: men),
-          venueBudget: budget,
-          searching: const <Audience>[Audience.women],
-        ),
-      );
+    WeddingProfileInput(
+      guests: GuestSplit(women: women, men: men),
+      venueBudget: budget,
+      searching: const <Audience>[Audience.women],
+    ),
+  );
 
   /// Final step: stores the areas and publishes the global Brief from the answers (ADR 0007 D3).
   void finishOnboarding(List<String> areaIds) {

@@ -213,7 +213,11 @@ class _ClDisc03ScreenState extends ConsumerState<ClDisc03Screen> {
                       GzFactChip(icon: GzIcons.hall, label: l.clientDiscoverResultsTitle, value: f.integer(data.length)),
                     if (showGovNote && data.isNotEmpty) ...[
                       const SizedBox(width: GzSpace.s3),
-                      InfoSheetButton(title: context.gzL10n.commonVenueTypeGovernmental, text: l.clientDiscoverResultsGovernmentNote),
+                      GzInfoButton(
+                        key: const ValueKey<String>('discover.info'),
+                        title: context.gzL10n.commonVenueTypeGovernmental,
+                        paragraphs: [l.clientDiscoverResultsGovernmentNote],
+                      ),
                     ],
                   ],
                 ),

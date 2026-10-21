@@ -43,9 +43,18 @@ class ObdThreadProgress extends StatelessWidget {
                   ),
                   Transform.rotate(
                     angle: math.pi / 4,
-                    child: SizedBox(width: GzSize.knotBead, height: GzSize.knotBead, child: ColoredBox(color: c.markKhayt)),
+                    child: SizedBox(
+                      width: GzSize.knotBead,
+                      height: GzSize.knotBead,
+                      child: ColoredBox(color: c.markKhayt),
+                    ),
                   ),
-                  Expanded(child: ColoredBox(color: c.borderHairline, child: const SizedBox(height: GzStroke.thread))),
+                  Expanded(
+                    child: ColoredBox(
+                      color: c.borderHairline,
+                      child: const SizedBox(height: GzStroke.thread),
+                    ),
+                  ),
                 ],
               );
             },

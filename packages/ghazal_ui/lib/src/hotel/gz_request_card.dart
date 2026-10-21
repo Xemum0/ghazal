@@ -184,7 +184,7 @@ class _GzRequestCardState extends State<GzRequestCard> {
             children: [pills, if (!resolved && leftWidget != null) leftWidget],
           ),
           const SizedBox(height: GzSpace.s2),
-          gzRcPinLine(context, GzTextRole.uiXl, GzText(date, role: GzTextRole.uiXl, color: resolved ? c.textPrimary : c.textStrong, figures: true)),
+          GzText(date, role: GzTextRole.uiXl, color: resolved ? c.textPrimary : c.textStrong, figures: true),
           const SizedBox(height: GzSpace.s2),
           Text(
             hallName,
@@ -199,8 +199,8 @@ class _GzRequestCardState extends State<GzRequestCard> {
               runSpacing: GzSpace.s1,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                gzRcChip(context, GzFactChip(icon: GzIcons.clock, label: l.uiHotelCardHours, value: range)),
-                gzRcChip(context, GzFactChip(icon: gzRcAudienceIcon(section.audience), label: gzRcAudienceWord(l, section.audience))),
+                GzFactChip(icon: GzIcons.clock, label: l.uiHotelCardHours, value: range),
+                GzFactChip(icon: gzRcAudienceIcon(section.audience), label: gzRcAudienceWord(l, section.audience)),
               ],
             ),
           ],
@@ -223,14 +223,12 @@ class _GzRequestCardState extends State<GzRequestCard> {
           runSpacing: GzSpace.s2,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            if (pkgName != null) gzRcChip(context, GzFactChip(icon: GzIcons.package, label: l.uiHotelCardPackage, value: pkgName)),
-            gzRcChip(context, GzFactChip(icon: GzIcons.usersThree, label: l.uiSharedGuests, value: f.integer(section?.guests ?? 0))),
-            gzRcChip(context, 
-              GzFactChip(
+            if (pkgName != null) GzFactChip(icon: GzIcons.package, label: l.uiHotelCardPackage, value: pkgName),
+            GzFactChip(icon: GzIcons.usersThree, label: l.uiSharedGuests, value: f.integer(section?.guests ?? 0)),
+            GzFactChip(
                 icon: GzIcons.ticket,
                 label: l.uiHotelCardVoucherPrice,
                 value: '${total.currency}\u00a0${total.integer}${total.fraction}',
-              ),
             ),
           ],
         ),

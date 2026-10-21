@@ -9,6 +9,7 @@ import 'package:ghazal_ui/src/brand/brand.dart';
 import 'package:ghazal_ui/src/core/core.dart';
 import 'package:ghazal_ui/src/foundation.dart';
 
+import 'core_extras_gallery.dart';
 import 'gz_gallery.dart';
 
 /// The web section titles, English (file slugs) and Arabic (the Arabic reference file names).
@@ -73,7 +74,7 @@ List<GzGallerySection> coreGallerySections() {
     _factSection,
     _brandSection,
   ];
-  return [for (var i = 0; i < builders.length; i++) GzGallerySection(coreGalleryTitlesEn[i], builders[i])];
+  return [for (var i = 0; i < builders.length; i++) GzGallerySection(coreGalleryTitlesEn[i], builders[i]), ...coreExtrasGallerySections()];
 }
 
 /// Copies every `NN-<english slug>.ar.png` to the Arabic reference name (`NN-<arabic slug>.ar.png`) so

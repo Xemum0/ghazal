@@ -13,7 +13,6 @@ import '../application/booking_flow_providers.dart' show bookingConfigProvider, 
 import '../application/booking_request.dart';
 import 'booking_glyphs.dart';
 import 'widgets/booking_async.dart';
-import 'widgets/booking_info.dart';
 import 'widgets/booking_layout.dart';
 
 /// CL-BOOK-10 Confirmation window ended. Covers CA-STAT-12, CA-VCH-11, CA-BOOK-16.
@@ -153,7 +152,7 @@ class _Ended extends ConsumerWidget {
                   child: GzText(heading, role: GzTextRole.d3, color: c.textStrong, textAlign: TextAlign.center, header: true),
                 ),
                 const SizedBox(width: GzSpace.s1),
-                BookingInfoButton(title: heading, paragraphs: [outcome], bleed: false),
+                GzInfoButton(title: heading, paragraphs: [outcome]),
               ],
             ),
             Wrap(
@@ -206,7 +205,7 @@ class _Ended extends ConsumerWidget {
                                 ),
                               ),
                       ),
-                      BookingInfoButton(title: l10n.clientBookingEndedVoucherTitle, paragraphs: [voucherLine], bleed: false),
+                      GzInfoButton(title: l10n.clientBookingEndedVoucherTitle, paragraphs: [voucherLine]),
                     ],
                   ),
                   Padding(

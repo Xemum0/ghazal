@@ -60,9 +60,9 @@ class GzReviewReplyCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       GzUserBlock(author, role: GzTextRole.title, color: c.textStrong),
-                      GzFigText(
+                      GzText(
                         '${f.date(review.postedAt, DateStyle.short)} · ${l.uiHotelReviewEvent(month)}',
-                        role: GzTextRole.caption,
+                        figures: true, role: GzTextRole.caption,
                         color: c.textSecondary,
                       ),
                     ],
@@ -104,9 +104,9 @@ class GzReviewReplyCard extends StatelessWidget {
                     GzIcon(GzIcons.reply, size: GzIconSize.xs, color: c.iconSecondary),
                     const SizedBox(width: GzSpace.s1),
                     Expanded(
-                      child: GzFigText(
+                      child: GzText(
                         '${l.uiHotelReviewYours(reply.by)} · ${f.date(reply.repliedAt, DateStyle.short)}',
-                        role: GzTextRole.caption,
+                        figures: true, role: GzTextRole.caption,
                         color: c.textSecondary,
                       ),
                     ),

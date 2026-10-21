@@ -1229,7 +1229,7 @@
   "uiHotelCardTagMixed": "مختلط",
   "uiHotelCardHours": "الوقت",
   "uiHotelCardSpecialRequests": "طلبات خاصة",
-  "uiHotelCardOthers": "{count, plural, =1{طلب آخر لهذا التاريخ} =2{طلبان آخران لهذا التاريخ} few{طلبات أخرى لهذا التاريخ} many{طلبًا آخر لهذا التاريخ} other{طلب آخر لهذا التاريخ}}",
+  "uiHotelCardOthers": "{count, plural, =0{لا طلبات أخرى لهذا التاريخ} =1{طلب آخر لهذا التاريخ} =2{طلبان آخران لهذا التاريخ} few{طلبات أخرى لهذا التاريخ} many{طلبًا آخر لهذا التاريخ} other{طلب آخر لهذا التاريخ}}",
   "@uiHotelCardOthers": {
     "placeholders": {
       "count": {
@@ -1245,7 +1245,7 @@
   "uiHotelStripOpen": "متاح",
   "uiHotelStripToday": "اليوم",
   "uiHotelStripSep": "، ",
-  "uiHotelStripConfirmedCount": "{count, plural, =1{حجز مؤكد} =2{حجزان مؤكدان} few{{count} حجوزات مؤكدة} many{{count} حجزًا مؤكدًا} other{{count} حجز مؤكد}}",
+  "uiHotelStripConfirmedCount": "{count, plural, =0{لا حجوزات مؤكدة} =1{حجز مؤكد} =2{حجزان مؤكدان} few{{count} حجوزات مؤكدة} many{{count} حجزًا مؤكدًا} other{{count} حجز مؤكد}}",
   "@uiHotelStripConfirmedCount": {
     "placeholders": {
       "count": {
@@ -1254,7 +1254,7 @@
       }
     }
   },
-  "uiHotelStripPendingCount": "{count, plural, =1{طلب بانتظار الرد} =2{طلبان بانتظار الرد} few{{count} طلبات بانتظار الرد} many{{count} طلبًا بانتظار الرد} other{{count} طلب بانتظار الرد}}",
+  "uiHotelStripPendingCount": "{count, plural, =0{لا طلبات بانتظار الرد} =1{طلب بانتظار الرد} =2{طلبان بانتظار الرد} few{{count} طلبات بانتظار الرد} many{{count} طلبًا بانتظار الرد} other{{count} طلب بانتظار الرد}}",
   "@uiHotelStripPendingCount": {
     "placeholders": {
       "count": {
@@ -1263,7 +1263,7 @@
       }
     }
   },
-  "uiHotelStripOpenCount": "{count, plural, =1{فترة متاحة} =2{فترتان متاحتان} few{{count} فترات متاحة} many{{count} فترة متاحة} other{{count} فترة متاحة}}",
+  "uiHotelStripOpenCount": "{count, plural, =0{لا فترات متاحة} =1{فترة متاحة} =2{فترتان متاحتان} few{{count} فترات متاحة} many{{count} فترة متاحة} other{{count} فترة متاحة}}",
   "@uiHotelStripOpenCount": {
     "placeholders": {
       "count": {
@@ -1304,7 +1304,7 @@
       }
     }
   },
-  "uiHotelOccNights": "{count, plural, =1{ليلة قاعة} =2{ليلتا قاعة} few{ليالي قاعات} many{ليلة قاعة} other{ليلة قاعة}}",
+  "uiHotelOccNights": "{count, plural, =0{ليلة قاعة} =1{ليلة قاعة} =2{ليلتا قاعة} few{ليالي قاعات} many{ليلة قاعة} other{ليلة قاعة}}",
   "@uiHotelOccNights": {
     "placeholders": {
       "count": {
@@ -1349,7 +1349,7 @@
       }
     }
   },
-  "uiHotelCalRequests": "{count, plural, =1{طلب واحد بانتظار الرد لهذا التاريخ} =2{طلبان بانتظار الرد لهذا التاريخ} few{⁦{count}⁩ طلبات بانتظار الرد لهذا التاريخ} many{⁦{count}⁩ طلبًا بانتظار الرد لهذا التاريخ} other{⁦{count}⁩ طلب بانتظار الرد لهذا التاريخ}}",
+  "uiHotelCalRequests": "{count, plural, =0{لا طلبات بانتظار الرد لهذا التاريخ} =1{طلب واحد بانتظار الرد لهذا التاريخ} =2{طلبان بانتظار الرد لهذا التاريخ} few{⁦{count}⁩ طلبات بانتظار الرد لهذا التاريخ} many{⁦{count}⁩ طلبًا بانتظار الرد لهذا التاريخ} other{⁦{count}⁩ طلب بانتظار الرد لهذا التاريخ}}",
   "@uiHotelCalRequests": {
     "placeholders": {
       "count": {
@@ -1375,7 +1375,7 @@
   "uiHotelCalSheetNone": "اختاروا التواريخ",
   "uiHotelCalSheetGrid": "اختيار التواريخ المراد إغلاقها",
   "uiHotelCalSheetNote": "تختفي من نتائج العملاء فور الإغلاق.",
-  "uiHotelCalSheetDates": "{count, plural, =1{تاريخ واحد} =2{تاريخان} few{⁦{count}⁩ تواريخ} many{⁦{count}⁩ تاريخًا} other{⁦{count}⁩ تاريخ}}",
+  "uiHotelCalSheetDates": "{count, plural, =0{لا تواريخ} =1{تاريخ واحد} =2{تاريخان} few{⁦{count}⁩ تواريخ} many{⁦{count}⁩ تاريخًا} other{⁦{count}⁩ تاريخ}}",
   "@uiHotelCalSheetDates": {
     "placeholders": {
       "count": {
@@ -1936,7 +1936,7 @@
   "uiSharedLockedVoucher": "سعر الكوبون بعد التسجيل",
   "uiSharedVoucher": "كوبون",
   "uiSharedLessThanMinute": "أقل من دقيقة متبقية",
-  "uiSharedSpokenDays": "{count, plural, =1{يوم} =2{يومان} few{{count} أيام} many{{count} يومًا} other{{count} يوم}}",
+  "uiSharedSpokenDays": "{count, plural, =0{{count} يوم} =1{يوم} =2{يومان} few{{count} أيام} many{{count} يومًا} other{{count} يوم}}",
   "@uiSharedSpokenDays": {
     "placeholders": {
       "count": {
@@ -1945,7 +1945,7 @@
       }
     }
   },
-  "uiSharedSpokenHours": "{count, plural, =1{ساعة} =2{ساعتان} few{{count} ساعات} many{{count} ساعة} other{{count} ساعة}}",
+  "uiSharedSpokenHours": "{count, plural, =0{{count} ساعة} =1{ساعة} =2{ساعتان} few{{count} ساعات} many{{count} ساعة} other{{count} ساعة}}",
   "@uiSharedSpokenHours": {
     "placeholders": {
       "count": {
@@ -1954,7 +1954,7 @@
       }
     }
   },
-  "uiSharedSpokenMinutes": "{count, plural, =1{دقيقة} =2{دقيقتان} few{{count} دقائق} many{{count} دقيقة} other{{count} دقيقة}}",
+  "uiSharedSpokenMinutes": "{count, plural, =0{{count} دقيقة} =1{دقيقة} =2{دقيقتان} few{{count} دقائق} many{{count} دقيقة} other{{count} دقيقة}}",
   "@uiSharedSpokenMinutes": {
     "placeholders": {
       "count": {

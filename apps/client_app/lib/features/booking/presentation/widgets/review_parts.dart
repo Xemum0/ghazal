@@ -5,8 +5,6 @@ import 'package:ghazal_core/ghazal_core.dart' show DateStyle, gzFormatProvider;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
-import 'booking_info.dart';
-
 /// The voucher that goes with the request (web `VoucherAttach`): a ticket, its code and its validity as a date fact; one tap changes it.
 class BookingVoucherAttach extends ConsumerWidget {
   const BookingVoucherAttach({required this.voucher, required this.onChange, super.key});
@@ -136,22 +134,12 @@ class BookingConsentRow extends StatelessWidget {
           ),
         ),
         const SizedBox(width: GzSpace.s2),
-        BookingInfoButton(
+        GzInfoButton(
           title: l10n.clientBookingConsentTitle,
           label: l10n.clientBookingConsentRead,
           paragraphs: bodies,
-          extra: (sheet) => Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: GzButton(
-              label: l10n.clientBookingConsentRead,
-              variant: GzButtonVariant.tertiary,
-              iconEnd: GzIcons.chevronRight,
-              onPressed: () {
-                Navigator.of(sheet).pop();
-                onRead();
-              },
-            ),
-          ),
+          bleed: true,
+          action: GzInfoAction(label: l10n.clientBookingConsentRead, iconEnd: GzIcons.chevronRight, onPressed: onRead),
         ),
       ],
     );

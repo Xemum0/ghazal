@@ -10,7 +10,8 @@ enum GzListRowTone { normal, danger }
 
 /// ListRow (direction section 3): min 64 (queue row 80), a 1 dp ink-200 rule under it, title `title` role (500), caption sub-line,
 /// a leading slot, a trailing slot, and a disclosure chevron that mirrors in Arabic. The row pads itself with the gutter (20) so a
-/// pressed row fills edge to edge; pass [flush] inside a panel that already pads.
+/// pressed row fills edge to edge; pass [flush] inside a panel that already pads (a flush row is square, radius 0: its hairline
+/// runs straight to both ends).
 class GzListRow extends StatelessWidget {
   const GzListRow({
     required this.title,
@@ -81,7 +82,7 @@ class GzListRow extends StatelessWidget {
         padding: EdgeInsetsDirectional.only(start: flush ? 0 : GzSpace.gutter, end: flush ? 0 : GzSpace.gutter, top: GzSpace.s3, bottom: GzSpace.s3),
         decoration: BoxDecoration(
           color: pressed || selected ? c.surfaceQuiet : null,
-          borderRadius: interactive ? GzRadius.smAll : null,
+          borderRadius: interactive && !flush ? GzRadius.smAll : null,
           border: Border(bottom: BorderSide(color: last ? c.scrimClear : c.borderHairline, width: GzStroke.hair)),
         ),
         child: Row(
@@ -115,7 +116,7 @@ class GzListRow extends StatelessWidget {
           ],
         ),
       );
-      return gzPreview(previewState, body, radius: interactive ? GzRadius.sm : 0, scale: false);
+      return gzPreview(previewState, body, radius: interactive && !flush ? GzRadius.sm : 0, scale: false);
     }
 
     if (!interactive) {
@@ -125,7 +126,7 @@ class GzListRow extends StatelessWidget {
       onPressed: onPressed,
       semanticLabel: subtitle == null ? title : '$title, $subtitle',
       selected: selected ? true : null,
-      borderRadius: GzRadius.smAll,
+      borderRadius: flush ? null : GzRadius.smAll,
       scale: 1,
       minHeight: 0,
       builder: (context, st) => row(st.pressed || previewState == GzPreviewState.pressed),

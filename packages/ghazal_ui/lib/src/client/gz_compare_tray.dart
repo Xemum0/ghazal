@@ -6,7 +6,6 @@ import '../brand/brand.dart';
 import '../core/core.dart';
 import '../foundation.dart';
 import '../overlays/gz_photo.dart';
-import 'gz_compare_action_bar.dart' show GzCompareButton;
 import 'gz_compare_header.dart' show gzImageRefSrc;
 
 /// The most halls a comparison holds (web `COMPARE_MAX`).
@@ -183,9 +182,13 @@ class _Tray extends StatelessWidget {
         const SizedBox(width: GzSpace.s4),
         Expanded(
           child: actionable
-              ? GzCompareButton(
+              ? GzButton(
                   label: '${l.uiClientCompareCompare} ${GzBidi.isolateLtr('(${f.integer(venues.length)})')}',
-                  height: GzSize.controlSm,
+                  variant: GzButtonVariant.secondary,
+                  size: GzButtonSize.sm,
+                  compact: true,
+                  ellipsize: true,
+                  fullWidth: true,
                   onPressed: tray.onOpen,
                 )
               : Semantics(

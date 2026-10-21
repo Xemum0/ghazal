@@ -10,10 +10,18 @@ import '../foundation.dart';
 const Duration _kHoldDelay = Duration(milliseconds: 400);
 const Duration _kHoldRepeat = Duration(milliseconds: 90);
 
+/// `standard`: title at the start, the controls at the end. `hero`: the one big number of a page (CL-ONBD-05 guests): the controls
+/// centred, 16 dp between the buttons and a 64 dp wide figure at the `fig-xl` size.
+enum GzStepperVariant { standard, hero }
+
 /// Counter / stepper (guests, rooms; web `Stepper`). A row: title and caption at the start, then `[ - ] 350 [ + ]` at the end, buttons
 /// 44 x 44 (radius 8, ink-500 hairline), the value in the figures voice (an LTR island, fixed 56 wide so the buttons never move).
 /// Buttons disable at the limits. Press and hold repeats; ArrowUp / ArrowDown, PageUp / PageDown (x10), Home / End work from a
 /// focused button. The minus button sits at the inline-start of the control group: left in English, right in Arabic.
+///
+/// The title is [label] (a string), or a [labelWidget] (the glyph the booking steppers use as their label: the glyph is the value and
+/// [semanticLabel] is the name a screen reader says). [compact] drops the 64 dp minimum height of a labelled row to the 44 dp target
+/// (the web `.gzvt-bk__row .gz-stepper`; without a title it also hugs its controls); [valueWidth] widens the value column (five-digit thousands need 80).
 class GzStepper extends StatefulWidget {
   const GzStepper({
     this.value,
@@ -23,7 +31,12 @@ class GzStepper extends StatefulWidget {
     this.max,
     this.step = 1,
     this.label,
+    this.labelWidget,
+    this.semanticLabel,
     this.caption,
+    this.variant = GzStepperVariant.standard,
+    this.compact = false,
+    this.valueWidth,
     this.renderValue,
     this.valueText,
     this.disabled = false,
@@ -44,6 +57,12 @@ class GzStepper extends StatefulWidget {
   /// Row title at the start (`Guests in this hall`). Without it the stepper is just the controls.
   final String? label;
 
+  /// Replaces the drawn title with any widget (a glyph). Without [label] and [semanticLabel] the group has no name.
+  final Widget? labelWidget;
+
+  /// The accessible name of the group when it is not [label] (the name of the glyph).
+  final String? semanticLabel;
+
   /// Caption under the title (`Minimum 200`); digits become figures.
   final String? caption;
 
@@ -53,6 +72,13 @@ class GzStepper extends StatefulWidget {
   /// Plain-text spoken value (`350 guests`).
   final String Function(int value)? valueText;
   final bool disabled;
+  final GzStepperVariant variant;
+
+  /// A 44 dp high row instead of the 64 dp minimum of a labelled row.
+  final bool compact;
+
+  /// The width of the value column (default 56, the hero 64).
+  final double? valueWidth;
 
   @override
   State<GzStepper> createState() => _GzStepperState();
@@ -183,8 +209,9 @@ class _GzStepperState extends State<GzStepper> {
           color: w.disabled ? c.textDisabled : c.textStrong,
           decoration: TextDecoration.none,
         );
+    final hero = w.variant == GzStepperVariant.hero;
     final value = SizedBox(
-      width: GzSize.controlLg,
+      width: w.valueWidth ?? (hero ? GzSpace.s16 : GzSize.controlLg),
       child: Center(
         child: Semantics(
           liveRegion: true,
@@ -195,7 +222,7 @@ class _GzStepperState extends State<GzStepper> {
               : gzFigText(
                   context,
                   f.integer(v),
-                  role: GzTextRole.figTitle,
+                  role: hero ? GzTextRole.figXl : GzTextRole.figTitle,
                   weight: gz.text(GzTextRole.priceStrong).fontWeight,
                   color: w.disabled ? c.textDisabled : c.textStrong,
                 ),
@@ -206,39 +233,46 @@ class _GzStepperState extends State<GzStepper> {
       mainAxisSize: MainAxisSize.min,
       children: [
         _button(context, dir: -1, icon: GzIcons.minus, label: l10n.uiInputsStepperDecrease, enabled: !w.disabled && !atMin),
-        const SizedBox(width: GzSpace.s1),
+        SizedBox(width: hero ? GzSpace.s4 : GzSpace.s1),
         value,
-        const SizedBox(width: GzSpace.s1),
+        SizedBox(width: hero ? GzSpace.s4 : GzSpace.s1),
         _button(context, dir: 1, icon: GzIcons.plus, label: l10n.uiInputsStepperIncrease, enabled: !w.disabled && !atMax),
       ],
     );
+    final hasTitle = w.label != null || w.labelWidget != null || w.caption != null;
+    final title = Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (w.labelWidget != null)
+          w.labelWidget!
+        else if (w.label != null)
+          Text(w.label!, style: labelStyle),
+        if (w.caption != null) GzText(w.caption!, role: GzTextRole.caption, color: c.textSecondary, figures: true),
+      ],
+    );
+    // The web row also holds a visually hidden title (a zero-width flex item) before the controls: with a glyph-less hero that is one
+    // 16 dp gap that shifts the centred group toward the end.
+    final hiddenTitle = !hasTitle && w.semanticLabel != null;
+    // A compact stepper with no title is just its controls: it hugs them (the web `flex: none` item of an extras row).
+    final hug = !hero && !hasTitle && w.compact;
+    final List<Widget> cells;
+    if (hug) {
+      cells = [ctrl];
+    } else if (hero) {
+      cells = [if (hasTitle) ...[title, const SizedBox(width: GzSpace.s4)] else if (hiddenTitle) const SizedBox(width: GzSpace.s4), ctrl];
+    } else {
+      cells = [if (hasTitle) Expanded(child: title) else const Spacer(), const SizedBox(width: GzSpace.s4), ctrl];
+    }
     return Focus(
       canRequestFocus: false,
       onKeyEvent: _onKey,
       child: Semantics(
         container: true,
-        label: w.label,
+        label: w.semanticLabel ?? w.label,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: GzSize.rowMin),
-          child: Row(
-            children: [
-              if (w.label != null || w.caption != null)
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (w.label != null) Text(w.label!, style: labelStyle),
-                      if (w.caption != null) GzText(w.caption!, role: GzTextRole.caption, color: c.textSecondary, figures: true),
-                    ],
-                  ),
-                )
-              else
-                const Spacer(),
-              const SizedBox(width: GzSpace.s4),
-              ctrl,
-            ],
-          ),
+          constraints: BoxConstraints(minHeight: w.compact ? GzSize.touchMin : GzSize.rowMin),
+          child: Row(mainAxisSize: hug ? MainAxisSize.min : MainAxisSize.max, mainAxisAlignment: hero ? MainAxisAlignment.center : MainAxisAlignment.start, children: cells),
         ),
       ),
     );

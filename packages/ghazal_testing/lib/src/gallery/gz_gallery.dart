@@ -94,6 +94,7 @@ void gzGalleryShots({
           await tester.pumpWidget(GzHost(locale: Locale(lang), extraLocalizationsDelegates: extraDelegates, child: content));
           await _settle(tester);
           final boundary = tester.renderObject<RenderRepaintBoundary>(find.byKey(key));
+          _dump(tester, boundary, '$page/$n/$lang');
           late List<int> bytes;
           debugDisableShadows = false; // real elevation in the capture (flutter_test would draw hard shapes); restored below
           try {
@@ -114,6 +115,43 @@ void gzGalleryShots({
       }
     });
   }
+}
+
+/// Debug aid: `GZ_DUMP='GzVoucherCard|GzFactChip' flutter test ...` prints every matching widget of the rendered section as
+/// `page/NN/lang  Type  x,y  WxH` (relative to the section, dp), the Flutter side of `pnpm probe`.
+void _dump(WidgetTester tester, RenderBox boundary, String tag) {
+  final pattern = Platform.environment['GZ_DUMP'];
+  if (pattern == null || pattern.isEmpty) return;
+  final re = RegExp('^($pattern)\$');
+  final only = Platform.environment['GZ_DUMP_ONLY'];
+  if (only != null && only.isNotEmpty && !tag.contains(only)) return;
+  RenderObject.debugCheckingIntrinsics = true; // lets the dump ask for baselines outside layout
+  void visit(Element e) {
+    final name = e.widget.runtimeType.toString();
+    if (re.hasMatch(name)) {
+      final ro = e.renderObject;
+      if (ro is RenderBox && ro.hasSize) {
+        final o = ro.localToGlobal(Offset.zero, ancestor: boundary);
+        final b = ro.getDistanceToBaseline(TextBaseline.alphabetic, onlyReal: true);
+        // ignore: avoid_print
+        print('DUMP $tag  ${name.padRight(22)} ${o.dx.toStringAsFixed(2)},${o.dy.toStringAsFixed(2)}  ${ro.size.width.toStringAsFixed(2)}x${ro.size.height.toStringAsFixed(2)}${b == null ? '' : '  baseline ${b.toStringAsFixed(2)}'}');
+        if (Platform.environment['GZ_DUMP_KIDS'] != null) {
+          ro.visitChildren((k) {
+            if (k is RenderBox && k.hasSize) {
+              final kb = k.getDistanceToBaseline(TextBaseline.alphabetic, onlyReal: true);
+              final ko = k.localToGlobal(Offset.zero, ancestor: boundary);
+              // ignore: avoid_print
+              print('DUMP   child ${ko.dx.toStringAsFixed(2)},${ko.dy.toStringAsFixed(2)}  ${k.size.width.toStringAsFixed(2)}x${k.size.height.toStringAsFixed(2)}${kb == null ? '' : '  baseline ${kb.toStringAsFixed(2)}'}');
+            }
+          });
+        }
+      }
+    }
+    e.visitChildren(visit);
+  }
+
+  tester.element(find.byType(GzHost)).visitChildren(visit);
+  RenderObject.debugCheckingIntrinsics = false;
 }
 
 Future<void> _settle(WidgetTester tester) async {

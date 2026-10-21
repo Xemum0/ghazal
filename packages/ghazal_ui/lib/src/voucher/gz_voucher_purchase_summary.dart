@@ -4,7 +4,6 @@ import 'package:ghazal_domain/ghazal_domain.dart' show LocalDate;
 
 import '../core/core.dart';
 import '../foundation.dart';
-import 'gz_price_compare.dart' show GzStruckMoney;
 
 /// VoucherPurchaseSummary (ADR 0033 D1, voucher-model section 5.2): what the KD 2 buys and what it does not. A ruled list of the
 /// bound quote, the two prices and the saving, then the ONE amount paid to Ghazal today (exact, three decimals, the figures voice),

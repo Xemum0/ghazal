@@ -171,6 +171,7 @@ class _ClAuth04State extends ConsumerState<ClAuth04Screen> {
     }
 
     Widget phoneField() => GzPhoneField(
+          valueAlign: GzPhoneValueAlign.chip,
           label: l10n.clientAuthSharedPhone,
           value: _phone,
           onChange: (n, _) => setState(() {

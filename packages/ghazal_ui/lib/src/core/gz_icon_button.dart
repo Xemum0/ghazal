@@ -22,6 +22,7 @@ class GzIconButton extends StatelessWidget {
     this.disk,
     this.iconSize = GzIconSize.md,
     this.active,
+    this.expanded,
     this.previewState,
     super.key,
   });
@@ -40,6 +41,9 @@ class GzIconButton extends StatelessWidget {
 
   /// Toggle state (Semantics selected). Leave null for a plain action button.
   final bool? active;
+
+  /// Semantics `expanded` for a button that opens a sheet or a menu (the info glyph); null = not applicable.
+  final bool? expanded;
   final GzPreviewState? previewState;
 
   @override
@@ -54,6 +58,7 @@ class GzIconButton extends StatelessWidget {
       onPressed: onPressed,
       semanticLabel: label,
       selected: toggle ? active : null,
+      expanded: expanded,
       borderRadius: GzRadius.pillAll,
       onDark: variant == GzIconButtonVariant.onScrim,
       builder: (context, st) {

@@ -22,14 +22,20 @@ class ObdFormSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Align(alignment: AlignmentDirectional.centerStart, child: GzThreadRule(draw: GzDraw.inview)),
+        const Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: GzThreadRule(draw: GzDraw.inview),
+        ),
         const SizedBox(height: GzSpace.s3),
         ConstrainedBox(
           constraints: const BoxConstraints(minHeight: GzSize.touchMin),
           child: Row(
             children: [
               if (icon != null) ...[GzIcon(icon!, size: GzIconSize.md), const SizedBox(width: GzSpace.s2)],
-              Flexible(flex: 100, child: GzText(title, role: GzTextRole.d1, color: c.textStrong, header: true)),
+              Flexible(
+                flex: 100,
+                child: GzText(title, role: GzTextRole.d1, color: c.textStrong, header: true),
+              ),
               if (unit != null) ...[const SizedBox(width: GzSpace.s2), GzText(unit!, role: GzTextRole.label, color: c.textSecondary, figures: true)],
               if (action != null) ...[const Spacer(), action!],
             ],

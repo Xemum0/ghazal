@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../foundation.dart';
+import 'gz_chrome_baseline.dart';
 
 /// A number that is the whole element, in the figures voice (Manrope tabular lining digits, an LTR island), with a chosen
 /// weight, colour and decoration. [GzNum] is the same thing with the role's own weight; this adds the overrides the core
@@ -24,5 +25,9 @@ Widget gzFigText(
     decorationThickness: decoration == null ? null : 1,
     decorationColor: color,
   );
-  return Text(GzBidi.isolateLtr(value), style: style, maxLines: 1, softWrap: false, semanticsLabel: GzBidi.strip(value));
+  return GzChromeBaseline(
+    style: style,
+    paint: false,
+    child: Text(GzBidi.isolateLtr(value), style: style, strutStyle: StrutStyle.fromTextStyle(style, forceStrutHeight: true, leadingDistribution: TextLeadingDistribution.even), maxLines: 1, softWrap: false, semanticsLabel: GzBidi.strip(value)),
+  );
 }

@@ -126,16 +126,7 @@ class AuthInlineNote extends StatelessWidget {
                 const SizedBox(width: GzSpace.s3),
                 Expanded(child: GzText(message, role: GzTextRole.bodyS, color: fg)),
                 if (facts != null) ...[const SizedBox(width: GzSpace.s3), facts!],
-                if (detail != null)
-                  GzIconButton(
-                    icon: GzIcons.info,
-                    label: l10n.commonA11yInfo,
-                    onPressed: () => showGzSheet<void>(
-                      context,
-                      title: detailTitle ?? l10n.commonLabelDetails,
-                      builder: (context) => GzText(detail!, role: GzTextRole.body, color: c.textPrimary),
-                    ),
-                  ),
+                if (detail != null) GzInfoButton(title: detailTitle ?? l10n.commonLabelDetails, paragraphs: [detail!]),
                 if (actionLabel != null) GzButton(label: actionLabel!, variant: GzButtonVariant.tertiary, onPressed: onAction),
               ],
             ),
@@ -228,24 +219,4 @@ class AuthEndShift extends StatelessWidget {
     final dx = (toStart ? -_slack : _slack) * (rtl ? -1 : 1);
     return Transform.translate(offset: Offset(dx, 0), child: child);
   }
-}
-
-/// The title row a sheet screen draws itself (the sheet gives the handle and the gutter): the serif title and a close glyph at the end.
-class AuthSheetHead extends StatelessWidget {
-  const AuthSheetHead({required this.title, required this.onClose, super.key});
-
-  final String title;
-  final VoidCallback onClose;
-
-  @override
-  Widget build(BuildContext context) => ConstrainedBox(
-        constraints: const BoxConstraints(minHeight: GzSize.controlMd),
-        child: Row(
-          children: [
-            Expanded(child: GzText(title, role: GzTextRole.d1, color: context.gz.colors.textStrong, header: true)),
-            const SizedBox(width: GzSpace.s3),
-            AuthEndShift(child: GzBarButton(icon: GzIcons.close, label: context.l10n.commonActionClose, onPressed: onClose)),
-          ],
-        ),
-      );
 }

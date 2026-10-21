@@ -9,7 +9,6 @@ import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../application/onboarding_state.dart';
 import 'widgets/arch_hero.dart';
-import 'widgets/obd_action_bar.dart';
 
 const String _photo = 'asset://ghazal_mock_api/images/ballrooms-17-floral-arch-stage-draped-ceiling';
 const double _heroHeight = 372;
@@ -45,7 +44,10 @@ class ClOnbd01Screen extends ConsumerWidget {
     );
 
     return GzScreen(
-      bottom: ObdActionBar(label: l10n.commonActionContinue, onPressed: () => nav.push('CL-ONBD-02'), note: account),
+      bottom: GzActionBar(
+        action: GzActionBarAction(label: l10n.commonActionContinue, onPressed: () => nav.push('CL-ONBD-02')),
+        noteWidget: Center(child: account),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -53,7 +55,9 @@ class ClOnbd01Screen extends ConsumerWidget {
             padding: EdgeInsetsDirectional.only(top: MediaQuery.paddingOf(context).top),
             child: SizedBox(
               height: GzSpace.s16,
-              child: Center(child: GzWordmark(size: GzWordmarkSize.lg, script: lang == 'ar' ? GzWordmarkScript.arabic : GzWordmarkScript.latin, draw: true)),
+              child: Center(
+                child: GzWordmark(size: GzWordmarkSize.lg, script: lang == 'ar' ? GzWordmarkScript.arabic : GzWordmarkScript.latin, draw: true),
+              ),
             ),
           ),
           ObdArchHero(src: _photo, alt: l10n.clientOnboardingAltLanguage, height: offline ? _heroHeightOffline : _heroHeight),
@@ -137,7 +141,9 @@ class _LanguageCard extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Expanded(child: GzText(_marks[code]!, role: GzTextRole.d3, color: selected ? c.textStrong : c.textSecondary, excludeSemantics: true)),
+                        Expanded(
+                          child: GzText(_marks[code]!, role: GzTextRole.d3, color: selected ? c.textStrong : c.textSecondary, excludeSemantics: true),
+                        ),
                         const SizedBox(width: GzSpace.s2),
                         _Check(selected: selected),
                       ],
@@ -173,7 +179,11 @@ class _Check extends StatelessWidget {
       child: SizedBox(
         width: GzSize.iconMd,
         height: GzSize.iconMd,
-        child: selected ? Center(child: GzIcon(GzIcons.check, size: GzIconSize.xs, color: c.textOnDark)) : null,
+        child: selected
+            ? Center(
+                child: GzIcon(GzIcons.check, size: GzIconSize.xs, color: c.textOnDark),
+              )
+            : null,
       ),
     );
   }

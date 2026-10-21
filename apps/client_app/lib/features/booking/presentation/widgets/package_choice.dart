@@ -90,7 +90,7 @@ class BookingPackageChoice extends ConsumerWidget {
                 children: [
                   GzIcon(GzIcons.offer, size: GzIconSize.xs, color: c.iconSecondary, semanticLabel: l10n.commonStandardPrice),
                   const SizedBox(width: GzSpace.s1),
-                  BookingStruck(fils: option.standard),
+                  GzStruckMoney(fils: option.standard, arabicFigureFirst: true, semanticLabel: l10n.commonStandardPrice),
                 ],
               ),
             ),

@@ -12,7 +12,6 @@ import '../application/booking_flow_providers.dart';
 import '../application/booking_request.dart';
 import 'booking_glyphs.dart';
 import 'widgets/booking_async.dart';
-import 'widgets/booking_info.dart';
 import 'widgets/booking_layout.dart';
 import 'widgets/sent_parts.dart';
 
@@ -142,9 +141,10 @@ class _Sent extends ConsumerWidget {
                   Expanded(
                     child: GzText(venueName, role: GzTextRole.d1, color: c.textStrong),
                   ),
-                  BookingInfoButton(
+                  GzInfoButton(
                     title: l10n.clientBookingSentInfoTitle,
                     paragraphs: [l10n.clientBookingSentBody(venueName, confirmHours), l10n.clientBookingSentWithdraw],
+                    bleed: true,
                   ),
                 ],
               ),

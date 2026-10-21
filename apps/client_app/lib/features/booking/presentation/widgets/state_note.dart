@@ -1,8 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
-import 'booking_info.dart';
-
 /// A state line that has something to do (verify the number, see your open requests): a glyph, a fragment of a few words, one action
 /// beneath at inline-start and optionally the info glyph that opens the sentence behind it (web `StateNote`). Rose panel; danger tone
 /// for a taken date.
@@ -53,7 +51,7 @@ class BookingStateNote extends StatelessWidget {
               ),
               if (infoTitle != null && infoBody != null) ...[
                 const SizedBox(width: GzSpace.s3),
-                BookingInfoButton(title: infoTitle!, paragraphs: [infoBody!], bleed: false),
+                GzInfoButton(title: infoTitle!, paragraphs: [infoBody!]),
               ],
             ],
           ),

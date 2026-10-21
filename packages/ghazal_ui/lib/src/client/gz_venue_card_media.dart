@@ -32,7 +32,7 @@ class _VenueMediaState extends State<_VenueMedia> {
         children: [for (final s in shots) ExcludeSemantics(child: GzPhoto(src: gzGalleryItemSrc(s.baseUrl, s.file)))],
       );
     } else if (cover != null) {
-      picture = ExcludeSemantics(child: GzPhoto(src: gzImageSrc(cover)));
+      picture = ExcludeSemantics(child: GzPhoto(src: gzImageSrc(cover.file, cover.baseUrl)));
     } else {
       picture = Semantics(
         label: l.uiClientVenueCardNoPhotos,

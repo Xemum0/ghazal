@@ -27,7 +27,7 @@ class _CompactRow extends StatelessWidget {
         child: ColoredBox(
           color: c.surfacePlaceholder,
           child: cover != null
-              ? ExcludeSemantics(child: GzPhoto(src: gzImageSrc(cover)))
+              ? ExcludeSemantics(child: GzPhoto(src: gzImageSrc(cover.file, cover.baseUrl)))
               : ColoredBox(color: c.surfaceTintSoft, child: const Center(child: GzMonogram(size: GzMonogramSize.sm))),
         ),
       ),

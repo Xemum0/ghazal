@@ -81,7 +81,12 @@ class _ClOnbd06State extends ConsumerState<ClOnbd06Screen> {
             color: c.surfaceCanvas,
             child: Padding(
               padding: const EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: GzSpace.s1, bottom: GzSpace.s3),
-              child: GzSearchField(value: _query, onValueChange: (v) => setState(() => _query = v), placeholder: l10n.clientOnboardingAreasSearch, label: l10n.clientOnboardingAreasSearch),
+              child: GzSearchField(
+                value: _query,
+                onValueChange: (v) => setState(() => _query = v),
+                placeholder: l10n.clientOnboardingAreasSearch,
+                label: l10n.clientOnboardingAreasSearch,
+              ),
             ),
           ),
         ],
@@ -95,7 +100,10 @@ class _ClOnbd06State extends ConsumerState<ClOnbd06Screen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (offline) ...[GzBanner(message: l10n.commonStateOffline, tone: GzBannerTone.offline, shape: GzBannerShape.card), const SizedBox(height: GzSpace.s6)],
+            if (offline) ...[
+              GzBanner(message: l10n.commonStateOffline, tone: GzBannerTone.offline, shape: GzBannerShape.card),
+              const SizedBox(height: GzSpace.s6),
+            ],
             if (!searching) ...[ObdStepHead(title: l10n.clientOnboardingAreasTitle), const SizedBox(height: GzSpace.s6)],
             if (_picked.isNotEmpty) ...[
               Row(
@@ -103,11 +111,20 @@ class _ClOnbd06State extends ConsumerState<ClOnbd06Screen> {
                   Expanded(
                     child: Align(
                       alignment: AlignmentDirectional.centerStart,
-                      child: GzFactChip(icon: GzIcons.pin, label: l10n.clientOnboardingAreasSelected(_picked.length), value: f.integer(_picked.length)),
+                      child: GzFactChip(
+                        icon: GzIcons.pin,
+                        label: l10n.clientOnboardingAreasSelected(_picked.length),
+                        value: f.integer(_picked.length),
+                      ),
                     ),
                   ),
                   const SizedBox(width: GzSpace.s3),
-                  GzButton(label: l10n.commonActionClear, variant: GzButtonVariant.tertiary, flushInline: true, onPressed: () => setState(() => _picked = const <String>[])),
+                  GzButton(
+                    label: l10n.commonActionClear,
+                    variant: GzButtonVariant.tertiary,
+                    flushInline: true,
+                    onPressed: () => setState(() => _picked = const <String>[]),
+                  ),
                 ],
               ),
               const SizedBox(height: GzSpace.s6),
@@ -135,23 +152,27 @@ class _ClOnbd06State extends ConsumerState<ClOnbd06Screen> {
       if (matches.isEmpty) continue;
       final expanded = searching || _open.contains(g.id);
       final shown = expanded ? matches : matches.where((a) => withHalls.contains(a.id) || _picked.contains(a.id)).toList();
-      rows.add(_Governorate(
-        governorate: g,
-        name: g.name.of(lang),
-        chosen: inGov.where((a) => _picked.contains(a.id)).length,
-        shown: shown,
-        hidden: matches.length - shown.length,
-        expanded: expanded,
-        searching: searching,
-        picked: _picked,
-        lang: lang,
-        onToggle: _toggle,
-        onToggleOpen: () => setState(() => _open.contains(g.id) ? _open.remove(g.id) : _open.add(g.id)),
-        moreLabel: (n) => l10n.clientOnboardingAreasMore(n),
-        moreText: (n) => '+${f.integer(n)}',
-      ));
+      rows.add(
+        _Governorate(
+          governorate: g,
+          name: g.name.of(lang),
+          chosen: inGov.where((a) => _picked.contains(a.id)).length,
+          shown: shown,
+          hidden: matches.length - shown.length,
+          expanded: expanded,
+          searching: searching,
+          picked: _picked,
+          lang: lang,
+          onToggle: _toggle,
+          onToggleOpen: () => setState(() => _open.contains(g.id) ? _open.remove(g.id) : _open.add(g.id)),
+          moreLabel: (n) => l10n.clientOnboardingAreasMore(n),
+          moreText: (n) => '+${f.integer(n)}',
+        ),
+      );
     }
-    if (rows.isEmpty) return GzEmptyState(fill: false, flush: true, illustration: GzIllustrationName.noResult, title: l10n.commonStateTitleEmptySearch);
+    if (rows.isEmpty) {
+      return GzEmptyState(fill: false, flush: true, illustration: GzIllustrationName.noResult, title: l10n.commonStateTitleEmptySearch);
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -206,7 +227,11 @@ class _Governorate extends StatelessWidget {
       container: true,
       label: name,
       child: DecoratedBox(
-        decoration: BoxDecoration(border: Border(top: BorderSide(color: c.borderHairline, width: GzStroke.hair))),
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(color: c.borderHairline, width: GzStroke.hair),
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsetsDirectional.only(top: GzSpace.s4),
           child: Column(
@@ -214,8 +239,16 @@ class _Governorate extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Flexible(child: GzText(name, role: GzTextRole.body, color: c.textStrong, header: true)),
-                  if (chosen > 0) ...[const SizedBox(width: GzSpace.s2), Semantics(label: l10n.clientOnboardingAreasSelected(chosen), child: ExcludeSemantics(child: GzCountBadge(count: chosen)))],
+                  Flexible(
+                    child: GzText(name, role: GzTextRole.body, color: c.textStrong, header: true),
+                  ),
+                  if (chosen > 0) ...[
+                    const SizedBox(width: GzSpace.s2),
+                    Semantics(
+                      label: l10n.clientOnboardingAreasSelected(chosen),
+                      child: ExcludeSemantics(child: GzCountBadge(count: chosen)),
+                    ),
+                  ],
                 ],
               ),
               const SizedBox(height: GzSpace.s3),

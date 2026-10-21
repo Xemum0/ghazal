@@ -167,7 +167,7 @@ _GzToneColors _toneColors(GzColors c, GzStatusTone tone) => switch (tone) {
 /// StatusPill: min 24 high, radius 4, icon 16 plus a label from the `pill` role. The label strings are the shared `common`
 /// words (client or partner wording); [label] overrides for the rare composed case.
 class GzStatusPill extends StatelessWidget {
-  const GzStatusPill({required this.status, this.audience = GzStatusAudience.client, this.label, this.hours, super.key});
+  const GzStatusPill({required this.status, this.audience = GzStatusAudience.client, this.label, this.hours, this.compact = false, super.key});
 
   final GzStatus status;
   final GzStatusAudience audience;
@@ -177,6 +177,9 @@ class GzStatusPill extends StatelessWidget {
 
   /// `approved` only: hours left in the confirm window, shown as a compact figure after the word (`Approved 23 h`).
   final int? hours;
+
+  /// Inline padding 4 + hairline instead of 8 + hairline: a pill inside a table cell.
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
@@ -196,13 +199,13 @@ class GzStatusPill extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(minHeight: GzSize.pillMin),
           child: Padding(
-            padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s2 + GzStroke.hair, vertical: GzSpace.s1 + GzStroke.hair),
+            padding: EdgeInsetsDirectional.symmetric(horizontal: (compact ? GzSpace.s1 : GzSpace.s2) + GzStroke.hair, vertical: GzSpace.s1 + GzStroke.hair),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 GzIcon(status.icon, size: GzIconSize.xs, color: colors.icon),
                 const SizedBox(width: GzSpace.s1),
-                GzText(word, role: GzTextRole.pill, color: colors.text, softWrap: false),
+                Flexible(child: GzText(word, role: GzTextRole.pill, color: colors.text, softWrap: false)),
                 if (timeLeft != null) ...[
                   const SizedBox(width: GzSpace.s1),
                   GzNum(timeLeft, role: GzTextRole.figCaption, color: colors.text),

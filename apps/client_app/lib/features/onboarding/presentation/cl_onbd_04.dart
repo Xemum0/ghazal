@@ -55,22 +55,20 @@ class _ClOnbd04State extends ConsumerState<ClOnbd04Screen> {
   }
 
   void _pickDay(String? iso) => setState(() {
-        _date = iso;
-        _mode = _Mode.exact;
-        _flex = null;
-      });
+    _date = iso;
+    _mode = _Mode.exact;
+    _flex = null;
+  });
 
   void _decideLater() => setState(() {
-        _mode = _mode == _Mode.undecided ? _Mode.exact : _Mode.undecided;
-        _date = null;
-        _flex = null;
-      });
+    _mode = _mode == _Mode.undecided ? _Mode.exact : _Mode.undecided;
+    _date = null;
+    _flex = null;
+  });
 
   Future<void> _openMonths(GzFormat f) async {
     final start = _monthOf(f.isoDay(f.now()));
-    final months = <GzYm>[
-      for (var i = 0; i < _monthsAhead; i++) GzYm(start.year + (start.month - 1 + i) ~/ 12, (start.month - 1 + i) % 12 + 1),
-    ];
+    final months = <GzYm>[for (var i = 0; i < _monthsAhead; i++) GzYm(start.year + (start.month - 1 + i) ~/ 12, (start.month - 1 + i) % 12 + 1)];
     final picked = await showObdMonthSheet(context, months: months, initial: _flex ?? months.first, monthText: (m) => _monthText(f, m));
     if (picked == null || !mounted) return;
     setState(() {
@@ -102,7 +100,9 @@ class _ClOnbd04State extends ConsumerState<ClOnbd04Screen> {
     final config = ref.watch(onboardingConfigProvider).value;
     return GzScreen(
       top: ObdStepBar(step: 2, total: 4, onSkip: _next),
-      bottom: GzActionBar(action: GzActionBarAction(label: l10n.commonActionContinue, onPressed: () => _confirm(f))),
+      bottom: GzActionBar(
+        action: GzActionBarAction(label: l10n.commonActionContinue, onPressed: () => _confirm(f)),
+      ),
       child: Padding(
         padding: const EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: GzSpace.s2, bottom: GzSpace.s8),
         child: Column(
@@ -129,7 +129,11 @@ class _ClOnbd04State extends ConsumerState<ClOnbd04Screen> {
                 flush: true,
                 illustration: _mode == _Mode.undecided ? GzIllustrationName.hourglass : GzIllustrationName.calendar,
                 title: _mode == _Mode.flexibleMonth && _flex != null ? _monthText(f, _flex!) : l10n.clientOnboardingDateNotDecided,
-                action: GzStateAction(label: l10n.clientOnboardingDatePickDate, variant: GzButtonVariant.tertiary, onPressed: () => setState(() => _mode = _Mode.exact)),
+                action: GzStateAction(
+                  label: l10n.clientOnboardingDatePickDate,
+                  variant: GzButtonVariant.tertiary,
+                  onPressed: () => setState(() => _mode = _Mode.exact),
+                ),
               ),
             const SizedBox(height: GzSpace.s6),
             Align(
@@ -138,7 +142,12 @@ class _ClOnbd04State extends ConsumerState<ClOnbd04Screen> {
                 spacing: GzSpace.s2,
                 runSpacing: GzSpace.s2,
                 children: [
-                  GzChip(label: l10n.clientOnboardingDateNotDecided, iconStart: GzIcons.calendarDots, selected: _mode == _Mode.undecided, onPressed: _decideLater),
+                  GzChip(
+                    label: l10n.clientOnboardingDateNotDecided,
+                    iconStart: GzIcons.calendarDots,
+                    selected: _mode == _Mode.undecided,
+                    onPressed: _decideLater,
+                  ),
                   GzChip(
                     label: _mode == _Mode.flexibleMonth && _flex != null ? _monthText(f, _flex!) : l10n.clientOnboardingDateFlexible,
                     iconStart: GzIcons.calendar,
@@ -211,7 +220,9 @@ class _Strip extends StatelessWidget {
         children: [
           GzIcon(GzIcons.calendarPlus, size: GzIconSize.md, color: c.iconDisabled),
           const SizedBox(width: GzSpace.s3),
-          Expanded(child: GzText(l10n.clientOnboardingDatePickDate, role: GzTextRole.bodyS, color: c.textSecondary)),
+          Expanded(
+            child: GzText(l10n.clientOnboardingDatePickDate, role: GzTextRole.bodyS, color: c.textSecondary),
+          ),
         ],
       );
     } else {
@@ -245,7 +256,9 @@ class _Strip extends StatelessWidget {
     return Container(
       constraints: const BoxConstraints(minHeight: GzSpace.s16),
       padding: const EdgeInsetsDirectional.symmetric(vertical: GzSpace.s3),
-      decoration: BoxDecoration(border: Border(top: rule, bottom: rule)),
+      decoration: BoxDecoration(
+        border: Border(top: rule, bottom: rule),
+      ),
       child: Align(alignment: AlignmentDirectional.centerStart, child: body),
     );
   }

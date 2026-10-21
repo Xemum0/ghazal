@@ -38,18 +38,15 @@ class BookingGuestsField extends ConsumerWidget {
     return BookingGap(
       gap: GzSpace.s3,
       children: [
-        Semantics(
-          container: true,
-          label: l10n.clientBookingGuestsLabel,
-          child: Stack(
-            alignment: AlignmentDirectional.centerStart,
-            children: [
-              GzStepper(value: guests, onChanged: onChanged, min: 1, max: section.maxGuests + step * 10, step: step, valueText: f.guests),
-              ExcludeSemantics(
-                child: GzIcon(GzIcons.usersThree, size: GzIconSize.md, color: c.iconSecondary),
-              ),
-            ],
-          ),
+        GzStepper(
+          labelWidget: GzIcon(GzIcons.usersThree, size: GzIconSize.md, color: c.iconSecondary),
+          semanticLabel: l10n.clientBookingGuestsLabel,
+          value: guests,
+          onChanged: onChanged,
+          min: 1,
+          max: section.maxGuests + step * 10,
+          step: step,
+          valueText: f.guests,
         ),
         GzChipGroup<int>(
           label: l10n.clientBookingGuestsPresets,
@@ -184,53 +181,6 @@ class BookingMark extends StatelessWidget {
                 child: GzIcon(GzIcons.check, size: GzIconSize.xs, color: c.controlToggleKnob),
               )
             : null,
-      ),
-    );
-  }
-}
-
-/// One option of [BookingGlyphChips].
-@immutable
-class BookingGlyphOption<V> {
-  const BookingGlyphOption({required this.value, required this.label, this.icon, this.semantic});
-
-  final V value;
-  final String label;
-  final IconData? icon;
-
-  /// The accessible name when the visible label is only a figure or a word.
-  final String? semantic;
-}
-
-/// A chip group whose chips carry a glyph (the relation, the common requests, the session of the day). Single choice, or multiple with
-/// [values]. The group is named by [label].
-class BookingGlyphChips<V> extends StatelessWidget {
-  const BookingGlyphChips({required this.label, required this.options, required this.selected, required this.onSelect, super.key});
-
-  final String label;
-  final List<BookingGlyphOption<V>> options;
-  final List<V> selected;
-  final ValueChanged<V> onSelect;
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      container: true,
-      label: label,
-      child: Wrap(
-        spacing: GzSpace.s2,
-        runSpacing: GzSpace.s2,
-        children: [
-          for (final o in options)
-            Semantics(
-              button: true,
-              selected: selected.contains(o.value),
-              label: o.semantic ?? o.label,
-              onTap: () => onSelect(o.value),
-              excludeSemantics: true,
-              child: GzChip(label: o.label, iconStart: o.icon, selected: selected.contains(o.value), onPressed: () => onSelect(o.value)),
-            ),
-        ],
       ),
     );
   }

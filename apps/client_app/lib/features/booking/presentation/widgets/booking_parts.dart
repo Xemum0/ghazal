@@ -7,7 +7,6 @@ import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../application/booking_flow_model.dart';
 import '../booking_glyphs.dart';
-import 'booking_info.dart';
 import 'booking_layout.dart';
 
 /// "The venue replies within 4 hours" as a fact (ADR 0034): a timer glyph and the hours, no sentence. Never urgency, never a ticking clock.
@@ -115,10 +114,9 @@ class BookingVoucherNeed extends StatelessWidget {
               ),
             ),
             const SizedBox(width: GzSpace.s1),
-            BookingInfoButton(
+            GzInfoButton(
               title: l10n.clientBookingNeedVoucherInfoTitle,
               paragraphs: [l10n.clientBookingNeedVoucherBody, l10n.clientBookingHostingOneVoucher],
-              bleed: false,
             ),
           ],
         ),

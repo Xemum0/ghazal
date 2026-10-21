@@ -198,13 +198,13 @@ class _Body extends ConsumerWidget {
       patchBookingDraft(ref, (d) => d.copyWith(audience: a, hallId: hall?.id, clearPackage: true));
     }
 
-    final sessionOptions = <BookingGlyphOption<String>>[
+    final sessionOptions = <GzChipOption<String>>[
       for (final s in sec.sessions)
-        BookingGlyphOption<String>(
+        GzChipOption<String>(
           value: s.id,
           label: f.time(_at(flow.date, s.start)),
           icon: sessionGlyph(s.start),
-          semantic: '${context.bi(s.name)} ${f.time(_at(flow.date, s.start))}',
+          semanticLabel: '${context.bi(s.name)} ${f.time(_at(flow.date, s.start))}',
         ),
     ];
 
@@ -220,11 +220,13 @@ class _Body extends ConsumerWidget {
           onChanged: (id) => patchBookingDraft(ref, (d) => d.copyWith(hallId: id, clearPackage: true)),
         ),
       if (sec.sessions.length > 1)
-        BookingGlyphChips<String>(
+        GzChipGroup<String>(
           label: l10n.clientBookingSessionLabel,
           options: sessionOptions,
-          selected: [if (sec.sessionId != null) sec.sessionId!],
-          onSelect: (id) => patchBookingDraft(ref, (d) => d.copyWith(sessionId: id)),
+          value: sec.sessionId,
+          onChanged: (id) {
+            if (id != null) patchBookingDraft(ref, (d) => d.copyWith(sessionId: id));
+          },
         ),
       if (!bound)
         BookingGuestsField(

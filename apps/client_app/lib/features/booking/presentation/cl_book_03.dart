@@ -11,7 +11,6 @@ import '../application/booking_flow_providers.dart';
 import 'booking_glyphs.dart';
 import 'widgets/bar_total.dart';
 import 'widgets/booking_async.dart';
-import 'widgets/booking_info.dart';
 import 'widgets/booking_layout.dart';
 import 'widgets/extra_row.dart';
 import 'widgets/step_scaffold.dart';
@@ -64,9 +63,10 @@ class ClBook03Screen extends ConsumerWidget {
       title: l10n.clientBookingExtrasTitle,
       info: failed || (flow != null && rows.isEmpty)
           ? null
-          : BookingInfoButton(
+          : GzInfoButton(
               title: l10n.clientBookingExtrasInfoTitle,
               paragraphs: [l10n.clientBookingExtrasLead, l10n.clientBookingExtrasSettledNote],
+              bleed: true,
             ),
       action: action,
       summary: summary,

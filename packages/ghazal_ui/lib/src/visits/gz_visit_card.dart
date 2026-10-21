@@ -76,11 +76,7 @@ class GzVisitCard extends StatelessWidget {
           ],
         ),
         const SizedBox(height: GzSpace.s2 + GzSpace.s1),
-        // The figures islands of the date carry their own line height; the web line box stays at the role's 28, so the box is fixed.
-        SizedBox(
-          height: _lineOf(context, GzTextRole.uiTitle),
-          child: OverflowBox(alignment: AlignmentDirectional.centerStart, minHeight: 0, maxHeight: double.infinity, child: GzText(when, role: GzTextRole.uiTitle, color: c.textStrong, figures: true)),
-        ),
+        GzText(when, role: GzTextRole.uiTitle, color: c.textStrong, figures: true),
         const SizedBox(height: GzSpace.s1),
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -132,10 +128,4 @@ class GzVisitCard extends StatelessWidget {
       ),
     );
   }
-}
-
-/// The line box of a text role in dp (font size x height).
-double _lineOf(BuildContext context, GzTextRole role) {
-  final style = context.gz.text(role);
-  return (style.fontSize ?? 0) * (style.height ?? 1);
 }

@@ -1245,7 +1245,7 @@
   "uiHotelStripOpen": "Open",
   "uiHotelStripToday": "Today",
   "uiHotelStripSep": ", ",
-  "uiHotelStripConfirmedCount": "{count, plural, other{{count} confirmed}}",
+  "uiHotelStripConfirmedCount": "{count, plural, one{{count} confirmed} other{{count} confirmed}}",
   "@uiHotelStripConfirmedCount": {
     "placeholders": {
       "count": {
@@ -1254,7 +1254,7 @@
       }
     }
   },
-  "uiHotelStripPendingCount": "{count, plural, other{{count} pending}}",
+  "uiHotelStripPendingCount": "{count, plural, one{{count} pending} other{{count} pending}}",
   "@uiHotelStripPendingCount": {
     "placeholders": {
       "count": {
@@ -1263,7 +1263,7 @@
       }
     }
   },
-  "uiHotelStripOpenCount": "{count, plural, other{{count} open}}",
+  "uiHotelStripOpenCount": "{count, plural, one{{count} open} other{{count} open}}",
   "@uiHotelStripOpenCount": {
     "placeholders": {
       "count": {

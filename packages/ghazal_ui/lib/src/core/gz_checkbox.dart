@@ -5,9 +5,13 @@ import 'gz_preview.dart';
 
 /// Checkbox: a 24 box (radius 4) in a row that is at least 44 high and whole-row tappable. Checked = ink-700 fill with a canvas
 /// check (the same ink as the Switch: choice is ink, never gold). [indeterminate] shows a minus. [error] = danger border + icon + text.
+/// The label is a string, or a [labelWidget] (the web takes a ReactNode: a sentence with a link, a glyph and a word); then [label] is
+/// the accessible name unless [semanticLabel] says otherwise.
 class GzCheckbox extends StatefulWidget {
   const GzCheckbox({
     required this.label,
+    this.labelWidget,
+    this.semanticLabel,
     this.checked,
     this.defaultChecked = false,
     this.indeterminate = false,
@@ -18,8 +22,14 @@ class GzCheckbox extends StatefulWidget {
     super.key,
   });
 
-  /// The visible label.
+  /// The visible label (and the accessible name).
   final String label;
+
+  /// Replaces the drawn label with any widget (rich text, a link). The row is still one tap target.
+  final Widget? labelWidget;
+
+  /// The accessible name when it is not [label].
+  final String? semanticLabel;
   final bool? checked;
   final bool defaultChecked;
   final bool indeterminate;
@@ -56,7 +66,7 @@ class _GzCheckboxState extends State<GzCheckbox> {
       checked: widget.indeterminate ? null : _on,
       mixed: widget.indeterminate,
       enabled: enabled,
-      label: widget.label,
+      label: widget.semanticLabel ?? widget.label,
       hint: widget.error,
       onTap: enabled ? _toggle : null,
       excludeSemantics: true,
@@ -94,7 +104,14 @@ class _GzCheckboxState extends State<GzCheckbox> {
               children: [
                 box,
                 const SizedBox(width: GzSpace.s3),
-                Expanded(child: GzText(widget.label, role: GzTextRole.bodyS, color: enabled ? c.textStrong : c.textDisabled)),
+                Expanded(
+                  child: widget.labelWidget == null
+                      ? GzText(widget.label, role: GzTextRole.bodyS, color: enabled ? c.textStrong : c.textDisabled)
+                      : DefaultTextStyle.merge(
+                          style: gz.text(GzTextRole.bodyS).copyWith(color: enabled ? c.textStrong : c.textDisabled, decoration: TextDecoration.none),
+                          child: widget.labelWidget!,
+                        ),
+                ),
               ],
             ),
           );
