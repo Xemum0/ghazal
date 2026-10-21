@@ -8,6 +8,7 @@ import { closeSync, existsSync, mkdirSync, openSync, readFileSync, readdirSync, 
 import { createHash } from 'node:crypto'
 import { join } from 'node:path'
 import { checkService, computePort, repoRoot, resolveSlot } from '../ports.mjs'
+import { storyFor } from './story.mjs'
 
 // playwright-core is a dependency of design/ (no lockfile change): resolve it from there.
 const { chromium } = createRequire(new URL('../../design/package.json', import.meta.url))('playwright-core')
@@ -45,10 +46,6 @@ for (const app of ['client', 'hotel']) {
   }
 }
 if (!items.length) { console.error('no screens selected'); process.exit(64) }
-
-// The prototype state a screen is captured in (and the persona the Flutter shot harness uses): signed in as Reem for every client screen
-// except onboarding and auth (a first-time guest), signed in as the hotel manager for every partner screen except access.
-export const storyFor = it => (it.app === 'hotel' ? (it.id.startsWith('HL-ACCS-') ? 'start' : 'hotel') : /^CL-(ONBD|AUTH)-/.test(it.id) ? 'start' : 'client')
 
 // ---- server (identity checked; start detached if down)
 async function ensureServer() {

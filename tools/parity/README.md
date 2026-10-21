@@ -37,3 +37,15 @@ Verdict: **pass < 0.075**, **review < 0.12**, fail otherwise. Measured on three 
 | different screen | 0.33-0.41 |
 
 So 1 px shifts and text anti-aliasing pass, a 1 dp shift needs a look, a 2 dp shift or another screen fails. The build plan's original 0.06 sat below a 1 px shift and was relaxed to 0.075. If thresholds change, rerun the self-test and update this table. Real Flutter-vs-browser text rendering differences are expected to land around 0.02-0.05 and will be re-checked on the first real shots.
+
+## Gallery and screen tools added in phases C and F3
+
+| Tool | What it proves |
+|---|---|
+| `pnpm parity:board` (`board.mjs`) | one table of every component gallery against the web references; `--save` / `--baseline` mark regressions (`!!`) and improvements (`+`) |
+| `pnpm probe` (`probe.mjs`) | the computed boxes and styles of any web element (screen or gallery), with a box tree: the number to build to |
+| `pnpm parity:text` + `pnpm parity:content` | content parity: the words of a Flutter shot against the web frame as bags of words; catches a missing subtitle, a missing section below the fold, a wrong name (render tall: `pnpm fshot ... --h 4000 --health`) |
+| `pnpm flutter:edges` (`tools/check-nav-edges.mjs`) | every `navigatesTo` edge of the inventory has a route name in the flow's source; every screen reachable; no stub |
+| `pnpm flutter:sweep` (`tools/flutter-sweep.mjs`) | the route sweep: layout at 360 / 390 / 430, text scale 1.3, content, scenario states; framework errors, overflow, stubs, blank renders, stuck skeletons, error states, missing words |
+
+The shot harness writes `<label>.health.json` (errors, overflow, stub, skeletons, error / offline / empty state) and `<label>.texts.json` next to every PNG; `--health` makes framework errors non-fatal so a sweep reads them instead of stopping.

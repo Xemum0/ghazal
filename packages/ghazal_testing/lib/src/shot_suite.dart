@@ -7,6 +7,7 @@ import 'package:path/path.dart' as p;
 
 import 'fonts.dart';
 import 'harness.dart';
+import 'shot_health.dart';
 
 const String _ids = String.fromEnvironment('SHOT_IDS');
 const String _langs = String.fromEnvironment('SHOT_LANGS', defaultValue: 'ar,en');
@@ -17,6 +18,8 @@ const String _textScale = String.fromEnvironment('SHOT_TEXT_SCALE', defaultValue
 const String _state = String.fromEnvironment('SHOT_STATE');
 const String _out = String.fromEnvironment('SHOT_OUT');
 const String _persona = String.fromEnvironment('SHOT_PERSONA');
+// `SHOT_HEALTH=1` (the sweep): framework errors are recorded in the health file instead of failing the shot.
+const String _health = String.fromEnvironment('SHOT_HEALTH');
 
 /// `SHOT_PERSONA` overrides the persona rule (client screens as Reem except onboarding and auth, partner screens as the hotel manager
 /// except access): a `--dart-define`, or the environment variable of the same name (`SHOT_PERSONA=guest pnpm fshot ...`).
@@ -98,32 +101,41 @@ void runShotSuite({
         final label = '$id.$lang.${width.round()}${_state.isEmpty ? '' : '.$_state'}';
         testWidgets('shot $label', (tester) async {
           final shot = GzShotCase(id: id, path: paths[id]!, lang: lang, width: width, state: _state, persona: _personaOverride);
-          final setup = prepare == null ? const GzShotWorldSetup() : (await tester.runAsync(() => prepare(shot)))!;
-          await GzHarness.pump(
-            tester,
-            app: appBuilder(paths[id]!, _state),
-            locale: Locale(lang),
-            width: width,
-            height: height,
-            dpr: scale,
-            textScale: textScale,
-            overrides: <Override>[...?overrides?.call(), ...setup.overrides],
-            settle: false,
-          );
-          if (_state == 'loading') {
-            // requests never answer: a few frames are enough to show the skeleton
-            for (var i = 0; i < 4; i++) {
-              await tester.pump(const Duration(milliseconds: 100));
+          final errors = <String>[];
+          await recordingErrors(errors, () async {
+            final setup = prepare == null ? const GzShotWorldSetup() : (await tester.runAsync(() => prepare(shot)))!;
+            await GzHarness.pump(
+              tester,
+              app: appBuilder(paths[id]!, _state),
+              locale: Locale(lang),
+              width: width,
+              height: height,
+              dpr: scale,
+              textScale: textScale,
+              overrides: <Override>[...?overrides?.call(), ...setup.overrides],
+              settle: false,
+            );
+            if (_state == 'loading') {
+              // requests never answer: a few frames are enough to show the skeleton
+              for (var i = 0; i < 4; i++) {
+                await tester.pump(const Duration(milliseconds: 100));
+              }
+            } else {
+              await _settleWorld(tester, setup.flush);
             }
-          } else {
-            await _settleWorld(tester, setup.flush);
+            // what the screen proves besides its pixels (errors, stub, skeleton, error / empty state, visible texts)
+            ShotHealth.capture(tester, id: id, lang: lang, width: width, state: _state, errors: errors).write(out, label);
+            final file = await GzHarness.shoot(tester, p.join(out, '$label.png'));
+            if (width == 390 && scale == 2 && _state.isEmpty) {
+              file.copySync(p.join(out, '$id.$lang.png'));
+            }
+            // ignore: avoid_print
+            print('SHOT ${file.path}');
+          }, swallow: _health.isNotEmpty);
+          if (_health.isNotEmpty) {
+            // the errors raised after the capture (the shot itself) belong in the file too
+            ShotHealth.capture(tester, id: id, lang: lang, width: width, state: _state, errors: errors).write(out, label);
           }
-          final file = await GzHarness.shoot(tester, p.join(out, '$label.png'));
-          if (width == 390 && scale == 2 && _state.isEmpty) {
-            file.copySync(p.join(out, '$id.$lang.png'));
-          }
-          // ignore: avoid_print
-          print('SHOT ${file.path}');
         });
       }
     }
