@@ -1,2 +1,2 @@
-/// client domain, part A (agent C1): brief, category tile, offer card, countdown, compare tray.
+/// client domain, part A (agent C1): brief card and sentence, category tile, offer card (voucher window), countdown, venue card family.
 library;

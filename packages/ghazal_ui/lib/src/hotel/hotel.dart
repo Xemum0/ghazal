@@ -5,3 +5,4 @@ library;
 export 'hotel_shared.dart';
 export 'hotel_a.dart';
 export 'hotel_b.dart';
+export 'hotel_c.dart';

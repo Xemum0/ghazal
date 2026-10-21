@@ -6,3 +6,4 @@ export 'client_shared.dart';
 export 'client_a.dart';
 export 'client_b.dart';
 export 'client_c.dart';
+export 'client_d.dart';

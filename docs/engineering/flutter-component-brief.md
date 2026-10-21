@@ -43,7 +43,7 @@
 - Need a token, a foundation change or a dependency: append one line to `docs/engineering/requests.md` and use the closest existing value; never inline a colour, never `pub add`.
 
 ## Done means (run, read the output, report it)
-`flutter analyze` (root: no issues), `bash tools/check-dart-rules.sh` (ok), your widget tests and your gallery test green, `pnpm l10n:ui` clean, parity table for your sections with the composites read. No simulator, no `flutter run`, no `flutter build`.
+While you work, analyze and check only your own paths (`flutter analyze packages/ghazal_ui/lib/src/<group> packages/ghazal_ui/test/<group> packages/ghazal_testing/lib/src/gallery/<your files>`, `bash tools/check-dart-rules.sh <your paths>`): the other agents are mid-edit. At the end run the root `flutter analyze` and `bash tools/check-dart-rules.sh` once (if either is red only because of another agent's file, say which file). Required: your widget tests and your gallery test green, `pnpm l10n:ui` clean, the parity table for your sections with the composites read. No simulator, no `flutter run`, no `flutter build`.
 
 ## Report (structured, honest, short)
 Components built (name, file), tests (count), l10n keys added, parity table (section, ar, en, dH), defects you traced and fixed (with the measured numbers), anything unfinished or BLOCKED, public API worth knowing (constructor signatures of the widgets other code will call: screens in F3 build on them), and open requests. Keep the working lean: do not re-read documents summarised here, do not open `feature-matrix.json` or ADRs beyond those named, one build pass then at most two fix rounds.

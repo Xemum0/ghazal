@@ -1,2 +1,2 @@
-/// client domain, part C (agent C3): checklist, budget, notification row, payment, booking card, package card, price breakdown.
+/// client domain, part C (agent C3): planner tier, service tile, vendor card, chat, conversation row, checklist, budget.
 library;

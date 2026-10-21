@@ -1,2 +1,2 @@
-/// client domain, part B (agent C2): compare table and parts, reviews, venue info, planner tier, service tile, vendor card, chat, conversation row.
+/// client domain, part B (agent C2): compare tray, compare table, compare parts, review card, venue info.
 library;
