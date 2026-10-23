@@ -46,7 +46,7 @@ void main() {
     await demo.switchPersona('hotel_manager');
     final pending = await c.read(_inbox.future);
 
-    demo.jumpTo('approved');
+    await demo.jumpTo('approved');
     expect(c.read(demoProvider).point, 'approved');
     expect(await c.read(_inbox.future), pending - 1);
 
@@ -60,18 +60,18 @@ void main() {
     final c = world.container();
     final demo = c.read(demoProvider.notifier);
     await demo.switchPersona('hotel_manager');
-    demo.forceScenario('empty');
+    await demo.forceScenario('empty');
     expect(c.read(demoProvider).scenario, 'empty');
     expect((await c.read(partnerRequestsRepositoryProvider).listPartnerRequests(segment: RequestSegment.pending)).items, isEmpty);
 
-    demo.forceScenario('none');
+    await demo.forceScenario('none');
     expect((await c.read(partnerRequestsRepositoryProvider).listPartnerRequests(segment: RequestSegment.pending)).items, isNotEmpty);
   });
 
   test('advancing the clock moves the story time', () async {
     final c = world.container();
     final before = world.world.control.now;
-    c.read(demoProvider.notifier).advance(const Duration(hours: 24));
+    await c.read(demoProvider.notifier).advance(const Duration(hours: 24));
     expect(world.world.control.now.difference(before), const Duration(hours: 24));
     expect(c.read(demoProvider).storyNow, world.world.control.nowText);
   });

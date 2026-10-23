@@ -6,6 +6,7 @@ import 'package:ghazal_domain/ghazal_domain.dart';
 import '../data/api_providers.dart';
 import '../data/client_environment.dart';
 import '../data/mock_backend.dart';
+import '../data/remote_mock.dart';
 import '../nav/go_router_navigator.dart' show GoRouterNavigator;
 import '../nav/nav_providers.dart' show gzNavigatorProvider;
 import 'gate.dart';
@@ -253,20 +254,23 @@ class SessionNotifier extends Notifier<AppSession> {
   // ---------------------------------------------------------------------------------------------- mock personas (demo tools, shot harness)
 
   /// Mock only: becomes [persona] (`guest`, `new_client`, `reem`, `hotel_admin`, `hotel_manager`, `hotel_non_major`, `provider`) with real
-  /// tokens of that persona's session. Returns the new session. Does nothing but return the current one when no in-process mock runs.
+  /// tokens of that persona's session, from the in-process mock or the standalone mock server ([remoteMockProvider]). Returns the new
+  /// session. Does nothing but return the current one when no mock runs (a real backend).
   Future<AppSession> loadPersona(String persona) async {
     final mock = ref.read(mockBackendProvider);
-    if (mock == null) return state;
+    final remote = mock == null ? ref.read(remoteMockProvider) : null;
+    if (mock == null && remote == null) return state;
     final store = ref.read(tokenStoreProvider);
+    Future<void> tokenLessAsGuest() async => mock != null ? mock.control.setPersona('guest') : await remote!.clearPersona();
     if (persona == 'guest') {
       await store.clear();
-      mock.control.setPersona('guest');
+      await tokenLessAsGuest();
       _challenge = null;
       return state = const GuestSession();
     }
-    final tokens = mock.control.sessionFor(persona);
+    final tokens = mock != null ? mock.control.sessionFor(persona) : await remote!.sessionFor(persona);
     await store.write(AuthTokens(accessToken: tokens['accessToken']! as String, refreshToken: tokens['refreshToken']! as String));
-    mock.control.setPersona('guest');
+    await tokenLessAsGuest();
     final restored = await restore();
     return restored;
   }

@@ -11,6 +11,7 @@ import 'package:ghazal_core/ghazal_core.dart';
 import '../data/api_providers.dart' show gzProviderRetry;
 import '../data/client_environment.dart';
 import '../data/mock_backend.dart';
+import '../data/remote_mock.dart';
 import '../data/secure_token_store.dart';
 import '../session/session_notifier.dart';
 
@@ -71,6 +72,14 @@ Future<void> runGhazalApp({required Widget Function() app, List<Override> overri
       startup
         ..add(tokenStoreProvider.overrideWithValue(secure))
         ..add(deviceIdProvider.overrideWithValue(await secure.deviceId()));
+      // Against the standalone mock server (development builds) the app reads the server's story clock and the demo tools drive it, so
+      // two apps share one world. A real backend fails the probe and nothing changes.
+      final remote = env.isProd ? null : await RemoteMock.probe(env.apiBaseUrl);
+      if (remote != null) {
+        startup
+          ..add(remoteMockProvider.overrideWithValue(remote))
+          ..add(clockProvider.overrideWithValue(() => remote.now));
+      }
     }
     final container = ProviderContainer(overrides: [...startup, ...overrides], retry: gzProviderRetry);
     try {
