@@ -94,8 +94,10 @@ class ReadOnlyRow extends StatelessWidget {
                 bottom: BorderSide(color: c.borderHairline, width: GzStroke.hair),
               ),
       ),
+      // The web `.hv-ro` aligns its two texts on the baseline, so a row taller than its text keeps the text at the top (padding 8), not centred.
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.baseline,
+        textBaseline: TextBaseline.alphabetic,
         children: [
           Expanded(
             child: GzText(label, role: GzTextRole.bodyS, color: c.textPrimary),

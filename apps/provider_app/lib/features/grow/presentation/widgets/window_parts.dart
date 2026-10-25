@@ -103,7 +103,7 @@ class WindowRow extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    GzText(title, role: GzTextRole.body, color: c.textStrong, maxLines: 2, overflow: TextOverflow.ellipsis),
+                    growRowTitle(context, title, maxLines: 2),
                     const SizedBox(height: GzSpace.s2),
                     Wrap(
                       crossAxisAlignment: WrapCrossAlignment.center,
@@ -183,7 +183,7 @@ class StandingRow extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    GzText(l.hotelGrowStandingTitle, role: GzTextRole.body, color: c.textStrong),
+                    growRowTitle(context, l.hotelGrowStandingTitle),
                     const SizedBox(height: GzSpace.s2),
                     Wrap(
                       crossAxisAlignment: WrapCrossAlignment.center,

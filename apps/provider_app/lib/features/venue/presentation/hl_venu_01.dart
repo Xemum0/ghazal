@@ -183,7 +183,7 @@ class _HlVenu01ScreenState extends ConsumerState<HlVenu01Screen> {
               padding: pad,
               child: Row(
                 children: [
-                  Expanded(child: GzText(l.hotelVenueAttentionRejected(rejectedCount), role: GzTextRole.title, color: c.textStrong)),
+                  Expanded(child: GzText(l.hotelVenueAttentionRejected(rejectedCount), role: GzTextRole.title, color: c.textStrong, figures: true)),
                   GzButton(label: l.hotelVenueShowAll, variant: GzButtonVariant.tertiary, flushInline: true, onPressed: () => setState(() => _view = _all)),
                 ],
               ),

@@ -141,7 +141,16 @@ final FutureProvider<List<InboxEntry>> inboxProvider = FutureProvider.autoDispos
     if (a.pinned != b.pinned) return a.pinned ? -1 : 1;
     return b.lastMessageAt.compareTo(a.lastMessageAt);
   });
-  final rows = await ref.watch(requestRowsProvider.future);
+  // The booking of a conversation shows its day and status glyph whatever its status: pending and awaiting rows come first, a confirmed or past
+  // booking is looked up in the upcoming and past segments (only when a conversation needs it).
+  final rows = {...await ref.watch(requestRowsProvider.future)};
+  bool unresolved() => conversations.any((c) => c.bookingId != null && !rows.containsKey(c.bookingId));
+  for (final segment in const [RequestSegment.upcoming, RequestSegment.past]) {
+    if (!unresolved()) break;
+    for (final r in await _allRows(ref, segment)) {
+      rows.putIfAbsent(r.booking.id, () => r);
+    }
+  }
   final entries = <InboxEntry>[];
   for (final c in conversations) {
     final messages = (await chat.listMessages(conversationId: c.id, limit: 50)).items.where((m) => !m.draft).toList();

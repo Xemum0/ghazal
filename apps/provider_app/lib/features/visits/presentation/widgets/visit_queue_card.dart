@@ -60,7 +60,6 @@ class VisitQueueCard extends StatelessWidget {
                       decide ? l.hotelVisitsRequestedAgo(f.ago(v.requestedAt)) : visitors,
                       role: GzTextRole.caption,
                       color: c.textSecondary,
-                      figures: decide,
                     ),
                   ],
                 ),

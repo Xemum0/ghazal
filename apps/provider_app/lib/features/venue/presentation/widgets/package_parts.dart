@@ -135,6 +135,7 @@ class PackagePreview extends ConsumerWidget {
     final l = context.l10n;
     final c = context.gz.colors;
     final f = context.gzFormat;
+    final titleWeight = context.gz.text(GzTextRole.title).fontWeight;
     final sample = ref.watch(sampleBookingProvider).value;
     final config = ref.watch(venueConfigProvider).value;
     final fee = config?.voucherFeeFils ?? _fallbackFee;
@@ -202,11 +203,15 @@ class PackagePreview extends ConsumerWidget {
                       spacing: GzSpace.s2,
                       children: [
                         if (ln.q!.vch != null) GzIcon(GzIcons.ticket, size: GzIconSize.xs, color: c.iconSecondary),
-                        GzText(ln.head(ln.q!), role: GzTextRole.title, color: c.textStrong, figures: true),
+                        // The web head is body-s (15) at the title weight, not the 16 title role.
+                        GzText.rich(TextSpan(style: TextStyle(fontWeight: titleWeight), children: GzFigures.spans(context, ln.head(ln.q!), role: GzTextRole.bodyS)), role: GzTextRole.bodyS, color: c.textStrong),
                         if (ln.tail != null) GzText(ln.tail!, role: GzTextRole.bodyS, color: c.textSecondary, figures: true),
                       ],
                     ),
-                    if (ln.q!.vch != null) GzText(l.hotelVenuePvStandard(f.money(ln.q!.std, _browse)), role: GzTextRole.caption, color: c.textSecondary, figures: true),
+                    if (ln.q!.vch != null) ...[
+                      const SizedBox(height: GzSpace.s1),
+                      GzText(l.hotelVenuePvStandard(f.money(ln.q!.std, _browse)), role: GzTextRole.caption, color: c.textSecondary, figures: true),
+                    ],
                   ],
                 ],
               ),
@@ -256,11 +261,13 @@ class InclusionChips extends StatelessWidget {
                     child: GzText(items[i].of(lang), role: GzTextRole.bodyS, color: c.textPrimary),
                   ),
                 ),
+                const SizedBox(width: GzSpace.s2),
                 GzPressable(
                   onPressed: () => onRemove(i),
                   semanticLabel: l.hotelVenueInclusionRemove(items[i].of(lang)),
                   child: SizedBox(width: GzSize.touchMin, height: GzSize.touchMin, child: Center(child: GzIcon(GzIcons.close, size: GzIconSize.xs, color: c.iconSecondary))),
                 ),
+                const SizedBox(width: GzSpace.s1),
               ],
             ),
           ),

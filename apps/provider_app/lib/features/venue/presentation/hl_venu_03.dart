@@ -287,11 +287,7 @@ class _HlVenu03ScreenState extends ConsumerState<HlVenu03Screen> {
               title: l.hotelVenueSecStatus,
               children: [
                 GzToggleRow(title: l.hotelVenueActiveTitle, divider: false, checked: d.active, onChanged: (v) => patch(() => d.active = v)),
-                if (!isNew)
-                  Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: GzButton(label: l.hotelVenueArchive, variant: GzButtonVariant.destructive, iconStart: GzIcons.document, onPressed: _archive),
-                  ),
+                if (!isNew) GzButton(label: l.hotelVenueArchive, variant: GzButtonVariant.destructive, iconStart: GzIcons.document, fullWidth: true, onPressed: _archive),
               ],
             ),
             const DashboardNote(),

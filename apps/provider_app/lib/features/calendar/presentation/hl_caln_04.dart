@@ -227,8 +227,11 @@ class _HlCaln04ScreenState extends ConsumerState<HlCaln04Screen> {
       ),
     );
 
+    // The web foot is a 1 px rule plus 12 of padding before the button; the kit slot leaves 12 from the rule: 1 dp more here.
     final footer = GzSheetFooter(
-      child: done
+      child: Padding(
+        padding: const EdgeInsets.only(top: 1),
+        child: done
           ? GzButton(label: context.gzL10n.commonActionDone, variant: GzButtonVariant.secondary, size: GzButtonSize.cta, fullWidth: true, onPressed: nav.closeSheet)
           : GzButton(
               label: _open ? l.hotelCalendarCtaOpen(count) : l.hotelCalendarCtaBlock(conflict ? 0 : count),
@@ -237,6 +240,7 @@ class _HlCaln04ScreenState extends ConsumerState<HlCaln04Screen> {
               reason: why,
               onPressed: why != null || _phase != _Phase.idle ? null : () => _submit(halls: halls, a: a, blocked: blocked, chosen: chosen),
             ),
+      ),
     );
 
     final body = <Widget>[];
@@ -427,7 +431,7 @@ class _HlCaln04ScreenState extends ConsumerState<HlCaln04Screen> {
           loading: const Padding(padding: EdgeInsets.only(bottom: GzSpace.s6), child: GzSkeleton(blockSize: 160)),
           onRetry: () => ref.invalidate(calendarHallsProvider),
           data: (_) => Padding(
-            padding: const EdgeInsets.only(top: GzSpace.s4),
+            padding: const EdgeInsets.only(top: GzSpace.s3),
             child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [for (var i = 0; i < body.length; i++) ...[if (i > 0) const SizedBox(height: GzSpace.s4), body[i]]]),
           ),
         ),

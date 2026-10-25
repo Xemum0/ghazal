@@ -148,6 +148,7 @@ class AttentionPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     if (rejected == 0) return const SizedBox.shrink();
     final c = context.gz.colors;
+    final title = context.l10n.hotelVenueAttentionRejected(rejected);
     return Container(
       padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s4),
       decoration: BoxDecoration(
@@ -155,19 +156,33 @@ class AttentionPanel extends StatelessWidget {
         borderRadius: GzRadius.mdAll,
         border: Border.all(color: c.borderStrong, width: GzStroke.hair),
       ),
-      child: GzListRow(
-        flush: true,
-        last: true,
-        title: context.l10n.hotelVenueAttentionRejected(rejected),
-        leading: Container(
-          width: GzSize.controlSm,
-          height: GzSize.controlSm,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(color: c.statusDangerBg, shape: BoxShape.circle),
-          child: GzIcon(GzIcons.warningCircle, size: GzIconSize.md, color: c.iconDanger),
-        ),
-        chevron: true,
+      // Flow-local row: GzListRow's title is a plain string, the web title is a `Figures` run (the count is a figures island; request filed).
+      child: GzPressable(
         onPressed: onRejected,
+        semanticLabel: title,
+        scale: 1,
+        minHeight: 0,
+        child: Container(
+          constraints: const BoxConstraints(minHeight: GzSize.rowMin),
+          padding: const EdgeInsets.symmetric(vertical: GzSpace.s3),
+          // The web row keeps its 1 px rule box under a `last` row (transparent): the panel is that much taller.
+          decoration: BoxDecoration(border: Border(bottom: BorderSide(color: c.scrimClear, width: GzStroke.hair))),
+          child: Row(
+            children: [
+              Container(
+                width: GzSize.controlSm,
+                height: GzSize.controlSm,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(color: c.statusDangerBg, shape: BoxShape.circle),
+                child: GzIcon(GzIcons.warningCircle, size: GzIconSize.md, color: c.iconDanger),
+              ),
+              const SizedBox(width: GzSpace.s4),
+              Expanded(child: GzText(title, role: GzTextRole.title, color: c.textStrong, figures: true)),
+              const SizedBox(width: GzSpace.s4),
+              GzIcon(GzIcons.chevronRight, size: GzIconSize.sm, color: c.iconSecondary),
+            ],
+          ),
+        ),
       ),
     );
   }

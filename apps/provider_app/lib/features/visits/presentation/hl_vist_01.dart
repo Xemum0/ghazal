@@ -14,6 +14,7 @@ import '../../../l10n/l10n.dart';
 import '../application/visits_data.dart';
 import 'widgets/visit_actions.dart';
 import 'widgets/visit_queue_card.dart';
+import 'widgets/visit_segments.dart';
 
 class HlVist01Screen extends ConsumerStatefulWidget {
   const HlVist01Screen({super.key});
@@ -46,45 +47,12 @@ class _HlVist01ScreenState extends ConsumerState<HlVist01Screen> {
 
     Widget seg() {
       const order = VisitSegment.values;
-      final words = [l.hotelVisitsSegRequested, l.hotelVisitsSegUpcoming, l.hotelVisitsSegPast];
-      return GzSegmentTrack(
+      return VisitSegments(
         label: l.hotelVisitsSegments,
+        words: [l.hotelVisitsSegRequested, l.hotelVisitsSegUpcoming, l.hotelVisitsSegPast],
         active: order.indexOf(segment),
-        count: order.length,
-        itemBuilder: (context, i, selected) {
-          final c = context.gz.colors;
-          final color = selected ? c.actionSelectedLabel : c.textPrimary;
-          return GzPressable(
-            onPressed: () => setState(() => _segment = order[i]),
-            semanticLabel: words[i],
-            selected: selected,
-            borderRadius: GzRadius.smAll,
-            builder: (context, st) => SizedBox(
-              width: double.infinity,
-              height: GzSize.controlSm,
-              child: Padding(
-                padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s2),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      child: GzText(words[i], role: GzTextRole.button, color: color, maxLines: 1, softWrap: false),
-                    ),
-                    if (i == 0 && requestedCount > 0) ...[
-                      const SizedBox(width: GzSpace.s1),
-                      Center(
-                        child: SizedBox(
-                          height: GzSize.badge,
-                          child: GzCountBadge(count: requestedCount, max: 9),
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
+        badge: requestedCount,
+        onChanged: (i) => setState(() => _segment = order[i]),
       );
     }
 

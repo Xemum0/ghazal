@@ -8,6 +8,20 @@ import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../../../l10n/l10n.dart';
 
+// ---------------------------------------------------------------- row title
+
+/// The title of a window row: the body role at the title weight (web `.go-row__title`: `gz-t-body` with `font-weight: title`).
+Widget growRowTitle(BuildContext context, String text, {int? maxLines}) {
+  final weight = context.gz.text(GzTextRole.title).fontWeight;
+  return GzText.rich(
+    TextSpan(text: text, style: TextStyle(fontWeight: weight)),
+    role: GzTextRole.body,
+    color: context.gz.colors.textStrong,
+    maxLines: maxLines,
+    overflow: maxLines == null ? null : TextOverflow.ellipsis,
+  );
+}
+
 // ---------------------------------------------------------------- date shapes
 
 /// `3 Dec` / `3 ديسمبر`: day and short month, no weekday, no year.

@@ -26,9 +26,10 @@ GzStatus _visitStatus(VisitStatus s) => switch (s) {
     };
 
 /// A preview is a glimpse, not the message: about one phone line (docs/design/02-text-diet.md section 1).
+/// Counted in code points like the web's `Array.from`, not in grapheme clusters: an Arabic mark (tanween) is one more character, so the cut falls where the web's does.
 String _glimpse(String text) {
-  final chars = text.characters;
-  return chars.length > 34 ? '${chars.take(34).toString().trimRight()}…' : text;
+  final runes = text.runes;
+  return runes.length > 34 ? '${String.fromCharCodes(runes.take(34)).trimRight()}…' : text;
 }
 
 class InboxRow extends ConsumerWidget {
@@ -213,7 +214,7 @@ class InboxRow extends ConsumerWidget {
                 const SizedBox(height: GzSpace.s1),
                 Padding(
                   padding: const EdgeInsetsDirectional.only(top: GzSpace.s1),
-                  child: GzFactRow(children: facts),
+                  child: Semantics(container: true, child: Wrap(spacing: GzSpace.s3, runSpacing: GzSpace.s2, crossAxisAlignment: WrapCrossAlignment.center, children: facts)),
                 ),
               ],
             ],
