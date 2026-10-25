@@ -86,27 +86,54 @@ class MockControl {
       l['endsOn'] = addDays(_app.today(), plan?.integer('periodDays') ?? 30);
       transitionListing(_app, l, 'active', 'system');
       for (final uid in _app.notifyTargets(providerId: l.strOrNull('providerId'))) {
-        notify(_app, userId: uid, kind: 'listing_approved', audience: 'hotel', vars: {'title': l.obj('title')}, params: {'listing': listingId}, listingId: listingId);
+        notify(
+          _app,
+          userId: uid,
+          kind: 'listing_approved',
+          audience: 'hotel',
+          vars: {'title': l.obj('title')},
+          params: {'listing': listingId},
+          listingId: listingId,
+        );
       }
     } else {
       final c = codes.isEmpty ? ['other'] : codes;
       l['decidedAt'] = _app.now;
-      l['rejection'] = {'codes': c, 'note': {'en': note ?? 'Please review the listing details.', 'ar': note ?? 'يرجى مراجعة تفاصيل الإعلان.'}};
+      l['rejection'] = {
+        'codes': c,
+        'note': {'en': note ?? 'Please review the listing details.', 'ar': note ?? 'يرجى مراجعة تفاصيل الإعلان.'},
+      };
       transitionListing(_app, l, 'rejected', 'moderator', actorName: moderator, codes: c, note: note);
       for (final uid in _app.notifyTargets(providerId: l.strOrNull('providerId'))) {
-        notify(_app, userId: uid, kind: 'listing_rejected', audience: 'hotel', vars: {'title': l.obj('title')}, params: {'listing': listingId, 'codes': c}, listingId: listingId);
+        notify(
+          _app,
+          userId: uid,
+          kind: 'listing_rejected',
+          audience: 'hotel',
+          vars: {'title': l.obj('title')},
+          params: {'listing': listingId, 'codes': c},
+          listingId: listingId,
+        );
       }
     }
     _app.db.put('Listing', l);
     return wire(l);
   }
 
-  /// Test hook: marks a listing's fee as paid (the hosted payment cannot run while plan rates are undecided), so the refund-record flow can be exercised.
+  /// Test hook: marks a listing's fee as paid (the hosted payment cannot run while plan rates are undecided). An open payment session of the listing
+  /// settles as succeeded, so the pay screen's `getPaymentState` polling sees `succeeded` and the draft moves to review exactly as after a real
+  /// payment; without a session the billing block alone turns `paid`, so the refund-record flow can be exercised on a live listing.
   Json markListingPaid(String listingId, {int amountFils = 0}) {
     final l = _app.db.get('Listing', listingId) ?? (throw ApiError.notFound('listing'));
-    l['billing'] = {'status': 'paid', 'amountFils': amountFils, 'paidAt': _app.now};
-    _app.db.put('Listing', l);
-    return wire(l);
+    final open = _app.db.raw('Payment').where((p) => p['_kind'] == 'listing' && p['_listingId'] == listingId && p['status'] == 'created').toList();
+    for (final p in open) {
+      domainSettle(_app, p.str('id'), 'succeeded');
+    }
+    if (open.isEmpty) {
+      l['billing'] = {'status': 'paid', 'amountFils': amountFils, 'paidAt': _app.now};
+      _app.db.put('Listing', l);
+    }
+    return wire(_app.db.get('Listing', listingId)!);
   }
 
   /// Decides a plan's rate (fils) or clears it (null): while a rate is null the pay step stays disabled (`PLAN_RATES_NOT_ANNOUNCED`, "Rates announced
@@ -124,8 +151,17 @@ class MockControl {
   Json supportReply(String visitId, {String? text}) {
     final v = _app.db.get('VisitAppointment', visitId) ?? (throw ApiError.notFound('visit'));
     final members = (_app.db.require('Conversation', v.str('conversationId'))['members'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
-    final name = members.cast<Map<String, dynamic>?>().firstWhere((m) => m!['role'] == 'support', orElse: () => null)?['nameLatin'] as String? ?? 'Ghazal support';
-    return wire(appendMessage(_app, v.str('conversationId'), from: 'support', senderName: name, text: {'en': text ?? 'Ghazal support here: everything is set for your visit.', 'ar': text ?? 'دعم غزل هنا: كل شيء جاهز لزيارتكم.'}));
+    final name =
+        members.cast<Map<String, dynamic>?>().firstWhere((m) => m!['role'] == 'support', orElse: () => null)?['nameLatin'] as String? ?? 'Ghazal support';
+    return wire(
+      appendMessage(
+        _app,
+        v.str('conversationId'),
+        from: 'support',
+        senderName: name,
+        text: {'en': text ?? 'Ghazal support here: everything is set for your visit.', 'ar': text ?? 'دعم غزل هنا: كل شيء جاهز لزيارتكم.'},
+      ),
+    );
   }
 
   /// Runs every pending scheduled task now (payment answers, chat replies, undo windows), in due order. Tests call this instead of waiting.
@@ -230,14 +266,16 @@ class MockControl {
 
   /// A summary of the current state for the Demo tools sheet.
   Json get state => {
-        'now': _app.now,
-        'persona': _app.config.persona,
-        'scenario': _app.config.scenario,
-        'latencyMs': _app.config.latency.inMilliseconds,
-        'gatewayDown': _app.flags['gatewayDown'] == true,
-        'pendingTasks': _app.scheduler.pending,
-        'counts': {for (final c in ['Booking', 'Voucher', 'VisitAppointment', 'Conversation', 'Message', 'Notification', 'Listing']) c: _app.db.count(c)},
-      };
+    'now': _app.now,
+    'persona': _app.config.persona,
+    'scenario': _app.config.scenario,
+    'latencyMs': _app.config.latency.inMilliseconds,
+    'gatewayDown': _app.flags['gatewayDown'] == true,
+    'pendingTasks': _app.scheduler.pending,
+    'counts': {
+      for (final c in ['Booking', 'Voucher', 'VisitAppointment', 'Conversation', 'Message', 'Notification', 'Listing']) c: _app.db.count(c),
+    },
+  };
 }
 
 /// Indirection so `control.dart` does not import `domain/vouchers.dart` twice under different names.

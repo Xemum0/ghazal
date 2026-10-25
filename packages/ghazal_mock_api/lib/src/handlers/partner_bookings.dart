@@ -37,46 +37,50 @@ String _normalizeCode(String raw) {
 }
 
 Map<String, Handler> partnerBookingsHandlers(MockApp app) => {
-      'listRedeemableVouchers': (r) {
-        final rows = <Json>[];
-        for (final b in ctxBookings(app, r)) {
-          final v = app.db.peek('Voucher', b.str('voucherId'));
-          if (b['status'] == 'confirmed' && v != null && v['status'] == 'bound') rows.add(_voucherAndRequest(app, b, v));
-        }
-        return pageMap(r, stableSorted(rows, (a, b) => a.obj('booking').str('eventDate').compareTo(b.obj('booking').str('eventDate'))), (x) => x);
-      },
-      'listRedeemedVouchers': (r) {
-        final rows = <Json>[];
-        for (final b in ctxBookings(app, r)) {
-          final v = app.db.peek('Voucher', b.str('voucherId'));
-          if ({'redeemed', 'completed'}.contains(b['status']) && v != null && v['status'] == 'used') rows.add(_voucherAndRequest(app, b, v));
-        }
-        return pageMap(r, stableSorted(rows, (a, b) => (b.obj('voucher').strOrNull('usedAt') ?? '').compareTo(a.obj('voucher').strOrNull('usedAt') ?? '')), (x) => x);
-      },
-      'checkVoucherCode': (r) {
-        final c = _check(app, r, r.p('code'));
-        return {
-          'ok': c.reason == null,
-          'reason': c.reason,
-          'usedAt': (c.reason == 'already_used' && c.voucher != null) ? c.voucher!['usedAt'] : null,
-          'voucher': (c.reason == null || c.reason == 'already_used' || c.reason == 'not_confirmed') ? (c.voucher == null ? null : asSeen(app, c.voucher!)) : null,
-          'booking': c.booking == null || c.reason == 'unknown_code' || c.reason == 'other_partner' ? null : dom.viewBooking(c.booking!, role: 'partner'),
-        };
-      },
-      'redeemVoucher': (r) {
-        app.requirePermission(r, 'voucher:redeem');
-        final c = _check(app, r, r.p('code'));
-        switch (c.reason) {
-          case 'unknown_code':
-            throw ApiError('VOUCHER_UNKNOWN');
-          case 'other_partner':
-            throw ApiError('VOUCHER_OTHER_PARTNER');
-          case 'already_used':
-            throw ApiError('VOUCHER_ALREADY_USED', params: {'usedAt': c.voucher == null ? null : c.voucher!['usedAt']});
-          case 'not_confirmed':
-            throw ApiError('VOUCHER_NOT_CONFIRMED');
-        }
-        final b = dom.redeemBooking(app, c.booking!.str('id'), actorName: actorName(r));
-        return _voucherAndRequest(app, b, app.db.require('Voucher', b.str('voucherId')));
-      },
+  'listRedeemableVouchers': (r) {
+    final rows = <Json>[];
+    for (final b in ctxBookings(app, r)) {
+      final v = app.db.peek('Voucher', b.str('voucherId'));
+      if (b['status'] == 'confirmed' && v != null && v['status'] == 'bound') rows.add(_voucherAndRequest(app, b, v));
+    }
+    return pageMap(r, stableSorted(rows, (a, b) => a.obj('booking').str('eventDate').compareTo(b.obj('booking').str('eventDate'))), (x) => x);
+  },
+  'listRedeemedVouchers': (r) {
+    final rows = <Json>[];
+    for (final b in ctxBookings(app, r)) {
+      final v = app.db.peek('Voucher', b.str('voucherId'));
+      if ({'redeemed', 'completed'}.contains(b['status']) && v != null && v['status'] == 'used') rows.add(_voucherAndRequest(app, b, v));
+    }
+    return pageMap(
+      r,
+      stableSorted(rows, (a, b) => (b.obj('voucher').strOrNull('usedAt') ?? '').compareTo(a.obj('voucher').strOrNull('usedAt') ?? '')),
+      (x) => x,
+    );
+  },
+  'checkVoucherCode': (r) {
+    final c = _check(app, r, r.p('code'));
+    return {
+      'ok': c.reason == null,
+      'reason': c.reason,
+      'usedAt': (c.reason == 'already_used' && c.voucher != null) ? c.voucher!['usedAt'] : null,
+      'voucher': (c.reason == null || c.reason == 'already_used' || c.reason == 'not_confirmed') ? (c.voucher == null ? null : asSeen(app, c.voucher!)) : null,
+      'booking': c.booking == null || c.reason == 'unknown_code' || c.reason == 'other_partner' ? null : dom.viewBooking(c.booking!, role: 'partner'),
     };
+  },
+  'redeemVoucher': (r) {
+    app.requirePermission(r, 'voucher:redeem');
+    final c = _check(app, r, r.p('code'));
+    switch (c.reason) {
+      case 'unknown_code':
+        throw ApiError('VOUCHER_UNKNOWN');
+      case 'other_partner':
+        throw ApiError('VOUCHER_OTHER_PARTNER');
+      case 'already_used':
+        throw ApiError('VOUCHER_ALREADY_USED', params: {'usedAt': c.voucher == null ? null : c.voucher!['usedAt']});
+      case 'not_confirmed':
+        throw ApiError('VOUCHER_NOT_CONFIRMED');
+    }
+    final b = dom.redeemBooking(app, c.booking!.str('id'), actorName: actorName(r));
+    return _voucherAndRequest(app, b, app.db.require('Voucher', b.str('voucherId')));
+  },
+};

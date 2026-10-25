@@ -89,10 +89,13 @@ void main() {
   test('a Flutter app reads the seeds through a loader (rootBundle in the apps) and gets the same world', () async {
     final dir = p.join(repoRoot(), 'packages/ghazal_mock_api/assets');
     final loaded = <String>[];
-    final mock = await MockBackend.create(seed: SeedSource.fromLoader((path) async {
-      loaded.add(path);
-      return File(p.join(dir, path)).readAsString();
-    }), autoRun: false);
+    final mock = await MockBackend.create(
+      seed: SeedSource.fromLoader((path) async {
+        loaded.add(path);
+        return File(p.join(dir, path)).readAsString();
+      }),
+      autoRun: false,
+    );
     expect(loaded, contains('spec/routes.json'));
     expect(loaded.where((x) => x.startsWith('seed/')).length, greaterThan(40));
     expect(mock.control.nowText, '2026-11-12T16:00:00+03:00');

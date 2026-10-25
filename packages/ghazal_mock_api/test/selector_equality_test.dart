@@ -25,11 +25,18 @@ void main() {
   Actor actorFor(Json c) => w.actor(c.strOrNull('persona') ?? 'guest', venueId: c.strOrNull('venue'));
 
   Future<Object?> get(Actor a, String path, Json query) async {
-    final res = await a.dio.get<Object?>(path, queryParameters: {for (final e in query.entries) e.key: e.value is List ? (e.value as List).map((x) => '$x').toList() : e.value});
+    final res = await a.dio.get<Object?>(
+      path,
+      queryParameters: {for (final e in query.entries) e.key: e.value is List ? (e.value as List).map((x) => '$x').toList() : e.value},
+    );
     return res.data;
   }
 
-  Future<Object?> post(Actor a, String path, Object body) async => (await a.dio.post<Object?>(path, data: body, options: Options(headers: {'Idempotency-Key': 'sel-${path.hashCode}-${body.hashCode}'}))).data;
+  Future<Object?> post(Actor a, String path, Object body) async => (await a.dio.post<Object?>(
+    path,
+    data: body,
+    options: Options(headers: {'Idempotency-Key': 'sel-${path.hashCode}-${body.hashCode}'}),
+  )).data;
 
   void same(String id, String what, Object? actual, Object? expected) {
     checked++;
@@ -59,19 +66,29 @@ void main() {
         if (o.containsKey('free')) {
           final shelves = {for (final s in (h['shelves'] as List).cast<Json>()) s.str('id'): s};
           same(k.str('id'), 'free shelf', ids(shelves['free']?['items'] ?? [], (i) => i.obj('row').obj('venue').str('id')), o['free']);
-          same(k.str('id'), 'featured', (shelves['featured']?['items'] as List?)?.map((i) => (i as Json).obj('row').obj('venue')['id']).firstOrNull, o['featured']);
+          same(
+            k.str('id'),
+            'featured',
+            (shelves['featured']?['items'] as List?)?.map((i) => (i as Json).obj('row').obj('venue')['id']).firstOrNull,
+            o['featured'],
+          );
           same(k.str('id'), 'week shelf', ids(shelves['week']?['items'] ?? [], (i) => i.obj('row').obj('venue').str('id')), o['week']);
           return;
         }
         same(k.str('id'), 'nearestFreeDates', h['nearestFreeDates'], o['nearestFreeDates']);
-        same(k.str('id'), 'categories', {for (final x in (h['categories'] as List).cast<Json>()) x.str('id'): x['venueCount']}, {for (final x in (o['categories'] as List).cast<Json>()) x.str('id'): x['venueCount']});
+        same(
+          k.str('id'),
+          'categories',
+          {for (final x in (h['categories'] as List).cast<Json>()) x.str('id'): x['venueCount']},
+          {for (final x in (o['categories'] as List).cast<Json>()) x.str('id'): x['venueCount']},
+        );
         final mock = [
           for (final s in (h['shelves'] as List).cast<Json>())
             {
               'id': s['id'],
               'ids': ids(s['items'], (i) => i.obj('row').obj('venue').str('id')),
               if (s['id'] == 'week') 'dates': [for (final i in (s['items'] as List).cast<Json>()) i['date']],
-            }
+            },
         ];
         same(k.str('id'), 'shelves', mock, o['shelves']);
       });
@@ -79,13 +96,13 @@ void main() {
   });
 
   Object? rowOut(Json r) => {
-        'id': r.obj('venue')['id'],
-        'availability': r['availability'],
-        'amount': (r['price'] as Map?)?['amount']?['fils'],
-        'voucher': (r['price'] as Map?)?['voucher']?['fils'],
-        'badge': r['badge'],
-        'minutes': (r['distance'] as Map?)?['minutes'],
-      };
+    'id': r.obj('venue')['id'],
+    'availability': r['availability'],
+    'amount': (r['price'] as Map?)?['amount']?['fils'],
+    'voucher': (r['price'] as Map?)?['voucher']?['fils'],
+    'badge': r['badge'],
+    'minutes': (r['distance'] as Map?)?['minutes'],
+  };
 
   test('search: filters, sorts, shelves, categories, text', () async {
     for (final k in (cases['search'] as List).cast<Json>()) {
@@ -105,7 +122,9 @@ void main() {
     for (final k in (cases['regions'] as List).cast<Json>()) {
       await guard(k.str('id'), () async {
         final r = await get(actorFor(k), '/areas/search', k.obj('query'));
-        same(k.str('id'), 'matches', [for (final m in (r as List).cast<Json>()) {'kind': m['kind'], 'id': m['id'], 'venueCount': m['venueCount']}], k['out']);
+        same(k.str('id'), 'matches', [
+          for (final m in (r as List).cast<Json>()) {'kind': m['kind'], 'id': m['id'], 'venueCount': m['venueCount']},
+        ], k['out']);
       });
     }
   });
@@ -118,21 +137,37 @@ void main() {
         final o = k.obj('out');
         final shown = [
           for (final p in (d['packages'] as List).cast<Json>())
-            if (p.obj('package')['components'] == null && p.obj('package').strings('hallIds').contains(q['hallId']) || q['date'] == null) p
+            if (p.obj('package')['components'] == null && p.obj('package').strings('hallIds').contains(q['hallId']) || q['date'] == null) p,
         ];
         final mock = [
           for (final p in shown)
             {
               'id': p.obj('package')['id'],
-              'forBrief': p['forBrief'] == null ? null : {for (final key in ['standard', 'voucher', 'savings']) key: (p.obj('forBrief')[key] as Map?)?['fils'], 'voucherOffered': p.obj('forBrief')['voucherOffered'], for (final key in ['perGuest', 'flat', 'voucherPerGuest', 'voucherFlat']) key: (p.obj('forBrief')[key] as Map?)?['fils'], 'billedGuests': p.obj('forBrief')['billedGuests'], 'billableGuests': p.obj('forBrief')['billableGuests'], 'tier': p.obj('forBrief')['tier'], 'hallId': p.obj('forBrief')['hallId'], 'audience': p.obj('forBrief')['audience']},
-            }
+              'forBrief': p['forBrief'] == null
+                  ? null
+                  : {
+                      for (final key in ['standard', 'voucher', 'savings']) key: (p.obj('forBrief')[key] as Map?)?['fils'],
+                      'voucherOffered': p.obj('forBrief')['voucherOffered'],
+                      for (final key in ['perGuest', 'flat', 'voucherPerGuest', 'voucherFlat']) key: (p.obj('forBrief')[key] as Map?)?['fils'],
+                      'billedGuests': p.obj('forBrief')['billedGuests'],
+                      'billableGuests': p.obj('forBrief')['billableGuests'],
+                      'tier': p.obj('forBrief')['tier'],
+                      'hallId': p.obj('forBrief')['hallId'],
+                      'audience': p.obj('forBrief')['audience'],
+                    },
+            },
         ];
         same(k.str('id'), 'packages', mock, o['packages']);
         same(k.str('id'), 'guestRange', d['guestRange'], o['guestRange']);
         same(k.str('id'), 'tags', d['tags'], o['tags']);
         same(k.str('id'), 'structures', d['structures'], o['structures']);
         final card = d['price'] as Map?;
-        same(k.str('id'), 'card', card == null ? null : {'mode': card['mode'], 'amount': card['amount']['fils'], 'voucher': (card['voucher'] as Map?)?['fils']}, o['card']);
+        same(
+          k.str('id'),
+          'card',
+          card == null ? null : {'mode': card['mode'], 'amount': card['amount']['fils'], 'voucher': (card['voucher'] as Map?)?['fils']},
+          o['card'],
+        );
       });
     }
   });
@@ -146,7 +181,16 @@ void main() {
           same(k.str('id'), 'day', {'state': d['state'], 'hallId': d['hallId'], 'from': ((d['day'] as Map?)?['fromPrice'] as Map?)?['fils']}, k['out']);
         } else {
           final d = c(await get(actorFor(k), '/venues/${q['venueId']}/availability', {...q}..remove('venueId')));
-          same(k.str('id'), 'days', [for (final x in (d['days'] as List).cast<Json>()) {'date': x['date'], 'state': x['state'], 'from': (x['fromPrice'] as Map?)?['fils'], 'voucher': (x['voucherPrice'] as Map?)?['fils'], 'packageId': x['packageId']}], k.obj('out')['days']);
+          same(k.str('id'), 'days', [
+            for (final x in (d['days'] as List).cast<Json>())
+              {
+                'date': x['date'],
+                'state': x['state'],
+                'from': (x['fromPrice'] as Map?)?['fils'],
+                'voucher': (x['voucherPrice'] as Map?)?['fils'],
+                'packageId': x['packageId'],
+              },
+          ], k.obj('out')['days']);
         }
       });
     }
@@ -159,7 +203,16 @@ void main() {
         final r = c(await post(actorFor(k), '/venues/${q['venueId']}/quotes', q['body']! as Object));
         final o = k.obj('out');
         same(k.str('id'), 'offered', r['voucherOffered'], o['voucherOffered']);
-        same(k.str('id'), 'lines', [for (final l in (r['lines'] as List).cast<Json>()) {'kind': l['kind'], 'qty': l['qty'], 'amount': l.obj('amount')['fils'], 'standardAmount': l.obj('standardAmount')['fils'], 'unit': (l['unit'] as Map?)?['fils']}], o['lines']);
+        same(k.str('id'), 'lines', [
+          for (final l in (r['lines'] as List).cast<Json>())
+            {
+              'kind': l['kind'],
+              'qty': l['qty'],
+              'amount': l.obj('amount')['fils'],
+              'standardAmount': l.obj('standardAmount')['fils'],
+              'unit': (l['unit'] as Map?)?['fils'],
+            },
+        ], o['lines']);
         same(k.str('id'), 'totals', {for (final e in r.obj('totals').entries) e.key: e.value is Map ? (e.value as Map)['fils'] : e.value}, o['totals']);
       });
     }
@@ -169,7 +222,19 @@ void main() {
     for (final k in (cases['compare'] as List).cast<Json>()) {
       await guard(k.str('id'), () async {
         final r = c(await post(actorFor(k), '/compare/prices', k['query']! as Object));
-        same(k.str('id'), 'columns', [for (final x in (r['columns'] as List).cast<Json>()) {'id': x.obj('venue')['id'], 'availability': x['availability'], 'price': (x['price'] as Map?)?['fils'], 'voucherPrice': (x['voucherPrice'] as Map?)?['fils'], 'fromPerGuest': (x['fromPerGuest'] as Map?)?['fils'], 'fits': x['fits'], 'best': x['best'], 'packages': x.obj('packages')['count']}], k.obj('out')['columns']);
+        same(k.str('id'), 'columns', [
+          for (final x in (r['columns'] as List).cast<Json>())
+            {
+              'id': x.obj('venue')['id'],
+              'availability': x['availability'],
+              'price': (x['price'] as Map?)?['fils'],
+              'voucherPrice': (x['voucherPrice'] as Map?)?['fils'],
+              'fromPerGuest': (x['fromPerGuest'] as Map?)?['fils'],
+              'fits': x['fits'],
+              'best': x['best'],
+              'packages': x.obj('packages')['count'],
+            },
+        ], k.obj('out')['columns']);
       });
     }
   });
@@ -239,7 +304,13 @@ void main() {
     for (final k in (cases['calendar'] as List).cast<Json>()) {
       await guard(k.str('id'), () async {
         final p = c(await get(actorFor(k), '/partner/calendar', k.obj('query')));
-        same(k.str('id'), 'days', [for (final d in (p['days'] as List).cast<Json>()) {'date': d['date'], 'claims': [for (final x in (d['claims'] as List).cast<Json>()) x['id'] as String]..sort()}], k.obj('out')['days']);
+        same(k.str('id'), 'days', [
+          for (final d in (p['days'] as List).cast<Json>())
+            {
+              'date': d['date'],
+              'claims': [for (final x in (d['claims'] as List).cast<Json>()) x['id'] as String]..sort(),
+            },
+        ], k.obj('out')['days']);
       });
     }
     for (final k in (cases['notifications'] as List).cast<Json>()) {

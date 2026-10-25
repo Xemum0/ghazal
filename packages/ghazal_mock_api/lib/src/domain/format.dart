@@ -26,7 +26,8 @@ String timeText(String hhmm, String lang) {
 }
 
 /// "Fri 13 Nov, 12:40 PM" of an instant.
-String instantText(String instant, String lang) => '${dateText(kuwaitDateOf(instant), lang)}${lang == 'ar' ? '،' : ','} ${timeText(kuwaitTimeOf(instant), lang)}';
+String instantText(String instant, String lang) =>
+    '${dateText(kuwaitDateOf(instant), lang)}${lang == 'ar' ? '،' : ','} ${timeText(kuwaitTimeOf(instant), lang)}';
 
 Json dateLT(String date) => {'en': dateText(date, 'en'), 'ar': dateText(date, 'ar')};
 

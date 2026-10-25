@@ -10,7 +10,17 @@ import 'notify.dart';
 import 'views.dart';
 
 /// Creates the unpaid voucher of a checkout (the engine quote decides the price columns).
-Json newUnpaidVoucher(MockApp app, {required String clientId, required String targetType, required String targetId, String? hallId, required String packageId, required String eventDate, int? guests, required Json quote}) {
+Json newUnpaidVoucher(
+  MockApp app, {
+  required String clientId,
+  required String targetType,
+  required String targetId,
+  String? hallId,
+  required String packageId,
+  required String eventDate,
+  int? guests,
+  required Json quote,
+}) {
   final seq = app.db.next('voucher');
   var code = voucherCode(app.now, ['vch', seq, clientId, targetId, eventDate]);
   var tries = 0;
@@ -110,7 +120,14 @@ Json settlePayment(MockApp app, String paymentId, String outcome) {
       if (l['status'] == 'payment_pending' || l['status'] == 'draft') {
         final from = l.str('status');
         l['status'] = 'pending_review';
-        (l['history'] as List).add({'id': 'rev-m${app.db.next('decision').toString().padLeft(4, '0')}', 'listingId': l['id'], 'at': app.now, 'from': from, 'to': 'pending_review', 'actor': 'system'});
+        (l['history'] as List).add({
+          'id': 'rev-m${app.db.next('decision').toString().padLeft(4, '0')}',
+          'listingId': l['id'],
+          'at': app.now,
+          'from': from,
+          'to': 'pending_review',
+          'actor': 'system',
+        });
         l['submittedAt'] ??= app.now;
       }
       app.db.put('Listing', l);
@@ -123,12 +140,38 @@ Json settlePayment(MockApp app, String paymentId, String outcome) {
       final cfg = app.platformConfig;
       v['status'] = 'active';
       v['purchasedAt'] = app.now;
-      v['validUntil'] = voucherValidUntil(app.now, v.str('eventDate'), voucherValidityDays: cfg.integer('voucherValidityDays'), completionDelayHours: cfg.integer('completionDelayHours'));
-      v['payment'] = {'method': p['method'], 'receiptNo': 'RC-${app.db.next('receipt', 60000).toString().padLeft(6, '0')}', 'amount': fils(v.integer('priceFils')), 'status': 'succeeded', 'at': app.now};
+      v['validUntil'] = voucherValidUntil(
+        app.now,
+        v.str('eventDate'),
+        voucherValidityDays: cfg.integer('voucherValidityDays'),
+        completionDelayHours: cfg.integer('completionDelayHours'),
+      );
+      v['payment'] = {
+        'method': p['method'],
+        'receiptNo': 'RC-${app.db.next('receipt', 60000).toString().padLeft(6, '0')}',
+        'amount': fils(v.integer('priceFils')),
+        'status': 'succeeded',
+        'at': app.now,
+      };
       v.remove('_checkoutAt');
       v.remove('_checkoutExpiresAt');
       app.db.put('Voucher', v);
-      notify(app, userId: v.str('clientId'), kind: 'voucher_ready', audience: 'client', vars: {'venue': app.targetName(venueId: v['targetType'] == 'venue' ? v.str('venueOrProviderId') : null, providerId: v['targetType'] == 'provider' ? v.str('venueOrProviderId') : null), 'code': v.str('code')}, params: {'code': v['code'], 'target': v['venueOrProviderId']}, venueId: v['targetType'] == 'venue' ? v.str('venueOrProviderId') : null, voucherId: v.str('id'));
+      notify(
+        app,
+        userId: v.str('clientId'),
+        kind: 'voucher_ready',
+        audience: 'client',
+        vars: {
+          'venue': app.targetName(
+            venueId: v['targetType'] == 'venue' ? v.str('venueOrProviderId') : null,
+            providerId: v['targetType'] == 'provider' ? v.str('venueOrProviderId') : null,
+          ),
+          'code': v.str('code'),
+        },
+        params: {'code': v['code'], 'target': v['venueOrProviderId']},
+        venueId: v['targetType'] == 'venue' ? v.str('venueOrProviderId') : null,
+        voucherId: v.str('id'),
+      );
     }
   }
   app.logEvent('payment_$outcome', {'paymentId': paymentId, 'voucherId': p['voucherId']});
@@ -161,7 +204,18 @@ void expireVouchers(MockApp app) {
 }
 
 /// Binds an active voucher to a request (R01). Credit vouchers are converted to bound ones at that moment (ADR 0035 D5).
-Json bindVoucher(MockApp app, Json voucher, {required String bookingId, required String targetType, required String targetId, String? hallId, required String packageId, required String eventDate, int? guests, required Json quote}) {
+Json bindVoucher(
+  MockApp app,
+  Json voucher, {
+  required String bookingId,
+  required String targetType,
+  required String targetId,
+  String? hallId,
+  required String packageId,
+  required String eventDate,
+  int? guests,
+  required Json quote,
+}) {
   final v = deepCopy(voucher);
   if (v['kind'] == 'credit') {
     final cfgDays = app.platformConfig.integer('voucherValidityDays');
@@ -274,14 +328,21 @@ int _rank(String status) => const {'bound': 0, 'active': 1, 'unpaid': 2, 'used':
 /// A voucher as the wallet shows it: an `active` voucher past its validity reads as `expired` even before the sweep persists it.
 Json asSeen(MockApp app, Json v) {
   final c = deepCopy(v);
-  if (c['status'] == 'active' && c['kind'] == 'bound' && isVoucherExpired(c.strOrNull('validUntil'), c.strOrNull('reuseUntil'), app.now)) c['status'] = 'expired';
-  if (c['status'] == 'active' && c['kind'] == 'credit' && c['validUntil'] != null && instantMs(app.now) > instantMs(c.str('validUntil'))) c['status'] = 'expired';
+  if (c['status'] == 'active' && c['kind'] == 'bound' && isVoucherExpired(c.strOrNull('validUntil'), c.strOrNull('reuseUntil'), app.now)) {
+    c['status'] = 'expired';
+  }
+  if (c['status'] == 'active' && c['kind'] == 'credit' && c['validUntil'] != null && instantMs(app.now) > instantMs(c.str('validUntil'))) {
+    c['status'] = 'expired';
+  }
   return wire(c);
 }
 
 /// The wallet of a client in the order of the prototype: credit vouchers ready, bound vouchers by state, ended credit vouchers.
 List<Json> walletOf(MockApp app, String clientId) {
-  final mine = [for (final v in app.db.raw('Voucher')) if (v['clientId'] == clientId) asSeen(app, v)];
+  final mine = [
+    for (final v in app.db.raw('Voucher'))
+      if (v['clientId'] == clientId) asSeen(app, v),
+  ];
   final credit = stableSorted(mine.where((v) => v['kind'] == 'credit'), (a, b) => b.str('grantedAt').compareTo(a.str('grantedAt')));
   final bound = stableSorted(mine.where((v) => v['kind'] != 'credit'), (a, b) {
     final c = _rank(a.str('status')) - _rank(b.str('status'));
@@ -344,7 +405,8 @@ List<Json> receiptsOf(MockApp app, String clientId) {
 
 /// A tiny valid one-page PDF of a receipt (ASCII only; the mock's stand-in for the invoice renderer).
 List<int> receiptPdf(Json receipt) {
-  final text = 'Ghazal receipt ${receipt['receiptNo']}  Voucher ${receipt['voucherCode']}  KD ${(filsOf(receipt.obj('amount')) / 1000).toStringAsFixed(3)}  ${receipt['method']}  ${receipt['at']}';
+  final text =
+      'Ghazal receipt ${receipt['receiptNo']}  Voucher ${receipt['voucherCode']}  KD ${(filsOf(receipt.obj('amount')) / 1000).toStringAsFixed(3)}  ${receipt['method']}  ${receipt['at']}';
   final stream = 'BT /F1 14 Tf 48 780 Td (${text.replaceAll('(', '[').replaceAll(')', ']')}) Tj ET';
   final objs = <String>[
     '<< /Type /Catalog /Pages 2 0 R >>',

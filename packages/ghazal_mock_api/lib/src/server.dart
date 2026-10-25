@@ -58,7 +58,8 @@ class _ServerHolder {
   final Completer<void> closed = Completer<void>();
 }
 
-shelf.Middleware _cors() => (inner) => (request) async {
+shelf.Middleware _cors() =>
+    (inner) => (request) async {
       const headers = {
         'access-control-allow-origin': '*',
         'access-control-allow-methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
@@ -83,7 +84,10 @@ Future<MockServer> serveMock({MockBackend? backend, int? port, String host = '12
   Future<shelf.Response> app(shelf.Request request) async {
     final path = '/${request.url.path}';
     if (path == '/__gz') {
-      return shelf.Response.ok(jsonEncode({'app': 'api', 'slot': slot, 'rootHash': rootHash, 'startedAt': startedAt, 'service': 'ghazal_mock_api'}), headers: {'content-type': 'application/json'});
+      return shelf.Response.ok(
+        jsonEncode({'app': 'api', 'slot': slot, 'rootHash': rootHash, 'startedAt': startedAt, 'service': 'ghazal_mock_api'}),
+        headers: {'content-type': 'application/json'},
+      );
     }
     if (path.startsWith('/images/')) return imageHandler(request.change(path: 'images'));
     if (path == '/__mock/shutdown' && request.method == 'POST') {
@@ -97,7 +101,11 @@ Future<MockServer> serveMock({MockBackend? backend, int? port, String host = '12
     try {
       return await b.handler(request);
     } on MockOffline {
-      return shelf.Response(503, body: jsonEncode({'type': 'about:blank', 'title': 'Offline scenario', 'status': 503, 'code': 'INTERNAL_ERROR', 'detail': 'X-Mock-Scenario: offline'}), headers: {'content-type': 'application/problem+json', 'x-mock-offline': '1'});
+      return shelf.Response(
+        503,
+        body: jsonEncode({'type': 'about:blank', 'title': 'Offline scenario', 'status': 503, 'code': 'INTERNAL_ERROR', 'detail': 'X-Mock-Scenario: offline'}),
+        headers: {'content-type': 'application/problem+json', 'x-mock-offline': '1'},
+      );
     }
   }
 
@@ -114,5 +122,6 @@ Future<MockServer> serveMock({MockBackend? backend, int? port, String host = '12
 
 extension MockBackendServe on MockBackend {
   /// Serves this backend over HTTP on [port] (see [serveMock]).
-  Future<MockServer> serve({int? port, String host = '127.0.0.1', bool logRequests = false}) => serveMock(backend: this, port: port, host: host, logRequests: logRequests);
+  Future<MockServer> serve({int? port, String host = '127.0.0.1', bool logRequests = false}) =>
+      serveMock(backend: this, port: port, host: host, logRequests: logRequests);
 }

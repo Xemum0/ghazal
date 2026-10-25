@@ -66,7 +66,7 @@ const internalError = 'INTERNAL_ERROR';
 
 class ApiError implements Exception {
   ApiError(this.code, {this.detail, this.params, this.errors, this.alternatives, this.currentStatus, this.currentVersion, this.retryAfterSeconds, int? status})
-      : status = status ?? errorStatus[code] ?? 500;
+    : status = status ?? errorStatus[code] ?? 500;
 
   final String code;
   final int status;
@@ -80,28 +80,30 @@ class ApiError implements Exception {
 
   static ApiError notFound([String what = 'resource']) => ApiError('NOT_FOUND', detail: '$what not found');
   static ApiError forbidden([String? detail]) => ApiError('FORBIDDEN', detail: detail);
-  static ApiError validation(String path, String code, {Json? params}) =>
-      ApiError('VALIDATION_FAILED', errors: [
-        {'path': path, 'code': code, 'params': ?params}
-      ]);
+  static ApiError validation(String path, String code, {Json? params}) => ApiError(
+    'VALIDATION_FAILED',
+    errors: [
+      {'path': path, 'code': code, 'params': ?params},
+    ],
+  );
 
   String get title => code.split('_').map((w) => w.isEmpty ? w : '${w[0]}${w.substring(1).toLowerCase()}').join(' ');
 
   /// The problem+json body.
   Json toJson({String? requestId}) => {
-        'type': 'https://api.ghazal.example/problems/${code.toLowerCase().replaceAll('_', '-')}',
-        'title': title,
-        'status': status,
-        'code': code,
-        'detail': ?detail,
-        'requestId': ?requestId,
-        'params': ?params,
-        'errors': ?errors,
-        'alternatives': ?alternatives,
-        'currentStatus': ?currentStatus,
-        'currentVersion': ?currentVersion,
-        'retryAfterSeconds': ?retryAfterSeconds,
-      };
+    'type': 'https://api.ghazal.example/problems/${code.toLowerCase().replaceAll('_', '-')}',
+    'title': title,
+    'status': status,
+    'code': code,
+    'detail': ?detail,
+    'requestId': ?requestId,
+    'params': ?params,
+    'errors': ?errors,
+    'alternatives': ?alternatives,
+    'currentStatus': ?currentStatus,
+    'currentVersion': ?currentVersion,
+    'retryAfterSeconds': ?retryAfterSeconds,
+  };
 
   @override
   String toString() => 'ApiError($status $code${detail != null ? ': $detail' : ''})';

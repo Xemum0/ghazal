@@ -8,7 +8,10 @@ import 'support.dart';
 Object? slimVenues(Object? v) {
   if (v is List) return v.map(slimVenues).toList();
   if (v is Map) {
-    return {for (final e in v.entries) e.key: e.key == 'venue' && e.value is Map && (e.value as Map).containsKey('halls') ? (e.value as Map<String, dynamic>)['id'] : slimVenues(e.value)};
+    return {
+      for (final e in v.entries)
+        e.key: e.key == 'venue' && e.value is Map && (e.value as Map).containsKey('halls') ? (e.value as Map<String, dynamic>)['id'] : slimVenues(e.value),
+    };
   }
   return v;
 }
@@ -46,7 +49,8 @@ final Map<String, Function> pure = {
     return {'reusable': o.reusable, 'creditEligible': o.creditEligible};
   },
   'voucherStatusAfter': voucherStatusAfter,
-  'voucherValidUntil': (String p, String e, Map<String, dynamic> c) => voucherValidUntil(p, e, voucherValidityDays: c['voucherValidityDays'] as int, completionDelayHours: c['completionDelayHours'] as int),
+  'voucherValidUntil': (String p, String e, Map<String, dynamic> c) =>
+      voucherValidUntil(p, e, voucherValidityDays: c['voucherValidityDays'] as int, completionDelayHours: c['completionDelayHours'] as int),
   'voucherReuseUntil': (String p, Map<String, dynamic> c) => voucherReuseUntil(p, voucherReuseDays: c['voucherReuseDays'] as int),
   'creditVoucherValidUntil': (String p, Map<String, dynamic> c) => creditVoucherValidUntil(p, creditVoucherValidityDays: c['creditVoucherValidityDays'] as int),
   'confirmByFor': (String p, Map<String, dynamic> c) => confirmByFor(p, confirmWindowHours: c['confirmWindowHours'] as int),
@@ -114,7 +118,9 @@ void main() {
     }
     for (final c in (cases['visits'] as List).cast<Json>()) {
       final args = c['args'] as List<dynamic>;
-      final out = c['fn'] == 'visitSlotsFor' ? data.visitSlotsFor(args[0] as String, args[1] as String) : data.visitDatesFor(args[0] as String, args[1] as int, args[1] == 5 ? '2026-11-13T20:00:00+03:00' : null);
+      final out = c['fn'] == 'visitSlotsFor'
+          ? data.visitSlotsFor(args[0] as String, args[1] as String)
+          : data.visitDatesFor(args[0] as String, args[1] as int, args[1] == 5 ? '2026-11-13T20:00:00+03:00' : null);
       expectSame(out, c['out'], '${c['fn']}$args');
     }
   });
@@ -125,13 +131,13 @@ void main() {
     for (final c in list) {
       final i = c.obj('input');
       Json run() => data.quoteFor(
-            venueId: i.str('venueId'),
-            eventDate: i.str('eventDate'),
-            sections: i.list('sections'),
-            extras: i.list('extras'),
-            venueDiscount: i.objOrNull('venueDiscount'),
-            at: i.str('now'),
-          );
+        venueId: i.str('venueId'),
+        eventDate: i.str('eventDate'),
+        sections: i.list('sections'),
+        extras: i.list('extras'),
+        venueDiscount: i.objOrNull('venueDiscount'),
+        at: i.str('now'),
+      );
       if (c['throws'] == true) {
         refused++;
         expect(run, throwsStateError, reason: 'expected a refusal for $i');
@@ -143,7 +149,16 @@ void main() {
     expect(priced, greaterThan(150));
     expect(refused, greaterThan(0));
     for (final c in (cases['providerQuote'] as List).cast<Json>()) {
-      expectSame(data.quoteForProvider(providerId: c.str('providerId'), packageId: c.str('packageId'), qty: c.integer('qty'), venueDiscount: c.objOrNull('venueDiscount')), c['out'], 'provider quote $c');
+      expectSame(
+        data.quoteForProvider(
+          providerId: c.str('providerId'),
+          packageId: c.str('packageId'),
+          qty: c.integer('qty'),
+          venueDiscount: c.objOrNull('venueDiscount'),
+        ),
+        c['out'],
+        'provider quote $c',
+      );
     }
   });
 
@@ -186,14 +201,22 @@ void main() {
       expectSame(slimVenues(data.nearby(c.str('from'), c.integer('limit'))), c['out'], 'nearby ${c['from']}');
     }
     for (final c in (cases['compare'] as List).cast<Json>()) {
-      expectSame(slimVenues(data.compareSet((c['ids'] as List).cast<String>(), c.obj('brief'), c.str('origin'), c.str('now'))), c['out'], 'compare ${c['ids']}');
+      expectSame(
+        slimVenues(data.compareSet((c['ids'] as List).cast<String>(), c.obj('brief'), c.str('origin'), c.str('now'))),
+        c['out'],
+        'compare ${c['ids']}',
+      );
     }
   });
 
   test('the hero story prices: KD 18,200 standard, KD 15,400 voucher', () {
-    final q = data.quoteFor(venueId: 'V01', eventDate: '2027-01-14', sections: [
-      {'hallId': 'V01-danah', 'audience': 'women', 'guests': 350, 'packageId': 'V01-ladies-weekend'}
-    ]);
+    final q = data.quoteFor(
+      venueId: 'V01',
+      eventDate: '2027-01-14',
+      sections: [
+        {'hallId': 'V01-danah', 'audience': 'women', 'guests': 350, 'packageId': 'V01-ladies-weekend'},
+      ],
+    );
     expect(filsOf(q.obj('totals').obj('standardTotal')), 18200000);
     expect(filsOf(q.obj('totals').obj('voucherTotal')), 15400000);
     expect(q['voucherEligible'], true);

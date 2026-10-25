@@ -51,10 +51,16 @@ Json _windowFrom(MockApp app, Req r, Json input, String id, {Json? existing}) {
 // ---------------------------------------------------------------- analytics
 
 Json _series(String id, String unit, List<String> days, String scope, int base, int spread) => {
-      'id': id,
-      'unit': unit,
-      'points': [for (final d in days) {'date': d, 'value': base + (seeded([id, scope, d]) * spread).floor()}],
-    };
+  'id': id,
+  'unit': unit,
+  'points': [
+    for (final d in days)
+      {
+        'date': d,
+        'value': base + (seeded([id, scope, d]) * spread).floor(),
+      },
+  ],
+};
 
 Json analyticsFor(MockApp app, String id, {String? from, String? to}) {
   final today = app.today();
@@ -63,12 +69,22 @@ Json analyticsFor(MockApp app, String id, {String? from, String? to}) {
   final hi = to ?? seedDoc?.obj('window').str('to') ?? today;
   if (diffDays(lo, hi) < 0 || diffDays(lo, hi) > 366) throw ApiError.validation('/to', 'range_invalid');
   final days = datesBetween(lo, hi);
-  final bookings = app.db.raw('Booking').where((b) => (b['venueId'] == id || b['providerId'] == id) && b.str('createdAt').substring(0, 10).compareTo(lo) >= 0 && b.str('createdAt').substring(0, 10).compareTo(hi) <= 0).toList();
+  final bookings = app.db
+      .raw('Booking')
+      .where(
+        (b) =>
+            (b['venueId'] == id || b['providerId'] == id) &&
+            b.str('createdAt').substring(0, 10).compareTo(lo) >= 0 &&
+            b.str('createdAt').substring(0, 10).compareTo(hi) <= 0,
+      )
+      .toList();
   final vouchers = app.db.raw('Voucher').where((v) => v['venueOrProviderId'] == id && v['kind'] == 'bound').toList();
   Json tiles, funnel;
   List<Json> series;
   List<Json> top;
   if (seedDoc != null) {
+    // The seeded range ("This month") answers with the seeded figures as they are; any other span scales them by its days.
+    final exact = (from == null && to == null) || (lo == seedDoc.obj('range').str('from') && hi == seedDoc.obj('range').str('to'));
     final seedDays = diffDays(seedDoc.obj('window').str('from'), seedDoc.obj('window').str('to')) + 1;
     final k = days.length / seedDays;
     final st = seedDoc.obj('tiles');
@@ -84,10 +100,13 @@ Json analyticsFor(MockApp app, String id, {String? from, String? to}) {
       'openDatesNext30Days': st['openDatesNext30Days'],
       'conversionBps': st['conversionBps'],
     };
-    if (from == null && to == null) tiles = deepCopy(st);
+    if (exact) tiles = deepCopy(st);
     final sf = seedDoc.obj('funnel');
-    funnel = from == null && to == null ? deepCopy(sf) : {for (final e in sf.entries) e.key: scale(e.value as num)};
-    series = [for (final s in seedDoc.list('series')) {...deepCopy(s), 'points': s.list('points').where((p) => p.str('date').compareTo(lo) >= 0 && p.str('date').compareTo(hi) <= 0).toList()}];
+    funnel = exact ? deepCopy(sf) : {for (final e in sf.entries) e.key: scale(e.value as num)};
+    series = [
+      for (final s in seedDoc.list('series'))
+        {...deepCopy(s), 'points': s.list('points').where((p) => p.str('date').compareTo(lo) >= 0 && p.str('date').compareTo(hi) <= 0).toList()},
+    ];
     top = seedDoc.list('topPackages');
   } else {
     final requests = bookings.length;
@@ -122,12 +141,19 @@ Json analyticsFor(MockApp app, String id, {String? from, String? to}) {
       final pk = b.list('sections').isEmpty ? (b.objOrNull('service')?['packageId'] as String?) : b.list('sections').first.strOrNull('packageId');
       if (pk != null) counts[pk] = (counts[pk] ?? 0) + 1;
     }
-    top = [for (final e in (counts.entries.toList()..sort((a, b) => b.value.compareTo(a.value)))) {'packageId': e.key, 'confirmed': e.value}];
+    top = [
+      for (final e in (counts.entries.toList()..sort((a, b) => b.value.compareTo(a.value)))) {'packageId': e.key, 'confirmed': e.value},
+    ];
   }
-  final custom = from != null || to != null;
+  final seedRange = seedDoc?.objOrNull('range');
+  final custom = (from != null || to != null) && !(seedRange != null && lo == seedRange.str('from') && hi == seedRange.str('to'));
   return {
     'venueId': id,
-    'range': {'from': lo, 'to': hi, 'label': custom ? {'en': 'Custom range', 'ar': 'فترة مخصصة'} : (seedDoc?['range'] as Json?)?['label'] ?? {'en': 'Last 30 days', 'ar': 'آخر 30 يومًا'}},
+    'range': {
+      'from': lo,
+      'to': hi,
+      'label': custom ? {'en': 'Custom range', 'ar': 'فترة مخصصة'} : (seedDoc?['range'] as Json?)?['label'] ?? {'en': 'Last 30 days', 'ar': 'آخر 30 يومًا'},
+    },
     'window': {'from': lo, 'to': hi},
     'tiles': tiles,
     'funnel': funnel,
@@ -137,39 +163,42 @@ Json analyticsFor(MockApp app, String id, {String? from, String? to}) {
 }
 
 Map<String, Handler> partnerGrowthHandlers(MockApp app) => {
-      'listVoucherWindows': (r) {
-        final status = r.qList('status');
-        final rows = [for (final w in app.db.raw('VoucherWindow')) if (w['venueId'] == r.ctx.targetId) {...deepCopy(w), 'status': _windowStatus(app, w)}];
-        final filtered = rows.where((w) => status.isEmpty || status.contains(w['status'])).toList();
-        return {'windows': stableSorted(filtered, (a, b) => b.str('startsAt').compareTo(a.str('startsAt')))};
-      },
-      'createVoucherWindow': (r) {
-        app.requirePermission(r, 'windows:manage');
-        final w = _windowFrom(app, r, r.b, 'vw-m${app.db.next('window').toString().padLeft(3, '0')}');
-        app.db.put('VoucherWindow', w);
-        return w;
-      },
-      'updateVoucherWindow': (r) {
-        app.requirePermission(r, 'windows:manage');
-        final existing = _ownWindow(app, r);
-        if (_windowStatus(app, existing) == 'ended') throw ApiError('LISTING_STATE_CONFLICT', detail: 'the window already ended');
-        final w = _windowFrom(app, r, r.b, existing.str('id'), existing: existing);
-        app.db.put('VoucherWindow', w);
-        return w;
-      },
-      'endVoucherWindow': (r) {
-        app.requirePermission(r, 'windows:manage');
-        final w = _ownWindow(app, r);
-        w['status'] = 'ended';
-        w['endsAt'] = app.now;
-        app.db.put('VoucherWindow', w);
-        return w;
-      },
-      'getPartnerAnalytics': (r) => analyticsFor(app, r.ctx.targetId, from: r.q('from'), to: r.q('to')),
-      'getListingPerformance': (r) {
-        final l = app.db.get('Listing', r.p('listingId'));
-        if (l == null || l['partnerAccountId'] != r.ctx.accountId) throw ApiError.notFound('listing');
-        final a = analyticsFor(app, l.str('providerId'), from: r.q('from'), to: r.q('to'));
-        return {'listingId': l['id'], 'range': a['range'], 'tiles': a['tiles'], 'funnel': a['funnel'], 'series': a['series']};
-      },
-    };
+  'listVoucherWindows': (r) {
+    final status = r.qList('status');
+    final rows = [
+      for (final w in app.db.raw('VoucherWindow'))
+        if (w['venueId'] == r.ctx.targetId) {...deepCopy(w), 'status': _windowStatus(app, w)},
+    ];
+    final filtered = rows.where((w) => status.isEmpty || status.contains(w['status'])).toList();
+    return {'windows': stableSorted(filtered, (a, b) => b.str('startsAt').compareTo(a.str('startsAt')))};
+  },
+  'createVoucherWindow': (r) {
+    app.requirePermission(r, 'windows:manage');
+    final w = _windowFrom(app, r, r.b, 'vw-m${app.db.next('window').toString().padLeft(3, '0')}');
+    app.db.put('VoucherWindow', w);
+    return w;
+  },
+  'updateVoucherWindow': (r) {
+    app.requirePermission(r, 'windows:manage');
+    final existing = _ownWindow(app, r);
+    if (_windowStatus(app, existing) == 'ended') throw ApiError('LISTING_STATE_CONFLICT', detail: 'the window already ended');
+    final w = _windowFrom(app, r, r.b, existing.str('id'), existing: existing);
+    app.db.put('VoucherWindow', w);
+    return w;
+  },
+  'endVoucherWindow': (r) {
+    app.requirePermission(r, 'windows:manage');
+    final w = _ownWindow(app, r);
+    w['status'] = 'ended';
+    w['endsAt'] = app.now;
+    app.db.put('VoucherWindow', w);
+    return w;
+  },
+  'getPartnerAnalytics': (r) => analyticsFor(app, r.ctx.targetId, from: r.q('from'), to: r.q('to')),
+  'getListingPerformance': (r) {
+    final l = app.db.get('Listing', r.p('listingId'));
+    if (l == null || l['partnerAccountId'] != r.ctx.accountId) throw ApiError.notFound('listing');
+    final a = analyticsFor(app, l.str('providerId'), from: r.q('from'), to: r.q('to'));
+    return {'listingId': l['id'], 'range': a['range'], 'tiles': a['tiles'], 'funnel': a['funnel'], 'series': a['series']};
+  },
+};

@@ -28,7 +28,11 @@ Json venueSettings(MockApp app, String venueId) {
     'hours': v['hours'],
     'notificationPrefs': {'newRequestAlwaysOn': true, 'messages': true, 'reviews': true, 'vouchers': true, 'visits': true},
     'listingCompleteness': {'ar': 90, 'en': 80},
-    'bookingRules': {'responseSlaHours': v.obj('policies').intOrNull('responseSlaHours') ?? 24, 'confirmWindowHours': 24, 'visitsEnabled': v.list('visitSlots').isNotEmpty},
+    'bookingRules': {
+      'responseSlaHours': v.obj('policies').intOrNull('responseSlaHours') ?? 24,
+      'confirmWindowHours': 24,
+      'visitsEnabled': v.list('visitSlots').isNotEmpty,
+    },
     'calendarSync': {'channel': 'email', 'address': '', 'ics': false},
     'reliabilityStrikes': 0,
   };
@@ -63,7 +67,10 @@ Json ctxBooking(MockApp app, Req r) {
 /// Requests of the context.
 List<Json> ctxBookings(MockApp app, Req r) {
   final c = r.ctx;
-  return [for (final b in app.db.raw('Booking')) if (c.venueId != null ? b['venueId'] == c.venueId : b['providerId'] == c.providerId) b];
+  return [
+    for (final b in app.db.raw('Booking'))
+      if (c.venueId != null ? b['venueId'] == c.venueId : b['providerId'] == c.providerId) b,
+  ];
 }
 
 /// The inviter of a staff member or an invitation in both languages (`invitedByName`, next to the Latin `invitedBy` the contract has always carried):

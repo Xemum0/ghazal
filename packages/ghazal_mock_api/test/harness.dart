@@ -22,7 +22,10 @@ class World {
   Actor actor(String persona, {String? venueId, String? providerId, String language = 'en'}) {
     final s = persona == 'guest' ? null : control.sessionFor(persona);
     final store = MemoryTokenStore(s == null ? null : AuthTokens(accessToken: s['accessToken'] as String, refreshToken: s['refreshToken'] as String));
-    final env = StaticClientEnvironment(languageCode: language, partnerContext: venueId != null || providerId != null ? PartnerRequestContext(venueId: venueId, providerId: providerId) : null);
+    final env = StaticClientEnvironment(
+      languageCode: language,
+      partnerContext: venueId != null || providerId != null ? PartnerRequestContext(venueId: venueId, providerId: providerId) : null,
+    );
     final client = GzApiClient.create(
       config: const GzApiConfig(baseUrl: 'http://mock.ghazal.local/v1', useMock: true),
       environment: env,

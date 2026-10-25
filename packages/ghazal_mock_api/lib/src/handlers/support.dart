@@ -36,29 +36,47 @@ Json createRefundFor(MockApp app, String clientId, String voucherId, String? not
   app.db.put('RefundRequest', doc);
   v['refundRequestId'] = id;
   app.db.put('Voucher', v);
-  appendMessage(app, support.str('id'), from: 'client', senderName: app.userName(clientId), text: {'en': null, 'ar': note ?? 'أرغب بطلب كوبون رصيد بدل الكوبون ${v['code']}.'}, origin: 'ar');
-  appendMessage(app, support.str('id'), from: 'system', kind: 'system', text: {'en': 'Your credit voucher request for ${v['code']} was sent to Ghazal support.', 'ar': 'تم إرسال طلب كوبون الرصيد للكوبون ${v['code']} إلى دعم غزل.'});
+  appendMessage(
+    app,
+    support.str('id'),
+    from: 'client',
+    senderName: app.userName(clientId),
+    text: {'en': null, 'ar': note ?? 'أرغب بطلب كوبون رصيد بدل الكوبون ${v['code']}.'},
+    origin: 'ar',
+  );
+  appendMessage(
+    app,
+    support.str('id'),
+    from: 'system',
+    kind: 'system',
+    text: {
+      'en': 'Your credit voucher request for ${v['code']} was sent to Ghazal support.',
+      'ar': 'تم إرسال طلب كوبون الرصيد للكوبون ${v['code']} إلى دعم غزل.',
+    },
+  );
   return doc;
 }
 
 Map<String, Handler> supportHandlers(MockApp app) => {
-      'getSupportConversation': (r) {
-        final c = r.partner != null ? ensureSupportConversation(app, venueId: r.partner!.venueId ?? r.partner!.providerId) : ensureSupportConversation(app, clientId: r.userId);
-        return wire(c);
-      },
-      'createRefundRequest': (r) => wire(createRefundFor(app, r.userId, r.b.str('voucherId'), r.b.strOrNull('note'))),
-      'listRefundRequests': (r) {
-        final rows = app.db.raw('RefundRequest').where((x) => x['clientId'] == r.userId).toList();
-        return pageMap(r, stableSorted(rows, (a, b) => b.str('requestedAt').compareTo(a.str('requestedAt'))), wire);
-      },
-      'getRefundRequest': (r) {
-        final x = app.db.get('RefundRequest', r.p('requestId'));
-        if (x == null || x['clientId'] != r.userId) throw ApiError.notFound('refund request');
-        return wire(x);
-      },
-      'listFaq': (r) => app.seed.rows('FaqItem'),
-      'getLegalDocument': (r) => app.seed.extra.obj('legal').obj(r.p('kind')),
-    };
+  'getSupportConversation': (r) {
+    final c = r.partner != null
+        ? ensureSupportConversation(app, venueId: r.partner!.venueId ?? r.partner!.providerId)
+        : ensureSupportConversation(app, clientId: r.userId);
+    return wire(c);
+  },
+  'createRefundRequest': (r) => wire(createRefundFor(app, r.userId, r.b.str('voucherId'), r.b.strOrNull('note'))),
+  'listRefundRequests': (r) {
+    final rows = app.db.raw('RefundRequest').where((x) => x['clientId'] == r.userId).toList();
+    return pageMap(r, stableSorted(rows, (a, b) => b.str('requestedAt').compareTo(a.str('requestedAt'))), wire);
+  },
+  'getRefundRequest': (r) {
+    final x = app.db.get('RefundRequest', r.p('requestId'));
+    if (x == null || x['clientId'] != r.userId) throw ApiError.notFound('refund request');
+    return wire(x);
+  },
+  'listFaq': (r) => app.seed.rows('FaqItem'),
+  'getLegalDocument': (r) => app.seed.extra.obj('legal').obj(r.p('kind')),
+};
 
 /// Grants or declines a refund request (the control endpoint calls this). Returns the updated request.
 Json decideRefundRequest(MockApp app, String requestId, {required bool grant, String? reason}) {
@@ -70,13 +88,30 @@ Json decideRefundRequest(MockApp app, String requestId, {required bool grant, St
     final credit = grantCreditVoucher(app, x);
     x['status'] = 'granted';
     x['creditVoucherId'] = credit['id'];
-    appendMessage(app, x.str('conversationId'), from: 'support', senderName: 'Lama Al-Khalidi', kind: 'credit_card', text: {'en': 'Credit voucher issued', 'ar': 'تم إصدار كوبون رصيد'}, card: {
-      'kind': 'credit_voucher',
-      'title': {'en': 'Credit voucher issued', 'ar': 'تم إصدار كوبون رصيد'},
-      'lines': [{'en': credit['code'], 'ar': credit['code']}],
-      'refId': credit['id'],
-    });
-    notify(app, userId: x.str('clientId'), kind: 'credit_voucher_issued', audience: 'client', params: {'code': credit['code'], 'from': app.db.peek('Voucher', x.str('voucherId'))?['code']}, voucherId: credit.str('id'));
+    appendMessage(
+      app,
+      x.str('conversationId'),
+      from: 'support',
+      senderName: 'Lama Al-Khalidi',
+      kind: 'credit_card',
+      text: {'en': 'Credit voucher issued', 'ar': 'تم إصدار كوبون رصيد'},
+      card: {
+        'kind': 'credit_voucher',
+        'title': {'en': 'Credit voucher issued', 'ar': 'تم إصدار كوبون رصيد'},
+        'lines': [
+          {'en': credit['code'], 'ar': credit['code']},
+        ],
+        'refId': credit['id'],
+      },
+    );
+    notify(
+      app,
+      userId: x.str('clientId'),
+      kind: 'credit_voucher_issued',
+      audience: 'client',
+      params: {'code': credit['code'], 'from': app.db.peek('Voucher', x.str('voucherId'))?['code']},
+      voucherId: credit.str('id'),
+    );
   } else {
     x['status'] = 'declined';
     x['declineReason'] = {'en': reason ?? 'The request does not meet the credit conditions.', 'ar': reason ?? 'الطلب لا يستوفي شروط كوبون الرصيد.'};

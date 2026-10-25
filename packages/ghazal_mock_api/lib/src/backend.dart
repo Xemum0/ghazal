@@ -56,7 +56,15 @@ class MockBackend {
     final data = await SeedData.load(source);
     final app = MockApp(
       seed: data,
-      config: MockConfig(clock: clock, latency: latency, scenario: scenario, persona: persona, autoRun: autoRun, gatewayDelay: gatewayDelay, botDelay: botDelay),
+      config: MockConfig(
+        clock: clock,
+        latency: latency,
+        scenario: scenario,
+        persona: persona,
+        autoRun: autoRun,
+        gatewayDelay: gatewayDelay,
+        botDelay: botDelay,
+      ),
     );
     final backend = MockBackend._(app, buildHandler(app, allHandlers(app)), source);
     if (persona != 'guest') app.personaTokens(persona);
@@ -65,9 +73,9 @@ class MockBackend {
 
   /// A shelf handler over everything the mock serves: `/v1/*` (the contract) and `/__mock/*` (the control surface).
   shelf.Handler get handler => (request) async {
-        final c = await handleControl(app, control, request);
-        return c ?? await _api(request);
-      };
+    final c = await handleControl(app, control, request);
+    return c ?? await _api(request);
+  };
 
   /// A dio adapter that answers requests in-process: no sockets, works on iOS, Android and desktop test VMs. Give it to `GzApiClient.create(adapter: ...)`.
   /// In the `offline` scenario it throws a connection error like a phone with no network.

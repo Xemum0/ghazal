@@ -58,7 +58,17 @@ class MockConfig {
 
 /// A partner membership of a user (what `GET /partner/me` lists).
 class Membership {
-  Membership({required this.accountId, required this.accountType, required this.accountName, this.venueId, this.providerId, required this.role, required this.feeExempt, required this.status, this.pendingRequests});
+  Membership({
+    required this.accountId,
+    required this.accountType,
+    required this.accountName,
+    this.venueId,
+    this.providerId,
+    required this.role,
+    required this.feeExempt,
+    required this.status,
+    this.pendingRequests,
+  });
   final String accountId;
   final String accountType;
   final Json accountName;
@@ -73,8 +83,30 @@ class Membership {
 }
 
 const rolePermissions = <String, List<String>>{
-  'admin': ['request:respond', 'voucher:redeem', 'visit:manage', 'calendar:edit', 'venue:edit', 'staff:manage', 'listing:manage', 'reviews:reply', 'analytics:view', 'windows:manage', 'billing:view'],
-  'manager': ['request:respond', 'voucher:redeem', 'visit:manage', 'calendar:edit', 'venue:edit', 'listing:manage', 'reviews:reply', 'analytics:view', 'windows:manage'],
+  'admin': [
+    'request:respond',
+    'voucher:redeem',
+    'visit:manage',
+    'calendar:edit',
+    'venue:edit',
+    'staff:manage',
+    'listing:manage',
+    'reviews:reply',
+    'analytics:view',
+    'windows:manage',
+    'billing:view',
+  ],
+  'manager': [
+    'request:respond',
+    'voucher:redeem',
+    'visit:manage',
+    'calendar:edit',
+    'venue:edit',
+    'listing:manage',
+    'reviews:reply',
+    'analytics:view',
+    'windows:manage',
+  ],
   'reception': ['voucher:redeem', 'visit:manage', 'calendar:edit'],
   'accountant': ['analytics:view', 'billing:view'],
   'marketing': ['windows:manage', 'listing:manage', 'reviews:reply', 'analytics:view'],
@@ -130,21 +162,21 @@ class MockApp {
 
   /// A read-only view of the live catalog for the engine selectors (windows, packages and claims edited through the API show up at once).
   EngineData engine([String? at]) => EngineData(
-        venues: db.raw('Venue'),
-        packages: db.raw('Package'),
-        priceRules: db.raw('PriceRule'),
-        extras: db.raw('Extra'),
-        windows: db.raw('VoucherWindow'),
-        claims: db.raw('CalendarClaim'),
-        overrides: seed.extra.list('dayOverrides'),
-        areas: seed.rows('Area'),
-        governorates: seed.rows('Governorate'),
-        visits: db.raw('VisitAppointment'),
-        providers: db.raw('ServiceProvider'),
-        config: platformConfig,
-        now: at ?? now,
-        explicitClaimVenues: {for (final c in seed.rows('CalendarClaim')) c.str('venueId')},
-      );
+    venues: db.raw('Venue'),
+    packages: db.raw('Package'),
+    priceRules: db.raw('PriceRule'),
+    extras: db.raw('Extra'),
+    windows: db.raw('VoucherWindow'),
+    claims: db.raw('CalendarClaim'),
+    overrides: seed.extra.list('dayOverrides'),
+    areas: seed.rows('Area'),
+    governorates: seed.rows('Governorate'),
+    visits: db.raw('VisitAppointment'),
+    providers: db.raw('ServiceProvider'),
+    config: platformConfig,
+    now: at ?? now,
+    explicitClaimVenues: {for (final c in seed.rows('CalendarClaim')) c.str('venueId')},
+  );
 
   // ---------------------------------------------------------------- people
 
@@ -171,17 +203,19 @@ class MockApp {
     void add(Json account, String role, {String? venueId, int? pending}) {
       final key = '${account['id']}|${venueId ?? account['providerId']}';
       if (!seen.add(key)) return;
-      out.add(Membership(
-        accountId: account.str('id'),
-        accountType: account.str('type'),
-        accountName: account.obj('name'),
-        venueId: venueId,
-        providerId: account.strOrNull('providerId'),
-        role: role,
-        feeExempt: account.flag('feeExempt'),
-        status: account.str('status'),
-        pendingRequests: pending,
-      ));
+      out.add(
+        Membership(
+          accountId: account.str('id'),
+          accountType: account.str('type'),
+          accountName: account.obj('name'),
+          venueId: venueId,
+          providerId: account.strOrNull('providerId'),
+          role: role,
+          feeExempt: account.flag('feeExempt'),
+          status: account.str('status'),
+          pendingRequests: pending,
+        ),
+      );
     }
 
     Json? accountForVenue(String venueId) {
@@ -263,12 +297,28 @@ class MockApp {
     final existing = db.peek('Session', id);
     final session = existing != null
         ? {...deepCopy(existing), 'revoked': false}
-        : {'id': id, 'userId': userId, 'deviceId': deviceId, 'gen': 1, 'rgen': 1, 'revoked': false, 'expiredGens': <int>[], 'skipExpire': false, 'createdAt': now};
+        : {
+            'id': id,
+            'userId': userId,
+            'deviceId': deviceId,
+            'gen': 1,
+            'rgen': 1,
+            'revoked': false,
+            'expiredGens': <int>[],
+            'skipExpire': false,
+            'createdAt': now,
+          };
     db.put('Session', session);
     return _tokensOf(session);
   }
 
-  Json _tokensOf(Json s) => {'sessionId': s['id'], 'accessToken': 'gzm_at_${s['id']}_${s['gen']}', 'refreshToken': 'gzm_rt_${s['id']}_${s['rgen']}', 'tokenType': 'Bearer', 'expiresInSeconds': 600};
+  Json _tokensOf(Json s) => {
+    'sessionId': s['id'],
+    'accessToken': 'gzm_at_${s['id']}_${s['gen']}',
+    'refreshToken': 'gzm_rt_${s['id']}_${s['rgen']}',
+    'tokenType': 'Bearer',
+    'expiresInSeconds': 600,
+  };
 
   /// Tokens of the always-on session of a persona (no OTP): the demo tools and `autoAuth` use it.
   Json personaTokens(String key) {
@@ -277,7 +327,18 @@ class MockApp {
     if (p == null || uid == null) throw StateError('persona $key has no user');
     if (db.peek('User', uid) == null && p['isNew'] == true) {
       // the brand-new client has no history: a verified phone and nothing else
-      db.put('User', {'id': uid, 'role': 'client', 'name': p['nameAr'], 'nameLatin': p['name'], 'monogram': String.fromCharCode((p['nameAr'] as String).runes.first), 'phone': p['phone'], 'email': null, 'locale': 'ar', 'digitStyle': 'western', 'createdAt': now});
+      db.put('User', {
+        'id': uid,
+        'role': 'client',
+        'name': p['nameAr'],
+        'nameLatin': p['name'],
+        'monogram': String.fromCharCode((p['nameAr'] as String).runes.first),
+        'phone': p['phone'],
+        'email': null,
+        'locale': 'ar',
+        'digitStyle': 'western',
+        'createdAt': now,
+      });
     }
     final sid = 'sess-persona-$key';
     final existing = db.peek('Session', sid);
@@ -339,7 +400,9 @@ class MockApp {
   /// The ad plans with the rates the control surface set (undecided rates stay `null`: the pay step is disabled and no number exists).
   List<Json> adPlans() {
     final rates = (flags['planRates'] as Map?)?.cast<String, int?>() ?? const <String, int?>{};
-    return [for (final p in seed.rows('AdPlan')) rates.containsKey(p['cycle']) ? {...deepCopy(p), 'ratesFils': rates[p['cycle']]} : p];
+    return [
+      for (final p in seed.rows('AdPlan')) rates.containsKey(p['cycle']) ? {...deepCopy(p), 'ratesFils': rates[p['cycle']]} : p,
+    ];
   }
 
   // ---------------------------------------------------------------- misc helpers

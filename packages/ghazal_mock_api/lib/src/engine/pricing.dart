@@ -90,7 +90,14 @@ RuleColumns columnsOf(Json rule, Iterable<Json> windows, {required String eventD
     if (lowerPer) vPer = wp;
     if (lowerFlat || lowerPer) windowId = w.str('id');
   }
-  return (flat: rule.objOrNull('flat'), perGuest: rule.objOrNull('perGuest'), voucherFlat: vFlat, voucherPerGuest: vPer, hasVoucher: vFlat != null || vPer != null, windowId: windowId);
+  return (
+    flat: rule.objOrNull('flat'),
+    perGuest: rule.objOrNull('perGuest'),
+    voucherFlat: vFlat,
+    voucherPerGuest: vPer,
+    hasVoucher: vFlat != null || vPer != null,
+    windowId: windowId,
+  );
 }
 
 // ---------------------------------------------------------------- quote
@@ -100,7 +107,17 @@ const _labelVenueDiscount = {'en': 'Venue discount', 'ar': 'خصم من القا
 const _labelServiceCharge = {'en': 'Service charge', 'ar': 'رسوم الخدمة'};
 
 class _Dual {
-  _Dual({required this.kind, required this.section, required this.name, required this.qty, required this.stdUnit, required this.stdAmount, required this.vchUnit, required this.vchAmount, this.ruleId});
+  _Dual({
+    required this.kind,
+    required this.section,
+    required this.name,
+    required this.qty,
+    required this.stdUnit,
+    required this.stdAmount,
+    required this.vchUnit,
+    required this.vchAmount,
+    this.ruleId,
+  });
   final String kind;
   final int? section;
   final Json name;
@@ -139,11 +156,24 @@ Json quote({
     final basis = pkg.str('pricingBasis');
     if ((basis == 'flat' || basis == 'flat_plus_per_guest') && cols.flat != null) {
       final vFlat = cols.voucherFlat ?? cols.flat!;
-      dual.add(_Dual(kind: 'package', section: section, name: basis == 'flat' ? pkg.obj('name') : _labelHallFee, qty: 1, stdUnit: cols.flat, stdAmount: cols.flat!, vchUnit: vFlat, vchAmount: vFlat, ruleId: rule.str('id')));
+      dual.add(
+        _Dual(
+          kind: 'package',
+          section: section,
+          name: basis == 'flat' ? pkg.obj('name') : _labelHallFee,
+          qty: 1,
+          stdUnit: cols.flat,
+          stdAmount: cols.flat!,
+          vchUnit: vFlat,
+          vchAmount: vFlat,
+          ruleId: rule.str('id'),
+        ),
+      );
     }
     if ((basis == 'per_guest' || basis == 'flat_plus_per_guest') && cols.perGuest != null) {
       final vPer = cols.voucherPerGuest ?? cols.perGuest!;
-      dual.add(_Dual(
+      dual.add(
+        _Dual(
           kind: basis == 'per_guest' ? 'package' : 'menu',
           section: section,
           name: pkg.obj('name'),
@@ -152,7 +182,9 @@ Json quote({
           stdAmount: mulMoney(cols.perGuest!, g.billable),
           vchUnit: vPer,
           vchAmount: mulMoney(vPer, g.billable),
-          ruleId: rule.str('id')));
+          ruleId: rule.str('id'),
+        ),
+      );
     }
   }
   for (final e in extras) {
@@ -161,7 +193,19 @@ Json quote({
     final unit = rule?.objOrNull('flat') ?? rule?.objOrNull('perGuest') ?? extra.obj('price');
     final q = extra['pricingUnit'] == 'per_guest' ? firstSectionBillable : e.integer('qty');
     final vUnit = rule?.objOrNull('voucherFlat') ?? rule?.objOrNull('voucherPerGuest') ?? unit;
-    dual.add(_Dual(kind: 'extra', section: null, name: extra.obj('name'), qty: q, stdUnit: unit, stdAmount: mulMoney(unit, q), vchUnit: vUnit, vchAmount: mulMoney(vUnit, q), ruleId: rule?.str('id')));
+    dual.add(
+      _Dual(
+        kind: 'extra',
+        section: null,
+        name: extra.obj('name'),
+        qty: q,
+        stdUnit: unit,
+        stdAmount: mulMoney(unit, q),
+        vchUnit: vUnit,
+        vchAmount: mulMoney(vUnit, q),
+        ruleId: rule?.str('id'),
+      ),
+    );
   }
 
   final standardSubtotal = addMoney(dual.map((l) => l.stdAmount));
@@ -190,14 +234,32 @@ Json quote({
         'standardUnit': l.stdUnit,
         'standardAmount': l.stdAmount,
         if (l.ruleId != null) 'ruleId': l.ruleId,
-      }
+      },
   ];
   if (voucherEligible && filsOf(discount) > 0) {
-    lines.add({'kind': 'venue_discount', 'section': null, 'name': _labelVenueDiscount, 'qty': 1, 'unit': null, 'amount': negMoney(discount), 'standardUnit': null, 'standardAmount': zero()});
+    lines.add({
+      'kind': 'venue_discount',
+      'section': null,
+      'name': _labelVenueDiscount,
+      'qty': 1,
+      'unit': null,
+      'amount': negMoney(discount),
+      'standardUnit': null,
+      'standardAmount': zero(),
+    });
   }
   final appliedSc = voucherEligible ? voucherServiceCharge : standardServiceCharge;
   if (filsOf(appliedSc) > 0 || filsOf(standardServiceCharge) > 0) {
-    lines.add({'kind': 'service_charge', 'section': null, 'name': _labelServiceCharge, 'qty': 1, 'unit': null, 'amount': appliedSc, 'standardUnit': null, 'standardAmount': standardServiceCharge});
+    lines.add({
+      'kind': 'service_charge',
+      'section': null,
+      'name': _labelServiceCharge,
+      'qty': 1,
+      'unit': null,
+      'amount': appliedSc,
+      'standardUnit': null,
+      'standardAmount': standardServiceCharge,
+    });
   }
   final totals = <String, dynamic>{
     'standardSubtotal': standardSubtotal,
@@ -292,10 +354,19 @@ Json quoteProviderPackage({required String providerId, required Json pkg, requir
       'standardUnit': price,
       'standardAmount': standardAmount,
       'ruleId': pkg.str('id'),
-    }
+    },
   ];
   if (eligible && filsOf(discount) > 0) {
-    lines.add({'kind': 'venue_discount', 'section': null, 'name': {'en': 'Provider discount', 'ar': 'خصم من المزوّد'}, 'qty': 1, 'unit': null, 'amount': negMoney(discount), 'standardUnit': null, 'standardAmount': zero()});
+    lines.add({
+      'kind': 'venue_discount',
+      'section': null,
+      'name': {'en': 'Provider discount', 'ar': 'خصم من المزوّد'},
+      'qty': 1,
+      'unit': null,
+      'amount': negMoney(discount),
+      'standardUnit': null,
+      'standardAmount': zero(),
+    });
   }
   final totals = <String, dynamic>{
     'standardSubtotal': standardAmount,

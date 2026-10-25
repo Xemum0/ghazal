@@ -71,7 +71,8 @@ class EngineData {
     return null;
   }
 
-  List<Json> packagesFor(String venueId) => stableSorted(packages.where((p) => p['venueId'] == venueId), (a, b) => (a.intOrNull('sortOrder') ?? 0) - (b.intOrNull('sortOrder') ?? 0));
+  List<Json> packagesFor(String venueId) =>
+      stableSorted(packages.where((p) => p['venueId'] == venueId), (a, b) => (a.intOrNull('sortOrder') ?? 0) - (b.intOrNull('sortOrder') ?? 0));
   List<Json> extrasFor(String venueId) => extras.where((e) => e['venueId'] == venueId).toList();
   List<Json> rulesFor(String scopeId) => priceRules.where((r) => r['scopeId'] == scopeId).toList();
   Json? area(String id) => areas.cast<Json?>().firstWhere((a) => a!['id'] == id, orElse: () => null);
@@ -80,7 +81,9 @@ class EngineData {
   /// Voucher windows live at [at] (active, started, not ended).
   List<Json> activeWindows([String? at]) {
     final t = at ?? now;
-    return windows.where((w) => w['status'] == 'active' && w.str('startsAt').compareTo(t) <= 0 && (w['endsAt'] == null || w.str('endsAt').compareTo(t) > 0)).toList();
+    return windows
+        .where((w) => w['status'] == 'active' && w.str('startsAt').compareTo(t) <= 0 && (w['endsAt'] == null || w.str('endsAt').compareTo(t) > 0))
+        .toList();
   }
 
   // ---------------------------------------------------------------- availability and price
@@ -118,7 +121,13 @@ class EngineData {
     if (v == null || v['channel'] == 'external_link') return {'state': 'unknown', 'hallId': null, 'day': null};
     final audience = brief['audience'] as String?;
     final guests = (brief['guests'] as num?)?.toInt();
-    final halls = v.list('halls').where((h) => (audience != null ? h.list('sections').any((s) => s['audience'] == audience) : true) && (guests != null && guests != 0 ? h.obj('capacity').integer('max') >= guests : true));
+    final halls = v
+        .list('halls')
+        .where(
+          (h) =>
+              (audience != null ? h.list('sections').any((s) => s['audience'] == audience) : true) &&
+              (guests != null && guests != 0 ? h.obj('capacity').integer('max') >= guests : true),
+        );
     Json best = {'state': 'closed', 'hallId': null, 'day': null};
     for (final hall in halls) {
       final days = availabilityFor(venueId, hall.str('id'), monthOf(date), brief, at);
@@ -154,7 +163,7 @@ class EngineData {
       for (final h in venue.list('halls'))
         if (pkg.strings('hallIds').contains(h['id']))
           for (final s in h.list('sections'))
-            if (s['audience'] == audience) s.integer('minGuests')
+            if (s['audience'] == audience) s.integer('minGuests'),
     ];
     return mins.isEmpty ? 0 : mins.reduce((a, b) => a < b ? a : b);
   }
@@ -213,7 +222,9 @@ class EngineData {
       Json total(Json? flat, Json? per) => addMoney([flat ?? zero(), per != null ? mulMoney(per, billable) : zero()]);
       final amount = total(rule.objOrNull('flat'), rule.objOrNull('perGuest'));
       final hasV = rule['voucherFlat'] != null || rule['voucherPerGuest'] != null;
-      final voucher = hasV ? total(rule.objOrNull('voucherFlat') ?? rule.objOrNull('flat'), rule.objOrNull('voucherPerGuest') ?? rule.objOrNull('perGuest')) : null;
+      final voucher = hasV
+          ? total(rule.objOrNull('voucherFlat') ?? rule.objOrNull('flat'), rule.objOrNull('voucherPerGuest') ?? rule.objOrNull('perGuest'))
+          : null;
       if (best == null || filsOf(amount) < filsOf(best.amount)) {
         best = (amount: amount, voucher: voucher, pkg: pkg, rule: rule, guests: billed, atMinimum: briefGuests == null || briefGuests < minEff);
       }
@@ -221,10 +232,25 @@ class EngineData {
     if (best == null) return null;
     final vp = _withVoucher(best.amount, best.voucher);
     if (best.pkg['pricingBasis'] == 'flat') {
-      return {'mode': 'flat_night', 'amount': best.amount, 'hasSeveralPackages': eligible.length > 1, 'packageId': best.pkg['id'], 'voucher': vp.voucher, 'savings': vp.savings};
+      return {
+        'mode': 'flat_night',
+        'amount': best.amount,
+        'hasSeveralPackages': eligible.length > 1,
+        'packageId': best.pkg['id'],
+        'voucher': vp.voucher,
+        'savings': vp.savings,
+      };
     }
     if (hasGuests && !best.atMinimum) {
-      return {'mode': 'from_guests', 'amount': best.amount, 'guests': briefGuests, 'packageId': best.pkg['id'], 'tier': best.rule['tier'], 'voucher': vp.voucher, 'savings': vp.savings};
+      return {
+        'mode': 'from_guests',
+        'amount': best.amount,
+        'guests': briefGuests,
+        'packageId': best.pkg['id'],
+        'tier': best.rule['tier'],
+        'voucher': vp.voucher,
+        'savings': vp.savings,
+      };
     }
     return {
       'mode': 'from_minimum',
@@ -243,7 +269,10 @@ class EngineData {
     final v = venue(venueId);
     if (v == null) return null;
     final perGuest = packagesFor(venueId).where((p) => p.flag('active') && p['components'] == null && p['pricingBasis'] != 'flat');
-    final mins = [for (final p in perGuest) for (final a in p.strings('audiences')) pr.effectiveMinGuests(p, _sectionMin(v, p, a))];
+    final mins = [
+      for (final p in perGuest)
+        for (final a in p.strings('audiences')) pr.effectiveMinGuests(p, _sectionMin(v, p, a)),
+    ];
     final halls = v.list('halls');
     final min = mins.isNotEmpty ? mins.reduce((a, b) => a < b ? a : b) : halls.map((h) => h.obj('capacity').integer('min')).reduce((a, b) => a < b ? a : b);
     final max = halls.map((h) => h.obj('capacity').integer('max')).reduce((a, b) => a > b ? a : b);
@@ -254,7 +283,10 @@ class EngineData {
   List<String> sectionTags(String venueId) {
     final v = venue(venueId);
     if (v == null) return [];
-    final set = {for (final h in v.list('halls')) for (final s in h.list('sections')) s.str('audience')};
+    final set = {
+      for (final h in v.list('halls'))
+        for (final s in h.list('sections')) s.str('audience'),
+    };
     final tags = ['women', 'men', 'mixed'].where(set.contains).toList();
     return tags.length > 1 ? tags : [];
   }
@@ -286,7 +318,10 @@ class EngineData {
 
   ({int min, int max}) _venueCapacity(Json v) {
     final halls = v.list('halls');
-    return (min: halls.map((h) => h.obj('capacity').integer('min')).reduce((a, b) => a < b ? a : b), max: halls.map((h) => h.obj('capacity').integer('max')).reduce((a, b) => a > b ? a : b));
+    return (
+      min: halls.map((h) => h.obj('capacity').integer('min')).reduce((a, b) => a < b ? a : b),
+      max: halls.map((h) => h.obj('capacity').integer('max')).reduce((a, b) => a > b ? a : b),
+    );
   }
 
   /// Search and filter venues (CA-FLT). [filter] keys: governorateIds, areaIds, types, styles, tiers, capacity {min,max}, priceStructure, voucherOnly,
@@ -327,10 +362,16 @@ class EngineData {
       }
       final q = filter['query'] as String?;
       if (q != null && q.isNotEmpty && !_includesQuery(v, q)) continue;
-      if (briefGuests != 0 && v['channel'] != 'external_link' && v.list('halls').map((h) => h.obj('capacity').integer('max')).reduce((a, b) => a > b ? a : b) < briefGuests) continue;
+      if (briefGuests != 0 &&
+          v['channel'] != 'external_link' &&
+          v.list('halls').map((h) => h.obj('capacity').integer('max')).reduce((a, b) => a > b ? a : b) < briefGuests) {
+        continue;
+      }
       final b = <String, dynamic>{...brief, 'audience': ?audience};
       final avail = briefDate != null && briefDate.isNotEmpty ? venueAvailabilityOn(v.str('id'), briefDate, b, t) : null;
-      if (filter['availableOnDate'] == true && briefDate != null && briefDate.isNotEmpty && (v['channel'] == 'external_link' || avail?['state'] != 'available')) continue;
+      if (filter['availableOnDate'] == true && briefDate != null && briefDate.isNotEmpty && (v['channel'] == 'external_link' || avail?['state'] != 'available')) {
+        continue;
+      }
       final between = filter['availableBetween'] as Map?;
       if (between != null) {
         if (v['channel'] == 'external_link') continue;
@@ -374,9 +415,13 @@ class EngineData {
     return stableSorted(rows, (a, b) {
       switch (sort) {
         case 'voucher_price':
-          return cmpNum(_orInf(((a['price'] as Json?)?['voucher'] as Json?)?['fils'] as num?) - _orInf(((b['price'] as Json?)?['voucher'] as Json?)?['fils'] as num?));
+          return cmpNum(
+            _orInf(((a['price'] as Json?)?['voucher'] as Json?)?['fils'] as num?) - _orInf(((b['price'] as Json?)?['voucher'] as Json?)?['fils'] as num?),
+          );
         case 'price':
-          return cmpNum(_orInf(((a['price'] as Json?)?['amount'] as Json?)?['fils'] as num?) - _orInf(((b['price'] as Json?)?['amount'] as Json?)?['fils'] as num?));
+          return cmpNum(
+            _orInf(((a['price'] as Json?)?['amount'] as Json?)?['fils'] as num?) - _orInf(((b['price'] as Json?)?['amount'] as Json?)?['fils'] as num?),
+          );
         case 'rating':
           return cmpNum(((b.obj('venue').obj('rating')['average'] as num?) ?? 0) - ((a.obj('venue').obj('rating')['average'] as num?) ?? 0));
         case 'distance':
@@ -398,13 +443,25 @@ class EngineData {
     for (final g in governorates) {
       final n = g.obj('name');
       if (hit([n.strOrNull('en'), n.strOrNull('ar')])) {
-        out.add({'kind': 'governorate', 'id': g['id'], 'name': n, 'governorateId': g['id'], 'venueCount': venues.where((v) => v['governorateId'] == g['id']).length});
+        out.add({
+          'kind': 'governorate',
+          'id': g['id'],
+          'name': n,
+          'governorateId': g['id'],
+          'venueCount': venues.where((v) => v['governorateId'] == g['id']).length,
+        });
       }
     }
     for (final a in areas) {
       final n = a.obj('name');
       if (hit([n.strOrNull('en'), n.strOrNull('ar'), ...a.strings('aliases')])) {
-        out.add({'kind': 'area', 'id': a['id'], 'name': n, 'governorateId': a['governorateId'], 'venueCount': venues.where((v) => v['areaId'] == a['id']).length});
+        out.add({
+          'kind': 'area',
+          'id': a['id'],
+          'name': n,
+          'governorateId': a['governorateId'],
+          'venueCount': venues.where((v) => v['areaId'] == a['id']).length,
+        });
       }
     }
     for (final v in venues) {
@@ -449,10 +506,18 @@ class EngineData {
       final price = cardPrice(id, {...brief, 'audience': audience}, at);
       final exact = price != null && price['mode'] == 'exact' ? price : null;
       final avail = date != null && date.isNotEmpty ? venueAvailabilityOn(id, date, {...brief, 'audience': audience}, at)['state'] : null;
-      final pk = packagesFor(id).where((p) => p.flag('active') && p['components'] == null && p['archetype'] != 'hall_only' && p.strings('audiences').contains(audience)).toList();
+      final pk = packagesFor(id)
+          .where((p) => p.flag('active') && p['components'] == null && p['archetype'] != 'hall_only' && p.strings('audiences').contains(audience))
+          .toList();
       final rules = pk.expand((p) => rulesFor(p.str('id'))).toList();
-      final perGuest = [for (final r in rules) if (r['perGuest'] != null) r.obj('perGuest')];
-      final vPerGuest = [for (final r in rules) if (r['voucherPerGuest'] != null) r.obj('voucherPerGuest')];
+      final perGuest = [
+        for (final r in rules)
+          if (r['perGuest'] != null) r.obj('perGuest'),
+      ];
+      final vPerGuest = [
+        for (final r in rules)
+          if (r['voucherPerGuest'] != null) r.obj('voucherPerGuest'),
+      ];
       Json? lowest(List<Json> l) => l.isEmpty ? null : l.reduce((a, b) => filsOf(a) <= filsOf(b) ? a : b);
       final low = lowest(perGuest);
       final lowV = lowest(vPerGuest);
@@ -579,7 +644,7 @@ class EngineData {
         () {
           final start = '${date}T$time:00+03:00';
           return <String, dynamic>{'start': start, 'available': start.compareTo(t) > 0 && !taken.contains(start)};
-        }()
+        }(),
     ];
   }
 

@@ -35,13 +35,23 @@ void main() {
     final detail = await a.repos.venues.getVenue(venueId: 'V01', date: LocalDate.parse('2027-01-14'), guests: 350, audience: Audience.women);
     expect(detail.venue.id, 'V01');
     expect(detail.packages, isNotEmpty);
-    final avail = await a.repos.venues.getVenueAvailability(venueId: 'V01', from: LocalDate.parse('2027-01-01'), to: LocalDate.parse('2027-01-31'), hallId: 'V01-danah', guests: 350, audience: Audience.women);
+    final avail = await a.repos.venues.getVenueAvailability(
+      venueId: 'V01',
+      from: LocalDate.parse('2027-01-01'),
+      to: LocalDate.parse('2027-01-31'),
+      hallId: 'V01-danah',
+      guests: 350,
+      audience: Audience.women,
+    );
     expect(avail.days.length, 31);
     final day = await a.repos.venues.getVenueDayAvailability(venueId: 'V01', date: LocalDate.parse('2027-01-14'), guests: 350, audience: Audience.women);
     expect(day.hallId, isNotNull);
     final quote = await a.repos.venues.quoteVenue(
       venueId: 'V01',
-      body: VenueQuoteInput(eventDate: LocalDate.parse('2027-01-14'), sections: [QuoteSectionInput(hallId: 'V01-danah', audience: Audience.women, guests: 350, packageId: 'V01-ladies-weekend')]),
+      body: VenueQuoteInput(
+        eventDate: LocalDate.parse('2027-01-14'),
+        sections: [QuoteSectionInput(hallId: 'V01-danah', audience: Audience.women, guests: 350, packageId: 'V01-ladies-weekend')],
+      ),
     );
     expect(quote.voucherOffered, isTrue);
     expect(quote.totals.standardTotal.fils, 18200000);
@@ -51,15 +61,27 @@ void main() {
 
   test('a gated call without a session is AUTH_REQUIRED; the error is a typed ApiProblem', () async {
     final a = w.actor('guest');
-    await expectLater(a.repos.vouchers.listVouchers(), throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 401).having((e) => e.code, 'code', ApiProblemCode.authRequired)));
+    await expectLater(
+      a.repos.vouchers.listVouchers(),
+      throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 401).having((e) => e.code, 'code', ApiProblemCode.authRequired)),
+    );
   });
 
   test('sign in by WhatsApp code, then me', () async {
     final a = w.actor('guest');
-    final ch = await a.repos.auth.requestOtp(body: const OtpRequestInput(phone: '+96550000012', purpose: OtpPurpose.login));
+    final ch = await a.repos.auth.requestOtp(
+      body: const OtpRequestInput(phone: '+96550000012', purpose: OtpPurpose.login),
+    );
     expect(ch.codeLength, 6);
-    await expectLater(a.repos.auth.verifyOtp(body: OtpVerifyInput(challengeId: ch.challengeId, code: '000000')), throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 423)));
-    final session = await a.repos.auth.verifyOtp(body: OtpVerifyInput(challengeId: ch.challengeId, code: '123456'));
+    await expectLater(
+      a.repos.auth.verifyOtp(
+        body: OtpVerifyInput(challengeId: ch.challengeId, code: '000000'),
+      ),
+      throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 423)),
+    );
+    final session = await a.repos.auth.verifyOtp(
+      body: OtpVerifyInput(challengeId: ch.challengeId, code: '123456'),
+    );
     expect(session.user.user.name, isNotEmpty);
     expect(session.isNewUser, isFalse);
     await a.tokens.write(AuthTokens(accessToken: session.accessToken, refreshToken: session.refreshToken));

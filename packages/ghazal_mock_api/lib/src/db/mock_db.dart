@@ -52,7 +52,10 @@ class MockDb {
   Json? remove(String c, String id) => _c[c]?.remove(id);
 
   /// Documents matching [test] (copies).
-  List<Json> where(String c, bool Function(Json d) test) => [for (final d in _c[c]?.values ?? const <Json>[]) if (test(d)) deepCopy(d)];
+  List<Json> where(String c, bool Function(Json d) test) => [
+    for (final d in _c[c]?.values ?? const <Json>[])
+      if (test(d)) deepCopy(d),
+  ];
 
   /// First document matching [test] (copy) or null.
   Json? firstWhere(String c, bool Function(Json d) test) {
@@ -88,7 +91,10 @@ class NotInDb implements Exception {
 /// A copy of [v] without internal `_` fields at any depth.
 T wire<T>(T v) {
   if (v is Map) {
-    return {for (final e in v.entries) if (!(e.key as String).startsWith('_')) e.key as String: wire(e.value)} as T;
+    return {
+      for (final e in v.entries)
+        if (!(e.key as String).startsWith('_')) e.key as String: wire(e.value),
+    } as T;
   }
   if (v is List) return v.map(wire).toList() as T;
   return v;

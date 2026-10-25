@@ -20,7 +20,8 @@ Json requireBooking(MockApp app, String idOrRef) {
 }
 
 /// End of the event plus the completion delay: the moment R12 fires (event day, sessions end by 02:00 next morning, plus 12 h).
-String eventEndOf(MockApp app, Json booking) => addHours('${addDays(booking.str('eventDate'), 1)}T02:00:00+03:00', app.platformConfig.integer('completionDelayHours'));
+String eventEndOf(MockApp app, Json booking) =>
+    addHours('${addDays(booking.str('eventDate'), 1)}T02:00:00+03:00', app.platformConfig.integer('completionDelayHours'));
 
 String _sectionStart(Json b) {
   final sections = b.list('sections');
@@ -135,14 +136,14 @@ void _save(MockApp app, Json b) {
 }
 
 Json _event(MockApp app, {String? from, String? to, required String actor, String? actorName, String? note, String kind = 'transition'}) => {
-      'at': app.now,
-      'kind': kind,
-      'from': from,
-      'to': to,
-      'actor': actor,
-      'actorName': ?actorName,
-      if (note != null && note.isNotEmpty) 'note': {'en': note, 'ar': note},
-    };
+  'at': app.now,
+  'kind': kind,
+  'from': from,
+  'to': to,
+  'actor': actor,
+  'actorName': ?actorName,
+  if (note != null && note.isNotEmpty) 'note': {'en': note, 'ar': note},
+};
 
 /// Applies a table transition: guards the source status, appends the event, saves. Returns the stored booking.
 Json _go(MockApp app, Json b, String id, {required String actorName, String? note, required void Function(Json b) mutate}) {
@@ -231,7 +232,13 @@ String _nextRef(MockApp app, List<Object> seed) {
 /// Validates the sections of a venue request or quote against the contract's guards (channel, audience, guests, session, lead time, availability
 /// and a price rule for the date) and returns the booking sections plus the shape the quote engine takes. Errors: CHANNEL_NOT_BOOKABLE,
 /// LEAD_TIME_TOO_SHORT, AUDIENCE_NOT_ALLOWED, GUESTS_OUT_OF_RANGE, SLOT_UNAVAILABLE (with alternatives).
-({List<Json> sections, List<Json> quoteSections}) buildSections(MockApp app, String venueId, String eventDate, List<Json> input, {required bool sessionRequired}) {
+({List<Json> sections, List<Json> quoteSections}) buildSections(
+  MockApp app,
+  String venueId,
+  String eventDate,
+  List<Json> input, {
+  required bool sessionRequired,
+}) {
   final venue = app.db.peek('Venue', venueId) ?? (throw ApiError.notFound('venue'));
   if (venue['channel'] == 'external_link') throw ApiError('CHANNEL_NOT_BOOKABLE');
   if (input.isEmpty) throw ApiError.validation('/sections', 'required');
@@ -243,7 +250,9 @@ String _nextRef(MockApp app, List<Object> seed) {
   for (final s in input) {
     pos++;
     final at = '/sections/${pos - 1}';
-    final hall = venue.list('halls').cast<Json?>().firstWhere((h) => h!['id'] == s['hallId'], orElse: () => null) ?? (throw ApiError.validation('$at/hallId', 'unknown_hall'));
+    final hall =
+        venue.list('halls').cast<Json?>().firstWhere((h) => h!['id'] == s['hallId'], orElse: () => null) ??
+        (throw ApiError.validation('$at/hallId', 'unknown_hall'));
     final pkg = app.db.peek('Package', s.str('packageId'));
     if (pkg == null || pkg['venueId'] != venueId || !pkg.strings('hallIds').contains(hall['id'])) throw ApiError.validation('$at/packageId', 'unknown_package');
     final sec = hall.list('sections').cast<Json?>().firstWhere((x) => x!['audience'] == s['audience'], orElse: () => null);
@@ -252,11 +261,16 @@ String _nextRef(MockApp app, List<Object> seed) {
     final hi = pkg.integer('maxGuests') < sec.integer('maxGuests') ? pkg.integer('maxGuests') : sec.integer('maxGuests');
     final guests = s.integer('guests');
     if (guests < 1 || guests > hi) throw ApiError('GUESTS_OUT_OF_RANGE', params: {'min': lo, 'max': hi});
-    final day = engine.availabilityFor(venueId, hall.str('id'), monthOf(eventDate)).cast<Json?>().firstWhere((d) => d!['date'] == eventDate, orElse: () => null);
+    final day = engine
+        .availabilityFor(venueId, hall.str('id'), monthOf(eventDate))
+        .cast<Json?>()
+        .firstWhere((d) => d!['date'] == eventDate, orElse: () => null);
     final daySessions = day?.list('sessions') ?? const <Json>[];
     Json? session;
     if (s['sessionId'] != null) {
-      session = hall.list('sessions').cast<Json?>().firstWhere((x) => x!['id'] == s['sessionId'], orElse: () => null) ?? (throw ApiError.validation('$at/sessionId', 'unknown_session'));
+      session =
+          hall.list('sessions').cast<Json?>().firstWhere((x) => x!['id'] == s['sessionId'], orElse: () => null) ??
+          (throw ApiError.validation('$at/sessionId', 'unknown_session'));
     } else {
       if (sessionRequired) throw ApiError.validation('$at/sessionId', 'required');
       for (final cand in hall.list('sessions')) {
@@ -270,13 +284,27 @@ String _nextRef(MockApp app, List<Object> seed) {
     }
     final sess = daySessions.cast<Json?>().firstWhere((x) => x!['sessionId'] == session!['id'], orElse: () => null);
     if (day == null || !isRequestable(day) || (sess != null && sess['state'] != 'available' && sess['state'] != 'held')) {
-      throw ApiError('SLOT_UNAVAILABLE', params: {'hallId': hall['id'], 'eventDate': eventDate}, alternatives: _alternatives(app, hall.str('id'), venueId, eventDate));
+      throw ApiError(
+        'SLOT_UNAVAILABLE',
+        params: {'hallId': hall['id'], 'eventDate': eventDate},
+        alternatives: _alternatives(app, hall.str('id'), venueId, eventDate),
+      );
     }
     if (resolveRule(app.db.raw('PriceRule'), pkg.str('id'), eventDate) == null) {
       throw ApiError('SLOT_UNAVAILABLE', params: {'reason': 'package_not_sold'}, alternatives: _alternatives(app, hall.str('id'), venueId, eventDate));
     }
     final bg = billableGuests(guests, lo, pkg.integer('complimentaryBps'));
-    sections.add({'position': pos, 'hallId': hall['id'], 'sessionId': session['id'], 'audience': s['audience'], 'guests': guests, 'billableGuests': bg.billable, 'packageId': pkg['id'], 'start': session['start'], 'end': session['end']});
+    sections.add({
+      'position': pos,
+      'hallId': hall['id'],
+      'sessionId': session['id'],
+      'audience': s['audience'],
+      'guests': guests,
+      'billableGuests': bg.billable,
+      'packageId': pkg['id'],
+      'start': session['start'],
+      'end': session['end'],
+    });
     quoteSections.add({'hallId': hall['id'], 'audience': s['audience'], 'guests': guests, 'packageId': pkg['id']});
   }
   return (sections: sections, quoteSections: quoteSections);
@@ -289,7 +317,9 @@ void checkExtras(MockApp app, String venueId, List<Json> extras) {
     final x = app.db.peek('Extra', e.$2.str('extraId'));
     if (x == null || x['venueId'] != venueId || !x.flag('active')) throw ApiError.validation('/extras/${e.$1}/extraId', 'unknown_extra');
     final qty = e.$2.integer('qty');
-    if (qty < 1 || (x['pricingUnit'] != 'per_guest' && qty > x.integer('maxQty'))) throw ApiError.validation('/extras/${e.$1}/qty', 'out_of_range', params: {'max': x.integer('maxQty')});
+    if (qty < 1 || (x['pricingUnit'] != 'per_guest' && qty > x.integer('maxQty'))) {
+      throw ApiError.validation('/extras/${e.$1}/qty', 'out_of_range', params: {'max': x.integer('maxQty')});
+    }
   }
 }
 
@@ -312,7 +342,9 @@ Json createRequest(MockApp app, Identity who, Json input) {
   final engine = app.engine();
   final targetId = isProvider ? input.strOrNull('providerId') : input.strOrNull('venueId');
   if (targetId == null) throw ApiError.validation(isProvider ? '/providerId' : '/venueId', 'required');
-  if (voucher['kind'] == 'bound' && voucher['_creditOrigin'] != true && (voucher['venueOrProviderId'] != targetId || voucher['targetType'] != (isProvider ? 'provider' : 'venue'))) {
+  if (voucher['kind'] == 'bound' &&
+      voucher['_creditOrigin'] != true &&
+      (voucher['venueOrProviderId'] != targetId || voucher['targetType'] != (isProvider ? 'provider' : 'venue'))) {
     throw ApiError('VOUCHER_TARGET_MISMATCH', params: {'voucherTarget': voucher['venueOrProviderId']});
   }
 
@@ -355,13 +387,16 @@ Json createRequest(MockApp app, Identity who, Json input) {
   if (voucher['kind'] == 'bound' && voucher['_creditOrigin'] != true) {
     final qf = voucher.obj('quoteFils');
     final t = quote.obj('totals');
-    if (input.list('extras').isEmpty && (voucher['eventDate'] != eventDate || qf['standard'] != filsOf(t.obj('standardTotal')) || qf['voucher'] != filsOf(t.obj('voucherTotal')))) {
+    if (input.list('extras').isEmpty &&
+        (voucher['eventDate'] != eventDate || qf['standard'] != filsOf(t.obj('standardTotal')) || qf['voucher'] != filsOf(t.obj('voucherTotal')))) {
       throw ApiError('QUOTE_CHANGED', params: {'voucherEventDate': voucher['eventDate']});
     }
   }
 
   final lead = diffDays(today, eventDate);
-  final defaultSla = isProvider ? cfg.integer('defaultReplyHours') : (app.db.peek('Venue', targetId)!.obj('policies').intOrNull('responseSlaHours') ?? cfg.integer('defaultReplyHours'));
+  final defaultSla = isProvider
+      ? cfg.integer('defaultReplyHours')
+      : (app.db.peek('Venue', targetId)!.obj('policies').intOrNull('responseSlaHours') ?? cfg.integer('defaultReplyHours'));
   final slaHours = !isProvider && lead <= cfg.integer('urgentLeadDays') ? cfg.integer('urgentReplyHours') : defaultSla;
   final ref = _nextRef(app, [who.userId, targetId, eventDate]);
   final id = 'bk-$ref';
@@ -408,15 +443,46 @@ Json createRequest(MockApp app, Identity who, Json input) {
     'version': 2,
     'allowedActions': <String>[],
   };
-  bindVoucher(app, voucher, bookingId: id, targetType: isProvider ? 'provider' : 'venue', targetId: targetId, hallId: hallIdForVoucher, packageId: packageIdForVoucher, eventDate: eventDate, guests: guestsForVoucher, quote: quote);
+  bindVoucher(
+    app,
+    voucher,
+    bookingId: id,
+    targetType: isProvider ? 'provider' : 'venue',
+    targetId: targetId,
+    hallId: hallIdForVoucher,
+    packageId: packageIdForVoucher,
+    eventDate: eventDate,
+    guests: guestsForVoucher,
+    quote: quote,
+  );
   _save(app, booking);
   if (!isProvider) _setClaims(app, booking, 'requested');
   _ensureVenueConversation(app, booking);
 
   final name = app.targetName(venueId: booking['venueId'] as String?, providerId: booking['providerId'] as String?);
-  notify(app, userId: who.userId, kind: 'request_sent', audience: 'client', vars: {'venue': name, 'date': dateLT(eventDate), 'replyBy': instantLT(booking.str('respondBy'))}, params: {'venue': targetId, 'eventDate': eventDate, 'replyBy': booking['respondBy']}, bookingId: id, venueId: booking['venueId'] as String?, voucherId: voucher.str('id'));
+  notify(
+    app,
+    userId: who.userId,
+    kind: 'request_sent',
+    audience: 'client',
+    vars: {'venue': name, 'date': dateLT(eventDate), 'replyBy': instantLT(booking.str('respondBy'))},
+    params: {'venue': targetId, 'eventDate': eventDate, 'replyBy': booking['respondBy']},
+    bookingId: id,
+    venueId: booking['venueId'] as String?,
+    voucherId: voucher.str('id'),
+  );
   for (final uid in app.notifyTargets(venueId: booking['venueId'] as String?, providerId: booking['providerId'] as String?)) {
-    notify(app, userId: uid, kind: 'new_request', audience: 'hotel', vars: {'client': user.str('name'), 'date': dateLT(eventDate), 'guests': (guestsForVoucher ?? service?['quantity'] ?? 1) as Object}, params: {'client': user['name'], 'eventDate': eventDate}, bookingId: id, venueId: booking['venueId'] as String?, voucherId: voucher.str('id'));
+    notify(
+      app,
+      userId: uid,
+      kind: 'new_request',
+      audience: 'hotel',
+      vars: {'client': user.str('name'), 'date': dateLT(eventDate), 'guests': (guestsForVoucher ?? service?['quantity'] ?? 1) as Object},
+      params: {'client': user['name'], 'eventDate': eventDate},
+      bookingId: id,
+      venueId: booking['venueId'] as String?,
+      voucherId: voucher.str('id'),
+    );
   }
   app.logEvent('request_R01', {'bookingId': id, 'ref': ref});
   return app.db.require('Booking', id);
@@ -425,7 +491,10 @@ Json createRequest(MockApp app, Identity who, Json input) {
 void _ensureVenueConversation(MockApp app, Json b) {
   final venueId = b.strOrNull('venueId');
   final providerId = b.strOrNull('providerId');
-  final existing = app.db.firstWhere('Conversation', (c) => c['clientId'] == b['clientId'] && (venueId != null ? c['venueId'] == venueId && c['kind'] == 'venue' : c['vendorId'] == providerId));
+  final existing = app.db.firstWhere(
+    'Conversation',
+    (c) => c['clientId'] == b['clientId'] && (venueId != null ? c['venueId'] == venueId && c['kind'] == 'venue' : c['vendorId'] == providerId),
+  );
   if (existing != null) {
     if (existing['bookingId'] != b['id']) {
       existing['bookingId'] = b['id'];
@@ -465,7 +534,11 @@ Json approveRequest(MockApp app, String id, {required String actorName, int? low
   if (b.objOrNull('proposal')?['status'] == 'proposed') throw conflict(b);
   if (_slotTaken(app, b)) {
     final s = b.list('sections').first;
-    throw ApiError('SLOT_UNAVAILABLE', params: {'eventDate': b['eventDate']}, alternatives: _alternatives(app, s.str('hallId'), b.str('venueId'), b.str('eventDate')));
+    throw ApiError(
+      'SLOT_UNAVAILABLE',
+      params: {'eventDate': b['eventDate']},
+      alternatives: _alternatives(app, s.str('hallId'), b.str('venueId'), b.str('eventDate')),
+    );
   }
   Json? discount;
   if (lowerVoucherTotal != null) {
@@ -473,18 +546,24 @@ Json approveRequest(MockApp app, String id, {required String actorName, int? low
     if (lowerVoucherTotal < 0 || lowerVoucherTotal > total) throw ApiError.validation('/lowerVoucherTotal', 'cannot_exceed_voucher_total');
     if (lowerVoucherTotal < total) discount = fils(total - lowerVoucherTotal);
   }
-  _go(app, b, 'R03', actorName: actorName, mutate: (b) {
-    b['_respondBy'] = b['respondBy'];
-    b['respondBy'] = null;
-    b['approvedAt'] = app.now;
-    b['confirmBy'] = confirmByFor(app.now, confirmWindowHours: app.platformConfig.integer('confirmWindowHours'));
-    b['undoUntil'] = _plusSeconds(app.now, app.platformConfig.integer('approvalUndoSeconds'));
-    b['_undoClosed'] = false;
-    if (discount != null) {
-      b['approvedDiscount'] = discount;
-      _applyDiscount(b, discount);
-    }
-  });
+  _go(
+    app,
+    b,
+    'R03',
+    actorName: actorName,
+    mutate: (b) {
+      b['_respondBy'] = b['respondBy'];
+      b['respondBy'] = null;
+      b['approvedAt'] = app.now;
+      b['confirmBy'] = confirmByFor(app.now, confirmWindowHours: app.platformConfig.integer('confirmWindowHours'));
+      b['undoUntil'] = _plusSeconds(app.now, app.platformConfig.integer('approvalUndoSeconds'));
+      b['_undoClosed'] = false;
+      if (discount != null) {
+        b['approvedDiscount'] = discount;
+        _applyDiscount(b, discount);
+      }
+    },
+  );
   _setClaims(app, b, 'hold', holdUntil: b.str('confirmBy'));
   app.scheduler.after(Duration(seconds: app.platformConfig.integer('approvalUndoSeconds')), () => closeUndoWindowIfDue(app, b.str('id'), force: true));
   return app.db.require('Booking', b.str('id'));
@@ -507,7 +586,18 @@ void _applyDiscount(Json b, Json discount) {
   totals['netSavings'] = (savings > 0 ? savings : 0) - filsOf(totals.obj('voucherFee'));
   final lines = b.list('lines');
   lines.removeWhere((l) => l['kind'] == 'venue_discount');
-  if (d > 0) lines.add({'kind': 'venue_discount', 'section': null, 'name': {'en': 'Venue discount', 'ar': 'خصم من القاعة'}, 'qty': 1, 'unit': null, 'amount': negMoney(fils(d)), 'standardUnit': null, 'standardAmount': zero()});
+  if (d > 0) {
+    lines.add({
+      'kind': 'venue_discount',
+      'section': null,
+      'name': {'en': 'Venue discount', 'ar': 'خصم من القاعة'},
+      'qty': 1,
+      'unit': null,
+      'amount': negMoney(fils(d)),
+      'standardUnit': null,
+      'standardAmount': zero(),
+    });
+  }
   b['lines'] = lines;
 }
 
@@ -520,7 +610,21 @@ void closeUndoWindowIfDue(MockApp app, String id, {bool force = false}) {
   b['_undoClosed'] = true;
   b.remove('undoUntil');
   app.db.put('Booking', b);
-  notify(app, userId: b.str('clientId'), kind: 'request_approved', audience: 'client', vars: {'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?), 'date': dateLT(b.str('eventDate')), 'confirmBy': instantLT(b.str('confirmBy'))}, params: {'confirmBy': b['confirmBy']}, bookingId: id, venueId: b['venueId'] as String?, voucherId: b.str('voucherId'));
+  notify(
+    app,
+    userId: b.str('clientId'),
+    kind: 'request_approved',
+    audience: 'client',
+    vars: {
+      'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?),
+      'date': dateLT(b.str('eventDate')),
+      'confirmBy': instantLT(b.str('confirmBy')),
+    },
+    params: {'confirmBy': b['confirmBy']},
+    bookingId: id,
+    venueId: b['venueId'] as String?,
+    voucherId: b.str('voucherId'),
+  );
   // a reminder one hour before the window ends is raised by the sweep when the clock passes it
 }
 
@@ -530,14 +634,20 @@ Json undoApprove(MockApp app, String id, {required String actorName}) {
   if (b['status'] != 'approved') throw conflict(b);
   final until = b.strOrNull('undoUntil');
   if (b['_undoClosed'] == true || until == null || instantMs(app.now) > instantMs(until)) throw ApiError('UNDO_WINDOW_ENDED');
-  _go(app, b, 'R03u', actorName: actorName, mutate: (b) {
-    b['respondBy'] = b['_respondBy'];
-    b.remove('_respondBy');
-    b['approvedAt'] = null;
-    b['confirmBy'] = null;
-    b.remove('undoUntil');
-    b['approvedDiscount'] = null;
-  });
+  _go(
+    app,
+    b,
+    'R03u',
+    actorName: actorName,
+    mutate: (b) {
+      b['respondBy'] = b['_respondBy'];
+      b.remove('_respondBy');
+      b['approvedAt'] = null;
+      b['confirmBy'] = null;
+      b.remove('undoUntil');
+      b['approvedDiscount'] = null;
+    },
+  );
   _setClaims(app, b, 'requested');
   return app.db.require('Booking', id);
 }
@@ -545,13 +655,33 @@ Json undoApprove(MockApp app, String id, {required String actorName}) {
 /// R04: decline.
 Json declineRequest(MockApp app, String id, {required String actorName, required String reason, String? note}) {
   final b = requireBooking(app, id);
-  _go(app, b, 'R04', actorName: actorName, note: note, mutate: (b) {
-    b['rejectReason'] = reason;
-    b['respondBy'] = b['respondBy'];
-  });
+  _go(
+    app,
+    b,
+    'R04',
+    actorName: actorName,
+    note: note,
+    mutate: (b) {
+      b['rejectReason'] = reason;
+      b['respondBy'] = b['respondBy'];
+    },
+  );
   _dropClaims(app, id);
   final v = releaseVoucher(app, b.str('voucherId'), 'declined');
-  notify(app, userId: b.str('clientId'), kind: 'request_declined', audience: 'client', vars: {'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?), 'date': dateLT(b.str('eventDate'))}, params: {'eventDate': b['eventDate']}, bookingId: id, venueId: b['venueId'] as String?, voucherId: v.str('id'));
+  notify(
+    app,
+    userId: b.str('clientId'),
+    kind: 'request_declined',
+    audience: 'client',
+    vars: {
+      'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?),
+      'date': dateLT(b.str('eventDate')),
+    },
+    params: {'eventDate': b['eventDate']},
+    bookingId: id,
+    venueId: b['venueId'] as String?,
+    voucherId: v.str('id'),
+  );
   return app.db.require('Booking', id);
 }
 
@@ -564,16 +694,24 @@ Json proposeDates(MockApp app, String id, List<Json> options, {required String a
   final out = <Json>[];
   final current = filsOf(b.obj('totals').obj('voucherTotal'));
   for (final o in options) {
-    final hall = app.db.peek('Venue', venueId)!.list('halls').cast<Json?>().firstWhere((h) => h!['id'] == o['hallId'], orElse: () => null) ?? (throw ApiError.validation('/options/hallId', 'unknown_hall'));
+    final hall =
+        app.db.peek('Venue', venueId)!.list('halls').cast<Json?>().firstWhere((h) => h!['id'] == o['hallId'], orElse: () => null) ??
+        (throw ApiError.validation('/options/hallId', 'unknown_hall'));
     final date = o.str('eventDate');
     final day = engine.availabilityFor(venueId, hall.str('id'), monthOf(date)).cast<Json?>().firstWhere((d) => d!['date'] == date, orElse: () => null);
-    if (day == null || !isRequestable(day)) throw ApiError('SLOT_UNAVAILABLE', params: {'eventDate': date}, alternatives: _alternatives(app, hall.str('id'), venueId, date));
+    if (day == null || !isRequestable(day)) {
+      throw ApiError('SLOT_UNAVAILABLE', params: {'eventDate': date}, alternatives: _alternatives(app, hall.str('id'), venueId, date));
+    }
     final sec = b.list('sections').first;
     Json? q;
     try {
-      q = engine.quoteFor(venueId: venueId, eventDate: date, sections: [
-        {'hallId': hall['id'], 'audience': sec['audience'], 'guests': sec['guests'], 'packageId': sec['packageId']}
-      ]);
+      q = engine.quoteFor(
+        venueId: venueId,
+        eventDate: date,
+        sections: [
+          {'hallId': hall['id'], 'audience': sec['audience'], 'guests': sec['guests'], 'packageId': sec['packageId']},
+        ],
+      );
     } on StateError {
       q = null;
     }
@@ -591,7 +729,16 @@ Json proposeDates(MockApp app, String id, List<Json> options, {required String a
   };
   (b['events'] as List).add(_event(app, kind: 'note', actor: 'venue', actorName: actorName, note: 'Proposed ${out.length} other date(s)'));
   _save(app, b);
-  notify(app, userId: b.str('clientId'), kind: 'message', audience: 'client', vars: {'sender': app.targetName(venueId: venueId)}, params: {'proposal': b['proposal']['id']}, bookingId: id, venueId: venueId);
+  notify(
+    app,
+    userId: b.str('clientId'),
+    kind: 'message',
+    audience: 'client',
+    vars: {'sender': app.targetName(venueId: venueId)},
+    params: {'proposal': b['proposal']['id']},
+    bookingId: id,
+    venueId: venueId,
+  );
   return app.db.require('Booking', id);
 }
 
@@ -609,30 +756,70 @@ void expireProposal(MockApp app, String id) {
 /// R10b: the venue revokes an approval (Admin or Manager, reason required, reliability strike).
 Json revokeApproval(MockApp app, String id, {required String actorName, required String reason, String? note}) {
   final b = requireBooking(app, id);
-  _go(app, b, 'R10b', actorName: actorName, note: note, mutate: (b) {
-    b['cancelledBy'] = 'venue';
-    b['reasonCode'] = reason;
-    (b['overlays'] as Map)['reliabilityStrike'] = true;
-  });
+  _go(
+    app,
+    b,
+    'R10b',
+    actorName: actorName,
+    note: note,
+    mutate: (b) {
+      b['cancelledBy'] = 'venue';
+      b['reasonCode'] = reason;
+      (b['overlays'] as Map)['reliabilityStrike'] = true;
+    },
+  );
   _dropClaims(app, id);
   _strike(app, b.str('venueId'));
   final v = releaseVoucher(app, b.str('voucherId'), 'approval_revoked');
-  notify(app, userId: b.str('clientId'), kind: 'booking_cancelled', audience: 'client', vars: {'venue': app.targetName(venueId: b.str('venueId')), 'date': dateLT(b.str('eventDate'))}, params: {'eventDate': b['eventDate']}, bookingId: id, venueId: b.str('venueId'), voucherId: v.str('id'));
+  notify(
+    app,
+    userId: b.str('clientId'),
+    kind: 'booking_cancelled',
+    audience: 'client',
+    vars: {
+      'venue': app.targetName(venueId: b.str('venueId')),
+      'date': dateLT(b.str('eventDate')),
+    },
+    params: {'eventDate': b['eventDate']},
+    bookingId: id,
+    venueId: b.str('venueId'),
+    voucherId: v.str('id'),
+  );
   return app.db.require('Booking', id);
 }
 
 /// R13b: the venue cancels a confirmed request.
 Json cancelConfirmedByVenue(MockApp app, String id, {required String actorName, required String reason, String? note}) {
   final b = requireBooking(app, id);
-  _go(app, b, 'R13b', actorName: actorName, note: note, mutate: (b) {
-    b['cancelledBy'] = 'venue';
-    b['reasonCode'] = reason;
-    (b['overlays'] as Map)['reliabilityStrike'] = true;
-  });
+  _go(
+    app,
+    b,
+    'R13b',
+    actorName: actorName,
+    note: note,
+    mutate: (b) {
+      b['cancelledBy'] = 'venue';
+      b['reasonCode'] = reason;
+      (b['overlays'] as Map)['reliabilityStrike'] = true;
+    },
+  );
   _dropClaims(app, id);
   _strike(app, b.str('venueId'));
   final v = releaseVoucher(app, b.str('voucherId'), 'venue_cancelled');
-  notify(app, userId: b.str('clientId'), kind: 'booking_cancelled', audience: 'client', vars: {'venue': app.targetName(venueId: b.str('venueId')), 'date': dateLT(b.str('eventDate'))}, params: {'eventDate': b['eventDate']}, bookingId: id, venueId: b.str('venueId'), voucherId: v.str('id'));
+  notify(
+    app,
+    userId: b.str('clientId'),
+    kind: 'booking_cancelled',
+    audience: 'client',
+    vars: {
+      'venue': app.targetName(venueId: b.str('venueId')),
+      'date': dateLT(b.str('eventDate')),
+    },
+    params: {'eventDate': b['eventDate']},
+    bookingId: id,
+    venueId: b.str('venueId'),
+    voucherId: v.str('id'),
+  );
   return app.db.require('Booking', id);
 }
 
@@ -647,14 +834,44 @@ void _strike(MockApp app, String? venueId) {
 /// R11: redeem by code (the partner checks the voucher against the request).
 Json redeemBooking(MockApp app, String id, {required String actorName}) {
   final b = requireBooking(app, id);
-  _go(app, b, 'R11', actorName: actorName, note: 'Voucher redeemed', mutate: (b) {
-    b['redeemedAt'] = app.now;
-    b['redeemedBy'] = actorName;
-  });
+  _go(
+    app,
+    b,
+    'R11',
+    actorName: actorName,
+    note: 'Voucher redeemed',
+    mutate: (b) {
+      b['redeemedAt'] = app.now;
+      b['redeemedBy'] = actorName;
+    },
+  );
   useVoucher(app, b.str('voucherId'), 'redeemed', by: actorName);
-  notify(app, userId: b.str('clientId'), kind: 'voucher_redeemed', audience: 'client', vars: {'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?), 'code': app.db.peek('Voucher', b.str('voucherId'))!.str('code')}, params: {'staff': actorName}, bookingId: id, venueId: b['venueId'] as String?, voucherId: b.str('voucherId'));
+  notify(
+    app,
+    userId: b.str('clientId'),
+    kind: 'voucher_redeemed',
+    audience: 'client',
+    vars: {
+      'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?),
+      'code': app.db.peek('Voucher', b.str('voucherId'))!.str('code'),
+    },
+    params: {'staff': actorName},
+    bookingId: id,
+    venueId: b['venueId'] as String?,
+    voucherId: b.str('voucherId'),
+  );
   for (final uid in app.notifyTargets(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?)) {
-    notify(app, userId: uid, kind: 'voucher_redeemed_by_you', audience: 'hotel', vars: {'client': b.str('clientName'), 'date': dateLT(b.str('eventDate')), 'staff': actorName}, params: {'client': b['clientName'], 'staff': actorName}, bookingId: id, venueId: b['venueId'] as String?, voucherId: b.str('voucherId'));
+    notify(
+      app,
+      userId: uid,
+      kind: 'voucher_redeemed_by_you',
+      audience: 'hotel',
+      vars: {'client': b.str('clientName'), 'date': dateLT(b.str('eventDate')), 'staff': actorName},
+      params: {'client': b['clientName'], 'staff': actorName},
+      bookingId: id,
+      venueId: b['venueId'] as String?,
+      voucherId: b.str('voucherId'),
+    );
   }
   return app.db.require('Booking', id);
 }
@@ -683,24 +900,43 @@ Json acceptProposal(MockApp app, String id, int optionIndex) {
     ..['start'] = session['start']
     ..['end'] = session['end'];
   if (_slotTaken(app, b, date: o.str('eventDate'), sections: sections)) {
-    throw ApiError('SLOT_UNAVAILABLE', params: {'eventDate': o['eventDate']}, alternatives: _alternatives(app, o.str('hallId'), b.str('venueId'), o.str('eventDate')));
+    throw ApiError(
+      'SLOT_UNAVAILABLE',
+      params: {'eventDate': o['eventDate']},
+      alternatives: _alternatives(app, o.str('hallId'), b.str('venueId'), o.str('eventDate')),
+    );
   }
-  _go(app, b, 'R05', actorName: b.str('clientName'), mutate: (b) {
-    p['status'] = 'accepted';
-    b['proposal'] = p;
-    b['sections'] = sections;
-    b['eventDate'] = o['eventDate'];
-    b['respondBy'] = null;
-    b['approvedAt'] = app.now;
-    b['confirmBy'] = confirmByFor(app.now, confirmWindowHours: app.platformConfig.integer('confirmWindowHours'));
-  });
+  _go(
+    app,
+    b,
+    'R05',
+    actorName: b.str('clientName'),
+    mutate: (b) {
+      p['status'] = 'accepted';
+      b['proposal'] = p;
+      b['sections'] = sections;
+      b['eventDate'] = o['eventDate'];
+      b['respondBy'] = null;
+      b['approvedAt'] = app.now;
+      b['confirmBy'] = confirmByFor(app.now, confirmWindowHours: app.platformConfig.integer('confirmWindowHours'));
+    },
+  );
   final v = app.db.require('Voucher', b.str('voucherId'));
   v['eventDate'] = o['eventDate'];
   v['hallId'] = o['hallId'];
   app.db.put('Voucher', v);
   _setClaims(app, b, 'hold', holdUntil: b.str('confirmBy'));
   for (final uid in app.notifyTargets(venueId: b.str('venueId'))) {
-    notify(app, userId: uid, kind: 'client_confirmed', audience: 'hotel', vars: {'client': b.str('clientName'), 'date': dateLT(o.str('eventDate'))}, params: {'client': b['clientName']}, bookingId: id, venueId: b.str('venueId'));
+    notify(
+      app,
+      userId: uid,
+      kind: 'client_confirmed',
+      audience: 'hotel',
+      vars: {'client': b.str('clientName'), 'date': dateLT(o.str('eventDate'))},
+      params: {'client': b['clientName']},
+      bookingId: id,
+      venueId: b.str('venueId'),
+    );
   }
   return app.db.require('Booking', id);
 }
@@ -719,15 +955,34 @@ Json declineProposal(MockApp app, String id) {
 /// R07: withdraw a pending request (free; the voucher returns, not credit-eligible).
 Json withdrawRequest(MockApp app, String id) {
   final b = requireBooking(app, id);
-  _go(app, b, 'R07', actorName: b.str('clientName'), mutate: (b) {
-    b['cancelledBy'] = 'client';
-    b['reasonCode'] = 'withdrawn';
-    b['respondBy'] = null;
-  });
+  _go(
+    app,
+    b,
+    'R07',
+    actorName: b.str('clientName'),
+    mutate: (b) {
+      b['cancelledBy'] = 'client';
+      b['reasonCode'] = 'withdrawn';
+      b['respondBy'] = null;
+    },
+  );
   _dropClaims(app, id);
   final v = releaseVoucher(app, b.str('voucherId'), 'withdrawn');
   for (final uid in app.notifyTargets(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?)) {
-    notify(app, userId: uid, kind: 'booking_cancelled', audience: 'hotel', vars: {'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?), 'date': dateLT(b.str('eventDate'))}, params: {'client': b['clientName'], 'eventDate': b['eventDate']}, bookingId: id, venueId: b['venueId'] as String?, voucherId: v.str('id'));
+    notify(
+      app,
+      userId: uid,
+      kind: 'booking_cancelled',
+      audience: 'hotel',
+      vars: {
+        'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?),
+        'date': dateLT(b.str('eventDate')),
+      },
+      params: {'client': b['clientName'], 'eventDate': b['eventDate']},
+      bookingId: id,
+      venueId: b['venueId'] as String?,
+      voucherId: v.str('id'),
+    );
   }
   return app.db.require('Booking', id);
 }
@@ -737,21 +992,52 @@ Json confirmRequest(MockApp app, String id) {
   final b = requireBooking(app, id);
   if (b['status'] == 'approved' && instantMs(app.now) >= instantMs(b.str('confirmBy'))) throw ApiError('CONFIRM_WINDOW_ENDED');
   if (b['status'] == 'approved' && !_holdStillOurs(app, b)) throw ApiError('SLOT_UNAVAILABLE', params: {'eventDate': b['eventDate']});
-  _go(app, b, 'R08', actorName: b.str('clientName'), mutate: (b) {
-    b['confirmedAt'] = app.now;
-    b.remove('undoUntil');
-  });
+  _go(
+    app,
+    b,
+    'R08',
+    actorName: b.str('clientName'),
+    mutate: (b) {
+      b['confirmedAt'] = app.now;
+      b.remove('undoUntil');
+    },
+  );
   _setClaims(app, b, 'booking');
-  notify(app, userId: b.str('clientId'), kind: 'request_confirmed', audience: 'client', vars: {'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?), 'date': dateLT(b.str('eventDate'))}, params: {'eventDate': b['eventDate']}, bookingId: id, venueId: b['venueId'] as String?, voucherId: b.str('voucherId'));
+  notify(
+    app,
+    userId: b.str('clientId'),
+    kind: 'request_confirmed',
+    audience: 'client',
+    vars: {
+      'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?),
+      'date': dateLT(b.str('eventDate')),
+    },
+    params: {'eventDate': b['eventDate']},
+    bookingId: id,
+    venueId: b['venueId'] as String?,
+    voucherId: b.str('voucherId'),
+  );
   for (final uid in app.notifyTargets(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?)) {
-    notify(app, userId: uid, kind: 'client_confirmed', audience: 'hotel', vars: {'client': b.str('clientName'), 'date': dateLT(b.str('eventDate'))}, params: {'client': b['clientName'], 'eventDate': b['eventDate']}, bookingId: id, venueId: b['venueId'] as String?, voucherId: b.str('voucherId'));
+    notify(
+      app,
+      userId: uid,
+      kind: 'client_confirmed',
+      audience: 'hotel',
+      vars: {'client': b.str('clientName'), 'date': dateLT(b.str('eventDate'))},
+      params: {'client': b['clientName'], 'eventDate': b['eventDate']},
+      bookingId: id,
+      venueId: b['venueId'] as String?,
+      voucherId: b.str('voucherId'),
+    );
   }
   return app.db.require('Booking', id);
 }
 
 bool _holdStillOurs(MockApp app, Json b) {
   if (b['venueId'] == null) return true;
-  return b.list('sections').every((s) => app.db.raw('CalendarClaim').any((c) => c['bookingId'] == b['id'] && c['hallId'] == s['hallId'] && c['kind'] == 'hold'));
+  return b
+      .list('sections')
+      .every((s) => app.db.raw('CalendarClaim').any((c) => c['bookingId'] == b['id'] && c['hallId'] == s['hallId'] && c['kind'] == 'hold'));
 }
 
 /// R10a (approved) and R13a (confirmed): the client cancels. After confirmation the voucher is consumed and no money comes back.
@@ -760,11 +1046,17 @@ Json cancelByClient(MockApp app, String id, {String? reason}) {
   final status = b.str('status');
   if (status != 'approved' && status != 'confirmed') throw conflict(b);
   final code = reason ?? 'plans_changed';
-  _go(app, b, status == 'approved' ? 'R10a' : 'R13a', actorName: b.str('clientName'), mutate: (b) {
-    b['cancelledBy'] = 'client';
-    b['reasonCode'] = code;
-    b['confirmBy'] = status == 'approved' ? null : b['confirmBy'];
-  });
+  _go(
+    app,
+    b,
+    status == 'approved' ? 'R10a' : 'R13a',
+    actorName: b.str('clientName'),
+    mutate: (b) {
+      b['cancelledBy'] = 'client';
+      b['reasonCode'] = code;
+      b['confirmBy'] = status == 'approved' ? null : b['confirmBy'];
+    },
+  );
   _dropClaims(app, id);
   if (status == 'approved') {
     releaseVoucher(app, b.str('voucherId'), 'withdrawn');
@@ -772,7 +1064,20 @@ Json cancelByClient(MockApp app, String id, {String? reason}) {
     useVoucher(app, b.str('voucherId'), 'cancelled_after_confirm');
   }
   for (final uid in app.notifyTargets(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?)) {
-    notify(app, userId: uid, kind: 'booking_cancelled', audience: 'hotel', vars: {'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?), 'date': dateLT(b.str('eventDate'))}, params: {'client': b['clientName'], 'eventDate': b['eventDate']}, bookingId: id, venueId: b['venueId'] as String?, voucherId: b.str('voucherId'));
+    notify(
+      app,
+      userId: uid,
+      kind: 'booking_cancelled',
+      audience: 'hotel',
+      vars: {
+        'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?),
+        'date': dateLT(b.str('eventDate')),
+      },
+      params: {'client': b['clientName'], 'eventDate': b['eventDate']},
+      bookingId: id,
+      venueId: b['venueId'] as String?,
+      voucherId: b.str('voucherId'),
+    );
   }
   return app.db.require('Booking', id);
 }
@@ -783,28 +1088,77 @@ Json cancelByClient(MockApp app, String id, {String? reason}) {
 void expirePending(MockApp app, String id) {
   final b = app.db.get('Booking', id);
   if (b == null || b['status'] != 'pending') return;
-  _go(app, b, 'R06', actorName: '', mutate: (b) {
-    b['expiredReason'] = 'venue_no_response';
-  });
+  _go(
+    app,
+    b,
+    'R06',
+    actorName: '',
+    mutate: (b) {
+      b['expiredReason'] = 'venue_no_response';
+    },
+  );
   _dropClaims(app, id);
   releaseVoucher(app, b.str('voucherId'), 'venue_no_response');
-  notify(app, userId: b.str('clientId'), kind: 'request_expired', audience: 'client', vars: {'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?), 'date': dateLT(b.str('eventDate'))}, params: {'eventDate': b['eventDate']}, bookingId: id, venueId: b['venueId'] as String?, voucherId: b.str('voucherId'));
+  notify(
+    app,
+    userId: b.str('clientId'),
+    kind: 'request_expired',
+    audience: 'client',
+    vars: {
+      'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?),
+      'date': dateLT(b.str('eventDate')),
+    },
+    params: {'eventDate': b['eventDate']},
+    bookingId: id,
+    venueId: b['venueId'] as String?,
+    voucherId: b.str('voucherId'),
+  );
 }
 
 /// R09: the client did not confirm inside 24 h: the date is released and the voucher is forfeited.
 void expireApproval(MockApp app, String id) {
   final b = app.db.get('Booking', id);
   if (b == null || b['status'] != 'approved') return;
-  _go(app, b, 'R09', actorName: '', mutate: (b) {
-    b['expiredReason'] = 'client_no_confirmation';
-    b.remove('undoUntil');
-  });
+  _go(
+    app,
+    b,
+    'R09',
+    actorName: '',
+    mutate: (b) {
+      b['expiredReason'] = 'client_no_confirmation';
+      b.remove('undoUntil');
+    },
+  );
   _dropClaims(app, id);
   forfeitVoucher(app, b.str('voucherId'));
   final venueId = b['venueId'] as String?;
-  notify(app, userId: b.str('clientId'), kind: 'voucher_forfeited', audience: 'client', vars: {'venue': app.targetName(venueId: venueId, providerId: b['providerId'] as String?), 'date': dateLT(b.str('eventDate')), 'code': app.db.peek('Voucher', b.str('voucherId'))!.str('code')}, params: {'eventDate': b['eventDate']}, bookingId: id, venueId: venueId, voucherId: b.str('voucherId'));
+  notify(
+    app,
+    userId: b.str('clientId'),
+    kind: 'voucher_forfeited',
+    audience: 'client',
+    vars: {
+      'venue': app.targetName(venueId: venueId, providerId: b['providerId'] as String?),
+      'date': dateLT(b.str('eventDate')),
+      'code': app.db.peek('Voucher', b.str('voucherId'))!.str('code'),
+    },
+    params: {'eventDate': b['eventDate']},
+    bookingId: id,
+    venueId: venueId,
+    voucherId: b.str('voucherId'),
+  );
   for (final uid in app.notifyTargets(venueId: venueId, providerId: b['providerId'] as String?)) {
-    notify(app, userId: uid, kind: 'client_lapsed', audience: 'hotel', vars: {'client': b.str('clientName'), 'date': dateLT(b.str('eventDate'))}, params: {'client': b['clientName'], 'eventDate': b['eventDate']}, bookingId: id, venueId: venueId, voucherId: b.str('voucherId'));
+    notify(
+      app,
+      userId: uid,
+      kind: 'client_lapsed',
+      audience: 'hotel',
+      vars: {'client': b.str('clientName'), 'date': dateLT(b.str('eventDate'))},
+      params: {'client': b['clientName'], 'eventDate': b['eventDate']},
+      bookingId: id,
+      venueId: venueId,
+      voucherId: b.str('voucherId'),
+    );
   }
 }
 
@@ -813,10 +1167,28 @@ void completeRequest(MockApp app, String id) {
   final b = app.db.get('Booking', id);
   if (b == null || (b['status'] != 'confirmed' && b['status'] != 'redeemed')) return;
   final wasConfirmed = b['status'] == 'confirmed';
-  _go(app, b, wasConfirmed ? 'R12a' : 'R12b', actorName: '', mutate: (b) {
-    b['completedAt'] = app.now;
-  });
+  _go(
+    app,
+    b,
+    wasConfirmed ? 'R12a' : 'R12b',
+    actorName: '',
+    mutate: (b) {
+      b['completedAt'] = app.now;
+    },
+  );
   if (wasConfirmed) useVoucher(app, b.str('voucherId'), 'completed');
   _dropClaims(app, id);
-  notify(app, userId: b.str('clientId'), kind: 'review_prompt', audience: 'client', vars: {'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?), 'date': dateLT(b.str('eventDate'))}, params: {'eventDate': b['eventDate']}, bookingId: id, venueId: b['venueId'] as String?);
+  notify(
+    app,
+    userId: b.str('clientId'),
+    kind: 'review_prompt',
+    audience: 'client',
+    vars: {
+      'venue': app.targetName(venueId: b['venueId'] as String?, providerId: b['providerId'] as String?),
+      'date': dateLT(b.str('eventDate')),
+    },
+    params: {'eventDate': b['eventDate']},
+    bookingId: id,
+    venueId: b['venueId'] as String?,
+  );
 }

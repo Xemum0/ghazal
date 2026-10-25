@@ -83,7 +83,9 @@ const _occState = {'free': 'available', 'booked': 'unavailable', 'held': 'held'}
 
 /// `{state, reason, sessions}` of a hall on a date. A day is available when at least one session is free.
 Json dayDecision(AvailabilityContext ctx, String date) {
-  List<Json> allSessions(String state) => [for (final s in ctx.hall.list('sessions')) {'sessionId': s['id'], 'state': state}];
+  List<Json> allSessions(String state) => [
+    for (final s in ctx.hall.list('sessions')) {'sessionId': s['id'], 'state': state},
+  ];
   Json closed(String reason) => {'state': 'closed', 'reason': reason, 'sessions': allSessions('closed')};
   final today = kuwaitDateOf(ctx.now);
   if (date.compareTo(today) < 0) return closed('past');
@@ -115,7 +117,10 @@ Json dayDecision(AvailabilityContext ctx, String date) {
       final wd = weekdayOf(date);
       final out = <Json>[
         for (final s in sessions)
-          if (!s.ints('weekdays').contains(wd)) {'sessionId': s['id'], 'state': 'closed'} else {'sessionId': s['id'], 'state': _occState[generatedOccupancy(ctx.venue, ctx.hall, date, s.str('id'))]}
+          if (!s.ints('weekdays').contains(wd))
+            {'sessionId': s['id'], 'state': 'closed'}
+          else
+            {'sessionId': s['id'], 'state': _occState[generatedOccupancy(ctx.venue, ctx.hall, date, s.str('id'))]},
       ];
       final open = out.where((x) => x['state'] != 'closed').toList();
       if (open.any((x) => x['state'] == 'available')) return {'state': 'available', 'reason': null, 'sessions': out};
@@ -192,7 +197,7 @@ List<Json> availabilityFor(AvailabilityContext ctx, String month, [Json brief = 
           'packageId': price?['packageId'],
           'internalReason': day['reason'],
         };
-      }()
+      }(),
   ];
 }
 

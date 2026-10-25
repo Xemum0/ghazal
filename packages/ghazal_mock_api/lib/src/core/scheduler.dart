@@ -37,7 +37,8 @@ class Scheduler {
   /// Runs every pending task now, shortest delay first, including tasks the tasks schedule (bounded to 100 rounds).
   Future<void> flush() async {
     for (var round = 0; round < 100 && _tasks.isNotEmpty; round++) {
-      final batch = [..._tasks]..sort((a, b) {
+      final batch = [..._tasks]
+        ..sort((a, b) {
           final c = a.due.compareTo(b.due);
           return c != 0 ? c : a.id.compareTo(b.id);
         });

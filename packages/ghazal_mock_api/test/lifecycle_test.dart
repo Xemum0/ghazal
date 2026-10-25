@@ -22,7 +22,11 @@ void main() {
 
       final before = await hind.repos.partnerRequests.getPartnerRequest(requestId: heroId);
       expect(before.booking.status, BookingStatus.pending);
-      final approved = await hind.repos.partnerRequests.acceptRequest(requestId: heroId, body: const AcceptRequestInput(), ifMatch: versionTag(before.booking.version));
+      final approved = await hind.repos.partnerRequests.acceptRequest(
+        requestId: heroId,
+        body: const AcceptRequestInput(),
+        ifMatch: versionTag(before.booking.version),
+      );
       expect(approved.status, BookingStatus.approved);
       expect(approved.confirmBy!.difference(approved.approvedAt!), const Duration(hours: 24));
 
@@ -57,11 +61,20 @@ void main() {
       expect(detail.booking.allowedActions, contains(RequestAction.review));
       final review = await reem.repos.reviews.createReview(
         requestId: heroId,
-        body: const CreateReviewInput(rating: 4.5, categories: RatingCategories(venue: 5, food: 4, service: 4.5, value: 4), text: 'A beautiful night.', origin: WireLang.en, anonymous: false),
+        body: const CreateReviewInput(
+          rating: 4.5,
+          categories: RatingCategories(venue: 5, food: 4, service: 4.5, value: 4),
+          text: 'A beautiful night.',
+          origin: WireLang.en,
+          anonymous: false,
+        ),
       );
       expect(review.verifiedBooking, isTrue);
       await expectLater(
-        reem.repos.reviews.createReview(requestId: heroId, body: const CreateReviewInput(rating: 5, categories: RatingCategories(venue: 5, food: 5, service: 5, value: 5), text: 'Twice?', anonymous: false)),
+        reem.repos.reviews.createReview(
+          requestId: heroId,
+          body: const CreateReviewInput(rating: 5, categories: RatingCategories(venue: 5, food: 5, service: 5, value: 5), text: 'Twice?', anonymous: false),
+        ),
         throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 409)),
       );
       final venue = await reem.repos.venues.getVenue(venueId: 'V01');
@@ -72,7 +85,12 @@ void main() {
       final hind = w.actor('hotel_manager', venueId: 'V01');
       await expectLater(
         hind.repos.partnerRequests.acceptRequest(requestId: heroId, body: const AcceptRequestInput(), ifMatch: versionTag(1)),
-        throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 409).having((e) => e.params['currentStatus'], 'currentStatus', 'pending').having((e) => e.params['currentVersion'], 'currentVersion', 2)),
+        throwsA(
+          isA<ApiProblem>()
+              .having((e) => e.status, 'status', 409)
+              .having((e) => e.params['currentStatus'], 'currentStatus', 'pending')
+              .having((e) => e.params['currentVersion'], 'currentVersion', 2),
+        ),
       );
     });
 
@@ -80,7 +98,11 @@ void main() {
       final reem = w.actor('reem');
       final hind = w.actor('hotel_manager', venueId: 'V01');
       final before = await hind.repos.partnerRequests.getPartnerRequest(requestId: heroId);
-      final approved = await hind.repos.partnerRequests.acceptRequest(requestId: heroId, body: const AcceptRequestInput(), ifMatch: versionTag(before.booking.version));
+      final approved = await hind.repos.partnerRequests.acceptRequest(
+        requestId: heroId,
+        body: const AcceptRequestInput(),
+        ifMatch: versionTag(before.booking.version),
+      );
       // while approved the date is held, not free for others
       final held = await reem.repos.venues.getVenueDayAvailability(venueId: 'V01', date: LocalDate.parse('2027-01-14'), audience: Audience.women);
       expect(held.state, isNot(VenueDayState.available));
@@ -92,7 +114,10 @@ void main() {
       expect(detail.booking.status, BookingStatus.expired);
       expect(detail.booking.expiredReason, ExpiredReason.clientNoConfirmation);
       expect(detail.voucher!.status, VoucherStatus.forfeited);
-      await expectLater(reem.repos.requests.confirmRequest(requestId: heroId, ifMatch: versionTag(approved.version)), throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 409)));
+      await expectLater(
+        reem.repos.requests.confirmRequest(requestId: heroId, ifMatch: versionTag(approved.version)),
+        throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 409)),
+      );
       final notes = await reem.repos.notifications.listNotifications();
       expect(notes.items.any((n) => n.kind == NotificationKind.voucherForfeited), isTrue);
       final hotelNotes = await hind.repos.notifications.listNotifications();
@@ -137,14 +162,31 @@ void main() {
       expect((await nora.repos.vouchers.listVouchers()).items, isEmpty);
       await expectLater(nora.repos.wedding.getWeddingProfile(), throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 404)));
 
-      final days = (await nora.repos.venues.getVenueAvailability(venueId: 'V01', from: LocalDate.parse('2027-01-20'), to: LocalDate.parse('2027-02-06'), hallId: 'V01-danah', guests: 300, audience: Audience.women)).days;
+      final days = (await nora.repos.venues.getVenueAvailability(
+        venueId: 'V01',
+        from: LocalDate.parse('2027-01-20'),
+        to: LocalDate.parse('2027-02-06'),
+        hallId: 'V01-danah',
+        guests: 300,
+        audience: Audience.women,
+      )).days;
       final free = days.firstWhere((d) => d.state == DayState.available && d.voucherPrice != null && d.packageId != null);
       final checkout = await nora.repos.vouchers.startVoucherCheckout(
-        body: VoucherCheckoutInput(targetType: VoucherTargetType.venue, targetId: 'V01', hallId: 'V01-danah', packageId: free.packageId!, eventDate: free.date, guests: 300),
+        body: VoucherCheckoutInput(
+          targetType: VoucherTargetType.venue,
+          targetId: 'V01',
+          hallId: 'V01-danah',
+          packageId: free.packageId!,
+          eventDate: free.date,
+          guests: 300,
+        ),
       );
       expect(checkout.amount.fils, 2000);
       expect(checkout.voucher.status, VoucherStatus.unpaid);
-      final session = await nora.repos.vouchers.createPaymentSession(voucherId: checkout.voucher.id, body: const PaymentSessionInput(method: GatewayMethod.knet));
+      final session = await nora.repos.vouchers.createPaymentSession(
+        voucherId: checkout.voucher.id,
+        body: const PaymentSessionInput(method: GatewayMethod.knet),
+      );
       expect((await nora.repos.vouchers.getPaymentState(paymentId: session.id)).status, PaymentSessionStatus.created);
       await w.control.flush(); // the mock gateway answers
       final paid = await nora.repos.vouchers.getPaymentState(paymentId: session.id);
@@ -160,7 +202,9 @@ void main() {
           targetType: BookingTargetType.venue,
           venueId: 'V01',
           eventDate: free.date,
-          sections: [RequestSectionInput(hallId: 'V01-danah', sessionId: 'V01-danah-evening', audience: Audience.women, guests: 300, packageId: free.packageId!)],
+          sections: [
+            RequestSectionInput(hallId: 'V01-danah', sessionId: 'V01-danah-evening', audience: Audience.women, guests: 300, packageId: free.packageId!),
+          ],
           voucherId: checkout.voucher.id,
           contact: const ContactInput(name: 'Nora', phone: '+96550000099', bookingFor: BookingFor.bride, shared: true),
         ),
@@ -173,7 +217,9 @@ void main() {
           targetType: BookingTargetType.venue,
           venueId: 'V01',
           eventDate: free.date,
-          sections: [RequestSectionInput(hallId: 'V01-danah', sessionId: 'V01-danah-evening', audience: Audience.women, guests: 300, packageId: free.packageId!)],
+          sections: [
+            RequestSectionInput(hallId: 'V01-danah', sessionId: 'V01-danah-evening', audience: Audience.women, guests: 300, packageId: free.packageId!),
+          ],
           voucherId: checkout.voucher.id,
           contact: const ContactInput(name: 'Nora', phone: '+96550000099', bookingFor: BookingFor.bride, shared: true),
         ),
@@ -184,7 +230,11 @@ void main() {
 
       final inbox = await hind.repos.partnerRequests.listPartnerRequests(segment: RequestSegment.pending);
       expect(inbox.items.any((r) => r.booking.id == created.id), isTrue);
-      final declined = await hind.repos.partnerRequests.declineRequest(requestId: created.id, body: const DeclineRequestInput(reason: RejectReason.dateUnavailable), ifMatch: versionTag(created.version));
+      final declined = await hind.repos.partnerRequests.declineRequest(
+        requestId: created.id,
+        body: const DeclineRequestInput(reason: RejectReason.dateUnavailable),
+        ifMatch: versionTag(created.version),
+      );
       expect(declined.status, BookingStatus.declined);
 
       final voucher = (await nora.repos.vouchers.getVoucher(voucherId: checkout.voucher.id));
@@ -192,7 +242,10 @@ void main() {
       expect(voucher.options!.creditEligible, isTrue);
       final refund = await nora.repos.support.createRefundRequest(body: CreateRefundRequestInput(voucherId: checkout.voucher.id));
       expect(refund.status, RefundRequestStatus.requested);
-      await expectLater(nora.repos.support.createRefundRequest(body: CreateRefundRequestInput(voucherId: checkout.voucher.id)), throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 409)));
+      await expectLater(
+        nora.repos.support.createRefundRequest(body: CreateRefundRequestInput(voucherId: checkout.voucher.id)),
+        throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 409)),
+      );
       w.control.decideRefund(refund.id, grant: true);
       final granted = await nora.repos.support.getRefundRequest(requestId: refund.id);
       expect(granted.status, RefundRequestStatus.granted);
@@ -202,7 +255,13 @@ void main() {
 
       // the credit voucher binds to whichever venue the client picks next
       final credit = wallet.items.first.voucher as CreditVoucher;
-      final other = (await nora.repos.venues.getVenueAvailability(venueId: 'V05', from: LocalDate.parse('2027-01-20'), to: LocalDate.parse('2027-02-06'), guests: 200, audience: Audience.women)).days.firstWhere((d) => d.state == DayState.available && d.packageId != null);
+      final other = (await nora.repos.venues.getVenueAvailability(
+        venueId: 'V05',
+        from: LocalDate.parse('2027-01-20'),
+        to: LocalDate.parse('2027-02-06'),
+        guests: 200,
+        audience: Audience.women,
+      )).days.firstWhere((d) => d.state == DayState.available && d.packageId != null);
       final venue5 = await nora.repos.venues.getVenue(venueId: 'V05');
       final hall = venue5.venue.halls.firstWhere((h) => h.sections.any((s) => s.audience == Audience.women));
       final second = await nora.repos.requests.createRequest(
@@ -210,7 +269,9 @@ void main() {
           targetType: BookingTargetType.venue,
           venueId: 'V05',
           eventDate: other.date,
-          sections: [RequestSectionInput(hallId: hall.id, sessionId: hall.sessions.first.id, audience: Audience.women, guests: 200, packageId: other.packageId!)],
+          sections: [
+            RequestSectionInput(hallId: hall.id, sessionId: hall.sessions.first.id, audience: Audience.women, guests: 200, packageId: other.packageId!),
+          ],
           voucherId: credit.id,
           contact: const ContactInput(name: 'Nora', phone: '+96550000099', bookingFor: BookingFor.bride, shared: false),
         ),
@@ -228,7 +289,9 @@ void main() {
             targetType: BookingTargetType.venue,
             venueId: 'V01',
             eventDate: LocalDate.parse('2026-11-13'),
-            sections: [RequestSectionInput(hallId: 'V01-danah', sessionId: 'V01-danah-evening', audience: Audience.women, guests: 300, packageId: 'V01-ladies-weekend')],
+            sections: [
+              RequestSectionInput(hallId: 'V01-danah', sessionId: 'V01-danah-evening', audience: Audience.women, guests: 300, packageId: 'V01-ladies-weekend'),
+            ],
             voucherId: 'vch-GV-2611-R4TF',
             contact: const ContactInput(name: 'Reem', phone: '+96550000012', bookingFor: BookingFor.bride, shared: true),
           ),
@@ -241,7 +304,9 @@ void main() {
             targetType: BookingTargetType.venue,
             venueId: 'V01',
             eventDate: LocalDate.parse('2027-01-14'),
-            sections: [RequestSectionInput(hallId: 'V01-danah', sessionId: 'V01-danah-evening', audience: Audience.women, guests: 300, packageId: 'V01-ladies-weekend')],
+            sections: [
+              RequestSectionInput(hallId: 'V01-danah', sessionId: 'V01-danah-evening', audience: Audience.women, guests: 300, packageId: 'V01-ladies-weekend'),
+            ],
             voucherId: heroCode,
             contact: const ContactInput(name: 'Reem', phone: '+96550000012', bookingFor: BookingFor.bride, shared: true),
           ),
@@ -257,14 +322,24 @@ void main() {
     final b = await hind.repos.partnerRequests.getPartnerRequest(requestId: heroId);
     final proposed = await hind.repos.partnerRequests.proposeDates(
       requestId: heroId,
-      body: ProposeDatesInput(options: [ProposedDateInput(eventDate: LocalDate.parse('2027-01-21'), hallId: 'V01-danah', sessionId: 'V01-danah-evening'), ProposedDateInput(eventDate: LocalDate.parse('2027-01-22'), hallId: 'V01-danah', sessionId: 'V01-danah-evening')]),
+      body: ProposeDatesInput(
+        options: [
+          ProposedDateInput(eventDate: LocalDate.parse('2027-01-21'), hallId: 'V01-danah', sessionId: 'V01-danah-evening'),
+          ProposedDateInput(eventDate: LocalDate.parse('2027-01-22'), hallId: 'V01-danah', sessionId: 'V01-danah-evening'),
+        ],
+      ),
       ifMatch: versionTag(b.booking.version),
     );
     expect(proposed.proposal!.status, ProposalStatus.proposed);
     expect(proposed.allowedActions, isNot(contains(RequestAction.accept)), reason: 'the venue waits for the client');
     final seen = await reem.repos.requests.getRequest(requestId: heroId);
     expect(seen.booking.allowedActions, containsAll([RequestAction.acceptProposal, RequestAction.declineProposal]));
-    final accepted = await reem.repos.requests.acceptProposal(requestId: heroId, proposalId: proposed.proposal!.id, body: const ProposalAnswerInput(optionIndex: 1), ifMatch: versionTag(proposed.version));
+    final accepted = await reem.repos.requests.acceptProposal(
+      requestId: heroId,
+      proposalId: proposed.proposal!.id,
+      body: const ProposalAnswerInput(optionIndex: 1),
+      ifMatch: versionTag(proposed.version),
+    );
     expect(accepted.status, BookingStatus.approved);
     expect(accepted.eventDate, LocalDate.parse('2027-01-22'));
     expect(accepted.confirmBy, isNotNull);
@@ -274,8 +349,16 @@ void main() {
     final reem = w.actor('reem');
     final hind = w.actor('hotel_manager', venueId: 'V01');
     final pr = await hind.repos.partnerRequests.getPartnerRequest(requestId: heroId);
-    final approved = await hind.repos.partnerRequests.acceptRequest(requestId: heroId, body: const AcceptRequestInput(), ifMatch: versionTag(pr.booking.version));
-    final revoked = await hind.repos.partnerRequests.revokeApproval(requestId: heroId, body: const PartnerCancelInput(reason: CancelReason.hallUnavailable), ifMatch: versionTag(approved.version));
+    final approved = await hind.repos.partnerRequests.acceptRequest(
+      requestId: heroId,
+      body: const AcceptRequestInput(),
+      ifMatch: versionTag(pr.booking.version),
+    );
+    final revoked = await hind.repos.partnerRequests.revokeApproval(
+      requestId: heroId,
+      body: const PartnerCancelInput(reason: CancelReason.hallUnavailable),
+      ifMatch: versionTag(approved.version),
+    );
     expect(revoked.status, BookingStatus.cancelled);
     expect(revoked.cancelledBy, CancelledBy.venue);
     final v = (await reem.repos.requests.getRequest(requestId: heroId)).voucher!;
@@ -286,12 +369,26 @@ void main() {
   group('listing review', () {
     test('draft, plan, submit, rejected with notes, resubmit, approved and live, paused and resumed; paying is refused until rates exist', () async {
       final zahra = w.actor('provider', providerId: 'vendor-flowers-zahra');
-      final created = await zahra.repos.partnerListings.createListing(body: const ListingInput(title: LocalizedText(en: 'Zahra Spring', ar: 'زهرة الربيع')));
+      final created = await zahra.repos.partnerListings.createListing(
+        body: const ListingInput(
+          title: LocalizedText(en: 'Zahra Spring', ar: 'زهرة الربيع'),
+        ),
+      );
       expect(created.status, ListingStatus.draft);
-      await expectLater(zahra.repos.partnerListings.submitListing(listingId: created.id), throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 422)), reason: 'no plan chosen yet');
-      await zahra.repos.partnerListings.chooseListingPlan(listingId: created.id, body: const ChoosePlanInput(cycle: AdPlanCycle.monthly));
       await expectLater(
-        zahra.repos.partnerListings.createListingPaymentSession(listingId: created.id, body: const PaymentSessionInput(method: GatewayMethod.knet)),
+        zahra.repos.partnerListings.submitListing(listingId: created.id),
+        throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 422)),
+        reason: 'no plan chosen yet',
+      );
+      await zahra.repos.partnerListings.chooseListingPlan(
+        listingId: created.id,
+        body: const ChoosePlanInput(cycle: AdPlanCycle.monthly),
+      );
+      await expectLater(
+        zahra.repos.partnerListings.createListingPaymentSession(
+          listingId: created.id,
+          body: const PaymentSessionInput(method: GatewayMethod.knet),
+        ),
         throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 409)),
       );
       final submitted = await zahra.repos.partnerListings.submitListing(listingId: created.id);
@@ -313,6 +410,40 @@ void main() {
     });
   });
 
+  group('plan payment control', () {
+    test('POST /__mock/listings/<id>/billing settles the open session: the pay screen polling sees succeeded and the draft goes to review', () async {
+      final zahra = w.actor('provider', providerId: 'vendor-flowers-zahra');
+      final created = await zahra.repos.partnerListings.createListing(
+        body: const ListingInput(
+          title: LocalizedText(en: 'Zahra Pay', ar: 'زهرة الدفع'),
+        ),
+      );
+      await zahra.repos.partnerListings.chooseListingPlan(
+        listingId: created.id,
+        body: const ChoosePlanInput(cycle: AdPlanCycle.monthly),
+      );
+      w.control.setPlanRate('monthly', 45000);
+      final session = await zahra.repos.partnerListings.createListingPaymentSession(
+        listingId: created.id,
+        body: const PaymentSessionInput(method: GatewayMethod.knet),
+      );
+      expect(
+        (await zahra.repos.vouchers.getPaymentState(paymentId: session.id)).status,
+        PaymentSessionStatus.created,
+        reason: 'the gateway has not answered yet',
+      );
+      final listing = w.control.markListingPaid(created.id);
+      expect((listing['billing'] as Map)['status'], 'paid');
+      expect((await zahra.repos.vouchers.getPaymentState(paymentId: session.id)).status, PaymentSessionStatus.succeeded);
+      final l = await zahra.repos.partnerListings.getListing(listingId: created.id);
+      expect(l.status, ListingStatus.pendingReview);
+      // a live listing without a session only gets its billing block marked paid (the refund-record flow)
+      final live = w.control.markListingPaid('lst-flowers-zahra', amountFils: 45000);
+      expect((live['billing'] as Map)['status'], 'paid');
+      expect(live['status'], 'active');
+    });
+  });
+
   group('visits and the group chat', () {
     test('Reem books a visit, the thread has three members, her message gets a scripted reply, the hotel confirms', () async {
       final reem = w.actor('reem');
@@ -321,16 +452,26 @@ void main() {
       expect(dates.dates, isNotEmpty);
       final slots = await reem.repos.visits.listVisitSlots(venueId: 'V01', date: dates.dates.first);
       final slot = slots.slots.firstWhere((s) => s.available);
-      final thread = await reem.repos.visits.bookVisit(body: VisitBookingInput(venueId: 'V01', slotStart: slot.start, visitors: 3, note: 'نحب نشوف القاعة'));
+      final thread = await reem.repos.visits.bookVisit(
+        body: VisitBookingInput(venueId: 'V01', slotStart: slot.start, visitors: 3, note: 'نحب نشوف القاعة'),
+      );
       expect(thread.visit.status, VisitStatus.requested);
       expect(thread.thread.members!.map((m) => m.role), containsAll([ThreadRole.client, ThreadRole.hotelRepresentative, ThreadRole.support]));
       // the slot is gone for the next person
       final slots2 = await reem.repos.visits.listVisitSlots(venueId: 'V01', date: dates.dates.first);
       expect(slots2.slots.firstWhere((s) => s.start == slot.start).available, isFalse);
-      await expectLater(reem.repos.visits.bookVisit(body: VisitBookingInput(venueId: 'V01', slotStart: slot.start, visitors: 2)), throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 409)));
+      await expectLater(
+        reem.repos.visits.bookVisit(
+          body: VisitBookingInput(venueId: 'V01', slotStart: slot.start, visitors: 2),
+        ),
+        throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 409)),
+      );
 
       final convId = thread.thread.id;
-      final sent = await reem.repos.chat.sendMessage(conversationId: convId, body: const SendMessageInput(clientMsgId: 'm-1', kind: SendMessageInputKind.text, text: 'Salam, we are three.', origin: WireLang.en));
+      final sent = await reem.repos.chat.sendMessage(
+        conversationId: convId,
+        body: const SendMessageInput(clientMsgId: 'm-1', kind: SendMessageInputKind.text, text: 'Salam, we are three.', origin: WireLang.en),
+      );
       expect(sent.from, MessageFrom.client);
       final before = await reem.repos.chat.listMessages(conversationId: convId);
       await w.control.flush();
@@ -347,21 +488,36 @@ void main() {
 
       // after the slot plus 24 h the chat is read-only
       w.control.setClock(slot.start.add(const Duration(days: 3)));
-      await expectLater(reem.repos.chat.sendMessage(conversationId: convId, body: const SendMessageInput(clientMsgId: 'm-2', kind: SendMessageInputKind.text, text: 'late', origin: WireLang.en)), throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 403)));
+      await expectLater(
+        reem.repos.chat.sendMessage(
+          conversationId: convId,
+          body: const SendMessageInput(clientMsgId: 'm-2', kind: SendMessageInputKind.text, text: 'late', origin: WireLang.en),
+        ),
+        throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 403)),
+      );
     });
   });
 
   group('staff and sign-in', () {
     test('an admin invites staff by email, the invitation is accepted, the last admin cannot be removed', () async {
       final khalid = w.actor('hotel_admin', venueId: 'V01');
-      final inv = await khalid.repos.partnerAccount.inviteStaff(body: const InviteStaffInput(email: 'new.reception@aurelia-gulf.example', role: StaffRole.reception));
+      final inv = await khalid.repos.partnerAccount.inviteStaff(
+        body: const InviteStaffInput(email: 'new.reception@aurelia-gulf.example', role: StaffRole.reception),
+      );
       expect(inv.status, InvitationStatus.invited);
-      await expectLater(khalid.repos.partnerAccount.inviteStaff(body: const InviteStaffInput(email: 'new.reception@aurelia-gulf.example', role: StaffRole.reception)), throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 409)));
+      await expectLater(
+        khalid.repos.partnerAccount.inviteStaff(
+          body: const InviteStaffInput(email: 'new.reception@aurelia-gulf.example', role: StaffRole.reception),
+        ),
+        throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 409)),
+      );
       expect(w.control.outbox.any((m) => m['to'] == 'new.reception@aurelia-gulf.example' && m['kind'] == 'staff_invitation'), isTrue);
       final guest = w.actor('guest');
       final preview = await guest.repos.auth.getStaffInvitationPreview(token: inv.id);
       expect(preview.role, StaffRole.reception);
-      final session = await guest.repos.auth.acceptStaffInvitation(body: AcceptInvitationInput(token: inv.id, password: 'Str0ng#Pass', acceptedTerms: true));
+      final session = await guest.repos.auth.acceptStaffInvitation(
+        body: AcceptInvitationInput(token: inv.id, password: 'Str0ng#Pass', acceptedTerms: true),
+      );
       expect(session.user.user.email, 'new.reception@aurelia-gulf.example');
       await expectLater(guest.repos.auth.getStaffInvitationPreview(token: inv.id), throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 410)));
       final staff = await khalid.repos.partnerAccount.listStaff();
@@ -372,18 +528,34 @@ void main() {
       final rec = w.actor('guest');
       await rec.tokens.write(AuthTokens(accessToken: session.accessToken, refreshToken: session.refreshToken));
       rec.env.partnerContext = const PartnerRequestContext(venueId: 'V01');
-      await expectLater(rec.repos.partnerAccount.inviteStaff(body: const InviteStaffInput(email: 'x@y.example', role: StaffRole.marketing)), throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 403)));
+      await expectLater(
+        rec.repos.partnerAccount.inviteStaff(
+          body: const InviteStaffInput(email: 'x@y.example', role: StaffRole.marketing),
+        ),
+        throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 403)),
+      );
     });
 
     test('partner email sign-in asks for a code on a new device and remembers the device', () async {
       final a = w.actor('guest');
-      await expectLater(a.repos.auth.partnerLogin(body: const PartnerLoginInput(email: 'hind@aurelia-gulf.example', password: 'wrong', deviceId: 'dev-1')), throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 401)));
-      final first = await a.repos.auth.partnerLogin(body: const PartnerLoginInput(email: 'hind@aurelia-gulf.example', password: 'Ghazal#2026', deviceId: 'dev-1'));
+      await expectLater(
+        a.repos.auth.partnerLogin(
+          body: const PartnerLoginInput(email: 'hind@aurelia-gulf.example', password: 'wrong', deviceId: 'dev-1'),
+        ),
+        throwsA(isA<ApiProblem>().having((e) => e.status, 'status', 401)),
+      );
+      final first = await a.repos.auth.partnerLogin(
+        body: const PartnerLoginInput(email: 'hind@aurelia-gulf.example', password: 'Ghazal#2026', deviceId: 'dev-1'),
+      );
       expect(first.status, PartnerLoginStatus.codeRequired);
       expect(w.control.outbox.last['code'], '123456');
-      final session = await a.repos.auth.partnerVerifyCode(body: OtpVerifyInput(challengeId: first.challenge!.challengeId, code: '123456', deviceId: 'dev-1'));
+      final session = await a.repos.auth.partnerVerifyCode(
+        body: OtpVerifyInput(challengeId: first.challenge!.challengeId, code: '123456', deviceId: 'dev-1'),
+      );
       expect(session.user.permissions, contains('request:respond'));
-      final second = await a.repos.auth.partnerLogin(body: const PartnerLoginInput(email: 'hind@aurelia-gulf.example', password: 'Ghazal#2026', deviceId: 'dev-1'));
+      final second = await a.repos.auth.partnerLogin(
+        body: const PartnerLoginInput(email: 'hind@aurelia-gulf.example', password: 'Ghazal#2026', deviceId: 'dev-1'),
+      );
       expect(second.status, PartnerLoginStatus.signedIn);
     });
   });

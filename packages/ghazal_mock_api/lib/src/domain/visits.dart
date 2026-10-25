@@ -34,25 +34,32 @@ Json _member(MockApp app, String userId, String role, {Json? organisation}) {
     'name': u?['name'] ?? userId,
     'nameLatin': u?['nameLatin'] ?? u?['name'] ?? userId,
     'monogram': u?['monogram'] ?? '?',
-    'chip': {'client': {'en': 'Client', 'ar': 'العميل'}, 'hotel_representative': {'en': 'Hotel representative', 'ar': 'ممثل الفندق'}, 'support': {'en': 'Ghazal support', 'ar': 'دعم غزل'}}[role],
+    'chip': {
+      'client': {'en': 'Client', 'ar': 'العميل'},
+      'hotel_representative': {'en': 'Hotel representative', 'ar': 'ممثل الفندق'},
+      'support': {'en': 'Ghazal support', 'ar': 'دعم غزل'},
+    }[role],
     'organisation': organisation,
   };
 }
 
-Json _slotLT(String slotStart) => {'en': '${dateText(kuwaitDateOf(slotStart), 'en')} · ${timeText(kuwaitTimeOf(slotStart), 'en')}', 'ar': '${dateText(kuwaitDateOf(slotStart), 'ar')} · ${timeText(kuwaitTimeOf(slotStart), 'ar')}'};
+Json _slotLT(String slotStart) => {
+  'en': '${dateText(kuwaitDateOf(slotStart), 'en')} · ${timeText(kuwaitTimeOf(slotStart), 'en')}',
+  'ar': '${dateText(kuwaitDateOf(slotStart), 'ar')} · ${timeText(kuwaitTimeOf(slotStart), 'ar')}',
+};
 
 Json _historyEntry(MockApp app, String status, String actor, String? actorName) => {'at': app.now, 'status': status, 'actor': actor, 'actorName': ?actorName};
 
 String _statusWord(String status, String lang) => const {
-      'requested': ['requested', 'بانتظار الرد'],
-      'confirmed': ['confirmed', 'مؤكدة'],
-      'reschedule_proposed': ['new time proposed', 'موعد جديد مقترح'],
-      'arrived': ['arrived', 'تم الوصول'],
-      'completed': ['completed', 'اكتملت'],
-      'declined': ['declined', 'مرفوضة'],
-      'cancelled': ['cancelled', 'ملغاة'],
-      'missed': ['missed', 'فائتة'],
-    }[status]![lang == 'ar' ? 1 : 0];
+  'requested': ['requested', 'بانتظار الرد'],
+  'confirmed': ['confirmed', 'مؤكدة'],
+  'reschedule_proposed': ['new time proposed', 'موعد جديد مقترح'],
+  'arrived': ['arrived', 'تم الوصول'],
+  'completed': ['completed', 'اكتملت'],
+  'declined': ['declined', 'مرفوضة'],
+  'cancelled': ['cancelled', 'ملغاة'],
+  'missed': ['missed', 'فائتة'],
+}[status]![lang == 'ar' ? 1 : 0];
 
 void _syncConversation(MockApp app, Json visit) {
   final conv = app.db.get('Conversation', visit.str('conversationId'));
@@ -71,17 +78,24 @@ void _syncConversation(MockApp app, Json visit) {
 }
 
 void _card(MockApp app, Json visit, String title, Json titleAr) {
-  appendMessage(app, visit.str('conversationId'),
-      from: 'system',
-      kind: 'visit_card',
-      text: {'en': title, 'ar': titleAr['ar']},
-      card: {
-        'kind': 'visit',
-        'title': {'en': title, 'ar': titleAr['ar']},
-        'lines': [_slotLT(visit.str('slotStart')), app.targetName(venueId: visit.str('venueId')), {'en': '${visit['visitors']} visitors', 'ar': '${visit['visitors']} زائرين'}],
-        'at': visit['slotStart'],
-        'refId': visit['id'],
-      });
+  appendMessage(
+    app,
+    visit.str('conversationId'),
+    from: 'system',
+    kind: 'visit_card',
+    text: {'en': title, 'ar': titleAr['ar']},
+    card: {
+      'kind': 'visit',
+      'title': {'en': title, 'ar': titleAr['ar']},
+      'lines': [
+        _slotLT(visit.str('slotStart')),
+        app.targetName(venueId: visit.str('venueId')),
+        {'en': '${visit['visitors']} visitors', 'ar': '${visit['visitors']} زائرين'},
+      ],
+      'at': visit['slotStart'],
+      'refId': visit['id'],
+    },
+  );
 }
 
 void _saveVisit(MockApp app, Json v, String status, String actor, String? actorName) {
@@ -147,21 +161,51 @@ Json bookVisit(MockApp app, Json who, Json input) {
     'awaitingReplySince': app.now,
     'usuallyRepliesHours': 2,
     'visitId': id,
-    'members': [_member(app, who.str('id'), 'client'), _member(app, rep, 'hotel_representative', organisation: venueName), _member(app, 'user-support-lama', 'support')],
+    'members': [
+      _member(app, who.str('id'), 'client'),
+      _member(app, rep, 'hotel_representative', organisation: venueName),
+      _member(app, 'user-support-lama', 'support'),
+    ],
     'readOnlyFrom': null,
     'archiveOn': null,
   });
   _syncConversation(app, visit);
-  appendMessage(app, convId, from: 'system', kind: 'system', text: {
-    'en': 'A group chat opened for your visit on ${dateText(kuwaitDateOf(slotStart), 'en')}: you, ${venueName['en']} and Ghazal support.',
-    'ar': 'فُتحت محادثة جماعية لزيارتكم يوم ${dateText(kuwaitDateOf(slotStart), 'ar')}: أنتم و${venueName['ar']} ودعم غزل.',
-  });
+  appendMessage(
+    app,
+    convId,
+    from: 'system',
+    kind: 'system',
+    text: {
+      'en': 'A group chat opened for your visit on ${dateText(kuwaitDateOf(slotStart), 'en')}: you, ${venueName['en']} and Ghazal support.',
+      'ar': 'فُتحت محادثة جماعية لزيارتكم يوم ${dateText(kuwaitDateOf(slotStart), 'ar')}: أنتم و${venueName['ar']} ودعم غزل.',
+    },
+  );
   if (input['note'] != null && (input['note'] as String).isNotEmpty) {
     appendMessage(app, convId, from: 'client', senderName: clientName, text: {'en': null, 'ar': input['note']}, origin: 'ar');
   }
-  notify(app, userId: who.str('id'), kind: 'visit_requested', audience: 'client', vars: {'venue': venueName, 'slot': _slotLT(slotStart)}, params: {'venue': venueId, 'visit': id}, venueId: venueId, conversationId: convId, visitId: id);
+  notify(
+    app,
+    userId: who.str('id'),
+    kind: 'visit_requested',
+    audience: 'client',
+    vars: {'venue': venueName, 'slot': _slotLT(slotStart)},
+    params: {'venue': venueId, 'visit': id},
+    venueId: venueId,
+    conversationId: convId,
+    visitId: id,
+  );
   for (final uid in app.notifyTargets(venueId: venueId)) {
-    notify(app, userId: uid, kind: 'visit_request', audience: 'hotel', vars: {'client': clientName, 'slot': _slotLT(slotStart), 'visitors': input.integer('visitors')}, params: {'client': clientName, 'visitors': input['visitors']}, venueId: venueId, conversationId: convId, visitId: id);
+    notify(
+      app,
+      userId: uid,
+      kind: 'visit_request',
+      audience: 'hotel',
+      vars: {'client': clientName, 'slot': _slotLT(slotStart), 'visitors': input.integer('visitors')},
+      params: {'client': clientName, 'visitors': input['visitors']},
+      venueId: venueId,
+      conversationId: convId,
+      visitId: id,
+    );
   }
   return app.db.require('VisitAppointment', id);
 }
@@ -176,7 +220,9 @@ void _requireFreeSlot(MockApp app, String venueId, String slotStart, {String? ex
   if (slot == null) throw ApiError('VISIT_SLOT_TAKEN', params: {'reason': 'not_a_slot'});
   if (slot['available'] != true) {
     // a slot held by the visit being moved counts as free
-    final holder = app.db.raw('VisitAppointment').any((v) => v['venueId'] == venueId && v['slotStart'] == slotStart && v['id'] != exceptVisit && !['declined', 'cancelled'].contains(v['status']));
+    final holder = app.db
+        .raw('VisitAppointment')
+        .any((v) => v['venueId'] == venueId && v['slotStart'] == slotStart && v['id'] != exceptVisit && !['declined', 'cancelled'].contains(v['status']));
     if (holder || instantMs(slotStart) <= instantMs(app.now)) throw ApiError('VISIT_SLOT_TAKEN');
   }
 }
@@ -199,7 +245,20 @@ Json confirmVisit(MockApp app, String id, String actorName) {
   if (v['status'] != 'requested') throw visitConflict(v);
   _saveVisit(app, v, 'confirmed', 'hotel_representative', actorName);
   _card(app, v, 'Site visit confirmed', {'ar': 'تم تأكيد زيارة القاعة'});
-  notify(app, userId: v.str('clientId'), kind: 'visit_confirmed', audience: 'client', vars: {'venue': app.targetName(venueId: v.str('venueId')), 'slot': _slotLT(v.str('slotStart'))}, params: {'visit': id}, venueId: v.str('venueId'), conversationId: v.str('conversationId'), visitId: id);
+  notify(
+    app,
+    userId: v.str('clientId'),
+    kind: 'visit_confirmed',
+    audience: 'client',
+    vars: {
+      'venue': app.targetName(venueId: v.str('venueId')),
+      'slot': _slotLT(v.str('slotStart')),
+    },
+    params: {'visit': id},
+    venueId: v.str('venueId'),
+    conversationId: v.str('conversationId'),
+    visitId: id,
+  );
   return v;
 }
 
@@ -209,7 +268,20 @@ Json declineVisit(MockApp app, String id, String actorName, String? reason) {
   v['closedAt'] = app.now;
   _saveVisit(app, v, 'declined', 'hotel_representative', actorName);
   _card(app, v, 'Site visit declined', {'ar': 'تم رفض طلب الزيارة'});
-  notify(app, userId: v.str('clientId'), kind: 'visit_message', audience: 'client', vars: {'venue': app.targetName(venueId: v.str('venueId')), 'slot': _slotLT(v.str('slotStart'))}, params: {'visit': id}, venueId: v.str('venueId'), conversationId: v.str('conversationId'), visitId: id);
+  notify(
+    app,
+    userId: v.str('clientId'),
+    kind: 'visit_message',
+    audience: 'client',
+    vars: {
+      'venue': app.targetName(venueId: v.str('venueId')),
+      'slot': _slotLT(v.str('slotStart')),
+    },
+    params: {'visit': id},
+    venueId: v.str('venueId'),
+    conversationId: v.str('conversationId'),
+    visitId: id,
+  );
   return v;
 }
 
@@ -219,8 +291,27 @@ Json proposeVisitSlot(MockApp app, String id, String actorName, String slotStart
   _requireFreeSlot(app, v.str('venueId'), slotStart, exceptVisit: id);
   v['proposedSlotStart'] = slotStart;
   _saveVisit(app, v, 'reschedule_proposed', 'hotel_representative', actorName);
-  appendMessage(app, v.str('conversationId'), from: 'venue', senderName: actorName, text: {'en': 'Could we move your visit to ${_slotLT(slotStart)['en']}?', 'ar': 'هل يناسبكم نقل زيارتكم إلى ${_slotLT(slotStart)['ar']}؟'});
-  notify(app, userId: v.str('clientId'), kind: 'visit_message', audience: 'client', vars: {'venue': app.targetName(venueId: v.str('venueId')), 'slot': _slotLT(slotStart)}, params: {'visit': id}, venueId: v.str('venueId'), conversationId: v.str('conversationId'), visitId: id);
+  appendMessage(
+    app,
+    v.str('conversationId'),
+    from: 'venue',
+    senderName: actorName,
+    text: {'en': 'Could we move your visit to ${_slotLT(slotStart)['en']}?', 'ar': 'هل يناسبكم نقل زيارتكم إلى ${_slotLT(slotStart)['ar']}؟'},
+  );
+  notify(
+    app,
+    userId: v.str('clientId'),
+    kind: 'visit_message',
+    audience: 'client',
+    vars: {
+      'venue': app.targetName(venueId: v.str('venueId')),
+      'slot': _slotLT(slotStart),
+    },
+    params: {'visit': id},
+    venueId: v.str('venueId'),
+    conversationId: v.str('conversationId'),
+    visitId: id,
+  );
   return v;
 }
 
@@ -242,7 +333,17 @@ Json cancelVisit(MockApp app, String id, String? reason) {
   _saveVisit(app, v, 'cancelled', 'client', v.str('clientName'));
   _card(app, v, 'Site visit cancelled', {'ar': 'تم إلغاء الزيارة'});
   for (final uid in app.notifyTargets(venueId: v.str('venueId'))) {
-    notify(app, userId: uid, kind: 'visit_request', audience: 'hotel', vars: {'client': v.str('clientName'), 'slot': _slotLT(v.str('slotStart')), 'visitors': v['visitors'] as Object}, params: {'cancelled': true}, venueId: v.str('venueId'), conversationId: v.str('conversationId'), visitId: id);
+    notify(
+      app,
+      userId: uid,
+      kind: 'visit_request',
+      audience: 'hotel',
+      vars: {'client': v.str('clientName'), 'slot': _slotLT(v.str('slotStart')), 'visitors': v['visitors'] as Object},
+      params: {'cancelled': true},
+      venueId: v.str('venueId'),
+      conversationId: v.str('conversationId'),
+      visitId: id,
+    );
   }
   return v;
 }

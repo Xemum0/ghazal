@@ -42,18 +42,18 @@ class SeedData {
 
   /// A read-only engine view over the seeds (tests and the equality proof; the running mock builds its own from the live database).
   EngineData engineData({String? now}) => EngineData(
-        venues: rows('Venue'),
-        packages: rows('Package'),
-        priceRules: rows('PriceRule'),
-        extras: rows('Extra'),
-        windows: rows('VoucherWindow'),
-        claims: rows('CalendarClaim'),
-        overrides: extra.list('dayOverrides'),
-        areas: rows('Area'),
-        governorates: rows('Governorate'),
-        visits: rows('VisitAppointment'),
-        providers: rows('ServiceProvider'),
-        config: config,
-        now: now ?? this.now,
-      );
+    venues: rows('Venue'),
+    packages: rows('Package'),
+    priceRules: rows('PriceRule'),
+    extras: rows('Extra'),
+    windows: rows('VoucherWindow'),
+    claims: rows('CalendarClaim'),
+    overrides: extra.list('dayOverrides'),
+    areas: rows('Area'),
+    governorates: rows('Governorate'),
+    visits: rows('VisitAppointment'),
+    providers: rows('ServiceProvider'),
+    config: config,
+    now: now ?? this.now,
+  );
 }

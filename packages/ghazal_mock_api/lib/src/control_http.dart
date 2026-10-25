@@ -15,7 +15,11 @@ const _json = {'content-type': 'application/json; charset=utf-8'};
 
 shelf.Response _ok(Object? body) => shelf.Response.ok(jsonEncode(body ?? {'ok': true}), headers: _json);
 
-shelf.Response _bad(String message, {int status = 400}) => shelf.Response(status, body: jsonEncode({'type': 'about:blank', 'title': message, 'status': status, 'code': status == 404 ? 'NOT_FOUND' : 'VALIDATION_FAILED', 'detail': message}), headers: {'content-type': 'application/problem+json'});
+shelf.Response _bad(String message, {int status = 400}) => shelf.Response(
+  status,
+  body: jsonEncode({'type': 'about:blank', 'title': message, 'status': status, 'code': status == 404 ? 'NOT_FOUND' : 'VALIDATION_FAILED', 'detail': message}),
+  headers: {'content-type': 'application/problem+json'},
+);
 
 /// Handles a request when its path is under `/__mock/` (or `/v1/__mock/`); returns null for every other path.
 Future<shelf.Response?> handleControl(MockApp app, MockControl control, shelf.Request request) async {
@@ -50,7 +54,11 @@ Future<shelf.Response?> handleControl(MockApp app, MockControl control, shelf.Re
         if (body['now'] is String) {
           control.setClock(DateTime.parse(body['now'] as String));
         } else {
-          final ms = ((body['advanceDays'] as num?) ?? 0) * 86400000 + ((body['advanceHours'] as num?) ?? 0) * 3600000 + ((body['advanceMinutes'] as num?) ?? 0) * 60000 + ((body['advanceSeconds'] as num?) ?? 0) * 1000;
+          final ms =
+              ((body['advanceDays'] as num?) ?? 0) * 86400000 +
+              ((body['advanceHours'] as num?) ?? 0) * 3600000 +
+              ((body['advanceMinutes'] as num?) ?? 0) * 60000 +
+              ((body['advanceSeconds'] as num?) ?? 0) * 1000;
           if (ms == 0) return _bad('send {now} or advanceDays/advanceHours/advanceMinutes');
           control.advance(Duration(milliseconds: ms.toInt()));
         }
@@ -77,7 +85,14 @@ Future<shelf.Response?> handleControl(MockApp app, MockControl control, shelf.Re
       case ('POST', ['payments', final id, 'settle']):
         return _ok(control.settlePayment(id, outcome: body['outcome'] as String? ?? 'succeeded'));
       case ('POST', ['listings', final id, 'moderate']):
-        return _ok(control.moderateListing(id, approve: body['action'] == 'approve', codes: ((body['codes'] as List?) ?? const []).cast<String>(), note: body['note'] as String?));
+        return _ok(
+          control.moderateListing(
+            id,
+            approve: body['action'] == 'approve',
+            codes: ((body['codes'] as List?) ?? const []).cast<String>(),
+            note: body['note'] as String?,
+          ),
+        );
       case ('POST', ['plans', final cycle, 'rate']):
         control.setPlanRate(cycle, (body['ratesFils'] as num?)?.toInt());
         return _ok(control.state);

@@ -100,7 +100,8 @@ String voucherStatusAfter(String kind) {
 }
 
 /// Validity end of a credit voucher granted by support: 60 days from the grant, usable at any venue or service.
-String creditVoucherValidUntil(String grantedAt, {required int creditVoucherValidityDays}) => '${addDays(kuwaitDateOf(grantedAt), creditVoucherValidityDays)}T23:59:00+03:00';
+String creditVoucherValidUntil(String grantedAt, {required int creditVoucherValidityDays}) =>
+    '${addDays(kuwaitDateOf(grantedAt), creditVoucherValidityDays)}T23:59:00+03:00';
 
 /// Whether an `active` voucher is past its validity at [now] (a reuse window keeps a released voucher alive).
 bool isVoucherExpired(String? validUntil, String? reuseUntil, String now) {

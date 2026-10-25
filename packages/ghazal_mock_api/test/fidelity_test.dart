@@ -8,7 +8,12 @@ import 'package:ghazal_mock_api/ghazal_mock_api.dart';
 import 'harness.dart';
 
 Future<Response<Object?>> raw(Actor a, String method, String path, {Object? data, Map<String, Object?>? headers, Map<String, Object?>? query}) =>
-    a.dio.request<Object?>(path, data: data, queryParameters: query, options: Options(method: method, headers: headers, validateStatus: (_) => true));
+    a.dio.request<Object?>(
+      path,
+      data: data,
+      queryParameters: query,
+      options: Options(method: method, headers: headers, validateStatus: (_) => true),
+    );
 
 Json body(Response<Object?> r) => (r.data as Map).cast<String, dynamic>();
 
@@ -17,7 +22,8 @@ void main() {
   setUp(() async => w = await World.create());
 
   group('OTP codes (client WhatsApp and partner email alike)', () {
-    Future<String> challenge(Actor a, String phone) async => body(await raw(a, 'POST', '/auth/otp/request', data: {'phone': phone, 'purpose': 'login'}))['challengeId'] as String;
+    Future<String> challenge(Actor a, String phone) async =>
+        body(await raw(a, 'POST', '/auth/otp/request', data: {'phone': phone, 'purpose': 'login'}))['challengeId'] as String;
     Future<Response<Object?>> verify(Actor a, String id, String code) => raw(a, 'POST', '/auth/otp/verify', data: {'challengeId': id, 'code': code});
 
     test('123456 and any other six digits sign in; 000000 is locked; 111111 is expired', () async {
@@ -55,10 +61,13 @@ void main() {
 
     test('the partner email code follows the same rules', () async {
       final a = w.actor('guest');
-      final login = body(await raw(a, 'POST', '/auth/partner/login', data: {'email': 'hind@aurelia-gulf.example', 'password': 'Ghazal#2026', 'deviceId': 'dev-otp'}));
+      final login = body(
+        await raw(a, 'POST', '/auth/partner/login', data: {'email': 'hind@aurelia-gulf.example', 'password': 'Ghazal#2026', 'deviceId': 'dev-otp'}),
+      );
       expect(login['status'], 'code_required');
       final id = (login['challenge'] as Map)['challengeId'] as String;
-      Future<Response<Object?>> verifyPartner(String code) => raw(a, 'POST', '/auth/partner/verify', data: {'challengeId': id, 'code': code, 'deviceId': 'dev-otp'});
+      Future<Response<Object?>> verifyPartner(String code) =>
+          raw(a, 'POST', '/auth/partner/verify', data: {'challengeId': id, 'code': code, 'deviceId': 'dev-otp'});
       final wrong = await verifyPartner('222222');
       expect((wrong.statusCode, body(wrong)['code'], (body(wrong)['params'] as Map)['remainingAttempts']), (400, 'OTP_INVALID', 4));
       for (var i = 0; i < 3; i++) {
@@ -113,35 +122,103 @@ void main() {
       final a = w.actor('reem');
       final before = body(await raw(a, 'GET', '/vouchers/vch-GV-2611-R4TF'));
       expect((before['voucher'] as Map)['guests'], 300);
-      final moved = await raw(a, 'POST', '/vouchers/vch-GV-2611-R4TF/rebind', data: {'packageId': 'V05-ladies-weekend', 'eventDate': '2027-01-21'}, headers: {'Idempotency-Key': 'rebind-1'});
+      final moved = await raw(
+        a,
+        'POST',
+        '/vouchers/vch-GV-2611-R4TF/rebind',
+        data: {'packageId': 'V05-ladies-weekend', 'eventDate': '2027-01-21'},
+        headers: {'Idempotency-Key': 'rebind-1'},
+      );
       expect(moved.statusCode, 200);
       final v = body(moved);
-      expect((v['eventDate'], v['guests'], v['hallId'], v['status'], v['venueOrProviderId']), ('2027-01-21', 300, 'V05-marina', 'active', 'V05'), reason: 'the 300 guests and the hall are kept; the voucher stays at V05');
-      expect(((v['quoteFils'] as Map)['standard'] as int), greaterThan((v['quoteFils'] as Map)['voucher'] as int), reason: 'a new quote was taken for the new date and it still pays for itself');
-      final bigger = body(await raw(a, 'POST', '/vouchers/vch-GV-2611-R4TF/rebind', data: {'packageId': 'V05-ladies-weekend', 'eventDate': '2027-01-21', 'guests': 350}, headers: {'Idempotency-Key': 'rebind-2'}));
+      expect(
+        (v['eventDate'], v['guests'], v['hallId'], v['status'], v['venueOrProviderId']),
+        ('2027-01-21', 300, 'V05-marina', 'active', 'V05'),
+        reason: 'the 300 guests and the hall are kept; the voucher stays at V05',
+      );
+      expect(
+        ((v['quoteFils'] as Map)['standard'] as int),
+        greaterThan((v['quoteFils'] as Map)['voucher'] as int),
+        reason: 'a new quote was taken for the new date and it still pays for itself',
+      );
+      final bigger = body(
+        await raw(
+          a,
+          'POST',
+          '/vouchers/vch-GV-2611-R4TF/rebind',
+          data: {'packageId': 'V05-ladies-weekend', 'eventDate': '2027-01-21', 'guests': 350},
+          headers: {'Idempotency-Key': 'rebind-2'},
+        ),
+      );
       expect(bigger['guests'], 350);
-      final elsewhere = await raw(a, 'POST', '/vouchers/vch-GV-2611-R4TF/rebind', data: {'packageId': 'V01-ladies-weekend', 'eventDate': '2027-01-21'}, headers: {'Idempotency-Key': 'rebind-3'});
+      final elsewhere = await raw(
+        a,
+        'POST',
+        '/vouchers/vch-GV-2611-R4TF/rebind',
+        data: {'packageId': 'V01-ladies-weekend', 'eventDate': '2027-01-21'},
+        headers: {'Idempotency-Key': 'rebind-3'},
+      );
       expect(elsewhere.statusCode, 422, reason: 'a package of another venue is not this voucher\'s venue');
-      final attached = await raw(a, 'POST', '/vouchers/vch-GV-2611-K7QM/rebind', data: {'packageId': 'V01-ladies-weekend', 'eventDate': '2027-01-21'}, headers: {'Idempotency-Key': 'rebind-4'});
-      expect((attached.statusCode, body(attached)['code']), (409, 'VOUCHER_NOT_USABLE'), reason: 'a voucher attached to a request moves through the venue\'s counter-offer, not by itself');
+      final attached = await raw(
+        a,
+        'POST',
+        '/vouchers/vch-GV-2611-K7QM/rebind',
+        data: {'packageId': 'V01-ladies-weekend', 'eventDate': '2027-01-21'},
+        headers: {'Idempotency-Key': 'rebind-4'},
+      );
+      expect(
+        (attached.statusCode, body(attached)['code']),
+        (409, 'VOUCHER_NOT_USABLE'),
+        reason: 'a voucher attached to a request moves through the venue\'s counter-offer, not by itself',
+      );
     });
 
     test('extras carry a quantity: a quote prices it, a quantity above the extra\'s maximum is refused', () async {
       final a = w.actor('reem');
       final section = {'hallId': 'V01-danah', 'audience': 'women', 'guests': 350, 'packageId': 'V01-ladies-weekend'};
-      Future<Response<Object?>> quote(List<Map<String, Object?>> extras) => raw(a, 'POST', '/venues/V01/quotes', data: {'eventDate': '2027-01-14', 'sections': [section], 'extras': extras});
+      Future<Response<Object?>> quote(List<Map<String, Object?>> extras) => raw(
+        a,
+        'POST',
+        '/venues/V01/quotes',
+        data: {
+          'eventDate': '2027-01-14',
+          'sections': [section],
+          'extras': extras,
+        },
+      );
       final base = body(await quote([]));
-      final two = body(await quote([{'extraId': 'V01-x-valet-staff', 'qty': 2}]));
-      final four = body(await quote([{'extraId': 'V01-x-valet-staff', 'qty': 4}]));
+      final two = body(
+        await quote([
+          {'extraId': 'V01-x-valet-staff', 'qty': 2},
+        ]),
+      );
+      final four = body(
+        await quote([
+          {'extraId': 'V01-x-valet-staff', 'qty': 4},
+        ]),
+      );
       int total(Json q) => ((q['totals'] as Map)['standardTotal'] as Map)['fils'] as int;
       final unit = (total(two) - total(base)) ~/ 2;
       expect(unit, greaterThan(0));
       expect(total(four) - total(base), unit * 4);
-      final tooMany = await quote([{'extraId': 'V01-x-valet-staff', 'qty': 5}]);
+      final tooMany = await quote([
+        {'extraId': 'V01-x-valet-staff', 'qty': 5},
+      ]);
       expect(tooMany.statusCode, 422);
       expect(((body(tooMany)['errors'] as List).first as Map)['path'], '/extras/0/qty');
-      expect((await quote([{'extraId': 'V05-x-hour', 'qty': 1}])).statusCode, 422, reason: 'an extra of another venue');
-      expect((await quote([{'extraId': 'V01-x-kosha', 'qty': 0}])).statusCode, 422);
+      expect(
+        (await quote([
+          {'extraId': 'V05-x-hour', 'qty': 1},
+        ])).statusCode,
+        422,
+        reason: 'an extra of another venue',
+      );
+      expect(
+        (await quote([
+          {'extraId': 'V01-x-kosha', 'qty': 0},
+        ])).statusCode,
+        422,
+      );
     });
   });
 
@@ -191,13 +268,23 @@ void main() {
       expect(inv['invitedByName'], {'en': 'Khalid Al-Otaibi', 'ar': 'خالد العتيبي'});
       final sara = (list['staff'] as List).cast<Map<String, dynamic>>().firstWhere((s) => s['id'] == 'staff-sara');
       expect((sara['invitedByName'] as Map)['ar'], 'خالد العتيبي');
-      final fresh = body(await raw(khalid, 'POST', '/partner/staff-invitations', data: {'email': 'new.person@aurelia-gulf.example', 'role': 'reception'}, headers: {'Idempotency-Key': 'inv-1'}));
+      final fresh = body(
+        await raw(
+          khalid,
+          'POST',
+          '/partner/staff-invitations',
+          data: {'email': 'new.person@aurelia-gulf.example', 'role': 'reception'},
+          headers: {'Idempotency-Key': 'inv-1'},
+        ),
+      );
       expect(fresh['invitedByName'], {'en': 'Khalid Al-Otaibi', 'ar': 'خالد العتيبي'});
     });
 
     test('partner notifications of the same minute come out in the web\'s order (Fatima before Faisal at 11:00)', () async {
       final hind = w.actor('hotel_manager', venueId: 'V01');
-      final ids = [for (final n in (body(await raw(hind, 'GET', '/notifications', query: {'limit': 50}))['items'] as List).cast<Map<String, dynamic>>()) n['id']];
+      final ids = [
+        for (final n in (body(await raw(hind, 'GET', '/notifications', query: {'limit': 50}))['items'] as List).cast<Map<String, dynamic>>()) n['id'],
+      ];
       expect(ids.indexOf('ntf-h-03'), lessThan(ids.indexOf('ntf-h-10')));
     });
   });

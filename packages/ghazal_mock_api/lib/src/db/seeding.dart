@@ -89,8 +89,24 @@ void _applyMockOverlay(MockDb db, SeedData seed) {
   final hero = seed.extra.list('personas').cast<Json?>().firstWhere((p) => p!['key'] == 'hotel_manager', orElse: () => null);
   if (sister != null && hero != null) {
     final id = sister.str('id');
-    db.put('PartnerAccount', {'id': 'partner-$id', 'type': 'venue', 'name': sister['name'], 'venueIds': [id], 'providerId': null, 'ownerUserId': null, 'feeExempt': true, 'status': 'active', 'createdAt': '2026-06-01T09:00:00+03:00'});
-    db.put('Membership', {'id': '${hero.str('userId')}|$id', 'userId': hero['userId'], 'venueId': id, 'role': sister['role'], 'pendingRequests': sister['pending']});
+    db.put('PartnerAccount', {
+      'id': 'partner-$id',
+      'type': 'venue',
+      'name': sister['name'],
+      'venueIds': [id],
+      'providerId': null,
+      'ownerUserId': null,
+      'feeExempt': true,
+      'status': 'active',
+      'createdAt': '2026-06-01T09:00:00+03:00',
+    });
+    db.put('Membership', {
+      'id': '${hero.str('userId')}|$id',
+      'userId': hero['userId'],
+      'venueId': id,
+      'role': sister['role'],
+      'pendingRequests': sister['pending'],
+    });
   }
 }
 
@@ -101,15 +117,20 @@ void _deriveMedia(MockDb db) {
     final gallery = v.list('gallery');
     final coverFile = v.objOrNull('cover')?['file'];
     var order = 0;
+    // The hero venue's story (web HL-VENU-01): two photos wait for review (`processing`), the last upload was not approved (`rejected`).
+    final hero = id == 'V01';
     for (final g in gallery) {
       order++;
-      final image = {for (final e in g.entries) if (e.key != 'zone' && e.key != 'hallId') e.key: e.value};
+      final image = {
+        for (final e in g.entries)
+          if (e.key != 'zone' && e.key != 'hallId') e.key: e.value,
+      };
       db.put('MediaItem', {
         'id': 'media-$id-$order',
         'kind': 'photo',
         'zone': g['zone'],
         'hallId': g['hallId'],
-        'status': 'ready',
+        'status': hero && (order == 16 || order == 18) ? 'processing' : (hero && order == gallery.length ? 'rejected' : 'ready'),
         'sizeBytes': 380000 + order * 1337,
         'isCover': g['file'] == coverFile && order == gallery.indexWhere((x) => x['file'] == coverFile) + 1,
         'order': order,
@@ -119,21 +140,33 @@ void _deriveMedia(MockDb db) {
       });
     }
     if (v.flag('hasVideo')) {
-      order++;
-      db.put('MediaItem', {
-        'id': 'media-$id-video',
-        'kind': 'video',
-        'zone': 'hall',
-        'hallId': null,
-        'status': 'ready',
-        'sizeBytes': 48000000,
-        'durationSeconds': 62,
-        'isCover': false,
-        'order': order,
-        'createdAt': '2026-06-02T10:30:00+03:00',
-        'image': null,
-        '_venueId': id,
-      });
+      // posters: the first hall photo, then the first stage photo (the hero venue has two clips: 14 s and 9 s)
+      Json poster(String zone) {
+        final g = gallery.firstWhere((x) => x['zone'] == zone, orElse: () => gallery.first);
+        return {
+          for (final e in g.entries)
+            if (e.key != 'zone' && e.key != 'hallId') e.key: e.value,
+        };
+      }
+
+      final clips = hero ? [('hall', 14), ('stage_kosha', 9)] : [('hall', 62)];
+      for (var i = 0; i < clips.length; i++) {
+        order++;
+        db.put('MediaItem', {
+          'id': i == 0 ? 'media-$id-video' : 'media-$id-video${i + 1}',
+          'kind': 'video',
+          'zone': clips[i].$1,
+          'hallId': null,
+          'status': 'ready',
+          'sizeBytes': 48000000,
+          'durationSeconds': clips[i].$2,
+          'isCover': false,
+          'order': order,
+          'createdAt': '2026-06-02T10:30:00+03:00',
+          'image': gallery.isEmpty ? null : poster(clips[i].$1),
+          '_venueId': id,
+        });
+      }
     }
   }
 }

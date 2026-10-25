@@ -8,7 +8,12 @@ import 'package:ghazal_domain/ghazal_domain.dart';
 import 'harness.dart';
 
 Future<Response<Object?>> raw(Actor a, String method, String path, {Object? data, Map<String, Object?>? headers, Map<String, Object?>? query}) =>
-    a.dio.request<Object?>(path, data: data, queryParameters: query, options: Options(method: method, headers: headers, validateStatus: (_) => true));
+    a.dio.request<Object?>(
+      path,
+      data: data,
+      queryParameters: query,
+      options: Options(method: method, headers: headers, validateStatus: (_) => true),
+    );
 
 void main() {
   late World w;
@@ -17,13 +22,27 @@ void main() {
   test('offline: the in-process adapter throws a connection error, the client reports ApiProblem.offline', () async {
     final a = w.actor('guest');
     await expectLater(
-      a.client.dio.post<Object?>('/auth/otp/request', data: {'phone': '+96550000012', 'purpose': 'login'}, options: Options(headers: {'X-Mock-Scenario': 'offline'})),
+      a.client.dio.post<Object?>(
+        '/auth/otp/request',
+        data: {'phone': '+96550000012', 'purpose': 'login'},
+        options: Options(headers: {'X-Mock-Scenario': 'offline'}),
+      ),
       throwsA(isA<DioException>().having((e) => e.type, 'type', DioExceptionType.connectionError)),
     );
     w.control.setScenario('offline');
-    await expectLater(a.repos.auth.requestOtp(body: const OtpRequestInput(phone: '+96550000012', purpose: OtpPurpose.login)), throwsA(isA<ApiProblem>().having((e) => e.code, 'code', ApiProblemCode.offline)));
+    await expectLater(
+      a.repos.auth.requestOtp(
+        body: const OtpRequestInput(phone: '+96550000012', purpose: OtpPurpose.login),
+      ),
+      throwsA(isA<ApiProblem>().having((e) => e.code, 'code', ApiProblemCode.offline)),
+    );
     w.control.setScenario('none');
-    expect((await a.repos.auth.requestOtp(body: const OtpRequestInput(phone: '+96550000012', purpose: OtpPurpose.login))).codeLength, 6);
+    expect(
+      (await a.repos.auth.requestOtp(
+        body: const OtpRequestInput(phone: '+96550000012', purpose: OtpPurpose.login),
+      )).codeLength,
+      6,
+    );
   });
 
   test('error: every call fails with a 500 problem; empty: pages are empty; slow and latency: the call takes its time', () async {
@@ -53,7 +72,10 @@ void main() {
     expect(after.refreshToken, isNot(before.refreshToken));
     // a reused (rotated-out) refresh token ends the session
     final old = w.actor('guest');
-    await expectLater(old.repos.auth.refreshSession(body: RefreshInput(refreshToken: before.refreshToken)), throwsA(isA<ApiProblem>().having((e) => e.code, 'code', ApiProblemCode.sessionRevoked)));
+    await expectLater(
+      old.repos.auth.refreshSession(body: RefreshInput(refreshToken: before.refreshToken)),
+      throwsA(isA<ApiProblem>().having((e) => e.code, 'code', ApiProblemCode.sessionRevoked)),
+    );
     w.control.setScenario('none');
     await expectLater(a.repos.profile.getMe(), throwsA(isA<ApiProblem>().having((e) => e.code, 'code', ApiProblemCode.sessionRevoked)));
   });

@@ -76,10 +76,10 @@ class Req {
   int? qInt(String name) => int.tryParse(q(name) ?? '');
   num? qNum(String name) => num.tryParse(q(name) ?? '');
   bool? qBool(String name) => switch (q(name)) {
-        'true' => true,
-        'false' => false,
-        _ => null,
-      };
+    'true' => true,
+    'false' => false,
+    _ => null,
+  };
 
   /// A list parameter sent as repeated keys or comma-separated; empty list when absent.
   List<String> qList(String name) => [for (final v in query[name] ?? const <String>[]) ...v.split(',').where((s) => s.isNotEmpty)];

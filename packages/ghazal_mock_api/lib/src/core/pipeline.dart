@@ -3,6 +3,8 @@
 /// idempotency replay, the handler, problem+json on any [ApiError]. Used by the in-process adapter and the standalone server alike.
 library;
 
+import 'localize.dart';
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -49,13 +51,27 @@ const _noContextOps = {'getPartnerMe', 'chooseAccountType', 'switchPartnerContex
 
 /// Cross-app operations that serve a partner when a context header is present (chat, notifications, support).
 const _optionalContextOps = {
-  'listConversations', 'getConversation', 'listMessages', 'sendMessage', 'markConversationRead', 'setConversationPinned', 'saveReplyDraft', 'createAttachmentUpload',
-  'listNotifications', 'getUnreadNotificationCount', 'markNotificationRead', 'markAllNotificationsRead', 'getSupportConversation',
+  'listConversations',
+  'getConversation',
+  'listMessages',
+  'sendMessage',
+  'markConversationRead',
+  'setConversationPinned',
+  'saveReplyDraft',
+  'createAttachmentUpload',
+  'listNotifications',
+  'getUnreadNotificationCount',
+  'markNotificationRead',
+  'markAllNotificationsRead',
+  'getSupportConversation',
 };
 
 shelf.Handler buildHandler(MockApp app, Map<String, Handler> handlers) {
   final routes = [for (final r in app.seed.routes.list('routes')) _Route(r)];
-  final missing = [for (final r in routes) if (!handlers.containsKey(r.id)) r.id];
+  final missing = [
+    for (final r in routes)
+      if (!handlers.containsKey(r.id)) r.id,
+  ];
   if (missing.isNotEmpty) throw StateError('operations without a handler: ${missing.join(', ')}');
   final validator = SchemaValidator(app.seed.routes.obj('schemas'));
   final byId = {for (final r in routes) r.id: r};
@@ -82,10 +98,23 @@ Future<shelf.Response> _serve(MockApp app, _Route route, Handler handler, Schema
     final scenario = headers['x-mock-scenario'] ?? app.config.scenario;
     if (scenario == Scenario.offline) throw const MockOffline();
     final latencyHeader = int.tryParse(headers['x-mock-latency'] ?? '');
-    final latency = latencyHeader != null ? Duration(milliseconds: latencyHeader) : (scenario == Scenario.slow && app.config.latency == Duration.zero ? const Duration(milliseconds: 1500) : app.config.latency);
+    final latency = latencyHeader != null
+        ? Duration(milliseconds: latencyHeader)
+        : (scenario == Scenario.slow && app.config.latency == Duration.zero ? const Duration(milliseconds: 1500) : app.config.latency);
     if (latency > Duration.zero) await Future<void>.delayed(latency);
     if (scenario == Scenario.error) {
-      return shelf.Response(500, body: jsonEncode({'type': 'about:blank', 'title': 'Injected failure', 'status': 500, 'code': internalError, 'detail': 'X-Mock-Scenario: error', 'requestId': requestId}), headers: _problemHeaders);
+      return shelf.Response(
+        500,
+        body: jsonEncode({
+          'type': 'about:blank',
+          'title': 'Injected failure',
+          'status': 500,
+          'code': internalError,
+          'detail': 'X-Mock-Scenario: error',
+          'requestId': requestId,
+        }),
+        headers: _problemHeaders,
+      );
     }
     _checkAppVersion(app, headers['x-app-version']);
     sweep(app);
@@ -126,7 +155,11 @@ Future<shelf.Response> _serve(MockApp app, _Route route, Handler handler, Schema
       final fingerprint = '${route.id}|${jsonEncode(body)}|${req.pathParams}';
       if (prior != null) {
         if (prior['fingerprint'] != fingerprint) throw ApiError('IDEMPOTENCY_KEY_REUSED');
-        return _json(prior.integer('status'), prior['body'], {'idempotent-replayed': 'true', 'x-request-id': requestId, ...(prior['headers'] as Map).cast<String, String>()}, app.imageBase);
+        return _json(prior.integer('status'), prior['body'], {
+          'idempotent-replayed': 'true',
+          'x-request-id': requestId,
+          ...(prior['headers'] as Map).cast<String, String>(),
+        }, app.imageBase);
       }
       replayKey = '$replayKey\u0000$fingerprint';
     }
@@ -139,10 +172,16 @@ Future<shelf.Response> _serve(MockApp app, _Route route, Handler handler, Schema
       return shelf.Response(route.status, body: result.bytes, headers: {'content-type': result.contentType, ...out});
     }
     final status = route.status;
-    final bodyOut = route.returnsNothing ? null : payload;
+    final bodyOut = route.returnsNothing ? null : localizeNames(app, payload, req.lang, partner: route.isPartnerPath || req.partner != null);
     if (replayKey != null) {
       final parts = replayKey.split('\u0000');
-      app.db.put('Idempotency', {'id': parts[0], 'fingerprint': parts[1], 'status': status, 'body': bodyOut, 'headers': {for (final e in req.out.entries) e.key: e.value}}, id: parts[0]);
+      app.db.put('Idempotency', {
+        'id': parts[0],
+        'fingerprint': parts[1],
+        'status': status,
+        'body': bodyOut,
+        'headers': {for (final e in req.out.entries) e.key: e.value},
+      }, id: parts[0]);
     }
     return _json(status, bodyOut, out, app.imageBase);
   } on ApiError catch (e) {
@@ -154,20 +193,37 @@ Future<shelf.Response> _serve(MockApp app, _Route route, Handler handler, Schema
     rethrow;
   } catch (e, st) {
     app.logEvent('internal_error', {'operation': route.id, 'error': e.toString()});
-    return shelf.Response(500, body: jsonEncode({'type': 'about:blank', 'title': 'Mock internal error', 'status': 500, 'code': internalError, 'detail': '$e\n${st.toString().split('\n').take(6).join('\n')}', 'requestId': requestId}), headers: _problemHeaders);
+    return shelf.Response(
+      500,
+      body: jsonEncode({
+        'type': 'about:blank',
+        'title': 'Mock internal error',
+        'status': 500,
+        'code': internalError,
+        'detail': '$e\n${st.toString().split('\n').take(6).join('\n')}',
+        'requestId': requestId,
+      }),
+      headers: _problemHeaders,
+    );
   }
 }
 
-shelf.Response _json(int status, Object? body, Map<String, String> headers, [String imageBase = defaultImageBase]) =>
-    shelf.Response(status, body: body == null || status == 204 ? null : _encode(body, imageBase), headers: {if (body != null && status != 204) ..._jsonHeaders, ...headers});
+shelf.Response _json(int status, Object? body, Map<String, String> headers, [String imageBase = defaultImageBase]) => shelf.Response(
+  status,
+  body: body == null || status == 204 ? null : _encode(body, imageBase),
+  headers: {if (body != null && status != 204) ..._jsonHeaders, ...headers},
+);
 
 String _encode(Object body, String imageBase) {
   final text = jsonEncode(body);
   return imageBase == defaultImageBase ? text : text.replaceAll(defaultImageBase, imageBase);
 }
 
-shelf.Response _problem(ApiError e, String? requestId) => shelf.Response(e.status,
-    body: jsonEncode(e.toJson(requestId: requestId)), headers: {..._problemHeaders, if (e.retryAfterSeconds != null) 'retry-after': '${e.retryAfterSeconds}', 'x-request-id': ?requestId});
+shelf.Response _problem(ApiError e, String? requestId) => shelf.Response(
+  e.status,
+  body: jsonEncode(e.toJson(requestId: requestId)),
+  headers: {..._problemHeaders, if (e.retryAfterSeconds != null) 'retry-after': '${e.retryAfterSeconds}', 'x-request-id': ?requestId},
+);
 
 void _checkAppVersion(MockApp app, String? version) {
   if (version == null) return;
@@ -201,18 +257,25 @@ void _resolvePartner(MockApp app, _Route route, Req req, Map<String, String> hea
   final id = req.identity;
   final venueHeader = headers['x-venue-id'];
   final providerHeader = headers['x-provider-id'];
-  final wants = (route.isPartnerPath && !_noContextOps.contains(route.id)) || (_optionalContextOps.contains(route.id) && (venueHeader != null || providerHeader != null));
+  final wants =
+      (route.isPartnerPath && !_noContextOps.contains(route.id)) || (_optionalContextOps.contains(route.id) && (venueHeader != null || providerHeader != null));
   if (route.isPartnerPath && id != null && !id.isPartner) throw ApiError.forbidden('partner account required');
   if (!wants || id == null) return;
   final memberships = app.membershipsOf(id.userId);
   Membership? m;
   if (venueHeader != null || providerHeader != null) {
-    m = memberships.cast<Membership?>().firstWhere((x) => (venueHeader != null && x!.venueId == venueHeader) || (providerHeader != null && x!.providerId == providerHeader), orElse: () => null);
+    m = memberships.cast<Membership?>().firstWhere(
+      (x) => (venueHeader != null && x!.venueId == venueHeader) || (providerHeader != null && x!.providerId == providerHeader),
+      orElse: () => null,
+    );
     if (m == null) throw ApiError.forbidden('no membership for this context');
   } else {
     final ctx = app.db.peek('Session', id.sessionId)?.objOrNull('context');
     if (ctx != null) {
-      m = memberships.cast<Membership?>().firstWhere((x) => x!.accountId == ctx['accountId'] && x.venueId == ctx['venueId'] && x.providerId == ctx['providerId'], orElse: () => null);
+      m = memberships.cast<Membership?>().firstWhere(
+        (x) => x!.accountId == ctx['accountId'] && x.venueId == ctx['venueId'] && x.providerId == ctx['providerId'],
+        orElse: () => null,
+      );
     }
     m ??= memberships.length == 1 ? memberships.first : null;
     if (m == null) throw ApiError('VENUE_CONTEXT_REQUIRED');
@@ -264,7 +327,17 @@ Object? _emptied(String operationId, Object? result) {
     final m = result.cast<String, dynamic>();
     if (m.containsKey('items') && m['items'] is List) return {...m, 'items': const [], 'nextCursor': null};
     const keys = {'shelves', 'needsYou', 'events', 'windows', 'listings', 'staff', 'invitations', 'nearestFreeDates', 'halls', 'dates', 'slots'};
-    if (const {'getHome', 'getPartnerToday', 'listVoucherWindows', 'listListings', 'listStaff', 'listPartnerHalls', 'listVisitDates', 'listVisitSlots', 'getVenueAvailability'}.contains(operationId)) {
+    if (const {
+      'getHome',
+      'getPartnerToday',
+      'listVoucherWindows',
+      'listListings',
+      'listStaff',
+      'listPartnerHalls',
+      'listVisitDates',
+      'listVisitSlots',
+      'getVenueAvailability',
+    }.contains(operationId)) {
       return {for (final e in m.entries) e.key: keys.contains(e.key) && e.value is List ? const [] : e.value};
     }
   }

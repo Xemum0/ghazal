@@ -199,7 +199,10 @@ List<String> nearestFreeDates(EngineData e, Json brief, {int count = 3}) {
   final around = brief['date'] as String?;
   if (around == null || around.isEmpty) return [];
   final today = kuwaitDateOf(e.now);
-  final ids = [for (final r in searchResults(e, brief, const {})) if (r.obj('venue')['channel'] != 'external_link') r.obj('venue').str('id')];
+  final ids = [
+    for (final r in searchResults(e, brief, const {}))
+      if (r.obj('venue')['channel'] != 'external_link') r.obj('venue').str('id'),
+  ];
   final out = <({String date, int gap})>[];
   for (var k = 1; k <= 21; k++) {
     for (final sign in const [1, -1]) {
@@ -218,7 +221,8 @@ List<String> nearestFreeDates(EngineData e, Json brief, {int count = 3}) {
 bool _notGovernment(Json r) => r.obj('venue')['channel'] != 'external_link';
 
 /// The Home shelves for a Brief: `free`, `featured` (one row or null), `voucher`, `week` ([{row, date}]), `recommended`, `trending`, `nearby`.
-({List<Json> free, Json? featured, List<Json> voucher, List<({Json row, String date})> week, List<Json> recommended, List<Json> trending, List<Json> nearby}) shelves(EngineData e, Json brief) {
+({List<Json> free, Json? featured, List<Json> voucher, List<({Json row, String date})> week, List<Json> recommended, List<Json> trending, List<Json> nearby})
+shelves(EngineData e, Json brief) {
   final areas = ((brief['areaIds'] as List?) ?? const []).cast<String>();
   final all = e.listVenues({'origin': areas.isNotEmpty ? 'ref-${areas.first}' : 'ref-salmiya'}, brief);
   bool inAreas(Json r) => areas.isEmpty || areas.contains(r.obj('venue')['areaId']);
@@ -228,7 +232,9 @@ bool _notGovernment(Json r) => r.obj('venue')['channel'] != 'external_link';
 
   // Featured: the first paid placement that is not already booked on the date.
   final pool = all.where((r) => r.obj('venue').obj('flags').flag('featured')).toList();
-  final featured = pool.isEmpty ? null : stableSorted(pool, (a, b) => (b['availability'] != 'unavailable' ? 1 : 0) - (a['availability'] != 'unavailable' ? 1 : 0)).first;
+  final featured = pool.isEmpty
+      ? null
+      : stableSorted(pool, (a, b) => (b['availability'] != 'unavailable' ? 1 : 0) - (a['availability'] != 'unavailable' ? 1 : 0)).first;
   if (featured != null) used.add(featured.obj('venue').str('id'));
 
   bool open(Json r) => _notGovernment(r) && r['availability'] != 'unavailable';
@@ -236,11 +242,24 @@ bool _notGovernment(Json r) => r.obj('venue')['channel'] != 'external_link';
   for (final r in recommended) {
     used.add(r.obj('venue').str('id'));
   }
-  final trending = stableSorted(all.where((r) => open(r) && !used.contains(r.obj('venue')['id'])), (a, b) => b.obj('venue').obj('rating').integer('count') - a.obj('venue').obj('rating').integer('count')).take(4).toList();
-  final nearby = stableSorted(all.where((r) => _notGovernment(r) && r['distance'] != null), (a, b) => ((a.obj('distance')['minutes'] as num?) ?? 0).toInt() - ((b.obj('distance')['minutes'] as num?) ?? 0).toInt()).take(3).toList();
+  final trending = stableSorted(
+    all.where((r) => open(r) && !used.contains(r.obj('venue')['id'])),
+    (a, b) => b.obj('venue').obj('rating').integer('count') - a.obj('venue').obj('rating').integer('count'),
+  ).take(4).toList();
+  final nearby = stableSorted(
+    all.where((r) => _notGovernment(r) && r['distance'] != null),
+    (a, b) => ((a.obj('distance')['minutes'] as num?) ?? 0).toInt() - ((b.obj('distance')['minutes'] as num?) ?? 0).toInt(),
+  ).take(3).toList();
 
   final voucher = stableSorted(
-    all.where((r) => _notGovernment(r) && r['price'] != null && r.obj('price')['voucher'] != null && r.obj('price')['savings'] != null && filsOf(r.obj('price').obj('savings')) > e.fee),
+    all.where(
+      (r) =>
+          _notGovernment(r) &&
+          r['price'] != null &&
+          r.obj('price')['voucher'] != null &&
+          r.obj('price')['savings'] != null &&
+          filsOf(r.obj('price').obj('savings')) > e.fee,
+    ),
     (a, b) => filsOf(b.obj('price').obj('savings')) - filsOf(a.obj('price').obj('savings')),
   ).take(4).toList();
 
@@ -265,7 +284,12 @@ List<({Json row, String date})> _weekShelf(EngineData e, Json brief) {
       }
     }
     if (date == null) continue;
-    final rows = perDate[date] ??= e.listVenues(const {}, {'date': date, 'guests': guests, 'audience': audience, 'areaIds': brief['areaIds'] ?? const <String>[]});
+    final rows = perDate[date] ??= e.listVenues(const {}, {
+      'date': date,
+      'guests': guests,
+      'audience': audience,
+      'areaIds': brief['areaIds'] ?? const <String>[],
+    });
     final row = rows.cast<Json?>().firstWhere((r) => r!.obj('venue')['id'] == v['id'], orElse: () => null);
     if (row != null) out.add((row: row, date: date));
   }
@@ -284,7 +308,10 @@ Set<String> shelfIds(EngineData e, String shelf, Json brief) {
     case 'free':
       return s.free.map(id).toSet();
     case 'featured':
-      return {for (final v in e.venues) if (v.obj('flags').flag('featured')) v.str('id')};
+      return {
+        for (final v in e.venues)
+          if (v.obj('flags').flag('featured')) v.str('id'),
+      };
     case 'voucher':
       return e.listVenues({'voucherOnly': true}, brief).where((r) => r['price'] != null && r.obj('price')['voucher'] != null).map(id).toSet();
     case 'week':
@@ -292,7 +319,10 @@ Set<String> shelfIds(EngineData e, String shelf, Json brief) {
     case 'recommended':
       return s.recommended.map(id).toSet();
     default: // trending, nearby
-      return {for (final v in e.venues) if (v['channel'] != 'external_link') v.str('id')};
+      return {
+        for (final v in e.venues)
+          if (v['channel'] != 'external_link') v.str('id'),
+      };
   }
 }
 
@@ -316,12 +346,16 @@ List<Json> regionMatches(EngineData e, String query) {
   }
   for (final g in groups) {
     final n = g.governorate.obj('name');
-    if (hit([n.strOrNull('en'), n.strOrNull('ar')])) out.add({'kind': 'governorate', 'id': g.governorate['id'], 'name': n, 'governorateId': g.governorate['id'], 'venueCount': g.count});
+    if (hit([n.strOrNull('en'), n.strOrNull('ar')])) {
+      out.add({'kind': 'governorate', 'id': g.governorate['id'], 'name': n, 'governorateId': g.governorate['id'], 'venueCount': g.count});
+    }
   }
   for (final g in groups) {
     for (final a in g.areas) {
       final n = a.obj('name');
-      if (hit([n.strOrNull('en'), n.strOrNull('ar'), ...a.strings('aliases')])) out.add({'kind': 'area', 'id': a['id'], 'name': n, 'governorateId': a['governorateId'], 'venueCount': perArea[a.str('id')] ?? 0});
+      if (hit([n.strOrNull('en'), n.strOrNull('ar'), ...a.strings('aliases')])) {
+        out.add({'kind': 'area', 'id': a['id'], 'name': n, 'governorateId': a['governorateId'], 'venueCount': perArea[a.str('id')] ?? 0});
+      }
     }
   }
   for (final v in e.venues) {
@@ -334,5 +368,11 @@ List<Json> regionMatches(EngineData e, String query) {
 bool _venueNameMatches(EngineData e, Json v, String needle) {
   final a = e.area(v.str('areaId'));
   final n = v.obj('name');
-  return [n.strOrNull('en'), n.strOrNull('ar'), a?.obj('name').strOrNull('en'), a?.obj('name').strOrNull('ar'), ...(a?.strings('aliases') ?? const <String>[])].any((t) => foldSearch(t ?? '').contains(needle));
+  return [
+    n.strOrNull('en'),
+    n.strOrNull('ar'),
+    a?.obj('name').strOrNull('en'),
+    a?.obj('name').strOrNull('ar'),
+    ...(a?.strings('aliases') ?? const <String>[]),
+  ].any((t) => foldSearch(t ?? '').contains(needle));
 }

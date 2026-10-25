@@ -35,7 +35,14 @@ String actorName(Req r) {
 /// Opens a session for the user and returns the `AuthSession` JSON.
 Json authSession(MockApp app, String userId, {bool isNew = false, String? deviceId}) {
   final t = app.openSession(userId, deviceId: deviceId);
-  return {'accessToken': t['accessToken'], 'refreshToken': t['refreshToken'], 'tokenType': 'Bearer', 'expiresInSeconds': 600, 'isNewUser': isNew, 'user': meOf(app, userId)};
+  return {
+    'accessToken': t['accessToken'],
+    'refreshToken': t['refreshToken'],
+    'tokenType': 'Bearer',
+    'expiresInSeconds': 600,
+    'isNewUser': isNew,
+    'user': meOf(app, userId),
+  };
 }
 
 /// The partner account JSON of the active context.
