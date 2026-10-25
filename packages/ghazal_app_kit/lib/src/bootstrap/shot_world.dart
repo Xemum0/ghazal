@@ -16,9 +16,12 @@ import '../session/session_types.dart';
 
 /// The persona a screen is shot as (the rule of `tools/parity/ref-shots.mjs` `storyFor`, so a Flutter shot and its web reference show the
 /// same person): Reem, signed in, for every client screen except onboarding and auth (a first-time guest); the hotel manager (venue V01) for
-/// every partner screen except access (a guest). [override] (`SHOT_PERSONA`) wins when given.
+/// every partner screen except access (a guest), the service provider for the provider module (`HL-PROV-*`), and the hotel admin for the two
+/// settings screens the web frames draw as Admin (`HL-SETT-03`, `HL-SETT-05`). [override] (`SHOT_PERSONA`) wins when given.
 String gzShotPersona(String screenId, {String? override}) {
   if (override != null && override.isNotEmpty) return override;
+  if (screenId.startsWith('HL-PROV-')) return 'provider';
+  if (screenId == 'HL-SETT-03' || screenId == 'HL-SETT-05') return 'hotel_admin';
   if (screenId.startsWith('HL-')) return screenId.startsWith('HL-ACCS-') ? 'guest' : 'hotel_manager';
   return RegExp(r'^CL-(ONBD|AUTH)-').hasMatch(screenId) ? 'guest' : 'reem';
 }

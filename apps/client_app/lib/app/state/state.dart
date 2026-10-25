@@ -3,6 +3,7 @@
 library;
 
 export 'action_result.dart';
+export 'app_config.dart';
 export 'booking_draft.dart';
 export 'client_scope.dart' show clientUserIdProvider;
 export 'compare.dart';

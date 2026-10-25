@@ -6728,6 +6728,37 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
+  String clientServicesProvidersCount(int count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '⁦$countString⁩ مقدّم خدمة',
+      many: '⁦$countString⁩ مقدّم خدمة',
+      few: '⁦$countString⁩ مقدّمي خدمات',
+      two: 'مقدّما خدمة',
+      one: 'مقدّم خدمة واحد',
+      zero: 'لا مقدّمي خدمات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String clientServicesOpenCategory(String name) {
+    return 'افتحوا $name';
+  }
+
+  @override
+  String clientServicesHubFromPlanner(String price) {
+    return 'ابتداءً من $price';
+  }
+
+  @override
+  String get clientServicesListRefreshed => 'تم تحديث القائمة';
+
+  @override
   String get clientShellTabBarLabel => 'التنقل الرئيسي';
 
   @override

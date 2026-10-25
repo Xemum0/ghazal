@@ -22,6 +22,7 @@ class GzTextField extends StatefulWidget {
     this.onValueChange,
     this.onSubmitted,
     this.dir = GzFieldDir.auto,
+    this.lang,
     this.textAlign,
     this.startAdornment,
     this.endAdornment,
@@ -56,6 +57,9 @@ class GzTextField extends StatefulWidget {
   final ValueChanged<String>? onValueChange;
   final ValueChanged<String>? onSubmitted;
   final GzFieldDir dir;
+
+  /// Language code of the value (web `lang`): sets the value in that language's body voice.
+  final String? lang;
 
   /// Overrides the alignment of the value. Default: the start edge of the text's own direction; an LTR island ([GzFieldDir.ltr]) in
   /// Arabic sits at the screen's start edge (the right). The web email field of the partner sign-in aligns its LTR value to the
@@ -158,6 +162,7 @@ class _GzTextFieldState extends State<GzTextField> {
         placeholder: w.placeholder,
         disabled: w.disabled,
         dir: w.dir,
+        lang: w.lang,
         textAlign: w.textAlign,
         keyboardType: w.keyboardType,
         textInputAction: w.textInputAction,

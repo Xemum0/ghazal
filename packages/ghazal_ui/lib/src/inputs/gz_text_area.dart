@@ -25,6 +25,7 @@ class GzTextArea extends StatefulWidget {
     this.maxRows = 8,
     this.maxLength,
     this.dir = GzFieldDir.auto,
+    this.lang,
     this.inputFormatters = const [],
     this.focusNode,
     this.autofocus = false,
@@ -49,6 +50,9 @@ class GzTextArea extends StatefulWidget {
   final int maxRows;
   final int? maxLength;
   final GzFieldDir dir;
+
+  /// Language code of the value (web `lang`): sets the value in that language's body voice.
+  final String? lang;
   final List<TextInputFormatter> inputFormatters;
   final FocusNode? focusNode;
   final bool autofocus;
@@ -110,6 +114,7 @@ class _GzTextAreaState extends State<GzTextArea> {
         placeholder: w.placeholder,
         disabled: w.disabled,
         dir: w.dir,
+        lang: w.lang,
         keyboardType: TextInputType.multiline,
         textInputAction: TextInputAction.newline,
         textCapitalization: TextCapitalization.sentences,

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ghazal_ui/ghazal_ui.dart' show GzSkeleton;
 import 'package:path/path.dart' as p;
 
 import 'fonts.dart';
@@ -35,7 +36,16 @@ String? get _personaOverride {
 
 /// One shot to take: the screen, its router location, the language and width, the `SHOT_STATE` ('' for none) and the persona override.
 class GzShotCase {
-  const GzShotCase({required this.id, required this.path, required this.lang, required this.width, required this.state, this.persona, this.story, this.params});
+  const GzShotCase({
+    required this.id,
+    required this.path,
+    required this.lang,
+    required this.width,
+    required this.state,
+    this.persona,
+    this.story,
+    this.params,
+  });
 
   final String id;
   final String path;
@@ -174,4 +184,13 @@ Future<void> _settleWorld(WidgetTester tester, Future<void> Function()? flush) a
     }
   }
   await GzHarness.settle(tester);
+  // skeleton to content fades: wait (bounded, 3 s) until no skeleton is on screen, then let the cross-fade finish. A screen that
+  // never leaves its skeleton runs to the bound and is still reported by the health capture (stuck skeleton).
+  var waited = 0;
+  while (find.byType(GzSkeleton).evaluate().isNotEmpty && waited < 30) {
+    await tester.pump(const Duration(milliseconds: 100));
+    waited++;
+  }
+  // the content that replaced the skeleton brings its own images and entry animations: decode them (real time) and let the reveals end
+  if (waited > 0 && waited < 30) await GzHarness.settle(tester);
 }

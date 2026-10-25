@@ -41,6 +41,7 @@ class GzHotelMonthGrid extends StatefulWidget {
     this.range = GzDateRange.empty,
     this.onRangeChange,
     this.legend = true,
+    this.head = true,
     super.key,
   });
 
@@ -65,6 +66,9 @@ class GzHotelMonthGrid extends StatefulWidget {
   final GzDateRange range;
   final ValueChanged<GzDateRange>? onRangeChange;
   final bool legend;
+
+  /// The month title and arrows row. Off when the screen draws its own period header (drive the month through [month]).
+  final bool head;
 
   @override
   State<GzHotelMonthGrid> createState() => _GzHotelMonthGridState();
@@ -324,12 +328,14 @@ class _GzHotelMonthGridState extends State<GzHotelMonthGrid> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          GzHotelCalHead(
-            title: GzText(title, role: GzTextRole.uiTitle, color: c.textStrong),
-            onPrevious: () => _setMonth(gzAddMonths(ym, -1)),
-            onNext: () => _setMonth(gzAddMonths(ym, 1)),
-          ),
-          const SizedBox(height: GzSpace.s3),
+          if (widget.head) ...[
+            GzHotelCalHead(
+              title: GzText(title, role: GzTextRole.uiTitle, color: c.textStrong),
+              onPrevious: () => _setMonth(gzAddMonths(ym, -1)),
+              onNext: () => _setMonth(gzAddMonths(ym, 1)),
+            ),
+            const SizedBox(height: GzSpace.s3),
+          ],
           Row(children: [for (var i = 0; i < 7; i++) headCell(i)]),
           KeyedSubtree(key: ValueKey(monthKey), child: rows),
           if (widget.legend) ...[const SizedBox(height: GzSpace.s3), const _HcLegend()],

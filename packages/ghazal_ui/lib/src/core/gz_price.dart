@@ -24,6 +24,7 @@ class GzPrice extends StatelessWidget {
     this.unit,
     this.was,
     this.prefix,
+    this.wrap = false,
     super.key,
   });
 
@@ -38,6 +39,10 @@ class GzPrice extends StatelessWidget {
 
   /// Leading text such as "From" (the formatter owns the wording; pass the string).
   final String? prefix;
+
+  /// Stack the struck [was] price under the price (the web `.gz-price` wraps it in a narrow compare cell); prefix and unit are not
+  /// drawn then. Default is one line.
+  final bool wrap;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +71,24 @@ class GzPrice extends StatelessWidget {
       struck = '${p.integer}${p.fraction}';
     }
     const gap = SizedBox(width: GzSpace.s2);
+    final struckText = struck;
+    if (wrap && struckText != null) {
+      // Stacked (the struck price under the price, as the web wraps it in a narrow cell); each line shrinks to the width it is given, so it
+      // never overflows under a larger text scale. No LayoutBuilder: this sits inside intrinsic-height rows.
+      Widget fit(Widget child) => FittedBox(fit: BoxFit.scaleDown, alignment: AlignmentDirectional.centerStart, child: child);
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          fit(GzMoney(fils: fils, mode: mode, amountRole: role, filsRole: fils0)),
+          fit(
+            ExcludeSemantics(
+              child: gzFigText(context, struckText, role: GzTextRole.figCaption, color: c.textSecondary, decoration: TextDecoration.lineThrough),
+            ),
+          ),
+        ],
+      );
+    }
     return Row(
       mainAxisSize: MainAxisSize.min,
       textBaseline: TextBaseline.alphabetic,

@@ -3398,6 +3398,32 @@
       }
     }
   },
+  "clientServicesProvidersCount": "{count, plural, =0{No providers} one{{count} provider} other{{count} providers}}",
+  "@clientServicesProvidersCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientServicesOpenCategory": "Open {name}",
+  "@clientServicesOpenCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesHubFromPlanner": "From {price}",
+  "@clientServicesHubFromPlanner": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesListRefreshed": "List updated",
   "clientShellTabBarLabel": "Main navigation",
   "clientShellTabDiscover": "Discover",
   "clientShellTabSaved": "Saved",

@@ -11300,6 +11300,30 @@ abstract class AppL10n {
   /// **'{vendor} will answer in Messages. Once they accept, you have {hours} to confirm.'**
   String clientServicesQuoteVoucherSuccessBody(String vendor, String hours);
 
+  /// No description provided for @clientServicesProvidersCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No providers} one{{count} provider} other{{count} providers}}'**
+  String clientServicesProvidersCount(int count);
+
+  /// No description provided for @clientServicesOpenCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Open {name}'**
+  String clientServicesOpenCategory(String name);
+
+  /// No description provided for @clientServicesHubFromPlanner.
+  ///
+  /// In en, this message translates to:
+  /// **'From {price}'**
+  String clientServicesHubFromPlanner(String price);
+
+  /// No description provided for @clientServicesListRefreshed.
+  ///
+  /// In en, this message translates to:
+  /// **'List updated'**
+  String get clientServicesListRefreshed;
+
   /// No description provided for @clientShellTabBarLabel.
   ///
   /// In en, this message translates to:

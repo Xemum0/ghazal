@@ -1454,6 +1454,42 @@ class GzL10nEn extends GzL10n {
   }
 
   @override
+  String get uiClientCompareDiffOnly => 'Differences';
+
+  @override
+  String get uiClientCompareDiffAll => 'All';
+
+  @override
+  String get uiClientCompareDiffLabel => 'Rows shown';
+
+  @override
+  String get uiClientCompareHowVoucher => 'With voucher';
+
+  @override
+  String get uiClientCompareHowStandard => 'Standard only';
+
+  @override
+  String get uiClientCompareRowHow => 'How you book';
+
+  @override
+  String get uiClientCompareBarVoucher => 'Voucher';
+
+  @override
+  String get uiClientCompareBarDates => 'Dates';
+
+  @override
+  String get uiClientCompareBarOfficial => 'Official';
+
+  @override
+  String uiClientCompareDriveMinutes(int count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countString min', one: '$countString min');
+    return '$_temp0';
+  }
+
+  @override
   String uiClientChecklistDone(String done, String total) {
     return '$done of $total done';
   }

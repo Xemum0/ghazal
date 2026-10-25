@@ -13,13 +13,16 @@ String gzImageRefSrc(ImageRef ref) => ref.baseUrl ?? 'asset://ghazal_mock_api/im
 /// One column of the [GzCompareHeader]: a hall, its area name (already localised), one objective badge.
 @immutable
 class GzCompareHeaderColumn {
-  const GzCompareHeaderColumn({required this.venue, this.areaName, this.badge, this.unlisted = false});
+  const GzCompareHeaderColumn({required this.venue, this.areaName, this.badge, this.badgeIcon, this.unlisted = false});
 
   final VenueSummary venue;
   final String? areaName;
 
   /// One objective badge: Best rated, Lowest price, Closest.
   final String? badge;
+
+  /// With [badgeIcon] the badge is the glyph alone (the words are its accessible name): the compare grid's header.
+  final IconData? badgeIcon;
 
   /// The hall left the platform: the column reads "No longer listed" with Remove.
   final bool unlisted;
@@ -38,6 +41,7 @@ class GzCompareHeader extends StatelessWidget {
     this.nameLines = 2,
     this.onRemove,
     this.pinned = false,
+    this.bottomAlign = false,
     super.key,
   }) : assert(nameLines >= 2 && nameLines <= 4);
 
@@ -57,6 +61,10 @@ class GzCompareHeader extends StatelessWidget {
   final int nameLines;
   final ValueChanged<String>? onRemove;
   final bool pinned;
+
+  /// The name takes the free height so area and badge sit on one line across the thirds (the CompareGrid header; the badge slot keeps
+  /// its height when a hall has none).
+  final bool bottomAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -136,20 +144,33 @@ class _HeaderColumn extends StatelessWidget {
         children: [
           thumb,
           const SizedBox(height: GzSpace.s2),
-          // The web text block is as tall as its content (the name's `flex: 1 1 auto` has no free height to take): areas of halls with
-          // names of different lengths do not line up, and the column box (stretched by the row) just has room below.
-          Align(
-            alignment: AlignmentDirectional.topStart,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                nameWidget,
-                if (area != null) ...[const SizedBox(height: GzSpace.s1), GzText(area, role: GzTextRole.caption, color: c.textSecondary)],
-                if (badge != null) ...[const SizedBox(height: GzSpace.s1), _WrapBadge(label: badge)],
-              ],
+          if (header.bottomAlign)
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: Align(alignment: AlignmentDirectional.topStart, child: nameWidget)),
+                  if (area != null) ...[const SizedBox(height: GzSpace.s1), GzText(area, role: GzTextRole.caption, color: c.textSecondary)],
+                  const SizedBox(height: GzSpace.s1),
+                  if (badge != null) _WrapBadge(label: badge, icon: col.badgeIcon) else const SizedBox(height: GzSize.pillMin),
+                ],
+              ),
+            )
+          else
+            // The web text block is as tall as its content (the name's `flex: 1 1 auto` has no free height to take): areas of halls with
+            // names of different lengths do not line up, and the column box (stretched by the row) just has room below.
+            Align(
+              alignment: AlignmentDirectional.topStart,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  nameWidget,
+                  if (area != null) ...[const SizedBox(height: GzSpace.s1), GzText(area, role: GzTextRole.caption, color: c.textSecondary)],
+                  if (badge != null) ...[const SizedBox(height: GzSpace.s1), _WrapBadge(label: badge, icon: col.badgeIcon)],
+                ],
+              ),
             ),
-          ),
         ],
       ),
     );
@@ -266,13 +287,41 @@ class _Thumb extends StatelessWidget {
 /// The outline badge of the header: a 106 wide column wraps a long label to two lines instead of overflowing (the web
 /// `.gz-cmph__text .gz-badge { white-space: normal }`); otherwise the `GzBadge` outline anatomy.
 class _WrapBadge extends StatelessWidget {
-  const _WrapBadge({required this.label});
+  const _WrapBadge({required this.label, this.icon});
 
   final String label;
+
+  /// Glyph-only badge: the label becomes the accessible name.
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
     final c = context.gz.colors;
+    if (icon != null) {
+      return Align(
+        alignment: AlignmentDirectional.centerStart,
+        child: Semantics(
+          label: label,
+          excludeSemantics: true,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: GzRadius.xsAll,
+              border: Border.all(color: c.borderStrong, width: GzStroke.hair),
+            ),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: GzSize.pillMin),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s2 + GzStroke.hair, vertical: GzSpace.s1 + GzStroke.hair),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [GzIcon(icon!, size: GzIconSize.xs, color: c.iconAccent)],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: GzRadius.xsAll,

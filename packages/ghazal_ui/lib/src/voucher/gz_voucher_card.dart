@@ -60,6 +60,7 @@ class GzVoucherCard extends StatelessWidget {
     this.onCopy,
     this.onShowFull,
     this.ground,
+    this.centerStub = true,
     super.key,
   });
 
@@ -80,6 +81,10 @@ class GzVoucherCard extends StatelessWidget {
 
   /// The colour behind the card, which the perforation notches take (default canvas).
   final Color? ground;
+
+  /// `full` only, when the code wraps under the QR: centre the QR, the code and the validity (a ticket stub is one composition; the
+  /// web voucher and payment screens do it with a local override). `false` is the web system gallery, where the stub is start-aligned.
+  final bool centerStub;
 
   bool get _credit => voucher is CreditVoucher;
   bool get _live => _credit ? voucher.status == VoucherStatus.active : voucher.status == VoucherStatus.bound || voucher.status == VoucherStatus.active;
@@ -184,16 +189,17 @@ class GzVoucherCard extends StatelessWidget {
     final code = TextPainter(text: TextSpan(text: voucher.code, style: codeStyle), textDirection: TextDirection.ltr, maxLines: 1)..layout();
     final codeWidth = code.width;
     code.dispose();
-    final block = Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _leftToRight(_code(context)),
-        const SizedBox(height: GzSpace.s1),
-        Align(alignment: AlignmentDirectional.centerStart, child: _validityRow(until)),
-        _notValid(context),
-      ],
-    );
+    Widget blockOf({required bool stacked}) => Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Stacked under the QR the web stub centres its three lines (measured CL-VCHR-03: code 161 in 316 at x 77 from each edge).
+            stacked ? Center(child: GzLtr(child: _code(context))) : _leftToRight(_code(context)),
+            const SizedBox(height: GzSpace.s1),
+            Align(alignment: stacked ? Alignment.center : AlignmentDirectional.centerStart, child: _validityRow(until)),
+            _notValid(context),
+          ],
+        );
     final box = _qrBox(context, qr);
     return ExcludeSemantics(
       child: LayoutBuilder(
@@ -201,8 +207,12 @@ class GzVoucherCard extends StatelessWidget {
           final boxWidth = qr + 2 * (GzSpace.s2 + GzStroke.hair);
           final beside = boxWidth + GzSpace.s5 + codeWidth <= c.maxWidth;
           return beside
-              ? Row(crossAxisAlignment: CrossAxisAlignment.center, children: [box, const SizedBox(width: GzSpace.s5), Expanded(child: block)])
-              : Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [box, const SizedBox(height: GzSpace.s4), block]);
+              ? Row(crossAxisAlignment: CrossAxisAlignment.center, children: [box, const SizedBox(width: GzSpace.s5), Expanded(child: blockOf(stacked: false))])
+              : Column(
+                  crossAxisAlignment: centerStub ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [box, const SizedBox(height: GzSpace.s4), blockOf(stacked: centerStub)],
+                );
         },
       ),
     );

@@ -23,11 +23,21 @@ int gzPhotoVariantFor(double displayWidth, double devicePixelRatio) {
 ///   `asset://ghazal_mock_api/images/halls-01` reads `assets/images/halls-01_480.jpg` of the `ghazal_mock_api` package (the folder its
 ///   pubspec declares; a path that already ends in `.jpg` / `.jpeg` / `.png` / `.webp` is used as is);
 /// - any `http(s)://` URL becomes a `NetworkImage` of the same suffix convention (`GzPhoto.networkUrl`);
-/// - the result is wrapped in a `ResizeImage` of 2 x [displayWidth] so decoded bitmaps stay small (`cacheWidth`).
+/// - the result is wrapped in a `ResizeImage` of 2 x [displayWidth] so decoded bitmaps stay small (`cacheWidth`). A box taller than it
+///   is wide (a 4:5 thumbnail over a landscape photograph, cover) passes [displayHeight]: the bitmap is then decoded at 2 x the height,
+///   because cover scales the picture to the height and a width-sized bitmap would be stretched blurry.
 ///
 /// No dependency on ghazal_mock_api: the package name is only a string.
-ImageProvider gzResolveImage(String src, {required double displayWidth, required double devicePixelRatio, GzNetworkImageUrl? networkUrl}) {
-  final variant = gzPhotoVariantFor(displayWidth, devicePixelRatio);
+ImageProvider gzResolveImage(
+  String src, {
+  required double displayWidth,
+  required double devicePixelRatio,
+  double? displayHeight,
+  GzNetworkImageUrl? networkUrl,
+}) {
+  // the photographs are 3:2: a tall box needs the variant that is wide enough for its height
+  final tall = displayHeight != null && displayHeight > displayWidth;
+  final variant = gzPhotoVariantFor(tall ? displayHeight * 1.5 : displayWidth, devicePixelRatio);
   final ImageProvider base;
   if (src.startsWith('asset://')) {
     final rest = src.substring('asset://'.length);
@@ -43,6 +53,10 @@ ImageProvider gzResolveImage(String src, {required double displayWidth, required
     base = NetworkImage(hasExt ? src : (networkUrl ?? GzPhoto.networkUrl)(src, variant));
   } else {
     base = AssetImage(src);
+  }
+  if (tall) {
+    final cacheHeight = (displayHeight * 2).round();
+    return cacheHeight > 0 ? ResizeImage(base, height: cacheHeight, allowUpscaling: false) : base;
   }
   final cacheWidth = (displayWidth * 2).round();
   return cacheWidth > 0 ? ResizeImage(base, width: cacheWidth, allowUpscaling: false) : base;
@@ -110,7 +124,8 @@ class GzPhoto extends StatelessWidget {
     Widget box = LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.hasBoundedWidth ? constraints.maxWidth : GzLayout.frameWidth;
-        final provider = image ?? gzResolveImage(src!, displayWidth: width, devicePixelRatio: dpr);
+        final height = constraints.hasBoundedHeight ? constraints.maxHeight : null;
+        final provider = image ?? gzResolveImage(src!, displayWidth: width, displayHeight: height, devicePixelRatio: dpr);
         final placeholder = ColoredBox(color: c.surfacePlaceholder);
         return Stack(
           fit: StackFit.expand,

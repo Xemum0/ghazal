@@ -51,6 +51,10 @@ class VoucherAData {
       out[i.voucher.id] = VoucherSpecimen(i.voucher, target: i.target?.name, package: i.packageName);
     }
     final hotel = world.repos('hotel_manager', venueId: 'V01');
+    // Thread members are read as `name` (Arabic) and `nameLatin`: an English response leads with the Latin spelling in `name`, so the
+    // threads are fetched as the Arabic response, which carries both spellings untouched.
+    final reemAr = world.repos('reem', language: 'ar');
+    final hotelAr = world.repos('hotel_manager', venueId: 'V01', language: 'ar');
     final venueName = out['vch-GV-2611-K7QM']!.target;
     // Clients no persona signs in as: the same fixture rows the mock serves.
     final root = _root();
@@ -69,7 +73,7 @@ class VoucherAData {
     // Visits.
     final visits = <String, VisitSpecimen>{};
     for (final r in (await reem.visits.listVisits(limit: 20)).items) {
-      final t = await reem.visits.getVisitThread(visitId: r.visit.id);
+      final t = await reemAr.visits.getVisitThread(visitId: r.visit.id);
       visits[r.visit.id] = VisitSpecimen(r.visit, venue: r.target.name, representative: t.thread.members?.firstWhere((m) => m.role.value == 'hotel_representative'));
     }
     final partner = (await hotel.partnerVisits.listPartnerVisits(limit: 20)).items;
@@ -77,8 +81,8 @@ class VoucherAData {
     return VoucherAData._(
       vouchers: out,
       visits: visits,
-      clientThread: await reem.visits.getVisitThread(visitId: 'visit-aurelia-reem'),
-      hotelThread: await hotel.partnerVisits.getPartnerVisitThread(visitId: 'visit-aurelia-reem'),
+      clientThread: await reemAr.visits.getVisitThread(visitId: 'visit-aurelia-reem'),
+      hotelThread: await hotelAr.partnerVisits.getPartnerVisitThread(visitId: 'visit-aurelia-reem'),
     );
   }
 
@@ -110,6 +114,8 @@ Widget voucherCard(
     onOpen: onOpen,
     onCopy: onCopy,
     onShowFull: onShowFull,
+    // the web system gallery shows the stub start-aligned (screens centre it with a local override)
+    centerStub: false,
   );
 }
 

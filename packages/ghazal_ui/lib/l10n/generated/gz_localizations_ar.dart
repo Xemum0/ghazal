@@ -1595,6 +1595,51 @@ class GzL10nAr extends GzL10n {
   }
 
   @override
+  String get uiClientCompareDiffOnly => 'الفروقات';
+
+  @override
+  String get uiClientCompareDiffAll => 'الكل';
+
+  @override
+  String get uiClientCompareDiffLabel => 'الصفوف المعروضة';
+
+  @override
+  String get uiClientCompareHowVoucher => 'بالكوبون';
+
+  @override
+  String get uiClientCompareHowStandard => 'سعر عادي فقط';
+
+  @override
+  String get uiClientCompareRowHow => 'طريقة الحجز';
+
+  @override
+  String get uiClientCompareBarVoucher => 'كوبون';
+
+  @override
+  String get uiClientCompareBarDates => 'التواريخ';
+
+  @override
+  String get uiClientCompareBarOfficial => 'رسمي';
+
+  @override
+  String uiClientCompareDriveMinutes(int count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString دقيقة',
+      many: '$countString دقيقة',
+      few: '$countString دقائق',
+      two: 'دقيقتان',
+      one: 'دقيقة',
+      zero: 'أقل من دقيقة',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String uiClientChecklistDone(String done, String total) {
     return 'تم إنجاز $done من $total';
   }

@@ -140,7 +140,7 @@ class _Ended extends ConsumerWidget {
           bottom: GzSpace.s4,
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.only(top: 6),
+              padding: const EdgeInsetsDirectional.only(top: 8),
               child: Align(
                 child: GzIllustration(reason == 'lapsed' ? GzIllustrationName.hourglass : GzIllustrationName.calendar, size: GzIllustrationSize.lg),
               ),
@@ -205,6 +205,7 @@ class _Ended extends ConsumerWidget {
                                 ),
                               ),
                       ),
+                      const SizedBox(width: GzSpace.s3),
                       GzInfoButton(title: l10n.clientBookingEndedVoucherTitle, paragraphs: [voucherLine]),
                     ],
                   ),

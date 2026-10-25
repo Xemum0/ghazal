@@ -58,6 +58,7 @@
       "Bash(pwd:*)",
       "Bash(which:*)",
       "Bash(true:*)",
+      "Bash(opencode run:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git stash:*)",
@@ -70,7 +71,24 @@
       "Monitor",
       "TaskStop",
       "SendMessage",
-      "ScheduleWakeup"
+      "ScheduleWakeup",
+      "Bash(npx:*)",
+      "Bash(pgrep:*)",
+      "Bash(open:*)",
+      "Bash(opencode:*)",
+      "Bash(xcrun simctl:*)",
+      "Bash(xcrun xcodebuild:*)",
+      "Bash(xcodebuild:*)",
+      "Bash(adb:*)",
+      "Bash(curl http://127.0.0.1:*)",
+      "Bash(curl http://localhost:*)",
+      "Bash(git restore --staged:*)",
+      "CronCreate",
+      "CronList",
+      "CronDelete",
+      "TaskOutput",
+      "SendUserFile",
+      "NotebookEdit"
     ],
     "ask": [
       "Bash(git tag:*)"

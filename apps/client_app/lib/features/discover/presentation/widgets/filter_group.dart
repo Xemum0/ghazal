@@ -24,7 +24,7 @@ class FilterGroup extends StatelessWidget {
     final c = gz.colors;
     final l = context.l10n;
     final showSummary = summary != null && summary!.isNotEmpty && !open;
-    return DecoratedBox(
+    return Container(
       decoration: BoxDecoration(border: Border(bottom: BorderSide(color: c.borderHairline, width: GzStroke.hair))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

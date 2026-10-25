@@ -152,7 +152,7 @@ class HomeBar extends StatelessWidget {
           opacity: on ? 1 : 0,
           duration: GzReducedMotion.fade(context, GzMotion.durationBase),
           curve: GzMotion.easeStandard,
-          child: DecoratedBox(
+          child: Container(
             decoration: BoxDecoration(
               color: c.surfaceCanvas,
               border: Border(bottom: BorderSide(color: c.borderHairline, width: GzStroke.hair)),

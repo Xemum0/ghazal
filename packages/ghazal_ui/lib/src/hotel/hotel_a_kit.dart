@@ -65,6 +65,13 @@ class _RenderCenteredInLine extends RenderShiftedBox {
   }
 
   @override
+  Size computeDryLayout(BoxConstraints constraints) {
+    final child = this.child;
+    final w = child == null ? 0.0 : child.getDryLayout(BoxConstraints(maxWidth: constraints.maxWidth)).width;
+    return constraints.constrain(Size(w, _height));
+  }
+
+  @override
   double computeMinIntrinsicHeight(double width) => _height;
   @override
   double computeMaxIntrinsicHeight(double width) => _height;

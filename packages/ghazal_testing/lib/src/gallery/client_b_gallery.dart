@@ -115,6 +115,7 @@ List<GzGallerySection> clientBGallerySections(ClientBGalleryData Function() data
       'reviews' => (c) => _reviewsSection(c, data()),
       _ => (c) => _venueInfoSection(c, data()),
     }, number: n),
+  GzGallerySection('compare-grid', (c) => _gridSection(c, data()), number: 51),
 ];
 
 // ------------------------------------------------------------------------------------------------------------------ tray
@@ -245,6 +246,41 @@ Widget _tableSection(BuildContext context, ClientBGalleryData d) {
             photos: d.photos,
             differencesOnly: false,
             onDifferencesOnlyChange: (_) {},
+          ),
+        ],
+        bleed: true,
+      ),
+    ],
+  );
+}
+
+// ------------------------------------------------------------------------------------------------------------------ grid (extra)
+/// The CL-SAVD-04 grid: a section the web gallery does not have (number 51, never paired with a web reference).
+Widget _gridSection(BuildContext context, ClientBGalleryData d) {
+  String t(String en, String ar) => gcT(context, en, ar);
+  return gcSection(
+    context,
+    title: t('Compare grid', 'شبكة المقارنة'),
+    note: t(
+      'The CL-SAVD-04 matrix: glyph cells with no row labels, the two-glyph differences control, icon-only badges and a footer of three one-word buttons. The lowest price wins and a held hall is left out of that count.',
+      'مصفوفة CL-SAVD-04: خلايا برموز بلا عناوين صفوف، ومفتاح الفروقات برمزين، وشارات برمز فقط، وتذييل بثلاثة أزرار من كلمة واحدة. يفوز الأقل سعرًا وتُستثنى القاعة المحجوزة من هذا الحساب.',
+    ),
+    specs: [
+      gcSpec(
+        context,
+        t(
+          'Story: Aurelia, Lumi Marina and Jawharat (ladies, 350 guests, Thu 14 Jan)',
+          'القصة: أوريليا ولومي مارينا وجوهرة (نسائي، 350 ضيفًا، الخميس 14 يناير)',
+        ),
+        [
+          GzCompareTable(
+            grid: true,
+            columns: d.story,
+            date: d.date,
+            guests: 350,
+            origin: _origin(context),
+            areaNames: _areas(context, d),
+            onPick: (_) {},
           ),
         ],
         bleed: true,

@@ -873,6 +873,24 @@
       }
     }
   },
+  "uiClientCompareDiffOnly": "الفروقات",
+  "uiClientCompareDiffAll": "الكل",
+  "uiClientCompareDiffLabel": "الصفوف المعروضة",
+  "uiClientCompareHowVoucher": "بالكوبون",
+  "uiClientCompareHowStandard": "سعر عادي فقط",
+  "uiClientCompareRowHow": "طريقة الحجز",
+  "uiClientCompareBarVoucher": "كوبون",
+  "uiClientCompareBarDates": "التواريخ",
+  "uiClientCompareBarOfficial": "رسمي",
+  "uiClientCompareDriveMinutes": "{count, plural, =0{أقل من دقيقة} =1{دقيقة} =2{دقيقتان} few{{count} دقائق} many{{count} دقيقة} other{{count} دقيقة}}",
+  "@uiClientCompareDriveMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
   "uiClientChecklistDone": "تم إنجاز {done} من {total}",
   "@uiClientChecklistDone": {
     "placeholders": {

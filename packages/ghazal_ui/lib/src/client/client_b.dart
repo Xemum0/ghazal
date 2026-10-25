@@ -2,6 +2,7 @@
 library;
 
 export 'gz_compare_action_bar.dart';
+export 'gz_compare_grid.dart';
 export 'gz_compare_header.dart';
 export 'gz_compare_parts.dart';
 export 'gz_compare_rows.dart';

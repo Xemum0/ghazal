@@ -120,7 +120,7 @@ class _ClDisc04ScreenState extends ConsumerState<ClDisc04Screen> {
       openDates: () => _nav.openSheet('CL-DISC-06', options: const GzSheetOptions(params: <String, Object?>{'target': 'filters'})),
     );
 
-    final footer = DecoratedBox(
+    final footer = Container(
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide(color: c.borderHairline, width: GzStroke.hair),
@@ -204,7 +204,7 @@ class _ClDisc04ScreenState extends ConsumerState<ClDisc04Screen> {
         if (errored && !offline)
           DiscoverFailure(error: rows.error!, onRetry: () => ref.invalidate(discoverSearchProvider(q)))
         else
-          DecoratedBox(
+          Container(
             decoration: BoxDecoration(
               border: Border(
                 top: BorderSide(color: c.borderHairline, width: GzStroke.hair),

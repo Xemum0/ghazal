@@ -44,7 +44,7 @@ class _RegionListState extends State<RegionList> {
                 final some = ids.any(chosen.contains);
                 final open = _open.contains(g.governorate.id);
                 final name = g.governorate.name.of(lang);
-                return DecoratedBox(
+                return Container(
                   decoration: BoxDecoration(border: Border(bottom: BorderSide(color: c.borderHairline, width: GzStroke.hair))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,

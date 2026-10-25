@@ -2486,6 +2486,66 @@ abstract class GzL10n {
   /// **'Block {n}'**
   String uiClientVenueInfoBlock(String n);
 
+  /// No description provided for @uiClientCompareDiffOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Differences'**
+  String get uiClientCompareDiffOnly;
+
+  /// No description provided for @uiClientCompareDiffAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get uiClientCompareDiffAll;
+
+  /// No description provided for @uiClientCompareDiffLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Rows shown'**
+  String get uiClientCompareDiffLabel;
+
+  /// No description provided for @uiClientCompareHowVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'With voucher'**
+  String get uiClientCompareHowVoucher;
+
+  /// No description provided for @uiClientCompareHowStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard only'**
+  String get uiClientCompareHowStandard;
+
+  /// No description provided for @uiClientCompareRowHow.
+  ///
+  /// In en, this message translates to:
+  /// **'How you book'**
+  String get uiClientCompareRowHow;
+
+  /// No description provided for @uiClientCompareBarVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher'**
+  String get uiClientCompareBarVoucher;
+
+  /// No description provided for @uiClientCompareBarDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Dates'**
+  String get uiClientCompareBarDates;
+
+  /// No description provided for @uiClientCompareBarOfficial.
+  ///
+  /// In en, this message translates to:
+  /// **'Official'**
+  String get uiClientCompareBarOfficial;
+
+  /// No description provided for @uiClientCompareDriveMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} min} other{{count} min}}'**
+  String uiClientCompareDriveMinutes(int count);
+
   /// No description provided for @uiClientChecklistDone.
   ///
   /// In en, this message translates to:

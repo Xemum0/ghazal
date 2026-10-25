@@ -6366,6 +6366,34 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
+  String clientServicesProvidersCount(int count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString providers',
+      one: '$countString provider',
+      zero: 'No providers',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String clientServicesOpenCategory(String name) {
+    return 'Open $name';
+  }
+
+  @override
+  String clientServicesHubFromPlanner(String price) {
+    return 'From $price';
+  }
+
+  @override
+  String get clientServicesListRefreshed => 'List updated';
+
+  @override
   String get clientShellTabBarLabel => 'Main navigation';
 
   @override

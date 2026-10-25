@@ -87,5 +87,9 @@
   "clientServicesQuoteAttachNote": "يصبح استفساركم طلبًا بسعر الكوبون. يقبله مقدّم الخدمة أو يعتذر أو يقترح موعدًا آخر.",
   "clientServicesQuoteNextTitle": "الخطوة التالية",
   "clientServicesQuoteViewRequest": "عرض الطلب",
-  "clientServicesQuoteVoucherSuccessBody": "يردّ {vendor} في الرسائل. وبعد موافقته لديكم {hours} للتأكيد."
+  "clientServicesQuoteVoucherSuccessBody": "يردّ {vendor} في الرسائل. وبعد موافقته لديكم {hours} للتأكيد.",
+  "clientServicesProvidersCount": "{count, plural, =0{لا مقدّمي خدمات} =1{مقدّم خدمة واحد} =2{مقدّما خدمة} few{# مقدّمي خدمات} many{# مقدّم خدمة} other{# مقدّم خدمة}}",
+  "clientServicesOpenCategory": "افتحوا {name}",
+  "clientServicesHubFromPlanner": "ابتداءً من {price}",
+  "clientServicesListRefreshed": "تم تحديث القائمة"
 }

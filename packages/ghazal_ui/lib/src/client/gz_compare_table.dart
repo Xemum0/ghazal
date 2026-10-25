@@ -3,6 +3,7 @@ import 'package:ghazal_domain/ghazal_domain.dart' show BookingChannel, CompareCo
 
 import '../foundation.dart';
 import 'gz_compare_action_bar.dart';
+import 'gz_compare_grid.dart';
 import 'gz_compare_header.dart';
 import 'gz_compare_parts.dart';
 import 'gz_compare_rows.dart';
@@ -33,6 +34,11 @@ class GzCompareTable extends StatefulWidget {
     this.onOpen,
     this.onAction,
     this.pinned = false,
+    this.grid = false,
+    this.onPick,
+    this.onPhoto,
+    this.strips = const {},
+    this.guest = false,
     super.key,
   });
 
@@ -63,6 +69,23 @@ class GzCompareTable extends StatefulWidget {
   final void Function(String venueId, GzCompareActionKind kind)? onAction;
   final bool pinned;
 
+  /// The current layout (web `CompareGrid`): glyph cells without row labels or group bands, a two-glyph differences control, 4:5
+  /// photos with a pick disk, best-in-row beads. Off (default) keeps the older labelled layout. In grid mode [pinned] means the
+  /// screen pins the footer itself (`GzScreen.bottom: GzCompareBar`), so the table leaves it out.
+  final bool grid;
+
+  /// Grid: the pick disk on each photograph.
+  final ValueChanged<String>? onPick;
+
+  /// Grid: tap a photograph strip (venue id, gallery index).
+  final void Function(String venueId, int index)? onPhoto;
+
+  /// Grid: venue id to the strips of the photos row (default: the cover).
+  final Map<String, List<ImageRef>> strips;
+
+  /// Grid: signed out, the voucher price carries the ticket and lock pair.
+  final bool guest;
+
   @override
   State<GzCompareTable> createState() => _GzCompareTableState();
 }
@@ -72,6 +95,31 @@ class _GzCompareTableState extends State<GzCompareTable> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.grid) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          GzCompareGrid(
+            columns: widget.columns,
+            origin: widget.origin,
+            date: widget.date,
+            guests: widget.guests,
+            areaNames: widget.areaNames,
+            strips: widget.strips,
+            pickedId: widget.pickedId,
+            onPick: widget.onPick,
+            differencesOnly: widget.differencesOnly ?? _inner,
+            onDifferencesOnlyChange: widget.onDifferencesOnlyChange ?? (bool v) => setState(() => _inner = v),
+            onRemove: widget.onRemove,
+            onOpen: widget.onOpen,
+            onPhoto: widget.onPhoto,
+            guest: widget.guest,
+          ),
+          if (!widget.pinned) GzCompareBar(columns: widget.columns, hasDate: widget.date != null, pickedId: widget.pickedId, onAction: widget.onAction),
+        ],
+      );
+    }
     final l = context.gzL10n;
     final lang = context.gz.locale.languageCode;
     final cols = widget.columns;

@@ -131,7 +131,6 @@ class GzTopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    assert(actions.length <= 2, 'A bar carries at most two actions');
     final gz = context.gz;
     final c = gz.colors;
     final nav = GzNavigatorScope.maybeOf(context);
@@ -159,7 +158,8 @@ class GzTopBar extends StatelessWidget {
     final l10n = context.gzL10n;
     final tone = disk ? GzBarButtonTone.disk : GzBarButtonTone.plain;
 
-    final start = leading ??
+    final start =
+        leading ??
         (showBack
             ? GzBarButton(
                 key: const ValueKey('gz:bar.back'),
@@ -195,31 +195,50 @@ class GzTopBar extends StatelessWidget {
       row = Row(
         children: [
           if (word == null)
-            SizedBox(width: slotWidth, child: Align(alignment: AlignmentDirectional.centerStart, child: start))
+            SizedBox(
+              width: slotWidth,
+              child: Align(alignment: AlignmentDirectional.centerStart, child: start),
+            )
           else
-            ConstrainedBox(constraints: const BoxConstraints(minWidth: _slotUnit), child: start),
+            ConstrainedBox(
+              constraints: const BoxConstraints(minWidth: _slotUnit),
+              child: start,
+            ),
           const SizedBox(width: GzSpace.s1),
           Expanded(
             child: AnimatedOpacity(
               opacity: fadedTitle ? 0 : 1,
               duration: GzReducedMotion.fade(context, GzMotion.durationBase),
               curve: GzMotion.easeStandard,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  if (titleWidget != null)
-                    Center(child: titleWidget)
-                  else if (title != null)
-                    GzText(title!, role: GzTextRole.title, color: c.textStrong, maxLines: 1, textAlign: TextAlign.center, header: true),
-                  if (subtitle != null) GzText(subtitle!, role: GzTextRole.caption, color: c.textSecondary, maxLines: 1, textAlign: TextAlign.center),
-                ],
+              // Like the web centre column: the 56 row never grows; at large text the stack spills evenly past the row (no overflow error).
+              child: OverflowBox(
+                alignment: Alignment.center,
+                minHeight: 0,
+                maxHeight: double.infinity,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (titleWidget != null)
+                      Center(child: titleWidget)
+                    else if (title != null)
+                      GzText(title!, role: GzTextRole.title, color: c.textStrong, maxLines: 1, textAlign: TextAlign.center, header: true),
+                    if (subtitle != null)
+                      GzText(subtitle!, role: GzTextRole.caption, color: c.textSecondary, maxLines: 1, textAlign: TextAlign.center),
+                  ],
+                ),
               ),
             ),
           ),
           const SizedBox(width: GzSpace.s1),
           if (word == null)
-            SizedBox(width: slotWidth, child: Align(alignment: AlignmentDirectional.centerEnd, child: Row(mainAxisSize: MainAxisSize.min, children: actionButtons)))
+            SizedBox(
+              width: slotWidth,
+              child: Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: Row(mainAxisSize: MainAxisSize.min, children: actionButtons),
+              ),
+            )
           else
             ConstrainedBox(
               constraints: const BoxConstraints(minWidth: _slotUnit),
@@ -240,7 +259,11 @@ class GzTopBar extends StatelessWidget {
         duration: GzReducedMotion.fade(context, GzMotion.durationBase),
         curve: GzMotion.easeStandard,
         builder: (context, t, child) => ClipRect(
-          child: Align(alignment: AlignmentDirectional.topStart, heightFactor: t, child: SizedBox(height: blockHeight, child: child)),
+          child: Align(
+            alignment: AlignmentDirectional.topStart,
+            heightFactor: t,
+            child: SizedBox(height: blockHeight, child: child),
+          ),
         ),
         child: ExcludeSemantics(
           excluding: compact,
@@ -282,7 +305,10 @@ class GzTopBar extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [SizedBox(height: GzSize.controlLg, child: row), largeBlock],
+              children: [
+                SizedBox(height: GzSize.controlLg, child: row),
+                largeBlock,
+              ],
             ),
           ),
           PositionedDirectional(
@@ -363,7 +389,10 @@ class _SearchFieldState extends State<_SearchField> {
               ? Stack(
                   alignment: AlignmentDirectional.centerStart,
                   children: [
-                    if (_controller.text.isEmpty) IgnorePointer(child: GzText(s.placeholder, role: GzTextRole.body, color: c.textSecondary, maxLines: 1)),
+                    if (_controller.text.isEmpty)
+                      IgnorePointer(
+                        child: GzText(s.placeholder, role: GzTextRole.body, color: c.textSecondary, maxLines: 1),
+                      ),
                     EditableText(
                       controller: _controller,
                       focusNode: _focus,
@@ -395,10 +424,19 @@ class _SearchFieldState extends State<_SearchField> {
       ),
       child: SizedBox(
         height: GzSize.controlMd,
-        child: Padding(padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s3), child: body),
+        child: Padding(
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s3),
+          child: body,
+        ),
       ),
     );
     if (input) return Semantics(textField: true, label: s.placeholder, child: box);
-    return GzPressable(onPressed: s.onPressed ?? () {}, semanticLabel: s.placeholder, borderRadius: GzRadius.smAll, minHeight: GzSize.controlMd, child: box);
+    return GzPressable(
+      onPressed: s.onPressed ?? () {},
+      semanticLabel: s.placeholder,
+      borderRadius: GzRadius.smAll,
+      minHeight: GzSize.controlMd,
+      child: box,
+    );
   }
 }

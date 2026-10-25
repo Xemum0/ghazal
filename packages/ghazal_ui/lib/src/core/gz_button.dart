@@ -44,6 +44,7 @@ class GzButton extends StatelessWidget {
     this.onDark = false,
     this.flushInline = false,
     this.compact = false,
+    this.tight = false,
     this.spill = false,
     this.figures = false,
     this.ellipsize = false,
@@ -75,6 +76,9 @@ class GzButton extends StatelessWidget {
 
   /// Inline padding 8 + hairline instead of 24 + hairline: a button inside a table cell or a dense row.
   final bool compact;
+
+  /// Inline padding 4 and a 4 glyph gap (a third-width button with a glyph and a one-word label, the compare bar).
+  final bool tight;
 
   /// Content wider than the box is centred and spills into the padding (the web flex button) instead of raising a RenderFlex overflow.
   final bool spill;
@@ -114,6 +118,7 @@ class GzButton extends StatelessWidget {
           onDark: onDark,
           flush: flushInline,
           compact: compact,
+          tight: tight,
           spill: spill,
           figures: figures,
           ellipsize: ellipsize,
@@ -133,7 +138,9 @@ class GzButton extends StatelessWidget {
       hint: reason,
       child: fullWidth
           ? Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [button, caption])
-          : IntrinsicWidth(child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [button, caption])),
+          : IntrinsicWidth(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [button, caption]),
+            ),
     );
   }
 }
@@ -150,6 +157,7 @@ class _GzButtonBody extends StatelessWidget {
     required this.onDark,
     required this.flush,
     required this.compact,
+    required this.tight,
     required this.spill,
     required this.figures,
     required this.ellipsize,
@@ -167,6 +175,7 @@ class _GzButtonBody extends StatelessWidget {
   final bool onDark;
   final bool flush;
   final bool compact;
+  final bool tight;
   final bool spill;
   final bool figures;
   final bool ellipsize;
@@ -212,7 +221,10 @@ class _GzButtonBody extends StatelessWidget {
     if (tertiary) {
       text = Stack(
         children: [
-          Padding(padding: const EdgeInsets.only(bottom: GzSpace.s1), child: text),
+          Padding(
+            padding: const EdgeInsets.only(bottom: GzSpace.s1),
+            child: text,
+          ),
           PositionedDirectional(
             start: 0,
             end: 0,
@@ -239,9 +251,9 @@ class _GzButtonBody extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        if (iconStart != null) ...[GzIcon(iconStart!, size: GzIconSize.sm, color: fg), const SizedBox(width: GzSpace.s2)],
+        if (iconStart != null) ...[GzIcon(iconStart!, size: GzIconSize.sm, color: fg), SizedBox(width: tight ? GzSpace.s1 : GzSpace.s2)],
         ellipsize ? Flexible(child: text) : text,
-        if (iconEnd != null) ...[const SizedBox(width: GzSpace.s2), GzIcon(iconEnd!, size: GzIconSize.sm, color: fg)],
+        if (iconEnd != null) ...[SizedBox(width: tight ? GzSpace.s1 : GzSpace.s2), GzIcon(iconEnd!, size: GzIconSize.sm, color: fg)],
       ],
     );
 
@@ -249,7 +261,11 @@ class _GzButtonBody extends StatelessWidget {
     if (spill) row = OverflowBox(minWidth: 0, maxWidth: double.infinity, fit: OverflowBoxFit.deferToChild, child: row);
 
     final hair = bordered ? GzStroke.hair : 0.0;
-    final pad = compact ? GzSpace.s2 + hair : (tertiary ? (flush ? 0.0 : GzSpace.s2) : GzSpace.s6) + hair;
+    final pad = tight
+        ? GzSpace.s1 + hair
+        : compact
+        ? GzSpace.s2 + hair
+        : (tertiary ? (flush ? 0.0 : GzSpace.s2) : GzSpace.s6) + hair;
     Widget box = DecoratedBox(
       decoration: BoxDecoration(
         color: bg,

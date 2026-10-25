@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart' show TextInputAction, TextInputFormatter, TextInputType, TextCapitalization, MaxLengthEnforcement;
+import 'package:flutter/rendering.dart' show BoxConstraints, BoxParentData, RenderObject, RenderShiftedBox;
 import 'package:flutter/widgets.dart';
 import 'package:ghazal_core/ghazal_core.dart' show DigitNormalizingFormatter;
 import 'package:material_ui/material_ui.dart'
@@ -75,6 +76,7 @@ class GzFieldInput extends StatelessWidget {
     this.semanticsLabel,
     this.semanticsHint,
     this.textAlign,
+    this.lang,
     super.key,
   });
 
@@ -103,13 +105,17 @@ class GzFieldInput extends StatelessWidget {
   final String? semanticsHint;
   final TextAlign? textAlign;
 
+  /// Language code of the TEXT (web `lang` prop): the value is set in that language's body voice (an English field inside the Arabic
+  /// UI uses Manrope 16/24, not Almarai 17/28). Null follows the UI language.
+  final String? lang;
+
   static bool _numeric(TextInputType? t) => t != null && (t.index == TextInputType.number.index || t.index == TextInputType.phone.index);
 
   @override
   Widget build(BuildContext context) {
     final gz = context.gz;
     final c = gz.colors;
-    final base = gz.text(role);
+    final base = lang == null || lang == gz.locale.languageCode ? gz.text(role) : GzType.style(Locale(lang!), role);
     final style = base.copyWith(
       color: disabled ? c.textDisabled : c.textStrong,
       fontWeight: fontWeight ?? base.fontWeight,
@@ -120,45 +126,48 @@ class GzFieldInput extends StatelessWidget {
 
     Widget field(TextDirection? textDirection, TextAlign align) => Directionality(
       textDirection: textDirection ?? Directionality.of(context),
-      child: TextField(
-        controller: controller,
-        focusNode: focusNode,
-        enabled: !disabled,
-        style: style,
-        strutStyle: StrutStyle.fromTextStyle(style, forceStrutHeight: true),
-        textDirection: textDirection,
-        textAlign: align,
-        cursorColor: c.textStrong,
-        cursorWidth: 1.5,
-        cursorHeight: (style.fontSize ?? 16) * 1.25,
-        keyboardType: keyboardType,
-        textInputAction: textInputAction,
-        autofillHints: autofillHints,
-        inputFormatters: formatters,
-        obscureText: obscureText,
-        autocorrect: autocorrect,
-        enableSuggestions: enableSuggestions,
-        textCapitalization: textCapitalization,
-        maxLines: obscureText ? 1 : maxLines,
-        minLines: minLines,
-        maxLength: maxLength,
-        maxLengthEnforcement: MaxLengthEnforcement.enforced,
-        autofocus: autofocus,
-        onChanged: onChanged,
-        onSubmitted: onSubmitted,
-        scrollPadding: const EdgeInsets.all(GzSpace.s8),
-        decoration: InputDecoration(
-          isCollapsed: true,
-          border: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          counterText: '',
-          hintText: placeholder,
-          hintStyle: hint,
-          contentPadding: EdgeInsets.zero,
-          filled: false,
+      child: _CaretRoom(
+        wrap: (maxLines ?? 2) != 1 && !obscureText,
+        child: TextField(
+          controller: controller,
+          focusNode: focusNode,
+          enabled: !disabled,
+          style: style,
+          strutStyle: StrutStyle.fromTextStyle(style, forceStrutHeight: true),
+          textDirection: textDirection,
+          textAlign: align,
+          cursorColor: c.textStrong,
+          cursorWidth: 1.5,
+          cursorHeight: (style.fontSize ?? 16) * 1.25,
+          keyboardType: keyboardType,
+          textInputAction: textInputAction,
+          autofillHints: autofillHints,
+          inputFormatters: formatters,
+          obscureText: obscureText,
+          autocorrect: autocorrect,
+          enableSuggestions: enableSuggestions,
+          textCapitalization: textCapitalization,
+          maxLines: obscureText ? 1 : maxLines,
+          minLines: minLines,
+          maxLength: maxLength,
+          maxLengthEnforcement: MaxLengthEnforcement.enforced,
+          autofocus: autofocus,
+          onChanged: onChanged,
+          onSubmitted: onSubmitted,
+          scrollPadding: const EdgeInsets.all(GzSpace.s8),
+          decoration: InputDecoration(
+            isCollapsed: true,
+            border: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            disabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            errorBorder: InputBorder.none,
+            counterText: '',
+            hintText: placeholder,
+            hintStyle: hint,
+            contentPadding: EdgeInsets.zero,
+            filled: false,
+          ),
         ),
       ),
     );
@@ -192,5 +201,53 @@ class GzFieldInput extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+/// The browser lays a multi-line value out over the full content width; Flutter's editable keeps room for the caret at the end of the
+/// line (cursor width + 1), so Arabic and English values wrapped one word early (HL-VENU-05). The child is laid out [room] wider than
+/// the box, growing at the end side; the box keeps its own width and takes the child's height.
+class _CaretRoom extends SingleChildRenderObjectWidget {
+  const _CaretRoom({required this.wrap, required Widget child}) : super(child: child);
+
+  final bool wrap;
+  static const double room = 2.5;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) => _RenderCaretRoom(wrap ? room : 0, Directionality.of(context));
+
+  @override
+  void updateRenderObject(BuildContext context, _RenderCaretRoom r) {
+    r
+      ..extra = wrap ? room : 0
+      ..direction = Directionality.of(context);
+  }
+}
+
+class _RenderCaretRoom extends RenderShiftedBox {
+  _RenderCaretRoom(this.extra, this.direction) : super(null);
+
+  double extra;
+  TextDirection direction;
+
+  @override
+  void performLayout() {
+    final c = child;
+    if (c == null) {
+      size = constraints.smallest;
+      return;
+    }
+    final grow = constraints.hasBoundedWidth ? extra : 0.0;
+    c.layout(
+      BoxConstraints(
+        minWidth: constraints.minWidth + grow,
+        maxWidth: constraints.maxWidth + grow,
+        maxHeight: constraints.maxHeight,
+        minHeight: constraints.minHeight,
+      ),
+      parentUsesSize: true,
+    );
+    size = constraints.constrain(Size(c.size.width - grow, c.size.height));
+    (c.parentData! as BoxParentData).offset = Offset(direction == TextDirection.rtl ? -grow : 0, 0);
   }
 }

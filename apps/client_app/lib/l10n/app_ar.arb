@@ -3398,6 +3398,32 @@
       }
     }
   },
+  "clientServicesProvidersCount": "{count, plural, =0{لا مقدّمي خدمات} =1{مقدّم خدمة واحد} =2{مقدّما خدمة} few{⁦{count}⁩ مقدّمي خدمات} many{⁦{count}⁩ مقدّم خدمة} other{⁦{count}⁩ مقدّم خدمة}}",
+  "@clientServicesProvidersCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientServicesOpenCategory": "افتحوا {name}",
+  "@clientServicesOpenCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesHubFromPlanner": "ابتداءً من {price}",
+  "@clientServicesHubFromPlanner": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "clientServicesListRefreshed": "تم تحديث القائمة",
   "clientShellTabBarLabel": "التنقل الرئيسي",
   "clientShellTabDiscover": "استكشف",
   "clientShellTabSaved": "المفضلة",

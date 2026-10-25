@@ -226,7 +226,7 @@ class _Governorate extends StatelessWidget {
     return Semantics(
       container: true,
       label: name,
-      child: DecoratedBox(
+      child: Container(
         decoration: BoxDecoration(
           border: Border(
             top: BorderSide(color: c.borderHairline, width: GzStroke.hair),

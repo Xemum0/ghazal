@@ -873,6 +873,24 @@
       }
     }
   },
+  "uiClientCompareDiffOnly": "Differences",
+  "uiClientCompareDiffAll": "All",
+  "uiClientCompareDiffLabel": "Rows shown",
+  "uiClientCompareHowVoucher": "With voucher",
+  "uiClientCompareHowStandard": "Standard only",
+  "uiClientCompareRowHow": "How you book",
+  "uiClientCompareBarVoucher": "Voucher",
+  "uiClientCompareBarDates": "Dates",
+  "uiClientCompareBarOfficial": "Official",
+  "uiClientCompareDriveMinutes": "{count, plural, one{{count} min} other{{count} min}}",
+  "@uiClientCompareDriveMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
   "uiClientChecklistDone": "{done} of {total} done",
   "@uiClientChecklistDone": {
     "placeholders": {

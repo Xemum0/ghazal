@@ -4,5 +4,6 @@ library;
 
 export 'action_result.dart';
 export 'badges.dart';
+export 'partner_staff.dart';
 export 'partner_context.dart';
 export 'request_actions.dart';

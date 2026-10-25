@@ -100,6 +100,7 @@ class _GzActionBarState extends State<GzActionBar> {
           loading: a.loading,
           reason: a.reason,
           fullWidth: true,
+          spill: true,
         );
 
     final buttons = Row(
@@ -113,6 +114,7 @@ class _GzActionBarState extends State<GzActionBar> {
               variant: GzButtonVariant.secondary,
               size: GzButtonSize.cta,
               fullWidth: true,
+              spill: true,
             ),
           ),
           const SizedBox(width: GzSpace.s3),

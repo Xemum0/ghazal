@@ -42,10 +42,6 @@ final AppL10nAr ar = AppL10nAr();
 /// The first tab root (Today): the base page under a screen that needs one (a screen with route params, a sheet).
 const String kFlowBase = 'HL-TODY-01';
 
-/// Set to true by a test once the app has left the flow under test: render errors of another flow's screen are not this test's failure.
-/// Reset by every [openScreen].
-bool ignoreRenderErrors = false;
-
 GzWorld? _world;
 bool _fontsLoaded = false;
 _Scenario? _scenario;
@@ -78,7 +74,6 @@ void flowTest(String description, Future<void> Function(WidgetTester tester) bod
     } finally {
       // restored here, not only in a tear-down: the binding checks `FlutterError.onError` before the tear-downs run and a failing test
       // would then report that instead of its own error
-      _restoreErrorFilter();
     }
   });
 }
@@ -119,14 +114,12 @@ Future<ProviderContainer> openScreen(
     await tester.runAsync(loadAppFonts); // without the real faces every text is the square test font and overflows
     _fontsLoaded = true;
   }
-  ignoreRenderErrors = false;
   late GzShotSetup setup;
   await tester.runAsync(() async {
     setup = await prepareShotWorld(mock: world!.mock, screenId: id, state: state, persona: persona, story: story);
   });
   final scenario = _scenario = _Scenario(id, setup.flush);
   addTearDown(() => _scenario = null);
-  _filterRenderErrors();
 
   final pushed = params.isNotEmpty || base != null;
   final start = pushed ? (base ?? kFlowBase) : id;
@@ -163,22 +156,6 @@ Future<ProviderContainer> openScreen(
   return container;
 }
 
-/// Render errors of a screen that belongs to another flow are not this flow's failures: a test sets [ignoreRenderErrors] once it has left
-/// the flow under test. Everything else still fails (an overflow in the screen under test is a defect).
-void _filterRenderErrors() {
-  final previous = FlutterError.onError;
-  FlutterError.onError = (details) {
-    if (ignoreRenderErrors) return;
-    previous?.call(details);
-  };
-  _restoreErrorFilter = () {
-    FlutterError.onError = previous;
-    _restoreErrorFilter = () {};
-  };
-  addTearDown(() => _restoreErrorFilter());
-}
-
-void Function() _restoreErrorFilter = () {};
 
 // ----------------------------------------------------------------------------------------------------------- reading the app
 

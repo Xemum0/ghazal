@@ -41,7 +41,7 @@ class AuthResumeStrip extends ConsumerWidget {
     final rule = BorderSide(color: c.borderHairline, width: GzStroke.hair);
     final pad = compact ? GzSpace.s3 : GzSpace.s4;
     if (!authHasResume(r)) {
-      return DecoratedBox(
+      return Container(
         decoration: BoxDecoration(border: Border(top: rule, bottom: rule)),
         child: Padding(
           padding: EdgeInsetsDirectional.symmetric(vertical: GzSpace.s3),
@@ -65,7 +65,7 @@ class AuthResumeStrip extends ConsumerWidget {
     final cover = resume.venue.cover;
     return Semantics(
       container: true,
-      child: DecoratedBox(
+      child: Container(
         decoration: BoxDecoration(border: Border(top: rule, bottom: rule)),
         child: Padding(
           padding: EdgeInsetsDirectional.symmetric(vertical: pad),

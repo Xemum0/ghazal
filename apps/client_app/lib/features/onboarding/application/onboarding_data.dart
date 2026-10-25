@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show homeRepositoryProvider, venuesRepositoryProvider, weddingRepositoryProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show venuesRepositoryProvider, weddingRepositoryProvider;
 import 'package:ghazal_domain/ghazal_domain.dart';
+
+import '../../../app/state/app_config.dart';
 
 /// The hero story of the onboarding screens (web `weddingProfile` fixture, Reem and Fahad): what an opened-without-params screen shows.
 abstract final class ObdStory {
@@ -26,7 +28,7 @@ final FutureProvider<List<BudgetBand>> onboardingBudgetBandsProvider = FuturePro
 );
 
 /// Occasion markers and the availability window (the calendar's upper bound).
-final FutureProvider<AppConfig> onboardingConfigProvider = FutureProvider<AppConfig>((ref) => ref.watch(homeRepositoryProvider).getAppConfig());
+final FutureProvider<AppConfig> onboardingConfigProvider = publicAppConfigProvider;
 
 /// Every hall of the roster (no Brief): the area of each, to tell which areas have halls.
 final FutureProvider<List<VenueResult>> onboardingRosterProvider = FutureProvider<List<VenueResult>>((ref) async {

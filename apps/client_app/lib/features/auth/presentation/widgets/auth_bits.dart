@@ -70,8 +70,16 @@ class AuthNumberRow extends StatelessWidget {
             child: SizedBox(width: GzSize.disk, height: GzSize.disk, child: Center(child: GzIcon(GzIcons.whatsapp, size: GzIconSize.sm, color: c.iconSecondary))),
           ),
           const SizedBox(width: GzSpace.s3),
-          GzNum(format.phone(phone), role: GzTextRole.figTitle, color: c.textPrimary),
-          const Spacer(),
+          Expanded(
+            child: Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: AlignmentDirectional.centerStart,
+                child: GzNum(format.phone(phone), role: GzTextRole.figTitle, color: c.textPrimary),
+              ),
+            ),
+          ),
           Semantics(
             label: l10n.clientAuthOtpChangeNumber,
             excludeSemantics: true,
