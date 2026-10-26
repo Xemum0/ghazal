@@ -4,7 +4,7 @@
 
 | Field | Value |
 |---|---|
-| Date | 2026-10-20 |
+| Date | 2026-10-26 |
 | Phase | design: Client app and Partner app (hotels and halls plus service providers; ids stay `hotel` / `HL-`) as a web prototype; Flutter, API and dashboards later |
 | Business model | KD 2 voucher marketplace (ADR 0033 accepted; owner round 1 answered 2026-10-20 in ADR 0035: unmentioned items take the prototype assumption; 24 h lapse forfeits the voucher; refund = support-granted credit voucher; no VAT; backend NestJS; bundle ids `com.ghazal.client` and `com.ghazal.provider`). The only in-app client payment is the voucher; partners pay ad fees; venue money is off-app |
 | Toolchain | Node 23.7, pnpm 10.10 (ADR 0031 relaxed the ADR 0021 pins; engines node >=22). Installs are allowed |
@@ -14,6 +14,20 @@
 | Git | baseline committed 2026-10-20: 4 commits on `master` (docs, workspace, prototype, photo library); the regenerated photo variants are not committed (OQ-T-07 answered) |
 | Dev server | `pnpm dev`; URL from `node tools/ports.mjs url design`, verified by `node tools/ports.mjs check design` (port 4700, answered `ok` today). `pnpm shots` starts it when it is down |
 | Front door | `#/` is the Launcher: one phone, Client \| Partner switch. Canvas, player, system and docs are explicit hash routes only |
+
+## Flutter build (2026-10-26)
+
+Both apps are built from the prototype and verified headless (ADR 0036, results and deviations in ADR 0037). The design-phase notes below describe the web prototype and stay accurate for it.
+
+| Field | Value |
+|---|---|
+| Apps | `apps/client_app` (`com.ghazal.client`, 83 screens) and `apps/provider_app` (`com.ghazal.provider`, 51 screens), Flutter 3.47.5 / Dart 3.13.4, mock API in-process or standalone (`docs/engineering/running-the-apps.md`) |
+| Tests | 7,805 across packages and apps (client 2,038, provider 1,835, ui 1,439, testing 231, kit 89, mock 78, core 1,986, domain 86, api 23), each suite green when run on its own |
+| Contract | 16,612 checks, 0 errors; mock contract test 217 of 217 operations; engine cases 2,170; selector cases 148 |
+| Gates | `flutter analyze` clean on both apps, `bash tools/check-dart-rules.sh` ok, `pnpm l10n:check`, `node tools/gen-routes.mjs --check`, `pnpm flutter:edges` (51 of 52 partner screens reachable from the entry screens; the check lists HL-BOOK-02 as unreachable, to be looked at in the simulator pass) |
+| Proportions | client 67 of 83 screens under the 0.075 parity bar in both languages, 15 in review with geometry checks, 1 documented above; partner exceptions classified in `docs/engineering/requests.md` |
+| Simulator | not yet run: the single pass (iPhone 17e and iPhone 17, standalone mock, journeys J1 to J5) is the last step of `docs/engineering/final-verification.md` |
+| Ledger | `docs/engineering/flutter-status.md` |
 
 ## Gates (run 2026-10-14)
 

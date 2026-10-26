@@ -163,3 +163,18 @@ For the backend: validate every response of your e2e tests against `ghazal.v1.js
 8. **Credit vouchers are unbound**: `createRequest` with a credit voucher binds it to the request target at that moment; `VOUCHER_TARGET_MISMATCH` applies only to bound vouchers.
 9. **Chat is REST-complete** (conversations, messages, drafts, attachments) so the mock and a degraded client work without Socket.IO; Socket.IO events stay outside OpenAPI.
 10. **Terms and Privacy are served by the API** (`getLegalDocument`), editable in the Super Admin panel (ADR 0035 D9).
+
+## 11. Proposed contract additions found while building the apps (2026-10-26, ADR 0037)
+
+None of these is in `ghazal.v1.yaml` yet; all are additive. The apps work without them and show the designed fallback; add them with the matching mock handler and contract test.
+
+1. **Calendar sync test email** (HL-CALN-05): an endpoint that sends a test message to the venue's sync address. Today the screen has no call for it.
+2. **`CalendarClaim.batchId`** (HL-CALN-04): "Open" on dates blocked in an earlier session cannot name the batch that blocked them.
+3. **Gallery video flag for the client** (CL-VENU-02): the viewer cannot tell a video from a photo, so video playback is not drawn.
+4. **Cancel a planner consultation** (CL-PLAN-04): there is no call to withdraw a booked consultation.
+5. **Latin client name on partner requests** (HL-DCSN-02/03/04): the web shows the guest's Latin name in some partner sheets; the API carries only the name as authored (Arabic). Add a `clientNameLatin` next to `clientName`.
+6. **Partner performance tiles** (HL-PROV-07, HL-GROW-04): a saves tile and a delta on every tile (today only views carry a delta).
+7. **Sponsored flag on services listings** (CL-SERV-02): the order is server-driven but the badge has no data to show.
+8. **Visit representative reassignment** (HL-VIST-02/05): there is no call to reassign the representative of a visit and no default representative field.
+
+The rules above that the mock implements (lapse and forfeit by the clock, the 8 second undo window, voucher binding, plan rate gating, listing payment settled only by the server) are exercised by `packages/ghazal_mock_api/test/lifecycle_test.dart`; keep those tests green when moving the logic to NestJS.
