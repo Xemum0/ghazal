@@ -1,8 +1,9 @@
 // J1 (client): the first run, from the language choice to a sent request.
 //
 //   language, onboarding (who, date, guests, areas), Home with the Brief, Results, the venue, the guest gate on "Get voucher", the sign-in
-//   as Reem (phone + WhatsApp code), the KD 2 voucher checkout at the mock gateway, the voucher ready, the request in five steps, "Request
-//   sent" and the request itself.
+//   as Reem (phone + WhatsApp code), the voucher explainer that the sign-in resumes (alone: the Face ID offer and the two Briefs wait in the
+//   sheet queue), the KD 2 voucher checkout at the mock gateway, the voucher ready (the first calm moment: the Face ID offer), the request in
+//   five steps, "Request sent" and the request itself, then Home (the two Briefs ask there).
 //
 // Real entry (`bootstrap()`), in-process mock, story clock 12 Nov 2026 16:00; nothing is set up through providers except what the person
 // cannot do (the mock's gateway is the mock's own page, a real tap on Submit). The wedding date is 21 Jan 2027, not the hero's 14 Jan:
@@ -10,6 +11,7 @@
 // Run: `node apps/client_app/integration_test/headless.mjs j1` (add `--lang ar` for Arabic) or, on a simulator,
 // `flutter test integration_test/j1_first_run_test.dart -d <id> [--dart-define=JOURNEY_LANG=ar]` from apps/client_app.
 import 'package:client_app/app/state/state.dart';
+import 'package:client_app/features/auth/application/auth_actions.dart' show kBiometricPromptId;
 import 'package:client_app/l10n/generated/app_localizations.dart' show AppL10n;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,7 +27,9 @@ const String kDate = '2027-01-21';
 void main() {
   journeySetUp();
 
-  journey('J1 client first run: language, onboarding, Home, Results, venue, gate, OTP as Reem, KD 2 checkout, request sent', (j) async {
+  // semantics on, as for a VoiceOver user: the gate sign-in brings the venue page back with its Booking Thread preview animating below the
+  // fold, which broke Flutter 3.47.5's semantics pass in Arabic until `GzDrawOnce` left the semantics tree (a framework error fails the journey)
+  journey('J1 client first run: language, onboarding, Home, Results, venue, gate, OTP as Reem, KD 2 checkout, request sent', semantics: true, (j) async {
     final c = await j.start();
     String t(String Function(AppL10n l) pick) => j.t(pick);
 
@@ -114,12 +118,13 @@ void main() {
     expect(session, isA<ClientSession>(), reason: 'the code signed the person in');
     expect((session as ClientSession).user.phone, '+96550000012', reason: 'the number resolved to the hero client');
 
-    j.step('after sign-in: the Face ID offer (Not now), the two Briefs (keep this phone), then the voucher explainer waits');
-    await j.tapTextIfShown(t((l) => l.clientAuthSharedNotNow), timeout: const Duration(seconds: 6));
-    await j.see(find.byKey(const ValueKey<String>('discover.merge.keep.phone')), timeout: const Duration(seconds: 8), why: 'the Brief merge sheet');
-    await j.tapKey('discover.merge.keep.phone', wait: const Duration(milliseconds: 1500));
-    expect(c.read(searchBriefProvider).date.toString(), kDate, reason: 'the date the person picked on this phone was kept');
+    j.step('after sign-in: the voucher explainer resumes and stays alone (the Briefs and the Face ID offer wait in the sheet queue)');
     await j.seeScreen('CL-VCHR-01');
+    await j.pump(const Duration(seconds: 3)); // well past the 400 ms and 900 ms the prototype stacks them at
+    expect(j.screen, 'CL-VCHR-01', reason: 'no sheet opened over the explainer');
+    await j.gone(find.text(t((l) => l.clientAuthSharedNotNow)));
+    expect(j.onScreen('discover.merge.keep.phone'), isFalse, reason: 'the two Briefs belong to Home');
+    expect(c.read(sheetQueueProvider).waiting, <String>['brief-merge', kBiometricPromptId], reason: 'both are waiting for a calm moment');
 
     // ---------------------------------------------------------------------------------------------------------------- voucher checkout
     j.step('explainer: the binding and the one price, Pay KD 2');
@@ -141,6 +146,10 @@ void main() {
     await j.seeScreen('CL-PAYM-05', timeout: const Duration(seconds: 25));
     await j.see(find.text(t((l) => l.clientPaymentDoneTitle)));
     expect(j.shows('GV-'), isTrue, reason: 'the voucher code is on the ticket');
+    j.step('first completed payment: the Face ID offer opens now, the first calm moment (Not now)');
+    await j.see(find.text(t((l) => l.clientAuthBioTurnOn)), timeout: const Duration(seconds: 8), why: 'the biometric offer after the payment');
+    await j.tapText(t((l) => l.clientAuthSharedNotNow), wait: const Duration(milliseconds: 1500));
+    expect(j.screen, 'CL-PAYM-05');
 
     // ---------------------------------------------------------------------------------------------------------------- the request
     j.step('request: five steps with the voucher already attached');
@@ -170,6 +179,15 @@ void main() {
     await j.tapText(t((l) => l.clientBookingSentView), wait: const Duration(seconds: 2));
     await j.seeScreen('CL-BKNG-02');
     await j.see(find.text(t((l) => l.commonStatusPending)), why: 'the request waits for the hotel');
+
+    j.step('Home: the one screen the Briefs belong to; nothing else is open, so they ask now (keep this phone)');
+    await j.tapKey('gz:tab.discover', wait: const Duration(milliseconds: 200));
+    await j.see(find.byKey(const ValueKey<String>('discover.merge.keep.phone')), timeout: const Duration(seconds: 8), why: 'the Brief merge sheet');
+    expect(j.screen, 'CL-DISC-02', reason: 'the sheet is the top of the stack, over Home');
+    await j.tapKey('discover.merge.keep.phone', wait: const Duration(milliseconds: 1500));
+    await j.seeScreen('CL-DISC-01');
+    expect(c.read(searchBriefProvider).date.toString(), kDate, reason: 'the date the person picked on this phone was kept');
+    expect(c.read(sheetQueueProvider).waiting, isEmpty);
     final mine = (await c.read(requestsRepositoryProvider).listRequests()).items.where((r) => r.booking.venueId == 'V05' && r.booking.status == BookingStatus.pending);
     expect(mine, isNotEmpty, reason: 'the request is on the server, pending');
   });

@@ -92,6 +92,8 @@ void flowTest(String description, Future<void> Function(WidgetTester tester) bod
 /// - [params]: the route params of [id]. A screen with params starts on [base] (default Discover) and is pushed, the way the app opens it.
 /// - [size], [locale], [textScale]: the device (default 390 x 844, English, 1.0). [clock]: the story clock (default 2026-11-12 16:00).
 /// - [extraSeconds]: more fake time to wait after the first settle (a retried error state).
+/// - [bioOfferDelay]: how long a calm moment must hold before the Face ID offer opens after a sign-in (default none: no offer in a test,
+///   a pending timer); the sheet queue (`sheetQueueProvider`) opens it, one sheet at a time.
 /// Throws when a screen is already open in this test.
 Future<ProviderContainer> openScreen(
   WidgetTester tester,
@@ -106,6 +108,7 @@ Future<ProviderContainer> openScreen(
   double textScale = 1,
   DateTime? clock,
   int extraSeconds = 0,
+  Duration? bioOfferDelay,
   List<Override> overrides = const <Override>[],
 }) async {
   if (_scenario != null) {
@@ -143,7 +146,7 @@ Future<ProviderContainer> openScreen(
     overrides: <Override>[
       ...setup.overrides,
       clientRouterOverride(initialLocation: kScreenRegistry[start]!.path),
-      authBioOfferDelayProvider.overrideWithValue(null), // no delayed biometric offer in a test (a pending timer)
+      authBioOfferDelayProvider.overrideWithValue(bioOfferDelay), // no delayed biometric offer unless a test asks (a pending timer)
       ...overrides,
     ],
   );

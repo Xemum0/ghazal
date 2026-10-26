@@ -11,36 +11,34 @@ import 'package:ghazal_ui/ghazal_ui.dart' show GzSheetOptions;
 
 import '../presentation/cl_auth_05.dart' show authBiometricPromptBuilder;
 import 'auth_flow.dart';
+import 'biometric.dart';
 
-/// How long after a sign-in lands the biometric offer opens (so the person sees where they came back to first). Null: never (tests).
+/// How long a calm moment must hold before the biometric offer opens (so the person sees where they came back to first). Null: never (tests).
 final Provider<Duration?> authBioOfferDelayProvider = Provider<Duration?>((ref) => const Duration(milliseconds: 900));
 
 /// Logical id of the biometric pre-prompt (CL-AUTH-05 in its sheet form). The registry gives CL-AUTH-05 the screen kind, so the offer is a
 /// builder sheet, not a routed one.
 const String kBiometricPromptId = 'CL-AUTH-05';
 
-/// What waits after a sign-in has landed: if the account already holds a different Brief than this device, the merge sheet (CL-DISC-02,
-/// `variant: merge`) lets the person choose, once. A provider, not the screen's ref: the auth screens are gone by then.
-final Provider<Future<void> Function()> authBriefMergeProvider = Provider<Future<void> Function()>((ref) => () async {
-      final device = ref.read(searchBriefProvider);
-      if (device.isEmpty) return;
-      final profile = await ref.read(weddingProfileProvider.future);
-      if (profile == null) return;
-      final account = SearchBrief.fromWedding(
-        weddingDate: profile.weddingDate,
-        dateMode: profile.dateMode,
-        womenGuests: profile.guests.women,
-        searching: profile.searching,
-        areaIds: profile.areaIds,
-        venueBudget: profile.venueBudget,
-      );
-      // A conflict is something this phone has set that the account answers differently; a blank on the phone is not one.
-      final differs = (device.date != null && device.date != account.date) ||
-          (device.guests != null && device.guests != account.guests) ||
-          (device.areaIds.isNotEmpty && !(Set<String>.of(device.areaIds).containsAll(account.areaIds) && Set<String>.of(account.areaIds).containsAll(device.areaIds)));
-      if (!differs) return;
-      ref.read(gzNavigatorProvider).openSheet('CL-DISC-02', options: const GzSheetOptions(params: <String, Object?>{'variant': 'merge'}));
-    });
+/// The biometric offer as a request to the sheet queue: the pre-prompt sheet (CL-AUTH-05), once per run of the app, 900 ms
+/// ([authBioOfferDelayProvider]) after a calm moment begins. The prototype opens it 900 ms after the sign-in lands, over whatever the
+/// sign-in resumed; the app waits instead: a sign-in that resumes the voucher explainer, the checkout or the request steps gets the offer
+/// on the first screen after those (the payment success, or the page the person closes the explainer back to), and a person who never
+/// sees it finds the same switch in Settings (CL-PROF-05). Null when the offer is off (tests) or the device has no biometrics enrolled.
+final Provider<QueuedSheet?> authBioOfferSheetProvider = Provider<QueuedSheet?>((ref) {
+  final delay = ref.watch(authBioOfferDelayProvider);
+  if (delay == null) return null;
+  return QueuedSheet(
+    id: kBiometricPromptId,
+    delay: delay,
+    worthShowing: () => !ref.read(authFlowProvider).bioOffered && ref.read(biometricProvider).method != null,
+    open: (nav, onClose) {
+      ref.read(authFlowProvider.notifier).update((s) => s.copyWith(bioOffered: true));
+      nav.dismissToast();
+      return nav.openSheetBuilder(authBiometricPromptBuilder, options: GzSheetOptions(params: const <String, Object?>{'id': kBiometricPromptId}, onClose: onClose));
+    },
+  );
+});
 
 /// The first letter of a name in its own script, ignoring a leading Arabic `ال` (ADR 0015 D4). Latin initials are capitals.
 String authMonogramFor(String name) {
@@ -101,7 +99,7 @@ extension AuthActions on WidgetRef {
   }
 
   /// The sign-in is done: closes the auth screens and continues where the guest was going (the gate request's resume route), or lands on
-  /// Discover when the sign-in came from onboarding. Offers the biometric unlock once, after a short delay.
+  /// Discover when the sign-in came from onboarding. The Brief merge and the biometric offer are queued, not opened on the spot.
   void finishSignIn() {
     final pending = read(authFlowProvider).pending;
     final nav = read(gzNavigatorProvider);
@@ -116,15 +114,9 @@ extension AuthActions on WidgetRef {
       session.closeAuthScreens();
       if (nav.currentId.startsWith('CL-ONBD-')) nav.reset('CL-DISC-01');
     }
-    unawaited(read(authBriefMergeProvider)().catchError((Object _) {}));
-    final delay = read(authBioOfferDelayProvider);
-    final offered = read(authFlowProvider).bioOffered;
-    if (delay != null && !offered) {
-      _flow.update((s) => s.copyWith(bioOffered: true));
-      unawaited(Future<void>.delayed(delay, () {
-        nav.dismissToast();
-        nav.openSheetBuilder(authBiometricPromptBuilder, options: const GzSheetOptions(params: <String, Object?>{'id': kBiometricPromptId}));
-      }));
-    }
+    // Sheets the sign-in promises are asked of the queue, which opens them one at a time at a calm moment (never over the resumed explainer).
+    final queue = read(sheetQueueProvider.notifier)..enqueue(read(briefMergeSheetProvider));
+    final offer = read(authBioOfferSheetProvider);
+    if (offer != null && !read(authFlowProvider).bioOffered) queue.enqueue(offer);
   }
 }

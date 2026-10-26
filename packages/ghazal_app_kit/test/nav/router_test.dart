@@ -335,6 +335,22 @@ void main() {
       expect(rig.shows('T-SHET-01'), isFalse);
     });
 
+    testWidgets('hasOpenSheet is true from openSheet and openSheetBuilder until the last of them has left (what the app waits for before it raises a sheet itself)', (tester) async {
+      final rig = await pumpNav(tester);
+      expect(rig.nav.hasOpenSheet, isFalse);
+      rig.nav.openSheet('T-SHET-01');
+      await rig.settle();
+      expect(rig.nav.hasOpenSheet, isTrue);
+      rig.nav.openSheetBuilder((context) => const Text('widget sheet'));
+      await rig.settle();
+      rig.nav.closeSheet();
+      await rig.settle();
+      expect(rig.nav.hasOpenSheet, isTrue, reason: 'one is still open');
+      rig.nav.closeSheet();
+      await rig.settle();
+      expect(rig.nav.hasOpenSheet, isFalse);
+    });
+
     testWidgets('a dismissible sheet closes on system back', (tester) async {
       final rig = await pumpNav(tester);
       rig.nav.openSheet('T-SHET-01');

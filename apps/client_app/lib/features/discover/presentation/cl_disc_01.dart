@@ -9,7 +9,6 @@ import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../../app/state/state.dart';
 import '../../../l10n/l10n.dart';
-import '../application/discover_filters.dart' show discoverStateProvider;
 import '../application/discover_home.dart';
 import '../application/discover_regions.dart';
 import '../application/discover_search.dart' show briefCountProvider;
@@ -54,14 +53,6 @@ const List<HomeCategoryId> kCategoryOrder = <HomeCategoryId>[
 ];
 
 class _ClDisc01ScreenState extends ConsumerState<ClDisc01Screen> {
-  Timer? _merge;
-
-  @override
-  void dispose() {
-    _merge?.cancel();
-    super.dispose();
-  }
-
   GzNavigator get _nav => context.gzNav;
 
   void _editBrief([GzBriefField? field]) =>
@@ -98,20 +89,12 @@ class _ClDisc01ScreenState extends ConsumerState<ClDisc01Screen> {
     }
   }
 
-  /// Once after sign-in: the phone and the account hold different Briefs, so the merge variant of the Brief sheet asks which to keep.
-  void _maybeMerge(SearchBrief brief) {
-    final session = ref.read(sessionProvider);
-    if (!session.isSignedIn || ref.read(discoverStateProvider).mergeShown) return;
-    final profile = ref.read(weddingProfileProvider).value;
-    if (profile == null || brief.date == null) return;
-    final differs = brief.date != profile.weddingDate || brief.guests != profile.guests.women || brief.areaIds.join(',') != profile.areaIds.join(',');
-    if (!differs) return;
-    _merge?.cancel();
-    _merge = Timer(const Duration(milliseconds: 400), () {
-      if (!mounted || (ModalRoute.of(context)?.isCurrent ?? false) == false) return;
-      ref.read(discoverStateProvider.notifier).markMergeShown();
-      _nav.openSheet('CL-DISC-02', options: const GzSheetOptions(params: <String, Object?>{'variant': 'merge'}));
-    });
+  /// Once after sign-in: the phone and the account hold different Briefs, so the merge variant of the Brief sheet asks which to keep. Home
+  /// only asks the queue (a signed-in person is on Home); the queue opens the sheet 400 ms after Home is the visible screen and nothing
+  /// else is open, and drops the request when the two Briefs do not differ (prototype `CL-DISC-01.tsx`).
+  void _maybeMerge() {
+    if (!ref.read(sessionProvider).isSignedIn) return;
+    ref.read(sheetQueueProvider.notifier).enqueue(ref.read(briefMergeSheetProvider));
   }
 
   Future<void> _pickDate(LocalDate d) async {
@@ -129,8 +112,8 @@ class _ClDisc01ScreenState extends ConsumerState<ClDisc01Screen> {
     final areas = ref.watch(areasProvider).value?.areas ?? const [];
     final unread = ref.watch(unreadNotificationsProvider);
     final hasTray = ref.watch(compareProvider.select((c) => !c.isEmpty));
-    ref.listen<AsyncValue<Object?>>(weddingProfileProvider, (_, _) => _maybeMerge(ref.read(searchBriefProvider)));
-    ref.listen<SearchBrief>(searchBriefProvider, (_, next) => _maybeMerge(next));
+    ref.listen<AsyncValue<Object?>>(weddingProfileProvider, (_, _) => _maybeMerge());
+    ref.listen<SearchBrief>(searchBriefProvider, (_, _) => _maybeMerge());
     final loading = feed.isLoading && !feed.hasValue && !feed.hasError;
     final failed = feed.hasError && !feed.hasValue;
     final offline = failed && isOfflineError(feed.error);

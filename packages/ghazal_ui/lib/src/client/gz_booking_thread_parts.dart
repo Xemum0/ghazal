@@ -331,14 +331,17 @@ class _DrawDownState extends State<_DrawDown> with SingleTickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
-    return RepaintBoundary(
-      child: AnimatedBuilder(
-        animation: _v,
-        child: widget.child,
-        builder: (context, child) => Transform(
-          alignment: Alignment.topCenter,
-          transform: Matrix4.diagonal3Values(1, _v.value <= 0 ? 0.0001 : _v.value, 1),
-          child: child,
+    // decoration, out of the semantics tree for the reason given at `GzDrawOnce`
+    return ExcludeSemantics(
+      child: RepaintBoundary(
+        child: AnimatedBuilder(
+          animation: _v,
+          child: widget.child,
+          builder: (context, child) => Transform(
+            alignment: Alignment.topCenter,
+            transform: Matrix4.diagonal3Values(1, _v.value <= 0 ? 0.0001 : _v.value, 1),
+            child: child,
+          ),
         ),
       ),
     );

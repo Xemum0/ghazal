@@ -70,7 +70,7 @@ void main() {
     expect(c.read(gateProvider), isNull);
   });
 
-  flowTest('a different Brief on the phone than in the account opens the merge sheet once after sign-in', (t) async {
+  flowTest('a different Brief on the phone than in the account opens the merge sheet once, when Home is the visible screen (not over the resumed flow)', (t) async {
     await openScreen(t, 'CL-ONBD-02');
     final c = container(t);
     c
@@ -78,11 +78,42 @@ void main() {
         .set(SearchBrief(date: const LocalDate(2027, 3, 3), guests: 120, audience: Audience.women, dateMode: DateMode.exact));
     await gate(t);
     await sendCode(t, '50000012');
-    ignoreRenderErrors = true; // the resume route and the merge sheet belong to the booking and discover flows
+    ignoreRenderErrors = true; // the resume route belongs to the booking flow
     await enterCode(t, '123456', ms: 500);
     await settle(t, wait: const Duration(milliseconds: 3500));
     expect(session(t), isA<ClientSession>());
+    expect(top(t), 'CL-BOOK-01', reason: 'the sign-in resumed the gated action');
+    expect(onScreen('discover.brief.merge'), isFalse, reason: 'the sheet does not stack over the booking flow');
+    expect(c.read(sheetQueueProvider).waiting, <String>['brief-merge'], reason: 'it waits for Home');
+    // Home is the visible screen: 400 ms later the sheet opens
+    nav(t).reset('CL-DISC-01');
+    await settle(t, wait: const Duration(milliseconds: 2000));
     expect(top(t), 'CL-DISC-02');
+    expect(onScreen('discover.brief.merge'), isTrue);
+    expect(c.read(sheetQueueProvider).showing, 'brief-merge');
+    // once: the person answers, Home is visible again, nothing opens
+    await tapKey(t, 'discover.merge.keep.phone', ms: 1500);
+    expect(top(t), 'CL-DISC-01');
+    expect(c.read(sheetQueueProvider).waiting, isEmpty);
+    expect(c.read(sheetQueueProvider).showing, isNull);
+    await settle(t, wait: const Duration(milliseconds: 1500));
+    expect(top(t), 'CL-DISC-01', reason: 'the merge sheet opens once');
+  });
+
+  flowTest('signing in from onboarding lands on Home and the merge sheet opens there', (t) async {
+    await openScreen(t, 'CL-ONBD-02');
+    final c = container(t);
+    c
+        .read(searchBriefProvider.notifier)
+        .set(SearchBrief(date: const LocalDate(2027, 3, 3), guests: 120, audience: Audience.women, dateMode: DateMode.exact));
+    nav(t).openSheet('CL-AUTH-01');
+    await settle(t, wait: const Duration(milliseconds: 1000));
+    expect(top(t), 'CL-AUTH-01');
+    await sendCode(t, '50000012');
+    await enterCode(t, '123456', ms: 500);
+    await settle(t, wait: const Duration(milliseconds: 3500));
+    expect(top(t), 'CL-DISC-02', reason: 'a plain sign-in lands on Home, where the Briefs are asked');
+    expect(onScreen('discover.brief.merge'), isTrue);
   });
 
   flowTest('the same Brief on the phone and in the account opens no merge sheet', (t) async {

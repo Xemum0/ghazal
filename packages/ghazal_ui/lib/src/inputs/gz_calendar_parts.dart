@@ -158,12 +158,15 @@ class _ThreadSegment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final reduced = GzReducedMotion.of(context);
-    return TweenAnimationBuilder<double>(
-      tween: Tween(begin: reduced ? 1 : 0, end: 1),
-      duration: GzReducedMotion.movement(context, GzMotion.durationBase),
-      curve: GzMotion.easeStandard,
-      builder: (context, v, child) => Transform.scale(scaleX: v, alignment: AlignmentDirectional.centerStart, child: child),
-      child: ColoredBox(color: color),
+    // decoration, out of the semantics tree for the reason given at `GzDrawOnce`
+    return ExcludeSemantics(
+      child: TweenAnimationBuilder<double>(
+        tween: Tween(begin: reduced ? 1 : 0, end: 1),
+        duration: GzReducedMotion.movement(context, GzMotion.durationBase),
+        curve: GzMotion.easeStandard,
+        builder: (context, v, child) => Transform.scale(scaleX: v, alignment: AlignmentDirectional.centerStart, child: child),
+        child: ColoredBox(color: color),
+      ),
     );
   }
 }

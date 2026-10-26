@@ -93,6 +93,11 @@ class GoRouterNavigator extends GzNavigatorBase {
   @override
   bool get canGoBack => router.canPop();
 
+  /// A sheet opened through [openSheet] or [openSheetBuilder] is still on the stack (a sheet that is the top route of the router, such
+  /// as a resumed explainer pushed by id, shows as [currentId] instead: `spec.isSheet(currentId)`). Things the app raises by itself wait
+  /// while this is true or the current screen is a sheet.
+  bool get hasOpenSheet => _sheets.isNotEmpty;
+
   @override
   GzParams get params {
     final extra = router.routerDelegate.currentConfiguration.extra;
