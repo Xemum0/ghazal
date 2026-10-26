@@ -26,7 +26,7 @@ Both apps are built from the prototype and verified headless (ADR 0036, results 
 | Contract | 16,612 checks, 0 errors; mock contract test 217 of 217 operations; engine cases 2,170; selector cases 148 |
 | Gates | `flutter analyze` clean on both apps, `bash tools/check-dart-rules.sh` ok, `pnpm l10n:check`, `node tools/gen-routes.mjs --check`, `pnpm flutter:edges` (51 of 52 partner screens reachable from the entry screens; the check lists HL-BOOK-02 as unreachable, to be looked at in the simulator pass) |
 | Proportions | client 67 of 83 screens under the 0.075 parity bar in both languages, 15 in review with geometry checks, 1 documented above; partner exceptions classified in `docs/engineering/requests.md` |
-| Simulator | not yet run: the single pass (iPhone 17e and iPhone 17, standalone mock, journeys J1 to J5) is the last step of `docs/engineering/final-verification.md` |
+| Simulator | done 2026-10-26: iPhone 17e (client) and iPhone 17 (partner); journeys J1 to J5 in English, Arabic and with semantics, cross-app J6 to J8 against one standalone mock, all pass; Android debug APKs build for both apps (no emulator run) |
 | Ledger | `docs/engineering/flutter-status.md` |
 
 ## Gates (run 2026-10-14)
