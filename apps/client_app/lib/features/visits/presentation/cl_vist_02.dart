@@ -104,13 +104,17 @@ class _ClVist02ScreenState extends ConsumerState<ClVist02Screen> {
                       ),
                       if (t.visit.note != null && t.visit.note!.isNotEmpty) ...[
                         const SizedBox(height: GzSpace.s4),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GzIcon(GzIcons.chatText, size: GzIconSize.xs, color: context.gz.colors.iconSecondary),
-                            const SizedBox(width: GzSpace.s2),
-                            Expanded(child: GzText(t.visit.note!, role: GzTextRole.bodyS, color: context.gz.colors.textPrimary, maxLines: 2, overflow: TextOverflow.ellipsis)),
-                          ],
+                        // The web note is `dir=auto`: the glyph and the words follow the note's own script (an Arabic note in the English UI is a right-to-left row).
+                        Directionality(
+                          textDirection: gzFirstStrong(t.visit.note!) ?? Directionality.of(context),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              GzIcon(GzIcons.chatText, size: GzIconSize.xs, color: context.gz.colors.iconSecondary),
+                              const SizedBox(width: GzSpace.s2),
+                              Expanded(child: GzUserText(t.visit.note!, role: GzTextRole.bodyS, color: context.gz.colors.textPrimary, maxLines: 2)),
+                            ],
+                          ),
                         ),
                       ],
                     ],

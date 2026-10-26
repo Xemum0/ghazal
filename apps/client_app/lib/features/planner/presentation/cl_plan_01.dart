@@ -91,6 +91,8 @@ class _ClPlan01ScreenState extends ConsumerState<ClPlan01Screen> {
         fill: false,
         onRetry: () => ref.invalidate(plannerPackagesProvider),
       );
+    } else if (pkgs.isEmpty && offline) {
+      body = GzOfflineState(key: const ValueKey<String>('planner.offline'), onRetry: () => ref.invalidate(plannerPackagesProvider), fill: false);
     } else if (pkgs.isEmpty) {
       body = Column(
         key: const ValueKey<String>('planner.loading'),
@@ -119,7 +121,7 @@ class _ClPlan01ScreenState extends ConsumerState<ClPlan01Screen> {
           Semantics(
             label: l.clientPlannerTierPickerLabel,
             child: Padding(
-              padding: const EdgeInsetsDirectional.only(top: GzSpace.s2, bottom: GzSpace.s3),
+              padding: const EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: GzSpace.s2, bottom: GzSpace.s3),
               child: GzSegmentedControl<PlannerTier>(
                 key: const ValueKey<String>('planner.tiers'),
                 label: l.clientPlannerTierPickerLabel,
@@ -131,14 +133,16 @@ class _ClPlan01ScreenState extends ConsumerState<ClPlan01Screen> {
           ),
           TierPlate(key: ValueKey<String>('planner.plate.live.${pkg.tier.value}'), pkg: pkg, previousName: _previousName(pkgs, pkg, lang)),
           const SizedBox(height: GzSpace.s4),
-          const SizedBox(height: GzSpace.s4),
-          GzIconListRow(
-            flush: true,
-            icon: GzIcons.search,
-            title: l.clientPlannerOtherPlanners,
-            chevron: true,
-            last: true,
-            onPressed: () => _nav.push('CL-SERV-02', params: const <String, Object?>{'categoryId': 'event_planning'}),
+          Padding(
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.gutter),
+            child: GzIconListRow(
+              flush: true,
+              icon: GzIcons.search,
+              title: l.clientPlannerOtherPlanners,
+              chevron: true,
+              last: true,
+              onPressed: () => _nav.push('CL-SERV-02', params: const <String, Object?>{'categoryId': 'event_planning'}),
+            ),
           ),
         ],
       );
@@ -157,7 +161,7 @@ class _ClPlan01ScreenState extends ConsumerState<ClPlan01Screen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (offline) GzBanner(message: lg.commonStateOffline, tone: GzBannerTone.offline),
+          if (offline && pkgs.isNotEmpty) GzBanner(message: lg.commonStateOffline, tone: GzBannerTone.offline),
           body,
           const SizedBox(height: GzSpace.s6),
         ],

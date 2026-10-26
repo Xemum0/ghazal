@@ -126,14 +126,18 @@ class DiscoverCardAction extends ConsumerWidget {
       nav.openSheet('CL-VCHR-01', options: GzSheetOptions(params: params));
     }
 
-    return Align(
-      alignment: AlignmentDirectional.centerEnd,
-      child: GzButton(
-        key: ValueKey<String>('discover.action.${row.venue.id}'),
-        label: eligible ? l.clientDiscoverCardGetVoucher : l.clientDiscoverCardView,
-        variant: GzButtonVariant.tertiary,
-        iconEnd: eligible ? GzIcons.ticket : null,
-        onPressed: eligible ? getVoucher : () => nav.push('CL-VENU-01', params: <String, Object?>{'venueId': row.venue.id, 'from': 'discover'}),
+    // The web item is a 4 gap column and the action row carries its own 4 of top padding: 8 under the card.
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(top: GzSpace.s2),
+      child: Align(
+        alignment: AlignmentDirectional.centerEnd,
+        child: GzButton(
+          key: ValueKey<String>('discover.action.${row.venue.id}'),
+          label: eligible ? l.clientDiscoverCardGetVoucher : l.clientDiscoverCardView,
+          variant: GzButtonVariant.tertiary,
+          iconEnd: eligible ? GzIcons.ticket : null,
+          onPressed: eligible ? getVoucher : () => nav.push('CL-VENU-01', params: <String, Object?>{'venueId': row.venue.id, 'from': 'discover'}),
+        ),
       ),
     );
   }

@@ -54,7 +54,13 @@ class _HubColumn extends StatelessWidget {
           for (var i = 0; i < children.length; i++) ...[if (i > 0) const SizedBox(height: GzSpace.s6), children[i]],
           const SizedBox(height: GzSpace.s6),
           Consumer(
-            builder: (context, ref, _) => GzText(context.l10n.clientProfileSharedVersion(kProfileAppVersion), role: GzTextRole.figCaption, color: f.textSecondary, textAlign: TextAlign.center, figures: true),
+            builder: (context, ref, _) => GzText(
+              context.l10n.clientProfileSharedVersion(kProfileAppVersion),
+              role: GzTextRole.figCaption,
+              color: f.textSecondary,
+              textAlign: TextAlign.center,
+              figures: true,
+            ),
           ),
         ],
       ),
@@ -82,7 +88,11 @@ class _HubSkeleton extends StatelessWidget {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [GzSkeleton(inlineSize: 160, blockSize: 28), SizedBox(height: GzSpace.s2), GzSkeleton(inlineSize: 120, blockSize: 20)],
+                    children: [
+                      GzSkeleton(inlineSize: 160, blockSize: 28),
+                      SizedBox(height: GzSpace.s2),
+                      GzSkeleton(inlineSize: 120, blockSize: 20),
+                    ],
                   ),
                 ),
               ],
@@ -91,7 +101,10 @@ class _HubSkeleton extends StatelessWidget {
             const GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 112),
             for (final rows in const <int>[5, 4, 3]) ...[
               const SizedBox(height: GzSpace.s6),
-              for (var i = 0; i < rows; i++) ...[if (i > 0) const SizedBox(height: GzSpace.s3), const GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 64)],
+              for (var i = 0; i < rows; i++) ...[
+                if (i > 0) const SizedBox(height: GzSpace.s3),
+                const GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 64),
+              ],
             ],
           ],
         ),
@@ -107,17 +120,29 @@ class _CommonRows {
     return GzIconListRow(
       icon: GzIcons.translate,
       title: context.l10n.commonLabelLanguage,
-      trailing: Directionality(textDirection: code == 'ar' ? TextDirection.rtl : TextDirection.ltr, child: Text(profileNativeName(context, code), locale: Locale(code))),
+      trailing: Directionality(
+        textDirection: code == 'ar' ? TextDirection.rtl : TextDirection.ltr,
+        child: Text(profileNativeName(context, code), locale: Locale(code)),
+      ),
       chevron: true,
       onPressed: () => context.gzNav.openLanguageSheet(context),
     );
   }
 
-  static Widget terms(BuildContext context) =>
-      GzIconListRow(icon: GzIcons.document, title: context.l10n.clientProfileSharedTerms, chevron: true, onPressed: () => context.gzNav.openLegalSheet(context, LegalKind.terms));
+  static Widget terms(BuildContext context) => GzIconListRow(
+    icon: GzIcons.document,
+    title: context.l10n.clientProfileSharedTerms,
+    chevron: true,
+    onPressed: () => context.gzNav.openLegalSheet(context, LegalKind.terms),
+  );
 
-  static Widget privacy(BuildContext context) =>
-      GzIconListRow(icon: GzIcons.shieldCheck, title: context.l10n.clientProfileSharedPrivacy, chevron: true, last: true, onPressed: () => context.gzNav.openLegalSheet(context, LegalKind.privacy));
+  static Widget privacy(BuildContext context) => GzIconListRow(
+    icon: GzIcons.shieldCheck,
+    title: context.l10n.clientProfileSharedPrivacy,
+    chevron: true,
+    last: true,
+    onPressed: () => context.gzNav.openLegalSheet(context, LegalKind.privacy),
+  );
 }
 
 class _Guest extends ConsumerWidget {
@@ -132,7 +157,11 @@ class _Guest extends ConsumerWidget {
           padding: kProfPad,
           child: Container(
             padding: const EdgeInsetsDirectional.symmetric(vertical: GzSpace.s6, horizontal: GzSpace.panelPad),
-            decoration: BoxDecoration(color: c.surfaceRaised, borderRadius: GzRadius.mdAll, border: Border.all(color: c.borderStrong, width: GzStroke.hair)),
+            decoration: BoxDecoration(
+              color: c.surfaceRaised,
+              borderRadius: GzRadius.mdAll,
+              border: Border.all(color: c.borderStrong, width: GzStroke.hair),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -201,12 +230,23 @@ class _SignedIn extends ConsumerWidget {
                       children: [
                         GzText(who.name, role: GzTextRole.d1, color: c.textStrong, header: true),
                         const SizedBox(height: GzSpace.s1),
-                        Row(
-                          children: [
-                            Flexible(child: GzNum(f.phone(who.phone), role: GzTextRole.figCaption, color: c.textSecondary)),
-                            const SizedBox(width: GzSpace.s2),
-                            Semantics(label: l.clientProfileHubVerified, image: true, excludeSemantics: true, child: GzIcon(GzIcons.checkCircle, size: GzIconSize.xs, color: c.iconSuccess)),
-                          ],
+                        // The web row is the glyph tall (16): the digits are an inline island with no line box of their own.
+                        SizedBox(
+                          height: GzSize.iconXs,
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: GzNum(f.phone(who.phone), role: GzTextRole.figCaption, color: c.textSecondary),
+                              ),
+                              const SizedBox(width: GzSpace.s2),
+                              Semantics(
+                                label: l.clientProfileHubVerified,
+                                image: true,
+                                excludeSemantics: true,
+                                child: GzIcon(GzIcons.checkCircle, size: GzIconSize.xs, color: c.iconSuccess),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -236,7 +276,11 @@ class _SignedIn extends ConsumerWidget {
           padding: kProfPad,
           child: Container(
             padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.panelPad),
-            decoration: BoxDecoration(color: c.surfaceRaised, borderRadius: GzRadius.mdAll, border: Border.all(color: c.borderStrong, width: GzStroke.hair)),
+            decoration: BoxDecoration(
+              color: c.surfaceRaised,
+              borderRadius: GzRadius.mdAll,
+              border: Border.all(color: c.borderStrong, width: GzStroke.hair),
+            ),
             child: GzIconListRow(
               flush: true,
               last: true,
@@ -246,7 +290,13 @@ class _SignedIn extends ConsumerWidget {
                   ? GzFactRow(
                       children: [
                         GzFactChip(icon: GzIcons.calendar, value: f.date(weddingDate, DateStyle.dayMonth), label: l.clientProfileWedDate),
-                        if (daysToGo > 0) GzFactChip(icon: GzIcons.countdown, value: f.digits(context.gzL10n.commonCountDays(daysToGo)), label: l.clientProfileWedCountdown, tone: GzFactTone.accent),
+                        if (daysToGo > 0)
+                          GzFactChip(
+                            icon: GzIcons.countdown,
+                            value: f.digits(context.gzL10n.commonCountDays(daysToGo)),
+                            label: l.clientProfileWedCountdown,
+                            tone: GzFactTone.accent,
+                          ),
                       ],
                     )
                   : GzText(context.gzL10n.commonLabelNotDecided, color: c.textSecondary),
@@ -282,7 +332,11 @@ class _SignedIn extends ConsumerWidget {
               icon: GzIcons.receipt,
               title: l.clientProfileHubRowReceipts,
               trailing: paid
-                  ? Semantics(label: '${l.clientProfileHubCountPaid} ${f.money(paidFils)}', excludeSemantics: true, child: GzText(f.money(paidFils), role: GzTextRole.figBody, color: c.textSecondary, figures: true))
+                  ? Semantics(
+                      label: '${l.clientProfileHubCountPaid} ${f.money(paidFils)}',
+                      excludeSemantics: true,
+                      child: GzText(f.money(paidFils), role: GzTextRole.figBody, color: c.textSecondary, figures: true),
+                    )
                   : null,
               chevron: true,
               onPressed: () => nav.push('CL-BKNG-05'),
@@ -307,14 +361,25 @@ class _SignedIn extends ConsumerWidget {
         ),
         Column(
           children: [
-            GzIconListRow(icon: GzIcons.chatText, title: l.clientProfileSharedSupport, chevron: true, onPressed: () => nav.push('CL-MSGS-02', params: const <String, Object?>{'support': true})),
+            GzIconListRow(
+              icon: GzIcons.chatText,
+              title: l.clientProfileSharedSupport,
+              chevron: true,
+              onPressed: () => nav.push('CL-MSGS-02', params: const <String, Object?>{'support': true}),
+            ),
             _CommonRows.terms(context),
             _CommonRows.privacy(context),
           ],
         ),
         Padding(
           padding: kProfPad,
-          child: GzButton(label: l.clientProfileSharedSignOut, variant: GzButtonVariant.secondary, iconStart: GzIcons.signOut, fullWidth: true, onPressed: () => confirmProfileSignOut(context, ref)),
+          child: GzButton(
+            label: l.clientProfileSharedSignOut,
+            variant: GzButtonVariant.secondary,
+            iconStart: GzIcons.signOut,
+            fullWidth: true,
+            onPressed: () => confirmProfileSignOut(context, ref),
+          ),
         ),
       ],
     );

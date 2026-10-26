@@ -144,14 +144,16 @@ class _ClPaym01State extends ConsumerState<ClPaym01Screen> {
     }
     final pay = ref.watch(paymentProvider);
     final afterKnetFailure = pay.outcome == PaymentOutcome.failed && pay.method == GatewayMethod.knet;
-    final methods = pay.methods.isNotEmpty ? pay.methods : payMethods(afterKnetFailure: afterKnetFailure);
+    final methods = pay.methods.isNotEmpty ? pay.methods : payMethods(afterKnetFailure: afterKnetFailure, platform: ref.watch(payPlatformProvider));
     final method = _method ?? (methods.contains(GatewayMethod.knet) && !afterKnetFailure ? GatewayMethod.knet : methods.first);
     _method = method;
     final offline = async.hasError && isPayOffline(async.error);
     // The wallet match counts only past a real quote (web: a bare hero open
     // shows no banner; the has-voucher frame does).
     final named = args.voucherId != null || args.venueId != null || args.providerId != null;
-    final wallet = named ? ref.watch(_existingVoucherProvider((targetId: quote.targetId, packageId: quote.packageId, date: quote.eventDate.toString()))).value ?? false : false;
+    final wallet = named
+        ? ref.watch(_existingVoucherProvider((targetId: quote.targetId, packageId: quote.packageId, date: quote.eventDate.toString()))).value ?? false
+        : false;
     final existing = args.scene == 'has-voucher' || wallet;
     final honest = switch (method) {
       GatewayMethod.knet => l.clientPaymentHonestKnet,
@@ -164,7 +166,10 @@ class _ClPaym01State extends ConsumerState<ClPaym01Screen> {
           ? null
           : GzActionBar(
               action: existing
-                  ? GzActionBarAction(label: l.clientPaymentViewVoucher, onPressed: () => nav.push('CL-VCHR-03', params: <String, Object?>{'voucherId': args.voucherId ?? kPayHeroVoucherId}))
+                  ? GzActionBarAction(
+                      label: l.clientPaymentViewVoucher,
+                      onPressed: () => nav.push('CL-VCHR-03', params: <String, Object?>{'voucherId': args.voucherId ?? kPayHeroVoucherId}),
+                    )
                   : GzActionBarAction(
                       label: signedIn ? l.clientPaymentCtaPay : l.clientVouchersCtaSignIn,
                       loading: _busy,
@@ -179,7 +184,9 @@ class _ClPaym01State extends ConsumerState<ClPaym01Screen> {
                 illustration: GzIllustrationName.card,
                 title: l.clientPaymentSessionErrorTitle,
                 danger: true,
-                meta: GzFactRow(children: [GzFactChip(icon: GzIcons.shieldCheck, label: l.clientPaymentNotChargedLabel, value: l.clientPaymentNotCharged)]),
+                meta: GzFactRow(
+                  children: [GzFactChip(icon: GzIcons.shieldCheck, label: l.clientPaymentNotChargedLabel, value: l.clientPaymentNotCharged)],
+                ),
                 infoTitle: context.gzL10n.commonLabelDetails,
                 infoBody: l.clientPaymentSessionError,
               ),
@@ -191,9 +198,18 @@ class _ClPaym01State extends ConsumerState<ClPaym01Screen> {
                   key: const ValueKey<String>('pay.body'),
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    if (offline) ...[GzBanner(message: context.gzL10n.commonStateOffline, tone: GzBannerTone.offline, shape: GzBannerShape.flush), const SizedBox(height: GzSpace.s3)],
-                    if (ended) ...[GzBanner(message: l.clientPaymentExpiredBanner, tone: GzBannerTone.warning, shape: GzBannerShape.card), const SizedBox(height: GzSpace.s3)],
-                    if (existing) ...[GzBanner(message: l.clientPaymentHasVoucherBanner, tone: GzBannerTone.info, shape: GzBannerShape.card), const SizedBox(height: GzSpace.s3)],
+                    if (offline) ...[
+                      GzBanner(message: context.gzL10n.commonStateOffline, tone: GzBannerTone.offline, shape: GzBannerShape.flush),
+                      const SizedBox(height: GzSpace.s3),
+                    ],
+                    if (ended) ...[
+                      GzBanner(message: l.clientPaymentExpiredBanner, tone: GzBannerTone.warning, shape: GzBannerShape.card),
+                      const SizedBox(height: GzSpace.s3),
+                    ],
+                    if (existing) ...[
+                      GzBanner(message: l.clientPaymentHasVoucherBanner, tone: GzBannerTone.info, shape: GzBannerShape.card),
+                      const SizedBox(height: GzSpace.s3),
+                    ],
                     PayVenuePlate(quote: quote),
                     const SizedBox(height: GzSpace.s8),
                     _Amount(quote: quote, leftMs: leftMs, ended: ended),
@@ -222,7 +238,11 @@ final _existingVoucherProvider = FutureProvider.autoDispose.family<bool, ({Strin
   final page = await ref.watch(vouchersRepositoryProvider).listVouchers(limit: 50);
   return page.items.any((i) {
     final v = i.voucher;
-    return v is Voucher && (v.status == VoucherStatus.active || v.status == VoucherStatus.bound) && v.venueOrProviderId == key.targetId && v.packageId == key.packageId && v.eventDate.toString() == key.date;
+    return v is Voucher &&
+        (v.status == VoucherStatus.active || v.status == VoucherStatus.bound) &&
+        v.venueOrProviderId == key.targetId &&
+        v.packageId == key.packageId &&
+        v.eventDate.toString() == key.date;
   });
 });
 
@@ -253,8 +273,16 @@ class _Amount extends StatelessWidget {
                 const SizedBox(height: GzSpace.s4),
                 GzFactRow(
                   children: [
-                    if (quote.savingsFils > 0) GzFactChip(icon: GzIcons.offer, label: l.clientPaymentLabelSaving, value: l.clientPaymentSave(f.money(quote.savingsFils))),
-                    if (!ended && leftMs <= 60000) PayTimer(ms: leftMs) else GzFactChip(icon: GzIcons.timer, label: l.clientPaymentLabelOpenUntil, value: f.time(now.add(Duration(milliseconds: leftMs > 0 ? leftMs : 0)).toIso8601String())),
+                    if (quote.savingsFils > 0)
+                      GzFactChip(icon: GzIcons.offer, label: l.clientPaymentLabelSaving, value: l.clientPaymentSave(f.money(quote.savingsFils))),
+                    if (!ended && leftMs <= 60000)
+                      PayTimer(ms: leftMs)
+                    else
+                      GzFactChip(
+                        icon: GzIcons.timer,
+                        label: l.clientPaymentLabelOpenUntil,
+                        value: f.time(now.add(Duration(milliseconds: leftMs > 0 ? leftMs : 0)).toIso8601String()),
+                      ),
                   ],
                 ),
               ],
@@ -269,7 +297,14 @@ class _Amount extends StatelessWidget {
 }
 
 class _Methods extends StatelessWidget {
-  const _Methods({required this.methods, required this.method, required this.honest, required this.suggestedFirst, required this.disabled, required this.onSelect});
+  const _Methods({
+    required this.methods,
+    required this.method,
+    required this.honest,
+    required this.suggestedFirst,
+    required this.disabled,
+    required this.onSelect,
+  });
 
   final List<GatewayMethod> methods;
   final GatewayMethod method;
@@ -303,7 +338,15 @@ class _Methods extends StatelessWidget {
             children: [
               for (var i = 0; i < methods.length; i++) ...[
                 if (i > 0) const SizedBox(width: GzSpace.s3),
-                Expanded(child: PayMethodTile(method: methods[i], selected: methods[i] == method, suggested: suggestedFirst && i == 0, disabled: disabled, onSelect: () => onSelect(methods[i]))),
+                Expanded(
+                  child: PayMethodTile(
+                    method: methods[i],
+                    selected: methods[i] == method,
+                    suggested: suggestedFirst && i == 0,
+                    disabled: disabled,
+                    onSelect: () => onSelect(methods[i]),
+                  ),
+                ),
               ],
             ],
           ),
@@ -346,28 +389,50 @@ class _Terms extends StatelessWidget {
       expand: true,
       child: Container(
         padding: const EdgeInsetsDirectional.symmetric(vertical: GzSpace.s4),
-        decoration: BoxDecoration(border: Border(top: BorderSide(color: c.borderHairline, width: GzStroke.hair), bottom: BorderSide(color: c.borderHairline, width: GzStroke.hair))),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(color: c.borderHairline, width: GzStroke.hair),
+            bottom: BorderSide(color: c.borderHairline, width: GzStroke.hair),
+          ),
+        ),
+        // The info glyph sits on the corner (web: absolute, 16 + 8 from the top, at inline-end) so the three columns keep the full width.
+        child: Stack(
           children: [
-            for (final (icon, label) in [(GzIcons.ticket, l.clientPaymentTermPrice), (quote.isProvider ? GzIcons.package : GzIcons.hall, l.clientPaymentTermDirect), (GzIcons.undo, l.clientPaymentTermReturns)])
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: GzSize.avatarSm,
-                      height: GzSize.avatarSm,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(color: c.surfaceTint, shape: BoxShape.circle),
-                      child: GzIcon(icon, size: GzIconSize.sm, color: c.iconPrimary),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (final (i, (icon, label)) in [
+                  (GzIcons.ticket, l.clientPaymentTermPrice),
+                  (quote.isProvider ? GzIcons.package : GzIcons.hall, l.clientPaymentTermDirect),
+                  (GzIcons.undo, l.clientPaymentTermReturns),
+                ].indexed) ...[
+                  if (i > 0) const SizedBox(width: GzSpace.s2),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: GzSize.avatarSm,
+                          height: GzSize.avatarSm,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(color: c.surfaceTint, shape: BoxShape.circle),
+                          child: GzIcon(icon, size: GzIconSize.md, color: c.iconPrimary),
+                        ),
+                        const SizedBox(height: GzSpace.s2),
+                        GzText(label, role: GzTextRole.caption, color: c.textPrimary, textAlign: TextAlign.center, softWrap: false),
+                      ],
                     ),
-                    const SizedBox(height: GzSpace.s2),
-                    GzText(label, role: GzTextRole.caption, color: c.textPrimary, textAlign: TextAlign.center, softWrap: false),
-                  ],
-                ),
+                  ),
+                ],
+              ],
+            ),
+            const PositionedDirectional(
+              end: 0,
+              top: GzSpace.s2,
+              child: ExcludeSemantics(
+                child: GzIcon(GzIcons.info, size: GzIconSize.sm, tone: GzIconTone.secondary),
               ),
-            GzInfoButton(title: l.clientPaymentSecureTitle, paragraphs: [l.clientPaymentHowLink], bleed: true),
+            ),
           ],
         ),
       ),
@@ -387,7 +452,13 @@ class _PaySkeleton extends StatelessWidget {
         padding: EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: GzSpace.s2),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 148), SizedBox(height: GzSpace.s5), GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 120), SizedBox(height: GzSpace.s3), GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 88)],
+          children: [
+            GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 148),
+            SizedBox(height: GzSpace.s5),
+            GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 120),
+            SizedBox(height: GzSpace.s3),
+            GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 88),
+          ],
         ),
       ),
     ),

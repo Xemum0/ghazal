@@ -3,6 +3,7 @@
 // Defines: SHOT_IDS (ids or all), SHOT_LANGS, SHOT_W, SHOT_H, SHOT_SCALE, SHOT_TEXT_SCALE, SHOT_STATE, SHOT_OUT, SHOT_PERSONA (also as an
 // environment variable). Renders the REAL app (`ClientApp` over the generated router) in the in-process mock as Reem, signed in, except
 // onboarding and auth (a first-time guest); a state is a mock scenario (loading, empty, error, offline, expired) or `guest`.
+import 'package:flutter/foundation.dart' show TargetPlatform;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart';
 import 'package:ghazal_testing/ghazal_testing.dart';
@@ -11,6 +12,7 @@ import 'package:ghazal_testing/src/world.dart' show GzWorld;
 import 'package:client_app/app/app.dart';
 import 'package:client_app/app/screen_registry.dart';
 import 'package:client_app/app/state/state.dart';
+import 'package:client_app/features/payment/application/pay_flow.dart' show payPlatformProvider;
 
 /// The web frames of the compare tray, the full table and the card badge open with the story's three halls in the set
 /// (`clientState.compareVenueIds`: V01, V05, V07); the set is device state, so the shot seeds it here and no production code fakes it.
@@ -27,12 +29,25 @@ Map<String, Object?>? _frameParams(String id, Map<String, Object?>? given) => sw
   'CL-VIST-02' when given?['stay'] == null => <String, Object?>{...?given, 'stay': true},
   // The web frame reviews the persona's finished stay at the hero venue (a prototype stand-in); the mock has it as the completed story.
   'CL-RVRW-02' when given?['bookingId'] == null => <String, Object?>{...?given, 'bookingId': 'bk-GZ-2611-0147', 'venueId': 'V01'},
+  // The web frame is the redirect interstitial (a static frame cannot wait); live the screen moves on to the hosted page after 900 ms.
+  'CL-PAYM-02' when given?['scene'] == null => <String, Object?>{...?given, 'scene': 'redirecting'},
   'CL-SERV-04' when given?['venueId'] == null => <String, Object?>{...?given, 'venueId': 'V01'},
   _ => given,
 };
 
 /// Screens whose web frame is drawn at a story point other than the hero request's default (approved).
-const _frameStory = <String, String>{'CL-BOOK-09': 'confirmed', 'CL-BOOK-10': 'lapsed', 'CL-BOOK-08': 'approved', 'CL-BKNG-04': 'counter_offer', 'CL-RVRW-01': 'completed', 'CL-RVRW-02': 'completed'};
+const _frameStory = <String, String>{
+  'CL-BOOK-09': 'confirmed',
+  'CL-BOOK-10': 'lapsed',
+  'CL-BOOK-08': 'approved',
+  'CL-BKNG-04': 'counter_offer',
+  'CL-RVRW-01': 'completed',
+  'CL-RVRW-02': 'completed',
+  // The My Wedding static frames draw the confirmed variant (useWedding STATIC_DEFAULT): the Venue task done, the venue price committed.
+  'CL-WEDD-01': 'confirmed',
+  'CL-WEDD-02': 'confirmed',
+  'CL-WEDD-03': 'confirmed',
+};
 
 void main() {
   late GzWorld world;
@@ -42,11 +57,19 @@ void main() {
     paths: {for (final e in kScreenRegistry.entries) e.key: e.value.path},
     appBuilder: (path, state) => const ClientApp(),
     prepare: (shot) async {
-      final setup = await prepareShotWorld(mock: world.mock, screenId: shot.id, state: shot.state, persona: shot.persona, story: shot.story ?? _frameStory[shot.id]);
+      final setup = await prepareShotWorld(
+        mock: world.mock,
+        screenId: shot.id,
+        state: shot.state,
+        persona: shot.persona,
+        story: shot.story ?? _frameStory[shot.id],
+      );
       return GzShotWorldSetup(
         overrides: [
           ...setup.overrides,
           if (_compareSeeded.contains(shot.id)) compareProvider.overrideWith(_StoryCompare.new),
+          // The web frames are drawn as on an iPhone (the prototype's default platform): the payment methods lead with Apple Pay.
+          if (shot.id.startsWith('CL-PAYM-')) payPlatformProvider.overrideWithValue(TargetPlatform.iOS),
           clientRouterOverride(initialLocation: shot.path, initialExtra: _frameParams(shot.id, shot.params)),
         ],
         flush: setup.flush,

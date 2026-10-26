@@ -31,13 +31,22 @@ class ObdFormSection extends StatelessWidget {
           constraints: const BoxConstraints(minHeight: GzSize.touchMin),
           child: Row(
             children: [
-              if (icon != null) ...[GzIcon(icon!, size: GzIconSize.md), const SizedBox(width: GzSpace.s2)],
-              Flexible(
-                flex: 100,
-                child: GzText(title, role: GzTextRole.d1, color: c.textStrong, header: true),
+              // Glyph, title and unit at the start; the action at the end (a Spacer next to a loose title left the action beside it).
+              Expanded(
+                child: Row(
+                  children: [
+                    if (icon != null) ...[GzIcon(icon!, size: GzIconSize.md), const SizedBox(width: GzSpace.s2)],
+                    Flexible(
+                      child: GzText(title, role: GzTextRole.d1, color: c.textStrong, header: true),
+                    ),
+                    if (unit != null) ...[
+                      const SizedBox(width: GzSpace.s2),
+                      GzText(unit!, role: GzTextRole.label, color: c.textSecondary, figures: true),
+                    ],
+                  ],
+                ),
               ),
-              if (unit != null) ...[const SizedBox(width: GzSpace.s2), GzText(unit!, role: GzTextRole.label, color: c.textSecondary, figures: true)],
-              if (action != null) ...[const Spacer(), action!],
+              ?action,
             ],
           ),
         ),

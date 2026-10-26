@@ -44,7 +44,8 @@ class VoucherLine extends StatelessWidget {
       onPressed: onOpen,
       semanticLabel: '${context.gzL10n.commonVoucher} ${v.code}',
       builder: (context, st) => Container(
-        padding: GzSpace.panel,
+        // The web row: 12 above and below the 56 disc, 16 at the sides, inside the 1 dp border.
+        padding: const EdgeInsetsDirectional.symmetric(vertical: GzSpace.s3, horizontal: GzSpace.panelPad),
         decoration: BoxDecoration(
           color: st.pressed ? c.surfaceQuiet : c.surfaceRaised,
           borderRadius: GzRadius.mdAll,
@@ -70,10 +71,7 @@ class VoucherLine extends StatelessWidget {
                     excludeSemantics: true,
                     child: gzFigText(context, v.code, role: GzTextRole.figBody, color: c.textStrong),
                   ),
-                  if (fact != null) ...[
-                    const SizedBox(height: GzSpace.s1),
-                    GzFactChip(icon: fact.icon, label: fact.label, value: fact.value, small: true, tone: GzFactTone.muted),
-                  ],
+                  if (fact != null) GzFactChip(icon: fact.icon, label: fact.label, value: fact.value, small: true, tone: GzFactTone.muted),
                 ],
               ),
             ),

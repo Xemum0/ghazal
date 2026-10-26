@@ -299,17 +299,19 @@ class _ResultItem extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         DiscoverVenueCard(row: row, variant: GzVenueCardVariant.list),
-        const SizedBox(height: GzSpace.s1),
         DiscoverCardAction(row: row),
         if (booked)
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: GzButton(
-              key: ValueKey<String>('discover.freedates.${row.venue.id}'),
-              label: l.clientDiscoverResultsSeeFreeDates,
-              variant: GzButtonVariant.tertiary,
-              iconStart: GzIcons.calendar,
-              onPressed: () => nav.openSheet('CL-VENU-03', options: GzSheetOptions(params: <String, Object?>{'venueId': row.venue.id})),
+          Padding(
+            padding: const EdgeInsetsDirectional.only(top: GzSpace.s1),
+            child: Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: GzButton(
+                key: ValueKey<String>('discover.freedates.${row.venue.id}'),
+                label: l.clientDiscoverResultsSeeFreeDates,
+                variant: GzButtonVariant.tertiary,
+                iconStart: GzIcons.calendar,
+                onPressed: () => nav.openSheet('CL-VENU-03', options: GzSheetOptions(params: <String, Object?>{'venueId': row.venue.id})),
+              ),
             ),
           ),
       ],

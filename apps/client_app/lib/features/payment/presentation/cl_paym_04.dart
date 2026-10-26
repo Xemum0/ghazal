@@ -33,7 +33,9 @@ class ClPaym04Screen extends ConsumerWidget {
     final quote = async.value;
     final detailParams = quote == null
         ? null
-        : (quote.isProvider ? <String, Object?>{'providerId': quote.targetId, 'vendorId': quote.targetId} : <String, Object?>{'venueId': quote.targetId});
+        : (quote.isProvider
+              ? <String, Object?>{'providerId': quote.targetId, 'vendorId': quote.targetId}
+              : <String, Object?>{'venueId': quote.targetId});
     final view = _view(context, ref, scene: scene, args: args, method: method, quote: quote);
     final duo = view.secondary != null && quote != null;
     return GzScreen(
@@ -55,13 +57,24 @@ class ClPaym04Screen extends ConsumerWidget {
               },
         title: l.clientPaymentTopTitle,
         rule: true,
-        actions: [GzTopBarAction(icon: GzIcons.chat, label: l.clientPaymentSupport, onPressed: () => nav.push('CL-MSGS-02', params: const <String, Object?>{'support': true}))],
+        actions: [
+          GzTopBarAction(
+            icon: GzIcons.chat,
+            label: l.clientPaymentSupport,
+            onPressed: () => nav.push('CL-MSGS-02', params: const <String, Object?>{'support': true}),
+          ),
+        ],
       ),
       bottom: quote == null
           ? null
           : duo
-          ? GzActionBar(action: GzActionBarAction(label: view.primary.$1, onPressed: view.primary.$2), secondary: GzActionBarAction(label: view.secondary!.$1, onPressed: view.secondary!.$2))
-          : GzActionBar(action: GzActionBarAction(label: view.primary.$1, onPressed: view.primary.$2)),
+          ? GzActionBar(
+              action: GzActionBarAction(label: view.primary.$1, onPressed: view.primary.$2),
+              secondary: GzActionBarAction(label: view.secondary!.$1, onPressed: view.secondary!.$2),
+            )
+          : GzActionBar(
+              action: GzActionBarAction(label: view.primary.$1, onPressed: view.primary.$2),
+            ),
       child: PayStage(
         child: Column(
           key: const ValueKey<String>('pay.notCompleted'),
@@ -69,9 +82,21 @@ class ClPaym04Screen extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (quote == null)
-              GzAsyncView<PayQuote>(value: async, onRetry: () => ref.invalidate(payQuoteProvider(args)), loading: const _NotCompletedSkeleton(), data: (_) => const SizedBox.shrink())
+              GzAsyncView<PayQuote>(
+                value: async,
+                onRetry: () => ref.invalidate(payQuoteProvider(args)),
+                loading: const _NotCompletedSkeleton(),
+                data: (_) => const SizedBox.shrink(),
+              )
             else
-              PayOutcome(illustration: view.art, title: view.title, danger: view.danger, meta: view.meta, infoTitle: context.gzL10n.commonLabelDetails, infoBody: view.detail),
+              PayOutcome(
+                illustration: view.art,
+                title: view.title,
+                danger: view.danger,
+                meta: view.meta,
+                infoTitle: context.gzL10n.commonLabelDetails,
+                infoBody: view.detail,
+              ),
           ],
         ),
       ),
@@ -96,7 +121,16 @@ class ClPaym04Screen extends ConsumerWidget {
     };
   }
 
-  ({GzIllustrationName art, bool danger, String title, String detail, Widget? meta, (String, VoidCallback) primary, (String, VoidCallback)? secondary}) _view(
+  ({
+    GzIllustrationName art,
+    bool danger,
+    String title,
+    String detail,
+    Widget? meta,
+    (String, VoidCallback) primary,
+    (String, VoidCallback)? secondary,
+  })
+  _view(
     BuildContext context,
     WidgetRef ref, {
     required String scene,
@@ -109,7 +143,10 @@ class ClPaym04Screen extends ConsumerWidget {
     final nav = context.gzNav;
     final voucherId = args.voucherId ?? kPayHeroVoucherId;
     final depth = args.depth;
-    void retry() => nav.replace('CL-PAYM-02', params: <String, Object?>{'voucherId': voucherId, 'method': method.value, 'attempt': (args.attempt ?? 1) + 1, 'depth': depth});
+    void retry() => nav.replace(
+      'CL-PAYM-02',
+      params: <String, Object?>{'voucherId': voucherId, 'method': method.value, 'attempt': (args.attempt ?? 1) + 1, 'depth': depth},
+    );
     void another() {
       if (depth >= 2 && nav.canGoBack) {
         nav.pop();
@@ -123,7 +160,15 @@ class ClPaym04Screen extends ConsumerWidget {
     );
     switch (scene) {
       case 'cancelled-by-user':
-        return (art: GzIllustrationName.card, danger: false, title: l.clientPaymentCancelTitle, detail: l.clientPaymentFailBodyCancelled, meta: none, primary: (cl.commonActionRetry, retry), secondary: (l.clientPaymentFailAnother, another));
+        return (
+          art: GzIllustrationName.card,
+          danger: false,
+          title: l.clientPaymentCancelTitle,
+          detail: l.clientPaymentFailBodyCancelled,
+          meta: none,
+          primary: (cl.commonActionRetry, retry),
+          secondary: (l.clientPaymentFailAnother, another),
+        );
       case 'checkout-expired':
         return (
           art: GzIllustrationName.hourglass,
@@ -131,9 +176,12 @@ class ClPaym04Screen extends ConsumerWidget {
           title: l.clientPaymentFailTitleExpired,
           detail: l.clientPaymentFailBodyExpired('', ''),
           meta: none,
-          primary: (l.clientPaymentFailStartAgain, () {
-            if (quote != null) nav.replace('CL-PAYM-01', params: _quoteParams(quote));
-          }),
+          primary: (
+            l.clientPaymentFailStartAgain,
+            () {
+              if (quote != null) nav.replace('CL-PAYM-01', params: _quoteParams(quote));
+            },
+          ),
           secondary: null,
         );
       case 'late-payment-activated':
@@ -144,7 +192,11 @@ class ClPaym04Screen extends ConsumerWidget {
           detail: l.clientPaymentFailBodyLate,
           meta: GzFactRow(
             children: [
-              GzFactChip(icon: GzIcons.checkCircle, label: l.clientPaymentReceivedLabel, valueWidget: quote == null ? null : GzPrice(fils: quote.feeFils, mode: GzMoneyMode.exact, size: GzPriceSize.strong)),
+              GzFactChip(
+                icon: GzIcons.checkCircle,
+                label: l.clientPaymentReceivedLabel,
+                valueWidget: quote == null ? null : GzPrice(fils: quote.feeFils, mode: GzMoneyMode.exact, size: GzPriceSize.strong),
+              ),
               GzFactChip(icon: payMethodIcon(method), label: l.clientPaymentLabelMethod, value: _methodName(context, method)),
             ],
           ),
@@ -163,7 +215,15 @@ class ClPaym04Screen extends ConsumerWidget {
         );
       case 'declined':
       default:
-        return (art: GzIllustrationName.card, danger: true, title: cl.commonStateTitlePayment, detail: l.clientPaymentFailBodyDeclined, meta: none, primary: (cl.commonActionRetry, retry), secondary: (l.clientPaymentFailAnother, another));
+        return (
+          art: GzIllustrationName.card,
+          danger: true,
+          title: cl.commonStateTitlePayment,
+          detail: l.clientPaymentFailBodyDeclined,
+          meta: none,
+          primary: (cl.commonActionRetry, retry),
+          secondary: (l.clientPaymentFailAnother, another),
+        );
     }
   }
 }
@@ -176,7 +236,10 @@ class _NotCompletedSkeleton extends StatelessWidget {
     container: true,
     label: context.gzL10n.commonStateLoading,
     child: const ExcludeSemantics(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 220)]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 220)],
+      ),
     ),
   );
 }

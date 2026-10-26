@@ -1,14 +1,15 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart' show gzProblemKind, gzProblemMessage;
-import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, ApiProblemCode, DateStyle;
+import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, ApiProblemCode;
 import 'package:ghazal_domain/ghazal_domain.dart' show LocalDate, PlannerRequest, PlannerTier;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../../app/state/state.dart';
 import '../../../l10n/l10n.dart';
 import '../application/planner_data.dart';
-import 'widgets/planner_parts.dart';
+import 'widgets/plan_status_parts.dart';
+import 'widgets/planner_parts.dart' show PlannerRequestSummary;
 
 /// CL-PLAN-03 Your planner (request status). Covers CA-PLAN-07, CA-PLAN-08, CA-CHAT-03.
 /// Entry from 'CL-WEDD-01' (the My Wedding planner module) returns there with
@@ -137,209 +138,112 @@ class _StatusBody extends ConsumerWidget {
     return GzScreen(
       top: GzTopBar(title: l.clientPlannerStatusTitle),
       bottom: bar,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (offline) GzBanner(message: lg.commonStateOffline, tone: GzBannerTone.offline),
-          if (!assigned)
-            GzEmptyState(
-              key: const ValueKey<String>('planner.status.waiting'),
-              illustration: GzIllustrationName.hourglass,
-              title: l.clientPlannerStatusHeadWaiting,
-              fill: false,
-            ),
-          if (assigned)
-            Semantics(
-              key: const ValueKey<String>('planner.status.planner'),
-              container: true,
-              label: displayName,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: context.gz.colors.surfaceRaised,
-                  borderRadius: GzRadius.mdAll,
-                  border: Border.all(color: context.gz.colors.borderHairline, width: GzStroke.hair),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(GzSpace.s4),
-                  child: Row(
-                    children: [
-                      ExcludeSemantics(
-                        child: GzAvatar(name: displayName, initial: monogram, size: GzAvatarSize.lg),
-                      ),
-                      const SizedBox(width: GzSpace.s4),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            GzText(displayName, role: GzTextRole.title, color: context.gz.colors.textStrong),
-                            const SizedBox(height: 2),
-                            GzText(displayRole, role: GzTextRole.caption, color: context.gz.colors.textSecondary),
-                            const SizedBox(height: 2),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                TierMarks(
-                                  count: tier == PlannerTier.silver
-                                      ? 1
-                                      : tier == PlannerTier.gold
-                                      ? 2
-                                      : 3,
-                                  label: l.clientPlannerMarks(
-                                    tier == PlannerTier.silver
-                                        ? 1
-                                        : tier == PlannerTier.gold
-                                        ? 2
-                                        : 3,
-                                  ),
-                                ),
-                                const SizedBox(width: GzSpace.s2),
-                                Flexible(
-                                  child: GzText(pkgName, role: GzTextRole.caption, color: context.gz.colors.textSecondary),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      if (!scheduled) ...[
-                        const SizedBox(width: GzSpace.s4),
-                        GzIconButton(
+      child: Padding(
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.gutter),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (offline) GzBanner(message: lg.commonStateOffline, tone: GzBannerTone.offline),
+            if (!assigned)
+              GzEmptyState(
+                key: const ValueKey<String>('planner.status.waiting'),
+                illustration: GzIllustrationName.hourglass,
+                title: l.clientPlannerStatusHeadWaiting,
+                fill: false,
+              ),
+            // The web body: 12 above, 24 between the sections.
+            const SizedBox(height: GzSpace.s3),
+            if (assigned) ...[
+              KeyedSubtree(
+                key: const ValueKey<String>('planner.status.planner'),
+                child: PlanPlannerPanel(
+                  name: displayName,
+                  role: displayRole,
+                  monogram: monogram,
+                  tier: tier,
+                  tierName: pkgName,
+                  action: scheduled
+                      ? null
+                      : GzIconButton(
                           icon: GzIcons.chat,
                           variant: GzIconButtonVariant.outline,
                           label: l.clientPlannerStatusMessageName(displayName),
                           onPressed: () => _message(context, ref),
                         ),
-                      ],
-                    ],
-                  ),
                 ),
               ),
+              const SizedBox(height: GzSpace.s6),
+            ],
+            PlanThread(
+              key: const ValueKey<String>('planner.status.thread'),
+              steps: steps,
+              label: l.clientPlannerStatusThreadLabel,
+              describe: lg.commonCounter(reached, steps.length),
             ),
-          const SizedBox(height: GzSpace.s4),
-          GzIconProgress(
-            key: const ValueKey<String>('planner.status.thread'),
-            steps: steps,
-            label: l.clientPlannerStatusThreadLabel,
-            describe: lg.commonCounter(reached, steps.length),
-          ),
-          if (scheduled && meeting != null) ...[
-            const SizedBox(height: GzSpace.s4),
-            Semantics(
-              key: const ValueKey<String>('planner.status.meeting'),
-              container: true,
-              label: l.clientPlannerStatusMeetingLabel,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: context.gz.colors.surfaceRaised,
-                  borderRadius: GzRadius.mdAll,
-                  border: Border.all(color: context.gz.colors.borderHairline, width: GzStroke.hair),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(GzSpace.s4),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          GzText(context.gzFormat.time(meeting.at), role: GzTextRole.uiXl, color: context.gz.colors.textStrong, figures: true),
-                          if (meetingDay)
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const GzThreadBead(),
-                                const SizedBox(width: GzSpace.s2),
-                                GzText(lg.commonLabelToday, role: GzTextRole.body, color: context.gz.colors.textStrong),
-                              ],
-                            )
-                          else
-                            GzText(
-                              context.gzFormat.date(meeting.at, DateStyle.short),
-                              role: GzTextRole.body,
-                              color: context.gz.colors.textStrong,
-                              figures: true,
-                            ),
-                        ],
-                      ),
-                      const SizedBox(height: GzSpace.s3),
-                      GzFactRow(
-                        label: '$typeName, ${lg.commonLabelKuwaitTime}',
-                        children: [
-                          GzFactChip(
-                            icon: meeting.channel == 'phone' ? GzIcons.phone : GzIcons.video,
-                            label: '$typeName, ${lg.commonLabelKuwaitTime}',
-                            small: true,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: GzSpace.s3),
-                      Row(
-                        children: [
-                          GzIconButton(
-                            icon: GzIcons.calendarPlus,
-                            variant: GzIconButtonVariant.outline,
-                            label: l.clientPlannerStatusAddToCalendar,
-                            onPressed: () => nav.toast(GzToastSpec(message: l.clientPlannerStatusCalendarToast, tone: GzToastTone.success)),
-                          ),
-                          const SizedBox(width: GzSpace.s3),
-                          Expanded(
-                            child: GzButton(
-                              label: lg.commonActionReschedule,
-                              variant: GzButtonVariant.tertiary,
-                              onPressed: offline ? null : () => nav.openSheet('CL-PLAN-04'),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+            if (scheduled && meeting != null) ...[
+              const SizedBox(height: GzSpace.s6),
+              KeyedSubtree(
+                key: const ValueKey<String>('planner.status.meeting'),
+                child: PlanMeetingCard(
+                  meeting: meeting,
+                  today: meetingDay,
+                  typeName: typeName,
+                  onCalendar: () => nav.toast(GzToastSpec(message: l.clientPlannerStatusCalendarToast, tone: GzToastTone.success)),
+                  onReschedule: offline ? null : () => nav.openSheet('CL-PLAN-04'),
                 ),
               ),
-            ),
-          ],
-          if (!assigned) ...[
-            const SizedBox(height: GzSpace.s4),
-            Builder(
-              builder: (context) {
-                final pkgs = ref.watch(plannerPackagesProvider).value ?? const [];
-                final summary = pkgs.where((p) => p.tier == tier).firstOrNull ?? pkgs.firstOrNull;
-                if (summary == null) return const GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 96);
-                return PlannerRequestSummary(pkg: summary, venueId: request?.venueId ?? 'V01', date: request?.eventDate ?? LocalDate(2027, 1, 14));
-              },
-            ),
-            const SizedBox(height: GzSpace.s4),
-            Row(
-              children: [
-                Expanded(
-                  child: GzButton(
-                    key: const ValueKey<String>('planner.status.edit'),
-                    label: lg.commonActionEdit,
-                    variant: GzButtonVariant.secondary,
-                    iconStart: GzIcons.edit,
-                    onPressed: () => nav.push('CL-PLAN-02', params: <String, Object?>{'tier': tier.value, 'edit': true}),
+            ],
+            if (!assigned) ...[
+              const SizedBox(height: GzSpace.s6),
+              Builder(
+                builder: (context) {
+                  final packages = ref.watch(plannerPackagesProvider);
+                  final pkgs = packages.value ?? const [];
+                  final summary = pkgs.where((p) => p.tier == tier).firstOrNull ?? pkgs.firstOrNull;
+                  if (summary == null) {
+                    if (!packages.hasError) return const GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 96);
+                    final failed = packages.error is ApiProblem ? packages.error! as ApiProblem : const ApiProblem(status: 0, code: ApiProblemCode.unknown);
+                    return GzErrorState(
+                      key: const ValueKey<String>('planner.status.packages.error'),
+                      kind: gzProblemKind(failed),
+                      body: gzProblemMessage(lg, failed),
+                      fill: false,
+                      onRetry: () => ref.invalidate(plannerPackagesProvider),
+                    );
+                  }
+                  return PlannerRequestSummary(pkg: summary, venueId: request?.venueId ?? 'V01', date: request?.eventDate ?? LocalDate(2027, 1, 14));
+                },
+              ),
+              const SizedBox(height: GzSpace.s6),
+              Row(
+                children: [
+                  Expanded(
+                    child: GzButton(
+                      key: const ValueKey<String>('planner.status.edit'),
+                      label: lg.commonActionEdit,
+                      variant: GzButtonVariant.secondary,
+                      iconStart: GzIcons.edit,
+                      onPressed: () => nav.push('CL-PLAN-02', params: <String, Object?>{'tier': tier.value, 'edit': true}),
+                    ),
                   ),
-                ),
-                const SizedBox(width: GzSpace.s3),
-                Expanded(
-                  child: GzButton(
-                    key: const ValueKey<String>('planner.status.cancel'),
-                    label: lg.commonActionCancel,
-                    variant: GzButtonVariant.destructive,
-                    iconStart: GzIcons.close,
-                    onPressed: offline ? null : () => _cancel(context, ref),
+                  const SizedBox(width: GzSpace.s3),
+                  Expanded(
+                    child: GzButton(
+                      key: const ValueKey<String>('planner.status.cancel'),
+                      label: lg.commonActionCancel,
+                      variant: GzButtonVariant.destructive,
+                      iconStart: GzIcons.close,
+                      onPressed: offline ? null : () => _cancel(context, ref),
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
+            const SizedBox(height: GzSpace.section),
+            if (assigned && !scheduled)
+              const GzEmptyState(key: ValueKey<String>('planner.status.next'), illustration: GzIllustrationName.emptyBookings, fill: false),
           ],
-          if (assigned && !scheduled) ...[
-            const SizedBox(height: GzSpace.s4),
-            const GzEmptyState(key: ValueKey<String>('planner.status.next'), illustration: GzIllustrationName.emptyBookings, fill: false),
-          ],
-          const SizedBox(height: GzSpace.s6),
-        ],
+        ),
       ),
     );
   }

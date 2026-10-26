@@ -35,13 +35,13 @@ class VenueLineTile extends ConsumerWidget {
                 width: GzSize.thumbMd,
                 height: GzSize.thumbMd,
                 child: ClipRRect(
-                  borderRadius: GzRadius.smAll,
+                  borderRadius: GzRadius.mdAll,
                   child: GzPhoto(src: gzImageSrc(cover.file, cover.baseUrl), alt: cover.alt.of(lang)),
                 ),
               )
             else
               GzAvatar(name: name.isEmpty ? ' ' : name, size: GzAvatarSize.md),
-            const SizedBox(width: GzSpace.s4),
+            const SizedBox(width: GzSpace.s3),
             Expanded(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -110,8 +110,8 @@ class VisitFactsRow extends StatelessWidget {
     final String? mer = startOnly ? (a.$2.isEmpty ? null : a.$2) : (a.$2 == b.$2 ? (b.$2.isEmpty ? null : b.$2) : (b.$2.isEmpty ? null : b.$2));
     // The window as runs of figures (`5:00`, `–`, `5:30`), like the web's digit islands, so each figure is its own word.
     final Widget windowValue = startOnly
-        ? _fig(context, a.$1, small: compact, tone: tone)
-        : _rangeValue(context, a.$1, b.$1, small: compact, tone: tone, across: a.$2 == b.$2 ? null : a.$2);
+        ? _fig(context, a.$1, small: false, tone: tone)
+        : _rangeValue(context, a.$1, b.$1, small: false, tone: tone, across: a.$2 == b.$2 ? null : a.$2);
     return GzFactRow(
       label: l.clientVisitsSummary,
       children: [

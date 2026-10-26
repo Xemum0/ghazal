@@ -12,7 +12,7 @@ import 'package:ghazal_app_kit/ghazal_app_kit.dart'
         requestsRepositoryProvider,
         reviewsRepositoryProvider,
         sessionProvider;
-import 'package:ghazal_core/ghazal_core.dart' show DateStyle;
+import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, DateStyle;
 import 'package:ghazal_domain/ghazal_domain.dart' show Audience, BookingDetail, BookingStatus, CreateReviewInput, RatingCategories, WireLang;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -429,6 +429,10 @@ class _ClRvrw02ScreenState extends ConsumerState<ClRvrw02Screen> {
 final _bookingProvider = FutureProvider.autoDispose.family<BookingDetail?, String>((ref, id) async {
   try {
     return await ref.watch(requestsRepositoryProvider).getRequest(requestId: id);
+  } on ApiProblem catch (problem) {
+    // A booking that is not there means "nothing to review yet"; a failed read is the error state with a retry, not the locked screen.
+    if (problem.status == 404) return null;
+    rethrow;
   } on Object {
     return null;
   }

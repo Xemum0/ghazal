@@ -66,13 +66,17 @@ class InboxRowTile extends StatelessWidget {
       if (m == null) return const SizedBox.shrink();
       switch (m.kind) {
         case MessageKind.voice:
-          return Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GzIcon(GzIcons.mic, size: GzIconSize.xs, color: c.iconSecondary, semanticLabel: l.clientMessagesPreviewVoice),
-              const SizedBox(width: GzSpace.s1),
-              GzText(clockOf(context, m.voice?.seconds ?? 0), role: GzTextRole.bodyS, color: previewColor, figures: true),
-            ],
+          // The web line is the glyph row (24): the duration is an inline figure island with no line box of its own.
+          return SizedBox(
+            height: GzSpace.s6,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GzIcon(GzIcons.mic, size: GzIconSize.xs, color: c.iconSecondary, semanticLabel: l.clientMessagesPreviewVoice),
+                const SizedBox(width: GzSpace.s1),
+                GzText(clockOf(context, m.voice?.seconds ?? 0), role: GzTextRole.bodyS, color: previewColor, figures: true),
+              ],
+            ),
           );
         case MessageKind.image:
           return GzIcon(GzIcons.image, size: GzIconSize.xs, color: c.iconSecondary, semanticLabel: l.clientMessagesPreviewPhoto);

@@ -137,7 +137,7 @@ class _ClBkng05State extends ConsumerState<ClBkng05Screen> {
             if (mi > 0) const SizedBox(height: GzSpace.section),
             BkPad(child: GzSectionHeader(title: f.date(months[mi], DateStyle.monthYear), draw: GzDraw.mount)),
             const SizedBox(height: GzSpace.s2),
-            DecoratedBox(
+            Container(
               decoration: BoxDecoration(border: Border(top: BorderSide(color: c.borderHairline, width: GzStroke.hair))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,

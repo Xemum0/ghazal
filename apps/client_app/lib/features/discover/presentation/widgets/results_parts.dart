@@ -29,7 +29,7 @@ class BriefFacts extends StatelessWidget {
     final areaText = names.join(f.isArabic ? '، ' : ', ');
     final spoken = <String>[?date, if (brief.guests != null) f.integer(brief.guests!), if (areaText.isNotEmpty) areaText].join(', ');
     final facts = <Widget>[
-      if (date != null) GzFactChip(icon: briefDateIcon(brief), label: l.clientShellBriefDate, value: date),
+      if (date != null) _textFact(c, briefDateIcon(brief), l.clientShellBriefDate, date),
       if (brief.guests != null && brief.guests != 0)
         GzFactChip(
           icon: GzIcons.usersThree,
@@ -44,9 +44,9 @@ class BriefFacts extends StatelessWidget {
             ],
           ),
         ),
-      if (areaText.isNotEmpty) GzFactChip(icon: GzIcons.pin, label: l.clientShellBriefArea, value: areaText),
+      if (areaText.isNotEmpty) _textFact(c, GzIcons.pin, l.clientShellBriefArea, areaText),
       if (date == null && brief.guests == null && areaText.isEmpty)
-        GzFactChip(icon: GzIcons.calendar, label: l.clientShellBriefDate, value: l.clientDiscoverBriefChooseDate, tone: GzFactTone.muted),
+        _textFact(c, GzIcons.calendar, l.clientShellBriefDate, l.clientDiscoverBriefChooseDate, muted: true),
     ];
     return GzPressable(
       onPressed: onEdit,
@@ -68,6 +68,14 @@ class BriefFacts extends StatelessWidget {
     );
   }
 }
+
+/// The web TextFact: the chip anatomy (glyph, value) for a value that carries words, drawn in the body-s text role with its digit runs as figure islands.
+Widget _textFact(GzColors c, IconData icon, String label, String value, {bool muted = false}) => GzFactChip(
+  icon: icon,
+  label: label,
+  tone: muted ? GzFactTone.muted : GzFactTone.normal,
+  valueWidget: GzText(value, role: GzTextRole.bodyS, color: muted ? c.textSecondary : c.textStrong, figures: true, softWrap: false),
+);
 
 /// A signed-out visitor: the voucher price is locked behind sign-in; one 44 row under the chips says so and opens the gate.
 class VoucherLockRow extends StatelessWidget {

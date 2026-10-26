@@ -4,7 +4,6 @@ import 'package:ghazal_core/ghazal_core.dart' show DateStyle;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
-
 /// The one ink panel of My Wedding (a local build: the shared CountdownCard has no milestone ticks, no rule under the numeral and no
 /// no-date, day-of or done form). Whole days only, never seconds, nothing ticks. The panel speaks in figures: the numeral in the display
 /// face (or the word Today / Tomorrow), its unit, the thread with its six marks (365, 180, 30, 7, 1, 0, evenly spaced, not to scale),
@@ -81,11 +80,18 @@ class WeddingHero extends StatelessWidget {
                 if (word != null)
                   GzText(word, role: GzTextRole.d5, color: c.textOnDark, header: true)
                 else
+                  // The web numeral is the figures face (`bdi.gz-num`, Manrope) at the countdown size, drawn on the baseline of the display
+                  // line box it sits in (the strut of the countdown style), so it overflows that box like the web's.
                   GzChromeBaseline(
-                    style: context.gz.text(GzTextRole.countdown).copyWith(color: c.textOnDark),
+                    style: context.gz.text(GzTextRole.countdown),
                     child: Text(
                       f.integer(days),
-                      style: context.gz.text(GzTextRole.countdown).copyWith(color: c.textOnDark),
+                      style: GzFigures.inlineStyle(context.gz.locale, GzTextRole.countdown).copyWith(color: c.textOnDark),
+                      strutStyle: StrutStyle.fromTextStyle(
+                        context.gz.text(GzTextRole.countdown),
+                        forceStrutHeight: true,
+                        leadingDistribution: TextLeadingDistribution.even,
+                      ),
                       textDirection: TextDirection.ltr,
                       maxLines: 1,
                     ),

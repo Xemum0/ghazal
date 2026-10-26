@@ -2,7 +2,7 @@ import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_core/ghazal_core.dart' show gzFormatProvider;
+import 'package:ghazal_core/ghazal_core.dart' show DecimalOptions, gzFormatProvider;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -101,7 +101,7 @@ class _ServProfileBodyState extends ConsumerState<ServProfileBody> {
               GzText(name, role: GzTextRole.d3, color: c.textStrong),
               const SizedBox(height: GzSpace.s3),
               ConstrainedBox(
-                constraints: const BoxConstraints(minHeight: 30),
+                constraints: BoxConstraints(minHeight: f.isArabic ? 30 : 26), // the web row is the line of its rating span: 30 in Arabic, 26 in English
                 child: Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: GzFactRow(
@@ -202,9 +202,47 @@ class _ServProfileBodyState extends ConsumerState<ServProfileBody> {
                   ],
                 ),
               ],
+              const SizedBox(height: GzSpace.section),
+              GzSectionHeader(title: l.clientServicesProfileReviewsTitle, draw: GzDraw.mount),
+              const SizedBox(height: GzSpace.s4),
+              if (rating != null) _score(context, rating.average, rating.count) else _unrated(context),
             ],
           ),
         ),
+      ],
+    );
+  }
+
+  /// The provider's score: the average in the large figure face, the star and the number of ratings (the review texts have no source yet).
+  Widget _score(BuildContext context, double average, int count) {
+    final c = context.gz.colors;
+    final f = context.gzFormat;
+    const one = DecimalOptions(minFraction: 1, maxFraction: 1);
+    return Semantics(
+      container: true,
+      label: context.gzL10n.commonA11yRating((average * 10).round() / 10, 5),
+      child: ExcludeSemantics(
+        child: Row(
+          children: [
+            gzFigText(context, f.number(average, one), role: GzTextRole.fig3xl, color: c.textStrong),
+            const SizedBox(width: GzSpace.s4),
+            const GzIcon(GzIcons.starFill, size: GzIconSize.sm, tone: GzIconTone.accent),
+            const SizedBox(width: GzSpace.s1),
+            gzFigText(context, '(${f.integer(count)})', role: GzTextRole.figBodyS, color: c.textSecondary),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// A provider with no rating yet: the empty shelf and the word "New".
+  Widget _unrated(BuildContext context) {
+    final word = context.gzL10n.commonLabelNew;
+    return Row(
+      children: [
+        const GzIllustration(GzIllustrationName.shelf, size: GzIllustrationSize.md),
+        const SizedBox(width: GzSpace.s4),
+        GzFactChip(icon: GzIcons.sparkle, label: word, value: word, tone: GzFactTone.accent),
       ],
     );
   }

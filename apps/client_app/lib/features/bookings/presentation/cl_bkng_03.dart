@@ -86,6 +86,7 @@ class _ClBkng03State extends ConsumerState<ClBkng03Screen> {
                 : null,
           ),
         ),
+        const SizedBox(height: GzSpace.s4),
         BkAsync<BookingFacts>(
           value: async,
           onRetry: () => ref.invalidate(bookingFactsProvider),
@@ -132,7 +133,13 @@ class _ClBkng03State extends ConsumerState<ClBkng03Screen> {
           icon: GzIcons.calendarX,
           label: l.clientBookingsCancelDateLabel,
           value: l.clientBookingsCancelDateReleased,
-          trailing: GzFactChip(icon: GzIcons.calendar, label: l.clientBookingsFactDate, value: bkDayMon(f, facts.booking.eventDate), small: true, tone: GzFactTone.muted),
+          trailing: GzFactChip(
+            icon: GzIcons.calendar,
+            label: l.clientBookingsFactDate,
+            value: bkDayMon(f, facts.booking.eventDate),
+            small: true,
+            tone: GzFactTone.muted,
+          ),
         ),
       );
     }
@@ -142,7 +149,13 @@ class _ClBkng03State extends ConsumerState<ClBkng03Screen> {
               icon: GzIcons.ticket,
               label: l.clientBookingsCancelVoucherLabel,
               value: l.clientBookingsCancelVoucherUsed,
-              trailing: GzFactChip(icon: GzIcons.checkDouble, label: l.clientBookingsCancelVoucherUsed, value: l.clientBookingsCancelVoucherUsed, small: true, tone: GzFactTone.muted),
+              trailing: GzFactChip(
+                icon: GzIcons.checkDouble,
+                label: l.clientBookingsCancelVoucherUsed,
+                value: l.clientBookingsCancelVoucherUsed,
+                small: true,
+                tone: GzFactTone.muted,
+              ),
             )
           : () {
               final until = facts.voucher?.validUntil;
@@ -152,7 +165,13 @@ class _ClBkng03State extends ConsumerState<ClBkng03Screen> {
                 value: l.clientBookingsCancelVoucherBack,
                 trailing: until == null
                     ? null
-                    : GzFactChip(icon: GzIcons.calendar, label: l.clientBookingsOutcomeUntil, value: bkDayMon(f, until), small: true, tone: GzFactTone.muted),
+                    : GzFactChip(
+                        icon: GzIcons.calendar,
+                        label: l.clientBookingsOutcomeUntil,
+                        value: bkDayMon(f, until),
+                        small: true,
+                        tone: GzFactTone.muted,
+                      ),
               );
             }(),
     );
@@ -165,12 +184,27 @@ class _ClBkng03State extends ConsumerState<ClBkng03Screen> {
     return BkGap(
       gap: GzSpace.s5,
       children: [
-        Semantics(container: true, label: l.clientBookingsCancelInfoTitle, child: BkFactLines(lines: _consequenceLines(context, facts, kind))),
-        GzButton(variant: GzButtonVariant.tertiary, fullWidth: true, iconStart: GzIcons.chat, onPressed: _message, label: l.clientBookingsCancelAltAction),
+        Semantics(
+          container: true,
+          label: l.clientBookingsCancelInfoTitle,
+          child: BkFactLines(lines: _consequenceLines(context, facts, kind)),
+        ),
+        GzButton(
+          variant: GzButtonVariant.tertiary,
+          fullWidth: true,
+          iconStart: GzIcons.chat,
+          onPressed: _message,
+          label: l.clientBookingsCancelAltAction,
+        ),
         BkGap(
           gap: GzSpace.s3,
           children: [
-            GzButton(variant: GzButtonVariant.primary, fullWidth: true, onPressed: () => setState(() => _step = _Step.reason), label: context.gzL10n.commonActionContinue),
+            GzButton(
+              variant: GzButtonVariant.primary,
+              fullWidth: true,
+              onPressed: () => setState(() => _step = _Step.reason),
+              label: context.gzL10n.commonActionContinue,
+            ),
             GzButton(variant: GzButtonVariant.secondary, fullWidth: true, onPressed: () => context.gzNav.closeSheet(), label: keep),
           ],
         ),
@@ -198,9 +232,19 @@ class _ClBkng03State extends ConsumerState<ClBkng03Screen> {
     return BkGap(
       children: [
         GzText(l.clientBookingsCancelReasonTitle, role: GzTextRole.title, color: context.gz.colors.textStrong, header: true),
-        GzChipGroup<_Reason>(options: reasons, label: l.clientBookingsCancelReasonTitle, value: _reason, onChanged: (v) => setState(() => _reason = v)),
+        GzChipGroup<_Reason>(
+          options: reasons,
+          label: l.clientBookingsCancelReasonTitle,
+          value: _reason,
+          onChanged: (v) => setState(() => _reason = v),
+        ),
         GzTextArea(label: l.clientBookingsCancelNote, optional: true, value: _note, onValueChange: (v) => setState(() => _note = v), maxLength: 300),
-        GzButton(variant: GzButtonVariant.primary, fullWidth: true, onPressed: () => setState(() => _step = _Step.confirm), label: context.gzL10n.commonActionContinue),
+        GzButton(
+          variant: GzButtonVariant.primary,
+          fullWidth: true,
+          onPressed: () => setState(() => _step = _Step.confirm),
+          label: context.gzL10n.commonActionContinue,
+        ),
       ],
     );
   }
@@ -219,7 +263,9 @@ class _ClBkng03State extends ConsumerState<ClBkng03Screen> {
       _busy = true;
       _failed = false;
     });
-    final res = await ref.read(voucherActionsProvider.notifier).cancelRequest(facts.booking.id, reason: _code(_kind(facts, variant, null)), version: facts.booking.version, status: facts.booking.status);
+    final res = await ref
+        .read(voucherActionsProvider.notifier)
+        .cancelRequest(facts.booking.id, reason: _code(_kind(facts, variant, null)), version: facts.booking.version, status: facts.booking.status);
     if (!mounted) return;
     setState(() => _busy = false);
     res.when(
@@ -237,17 +283,34 @@ class _ClBkng03State extends ConsumerState<ClBkng03Screen> {
     final action = kind == CancelKind.withdraw
         ? l.clientBookingsCancelActionWithdraw
         : kind == CancelKind.approved
-            ? l.clientBookingsCancelActionApproved
-            : l.clientBookingsCancelActionConfirmed;
+        ? l.clientBookingsCancelActionApproved
+        : l.clientBookingsCancelActionConfirmed;
     if (_failed) {
-      return GzErrorState(kind: GzErrorKind.generic, title: l.clientBookingsCancelErrorTitle, body: l.clientBookingsCancelErrorBody, onRetry: () => _finish(facts, variant), fill: false);
+      return GzErrorState(
+        kind: GzErrorKind.generic,
+        title: l.clientBookingsCancelErrorTitle,
+        body: l.clientBookingsCancelErrorBody,
+        onRetry: () => _finish(facts, variant),
+        fill: false,
+      );
     }
     return BkGap(
       gap: GzSpace.s5,
       children: [
         BkFactLines(lines: [_consequenceLines(context, facts, kind).last]),
-        GzButton(variant: GzButtonVariant.destructive, iconStart: GzIcons.close, loading: _busy, onPressed: () => _finish(facts, variant), label: action),
-        GzButton(variant: GzButtonVariant.secondary, fullWidth: true, onPressed: () => context.gzNav.closeSheet(), label: kind == CancelKind.confirmed ? l.clientBookingsCancelKeepBooking : l.clientBookingsCancelKeep),
+        GzButton(
+          variant: GzButtonVariant.destructive,
+          iconStart: GzIcons.close,
+          loading: _busy,
+          onPressed: () => _finish(facts, variant),
+          label: action,
+        ),
+        GzButton(
+          variant: GzButtonVariant.secondary,
+          fullWidth: true,
+          onPressed: () => context.gzNav.closeSheet(),
+          label: kind == CancelKind.confirmed ? l.clientBookingsCancelKeepBooking : l.clientBookingsCancelKeep,
+        ),
       ],
     );
   }
@@ -257,7 +320,14 @@ class _ClBkng03State extends ConsumerState<ClBkng03Screen> {
     return BkStateStack(
       illustration: GzIllustrationName.seal,
       title: _title(l, kind, true),
-      actions: [GzButton(variant: GzButtonVariant.primary, fullWidth: true, onPressed: () => context.gzNav.closeSheet(), label: context.gzL10n.commonActionDone)],
+      actions: [
+        GzButton(
+          variant: GzButtonVariant.primary,
+          fullWidth: true,
+          onPressed: () => context.gzNav.closeSheet(),
+          label: context.gzL10n.commonActionDone,
+        ),
+      ],
       children: [VoucherOutcome(voucher: facts.voucher, targetName: context.bi(facts.target.name), primary: kind != CancelKind.confirmed)],
     );
   }
@@ -286,9 +356,18 @@ class VoucherOutcome extends StatelessWidget {
       label: primary ? l.clientBookingsCancelVoucherBack : l.clientBookingsCancelVoucherUsed,
       child: BkFactLines(
         lines: [
-          BkFactLine(icon: GzIcons.ticket, label: l.clientBookingsCancelVoucherLabel, value: primary ? l.clientBookingsCancelVoucherBack : l.clientBookingsCancelVoucherUsed),
+          BkFactLine(
+            icon: GzIcons.ticket,
+            label: l.clientBookingsCancelVoucherLabel,
+            value: primary ? l.clientBookingsCancelVoucherBack : l.clientBookingsCancelVoucherUsed,
+          ),
           if (primary && until != null)
-            BkFactLine(icon: GzIcons.calendar, label: l.clientBookingsOutcomeUntil, value: until, trailing: GzFactChip(icon: GzIcons.calendar, label: l.clientBookingsOutcomeUntil, value: until, small: true, tone: GzFactTone.muted)),
+            BkFactLine(
+              icon: GzIcons.calendar,
+              label: l.clientBookingsOutcomeUntil,
+              value: until,
+              trailing: GzFactChip(icon: GzIcons.calendar, label: l.clientBookingsOutcomeUntil, value: until, small: true, tone: GzFactTone.muted),
+            ),
           BkFactLine(icon: GzIcons.hall, label: targetName, value: targetName, autoDir: true),
         ],
       ),

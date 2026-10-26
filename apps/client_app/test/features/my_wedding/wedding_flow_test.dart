@@ -40,15 +40,17 @@ void main() {
   });
 
   flowTest('checklist: the venue item links to its booking', (tester) async {
-    await openScreen(tester, 'CL-WEDD-02');
+    // The Venue item is the booking's own row only once a venue is confirmed (before that it is a task that browses halls).
+    await openScreen(tester, 'CL-WEDD-02', story: 'confirmed');
     await settle(tester, flush: true);
     final view = (await tester.runAsync(() => flowRepos('reem').wedding.getChecklist()))!;
-    final venue = view.items.where((i) => i.bookingId != null).firstOrNull;
+    final venue = view.items.where((i) => i.bookingId != null && i.auto).firstOrNull;
+    expect(venue, isNotNull, reason: 'the confirmed story has an automatic Venue item that points at its booking');
     if (venue == null) return;
     final c = container(tester);
     // The venue row opens its booking (another flow: its render errors are not this test's failure).
     ignoreRenderErrors = true;
-    await tapText(tester, en.clientMyWeddingChecklistViewBookingLabel(venue.title.of('en')), flush: true);
+    await tapLabel(tester, en.clientMyWeddingChecklistViewBookingLabel(venue.title.of('en')), flush: true);
     expect(currentId(c), 'CL-BKNG-02');
   });
 

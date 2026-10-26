@@ -178,7 +178,12 @@ class BookingNoteRow extends StatelessWidget {
               ),
               const SizedBox(width: GzSpace.s3),
               Expanded(
-                child: GzText(text, role: GzTextRole.body, color: c.textPrimary, maxLines: 3),
+                // The web title is `<bdi dir="auto">`: the note takes the direction of its own script (an Arabic note in the English app
+                // is right-aligned and wraps from the right).
+                child: Directionality(
+                  textDirection: _autoDir(text, Directionality.of(context)),
+                  child: GzText(text, role: GzTextRole.body, color: c.textPrimary, maxLines: 3, textAlign: TextAlign.start),
+                ),
               ),
               const SizedBox(width: GzSpace.s3),
               GzIcon(GzIcons.chevronRight, size: GzIconSize.sm, color: c.iconSecondary),
@@ -188,4 +193,17 @@ class BookingNoteRow extends StatelessWidget {
       ),
     );
   }
+}
+
+final RegExp _rtlChar = RegExp(r'[\u0590-\u08FF\uFB1D-\uFDFF\uFE70-\uFEFF]');
+final RegExp _latinChar = RegExp(r'[A-Za-z]');
+
+/// The direction of a text from its first strong character (what `dir="auto"` does).
+TextDirection _autoDir(String text, TextDirection fallback) {
+  for (final r in text.runes) {
+    final ch = String.fromCharCode(r);
+    if (_rtlChar.hasMatch(ch)) return TextDirection.rtl;
+    if (_latinChar.hasMatch(ch)) return TextDirection.ltr;
+  }
+  return fallback;
 }

@@ -107,63 +107,66 @@ class _Taken extends ConsumerWidget {
     }
 
     return Padding(
-      // The web sheet body sits 12 dp lower in Arabic than in English with the same content (measured, requests.md): the Arabic head is taller there.
-      padding: EdgeInsetsDirectional.only(top: context.gz.isAr ? 6 : 0, bottom: context.gz.isAr ? GzSpace.s2 : GzSpace.s5),
+      padding: const EdgeInsetsDirectional.only(bottom: GzSpace.s5 + 1),
       child: BookingGap(
         gap: GzSpace.s5,
         children: [
-          Padding(
-            padding: EdgeInsetsDirectional.only(bottom: context.gz.isAr ? 6 : 0),
-            child: IntrinsicHeight(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Center(child: GzIllustration(art, size: GzIllustrationSize.md)),
-                  const SizedBox(width: GzSpace.s3),
-                  Expanded(
-                    child: Center(
-                      child: BookingGap(
-                        gap: GzSpace.s2,
-                        cross: CrossAxisAlignment.start,
-                        children: [
-                          GzText(title, role: GzTextRole.d1, color: c.textStrong),
-                          GzFactRow(
-                            children: [
-                              GzFactChip(
-                                icon: reason == 'confirm_window_ended' ? GzIcons.calendar : GzIcons.calendarX,
-                                label: l10n.clientBookingSentDate,
-                                value: f.date(date.toString(), DateStyle.compact),
-                                tone: GzFactTone.muted,
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Center(child: GzIllustration(art, size: GzIllustrationSize.md)),
+                const SizedBox(width: GzSpace.s3),
+                Expanded(
+                  child: Center(
+                    child: BookingGap(
+                      gap: GzSpace.s2,
+                      cross: CrossAxisAlignment.start,
+                      children: [
+                        GzText(title, role: GzTextRole.d1, color: c.textStrong),
+                        GzFactRow(
+                          children: [
+                            GzFactChip(
+                              icon: reason == 'confirm_window_ended' ? GzIcons.calendar : GzIcons.calendarX,
+                              label: l10n.clientBookingSentDate,
+                              value: f.date(date.toString(), DateStyle.compact),
+                              tone: GzFactTone.muted,
+                            ),
+                            if (reason == 'session_taken' && session != null)
+                              GzFactChip(icon: sessionGlyph(session.start), label: context.bi(session.name), tone: GzFactTone.muted),
+                            GzFactChip(
+                              icon: GzIcons.usersThree,
+                              label: l10n.clientBookingGuestsLabel,
+                              value: f.integer(flow.guests),
+                              tone: GzFactTone.muted,
+                            ),
+                            // The web wraps this chip in an inline span, so its row is the body line (28; Arabic 32) tall, the chip at the top.
+                            SizedBox(
+                              height: context.gz.isAr ? 32 : 28,
+                              child: Align(
+                                alignment: AlignmentDirectional.topStart,
+                                child: GzFactChip(
+                                  icon: GzIcons.ticket,
+                                  label: l10n.clientBookingTakenVoucherValid,
+                                  valueWidget: GzIcon(GzIcons.check, size: GzIconSize.xs, color: c.iconSuccess),
+                                  tone: GzFactTone.accent,
+                                ),
                               ),
-                              if (reason == 'session_taken' && session != null)
-                                GzFactChip(icon: sessionGlyph(session.start), label: context.bi(session.name), tone: GzFactTone.muted),
-                              GzFactChip(
-                                icon: GzIcons.usersThree,
-                                label: l10n.clientBookingGuestsLabel,
-                                value: f.integer(flow.guests),
-                                tone: GzFactTone.muted,
-                              ),
-                              GzFactChip(
-                                icon: GzIcons.ticket,
-                                label: l10n.clientBookingTakenVoucherValid,
-                                valueWidget: GzIcon(GzIcons.check, size: GzIconSize.xs, color: c.iconSuccess),
-                                tone: GzFactTone.accent,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: GzSpace.s3),
-                  Align(
-                    alignment: AlignmentDirectional.topEnd,
-                    child: EndBleed(
-                      child: GzBarButton(icon: GzIcons.close, label: context.gzL10n.commonActionClose, onPressed: nav.closeSheet),
-                    ),
+                ),
+                const SizedBox(width: GzSpace.s3),
+                Align(
+                  alignment: AlignmentDirectional.topEnd,
+                  child: EndBleed(
+                    child: GzBarButton(icon: GzIcons.close, label: context.gzL10n.commonActionClose, onPressed: nav.closeSheet),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           BookingAsync<Alternatives>(

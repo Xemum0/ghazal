@@ -10,6 +10,7 @@ import '../application/venue_model.dart';
 import '../application/venue_providers.dart';
 import 'venue_actions.dart';
 import 'venue_glyphs.dart';
+import 'widgets/venue_failure.dart';
 import 'widgets/venue_money.dart' show QuietMoney;
 import 'widgets/venue_package_rate.dart';
 import 'widgets/venue_sheets.dart' show VenueFootRule, VenueSheetHead;
@@ -63,6 +64,8 @@ class _ClVenu04State extends ConsumerState<ClVenu04Screen> {
               GzSkeletonText(lines: 5),
             ],
           )
+        else if (data == null && view.hasError)
+          VenueSheetFailure(error: view.error, onRetry: () => ref.invalidate(venueViewProvider(vkey)))
         else if (data == null || pkg == null || row == null)
           GzEmptyState(
             illustration: GzIllustrationName.noResult,

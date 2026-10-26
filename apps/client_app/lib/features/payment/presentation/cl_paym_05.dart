@@ -43,25 +43,32 @@ class ClPaym05Screen extends ConsumerWidget {
         final v = detail.voucher;
         final id = (v is Voucher && v.targetType == VoucherTargetType.provider) ? 'CL-SERV-03' : 'CL-VENU-01';
         final t = v is Voucher ? v.venueOrProviderId : '';
-        nav.push(id, params: v is Voucher && v.targetType == VoucherTargetType.provider ? <String, Object?>{'providerId': t, 'vendorId': t} : <String, Object?>{'venueId': t});
+        nav.push(
+          id,
+          params: v is Voucher && v.targetType == VoucherTargetType.provider
+              ? <String, Object?>{'providerId': t, 'vendorId': t}
+              : <String, Object?>{'venueId': t},
+        );
       }
     }
 
     void sendRequest() {
       final v = detail?.voucher;
       if (v is! Voucher) return;
-      ref.read(bookingDraftProvider.notifier).patch(
-        (d) => d.copyWith(
-          venueId: v.targetType == VoucherTargetType.venue ? v.venueOrProviderId : null,
-          providerId: v.targetType == VoucherTargetType.provider ? v.venueOrProviderId : null,
-          hallId: v.hallId,
-          packageId: v.packageId,
-          eventDate: v.eventDate,
-          guests: v.guests,
-          voucherId: v.id,
-          clearVoucher: false,
-        ),
-      );
+      ref
+          .read(bookingDraftProvider.notifier)
+          .patch(
+            (d) => d.copyWith(
+              venueId: v.targetType == VoucherTargetType.venue ? v.venueOrProviderId : null,
+              providerId: v.targetType == VoucherTargetType.provider ? v.venueOrProviderId : null,
+              hallId: v.hallId,
+              packageId: v.packageId,
+              eventDate: v.eventDate,
+              guests: v.guests,
+              voucherId: v.id,
+              clearVoucher: false,
+            ),
+          );
       nav.push(
         'CL-BOOK-01',
         params: <String, Object?>{
@@ -79,7 +86,9 @@ class ClPaym05Screen extends ConsumerWidget {
       top: GzTopBar(variant: GzTopBarVariant.transparent, back: GzTopBarBack.close, backLabel: context.gzL10n.commonActionClose, onBack: goDone),
       bottom: detail == null
           ? null
-          : GzActionBar(action: GzActionBarAction(label: l.clientPaymentDoneCta, onPressed: sendRequest)),
+          : GzActionBar(
+              action: GzActionBarAction(label: l.clientPaymentDoneCta, onPressed: sendRequest),
+            ),
       child: GzAsyncView<VoucherDetail>(
         value: async,
         onRetry: () => ref.invalidate(_issuedVoucherProvider(voucherId)),
@@ -124,17 +133,27 @@ class _Done extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          padding: EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: MediaQuery.paddingOf(context).top + GzSpace.s2, bottom: GzSpace.s4),
+          padding: EdgeInsetsDirectional.only(
+            start: GzSpace.gutter,
+            end: GzSpace.gutter,
+            top: MediaQuery.paddingOf(context).top + GzSpace.s2,
+            bottom: GzSpace.s4,
+          ),
           color: c.surfaceDark,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                child: Semantics(header: true, child: GzText(l.clientPaymentDoneTitle, role: GzTextRole.d2, color: c.textOnDark)),
+                child: Semantics(
+                  header: true,
+                  child: GzText(l.clientPaymentDoneTitle, role: GzTextRole.d2, color: c.textOnDark),
+                ),
               ),
               const SizedBox(width: GzSpace.s3),
               GzDrawOnce(
-                child: ExcludeSemantics(child: GzIllustration(GzIllustrationName.successVoucher, size: GzIllustrationSize.lg, tone: GzIllustrationTone.onDark)),
+                child: ExcludeSemantics(
+                  child: GzIllustration(GzIllustrationName.successVoucher, size: GzIllustrationSize.lg, tone: GzIllustrationTone.onDark),
+                ),
               ),
             ],
           ),
@@ -145,9 +164,21 @@ class _Done extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (offline) ...[GzBanner(message: context.gzL10n.commonStateOffline, tone: GzBannerTone.offline, shape: GzBannerShape.flush), const SizedBox(height: GzSpace.s6)],
-              if (late) ...[GzBanner(message: l.clientPaymentDoneLate, tone: GzBannerTone.info, shape: GzBannerShape.card), const SizedBox(height: GzSpace.s6)],
-              GzVoucherCard(voucher: v, variant: GzVoucherCardVariant.full, targetName: name, onCopy: () => _copy(context, nav, v.code), packageName: detail.packageName?.of(context.gz.locale.languageCode)),
+              if (offline) ...[
+                GzBanner(message: context.gzL10n.commonStateOffline, tone: GzBannerTone.offline, shape: GzBannerShape.flush),
+                const SizedBox(height: GzSpace.s6),
+              ],
+              if (late) ...[
+                GzBanner(message: l.clientPaymentDoneLate, tone: GzBannerTone.info, shape: GzBannerShape.card),
+                const SizedBox(height: GzSpace.s6),
+              ],
+              GzVoucherCard(
+                voucher: v,
+                variant: GzVoucherCardVariant.full,
+                targetName: name,
+                onCopy: () => _copy(context, nav, v.code),
+                packageName: detail.packageName?.of(context.gz.locale.languageCode),
+              ),
               const SizedBox(height: GzSpace.s6),
               Row(
                 children: [
@@ -155,7 +186,13 @@ class _Done extends StatelessWidget {
                     Expanded(
                       child: GzFactRow(
                         label: l.clientPaymentLabelSaving,
-                        children: [GzFactChip(icon: GzIcons.offer, label: l.clientPaymentLabelSaving, value: l.clientPaymentSave(context.gzFormat.money(savings)))],
+                        children: [
+                          GzFactChip(
+                            icon: GzIcons.offer,
+                            label: l.clientPaymentLabelSaving,
+                            value: l.clientPaymentSave(context.gzFormat.money(savings)),
+                          ),
+                        ],
                       ),
                     ),
                   GzInfoButton(
@@ -166,14 +203,28 @@ class _Done extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: GzSpace.s6),
-              GzIconListRow(flush: true, icon: GzIcons.ticket, title: l.clientPaymentDoneRowVouchers, chevron: true, onPressed: () => nav.push('CL-VCHR-02', params: <String, Object?>{'voucherId': v.id})),
+              GzIconListRow(
+                flush: true,
+                icon: GzIcons.ticket,
+                title: l.clientPaymentDoneRowVouchers,
+                chevron: true,
+                onPressed: () => nav.push('CL-VCHR-02', params: <String, Object?>{'voucherId': v.id}),
+              ),
               GzIconListRow(
                 flush: true,
                 icon: GzIcons.receipt,
                 title: l.clientPaymentDoneRowReceipt,
                 chevron: !offline,
                 onPressed: offline ? null : () => nav.push('CL-BKNG-05', params: <String, Object?>{'voucherId': v.id}),
-                trailing: paidAt == null ? null : GzFactChip(icon: GzIcons.calendar, label: l.clientPaymentLabelDate, value: context.gzFormat.date(paidAt.toString().substring(0, 10), DateStyle.compact), tone: GzFactTone.muted),
+                trailing: paidAt == null
+                    ? null
+                    : GzFactChip(
+                        icon: GzIcons.calendar,
+                        label: l.clientPaymentLabelDate,
+                        value: context.gzFormat.date(paidAt.toString().substring(0, 10), DateStyle.compact),
+                        small: true,
+                        tone: GzFactTone.muted,
+                      ),
               ),
               GzIconListRow(
                 flush: true,
@@ -183,7 +234,12 @@ class _Done extends StatelessWidget {
                 chevron: true,
                 onPressed: () {
                   if (v is Voucher) {
-                    nav.push('CL-MSGS-02', params: v.targetType == VoucherTargetType.provider ? <String, Object?>{'providerId': v.venueOrProviderId, 'vendorId': v.venueOrProviderId} : <String, Object?>{'venueId': v.venueOrProviderId});
+                    nav.push(
+                      'CL-MSGS-02',
+                      params: v.targetType == VoucherTargetType.provider
+                          ? <String, Object?>{'providerId': v.venueOrProviderId, 'vendorId': v.venueOrProviderId}
+                          : <String, Object?>{'venueId': v.venueOrProviderId},
+                    );
                   }
                 },
               ),
@@ -211,7 +267,10 @@ class _DoneSkeleton extends StatelessWidget {
             Container(height: 240, color: c.surfaceDark),
             const Padding(
               padding: EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: GzSpace.s5),
-              child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 320)]),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 320)],
+              ),
             ),
           ],
         ),

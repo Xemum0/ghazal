@@ -8,7 +8,8 @@ import 'package:ghazal_core/ghazal_core.dart' show ApiProblem;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
-import 'widgets/wd_common.dart' show WdBi, WdGap, WdPad;
+import 'widgets/wd_checklist_parts.dart';
+import 'widgets/wd_common.dart' show WdGap, WdPad;
 import '../application/wedding_data.dart';
 
 /// CL-WEDD-02 Checklist. Covers CA-TOOL-12, CA-TOOL-13, CA-TOOL-14, CA-TOOL-15, CA-TOOL-16, CA-AUTH-10.
@@ -94,31 +95,57 @@ class ClWedd02Screen extends ConsumerWidget {
   }
 
   Widget _list(BuildContext context, WidgetRef ref, ChecklistView view, bool guest) {
+    final f = context.gzFormat;
     final done = view.items.where((i) => i.done).length;
     final weddingDate = ref.watch(weddingProfileProvider).value?.weddingDate;
     final groups = _bands(view.items.where((i) => !i.done).toList(), weddingDate);
     final doneItems = view.items.where((i) => i.done).toList();
+    final today = LocalDate.parse(f.isoDay(f.now()));
+    // The Venue row says where its booking stands (pending or approved) until the booking is confirmed.
+    final overview = ref.watch(weddingOverviewProvider).value;
+    GzStatus? statusOf(ChecklistItem item) {
+      final id = item.bookingId;
+      if (id == null) return null;
+      final status = overview?.openRequests.where((r) => r.booking.id == id).firstOrNull?.booking.status;
+      return switch (status) {
+        BookingStatus.pending => GzStatus.pending,
+        BookingStatus.approved => GzStatus.approved,
+        _ => null,
+      };
+    }
+
+    Widget section(_Band band, List<ChecklistItem> rows) => Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _bandHeader(context, band),
+        for (final item in rows) _row(context, ref, item, today: today, status: statusOf(item), guest: guest, last: item == rows.last),
+      ],
+    );
+    final allDone = view.items.isNotEmpty && view.items.length == done;
+    // The web page is a 20 gap column: the head, then each band, 8 above and 40 below.
     return Padding(
-      padding: const EdgeInsetsDirectional.only(top: GzSpace.s4, bottom: GzSpace.section),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      padding: const EdgeInsetsDirectional.only(top: GzSpace.s2, bottom: GzSpace.s10),
+      child: WdGap(
+        gap: GzSpace.s5,
         children: [
-          WdPad(child: GzChecklistProgress(done: done, total: view.items.length)),
-          const SizedBox(height: GzSpace.section),
-          for (final g in groups) ...[
-            WdPad(child: _bandHeader(context, g.band)),
-            for (final item in g.rows) _row(context, ref, item, guest: guest, last: item == g.rows.last),
-          ],
-          if (doneItems.isNotEmpty) ...[
-            WdPad(child: _bandHeader(context, _Band.done)),
-            for (final item in doneItems) _row(context, ref, item, guest: guest, last: item == doneItems.last),
-          ],
-          if (view.items.length == done && view.items.isNotEmpty) ...[
-            const SizedBox(height: GzSpace.s4),
-            WdPad(
-              child: GzEmptyState(illustration: GzIllustrationName.successBooking, title: context.l10n.clientMyWeddingChecklistAllDone),
+          WdPad(
+            child: WdGap(
+              gap: GzSpace.s3,
+              children: [
+                WdProgressHead(done: done, total: view.items.length),
+                if (allDone)
+                  Row(
+                    children: [
+                      const GzIllustration(GzIllustrationName.seal, size: GzIllustrationSize.lg),
+                      const SizedBox(width: GzSpace.s3),
+                      Expanded(child: GzText(context.l10n.clientMyWeddingChecklistAllDone, role: GzTextRole.d2, color: context.gz.colors.textStrong)),
+                    ],
+                  ),
+              ],
             ),
-          ],
+          ),
+          for (final g in groups) section(g.band, g.rows),
+          if (doneItems.isNotEmpty) section(_Band.done, doneItems),
         ],
       ),
     );
@@ -172,42 +199,22 @@ class ClWedd02Screen extends ConsumerWidget {
         title = l.clientMyWeddingChecklistBandDone;
         icon = GzIcons.checkCircle;
     }
-    return Row(
-      children: [
-        GzIcon(icon, size: GzIconSize.sm, color: context.gz.colors.iconSecondary),
-        const SizedBox(width: GzSpace.s2),
-        Expanded(child: GzSectionHeader(title: title, draw: GzDraw.mount)),
-      ],
-    );
+    return WdBand(icon: icon, title: title);
   }
 
-  Widget _row(BuildContext context, WidgetRef ref, ChecklistItem item, {required bool guest, required bool last}) {
-    final venueBooking = item.bookingId;
-    final row = GzChecklistItem(
+  Widget _row(BuildContext context, WidgetRef ref, ChecklistItem item, {required LocalDate today, required GzStatus? status, required bool guest, required bool last}) {
+    final nav = context.gzNav;
+    final category = item.serviceCategoryId;
+    final bookingId = item.bookingId;
+    return WdTaskRow(
       item: item,
+      title: wdTaskTitle(context, item),
+      today: today,
+      venueStatus: status,
+      last: last,
       onToggle: guest ? null : (next) => _toggle(context, ref, item, next),
-      last: venueBooking == null && last,
-      onChoose: item.serviceCategoryId == null
-          ? null
-          : () => context.gzNav.push('CL-SERV-02', params: <String, Object?>{'categoryId': item.serviceCategoryId!.value}),
-      actionLabel: item.serviceCategoryId == null ? null : context.l10n.clientMyWeddingChecklistBrowseLabel(context.bi(item.title)),
-    );
-    if (venueBooking == null) return row;
-    // The Venue item links to its booking (the row itself stays the check control).
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        row,
-        GzIconListRow(
-          flush: true,
-          chevron: true,
-          last: last,
-          icon: GzIcons.hall,
-          title: context.l10n.clientMyWeddingChecklistViewBookingLabel(context.bi(item.title)),
-          onPressed: () => context.gzNav.push('CL-BKNG-02', params: <String, Object?>{'bookingId': venueBooking}),
-        ),
-      ],
+      onBrowse: category == null ? null : () => nav.push('CL-SERV-02', params: <String, Object?>{'categoryId': category.value}),
+      onOpenBooking: bookingId == null ? null : () => nav.push('CL-BKNG-02', params: <String, Object?>{'bookingId': bookingId}),
     );
   }
 }

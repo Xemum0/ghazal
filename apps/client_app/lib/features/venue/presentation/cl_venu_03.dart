@@ -13,6 +13,7 @@ import '../application/venue_model.dart';
 import '../application/venue_providers.dart';
 import 'venue_actions.dart';
 import 'venue_glyphs.dart';
+import 'widgets/venue_failure.dart';
 import 'widgets/venue_money.dart' show PriceBlock;
 import 'widgets/venue_sections.dart' show VenueRail;
 
@@ -150,6 +151,8 @@ class _ClVenu03State extends ConsumerState<ClVenu03Screen> {
               GzSkeleton(blockSize: 280),
             ],
           )
+        else if (venue == null && detailAsync.hasError)
+          VenueSheetFailure(error: detailAsync.error, onRetry: () => ref.invalidate(_sheetVenueProvider(params.venueId)))
         else if (venue == null || hall == null)
           GzEmptyState(
             illustration: GzIllustrationName.noResult,
@@ -306,6 +309,7 @@ class _ClVenu03State extends ConsumerState<ClVenu03Screen> {
                             : '${o.name.of(f.lang.name)} ${dayMonth(f, o.from)}–${dayMonth(f, o.to)}',
                         role: GzTextRole.caption,
                         color: c.textPrimary,
+                        figures: true,
                       ),
                     ],
                   ),

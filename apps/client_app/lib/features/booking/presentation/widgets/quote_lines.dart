@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,28 +21,34 @@ class BookingSavePill extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final c = context.gz.colors;
+    final pill = context.gz.text(GzTextRole.pill);
     return Semantics(
       label: semantic,
       excludeSemantics: true,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(minHeight: GzSize.pillMin),
+      // The web pill is 4 + the pill line (16, Arabic 20) + 4 and at least the pill minimum: fixed, so the money's own line box cannot
+      // stretch it.
+      child: SizedBox(
+        height: math.max(GzSize.pillMin, 2 * GzSpace.s1 + pill.fontSize! * pill.height!),
         child: DecoratedBox(
           decoration: BoxDecoration(color: c.statusSuccessBg, borderRadius: GzRadius.xsAll),
-          child: Padding(
-            padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s2, vertical: GzSpace.s1),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GzIcon(GzIcons.trendDown, size: GzIconSize.xs, color: c.statusSuccessText, mirror: false),
-                const SizedBox(width: GzSpace.s1),
-                GzMoney(
-                  fils: fils,
-                  mode: exact ? GzMoneyMode.exact : GzMoneyMode.browse,
-                  inline: true,
-                  amountRole: GzTextRole.figLabel,
-                  amountColor: c.statusSuccessText,
-                ),
-              ],
+          child: Center(
+            widthFactor: 1,
+            child: Padding(
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s2),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GzIcon(GzIcons.trendDown, size: GzIconSize.xs, color: c.statusSuccessText, mirror: false),
+                  const SizedBox(width: GzSpace.s1),
+                  GzMoney(
+                    fils: fils,
+                    mode: exact ? GzMoneyMode.exact : GzMoneyMode.browse,
+                    inline: true,
+                    amountRole: GzTextRole.figLabel,
+                    amountColor: c.statusSuccessText,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -104,7 +112,8 @@ class BookingQuoteLines extends ConsumerWidget {
                   return Container(
                     decoration: BoxDecoration(border: Border(bottom: hairline)),
                     child: ConstrainedBox(
-                      constraints: const BoxConstraints(minHeight: GzSize.rowMin),
+                      // the web row's min-block-size includes its border
+                      constraints: const BoxConstraints(minHeight: GzSize.rowMin - GzStroke.hair),
                       child: Padding(
                         padding: const EdgeInsetsDirectional.symmetric(vertical: GzSpace.s3),
                         child: Row(
@@ -115,11 +124,12 @@ class BookingQuoteLines extends ConsumerWidget {
                                 spacing: GzSpace.s3,
                                 runSpacing: GzSpace.s1,
                                 children: [
-                                  GzIcon(_lineGlyph(line.kind), size: GzIconSize.sm, color: c.iconSecondary),
-                                  if (named)
-                                    GzText(context.bi(line.name), role: GzTextRole.bodyS, figures: true)
-                                  else
-                                    Semantics(label: context.bi(line.name), child: const SizedBox.shrink()),
+                                  // An unnamed line is named for assistive technology on its glyph (a spare child here would add a 12 gap).
+                                  Semantics(
+                                    label: named ? null : context.bi(line.name),
+                                    child: GzIcon(_lineGlyph(line.kind), size: GzIconSize.sm, color: c.iconSecondary),
+                                  ),
+                                  if (named) GzText(context.bi(line.name), role: GzTextRole.bodyS, figures: true),
                                   if (rated)
                                     GzFactRow(
                                       children: [

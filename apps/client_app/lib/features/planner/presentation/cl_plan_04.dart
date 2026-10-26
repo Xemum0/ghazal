@@ -8,7 +8,7 @@ import 'package:ghazal_ui/ghazal_ui.dart';
 import '../../../app/state/state.dart';
 import '../../../l10n/l10n.dart';
 import '../application/planner_data.dart';
-import 'widgets/planner_parts.dart';
+import 'widgets/planner_day_grid.dart';
 
 /// CL-PLAN-04 Schedule a meeting (sheet). Covers CA-PLAN-06.
 ///
@@ -157,18 +157,24 @@ class _ClPlan04ScreenState extends ConsumerState<ClPlan04Screen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         GzSheetPinnedHeader(
-          child: Row(
-            children: [
-              ExcludeSemantics(
-                child: GzAvatar(name: _plannerName(ref, request, context), initial: _plannerMonogram(ref, request), size: GzAvatarSize.sm),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: GzSpace.gutter),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: GzSize.controlMd),
+              child: Row(
+                children: [
+                  ExcludeSemantics(
+                    child: GzAvatar(name: _plannerName(ref, request, context), size: GzAvatarSize.sm),
+                  ),
+                  const SizedBox(width: GzSpace.s3),
+                  Expanded(
+                    child: GzText(l.clientPlannerMeetingTitle, role: GzTextRole.d1, color: c.textStrong, header: true),
+                  ),
+                  const SizedBox(width: GzSpace.s3),
+                  GzBarButton(icon: GzIcons.close, label: lg.commonActionClose, onPressed: nav.closeSheet),
+                ],
               ),
-              const SizedBox(width: GzSpace.s3),
-              Expanded(
-                child: GzText(l.clientPlannerMeetingTitle, role: GzTextRole.d1, color: c.textStrong, header: true),
-              ),
-              const SizedBox(width: GzSpace.s3),
-              GzBarButton(icon: GzIcons.close, label: lg.commonActionClose, onPressed: nav.closeSheet),
-            ],
+            ),
           ),
         ),
         const SizedBox(height: GzSpace.s5),
@@ -301,11 +307,6 @@ class _ClPlan04ScreenState extends ConsumerState<ClPlan04Screen> {
     final detail = request?.plannerId == null ? null : ref.watch(plannerDetailProvider(request!.plannerId!)).value;
     final lang = context.gz.locale.languageCode;
     return detail?.planner.name.of(lang) ?? (lang == 'ar' ? 'نوف العتيبي' : 'Nouf Al-Otaibi');
-  }
-
-  String _plannerMonogram(WidgetRef ref, PlannerRequest? request) {
-    final detail = request?.plannerId == null ? null : ref.watch(plannerDetailProvider(request!.plannerId!)).value;
-    return detail?.planner.monogram ?? 'ن';
   }
 
   String _conversationOf(WidgetRef ref, PlannerRequest? request) {

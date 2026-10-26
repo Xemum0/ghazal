@@ -15,7 +15,19 @@ const String kPayHeroVoucherId = 'vch-GV-2611-K7QM';
 /// `targetFromParams`): an unpaid voucher, or a quote carried by the caller.
 @immutable
 final class PayArgs {
-  const PayArgs({this.voucherId, this.venueId, this.providerId, this.hallId, this.packageId, this.date, this.guests, this.method, this.scene, this.attempt, this.depth = 1});
+  const PayArgs({
+    this.voucherId,
+    this.venueId,
+    this.providerId,
+    this.hallId,
+    this.packageId,
+    this.date,
+    this.guests,
+    this.method,
+    this.scene,
+    this.attempt,
+    this.depth = 1,
+  });
 
   factory PayArgs.fromParams(Map<String, Object?> p) {
     String? s(Object? v) => v is String && v.isNotEmpty ? v : null;
@@ -109,7 +121,9 @@ final class PayQuote {
 }
 
 /// The platform rules of the pay flow (voucher fee, checkout and confirm windows).
-final FutureProvider<PlatformConfig> payConfigProvider = FutureProvider<PlatformConfig>((ref) async => (await ref.watch(homeRepositoryProvider).getAppConfig()).config);
+final FutureProvider<PlatformConfig> payConfigProvider = FutureProvider<PlatformConfig>(
+  (ref) async => (await ref.watch(homeRepositoryProvider).getAppConfig()).config,
+);
 
 /// The quote of [PayArgs]: the unpaid voucher's own quote, the named quote from the
 /// repositories, else the hero voucher's quote (harness and demo opens).
@@ -126,7 +140,9 @@ final payQuoteProvider = FutureProvider.autoDispose.family<PayQuote, PayArgs>((r
   final date = args.date == null ? const LocalDate(2027, 1, 14) : LocalDate.parse(args.date!);
   if (args.providerId != null) {
     final provider = await ref.watch(servicesRepositoryProvider).getServiceProvider(providerId: args.providerId!);
-    final pkg = provider.packages.where((p) => p.id == args.packageId).firstOrNull ?? provider.packages.firstWhere((p) => p.voucherPrice != null, orElse: () => provider.packages.first);
+    final pkg =
+        provider.packages.where((p) => p.id == args.packageId).firstOrNull ??
+        provider.packages.firstWhere((p) => p.voucherPrice != null, orElse: () => provider.packages.first);
     final qty = args.guests ?? pkg.minQuantity ?? 1;
     final q = await ref.watch(servicesRepositoryProvider).quoteProvider(providerId: provider.id, packageId: pkg.id, qty: qty);
     return PayQuote(
@@ -147,14 +163,20 @@ final payQuoteProvider = FutureProvider.autoDispose.family<PayQuote, PayArgs>((r
   final detail = await venues.getVenue(venueId: args.venueId!);
   final venue = detail.venue;
   final packages = [for (final o in detail.packages) o.package];
-  final pkg = packages.where((p) => p.id == args.packageId).firstOrNull ?? packages.firstWhere((p) => p.voucherFils != null, orElse: () => packages.first);
-  final hallId = args.hallId != null && pkg.hallIds.contains(args.hallId) ? args.hallId! : (pkg.hallIds.isNotEmpty ? pkg.hallIds.first : venue.halls.first.id);
+  final pkg =
+      packages.where((p) => p.id == args.packageId).firstOrNull ?? packages.firstWhere((p) => p.voucherFils != null, orElse: () => packages.first);
+  final hallId = args.hallId != null && pkg.hallIds.contains(args.hallId)
+      ? args.hallId!
+      : (pkg.hallIds.isNotEmpty ? pkg.hallIds.first : venue.halls.first.id);
   final hall = venue.halls.where((h) => h.id == hallId).firstOrNull;
   final audience = pkg.audiences.isNotEmpty ? pkg.audiences.first : Audience.women;
   final guests = args.guests ?? pkg.minGuests;
   final q = await venues.quoteVenue(
     venueId: venue.id,
-    body: VenueQuoteInput(eventDate: date, sections: [QuoteSectionInput(hallId: hallId, audience: audience, guests: guests, packageId: pkg.id)]),
+    body: VenueQuoteInput(
+      eventDate: date,
+      sections: [QuoteSectionInput(hallId: hallId, audience: audience, guests: guests, packageId: pkg.id)],
+    ),
   );
   return PayQuote(
     targetType: VoucherTargetType.venue,
@@ -201,16 +223,29 @@ PayQuote _ofVoucher(VoucherDetail d, {required int feeFils}) {
 VoucherDetail payReadyVariant(VoucherDetail d) {
   final v = d.voucher;
   if (v is! Voucher) return d;
-  return d.copyWith(voucher: v.copyWith(status: VoucherStatus.active, bookingId: null, releasedAt: null, releaseReason: null, reuseUntil: null, creditEligible: false), booking: null);
+  return d.copyWith(
+    voucher: v.copyWith(
+      status: VoucherStatus.active,
+      bookingId: null,
+      releasedAt: null,
+      releaseReason: null,
+      reuseUntil: null,
+      creditEligible: false,
+    ),
+    booking: null,
+  );
 }
 
 /// True when an API problem is the offline one (the screen keeps its content and says so).
 bool isPayOffline(Object? e) => e is ApiProblem && e.isOffline;
 
+/// The platform whose method order the pay screen shows: the device's, unless a shot or a test says otherwise (the web frames are an iPhone's).
+final Provider<TargetPlatform> payPlatformProvider = Provider<TargetPlatform>((ref) => defaultTargetPlatform);
+
 /// The gateway methods in platform order (web `methodsFor`): iOS Apple Pay first,
 /// Android KNET first; after a failed KNET attempt the wallet or card comes first.
-List<GatewayMethod> payMethods({required bool afterKnetFailure}) {
-  final ios = defaultTargetPlatform == TargetPlatform.iOS;
+List<GatewayMethod> payMethods({required bool afterKnetFailure, TargetPlatform? platform}) {
+  final ios = (platform ?? defaultTargetPlatform) == TargetPlatform.iOS;
   final wallet = ios ? GatewayMethod.applePay : GatewayMethod.googlePay;
   if (afterKnetFailure) return [wallet, GatewayMethod.card, GatewayMethod.knet];
   return ios ? [GatewayMethod.applePay, GatewayMethod.knet, GatewayMethod.card] : [GatewayMethod.knet, GatewayMethod.googlePay, GatewayMethod.card];

@@ -15,6 +15,21 @@ final FutureProvider<WeddingOverview?> weddingOverviewProvider = FutureProvider<
   return ref.watch(weddingRepositoryProvider).getWeddingOverview();
 });
 
+/// The requests the hub reads its phase from: the open ones (pending, approved) and the venue the couple has already confirmed or
+/// finished, which the overview does not list (its `openRequests` are pending and approved only). A failed read leaves the overview's
+/// own open requests in charge (see the hub).
+final FutureProvider<List<BookingRow>?> weddingRequestsProvider = FutureProvider<List<BookingRow>?>((ref) async {
+  ref.watch(clientDataRevisionProvider);
+  if (!ref.watch(sessionProvider.select((s) => s.isSignedIn))) return null;
+  try {
+    final page = await ref.watch(requestsRepositoryProvider).listRequests(limit: 50);
+    const keep = {BookingStatus.pending, BookingStatus.approved, BookingStatus.confirmed, BookingStatus.completed};
+    return [for (final r in page.items) if (keep.contains(r.booking.status)) r];
+  } on ApiProblem {
+    return null;
+  }
+});
+
 /// The rules-based checklist (PRD defaults with due dates counted back from the wedding date, plus the couple's own tasks). A guest sees
 /// the sample list (the mock answers one); writes are guest-gated by the screens.
 final FutureProvider<ChecklistView> weddingChecklistProvider = FutureProvider<ChecklistView>((ref) async {

@@ -138,10 +138,11 @@ class _ClVchr04ScreenState extends ConsumerState<ClVchr04Screen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (none)
-                GzButton(label: l.clientVouchersGetVoucher, variant: GzButtonVariant.primary, iconStart: GzIcons.ticket, onPressed: offline ? null : () => _getVoucher(currentArgs))
+                GzButton(label: l.clientVouchersGetVoucher, fullWidth: true, variant: GzButtonVariant.primary, iconStart: GzIcons.ticket, onPressed: offline ? null : () => _getVoucher(currentArgs))
               else if (invalid)
                 GzButton(
                   label: l.clientVouchersRestore,
+                  fullWidth: true,
                   variant: GzButtonVariant.primary,
                   iconStart: GzIcons.undo,
                   onPressed: () {
@@ -153,6 +154,7 @@ class _ClVchr04ScreenState extends ConsumerState<ClVchr04Screen> {
               else
                 GzButton(
                   label: l.clientVouchersUseThis,
+                  fullWidth: true,
                   variant: GzButtonVariant.primary,
                   onPressed: offline
                       ? null
@@ -166,8 +168,8 @@ class _ClVchr04ScreenState extends ConsumerState<ClVchr04Screen> {
               if (!none && candidates.length > 1) ...[
                 const SizedBox(height: GzSpace.s2),
                 choose
-                    ? GzButton(label: l.clientVouchersGetAnother, variant: GzButtonVariant.tertiary, iconStart: GzIcons.plus, onPressed: () => _getVoucher(currentArgs))
-                    : GzButton(label: l.clientVouchersChooseAnother, variant: GzButtonVariant.tertiary, iconStart: GzIcons.swap, onPressed: () => setState(() => _chooseMode = true)),
+                    ? GzButton(label: l.clientVouchersGetAnother, fullWidth: true, variant: GzButtonVariant.tertiary, iconStart: GzIcons.plus, onPressed: () => _getVoucher(currentArgs))
+                    : GzButton(label: l.clientVouchersChooseAnother, fullWidth: true, variant: GzButtonVariant.tertiary, iconStart: GzIcons.swap, onPressed: () => setState(() => _chooseMode = true)),
               ],
             ],
           ),

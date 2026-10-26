@@ -134,7 +134,8 @@ class _ClBkng04State extends ConsumerState<ClBkng04Screen> {
             ],
           ),
         ),
-        DecoratedBox(
+        // A Container border insets its child (the web rule is part of the 137 high foot); a DecoratedBox border would not.
+        Container(
           decoration: BoxDecoration(
             border: Border(
               top: BorderSide(color: context.gz.colors.borderHairline, width: GzStroke.hair),

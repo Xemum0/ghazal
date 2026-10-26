@@ -11,7 +11,9 @@ import '../application/venue_model.dart';
 import '../application/venue_providers.dart';
 import 'venue_glyphs.dart';
 import 'widgets/venue_hall.dart' show VenueClamp;
+import 'widgets/venue_failure.dart';
 import 'widgets/venue_money.dart' show QuietMoney;
+import 'widgets/venue_sheets.dart' show VenueSheetHead;
 
 /// CL-VENU-05 Policies and hall rules (sheet). Covers CA-VDET-06, CA-VDET-15, CA-VDET-17..19, CA-VDET-26, CA-SRCH-12, CA-SRCH-13.
 ///
@@ -54,9 +56,8 @@ class _ClVenu05State extends ConsumerState<ClVenu05Screen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         GzSheetPinnedHeader(
-          child: GzSheetHeader(title: l.clientVenuePolTitle, onClose: () => context.gzNav.closeSheet()),
+          child: VenueSheetHead(title: l.clientVenuePolTitle, onClose: () => context.gzNav.closeSheet()),
         ),
-        const SizedBox(height: GzSpace.s4),
         if (view.isLoading && data == null)
           const Column(
             children: [
@@ -65,6 +66,8 @@ class _ClVenu05State extends ConsumerState<ClVenu05Screen> {
               GzSkeletonText(lines: 6),
             ],
           )
+        else if (data == null && view.hasError)
+          VenueSheetFailure(error: view.error, onRetry: () => ref.invalidate(venueViewProvider(vkey)))
         else if (data == null)
           GzEmptyState(
             illustration: GzIllustrationName.noResult,

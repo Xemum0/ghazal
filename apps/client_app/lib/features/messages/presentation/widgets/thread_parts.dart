@@ -135,10 +135,9 @@ class ContextBar extends StatelessWidget {
     final status = statusOfBooking(booking.status);
     return Container(
       padding: const EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: GzSpace.s1, bottom: GzSpace.s2),
-      decoration: BoxDecoration(
-        color: c.surfaceCanvas,
-        border: Border(bottom: BorderSide(color: c.borderHairline, width: GzStroke.hair)),
-      ),
+      decoration: BoxDecoration(color: c.surfaceCanvas),
+      // The web hairline is an overlay (::after, absolute): it paints on the bar's last pixel row and adds no height (the bar is 56).
+      foregroundDecoration: BoxDecoration(border: Border(bottom: BorderSide(color: c.borderHairline, width: GzStroke.hair))),
       child: GzPressable(
         onPressed: onOpen,
         semanticLabel: '$label: ${f.date(booking.eventDate.toString(), DateStyle.short)}',

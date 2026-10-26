@@ -95,7 +95,7 @@ class ClWedd01Screen extends ConsumerWidget {
 
   Widget _hub(BuildContext context, WidgetRef ref, WeddingOverview overview) {
     final now = ref.watch(clockProvider)();
-    final rows = overview.openRequests;
+    final rows = ref.watch(weddingRequestsProvider).value ?? overview.openRequests;
     final profile = overview.profile;
     final phase = weddingPhaseOf(guest: false, profile: profile, rows: rows, now: now);
     final booking = hubBooking(rows);
@@ -238,27 +238,20 @@ class ClWedd01Screen extends ConsumerWidget {
         gap: GzSpace.s3,
         children: [
           GzSectionHeader(title: l.clientMyWeddingNextTitle, draw: GzDraw.mount),
-          Container(
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(color: context.gz.colors.borderHairline, width: GzStroke.hair),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                for (final n in next)
-                  GzIconListRow(
-                    flush: true,
-                    chevron: true,
-                    last: n == next.last,
-                    icon: n.icon,
-                    title: n.title,
-                    trailing: n.fact.isEmpty ? null : GzFactChip(icon: GzIcons.calendar, label: n.factLabel, value: n.fact, small: true),
-                    onPressed: () => go(n),
-                  ),
-              ],
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              for (final n in next)
+                GzIconListRow(
+                  flush: true,
+                  chevron: true,
+                  last: n == next.last,
+                  icon: n.icon,
+                  title: n.title,
+                  trailing: n.fact.isEmpty ? null : GzFactChip(icon: GzIcons.calendar, label: n.factLabel, value: n.fact, small: true),
+                  onPressed: () => go(n),
+                ),
+            ],
           ),
         ],
       ),
@@ -434,7 +427,7 @@ class _VoucherLead extends StatelessWidget {
       title: name,
       actionLabel: l.clientMyWeddingVoucherOpen,
       onAction: () => context.gzNav.push('CL-VCHR-02'),
-      fact: until == null ? null : (GzIcons.calendar, '${l.clientMyWeddingHeroDate} ${f.date(until.toString(), DateStyle.short)}'),
+      fact: until == null ? null : (GzIcons.calendar, l.commonValidUntil(f.date(until.toString(), DateStyle.short)), f.date(until.toString(), DateStyle.dayMonth)),
     );
   }
 }

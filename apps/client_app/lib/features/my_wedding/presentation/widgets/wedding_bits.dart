@@ -65,8 +65,8 @@ class WdLeadCard extends StatelessWidget {
   final String? secondaryLabel;
   final VoidCallback? onSecondary;
 
-  /// One fact under the title (the day the voucher lapses).
-  final (IconData, String)? fact;
+  /// One fact under the title (the day the voucher lapses): glyph, its words (the accessible name) and the short value shown.
+  final (IconData, String, String)? fact;
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class WdLeadCard extends StatelessWidget {
                       GzText(title, role: GzTextRole.d1, color: c.textStrong, maxLines: 2, header: true),
                       if (fact != null) ...[
                         const SizedBox(height: GzSpace.s2),
-                        GzFactChip(icon: fact!.$1, label: fact!.$2, value: fact!.$2, small: true, tone: GzFactTone.muted),
+                        GzFactChip(icon: fact!.$1, label: fact!.$2, value: fact!.$3, small: true, tone: GzFactTone.muted),
                       ],
                     ],
                   ),

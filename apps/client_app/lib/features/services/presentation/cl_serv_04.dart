@@ -2,8 +2,8 @@ import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, GateResume, WidgetSessionGate, homeRepositoryProvider, servicesRepositoryProvider, sessionProvider;
-import 'package:ghazal_core/ghazal_core.dart' show ApiProblem;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, GateResume, WidgetSessionGate, gzProblemKind, gzProblemMessage, homeRepositoryProvider, servicesRepositoryProvider, sessionProvider;
+import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, ApiProblemCode;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -193,6 +193,14 @@ class _QuoteFormState extends ConsumerState<_QuoteForm> {
         const SizedBox(height: GzSpace.s4),
         if (vendorAsync.isLoading && vendor == null)
           const Column(children: [GzSkeleton(blockSize: 56), SizedBox(height: GzSpace.s3), GzSkeleton(blockSize: 56), SizedBox(height: GzSpace.s3), GzSkeleton(blockSize: 96)])
+        else if (vendor == null && vendorAsync.hasError)
+          GzErrorState(
+            key: const ValueKey<String>('services.quote.error'),
+            kind: gzProblemKind(vendorAsync.error is ApiProblem ? vendorAsync.error! as ApiProblem : const ApiProblem(status: 0, code: ApiProblemCode.unknown)),
+            body: gzProblemMessage(lc, vendorAsync.error is ApiProblem ? vendorAsync.error! as ApiProblem : const ApiProblem(status: 0, code: ApiProblemCode.unknown)),
+            fill: false,
+            onRetry: () => ref.invalidate(servicesVendorProvider(widget.vendorId)),
+          )
         else if (vendor == null)
           GzEmptyState(
             illustration: GzIllustrationName.noResult,

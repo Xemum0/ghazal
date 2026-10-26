@@ -1,6 +1,6 @@
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ghazal_core/ghazal_core.dart' show DateStyle;
+import 'package:ghazal_core/ghazal_core.dart' show DateStyle, MoneyMode, MoneyOptions;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -34,19 +34,31 @@ class PayVenuePlate extends StatelessWidget {
           Row(
             children: [
               if (cover != null)
-                SizedBox(width: GzSize.thumbLg, height: GzSize.thumbLg, child: GzPhoto(src: gzImageRefSrc(cover), alt: cover.alt.of(lang), borderRadius: GzRadius.mdAll))
+                SizedBox(
+                  width: GzSize.thumbLg,
+                  height: GzSize.thumbLg,
+                  child: GzPhoto(src: gzImageRefSrc(cover), alt: cover.alt.of(lang), borderRadius: GzRadius.mdAll),
+                )
               else
                 GzAvatar(name: name, size: GzAvatarSize.lg),
               const SizedBox(width: GzSpace.s4),
-              Expanded(child: GzText(name, role: GzTextRole.d1, color: c.textStrong)),
+              Expanded(
+                child: GzText(name, role: GzTextRole.d1, color: c.textStrong),
+              ),
             ],
           ),
           const SizedBox(height: GzSpace.s4),
           GzFactRow(
             children: [
               if (hall != null && hall.isNotEmpty) GzFactChip(icon: GzIcons.hall, label: l.clientPaymentLabelHall, value: hall, small: true),
-              GzFactChip(icon: GzIcons.calendar, label: l.clientPaymentLabelDate, value: f.date(quote.eventDate.toString(), DateStyle.compact), small: true),
-              if ((quote.guests ?? 0) > 0) GzFactChip(icon: GzIcons.usersThree, label: l.clientPaymentLabelGuests, value: f.integer(quote.guests!), small: true),
+              GzFactChip(
+                icon: GzIcons.calendar,
+                label: l.clientPaymentLabelDate,
+                value: f.date(quote.eventDate.toString(), DateStyle.compact),
+                small: true,
+              ),
+              if ((quote.guests ?? 0) > 0)
+                GzFactChip(icon: GzIcons.usersThree, label: l.clientPaymentLabelGuests, value: f.integer(quote.guests!), small: true),
             ],
           ),
         ],
@@ -90,7 +102,14 @@ String payMethodWord(GatewayMethod method) => switch (method) {
 /// failed KNET attempt the first tile carries one quiet word, "Suggested".
 /// Three tiles sit side by side in platform order.
 class PayMethodTile extends StatelessWidget {
-  const PayMethodTile({required this.method, required this.selected, this.suggested = false, this.disabled = false, required this.onSelect, super.key});
+  const PayMethodTile({
+    required this.method,
+    required this.selected,
+    this.suggested = false,
+    this.disabled = false,
+    required this.onSelect,
+    super.key,
+  });
 
   final GatewayMethod method;
   final bool selected;
@@ -112,6 +131,9 @@ class PayMethodTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = context.gz.colors;
+    final wordWeight = context.gz.text(GzTextRole.figTitle).fontWeight;
+    final body = context.gz.text(GzTextRole.body);
+    final bodyLine = body.fontSize! * body.height!;
     return GzPressable(
       key: ValueKey<String>('pay.method.${method.value}'),
       onPressed: disabled ? null : onSelect,
@@ -119,22 +141,20 @@ class PayMethodTile extends StatelessWidget {
       borderRadius: GzRadius.mdAll,
       expand: true,
       minHeight: GzSize.rowQueue,
-      child: Container(
-        constraints: const BoxConstraints(minHeight: GzSize.rowQueue),
-        padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s2, vertical: GzSpace.s5),
-        decoration: BoxDecoration(
-          color: disabled ? c.surfaceCanvas : c.surfaceRaised,
-          borderRadius: GzRadius.mdAll,
-          border: Border.all(color: selected ? c.borderFocus : (disabled ? c.borderHairline : c.borderStrong), width: selected ? GzStroke.icon : GzStroke.hair),
-        ),
-        child: Stack(
-          children: [
-            PositionedDirectional(
-              top: 0,
-              end: 0,
-              child: ExcludeSemantics(child: GzBead(hollow: !selected)),
+      child: Stack(
+        children: [
+          Container(
+            constraints: const BoxConstraints(minHeight: GzSize.rowQueue),
+            padding: const EdgeInsetsDirectional.only(start: GzSpace.s2, end: GzSpace.s2, top: GzSpace.s5, bottom: GzSpace.s4),
+            decoration: BoxDecoration(
+              color: disabled ? c.surfaceCanvas : c.surfaceRaised,
+              borderRadius: GzRadius.mdAll,
+              border: Border.all(
+                color: selected ? c.controlChipBorderSelected : (disabled ? c.borderHairline : c.controlChipBorder),
+                width: GzStroke.hair,
+              ),
             ),
-            Center(
+            child: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -146,17 +166,38 @@ class PayMethodTile extends StatelessWidget {
                         children: [
                           GzIcon(payMethodIcon(method), size: GzIconSize.md, color: disabled ? c.iconDisabled : c.iconPrimary, mirror: false),
                           const SizedBox(height: GzSpace.s1),
-                          GzText(payMethodWord(method), role: GzTextRole.figLabel, color: disabled ? c.textDisabled : c.textStrong, softWrap: false),
+                          // The web word sits in the body line box (24, Arabic 28) in 13 px type at the figure-title weight.
+                          SizedBox(
+                            height: bodyLine,
+                            child: Center(
+                              child: gzFigText(
+                                context,
+                                payMethodWord(method),
+                                role: GzTextRole.figLabel,
+                                weight: wordWeight,
+                                color: disabled ? c.textDisabled : c.textStrong,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  if (suggested) ...[const SizedBox(height: GzSpace.s1), GzText(context.l10n.clientPaymentMethodSuggested, role: GzTextRole.caption, color: c.textStrong, softWrap: false)],
+                  if (suggested) ...[
+                    const SizedBox(height: GzSpace.s1),
+                    GzText(context.l10n.clientPaymentMethodSuggested, role: GzTextRole.caption, color: c.textStrong, softWrap: false),
+                  ],
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+          // The selection bead sits on the tile corner: 8 inside the border.
+          PositionedDirectional(
+            top: GzSpace.s2 + GzStroke.hair,
+            end: GzSpace.s2 + GzStroke.hair,
+            child: ExcludeSemantics(child: GzBead(hollow: !selected)),
+          ),
+        ],
       ),
     );
   }
@@ -182,7 +223,15 @@ class PayFacts extends StatelessWidget {
         GzFactRow(
           label: l.clientPaymentLabelAmount,
           children: [
-            GzFactChip(icon: GzIcons.coins, label: l.clientPaymentLabelAmount, valueWidget: GzPrice(fils: quote.feeFils, mode: GzMoneyMode.exact, size: GzPriceSize.strong), tone: GzFactTone.accent),
+            GzFactChip(
+              icon: GzIcons.coins,
+              label: l.clientPaymentLabelAmount,
+              valueWidget: gzFigText(
+                context,
+                context.gzFormat.money(quote.feeFils, const MoneyOptions(mode: MoneyMode.exact)),
+                role: GzTextRole.figBodyS,
+              ),
+            ),
             GzFactChip(
               icon: payMethodIcon(method),
               label: l.clientPaymentLabelMethod,
@@ -232,7 +281,17 @@ class PayStage extends StatelessWidget {
 /// facts, and the recovery text behind an info glyph.
 /// The facts are centred like the title (the web centres the whole panel).
 class PayOutcome extends StatelessWidget {
-  const PayOutcome({required this.illustration, required this.title, this.meta, this.infoTitle, this.infoBody, this.busy = false, this.danger = false, this.size = GzIllustrationSize.hero, super.key});
+  const PayOutcome({
+    required this.illustration,
+    required this.title,
+    this.meta,
+    this.infoTitle,
+    this.infoBody,
+    this.busy = false,
+    this.danger = false,
+    this.size = GzIllustrationSize.hero,
+    super.key,
+  });
 
   final GzIllustrationName illustration;
   final String title;
@@ -254,10 +313,14 @@ class PayOutcome extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Center(child: ExcludeSemantics(child: GzIllustration(illustration, size: size, tone: danger ? GzIllustrationTone.danger : GzIllustrationTone.standard))),
+          Center(
+            child: ExcludeSemantics(
+              child: GzIllustration(illustration, size: size, tone: danger ? GzIllustrationTone.danger : GzIllustrationTone.standard),
+            ),
+          ),
           const SizedBox(height: GzSpace.s4),
           GzText(title, role: GzTextRole.d2, color: c.textStrong, header: true, textAlign: TextAlign.center),
-          if (busy) ...[const SizedBox(height: GzSpace.s4), const Center(child: GzActivity())],
+          if (busy) ...[const SizedBox(height: GzSpace.s4), const Center(child: GzActivity(size: GzSize.iconMd))],
           if (meta != null || (infoTitle != null && infoBody != null)) ...[
             const SizedBox(height: GzSpace.s4),
             Row(
@@ -265,7 +328,10 @@ class PayOutcome extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ?meta,
-                if (infoTitle != null && infoBody != null) ...[const SizedBox(width: GzSpace.s2), GzInfoButton(title: infoTitle!, paragraphs: [infoBody!], bleed: true)],
+                if (infoTitle != null && infoBody != null) ...[
+                  const SizedBox(width: GzSpace.s2),
+                  GzInfoButton(title: infoTitle!, paragraphs: [infoBody!], bleed: true),
+                ],
               ],
             ),
           ],

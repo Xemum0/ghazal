@@ -53,14 +53,28 @@ class _ClPaym02State extends ConsumerState<ClPaym02Screen> {
     final p = nav.params;
     nav.replace(
       'CL-PAYM-03',
-      params: <String, Object?>{'voucherId': p['voucherId'] ?? '', 'method': p['method'] ?? 'knet', 'attempt': p['attempt'] ?? 1, 'depth': p['depth'] ?? 2, if (lost) 'lost': true},
+      params: <String, Object?>{
+        'voucherId': p['voucherId'] ?? '',
+        'method': p['method'] ?? 'knet',
+        'attempt': p['attempt'] ?? 1,
+        'depth': p['depth'] ?? 2,
+        if (lost) 'lost': true,
+      },
     );
   }
 
   Future<void> _askLeave() async {
     if (_phase == _Phase.cancelled || _phase == _Phase.returned || _phase == _Phase.lost) return;
     final l = context.l10n;
-    final r = await context.gzNav.openDialog(GzDialogSpec(title: l.clientPaymentLeaveTitle, body: l.clientPaymentLeaveBody, icon: GzIcons.lock, confirmLabel: l.clientPaymentLeaveStay, cancelLabel: l.clientPaymentLeaveConfirm));
+    final r = await context.gzNav.openDialog(
+      GzDialogSpec(
+        title: l.clientPaymentLeaveTitle,
+        body: l.clientPaymentLeaveBody,
+        icon: GzIcons.lock,
+        confirmLabel: l.clientPaymentLeaveStay,
+        cancelLabel: l.clientPaymentLeaveConfirm,
+      ),
+    );
     if (!mounted) return;
     if (r == GzDialogResult.cancel) {
       setState(() => _phase = _Phase.cancelled);
@@ -74,7 +88,10 @@ class _ClPaym02State extends ConsumerState<ClPaym02Screen> {
     // A dead gateway ends on the outcome layout (CL-PAYM-04); a live one goes
     // back to the pay screen (CL-PAYM-01), pushing it when opened directly.
     if (pay.outcome == PaymentOutcome.failed) {
-      nav.replace('CL-PAYM-04', params: <String, Object?>{'voucherId': pay.voucherId ?? '', 'method': pay.method?.value ?? 'knet', 'depth': 1, 'scene': 'declined'});
+      nav.replace(
+        'CL-PAYM-04',
+        params: <String, Object?>{'voucherId': pay.voucherId ?? '', 'method': pay.method?.value ?? 'knet', 'depth': 1, 'scene': 'declined'},
+      );
       return;
     }
     if (pay.outcome == PaymentOutcome.success) {
@@ -132,10 +149,28 @@ class _ClPaym02State extends ConsumerState<ClPaym02Screen> {
           padding: const EdgeInsetsDirectional.only(bottom: GzSpace.s1),
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: [GzIcon(GzIcons.lock, size: GzIconSize.xs, color: context.gz.colors.iconSecondary), const SizedBox(width: GzSpace.s2), Flexible(child: GzText(l.clientPaymentGatewayTitle, role: GzTextRole.title, color: context.gz.colors.textStrong))],
+            children: [
+              GzIcon(GzIcons.lock, size: GzIconSize.xs, color: context.gz.colors.iconSecondary),
+              const SizedBox(width: GzSpace.s2),
+              Flexible(
+                child: GzText(l.clientPaymentGatewayTitle, role: GzTextRole.title, color: context.gz.colors.textStrong),
+              ),
+            ],
           ),
         ),
-        actions: secured ? [GzTopBarAction(icon: GzIcons.info, label: context.gzL10n.commonA11yInfo, onPressed: () => showGzInfoSheet(context, title: l.clientPaymentSecureTitle, paragraphs: [l.clientPaymentRedirectBody, l.clientPaymentRedirectPrivacy]))] : const [],
+        actions: secured
+            ? [
+                GzTopBarAction(
+                  icon: GzIcons.info,
+                  label: context.gzL10n.commonA11yInfo,
+                  onPressed: () => showGzInfoSheet(
+                    context,
+                    title: l.clientPaymentSecureTitle,
+                    paragraphs: [l.clientPaymentRedirectBody, l.clientPaymentRedirectPrivacy],
+                  ),
+                ),
+              ]
+            : const [],
       ),
       child: phase == _Phase.hosted
           ? SingleChildScrollView(
@@ -148,7 +183,12 @@ class _ClPaym02State extends ConsumerState<ClPaym02Screen> {
                     if (wallet)
                       _WalletSheet(method: method, feeFils: quote?.feeFils ?? 2000, onConfirm: () => setState(() => _phase = _Phase.returned))
                     else
-                      _BankPage(method: method, feeFils: quote?.feeFils ?? 2000, onCancel: () => setState(() => _phase = _Phase.cancelled), onSubmit: () => setState(() => _phase = _Phase.returned)),
+                      _BankPage(
+                        method: method,
+                        feeFils: quote?.feeFils ?? 2000,
+                        onCancel: () => setState(() => _phase = _Phase.cancelled),
+                        onSubmit: () => setState(() => _phase = _Phase.returned),
+                      ),
                   ],
                 ),
               ),
@@ -160,7 +200,12 @@ class _ClPaym02State extends ConsumerState<ClPaym02Screen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   switch (phase) {
-                    _Phase.redirecting => PayOutcome(illustration: GzIllustrationName.card, title: l.clientPaymentRedirectTitle, busy: true, meta: quote == null ? null : PayFacts(quote: quote, method: method)),
+                    _Phase.redirecting => PayOutcome(
+                      illustration: GzIllustrationName.card,
+                      title: l.clientPaymentRedirectTitle,
+                      busy: true,
+                      meta: quote == null ? null : PayFacts(quote: quote, method: method),
+                    ),
                     _Phase.returned => PayOutcome(illustration: GzIllustrationName.hourglass, title: l.clientPaymentReturnedTitle, busy: true),
                     _Phase.lost => PayOutcome(
                       illustration: GzIllustrationName.wifiOff,
@@ -172,7 +217,9 @@ class _ClPaym02State extends ConsumerState<ClPaym02Screen> {
                     _Phase.cancelled => PayOutcome(
                       illustration: GzIllustrationName.card,
                       title: l.clientPaymentCancelTitle,
-                      meta: GzFactRow(children: [GzFactChip(icon: GzIcons.shieldCheck, label: l.clientPaymentNotChargedLabel, value: l.clientPaymentNotCharged)]),
+                      meta: GzFactRow(
+                        children: [GzFactChip(icon: GzIcons.shieldCheck, label: l.clientPaymentNotChargedLabel, value: l.clientPaymentNotCharged)],
+                      ),
                     ),
                     _Phase.hosted => const SizedBox.shrink(),
                   },
@@ -211,7 +258,11 @@ class _BankPage extends StatelessWidget {
         const SizedBox(height: GzSpace.s3),
         Container(
           padding: GzSpace.panel,
-          decoration: BoxDecoration(color: c.surfaceCanvas, borderRadius: GzRadius.mdAll, border: Border.all(color: c.borderStrong, width: GzStroke.hair)),
+          decoration: BoxDecoration(
+            color: c.surfaceCanvas,
+            borderRadius: GzRadius.mdAll,
+            border: Border.all(color: c.borderStrong, width: GzStroke.hair),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
@@ -224,24 +275,36 @@ class _BankPage extends StatelessWidget {
                     child: GzText(knet ? 'KNET' : 'VISA · MC', role: GzTextRole.title, color: c.textStrong, figures: true),
                   ),
                   const SizedBox(width: GzSpace.s3),
-                  Expanded(child: GzText(l.clientPaymentBankItemName, role: GzTextRole.title, color: c.textStrong)),
+                  Expanded(
+                    child: GzText(l.clientPaymentBankItemName, role: GzTextRole.title, color: c.textStrong),
+                  ),
                 ],
               ),
               const SizedBox(height: GzSpace.s3),
-              Align(alignment: AlignmentDirectional.centerStart, child: GzPrice(fils: feeFils, mode: GzMoneyMode.exact, size: GzPriceSize.total)),
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: GzPrice(fils: feeFils, mode: GzMoneyMode.exact, size: GzPriceSize.total),
+              ),
               const SizedBox(height: GzSpace.s3),
               for (final label in fields) ...[
                 const SizedBox(height: GzSpace.s2),
                 GzText(label, role: GzTextRole.caption, color: c.textSecondary),
                 const SizedBox(height: GzSpace.s1),
-                Container(height: GzSize.controlSm, decoration: BoxDecoration(color: c.surfaceQuiet, borderRadius: GzRadius.smAll)),
+                Container(
+                  height: GzSize.controlSm,
+                  decoration: BoxDecoration(color: c.surfaceQuiet, borderRadius: GzRadius.smAll),
+                ),
               ],
               const SizedBox(height: GzSpace.s4),
               Row(
                 children: [
-                  Expanded(child: GzButton(label: context.gzL10n.commonActionCancel, variant: GzButtonVariant.secondary, onPressed: onCancel)),
+                  Expanded(
+                    child: GzButton(label: context.gzL10n.commonActionCancel, variant: GzButtonVariant.secondary, onPressed: onCancel),
+                  ),
                   const SizedBox(width: GzSpace.s3),
-                  Expanded(child: GzButton(label: l.clientPaymentBankSubmit, variant: GzButtonVariant.primary, onPressed: onSubmit)),
+                  Expanded(
+                    child: GzButton(label: l.clientPaymentBankSubmit, variant: GzButtonVariant.primary, onPressed: onSubmit),
+                  ),
                 ],
               ),
             ],
@@ -273,11 +336,17 @@ class _WalletSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Center(child: ExcludeSemantics(child: GzIllustration(GzIllustrationName.card, size: GzIllustrationSize.lg))),
+          Center(
+            child: ExcludeSemantics(child: GzIllustration(GzIllustrationName.card, size: GzIllustrationSize.lg)),
+          ),
           const SizedBox(height: GzSpace.s4),
           Container(
             padding: GzSpace.panel,
-            decoration: BoxDecoration(color: c.surfaceCanvas, borderRadius: GzRadius.mdAll, border: Border.all(color: c.borderStrong, width: GzStroke.hair)),
+            decoration: BoxDecoration(
+              color: c.surfaceCanvas,
+              borderRadius: GzRadius.mdAll,
+              border: Border.all(color: c.borderStrong, width: GzStroke.hair),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
@@ -292,7 +361,9 @@ class _WalletSheet extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: GzSpace.s3),
-                Center(child: GzPrice(fils: feeFils, mode: GzMoneyMode.exact, size: GzPriceSize.total)),
+                Center(
+                  child: GzPrice(fils: feeFils, mode: GzMoneyMode.exact, size: GzPriceSize.total),
+                ),
                 const SizedBox(height: GzSpace.s4),
                 GzButton(label: context.gzL10n.commonActionConfirm, variant: GzButtonVariant.primary, onPressed: onConfirm),
               ],

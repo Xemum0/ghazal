@@ -320,24 +320,26 @@ class _ThreadBar extends ConsumerWidget implements PreferredSizeWidget {
                   fact,
                 ],
               )
-            : Row(
+            // The web title is the avatar and the name on one 32 line, the reply-time fact centred under both (its line is the chip + 3).
+            : Column(
                 mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(top: GzSpace.s1),
-                    child: GzAvatar(name: name.isEmpty ? ' ' : name, initial: context.gz.isAr ? conv?.monogram : null, size: GzAvatarSize.xs),
-                  ),
-                  const SizedBox(width: GzSpace.s3),
-                  Flexible(
-                    child: Column(
+                  SizedBox(
+                    height: 32,
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        GzText(name, role: GzTextRole.title, color: context.gz.colors.textStrong, maxLines: 1, overflow: TextOverflow.ellipsis),
-                        fact,
+                        GzAvatar(name: name.isEmpty ? ' ' : name, initial: context.gz.isAr ? conv?.monogram : null, size: GzAvatarSize.xs),
+                        const SizedBox(width: GzSpace.s2),
+                        Flexible(child: GzText(name, role: GzTextRole.title, color: context.gz.colors.textStrong, maxLines: 1, overflow: TextOverflow.ellipsis)),
                       ],
                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(bottom: 3),
+                    child: ConstrainedBox(constraints: BoxConstraints(minHeight: context.gz.isAr ? 22 : 20), child: fact),
                   ),
                 ],
               ),

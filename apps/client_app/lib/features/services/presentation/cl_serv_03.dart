@@ -56,7 +56,6 @@ class _ClServ03State extends ConsumerState<ClServ03Screen> {
         actions: [
           GzTopBarAction(
             icon: saved ? GzIcons.heartFill : GzIcons.heart,
-            iconActive: GzIcons.heartFill,
             label: saved ? context.gzL10n.commonA11yFavouriteRemove : context.gzL10n.commonA11yFavouriteAdd,
             pressed: saved,
             onPressed: toggleSave,
