@@ -178,6 +178,41 @@ void main() {
       expect(tester.getSize(find.byType(GzSheet)).height, closeTo(h - 34, 1));
     });
 
+    testWidgets('keyboard: the sheet content stays mounted while the keyboard rises and leaves (a focused field keeps its focus)', (tester) async {
+      // Regression (device pass, 2026-10-26): the keyboard wrapper of the sheet existed only while the keyboard was up, so the field in the
+      // sheet was rebuilt as the keyboard rose, lost focus and the keyboard dropped again.
+      final focus = FocusNode();
+      addTearDown(focus.dispose);
+      var built = 0;
+      await pumpNav(
+        tester,
+        Builder(
+          builder: (context) => Center(
+            child: GestureDetector(
+              key: kOpen,
+              onTap: () => showGzSheet<void>(context, builder: (_) => _SheetMountProbe(onInit: () => built++, focus: focus)),
+              child: const Text('open'),
+            ),
+          ),
+        ),
+      );
+      await _open(tester);
+      expect(built, 1);
+      focus.requestFocus();
+      await tester.pump();
+      expect(focus.hasFocus, isTrue);
+      tester.view.viewInsets = const FakeViewPadding(bottom: 300);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(built, 1, reason: 'the sheet body was not rebuilt when the keyboard rose');
+      expect(focus.hasFocus, isTrue);
+      tester.view.viewInsets = FakeViewPadding.zero;
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(built, 1);
+      expect(focus.hasFocus, isTrue);
+    });
+
     testWidgets('pinned footer and a screen footer (GzSheetFooter) sit under the scrolling body', (tester) async {
       await pumpNav(tester, Builder(builder: (context) => Center(child: GestureDetector(key: kOpen, onTap: () => showGzSheet<void>(context, builder: (_) => const Column(children: [Text('body'), GzSheetFooter(child: Text('screen footer'))])), child: const Text('open')))));
       await _open(tester);
@@ -651,3 +686,39 @@ final Uint8List _transparentPng = Uint8List.fromList(const [
   0x08, 0x06, 0x00, 0x00, 0x00, 0x1f, 0x15, 0xc4, 0x89, 0x00, 0x00, 0x00, 0x0d, 0x49, 0x44, 0x41, 0x54, 0x78, 0x9c, 0x63, 0x00, 0x01, 0x00, 0x00,
   0x05, 0x00, 0x01, 0x0d, 0x0a, 0x2d, 0xb4, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4e, 0x44, 0xae, 0x42, 0x60, 0x82,
 ]);
+
+
+/// A sheet body with one focusable field that counts how often its state was created.
+class _SheetMountProbe extends StatefulWidget {
+  const _SheetMountProbe({required this.onInit, required this.focus});
+
+  final VoidCallback onInit;
+  final FocusNode focus;
+
+  @override
+  State<_SheetMountProbe> createState() => _SheetMountProbeState();
+}
+
+class _SheetMountProbeState extends State<_SheetMountProbe> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    widget.onInit();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => SizedBox(
+    height: 80,
+    child: EditableText(controller: _controller, focusNode: widget.focus, style: const TextStyle(), cursorColor: _probeInk, backgroundCursorColor: _probeInk),
+  );
+}
+
+const Color _probeInk = Color(0xFF000000); // gz-rules-ok: a probe field, the colour is never drawn

@@ -155,14 +155,16 @@ class _GzScreenState extends State<GzScreen> {
         if (widget.bottom != null) widget.bottom!,
       ],
     );
-    if (keyboard > 0) {
-      // The keyboard takes the bottom: the screen shrinks above it and the home-indicator inset is already covered.
-      final padding = mq.padding.copyWith(bottom: (mq.padding.bottom - keyboard).clamp(0.0, double.infinity));
-      column = MediaQuery(
-        data: mq.copyWith(padding: padding, viewInsets: mq.viewInsets.copyWith(bottom: 0)),
-        child: Padding(padding: EdgeInsets.only(bottom: keyboard), child: column),
-      );
-    }
+    // The keyboard takes the bottom: the screen shrinks above it and the home-indicator inset is already covered. The two wrappers are
+    // ALWAYS in the tree (no padding and the unchanged MediaQuery while the keyboard is down): a wrapper that exists only while the keyboard
+    // is up changes the type of the parent of the whole screen, so the body, the pinned bars and every field under them were rebuilt from
+    // scratch the moment the keyboard rose, the focused field lost its focus and the keyboard dropped again (seen on a device, 2026-10-26).
+    final padding = keyboard > 0 ? mq.padding.copyWith(bottom: (mq.padding.bottom - keyboard).clamp(0.0, double.infinity)) : mq.padding;
+    final insets = keyboard > 0 ? mq.viewInsets.copyWith(bottom: 0) : mq.viewInsets;
+    column = MediaQuery(
+      data: mq.copyWith(padding: padding, viewInsets: insets),
+      child: Padding(padding: EdgeInsets.only(bottom: keyboard), child: column),
+    );
     return GzScreenScroll(
       offset: _offset.toDouble(),
       child: ColoredBox(color: c.surfaceCanvas, child: column),

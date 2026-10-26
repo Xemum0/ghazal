@@ -6,6 +6,7 @@ import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../../../app/state/state.dart';
 import '../../../../l10n/l10n.dart';
+import '../../application/first_run_guard.dart';
 
 enum FirstRunStep { notifications, biometric }
 
@@ -97,14 +98,14 @@ class FirstRunContent extends StatelessWidget {
 }
 
 /// Opens the two first-run sheets one after the other when Today is entered with `firstRun` (the first sign-in of this run of the app).
-class FirstRunTrigger extends StatefulWidget {
+class FirstRunTrigger extends ConsumerStatefulWidget {
   const FirstRunTrigger({super.key});
 
   @override
-  State<FirstRunTrigger> createState() => _FirstRunTriggerState();
+  ConsumerState<FirstRunTrigger> createState() => _FirstRunTriggerState();
 }
 
-class _FirstRunTriggerState extends State<FirstRunTrigger> {
+class _FirstRunTriggerState extends ConsumerState<FirstRunTrigger> {
   bool _asked = false;
 
   @override
@@ -115,7 +116,10 @@ class _FirstRunTriggerState extends State<FirstRunTrigger> {
     if (nav.params['firstRun'] != true) return;
     _asked = true;
     final l = context.l10n;
+    final guard = ref.read(firstRunGuardProvider);
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Today can be built twice in a row right after sign-in: the sheets open once, whichever build asks first
+      if (!guard.claim()) return;
       void second() {
         nav.openSheetBuilder(
           (_) => FirstRunContent(step: FirstRunStep.biometric, onPrimary: nav.closeSheet, onSkip: nav.closeSheet),

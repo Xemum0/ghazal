@@ -134,11 +134,11 @@ class _SheetLayerState<T> extends State<_SheetLayer<T>> {
       },
       child: FocusScope(autofocus: true, child: content),
     );
-    if (keyboard > 0) {
-      final padding = mq.padding.copyWith(bottom: (mq.padding.bottom - keyboard).clamp(0.0, double.infinity));
-      return MediaQuery(data: mq.copyWith(padding: padding, viewInsets: mq.viewInsets.copyWith(bottom: 0)), child: handled);
-    }
-    return handled;
+    // Always wrapped (unchanged while the keyboard is down): a wrapper that only exists while the keyboard is up would rebuild the whole
+    // sheet, and the focused field with it, the moment the keyboard rises.
+    final padding = keyboard > 0 ? mq.padding.copyWith(bottom: (mq.padding.bottom - keyboard).clamp(0.0, double.infinity)) : mq.padding;
+    final insets = keyboard > 0 ? mq.viewInsets.copyWith(bottom: 0) : mq.viewInsets;
+    return MediaQuery(data: mq.copyWith(padding: padding, viewInsets: insets), child: handled);
   }
 }
 

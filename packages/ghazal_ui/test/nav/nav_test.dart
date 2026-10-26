@@ -211,6 +211,37 @@ void main() {
       expect(tester.getSize(find.byType(GzActionBar)).height, closeTo(h - 34, 0.5));
     });
 
+    testWidgets('the keyboard rising and leaving keeps the content mounted (a focused field is not rebuilt, so it keeps focus and its text)', (tester) async {
+      // Regression (device pass, 2026-10-26): the keyboard wrapper existed only while the keyboard was up, so every field under the screen was
+      // rebuilt from scratch as the keyboard rose: it lost focus, the keyboard dropped, and what was typed in it was gone.
+      final focus = FocusNode();
+      final controller = TextEditingController();
+      addTearDown(() {
+        focus.dispose();
+        controller.dispose();
+      });
+      var built = 0;
+      await pumpNav(
+        tester,
+        GzScreen(
+          bottom: _MountProbe(onInit: () => built++, child: _probeField(controller, focus)),
+          child: const SizedBox(height: 100),
+        ),
+      );
+      expect(built, 1);
+      focus.requestFocus();
+      await tester.pump();
+      expect(focus.hasFocus, isTrue);
+      tester.view.viewInsets = const FakeViewPadding(bottom: 300);
+      await tester.pump();
+      expect(built, 1, reason: 'the pinned bar was not rebuilt when the keyboard rose');
+      expect(focus.hasFocus, isTrue, reason: 'the field kept its focus');
+      tester.view.viewInsets = FakeViewPadding.zero;
+      await tester.pump();
+      expect(built, 1, reason: 'nor when the keyboard went away');
+      expect(focus.hasFocus, isTrue);
+    });
+
     testWidgets('a re-selected tab scrolls the root screen to top', (tester) async {
       Widget screen(int signal) => GzScrollToTopSignal(signal: signal, child: GzScreen(child: Column(children: [for (var i = 0; i < 30; i++) const SizedBox(height: 60, child: Text('row'))])));
       await pumpNav(tester, screen(0));
@@ -390,3 +421,30 @@ class _Recording implements GzNavigator {
   @override
   void dismissToast([String? key]) {}
 }
+
+
+/// Counts how many times its state was created: a rebuild from scratch shows as a second `initState`.
+class _MountProbe extends StatefulWidget {
+  const _MountProbe({required this.onInit, required this.child});
+
+  final VoidCallback onInit;
+  final Widget child;
+
+  @override
+  State<_MountProbe> createState() => _MountProbeState();
+}
+
+class _MountProbeState extends State<_MountProbe> {
+  @override
+  void initState() {
+    super.initState();
+    widget.onInit();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
+}
+
+/// A bare field for the focus probes (the colours are never drawn).
+Widget _probeField(TextEditingController controller, FocusNode focus) =>
+    EditableText(controller: controller, focusNode: focus, style: const TextStyle(), cursorColor: const Color(0xFF000000), backgroundCursorColor: const Color(0xFF000000)); // gz-rules-ok

@@ -27,6 +27,20 @@ void main() {
     expect(find.textContaining('Is Friday available?'), findsWidgets);
   });
 
+  flowTest('the thread follows a message sent while it is open: the newest one stays in view, not below the fold', (tester) async {
+    // Regression (simulator pass, 2026-10-26): with the real keyboard up the list is short; a sent message landed below the fold.
+    await openScreen(tester, 'CL-MSGS-02', size: const Size(390, 520));
+    for (final text in const ['First question', 'Second question', 'Third question', 'Fourth question']) {
+      await tap(tester, find.byType(GzFieldInput));
+      await tester.enterText(find.byType(GzFieldInput), text);
+      await settle(tester);
+      await tapLabel(tester, 'Send voice message', flush: true);
+      final newest = find.textContaining(text);
+      expect(newest, findsWidgets);
+      expect(newest.hitTestable(), findsWidgets, reason: '"$text" is on screen');
+    }
+  });
+
   flowTest('a guest who taps Send meets the sign-in sheet with the chat reason', (tester) async {
     final c = await openScreen(tester, 'CL-MSGS-02', persona: 'guest', params: {'venueId': 'V01'});
     await tap(tester, find.byType(GzFieldInput));

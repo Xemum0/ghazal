@@ -12,6 +12,7 @@ import '../application/chat_thread.dart';
 import '../application/messages_format.dart' show shortDuration;
 import '../application/thread_resolve.dart';
 import '../application/thread_ui.dart';
+import 'widgets/follow_newest.dart';
 import 'widgets/msg_composer.dart';
 import 'widgets/msg_sheet_head.dart';
 import 'widgets/thread_parts.dart';
@@ -100,9 +101,10 @@ class _ThreadBody extends ConsumerStatefulWidget {
   ConsumerState<_ThreadBody> createState() => _ThreadBodyState();
 }
 
-class _ThreadBodyState extends ConsumerState<_ThreadBody> {
-  // NOTE: no auto-scroll (web parity gap, documented in the flow report): a programmatic jump during the headless settle leaves RichText
-  // unpainted in shots, and an initial offset breaks GzScreen's scroll listener during layout.
+class _ThreadBodyState extends ConsumerState<_ThreadBody> with FollowNewest<_ThreadBody> {
+  // NOTE: no jump to the end when the thread opens (web parity gap, documented in the flow report): a programmatic jump during the headless
+  // settle leaves RichText unpainted in shots, and an initial offset breaks GzScreen's scroll listener during layout. A message that is sent
+  // or arrives while it is open is followed (FollowNewest).
   GzNavigator get _nav => context.gzNav;
 
   ResolvedThread get _r => widget.resolved;
@@ -125,6 +127,7 @@ class _ThreadBodyState extends ConsumerState<_ThreadBody> {
       data: (s) {
         final bookingId = s.conversation.bookingId;
         final rows = _rows(s);
+        followNewest(rows.length);
         final bottom = blocked
             ? _BlockedBar(onUnblock: () => ref.read(blockedConversationsProvider.notifier).set(_r.conversationId!, false))
             : MsgComposer(
@@ -151,9 +154,11 @@ class _ThreadBodyState extends ConsumerState<_ThreadBody> {
             ],
           ),
           bottom: bottom,
+          controller: threadScroll,
           slivers: [
+            // no spacer for the keyboard here: GzScreen already shrinks the list above it, and a keyboard-high gap at the end kept the newest
+            // message out of view when the list followed it
             _ThreadSlivers(state: s, rows: rows, guest: widget.guest, bookingId: bookingId, onGate: widget.onGate),
-            SliverToBoxAdapter(child: SizedBox(height: MediaQuery.viewInsetsOf(context).bottom)),
           ],
         );
       },
