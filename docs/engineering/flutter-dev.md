@@ -285,6 +285,40 @@ Behaviour worth knowing: an accept or a decline of a request that moved under th
 | `flowWorld()`, `flowControl`, `flowRepos('reem')` | The mock world, its control surface (`flowControl.jumpToStory(...)`), real repositories for reading what a flow wrote (inside `tester.runAsync`) |
 | `ignoreRenderErrors` | Set to true once a test has left the flow under test; the known 4 dp `GzIconTabs` overflow is always filtered (pilot-findings, Components): delete the filter in `_filterRenderErrors` when the component is fixed |
 
+## Journeys (integration tests, `apps/*/integration_test/`)
+
+The end-to-end journeys of `final-verification.md` step 6, written once and run twice: headless on the host now, on the simulators at the end. Each journey starts the app through its REAL entry (`bootstrap()` = `runGhazalApp`: binding, locale data, preferences, the in-process mock on the story clock 12 Nov 2026 16:00, session restore, the router), then only taps, types and reads what is on screen (words through the app localisations, prices and dates through the app formatter). The mock's control surface (`j.control.jumpToStory('approved')`, `j.advance(...)`) reaches story states; every journey builds its own app and mock, so none depends on another. Every journey fails on any framework error (an overflow or a build error is one): the world collects them, after proving with a probe that the collector is wired.
+
+| File | App | What it proves |
+|---|---|---|
+| `j1_first_run_test.dart` | client | language choice, onboarding (role, date 21 Jan 2027, guests, areas), Home, Results, venue, the guest gate on Get voucher, OTP sign-in as Reem, the KD 2 voucher checkout at the mock gateway, the request in five steps, Request sent, the request pending |
+| `j2_accept_test.dart` | partner | sign in (wrong password, then email + password + new-device code), first-run prompts, Today, Bookings, open the pending request, Accept, the 8 s undo window (Undo, then Accept again and let it close) |
+| `j3_confirm_test.dart` | client | story `approved` + 2 h + back to the app: Home card and My Wedding dot, the confirm window (22 h left), consent first, Confirm booking, Booking confirmed, the booking thread says Confirmed |
+| `j4_redeem_test.dart` | partner | story `confirmed`: Redeem from Today, Code mode, a wrong code refused, the right code and its quote, Redeemed sheet, the request Redeemed |
+| `j5_tour_test.dart` | both | English and Arabic in one file (two journeys): every tab (data loaded, no error state, no skeleton left), the long lists flung (client Home and Results; partner Today, Bookings, Calendar month and week) with frame timings printed, sheets (client Brief, Filters, Sort, date; partner Block date, Decline), a pushed screen and back, the gallery viewer (client), a dialog (client Sign out? / partner Log out?), the undo toast, a text field with the keyboard up (chat composer, Send, the scripted reply arriving), back navigation |
+
+**Headless (now).** `flutter test integration_test/<file>` does NOT run without a device in this Flutter (3.47.5): every file under `<app>/integration_test/` is a device test ("No devices are connected"). The same file runs on the host test device when started from outside that folder, so each app has a runner that writes a two-line entry per journey into `build/journeys/` (git-ignored) and runs it through the slot semaphore (a run that prints nothing for 10 minutes is killed and frees its slot):
+
+```
+node apps/client_app/integration_test/headless.mjs                 # every journey of the client app (J1, J3, J5), English
+node apps/provider_app/integration_test/headless.mjs j2 j4         # by name prefix
+node apps/client_app/integration_test/headless.mjs j1 --lang ar    # the same journey in Arabic (JOURNEY_LANG; J5 always runs both)
+node apps/client_app/integration_test/headless.mjs j5 --semantics  # with the semantics tree on, as for a VoiceOver user (--trace prints every screen change)
+```
+About 1.5 min for J1, 0.5 min for J3 and J4, 1 min for J2, 3 to 4 min for J5 (real time: the app animates, the mock's gateway 1.5 s, undo window 8 s and scripted chat replies 2.5 s run for real; no `pumpAndSettle` anywhere, every wait is polled and bounded). The host world sets the real fonts, the 390 x 844 phone at 2x with safe areas, and simulates the keyboard by view insets.
+
+**Simulator (the end of F4).** The same files, from the app folder, one at a time or all of them:
+
+```
+cd apps/client_app   && flutter test integration_test -d <iPhone 17e id>
+cd apps/provider_app && flutter test integration_test -d <iPhone 17 id>
+flutter test integration_test/j1_first_run_test.dart -d <id> --dart-define=JOURNEY_LANG=ar     # Arabic run of one journey
+flutter test integration_test/j5_tour_test.dart -d <id> --dart-define=JOURNEY_SEMANTICS=true   # VoiceOver-style run
+```
+They run the in-process mock (do not pass `USE_MOCK=false`: the journeys use the control surface); cross-app propagation (client sends, partner sees it) is the two-simulator check against `dart run ghazal_mock_api:serve`, not a journey. Before running J5 on a simulator turn the hardware keyboard off (Simulator, I/O, Keyboard, Connect Hardware Keyboard) so the real soft keyboard rises; the `[frames]` lines of J5 are the real build and raster timings there (the host reports build only). On an iPhone `goBack()` is the edge swipe from the inline-start edge (the right edge in Arabic); on the host it is the back button. The simulator keeps the app's preferences between runs, so the world clears them first.
+
+**The world** (`integration_test/support/journey_world.dart`, mirrored per app; `tour.dart` is identical in both): `journeySetUp()` once in `main()`, `journey('name', (j) async {...})` per journey (`semantics:` per journey, `JOURNEY_SEMANTICS` for all). On `j`: `start({persona})` (guest, `reem`, `hotel_manager` ...), `t((l) => l.commonActionContinue)` (typed words of the running language), `format` (money, dates), `see`, `gone`, `seeScreen`, `seeText`, `tap`, `tapText`, `tapKey`, `tapNamed` (by accessible name: a calendar day paints itself), `type`, `back`, `scrollTo`, `shows`, `showsMatch`, `textUnder`, `control`, `advance`, `backgroundAndResume()` (what the app refetches on return), `useLanguage('ar')`, `step('...')` (a progress line), and from `tour.dart` `loaded()`, `openTab`, `flingList('label')`, `openKeyboard` / `closeKeyboard` / `focusedFieldVisible`, `dismissSheet()` (a tap on the dim), `goBack()`. Rules learned: never pump while the app is paused (a paused binding schedules no frame and the pump never returns: `backgroundAndResume` does not); `testWidgets` turns semantics ON by default, a phone does not, so `journey` turns it OFF unless asked; the Face ID offer and the two-Briefs sheet come after a gate sign-in (J1 handles both).
+
 ## Formatting (`ghazal_core`, F1b)
 
 Dart twin of `packages/i18n` (`createFormat`). One object per locale, digit style and clock; same method names as the web `useFormat()`; the same golden cases (`packages/contracts/fixtures/format-cases.json`, 1,963 cases generated by `tools/export-format-cases.mjs` from the TypeScript implementation, run by `packages/ghazal_core/test/gz_format_golden_test.dart`).
