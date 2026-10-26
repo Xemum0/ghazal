@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/misc.dart' show ProviderListenable;
 import 'package:ghazal_core/ghazal_core.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
+import '../data/remote_mock.dart' show remoteMockProvider;
 import 'nav_providers.dart';
 
 /// The root widget both apps share: [GzApp] over `routerProvider`, with the scopes every screen expects installed above the router:
@@ -12,6 +13,7 @@ import 'nav_providers.dart';
 ///
 /// - [onResume]: callbacks run each time the app comes back to the foreground (a `WidgetsBindingObserver`), in order. The apps pass their
 ///   badge refresh: `GzAppRoot(kind: ..., onResume: [refreshClientBadges])`, so a message that arrived while away shows on the tab bar.
+///   Against the standalone mock server (`remoteMockProvider`) the story clock is read from the server first, then the callbacks run.
 /// - [warmUp]: providers the root listens to for as long as the app runs, so their data is loading before a screen asks for it
 ///   (the client's wedding profile, which seeds the Brief at sign-in): `warmUp: [weddingProfileProvider]`.
 class GzAppRoot extends ConsumerStatefulWidget {
@@ -52,6 +54,19 @@ class _GzAppRootState extends ConsumerState<GzAppRoot> with WidgetsBindingObserv
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state != AppLifecycleState.resumed) return;
+    // Against the standalone mock server the story clock is the SERVER's, and the other phone (or an operator with curl) may have moved it
+    // while this app was away: read it again first, so the countdowns the screens draw agree with what the refetch brings back.
+    final remote = ref.read(remoteMockProvider);
+    if (remote == null) {
+      _runOnResume();
+      return;
+    }
+    remote.refresh().then<void>((_) {}, onError: (Object _) {}).whenComplete(() {
+      if (mounted) _runOnResume();
+    });
+  }
+
+  void _runOnResume() {
     for (final callback in widget.onResume) {
       callback(ref);
     }

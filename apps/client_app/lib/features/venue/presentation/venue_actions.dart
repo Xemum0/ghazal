@@ -105,25 +105,39 @@ class VenueActions {
   void openPolicies(String segment, [String? hallId]) =>
       _nav.openSheet('CL-VENU-05', options: GzSheetOptions(params: <String, Object?>{'venueId': venueId, 'segment': segment, 'hallId': hallId}));
 
+  /// Closes the sheet this action runs in and lets the navigator settle (its list of open sheets decides whether the next sheet gets a
+  /// scrim, and it is updated one event-loop turn after the pop).
+  Future<void> _closeSheet(GzNavigator nav) {
+    nav.closeSheet();
+    return Future<void>.delayed(Duration.zero);
+  }
+
   /// Get voucher: the explainer bound to this quote (CL-VCHR-01). A guest meets the sign-in sheet first and comes back to it with the
   /// exact quote (ADR 0007 D8).
-  void getVoucher(QuoteCarry c) {
+  ///
+  /// [closeSheet]: called from a sheet (the calendar, CL-VENU-03): it gives way to the explainer (or the account sheet) instead of staying
+  /// open underneath the whole pay flow, where it would also keep the app's own sheets (Face ID offer, Brief merge) waiting for ever.
+  Future<void> getVoucher(QuoteCarry c, {bool closeSheet = false}) async {
+    final nav = _nav; // taken while the context is alive: the entry navigator forwards every action to the app's one navigator
     ref
         .read(bookingDraftProvider.notifier)
         .start(venueId: venueId, hallId: c.hallId, sessionId: c.sessionId, packageId: c.packageId, eventDate: c.date, guests: c.guests, audience: c.audience);
+    if (closeSheet) await _closeSheet(nav);
     if (!ref.requireSignIn(GateReason.voucher, resume: GateResume('CL-VCHR-01', c.params))) return;
-    _nav.openSheet('CL-VCHR-01', options: GzSheetOptions(params: c.params));
+    nav.openSheet('CL-VCHR-01', options: GzSheetOptions(params: c.params));
   }
 
   void openHow(QuoteCarry c) => _nav.openSheet('CL-VCHR-01', options: GzSheetOptions(params: <String, Object?>{...c.params, 'mode': 'explain'}));
 
   /// Send request with a ready voucher: the booking flow opens with the quote and the voucher carried over (CL-BOOK-01).
-  void sendRequest(QuoteCarry c, Voucher voucher) {
+  Future<void> sendRequest(QuoteCarry c, Voucher voucher, {bool closeSheet = false}) async {
+    final nav = _nav;
     final draft = ref.read(bookingDraftProvider.notifier);
     draft.start(venueId: venueId, hallId: c.hallId, sessionId: c.sessionId, packageId: c.packageId, eventDate: c.date, guests: c.guests, audience: c.audience);
     draft.patch((d) => d.copyWith(voucherId: voucher.id));
+    if (closeSheet) await _closeSheet(nav);
     if (!ref.requireSignIn(GateReason.sendRequest, resume: GateResume('CL-BOOK-01', <String, Object?>{'venueId': venueId}))) return;
-    _nav.push('CL-BOOK-01', params: <String, Object?>{'venueId': venueId});
+    nav.push('CL-BOOK-01', params: <String, Object?>{'venueId': venueId});
   }
 
   /// Book a visit (CL-VIST-01): no voucher needed, the account is asked at Send.

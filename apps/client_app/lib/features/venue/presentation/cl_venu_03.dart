@@ -242,6 +242,10 @@ class _ClVenu03State extends ConsumerState<ClVenu03Screen> {
                       hallId: hall.id,
                       focus: focus,
                       feeFils: focusView.value?.feeFils,
+                      // the package sold on THAT day: without it the voucher explainer takes the venue's first package, and a Saturday refuses
+                      // a weekday package ("Couldn't load", found by the cross-app journey J6)
+                      packageId: focusView.value?.row?.pkg.id,
+                      audience: focusView.value?.audience,
                     ),
             ),
         ],
@@ -417,9 +421,13 @@ class _FocusAction extends ConsumerWidget {
     required this.hallId,
     required this.focus,
     this.feeFils,
+    this.packageId,
+    this.audience,
   });
 
   final int? feeFils;
+  final String? packageId;
+  final Audience? audience;
   final DayStatusKind status;
   final QuotePrices? prices;
   final Voucher? owned;
@@ -446,11 +454,11 @@ class _FocusAction extends ConsumerWidget {
         },
       );
     }
-    final carry = QuoteCarry(venueId: venueId, hallId: hallId, date: focus, guests: prices?.billedGuests, audience: null);
+    final carry = QuoteCarry(venueId: venueId, hallId: hallId, packageId: packageId, date: focus, guests: prices?.billedGuests, audience: audience);
     if (owned != null && prices != null && prices!.eligible) {
-      return GzButton(label: l.clientVenueCtaSendRequest, iconEnd: GzIcons.send, onPressed: () => actions.sendRequest(carry, owned!));
+      return GzButton(label: l.clientVenueCtaSendRequest, iconEnd: GzIcons.send, onPressed: () => actions.sendRequest(carry, owned!, closeSheet: true));
     }
-    final button = GzButton(label: l.clientVenueCtaGetVoucher, iconEnd: GzIcons.ticket, fullWidth: true, onPressed: () => actions.getVoucher(carry));
+    final button = GzButton(label: l.clientVenueCtaGetVoucher, iconEnd: GzIcons.ticket, fullWidth: true, onPressed: () => actions.getVoucher(carry, closeSheet: true));
     if (feeFils == null) return button;
     return Row(
       children: [

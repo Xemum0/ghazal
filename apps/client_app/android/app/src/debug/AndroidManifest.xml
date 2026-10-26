@@ -4,4 +4,7 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Development only: the debug build talks plain HTTP to the standalone mock server (docs/engineering/running-the-apps.md, "Both apps in
+         one world"; an emulator reaches the Mac at 10.0.2.2). The main manifest keeps cleartext off. -->
+    <application android:usesCleartextTraffic="true" />
 </manifest>

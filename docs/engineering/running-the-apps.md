@@ -13,11 +13,11 @@ flutter run -d <simulator id>          # verified at the end
 ```
 **2. Both apps in one world (the story travels between them).** The mock runs as a server on the Mac and both apps talk to it, so a request sent in the Client app shows up pending in the Partner app.
 ```
-cd packages/ghazal_mock_api && dart run ghazal_mock_api:serve --port 4701     # node tools/ports.mjs url api prints the reserved URL
+cd packages/ghazal_mock_api && dart run --no-pub ghazal_mock_api:serve --port 4701     # node tools/ports.mjs url api prints the reserved URL
 cd apps/client_app   && flutter run -d <iPhone 17e id> --dart-define=USE_MOCK=false --dart-define=API_BASE_URL=http://127.0.0.1:4701/v1
 cd apps/provider_app && flutter run -d <iPhone 17 id>  --dart-define=USE_MOCK=false --dart-define=API_BASE_URL=http://127.0.0.1:4701/v1
 ```
-(verified at the end; the iOS simulator reaches the Mac at 127.0.0.1, an Android emulator at 10.0.2.2.)
+(verified: the cross-app journeys J6 to J8 run exactly this setup, see flutter-dev.md "Cross-app"; the iOS simulator reaches the Mac at 127.0.0.1, an Android emulator at 10.0.2.2.)
 
 ## Accounts of the demo world
 | Who | App | Sign in |

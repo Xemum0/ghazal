@@ -39,6 +39,8 @@ import 'package:ghazal_ui/ghazal_ui.dart' show GzNavigator;
 import 'package:integration_test/integration_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'server.dart';
+
 /// The English and Arabic catalogues of the app, for expectations (`en.commonActionContinue`).
 final AppL10nEn en = AppL10nEn();
 final AppL10nAr ar = AppL10nAr();
@@ -79,8 +81,11 @@ void journey(
   Future<void> Function(Journey j) body, {
   Duration timeout = const Duration(minutes: 8),
   bool semantics = kJourneySemantics,
+  bool crossApp = false,
 }) {
-  testWidgets(description, timeout: Timeout(timeout), semanticsEnabled: semantics, (tester) async {
+  // a cross-app journey (J6 to J8) needs the standalone mock server; without it (`flutter test integration_test` as a whole, the headless
+  // runner without --remote) it is skipped, and the in-process journeys are skipped when the run talks to the server
+  testWidgets(description, timeout: Timeout(timeout), semanticsEnabled: semantics, skip: crossApp != kRemote, (tester) async {
     expect(_ready, isTrue, reason: 'journeySetUp() was not called');
     final j = Journey._(tester);
     try {
@@ -108,9 +113,19 @@ class Journey {
 
   /// Starts the app through its real entry (`bootstrap()`), as a first-time guest, or, with [persona] (`reem`), signed in as that demo
   /// person (the session is the mock's own, the way the Demo tools switch persona) and in the language of `JOURNEY_LANG`.
-  Future<ProviderContainer> start({String? persona, Size size = kPhone}) async {
+  ///
+  /// Against the standalone server (`kRemote`, the cross-app journeys): [resetServer] seeds the server's world first (the journey that opens a
+  /// scenario does, the ones that continue it do not) and the keychain is emptied unless [keepSession] (the person is still signed in from the
+  /// last run: the app restores the session from the keychain, as a phone does).
+  Future<ProviderContainer> start({String? persona, Size size = kPhone, bool resetServer = false, bool keepSession = false}) async {
     expect(_started, isFalse, reason: 'one app start per journey');
     _started = true;
+    if (kRemote && onHost) {
+      allowRealSockets();
+      installHostKeychain();
+    }
+    if (kRemote && resetServer) await serverCall('reset', body: const <String, Object?>{});
+    if (kRemote && !keepSession) await SecureTokenStore().clear();
     if (onHost) {
       SharedPreferences.setMockInitialValues(<String, Object>{});
       final view = tester.view;
@@ -133,7 +148,9 @@ class Journey {
     // the bootstrap installed its own error hooks (log and carry on): from here the journey collects every framework error itself
     FlutterError.onError = (details) {
       final at = details.stack.toString().split('\n').where((l) => l.contains('package:')).take(3).join(' <- ');
-      errors.add('FlutterError after "$_lastStep" on $_lastScreen: ${details.exceptionAsString().split('\n').first} (${details.library ?? '-'}) at $at');
+      // an overflow names the widget in its diagnostics (`The relevant error-causing widget was: Row ... lib/....dart:123`)
+      final widget = details.toString().split('\n').where((l) => l.contains('.dart:') && l.contains('lib/')).take(1).join().trim();
+      errors.add('FlutterError after "$_lastStep" on $_lastScreen: ${details.exceptionAsString().split('\n').first} (${details.library ?? '-'})${widget.isEmpty ? '' : ' in $widget'} at $at');
     };
     // the collector must really see an error: a probe goes through the same hook a layout overflow or a build error takes
     FlutterError.reportError(FlutterErrorDetails(exception: 'journey probe', library: 'journey world'));
@@ -142,7 +159,7 @@ class Journey {
     await pump(const Duration(milliseconds: 1500));
     final c = container;
     // the story: fresh (the mock was built by this start) and, for a persona, signed in
-    await control.reset();
+    if (!kRemote) await control.reset();
     if (persona != null && persona != 'guest') {
       await c.read(sessionProvider.notifier).loadPersona(persona);
       // a journey that starts signed in (no language screen) takes its language from `JOURNEY_LANG` through the app's own setting
@@ -236,7 +253,7 @@ class Journey {
     for (final e in find.byType(RichText).evaluate()) {
       final w = e.widget as RichText;
       final s = _plain(w).trim();
-      if (s.isNotEmpty && seen.length < 60) seen.add(s.length > 50 ? '${s.substring(0, 50)}...' : s);
+      if (s.isNotEmpty && seen.length < 400) seen.add(s.length > 50 ? '${s.substring(0, 50)}...' : s);
     }
     return 'screen "${nav.currentId}" shows: ${seen.join(' | ')}';
   }

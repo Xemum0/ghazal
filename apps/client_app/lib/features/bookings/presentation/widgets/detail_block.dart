@@ -69,8 +69,18 @@ Widget? detailStateBlock(BuildContext context, BookingFacts facts, BookingVarian
   final name = context.bi(facts.target.name);
   final visitable = facts.venue != null && facts.venue!.type != VenueType.governmental && _visitableVariants.contains(v);
 
+  // The strip's drawing (144) and its info glyph leave the column about 118 wide at 390: a stamp like `13 Nov 4:00 PM` is 121, so it shrinks a hair
+  // instead of overflowing (found by the cross-app journey J8 in the "Confirm time ended" state).
   Widget whenFact(DateTime? at, String label, IconData icon) => GzFactRow(
-    children: at == null ? const <Widget>[] : [GzFactChip(icon: icon, label: label, value: bkStamp(f, at), small: true, tone: GzFactTone.muted)],
+    children: at == null
+        ? const <Widget>[]
+        : [
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: AlignmentDirectional.centerStart,
+              child: GzFactChip(icon: icon, label: label, value: bkStamp(f, at), small: true, tone: GzFactTone.muted),
+            ),
+          ],
   );
   final lastEvent = b.events.isEmpty ? null : b.events.last.at;
   GzButton edit() => GzButton(fullWidth: true, spill: true, label: common.commonActionEdit, variant: GzButtonVariant.secondary, iconStart: GzIcons.edit, onPressed: go.edit);
