@@ -189,6 +189,24 @@ Currency sits visually left of the number in both languages (ADR 0010 D7); the n
 | Reduced motion | every duration 1 ms; state is kept, movement removed |
 | Pending | OS activity indicator only; no looping thread loader |
 
+### 2.8 Rose theme (comparison toggle, 2026-10-29)
+
+**What it is.** A second colour theme of the web prototype, `rose`, next to the design above (`gold`, the default and unchanged). The owner asked to compare the gold design with a pinker one that uses the pink already in the product: every gold-bound token (primary fill, selected marks, hairlines and knots, tab-bar mark, pending pill, gold text and icons, the one accent of each drawing) becomes a rose step. Surfaces, ink, success/danger, photo scrims and layout do not change. **This is a client-comparison experiment, not a brand decision**: rules 2.1 to 2.3 still define the brand (Ink, Matte Gold, Soft Rose); the Flutter apps build gold only; if the owner picks rose, the apps take the same overlay (OQ-R2-12).
+
+**How to switch.** A `Gold | Rose` control sits next to the `EN | AR` toggle on the Launcher (a single button on a phone-width window) and in the Studio toolbar (canvas, player, system and docs pages). The choice lives in the hash like the language, `#/?theme=rose` (any route, including `#/frame/<id>?theme=rose` and `#/gallery/<name>?theme=rose` for screenshots), and is remembered in localStorage as a convenience only. The hash always wins; `?theme=gold` returns to the default. Compare: `node tools/ports.mjs url design`, then open `<url>#/?theme=rose`.
+
+**Where it lives.** `packages/design-tokens/src/tokens.json` under `$themes.rose`: the extra ramp steps (rose 500 to 900, hue about 344 degrees, harmonised with rose-400 #D9A9B6) and the map gold step to rose step (50 to 900, step for step; gold 50 to 400 land on the existing rose 50 to 400). The generator emits `[data-theme='rose']` at the end of `dist/tokens.css` (it re-points `--gz-color-ref-gold-*` at `--gz-color-ref-rose-*` and redeclares the gold-bound roles), a `themes` export in `dist/tokens.ts` and `tokens.flat.json`; the Dart output is untouched. `pnpm tokens:check` recomputes every pair of `a11y-pairs.json` against the rose model (127 pairs for gold, 127 for rose), so the contrast table below is enforced, not described. Screens need no code change; nothing may hard-code a gold value.
+
+| Rose step | Hex | Role (takes the place of) | Measured |
+|---|---|---|---|
+| 500 | #E39BAF | fill, hairline, knot, never text (gold-500) | ink-900 label 6.78:1; mark on ink-900 6.78:1; 2.10:1 on canvas, so never a sole boundary |
+| 550 | #D8899E | pressed fill (gold-550) | ink-900 label 5.66:1 |
+| 600 | #CF7D93 | decorative hairline only (gold-600) | 2.87:1 on canvas |
+| 650 | #C8627D | sole-carrier state strokes (gold-650) | 3.66:1 on canvas, 3.21:1 on rose-100 |
+| 700 | #9A3C55 | the only rose for text and informative icons (gold-700) | 6.38:1 canvas, 6.57:1 paper, 5.60:1 rose-100, 6.12:1 rose-50 |
+| 800 / 900 | #723142 / #4D2631 | strong text, deepest step (gold-800/900) | 7.89:1 / 10.77:1 on rose-100 |
+| 400 / 300 | #D9A9B6 / #E9C6D0 | text on ink-900 (gold-400/300) | 7.30:1 / 9.53:1 on ink-900 |
+
 ## 3. Components
 
 | Component | Rule |

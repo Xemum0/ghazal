@@ -13,15 +13,17 @@ import { buildDartFiles } from './lib/dart.mjs'
 import { buildIcons, loadIcons } from './lib/icons.mjs'
 import { buildRolesCss } from './lib/roles-css.mjs'
 import { runContrast } from './lib/contrast.mjs'
+import { buildThemes, buildThemeCss, buildThemesTs, flatThemes } from './lib/themes.mjs'
 
 const args = new Set(process.argv.slice(2))
 const m = model()
 const icons = loadIcons()
+const themes = buildThemes(m.src)
 
 const outputs = {
-  'dist/tokens.css': buildCss(m) + '\n',
-  'dist/tokens.ts': buildTs(m),
-  'dist/tokens.flat.json': buildFlat(m),
+  'dist/tokens.css': buildCss(m) + '\n' + Object.values(themes).map(t => '\n' + buildThemeCss(t) + '\n').join(''),
+  'dist/tokens.ts': buildTs(m) + buildThemesTs(themes),
+  'dist/tokens.flat.json': buildFlat(m, flatThemes(themes)),
   ...buildDartFiles(m, HEADER('Dart: const tokens for ghazal_ui (ADR 0023 D5 c).')),
   'dist/icons.ts': buildIcons(icons),
   '../../design/src/styles/typography.roles.css': buildRolesCss(m),
@@ -32,9 +34,17 @@ const { errors, notes } = validate(m)
 errors.push(...icons.errors)
 const contrast = runContrast(m.tokens)
 errors.push(...contrast.errors)
+// every theme overlay: structure, then the same contrast pairs recomputed against the themed token model
+for (const th of Object.values(themes)) {
+  errors.push(...th.errors)
+  if (th.errors.length) continue
+  const tc = runContrast(th.model.tokens, undefined, { theme: th.name })
+  errors.push(...tc.errors)
+  contrast.rows.push(...tc.rows)
+}
 
 if (args.has('--contrast')) {
-  for (const r of contrast.rows) console.log(`${r.ok ? 'ok  ' : 'FAIL'} ${r.ratio.toFixed(2).padStart(5)}  ${r.kind.padEnd(8)} ${r.fg.replace('color.', '')} on ${r.bg.replace('color.', '')}`)
+  for (const r of contrast.rows) console.log(`${r.ok ? 'ok  ' : 'FAIL'} ${r.ratio.toFixed(2).padStart(5)}  ${(r.theme ?? 'gold').padEnd(5)} ${r.kind.padEnd(8)} ${r.fg.replace('color.', '')} on ${r.bg.replace('color.', '')}`)
   process.exit(errors.length ? 1 : 0)
 }
 
@@ -60,5 +70,5 @@ if (stale.length) {
 }
 const rel = p => relative(process.cwd(), resolve(pkgRoot, p))
 console.log(args.has('--check')
-  ? `tokens:check ok: ${m.tokens.size} tokens, ${icons.names.length} icons, ${contrast.rows.length} contrast pairs, dist up to date`
-  : `tokens: wrote ${Object.keys(outputs).map(rel).join(', ')}\n${m.tokens.size} tokens, ${icons.names.length} icons, ${contrast.rows.length} contrast pairs checked`)
+  ? `tokens:check ok: ${m.tokens.size} tokens, ${icons.names.length} icons, ${contrast.rows.length} contrast pairs (${['gold', ...Object.keys(themes)].join(' + ')}), dist up to date`
+  : `tokens: wrote ${Object.keys(outputs).map(rel).join(', ')}\n${m.tokens.size} tokens, ${icons.names.length} icons, ${contrast.rows.length} contrast pairs checked (${['gold', ...Object.keys(themes)].join(' + ')})`)

@@ -1,5 +1,5 @@
 {
-  "$description": "Every allowed foreground/background token pair (ADR 0023 D6). The contrast gate recomputes WCAG 2.x ratios from tokens.json and fails below threshold; `doc` is the figure printed in docs/design/01-direction.md 2.1 and must match within 0.02.",
+  "$description": "Every allowed foreground/background token pair (ADR 0023 D6). The contrast gate recomputes WCAG 2.x ratios from tokens.json and fails below threshold; `doc` is the figure printed in docs/design/01-direction.md 2.1 and must match within 0.02. Every pair is also recomputed against each theme overlay in tokens.json $themes (rose: the gold steps named here resolve to the rose ramp), so every pair that exists for gold exists for rose; the doc figures are compared for gold only.",
   "thresholds": {
     "text": 4.5,
     "ui": 3

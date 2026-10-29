@@ -4,6 +4,7 @@
 import { useMemo, useState } from 'react'
 import { useRoute, setParam } from '../router'
 import { useLang } from '../lang'
+import { themeNames, useTheme } from '../theme'
 import { FrameContext, type FrameState } from '../frame'
 import { find, screenEntries } from '../registry'
 import { usePrototype } from '../state'
@@ -60,6 +61,7 @@ const STORIES: { id: Story; en: string; ar: string }[] = [
 export function PlayerRoute() {
   const route = useRoute()
   const { lang, setLang } = useLang()
+  const { theme, setTheme } = useTheme()
   const app: AppKind = route.params.get('app') === 'hotel' ? 'hotel' : 'client'
   const story = (route.params.get('story') as Story | null) ?? 'start'
   const screen = route.params.get('screen') ?? STORY_START[app]
@@ -83,6 +85,13 @@ export function PlayerRoute() {
           {(['en', 'ar'] as const).map(l => (
             <button key={l} type="button" className="gz-player__chip" aria-pressed={lang === l} onClick={() => setLang(l)}>
               {l.toUpperCase()}
+            </button>
+          ))}
+        </div>
+        <div className="gz-player__group" role="group" aria-label="Theme">
+          {themeNames.map(n => (
+            <button key={n} type="button" className="gz-player__chip" aria-pressed={theme === n} onClick={() => setTheme(n)}>
+              {n}
             </button>
           ))}
         </div>

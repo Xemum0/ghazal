@@ -13,8 +13,14 @@ export const ratio = (a, b) => {
 const GOLD_TEXT_OK = /^color\.ref\.gold\.(700|800|900)$/
 const GOLD_LIGHT_ON_DARK_OK = /^color\.ref\.gold\.(400|300)$/
 
-/** Run the gate. Returns { rows, errors, notes }; rows feed the gallery and docs. */
-export function runContrast(tokens, pairsFile = resolve(pkgRoot, 'a11y-pairs.json')) {
+/**
+ * Run the gate. Returns { rows, errors, notes }; rows feed the gallery and docs.
+ * `theme` re-runs every pair against a theme overlay's token model (same pair list, so every pair that exists for gold exists for the
+ * theme); the doc-drift figures are the gold theme's, so they are only compared for the default theme.
+ */
+export function runContrast(tokens, pairsFile = resolve(pkgRoot, 'a11y-pairs.json'), { theme = null } = {}) {
+  const tag = theme ? `[${theme}] ` : ''
+  const docs = !theme
   const cfg = JSON.parse(readFileSync(pairsFile, 'utf8'))
   const errors = []
   const rows = []
@@ -27,15 +33,15 @@ export function runContrast(tokens, pairsFile = resolve(pkgRoot, 'a11y-pairs.jso
     const r = ratio(rgb(p.fg), rgb(p.bg))
     const min = cfg.thresholds[p.kind]
     const ok = r >= min
-    rows.push({ ...p, ratio: r, min, ok })
-    if (!ok) errors.push(`contrast ${r.toFixed(2)} < ${min} (${p.kind}): ${p.fg} on ${p.bg} (${p.use})`)
-    if (p.doc !== undefined && Math.abs(r - p.doc) > cfg.docTolerance) errors.push(`doc drift: ${p.fg} on ${p.bg} computes ${r.toFixed(2)} but docs/design/01-direction.md says ${p.doc}`)
+    rows.push({ ...p, theme, ratio: r, min, ok })
+    if (!ok) errors.push(`${tag}contrast ${r.toFixed(2)} < ${min} (${p.kind}): ${p.fg} on ${p.bg} (${p.use})`)
+    if (docs && p.doc !== undefined && Math.abs(r - p.doc) > cfg.docTolerance) errors.push(`doc drift: ${p.fg} on ${p.bg} computes ${r.toFixed(2)} but docs/design/01-direction.md says ${p.doc}`)
   }
   for (const f of cfg.mustFail) {
     const r = ratio(rgb(f.fg), rgb(f.bg))
-    rows.push({ ...f, kind: 'mustFail', ratio: r, min: f.below, ok: r < f.below })
-    if (r >= f.below) errors.push(`${f.fg} on ${f.bg} now reaches ${r.toFixed(2)} (>= ${f.below}); it is recorded as a failing pair: ${f.why}`)
-    if (f.doc !== undefined && Math.abs(r - f.doc) > cfg.docTolerance) errors.push(`doc drift: ${f.fg} on ${f.bg} computes ${r.toFixed(2)} but the doc says ${f.doc}`)
+    rows.push({ ...f, theme, kind: 'mustFail', ratio: r, min: f.below, ok: r < f.below })
+    if (r >= f.below) errors.push(`${tag}${f.fg} on ${f.bg} now reaches ${r.toFixed(2)} (>= ${f.below}); it is recorded as a failing pair: ${f.why}`)
+    if (docs && f.doc !== undefined && Math.abs(r - f.doc) > cfg.docTolerance) errors.push(`doc drift: ${f.fg} on ${f.bg} computes ${r.toFixed(2)} but the doc says ${f.doc}`)
   }
   // Gold rules (direction 2.1, 2.3): gold-500 never text; gold text/icons are gold-700 (or 400/300 only on dark).
   for (const [path, t] of tokens) {
@@ -45,12 +51,12 @@ export function runContrast(tokens, pairsFile = resolve(pkgRoot, 'a11y-pairs.jso
     const target = cur?.ref
     if (!target || !target.startsWith('color.ref.gold.')) continue
     const onDark = /on-dark/.test(path)
-    if (!(GOLD_TEXT_OK.test(target) || (onDark && GOLD_LIGHT_ON_DARK_OK.test(target)))) errors.push(`gold rule: ${path} resolves to ${target}; gold text and icons must be gold-700 (gold-400/300 only on dark)`)
+    if (!(GOLD_TEXT_OK.test(target) || (onDark && GOLD_LIGHT_ON_DARK_OK.test(target)))) errors.push(`${tag}gold rule: ${path} resolves to ${target}; gold text and icons must be gold-700 (gold-400/300 only on dark)`)
   }
   for (const f of ['color.sys.text', 'color.sys.icon']) {
-    for (const [path, t] of tokens) if (path.startsWith(f + '.') && t.value.hex === tokens.get('color.ref.gold.500').value.hex) errors.push(`gold rule: ${path} is gold-500, which is never a text or icon colour`)
+    for (const [path, t] of tokens) if (path.startsWith(f + '.') && t.value.hex === tokens.get('color.ref.gold.500').value.hex) errors.push(`${tag}gold rule: ${path} is gold-500, which is never a text or icon colour`)
   }
   // exempt pairs are reported, not enforced
-  for (const x of cfg.exempt) rows.push({ ...x, kind: 'exempt', ratio: ratio(rgb(x.fg), rgb(x.bg)), min: 0, ok: true })
+  for (const x of cfg.exempt) rows.push({ ...x, theme, kind: 'exempt', ratio: ratio(rgb(x.fg), rgb(x.bg)), min: 0, ok: true })
   return { rows, errors, thresholds: cfg.thresholds }
 }

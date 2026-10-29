@@ -1,7 +1,7 @@
 // Token scan: which design tokens a rendered screen actually uses, read from computed style. It samples the element tree of one frame
 // (colour, background, border colour, font size and family, corner radius) and maps the values back to token names. A value that is
 // not a token shows up as "off-token", which is the point: it is the quickest QA for "no magic numbers".
-import { flat } from '@gz/tokens'
+import { flat, themes } from '@gz/tokens'
 
 export type ColourUse = { token: string; hex: string; count: number }
 export type SizeUse = { token: string | null; px: number; count: number }
@@ -25,6 +25,12 @@ const hexToRgb = (hex: string): string | null => {
 const COLOUR_BY_RGB = new Map<string, { token: string; hex: string }>()
 for (const [path, value] of Object.entries(flat)) {
   if (typeof value !== 'string' || !path.startsWith('color.ref.') || path.includes('.alpha.')) continue
+  const rgb = hexToRgb(value)
+  if (rgb && !COLOUR_BY_RGB.has(rgb)) COLOUR_BY_RGB.set(rgb, { token: path.replace('color.ref.', '').replace(/\./g, '-'), hex: value })
+}
+
+// The rose theme's extra ramp steps (rose-500..900) are tokens too, so a screen shot in the rose theme scans clean.
+for (const [path, value] of Object.entries(themes.rose.ramp)) {
   const rgb = hexToRgb(value)
   if (rgb && !COLOUR_BY_RGB.has(rgb)) COLOUR_BY_RGB.set(rgb, { token: path.replace('color.ref.', '').replace(/\./g, '-'), hex: value })
 }

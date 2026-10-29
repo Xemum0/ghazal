@@ -6,6 +6,7 @@ import { SegmentedControl } from '../system/inputs'
 import { PrototypePlayer } from './device/PrototypePlayer'
 import type { AppKind } from './device/context'
 import { useLang, type Lang } from './lang'
+import { ThemeToggle } from './ThemeToggle'
 import { setParam, useRoute } from './router'
 import './launcher.css'
 
@@ -92,6 +93,7 @@ export function Launcher() {
             ]}
           />
         )}
+        <ThemeToggle compact={handheld} className={handheld ? 'gz-launch__lang' : undefined} />
         <button type="button" className="gz-launch__restart" aria-label={t.restart} onClick={() => { setSeed(true); setRun(n => n + 1) }}>
           <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 12a8 8 0 1 0 2.6-5.9" />

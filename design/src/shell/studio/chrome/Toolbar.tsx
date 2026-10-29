@@ -5,6 +5,7 @@ import { Button, Icon, Switch, Wordmark } from '../../../system'
 import { SegmentedControl } from '../../../system/inputs'
 import { go, setParam } from '../../router'
 import { useLang, type Lang } from '../../lang'
+import { ThemeToggle } from '../../ThemeToggle'
 import { Id } from '../bits'
 import { useBoardInfo } from '../canvas/useBoard'
 import { pickLoc, useCopy } from '../copy'
@@ -90,6 +91,7 @@ export function Toolbar() {
 
       <div className="gzs-toolbar__end">
         <SegmentedControl<Lang> label={t('language')} value={lang} options={LANGS} onChange={setLang} className="gzs-toolbar__seg" />
+        <ThemeToggle className="gzs-toolbar__seg" />
         {/* Pixel widths read in ascending order in both languages. */}
         <div dir="ltr" className="gzs-toolbar__ltr gzs-opt-w">
           <SegmentedControl<string>
