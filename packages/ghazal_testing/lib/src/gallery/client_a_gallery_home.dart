@@ -12,12 +12,12 @@ Widget briefSection(BuildContext context) {
   final story = clientAData.brief;
   final partial = const GzBrief(audience: Audience.women);
   final noBudgetCap = GzBrief(audience: story.audience, guests: story.guests, date: story.date, areas: story.areas, budgetMinFils: 35000000);
-  final area = clientAData.areas;
+  final governorate = clientAData.governorates;
   final manyAreas = GzBrief(
     audience: story.audience,
     guests: story.guests,
     date: story.date,
-    areas: [for (final id in ['salmiya', 'sharq', 'jabriya', 'mishref']) area[id]!],
+    areas: [for (final id in ['capital', 'hawalli', 'farwaniya', 'ahmadi']) governorate[id]!],
     budgetMinFils: story.budgetMinFils,
     budgetMaxFils: story.budgetMaxFils,
   );
@@ -31,7 +31,7 @@ Widget briefSection(BuildContext context) {
     specs: [
       // The web prints an empty caption paragraph (a space) under the card: zero high, but it is a flex item, so the gap of 24 stays.
       caSpec(context, l('Brief card · filled · live count', 'بطاقة التفاصيل · معبأة · عدد حي'), [GzBriefCard(brief: story, count: 38, onEdit: (_) {}, onShow: () {}), const SizedBox.shrink()]),
-      caSpec(context, l('Partly empty: muted placeholders, no count (offline) · open budget · four areas', 'ناقصة: نصوص بديلة هادئة بلا عدد (دون اتصال) · ميزانية مفتوحة · أربع مناطق'), [
+      caSpec(context, l('Partly empty: muted placeholders, no count (offline) · open budget · four governorates', 'ناقصة: نصوص بديلة هادئة بلا عدد (دون اتصال) · ميزانية مفتوحة · أربع محافظات'), [
         GzBriefCard(brief: partial, onShow: () {}),
         GzBriefCard(brief: noBudgetCap, onShow: () {}),
         GzBriefCard(brief: manyAreas, count: 12, onShow: () {}),

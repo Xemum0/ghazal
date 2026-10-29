@@ -1,4 +1,3 @@
-import 'package:client_app/app/state/state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart';
@@ -55,15 +54,6 @@ typedef Alternatives = ({List<AltDate> dates, List<AltHall> halls});
 
 final bookingAlternativesProvider = FutureProvider.autoDispose.family<Alternatives, AltQuery>((ref, q) async {
   final venues = ref.watch(venuesRepositoryProvider);
-  // The areas of the Brief, else the areas the couple said they search in (the wedding profile).
-  var areaIds = ref.read(searchBriefProvider).areaIds;
-  if (areaIds.isEmpty && ref.read(sessionProvider).isSignedIn) {
-    try {
-      areaIds = (await ref.watch(weddingProfileProvider.future))?.areaIds ?? const <String>[];
-    } on Object {
-      areaIds = const <String>[];
-    }
-  }
   final dates = <AltDate>[];
   if (q.dates && q.hallId != null) {
     final days = <AvailabilityDay>[];
@@ -100,7 +90,6 @@ final bookingAlternativesProvider = FutureProvider.autoDispose.family<Alternativ
       guests: q.guests,
       audience: q.audience,
       availableOnDate: true,
-      originId: areaIds.isEmpty ? null : 'ref-${areaIds.first}',
       limit: 12,
     );
     for (final r in page.items) {

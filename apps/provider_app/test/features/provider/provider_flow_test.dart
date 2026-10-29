@@ -15,14 +15,14 @@ import 'package:provider_app/features/provider/presentation/hl_prov_07.dart';
 import '../../support/flow_world.dart';
 
 void main() {
-  flowTest('Account type: Continue waits for a choice, the profile validates before submitting', (tester) async {
+  flowTest('Apply to join: the chooser offers a service provider and a private hall (the application flow is tested in application_flow_test.dart)', (tester) async {
     await openScreen(tester, 'HL-PROV-01', persona: 'provider');
     expect(find.byType(HlProv01Screen), findsOneWidget);
-    expect(find.text(en.hotelProviderTypeHotelTitle), findsOneWidget);
     expect(find.text(en.hotelProviderTypeProviderTitle), findsOneWidget);
+    expect(find.text(en.hotelProviderTypeHallTitle), findsOneWidget);
     await tap(tester, find.text(en.hotelProviderTypeProviderTitle));
     await tap(tester, find.text(en.hotelProviderContinue));
-    // the profile: submitting empty shows the required marks and stays
+    // the form: submitting empty shows the required marks and stays
     await tap(tester, find.text(en.hotelProviderSubmit));
     expect(find.text(en.hotelProviderRequired), findsWidgets);
     expect(find.text(en.hotelProviderSubmittedTitle), findsNothing);

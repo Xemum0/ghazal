@@ -834,9 +834,6 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get commonLabelGuestVoucher => 'سعر الكوبون بعد التسجيل';
-
-  @override
   String get commonRoleClient => 'العميل';
 
   @override
@@ -1028,6 +1025,12 @@ class AppL10nAr extends AppL10n {
   String get hotelAccessSigninInvite => 'دعوة';
 
   @override
+  String get hotelAccessSigninApplyLine => 'مزوّد خدمة أو قاعة خاصة جديدة؟';
+
+  @override
+  String get hotelAccessSigninApply => 'قدّم طلب انضمام';
+
+  @override
   String get hotelAccessSigninSubmit => 'تسجيل الدخول';
 
   @override
@@ -1074,6 +1077,9 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get hotelAccessVerifyTitle => 'إدخال الرمز';
+
+  @override
+  String get hotelAccessVerifyApplicationTitle => 'تأكيد البريد الإلكتروني';
 
   @override
   String get hotelAccessVerifyLabel => 'رمز التحقق';
@@ -1153,6 +1159,9 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get hotelAccessVerifySuccessTitle => 'الجهاز موثوق';
+
+  @override
+  String get hotelAccessVerifyApplicationDone => 'تم تأكيد البريد';
 
   @override
   String hotelAccessVerifyTrustDays(int count) {
@@ -1303,7 +1312,31 @@ class AppL10nAr extends AppL10n {
   String get hotelAccessStatusUnderReviewBody => 'حسابكم قيد المراجعة. سنراسلكم بالبريد عند التفعيل.';
 
   @override
-  String get hotelAccessStatusUnderReviewProviderNote => 'تراجع غزل أول إعلان لكم قبل نشره. لا يُنشر أي شيء تلقائيًا.';
+  String get hotelAccessStatusApplicationTitle => 'الطلب قيد المراجعة';
+
+  @override
+  String get hotelAccessStatusApplicationBody => 'تراجع غزل كل طلب وتراسلكم بالقرار عبر البريد الإلكتروني. تضيفون إعلاناتكم بعد القبول.';
+
+  @override
+  String get hotelAccessStatusRejectedTitle => 'لم يُعتمد الطلب';
+
+  @override
+  String get hotelAccessStatusEditResubmit => 'تعديل وإعادة الإرسال';
+
+  @override
+  String get hotelAccessStatusApprovedTitle => 'تم قبول الطلب';
+
+  @override
+  String get hotelAccessStatusReasonsLabel => 'السبب';
+
+  @override
+  String get hotelAccessStatusProtoTitle => 'فريق غزل';
+
+  @override
+  String get hotelAccessStatusProtoApprove => 'قبول';
+
+  @override
+  String get hotelAccessStatusProtoReject => 'رفض';
 
   @override
   String get hotelAccessStatusSuspendedTitle => 'موقوف مؤقتًا';
@@ -1648,9 +1681,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get hotelBookingsRowPackage => 'الباقة';
-
-  @override
-  String get hotelBookingsRowExtras => 'الإضافات';
 
   @override
   String get hotelBookingsRowHall => 'القاعة';
@@ -4003,6 +4033,15 @@ class AppL10nAr extends AppL10n {
   String get hotelProviderReasonOther => 'أخرى';
 
   @override
+  String get hotelProviderAppReasonVerify => 'تعذّر التحقق';
+
+  @override
+  String get hotelProviderAppDemoNote => 'أضيفوا رقم الترخيص ووصفًا أوضح للنشاط.';
+
+  @override
+  String get hotelProviderApprovalGuardTitle => 'الإعلانات بعد القبول';
+
+  @override
   String get hotelProviderPlanRetained => 'استرداد الرسوم: اطلبوه من الدعم';
 
   @override
@@ -4186,34 +4225,31 @@ class AppL10nAr extends AppL10n {
   String get hotelProviderChooseReason => 'اختاروا واحدًا';
 
   @override
-  String get hotelProviderTypeHotelTitle => 'فندق أو قاعة';
+  String get hotelProviderChooseChains => 'الفنادق وسلاسل القاعات تنضم عبر غزل.';
 
   @override
   String get hotelProviderTypeProviderTitle => 'مقدّم خدمة';
 
   @override
-  String get hotelProviderProfileName => 'الاسم';
+  String get hotelProviderTypeHallTitle => 'قاعة خاصة';
 
   @override
-  String get hotelProviderProfileVenueType => 'النوع';
+  String get hotelProviderProfileName => 'اسم النشاط';
 
   @override
-  String get hotelProviderVenueTypeHall => 'قاعة';
-
-  @override
-  String get hotelProviderVenueTypeHotel => 'فندق';
+  String get hotelProviderFormBarEdit => 'تعديل الطلب';
 
   @override
   String get hotelProviderProfileGovernorate => 'المحافظة';
 
   @override
-  String get hotelProviderProfileArea => 'المنطقة';
-
-  @override
-  String get hotelProviderProfileChoose => 'اختاروا';
-
-  @override
   String get hotelProviderProfileCategories => 'الفئات';
+
+  @override
+  String get hotelProviderFormOther => 'فئة أخرى';
+
+  @override
+  String get hotelProviderFormOtherHelper => 'غير موجودة؟ اكتبوها هنا.';
 
   @override
   String get hotelProviderCatsChoose => 'اختيار';
@@ -4225,19 +4261,48 @@ class AppL10nAr extends AppL10n {
   String get hotelProviderProfilePhone => 'الهاتف';
 
   @override
+  String get hotelProviderFormContact => 'الشخص المسؤول';
+
+  @override
+  String get hotelProviderFormEmail => 'البريد الإلكتروني';
+
+  @override
+  String get hotelProviderFormEmailError => 'بريد غير صالح';
+
+  @override
+  String get hotelProviderFormAccountTitle => 'حسابكم';
+
+  @override
+  String get hotelProviderFormBusinessTitle => 'نشاطكم التجاري';
+
+  @override
+  String get hotelProviderAccountRepeat => 'تأكيد كلمة المرور';
+
+  @override
+  String get hotelProviderAccountEmailUsed => 'البريد مسجّل مسبقًا';
+
+  @override
+  String get hotelProviderAccountPasswordWeak => 'كلمة المرور ضعيفة';
+
+  @override
+  String get hotelProviderFormAbout => 'وصف مختصر';
+
+  @override
+  String get hotelProviderFormLicence => 'الترخيص التجاري';
+
+  @override
+  String get hotelProviderFormFix => 'أكملوا الحقول المطلوبة.';
+
+  @override
+  String hotelProviderFormResubmitNote(String note) {
+    return 'لم يُعتمد الطلب: $note';
+  }
+
+  @override
   String get hotelProviderPhoneError => 'رقم غير صالح';
 
   @override
-  String get hotelProviderLogoTitle => 'الشعار';
-
-  @override
-  String get hotelProviderLogoUpload => 'رفع';
-
-  @override
-  String get hotelProviderLogoToast => 'في التطبيق النهائي';
-
-  @override
-  String get hotelProviderSubmit => 'إرسال';
+  String get hotelProviderSubmit => 'إرسال الطلب';
 
   @override
   String get hotelProviderSubmitErrorTitle => 'تعذّر الإرسال';
@@ -4246,19 +4311,28 @@ class AppL10nAr extends AppL10n {
   String get hotelProviderSubmitError => 'لم يُرسل شيء. أعيدوا المحاولة.';
 
   @override
-  String get hotelProviderSubmittedBar => 'الحساب';
+  String get hotelProviderSubmittedBar => 'الطلب';
 
   @override
-  String get hotelProviderSubmittedTitle => 'قيد المراجعة';
+  String get hotelProviderSubmittedTitle => 'تم استلام طلبكم';
 
   @override
-  String get hotelProviderSubmittedFirst => 'أول إعلان';
+  String get hotelProviderSubmittedLine => 'يبقى حسابكم قيد المراجعة.';
 
   @override
-  String get hotelProviderSubmittedToday => 'اليوم';
+  String get hotelProviderSubmittedNext => 'الخطوات القادمة';
 
   @override
-  String get hotelProviderSubmittedStatus => 'الحالة';
+  String get hotelProviderNextReview => 'تراجع غزل طلبكم';
+
+  @override
+  String get hotelProviderNextEmail => 'نراسلكم بالقرار';
+
+  @override
+  String get hotelProviderNextListings => 'بعدها تضيفون الإعلانات';
+
+  @override
+  String get hotelProviderSubmittedStatus => 'حالة الطلب';
 
   @override
   String get hotelProviderRejectContent => 'المحتوى';
@@ -6108,9 +6182,6 @@ class AppL10nAr extends AppL10n {
   String get hotelVenueFieldDescription => 'الوصف';
 
   @override
-  String get hotelVenueFieldPrice => 'السعر';
-
-  @override
   String get hotelVenueNameRequired => 'الاسم باللغتين';
 
   @override
@@ -6131,12 +6202,6 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get hotelVenueUnitEvent => 'للحفل';
-
-  @override
-  String get hotelVenueUnitUnit => 'للوحدة';
-
-  @override
   String get hotelVenueAllDays => 'كل الأيام';
 
   @override
@@ -6149,35 +6214,10 @@ class AppL10nAr extends AppL10n {
   String get hotelVenuePackagesTitle => 'الباقات';
 
   @override
-  String get hotelVenuePackagesTabs => 'الباقات أو الإضافات';
-
-  @override
-  String hotelVenueTabPackages(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    return 'الباقات (⁦$countString⁩)';
-  }
-
-  @override
-  String hotelVenueTabExtras(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    return 'الإضافات (⁦$countString⁩)';
-  }
-
-  @override
   String get hotelVenuePkgNew => 'باقة جديدة';
 
   @override
-  String get hotelVenueExtraAdd => 'إضافة جديدة';
-
-  @override
   String get hotelVenuePkgEmptyTitle => 'لا باقات';
-
-  @override
-  String get hotelVenueExtraEmptyTitle => 'لا إضافات';
 
   @override
   String hotelVenuePkgActiveLabel(String name) {
@@ -6191,16 +6231,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String hotelVenueToastPkgShown(String name) {
-    return 'ظهرت $name';
-  }
-
-  @override
-  String hotelVenueToastExtraHidden(String name) {
-    return 'أُخفيت $name';
-  }
-
-  @override
-  String hotelVenueToastExtraShown(String name) {
     return 'ظهرت $name';
   }
 
@@ -6229,29 +6259,6 @@ class AppL10nAr extends AppL10n {
   String hotelVenueEditPackage(String name) {
     return 'تعديل $name';
   }
-
-  @override
-  String get hotelVenueExtraEditTitle => 'تعديل الإضافة';
-
-  @override
-  String get hotelVenueExtraNewTitle => 'إضافة جديدة';
-
-  @override
-  String get hotelVenueFieldUnit => 'الاحتساب';
-
-  @override
-  String get hotelVenueFieldShow => 'إظهار للعملاء';
-
-  @override
-  String hotelVenueExtraRange(String from, String to) {
-    return '$from–$to';
-  }
-
-  @override
-  String get hotelVenueToastExtraSaved => 'تم الحفظ';
-
-  @override
-  String get hotelVenueToastExtraCreated => 'تمت الإضافة';
 
   @override
   String get hotelVenueNeedPrice => 'أدخل السعر';
@@ -6400,12 +6407,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get hotelVenueReasonGuests => 'صحّح الأعداد';
-
-  @override
-  String get hotelVenueExtraActiveOn => 'يمكن للعملاء إضافتها إلى طلبهم.';
-
-  @override
-  String get hotelVenueExtraActiveOff => 'مخفية عن العملاء.';
 
   @override
   String get hotelVenueSettingIndoor => 'داخلي';

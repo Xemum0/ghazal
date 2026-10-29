@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, GateResume, GzAsyncView, WidgetSessionGate, sessionProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView;
 import 'package:ghazal_core/ghazal_core.dart' show DateStyle;
 import 'package:ghazal_domain/ghazal_domain.dart' show LocalDate, Review, ReviewSort;
 import 'package:ghazal_ui/ghazal_ui.dart';
@@ -42,12 +42,11 @@ class _ClRvrw01ScreenState extends ConsumerState<ClRvrw01Screen> {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    final guest = !ref.watch(sessionProvider).isSignedIn;
     final lang = context.gz.locale.languageCode;
     final venue = ref.watch(reviewVenueProvider(_venueId)).value;
     final venueName = venue?.name.of(lang) ?? '';
     final reviews = ref.watch(venueReviewsProvider((venueId: _venueId, sort: _sort)));
-    final elig = guest ? null : ref.watch(reviewEligibilityProvider(_venueId)).value;
+    final elig = ref.watch(reviewEligibilityProvider(_venueId)).value;
     // Enlarged text does not fit a title and a subtitle in the fixed bar: one combined line (the name ellipsizes).
     final dense = MediaQuery.textScalerOf(context).scale(1) > 1.15;
     final title = l.clientReviewsRewardsListTitle;
@@ -95,7 +94,7 @@ class _ClRvrw01ScreenState extends ConsumerState<ClRvrw01Screen> {
                   padding: const EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: GzSpace.s4, bottom: GzSpace.s6),
                   child: FlowScoreSummary(rating: venue!.rating),
                 ),
-              _writeStrip(context, guest: guest, bookingId: elig?.booking.id, eventDate: elig?.booking.eventDate),
+              _writeStrip(context, bookingId: elig?.booking.id, eventDate: elig?.booking.eventDate),
               if (!isNew) ...[
                 _filters(context),
                 if (list.isEmpty)
@@ -140,7 +139,7 @@ class _ClRvrw01ScreenState extends ConsumerState<ClRvrw01Screen> {
     );
   }
 
-  // Reading is open to everyone; "Write review" is gated ('CL-AUTH-01', via requireSignIn). Back returns to the venue ('CL-VENU-01'); photos open the shared viewer (the 'CL-VENU-02' pattern).
+  // Back returns to the venue ('CL-VENU-01'); photos open the shared viewer (the 'CL-VENU-02' pattern).
   /// The ruled strip: a hairline above and below (the YOUR DATE idiom), padded 20 at the sides.
   Widget _ruled(BuildContext context, Widget child, {double padBlock = 0, Key? key}) {
     final c = context.gz.colors;
@@ -159,21 +158,9 @@ class _ClRvrw01ScreenState extends ConsumerState<ClRvrw01Screen> {
     );
   }
 
-  Widget _writeStrip(BuildContext context, {required bool guest, String? bookingId, LocalDate? eventDate}) {
+  Widget _writeStrip(BuildContext context, {String? bookingId, LocalDate? eventDate}) {
     final l = context.l10n;
     final nav = _nav;
-    if (guest) {
-      return _ruled(
-        context,
-        GzIconListRow(
-          flush: true,
-          last: true,
-          icon: GzIcons.edit,
-          title: l.clientReviewsRewardsListSignIn,
-          onPressed: () => ref.requireSignIn(GateReason.review, resume: GateResume('CL-RVRW-01', <String, Object?>{'venueId': _venueId})),
-        ),
-      );
-    }
     if (bookingId != null) {
       return _ruled(
         context,

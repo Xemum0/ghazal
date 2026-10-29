@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GoRouterNavigator, goRouterNavigatorProvider, sessionProvider;
 import 'package:ghazal_ui/ghazal_ui.dart' show GzNavigator;
 
-/// A sheet the app raises by itself (nobody tapped for it): the Brief merge and the biometric offer after a sign-in. It is a request to
+/// A sheet the app raises by itself (nobody tapped for it): the biometric offer after a sign-in. It is a request to
 /// the [SheetQueue], which opens it at a calm moment and never over another sheet.
 class QueuedSheet {
   const QueuedSheet({
@@ -44,7 +44,7 @@ class SheetQueueState {
 /// page, the outcome) and the request steps. The payment success (`CL-PAYM-05`) is the calm moment after them.
 bool sheetQueueBusyScreen(String id) {
   if (id.startsWith('CL-PAYM-')) return id != 'CL-PAYM-05';
-  if (id.startsWith('CL-BOOK-0')) return id.length == 10 && '12345'.contains(id[9]);
+  if (id.startsWith('CL-BOOK-0')) return id.length == 10 && '1245'.contains(id[9]);
   return false;
 }
 

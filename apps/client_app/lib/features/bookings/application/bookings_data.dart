@@ -7,7 +7,7 @@ import 'package:ghazal_domain/ghazal_domain.dart';
 
 import 'bookings_model.dart';
 
-/// The requests of the signed-in client, newest first as the API answers (a guest has none, without a call).
+/// The requests of the signed-in client, newest first as the API answers .
 final FutureProvider<List<BookingRow>> bookingsListProvider = FutureProvider.autoDispose<List<BookingRow>>((ref) async {
   ref.watch(clientDataRevisionProvider);
   if (!ref.watch(sessionProvider.select((s) => s.isSignedIn))) return const <BookingRow>[];

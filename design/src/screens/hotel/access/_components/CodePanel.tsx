@@ -1,5 +1,6 @@
-// The code step of HL-ACCS-02, as a controller (useCode) plus a body (CodeBody). One screen, four moments (ADR 0028 D5-D6): first sign-in on a
-// new device, password reset, the step-up check before a high-risk action, and the authenticator code a venue admin adds on a new device.
+// The code step of HL-ACCS-02, as a controller (useCode) plus a body (CodeBody). One screen, five moments (ADR 0028 D5-D6): first sign-in on a
+// new device, password reset, the step-up check before a high-risk action, the authenticator code a venue admin adds on a new device, and the
+// email of a new application (`application`: no trust fact on success, the title says the email is verified).
 // Views are the inventory states. Live (the player) the countdown ticks and the demo rules run: any six digits succeed, 111111 is a wrong code
 // (five of them cancel the code), 222222 is an expired code. In a static frame everything is frozen so a screenshot is deterministic.
 // Text diet (ADR 0034): no sentence anywhere. Wrong and expired are two words on the cells, attempts left are five pips, the countdown is a
@@ -123,7 +124,7 @@ export function useCode({
   return { view, step, code, seconds, failed, tooMany, attemptsLeft: Math.max(0, MAX_ATTEMPTS - failed), change, verify, resend, action, support, live }
 }
 
-export function CodeBody({ model }: { model: CodeModel }) {
+export function CodeBody({ model, application = false }: { model: CodeModel; application?: boolean }) {
   const t = useT('hotel-access')
   const tc = useT('common')
   const { view, step, code, seconds, attemptsLeft, tooMany } = model
@@ -132,8 +133,8 @@ export function CodeBody({ model }: { model: CodeModel }) {
   if (view === 'success') {
     return (
       <div className="hxa-done" data-gz="CodeDone">
-        <SuccessState illustration="seal" title={t('hotelAccessVerifySuccessTitle')} fill={false} size="hero" />
-        <FactChip icon="shield-check" label={t('hotelAccessVerifyTrustDays', { count: TRUST_DAYS })} value={<Fx text={t('hotelAccessVerifyTrustFact', { count: TRUST_DAYS })} />} />
+        <SuccessState illustration="seal" title={application ? t('hotelAccessVerifyApplicationDone') : t('hotelAccessVerifySuccessTitle')} fill={false} size="hero" />
+        {application ? null : <FactChip icon="shield-check" label={t('hotelAccessVerifyTrustDays', { count: TRUST_DAYS })} value={<Fx text={t('hotelAccessVerifyTrustFact', { count: TRUST_DAYS })} />} />}
       </div>
     )
   }

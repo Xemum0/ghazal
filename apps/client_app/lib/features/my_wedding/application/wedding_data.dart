@@ -7,7 +7,7 @@ import 'package:ghazal_domain/ghazal_domain.dart';
 
 
 /// The wedding file of the signed-in client, as one call: the profile, the countdown, the checklist progress, the budget summary, the
-/// open requests and the planner request. A guest has none (the hub shows its teaser). Throws the `ApiProblem` for the error and
+/// open requests and the planner request. Throws the `ApiProblem` for the error and
 /// offline states (never a silent empty file).
 final FutureProvider<WeddingOverview?> weddingOverviewProvider = FutureProvider<WeddingOverview?>((ref) async {
   ref.watch(clientDataRevisionProvider);
@@ -30,8 +30,7 @@ final FutureProvider<List<BookingRow>?> weddingRequestsProvider = FutureProvider
   }
 });
 
-/// The rules-based checklist (PRD defaults with due dates counted back from the wedding date, plus the couple's own tasks). A guest sees
-/// the sample list (the mock answers one); writes are guest-gated by the screens.
+/// The rules-based checklist (PRD defaults with due dates counted back from the wedding date, plus the couple's own tasks).
 final FutureProvider<ChecklistView> weddingChecklistProvider = FutureProvider<ChecklistView>((ref) async {
   ref.watch(clientDataRevisionProvider);
   return ref.watch(weddingRepositoryProvider).getChecklist();
@@ -47,7 +46,7 @@ final FutureProvider<BudgetView> weddingBudgetProvider = FutureProvider<BudgetVi
 /// The phase of the wedding file, as the hub shows it (ADR 0007 D4). Simplified from the web's phase machine to what the app can read:
 /// no profile or no date, pre-venue (no open request), pending (an open pending request), awaiting-confirm (an approved request),
 /// confirmed, or post-event (a completed booking).
-enum WeddingPhase { guest, noDate, preVenue, pending, awaitingConfirm, confirmed, weddingWeek, dayOf, postEvent }
+enum WeddingPhase { noDate, preVenue, pending, awaitingConfirm, confirmed, weddingWeek, dayOf, postEvent }
 
 /// The hero request of the hub: the open request that matters most (approved first, then pending, then confirmed).
 BookingRow? hubBooking(List<BookingRow> rows) {
@@ -58,8 +57,7 @@ BookingRow? hubBooking(List<BookingRow> rows) {
       rows.firstOrNull;
 }
 
-WeddingPhase weddingPhaseOf({required bool guest, required WeddingProfile? profile, required List<BookingRow> rows, required DateTime now}) {
-  if (guest) return WeddingPhase.guest;
+WeddingPhase weddingPhaseOf({required WeddingProfile? profile, required List<BookingRow> rows, required DateTime now}) {
   if (profile == null) return WeddingPhase.noDate;
   final open = rows.where((r) => r.booking.status == BookingStatus.pending || r.booking.status == BookingStatus.approved);
   if (open.any((r) => r.booking.status == BookingStatus.approved)) return WeddingPhase.awaitingConfirm;

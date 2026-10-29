@@ -10,13 +10,12 @@ import 'wd_common.dart' show wdCatGlyph, wdCatName;
 /// committed gold, the rest on the track). At 80% the figure turns gold-ink with the info glyph; at 100% the functional danger text
 /// with the warning glyph. Never colour alone.
 class WdCategoryRow extends StatelessWidget {
-  const WdCategoryRow({required this.category, required this.total, required this.guest, this.last = false, super.key});
+  const WdCategoryRow({required this.category, required this.total, this.last = false, super.key});
 
   final bool last;
 
   final BudgetCategory category;
   final int total;
-  final bool guest;
 
   @override
   Widget build(BuildContext context) {

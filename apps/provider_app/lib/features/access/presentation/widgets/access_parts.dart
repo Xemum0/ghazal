@@ -1,6 +1,5 @@
 // The small pieces every screen of the staff access flow shares (web `design/src/screens/hotel/access/_components`): the heading block,
 // the state note, the language chip, the info glyph, the masked email row, the password field and the attempts pips.
-import 'package:flutter/services.dart' show TextInputAction;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_core/ghazal_core.dart' show localeProvider;
@@ -179,72 +178,6 @@ class AccessNumberRow extends StatelessWidget {
   }
 }
 
-/// Password input: LTR, a lock at the start, a 44 reveal control at the end. The label is the accessible name unless [showLabel].
-class AccessPasswordField extends StatefulWidget {
-  const AccessPasswordField({
-    required this.label,
-    required this.value,
-    required this.onChanged,
-    this.showLabel = false,
-    this.newPassword = false,
-    this.error,
-    this.disabled = false,
-    this.onSubmitted,
-    this.textInputAction,
-    super.key,
-  });
-
-  final String label;
-  final String value;
-  final ValueChanged<String> onChanged;
-  final bool showLabel;
-  final bool newPassword;
-  final String? error;
-  final bool disabled;
-  final ValueChanged<String>? onSubmitted;
-  final TextInputAction? textInputAction;
-
-  @override
-  State<AccessPasswordField> createState() => _AccessPasswordFieldState();
-}
-
-class _AccessPasswordFieldState extends State<AccessPasswordField> {
-  bool _shown = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final c = context.gz.colors;
-    final l = context.l10n;
-    return Semantics(
-      label: widget.showLabel ? null : widget.label,
-      child: Padding(
-        padding: EdgeInsetsDirectional.only(top: widget.showLabel ? 0 : GzSpace.s2),
-        child: GzTextField(
-          label: widget.showLabel ? widget.label : null,
-          value: widget.value,
-          onValueChange: widget.onChanged,
-          onSubmitted: widget.onSubmitted,
-          textInputAction: widget.textInputAction,
-          dir: GzFieldDir.ltr,
-          obscureText: !_shown,
-          autocorrect: false,
-          enableSuggestions: false,
-          autofillHints: [widget.newPassword ? 'newPassword' : 'password'],
-          disabled: widget.disabled,
-          error: widget.error,
-          startAdornment: GzIcon(GzIcons.lock, size: GzIconSize.sm, color: c.iconSecondary),
-          endAdornment: GzIconButton(
-            icon: _shown ? GzIcons.eyeOff : GzIcons.eye,
-            label: _shown ? l.hotelAccessPasswordHide : l.hotelAccessPasswordShow,
-            iconSize: GzIconSize.sm,
-            onPressed: widget.disabled ? null : () => setState(() => _shown = !_shown),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 /// Attempts left as quiet pips (filled = still available); the number is the accessible name.
 class AccessAttemptPips extends StatelessWidget {
   const AccessAttemptPips({required this.left, required this.total, super.key});
@@ -271,6 +204,31 @@ class AccessAttemptPips extends StatelessWidget {
             ],
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// The way in for a new partner (PA-ACC-07), pinned in the bar under Sign in: one short line and a full-width outlined "Apply to join" (web
+/// `hxa01__apply`). A real button, never a link inside a sentence.
+class ApplyNote extends StatelessWidget {
+  const ApplyNote({required this.onApply, super.key});
+
+  final VoidCallback? onApply;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l10n;
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(top: GzSpace.s2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GzText(l.hotelAccessSigninApplyLine, role: GzTextRole.bodyS, color: context.gz.colors.textSecondary, textAlign: TextAlign.center),
+          const SizedBox(height: GzSpace.s2),
+          GzButton(label: l.hotelAccessSigninApply, variant: GzButtonVariant.secondary, size: GzButtonSize.sm, fullWidth: true, iconStart: GzIcons.userPlus, onPressed: onApply),
+        ],
       ),
     );
   }

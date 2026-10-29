@@ -399,7 +399,6 @@
       }
     }
   },
-  "commonLabelGuestVoucher": "Voucher price after you sign up",
   "commonRoleClient": "Client",
   "commonRoleYou": "You",
   "commonRoleHotelRep": "Hotel representative",
@@ -476,6 +475,8 @@
   "hotelAccessSigninForgot": "Forgot?",
   "hotelAccessSigninForgotLabel": "Forgot password",
   "hotelAccessSigninInvite": "Invitation",
+  "hotelAccessSigninApplyLine": "New service provider or private hall?",
+  "hotelAccessSigninApply": "Apply to join",
   "hotelAccessSigninSubmit": "Sign in",
   "hotelAccessSigninInvalid": "Incorrect details",
   "hotelAccessSigninInvalidTitle": "Not signed in",
@@ -511,6 +512,7 @@
     }
   },
   "hotelAccessVerifyTitle": "Enter code",
+  "hotelAccessVerifyApplicationTitle": "Verify email",
   "hotelAccessVerifyLabel": "Verification code",
   "hotelAccessVerifyStepEmail": "Email",
   "hotelAccessVerifySentTo": "Code sent by email to {email}",
@@ -556,6 +558,7 @@
   "hotelAccessVerifyFailed": "Not delivered",
   "hotelAccessVerifyFailedDetail": "The code could not be sent by email. Send it again, or contact Support.",
   "hotelAccessVerifySuccessTitle": "Device trusted",
+  "hotelAccessVerifyApplicationDone": "Email verified",
   "hotelAccessVerifyTrustDays": "Trusted for {count, plural, one{{count} day} other{{count} days}}",
   "@hotelAccessVerifyTrustDays": {
     "placeholders": {
@@ -640,7 +643,15 @@
   "hotelAccessSetupUsedDetail": "Your password is already set. Sign in with your email and password.",
   "hotelAccessStatusUnderReviewTitle": "Under review",
   "hotelAccessStatusUnderReviewBody": "Your account is under review. We will email you when it is active.",
-  "hotelAccessStatusUnderReviewProviderNote": "Your first listing is reviewed by Ghazal before it goes live. Nothing is published automatically.",
+  "hotelAccessStatusApplicationTitle": "Application in review",
+  "hotelAccessStatusApplicationBody": "Ghazal reviews every application and emails you the decision. You can add listings once it is approved.",
+  "hotelAccessStatusRejectedTitle": "Application not approved",
+  "hotelAccessStatusEditResubmit": "Edit and resubmit",
+  "hotelAccessStatusApprovedTitle": "Application approved",
+  "hotelAccessStatusReasonsLabel": "Reason",
+  "hotelAccessStatusProtoTitle": "Ghazal staff",
+  "hotelAccessStatusProtoApprove": "Approve",
+  "hotelAccessStatusProtoReject": "Reject",
   "hotelAccessStatusSuspendedTitle": "Suspended",
   "hotelAccessStatusSuspendedBody": "This account is suspended. Contact Ghazal Support.",
   "hotelAccessStatusDeactivatedTitle": "Access off",
@@ -853,7 +864,6 @@
   "hotelBookingsRowServiceDate": "Service date",
   "hotelBookingsEventTitle": "Event",
   "hotelBookingsRowPackage": "Package",
-  "hotelBookingsRowExtras": "Extras",
   "hotelBookingsRowHall": "Hall",
   "hotelBookingsRowDate": "Date",
   "hotelBookingsRowTime": "Time",
@@ -2141,6 +2151,9 @@
   "hotelProviderReasonMissing": "Missing details",
   "hotelProviderReasonPricing": "Pricing",
   "hotelProviderReasonOther": "Other",
+  "hotelProviderAppReasonVerify": "Cannot verify",
+  "hotelProviderAppDemoNote": "Add your licence number and a clearer description.",
+  "hotelProviderApprovalGuardTitle": "Listings open after approval",
   "hotelProviderPlanRetained": "Fee refund: ask support",
   "hotelProviderPlanRefunded": "Refund recorded",
   "hotelProviderChoosePlanAgain": "Plan",
@@ -2240,31 +2253,49 @@
   "hotelProviderContinue": "Continue",
   "hotelProviderChooseTitle": "Account type",
   "hotelProviderChooseReason": "Pick one",
-  "hotelProviderTypeHotelTitle": "Hotel or hall",
-  "hotelProviderTypeProviderTitle": "Provider",
-  "hotelProviderProfileName": "Name",
-  "hotelProviderProfileVenueType": "Type",
-  "hotelProviderVenueTypeHall": "Hall",
-  "hotelProviderVenueTypeHotel": "Hotel",
+  "hotelProviderChooseChains": "Hotels and chains join through Ghazal.",
+  "hotelProviderTypeProviderTitle": "Service provider",
+  "hotelProviderTypeHallTitle": "Private hall",
+  "hotelProviderProfileName": "Business name",
+  "hotelProviderFormBarEdit": "Edit application",
   "hotelProviderProfileGovernorate": "Governorate",
-  "hotelProviderProfileArea": "Area",
-  "hotelProviderProfileChoose": "Choose",
   "hotelProviderProfileCategories": "Categories",
+  "hotelProviderFormOther": "Other category",
+  "hotelProviderFormOtherHelper": "Not in the list? Tell us.",
   "hotelProviderCatsChoose": "Choose",
   "hotelProviderCatsEdit": "Edit",
   "hotelProviderProfilePhone": "Phone",
+  "hotelProviderFormContact": "Contact person",
+  "hotelProviderFormEmail": "Email",
+  "hotelProviderFormEmailError": "Invalid email",
+  "hotelProviderFormAccountTitle": "Your account",
+  "hotelProviderFormBusinessTitle": "Your business",
+  "hotelProviderAccountRepeat": "Repeat password",
+  "hotelProviderAccountEmailUsed": "Email already registered",
+  "hotelProviderAccountPasswordWeak": "Password too weak",
+  "hotelProviderFormAbout": "Short description",
+  "hotelProviderFormLicence": "Commercial licence",
+  "hotelProviderFormFix": "Complete the marked fields.",
+  "hotelProviderFormResubmitNote": "Not approved: {note}",
+  "@hotelProviderFormResubmitNote": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
   "hotelProviderPhoneError": "Invalid number",
-  "hotelProviderLogoTitle": "Logo",
-  "hotelProviderLogoUpload": "Upload",
-  "hotelProviderLogoToast": "In the finished app",
-  "hotelProviderSubmit": "Submit",
+  "hotelProviderSubmit": "Send application",
   "hotelProviderSubmitErrorTitle": "Not submitted",
   "hotelProviderSubmitError": "Nothing was sent. Try again.",
-  "hotelProviderSubmittedBar": "Account",
-  "hotelProviderSubmittedTitle": "Under review",
-  "hotelProviderSubmittedFirst": "First listing",
-  "hotelProviderSubmittedToday": "Today",
-  "hotelProviderSubmittedStatus": "Status",
+  "hotelProviderSubmittedBar": "Application",
+  "hotelProviderSubmittedTitle": "Application received",
+  "hotelProviderSubmittedLine": "Your account stays under review.",
+  "hotelProviderSubmittedNext": "What next",
+  "hotelProviderNextReview": "Ghazal reviews",
+  "hotelProviderNextEmail": "We email you",
+  "hotelProviderNextListings": "Then add listings",
+  "hotelProviderSubmittedStatus": "Application status",
   "hotelProviderRejectContent": "Content",
   "hotelProviderRejectCategory": "Category",
   "hotelProviderRejectDetails": "Details",
@@ -3281,7 +3312,6 @@
   "hotelVenueSavedState": "Saved",
   "hotelVenueFieldName": "Name",
   "hotelVenueFieldDescription": "Description",
-  "hotelVenueFieldPrice": "Price",
   "hotelVenueNameRequired": "Name in both languages",
   "hotelVenueReservedName": "Reserved name",
   "hotelVenueAudWomen": "Ladies",
@@ -3298,35 +3328,12 @@
       }
     }
   },
-  "hotelVenueUnitEvent": "per event",
-  "hotelVenueUnitUnit": "per unit",
   "hotelVenueAllDays": "Every day",
   "hotelVenueHidden": "Hidden",
   "hotelVenueOfflineChange": "Needs a connection to change.",
   "hotelVenuePackagesTitle": "Packages",
-  "hotelVenuePackagesTabs": "Packages or extras",
-  "hotelVenueTabPackages": "Packages ({count})",
-  "@hotelVenueTabPackages": {
-    "placeholders": {
-      "count": {
-        "type": "num",
-        "format": "decimalPattern"
-      }
-    }
-  },
-  "hotelVenueTabExtras": "Extras ({count})",
-  "@hotelVenueTabExtras": {
-    "placeholders": {
-      "count": {
-        "type": "num",
-        "format": "decimalPattern"
-      }
-    }
-  },
   "hotelVenuePkgNew": "New package",
-  "hotelVenueExtraAdd": "Add extra",
   "hotelVenuePkgEmptyTitle": "No packages",
-  "hotelVenueExtraEmptyTitle": "No extras",
   "hotelVenuePkgActiveLabel": "Show {name} to couples",
   "@hotelVenuePkgActiveLabel": {
     "placeholders": {
@@ -3345,22 +3352,6 @@
   },
   "hotelVenueToastPkgShown": "{name} visible",
   "@hotelVenueToastPkgShown": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "hotelVenueToastExtraHidden": "{name} hidden",
-  "@hotelVenueToastExtraHidden": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "hotelVenueToastExtraShown": "{name} visible",
-  "@hotelVenueToastExtraShown": {
     "placeholders": {
       "name": {
         "type": "String"
@@ -3401,23 +3392,6 @@
       }
     }
   },
-  "hotelVenueExtraEditTitle": "Edit extra",
-  "hotelVenueExtraNewTitle": "New extra",
-  "hotelVenueFieldUnit": "Charged",
-  "hotelVenueFieldShow": "Show to couples",
-  "hotelVenueExtraRange": "{from}–{to}",
-  "@hotelVenueExtraRange": {
-    "placeholders": {
-      "from": {
-        "type": "String"
-      },
-      "to": {
-        "type": "String"
-      }
-    }
-  },
-  "hotelVenueToastExtraSaved": "Saved",
-  "hotelVenueToastExtraCreated": "Added",
   "hotelVenueNeedPrice": "Enter a price",
   "hotelVenuePkgEditTitle": "Edit package",
   "hotelVenueSecName": "Name",
@@ -3505,8 +3479,6 @@
   "hotelVenueToastPkgCreated": "Added",
   "hotelVenueReasonPrices": "Enter prices",
   "hotelVenueReasonGuests": "Fix guest numbers",
-  "hotelVenueExtraActiveOn": "Couples can add this extra to a request.",
-  "hotelVenueExtraActiveOff": "Hidden from couples.",
   "hotelVenueSettingIndoor": "Indoor",
   "hotelVenueSettingOutdoor": "Outdoor",
   "hotelVenueSettingMixed": "Both",

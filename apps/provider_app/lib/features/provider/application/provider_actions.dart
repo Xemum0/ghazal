@@ -1,12 +1,15 @@
 // The writes of the Provider and listings flow, over `partnerListingsRepositoryProvider`. Every one answers an `ActionResult` (never throws
 // an `ApiProblem`) and bumps `partnerDataRevisionProvider` so the lists refetch. Listings carry an ETag the GET does not hand to the app, so the
 // version is counted here (the server starts at 1 and adds one per write): requests.md.
+import 'dart:convert' show jsonEncode;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show partnerAccountRepositoryProvider, partnerListingsRepositoryProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show partnerAccountRepositoryProvider, partnerListingsRepositoryProvider, sessionProvider;
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblem;
 import 'package:ghazal_domain/ghazal_domain.dart';
 
 import '../../../app/state/state.dart';
+import 'application_form.dart';
 import 'listing_draft.dart';
 
 final NotifierProvider<ListingActions, ActionsState> listingActionsProvider = NotifierProvider<ListingActions, ActionsState>(ListingActions.new);
@@ -109,13 +112,35 @@ class ListingActions extends Notifier<ActionsState> {
         return _repo.attachListingMedia(listingId: listingId, body: AttachListingMediaInput(uploadId: up.id, role: ListingMediaRole.cover));
       });
 
-  /// First-run onboarding: the account type and the business name (`POST /partner/account-type`).
-  Future<ActionResult<PartnerMe>> chooseAccountType(PartnerAccountType type, LocalizedText name) {
-    final intent = 'account-type';
-    return _run<PartnerMe>(
-      'account',
-      () => ref.read(partnerAccountRepositoryProvider).chooseAccountType(body: ChooseAccountTypeInput(accountType: type, name: name), idempotencyKey: _keys.keyFor(intent)),
-      intent: intent,
-    );
+  /// The application of a service provider or a private hall (`POST /partner/account-type`, PA-ACC-07): creates the account under review with a
+  /// pending application. The session then follows the new account (the server made it the active one), so the status screen and every
+  /// later call carry it.
+  Future<ActionResult<PartnerApplication>> apply(ApplicationForm form) {
+    const intent = 'application';
+    return _run<PartnerApplication>('application', () async {
+      final me = await ref.read(partnerAccountRepositoryProvider).chooseAccountType(body: form.toChooseInput(), idempotencyKey: _keys.keyFor(intent));
+      final created = me.memberships.where((m) => m.application != null && m.application!.status == ApplicationStatus.pending).lastOrNull ??
+          me.memberships.lastWhere((m) => m.application != null);
+      await ref.read(sessionProvider.notifier).switchPartnerContext(created.accountId, venueId: created.venueId, providerId: created.providerId);
+      return created.application!;
+    }, intent: intent);
   }
+
+  /// The PUBLIC application (`POST /partner/applications`, round 2b, OQ-R2-11): no session. The server makes the unverified account and the pending
+  /// application and answers the emailed-code challenge; the app opens it for HL-ACCS-02 (`applicationChallengeProvider`). The Idempotency-Key
+  /// is kept for a retry of the same send (one account, one email); a refusal that is not transient drops it.
+  Future<ActionResult<OtpChallenge>> applyPublic(ApplicationForm form, String password, WireLang locale) {
+    final body = form.toSubmitInput(password: password, locale: locale);
+    final intent = 'application:public:${jsonEncode(body.toJson()).hashCode}'; // another body is another intent (the key is not reused for it)
+    return _run<OtpChallenge>('application', () async {
+      final challenge = await ref.read(partnerAccountRepositoryProvider).submitPartnerApplication(body: body, idempotencyKey: _keys.keyFor(intent));
+      ref.read(applicationChallengeProvider.notifier).open(form.email.trim(), challenge);
+      return challenge;
+    }, intent: intent, bump: false);
+  }
+
+  /// Edit and resubmit a rejected application (`PUT /partner/application`): it goes back to `pending` with the reason cleared; 409
+  /// `APPLICATION_NOT_EDITABLE` when it is not rejected any more.
+  Future<ActionResult<PartnerApplication>> resubmit(ApplicationForm form) =>
+      _run<PartnerApplication>('application', () => ref.read(partnerAccountRepositoryProvider).resubmitPartnerApplication(body: form.toResubmitInput()));
 }

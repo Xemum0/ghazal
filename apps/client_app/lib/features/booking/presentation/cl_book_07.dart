@@ -100,7 +100,7 @@ class _Taken extends ConsumerWidget {
       patchBookingDraft(ref, (d) => d.copyWith(venueId: venueId, eventDate: picked, clearVoucher: true));
       nav.closeSheet();
       if (from == 'CL-BOOK-05') {
-        goBookingStep(ref, nav, from: 5, to: 1);
+        goBookingStep(ref, nav, from: 4, to: 1);
       } else if (from != 'CL-BOOK-01') {
         nav.push('CL-BOOK-01', params: <String, Object?>{'venueId': venueId, 'date': picked.toString()});
       }

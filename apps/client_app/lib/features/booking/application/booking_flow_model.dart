@@ -83,18 +83,8 @@ final class SectionModel {
   }
 }
 
-@immutable
-final class ExtraChoice {
-  const ExtraChoice({required this.extra, required this.included, required this.selected, required this.qty});
-
-  final Extra extra;
-  final bool included;
-  final bool selected;
-  final int qty;
-}
-
 /// The request flow as one derived model (web `FlowModel`): the venue, the date, the single section, the voucher bound to the quote,
-/// the extras and the server quote of the effective package.
+/// and the server quote of the effective package.
 @immutable
 final class FlowModel {
   const FlowModel({
@@ -108,7 +98,6 @@ final class FlowModel {
     required this.section,
     required this.hostingOptions,
     required this.halls,
-    required this.extras,
     required this.quote,
     required this.dateOk,
     required this.openRequests,
@@ -132,7 +121,6 @@ final class FlowModel {
   final SectionModel section;
   final List<Audience> hostingOptions;
   final List<Hall> halls;
-  final List<ExtraChoice> extras;
   final Quote? quote;
 
   /// The first hall is free on the date (else it was taken, held or closed: CL-BOOK-07).

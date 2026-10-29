@@ -10,7 +10,7 @@ import 'venue_money.dart';
 
 /// PackageTile (CL-VENU-01 packages; ADR 0004, ADR 0033 D4, ADR 0034): one priced package as a choice, figure-led. The serif name, three
 /// facts as glyph and figure (the section, the guest minimum, how many inclusions), and the price: the total for the party under the
-/// voucher column (ticket for a member, lock for a guest) with the standard total struck and the saving, and the per-guest rate as a
+/// voucher column (a ticket) with the standard total struck and the saving, and the per-guest rate as a
 /// fact. No sentence, no inclusion list (the sheet has them: CL-VENU-04). Choosing is ink and a gold bead, never a gold fill.
 class VenuePackageTile extends StatelessWidget {
   const VenuePackageTile({
@@ -20,7 +20,6 @@ class VenuePackageTile extends StatelessWidget {
     required this.onDetails,
     this.guests,
     this.unavailable = false,
-    this.guest = false,
     super.key,
   });
 
@@ -34,9 +33,6 @@ class VenuePackageTile extends StatelessWidget {
 
   /// Not sold on the Brief date: muted, not a target.
   final bool unavailable;
-
-  /// Signed out: the voucher column carries a lock (voucher-model 4.5).
-  final bool guest;
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +56,9 @@ class VenuePackageTile extends StatelessWidget {
     final minimum = row.minGuests > 0 ? '${f.integer(row.minGuests)}+' : null;
 
     Widget mark(bool voucher) => GzIcon(
-      voucher ? (guest ? GzIcons.lock : GzIcons.ticket) : GzIcons.coins,
+      voucher ? (GzIcons.ticket) : GzIcons.coins,
       size: GzIconSize.sm,
-      tone: voucher && !guest ? GzIconTone.success : GzIconTone.secondary,
+      tone: voucher ? GzIconTone.success : GzIconTone.secondary,
       semanticLabel: voucher ? lc.commonVoucherPrice : lc.commonStandardPrice,
     );
     Widget struck(int fils) => Row(

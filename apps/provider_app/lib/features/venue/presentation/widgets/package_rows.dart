@@ -1,5 +1,5 @@
-// The rows of "Packages and extras" (web `Rows.tsx`): a package row (name, audience, the prices per set of days with the voucher price as the
-// headline, guest range, language completeness, the active switch) and an extra row. The row body opens the editor; the switch is its own target.
+// The rows of "Packages" (web `Rows.tsx`): a package row (name, audience, the prices per set of days with the voucher price as the
+// headline, guest range, language completeness, the active switch). The row body opens the editor; the switch is its own target.
 import 'package:flutter/widgets.dart';
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
@@ -211,80 +211,5 @@ class _MetaIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.gz.colors;
     return Semantics(label: label, excludeSemantics: true, child: GzIcon(icon, size: GzIconSize.sm, color: danger ? c.iconDanger : c.iconSecondary));
-  }
-}
-
-String unitLabel(AppL10n l, Extra e, String lang) {
-  final custom = e.unitLabel;
-  if (custom != null && !custom.isEmpty) return custom.of(lang);
-  return switch (e.pricingUnit) {
-    PricingUnit.perGuest => l.commonUnitPerGuest,
-    PricingUnit.perUnit => l.hotelVenueUnitUnit,
-    _ => l.hotelVenueUnitEvent,
-  };
-}
-
-class ExtraRow extends StatelessWidget {
-  const ExtraRow({required this.extra, required this.onOpen, required this.onActive, this.last = false, super.key});
-
-  final Extra extra;
-  final VoidCallback onOpen;
-  final ValueChanged<bool> onActive;
-  final bool last;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = context.l10n;
-    final c = context.gz.colors;
-    final lang = context.gz.locale.languageCode;
-    final name = extra.name.of(lang);
-    final unit = unitLabel(l, extra, lang);
-    final range = extra.priceMin != null && extra.priceMax != null;
-    return Container(
-      decoration: BoxDecoration(border: last ? null : Border(bottom: BorderSide(color: c.borderHairline, width: GzStroke.hair))),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: GzPressable(
-              onPressed: onOpen,
-              semanticLabel: l.hotelVenueEditPackage(name),
-              minHeight: GzSize.rowMin,
-              scale: 1,
-              child: Container(
-                constraints: const BoxConstraints(minHeight: GzSize.rowMin),
-                padding: const EdgeInsetsDirectional.symmetric(vertical: GzSpace.s4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GzUserText(name, role: GzTextRole.title, color: extra.active ? c.textStrong : c.textSecondary),
-                    const SizedBox(height: GzSpace.s2),
-                    Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      spacing: GzSpace.s4,
-                      children: [
-                        if (range) ...[
-                          GzPrice(fils: extra.priceMin!.fils),
-                          Row(mainAxisSize: MainAxisSize.min, children: [GzText('–', role: GzTextRole.caption, color: c.textSecondary), const SizedBox(width: GzSpace.s1), GzPrice(fils: extra.priceMax!.fils)]),
-                        ] else
-                          GzPrice(fils: extra.price.fils),
-                        GzText(unit, role: GzTextRole.caption, color: c.textSecondary),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(width: GzSpace.s3),
-          Container(
-            constraints: const BoxConstraints(minHeight: GzSize.touchMin),
-            margin: const EdgeInsetsDirectional.only(top: GzSpace.s3),
-            alignment: Alignment.center,
-            child: GzSwitch(label: l.hotelVenuePkgActiveLabel(name), checked: extra.active, onChanged: onActive),
-          ),
-        ],
-      ),
-    );
   }
 }

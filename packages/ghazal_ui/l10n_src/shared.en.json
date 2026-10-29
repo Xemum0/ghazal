@@ -3,7 +3,6 @@
   "uiSharedFrom": "From",
   "uiSharedPerNight": "Per night",
   "uiSharedRentalFee": "Rental fee",
-  "uiSharedLockedVoucher": "Voucher price after you sign up",
   "uiSharedVoucher": "Voucher",
   "uiSharedLessThanMinute": "Less than a minute left",
   "uiSharedSpokenDays": "{count, plural, one{{count} day} other{{count} days}}",

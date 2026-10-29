@@ -23,21 +23,21 @@ final homeFeedProvider = FutureProvider.autoDispose.family<HomeFeed, SearchBrief
   ref.watch(sessionProvider.select((s) => s.isSignedIn));
   return ref
       .watch(homeRepositoryProvider)
-      .getHome(date: brief.date, guests: brief.guests, audience: brief.audience, areaIds: brief.areaIds.isEmpty ? null : brief.areaIds);
+      .getHome(date: brief.date, guests: brief.guests, audience: brief.audience, governorateIds: brief.governorateIds.isEmpty ? null : brief.governorateIds);
 });
 
 /// The shelves of Home, shaped like the prototype's rails (the server will own these rules; `requests.md`): the free shelf lists the
-/// Brief's areas only; "Voucher prices" the halls whose saving beats the fee, largest first; Featured one hall that is not booked on the
+/// Brief's governorates only; "Voucher prices" the halls whose saving beats the fee, largest first; Featured one hall that is not booked on the
 /// date; For you and Trending skip halls an earlier shelf already showed and halls that are booked; Nearby the three nearest.
 Map<ShelfId, List<HomeShelfItem>> shapeShelves(HomeFeed feed, SearchBrief brief) {
   List<HomeShelfItem> raw(ShelfId id) => <HomeShelfItem>[for (final s in feed.shelves) if (s.id == id) ...s.items];
   bool browseOnly(VenueResult r) => r.venue.channel == BookingChannel.externalLink;
   bool open(VenueResult r) => !browseOnly(r) && r.availability != VenueDayState.unavailable;
-  bool inAreas(VenueResult r) => brief.areaIds.isEmpty || brief.areaIds.contains(r.venue.areaId);
+  bool inRegion(VenueResult r) => brief.governorateIds.isEmpty || brief.governorateIds.contains(r.venue.governorateId);
 
   final free = brief.date == null
       ? const <HomeShelfItem>[]
-      : <HomeShelfItem>[for (final i in raw(ShelfId.free)) if (!browseOnly(i.row) && inAreas(i.row) && i.row.availability == VenueDayState.available) i];
+      : <HomeShelfItem>[for (final i in raw(ShelfId.free)) if (!browseOnly(i.row) && inRegion(i.row) && i.row.availability == VenueDayState.available) i];
   final used = <String>{for (final i in free) i.row.venue.id};
 
   final featuredPool = raw(ShelfId.featured);

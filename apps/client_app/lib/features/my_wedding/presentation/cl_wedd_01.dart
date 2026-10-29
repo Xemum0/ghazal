@@ -2,7 +2,7 @@ import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show gzProblemKind, gzProblemMessage, sessionProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show gzProblemKind, gzProblemMessage;
 import 'package:ghazal_core/ghazal_core.dart' show DateStyle, ScreenState, clockProvider;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
@@ -17,7 +17,7 @@ import 'widgets/wedding_hero.dart';
 ///
 /// The phase-aware home of the wedding file: the countdown hero (whole days only), up to three Next up actions, the Bookings card, the
 /// planner offer or card, and the tools row (Checklist, Budget, Saved, Services). Calm figures, glyphs and one drawing per state; no
-/// sentence on the screen. A guest sees the sample structure and is asked to sign in at the first write.
+/// sentence on the screen.
 class ClWedd01Screen extends ConsumerWidget {
   const ClWedd01Screen({super.key});
 
@@ -25,7 +25,6 @@ class ClWedd01Screen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l10n;
     final nav = context.gzNav;
-    final guest = !ref.watch(sessionProvider.select((s) => s.isSignedIn));
     final unread = ref.watch(unreadNotificationsProvider);
     final async = ref.watch(weddingOverviewProvider);
     final top = GzTopBar(
@@ -35,13 +34,12 @@ class ClWedd01Screen extends ConsumerWidget {
         GzTopBarAction(
           icon: GzIcons.bell,
           label: l.clientMyWeddingHubNotifications,
-          count: guest || unread == 0 ? null : unread,
+          count: unread == 0 ? null : unread,
           onPressed: () => nav.push('CL-MSGS-04'),
         ),
       ],
       back: GzTopBarBack.hide,
     );
-    if (guest) return GzScreen(top: top, child: _guest(context));
     final state = ScreenState.from<WeddingOverview?>(async);
     return GzScreen(
       top: top,
@@ -68,26 +66,6 @@ class ClWedd01Screen extends ConsumerWidget {
     );
   }
 
-  /// A guest sees the structure with sample values and signs in at the first write.
-  Widget _guest(BuildContext context) {
-    final l = context.l10n;
-    final nav = context.gzNav;
-    return WdPad(
-      child: WdGap(
-        children: [
-          WdLeadCard(
-            illustration: GzIllustrationName.key,
-            title: l.clientMyWeddingSample,
-            actionLabel: l.clientMyWeddingGuestAction,
-            onAction: () => nav.openSheet('CL-AUTH-01'),
-          ),
-          GzSectionHeader(title: l.clientMyWeddingToolsLabel),
-          _toolsRow(context, checklist: null, budget: null, saved: 0),
-        ],
-      ),
-    );
-  }
-
   /// Signed in but no wedding file yet: set the date, then the hub fills in.
   Widget _noFile(BuildContext context) {
     return WdPad(child: WeddingHero.noDate(onSetDate: () => context.gzNav.openSheet('CL-DISC-02')));
@@ -97,7 +75,7 @@ class ClWedd01Screen extends ConsumerWidget {
     final now = ref.watch(clockProvider)();
     final rows = ref.watch(weddingRequestsProvider).value ?? overview.openRequests;
     final profile = overview.profile;
-    final phase = weddingPhaseOf(guest: false, profile: profile, rows: rows, now: now);
+    final phase = weddingPhaseOf(profile: profile, rows: rows, now: now);
     final booking = hubBooking(rows);
     final days = overview.daysToWedding ?? weddingDaysLeft(profile?.weddingDate, now);
     final weddingDate = profile?.weddingDate;

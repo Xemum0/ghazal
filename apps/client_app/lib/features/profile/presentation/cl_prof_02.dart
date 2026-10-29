@@ -1,6 +1,6 @@
 // CL-PROF-02 Wedding info. Port of CL-PROF-02.tsx. Requirements: CA-PROF-02, CA-ONB-03 .. 09, CA-TOOL-17.
 // The wedding file, viewable and editable at any time: rings and the days to go on top, one glyph row per answer (role, date, guests,
-// venue budget, areas) and the two name fields. Every field is optional. Autosave per field with a quiet "Saved" toast, no Save button.
+// venue budget, governorates) and the two name fields. Every field is optional. Autosave per field with a quiet "Saved" toast, no Save button.
 // An edit writes the profile and the part of the Brief it feeds. If a booking sits on another date a strip names the hotel and offers
 // "Use date". The Brief budget and the total wedding budget are different numbers: the second lives in My Wedding.
 import 'package:client_app/l10n/l10n.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView;
 import 'package:ghazal_core/ghazal_core.dart' show DateStyle, MoneyMode, MoneyOptions, gzFormatProvider;
-import 'package:ghazal_domain/ghazal_domain.dart' show Area, DateMode, LocalDate, WeddingProfile, WeddingProfileInput, WeddingRole;
+import 'package:ghazal_domain/ghazal_domain.dart' show DateMode, Governorate, LocalDate, WeddingProfile, WeddingProfileInput, WeddingRole;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../../app/state/state.dart';
@@ -136,11 +136,12 @@ class _BodyState extends ConsumerState<_Body> {
     const browse = MoneyOptions(mode: MoneyMode.browse);
     final budgetValue = !hasBudget ? none : (isOpenProfileBudget(budget.max.fils) ? l.clientDiscoverBriefBudgetOver(f.money(budget.min.fils, browse)) : f.moneyRange(budget.min.fils, budget.max.fils, browse));
     final areas = ref.watch(profileAreasProvider).value;
-    final areaNames = <String>[
-      for (final id in p.areaIds)
-        for (final a in areas?.areas ?? const <Area>[]) if (a.id == id) a.name.of(lang),
+    final regionIds = profileGovernorateIds(p, areas);
+    final regionNames = <String>[
+      for (final id in regionIds)
+        for (final g in areas?.governorates ?? const <Governorate>[]) if (g.id == id) g.name.of(lang),
     ];
-    final areasValue = areaNames.isEmpty ? none : areaNames.join(lang == 'ar' ? '، ' : ', ');
+    final regionValue = regionNames.isEmpty ? none : regionNames.join(lang == 'ar' ? '، ' : ', ');
     final partnerLabel = switch (p.role) {
       WeddingRole.bride => l.clientProfileWedPartnerGroom,
       WeddingRole.groom => l.clientProfileWedPartnerBride,
@@ -268,10 +269,10 @@ class _BodyState extends ConsumerState<_Body> {
           ),
           ProfPickRow(
             icon: GzIcons.pin,
-            label: l.clientProfileWedAreas,
-            answer: Text(areasValue),
-            empty: areaNames.isEmpty,
-            onPressed: () => openWeddingSheet(context, title: l.clientProfileWedAreas, fill: true, child: AreasSheet(profile: p, onSaved: _saved)),
+            label: l.clientProfileWedGovernorates,
+            answer: Text(regionValue),
+            empty: regionNames.isEmpty,
+            onPressed: () => openWeddingSheet(context, title: l.clientProfileWedGovernorates, fill: true, child: GovernoratesSheet(profile: p, onSaved: _saved)),
           ),
           GzIconListRow(
             icon: GzIcons.wallet,

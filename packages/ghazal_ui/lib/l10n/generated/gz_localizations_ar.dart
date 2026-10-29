@@ -834,9 +834,6 @@ class GzL10nAr extends GzL10n {
   }
 
   @override
-  String get commonLabelGuestVoucher => 'سعر الكوبون بعد التسجيل';
-
-  @override
   String get commonRoleClient => 'العميل';
 
   @override
@@ -986,7 +983,7 @@ class GzL10nAr extends GzL10n {
   String get uiClientBriefCardDate => 'التاريخ';
 
   @override
-  String get uiClientBriefCardArea => 'المنطقة';
+  String get uiClientBriefCardArea => 'المحافظة';
 
   @override
   String get uiClientBriefCardGuests => 'الضيوف';
@@ -998,7 +995,7 @@ class GzL10nAr extends GzL10n {
   String get uiClientBriefCardNameDate => 'التاريخ';
 
   @override
-  String get uiClientBriefCardNameArea => 'المنطقة';
+  String get uiClientBriefCardNameArea => 'المحافظة';
 
   @override
   String get uiClientBriefCardNameGuests => 'عدد الضيوف';
@@ -1058,7 +1055,7 @@ class GzL10nAr extends GzL10n {
   String get uiClientBriefSentenceChooseDate => 'اختيار التاريخ';
 
   @override
-  String get uiClientBriefSentenceChooseArea => 'اختيار المنطقة';
+  String get uiClientBriefSentenceChooseArea => 'اختيار المحافظة';
 
   @override
   String get uiClientBriefSentenceChooseBudget => 'تحديد الميزانية';
@@ -1075,7 +1072,7 @@ class GzL10nAr extends GzL10n {
   String get uiClientBriefSentenceWhatGuests => 'عدد الضيوف';
 
   @override
-  String get uiClientBriefSentenceWhatArea => 'المنطقة';
+  String get uiClientBriefSentenceWhatArea => 'المحافظة';
 
   @override
   String get uiClientBriefSentenceWhatBudget => 'الميزانية';
@@ -2036,7 +2033,10 @@ class GzL10nAr extends GzL10n {
   String get uiClientNotificationMarketing => 'عرض';
 
   @override
-  String get uiFiltersGovernorateAll => 'كل الكويت';
+  String get uiClientProviderNoteText => 'هل أنت مزوّد خدمة؟ قدّم طلبك في تطبيق الشريك';
+
+  @override
+  String get uiClientProviderNoteCta => 'تقديم';
 
   @override
   String get uiFiltersCapacityFrom => 'من';
@@ -3304,9 +3304,6 @@ class GzL10nAr extends GzL10n {
   String get uiSharedRentalFee => 'رسوم الإيجار';
 
   @override
-  String get uiSharedLockedVoucher => 'سعر الكوبون بعد التسجيل';
-
-  @override
   String get uiSharedVoucher => 'كوبون';
 
   @override
@@ -3416,9 +3413,6 @@ class GzL10nAr extends GzL10n {
 
   @override
   String get uiVoucherCardUsedOn => 'استُخدم في';
-
-  @override
-  String get uiVoucherPriceSignUp => 'تسجيل';
 
   @override
   String get uiVoucherPriceNetTitle => 'التوفير';

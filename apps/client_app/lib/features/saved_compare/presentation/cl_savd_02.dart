@@ -25,7 +25,6 @@ class ClSavd02Screen extends ConsumerWidget {
     final ids = ref.watch(compareProvider.select((s) => s.venueIds));
     final roster = ref.watch(briefRosterProvider);
     final areas = ref.watch(savedAreaNamesProvider).value ?? const {};
-    final audience = ref.watch(clientUserIdProvider) == null ? GzPriceAudience.guest : GzPriceAudience.member;
     final byId = roster.value ?? const <String, VenueResult>{};
     final loading = roster.isLoading && !roster.hasValue;
     final rows = [
@@ -80,7 +79,7 @@ class ClSavd02Screen extends ConsumerWidget {
                             ],
                             if (r.price != null) ...[
                               const SizedBox(height: GzSpace.s1),
-                              GzCardPriceLine(price: r.price!, audience: audience),
+                              GzCardPriceLine(price: r.price!),
                             ],
                           ],
                         ),

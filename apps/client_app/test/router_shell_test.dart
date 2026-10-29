@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
-import 'package:client_app/app/app_router.dart';
+import 'package:client_app/app/client_router.dart';
 import 'package:client_app/app/screen_registry.dart';
 
 import 'support/flow_world.dart';
@@ -50,12 +50,12 @@ void main() {
   });
 
   test('every screen that lives in a branch has its root twin, every screen its named route', () {
-    final router = buildAppRouter();
+    final router = buildClientRouter();
     addTearDown(router.dispose);
     for (final e in kScreenRegistry.entries) {
       expect(router.namedLocation(e.key), e.value.path, reason: e.key);
-      final chrome = kRouterSpec.chrome[e.key]!;
-      if (chrome.inBranch && !kRouterSpec.isTabRoot(e.key)) {
+      final chrome = kClientRouterSpec.chrome[e.key]!;
+      if (chrome.inBranch && !kClientRouterSpec.isTabRoot(e.key)) {
         expect(router.namedLocation('${e.key}$kRootRouteSuffix'), '$kRootPathPrefix${e.value.path}', reason: e.key);
       }
     }
@@ -65,9 +65,25 @@ void main() {
     for (final e in kScreenRegistry.entries) {
       if (e.value.tabBar) expect(e.value.tab, isNotNull, reason: e.key);
       if (e.value.kind == ScreenKind.tabRoot) expect(e.value.tabBar, isTrue, reason: e.key);
-      if (e.value.kind == ScreenKind.sheet) expect(kRouterSpec.chrome[e.key]!.inBranch, isFalse, reason: e.key);
+      if (e.value.kind == ScreenKind.sheet) expect(kClientRouterSpec.chrome[e.key]!.inBranch, isFalse, reason: e.key);
     }
-    expect(kRouterSpec.homePath, kScreenRegistry[kAppTabs.first.rootScreen]!.path);
-    expect(kRouterSpec.requireSession, isFalse);
+    expect(kClientRouterSpec.homePath, kScreenRegistry[kAppTabs.first.rootScreen]!.path);
+  });
+
+  test('no guest mode: a signed-out client reaches only the first-run screens, a signed-in one is taken off the invisible start', () {
+    final spec = kClientRouterSpec;
+    expect(spec.requireSession, isTrue);
+    String? redirect(String id, {required bool signedIn}) => gzRedirect(spec, signedIn: signedIn, location: kScreenRegistry[id]!.path);
+    for (final id in <String>['CL-ONBD-01', 'CL-ONBD-02', 'CL-AUTH-01', 'CL-AUTH-02', 'CL-AUTH-03', 'CL-AUTH-04', 'CL-AUTH-05']) {
+      expect(redirect(id, signedIn: false), isNull, reason: '$id is a first-run screen');
+    }
+    for (final id in kScreenRegistry.keys.where((k) => !k.startsWith('CL-AUTH-') && k != 'CL-ONBD-01' && k != 'CL-ONBD-02')) {
+      expect(redirect(id, signedIn: false), kClientStartPath, reason: '$id is closed to a signed-out client');
+      expect(redirect(id, signedIn: true), isNull, reason: '$id is open to a signed-in client');
+    }
+    expect(redirect('CL-ONBD-01', signedIn: true), isNull, reason: 'the first-run screens are never a redirect source: the stack under a code step survives the session flip');
+    expect(redirect('CL-AUTH-01', signedIn: true), isNull);
+    expect(gzRedirect(spec, signedIn: true, location: kClientStartPath), spec.homePath, reason: 'a signed-in client is taken off the start');
+    expect(gzRedirect(spec, signedIn: false, location: kClientStartPath), isNull, reason: 'the start itself redirects on to the Language screen');
   });
 }

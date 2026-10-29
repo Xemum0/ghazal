@@ -2,7 +2,6 @@ import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show sessionProvider;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -40,12 +39,11 @@ class VenueSection extends StatelessWidget {
 
 /// The packages of the hall priced for the Brief: radio tiles, or the empty answer with the way to the calendar.
 class VenuePackagesSection extends StatelessWidget {
-  const VenuePackagesSection({required this.view, required this.date, required this.guests, required this.guest, required this.onPick, required this.actions, super.key});
+  const VenuePackagesSection({required this.view, required this.date, required this.guests, required this.onPick, required this.actions, super.key});
 
   final VenueView view;
   final LocalDate? date;
   final int? guests;
-  final bool guest;
   final ValueChanged<String> onPick;
   final VenueActions actions;
 
@@ -79,7 +77,6 @@ class VenuePackagesSection extends StatelessWidget {
                         onSelect: () => onPick(view.rows[i].pkg.id),
                         onDetails: () => actions.openPackage(view.rows[i].pkg.id, view.hall.id),
                         unavailable: unavailable,
-                        guest: guest,
                       ),
                     ),
                   ],
@@ -292,7 +289,6 @@ class VenueRail extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (rows.isEmpty) return const SizedBox.shrink();
-    final signedIn = ref.watch(sessionProvider.select((s) => s.isSignedIn));
     final areas = ref.watch(venueAreasProvider).value;
     return Padding(
       key: const ValueKey<String>('venue.similar'),
@@ -319,7 +315,7 @@ class VenueRail extends ConsumerWidget {
                       SizedBox(
                         width: w,
                         child: RepaintBoundary(
-                          child: _RailCard(row: rows[i], date: date, signedIn: signedIn, area: areas?.areas.where((a) => a.id == rows[i].venue.areaId).firstOrNull?.name, actions: actions),
+                          child: _RailCard(row: rows[i], date: date, area: areas?.areas.where((a) => a.id == rows[i].venue.areaId).firstOrNull?.name, actions: actions),
                         ),
                       ),
                     ],
@@ -335,11 +331,10 @@ class VenueRail extends ConsumerWidget {
 }
 
 class _RailCard extends ConsumerWidget {
-  const _RailCard({required this.row, required this.date, required this.signedIn, required this.area, required this.actions});
+  const _RailCard({required this.row, required this.date, required this.area, required this.actions});
 
   final VenueResult row;
   final LocalDate? date;
-  final bool signedIn;
   final LocalizedText? area;
   final VenueActions actions;
 
@@ -354,7 +349,6 @@ class _RailCard extends ConsumerWidget {
       availability: date == null ? null : row.availability,
       date: date,
       badge: row.badge,
-      audience: signedIn ? GzPriceAudience.member : GzPriceAudience.guest,
       tags: row.tags,
       guestRange: row.guestRange,
       sponsored: row.sponsored,

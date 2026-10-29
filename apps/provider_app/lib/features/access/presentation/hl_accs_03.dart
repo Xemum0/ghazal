@@ -9,13 +9,13 @@ import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, ApiProblemCode;
 import 'package:ghazal_domain/ghazal_domain.dart' show PasswordResetInput;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
+import '../../../app/widgets/password_widgets.dart';
 import '../../../l10n/l10n.dart';
 import '../application/access_flow.dart';
 import '../application/invitation_providers.dart';
 import 'widgets/access_parts.dart';
 import 'widgets/access_support.dart';
 import 'widgets/invite_card.dart';
-import 'widgets/password_rules.dart';
 
 enum _View { form, loading, error, success, expired, offline }
 
@@ -179,7 +179,7 @@ class _HlAccs03ScreenState extends ConsumerState<HlAccs03Screen> {
             ),
             const SizedBox(height: GzSpace.s6),
           ],
-          AccessPasswordField(
+          PartnerPasswordField(
             label: l.hotelAccessSetupPasswordLabel,
             newPassword: true,
             value: _password,
@@ -193,7 +193,7 @@ class _HlAccs03ScreenState extends ConsumerState<HlAccs03Screen> {
           const SizedBox(height: GzSpace.s5),
           PasswordRules(check: _touched || _password.isNotEmpty ? check : PasswordCheck.empty),
           const SizedBox(height: GzSpace.s5),
-          AccessPasswordField(
+          PartnerPasswordField(
             label: l.hotelAccessSetupConfirmLabel,
             showLabel: true,
             newPassword: true,

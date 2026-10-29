@@ -13,10 +13,9 @@ import 'serv_price_stack.dart';
 /// wall label: the name in the compare-name face (two lines at most), the facts as glyph and figure (rating, the women's team glyph, the
 /// area) and the prices pinned to the foot, so the tiles of a row line up. The whole tile is one press target; the heart sits above it.
 class ServVendorTile extends ConsumerWidget {
-  const ServVendorTile({required this.vendor, required this.guest, required this.catId, super.key});
+  const ServVendorTile({required this.vendor, required this.catId, super.key});
 
   final ServiceProvider vendor;
-  final bool guest;
   final String catId;
 
   @override
@@ -103,7 +102,7 @@ class ServVendorTile extends ConsumerWidget {
                     const Spacer(),
                     Padding(
                       padding: const EdgeInsetsDirectional.only(top: GzSpace.s2),
-                      child: ServPriceStack(standard: vendor.from.fils, voucher: voucher, categoryId: vendor.categoryId, guest: guest),
+                      child: ServPriceStack(standard: vendor.from.fils, voucher: voucher, categoryId: vendor.categoryId),
                     ),
                   ],
                 ),

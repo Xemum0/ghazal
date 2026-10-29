@@ -3,7 +3,6 @@
 // the five states, back and sheet dismissal, one Arabic run. Bounded.
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 import 'package:client_app/features/messages/presentation/widgets/msg_composer.dart';
 
@@ -27,6 +26,21 @@ void main() {
     expect(find.textContaining('Is Friday available?'), findsWidgets);
   });
 
+  flowTest('a first message to a venue with no thread opens the thread (the server creates it with that message)', (tester) async {
+    final c = await openScreen(tester, 'CL-MSGS-02', params: {'venueId': 'V10'});
+    expect(find.text(en.clientMessagesSuggestAvailability), findsOneWidget, reason: 'the empty enquiry offers its suggestions');
+    await tap(tester, find.byType(GzFieldInput));
+    await tester.enterText(find.byType(GzFieldInput), 'Is Friday available?');
+    await settle(tester);
+    await tapLabel(tester, 'Send voice message', flush: true);
+    await settle(tester, flush: true);
+    expect(find.textContaining('Is Friday available?'), findsWidgets, reason: 'the message is the first of the new thread');
+    expect(find.text(en.clientMessagesSuggestAvailability), findsNothing, reason: 'it is a thread now, not an enquiry');
+    final list = await tester.runAsync(() => flowRepos('reem').chat.listConversations(limit: 50));
+    expect(list!.items.any((x) => x.venueId == 'V10'), isTrue);
+    expect(currentId(c), 'CL-MSGS-02');
+  });
+
   flowTest('the thread follows a message sent while it is open: the newest one stays in view, not below the fold', (tester) async {
     // Regression (simulator pass, 2026-10-26): with the real keyboard up the list is short; a sent message landed below the fold.
     await openScreen(tester, 'CL-MSGS-02', size: const Size(390, 520));
@@ -39,17 +53,6 @@ void main() {
       expect(newest, findsWidgets);
       expect(newest.hitTestable(), findsWidgets, reason: '"$text" is on screen');
     }
-  });
-
-  flowTest('a guest who taps Send meets the sign-in sheet with the chat reason', (tester) async {
-    final c = await openScreen(tester, 'CL-MSGS-02', persona: 'guest', params: {'venueId': 'V01'});
-    await tap(tester, find.byType(GzFieldInput));
-    await tester.enterText(find.byType(GzFieldInput), 'Hello');
-    await settle(tester);
-    await tapLabel(tester, 'Send voice message');
-    final gate = c.read(gateProvider);
-    expect(gate, isNotNull);
-    expect(gate!.reason, GateReason.chat);
   });
 
   flowTest('conversation info opens with mute, report and block, then closes', (tester) async {
@@ -116,11 +119,6 @@ void main() {
   flowTest('support variant opens the support thread', (tester) async {
     await openScreen(tester, 'CL-MSGS-02', params: {'support': true});
     expect(find.byType(GzChatBubble), findsWidgets);
-  });
-
-  flowTest('guest inbox: the sign-in teaser shows', (tester) async {
-    await openScreen(tester, 'CL-MSGS-01', persona: 'guest');
-    expect(find.byKey(const ValueKey<String>('messages.guest')), findsOneWidget);
   });
 
   flowTest('arabic: the thread reads right to left', (tester) async {

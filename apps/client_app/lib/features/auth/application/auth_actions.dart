@@ -1,6 +1,3 @@
-import 'dart:async';
-
-
 import 'package:client_app/app/state/state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_api/ghazal_api.dart' show AuthTokens;
@@ -21,10 +18,8 @@ final Provider<Duration?> authBioOfferDelayProvider = Provider<Duration?>((ref) 
 const String kBiometricPromptId = 'CL-AUTH-05';
 
 /// The biometric offer as a request to the sheet queue: the pre-prompt sheet (CL-AUTH-05), once per run of the app, 900 ms
-/// ([authBioOfferDelayProvider]) after a calm moment begins. The prototype opens it 900 ms after the sign-in lands, over whatever the
-/// sign-in resumed; the app waits instead: a sign-in that resumes the voucher explainer, the checkout or the request steps gets the offer
-/// on the first screen after those (the payment success, or the page the person closes the explainer back to), and a person who never
-/// sees it finds the same switch in Settings (CL-PROF-05). Null when the offer is off (tests) or the device has no biometrics enrolled.
+/// ([authBioOfferDelayProvider]) after a calm moment begins: the first Home after a sign-in (a new account: after the optional steps), and
+/// a person who never sees it finds the same switch in Settings (CL-PROF-05). Null when the offer is off (tests) or the device has no biometrics enrolled.
 final Provider<QueuedSheet?> authBioOfferSheetProvider = Provider<QueuedSheet?>((ref) {
   final delay = ref.watch(authBioOfferDelayProvider);
   if (delay == null) return null;
@@ -48,15 +43,9 @@ String authMonogramFor(String name) {
   return base.isEmpty ? '' : String.fromCharCode(base.runes.first).toUpperCase();
 }
 
-/// The moves of the auth flow over the session, the gate and the navigator. A sign-in always ends in [finishSignIn] (the kit's `completeGate` does the navigation).
+/// The moves of the auth flow over the session and the navigator. A sign-in always ends in [finishSignIn].
 extension AuthActions on WidgetRef {
   AuthFlowNotifier get _flow => read(authFlowProvider.notifier);
-
-  /// The gate request of the sheet that is open (or was, until the code step took its place): kept so the sign-in can still resume it.
-  void rememberGate() {
-    final open = read(gateProvider);
-    if (open != null) _flow.update((s) => s.copyWith(pending: open));
-  }
 
   /// Sends a WhatsApp code to [national] for [purpose] and remembers the challenge. Throws `ApiProblem` (`RATE_LIMITED`).
   Future<domain.OtpChallenge> sendCode(String national, AuthPurpose purpose) async {
@@ -85,9 +74,13 @@ extension AuthActions on WidgetRef {
     return session;
   }
 
-  /// A new account confirmed its name (and email): the profile takes them and the session shows the person.
-  Future<void> confirmName({required String name, String? email}) async {
-    final me = await read(profileRepositoryProvider).updateMe(body: domain.UpdateMeInput(name: name.trim(), email: (email ?? '').trim().isEmpty ? null : email!.trim()));
+  /// A new account finished "About you" (CL-AUTH-03, CA-AUTH-14): name and sex are required, then the Terms and Privacy acceptance;
+  /// `POST /me/complete` stores them, the account stops being new and the session shows the person. Throws `ApiProblem`.
+  Future<void> completeProfile({required String name, required domain.Sex sex, String? email}) async {
+    final trimmed = (email ?? '').trim();
+    final me = await read(profileRepositoryProvider).completeProfile(
+      body: domain.CompleteProfileInput(name: name.trim(), sex: sex, acceptedTerms: true, email: trimmed.isEmpty ? null : trimmed),
+    );
     final current = read(sessionProvider);
     if (current is ClientSession) {
       read(sessionProvider.notifier).setSession(ClientSession(
@@ -98,25 +91,20 @@ extension AuthActions on WidgetRef {
     }
   }
 
-  /// The sign-in is done: closes the auth screens and continues where the guest was going (the gate request's resume route), or lands on
-  /// Discover when the sign-in came from onboarding. The Brief merge and the biometric offer are queued, not opened on the spot.
-  void finishSignIn() {
-    final pending = read(authFlowProvider).pending;
+  /// The sign-in is done: a returning account lands on Home and is offered biometric unlock; a new account ([fresh]) continues to the
+  /// optional onboarding steps (CL-ONBD-03 to 05) and the offer waits for the end of them ([offerBiometrics]). The stack is replaced:
+  /// nothing of the first run stays behind the person.
+  void finishSignIn({bool fresh = false}) {
     final nav = read(gzNavigatorProvider);
     _flow.reset();
-    // The gate request was dropped when its sheet gave way to the code step; it is reopened so the kit's `completeGate` closes the auth
-    // screens and continues at its resume route in one step.
-    final session = read(sessionProvider.notifier);
-    if (pending != null) {
-      read(gateProvider.notifier).open(pending.reason, pending.resume);
-      session.completeGate();
-    } else {
-      session.closeAuthScreens();
-      if (nav.currentId.startsWith('CL-ONBD-')) nav.reset('CL-DISC-01');
-    }
-    // Sheets the sign-in promises are asked of the queue, which opens them one at a time at a calm moment (never over the resumed explainer).
-    final queue = read(sheetQueueProvider.notifier)..enqueue(read(briefMergeSheetProvider));
+    nav.reset(fresh ? 'CL-ONBD-03' : 'CL-DISC-01');
+    if (!fresh) offerBiometrics();
+  }
+
+  /// Asks the sheet queue for the Face ID offer: it opens once per run, 900 ms ([authBioOfferDelayProvider]) after a calm moment begins
+  /// (never over a sheet or the checkout), and only when the device has biometrics enrolled.
+  void offerBiometrics() {
     final offer = read(authBioOfferSheetProvider);
-    if (offer != null && !read(authFlowProvider).bioOffered) queue.enqueue(offer);
+    if (offer != null && !read(authFlowProvider).bioOffered) read(sheetQueueProvider.notifier).enqueue(offer);
   }
 }

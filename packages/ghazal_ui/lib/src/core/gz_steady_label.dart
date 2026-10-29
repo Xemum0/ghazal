@@ -11,13 +11,18 @@ import '../foundation.dart';
 ///
 /// [span] carries the content (plain text, figure islands, a muted count); its own styles win over [style]. [style] is the LIGHT style
 /// with the colour already chosen. [fit] ellipsizes the label instead of overflowing when the cell is narrower than the text.
+///
+/// [leading] is a glyph that belongs to the label (the web `glyphLabel` of a ChipGroup option: the icon and the words are one label,
+/// so the whole group is centred in the reserved width); [leadingExtent] is its width including the gap before the words.
 class GzSteadyLabel extends StatelessWidget {
-  const GzSteadyLabel({required this.span, required this.style, required this.selected, this.fit = false, super.key});
+  const GzSteadyLabel({required this.span, required this.style, required this.selected, this.fit = false, this.leading, this.leadingExtent = 0, super.key});
 
   final InlineSpan span;
   final TextStyle style;
   final bool selected;
   final bool fit;
+  final Widget? leading;
+  final double leadingExtent;
 
   /// The width of [span] at [weight] in [style], laid out on one line with the ambient text scale and direction.
   static double widthOf(BuildContext context, InlineSpan span, TextStyle style, FontWeight? weight) {
@@ -36,17 +41,20 @@ class GzSteadyLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     final heavy = context.gz.text(GzTextRole.title).fontWeight;
     final light = style.copyWith(decoration: TextDecoration.none);
-    final reserve = style.fontWeight == heavy ? 0.0 : widthOf(context, span, light, heavy);
+    final reserve = style.fontWeight == heavy ? 0.0 : widthOf(context, span, light, heavy) + leadingExtent;
+    final text = AnimatedDefaultTextStyle(
+      duration: GzMotion.durationBase,
+      curve: GzMotion.easeStandard,
+      style: light.copyWith(fontWeight: selected ? heavy : style.fontWeight),
+      child: Text.rich(span, softWrap: false, maxLines: 1, overflow: fit ? TextOverflow.ellipsis : null),
+    );
     return ConstrainedBox(
       constraints: BoxConstraints(minWidth: reserve),
       child: Center(
         widthFactor: 1,
-        child: AnimatedDefaultTextStyle(
-          duration: GzMotion.durationBase,
-          curve: GzMotion.easeStandard,
-          style: light.copyWith(fontWeight: selected ? heavy : style.fontWeight),
-          child: Text.rich(span, softWrap: false, maxLines: 1, overflow: fit ? TextOverflow.ellipsis : null),
-        ),
+        child: leading == null
+            ? text
+            : Row(mainAxisSize: MainAxisSize.min, children: [leading!, if (fit) Flexible(child: text) else text]),
       ),
     );
   }

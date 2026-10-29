@@ -4,12 +4,14 @@ library;
 
 export 'action_result.dart';
 export 'app_config.dart';
+export 'biometric_offer.dart';
 export 'booking_draft.dart';
-export 'brief_merge.dart';
 export 'client_scope.dart' show clientUserIdProvider;
 export 'compare.dart';
 export 'favourites.dart';
+export 'first_run_exit.dart';
 export 'notifications.dart';
+export 'partner_link.dart';
 export 'payment.dart';
 export 'search_brief.dart';
 export 'sheet_queue.dart';

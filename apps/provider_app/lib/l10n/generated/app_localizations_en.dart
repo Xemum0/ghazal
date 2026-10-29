@@ -711,9 +711,6 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get commonLabelGuestVoucher => 'Voucher price after you sign up';
-
-  @override
   String get commonRoleClient => 'Client';
 
   @override
@@ -888,6 +885,12 @@ class AppL10nEn extends AppL10n {
   String get hotelAccessSigninInvite => 'Invitation';
 
   @override
+  String get hotelAccessSigninApplyLine => 'New service provider or private hall?';
+
+  @override
+  String get hotelAccessSigninApply => 'Apply to join';
+
+  @override
   String get hotelAccessSigninSubmit => 'Sign in';
 
   @override
@@ -934,6 +937,9 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get hotelAccessVerifyTitle => 'Enter code';
+
+  @override
+  String get hotelAccessVerifyApplicationTitle => 'Verify email';
 
   @override
   String get hotelAccessVerifyLabel => 'Verification code';
@@ -1001,6 +1007,9 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get hotelAccessVerifySuccessTitle => 'Device trusted';
+
+  @override
+  String get hotelAccessVerifyApplicationDone => 'Email verified';
 
   @override
   String hotelAccessVerifyTrustDays(int count) {
@@ -1133,8 +1142,32 @@ class AppL10nEn extends AppL10n {
   String get hotelAccessStatusUnderReviewBody => 'Your account is under review. We will email you when it is active.';
 
   @override
-  String get hotelAccessStatusUnderReviewProviderNote =>
-      'Your first listing is reviewed by Ghazal before it goes live. Nothing is published automatically.';
+  String get hotelAccessStatusApplicationTitle => 'Application in review';
+
+  @override
+  String get hotelAccessStatusApplicationBody =>
+      'Ghazal reviews every application and emails you the decision. You can add listings once it is approved.';
+
+  @override
+  String get hotelAccessStatusRejectedTitle => 'Application not approved';
+
+  @override
+  String get hotelAccessStatusEditResubmit => 'Edit and resubmit';
+
+  @override
+  String get hotelAccessStatusApprovedTitle => 'Application approved';
+
+  @override
+  String get hotelAccessStatusReasonsLabel => 'Reason';
+
+  @override
+  String get hotelAccessStatusProtoTitle => 'Ghazal staff';
+
+  @override
+  String get hotelAccessStatusProtoApprove => 'Approve';
+
+  @override
+  String get hotelAccessStatusProtoReject => 'Reject';
 
   @override
   String get hotelAccessStatusSuspendedTitle => 'Suspended';
@@ -1466,9 +1499,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get hotelBookingsRowPackage => 'Package';
-
-  @override
-  String get hotelBookingsRowExtras => 'Extras';
 
   @override
   String get hotelBookingsRowHall => 'Hall';
@@ -3794,6 +3824,15 @@ class AppL10nEn extends AppL10n {
   String get hotelProviderReasonOther => 'Other';
 
   @override
+  String get hotelProviderAppReasonVerify => 'Cannot verify';
+
+  @override
+  String get hotelProviderAppDemoNote => 'Add your licence number and a clearer description.';
+
+  @override
+  String get hotelProviderApprovalGuardTitle => 'Listings open after approval';
+
+  @override
   String get hotelProviderPlanRetained => 'Fee refund: ask support';
 
   @override
@@ -3977,34 +4016,31 @@ class AppL10nEn extends AppL10n {
   String get hotelProviderChooseReason => 'Pick one';
 
   @override
-  String get hotelProviderTypeHotelTitle => 'Hotel or hall';
+  String get hotelProviderChooseChains => 'Hotels and chains join through Ghazal.';
 
   @override
-  String get hotelProviderTypeProviderTitle => 'Provider';
+  String get hotelProviderTypeProviderTitle => 'Service provider';
 
   @override
-  String get hotelProviderProfileName => 'Name';
+  String get hotelProviderTypeHallTitle => 'Private hall';
 
   @override
-  String get hotelProviderProfileVenueType => 'Type';
+  String get hotelProviderProfileName => 'Business name';
 
   @override
-  String get hotelProviderVenueTypeHall => 'Hall';
-
-  @override
-  String get hotelProviderVenueTypeHotel => 'Hotel';
+  String get hotelProviderFormBarEdit => 'Edit application';
 
   @override
   String get hotelProviderProfileGovernorate => 'Governorate';
 
   @override
-  String get hotelProviderProfileArea => 'Area';
-
-  @override
-  String get hotelProviderProfileChoose => 'Choose';
-
-  @override
   String get hotelProviderProfileCategories => 'Categories';
+
+  @override
+  String get hotelProviderFormOther => 'Other category';
+
+  @override
+  String get hotelProviderFormOtherHelper => 'Not in the list? Tell us.';
 
   @override
   String get hotelProviderCatsChoose => 'Choose';
@@ -4016,19 +4052,48 @@ class AppL10nEn extends AppL10n {
   String get hotelProviderProfilePhone => 'Phone';
 
   @override
+  String get hotelProviderFormContact => 'Contact person';
+
+  @override
+  String get hotelProviderFormEmail => 'Email';
+
+  @override
+  String get hotelProviderFormEmailError => 'Invalid email';
+
+  @override
+  String get hotelProviderFormAccountTitle => 'Your account';
+
+  @override
+  String get hotelProviderFormBusinessTitle => 'Your business';
+
+  @override
+  String get hotelProviderAccountRepeat => 'Repeat password';
+
+  @override
+  String get hotelProviderAccountEmailUsed => 'Email already registered';
+
+  @override
+  String get hotelProviderAccountPasswordWeak => 'Password too weak';
+
+  @override
+  String get hotelProviderFormAbout => 'Short description';
+
+  @override
+  String get hotelProviderFormLicence => 'Commercial licence';
+
+  @override
+  String get hotelProviderFormFix => 'Complete the marked fields.';
+
+  @override
+  String hotelProviderFormResubmitNote(String note) {
+    return 'Not approved: $note';
+  }
+
+  @override
   String get hotelProviderPhoneError => 'Invalid number';
 
   @override
-  String get hotelProviderLogoTitle => 'Logo';
-
-  @override
-  String get hotelProviderLogoUpload => 'Upload';
-
-  @override
-  String get hotelProviderLogoToast => 'In the finished app';
-
-  @override
-  String get hotelProviderSubmit => 'Submit';
+  String get hotelProviderSubmit => 'Send application';
 
   @override
   String get hotelProviderSubmitErrorTitle => 'Not submitted';
@@ -4037,19 +4102,28 @@ class AppL10nEn extends AppL10n {
   String get hotelProviderSubmitError => 'Nothing was sent. Try again.';
 
   @override
-  String get hotelProviderSubmittedBar => 'Account';
+  String get hotelProviderSubmittedBar => 'Application';
 
   @override
-  String get hotelProviderSubmittedTitle => 'Under review';
+  String get hotelProviderSubmittedTitle => 'Application received';
 
   @override
-  String get hotelProviderSubmittedFirst => 'First listing';
+  String get hotelProviderSubmittedLine => 'Your account stays under review.';
 
   @override
-  String get hotelProviderSubmittedToday => 'Today';
+  String get hotelProviderSubmittedNext => 'What next';
 
   @override
-  String get hotelProviderSubmittedStatus => 'Status';
+  String get hotelProviderNextReview => 'Ghazal reviews';
+
+  @override
+  String get hotelProviderNextEmail => 'We email you';
+
+  @override
+  String get hotelProviderNextListings => 'Then add listings';
+
+  @override
+  String get hotelProviderSubmittedStatus => 'Application status';
 
   @override
   String get hotelProviderRejectContent => 'Content';
@@ -5825,9 +5899,6 @@ class AppL10nEn extends AppL10n {
   String get hotelVenueFieldDescription => 'Description';
 
   @override
-  String get hotelVenueFieldPrice => 'Price';
-
-  @override
   String get hotelVenueNameRequired => 'Name in both languages';
 
   @override
@@ -5848,12 +5919,6 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get hotelVenueUnitEvent => 'per event';
-
-  @override
-  String get hotelVenueUnitUnit => 'per unit';
-
-  @override
   String get hotelVenueAllDays => 'Every day';
 
   @override
@@ -5866,35 +5931,10 @@ class AppL10nEn extends AppL10n {
   String get hotelVenuePackagesTitle => 'Packages';
 
   @override
-  String get hotelVenuePackagesTabs => 'Packages or extras';
-
-  @override
-  String hotelVenueTabPackages(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    return 'Packages ($countString)';
-  }
-
-  @override
-  String hotelVenueTabExtras(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    return 'Extras ($countString)';
-  }
-
-  @override
   String get hotelVenuePkgNew => 'New package';
 
   @override
-  String get hotelVenueExtraAdd => 'Add extra';
-
-  @override
   String get hotelVenuePkgEmptyTitle => 'No packages';
-
-  @override
-  String get hotelVenueExtraEmptyTitle => 'No extras';
 
   @override
   String hotelVenuePkgActiveLabel(String name) {
@@ -5908,16 +5948,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String hotelVenueToastPkgShown(String name) {
-    return '$name visible';
-  }
-
-  @override
-  String hotelVenueToastExtraHidden(String name) {
-    return '$name hidden';
-  }
-
-  @override
-  String hotelVenueToastExtraShown(String name) {
     return '$name visible';
   }
 
@@ -5946,29 +5976,6 @@ class AppL10nEn extends AppL10n {
   String hotelVenueEditPackage(String name) {
     return 'Edit $name';
   }
-
-  @override
-  String get hotelVenueExtraEditTitle => 'Edit extra';
-
-  @override
-  String get hotelVenueExtraNewTitle => 'New extra';
-
-  @override
-  String get hotelVenueFieldUnit => 'Charged';
-
-  @override
-  String get hotelVenueFieldShow => 'Show to couples';
-
-  @override
-  String hotelVenueExtraRange(String from, String to) {
-    return '$from–$to';
-  }
-
-  @override
-  String get hotelVenueToastExtraSaved => 'Saved';
-
-  @override
-  String get hotelVenueToastExtraCreated => 'Added';
 
   @override
   String get hotelVenueNeedPrice => 'Enter a price';
@@ -6117,12 +6124,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get hotelVenueReasonGuests => 'Fix guest numbers';
-
-  @override
-  String get hotelVenueExtraActiveOn => 'Couples can add this extra to a request.';
-
-  @override
-  String get hotelVenueExtraActiveOff => 'Hidden from couples.';
 
   @override
   String get hotelVenueSettingIndoor => 'Indoor';

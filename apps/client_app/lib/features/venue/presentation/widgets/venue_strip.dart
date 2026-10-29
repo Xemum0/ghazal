@@ -21,7 +21,6 @@ class VenueDateStrip extends StatelessWidget {
     required this.onOpenCalendar,
     required this.onEditGuests,
     required this.onPickDate,
-    this.guest = false,
     this.owned = false,
     this.windowTitle,
     this.nearest = const <LocalDate>[],
@@ -34,7 +33,6 @@ class VenueDateStrip extends StatelessWidget {
   final DayStatusKind status;
   final QuotePrices? prices;
   final PackageRow? row;
-  final bool guest;
   final bool owned;
   final String? windowTitle;
   final List<LocalDate> nearest;
@@ -162,7 +160,7 @@ class VenueDateStrip extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                PriceBlock(prices: prices!, guest: guest, owned: owned, onHow: prices!.eligible ? onHow : null),
+                PriceBlock(prices: prices!, owned: owned, onHow: prices!.eligible ? onHow : null),
                 if (row!.belowMinimum || (prices!.eligible && windowTitle != null)) ...[
                   const SizedBox(height: GzSpace.s3),
                   GzFactRow(

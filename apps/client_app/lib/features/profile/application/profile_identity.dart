@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart' show AuthUser, ClientSession, profileRepositoryProvider, sessionProvider;
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, localeProvider;
-import 'package:ghazal_domain/ghazal_domain.dart' show Me, UpdateMeInput;
+import 'package:ghazal_domain/ghazal_domain.dart' show Me, Sex, UpdateMeInput;
 
 import '../../../app/state/state.dart';
 
@@ -43,10 +43,10 @@ final Provider<ProfileIdentity?> profileIdentityProvider = Provider<ProfileIdent
   return ProfileIdentity(name: name, monogram: monogram, phone: me?.user.phone ?? user.phone, email: me?.user.email ?? user.email ?? '');
 });
 
-/// Saves the name and the optional email (CL-PROF-03). Returns the refusal, or null when saved; the session follows.
-Future<ApiProblem?> saveProfileDetails(WidgetRef ref, {required String name, required String email}) async {
+/// Saves the name, the sex and the optional email (CL-PROF-03, CA-AUTH-14). Returns the refusal, or null when saved; the session follows.
+Future<ApiProblem?> saveProfileDetails(WidgetRef ref, {required String name, required Sex sex, required String email}) async {
   try {
-    final me = await ref.read(profileRepositoryProvider).updateMe(body: UpdateMeInput(name: name, email: email.isEmpty ? null : email));
+    final me = await ref.read(profileRepositoryProvider).updateMe(body: UpdateMeInput(name: name, sex: sex, email: email.isEmpty ? null : email));
     final session = ref.read(sessionProvider);
     if (session is ClientSession) {
       final u = session.user;

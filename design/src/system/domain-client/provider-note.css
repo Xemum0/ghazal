@@ -1,16 +1,55 @@
-/* ProviderNote, footer form: one quiet line under the Services hub list: glyph, the words, the external-link glyph. 48 high, on the screen's gutter. */
+/* ProviderNote. Banner form (was footer): one full-width rose card with the whole sentence, a glyph at the start and "Apply" plus a chevron at
+   the end (64 high, the sentence wraps to two lines), at the top of the Services hub. Row form: the Profile list row with the same trailing
+   action, at the top of the Profile hub. Tokens only. */
 .gz-pnote {
   display: flex;
   align-items: center;
   gap: var(--gz-space-3);
   box-sizing: border-box;
-  min-block-size: var(--gz-size-control-md);
-  padding-block-start: var(--gz-space-2);
-  color: var(--gz-color-sys-text-secondary);
+  inline-size: 100%; /* flutter-ok: the card fills its column */
+  min-block-size: var(--gz-size-row-min);
+  padding-block: var(--gz-space-3);
+  padding-inline: var(--gz-space-3);
+  border-radius: var(--gz-radius-md);
+  background-color: var(--gz-color-sys-surface-tint);
+  color: var(--gz-color-sys-text-strong);
+  text-align: start;
+}
+
+.gz-pnote.gz-reset {
+  cursor: pointer;
+}
+
+.gz-pnote__glyph {
+  flex: none;
+  color: var(--gz-color-sys-icon-primary);
 }
 
 .gz-pnote__text {
   flex: 1;
   min-inline-size: 0;
   margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.gz-pnote__end {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--gz-space-1);
+  color: var(--gz-color-sys-action-tertiary-label);
+}
+
+/* The call to action: accent text, used at the end of both forms. */
+.gz-pnote__cta {
+  color: var(--gz-color-sys-action-tertiary-label);
+}
+
+/* Row form: tighter gaps than a plain row so the sentence keeps two lines on the narrowest phone beside the action. */
+.gz-pnote-row {
+  gap: var(--gz-space-3);
+}
+
+.gz-pnote-row .gz-row__trailing {
+  gap: var(--gz-space-1);
 }

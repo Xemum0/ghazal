@@ -9,7 +9,6 @@ import 'presentation/cl_disc_03.dart';
 import 'presentation/cl_disc_04.dart';
 import 'presentation/cl_disc_05.dart';
 import 'presentation/cl_disc_06.dart';
-import 'presentation/cl_disc_07.dart';
 
 List<RouteBase> get discoverRoutes => <RouteBase>[
   GoRoute(path: '/discover/brief-sheet', name: 'CL-DISC-02', builder: (BuildContext context, GoRouterState state) => const ClDisc02Screen()),
@@ -17,7 +16,6 @@ List<RouteBase> get discoverRoutes => <RouteBase>[
   GoRoute(path: '/discover/filters', name: 'CL-DISC-04', builder: (BuildContext context, GoRouterState state) => const ClDisc04Screen()),
   GoRoute(path: '/discover/results-map', name: 'CL-DISC-05', builder: (BuildContext context, GoRouterState state) => const ClDisc05Screen()),
   GoRoute(path: '/discover/date-filter', name: 'CL-DISC-06', builder: (BuildContext context, GoRouterState state) => const ClDisc06Screen()),
-  GoRoute(path: '/discover/region-search', name: 'CL-DISC-07', builder: (BuildContext context, GoRouterState state) => const ClDisc07Screen()),
 ];
 
 /// Roots of the main tabs that live in this flow, keyed by inventory id.

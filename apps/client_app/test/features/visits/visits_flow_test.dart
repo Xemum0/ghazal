@@ -1,10 +1,9 @@
 // The visits flow on the real router over the in-process mock: booking a
 // visit, the requested confirmation, the three-role group chat with arrival
-// taps, my visits, change or cancel, the states, the guest gate, one Arabic
+// taps, my visits, change or cancel, the states, one Arabic
 // run. Bounded.
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../support/flow_world.dart';
@@ -17,21 +16,6 @@ void main() {
     await scrollTo(tester, find.byKey(const ValueKey<String>('visits.book.send')));
     await tapKey(tester, 'visits.book.send', flush: true);
     expect(currentId(c), anyOf(['CL-VIST-02', 'CL-VIST-01']));
-  });
-
-  flowTest('a guest at Send meets the sign-in sheet with the visit reason', (tester) async {
-    final c = await openScreen(tester, 'CL-VIST-01', persona: 'guest', params: {'venueId': 'V01'});
-    await scrollTo(tester, find.byKey(const ValueKey<String>('visits.book.send')));
-    // no slot yet: pick the first free window first
-    final chips = find.byType(GzChip);
-    expect(chips, findsWidgets);
-    await tap(tester, chips.first);
-    await settle(tester, flush: true);
-    await scrollTo(tester, find.byKey(const ValueKey<String>('visits.book.send')));
-    await tapKey(tester, 'visits.book.send');
-    final gate = c.read(gateProvider);
-    expect(gate, isNotNull);
-    expect(gate!.reason, GateReason.visit);
   });
 
   flowTest('the requested screen opens the chat', (tester) async {

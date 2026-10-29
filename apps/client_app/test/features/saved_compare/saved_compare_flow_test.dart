@@ -6,7 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:client_app/app/state/state.dart';
-import 'package:ghazal_domain/ghazal_domain.dart' show SavedType;
 
 import '../../support/flow_world.dart';
 
@@ -24,15 +23,6 @@ void main() {
       expect(shows('Lamha'), isTrue);
       await tapText(tester, 'Packages');
       expect(shows('Gold'), isTrue);
-    });
-
-    flowTest('a guest sees the keep-on-this-phone banner with sign in', (tester) async {
-      final c = await openScreen(tester, 'CL-SAVD-01', state: 'guest');
-      await tester.runAsync(() async {
-        await c.read(favouritesProvider.notifier).toggle(SavedType.venue, 'V01');
-      });
-      await settle(tester);
-      expect(onScreen('saved.guest'), isTrue);
     });
 
     flowTest('select mode arms compare and opens the table', (tester) async {

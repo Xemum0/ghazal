@@ -90,6 +90,8 @@
   "clientServicesHubFromPlanner": "ابتداءً من {price}",
   "clientServicesListRefreshed": "تم تحديث القائمة",
   "clientServicesProviderNote": "هل أنت مزوّد خدمة؟ قدّم طلبك في تطبيق الشريك",
+  "clientServicesProviderNoteAction": "تقديم",
+  "clientServicesProviderNoteOpens": "يفتح متجر تطبيق الشريك",
   "clientServicesGovernorate": "المحافظة",
   "clientServicesGovernorateTitle": "{count, plural, =0{المحافظات} =1{المحافظات · #} =2{المحافظات · #} few{المحافظات · #} many{المحافظات · #} other{المحافظات · #}}",
   "clientServicesArea": "المنطقة"

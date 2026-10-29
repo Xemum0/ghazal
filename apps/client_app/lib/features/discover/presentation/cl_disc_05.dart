@@ -100,7 +100,7 @@ class _ClDisc05ScreenState extends ConsumerState<ClDisc05Screen> {
     final filters = ds.effective(brief);
     final q = DiscoverQuery(brief: brief, filters: filters, sort: ds.sort, query: ds.seeded ? ds.query : '');
     final rowsAsync = ref.watch(discoverSearchProvider(q));
-    final areas = ref.watch(areasProvider).value?.areas ?? const [];
+    final governorates = ref.watch(areasProvider).value?.governorates ?? const [];
     final loading = rowsAsync.isLoading && !rowsAsync.hasValue && !rowsAsync.hasError;
     final errored = rowsAsync.hasError && !rowsAsync.hasValue;
     final offline = errored && isOfflineError(rowsAsync.error);
@@ -110,9 +110,9 @@ class _ClDisc05ScreenState extends ConsumerState<ClDisc05Screen> {
     final sel = rows.where((r) => r.venue.id == _selected).firstOrNull ?? rows.firstOrNull;
 
     final date = brief.date == null ? null : '${f.integer(brief.date!.day)} ${f.monthName(brief.date!.month, short: true)}';
-    final areaNames = briefAreaNames(areas, brief.areaIds, lang);
+    final areaNames = briefGovernorateNames(governorates, brief.governorateIds, lang);
     final areaPill = areaNames.length > 1
-        ? l.clientDiscoverBriefAreaMore(areaNames.first, f.integer(areaNames.length - 1))
+        ? l.clientDiscoverBriefGovernorateMore(areaNames.first, f.integer(areaNames.length - 1))
         : (areaNames.firstOrNull ?? '');
     final spoken = <String>[
       ?date,
@@ -159,7 +159,7 @@ class _ClDisc05ScreenState extends ConsumerState<ClDisc05Screen> {
                         ),
                         if (brief.guests != null)
                           GzFactChip(icon: GzIcons.usersThree, label: l.clientDiscoverBriefAddGuests, value: f.integer(brief.guests!)),
-                        if (areaNames.isNotEmpty) GzFactChip(icon: GzIcons.pin, label: l.clientDiscoverBriefChooseArea, value: areaPill),
+                        if (areaNames.isNotEmpty) GzFactChip(icon: GzIcons.pin, label: l.clientDiscoverBriefChooseGovernorate, value: areaPill),
                       ],
                     ),
                   ),
@@ -231,7 +231,7 @@ class _ClDisc05ScreenState extends ConsumerState<ClDisc05Screen> {
                     children: [
                       GzIcon(GzIcons.pin, size: GzIconSize.xs, color: c.iconSecondary),
                       const SizedBox(width: GzSpace.s2),
-                      GzText(l.clientDiscoverMapDenied(areaNames.firstOrNull ?? ''), role: GzTextRole.caption, color: c.textPrimary),
+                      GzText(l.clientDiscoverMapDenied(briefGovernorateNames(governorates, brief.governorateIds.isEmpty ? const <String>['hawalli'] : brief.governorateIds, lang).firstOrNull ?? ''), role: GzTextRole.caption, color: c.textPrimary),
                     ],
                   ),
                 ),

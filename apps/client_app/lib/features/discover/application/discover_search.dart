@@ -7,6 +7,9 @@ import '../../../app/state/state.dart' show SearchBrief, clientDataRevisionProvi
 import 'discover_filters.dart';
 import 'discover_home.dart' show shelfVenueIds;
 
+/// The reference point distances are measured from (the first area of the reference list): the client chooses governorates, which have none.
+const String kDiscoverOrigin = 'ref-salmiya';
+
 /// Everything a result list depends on: the Brief, the filters, the order and the name search.
 @immutable
 final class DiscoverQuery {
@@ -16,9 +19,6 @@ final class DiscoverQuery {
   final DiscoverFilters filters;
   final DiscoverSort sort;
   final String query;
-
-  /// The areas a list is bound to: the filter's own choice, else the Brief's (unless a governorate or a shelf was chosen, which replace them).
-  List<String> get boundAreas => filters.areaIds ?? (filters.governorateIds.isNotEmpty || filters.shelf != null ? const <String>[] : brief.areaIds);
 
   DiscoverQuery copyWith({SearchBrief? brief, DiscoverFilters? filters, DiscoverSort? sort, String? query}) =>
       DiscoverQuery(brief: brief ?? this.brief, filters: filters ?? this.filters, sort: sort ?? this.sort, query: query ?? this.query);
@@ -109,7 +109,6 @@ final discoverSearchProvider = FutureProvider.autoDispose.family<List<VenueResul
   final repo = ref.watch(venuesRepositoryProvider);
   final f = q.filters;
   final brief = q.brief;
-  final areas = q.boundAreas;
   final cat = f.category == null ? null : categoryFilters(f.category!);
   final types = <VenueType>{...f.types, ...?cat?.types}.toList();
   final sort = switch (q.sort) {
@@ -127,8 +126,9 @@ final discoverSearchProvider = FutureProvider.autoDispose.family<List<VenueResul
   do {
     final page = await repo.searchVenues(
       q: q.query.trim().isEmpty ? null : q.query.trim(),
-      governorateIds: f.governorateIds.isEmpty ? null : f.governorateIds,
-      areaIds: areas.isEmpty ? null : areas,
+      governorateIds: f.governorateIds == null || f.governorateIds!.isEmpty ? null : f.governorateIds,
+      allAreas: f.governorateIds != null && f.governorateIds!.isEmpty ? true : null,
+      briefGovernorateIds: f.governorateIds == null && f.shelf == null && brief.governorateIds.isNotEmpty ? brief.governorateIds : null,
       types: types.isEmpty ? null : types,
       styles: cat == null || cat.styles.isEmpty ? null : cat.styles,
       tiers: <LuxuryLevel>{...f.levels, ...?cat?.tiers}.isEmpty ? null : <LuxuryLevel>{...f.levels, ...?cat?.tiers}.toList(),
@@ -142,7 +142,7 @@ final discoverSearchProvider = FutureProvider.autoDispose.family<List<VenueResul
       availableTo: range?.$2,
       date: brief.date,
       guests: brief.guests,
-      originId: 'ref-${areas.isEmpty ? 'salmiya' : areas.first}',
+      originId: kDiscoverOrigin,
       sort: sort,
       cursor: cursor,
       limit: 50,

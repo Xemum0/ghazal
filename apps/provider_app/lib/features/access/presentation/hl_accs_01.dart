@@ -1,5 +1,6 @@
-// HL-ACCS-01 Sign in (web `HL-ACCS-01.tsx`): email and password, no sign-up, one empty-hall photograph, the wordmark, a language chip.
-// Requirements: HA-AUTH-01, HA-SET-05, PA-ACC-01, PA-ACC-02, PA-ACC-06.
+// HL-ACCS-01 Sign in (web `HL-ACCS-01.tsx`): email and password, one empty-hall photograph, the wordmark, a language chip. Under the gold Sign in,
+// pinned in the same bar, one short line and a full-width outlined "Apply to join" (PA-ACC-07, round 2b): it opens HL-PROV-01 signed out.
+// Requirements: HA-AUTH-01, HA-SET-05, PA-ACC-01, PA-ACC-02, PA-ACC-06, PA-ACC-07.
 import 'package:flutter/services.dart' show TextInputAction, TextInputType;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +9,7 @@ import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, ApiProblemCode, c
 import 'package:ghazal_domain/ghazal_domain.dart' show PartnerLoginStatus;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
+import '../../../app/widgets/password_widgets.dart';
 import '../../../l10n/l10n.dart';
 import '../application/access_flow.dart';
 import 'widgets/access_parts.dart';
@@ -87,6 +89,9 @@ class _HlAccs01ScreenState extends ConsumerState<HlAccs01Screen> {
     GzNavigatorScope.of(context).push('HL-ACCS-02', params: const {'mode': 'reset'});
   }
 
+  /// The application form of a new service provider or private hall, signed out (HL-PROV-01 asks for the account first).
+  void _apply() => GzNavigatorScope.of(context).push('HL-PROV-01', params: const {'signedOut': true});
+
   void _invite() {
     final nav = GzNavigatorScope.of(context);
     nav.openSheetBuilder(
@@ -111,10 +116,15 @@ class _HlAccs01ScreenState extends ConsumerState<HlAccs01Screen> {
     final offline = _status == _Status.offline;
     final until = f.time(ref.read(clockProvider)().add(const Duration(minutes: kLockMinutes)));
     final safeTop = MediaQuery.paddingOf(context).top;
+    // an email named elsewhere (an applicant whose code expired comes back here to sign in with it) replaces what the field holds
+    ref.listen<String>(accessFlowProvider.select((s) => s.email), (_, next) {
+      if (next.isNotEmpty && next != _email) setState(() => _email = next);
+    });
 
     return GzScreen(
       bottom: GzActionBar(
         action: GzActionBarAction(label: l.hotelAccessSigninSubmit, onPressed: _submit, loading: busy, disabled: offline || locked || !_ready),
+        noteWidget: ApplyNote(onApply: busy ? null : _apply),
       ),
       child: Padding(
         padding: EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: safeTop, bottom: GzSpace.s8),
@@ -189,7 +199,7 @@ class _HlAccs01ScreenState extends ConsumerState<HlAccs01Screen> {
               ),
             ),
             const SizedBox(height: GzSpace.s5),
-            AccessPasswordField(
+            PartnerPasswordField(
               label: l.hotelAccessSigninPasswordLabel,
               value: _password,
               disabled: busy || locked,

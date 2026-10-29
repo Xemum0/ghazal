@@ -90,6 +90,8 @@
   "clientServicesHubFromPlanner": "From {price}",
   "clientServicesListRefreshed": "List updated",
   "clientServicesProviderNote": "Service provider? Apply in the Partner app",
+  "clientServicesProviderNoteAction": "Apply",
+  "clientServicesProviderNoteOpens": "Opens Partner app store",
   "clientServicesGovernorate": "Governorate",
   "clientServicesGovernorateTitle": "{count, plural, =0{Governorates} one{Governorates · #} other{Governorates · #}}",
   "clientServicesArea": "Area"

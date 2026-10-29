@@ -3,8 +3,8 @@ import 'package:ghazal_app_kit/ghazal_app_kit.dart' show ClientSession, sessionP
 import 'package:ghazal_core/ghazal_core.dart' show sharedPreferencesProvider;
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// The signed-in client's id, or null for a guest (and for anything that is not a client session). Server-backed providers watch it so a
-/// sign-in or sign-out rebuilds them; a guest's providers keep working from the device.
+/// The signed-in client's id, or null while signed out (and for anything that is not a client session). Server-backed providers watch it so
+/// a sign-in or sign-out rebuilds them.
 final Provider<String?> clientUserIdProvider = Provider<String?>(
   (ref) => ref.watch(sessionProvider.select((s) => s is ClientSession ? s.user.id : null)),
 );

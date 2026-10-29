@@ -39,8 +39,9 @@ Widget gzPressedPreview(bool pressed, Widget child) => pressed ? Transform.scale
 /// The four decisions of a brief (web `BriefField`).
 enum GzBriefField { guests, date, area, budget }
 
-/// The couple's brief as the cards read it: audience, guests, date, areas, budget. Every field may be empty (a skipped answer).
-/// Areas arrive already resolved to names (a widget never looks anything up); the budget is an integer-fils range whose top is
+/// The couple's brief as the cards read it: audience, guests, date, governorates, budget. Every field may be empty (a skipped answer).
+/// Since ADR 0038 the region of a brief is its governorates, not areas: [areas] holds the governorate NAMES (the field keeps its
+/// name so call sites stay stable) already resolved (a widget never looks anything up); an empty list = every governorate. The budget is an integer-fils range whose top is
 /// null for an open budget (`KD 35,000+`).
 @immutable
 class GzBrief {

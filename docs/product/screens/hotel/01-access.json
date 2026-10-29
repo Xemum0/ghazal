@@ -21,7 +21,9 @@
         "HA-SET-05",
         "PA-ACC-01",
         "PA-ACC-02",
-        "PA-ACC-06"
+        "PA-ACC-06",
+        "PA-ACC-07",
+        "PA-ACC-08"
       ],
       "states": [
         "default",
@@ -38,9 +40,10 @@
         "Quiet link 'I have an invitation' / «لدي دعوة» opens a short explanation sheet: the invitation arrives as an email link (sent through Resend) from the venue admin and opens Set password; there is no self sign-up",
         "Known device: success goes to Today. New device: success goes to the verification screen first. Suspended, under-review or deactivated accounts go to the status screen",
         "Quiet tagline becomes \"For hotels, halls and service providers\"; a new partner invited without a type is routed after sign-in to the account type chooser (HL-PROV-01); a known partner goes to Today, whose content follows the account type (PA-ACC-02)",
-        "A partner with both account types (A-06) sees a type switch in More after sign-in, never here"
+        "A partner with both account types (A-06) sees a type switch in More after sign-in, never here",
+        "Apply to join (PA-ACC-07, round 2b): under the gold Sign in, pinned in the same bar, one short line «مزوّد خدمة أو قاعة خاصة جديدة؟» / 'New service provider or private hall?' and a visible secondary button «قدّم طلب انضمام» / 'Apply to join': outlined, 44 high, full width, a real button and never a link inside text; it opens HL-PROV-01 signed out (account first, then the business information). It is disabled only while a sign-in is in flight"
       ],
-      "contentNotes": "Calm Off-White canvas, wordmark غزل in the Arabic UI and Ghazal in the English UI, with the quiet line «لفرق القاعات والفنادق» / 'For venue teams'. One empty-ballroom photograph (long table setting, no people) in a 160px strip above the form, 12px radius. Demo account: Hind Al-Enezi / هند العنزي, Manager at Aurelia Gulf Hotel, +965 5000 0040 (fixture, display-only, never a tel: link). Error copy leads with the outcome, does not blame and does not reveal whether the number exists: «رقم الهاتف أو كلمة المرور غير صحيح. لم يتم تسجيل الدخول.» / 'The phone number or password is not correct. You are not signed in.' Locked after 5 failed attempts: «تم إيقاف المحاولات مؤقتًا. يمكنكم المحاولة بعد 4:15 م بتوقيت الكويت.» / 'Attempts are paused. Try again after 4:15 PM Kuwait time.' Offline: «يلزم الاتصال بالإنترنت لتسجيل الدخول.» / 'An internet connection is needed to sign in.' Labels are noun phrases, with no exclamation marks and no greeting banner. Tab bar hidden. Voucher model (ADR 0033): tagline «لفرق القاعات والفنادق ومقدمي الخدمات» / \"For hotels, halls and service providers\" replaces «لفرق القاعات والفنادق». Invitation arrives as an email from the account admin or Ghazal.",
+      "contentNotes": "Calm Off-White canvas, wordmark غزل in the Arabic UI and Ghazal in the English UI, with the quiet line «لفرق القاعات والفنادق» / 'For venue teams'. One empty-ballroom photograph (long table setting, no people) in a 160px strip above the form, 12px radius. Demo account: Hind Al-Enezi / هند العنزي, Manager at Aurelia Gulf Hotel, +965 5000 0040 (fixture, display-only, never a tel: link). Error copy leads with the outcome, does not blame and does not reveal whether the number exists: «رقم الهاتف أو كلمة المرور غير صحيح. لم يتم تسجيل الدخول.» / 'The phone number or password is not correct. You are not signed in.' Locked after 5 failed attempts: «تم إيقاف المحاولات مؤقتًا. يمكنكم المحاولة بعد 4:15 م بتوقيت الكويت.» / 'Attempts are paused. Try again after 4:15 PM Kuwait time.' Offline: «يلزم الاتصال بالإنترنت لتسجيل الدخول.» / 'An internet connection is needed to sign in.' Labels are noun phrases, with no exclamation marks and no greeting banner. Tab bar hidden. Voucher model (ADR 0033): tagline «لفرق القاعات والفنادق ومقدمي الخدمات» / \"For hotels, halls and service providers\" replaces «لفرق القاعات والفنادق». Invitation arrives as an email from the account admin or Ghazal. Round 2b: the Apply to join block (the line and the outlined button) sits below the gold Sign in in the pinned bar, so it stays on screen while the form scrolls; Arabic «قدّم طلب انضمام», English 'Apply to join'.",
       "priority": "core",
       "navigatesTo": [
         "HL-ACCS-02",
@@ -64,7 +67,7 @@
         "ar": "التحقق عبر البريد الإلكتروني"
       },
       "kind": "screen",
-      "purpose": "One reusable code screen for four moments: first sign-in on a new device, password reset, the step-up check before high-risk actions (bank information, inviting or removing staff), and the authenticator code that venue admins add on a new device (ADR 0028 D5-D6).",
+      "purpose": "One reusable code screen for five moments: first sign-in on a new device, password reset, the step-up check before high-risk actions (bank information, inviting or removing staff), the authenticator code that venue admins add on a new device (ADR 0028 D5-D6), and the email of a new partner application (round 2b, `application`).",
       "requirementIds": [
         "HA-AUTH-01",
         "HA-SET-03",
@@ -80,7 +83,8 @@
         "delivery-failed",
         "authenticator-step",
         "success",
-        "offline"
+        "offline",
+        "application"
       ],
       "interactions": [
         "Six code boxes in LTR order in both languages (digit 1 on the left), paste and one-time-code autofill, Eastern-Arabic digits normalised on paste; the sixth digit submits automatically",
@@ -88,14 +92,16 @@
         "'Open WhatsApp' link jumps to the chat that carries the code",
         "Authenticator step (venue admins on a new device only): a second six-digit field for the TOTP code, same component, headline changes to 'Authenticator code'",
         "On success the device is trusted for 30 days; the user lands on Today (sign-in), Set password (reset) or the original sheet (step-up)",
-        "Back is always safe and returns to the entry point without losing typed values; delivery failure offers Resend, Contact support and nothing else (no SMS fallback)"
+        "Back is always safe and returns to the entry point without losing typed values; delivery failure offers Resend, Contact support and nothing else (no SMS fallback)",
+        "Application mode (round 2b, PA-ACC-07): pushed by HL-PROV-01 after a signed-out applicant sends the form. Title 'Verify email' / «تأكيد البريد الإلكتروني», the masked application email, the same six boxes; on success a seal and 'Email verified' / «تم تأكيد البريد» (no trusted-device fact), the account and the application are created, the device is trusted, and HL-ACCS-04 opens in the application-in-review variant. Back returns to the form with its values"
       ],
       "contentNotes": "Headline «أدخلوا الرمز المرسل إلى واتساب» / 'Enter the code sent to WhatsApp' with the masked number shown as +965 •••• 0040 inside an LTR isolate. Helper: «الرمز صالح لمدة 5 دقائق.» / 'The code is valid for 5 minutes.' Step-up variant headline: «تأكيد هويتكم قبل المتابعة» / 'Confirm it is you before continuing', with one line naming the action («تعديل بيانات الحساب البنكي» / 'Changing bank information'); the biometric prompt may sit in front of this on the device but never replaces it. Wrong code: «الرمز غير صحيح. لم يتم تغيير أي شيء.» / 'That code is not correct. Nothing was changed.' Expired: «انتهت صلاحية الرمز. يمكن طلب رمز جديد.» / 'The code has expired. A new one can be requested.' Delivery failed: «تعذّر إرسال الرمز عبر واتساب.» / 'The code could not be sent on WhatsApp.' Reduced motion: boxes fill without animation. Tab bar hidden.",
       "priority": "core",
       "navigatesTo": [
         "HL-TODY-01",
         "HL-ACCS-03",
-        "HL-ACCS-01"
+        "HL-ACCS-01",
+        "HL-ACCS-04"
       ],
       "ownerRound1": {
         "adr": "0035",

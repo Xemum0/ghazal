@@ -4,21 +4,40 @@ import 'package:ghazal_domain/ghazal_domain.dart' show Governorate;
 import '../foundation.dart';
 import '../inputs/inputs.dart';
 
-const String _all = '__all';
-
-/// GovernorateFilter (CL-DISC results header and filters, CA-FLT region): one row of the governorates of Kuwait with "All Kuwait"
-/// first, as a single scrolling rail of 44 dp chips (the screen owns the gutter bleed). The governorates are data (the six of the
-/// areas list), never typed here. "All Kuwait" is exclusive: picking it clears the rest, picking a governorate drops it. An empty
-/// selection means all. Controlled with [values], else [defaultValues] seeds it.
+/// GovernorateFilter (CA-FLT-08, ADR 0038): the one region control of the Client app. Wrapping, multi-select chips, one per governorate
+/// of the configured list (Kuwait's six official ones to start), each a pin glyph and the name. Nothing selected means every
+/// governorate: there is no "All" chip and no sentence. The title with the count ("Governorates · 2") belongs to the surface that hosts
+/// the group (the Brief panel, the Filters group, the Vendors filters), each with its own ICU key. Port of
+/// design/src/system/domain-filters/GovernorateFilter.tsx; the chip is the shared [GzChipGroup] chip (44 high, radius 8, hairline;
+/// selected = ink border, gold bead, weight 500), the glyph an `xs` pin with an 8 dp gap.
+///
+/// The governorates are data (the `GET /areas` list), never typed here. Controlled with [values], else [defaultValues] seeds it.
+/// [only] offers just those ids (the Vendors filter lists the governorates where the category has providers); [layout] is `wrap`
+/// (a sheet or a panel, the default) or `rail` (one scrolling line; the screen owns the gutter bleed). [label] is the accessible name
+/// of the group and defaults to "Governorate".
 class GzGovernorateFilter extends StatefulWidget {
-  const GzGovernorateFilter({required this.governorates, this.values, this.defaultValues, this.onChanged, super.key});
+  const GzGovernorateFilter({
+    required this.governorates,
+    this.values,
+    this.defaultValues,
+    this.onChanged,
+    this.layout = GzChipLayout.wrap,
+    this.only,
+    this.label,
+    super.key,
+  });
 
   final List<Governorate> governorates;
 
-  /// Selected governorate ids; an empty list = all.
+  /// Selected governorate ids; an empty list = every governorate.
   final List<String>? values;
   final List<String>? defaultValues;
   final ValueChanged<List<String>>? onChanged;
+  final GzChipLayout layout;
+
+  /// Offer only these governorate ids; null offers every configured one.
+  final Iterable<String>? only;
+  final String? label;
 
   @override
   State<GzGovernorateFilter> createState() => _GzGovernorateFilterState();
@@ -29,23 +48,20 @@ class _GzGovernorateFilterState extends State<GzGovernorateFilter> {
 
   @override
   Widget build(BuildContext context) {
-    final l = context.gzL10n;
     final lang = context.gz.locale.languageCode;
+    final only = widget.only?.toSet();
     final ids = widget.values ?? _inner;
     return GzChipGroup<String>.multiple(
-      label: l.commonFilterGovernorate,
-      layout: GzChipLayout.rail,
-      values: ids.isEmpty ? const [_all] : ids,
+      label: widget.label ?? context.gzL10n.commonFilterGovernorate,
+      layout: widget.layout,
+      values: ids,
       options: [
-        GzChipOption(value: _all, label: l.uiFiltersGovernorateAll),
-        for (final g in widget.governorates) GzChipOption(value: g.id, label: g.name.of(lang)),
+        for (final g in widget.governorates)
+          if (only == null || only.contains(g.id)) GzChipOption(value: g.id, label: g.name.of(lang), icon: GzIcons.pin),
       ],
       onChanged: (next) {
-        // "All" is exclusive: the last pick decides.
-        final last = next.isEmpty ? _all : next.last;
-        final out = last == _all ? <String>[] : [for (final x in next) if (x != _all) x];
-        if (widget.values == null) setState(() => _inner = out);
-        widget.onChanged?.call(out);
+        if (widget.values == null) setState(() => _inner = next);
+        widget.onChanged?.call(next);
       },
     );
   }

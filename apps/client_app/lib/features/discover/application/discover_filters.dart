@@ -18,15 +18,15 @@ enum DiscoverSort {
   distance,
 }
 
-/// What the Filters sheet, Results and the map filter on (the Flutter twin of the web `Filters`). `areaIds == null` follows the Brief's
-/// areas, `[]` means every area. Ranges are whole numbers (guests, or whole dinars per guest).
+/// What the Filters sheet, Results and the map filter on (the Flutter twin of the web `Filters`). `governorateIds == null` follows the Brief's
+/// governorates, `[]` means every governorate (the "All governorates" chip), a list is an explicit choice that replaces the Brief's (ADR 0038:
+/// the client picks governorates, never exact areas). Ranges are whole numbers (guests, or whole dinars per guest).
 @immutable
 final class DiscoverFilters {
   const DiscoverFilters({
     this.shelf,
     this.category,
-    this.governorateIds = const <String>[],
-    this.areaIds,
+    this.governorateIds,
     this.types = const <VenueType>[],
     this.arrangement,
     this.withinMinutes,
@@ -52,8 +52,7 @@ final class DiscoverFilters {
   /// A Home shelf's "See all": the list is that shelf's halls, shown as one removable chip.
   final ShelfId? shelf;
   final HomeCategoryId? category;
-  final List<String> governorateIds;
-  final List<String>? areaIds;
+  final List<String>? governorateIds;
   final List<VenueType> types;
   final Audience? arrangement;
   final int? withinMinutes;
@@ -79,7 +78,6 @@ final class DiscoverFilters {
     ShelfId? shelf,
     HomeCategoryId? category,
     List<String>? governorateIds,
-    List<String>? areaIds,
     List<VenueType>? types,
     Audience? arrangement,
     int? withinMinutes,
@@ -97,7 +95,7 @@ final class DiscoverFilters {
     List<String>? brands,
     bool clearShelf = false,
     bool clearCategory = false,
-    bool clearAreaIds = false,
+    bool clearGovernorateIds = false,
     bool clearArrangement = false,
     bool clearWithin = false,
     bool clearCapacity = false,
@@ -109,8 +107,7 @@ final class DiscoverFilters {
   }) => DiscoverFilters(
     shelf: clearShelf ? null : (shelf ?? this.shelf),
     category: clearCategory ? null : (category ?? this.category),
-    governorateIds: governorateIds ?? this.governorateIds,
-    areaIds: clearAreaIds ? null : (areaIds ?? this.areaIds),
+    governorateIds: clearGovernorateIds ? null : (governorateIds ?? this.governorateIds),
     types: types ?? this.types,
     arrangement: clearArrangement ? null : (arrangement ?? this.arrangement),
     withinMinutes: clearWithin ? null : (withinMinutes ?? this.withinMinutes),
@@ -133,8 +130,7 @@ final class DiscoverFilters {
     var n = 0;
     if (shelf != null) n++;
     if (category != null) n++;
-    if (governorateIds.isNotEmpty) n++;
-    if (areaIds != null) n++;
+    if (governorateIds != null) n++;
     if (types.isNotEmpty) n++;
     if (arrangement != null) n++;
     if (withinMinutes != null) n++;
@@ -159,7 +155,6 @@ final class DiscoverFilters {
       other.shelf == shelf &&
       other.category == category &&
       listEquals(other.governorateIds, governorateIds) &&
-      listEquals(other.areaIds, areaIds) &&
       listEquals(other.types, types) &&
       other.arrangement == arrangement &&
       other.withinMinutes == withinMinutes &&
@@ -180,8 +175,7 @@ final class DiscoverFilters {
   int get hashCode => Object.hashAll(<Object?>[
     shelf,
     category,
-    Object.hashAll(governorateIds),
-    areaIds == null ? null : Object.hashAll(areaIds!),
+    governorateIds == null ? null : Object.hashAll(governorateIds!),
     Object.hashAll(types),
     arrangement,
     withinMinutes,
@@ -200,26 +194,26 @@ final class DiscoverFilters {
   ]);
 }
 
-/// The preset a screen opens Results with (route params of `CL-DISC-03`): `shelf`, `category`, `available`, `areaIds` (a list; empty =
-/// every area). No params: the Brief decides.
+/// The preset a screen opens Results with (route params of `CL-DISC-03`): `shelf`, `category`, `available`, `governorateIds` (a list; empty =
+/// every governorate). No params: the Brief decides.
 DiscoverFilters discoverPresetFromParams(Map<String, Object?> params, SearchBrief brief) {
   final shelf = params['shelf'];
   final category = params['category'];
-  final areas = params['areaIds'];
+  final governorates = params['governorateIds'];
   final available = params['available'];
-  if (shelf == null && category == null && areas == null && available == null) return DiscoverFilters.defaultsFor(brief);
+  if (shelf == null && category == null && governorates == null && available == null) return DiscoverFilters.defaultsFor(brief);
   return DiscoverFilters(
     shelf: shelf is String ? ShelfId.fromJson(shelf) : null,
     category: category is String ? HomeCategoryId.fromJson(category) : null,
-    areaIds: areas is List ? areas.cast<String>() : null,
+    governorateIds: governorates is List ? governorates.cast<String>() : null,
     available: available == true && brief.date != null,
   );
 }
 
-/// Filters, order and the name search that Results, the Filters sheet and the map share, plus the one-time merge flag.
+/// Filters, order and the name search that Results, the Filters sheet and the map share.
 @immutable
 final class DiscoverState {
-  const DiscoverState({this.filters = DiscoverFilters.none, this.sort = DiscoverSort.recommended, this.query = '', this.seeded = false, this.mergeShown = false});
+  const DiscoverState({this.filters = DiscoverFilters.none, this.sort = DiscoverSort.recommended, this.query = '', this.seeded = false});
 
   final DiscoverFilters filters;
   final DiscoverSort sort;
@@ -227,17 +221,15 @@ final class DiscoverState {
 
   /// Results has set the filters it was opened with. Until then the map and the sheets read the Brief's defaults.
   final bool seeded;
-  final bool mergeShown;
 
   /// The filters in force: the seeded ones, else the Brief's defaults.
   DiscoverFilters effective(SearchBrief brief) => seeded ? filters : DiscoverFilters.defaultsFor(brief);
 
-  DiscoverState copyWith({DiscoverFilters? filters, DiscoverSort? sort, String? query, bool? seeded, bool? mergeShown}) => DiscoverState(
+  DiscoverState copyWith({DiscoverFilters? filters, DiscoverSort? sort, String? query, bool? seeded}) => DiscoverState(
     filters: filters ?? this.filters,
     sort: sort ?? this.sort,
     query: query ?? this.query,
     seeded: seeded ?? this.seeded,
-    mergeShown: mergeShown ?? this.mergeShown,
   );
 }
 
@@ -248,15 +240,13 @@ class DiscoverNotifier extends Notifier<DiscoverState> {
   DiscoverState build() => const DiscoverState();
 
   /// Results was opened: take its preset, forget the last query and order.
-  void seed(DiscoverFilters filters) => state = DiscoverState(filters: filters, seeded: true, mergeShown: state.mergeShown);
+  void seed(DiscoverFilters filters) => state = DiscoverState(filters: filters, seeded: true);
 
   void replaceFilters(DiscoverFilters filters) => state = state.copyWith(filters: filters, seeded: true);
 
   void setSort(DiscoverSort sort) => state = state.copyWith(sort: sort);
 
   void setQuery(String query) => state = state.copyWith(query: query);
-
-  void markMergeShown() => state = state.copyWith(mergeShown: true);
 }
 
 /// What the date sheet (CL-DISC-06) hands back to the Filters sheet that opened it: the day or short range and the availability switch.

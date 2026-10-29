@@ -13,7 +13,17 @@ import 'partner_common.dart' show invitedByName;
 
 const _standardPassword = 'Ghazal#2026';
 
-Json newChallenge(MockApp app, {required String purpose, required String channel, required String destination, String? userId, String? phone}) {
+/// Opens a code challenge and "sends" it: an email code lands in the outbox as `kind: code`, or as [outboxKind] for the application's own verification
+/// email (`partner_application_verify`). More than five codes to one destination inside one story minute is 429 `RATE_LIMITED`.
+Json newChallenge(
+  MockApp app, {
+  required String purpose,
+  required String channel,
+  required String destination,
+  String? userId,
+  String? phone,
+  String outboxKind = 'code',
+}) {
   final id = 'chal-${app.db.next('challenge').toString().padLeft(4, '0')}';
   // rate limit: more than five codes to one destination inside one story minute
   final recent = app.db.raw('OtpChallenge').where((c) => c['destination'] == destination && instantMs(app.now) - instantMs(c.str('createdAt')) < 60000).length;
@@ -36,7 +46,7 @@ Json newChallenge(MockApp app, {required String purpose, required String channel
     app.outbox.add({
       'at': app.now,
       'to': destination,
-      'kind': 'code',
+      'kind': outboxKind,
       'purpose': purpose,
       'code': app.seed.extra.obj('credentials').str('otpCode'),
       'challengeId': id,
@@ -91,9 +101,9 @@ Json _newUser(MockApp app, {required String name, String? phone, String? email, 
 
 Json? _byPhone(MockApp app, String phone) => app.db.firstWhere('User', (u) => u['phone'] == phone && u['role'] == 'client');
 
-/// Resolves the partner user of an email: the persona emails, then staff accepted by invitation.
-Json? _partnerByEmail(MockApp app, String email) {
-  final e = email.toLowerCase();
+/// Resolves the partner user of an email: the persona emails, then staff accepted by invitation and applicants (`_email`).
+Json? partnerByEmail(MockApp app, String email) {
+  final e = email.trim().toLowerCase();
   for (final p in app.seed.extra.list('personas')) {
     if ((p['email'] as String?)?.toLowerCase() == e && p['userId'] != null) return app.db.get('User', p.str('userId'));
   }
@@ -194,7 +204,7 @@ Map<String, Handler> authHandlers(MockApp app) => {
   },
   'partnerLogin': (r) {
     final email = r.b.str('email');
-    final user = _partnerByEmail(app, email);
+    final user = partnerByEmail(app, email);
     if (user == null || r.b.str('password') != _partnerPassword(app, user)['password']) throw ApiError('CREDENTIALS_INVALID');
     final device = r.b.strOrNull('deviceId');
     final known = (user['_devices'] as List?)?.cast<String>() ?? const <String>[];
@@ -212,15 +222,15 @@ Map<String, Handler> authHandlers(MockApp app) => {
     consumeChallenge(app, c);
     final user = app.requireUser(c.str('userId'));
     final device = r.b.strOrNull('deviceId');
-    if (device != null) {
-      user['_devices'] = [...((user['_devices'] as List?) ?? const []), device];
-      app.db.put('User', user);
-    }
+    // The emailed code proves the address: an applicant of `submitPartnerApplication` is verified from here on.
+    if (user['_emailVerified'] == false) user['_emailVerified'] = true;
+    if (device != null) user['_devices'] = [...((user['_devices'] as List?) ?? const []), device];
+    app.db.put('User', user);
     return authSession(app, user.str('id'), deviceId: device);
   },
   'partnerForgotPassword': (r) {
     final email = r.b.str('email');
-    final user = _partnerByEmail(app, email);
+    final user = partnerByEmail(app, email);
     return newChallenge(app, purpose: 'reset_password', channel: 'email', destination: email, userId: user?.str('id'));
   },
   'partnerResetPassword': (r) {

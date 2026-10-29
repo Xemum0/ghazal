@@ -22,9 +22,8 @@ import 'widgets/voucher_terms.dart';
 /// The plate is the binding (venue, hall, package, date, the two prices and
 /// the saving); three knots say the model (pay KD 2 now, request at the
 /// voucher price, pay the venue directly); one line with a returns glyph and
-/// its info carries the reuse and credit terms. One primary: Pay KD 2. A guest
-/// sees the voucher price behind a lock and Sign in as the primary, returning
-/// to this quote. A voucher is never offered when the saving does not beat its
+/// its info carries the reuse and credit terms. One primary: Pay KD 2 (every
+/// client is signed in, ADR 0038). A voucher is never offered when the saving does not beat its
 /// price: a drawing, three words and Contact.
 class ClVchr01Screen extends ConsumerWidget {
   const ClVchr01Screen({super.key});
@@ -36,7 +35,6 @@ class ClVchr01Screen extends ConsumerWidget {
     final args = QuoteArgs.fromParams(nav.params);
     final async = ref.watch(voucherQuoteProvider(args));
     final quote = async.value;
-    final signedIn = ref.watch(sessionProvider.select((s) => s.isSignedIn));
     if (quote == null) {
       return Column(
         key: const ValueKey<String>('voucher.explainer'),
@@ -62,7 +60,7 @@ class ClVchr01Screen extends ConsumerWidget {
     if (tooSmall) return _TooSmall(quote: quote, offline: offline);
     final wallet = ref.watch(walletProvider).value ?? const <WalletItem>[];
     final config = ref.watch(voucherConfigProvider).value;
-    final owned = frame == 'already-owned' ? _heroOwned(wallet) : _matchingReady(wallet, quote, signedIn);
+    final owned = frame == 'already-owned' ? _heroOwned(wallet) : _matchingReady(wallet, quote);
     final fee = context.gzFormat.moneyBrowse(quote.feeFils);
     return Column(
       key: const ValueKey<String>('voucher.explainer'),
@@ -102,18 +100,14 @@ class ClVchr01Screen extends ConsumerWidget {
               GzButton(
                 key: const ValueKey<String>('voucher.explainer.pay'),
                 fullWidth: true,
-                label: owned != null ? l.clientVouchersSendRequest : signedIn ? l.clientVouchersPayFee(fee) : l.clientVouchersCtaSignIn,
+                label: owned != null ? l.clientVouchersSendRequest : l.clientVouchersPayFee(fee),
                 variant: GzButtonVariant.primary,
-                iconStart: signedIn ? null : GzIcons.lock,
                 onPressed: offline
                     ? null
                     : () {
                         if (owned != null) {
                           nav.closeSheet();
                           openRequestFor(nav, owned);
-                        } else if (!signedIn) {
-                          // A guest meets the account sheet ('CL-AUTH-01', opened by the gate) and returns to this quote.
-                          ref.requireSignIn(GateReason.voucher, resume: GateResume('CL-VCHR-01', quote.toParams()));
                         } else {
                           _toPayment(context, ref, nav, quote);
                         }
@@ -165,8 +159,7 @@ class ClVchr01Screen extends ConsumerWidget {
     nav.push('CL-MSGS-02', params: quote.isProvider ? <String, Object?>{'providerId': quote.targetId} : <String, Object?>{'venueId': quote.targetId});
   }
 
-  Voucher? _matchingReady(List<WalletItem> wallet, VoucherQuote quote, bool signedIn) {
-    if (!signedIn) return null;
+  Voucher? _matchingReady(List<WalletItem> wallet, VoucherQuote quote) {
     for (final i in wallet) {
       final v = i.voucher;
       if (v is Voucher && v.status == VoucherStatus.active && v.releaseReason == null && v.reuseUntil == null && v.venueOrProviderId == quote.targetId && v.packageId == quote.packageId && v.eventDate.toString() == quote.eventDate.toString()) {

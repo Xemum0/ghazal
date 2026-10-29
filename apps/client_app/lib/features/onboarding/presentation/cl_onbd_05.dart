@@ -4,7 +4,6 @@
 // switch. Budget: five bands as bare figures, a histogram of what the halls cost at that guest count, a range slider whose two values are
 // money, and the per-guest figure as a fact. Each half can be put off on its own (Later) and then shows a drawing row with the way back.
 // Continue writes both answers; Skip writes nothing.
-import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,7 +47,7 @@ class _ClOnbd05State extends ConsumerState<ClOnbd05Screen> {
   void initState() {
     super.initState();
     // The demo persona's answers start the form (docs/product/fixtures.md): 350 guests, KD 20,000 to 35,000.
-    final saved = ref.read(weddingDraftProvider);
+    final saved = ref.read(obdDraftProvider);
     final women = saved.guests?.women ?? 0;
     _split = (saved.guests?.men ?? 0) > 0;
     _guests = women > 0 ? women : ObdStory.guestsWomen;
@@ -59,7 +58,8 @@ class _ClOnbd05State extends ConsumerState<ClOnbd05Screen> {
         : (_dinars(ObdStory.budgetMinFils).toDouble(), _dinars(ObdStory.budgetMaxFils).toDouble());
   }
 
-  void _next() => context.gzNav.push('CL-ONBD-06', params: const {'live': true});
+  /// The last optional step (Done or Skip): the answers become the profile and the Brief, and Home opens.
+  void _next() => ref.finishOnboarding();
 
   void _confirm() {
     ref.commitGuestsBudget(
@@ -102,9 +102,9 @@ class _ClOnbd05State extends ConsumerState<ClOnbd05Screen> {
         : null;
 
     return GzScreen(
-      top: ObdStepBar(step: 3, total: 4, onSkip: _next),
+      top: ObdStepBar(step: 3, total: 3, onSkip: _next),
       bottom: GzActionBar(
-        action: GzActionBarAction(label: l10n.commonActionContinue, onPressed: _confirm),
+        action: GzActionBarAction(label: l10n.commonActionDone, onPressed: _confirm),
       ),
       child: Padding(
         padding: const EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: GzSpace.s2, bottom: GzSpace.s8),

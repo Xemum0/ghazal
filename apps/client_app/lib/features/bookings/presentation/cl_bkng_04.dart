@@ -191,7 +191,6 @@ class _ClBkng04State extends ConsumerState<ClBkng04Screen> {
     setState(() => _busy = false);
     res.when(
       success: (_) => setState(() => _step = _Step.accepted),
-      gated: () => context.gzNav.openSheet('CL-AUTH-01'),
       failure: (p) => context.gzNav.toast(GzToastSpec(message: gzProblemMessage(context.gzL10n, p), tone: GzToastTone.danger)),
     );
   }
@@ -206,7 +205,6 @@ class _ClBkng04State extends ConsumerState<ClBkng04Screen> {
     setState(() => _busy = false);
     res.when(
       success: (_) => setState(() => _step = _Step.declined),
-      gated: () => context.gzNav.openSheet('CL-AUTH-01'),
       failure: (p) => context.gzNav.toast(GzToastSpec(message: gzProblemMessage(context.gzL10n, p), tone: GzToastTone.danger)),
     );
   }

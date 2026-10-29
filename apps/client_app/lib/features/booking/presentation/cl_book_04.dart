@@ -17,7 +17,7 @@ import 'widgets/booking_async.dart';
 import 'widgets/booking_layout.dart';
 import 'widgets/step_scaffold.dart';
 
-/// CL-BOOK-04 Your details (step 4 of 5). Covers CA-BOOK-07, CA-BOOK-08, CA-AUTH-05, CA-AUTH-06, CA-AUTH-10.
+/// CL-BOOK-04 Your details (step 3 of 4). Covers CA-BOOK-07, CA-BOOK-08, CA-AUTH-05, CA-AUTH-06, CA-AUTH-10.
 ///
 /// Fields with one-word labels and no helpers. Who the booking is for is a two-glyph switch, the relation a row of glyph chips, the common
 /// special requests glyph chips whose words are accessible names, and who sees the phone is one sentence behind a "Privacy" row. A request
@@ -42,7 +42,7 @@ class _ClBook04State extends ConsumerState<ClBook04Screen> {
     void retry() => ref.invalidate(bookingFlowProvider);
     final failed = async.hasError && flow == null;
     return BookingStepScaffold(
-      step: 4,
+      step: 3,
       venueName: flow == null ? '' : context.bi(flow.venue.name),
       title: l10n.clientBookingDetailsTitle,
       showBar: !failed,

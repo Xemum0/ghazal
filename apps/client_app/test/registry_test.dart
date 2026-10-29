@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:client_app/app/app_router.dart';
+import 'package:client_app/app/client_router.dart';
 import 'package:client_app/app/screen_registry.dart';
 
 void main() {
@@ -24,7 +24,7 @@ void main() {
   });
 
   test('every registered screen has a named route at its path', () {
-    final router = buildAppRouter();
+    final router = buildClientRouter();
     addTearDown(router.dispose);
     for (final e in kScreenRegistry.entries) {
       expect(router.namedLocation(e.key), e.value.path, reason: e.key);

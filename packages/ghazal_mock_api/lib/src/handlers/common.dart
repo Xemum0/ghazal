@@ -20,7 +20,7 @@ Json meOf(MockApp app, String userId) {
     'user': publicUser(u),
     'permissions': perms.toList()..sort(),
     'phoneVerified': u['_phoneVerified'] != false,
-    'emailVerified': u['email'] != null,
+    'emailVerified': u['email'] != null && u['_emailVerified'] != false,
     'hasPassword': u['_password'] != null || u['role'] == 'client' || u['role'] == 'hotel_staff' || u['role'] == 'provider_staff',
     'marketingOptIn': u['_marketingOptIn'] == true || (app.db.peek('NotificationPreferences', userId)?['marketing'] == true),
   };

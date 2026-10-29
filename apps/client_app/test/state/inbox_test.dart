@@ -14,7 +14,7 @@ void main() {
   tearDown(StateWorld.disposeAll);
 
   group('notifications', () {
-    test('a guest has none and nothing is requested', () async {
+    test('signed out there is nothing to read and nothing is requested', () async {
       final c = world.container();
       world.control.setScenario('error'); // any call would fail
       final s = await c.read(notificationsProvider.future);
@@ -68,7 +68,7 @@ void main() {
   });
 
   group('tab badges', () {
-    test('a guest has no badges', () async {
+    test('signed out there are no badges', () async {
       final c = world.container(overrides: clientStateOverrides);
       expect(c.read(gzTabBadgesProvider), isEmpty);
     });

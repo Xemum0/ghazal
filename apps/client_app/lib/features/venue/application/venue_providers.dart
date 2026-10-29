@@ -24,7 +24,7 @@ final FutureProvider<List<AmenityDef>> venueAmenityDefsProvider = FutureProvider
   (ref) async => (await ref.watch(venuesRepositoryProvider).getFilterTaxonomy()).amenities,
 );
 
-/// The signed-in client's vouchers (a guest has none).
+/// The signed-in client's vouchers.
 final FutureProvider<List<Voucher>> venueWalletProvider = FutureProvider.autoDispose<List<Voucher>>((ref) async {
   ref.watch(clientDataRevisionProvider);
   if (!ref.watch(sessionProvider.select((s) => s.isSignedIn))) return const <Voucher>[];

@@ -105,7 +105,7 @@ void main() {
       expect(opened, 1);
     });
 
-    testWidgets('a signed-out visitor sees the standard price and the lock, never the voucher price', (tester) async {
+    testWidgets('no guest mode (ADR 0038): the deprecated guest audience still shows the voucher price and no lock', (tester) async {
       await pumpCore(
         tester,
         SizedBox(
@@ -113,8 +113,8 @@ void main() {
           child: GzVenueCard(venue: fx.venue('V01'), area: fx.areaOf('V01'), price: _exact, audience: GzPriceAudience.guest),
         ),
       );
-      expect(find.byIcon(GzIcons.lock), findsOneWidget);
-      expect(find.textContaining('15,400'), findsNothing);
+      expect(find.byIcon(GzIcons.lock), findsNothing);
+      expect(find.textContaining('15,400'), findsWidgets);
     });
 
     testWidgets('no reviews read New, never 0.0; a government hall shows the bank line and no rating', (tester) async {

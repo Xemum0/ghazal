@@ -1,12 +1,13 @@
 // HL-ACCS-02 Verify with an email code. Requirements: HA-AUTH-01, HA-SET-03, HA-SET-01 (ADR 0028 D5-D6, ADR 0012 D4).
-// One reusable code screen for four moments: first sign-in on a new device, password reset, the step-up check before high-risk actions (billing
-// details, inviting or removing staff; the caller pushes it with `{ mode: 'step-up', action }` and it pops on success), and the
-// authenticator code a venue admin adds on a new device. Six boxes, LTR in both languages, the sixth digit submits, resend after 60 s, a code
+// One reusable code screen for five moments: first sign-in on a new device, password reset, the step-up check before high-risk actions (billing
+// details, inviting or removing staff; the caller pushes it with `{ mode: 'step-up', action }` and it pops on success), the
+// authenticator code a venue admin adds on a new device, and the email of a new application (`{ mode: 'application' }`, pushed by HL-PROV-01 when a
+// signed-out applicant sends the form, PA-ACC-07 round 2b: the right code makes the account and the application, then HL-ACCS-04 shows it in review). Six boxes, LTR in both languages, the sixth digit submits, resend after 60 s, a code
 // lasts 5 minutes and allows 5 attempts. Back is always safe and keeps what was typed on the screen below.
 // Text diet (ADR 0034): one drawing says which moment it is (an envelope for a new device, a key for a reset, a shield for a step-up, a clock for the
 // authenticator, an hourglass for an expired code), a two-word title, the envelope with the masked email, six boxes, a
 // countdown figure (Resend at zero) and Resend. The authenticator step shows two knots on the thread instead of "Step 1 of 2". No sentence.
-// States: loading, error, expired, cooldown, delivery-failed, authenticator-step, success, offline, step-up, reset-mode.
+// States: loading, error, expired, cooldown, delivery-failed, authenticator-step, success, offline, step-up, reset-mode, application.
 import type { IconName } from '@gz/tokens'
 import { ActionBar, Icon, IconProgress, Screen, TopBar, type IllustrationName } from '../../../system'
 import { useT } from '../../../i18n'
@@ -14,14 +15,15 @@ import { hotelStaff } from '../../../mock'
 import { usePrototype } from '../../../shell/state'
 import { Head, NumberRow, StateNote } from './_components'
 import { CodeBody, useCode, type CodeStep, type CodeView } from './_components/CodePanel'
-import { DEMO_EMAIL, demoStaff, emailOf, maskEmail, staffById, useAccessFlow, useAccessMoves, useLive, useScreenState } from './_components/flow'
+import { useApplication } from '../provider/_components/application'
+import { DEMO_EMAIL, PROVIDER_EMAIL, demoStaff, emailOf, maskEmail, staffById, useAccessFlow, useAccessMoves, useLive, useScreenState } from './_components/flow'
 import './_components/access.css'
 import './_components/code-panel.css'
 import './HL-ACCS-02.css'
 
-export const states = ['loading', 'error', 'expired', 'cooldown', 'delivery-failed', 'authenticator-step', 'success', 'offline', 'step-up', 'reset-mode']
+export const states = ['loading', 'error', 'expired', 'cooldown', 'delivery-failed', 'authenticator-step', 'success', 'offline', 'step-up', 'reset-mode', 'application']
 
-type Mode = 'sign-in' | 'reset' | 'step-up'
+type Mode = 'sign-in' | 'reset' | 'step-up' | 'application'
 type Action = 'billing' | 'invite' | 'remove'
 
 const ACTION = {
@@ -44,7 +46,7 @@ export default function HlAccs02() {
   const params = nav.params as { mode?: Mode; action?: unknown; onVerified?: () => void }
   const flow = useAccessFlow()
 
-  const mode: Mode = state === 'step-up' ? 'step-up' : state === 'reset-mode' ? 'reset' : (params.mode ?? 'sign-in')
+  const mode: Mode = state === 'step-up' ? 'step-up' : state === 'reset-mode' ? 'reset' : state === 'application' ? 'application' : (params.mode ?? 'sign-in')
   const action = actionOf(params.action)
   const seedView = (VIEWS.includes(state ?? '') ? state : 'default') as CodeView
   const seedStep: CodeStep = state === 'authenticator-step' ? 'authenticator' : 'email'
@@ -55,7 +57,7 @@ export default function HlAccs02() {
   const needsAuthenticator = mode === 'sign-in' && (live ? staff?.role === 'admin' : state === 'authenticator-step')
   const me = hotelStaff.find(x => x.userId === signedUser?.id)
   const address =
-    mode === 'step-up' ? (me ? emailOf(me) : DEMO_EMAIL) : live && flow.email ? flow.email : DEMO_EMAIL
+    mode === 'step-up' ? (me ? emailOf(me) : DEMO_EMAIL) : live && flow.email ? flow.email : mode === 'application' ? PROVIDER_EMAIL : DEMO_EMAIL
 
   const verified = () => {
     if (mode === 'step-up') {
@@ -65,6 +67,11 @@ export default function HlAccs02() {
     } else if (mode === 'reset') {
       useAccessFlow.getState().setTrusted(true)
       nav.replace('HL-ACCS-03', { mode: 'reset' })
+    } else if (mode === 'application') {
+      // The email is proven: the account exists, this device is trusted, and the held form is now the application under review.
+      useAccessFlow.getState().setTrusted(true)
+      useApplication.getState().confirmPending()
+      complete(undefined)
     } else {
       useAccessFlow.getState().setTrusted(true)
       complete(staff)
@@ -77,7 +84,13 @@ export default function HlAccs02() {
 
   const masked = maskEmail(address)
 
-  const title = authenticator ? t('hotelAccessAuthTitle') : mode === 'step-up' ? t('hotelAccessStepupTitle') : t('hotelAccessVerifyTitle')
+  const title = authenticator
+    ? t('hotelAccessAuthTitle')
+    : mode === 'step-up'
+      ? t('hotelAccessStepupTitle')
+      : mode === 'application'
+        ? t('hotelAccessVerifyApplicationTitle')
+        : t('hotelAccessVerifyTitle')
   // The drawing says what moment this is; a failed delivery, an expired code or no connection swap it for their own.
   const art: IllustrationName =
     code.view === 'expired'
@@ -131,7 +144,7 @@ export default function HlAccs02() {
           </>
         )}
 
-        <CodeBody model={code} />
+        <CodeBody model={code} application={mode === 'application'} />
       </div>
     </Screen>
   )

@@ -5,10 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart'
     show
         ClientSession,
-        GateReason,
-        GateResume,
         GzAsyncView,
-        WidgetSessionGate,
         requestsRepositoryProvider,
         reviewsRepositoryProvider,
         sessionProvider;
@@ -26,7 +23,7 @@ import 'widgets/composer_parts.dart';
 ///
 /// Rate a completed booking: overall stars, four category scores, a comment,
 /// and optional photos that follow the no-people rule. Only a Completed
-/// booking opens it; a guest is asked to sign in at Send with the draft kept.
+/// booking opens it.
 /// States: default, ineligible, uploading, photo-rejected-people, submitting,
 /// success, media-under-review, error, offline-draft, already-reviewed.
 class ClRvrw02Screen extends ConsumerStatefulWidget {
@@ -327,11 +324,6 @@ class _ClRvrw02ScreenState extends ConsumerState<ClRvrw02Screen> {
 
   Future<void> _submit(String bookingId) async {
     if (_busy) return;
-    // A guest meets the sign-in sheet ('CL-AUTH-01', via requireSignIn) at Send with the draft kept.
-    if (!ref.read(sessionProvider).isSignedIn) {
-      ref.requireSignIn(GateReason.review, resume: GateResume('CL-RVRW-02', <String, Object?>{'bookingId': bookingId}));
-      return;
-    }
     setState(() {
       _busy = true;
       _failed = false;

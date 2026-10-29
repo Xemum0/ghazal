@@ -1,7 +1,6 @@
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show sessionProvider;
 import 'package:ghazal_core/ghazal_core.dart' show gzFormatProvider;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -16,7 +15,7 @@ import 'widgets/package_choice.dart';
 import 'widgets/quote_lines.dart';
 import 'widgets/step_scaffold.dart';
 
-/// CL-BOOK-02 Package (step 2 of 5). Covers CA-BOOK-04, CA-BOOK-06, CA-BOOK-14, CA-VDET-07, CA-VCH-02.
+/// CL-BOOK-02 Package (step 2 of 4). Covers CA-BOOK-04, CA-BOOK-06, CA-BOOK-14, CA-VDET-07, CA-VCH-02.
 ///
 /// Exactly one package, priced by the server for the date and guests in both columns. A voucher is bound to one package: the others are
 /// shown, and choosing one opens the voucher quote sheet; a package with no voucher price says it is not covered. The bar keeps the
@@ -58,7 +57,7 @@ class _ClBook02State extends ConsumerState<ClBook02Screen> {
       final blocked = noneFit || missing;
       action = GzActionBarAction(
         label: l10n.commonActionContinue,
-        onPressed: () => nav.push('CL-BOOK-03'),
+        onPressed: () => nav.push('CL-BOOK-04'),
         disabled: blocked,
         reason: !blocked || noneFit ? null : l10n.clientBookingPackageMissingReason,
       );
@@ -121,7 +120,6 @@ class _PackageList extends ConsumerWidget {
     final nav = context.gzNav;
     final f = ref.watch(gzFormatProvider);
     final sec = flow.section;
-    final guest = !ref.watch(sessionProvider.select((s) => s.isSignedIn));
 
     if (sec.options.isEmpty) {
       return StepSection(
@@ -161,7 +159,6 @@ class _PackageList extends ConsumerWidget {
               option: o,
               guests: sec.guests,
               selected: sec.chosen?.pkg.id == o.pkg.id,
-              guest: guest,
               elsewhere: flow.bound && sec.chosen?.pkg.id != o.pkg.id,
               onSelect: () => choose(o),
               onDetails: () =>

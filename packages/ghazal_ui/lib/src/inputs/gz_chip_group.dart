@@ -167,6 +167,7 @@ class _GzChipGroupState<V> extends State<GzChipGroup<V>> {
               countText: w.options[i].count,
               iconStart: w.options[i].icon,
               iconSize: GzIconSize.xs,
+              glyphInLabel: true,
               selected: selected.contains(w.options[i].value),
               disabled: flags[i],
               onPressed: () => _toggle(w.options[i].value),

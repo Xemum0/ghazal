@@ -399,7 +399,6 @@
       }
     }
   },
-  "commonLabelGuestVoucher": "سعر الكوبون بعد التسجيل",
   "commonRoleClient": "العميل",
   "commonRoleYou": "أنتم",
   "commonRoleHotelRep": "ممثل الفندق",
@@ -473,8 +472,6 @@
   "clientAuthSharedAccountReady": "الحساب جاهز",
   "clientAuthSharedPhone": "الجوال",
   "clientAuthSharedSendCode": "إرسال الرمز",
-  "clientAuthSharedDate": "التاريخ",
-  "clientAuthSharedGuests": "الضيوف",
   "clientAuthSharedLegalTerms": "شروط الاستخدام",
   "clientAuthSharedLegalPrivacy": "سياسة الخصوصية",
   "clientAuthSharedLegalNote": "النص الكامل قبل الإطلاق",
@@ -489,14 +486,6 @@
   "clientAuthSharedInfoTitle": "حسابكم",
   "clientAuthSharedPartnerNote": "فندق أو مقدم خدمة؟ استخدموا تطبيق غزل للشركاء.",
   "clientAuthSharedSmallPrint": "تسري <terms>شروط الاستخدام</terms> و<privacy>سياسة الخصوصية</privacy> عليكم، وتؤكدون موافقتكم عليهما عند إنشاء الحساب.",
-  "clientAuthReasonSendRequest": "إرسال الطلب",
-  "clientAuthReasonVoucher": "كوبون",
-  "clientAuthReasonVisit": "زيارة",
-  "clientAuthReasonChat": "رسالة",
-  "clientAuthReasonReview": "تقييم",
-  "clientAuthReasonPlanner": "استشارة",
-  "clientAuthReasonQuote": "عرض سعر",
-  "clientAuthReasonSave": "المفضلة",
   "clientAuthGateErrorDigits": "يلزم {count, plural, =0{لا أرقام} =1{رقم واحد} =2{رقمان} few{⁦{count}⁩ أرقام} many{⁦{count}⁩ رقمًا} other{⁦{count}⁩ رقم}}",
   "@clientAuthGateErrorDigits": {
     "placeholders": {
@@ -551,13 +540,15 @@
   "clientAuthOtpSendAgain": "إرسال مجددًا",
   "clientAuthOtpSuccessTitle": "تم التأكيد",
   "clientAuthOtpOpening": "جارٍ فتح واتساب",
-  "clientAuthNameTitle": "إنشاء حساب",
+  "clientAuthNameTitle": "نبذة عنكم",
   "clientAuthNameLabel": "الاسم",
   "clientAuthNamePlaceholder": "الاسم الكامل",
   "clientAuthNameEmailLabel": "البريد الإلكتروني",
+  "clientAuthNameSexLabel": "الجنس",
+  "clientAuthNameSexFemale": "أنثى",
+  "clientAuthNameSexMale": "ذكر",
   "clientAuthNameAccept": "أوافق",
   "clientAuthNameLegalTitle": "الشروط والخصوصية",
-  "clientAuthNameKept": "محفوظ في حسابكم",
   "clientAuthNameMonogram": "حرف اسمكم",
   "clientAuthPwdForgotTitle": "استعادة الدخول",
   "clientAuthPwdResetTitle": "كلمة مرور جديدة",
@@ -716,13 +707,6 @@
   "clientBookingPackageNoneAction": "تغيير العدد",
   "clientBookingPackageMissingReason": "اختاروا باقة",
   "clientBookingPackageBreakdownOpen": "عرض تفاصيل السعر",
-  "clientBookingExtrasTitle": "الإضافات",
-  "clientBookingExtrasInfoTitle": "الإضافات",
-  "clientBookingExtrasIncluded": "مشمولة",
-  "clientBookingExtrasNone": "بدون إضافات",
-  "clientBookingExtrasNoneOffered": "لا تقدّم هذه القاعة إضافات لحجزكم. يمكنكم المتابعة.",
-  "clientBookingExtrasLead": "اختيارية وتُحتسب بشكل منفصل، بسعر الكوبون حيثما توفّر لدى القاعة.",
-  "clientBookingExtrasSettledNote": "الإضافات تُسدَّد للقاعة مباشرةً.",
   "clientBookingDetailsTitle": "بياناتكم",
   "clientBookingNameLabel": "الاسم",
   "clientBookingNameError": "أضيفوا الاسم",
@@ -773,7 +757,6 @@
     }
   },
   "clientBookingReviewTitle": "المراجعة",
-  "clientBookingReviewExtras": "الإضافات",
   "clientBookingReviewContact": "جهة الاتصال",
   "clientBookingReviewPackage": "الباقة",
   "clientBookingReviewPriceNote": "السعر شامل ويُثبَّت عند الإرسال. لا مبلغ إضافي لغزل، وبعد التأكيد تدفعون للقاعة مباشرةً.",
@@ -822,8 +805,6 @@
   "clientBookingVoucherCardTitle": "الكوبون",
   "clientBookingVoucherChange": "تغيير الكوبون",
   "clientBookingVoucherValid": "صالح حتى",
-  "clientBookingQuoteChanged": "تغيّر إجمالي طلبكم منذ حصولكم على الكوبون بسبب الإضافات التي اخترتموها. الكوبون ما زال ساريًا.",
-  "clientBookingQuoteChangedShort": "تغيّر الإجمالي",
   "clientBookingSentTitle": "تم إرسال الطلب",
   "clientBookingSentInfoTitle": "طلبكم",
   "clientBookingSentBody": "لم يُحجز التاريخ بعد. إذا وافق {venue}، نثبّته لكم {count, plural, =0{لا ساعات} =1{ساعة} =2{ساعتين} few{⁦{count}⁩ ساعات} many{⁦{count}⁩ ساعة} other{⁦{count}⁩ ساعة}} لتؤكدوا الحجز. كوبونكم مرفق بالطلب.",
@@ -1014,8 +995,6 @@
   "clientBookingsPastNone": "لا طلبات بهذه الحالة",
   "clientBookingsLimitLabel": "الطلبات المفتوحة",
   "clientBookingsLimitReached": "أغلقوا طلبًا لإرسال آخر",
-  "clientBookingsGuestTitle": "تابعوا طلباتكم",
-  "clientBookingsGuestAction": "تسجيل الدخول",
   "clientBookingsEmptyTitle": "لا طلبات بعد",
   "clientBookingsEmptyAction": "تصفح القاعات",
   "clientBookingsEmptyActionDate": "قاعات {date}",
@@ -1371,20 +1350,8 @@
   "clientDiscoverBrowseAll": "كل القاعات",
   "clientDiscoverBriefLabel": "تفاصيل زفافكم",
   "clientDiscoverBriefChooseDate": "التاريخ",
-  "clientDiscoverBriefChooseArea": "المنطقة",
   "clientDiscoverBriefAddGuests": "الضيوف",
   "clientDiscoverBriefSetBudget": "الميزانية",
-  "clientDiscoverBriefAreaMore": "{first} +{more}",
-  "@clientDiscoverBriefAreaMore": {
-    "placeholders": {
-      "first": {
-        "type": "String"
-      },
-      "more": {
-        "type": "String"
-      }
-    }
-  },
   "clientDiscoverCtaCount": "{count, plural, =0{عرض القاعات} =1{عرض قاعة} =2{عرض قاعتين} few{عرض ⁦{count}⁩ قاعات} many{عرض ⁦{count}⁩ قاعة} other{عرض ⁦{count}⁩ قاعة}}",
   "@clientDiscoverCtaCount": {
     "placeholders": {
@@ -1397,7 +1364,7 @@
   "clientDiscoverCtaShow": "عرض القاعات",
   "clientDiscoverCtaNearest": "أقرب التواريخ",
   "clientDiscoverResultsTitle": "القاعات",
-  "clientDiscoverResultsSearchPlaceholder": "قاعة أو منطقة",
+  "clientDiscoverResultsSearchPlaceholder": "قاعة أو محافظة",
   "clientDiscoverResultsFilters": "التصفية",
   "clientDiscoverResultsClearAll": "مسح",
   "clientDiscoverResultsRemoveChip": "إزالة {name}",
@@ -1433,7 +1400,6 @@
   "clientDiscoverSortPrice": "الأقل سعرًا",
   "clientDiscoverSortPriceDesc": "الأعلى سعرًا",
   "clientDiscoverSortDistance": "الأقرب",
-  "clientDiscoverChipAreasAll": "كل المناطق",
   "clientDiscoverChipRating": "{rating}+",
   "@clientDiscoverChipRating": {
     "placeholders": {
@@ -1500,7 +1466,6 @@
   "clientDiscoverBriefBack": "العودة إلى تفاصيل زفافكم",
   "clientDiscoverBriefDateTitle": "التاريخ",
   "clientDiscoverBriefDateFlexible": "أي شهر",
-  "clientDiscoverBriefAreaTitle": "المنطقة",
   "clientDiscoverBriefGuestsTitle": "الضيوف",
   "clientDiscoverBriefGuestsPresets": "اختيارات سريعة",
   "clientDiscoverBriefGuestsSection": "البحث عن",
@@ -1516,9 +1481,6 @@
     }
   },
   "clientDiscoverBriefDone": "تم",
-  "clientDiscoverMergeTitle": "تفاصيل مختلفة",
-  "clientDiscoverMergePhone": "هذا الهاتف",
-  "clientDiscoverMergeAccount": "حسابكم",
   "clientDiscoverMapTitle": "الخريطة",
   "clientDiscoverMapPins": "القاعات على الخريطة",
   "clientDiscoverMapCluster": "{count, plural, =0{لا قاعات هنا} =1{قاعة واحدة هنا، اضغطوا للتقريب} =2{قاعتان هنا، اضغطوا للتقريب} few{⁦{count}⁩ قاعات هنا، اضغطوا للتقريب} many{⁦{count}⁩ قاعة هنا، اضغطوا للتقريب} other{⁦{count}⁩ قاعة هنا، اضغطوا للتقريب}}",
@@ -1533,10 +1495,10 @@
   "clientDiscoverMapZoomOut": "عرض كل القاعات",
   "clientDiscoverMapLocate": "موقعي",
   "clientDiscoverMapSearchArea": "بحث هنا",
-  "clientDiscoverMapDenied": "قرب {area}",
+  "clientDiscoverMapDenied": "قرب {place}",
   "@clientDiscoverMapDenied": {
     "placeholders": {
-      "area": {
+      "place": {
         "type": "String"
       }
     }
@@ -1550,22 +1512,25 @@
   "clientDiscoverWeekTitle": "هذا الأسبوع",
   "clientDiscoverCardGetVoucher": "شراء كوبون",
   "clientDiscoverCardView": "عرض",
-  "clientDiscoverChipRegion": "المنطقة",
+  "clientDiscoverChipRegion": "المحافظة",
   "clientDiscoverChipDate": "التاريخ",
   "clientDiscoverChipVoucher": "كوبون",
   "clientDiscoverSortVoucher": "سعر الكوبون",
   "clientDiscoverMapVoucherPin": "سعر الكوبون",
-  "clientDiscoverFiltersGroupRegion": "المنطقة",
+  "clientDiscoverFiltersGroupRegion": "{count, plural, =0{المحافظات} =1{المحافظات · ⁦{count}⁩} =2{المحافظات · ⁦{count}⁩} few{المحافظات · ⁦{count}⁩} many{المحافظات · ⁦{count}⁩} other{المحافظات · ⁦{count}⁩}}",
+  "@clientDiscoverFiltersGroupRegion": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
   "clientDiscoverFiltersGroupStructure": "التسعير",
   "clientDiscoverFiltersGroupDate": "التاريخ",
   "clientDiscoverFiltersGroupVoucher": "سعر الكوبون",
   "clientDiscoverFiltersDateOpen": "التقويم",
   "clientDiscoverFiltersVoucherTitle": "كوبون فقط",
-  "clientDiscoverBriefAreaAll": "الكل",
-  "clientDiscoverBriefAreaClearGroup": "مسح",
-  "clientDiscoverRegionPlaceholder": "منطقة أو قاعة",
-  "clientDiscoverRegionNear": "قريب مني",
-  "clientDiscoverRegionListLabel": "المحافظات والمناطق",
   "clientDiscoverDatesTitle": "التواريخ",
   "clientDiscoverDatesFlexible": "أي شهر",
   "clientDiscoverDatesHint": "حتى {days, plural, =0{لا أيام} =1{يوم} =2{يومين} few{⁦{days}⁩ أيام} many{⁦{days}⁩ يومًا} other{⁦{days}⁩ يوم}}",
@@ -1599,7 +1564,6 @@
   "clientDiscoverA11yTimeLeft": "الوقت المتبقي",
   "clientDiscoverA11yUpdated": "آخر تحديث",
   "clientDiscoverA11yDrive": "مدة القيادة",
-  "clientDiscoverMergeKeep": "اعتماد",
   "clientDiscoverA11yDaysLeft": "الأيام المتبقية",
   "clientDiscoverMinutes": "{minutes} د",
   "@clientDiscoverMinutes": {
@@ -1628,6 +1592,29 @@
       }
     }
   },
+  "clientDiscoverBriefChooseGovernorate": "المحافظة",
+  "clientDiscoverBriefGovernorateMore": "{first} +{more}",
+  "@clientDiscoverBriefGovernorateMore": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "more": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverBriefGovernorateTitle": "{count, plural, =0{المحافظات} =1{المحافظات · ⁦{count}⁩} =2{المحافظات · ⁦{count}⁩} few{المحافظات · ⁦{count}⁩} many{المحافظات · ⁦{count}⁩} other{المحافظات · ⁦{count}⁩}}",
+  "@clientDiscoverBriefGovernorateTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverBriefGovernorateLabel": "المحافظات",
+  "clientDiscoverChipGovernoratesAll": "كل المحافظات",
   "clientMessagesInboxTitle": "الرسائل",
   "clientMessagesBellUnread": "{count, plural, =0{الإشعارات} =1{الإشعارات، إشعار واحد غير مقروء} =2{الإشعارات، إشعاران غير مقروءين} few{الإشعارات، ⁦{count}⁩ إشعارات غير مقروءة} many{الإشعارات، ⁦{count}⁩ إشعارًا غير مقروء} other{الإشعارات، ⁦{count}⁩ إشعار غير مقروء}}",
   "@clientMessagesBellUnread": {
@@ -1680,8 +1667,6 @@
   "clientMessagesEmptyTitle": "لا رسائل بعد",
   "clientMessagesEmptyAction": "تصفح القاعات",
   "clientMessagesEmptySupport": "الدعم",
-  "clientMessagesGuestLabel": "تسجيل الدخول لمتابعة الرسائل",
-  "clientMessagesGuestAction": "تسجيل الدخول",
   "clientMessagesVisitMembers": "أعضاء المحادثة",
   "clientMessagesInfoTitle": "التفاصيل",
   "clientMessagesRepliesWithin": "{hours, plural, =0{يرد عادةً في وقت قصير} =1{يرد عادةً خلال ساعة} =2{يرد عادةً خلال ساعتين} few{يرد عادةً خلال ⁦{hours}⁩ ساعات} many{يرد عادةً خلال ⁦{hours}⁩ ساعة} other{يرد عادةً خلال ⁦{hours}⁩ ساعة}}",
@@ -1741,7 +1726,6 @@
     }
   },
   "clientMessagesSuggestVoucherAny": "السلام عليكم، ممكن تعطوننا سعر الكوبون للحفل النسائي؟",
-  "clientMessagesSupportIntro": "أهلًا بكم، كيف نخدمكم؟",
   "clientMessagesBlockedNote": "محظورة",
   "clientMessagesUnblock": "إلغاء الحظر",
   "clientMessagesUnblockedToast": "تم إلغاء الحظر",
@@ -2012,8 +1996,6 @@
   "clientMyWeddingToolBudgetOver": "تجاوز",
   "clientMyWeddingToolSaved": "المفضلة",
   "clientMyWeddingToolServices": "الخدمات",
-  "clientMyWeddingGuestAction": "تسجيل الدخول",
-  "clientMyWeddingSample": "نموذج",
   "clientMyWeddingUpdated": "آخر تحديث",
   "clientMyWeddingDateDiffersLabel": "تاريخ الحجز",
   "clientMyWeddingDateDiffersAction": "اعتماد التاريخ",
@@ -2248,7 +2230,7 @@
   "clientOnboardingIntroSlide3Title": "كوبون بسعر أقل",
   "clientOnboardingIntroStart": "البدء",
   "clientOnboardingInfoTitle": "إجاباتكم",
-  "clientOnboardingInfoBody": "كلها اختيارية، وتبقى على هذا الجهاز إلى حين التسجيل. يمكن تعديلها في أي وقت من حسابكم.",
+  "clientOnboardingInfoBody": "كلها اختيارية، ويمكن تعديلها في أي وقت من حسابكم.",
   "clientOnboardingAboutTitle": "من يخطط؟",
   "clientOnboardingAboutRoleLabel": "الصفة",
   "clientOnboardingAboutRoleBride": "العروس",
@@ -2329,28 +2311,6 @@
   },
   "clientOnboardingBudgetRange": "نطاق ميزانية مخصص",
   "clientOnboardingSkipHalf": "لاحقًا",
-  "clientOnboardingAreasTitle": "المناطق",
-  "clientOnboardingAreasSearch": "البحث عن منطقة",
-  "clientOnboardingAreasSelected": "{count, plural, =0{لم تُحدد مناطق} =1{منطقة واحدة محددة} =2{منطقتان محددتان} few{⁦{count}⁩ مناطق محددة} many{⁦{count}⁩ منطقة محددة} other{⁦{count}⁩ منطقة محددة}}",
-  "@clientOnboardingAreasSelected": {
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "decimalPattern"
-      }
-    }
-  },
-  "clientOnboardingAreasDemoQuery": "مشر",
-  "clientOnboardingAreasMore": "{count, plural, =0{لا مناطق أخرى} =1{منطقة أخرى} =2{منطقتان أخريان} few{⁦{count}⁩ مناطق أخرى} many{⁦{count}⁩ منطقة أخرى} other{⁦{count}⁩ منطقة أخرى}}",
-  "@clientOnboardingAreasMore": {
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "decimalPattern"
-      }
-    }
-  },
-  "clientOnboardingAreasNoHallsNote": "لا قاعات هنا. تظهر كل القاعات.",
   "clientOnboardingLanguageNativeAr": "العربية",
   "clientOnboardingLanguageNativeEn": "English",
   "clientPaymentTopTitle": "الدفع",
@@ -2526,7 +2486,6 @@
   "clientPlannerRequestConsultation": "طلب استشارة",
   "clientPlannerNotNowToast": "متاحة دائمًا في زفافكم",
   "clientPlannerOtherPlanners": "منسّقون آخرون",
-  "clientPlannerGuestSignIn": "تسجيل الدخول",
   "clientPlannerRetryToast": "تعذّر الاتصال",
   "clientPlannerRequestTitle": "استشارة",
   "clientPlannerRequestChange": "تغيير الباقة",
@@ -2632,7 +2591,6 @@
   "clientProfileSharedSupport": "الدعم",
   "clientProfileSharedTerms": "الشروط",
   "clientProfileSharedPrivacy": "الخصوصية",
-  "clientProfileSharedSignIn": "تسجيل الدخول",
   "clientProfileSharedSignOut": "تسجيل الخروج",
   "clientProfileSharedSignOutTitle": "تسجيل الخروج؟",
   "clientProfileSharedSignOutStay": "البقاء",
@@ -2682,7 +2640,6 @@
   "clientProfileWedLadies": "نسائي",
   "clientProfileWedMen": "رجالي",
   "clientProfileWedBudget": "القاعة والضيافة",
-  "clientProfileWedAreas": "المناطق",
   "clientProfileWedTotal": "الميزانية الكاملة",
   "clientProfileWedDiffersAction": "اعتماد التاريخ",
   "clientProfileWedDateUpdated": "تم التحديث",
@@ -2850,6 +2807,10 @@
   "clientProfileDelScheduledTitle": "الحذف مجدول",
   "clientProfileDelScheduledCancel": "إلغاء الحذف",
   "clientProfileDelScheduledCancelled": "الحذف ملغى",
+  "clientProfilePersSex": "الجنس",
+  "clientProfilePersSexFemale": "أنثى",
+  "clientProfilePersSexMale": "ذكر",
+  "clientProfileWedGovernorates": "المحافظات",
   "clientReviewsRewardsStarCount": "{count, plural, =0{لا نجوم} =1{نجمة واحدة} =2{نجمتان} few{⁦{count}⁩ نجوم} many{⁦{count}⁩ نجمة} other{⁦{count}⁩ نجمة}}",
   "@clientReviewsRewardsStarCount": {
     "placeholders": {
@@ -2894,8 +2855,6 @@
   "clientReviewsRewardsListTitle": "التقييمات",
   "clientReviewsRewardsListWrite": "كتابة تقييم",
   "clientReviewsRewardsListEvent": "مناسبتكم",
-  "clientReviewsRewardsListSignIn": "تسجيل الدخول",
-  "clientReviewsRewardsListSignInName": "لتقييم مناسبتكم",
   "clientReviewsRewardsListInfoTitle": "تقييمات موثّقة",
   "clientReviewsRewardsListInfoReal": "التقييم لمن أتمّ حجزه فقط.",
   "clientReviewsRewardsListInfoVenue": "للقاعة ردّ واحد، ولا يمكنها تعديل التقييم أو حذفه.",
@@ -3046,8 +3005,6 @@
   },
   "clientSavedCompareSavedUnlisted": "غير مدرجة",
   "clientSavedCompareSavedRemoved": "تمت الإزالة",
-  "clientSavedCompareSavedGuestBanner": "على هذا الهاتف فقط",
-  "clientSavedCompareSavedGuestSignIn": "تسجيل الدخول",
   "clientSavedCompareLastUpdated": "آخر تحديث",
   "clientSavedCompareSavedEmptyVenuesTitle": "لا قاعات محفوظة",
   "clientSavedCompareSavedEmptyVenuesAction": "استكشاف القاعات",
@@ -3231,7 +3188,6 @@
       }
     }
   },
-  "clientServicesArea": "المنطقة",
   "clientServicesProviders": "المقدّمون",
   "clientServicesSoon": "قريبًا",
   "clientServicesVoucherAvailable": "أسعار الكوبون متاحة",
@@ -3253,7 +3209,6 @@
   "clientServicesHubMoreHeading": "المزيد",
   "clientServicesHubPlannerTitle": "تنسيق الأعراس",
   "clientServicesHubSavedTitle": "المحفوظ",
-  "clientServicesHubGovernmentNote": "أضيفوا الضيافة والديكور",
   "clientServicesHubVoucherLine": "احصلوا على كوبون غزل بقيمة {fee} من صفحة مقدّم الخدمة لتفتحوا أسعارًا أقل. الدفع لمقدّم الخدمة مباشرةً دائمًا.",
   "@clientServicesHubVoucherLine": {
     "placeholders": {
@@ -3377,7 +3332,6 @@
   "clientServicesQuoteNotePlaceholder": "ملاحظة",
   "clientServicesQuoteSend": "إرسال الطلب",
   "clientServicesQuoteDateError": "التاريخ مطلوب",
-  "clientServicesQuoteGuestNote": "سجّلوا الدخول للإرسال",
   "clientServicesQuoteThreadExists": "يضاف إلى المحادثة",
   "clientServicesQuoteErrorTitle": "تعذّر الإرسال",
   "clientServicesQuoteErrorBody": "لم يضع شيء مما كتبتموه.",
@@ -3424,6 +3378,20 @@
     }
   },
   "clientServicesListRefreshed": "تم تحديث القائمة",
+  "clientServicesProviderNote": "هل أنت مزوّد خدمة؟ قدّم طلبك في تطبيق الشريك",
+  "clientServicesProviderNoteAction": "تقديم",
+  "clientServicesProviderNoteOpens": "يفتح متجر تطبيق الشريك",
+  "clientServicesGovernorate": "المحافظة",
+  "clientServicesGovernorateTitle": "{count, plural, =0{المحافظات} =1{المحافظات · ⁦{count}⁩} =2{المحافظات · ⁦{count}⁩} few{المحافظات · ⁦{count}⁩} many{المحافظات · ⁦{count}⁩} other{المحافظات · ⁦{count}⁩}}",
+  "@clientServicesGovernorateTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientServicesArea": "المنطقة",
   "clientShellTabBarLabel": "التنقل الرئيسي",
   "clientShellTabDiscover": "استكشف",
   "clientShellTabSaved": "المفضلة",
@@ -3447,12 +3415,10 @@
       }
     }
   },
-  "clientShellGreetingAnonymous": "أهلًا وسهلًا",
   "clientShellBriefTitle": "تفاصيل زفافكم",
   "clientShellBriefEditLabel": "تعديل التاريخ والضيوف والمنطقة والميزانية",
   "clientShellBriefDate": "التاريخ",
   "clientShellBriefGuests": "عدد الضيوف",
-  "clientShellBriefArea": "المنطقة",
   "clientShellBriefBudget": "ميزانية القاعة والضيافة",
   "clientShellBriefNotDecided": "لم يتحدد",
   "clientShellBriefFlexibleMonth": "شهر مرن",
@@ -3629,7 +3595,6 @@
   "clientVenuePkgIncludes": "المشمولات",
   "clientVenuePkgIncludesAll": "عرض كل المشمولات",
   "clientVenuePkgMenu": "القائمة",
-  "clientVenuePkgExtras": "إضافات",
   "clientVenuePkgSave": "حفظ الباقة",
   "clientVenuePkgSaved": "إزالة الباقة من المحفوظات",
   "clientVenuePkgTierWeekday": "أيام الأسبوع",
@@ -3668,7 +3633,7 @@
   "clientVenueFacilitiesTitle": "المرافق",
   "clientVenueFacilitiesAll": "كل المرافق",
   "clientVenueFacIncluded": "مشمول",
-  "clientVenueFacExtra": "إضافة",
+  "clientVenueFacExtra": "برسوم إضافية",
   "clientVenueFacOff": "غير متوفر",
   "clientVenuePoliciesTitle": "السياسات",
   "clientVenuePolicyTerms": "الشروط",
@@ -3746,17 +3711,6 @@
       }
     }
   },
-  "clientVenueContactTitle": "تواصل",
-  "clientVenueContactCalling": "اتصال: {venue}",
-  "@clientVenueContactCalling": {
-    "placeholders": {
-      "venue": {
-        "type": "String"
-      }
-    }
-  },
-  "clientVenueContactWhatsapp": "فتح واتساب",
-  "clientVenueContactChat": "مراسلة",
   "clientVenueCalTitle": "التواريخ",
   "clientVenueCalMonthJump": "الانتقال إلى شهر",
   "clientVenueCalMonthTitle": "الشهر",
@@ -3904,7 +3858,6 @@
   "clientVenueGovRuleKnet": "KNET",
   "clientVenueGovAvail": "التطبيق الرسمي",
   "clientVenueGovCtaOfficial": "الحجز الرسمي",
-  "clientVenueGovCtaCatering": "خدمات الحفل",
   "clientVenueGovLeaveTitle": "مغادرة غزل",
   "clientVenueGovLeaveBody": "الحجز والدفع عبر القناة الرسمية، ولا تضمنه غزل.",
   "clientVenueGovLeaveToast": "فتح القناة الرسمية",
@@ -3995,8 +3948,6 @@
   "clientVisitsPhotoViewer": "الصور",
   "clientVisitsGetVoucher": "الكوبون",
   "clientVisitsConfirmedToast": "الموعد مؤكد",
-  "clientVisitsGuestTitle": "زياراتكم",
-  "clientVisitsGuestAction": "تسجيل الدخول",
   "clientVisitsMsgSending": "جاري الإرسال",
   "clientVisitsMsgQueued": "بانتظار الاتصال",
   "clientVisitsMsgDelete": "حذف",
@@ -4187,7 +4138,6 @@
   },
   "clientVouchersCreditDeclined": "لم يصدر كوبون رصيد",
   "clientVouchersCreditIssuedBody": "أصدر الدعم لكم كوبون رصيد، يصلح لدى أي قاعة أو فندق أو خدمة.",
-  "clientVouchersCtaSignIn": "تسجيل الدخول",
   "clientVouchersDetailTitle": "الكوبون",
   "clientVouchersEmptyHistory": "لا سجل",
   "clientVouchersEmptyReady": "لا كوبونات",
@@ -4212,7 +4162,6 @@
   },
   "clientVouchersGetAnother": "كوبون آخر",
   "clientVouchersGetVoucher": "شراء كوبون",
-  "clientVouchersGuestTitle": "كوبوناتكم",
   "clientVouchersHistPaid": "الدفع",
   "clientVouchersHistRequested": "الطلب",
   "clientVouchersHistReturned": "عاد",

@@ -7,10 +7,10 @@ import 'voucher_model.dart';
 import 'voucher_quote.dart' show voucherConfigProvider;
 
 /// The signed-in client's vouchers in the server's wallet order (a ready credit voucher first, then the bound ones by state, the ended
-/// credit vouchers last); a guest has none. Refetches after every write (`clientDataRevisionProvider`).
+/// credit vouchers last). Refetches after every write (`clientDataRevisionProvider`).
 final FutureProvider<List<WalletItem>> walletProvider = FutureProvider.autoDispose<List<WalletItem>>((ref) async {
   ref.watch(clientDataRevisionProvider);
-  if (!ref.watch(sessionProvider.select((s) => s.isSignedIn))) return const <WalletItem>[];
+  ref.watch(clientUserIdProvider); // another account on this phone starts from its own wallet
   final page = await ref.watch(vouchersRepositoryProvider).listVouchers(limit: 50);
   return page.items;
 });

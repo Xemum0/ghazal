@@ -47,6 +47,26 @@ final FutureProvider<List<ServiceCategory>> serviceCategoriesProvider = FuturePr
   return all;
 });
 
+/// What the application form (HL-PROV-01) needs besides the person's typing: the governorates (configuration, `GET /areas`), the registered
+/// categories and, for "Edit and resubmit", the application of the active account. Loaded together so the form shows once, or one state.
+@immutable
+final class ApplicationSetup {
+  const ApplicationSetup({required this.governorates, required this.categories, this.application});
+  final List<Governorate> governorates;
+  final List<ServiceCategory> categories;
+  final PartnerApplication? application;
+}
+
+final FutureProvider<ApplicationSetup> applicationSetupProvider = FutureProvider.autoDispose<ApplicationSetup>((ref) async {
+  final got = await Future.wait<Object?>(<Future<Object?>>[
+    ref.read(venuesRepositoryProvider).listAreas(),
+    ref.read(servicesRepositoryProvider).listServiceCategories(),
+    ref.watch(partnerApplicationProvider.future),
+  ]);
+  final cats = got[1]! as ServiceCategoriesResponse;
+  return ApplicationSetup(governorates: (got[0]! as AreasResponse).governorates, categories: <ServiceCategory>[...cats.primary, ...cats.secondary], application: got[2] as PartnerApplication?);
+});
+
 /// Which listing a screen is about: the route's id, else the first listing in one of [prefer] (in order), else the first listing.
 @immutable
 final class ListingPick {

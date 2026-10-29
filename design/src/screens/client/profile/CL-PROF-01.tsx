@@ -5,8 +5,10 @@
 // of the row (vouchers ready, visits ahead, saved halls), the request is a status glyph, Receipts shows the KD 2 paid to Ghazal (ADR 0033).
 // Every row goes somewhere: Wedding (CL-PROF-02), Bookings, Vouchers, Visits, Receipts, Saved, Personal info (CL-PROF-03), Notifications
 // (CL-PROF-04), the language sheet (Profile tab, Language row, choose: three taps, ADR 0007 D7), Settings (CL-PROF-05), the pinned Support
-// thread and the in-app reader for Terms and Privacy, then the provider note (ProviderNote, CA-SVC-20: "Service provider? Apply in the Partner app",
-// a quiet external-link row that opens nothing in the prototype). Sign out asks first and returns to the sign-in screen: there is no signed-out
+// thread and the in-app reader for Terms and Privacy. The provider note (ProviderNote variant `row`, CA-SVC-20, round 2b, moved up in R3: "Service
+// provider? Apply in the Partner app" as ONE row of visible text with an accent "Apply" and a chevron at its end, on a full-width rose band) sits right
+// under the identity header (after the scheduled-deletion note when there is one), inside the first screen at 390x844 (it used to end the help
+// list, about 1240 dp down); it opens the Partner app store page, a toast in the prototype. Sign out asks first and returns to the sign-in screen: there is no signed-out
 // Profile (ADR 0038, no guest mode).
 // In the live prototype the status glyph follows the story (pending, approved with the hours to confirm, confirmed as the hotel app and the
 // client move it); a static frame shows it pending unless `?state=` names another.
@@ -25,6 +27,7 @@ export const states = ['loading', 'offline', 'sign-out-confirm', 'language-sheet
 
 export default function ProfileHub() {
   const t = useT('client-profile')
+  const tServices = useT('client-services')
   const c = useT('common')
   const f = useFormat()
   const nav = useNav()
@@ -60,6 +63,9 @@ export default function ProfileHub() {
               <Skeleton inlineSize={160} blockSize={28} />
               <Skeleton inlineSize={120} blockSize={20} />
             </div>
+          </div>
+          <div className="gzpr-pad">
+            <Skeleton blockSize={80} />
           </div>
           <div className="gzpr-pad">
             <Skeleton blockSize={112} />
@@ -134,6 +140,11 @@ export default function ProfileHub() {
         </div>
       ) : null}
 
+      {/* The provider note, ONE row right under the identity header (and the scheduled-deletion note): inside the first screen, not at the end of the help list. */}
+      <div className="gzpr-note" data-gz-id="provider-note-slot">
+        <ProviderNote onOpen={() => nav.toast({ message: tServices('clientServicesProviderNoteOpens') })} />
+      </div>
+
       <div className="gzpr-pad">
         <div className="gzpr-card" data-gz="WeddingCard" data-gz-id="group.wedding">
           <IconListRow
@@ -197,7 +208,6 @@ export default function ProfileHub() {
         <IconListRow icon="chat-text" title={t('clientProfileSharedSupport')} chevron onClick={() => nav.push('CL-MSGS-02', { conversationId: 'conv-support-reem' })} />
         {termsRow}
         {privacyRow}
-        <ProviderNote />
       </div>
 
       <div className="gzpr-pad">

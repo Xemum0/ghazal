@@ -103,13 +103,6 @@ void main() {
     expect(find.byType(GzOfflineState), findsOneWidget, reason: 'the offline state is its own state');
   });
 
-  flowTest('guest: the sample structure with a sign-in at the first write', (tester) async {
-    final c = await openScreen(tester, 'CL-WEDD-01', persona: 'guest');
-    await settle(tester, flush: true);
-    expect(shows(en.clientMyWeddingSample), isTrue);
-    expect(currentId(c), 'CL-WEDD-01');
-  });
-
   flowTest('arabic: the hub renders right to left with no overflow', (tester) async {
     await openScreen(tester, 'CL-WEDD-01', locale: const Locale('ar'));
     await settle(tester, flush: true);

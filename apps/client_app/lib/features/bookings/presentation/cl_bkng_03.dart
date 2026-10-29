@@ -273,7 +273,6 @@ class _ClBkng03State extends ConsumerState<ClBkng03Screen> {
         _locked = _kind(facts, variant, null);
         setState(() => _step = _Step.done);
       },
-      gated: () => context.gzNav.openSheet('CL-AUTH-01'),
       failure: (_) => setState(() => _failed = true),
     );
   }

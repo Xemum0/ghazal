@@ -1,10 +1,11 @@
 // The services flow on the real router and the in-process mock: the hub, the vendor list with its filters, the vendor
 // profile and the quote sheet, driven by real taps. Bounded: no wait is longer than a few seconds of fake time.
 import 'package:client_app/app/state/state.dart';
+import 'package:client_app/features/services/application/services_providers.dart' show ServFilter, ServQuery, servicesAreasProvider, servicesFilterProvider, servicesFilteredProvider;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart';
-import 'package:ghazal_domain/ghazal_domain.dart' show LocalDate, SavedType;
+import 'package:ghazal_domain/ghazal_domain.dart' show SavedType;
 
 import '../../support/flow_world.dart';
 
@@ -32,9 +33,30 @@ void main() {
       await settle(tester);
     });
 
-    flowTest('the government link lands with its short line', (tester) async {
+    flowTest('the note right under the switch tells a service provider where to apply and opens the Partner app store page', (tester) async {
+      final opened = <Uri>[];
+      await openScreen(
+        tester,
+        'CL-SERV-01',
+        size: const Size(390, 1800),
+        overrides: [
+          openExternalUrlProvider.overrideWithValue((uri) async {
+            opened.add(uri);
+            return true;
+          }),
+        ],
+      );
+      const note = 'Service provider? Apply in the Partner app';
+      expect(shows(note), isTrue);
+      await tapText(tester, note, ms: 400);
+      expect(opened, hasLength(1));
+      expect(opened.single.scheme, 'https');
+    });
+
+    flowTest('the hub no longer claims to be where the governmental-facility link lands', (tester) async {
       await openScreen(tester, 'CL-SERV-01', params: {'context': 'government'});
-      expect(shows('Add catering and decor'), isTrue);
+      expect(shows('Add catering and decor'), isFalse);
+      expect(onScreen('services.hub'), isTrue);
     });
   });
 
@@ -68,6 +90,23 @@ void main() {
       expect(onScreen('services.filters'), isFalse, reason: 'the sheet applied and closed');
     });
 
+    flowTest('the filter sheet offers the governorates the category works in, never an area; one chosen counts as one filter', (tester) async {
+      final c = await openScreen(tester, 'CL-SERV-02', params: {'categoryId': 'photography'});
+      await tapLabel(tester, 'Filter');
+      expect(onScreen('services.filters'), isTrue);
+      expect(find.descendant(of: find.byKey(const ValueKey<String>('services.filters')), matching: find.text('Salmiya')), findsNothing, reason: 'no exact area in the sheet');
+      final vendors = c.read(servicesFilteredProvider(const ServQuery('photography', ServFilter()))).value!;
+      final first = c.read(servicesAreasProvider).value!.governorates.firstWhere((g) => g.id == vendors.first.governorateId);
+      final chip = find.descendant(of: find.byKey(const ValueKey<String>('services.filters')), matching: find.text(first.name.en!));
+      expect(chip, findsWidgets, reason: 'a governorate chip');
+      await tester.tap(chip.first, warnIfMissed: false);
+      await settle(tester);
+      await tapText(tester, 'Show');
+      await settle(tester);
+      expect(c.read(servicesFilterProvider('photography')).governorateIds, contains(first.id));
+      expect(c.read(servicesFilterProvider('photography')).appliedCount, 1);
+    });
+
     flowTest('Arabic: the list reads with the voucher pairs', (tester) async {
       await openScreen(tester, 'CL-SERV-02', params: {'categoryId': 'photography'}, locale: const Locale('ar'));
       expect(find.byKey(const ValueKey<String>('services.vendor.vendor-photography-lamha')), findsOneWidget);
@@ -89,13 +128,11 @@ void main() {
       expect(shows('Request quote'), isTrue);
     });
 
-    flowTest('Request quote opens the quote sheet; a guest meets the account sheet', (tester) async {
-      final c = await openScreen(tester, 'CL-SERV-03', params: {'vendorId': 'vendor-photography-lamha'}, persona: 'guest');
+    flowTest('Request quote opens the quote sheet over the profile', (tester) async {
+      final c = await openScreen(tester, 'CL-SERV-03', params: {'vendorId': 'vendor-photography-lamha'});
       await scrollTo(tester, find.text('Request quote').first);
       await tapText(tester, 'Request quote');
-      final gate = c.read(gateProvider);
-      expect(gate, isNotNull, reason: 'the gate opened');
-      expect(gate!.reason, GateReason.quote);
+      expect(currentId(c), 'CL-SERV-04');
     });
   });
 
@@ -121,16 +158,5 @@ void main() {
       expect(onScreen('services.quote.success'), isFalse);
     });
 
-    flowTest('a guest pressing Send meets the account sheet with the quote reason', (tester) async {
-      final c = await openScreen(tester, 'CL-SERV-04', params: {'vendorId': 'vendor-photography-lamha'}, persona: 'guest');
-      c.read(searchBriefProvider.notifier).update((b) => b.copyWith(date: const LocalDate(2027, 1, 14), guests: 350));
-      await settle(tester);
-      await scrollTo(tester, find.text('Send request'));
-      await tapText(tester, 'Send request');
-      final gate = c.read(gateProvider);
-      expect(gate, isNotNull, reason: 'the gate opened');
-      expect(gate!.reason, GateReason.quote);
-      expect(gate.resume?.routeName, 'CL-SERV-04');
-    });
   });
 }

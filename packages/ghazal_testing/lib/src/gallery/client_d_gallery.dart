@@ -9,7 +9,6 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_mock_api/ghazal_mock_api.dart' show packagePrice, JsonRead;
-import 'package:ghazal_ui/src/client/client_bits.dart' show GzPriceAudience;
 import 'package:ghazal_ui/src/client/client_d.dart';
 import 'package:ghazal_ui/src/core/core.dart';
 import 'package:ghazal_ui/src/foundation.dart';
@@ -96,16 +95,25 @@ class ClientDData {
       'V04-villa-night': priceOf('V04-villa-night', 'V04', 'V04-garden', 20, 120),
     };
 
-    final extras = engine.extrasFor('V01');
-    final kosha = extras.firstWhere((e) => e['category'] == 'kosha', orElse: () => extras.first);
-    final rich = await reem.venues.quoteVenue(
+    // Many lines (ADR 0038: no extras on a venue quote any more): the package and a KD 500 venue discount, through the same engine call
+    // as the web gallery's `quoteFor`.
+    final richJson = engine.quoteFor(
       venueId: 'V01',
-      body: VenueQuoteInput(
-        eventDate: LocalDate.parse('2027-01-21'),
-        sections: const [QuoteSectionInput(hallId: 'V01-danah', audience: Audience.women, guests: 400, packageId: 'V01-ladies-weekend')],
-        extras: [QuoteExtraInput(extraId: kosha['id'] as String, qty: 1)],
-      ),
+      eventDate: '2027-01-21',
+      sections: const [
+        {'hallId': 'V01-danah', 'audience': 'women', 'guests': 400, 'packageId': 'V01-ladies-weekend'},
+      ],
+      venueDiscount: const {'fils': 500000, 'currency': 'KWD'},
     );
+    // The wire form of an engine quote (the mock handler's `wireQuote`, not exported): the target and the offer flag.
+    final rich = Quote.fromJson({
+      'targetType': 'venue',
+      'targetId': 'V01',
+      'eventDate': richJson['eventDate'],
+      'lines': richJson['lines'],
+      'totals': richJson['totals'],
+      'voucherOffered': richJson['voucherEligible'],
+    }.cast<String, Object?>());
     final stress = jsonDecode(File(p.join(_root(), 'packages/contracts/fixtures/stress/bookings.json')).readAsStringSync()) as Map<String, dynamic>;
     final extreme = Booking.fromJson({'version': 1, 'allowedActions': <Object?>[], ...((stress['bookings'] as List).first as Map).cast<String, Object?>()});
     final venue = await reem.venues.getVenue(venueId: 'V01');
@@ -249,7 +257,7 @@ Widget _bookingCardSection(BuildContext c, ClientDData d) => cdSection(
 
 Widget _packageCardSection(BuildContext c, ClientDData d) {
   Package pk(String id) => d.packages[id]!;
-  GzPackageCard card(String id, {int guests = 350, bool selected = false, bool unavailable = false, bool loading = false, bool guest = false, GzPreviewState? preview, Package? pkg, bool select = true}) => GzPackageCard(
+  GzPackageCard card(String id, {int guests = 350, bool selected = false, bool unavailable = false, bool loading = false, GzPreviewState? preview, Package? pkg, bool select = true}) => GzPackageCard(
     pkg: pkg ?? pk(id),
     price: loading ? null : d.prices[id],
     guests: guests,
@@ -257,7 +265,6 @@ Widget _packageCardSection(BuildContext c, ClientDData d) {
     onSelect: select ? () {} : null,
     unavailable: unavailable,
     loading: loading,
-    audience: guest ? GzPriceAudience.guest : GzPriceAudience.member,
     previewState: preview,
   );
   final weekend = pk('V01-ladies-weekend');
@@ -286,7 +293,6 @@ Widget _packageCardSection(BuildContext c, ClientDData d) {
         card('V07-hall-only'),
         card('V04-villa-night', guests: 120),
       ]),
-      cdSpec(c, cdL(c, 'Guest (signed out): the standard price and a locked voucher line', 'زائر (غير مسجّل): السعر العادي وسطر كوبون مقفل'), [card('V01-ladies-weekend', guest: true)]),
       cdSpec(c, cdL(c, 'Unavailable on the date · long name · loading', 'غير متاحة في التاريخ · اسم طويل · تحميل'), [
         card('V01-ladies-signature', unavailable: true, select: false),
         card('V01-ladies-weekend', pkg: longName),
@@ -319,7 +325,7 @@ Widget _priceBreakdownSection(BuildContext c, ClientDData d) {
         bd(b('redeemed').lines, b('redeemed').totals, GzBreakdownStage.redeemed, showLines: false),
         bd(b('redeemed').lines, b('redeemed').totals, GzBreakdownStage.redeemed, showLines: false, showSettlement: false, venue: ''),
       ]),
-      cdSpec(c, cdL(c, 'Many lines: package, extra and service charge', 'أسطر كثيرة: باقة وإضافة ورسوم خدمة'), [bd(d.rich.lines, d.rich.totals, GzBreakdownStage.review)]),
+      cdSpec(c, cdL(c, 'Many lines: package and a venue discount', 'أسطر كثيرة: باقة وخصم من القاعة'), [bd(d.rich.lines, d.rich.totals, GzBreakdownStage.review)]),
       cdSpec(c, cdL(c, 'Stress: a very large total', 'ضغط: إجمالي كبير جدًا'), [bd(d.extreme.lines, d.extreme.totals, GzBreakdownStage.review, showLines: false)]),
       cdSpec(c, cdL(c, 'Loading', 'التحميل'), [bd(story.lines, story.totals, GzBreakdownStage.review, loading: true)]),
     ],

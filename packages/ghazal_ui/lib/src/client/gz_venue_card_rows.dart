@@ -46,7 +46,7 @@ class _CompactRow extends StatelessWidget {
             const SizedBox(height: GzSpace.s1),
             Align(
               alignment: AlignmentDirectional.centerStart,
-              child: GzCardPriceLine(price: price, audience: card.audience, lean: true),
+              child: GzCardPriceLine(price: price, lean: true),
             ),
           ],
           if (saved && card.priceDropped) ...[

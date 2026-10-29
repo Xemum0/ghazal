@@ -8,6 +8,7 @@ import '../db/mock_db.dart';
 import '../domain/applications.dart';
 import '../domain/notify.dart';
 import '../engine/engine.dart';
+import 'auth.dart' show newChallenge, partnerByEmail;
 import 'common.dart';
 import 'partner_common.dart';
 
@@ -84,6 +85,12 @@ Json _ownApplication(MockApp app, Req r) {
   return deepCopy(pick);
 }
 
+/// One partner account per email: an existing partner user (personas, accepted staff, applicants of any status) or a colleague already on a team.
+bool _emailTaken(MockApp app, String email) {
+  final e = email.trim().toLowerCase();
+  return partnerByEmail(app, e) != null || app.db.raw('StaffMember').any((s) => (s['email'] as String?)?.toLowerCase() == e);
+}
+
 Map<String, Handler> partnerAccountHandlers(MockApp app) => {
   'getPartnerMe': (r) => _partnerMe(app, r),
   'chooseAccountType': (r) {
@@ -96,6 +103,46 @@ Map<String, Handler> partnerAccountHandlers(MockApp app) => {
     }
     app.logEvent('partner_account_created', {'accountId': accountId, 'type': type});
     return _partnerMe(app, r);
+  },
+  // The public application (round 2b, OQ-R2-11): no session. Order matters: the business information (422), then the email (409), then the code
+  // (429 creates nothing), then the user, the account and the pending application. The code goes to the outbox as `partner_application_verify`;
+  // `partnerVerifyCode` answers it and opens the session (no venue, application `pending`).
+  'submitPartnerApplication': (r) {
+    final account = r.b.obj('account');
+    final accountType = r.b.str('accountType');
+    final form = r.b.obj('application');
+    final email = account.str('email').trim();
+    checkApplicationForm(app, form, accountType, at: '/application');
+    if (_emailTaken(app, email)) throw ApiError('EMAIL_ALREADY_REGISTERED');
+    final userId = 'user-a${app.db.next('user').toString().padLeft(3, '0')}';
+    final challenge = newChallenge(
+      app,
+      purpose: 'verify_email',
+      channel: 'email',
+      destination: email,
+      userId: userId,
+      outboxKind: 'partner_application_verify',
+    );
+    final contact = form.str('contactName').trim();
+    app.db.put('User', {
+      'id': userId,
+      'role': accountType == 'venue' ? 'hotel_staff' : 'provider_staff',
+      'name': contact,
+      'nameLatin': null,
+      'monogram': contact.isEmpty ? '?' : String.fromCharCode(contact.runes.first).toUpperCase(),
+      'phone': form['phone'],
+      'email': email,
+      'locale': account.str('locale'),
+      'digitStyle': 'western',
+      'createdAt': app.now,
+      '_email': email.toLowerCase(),
+      '_password': account.str('password'),
+      '_phoneVerified': true,
+      '_emailVerified': false,
+    });
+    final created = submitApplication(app, userId: userId, accountType: accountType, form: form, at: '/application');
+    app.logEvent('partner_application_submitted', {'applicationId': created.application['id'], 'accountId': created.accountId, 'type': accountType});
+    return challenge;
   },
   'switchPartnerContext': (r) {
     final ms = app.membershipsOf(r.userId);

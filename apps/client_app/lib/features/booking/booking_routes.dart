@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import 'presentation/cl_book_01.dart';
 import 'presentation/cl_book_02.dart';
-import 'presentation/cl_book_03.dart';
 import 'presentation/cl_book_04.dart';
 import 'presentation/cl_book_05.dart';
 import 'presentation/cl_book_06.dart';
@@ -17,7 +16,6 @@ import 'presentation/cl_book_10.dart';
 List<RouteBase> get bookingRoutes => <RouteBase>[
   GoRoute(path: '/booking/your-event', name: 'CL-BOOK-01', builder: (BuildContext context, GoRouterState state) => const ClBook01Screen()),
   GoRoute(path: '/booking/package', name: 'CL-BOOK-02', builder: (BuildContext context, GoRouterState state) => const ClBook02Screen()),
-  GoRoute(path: '/booking/extras', name: 'CL-BOOK-03', builder: (BuildContext context, GoRouterState state) => const ClBook03Screen()),
   GoRoute(path: '/booking/your-details', name: 'CL-BOOK-04', builder: (BuildContext context, GoRouterState state) => const ClBook04Screen()),
   GoRoute(path: '/booking/review', name: 'CL-BOOK-05', builder: (BuildContext context, GoRouterState state) => const ClBook05Screen()),
   GoRoute(path: '/booking/request-sent', name: 'CL-BOOK-06', builder: (BuildContext context, GoRouterState state) => const ClBook06Screen()),

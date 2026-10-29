@@ -21,6 +21,7 @@ class CodePanel extends StatelessWidget {
     required this.onComplete,
     required this.onResend,
     required this.onSupport,
+    this.application = false,
     this.autofocus = false,
     super.key,
   });
@@ -36,6 +37,9 @@ class CodePanel extends StatelessWidget {
   final VoidCallback onSupport;
   final bool autofocus;
 
+  /// The email of a new application: the success title says the email is verified, no trust fact (nothing was trusted yet).
+  final bool application;
+
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
@@ -46,13 +50,15 @@ class CodePanel extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            GzSuccessState(title: l.hotelAccessVerifySuccessTitle, fill: false, size: GzIllustrationSize.hero, flush: true),
-            const SizedBox(height: GzSpace.s1),
-            GzFactChip(
-              icon: GzIcons.shieldCheck,
-              label: l.hotelAccessVerifyTrustDays(kTrustDays),
-              value: l.hotelAccessVerifyTrustFact(f.integer(kTrustDays)),
-            ),
+            GzSuccessState(title: application ? l.hotelAccessVerifyApplicationDone : l.hotelAccessVerifySuccessTitle, fill: false, size: GzIllustrationSize.hero, flush: true),
+            if (!application) ...[
+              const SizedBox(height: GzSpace.s1),
+              GzFactChip(
+                icon: GzIcons.shieldCheck,
+                label: l.hotelAccessVerifyTrustDays(kTrustDays),
+                value: l.hotelAccessVerifyTrustFact(f.integer(kTrustDays)),
+              ),
+            ],
           ],
         ),
       );

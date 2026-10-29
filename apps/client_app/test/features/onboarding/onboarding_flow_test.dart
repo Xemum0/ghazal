@@ -1,6 +1,7 @@
-// The first start through the real router and the in-process mock: language, intro, who, date, guests and budget, areas, then Home with the
-// Brief filled; skip paths; the five states of the areas step; the sign-in link; one Arabic run.
+// The first run through the real router and the in-process mock (ADR 0038): language, intro, sign-in, About you, then the three optional
+// steps (who, date, guests and budget) and Home with the Brief filled; skip paths; the sign-in link; one Arabic run.
 import 'package:client_app/app/state/state.dart';
+import 'package:client_app/features/onboarding/application/onboarding_profile.dart' show obdDraftProvider;
 import 'package:client_app/features/onboarding/application/onboarding_state.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,28 +26,42 @@ void main() {
     expect(top(t), 'CL-ONBD-02');
   });
 
-  flowTest('the whole first start: answers reach the draft and the Brief, Home opens', (t) async {
+  flowTest('the whole first run: language, intro, sign-in, About you, the three optional steps, then Home with the Brief filled', (t) async {
     await openScreen(t, 'CL-ONBD-01');
     await tapText(t, en.commonActionContinue);
-    // three slides: Next, Next, Get started
+    // three slides: Next, Next, Get started (which goes to the sign-in, never to Home)
     expect(find.text(en.clientOnboardingIntroSlide1Title), findsOneWidget);
     await tapText(t, en.commonActionNext, ms: 600);
     expect(find.text(en.clientOnboardingIntroSlide2Title), findsWidgets);
     await tapText(t, en.commonActionNext, ms: 600);
     await tapText(t, en.clientOnboardingIntroStart);
+    expect(top(t), 'CL-AUTH-01');
+
+    // a new number: the code, then About you
+    await t.enterText(find.byType(EditableText).first, '50001234');
+    await t.pump();
+    await tapText(t, en.clientAuthSharedSendCode, ms: 1500);
+    expect(top(t), 'CL-AUTH-02');
+    await t.enterText(find.byType(EditableText).first, '123456');
+    await settle(t, wait: const Duration(milliseconds: 2500));
+    expect(top(t), 'CL-AUTH-03');
+    await t.enterText(find.byType(EditableText).first, 'Nora Al-Salem');
+    await tapText(t, en.clientAuthNameSexFemale, ms: 300);
+    await tapText(t, en.clientAuthNameAccept, ms: 300);
+    await tapText(t, en.commonActionContinue, ms: 600);
+    await settle(t, wait: const Duration(milliseconds: 2500));
     expect(top(t), 'CL-ONBD-03');
 
-    // who is planning
-    await tapText(t, en.clientOnboardingAboutRoleBride, ms: 300);
-    await t.enterText(find.byType(EditableText).at(0), 'Reem Al-Dosari');
+    // who is planning: the name comes from the account and the role is suggested from the sex (a chip the person can change)
+    final c = container(t);
+    expect(find.text('Nora Al-Salem'), findsWidgets, reason: 'the name is prefilled from the account');
     await t.enterText(find.byType(EditableText).at(1), 'Fahad Al-Shammari');
     await t.pump();
     await tapText(t, en.commonActionContinue);
     expect(top(t), 'CL-ONBD-04');
-    final c = container(t);
-    expect(c.read(weddingDraftProvider).role, WeddingRole.bride);
-    expect(c.read(weddingDraftProvider).brideName, 'Reem Al-Dosari');
-    expect(c.read(weddingDraftProvider).partnerName, 'Fahad Al-Shammari');
+    expect(c.read(obdDraftProvider).role, WeddingRole.bride, reason: 'female suggests the bride');
+    expect(c.read(obdDraftProvider).brideName, 'Nora Al-Salem');
+    expect(c.read(obdDraftProvider).partnerName, 'Fahad Al-Shammari');
 
     // the date: a day of the visible month
     final sem = t.ensureSemantics();
@@ -54,63 +69,62 @@ void main() {
     sem.dispose();
     await tapText(t, en.commonActionContinue);
     expect(top(t), 'CL-ONBD-05');
-    expect(c.read(weddingDraftProvider).dateMode, DateMode.exact);
-    expect(c.read(weddingDraftProvider).weddingDate?.day, 25);
+    expect(c.read(obdDraftProvider).dateMode, DateMode.exact);
+    expect(c.read(obdDraftProvider).weddingDate?.day, 25);
 
-    // guests and budget: the demo answers are the start, a preset moves the count
+    // guests and budget, the last step: a preset moves the count, Done writes the profile and opens Home
+    ignoreRenderErrors = true; // Home belongs to the discover flow
     await tapText(t, '500', ms: 300);
-    await tapText(t, en.commonActionContinue);
-    expect(top(t), 'CL-ONBD-06');
-    expect(c.read(weddingDraftProvider).guests?.women, 500);
-    expect(c.read(weddingDraftProvider).venueBudget?.min.fils, 20000000);
-
-    // areas: the live route sets none by itself; pick Salmiya and finish
-    expect(find.textContaining(en.commonCountHalls(21).replaceAll('21', '')), findsWidgets);
-    for (var i = 0; i < 3; i++) {
-      await tapText(t, 'Salmiya', ms: 800); // picked, un-picked, picked: a live toggle
-    }
-    final brief0 = c.read(weddingDraftProvider);
-    expect(brief0.areaIds ?? const <String>[], isEmpty, reason: 'areas are written only when the step is confirmed');
-    await t.tap(find.byWidgetPredicate((x) => x is GzButton && x.iconEnd == GzIcons.arrowRight));
-    await settle(t);
+    await tapText(t, en.commonActionDone);
+    await settle(t, wait: const Duration(milliseconds: 1500));
     expect(top(t), 'CL-DISC-01');
     final brief = c.read(searchBriefProvider);
-    expect(brief.areaIds, <String>['salmiya']);
     expect(brief.guests, 500);
     expect(brief.date?.day, 25);
     expect(brief.audience?.value, 'women');
+    expect(brief.governorateIds, isEmpty, reason: 'no region is asked at onboarding: the Brief sheet on Home asks for governorates');
+    final profile = await t.runAsync(() => c.read(weddingRepositoryProvider).getWeddingProfile());
+    expect(profile!.guests.women, 500);
+    expect(profile.brideName, 'Nora Al-Salem');
   });
 
-  flowTest('skip: from the intro Home opens with an empty Brief; from a step the answers stay untouched', (t) async {
+  flowTest('the intro: Skip goes to the sign-in screen, never to Home', (t) async {
     await openScreen(t, 'CL-ONBD-02');
     await tapText(t, en.commonActionSkip);
+    expect(top(t), 'CL-AUTH-01');
+    expect(container(t).read(sessionProvider).isSignedIn, isFalse);
+  });
+
+  flowTest('skip on a step goes on without writing; back returns', (t) async {
+    await openScreen(t, 'CL-ONBD-04', persona: 'new_client');
+    await tapText(t, en.commonActionSkip);
+    expect(top(t), 'CL-ONBD-05');
+    expect(container(t).read(obdDraftProvider.notifier).isEmpty, isTrue);
+    await t.tap(find.byKey(const ValueKey<String>('gz:bar.back')).first, warnIfMissed: false);
+    await settle(t, wait: const Duration(milliseconds: 800));
+    expect(top(t), 'CL-ONBD-04');
+  });
+
+  flowTest('skipping the last step writes nothing and opens Home with an empty Brief', (t) async {
+    await openScreen(t, 'CL-ONBD-05', persona: 'new_client');
+    ignoreRenderErrors = true; // Home belongs to the discover flow
+    await tapText(t, en.commonActionSkip);
+    await settle(t, wait: const Duration(milliseconds: 1500));
     expect(top(t), 'CL-DISC-01');
     expect(container(t).read(searchBriefProvider).isEmpty, isTrue);
   });
 
-  flowTest('skip on a step goes on without writing; back returns', (t) async {
-    await openScreen(t, 'CL-ONBD-03');
-    await t.enterText(find.byType(EditableText).at(0), 'Someone');
-    await tapText(t, en.commonActionSkip);
-    expect(top(t), 'CL-ONBD-04');
-    expect(container(t).read(weddingDraftProvider).brideName, isNull);
-    await t.tap(find.byKey(const ValueKey<String>('gz:bar.back')).first, warnIfMissed: false);
-    await settle(t, wait: const Duration(milliseconds: 800));
-    expect(top(t), 'CL-ONBD-03');
-  });
-
-  flowTest('the sign-in link opens the sign-in sheet as a plain sign-in and the sheet dismisses', (t) async {
+  flowTest('the sign-in link opens the sign-in screen and Back returns to the language', (t) async {
     await openScreen(t, 'CL-ONBD-01');
     await tapText(t, en.clientOnboardingLanguageSignIn);
     expect(top(t), 'CL-AUTH-01');
-    expect(container(t).read(gateProvider), isNull);
-    nav(t).closeSheet();
+    nav(t).pop();
     await settle(t, wait: const Duration(milliseconds: 800));
     expect(top(t), 'CL-ONBD-01');
   });
 
   flowTest('date step: undecided replaces the grid, flexible opens the month sheet', (t) async {
-    await openScreen(t, 'CL-ONBD-04');
+    await openScreen(t, 'CL-ONBD-04', persona: 'new_client');
     expect(find.byType(GzCalendar), findsOneWidget);
     await tapText(t, en.clientOnboardingDateNotDecided, ms: 500);
     expect(find.byType(GzCalendar), findsNothing);
@@ -120,11 +134,11 @@ void main() {
     expect(find.text(en.clientOnboardingDateFlexibleTitle), findsOneWidget);
     await tapText(t, en.commonActionDone, ms: 800);
     await tapText(t, en.commonActionContinue);
-    expect(container(t).read(weddingDraftProvider).dateMode, DateMode.flexibleMonth);
+    expect(container(t).read(obdDraftProvider).dateMode, DateMode.flexibleMonth);
   });
 
   flowTest('guests step: Later puts a half off, Add brings it back; the split shows two steppers', (t) async {
-    await openScreen(t, 'CL-ONBD-05');
+    await openScreen(t, 'CL-ONBD-05', persona: 'new_client');
     expect(find.textContaining('350', findRichText: true), findsWidgets);
     await tapText(t, en.clientOnboardingSkipHalf, ms: 400);
     expect(find.text(en.commonActionAdd), findsOneWidget);
@@ -133,28 +147,6 @@ void main() {
     await t.tap(find.byType(GzSwitch), warnIfMissed: false);
     await settle(t, wait: const Duration(milliseconds: 400));
     expect(find.byType(GzStepper), findsNWidgets(2));
-  });
-
-  flowTest('areas step: search finds by alias, no match is the empty state, an offline count says so', (t) async {
-    await openScreen(t, 'CL-ONBD-06');
-    expect(find.text('Sharq'), findsWidgets);
-    await t.enterText(find.byType(EditableText).first, 'Mishrif');
-    await settle(t, wait: const Duration(milliseconds: 500));
-    expect(find.text('Mishref'), findsWidgets);
-    await t.enterText(find.byType(EditableText).first, 'zzzz');
-    await settle(t, wait: const Duration(milliseconds: 500));
-    expect(find.text(en.commonStateTitleEmptySearch), findsOneWidget);
-  });
-
-  flowTest('areas step: loading shows a skeleton, an error shows the error state with a retry that recovers', (t) async {
-    await openScreen(t, 'CL-ONBD-06', state: 'error');
-    // the API retries a failed read three times (about 2 s of fake time); give it room
-    await settle(t, wait: const Duration(milliseconds: 6000));
-    expect(find.byType(GzErrorState), findsOneWidget);
-    flowControl.setScenario('none');
-    await t.tap(find.byType(GzButton).last, warnIfMissed: false);
-    await settle(t, wait: const Duration(milliseconds: 1500));
-    expect(find.byType(GzErrorState), findsNothing);
   });
 
   flowTest('language step offline: the sign-in link is disabled and the screen still works', (t) async {
@@ -172,12 +164,5 @@ void main() {
     expect(Directionality.of(t.element(find.byType(GzScreen).first)), TextDirection.rtl);
     await tapText(t, ar.commonActionNext, ms: 600);
     expect(find.text(ar.clientOnboardingIntroSlide2Title), findsWidgets);
-  });
-
-  flowTest('Arabic run: the areas step lists the Arabic names and the title', (t) async {
-    await openScreen(t, 'CL-ONBD-06', locale: const Locale('ar'));
-    expect(find.text('السالمية'), findsWidgets);
-    expect(find.text(ar.clientOnboardingAreasTitle), findsOneWidget);
-    expect(Directionality.of(t.element(find.byType(GzScreen).first)), TextDirection.rtl);
   });
 }

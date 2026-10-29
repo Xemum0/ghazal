@@ -20,7 +20,6 @@ class ServProfileBody extends ConsumerStatefulWidget {
   const ServProfileBody({
     required this.vendor,
     required this.pkg,
-    required this.guest,
     required this.date,
     required this.guests,
     required this.dateError,
@@ -38,7 +37,6 @@ class ServProfileBody extends ConsumerStatefulWidget {
 
   final ServiceProvider vendor;
   final ProviderPackage? pkg;
-  final bool guest;
   final LocalDate? date;
   final int? guests;
   final bool dateError;
@@ -129,7 +127,7 @@ class _ServProfileBodyState extends ConsumerState<ServProfileBody> {
               ),
               if (best != null) ...[
                 const SizedBox(height: GzSpace.s3 + GzSpace.s1),
-                ServPriceStack(standard: best.price.fils, voucher: _voucherOf(best), categoryId: v.categoryId, guest: widget.guest, inline: true),
+                ServPriceStack(standard: best.price.fils, voucher: _voucherOf(best), categoryId: v.categoryId, inline: true),
               ],
               const SizedBox(height: GzSpace.section),
               GzText(about, role: GzTextRole.body, color: c.textPrimary, maxLines: _aboutOpen ? null : 2),
@@ -174,7 +172,6 @@ class _ServProfileBodyState extends ConsumerState<ServProfileBody> {
                     chosen: v.packages[i].id == pkg?.id,
                     onChoose: () => widget.onChoose(v.packages[i].id),
                     voucher: _voucherOf(v.packages[i]),
-                    guest: widget.guest,
                     favourite: ref.watch(isFavouriteProvider((SavedType.package, v.packages[i].id))),
                     onFavourite: () => ref.read(favouritesProvider.notifier).toggle(SavedType.package, v.packages[i].id),
                   ),

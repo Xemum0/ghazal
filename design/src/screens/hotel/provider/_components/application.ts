@@ -3,6 +3,8 @@
 // round trip: the form the person sent, the status, and the staff decision. Staff decisions are played by the prototype-only tray of HL-ACCS-04
 // (the same pattern as the moderator tray of HL-PROV-06). A static frame never writes it; `none` means "no application in this session" and is
 // treated like an accepted account (the seeded partners), so nothing else in the app changes.
+// Signed out (round 2b): the form is also how the account is made. Submit holds it as `pending` (the account exists, the email is not yet verified);
+// the email code of HL-ACCS-02 confirms it, and only then it becomes the application under review.
 import { create } from 'zustand'
 import { clock, getProvider, getVenue, personaFor, users } from '../../../../mock'
 import type { Bilingual, ServiceCategoryId } from '../../../../mock'
@@ -103,22 +105,30 @@ export const nameOfForm = (f: Pick<ApplicationForm, 'nameAr' | 'nameEn'>): Bilin
 type AppState = {
   status: ApplicationStatus
   form: ApplicationForm | null
+  /** A signed-out applicant's form, waiting for the email code (PA-ACC-07, round 2b). Never a status: nothing is under review until the email is verified. */
+  pending: ApplicationForm | null
   submittedAt: string | null
   decidedAt: string | null
   reasons: ApplicationReason[]
   /** The staff note, written in the language the viewer used when the decision was played. */
   note: string
   submit: (form: ApplicationForm) => void
+  setPending: (form: ApplicationForm | null) => void
+  /** The email code was right: the held form becomes the application under review. */
+  confirmPending: () => void
   approve: () => void
   reject: (reasons: ApplicationReason[], note: string) => void
   reset: () => void
 }
 
-const initial = () => ({ status: 'none' as ApplicationStatus, form: null, submittedAt: null, decidedAt: null, reasons: [] as ApplicationReason[], note: '' })
+const initial = () => ({ status: 'none' as ApplicationStatus, form: null, pending: null, submittedAt: null, decidedAt: null, reasons: [] as ApplicationReason[], note: '' })
 
 export const useApplication = create<AppState>(set => ({
   ...initial(),
-  submit: form => set({ status: 'under_review', form, submittedAt: clock.now(), decidedAt: null, reasons: [], note: '' }),
+  submit: form => set({ status: 'under_review', form, pending: null, submittedAt: clock.now(), decidedAt: null, reasons: [], note: '' }),
+  setPending: pending => set({ pending }),
+  confirmPending: () =>
+    set(s => (s.pending ? { status: 'under_review', form: s.pending, pending: null, submittedAt: clock.now(), decidedAt: null, reasons: [], note: '' } : {})),
   approve: () => set({ status: 'approved', decidedAt: clock.now(), reasons: [], note: '' }),
   reject: (reasons, note) => set({ status: 'rejected', decidedAt: clock.now(), reasons, note }),
   reset: () => set(initial()),

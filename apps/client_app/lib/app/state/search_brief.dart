@@ -2,27 +2,30 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show sessionProvider;
 import 'package:ghazal_domain/ghazal_domain.dart' show Audience, DateMode, LocalDate, MoneyAmount, MoneyRange;
 
 import 'client_scope.dart';
 
 /// The Brief (ADR 0007 D3): what the couple is looking for. Every Brief-aware read sends `date`, `guests` and `audience` (and the venue
-/// list filters by `areaIds` and `budget`). [dateMode] says how firm the date is.
+/// list filters by `governorateIds` and `budget`: the client picks governorates, never exact areas, ADR 0038). [dateMode] says how firm
+/// the date is.
 @immutable
 final class SearchBrief {
-  const SearchBrief({this.date, this.guests, this.audience, this.areaIds = const <String>[], this.budget, this.dateMode = DateMode.undecided});
+  const SearchBrief({this.date, this.guests, this.audience, this.governorateIds = const <String>[], this.budget, this.dateMode = DateMode.undecided});
 
   static const SearchBrief empty = SearchBrief();
 
   final LocalDate? date;
   final int? guests;
   final Audience? audience;
-  final List<String> areaIds;
+  /// The governorates the couple looks in (empty: all of them).
+  final List<String> governorateIds;
   final MoneyRange? budget;
   final DateMode dateMode;
 
   /// Nothing is set (the Discover header shows "Add your date").
-  bool get isEmpty => date == null && guests == null && audience == null && areaIds.isEmpty && budget == null;
+  bool get isEmpty => date == null && guests == null && audience == null && governorateIds.isEmpty && budget == null;
 
   /// Date, guests and audience: enough for a Brief price.
   bool get hasQuoteInputs => date != null && guests != null && audience != null;
@@ -34,14 +37,14 @@ final class SearchBrief {
     required DateMode dateMode,
     required int? womenGuests,
     required List<Audience> searching,
-    required List<String> areaIds,
+    required List<String> governorateIds,
     required MoneyRange? venueBudget,
   }) =>
       SearchBrief(
         date: weddingDate,
         guests: womenGuests,
         audience: searching.isEmpty ? null : searching.first,
-        areaIds: List<String>.unmodifiable(areaIds),
+        governorateIds: List<String>.unmodifiable(governorateIds),
         budget: venueBudget,
         dateMode: dateMode,
       );
@@ -51,7 +54,7 @@ final class SearchBrief {
     LocalDate? date,
     int? guests,
     Audience? audience,
-    List<String>? areaIds,
+    List<String>? governorateIds,
     MoneyRange? budget,
     DateMode? dateMode,
     bool clearDate = false,
@@ -63,7 +66,7 @@ final class SearchBrief {
         date: clearDate ? null : (date ?? this.date),
         guests: clearGuests ? null : (guests ?? this.guests),
         audience: clearAudience ? null : (audience ?? this.audience),
-        areaIds: areaIds ?? this.areaIds,
+        governorateIds: governorateIds ?? this.governorateIds,
         budget: clearBudget ? null : (budget ?? this.budget),
         dateMode: dateMode ?? this.dateMode,
       );
@@ -72,7 +75,7 @@ final class SearchBrief {
         'date': date?.toJson(),
         'guests': guests,
         'audience': audience?.value,
-        'areaIds': areaIds,
+        'governorateIds': governorateIds,
         'budget': budget == null ? null : <String, Object?>{'min': budget!.min.fils, 'max': budget!.max.fils},
         'dateMode': dateMode.value,
       };
@@ -85,7 +88,7 @@ final class SearchBrief {
       date: json['date'] is String ? LocalDate.parse(json['date']! as String) : null,
       guests: json['guests'] as int?,
       audience: json['audience'] == null || audience == Audience.unknown ? null : audience,
-      areaIds: List<String>.unmodifiable(((json['areaIds'] as List?) ?? const <Object?>[]).cast<String>()),
+      governorateIds: List<String>.unmodifiable(((json['governorateIds'] as List?) ?? const <Object?>[]).cast<String>()),
       budget: b is Map ? MoneyRange(min: MoneyAmount((b['min']! as num).toInt()), max: MoneyAmount((b['max']! as num).toInt())) : null,
       dateMode: mode == DateMode.unknown ? DateMode.undecided : mode,
     );
@@ -97,16 +100,16 @@ final class SearchBrief {
       other.date == date &&
       other.guests == guests &&
       other.audience == audience &&
-      listEquals(other.areaIds, areaIds) &&
+      listEquals(other.governorateIds, governorateIds) &&
       other.budget == budget &&
       other.dateMode == dateMode;
 
   @override
-  int get hashCode => Object.hash(date, guests, audience, Object.hashAll(areaIds), budget, dateMode);
+  int get hashCode => Object.hash(date, guests, audience, Object.hashAll(governorateIds), budget, dateMode);
 }
 
-/// The Brief draft of this device. Persisted (shared_preferences key `gz.state.brief`), so it survives a restart; a guest and a signed-in
-/// client share it (the wedding profile seeds it when it is empty).
+/// The Brief draft of this device. Persisted (shared_preferences key `gz.state.brief`), so it survives a restart; the wedding profile seeds
+/// it when it is empty and a sign-out clears it (the next account on the phone starts from its own profile).
 final NotifierProvider<SearchBriefNotifier, SearchBrief> searchBriefProvider = NotifierProvider<SearchBriefNotifier, SearchBrief>(SearchBriefNotifier.new);
 
 class SearchBriefNotifier extends Notifier<SearchBrief> {
@@ -114,6 +117,9 @@ class SearchBriefNotifier extends Notifier<SearchBrief> {
 
   @override
   SearchBrief build() {
+    ref.listen(sessionProvider, (prev, next) {
+      if ((prev?.isSignedIn ?? false) && !next.isSignedIn) clear();
+    });
     final raw = ref.read(stateBoxProvider).getString(_key);
     if (raw == null) return SearchBrief.empty;
     try {
@@ -145,7 +151,7 @@ class SearchBriefNotifier extends Notifier<SearchBrief> {
       date: b.date ?? seed.date,
       guests: b.guests ?? seed.guests,
       audience: b.audience ?? seed.audience,
-      areaIds: b.areaIds.isEmpty ? seed.areaIds : b.areaIds,
+      governorateIds: b.governorateIds.isEmpty ? seed.governorateIds : b.governorateIds,
       budget: b.budget ?? seed.budget,
       dateMode: b.date == null && seed.date != null ? seed.dateMode : b.dateMode,
     ));

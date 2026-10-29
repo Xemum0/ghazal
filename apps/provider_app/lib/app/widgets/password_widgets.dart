@@ -1,10 +1,15 @@
-// Strength and the rules without a sentence (HL-ACCS-03): a three-segment gold thread that fills as the password improves, one word for the
-// level (never colour alone) and two rule chips, `10+` (length) and `Aa1` (a letter and a number), each with a check or a dash.
+// What the password screens share (HL-ACCS-01, HL-ACCS-03, HL-PROV-01 signed out): the password input (LTR, a lock at the start, a 44 reveal
+// control at the end) and the strength and rules without a sentence (a three-segment gold thread that fills as the password improves, one
+// word for the level, never colour alone, and two rule chips, `10+` (length) and `Aa1` (a letter and a number), each with a check or a dash).
+// Lives in lib/app because two features use it (no cross-feature imports).
+import 'package:flutter/services.dart' show TextInputAction;
 import 'package:flutter/widgets.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
-import '../../../../l10n/l10n.dart';
-import '../../application/access_flow.dart';
+import '../../l10n/l10n.dart';
+
+/// The shortest password the screens ask for (the same figure as the web `PASSWORD_MIN`; the server's own floor is 8).
+const int kPasswordMin = 10;
 
 class PasswordCheck {
   const PasswordCheck({required this.length, required this.mix, required this.score});
@@ -111,6 +116,74 @@ class PasswordRules extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+}
+
+/// Password input: LTR, a lock at the start, a 44 reveal control at the end. The label is the accessible name unless [showLabel].
+class PartnerPasswordField extends StatefulWidget {
+  const PartnerPasswordField({
+    required this.label,
+    required this.value,
+    required this.onChanged,
+    this.showLabel = false,
+    this.newPassword = false,
+    this.error,
+    this.disabled = false,
+    this.onSubmitted,
+    this.textInputAction,
+    super.key,
+  });
+
+  final String label;
+  final String value;
+  final ValueChanged<String> onChanged;
+  final bool showLabel;
+  final bool newPassword;
+  final String? error;
+  final bool disabled;
+  final ValueChanged<String>? onSubmitted;
+  final TextInputAction? textInputAction;
+
+  @override
+  State<PartnerPasswordField> createState() => _PartnerPasswordFieldState();
+}
+
+class _PartnerPasswordFieldState extends State<PartnerPasswordField> {
+  bool _shown = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.gz.colors;
+    final l = context.l10n;
+    return Semantics(
+      label: widget.showLabel ? null : widget.label,
+      child: Padding(
+        padding: EdgeInsetsDirectional.only(top: widget.showLabel ? 0 : GzSpace.s2),
+        child: GzTextField(
+          label: widget.showLabel ? widget.label : null,
+          value: widget.value,
+          onValueChange: widget.onChanged,
+          onSubmitted: widget.onSubmitted,
+          textInputAction: widget.textInputAction,
+          dir: GzFieldDir.ltr,
+          obscureText: !_shown,
+          autocorrect: false,
+          enableSuggestions: false,
+          autofillHints: [widget.newPassword ? 'newPassword' : 'password'],
+          disabled: widget.disabled,
+          error: widget.error,
+          startAdornment: GzIcon(GzIcons.lock, size: GzIconSize.sm, color: c.iconSecondary),
+          // the reveal control: a 44 target with the secondary ink (the web `hxa-eye`), not the plain icon button's primary ink
+          endAdornment: GzPressable(
+            semanticLabel: _shown ? l.hotelAccessPasswordHide : l.hotelAccessPasswordShow,
+            onPressed: widget.disabled ? null : () => setState(() => _shown = !_shown),
+            borderRadius: GzRadius.smAll,
+            pressedColor: c.surfaceQuiet,
+            child: Center(child: GzIcon(_shown ? GzIcons.eyeOff : GzIcons.eye, size: GzIconSize.sm, color: widget.disabled ? c.iconDisabled : c.iconSecondary)),
+          ),
+        ),
+      ),
     );
   }
 }

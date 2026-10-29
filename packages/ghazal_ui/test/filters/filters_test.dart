@@ -1,46 +1,123 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_domain/ghazal_domain.dart' show Governorate;
+import 'package:ghazal_ui/src/core/core.dart' show GzBeadBox;
 import 'package:ghazal_ui/src/filters/filters.dart';
 import 'package:ghazal_ui/src/foundation.dart';
 
+import 'package:ghazal_ui/src/inputs/inputs.dart' show GzChipLayout;
+
 import '../inputs/inputs_harness.dart';
+import '../shared/shared_harness.dart';
 
 Governorate _gov(String id, String en, String ar) => Governorate.fromJson({
   'id': id,
   'name': {'en': en, 'ar': ar},
 });
 
-final _govs = [_gov('capital', 'Capital', 'العاصمة'), _gov('hawalli', 'Hawalli', 'حولي'), _gov('ahmadi', 'Al Ahmadi', 'الأحمدي')];
+final _govs = [
+  _gov('capital', 'Capital', 'العاصمة'),
+  _gov('hawalli', 'Hawalli', 'حولي'),
+  _gov('farwaniya', 'Farwaniya', 'الفروانية'),
+  _gov('ahmadi', 'Ahmadi', 'الأحمدي'),
+  _gov('jahra', 'Jahra', 'الجهراء'),
+  _gov('mubarak-al-kabeer', 'Mubarak Al-Kabeer', 'مبارك الكبير'),
+];
 
 void main() {
+  setUpAll(loadUiFonts);
+
   group('GzGovernorateFilter', () {
-    testWidgets('All Kuwait is first and chosen; picking a governorate drops it, picking All clears the rest', (tester) async {
+    Finder chips() => find.byType(GzPressable);
+
+    testWidgets('wrapping multi-select: nothing is lit (every governorate), a tap adds, a second tap removes; no "All" chip', (tester) async {
       final seen = <List<String>>[];
       await pumpInputs(tester, GzGovernorateFilter(governorates: _govs, onChanged: seen.add));
-      expect(find.text('All Kuwait'), findsWidgets);
-      await tester.ensureVisible(find.text('Hawalli').last);
-      await tester.tap(find.text('Hawalli').last);
+      expect(find.text('All Kuwait'), findsNothing);
+      expect(chips(), findsNWidgets(6));
+      await tester.tap(find.text('Hawalli'));
       await tester.pump();
-      await tester.ensureVisible(find.text('Capital').last);
-      await tester.tap(find.text('Capital').last);
+      await tester.tap(find.text('Capital'));
+      await tester.pump();
+      await tester.tap(find.text('Hawalli'));
       await tester.pump();
       expect(seen, [
         ['hawalli'],
         ['hawalli', 'capital'],
+        ['capital'],
       ]);
-      await tester.ensureVisible(find.text('All Kuwait').last);
-      await tester.tap(find.text('All Kuwait').last);
-      await tester.pump();
-      expect(seen.last, isEmpty);
     });
 
-    testWidgets('controlled values show as selected chips; the names are the data in the UI language', (tester) async {
+    testWidgets('web geometry (gallery filters, 350 wide): chips 44 high, 8 apart, wrapping onto rows; Capital is 111.73 wide', (tester) async {
+      await pumpInputs(tester, GzGovernorateFilter(governorates: _govs));
+      final capital = tester.getRect(chips().at(0));
+      expect(capital.height, 44);
+      expect(capital.width, closeTo(111.73, 0.2));
+      final hawalli = tester.getRect(chips().at(1));
+      expect(hawalli.left - capital.right, 8);
+      // the web wraps the six into three rows in English (the fifth chip starts the third row)
+      final rows = {for (var i = 0; i < 6; i++) tester.getRect(chips().at(i)).top.round()};
+      expect(rows.length, greaterThan(1));
+      for (final top in rows) {
+        expect(top % 52, 0, reason: 'rows are 44 + 8 apart');
+      }
+    });
+
+    testWidgets('Arabic (350 wide): the first chip sits at the right edge and is 116.86 wide, three rows of two, 148 high in all', (tester) async {
+      await pumpInputs(tester, GzGovernorateFilter(governorates: _govs), lang: 'ar');
+      final box = tester.getRect(find.byType(GzGovernorateFilter));
+      final first = tester.getRect(chips().at(0));
+      expect(box.right - first.right, 0);
+      expect(first.width, closeTo(116.86, 0.6));
+      expect(box.height, 148);
+    });
+
+    testWidgets('each chip carries the pin glyph at 16 dp, 8 before the name', (tester) async {
+      await pumpInputs(tester, GzGovernorateFilter(governorates: _govs));
+      final pins = find.byIcon(GzIcons.pin);
+      expect(pins, findsNWidgets(6));
+      expect(tester.getSize(pins.first), const Size(16, 16));
+      final pin = tester.getRect(pins.first);
+      final name = tester.getRect(find.text('Capital'));
+      expect(name.left - pin.right, 8);
+    });
+
+    testWidgets('controlled values light the chip (ink border + bead, one more bead); names come in the UI language', (tester) async {
       await pumpInputs(tester, GzGovernorateFilter(governorates: _govs, values: const ['hawalli']), lang: 'ar');
-      expect(find.text('كل الكويت'), findsWidgets);
       expect(find.text('حولي'), findsWidgets);
-      // the chosen chip carries a bead and is taller than nothing: every chip is 44 dp high
+      expect(find.text('الجهراء'), findsWidgets);
+      expect(find.byType(GzBeadBox), findsOneWidget);
+    });
+
+    testWidgets('only: offers just those governorates, in the list order', (tester) async {
+      await pumpInputs(tester, GzGovernorateFilter(governorates: _govs, only: const ['jahra', 'capital']));
+      expect(chips(), findsNWidgets(2));
+      expect(tester.getRect(find.text('Capital')).left, lessThan(tester.getRect(find.text('Jahra')).left));
+    });
+
+    testWidgets('rail layout: one scrolling line', (tester) async {
+      await pumpInputs(tester, GzGovernorateFilter(governorates: _govs, layout: GzChipLayout.rail));
       expect(tester.getSize(find.byType(GzGovernorateFilter)).height, 44);
+    });
+
+    testWidgets('semantics: the group is named "Governorate" (or the given label); a lit chip reads selected; 44 dp targets', (tester) async {
+      final handle = tester.ensureSemantics();
+      await pumpInputs(tester, GzGovernorateFilter(governorates: _govs, values: const ['capital'], label: 'Governorates · 1'));
+      expect(find.bySemanticsLabel('Governorates · 1'), findsOneWidget);
+      final capital = tester.getSemantics(chips().first);
+      expect(capital.flagsCollection.isSelected.name, 'isTrue');
+      expect(capital.label, 'Capital');
+      for (var i = 0; i < 6; i++) {
+        expect(tester.getSize(chips().at(i)).height, greaterThanOrEqualTo(44));
+      }
+      handle.dispose();
+    });
+
+    testWidgets('text scale 1.3: the chips still wrap with no overflow', (tester) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 1.3;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      await pumpInputs(tester, GzGovernorateFilter(governorates: _govs), lang: 'ar');
+      expect(tester.takeException(), isNull);
     });
   });
 

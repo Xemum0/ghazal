@@ -1,14 +1,14 @@
 import 'package:client_app/app/state/state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, GateResume, WidgetSessionGate;
 import 'package:ghazal_ui/ghazal_ui.dart' show GzNavigator, GzSheetOptions;
 
 import 'booking_flow_local.dart';
 import 'booking_flow_model.dart';
 import 'booking_hero.dart';
 
-/// The five steps by inventory id (the progress thread, the Edit links).
-const List<String> kBookingStepIds = <String>['CL-BOOK-01', 'CL-BOOK-02', 'CL-BOOK-03', 'CL-BOOK-04', 'CL-BOOK-05'];
+/// The four steps by inventory id (the progress thread, the Edit links): event, package, details, review. CL-BOOK-03 (Extras) is retired
+/// (ADR 0038, CA-SVC-19), so the third step is CL-BOOK-04.
+const List<String> kBookingStepIds = <String>['CL-BOOK-01', 'CL-BOOK-02', 'CL-BOOK-04', 'CL-BOOK-05'];
 
 /// Root screen of each main tab (web `tabRoot`): where the flow ends.
 const Map<String, String> kBookingTabRoots = <String, String>{'discover': 'CL-DISC-01', 'my-wedding': 'CL-WEDD-01', 'messages': 'CL-MSGS-01'};
@@ -28,12 +28,10 @@ void patchBookingDraft(WidgetRef ref, BookingDraft Function(BookingDraft current
   ref.read(bookingDraftProvider.notifier).patch((cur) => change(cur.venueId == null ? heroDraft() : cur));
 }
 
-/// Get a voucher (the commit moment of ADR 0033): a guest meets the account sheet first and resumes at the purchase, a signed-in client
-/// opens the voucher purchase sheet with the exact quote.
-void getBookingVoucher(WidgetRef ref, GzNavigator nav, FlowModel flow, String from) {
-  final params = bookingVoucherParams(flow, from);
-  if (!ref.requireSignIn(GateReason.voucher, resume: GateResume('CL-VCHR-01', params))) return;
-  nav.openSheet('CL-VCHR-01', options: GzSheetOptions(params: params));
+/// Get a voucher (the commit moment of ADR 0033): the voucher purchase sheet opens with the exact quote (every client is signed in,
+/// ADR 0038).
+void getBookingVoucher(GzNavigator nav, FlowModel flow, String from) {
+  nav.openSheet('CL-VCHR-01', options: GzSheetOptions(params: bookingVoucherParams(flow, from)));
 }
 
 /// Change the quote the voucher is bound to (CL-VCHR-04, where the saving test is re-run).

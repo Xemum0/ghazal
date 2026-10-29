@@ -85,7 +85,7 @@ final FutureProvider<MediaLibrary> venueMediaProvider = FutureProvider.autoDispo
   return ref.read(partnerVenueRepositoryProvider).listVenueMedia();
 });
 
-/// Packages with their price rules, and the extras.
+/// Packages with their price rules (the catalogue's `extras` are always empty since round 2 and never read: CA-SVC-19).
 final FutureProvider<PackageCatalog> venueCatalogProvider = FutureProvider.autoDispose<PackageCatalog>((ref) async {
   ref.watch(partnerDataRevisionProvider);
   return ref.read(partnerVenueRepositoryProvider).listPartnerPackages();
@@ -221,14 +221,6 @@ class VenueActions extends Notifier<ActionsState> {
           () => _repo.updatePackage(packageId: packageId, body: body, ifMatch: _tag('package:$packageId')),
           doc: 'package:$packageId',
         );
-
-  Future<ActionResult<Extra>> saveExtra(String? extraId, ExtraInput body) => extraId == null
-      ? _run(
-          'save:extra',
-          () => _repo.createExtra(body: body, idempotencyKey: _keys.keyFor('extra:new')),
-          intent: 'extra:new',
-        )
-      : _run('save:extra', () => _repo.updateExtra(extraId: extraId, body: body));
 
   Future<ActionResult<MediaLibrary>> reorder(List<String> ids) => _run('media:order', () => _repo.reorderMedia(body: ReorderMediaInput(ids: ids)));
 

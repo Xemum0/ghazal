@@ -1160,12 +1160,6 @@ abstract class AppL10n {
   /// **'Valid until {date}'**
   String commonValidUntil(String date);
 
-  /// No description provided for @commonLabelGuestVoucher.
-  ///
-  /// In en, this message translates to:
-  /// **'Voucher price after you sign up'**
-  String get commonLabelGuestVoucher;
-
   /// No description provided for @commonRoleClient.
   ///
   /// In en, this message translates to:
@@ -1484,6 +1478,18 @@ abstract class AppL10n {
   /// **'Invitation'**
   String get hotelAccessSigninInvite;
 
+  /// No description provided for @hotelAccessSigninApplyLine.
+  ///
+  /// In en, this message translates to:
+  /// **'New service provider or private hall?'**
+  String get hotelAccessSigninApplyLine;
+
+  /// No description provided for @hotelAccessSigninApply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply to join'**
+  String get hotelAccessSigninApply;
+
   /// No description provided for @hotelAccessSigninSubmit.
   ///
   /// In en, this message translates to:
@@ -1567,6 +1573,12 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Enter code'**
   String get hotelAccessVerifyTitle;
+
+  /// No description provided for @hotelAccessVerifyApplicationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify email'**
+  String get hotelAccessVerifyApplicationTitle;
 
   /// No description provided for @hotelAccessVerifyLabel.
   ///
@@ -1657,6 +1669,12 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Device trusted'**
   String get hotelAccessVerifySuccessTitle;
+
+  /// No description provided for @hotelAccessVerifyApplicationDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Email verified'**
+  String get hotelAccessVerifyApplicationDone;
 
   /// No description provided for @hotelAccessVerifyTrustDays.
   ///
@@ -1868,11 +1886,59 @@ abstract class AppL10n {
   /// **'Your account is under review. We will email you when it is active.'**
   String get hotelAccessStatusUnderReviewBody;
 
-  /// No description provided for @hotelAccessStatusUnderReviewProviderNote.
+  /// No description provided for @hotelAccessStatusApplicationTitle.
   ///
   /// In en, this message translates to:
-  /// **'Your first listing is reviewed by Ghazal before it goes live. Nothing is published automatically.'**
-  String get hotelAccessStatusUnderReviewProviderNote;
+  /// **'Application in review'**
+  String get hotelAccessStatusApplicationTitle;
+
+  /// No description provided for @hotelAccessStatusApplicationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Ghazal reviews every application and emails you the decision. You can add listings once it is approved.'**
+  String get hotelAccessStatusApplicationBody;
+
+  /// No description provided for @hotelAccessStatusRejectedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Application not approved'**
+  String get hotelAccessStatusRejectedTitle;
+
+  /// No description provided for @hotelAccessStatusEditResubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit and resubmit'**
+  String get hotelAccessStatusEditResubmit;
+
+  /// No description provided for @hotelAccessStatusApprovedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Application approved'**
+  String get hotelAccessStatusApprovedTitle;
+
+  /// No description provided for @hotelAccessStatusReasonsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get hotelAccessStatusReasonsLabel;
+
+  /// No description provided for @hotelAccessStatusProtoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ghazal staff'**
+  String get hotelAccessStatusProtoTitle;
+
+  /// No description provided for @hotelAccessStatusProtoApprove.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve'**
+  String get hotelAccessStatusProtoApprove;
+
+  /// No description provided for @hotelAccessStatusProtoReject.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject'**
+  String get hotelAccessStatusProtoReject;
 
   /// No description provided for @hotelAccessStatusSuspendedTitle.
   ///
@@ -2449,12 +2515,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Package'**
   String get hotelBookingsRowPackage;
-
-  /// No description provided for @hotelBookingsRowExtras.
-  ///
-  /// In en, this message translates to:
-  /// **'Extras'**
-  String get hotelBookingsRowExtras;
 
   /// No description provided for @hotelBookingsRowHall.
   ///
@@ -6560,6 +6620,24 @@ abstract class AppL10n {
   /// **'Other'**
   String get hotelProviderReasonOther;
 
+  /// No description provided for @hotelProviderAppReasonVerify.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot verify'**
+  String get hotelProviderAppReasonVerify;
+
+  /// No description provided for @hotelProviderAppDemoNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your licence number and a clearer description.'**
+  String get hotelProviderAppDemoNote;
+
+  /// No description provided for @hotelProviderApprovalGuardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Listings open after approval'**
+  String get hotelProviderApprovalGuardTitle;
+
   /// No description provided for @hotelProviderPlanRetained.
   ///
   /// In en, this message translates to:
@@ -6878,41 +6956,35 @@ abstract class AppL10n {
   /// **'Pick one'**
   String get hotelProviderChooseReason;
 
-  /// No description provided for @hotelProviderTypeHotelTitle.
+  /// No description provided for @hotelProviderChooseChains.
   ///
   /// In en, this message translates to:
-  /// **'Hotel or hall'**
-  String get hotelProviderTypeHotelTitle;
+  /// **'Hotels and chains join through Ghazal.'**
+  String get hotelProviderChooseChains;
 
   /// No description provided for @hotelProviderTypeProviderTitle.
   ///
   /// In en, this message translates to:
-  /// **'Provider'**
+  /// **'Service provider'**
   String get hotelProviderTypeProviderTitle;
+
+  /// No description provided for @hotelProviderTypeHallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Private hall'**
+  String get hotelProviderTypeHallTitle;
 
   /// No description provided for @hotelProviderProfileName.
   ///
   /// In en, this message translates to:
-  /// **'Name'**
+  /// **'Business name'**
   String get hotelProviderProfileName;
 
-  /// No description provided for @hotelProviderProfileVenueType.
+  /// No description provided for @hotelProviderFormBarEdit.
   ///
   /// In en, this message translates to:
-  /// **'Type'**
-  String get hotelProviderProfileVenueType;
-
-  /// No description provided for @hotelProviderVenueTypeHall.
-  ///
-  /// In en, this message translates to:
-  /// **'Hall'**
-  String get hotelProviderVenueTypeHall;
-
-  /// No description provided for @hotelProviderVenueTypeHotel.
-  ///
-  /// In en, this message translates to:
-  /// **'Hotel'**
-  String get hotelProviderVenueTypeHotel;
+  /// **'Edit application'**
+  String get hotelProviderFormBarEdit;
 
   /// No description provided for @hotelProviderProfileGovernorate.
   ///
@@ -6920,23 +6992,23 @@ abstract class AppL10n {
   /// **'Governorate'**
   String get hotelProviderProfileGovernorate;
 
-  /// No description provided for @hotelProviderProfileArea.
-  ///
-  /// In en, this message translates to:
-  /// **'Area'**
-  String get hotelProviderProfileArea;
-
-  /// No description provided for @hotelProviderProfileChoose.
-  ///
-  /// In en, this message translates to:
-  /// **'Choose'**
-  String get hotelProviderProfileChoose;
-
   /// No description provided for @hotelProviderProfileCategories.
   ///
   /// In en, this message translates to:
   /// **'Categories'**
   String get hotelProviderProfileCategories;
+
+  /// No description provided for @hotelProviderFormOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other category'**
+  String get hotelProviderFormOther;
+
+  /// No description provided for @hotelProviderFormOtherHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Not in the list? Tell us.'**
+  String get hotelProviderFormOtherHelper;
 
   /// No description provided for @hotelProviderCatsChoose.
   ///
@@ -6956,34 +7028,88 @@ abstract class AppL10n {
   /// **'Phone'**
   String get hotelProviderProfilePhone;
 
+  /// No description provided for @hotelProviderFormContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact person'**
+  String get hotelProviderFormContact;
+
+  /// No description provided for @hotelProviderFormEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get hotelProviderFormEmail;
+
+  /// No description provided for @hotelProviderFormEmailError.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid email'**
+  String get hotelProviderFormEmailError;
+
+  /// No description provided for @hotelProviderFormAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account'**
+  String get hotelProviderFormAccountTitle;
+
+  /// No description provided for @hotelProviderFormBusinessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your business'**
+  String get hotelProviderFormBusinessTitle;
+
+  /// No description provided for @hotelProviderAccountRepeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat password'**
+  String get hotelProviderAccountRepeat;
+
+  /// No description provided for @hotelProviderAccountEmailUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Email already registered'**
+  String get hotelProviderAccountEmailUsed;
+
+  /// No description provided for @hotelProviderAccountPasswordWeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Password too weak'**
+  String get hotelProviderAccountPasswordWeak;
+
+  /// No description provided for @hotelProviderFormAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'Short description'**
+  String get hotelProviderFormAbout;
+
+  /// No description provided for @hotelProviderFormLicence.
+  ///
+  /// In en, this message translates to:
+  /// **'Commercial licence'**
+  String get hotelProviderFormLicence;
+
+  /// No description provided for @hotelProviderFormFix.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete the marked fields.'**
+  String get hotelProviderFormFix;
+
+  /// No description provided for @hotelProviderFormResubmitNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Not approved: {note}'**
+  String hotelProviderFormResubmitNote(String note);
+
   /// No description provided for @hotelProviderPhoneError.
   ///
   /// In en, this message translates to:
   /// **'Invalid number'**
   String get hotelProviderPhoneError;
 
-  /// No description provided for @hotelProviderLogoTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Logo'**
-  String get hotelProviderLogoTitle;
-
-  /// No description provided for @hotelProviderLogoUpload.
-  ///
-  /// In en, this message translates to:
-  /// **'Upload'**
-  String get hotelProviderLogoUpload;
-
-  /// No description provided for @hotelProviderLogoToast.
-  ///
-  /// In en, this message translates to:
-  /// **'In the finished app'**
-  String get hotelProviderLogoToast;
-
   /// No description provided for @hotelProviderSubmit.
   ///
   /// In en, this message translates to:
-  /// **'Submit'**
+  /// **'Send application'**
   String get hotelProviderSubmit;
 
   /// No description provided for @hotelProviderSubmitErrorTitle.
@@ -7001,31 +7127,49 @@ abstract class AppL10n {
   /// No description provided for @hotelProviderSubmittedBar.
   ///
   /// In en, this message translates to:
-  /// **'Account'**
+  /// **'Application'**
   String get hotelProviderSubmittedBar;
 
   /// No description provided for @hotelProviderSubmittedTitle.
   ///
   /// In en, this message translates to:
-  /// **'Under review'**
+  /// **'Application received'**
   String get hotelProviderSubmittedTitle;
 
-  /// No description provided for @hotelProviderSubmittedFirst.
+  /// No description provided for @hotelProviderSubmittedLine.
   ///
   /// In en, this message translates to:
-  /// **'First listing'**
-  String get hotelProviderSubmittedFirst;
+  /// **'Your account stays under review.'**
+  String get hotelProviderSubmittedLine;
 
-  /// No description provided for @hotelProviderSubmittedToday.
+  /// No description provided for @hotelProviderSubmittedNext.
   ///
   /// In en, this message translates to:
-  /// **'Today'**
-  String get hotelProviderSubmittedToday;
+  /// **'What next'**
+  String get hotelProviderSubmittedNext;
+
+  /// No description provided for @hotelProviderNextReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Ghazal reviews'**
+  String get hotelProviderNextReview;
+
+  /// No description provided for @hotelProviderNextEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'We email you'**
+  String get hotelProviderNextEmail;
+
+  /// No description provided for @hotelProviderNextListings.
+  ///
+  /// In en, this message translates to:
+  /// **'Then add listings'**
+  String get hotelProviderNextListings;
 
   /// No description provided for @hotelProviderSubmittedStatus.
   ///
   /// In en, this message translates to:
-  /// **'Status'**
+  /// **'Application status'**
   String get hotelProviderSubmittedStatus;
 
   /// No description provided for @hotelProviderRejectContent.
@@ -10082,12 +10226,6 @@ abstract class AppL10n {
   /// **'Description'**
   String get hotelVenueFieldDescription;
 
-  /// No description provided for @hotelVenueFieldPrice.
-  ///
-  /// In en, this message translates to:
-  /// **'Price'**
-  String get hotelVenueFieldPrice;
-
   /// No description provided for @hotelVenueNameRequired.
   ///
   /// In en, this message translates to:
@@ -10124,18 +10262,6 @@ abstract class AppL10n {
   /// **'{from}–{to}'**
   String hotelVenueGuestRange(String from, String to);
 
-  /// No description provided for @hotelVenueUnitEvent.
-  ///
-  /// In en, this message translates to:
-  /// **'per event'**
-  String get hotelVenueUnitEvent;
-
-  /// No description provided for @hotelVenueUnitUnit.
-  ///
-  /// In en, this message translates to:
-  /// **'per unit'**
-  String get hotelVenueUnitUnit;
-
   /// No description provided for @hotelVenueAllDays.
   ///
   /// In en, this message translates to:
@@ -10160,47 +10286,17 @@ abstract class AppL10n {
   /// **'Packages'**
   String get hotelVenuePackagesTitle;
 
-  /// No description provided for @hotelVenuePackagesTabs.
-  ///
-  /// In en, this message translates to:
-  /// **'Packages or extras'**
-  String get hotelVenuePackagesTabs;
-
-  /// No description provided for @hotelVenueTabPackages.
-  ///
-  /// In en, this message translates to:
-  /// **'Packages ({count})'**
-  String hotelVenueTabPackages(num count);
-
-  /// No description provided for @hotelVenueTabExtras.
-  ///
-  /// In en, this message translates to:
-  /// **'Extras ({count})'**
-  String hotelVenueTabExtras(num count);
-
   /// No description provided for @hotelVenuePkgNew.
   ///
   /// In en, this message translates to:
   /// **'New package'**
   String get hotelVenuePkgNew;
 
-  /// No description provided for @hotelVenueExtraAdd.
-  ///
-  /// In en, this message translates to:
-  /// **'Add extra'**
-  String get hotelVenueExtraAdd;
-
   /// No description provided for @hotelVenuePkgEmptyTitle.
   ///
   /// In en, this message translates to:
   /// **'No packages'**
   String get hotelVenuePkgEmptyTitle;
-
-  /// No description provided for @hotelVenueExtraEmptyTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'No extras'**
-  String get hotelVenueExtraEmptyTitle;
 
   /// No description provided for @hotelVenuePkgActiveLabel.
   ///
@@ -10219,18 +10315,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'{name} visible'**
   String hotelVenueToastPkgShown(String name);
-
-  /// No description provided for @hotelVenueToastExtraHidden.
-  ///
-  /// In en, this message translates to:
-  /// **'{name} hidden'**
-  String hotelVenueToastExtraHidden(String name);
-
-  /// No description provided for @hotelVenueToastExtraShown.
-  ///
-  /// In en, this message translates to:
-  /// **'{name} visible'**
-  String hotelVenueToastExtraShown(String name);
 
   /// No description provided for @hotelVenueArchivedHead.
   ///
@@ -10261,48 +10345,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Edit {name}'**
   String hotelVenueEditPackage(String name);
-
-  /// No description provided for @hotelVenueExtraEditTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Edit extra'**
-  String get hotelVenueExtraEditTitle;
-
-  /// No description provided for @hotelVenueExtraNewTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'New extra'**
-  String get hotelVenueExtraNewTitle;
-
-  /// No description provided for @hotelVenueFieldUnit.
-  ///
-  /// In en, this message translates to:
-  /// **'Charged'**
-  String get hotelVenueFieldUnit;
-
-  /// No description provided for @hotelVenueFieldShow.
-  ///
-  /// In en, this message translates to:
-  /// **'Show to couples'**
-  String get hotelVenueFieldShow;
-
-  /// No description provided for @hotelVenueExtraRange.
-  ///
-  /// In en, this message translates to:
-  /// **'{from}–{to}'**
-  String hotelVenueExtraRange(String from, String to);
-
-  /// No description provided for @hotelVenueToastExtraSaved.
-  ///
-  /// In en, this message translates to:
-  /// **'Saved'**
-  String get hotelVenueToastExtraSaved;
-
-  /// No description provided for @hotelVenueToastExtraCreated.
-  ///
-  /// In en, this message translates to:
-  /// **'Added'**
-  String get hotelVenueToastExtraCreated;
 
   /// No description provided for @hotelVenueNeedPrice.
   ///
@@ -10579,18 +10621,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Fix guest numbers'**
   String get hotelVenueReasonGuests;
-
-  /// No description provided for @hotelVenueExtraActiveOn.
-  ///
-  /// In en, this message translates to:
-  /// **'Couples can add this extra to a request.'**
-  String get hotelVenueExtraActiveOn;
-
-  /// No description provided for @hotelVenueExtraActiveOff.
-  ///
-  /// In en, this message translates to:
-  /// **'Hidden from couples.'**
-  String get hotelVenueExtraActiveOff;
 
   /// No description provided for @hotelVenueSettingIndoor.
   ///

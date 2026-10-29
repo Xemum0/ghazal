@@ -1,8 +1,7 @@
 // CL-ONBD-02 Introduction: three swipeable slides, one promise each (CA-ONB-01). Port of CL-ONBD-02.tsx.
 // Each slide is a drawing and at most five words. The first slide sits at inline-start (the right in Arabic) and swipes advance toward the
-// left there; the 2 dp thread fills in reading direction. Skip goes straight to Home with an empty Brief; the last slide's Get started goes
-// to the planning questions.
-import 'package:client_app/app/state/state.dart';
+// left there; the 2 dp thread fills in reading direction. Skip and the last slide's Get started both go to the sign-in (CL-AUTH-01), never
+// to Home: there is no guest mode (ADR 0038 D4), so the first run is language, introduction, sign-in.
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,12 +21,9 @@ class ClOnbd02Screen extends ConsumerStatefulWidget {
 class _ClOnbd02State extends ConsumerState<ClOnbd02Screen> {
   int _index = 0;
 
-  void _skip() {
-    ref.read(searchBriefProvider.notifier).clear();
-    context.gzNav.reset('CL-DISC-01');
-  }
+  void _signIn() => context.gzNav.push('CL-AUTH-01');
 
-  void _next() => _index == _count - 1 ? context.gzNav.push('CL-ONBD-03') : setState(() => _index = _index + 1);
+  void _next() => _index == _count - 1 ? _signIn() : setState(() => _index = _index + 1);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +51,7 @@ class _ClOnbd02State extends ConsumerState<ClOnbd02Screen> {
                 children: [
                   const GzWordmark(size: GzWordmarkSize.sm),
                   const Spacer(),
-                  GzButton(label: l10n.commonActionSkip, variant: GzButtonVariant.tertiary, onPressed: _skip),
+                  GzButton(label: l10n.commonActionSkip, variant: GzButtonVariant.tertiary, onPressed: _signIn),
                 ],
               ),
             ),

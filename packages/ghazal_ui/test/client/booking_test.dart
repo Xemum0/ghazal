@@ -248,11 +248,11 @@ void main() {
       expect(find.byIcon(GzIcons.lock), findsNothing);
     });
 
-    testWidgets('a signed-out guest sees the standard price and the locked voucher line', (tester) async {
+    testWidgets('no guest mode (ADR 0038): the deprecated guest audience shows the voucher total and the saving, never a lock', (tester) async {
       await pumpCore(tester, card(onSelect: () {}, audience: GzPriceAudience.guest));
-      expect(find.byIcon(GzIcons.lock), findsOneWidget);
-      expect(find.text('Voucher price after you sign up'), findsOneWidget);
-      expect(find.textContaining('Save KD'), findsNothing);
+      expect(find.byIcon(GzIcons.lock), findsNothing);
+      expect(find.textContaining('44'), findsWidgets);
+      expect(find.textContaining('Save'), findsOneWidget);
     });
 
     testWidgets('selecting calls back; unavailable does not and shows the reason', (tester) async {

@@ -59,7 +59,7 @@ class FakeNavigator implements GzNavigator {
 }
 
 /// One mock world per test process and containers over it, wired like the running app (in-process mock, memory tokens, zero latency, no
-/// background timers). Call [fresh] in `setUp`: each test starts at the beginning of the story, as a guest.
+/// background timers). Call [fresh] in `setUp`: each test starts at the beginning of the story, signed out.
 final class StateWorld {
   StateWorld._(this.world);
 

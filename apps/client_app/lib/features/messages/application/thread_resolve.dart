@@ -33,27 +33,21 @@ class ThreadParams {
 }
 
 /// Which conversation the screen is about. [conversationId] null means a thread that does not exist yet: a new enquiry to [venueId], or
-/// (for a guest) the Support welcome.
+/// (when Support has no thread yet) the Support welcome.
 @immutable
 class ResolvedThread {
-  const ResolvedThread({this.conversationId, this.venueId, this.guestSupport = false});
+  const ResolvedThread({this.conversationId, this.venueId, this.supportNew = false});
 
   final String? conversationId;
   final String? venueId;
-  final bool guestSupport;
+  final bool supportNew;
 
-  bool get isEnquiry => conversationId == null && !guestSupport;
+  bool get isEnquiry => conversationId == null && !supportNew;
 }
 
-/// Order: an explicit id, support, a request, a venue (its existing thread, else a fresh enquiry), then the story's venue thread. A guest
-/// only ever reaches Support and a fresh enquiry.
+/// Order: an explicit id, support, a request, a venue (its existing thread, else a fresh enquiry), then the story's venue thread.
 final resolveThreadProvider = FutureProvider.autoDispose.family<ResolvedThread, ThreadParams>((ref, p) async {
   ref.watch(clientDataRevisionProvider);
-  final signedIn = ref.watch(clientUserIdProvider) != null;
-  if (!signedIn) {
-    if (p.venueId != null && !p.support) return ResolvedThread(venueId: p.venueId);
-    return const ResolvedThread(guestSupport: true);
-  }
   if (p.conversationId != null) return ResolvedThread(conversationId: p.conversationId);
   final list = (await ref.watch(chatRepositoryProvider).listConversations(limit: 50)).items;
   if (p.support) {
@@ -69,7 +63,7 @@ final resolveThreadProvider = FutureProvider.autoDispose.family<ResolvedThread, 
     return v != null ? ResolvedThread(conversationId: v.id) : ResolvedThread(venueId: p.venueId);
   }
   final hero = list.where((c) => c.kind == ConversationKind.venue && c.bookingId != null).firstOrNull ?? list.firstOrNull;
-  return hero != null ? ResolvedThread(conversationId: hero.id) : const ResolvedThread(guestSupport: true);
+  return hero != null ? ResolvedThread(conversationId: hero.id) : const ResolvedThread(supportNew: true);
 });
 
 /// The request a venue conversation belongs to (the context bar and the system lines).

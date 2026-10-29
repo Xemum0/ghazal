@@ -66,3 +66,16 @@
   flex-direction: column;
   min-block-size: 0;
 }
+
+/* The way in for a new partner (PA-ACC-07): one short line and a full-width outlined button, pinned in the bar under the gold Sign in. */
+.hxa01__apply {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding-block-start: var(--gz-space-2);
+}
+
+.hxa01__applyline {
+  text-align: center;
+  color: var(--gz-color-sys-text-secondary);
+}

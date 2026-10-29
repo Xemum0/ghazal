@@ -15,7 +15,7 @@
         "ar": "التقديم للانضمام"
       },
       "kind": "screen",
-      "purpose": "First-run application of a service provider or a private hall (PA-ACC-07, ADR 0038): choose the account type (Service provider or Private hall; a hotel or hall chain is onboarded by Ghazal as before), then send the form with the business information. Submit shows 'Application received' and the account stays under review (HL-ACCS-04); Ghazal staff accept or reject it in the Super Admin web, and only an accepted account can create listings. A rejected application comes back here through 'Edit and resubmit', prefilled, with the reason on top.",
+      "purpose": "First-run application of a service provider or a private hall (PA-ACC-07, ADR 0038): choose the account type (Service provider or Private hall; a hotel or hall chain is onboarded by Ghazal as before), then send the form with the business information. Submit shows 'Application received' and the account stays under review (HL-ACCS-04); Ghazal staff accept or reject it in the Super Admin web, and only an accepted account can create listings. A rejected application comes back here through 'Edit and resubmit', prefilled, with the reason on top. Signed out (round 2b): HL-ACCS-01 'Apply to join' opens this screen without a session; the form then starts with 'Your account' (email, password, repeat password) before the business information, and submit creates the account and the pending application, then HL-ACCS-02 verifies the email by code and HL-ACCS-04 shows 'Application in review'. A signed-in partner who reaches it (a rejected applicant resubmitting, an account adding a type) never sees the account section.",
       "requirementIds": [
         "PA-ACC-01",
         "PA-ACC-02",
@@ -35,18 +35,24 @@
         "submitted",
         "resubmit",
         "error",
-        "offline"
+        "offline",
+        "signed-out",
+        "account-errors"
       ],
       "interactions": [
         "Two large choice cards, each with an icon and a title: 'Service provider' and 'Private hall'; one choice, then 'Continue'. A quiet line says that hotels and hall chains join through Ghazal (no form for them)",
         "The form (OQ-R2-03): business name in Arabic and English (both required, completeness markers), categories for a provider (up to three from the registered list in a sheet, the five primary first) plus the open 'Other category' note for a service that is not in the list (a provider needs a category or the note; staff add the category or reject, PA-ACC-08), governorate as wrapping single-choice chips from the governorates reference data, contact person, phone with the +965 chip, email, short description (240 characters), optional commercial licence reference. A private hall has no categories",
         "'Send application' validates (inline errors plus one line 'Complete the marked fields'), shows a short submitting state, then 'Application received': 'Your account stays under review', the business as a quiet row and three glyph rows for what happens next (Ghazal reviews, we email you, then add listings); the one action opens the account status (HL-ACCS-04)",
         "Error: the form stays with its values and a note 'Nothing was sent. Try again.' with Retry; offline disables the action with the reason",
-        "Edit and resubmit (from HL-ACCS-04, rejected): the same form prefilled, top bar 'Edit application', the staff reason in a note on top; submitting again returns to 'Application received'"
+        "Edit and resubmit (from HL-ACCS-04, rejected): the same form prefilled, top bar 'Edit application', the staff reason in a note on top; submitting again returns to 'Application received'",
+        "Signed out (PA-ACC-07, round 2b): the first section 'Your account' / «حسابكم» has email (also the contact email: the business section does not ask for it again), password with the strength thread and the two rule chips, and 'Repeat password' / «تأكيد كلمة المرور»; the second section is titled 'Your business' / «نشاطكم التجاري» and is the form as built. The account type chooser is the first step as before; Back from the form returns to the chooser and Back from the chooser returns to HL-ACCS-01",
+        "Account errors (inline under the field, shown on submit together with 'Complete the marked fields'): 'Email already registered' / «البريد مسجّل مسبقًا» (an email that already signs in), 'Password too weak' / «كلمة المرور ضعيفة» (fewer than 10 characters, or no letter and number) and 'Doesn't match' / «غير متطابقة» (the two passwords differ; also shown while typing). Nothing is sent until all three are clear",
+        "Signed-out submit (PA-ACC-08 unchanged for staff): shows the short submitting state, creates the account and holds the application as pending, then opens HL-ACCS-02 in application mode; the right code makes the application and lands on HL-ACCS-04 (in review). A rejected applicant later signs in with the same email and password (HL-ACCS-01) and sees the reason and 'Edit and resubmit', which opens this screen signed in and prefilled, without the account section"
       ],
-      "contentNotes": "Cards AR / EN: «مقدّم خدمة» / 'Service provider'; «قاعة خاصة» / 'Private hall'. Category labels from CL-SERV-01. Demo provider: Zahra Floral Studio (fixture, Hawalli, Floral arrangements, contact Zahra Al-Mutairi, zahra@zahra-floral.example); demo hall: Taima Grand Palace (fixture, Jahra). Governorate names come from the reference data, never typed. Fee exemption is never chosen here (Ghazal sets it). The form has no logo upload (the logo is edited in the account profile, PA-ACC-03). Not a Client app form: the Client app only shows the one-line note of CA-SVC-20.",
+      "contentNotes": "Cards AR / EN: «مقدّم خدمة» / 'Service provider'; «قاعة خاصة» / 'Private hall'. Category labels from CL-SERV-01. Demo provider: Zahra Floral Studio (fixture, Hawalli, Floral arrangements, contact Zahra Al-Mutairi, zahra@zahra-floral.example); demo hall: Taima Grand Palace (fixture, Jahra). Governorate names come from the reference data, never typed. Fee exemption is never chosen here (Ghazal sets it). The form has no logo upload (the logo is edited in the account profile, PA-ACC-03). Not a Client app form: the Client app only shows the one-line note of CA-SVC-20. Round 2b: no tab bar (a not-yet-accepted partner has no working tabs). Frames: `?state=signed-out` (blank form with the account section on top) and `?state=account-errors` (the three account errors at once over a filled business section).",
       "priority": "core",
       "navigatesTo": [
+        "HL-ACCS-02",
         "HL-ACCS-04"
       ],
       "ownerRound2": {
@@ -54,6 +60,12 @@
         "date": "2026-10-29",
         "change": "HL-PROV-01 becomes the partner application form (PA-ACC-07, PA-ACC-08)",
         "note": "Working assumption OQ-R2-03 for the fields; the Ghazal staff decision is a prototype switch (HL-ACCS-04 tray in the live player)."
+      },
+      "ownerRound2b": {
+        "adr": "0038",
+        "date": "2026-10-29",
+        "change": "HL-PROV-01 works signed out and creates the account (HL-ACCS-01 'Apply to join', owner feedback)",
+        "note": "Contract: public operation submitPartnerApplication (R1-CONTRACT). Flow: HL-ACCS-01 > HL-PROV-01 (signed out) > HL-ACCS-02 (email code, application mode) > HL-ACCS-04 (in review)."
       }
     },
     {

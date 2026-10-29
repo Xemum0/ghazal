@@ -42,7 +42,7 @@ class _Plate extends StatelessWidget {
                 if (price != null)
                   Align(
                     alignment: AlignmentDirectional.centerStart,
-                    child: GzCardPriceLine(price: price, size: feature ? GzPriceLineSize.display : GzPriceLineSize.card, audience: card.audience),
+                    child: GzCardPriceLine(price: price, size: feature ? GzPriceLineSize.display : GzPriceLineSize.card),
                   ),
               ],
             ),

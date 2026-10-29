@@ -1160,12 +1160,6 @@ abstract class AppL10n {
   /// **'Valid until {date}'**
   String commonValidUntil(String date);
 
-  /// No description provided for @commonLabelGuestVoucher.
-  ///
-  /// In en, this message translates to:
-  /// **'Voucher price after you sign up'**
-  String get commonLabelGuestVoucher;
-
   /// No description provided for @commonRoleClient.
   ///
   /// In en, this message translates to:
@@ -1466,18 +1460,6 @@ abstract class AppL10n {
   /// **'Send code'**
   String get clientAuthSharedSendCode;
 
-  /// No description provided for @clientAuthSharedDate.
-  ///
-  /// In en, this message translates to:
-  /// **'Date'**
-  String get clientAuthSharedDate;
-
-  /// No description provided for @clientAuthSharedGuests.
-  ///
-  /// In en, this message translates to:
-  /// **'Guests'**
-  String get clientAuthSharedGuests;
-
   /// No description provided for @clientAuthSharedLegalTerms.
   ///
   /// In en, this message translates to:
@@ -1561,54 +1543,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Our <terms>Terms of Use</terms> and <privacy>Privacy Policy</privacy> apply. You confirm them when you create an account.'**
   String get clientAuthSharedSmallPrint;
-
-  /// No description provided for @clientAuthReasonSendRequest.
-  ///
-  /// In en, this message translates to:
-  /// **'Send request'**
-  String get clientAuthReasonSendRequest;
-
-  /// No description provided for @clientAuthReasonVoucher.
-  ///
-  /// In en, this message translates to:
-  /// **'Voucher'**
-  String get clientAuthReasonVoucher;
-
-  /// No description provided for @clientAuthReasonVisit.
-  ///
-  /// In en, this message translates to:
-  /// **'Visit'**
-  String get clientAuthReasonVisit;
-
-  /// No description provided for @clientAuthReasonChat.
-  ///
-  /// In en, this message translates to:
-  /// **'Message'**
-  String get clientAuthReasonChat;
-
-  /// No description provided for @clientAuthReasonReview.
-  ///
-  /// In en, this message translates to:
-  /// **'Review'**
-  String get clientAuthReasonReview;
-
-  /// No description provided for @clientAuthReasonPlanner.
-  ///
-  /// In en, this message translates to:
-  /// **'Consultation'**
-  String get clientAuthReasonPlanner;
-
-  /// No description provided for @clientAuthReasonQuote.
-  ///
-  /// In en, this message translates to:
-  /// **'Quote'**
-  String get clientAuthReasonQuote;
-
-  /// No description provided for @clientAuthReasonSave.
-  ///
-  /// In en, this message translates to:
-  /// **'Shortlist'**
-  String get clientAuthReasonSave;
 
   /// No description provided for @clientAuthGateErrorDigits.
   ///
@@ -1751,7 +1685,7 @@ abstract class AppL10n {
   /// No description provided for @clientAuthNameTitle.
   ///
   /// In en, this message translates to:
-  /// **'Create account'**
+  /// **'About you'**
   String get clientAuthNameTitle;
 
   /// No description provided for @clientAuthNameLabel.
@@ -1772,6 +1706,24 @@ abstract class AppL10n {
   /// **'Email'**
   String get clientAuthNameEmailLabel;
 
+  /// No description provided for @clientAuthNameSexLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sex'**
+  String get clientAuthNameSexLabel;
+
+  /// No description provided for @clientAuthNameSexFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get clientAuthNameSexFemale;
+
+  /// No description provided for @clientAuthNameSexMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get clientAuthNameSexMale;
+
   /// No description provided for @clientAuthNameAccept.
   ///
   /// In en, this message translates to:
@@ -1783,12 +1735,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Terms and privacy'**
   String get clientAuthNameLegalTitle;
-
-  /// No description provided for @clientAuthNameKept.
-  ///
-  /// In en, this message translates to:
-  /// **'Saved to your account'**
-  String get clientAuthNameKept;
 
   /// No description provided for @clientAuthNameMonogram.
   ///
@@ -2336,48 +2282,6 @@ abstract class AppL10n {
   /// **'See the price breakdown'**
   String get clientBookingPackageBreakdownOpen;
 
-  /// No description provided for @clientBookingExtrasTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Extras'**
-  String get clientBookingExtrasTitle;
-
-  /// No description provided for @clientBookingExtrasInfoTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Extras'**
-  String get clientBookingExtrasInfoTitle;
-
-  /// No description provided for @clientBookingExtrasIncluded.
-  ///
-  /// In en, this message translates to:
-  /// **'Included'**
-  String get clientBookingExtrasIncluded;
-
-  /// No description provided for @clientBookingExtrasNone.
-  ///
-  /// In en, this message translates to:
-  /// **'No extras'**
-  String get clientBookingExtrasNone;
-
-  /// No description provided for @clientBookingExtrasNoneOffered.
-  ///
-  /// In en, this message translates to:
-  /// **'This venue does not sell extras for your booking. You can continue.'**
-  String get clientBookingExtrasNoneOffered;
-
-  /// No description provided for @clientBookingExtrasLead.
-  ///
-  /// In en, this message translates to:
-  /// **'Optional and priced separately, at your voucher price where the venue has one.'**
-  String get clientBookingExtrasLead;
-
-  /// No description provided for @clientBookingExtrasSettledNote.
-  ///
-  /// In en, this message translates to:
-  /// **'Extras are settled directly with the venue.'**
-  String get clientBookingExtrasSettledNote;
-
   /// No description provided for @clientBookingDetailsTitle.
   ///
   /// In en, this message translates to:
@@ -2545,12 +2449,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Review'**
   String get clientBookingReviewTitle;
-
-  /// No description provided for @clientBookingReviewExtras.
-  ///
-  /// In en, this message translates to:
-  /// **'Extras'**
-  String get clientBookingReviewExtras;
 
   /// No description provided for @clientBookingReviewContact.
   ///
@@ -2737,18 +2635,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Valid until'**
   String get clientBookingVoucherValid;
-
-  /// No description provided for @clientBookingQuoteChanged.
-  ///
-  /// In en, this message translates to:
-  /// **'Your total changed since you got the voucher, because of the extras you added. The voucher still applies.'**
-  String get clientBookingQuoteChanged;
-
-  /// No description provided for @clientBookingQuoteChangedShort.
-  ///
-  /// In en, this message translates to:
-  /// **'Total changed'**
-  String get clientBookingQuoteChangedShort;
 
   /// No description provided for @clientBookingSentTitle.
   ///
@@ -3373,18 +3259,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Close one to send another'**
   String get clientBookingsLimitReached;
-
-  /// No description provided for @clientBookingsGuestTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Track your requests'**
-  String get clientBookingsGuestTitle;
-
-  /// No description provided for @clientBookingsGuestAction.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in'**
-  String get clientBookingsGuestAction;
 
   /// No description provided for @clientBookingsEmptyTitle.
   ///
@@ -4664,12 +4538,6 @@ abstract class AppL10n {
   /// **'Date'**
   String get clientDiscoverBriefChooseDate;
 
-  /// No description provided for @clientDiscoverBriefChooseArea.
-  ///
-  /// In en, this message translates to:
-  /// **'Area'**
-  String get clientDiscoverBriefChooseArea;
-
   /// No description provided for @clientDiscoverBriefAddGuests.
   ///
   /// In en, this message translates to:
@@ -4681,12 +4549,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Budget'**
   String get clientDiscoverBriefSetBudget;
-
-  /// No description provided for @clientDiscoverBriefAreaMore.
-  ///
-  /// In en, this message translates to:
-  /// **'{first} +{more}'**
-  String clientDiscoverBriefAreaMore(String first, String more);
 
   /// No description provided for @clientDiscoverCtaCount.
   ///
@@ -4715,7 +4577,7 @@ abstract class AppL10n {
   /// No description provided for @clientDiscoverResultsSearchPlaceholder.
   ///
   /// In en, this message translates to:
-  /// **'Hall or area'**
+  /// **'Hall or governorate'**
   String get clientDiscoverResultsSearchPlaceholder;
 
   /// No description provided for @clientDiscoverResultsFilters.
@@ -4843,12 +4705,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Nearest'**
   String get clientDiscoverSortDistance;
-
-  /// No description provided for @clientDiscoverChipAreasAll.
-  ///
-  /// In en, this message translates to:
-  /// **'All areas'**
-  String get clientDiscoverChipAreasAll;
 
   /// No description provided for @clientDiscoverChipRating.
   ///
@@ -5072,12 +4928,6 @@ abstract class AppL10n {
   /// **'Any month'**
   String get clientDiscoverBriefDateFlexible;
 
-  /// No description provided for @clientDiscoverBriefAreaTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Area'**
-  String get clientDiscoverBriefAreaTitle;
-
   /// No description provided for @clientDiscoverBriefGuestsTitle.
   ///
   /// In en, this message translates to:
@@ -5126,24 +4976,6 @@ abstract class AppL10n {
   /// **'Done'**
   String get clientDiscoverBriefDone;
 
-  /// No description provided for @clientDiscoverMergeTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Two briefs'**
-  String get clientDiscoverMergeTitle;
-
-  /// No description provided for @clientDiscoverMergePhone.
-  ///
-  /// In en, this message translates to:
-  /// **'This phone'**
-  String get clientDiscoverMergePhone;
-
-  /// No description provided for @clientDiscoverMergeAccount.
-  ///
-  /// In en, this message translates to:
-  /// **'My account'**
-  String get clientDiscoverMergeAccount;
-
   /// No description provided for @clientDiscoverMapTitle.
   ///
   /// In en, this message translates to:
@@ -5183,8 +5015,8 @@ abstract class AppL10n {
   /// No description provided for @clientDiscoverMapDenied.
   ///
   /// In en, this message translates to:
-  /// **'Near {area}'**
-  String clientDiscoverMapDenied(String area);
+  /// **'Near {place}'**
+  String clientDiscoverMapDenied(String place);
 
   /// No description provided for @clientDiscoverMapLocated.
   ///
@@ -5243,7 +5075,7 @@ abstract class AppL10n {
   /// No description provided for @clientDiscoverChipRegion.
   ///
   /// In en, this message translates to:
-  /// **'Region'**
+  /// **'Governorate'**
   String get clientDiscoverChipRegion;
 
   /// No description provided for @clientDiscoverChipDate.
@@ -5273,8 +5105,8 @@ abstract class AppL10n {
   /// No description provided for @clientDiscoverFiltersGroupRegion.
   ///
   /// In en, this message translates to:
-  /// **'Region'**
-  String get clientDiscoverFiltersGroupRegion;
+  /// **'{count, plural, =0{Governorates} one{Governorates · {count}} other{Governorates · {count}}}'**
+  String clientDiscoverFiltersGroupRegion(int count);
 
   /// No description provided for @clientDiscoverFiltersGroupStructure.
   ///
@@ -5305,36 +5137,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Voucher only'**
   String get clientDiscoverFiltersVoucherTitle;
-
-  /// No description provided for @clientDiscoverBriefAreaAll.
-  ///
-  /// In en, this message translates to:
-  /// **'All'**
-  String get clientDiscoverBriefAreaAll;
-
-  /// No description provided for @clientDiscoverBriefAreaClearGroup.
-  ///
-  /// In en, this message translates to:
-  /// **'Clear'**
-  String get clientDiscoverBriefAreaClearGroup;
-
-  /// No description provided for @clientDiscoverRegionPlaceholder.
-  ///
-  /// In en, this message translates to:
-  /// **'Area or hall'**
-  String get clientDiscoverRegionPlaceholder;
-
-  /// No description provided for @clientDiscoverRegionNear.
-  ///
-  /// In en, this message translates to:
-  /// **'Near me'**
-  String get clientDiscoverRegionNear;
-
-  /// No description provided for @clientDiscoverRegionListLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Governorates and areas'**
-  String get clientDiscoverRegionListLabel;
 
   /// No description provided for @clientDiscoverDatesTitle.
   ///
@@ -5438,12 +5240,6 @@ abstract class AppL10n {
   /// **'Drive time'**
   String get clientDiscoverA11yDrive;
 
-  /// No description provided for @clientDiscoverMergeKeep.
-  ///
-  /// In en, this message translates to:
-  /// **'Keep'**
-  String get clientDiscoverMergeKeep;
-
   /// No description provided for @clientDiscoverA11yDaysLeft.
   ///
   /// In en, this message translates to:
@@ -5479,6 +5275,36 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'{amount} and above'**
   String clientDiscoverBriefBudgetOver(String amount);
+
+  /// No description provided for @clientDiscoverBriefChooseGovernorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Governorate'**
+  String get clientDiscoverBriefChooseGovernorate;
+
+  /// No description provided for @clientDiscoverBriefGovernorateMore.
+  ///
+  /// In en, this message translates to:
+  /// **'{first} +{more}'**
+  String clientDiscoverBriefGovernorateMore(String first, String more);
+
+  /// No description provided for @clientDiscoverBriefGovernorateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Governorates} one{Governorates · {count}} other{Governorates · {count}}}'**
+  String clientDiscoverBriefGovernorateTitle(int count);
+
+  /// No description provided for @clientDiscoverBriefGovernorateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Governorates'**
+  String get clientDiscoverBriefGovernorateLabel;
+
+  /// No description provided for @clientDiscoverChipGovernoratesAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All governorates'**
+  String get clientDiscoverChipGovernoratesAll;
 
   /// No description provided for @clientMessagesInboxTitle.
   ///
@@ -5593,18 +5419,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Support'**
   String get clientMessagesEmptySupport;
-
-  /// No description provided for @clientMessagesGuestLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in to see your messages'**
-  String get clientMessagesGuestLabel;
-
-  /// No description provided for @clientMessagesGuestAction.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in'**
-  String get clientMessagesGuestAction;
 
   /// No description provided for @clientMessagesVisitMembers.
   ///
@@ -5827,12 +5641,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Peace be upon you. Could you tell us the voucher price for the ladies’ reception?'**
   String get clientMessagesSuggestVoucherAny;
-
-  /// No description provided for @clientMessagesSupportIntro.
-  ///
-  /// In en, this message translates to:
-  /// **'Hello, how can we help?'**
-  String get clientMessagesSupportIntro;
 
   /// No description provided for @clientMessagesBlockedNote.
   ///
@@ -6902,18 +6710,6 @@ abstract class AppL10n {
   /// **'Services'**
   String get clientMyWeddingToolServices;
 
-  /// No description provided for @clientMyWeddingGuestAction.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in'**
-  String get clientMyWeddingGuestAction;
-
-  /// No description provided for @clientMyWeddingSample.
-  ///
-  /// In en, this message translates to:
-  /// **'Sample'**
-  String get clientMyWeddingSample;
-
   /// No description provided for @clientMyWeddingUpdated.
   ///
   /// In en, this message translates to:
@@ -7553,7 +7349,7 @@ abstract class AppL10n {
   /// No description provided for @clientOnboardingInfoBody.
   ///
   /// In en, this message translates to:
-  /// **'All optional. They stay on this device until you sign up, and you can change them anytime in Profile.'**
+  /// **'All optional. You can change them anytime in Profile.'**
   String get clientOnboardingInfoBody;
 
   /// No description provided for @clientOnboardingAboutTitle.
@@ -7771,42 +7567,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Later'**
   String get clientOnboardingSkipHalf;
-
-  /// No description provided for @clientOnboardingAreasTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Areas'**
-  String get clientOnboardingAreasTitle;
-
-  /// No description provided for @clientOnboardingAreasSearch.
-  ///
-  /// In en, this message translates to:
-  /// **'Search areas'**
-  String get clientOnboardingAreasSearch;
-
-  /// No description provided for @clientOnboardingAreasSelected.
-  ///
-  /// In en, this message translates to:
-  /// **'{count, plural, =0{No areas selected} one{{count} area selected} other{{count} areas selected}}'**
-  String clientOnboardingAreasSelected(int count);
-
-  /// No description provided for @clientOnboardingAreasDemoQuery.
-  ///
-  /// In en, this message translates to:
-  /// **'Mish'**
-  String get clientOnboardingAreasDemoQuery;
-
-  /// No description provided for @clientOnboardingAreasMore.
-  ///
-  /// In en, this message translates to:
-  /// **'{count, plural, =0{No more areas} one{{count} more area} other{{count} more areas}}'**
-  String clientOnboardingAreasMore(int count);
-
-  /// No description provided for @clientOnboardingAreasNoHallsNote.
-  ///
-  /// In en, this message translates to:
-  /// **'No halls yet. Home shows all.'**
-  String get clientOnboardingAreasNoHallsNote;
 
   /// No description provided for @clientOnboardingLanguageNativeAr.
   ///
@@ -8582,12 +8342,6 @@ abstract class AppL10n {
   /// **'Other planners'**
   String get clientPlannerOtherPlanners;
 
-  /// No description provided for @clientPlannerGuestSignIn.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in'**
-  String get clientPlannerGuestSignIn;
-
   /// No description provided for @clientPlannerRetryToast.
   ///
   /// In en, this message translates to:
@@ -8942,12 +8696,6 @@ abstract class AppL10n {
   /// **'Privacy'**
   String get clientProfileSharedPrivacy;
 
-  /// No description provided for @clientProfileSharedSignIn.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in'**
-  String get clientProfileSharedSignIn;
-
   /// No description provided for @clientProfileSharedSignOut.
   ///
   /// In en, this message translates to:
@@ -9193,12 +8941,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Venue and catering'**
   String get clientProfileWedBudget;
-
-  /// No description provided for @clientProfileWedAreas.
-  ///
-  /// In en, this message translates to:
-  /// **'Areas'**
-  String get clientProfileWedAreas;
 
   /// No description provided for @clientProfileWedTotal.
   ///
@@ -9752,6 +9494,30 @@ abstract class AppL10n {
   /// **'Deletion cancelled'**
   String get clientProfileDelScheduledCancelled;
 
+  /// No description provided for @clientProfilePersSex.
+  ///
+  /// In en, this message translates to:
+  /// **'Sex'**
+  String get clientProfilePersSex;
+
+  /// No description provided for @clientProfilePersSexFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get clientProfilePersSexFemale;
+
+  /// No description provided for @clientProfilePersSexMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get clientProfilePersSexMale;
+
+  /// No description provided for @clientProfileWedGovernorates.
+  ///
+  /// In en, this message translates to:
+  /// **'Governorates'**
+  String get clientProfileWedGovernorates;
+
   /// No description provided for @clientReviewsRewardsStarCount.
   ///
   /// In en, this message translates to:
@@ -9835,18 +9601,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Your event'**
   String get clientReviewsRewardsListEvent;
-
-  /// No description provided for @clientReviewsRewardsListSignIn.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in'**
-  String get clientReviewsRewardsListSignIn;
-
-  /// No description provided for @clientReviewsRewardsListSignInName.
-  ///
-  /// In en, this message translates to:
-  /// **'to review your event'**
-  String get clientReviewsRewardsListSignInName;
 
   /// No description provided for @clientReviewsRewardsListInfoTitle.
   ///
@@ -10279,18 +10033,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Removed'**
   String get clientSavedCompareSavedRemoved;
-
-  /// No description provided for @clientSavedCompareSavedGuestBanner.
-  ///
-  /// In en, this message translates to:
-  /// **'This phone only'**
-  String get clientSavedCompareSavedGuestBanner;
-
-  /// No description provided for @clientSavedCompareSavedGuestSignIn.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in'**
-  String get clientSavedCompareSavedGuestSignIn;
 
   /// No description provided for @clientSavedCompareLastUpdated.
   ///
@@ -10778,12 +10520,6 @@ abstract class AppL10n {
   /// **'Open {name}'**
   String clientServicesOpenName(String name);
 
-  /// No description provided for @clientServicesArea.
-  ///
-  /// In en, this message translates to:
-  /// **'Area'**
-  String get clientServicesArea;
-
   /// No description provided for @clientServicesProviders.
   ///
   /// In en, this message translates to:
@@ -10909,12 +10645,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Saved'**
   String get clientServicesHubSavedTitle;
-
-  /// No description provided for @clientServicesHubGovernmentNote.
-  ///
-  /// In en, this message translates to:
-  /// **'Add catering and decor'**
-  String get clientServicesHubGovernmentNote;
 
   /// No description provided for @clientServicesHubVoucherLine.
   ///
@@ -11234,12 +10964,6 @@ abstract class AppL10n {
   /// **'Date needed'**
   String get clientServicesQuoteDateError;
 
-  /// No description provided for @clientServicesQuoteGuestNote.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in to send'**
-  String get clientServicesQuoteGuestNote;
-
   /// No description provided for @clientServicesQuoteThreadExists.
   ///
   /// In en, this message translates to:
@@ -11324,6 +11048,42 @@ abstract class AppL10n {
   /// **'List updated'**
   String get clientServicesListRefreshed;
 
+  /// No description provided for @clientServicesProviderNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Service provider? Apply in the Partner app'**
+  String get clientServicesProviderNote;
+
+  /// No description provided for @clientServicesProviderNoteAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get clientServicesProviderNoteAction;
+
+  /// No description provided for @clientServicesProviderNoteOpens.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens Partner app store'**
+  String get clientServicesProviderNoteOpens;
+
+  /// No description provided for @clientServicesGovernorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Governorate'**
+  String get clientServicesGovernorate;
+
+  /// No description provided for @clientServicesGovernorateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Governorates} one{Governorates · {count}} other{Governorates · {count}}}'**
+  String clientServicesGovernorateTitle(int count);
+
+  /// No description provided for @clientServicesArea.
+  ///
+  /// In en, this message translates to:
+  /// **'Area'**
+  String get clientServicesArea;
+
   /// No description provided for @clientShellTabBarLabel.
   ///
   /// In en, this message translates to:
@@ -11372,12 +11132,6 @@ abstract class AppL10n {
   /// **'Hello, {name}'**
   String clientShellGreeting(String name);
 
-  /// No description provided for @clientShellGreetingAnonymous.
-  ///
-  /// In en, this message translates to:
-  /// **'Hello'**
-  String get clientShellGreetingAnonymous;
-
   /// No description provided for @clientShellBriefTitle.
   ///
   /// In en, this message translates to:
@@ -11401,12 +11155,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Guests'**
   String get clientShellBriefGuests;
-
-  /// No description provided for @clientShellBriefArea.
-  ///
-  /// In en, this message translates to:
-  /// **'Area'**
-  String get clientShellBriefArea;
 
   /// No description provided for @clientShellBriefBudget.
   ///
@@ -11894,12 +11642,6 @@ abstract class AppL10n {
   /// **'Menu'**
   String get clientVenuePkgMenu;
 
-  /// No description provided for @clientVenuePkgExtras.
-  ///
-  /// In en, this message translates to:
-  /// **'Extras'**
-  String get clientVenuePkgExtras;
-
   /// No description provided for @clientVenuePkgSave.
   ///
   /// In en, this message translates to:
@@ -11987,7 +11729,7 @@ abstract class AppL10n {
   /// No description provided for @clientVenueFacExtra.
   ///
   /// In en, this message translates to:
-  /// **'Extra'**
+  /// **'Extra cost'**
   String get clientVenueFacExtra;
 
   /// No description provided for @clientVenueFacOff.
@@ -12241,30 +11983,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Total for {guests}'**
   String clientVenueTotalFor(String guests);
-
-  /// No description provided for @clientVenueContactTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Contact'**
-  String get clientVenueContactTitle;
-
-  /// No description provided for @clientVenueContactCalling.
-  ///
-  /// In en, this message translates to:
-  /// **'Calling {venue}'**
-  String clientVenueContactCalling(String venue);
-
-  /// No description provided for @clientVenueContactWhatsapp.
-  ///
-  /// In en, this message translates to:
-  /// **'Opening WhatsApp'**
-  String get clientVenueContactWhatsapp;
-
-  /// No description provided for @clientVenueContactChat.
-  ///
-  /// In en, this message translates to:
-  /// **'Message'**
-  String get clientVenueContactChat;
 
   /// No description provided for @clientVenueCalTitle.
   ///
@@ -12674,12 +12392,6 @@ abstract class AppL10n {
   /// **'Official booking'**
   String get clientVenueGovCtaOfficial;
 
-  /// No description provided for @clientVenueGovCtaCatering.
-  ///
-  /// In en, this message translates to:
-  /// **'Find services'**
-  String get clientVenueGovCtaCatering;
-
   /// No description provided for @clientVenueGovLeaveTitle.
   ///
   /// In en, this message translates to:
@@ -13045,18 +12757,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Time confirmed'**
   String get clientVisitsConfirmedToast;
-
-  /// No description provided for @clientVisitsGuestTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Your visits'**
-  String get clientVisitsGuestTitle;
-
-  /// No description provided for @clientVisitsGuestAction.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in'**
-  String get clientVisitsGuestAction;
 
   /// No description provided for @clientVisitsMsgSending.
   ///
@@ -13478,12 +13178,6 @@ abstract class AppL10n {
   /// **'Support issued you a credit voucher. It works at any hall, hotel or service.'**
   String get clientVouchersCreditIssuedBody;
 
-  /// No description provided for @clientVouchersCtaSignIn.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in'**
-  String get clientVouchersCtaSignIn;
-
   /// No description provided for @clientVouchersDetailTitle.
   ///
   /// In en, this message translates to:
@@ -13543,12 +13237,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Get voucher'**
   String get clientVouchersGetVoucher;
-
-  /// No description provided for @clientVouchersGuestTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Your vouchers'**
-  String get clientVouchersGuestTitle;
 
   /// No description provided for @clientVouchersHistPaid.
   ///

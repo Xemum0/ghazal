@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/src/client/client_c.dart';
+import 'package:ghazal_ui/src/client/client_r2.dart' show GzProviderNote, GzProviderNoteVariant;
 import 'package:ghazal_ui/src/core/core.dart';
 import 'package:ghazal_ui/src/foundation.dart';
 
@@ -256,6 +257,15 @@ Widget _vendor(BuildContext context, ClientCData d) {
         GzVendorCard(vendor: fresh, area: area(fresh), variant: GzVendorVariant.row, previewState: GzPreviewState.pressed),
         GzVendorCard(vendor: rated, area: area(rated), loading: true),
       ]),
+      _spec(
+        context,
+        _t(
+          context,
+          'Provider note (CA-SVC-20) · glyph, the whole sentence, an accent "Apply" and a chevron · banner: a rose card at the TOP of Services (under the Venues | Services switch, in the first screen) · row: one row at the top of Profile (under the identity header, on a full-width rose band) · 44 or more, wraps to two lines',
+          'ملاحظة المزوّد (CA-SVC-20) · رمز والجملة كاملة و«تقديم» بلون التمييز وسهم · banner: بطاقة وردية في أعلى الخدمات (تحت مفتاح القاعات | الخدمات وداخل الشاشة الأولى) · row: صف واحد في أعلى الملف الشخصي (تحت رأس الهوية وعلى شريط وردي بعرض الشاشة) · لا يقل عن 44 ويلتف على سطرين',
+        ),
+        [GzProviderNote(variant: GzProviderNoteVariant.banner, onOpen: () {}), GzProviderNote(onOpen: () {})],
+      ),
     ],
   );
 }

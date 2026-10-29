@@ -26,6 +26,7 @@ class GzChip extends StatelessWidget {
     this.selected,
     this.iconStart,
     this.iconSize = GzIconSize.sm,
+    this.glyphInLabel = false,
     this.onPressed,
     this.disabled = false,
     this.menu = false,
@@ -55,6 +56,10 @@ class GzChip extends StatelessWidget {
 
   /// `sm` for the web `iconStart` of a Chip, `xs` for the glyph inside a ChipGroup label.
   final GzIconSize iconSize;
+
+  /// The glyph is part of the label (the web ChipGroup option `<Icon/> name`): the glyph and the words are one label, centred together
+  /// in the width the heavy weight reserves. Off, the glyph is the web Chip `iconStart`, outside the label (the default).
+  final bool glyphInLabel;
   final VoidCallback? onPressed;
   final bool disabled;
 
@@ -121,8 +126,16 @@ class _GzChipBody extends StatelessWidget {
     final fg = disabled ? c.textDisabled : (sel ? c.textStrong : c.textPrimary);
     final bg = sel ? c.controlBg : (pressed && !disabled ? c.surfaceQuiet : null);
     final base = gzResetLabelStyle(gz).copyWith(color: fg); // the rendered web label type, see gzResetLabelStyle
+    final inLabel = chip.glyphInLabel && chip.iconStart != null && chip.labelWidget == null;
     final Widget text = chip.labelWidget == null
-        ? GzSteadyLabel(span: _span(context, disabled ? c.textDisabled : c.textSecondary), style: base, selected: sel, fit: chip.expand)
+        ? GzSteadyLabel(
+            span: _span(context, disabled ? c.textDisabled : c.textSecondary),
+            style: base,
+            selected: sel,
+            fit: chip.expand,
+            leading: inLabel ? Padding(padding: const EdgeInsetsDirectional.only(end: GzSpace.s2), child: GzIcon(chip.iconStart!, size: chip.iconSize, color: fg)) : null,
+            leadingExtent: inLabel ? chip.iconSize.dp + GzSpace.s2 : 0,
+          )
         : AnimatedDefaultTextStyle(
             duration: GzMotion.durationBase,
             curve: GzMotion.easeStandard,
@@ -142,7 +155,7 @@ class _GzChipBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (sel) ...[const GzBeadBox(), const SizedBox(width: GzSpace.s2)],
-          if (chip.iconStart != null) ...[GzIcon(chip.iconStart!, size: chip.iconSize, color: fg), const SizedBox(width: GzSpace.s2)],
+          if (chip.iconStart != null && !inLabel) ...[GzIcon(chip.iconStart!, size: chip.iconSize, color: fg), const SizedBox(width: GzSpace.s2)],
           chip.expand ? Flexible(child: text) : text,
           if (chip.count != null && chip.count! > 0) ...[const SizedBox(width: GzSpace.s2), GzCountBadge(count: chip.count!)],
           if (chip.menu) ...[const SizedBox(width: GzSpace.s2), GzIcon(GzIcons.chevronDown, size: GzIconSize.xs, color: fg)],

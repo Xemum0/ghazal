@@ -2,7 +2,6 @@ import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, GateResume, WidgetSessionGate, sessionProvider;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -34,29 +33,22 @@ final class QuoteCarry {
 }
 
 /// What a tap does on the venue detail (CL-VENU-01 and CL-VENU-06): every edge of the inventory's `navigatesTo`, wired once, by route
-/// name through the navigator. Guest-gated actions go through the sign-in gate and resume where the person left off.
+/// name through the navigator. Every client is signed in (ADR 0038), so no action meets a gate.
 class VenueActions {
-  VenueActions(this.context, this.ref, this.venueId, {this.venuePhone, this.venueName});
+  VenueActions(this.context, this.ref, this.venueId);
 
   final BuildContext context;
   final WidgetRef ref;
   final String venueId;
-  final String? venuePhone;
-  final String? venueName;
 
   GzNavigator get _nav => context.gzNav;
   AppL10n get _l => context.l10n;
 
-  /// Heart: saved on the device for a guest too; the third heart as a guest raises the once-only sign-up nudge (ADR 0007 D10).
+  /// Heart: saved to the account's list.
   Future<void> toggleFavourite() async {
     final notifier = ref.read(favouritesProvider.notifier);
     final on = await notifier.toggle(SavedType.venue, venueId);
     if (!context.mounted) return;
-    if (on && (ref.read(favouritesProvider).value?.signupNudge ?? false)) {
-      notifier.clearSignupNudge();
-      _nav.openSheet('CL-AUTH-01', options: const GzSheetOptions(params: <String, Object?>{'reason': 'save'}));
-      return;
-    }
     _nav.toast(
       GzToastSpec(
         message: on ? context.gzL10n.commonStateSaved : _l.clientVenueSavedRemoved,
@@ -112,18 +104,16 @@ class VenueActions {
     return Future<void>.delayed(Duration.zero);
   }
 
-  /// Get voucher: the explainer bound to this quote (CL-VCHR-01). A guest meets the sign-in sheet first and comes back to it with the
-  /// exact quote (ADR 0007 D8).
+  /// Get voucher: the explainer bound to this quote (CL-VCHR-01). Every client is signed in (ADR 0038), so there is no gate before it.
   ///
-  /// [closeSheet]: called from a sheet (the calendar, CL-VENU-03): it gives way to the explainer (or the account sheet) instead of staying
-  /// open underneath the whole pay flow, where it would also keep the app's own sheets (Face ID offer, Brief merge) waiting for ever.
+  /// [closeSheet]: called from a sheet (the calendar, CL-VENU-03): it gives way to the explainer instead of staying open underneath the
+  /// whole pay flow, where it would also keep the app's own sheet (the Face ID offer) waiting for ever.
   Future<void> getVoucher(QuoteCarry c, {bool closeSheet = false}) async {
     final nav = _nav; // taken while the context is alive: the entry navigator forwards every action to the app's one navigator
     ref
         .read(bookingDraftProvider.notifier)
         .start(venueId: venueId, hallId: c.hallId, sessionId: c.sessionId, packageId: c.packageId, eventDate: c.date, guests: c.guests, audience: c.audience);
     if (closeSheet) await _closeSheet(nav);
-    if (!ref.requireSignIn(GateReason.voucher, resume: GateResume('CL-VCHR-01', c.params))) return;
     nav.openSheet('CL-VCHR-01', options: GzSheetOptions(params: c.params));
   }
 
@@ -136,24 +126,14 @@ class VenueActions {
     draft.start(venueId: venueId, hallId: c.hallId, sessionId: c.sessionId, packageId: c.packageId, eventDate: c.date, guests: c.guests, audience: c.audience);
     draft.patch((d) => d.copyWith(voucherId: voucher.id));
     if (closeSheet) await _closeSheet(nav);
-    if (!ref.requireSignIn(GateReason.sendRequest, resume: GateResume('CL-BOOK-01', <String, Object?>{'venueId': venueId}))) return;
     nav.push('CL-BOOK-01', params: <String, Object?>{'venueId': venueId});
   }
 
-  /// Book a visit (CL-VIST-01): no voucher needed, the account is asked at Send.
+  /// Book a visit (CL-VIST-01): no voucher needed.
   void bookVisit() => _nav.openSheet('CL-VIST-01', options: GzSheetOptions(params: <String, Object?>{'venueId': venueId}));
 
-  /// Contact the venue, the browse-only path: a registered client opens the chat, a guest gets the venue's own phone and WhatsApp.
-  void contactVenue() {
-    if (!ref.read(sessionProvider).isSignedIn) {
-      _nav.openSheetBuilder(
-        (_) => VenueContactSheet(venueId: venueId, phone: venuePhone, venueName: venueName),
-        options: GzSheetOptions(title: _l.clientVenueContactTitle),
-      );
-      return;
-    }
-    _nav.push('CL-MSGS-02', params: <String, Object?>{'venueId': venueId});
-  }
+  /// Contact the venue, the browse-only path: the in-app chat (CL-MSGS-02).
+  void contactVenue() => _nav.push('CL-MSGS-02', params: <String, Object?>{'venueId': venueId});
 
   void openReviews() => _nav.push('CL-RVRW-01', params: <String, Object?>{'venueId': venueId});
 

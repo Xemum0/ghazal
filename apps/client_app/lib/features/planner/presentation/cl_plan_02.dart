@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, GateResume, WidgetSessionGate, plannersRepositoryProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show plannersRepositoryProvider;
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, ApiProblemCode, DateStyle, clockProvider;
 import 'package:ghazal_domain/ghazal_domain.dart' show DayPart, LocalDate, PlannerRequestInput, PlannerTier, TimeWindow;
 import 'package:ghazal_ui/ghazal_ui.dart';
@@ -18,11 +18,10 @@ const List<DayPart> _parts = [DayPart.morning, DayPart.afternoon, DayPart.evenin
 ///
 /// The package as one tappable row (Change is its chevron), the wedding as two
 /// facts, up to three time windows picked on a two-week calendar, how to be
-/// reached as three glyphs, optional notes. Send is a hard gate: a guest meets
-/// the sign-in sheet, and the request resumes with everything typed. An open
-/// request is never duplicated: the screen shows where it stands instead.
+/// reached as three glyphs, optional notes. An open request is never
+/// duplicated: the screen shows where it stands instead.
 /// States: default, validation-error, sending, success, error, offline,
-/// guest-gate, open-request-exists.
+/// open-request-exists.
 class ClPlan02Screen extends ConsumerStatefulWidget {
   const ClPlan02Screen({super.key});
 
@@ -88,7 +87,6 @@ class _ClPlan02ScreenState extends ConsumerState<ClPlan02Screen> {
     final LocalDate? activeDay = (_day != null && days.contains(_day)) ? _day : _derivedDay(days, windows);
     final activeParts = {for (final w in windows) parsePlanWindow(w)}.where((w) => w.$1 == activeDay).map((w) => w.$2).toSet();
     final showWindowError = (_attempted && windows.isEmpty);
-    final guest = ref.watch(clientUserIdProvider) == null;
 
     if (_sent) {
       return GzScreen(
@@ -118,7 +116,7 @@ class _ClPlan02ScreenState extends ConsumerState<ClPlan02Screen> {
       top: GzTopBar(title: l.clientPlannerRequestTitle),
       bottom: GzActionBar(
         action: GzActionBarAction(
-          label: guest ? l.clientPlannerGuestSignIn : l.clientPlannerRequestSend,
+          label: l.clientPlannerRequestSend,
           loading: _sending,
           onPressed: (offline || _sending || pkg == null) ? null : () => _send(pkg.tier, venueId, eventDate),
         ),
@@ -329,11 +327,6 @@ class _ClPlan02ScreenState extends ConsumerState<ClPlan02Screen> {
     setState(() => _attempted = true);
     final windows = ref.read(plannerWindowsProvider);
     if (windows.isEmpty) return;
-    final params = <String, Object?>{'tier': tier.value};
-    if (_editing) params['edit'] = true;
-    // A guest meets the account sheet ('CL-AUTH-01', opened by requireSignIn)
-    // and resumes here with everything typed; system back returns to 'CL-PLAN-01'.
-    if (!ref.requireSignIn(GateReason.planner, resume: GateResume('CL-PLAN-02', params))) return;
     setState(() => _sending = true);
     try {
       final repo = ref.read(plannersRepositoryProvider);

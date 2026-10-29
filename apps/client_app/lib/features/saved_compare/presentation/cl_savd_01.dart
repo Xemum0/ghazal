@@ -17,8 +17,8 @@ import 'widgets/saved_tray.dart';
 /// The family's shortlist, said in glyphs and figures (ADR 0034): three segments as glyph tabs (halls, services, packages), halls sorted
 /// free-first, the Brief date stated once above the list as `[calendar] 14 Jan` and `[check] 4/5` free, and per row a quiet area, an
 /// availability glyph and the voucher price with the standard price struck beside it. Hearts remove with Undo, Select enters multi-select
-/// into Compare, the quiet Compare tray docks above the tab bar, and a guest sees "This phone only" with Sign in. Empty segments are one
-/// drawing, three words and one action. States: default, loading, empty-venues / services / packages, guest-local, select-mode,
+/// into Compare, and the quiet Compare tray docks above the tab bar. Empty segments are one drawing, three words and one action.
+/// States: default, loading, empty-venues / services / packages, select-mode,
 /// venue-unlisted, offline, error.
 class ClSavd01Screen extends ConsumerStatefulWidget {
   const ClSavd01Screen({super.key});
@@ -113,12 +113,10 @@ class _ClSavd01ScreenState extends ConsumerState<ClSavd01Screen> {
   Widget build(BuildContext context) {
     final l = context.l10n;
     final lg = context.gzL10n;
-    final c = context.gz.colors;
     final f = context.gzFormat;
     final lang = context.gz.locale.languageCode;
     ref.listen<SavedSegment?>(pendingSavedSegmentProvider, (_, next) => _applyPending(next));
     final brief = ref.watch(searchBriefProvider);
-    final guest = ref.watch(clientUserIdProvider) == null;
     final favAsync = ref.watch(favouritesProvider);
     final bundleAsync = ref.watch(savedBundleProvider);
     final readyAsync = ref.watch(readyVouchersProvider);
@@ -216,11 +214,10 @@ class _ClSavd01ScreenState extends ConsumerState<ClSavd01Screen> {
                 SavedVenueRow(
                   row: venueRows[i],
                   area: areas[venueRows[i].venue.areaId]?.of(lang),
-                  guest: guest,
                   hasDate: brief.date != null && !offline,
                   dateText: dateText,
                   savingChanged: _savingChanged(venueRows[i], bundle?.lastSeen[venueRows[i].venue.id]) && !offline,
-                  voucherId: guest || offline ? null : ready[venueRows[i].venue.id],
+                  voucherId: offline ? null : ready[venueRows[i].venue.id],
                   onOpenVoucher: () => _nav.push('CL-VCHR-03', params: <String, Object?>{'voucherId': ready[venueRows[i].venue.id]}),
                   selecting: _selecting,
                   selected: compareIds.contains(venueRows[i].venue.id),
@@ -237,7 +234,6 @@ class _ClSavd01ScreenState extends ConsumerState<ClSavd01Screen> {
                 SavedVendorRow(
                   vendor: vendors[i],
                   area: areas[vendors[i].areaId]?.of(lang),
-                  guest: guest,
                   onOpen: () => _nav.push('CL-SERV-03', params: <String, Object?>{'vendorId': vendors[i].id}),
                   onRemove: () => _unsave(SavedType.vendor, vendors[i].id),
                   last: i == vendors.length - 1,
@@ -258,7 +254,6 @@ class _ClSavd01ScreenState extends ConsumerState<ClSavd01Screen> {
                   SavedHallPackage(:final pkg, :final venue) => SavedHallPackageRow(
                     pkg: pkg,
                     venue: venue,
-                    guest: guest,
                     onOpen: () => _nav.push(
                       venue.channel == BookingChannel.externalLink ? 'CL-VENU-06' : 'CL-VENU-01',
                       params: <String, Object?>{'venueId': venue.id, 'from': 'saved'},
@@ -277,30 +272,6 @@ class _ClSavd01ScreenState extends ConsumerState<ClSavd01Screen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (guest && !loading && error == null && counts.venues + counts.services + counts.packages > 0)
-            Padding(
-              padding: const EdgeInsetsDirectional.only(bottom: GzSpace.s4),
-              child: DecoratedBox(
-                key: const ValueKey<String>('saved.guest'),
-                decoration: BoxDecoration(color: c.surfaceTint, borderRadius: GzRadius.mdAll),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s4, vertical: GzSpace.s1),
-                  child: Row(
-                    children: [
-                      GzIcon(GzIcons.phone, size: GzIconSize.sm, color: c.iconSecondary),
-                      const SizedBox(width: GzSpace.s3),
-                      Expanded(child: GzText(l.clientSavedCompareSavedGuestBanner, role: GzTextRole.bodyS)),
-                      GzButton(
-                        key: const ValueKey<String>('saved.guest.signin'),
-                        label: l.clientSavedCompareSavedGuestSignIn,
-                        variant: GzButtonVariant.tertiary,
-                        onPressed: () => _nav.openSheet('CL-AUTH-01', options: const GzSheetOptions(params: <String, Object?>{'reason': 'save'})),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
           if (offline)
             Padding(
               padding: const EdgeInsetsDirectional.symmetric(vertical: GzSpace.s3),

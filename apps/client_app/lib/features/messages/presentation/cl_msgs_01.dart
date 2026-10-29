@@ -1,8 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView, sessionProvider;
-import 'package:ghazal_core/ghazal_core.dart' show clockProvider;
-import 'package:ghazal_domain/ghazal_domain.dart' show Conversation, ConversationKind, ConversationUnread, LocalizedText;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView;
+import 'package:ghazal_domain/ghazal_domain.dart' show ConversationKind;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../../app/state/state.dart';
@@ -15,9 +14,9 @@ import 'widgets/inbox_row.dart';
 ///
 /// One thread per counterpart (venue, planner, service provider, Ghazal Support) plus one group chat per site visit, each a monogram, a
 /// name, a clock, one short line of the last message and the unread count. The filter is a row of glyphs; the Visits glyph holds the group
-/// chats, which open CL-VIST-03. Support is pinned on top and always available, a guest included. The bell opens the notification centre.
-/// A guest sees one drawing and Sign in above Support; an empty inbox is a drawing, three words and one action.
-/// States: default, loading, empty, error, offline, guest, support-refund-request.
+/// chats, which open CL-VIST-03. Support is pinned on top and always available. The bell opens the notification centre. An empty inbox is a drawing,
+/// three words and one action.
+/// States: default, loading, empty, error, offline, support-refund-request.
 class ClMsgs01Screen extends ConsumerStatefulWidget {
   const ClMsgs01Screen({super.key});
 
@@ -42,7 +41,7 @@ class _ClMsgs01ScreenState extends ConsumerState<ClMsgs01Screen> {
   }
 
   void _openSupport() => _nav.push('CL-MSGS-02', params: const <String, Object?>{'support': true});
-  // The empty states land on the Discover tab root ('CL-DISC-01') and the guest gate opens the sign-in sheet ('CL-AUTH-01', via requireSignIn).
+  // The empty state lands on the Discover tab root ('CL-DISC-01').
 
   Future<void> _refresh() async {
     ref.invalidate(inboxProvider);
@@ -56,8 +55,7 @@ class _ClMsgs01ScreenState extends ConsumerState<ClMsgs01Screen> {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    final guest = !ref.watch(sessionProvider).isSignedIn;
-    final unread = guest ? 0 : ref.watch(unreadNotificationsProvider);
+    final unread = ref.watch(unreadNotificationsProvider);
     final inbox = ref.watch(inboxProvider);
 
     final top = GzTopBar(
@@ -74,25 +72,20 @@ class _ClMsgs01ScreenState extends ConsumerState<ClMsgs01Screen> {
       ],
     );
 
-    final Widget body;
-    if (guest) {
-      body = _guest(context);
-    } else {
-      body = GzAsyncView<List<InboxRow>>(
-        value: inbox,
-        loading: const _InboxSkeleton(),
-        isEmpty: (rows) => rows.isEmpty,
-        empty: GzEmptyState(
-          key: const ValueKey<String>('messages.empty'),
-          illustration: GzIllustrationName.emptyMessages,
-          title: l.clientMessagesEmptyTitle,
-          action: GzStateAction(label: l.clientMessagesEmptyAction, variant: GzButtonVariant.primary, onPressed: () => _nav.switchTab('discover')),
-          secondary: GzStateAction(label: l.clientMessagesEmptySupport, iconStart: GzIcons.headset, onPressed: _openSupport),
-        ),
-        onRetry: () => ref.invalidate(inboxProvider),
-        data: _list,
-      );
-    }
+    final Widget body = GzAsyncView<List<InboxRow>>(
+      value: inbox,
+      loading: const _InboxSkeleton(),
+      isEmpty: (rows) => rows.isEmpty,
+      empty: GzEmptyState(
+        key: const ValueKey<String>('messages.empty'),
+        illustration: GzIllustrationName.emptyMessages,
+        title: l.clientMessagesEmptyTitle,
+        action: GzStateAction(label: l.clientMessagesEmptyAction, variant: GzButtonVariant.primary, onPressed: () => _nav.switchTab('discover')),
+        secondary: GzStateAction(label: l.clientMessagesEmptySupport, iconStart: GzIcons.headset, onPressed: _openSupport),
+      ),
+      onRetry: () => ref.invalidate(inboxProvider),
+      data: _list,
+    );
     return GzPullToRefresh(
       onRefresh: _refresh,
       child: GzScreen(top: top, child: body),
@@ -146,71 +139,6 @@ class _ClMsgs01ScreenState extends ConsumerState<ClMsgs01Screen> {
               ],
             ),
           ),
-      ],
-    );
-  }
-
-  /// A guest has Support and nothing else: one drawing, Sign in, and the Support row with its welcome line.
-  Widget _guest(BuildContext context) {
-    final l = context.l10n;
-    final c = context.gz.colors;
-    final now = ref.watch(clockProvider)();
-    final support = Conversation(
-      id: 'support-guest',
-      kind: ConversationKind.support,
-      title: LocalizedText.same(context.gzL10n.commonRoleSupport),
-      subtitle: LocalizedText.same(context.gzL10n.commonRoleSupport),
-      monogram: context.gz.isAr ? 'غ' : 'G',
-      clientId: null,
-      clientName: '',
-      venueId: null,
-      bookingId: null,
-      plannerId: null,
-      vendorId: null,
-      handledBy: null,
-      awaitingReplySince: null,
-      usuallyRepliesHours: null,
-      pinned: true,
-      unread: const ConversationUnread(client: 0, hotel: 0),
-      lastMessageAt: now,
-    );
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Container(
-          key: const ValueKey<String>('messages.guest'),
-          margin: const EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, bottom: GzSpace.s4),
-          padding: const EdgeInsetsDirectional.all(GzSpace.panelPad),
-          decoration: BoxDecoration(color: c.surfaceTint, borderRadius: GzRadius.mdAll),
-          child: Semantics(
-            container: true,
-            label: l.clientMessagesGuestLabel,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const GzIllustration(GzIllustrationName.chat, size: GzIllustrationSize.md),
-                const SizedBox(width: GzSpace.s4),
-                Flexible(
-                  child: GzButton(
-                    key: const ValueKey<String>('messages.guest.signin'),
-                    label: l.clientMessagesGuestAction,
-                    iconStart: GzIcons.signIn,
-                    onPressed: () => _nav.openSheet('CL-AUTH-01'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, bottom: GzSpace.s8),
-          child: InboxRowTile(
-            row: InboxRow(conversation: support),
-            guestSupport: true,
-            last: true,
-            onOpen: _openSupport,
-          ),
-        ),
       ],
     );
   }

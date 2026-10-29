@@ -6,13 +6,14 @@ import 'package:ghazal_ui/ghazal_ui.dart';
 import 'package:go_router/go_router.dart';
 
 import '../l10n/generated/app_localizations.dart';
-import 'app_router.dart';
-import 'state/state.dart' show clientStateOverrides, refreshClientBadges, weddingProfileProvider;
+import 'client_router.dart';
+import '../features/auth/application/auth_actions.dart' show authBioOfferSheetProvider;
+import 'state/state.dart' show biometricOfferProvider, clientStateOverrides, firstRunExitProvider, refreshClientBadges, weddingProfileProvider;
 
 /// The override that gives `routerProvider` this app's router (the router reads `sessionProvider` for its redirect and refresh).
 /// The bootstrap passes it to `runGhazalApp(overrides: [clientRouterOverride()])`; the shot harness passes an [initialLocation].
 Override clientRouterOverride({String? initialLocation, Object? initialExtra}) => routerProvider.overrideWith((ref) {
-  final router = buildAppRouter(ref: ref, initialLocation: initialLocation, initialExtra: initialExtra);
+  final router = buildClientRouter(ref: ref, initialLocation: initialLocation, initialExtra: initialExtra);
   ref.onDispose(router.dispose);
   return router;
 });
@@ -35,10 +36,17 @@ class ClientApp extends StatelessWidget {
       extraLocalizationsDelegates: const <LocalizationsDelegate<dynamic>>[AppL10n.delegate],
       overlays: const <Widget>[GzDemoTools()],
       onResume: const <void Function(WidgetRef ref)>[refreshClientBadges],
-      warmUp: <ProviderListenable<Object?>>[weddingProfileProvider],
+      warmUp: <ProviderListenable<Object?>>[weddingProfileProvider, firstRunExitProvider],
     );
     // The tab badges are part of the app, not of its caller: a shot, a test and the running app all show them.
     final fixed = router;
-    return ProviderScope(overrides: <Override>[...clientStateOverrides, if (fixed != null) ...gzFixedRouterOverrides(fixed)], child: root);
+    return ProviderScope(
+      overrides: <Override>[
+        ...clientStateOverrides,
+        biometricOfferProvider.overrideWith((ref) => ref.watch(authBioOfferSheetProvider)),
+        if (fixed != null) ...gzFixedRouterOverrides(fixed),
+      ],
+      child: root,
+    );
   }
 }

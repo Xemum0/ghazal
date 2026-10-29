@@ -1,14 +1,13 @@
 // The vouchers flow on the real router over the in-process mock: the wallet
 // with its three groups, the voucher detail with the code and the history, the
 // explainer sheet, the voucher-for-request sheet and the use-again sheet, the
-// guest gate, the five states and one Arabic run. Bounded.
+// five states and one Arabic run. Bounded.
 //
 // Reem's wallet: the hero voucher is bound to its request (In request group),
 // the released V05 voucher is ready again (Ready group).
 import 'package:client_app/app/state/state.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart';
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -31,14 +30,6 @@ void main() {
     await scrollTo(tester, find.text('Lumi Marina Hotel'));
     await tapText(tester, 'Lumi Marina Hotel', flush: true);
     expect(currentId(c), 'CL-VCHR-03');
-  });
-
-  flowTest('wallet: a guest meets the sign-in teaser', (tester) async {
-    final c = await openScreen(tester, 'CL-VCHR-02', persona: 'guest');
-    await tapText(tester, 'Sign in', flush: true);
-    final gate = c.read(gateProvider);
-    expect(gate, isNotNull, reason: 'the gate opened');
-    expect(gate!.reason, GateReason.voucher);
   });
 
   flowTest('wallet states: loading shows the skeleton, error the retry', (tester) async {
@@ -70,16 +61,6 @@ void main() {
     await tapKey(tester, 'voucher.explainer.pay', flush: true);
     await settle(tester, flush: true);
     expect(currentId(c), 'CL-PAYM-01', reason: 'the checkout opens with the quote intact');
-  });
-
-  flowTest('explainer: a guest meets the account sheet and the quote travels with the gate', (tester) async {
-    final c = await openScreen(tester, 'CL-VCHR-01', persona: 'guest', params: kHeroQuote);
-    await scrollTo(tester, find.text('Sign in'));
-    await tapText(tester, 'Sign in', flush: true);
-    final gate = c.read(gateProvider);
-    expect(gate, isNotNull, reason: 'the gate opened');
-    expect(gate!.reason, GateReason.voucher);
-    expect(gate.resume?.routeName, 'CL-VCHR-01');
   });
 
   flowTest('voucher for request: the attached voucher is used with one tap', (tester) async {

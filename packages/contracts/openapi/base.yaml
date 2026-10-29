@@ -104,6 +104,7 @@ x-error-codes:
   INVITATION_EXPIRED: { status: 410, summary: Invitation link expired or used }
   EMAIL_ALREADY_INVITED: { status: 409, summary: A pending invitation for this email exists }
   ACCOUNT_DELETION_BLOCKED: { status: 409, summary: Future confirmed request exists }
+  EMAIL_ALREADY_REGISTERED: { status: 409, summary: A partner account already uses this email (sign in instead; a rejected applicant resubmits from the signed-in form) }
   APPLICATION_NOT_ACCEPTED: { status: 403, summary: The partner application is pending or rejected; only an accepted account can create listings }
   APPLICATION_NOT_EDITABLE: { status: 409, summary: Only a rejected application can be edited and sent again }
   APP_UPDATE_REQUIRED: { status: 426, summary: X-App-Version below the minimum }

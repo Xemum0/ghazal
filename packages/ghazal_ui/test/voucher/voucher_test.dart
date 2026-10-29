@@ -170,13 +170,12 @@ void main() {
       expect(find.byType(GzIconButton), findsOneWidget, reason: 'the net-saving info glyph');
     });
 
-    testWidgets('guest: the voucher price is locked behind sign-up and the action fires', (tester) async {
-      var signed = 0;
-      await pumpVoucher(tester, pc(audience: GzPriceCompareAudience.guest, onRegister: () => signed++));
-      expect(find.byType(GzPrice), findsNothing, reason: 'no voucher headline for a guest');
-      expect(find.byType(GzStruckMoney), findsOneWidget, reason: 'the standard price stays visible');
-      await tester.tap(_text('Sign up'));
-      expect(signed, 1);
+    testWidgets('no guest mode (ADR 0038): the deprecated guest audience shows the voucher price and nothing is locked or signed up', (tester) async {
+      await pumpVoucher(tester, pc(audience: GzPriceCompareAudience.guest, onRegister: () {}));
+      expect(find.byType(GzPrice), findsOneWidget);
+      expect(find.byType(GzStruckMoney), findsOneWidget);
+      expect(find.byIcon(GzIcons.lock), findsNothing);
+      expect(_text('Sign up'), findsNothing);
     });
 
     testWidgets('no voucher price: the standard price alone, no strike, no saving, no lock', (tester) async {

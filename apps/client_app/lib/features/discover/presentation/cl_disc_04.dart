@@ -54,13 +54,6 @@ class _ClDisc04ScreenState extends ConsumerState<ClDisc04Screen> {
     _nav.closeSheet();
   }
 
-  /// The region search is its own screen: apply what is chosen so far, close the sheet, open it on top of Results.
-  void _openRegion() {
-    ref.read(discoverStateProvider.notifier).replaceFilters(_draft);
-    _nav.closeSheet();
-    _nav.push('CL-DISC-07', params: const <String, Object?>{'from': 'filters'});
-  }
-
   Future<void> _askLocation(int? minutes) async {
     if (minutes == null) return _patch((d) => d.copyWith(clearWithin: true));
     final l = context.l10n;
@@ -113,10 +106,9 @@ class _ClDisc04ScreenState extends ConsumerState<ClDisc04Screen> {
       patch: _patch,
       brief: brief,
       labels: labels,
-      areas: areasResponse,
+      governorates: areasResponse?.governorates ?? const [],
       roster: roster,
       askLocation: _askLocation,
-      openRegion: _openRegion,
       openDates: () => _nav.openSheet('CL-DISC-06', options: const GzSheetOptions(params: <String, Object?>{'target': 'filters'})),
     );
 
@@ -216,7 +208,7 @@ class _ClDisc04ScreenState extends ConsumerState<ClDisc04Screen> {
                 for (final id in kFilterGroups)
                   FilterGroup(
                     id: id,
-                    title: filterGroupTitle(l, id),
+                    title: context.gzFormat.digits(filterGroupTitle(l, id, regions: (_draft.governorateIds ?? brief.governorateIds).length)),
                     icon: filterGroupIcon(id),
                     summary: filterGroupSummary(context, id, _draft, brief, labels),
                     active: filterGroupActive(id, _draft, brief),

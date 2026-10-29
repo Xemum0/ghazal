@@ -26,12 +26,22 @@ void main() {
     expect(find.text('Photos 24'), findsWidgets);
   });
 
-  flowTest('packages list shows packages and the extras tab', (tester) async {
+  flowTest('packages list shows the packages and no extras: no tab, no catalogue, no Add extra (CA-SVC-19)', (tester) async {
     await openScreen(tester, 'HL-VENU-02');
     expect(find.byType(HlVenu02Screen), findsOneWidget);
+    expect(find.text(en.hotelVenuePackagesTitle), findsWidgets);
     expect(find.text('Ladies’ Reception, Weekday'), findsWidgets);
-    await tapText(tester, 'Extras (12)');
-    expect(find.text('Packages (6)'), findsWidgets);
+    expect(find.byType(GzSegmentedControl<Object?>), findsNothing);
+    expect(find.textContaining('Extras'), findsNothing);
+    expect(find.textContaining('extra'), findsNothing);
+    expect(find.text(en.hotelVenuePkgNew), findsOneWidget); // the one action of the screen is a new package
+  });
+
+  flowTest('packages list: a venue with no package shows the empty state with the New package action', (tester) async {
+    await openScreen(tester, 'HL-VENU-02', state: 'empty');
+    expect(find.byType(HlVenu02Screen), findsOneWidget);
+    expect(find.text(en.hotelVenuePkgNew), findsOneWidget);
+    expect(find.textContaining('Extras'), findsNothing);
   });
 
   flowTest('package editor builds with its fields', (tester) async {

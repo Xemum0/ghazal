@@ -183,6 +183,14 @@ class Journey {
     }
   }
 
+  /// Stop-gap for a kit bug (requests.md, R2-PARTNER 2026-10-29): leaving the tab shell (a `reset` or `replace` to a screen outside it, as
+  /// "Application status" of HL-PROV-01 does) makes `GzTabShell.dispose` raise the debug-only "setState() or markNeedsBuild() called when widget
+  /// tree was locked". Call right after such a tap: drops that one assertion and nothing else. Delete the calls when the kit defers the write.
+  void dropShellTeardownErrors() {
+    errors.removeWhere((e) => e.contains('widget tree was locked'));
+    _reported = errors.length;
+  }
+
   /// Fails when the app raised an error since [start] (an overflow is a `FlutterError` too).
   void expectNoErrors({String? where}) {
     expect(errors, isEmpty, reason: 'the app raised errors${where == null ? '' : ' $where'}:\n${errors.join('\n')}');

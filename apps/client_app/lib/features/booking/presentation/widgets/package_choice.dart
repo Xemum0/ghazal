@@ -12,7 +12,7 @@ import 'quote_lines.dart';
 
 /// One package as the single decision of step 2 (web `PackageChoice`). A radio card: ink border and a check on the choice (never gold
 /// alone), the serif name, the two prices of the same quote (the voucher total as the number that matters: a ticket for a member, a lock
-/// for a guest, voucher-model 4.5; the standard total quiet and struck; the saving after the fee), the basis as facts, and what the
+/// voucher-model 4.5; the standard total quiet and struck; the saving after the fee), the basis as facts, and what the
 /// package includes as a row of glyphs with an info glyph that opens the package sheet. A package with no voucher price shows its
 /// standard total alone and two words.
 class BookingPackageChoice extends ConsumerWidget {
@@ -20,7 +20,6 @@ class BookingPackageChoice extends ConsumerWidget {
     required this.option,
     required this.guests,
     required this.selected,
-    required this.guest,
     required this.elsewhere,
     required this.onSelect,
     required this.onDetails,
@@ -30,7 +29,6 @@ class BookingPackageChoice extends ConsumerWidget {
   final PricedPackage option;
   final int guests;
   final bool selected;
-  final bool guest;
   final bool elsewhere;
   final VoidCallback onSelect;
   final VoidCallback onDetails;
@@ -53,9 +51,9 @@ class BookingPackageChoice extends ConsumerWidget {
           spacing: GzSpace.s2,
           children: [
             GzIcon(
-              guest ? GzIcons.lock : GzIcons.ticket,
+              GzIcons.ticket,
               size: GzIconSize.md,
-              color: guest ? c.iconSecondary : c.iconSuccess,
+              color: c.iconSuccess,
               semanticLabel: l10n.commonVoucherPrice,
             ),
             GzPrice(fils: option.voucher!, size: GzPriceSize.total),

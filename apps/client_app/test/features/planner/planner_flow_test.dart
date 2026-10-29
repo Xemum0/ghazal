@@ -4,7 +4,7 @@
 // few seconds of fake time.
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, gateProvider, gzNavigatorProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show gzNavigatorProvider;
 import 'package:ghazal_domain/ghazal_domain.dart' show PlannerTier;
 
 import 'package:client_app/features/planner/application/planner_data.dart';
@@ -75,13 +75,6 @@ void main() {
       expect(currentId(c), 'CL-PLAN-02', reason: 'the request never leaves the form');
     });
 
-    flowTest('a guest meets the sign-in gate at Send with the planner reason', (tester) async {
-      final c = await openScreen(tester, 'CL-PLAN-02', state: 'guest');
-      expect(shows('Sign in'), isTrue);
-      await scrollTo(tester, find.text('Sign in'));
-      await tapText(tester, 'Sign in');
-      expect(c.read(gateProvider)?.reason, GateReason.planner);
-    });
   });
 
   group('CL-PLAN-03 status', () {

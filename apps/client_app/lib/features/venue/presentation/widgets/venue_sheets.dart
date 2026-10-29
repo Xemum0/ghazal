@@ -1,8 +1,6 @@
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/foundation.dart' show TargetPlatform, defaultTargetPlatform;
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, GateResume, WidgetSessionGate;
 import 'package:ghazal_core/ghazal_core.dart' show MoneyMode, MoneyOptions;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
@@ -38,68 +36,6 @@ class VenueMapsSheet extends StatelessWidget {
       children: [
         for (var i = 0; i < apps.length; i++)
           GzIconListRow(flush: true, chevron: true, last: i == apps.length - 1, icon: apps[i].$2, title: apps[i].$1, onPressed: () => open(apps[i].$1)),
-      ],
-    );
-  }
-}
-
-/// ContactSheet (CL-VENU-01 "Contact", the browse-only path of ADR 0033): a guest reaches the venue through its own published channels
-/// (phone and WhatsApp) and pays the venue directly at the standard price; no Ghazal object is created. Two rows and one button that
-/// asks for the account (chat needs one).
-class VenueContactSheet extends ConsumerWidget {
-  const VenueContactSheet({required this.venueId, required this.phone, required this.venueName, super.key});
-
-  final String venueId;
-  final String? phone;
-  final String? venueName;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l = context.l10n;
-    final lc = context.gzL10n;
-    final nav = context.gzNav;
-    final f = context.gzFormat;
-    final number = phone == null ? null : GzNum(f.phone(phone!), role: GzTextRole.figBodyS);
-    void say(String message, IconData icon) {
-      nav.closeSheet();
-      nav.toast(GzToastSpec(message: message, icon: icon));
-    }
-
-    return Column(
-      key: const ValueKey<String>('venue.contact'),
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        GzIconListRow(
-          flush: true,
-          icon: GzIcons.phone,
-          title: lc.commonActionCall,
-          trailing: number,
-          chevron: false,
-          onPressed: () => say(l.clientVenueContactCalling(venueName ?? ''), GzIcons.phone),
-        ),
-        GzIconListRow(
-          flush: true,
-          last: true,
-          icon: GzIcons.whatsapp,
-          title: lc.commonActionWhatsapp,
-          trailing: number,
-          chevron: false,
-          onPressed: () => say(l.clientVenueContactWhatsapp, GzIcons.chat),
-        ),
-        const SizedBox(height: GzSpace.s4),
-        GzButton(
-          label: l.clientVenueContactChat,
-          variant: GzButtonVariant.secondary,
-          iconStart: GzIcons.chat,
-          fullWidth: true,
-          onPressed: () {
-            nav.closeSheet();
-            if (ref.requireSignIn(GateReason.chat, resume: GateResume('CL-MSGS-02', <String, Object?>{'venueId': venueId}))) {
-              nav.push('CL-MSGS-02', params: <String, Object?>{'venueId': venueId});
-            }
-          },
-        ),
       ],
     );
   }

@@ -25,6 +25,18 @@ abstract interface class PartnerAccountRepository {
     String? idempotencyKey,
   });
 
+  /// Apply to join without a session; creates the applicant's account (HL-PROV-01 signed out, PA-ACC-07)
+  ///
+  /// The public application: the form of `chooseAccountType` plus the applicant's own account (email, password, locale), so a new service provider or private hall needs no partner session first. Creates the unverified partner user, the account `under_review` with an application `pending`, and an email verification challenge exactly like the new-device code of `partnerLogin`: the app shows the code screen and answers it with `partnerVerifyCode` (`challengeId` of the response); the session that returns has no venue (a private hall or provider profile only), `getPartnerApplication` returns the application and `PartnerMe.memberships[].application` its status. The email of the account is the sign-in name; the contact email of the application may be the same or another. 409 EMAIL_ALREADY_REGISTERED when a partner account already uses the email (also a rejected applicant: they sign in and use `resubmitPartnerApplication`; an applicant who never entered the code signs in and verifies the new device). 422 VALIDATION_FAILED lists the failing fields (`/account/email`, `/account/password`, `/application/name/ar`, ...).
+  /// `POST /partner/applications`
+  /// Access: guest; roles: partner.
+  /// Errors (problem+json `code`): EMAIL_ALREADY_REGISTERED, RATE_LIMITED.
+  /// Pass the same [idempotencyKey] when the user retries the same intent; a fresh one is generated when null.
+  Future<OtpChallenge> submitPartnerApplication({
+    required SubmitPartnerApplicationInput body,
+    String? idempotencyKey,
+  });
+
   /// The applicant's own application and its decision (HL-PROV-01, HL-ACCS-04)
   ///
   /// Needs no venue or provider header. 404 NOT_FOUND when the account has no application (an account Ghazal assigned).

@@ -122,9 +122,15 @@ class _BodyState extends ConsumerState<_Body> {
       return;
     }
     if (!mounted) return;
-    await ref.read(sessionProvider.notifier).signOut();
-    if (!mounted) return;
     setState(() => _step = _Step.success);
+  }
+
+  /// The account is gone: the device forgets the session only now, so the signed-out guard of the router does not cut the success page
+  /// short, then the first-run screens open.
+  Future<void> _finish() async {
+    final nav = context.gzNav;
+    await ref.read(sessionProvider.notifier).signOut();
+    nav.reset('CL-ONBD-01');
   }
 
   void _scheduleAfter(String isoDay) {
@@ -452,7 +458,7 @@ class _BodyState extends ConsumerState<_Body> {
         title: l.clientProfileDelSuccessTitle,
         detail: l.clientProfileDelSuccessDetail,
         detailTitle: l.clientProfileDelSuccessTitle,
-        action: GzStateAction(label: context.gzL10n.commonActionDone, onPressed: () => context.gzNav.reset('CL-ONBD-01')),
+        action: GzStateAction(label: context.gzL10n.commonActionDone, onPressed: _finish),
       ),
     );
   }

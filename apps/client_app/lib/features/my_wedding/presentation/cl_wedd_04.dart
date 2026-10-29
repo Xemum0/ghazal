@@ -3,8 +3,7 @@ import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/services.dart' show LengthLimitingTextInputFormatter;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart'
-    show GateReason, GateResume, WidgetSessionGate, gzProblemMessage, sessionProvider, weddingRepositoryProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show gzProblemMessage, weddingRepositoryProvider;
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, DateStyle;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
@@ -16,9 +15,7 @@ import 'cl_wedd_03.dart' show BkBudgetAsync;
 /// CL-WEDD-04 Add expense (sheet over Budget; also the edit and delete sheet of a manual expense). Covers CA-TOOL-10, CA-TOOL-11.
 ///
 /// An amount (Eastern-Arabic digits normalised, up to three decimals), a category by glyph, an optional label, a date and Paid | Planned.
-/// Validation is blameless and shows once, on Save. Save closes the sheet and the row lands in the budget with an Undo bar. A guest may
-/// fill it in and signs in at Save (the account sheet 'CL-AUTH-01', opened by requireSignIn); the sheet stays underneath, so what was
-/// typed is still there on return. Done closes the sheet over 'CL-WEDD-03' (Budget). Params: expenseId (edit).
+/// Validation is blameless and shows once, on Save. Save closes the sheet and the row lands in the budget with an Undo bar. Done closes the sheet over 'CL-WEDD-03' (Budget). Params: expenseId (edit).
 class ClWedd04Screen extends ConsumerStatefulWidget {
   const ClWedd04Screen({super.key});
 
@@ -49,7 +46,6 @@ class _ClWedd04State extends ConsumerState<ClWedd04Screen> {
   Widget build(BuildContext context) {
     final l = context.l10n;
     final nav = context.gzNav;
-    final guest = !ref.watch(sessionProvider.select((s) => s.isSignedIn));
     final editingId = nav.params['expenseId'] as String?;
     return Column(
       key: const ValueKey<String>('wedding.expense'),
@@ -60,13 +56,13 @@ class _ClWedd04State extends ConsumerState<ClWedd04Screen> {
         BkBudgetAsync(
           value: ref.watch(weddingBudgetProvider),
           onRetry: () => ref.invalidate(weddingBudgetProvider),
-          data: (view) => _form(context, view, editingId, guest),
+          data: (view) => _form(context, view, editingId),
         ),
       ],
     );
   }
 
-  Widget _form(BuildContext context, BudgetView view, String? editingId, bool guest) {
+  Widget _form(BuildContext context, BudgetView view, String? editingId) {
     final l = context.l10n;
     final c = context.gz.colors;
     final f = context.gzFormat;
@@ -142,8 +138,8 @@ class _ClWedd04State extends ConsumerState<ClWedd04Screen> {
               variant: GzButtonVariant.primary,
               fullWidth: true,
               loading: _saving,
-              onPressed: () => _save(context, editing, manual, guest),
-              label: guest ? l.clientMyWeddingGuestAction : context.gzL10n.commonActionSave,
+              onPressed: () => _save(context, editing, manual),
+              label: context.gzL10n.commonActionSave,
             ),
             if (manual)
               GzButton(
@@ -173,14 +169,13 @@ class _ClWedd04State extends ConsumerState<ClWedd04Screen> {
     );
   }
 
-  Future<void> _save(BuildContext context, BudgetExpense? editing, bool manual, bool guest) async {
+  Future<void> _save(BuildContext context, BudgetExpense? editing, bool manual) async {
     if (_saving) return;
     final fils = _toFils(_amount);
     if (fils == null) {
       setState(() => _showError = true);
       return;
     }
-    if (guest && !ref.requireSignIn(GateReason.planner, resume: GateResume('CL-WEDD-04'))) return;
     final nav = context.gzNav;
     final l10n = context.l10n;
     final common = context.gzL10n;

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_core/ghazal_core.dart' show DateStyle, MoneyMode, MoneyOptions;
-import 'package:ghazal_domain/ghazal_domain.dart' show Area, Audience, MoneyAmount, MoneyRange;
+import 'package:ghazal_core/ghazal_core.dart' show MoneyMode, MoneyOptions;
+import 'package:ghazal_domain/ghazal_domain.dart' show Audience, MoneyAmount, MoneyRange;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../../../app/state/state.dart' show SearchBrief;
@@ -115,7 +115,7 @@ class BriefBudgetPanel extends ConsumerWidget {
     String money(int kd) => f.money(kd * 1000, const MoneyOptions(mode: MoneyMode.browse));
     String open(int kd) => briefBudgetText(f, MoneyRange(min: MoneyAmount(kd * 1000), max: const MoneyAmount(0)));
     final pricing = SearchBrief(date: b.date, guests: b.guests ?? 350, audience: b.audience ?? Audience.women);
-    final rows = ref.watch(discoverSearchProvider(DiscoverQuery(brief: pricing, filters: const DiscoverFilters(areaIds: <String>[])))).value ?? const [];
+    final rows = ref.watch(discoverSearchProvider(DiscoverQuery(brief: pricing, filters: const DiscoverFilters(governorateIds: <String>[])))).value ?? const [];
     final totals = <double>[
       for (final r in rows)
         if (r.price != null && r.price!.amount.fils / 1000 <= _budgetMax) r.price!.amount.fils / 1000,
@@ -218,85 +218,6 @@ class Histogram extends StatelessWidget {
             ],
           ],
         ),
-      ),
-    );
-  }
-}
-
-/// The merge variant (shown once after sign-in when the account already holds a different Brief): the two Briefs side by side, each as
-/// glyph-and-value facts with its own "Keep" under it. Nothing is preselected.
-class BriefMergePanel extends StatelessWidget {
-  const BriefMergePanel({required this.phone, required this.account, required this.areas, required this.onKeep, super.key});
-
-  final SearchBrief phone;
-  final SearchBrief account;
-  final List<Area> areas;
-  final ValueChanged<bool> onKeep;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = context.l10n;
-    final c = context.gz.colors;
-    return Container(
-      key: const ValueKey<String>('discover.brief.merge'),
-      decoration: BoxDecoration(color: c.surfaceRaised, borderRadius: GzRadius.mdAll, border: Border.all(color: c.borderStrong, width: GzStroke.hair)),
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(child: _MergeColumn(brief: phone, title: l.clientDiscoverMergePhone, areas: areas, keyId: 'phone', onKeep: () => onKeep(true))),
-            ColoredBox(color: c.borderHairline, child: const SizedBox(width: GzStroke.hair)),
-            Expanded(child: _MergeColumn(brief: account, title: l.clientDiscoverMergeAccount, areas: areas, keyId: 'account', onKeep: () => onKeep(false))),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _MergeColumn extends StatelessWidget {
-  const _MergeColumn({required this.brief, required this.title, required this.areas, required this.keyId, required this.onKeep});
-
-  final SearchBrief brief;
-  final String title;
-  final List<Area> areas;
-  final String keyId;
-  final VoidCallback onKeep;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = context.l10n;
-    final c = context.gz.colors;
-    final f = context.gzFormat;
-    final lang = context.gz.locale.languageCode;
-    Widget fact(IconData icon, String text) => Row(
-      children: [
-        GzIcon(icon, size: GzIconSize.sm, color: c.iconSecondary),
-        const SizedBox(width: GzSpace.s2),
-        Expanded(
-          child: Text.rich(
-            TextSpan(children: GzFigures.spans(context, text, role: GzTextRole.bodyS)),
-            style: context.gz.text(GzTextRole.bodyS).copyWith(color: c.textStrong, decoration: TextDecoration.none),
-          ),
-        ),
-      ],
-    );
-    final areaText = f.list(briefAreaNames(areas, brief.areaIds, lang));
-    return Padding(
-      key: ValueKey<String>('discover.merge.$keyId'),
-      padding: const EdgeInsetsDirectional.all(GzSpace.s4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          GzText(title, role: GzTextRole.label, color: c.textSecondary, header: true),
-          const SizedBox(height: GzSpace.s4),
-          fact(GzIcons.calendar, brief.date == null ? l.clientDiscoverBriefChooseDate : f.date(brief.date.toString(), DateStyle.compact)),
-          if (brief.guests != null) ...[const SizedBox(height: GzSpace.s3), fact(brief.audience == null ? GzIcons.usersThree : arrangementIcon(brief.audience!), f.integer(brief.guests!))],
-          if (areaText.isNotEmpty) ...[const SizedBox(height: GzSpace.s3), fact(GzIcons.pin, areaText)],
-          const Spacer(),
-          const SizedBox(height: GzSpace.s4),
-          GzButton(key: ValueKey<String>('discover.merge.keep.$keyId'), label: l.clientDiscoverMergeKeep, variant: GzButtonVariant.secondary, fullWidth: true, onPressed: onKeep),
-        ],
       ),
     );
   }

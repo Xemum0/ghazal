@@ -1160,12 +1160,6 @@ abstract class GzL10n {
   /// **'Valid until {date}'**
   String commonValidUntil(String date);
 
-  /// No description provided for @commonLabelGuestVoucher.
-  ///
-  /// In en, this message translates to:
-  /// **'Voucher price after you sign up'**
-  String get commonLabelGuestVoucher;
-
   /// No description provided for @commonRoleClient.
   ///
   /// In en, this message translates to:
@@ -1403,7 +1397,7 @@ abstract class GzL10n {
   /// No description provided for @uiClientBriefCardArea.
   ///
   /// In en, this message translates to:
-  /// **'Area'**
+  /// **'Governorate'**
   String get uiClientBriefCardArea;
 
   /// No description provided for @uiClientBriefCardGuests.
@@ -1427,7 +1421,7 @@ abstract class GzL10n {
   /// No description provided for @uiClientBriefCardNameArea.
   ///
   /// In en, this message translates to:
-  /// **'Area'**
+  /// **'Governorate'**
   String get uiClientBriefCardNameArea;
 
   /// No description provided for @uiClientBriefCardNameGuests.
@@ -1535,7 +1529,7 @@ abstract class GzL10n {
   /// No description provided for @uiClientBriefSentenceChooseArea.
   ///
   /// In en, this message translates to:
-  /// **'choose an area'**
+  /// **'choose a governorate'**
   String get uiClientBriefSentenceChooseArea;
 
   /// No description provided for @uiClientBriefSentenceChooseBudget.
@@ -1565,7 +1559,7 @@ abstract class GzL10n {
   /// No description provided for @uiClientBriefSentenceWhatArea.
   ///
   /// In en, this message translates to:
-  /// **'the area'**
+  /// **'the governorate'**
   String get uiClientBriefSentenceWhatArea;
 
   /// No description provided for @uiClientBriefSentenceWhatBudget.
@@ -3224,11 +3218,17 @@ abstract class GzL10n {
   /// **'Offer'**
   String get uiClientNotificationMarketing;
 
-  /// No description provided for @uiFiltersGovernorateAll.
+  /// No description provided for @uiClientProviderNoteText.
   ///
   /// In en, this message translates to:
-  /// **'All Kuwait'**
-  String get uiFiltersGovernorateAll;
+  /// **'Service provider? Apply in the Partner app'**
+  String get uiClientProviderNoteText;
+
+  /// No description provided for @uiClientProviderNoteCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get uiClientProviderNoteCta;
 
   /// No description provided for @uiFiltersCapacityFrom.
   ///
@@ -5366,12 +5366,6 @@ abstract class GzL10n {
   /// **'Rental fee'**
   String get uiSharedRentalFee;
 
-  /// No description provided for @uiSharedLockedVoucher.
-  ///
-  /// In en, this message translates to:
-  /// **'Voucher price after you sign up'**
-  String get uiSharedLockedVoucher;
-
   /// No description provided for @uiSharedVoucher.
   ///
   /// In en, this message translates to:
@@ -5491,12 +5485,6 @@ abstract class GzL10n {
   /// In en, this message translates to:
   /// **'Redeemed on'**
   String get uiVoucherCardUsedOn;
-
-  /// No description provided for @uiVoucherPriceSignUp.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign up'**
-  String get uiVoucherPriceSignUp;
 
   /// No description provided for @uiVoucherPriceNetTitle.
   ///

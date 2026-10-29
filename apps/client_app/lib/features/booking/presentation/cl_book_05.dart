@@ -2,7 +2,7 @@ import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show ClientSession, GateReason, GateResume, WidgetSessionGate, gzProblemMessage, sessionProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show ClientSession, gzProblemMessage, sessionProvider;
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblemCode, GzFormat, clockProvider, gzFormatProvider;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -20,7 +20,7 @@ import 'widgets/review_parts.dart';
 import 'widgets/state_note.dart';
 import 'widgets/step_scaffold.dart';
 
-/// CL-BOOK-05 Review (step 5 of 5): the voucher-bound request summary, the last screen before the request goes to the venue.
+/// CL-BOOK-05 Review (step 4 of 4): the voucher-bound request summary, the last screen before the request goes to the venue.
 /// Covers CA-BOOK-09, CA-BOOK-10, CA-BOOK-14, CA-BOOK-17, CA-VDET-16, CA-VCH-08, CA-VCH-09.
 ///
 /// Text diet (ADR 0034, hero screen): the request plate, rows with a glyph, one line and a chevron (each opens its step to edit), the
@@ -71,7 +71,6 @@ class _ClBook05State extends ConsumerState<ClBook05Screen> {
       return;
     }
     if (reason != null || _sending) return;
-    if (!ref.requireSignIn(GateReason.sendRequest, resume: const GateResume('CL-BOOK-05'))) return;
     if (!flow.dateOk) {
       nav.openSheet(
         'CL-BOOK-07',
@@ -99,7 +98,7 @@ class _ClBook05State extends ConsumerState<ClBook05Screen> {
       ),
     );
     setState(() => _sending = true);
-    final result = await ref.read(voucherActionsProvider.notifier).sendRequest(voucherId: voucher.id, resume: const GateResume('CL-BOOK-05'));
+    final result = await ref.read(voucherActionsProvider.notifier).sendRequest(voucherId: voucher.id);
     if (!mounted) return;
     setState(() => _sending = false);
     result.when(
@@ -126,7 +125,6 @@ class _ClBook05State extends ConsumerState<ClBook05Screen> {
           );
         }
       },
-      gated: () {},
     );
   }
 
@@ -176,7 +174,7 @@ class _ClBook05State extends ConsumerState<ClBook05Screen> {
       }
     }
     return BookingStepScaffold(
-      step: 5,
+      step: 4,
       venueName: flow == null ? '' : context.bi(flow.venue.name),
       title: l10n.clientBookingReviewTitle,
       notice: notice,
@@ -217,7 +215,7 @@ class _ClBook05State extends ConsumerState<ClBook05Screen> {
       );
     }
     if (v == null && q != null) {
-      return pad(BookingVoucherNeed(feeFils: flow.voucherFeeFils, onGet: () => getBookingVoucher(ref, nav, flow, 'CL-BOOK-05')));
+      return pad(BookingVoucherNeed(feeFils: flow.voucherFeeFils, onGet: () => getBookingVoucher(nav, flow, 'CL-BOOK-05')));
     }
     if (!verified && v != null) {
       return pad(
@@ -228,7 +226,7 @@ class _ClBook05State extends ConsumerState<ClBook05Screen> {
           onAction: () => nav.openSheet(
             'CL-AUTH-02',
             options: GzSheetOptions(
-              params: const <String, Object?>{'presentation': 'sheet', 'reason': 'send-request'},
+              params: const <String, Object?>{'presentation': 'sheet'},
               onClose: () => ref.read(bookingFlowLocalProvider.notifier).update((l) => l.copyWith(verifiedPhone: f.e164(phone) ?? phone)),
             ),
           ),
@@ -243,16 +241,6 @@ class _ClBook05State extends ConsumerState<ClBook05Screen> {
           text: l10n.clientBookingVoucherUneconomic,
           infoTitle: l10n.clientBookingVoucherCardTitle,
           infoBody: l10n.clientBookingVoucherUneconomicInfo,
-        ),
-      );
-    }
-    if (v != null && q != null && q.totals.voucherTotal.fils != v.quoteFils.voucher && !flow.demo) {
-      return pad(
-        BookingStateNote(
-          icon: GzIcons.receipt,
-          text: l10n.clientBookingQuoteChangedShort,
-          infoTitle: l10n.clientBookingPriceTitle,
-          infoBody: l10n.clientBookingQuoteChanged,
         ),
       );
     }
@@ -281,13 +269,12 @@ class _ReviewBody extends ConsumerWidget {
     final venueName = context.bi(flow.venue.name);
     final session = sec.session;
     final parts = f.dateWithHijri(flow.date.toString());
-    final chosenExtras = flow.extras.where((e) => e.selected && !e.included).toList();
     final heroText = ref.watch(bookingHeroRequestTextProvider).value ?? '';
     final requests = (draft.requests.trim().isEmpty && flow.demo ? heroText : draft.requests).trim();
     final now = ref.watch(clockProvider)();
     final replyBy = f.dateTime(now.add(Duration(hours: flow.slaHours)));
 
-    void edit(int step) => voucher != null && step <= 2 ? changeBookingVoucher(nav, flow, 'CL-BOOK-05') : goBookingStep(ref, nav, from: 5, to: step);
+    void edit(int step) => voucher != null && step <= 2 ? changeBookingVoucher(nav, flow, 'CL-BOOK-05') : goBookingStep(ref, nav, from: 4, to: step);
     final needAtTop = voucher == null && flow.openRequests < flow.maxOpenRequests && quote != null;
 
     if (quote == null) return const SizedBox.shrink();
@@ -332,20 +319,13 @@ class _ReviewBody extends ConsumerWidget {
             ),
             GzIconListRow(
               flush: true,
-              icon: GzIcons.sparkle,
-              title: chosenExtras.isEmpty ? l10n.clientBookingReviewExtras : f.list([for (final e in chosenExtras) context.bi(e.extra.name)]),
-              chevron: true,
-              onPressed: () => edit(3),
-            ),
-            GzIconListRow(
-              flush: true,
               last: requests.isEmpty,
               icon: GzIcons.user,
               title: contact.name,
               autoDir: true,
-              // the web fact chip is 22 high; the kit's small chip is 19 (requests.md)
+              // the web sub line is the fact chip plus 3 (caption baseline): 25 in Arabic (the kit's small chip is 19, requests.md; English measured at 22)
               facts: ConstrainedBox(
-                constraints: const BoxConstraints(minHeight: 22),
+                constraints: BoxConstraints(minHeight: context.gz.isAr ? 25 : 22),
                 child: Wrap(
                   spacing: GzSpace.s2,
                   runSpacing: GzSpace.s1,
@@ -371,9 +351,9 @@ class _ReviewBody extends ConsumerWidget {
                 ),
               ),
               chevron: true,
-              onPressed: () => edit(4),
+              onPressed: () => edit(3),
             ),
-            if (requests.isNotEmpty) BookingNoteRow(text: requests, onPressed: () => edit(4)),
+            if (requests.isNotEmpty) BookingNoteRow(text: requests, onPressed: () => edit(3)),
           ],
         ),
         StepSection(
@@ -406,7 +386,7 @@ class _ReviewBody extends ConsumerWidget {
               if (voucher != null)
                 BookingVoucherAttach(voucher: voucher, onChange: () => changeBookingVoucher(nav, flow, 'CL-BOOK-05'))
               else
-                BookingVoucherNeed(feeFils: flow.voucherFeeFils, onGet: () => getBookingVoucher(ref, nav, flow, 'CL-BOOK-05')),
+                BookingVoucherNeed(feeFils: flow.voucherFeeFils, onGet: () => getBookingVoucher(nav, flow, 'CL-BOOK-05')),
             ],
           ),
         StepSection(

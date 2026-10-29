@@ -6,7 +6,7 @@ import 'package:ghazal_core/ghazal_core.dart' show appEnvProvider;
 import 'package:ghazal_app_kit/ghazal_app_kit.dart' show PartnerSession, partnerAccountRepositoryProvider, sessionProvider;
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblem;
 import 'package:ghazal_ui/ghazal_ui.dart' show GzNavigator;
-import 'package:ghazal_domain/ghazal_domain.dart' show OtpChallenge, PartnerAccountStatus, PartnerAccountType;
+import 'package:ghazal_domain/ghazal_domain.dart' show ApplicationStatus, OtpChallenge, PartnerAccountStatus, PartnerAccountType;
 
 /// Config values the screens read (ADR 0028, ADR 0012 D4): never typed into a message.
 const int kOtpLength = 6;
@@ -14,7 +14,6 @@ const int kResendSeconds = 60;
 const int kMaxAttempts = 5;
 const int kLockMinutes = 15;
 const int kTrustDays = 30;
-const int kPasswordMin = 10;
 
 /// The story's invitation (the mock's `inv-sara`, valid until Sat 14 Nov 2026): the token a screen opened without params previews.
 const String kHeroInvitationToken = 'inv-sara';
@@ -36,12 +35,14 @@ bool isValidEmail(String v) => RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(v.
 /// True when the app runs against the in-process mock (the demo prefill applies).
 final Provider<bool> accessDemoPrefillProvider = Provider<bool>((ref) => ref.watch(appEnvProvider).useMock);
 
-/// The mode of the code screen (HL-ACCS-02): a new device, a password reset, or the step-up before a high-risk action.
-enum CodeMode { signIn, reset, stepUp }
+/// The mode of the code screen (HL-ACCS-02): a new device, a password reset, the step-up before a high-risk action, or the email of a new
+/// application (round 2b: the unverified account made by the public application).
+enum CodeMode { signIn, reset, stepUp, application }
 
 CodeMode parseCodeMode(Object? v) => switch (v) {
   'reset' => CodeMode.reset,
   'step-up' => CodeMode.stepUp,
+  'application' => CodeMode.application,
   _ => CodeMode.signIn,
 };
 
@@ -98,21 +99,32 @@ final NotifierProvider<AccessFlow, AccessFlowState> accessFlowProvider = Notifie
   return (id: 'HL-TODY-01', params: firstRun ? const <String, Object?>{'firstRun': true} : const <String, Object?>{});
 }
 
-/// The status screen variant (HL-ACCS-04) a signed-in person must see before Today: the account is under review or suspended
-/// (`PartnerMembership.status`), or the staff member's own access is not active yet. Null when the account opens normally or the check fails.
-Future<String?> _blockedVariant(ProviderContainer c) async {
+/// The status screen (HL-ACCS-04) a signed-in person must see before Today, with the params it opens with: the account is under review or
+/// suspended (`PartnerMembership.status`), the staff member's own access is not active yet, or (round 2, PA-ACC-07) the partner application of the
+/// active account is pending or rejected. An accepted application opens normally. Null when the account opens or the check fails.
+Future<({String variant, Map<String, Object?> params})?> _blockedScreen(ProviderContainer c) async {
   try {
     final me = await c.read(partnerAccountRepositoryProvider).getPartnerMe();
     final active = me.active;
     final all = me.memberships;
     if (all.isEmpty) return null;
     final m = all.firstWhere((m) => active != null && m.accountId == active.accountId, orElse: () => all.first);
-    return switch (m.status) {
+    final app = m.application;
+    if (app != null) {
+      final variant = switch (app.status) {
+        ApplicationStatus.pending => 'application-review',
+        ApplicationStatus.rejected => 'application-rejected',
+        _ => null,
+      };
+      if (variant != null) return (variant: variant, params: <String, Object?>{'variant': variant, 'account': m.accountType == PartnerAccountType.venue ? 'hotel' : 'provider'});
+    }
+    final variant = switch (m.status) {
       PartnerAccountStatus.underReview => 'under-review',
       PartnerAccountStatus.suspended => 'suspended',
       PartnerAccountStatus.invited => 'deactivated',
       _ => null,
     };
+    return variant == null ? null : (variant: variant, params: <String, Object?>{'variant': variant});
   } on ApiProblem {
     return null;
   }
@@ -122,9 +134,9 @@ Future<String?> _blockedVariant(ProviderContainer c) async {
 /// session change makes the app leave the access screens on its own, so this has to run at once and take a [ProviderContainer], not a `ref`) (email and password on a known device, the emailed code, the accepted invitation): an account that cannot
 /// open goes to its status screen, a person invited without an account type to the chooser (once), everyone else to Today.
 Future<void> landAfterSignIn(ProviderContainer c, GzNavigator nav) async {
-  final blocked = await _blockedVariant(c);
+  final blocked = await _blockedScreen(c);
   if (blocked != null) {
-    nav.reset('HL-ACCS-04', params: <String, Object?>{'variant': blocked});
+    nav.reset('HL-ACCS-04', params: blocked.params);
     return;
   }
   final session = c.read(sessionProvider);

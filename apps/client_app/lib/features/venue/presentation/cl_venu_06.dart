@@ -174,14 +174,6 @@ class _ClVenu06State extends ConsumerState<ClVenu06Screen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: GzSpace.s3),
-                    GzButton(
-                      label: l.clientVenueGovCtaCatering,
-                      variant: GzButtonVariant.secondary,
-                      iconStart: GzIcons.search,
-                      fullWidth: true,
-                      onPressed: () => context.gzNav.push('CL-SERV-01'),
-                    ),
                   ],
                 ),
               ),
@@ -372,5 +364,5 @@ class _FeeRow extends StatelessWidget {
   );
 }
 
-// Edges (inventory navigatesTo): 'CL-SERV-01' (Find catering and decor), 'CL-VENU-02' (the hero opens the viewer),
+// Edges (inventory navigatesTo): 'CL-VENU-02' (the hero opens the viewer; no link to the Services hub, ADR 0038),
 // 'CL-DISC-03' (Browse halls), 'CL-WEDD-01' (a self-report views in My Wedding, through switchTab('my-wedding')).

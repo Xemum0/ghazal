@@ -10,25 +10,27 @@ import '../engine/engine.dart';
 
 /// The application form of PA-ACC-07 / PA-ACC-08 (OQ-R2-03): every field the form needs, as `{path, code}` problems of a 422 VALIDATION_FAILED. The
 /// request schema already checked types, formats and the three-category limit; this adds what only the account type knows.
-void checkApplicationForm(MockApp app, Json b, String accountType) {
+///
+/// [at] prefixes the error paths when the form is nested in a bigger body (`/application` for the public `submitPartnerApplication`).
+void checkApplicationForm(MockApp app, Json b, String accountType, {String at = ''}) {
   final errs = <Json>[];
   bool blank(Object? v) => v == null || (v is String && v.trim().isEmpty);
   final name = b.objOrNull('name');
   for (final lang in const ['ar', 'en']) {
-    if (blank(name?[lang])) errs.add({'path': '/name/$lang', 'code': 'required'});
+    if (blank(name?[lang])) errs.add({'path': '$at/name/$lang', 'code': 'required'});
   }
   for (final k in const ['governorateId', 'contactName', 'phone', 'email', 'description']) {
-    if (blank(b[k])) errs.add({'path': '/$k', 'code': 'required'});
+    if (blank(b[k])) errs.add({'path': '$at/$k', 'code': 'required'});
   }
   final gov = b['governorateId'];
   if (gov is String && gov.isNotEmpty && !app.seed.rows('Governorate').any((g) => g['id'] == gov)) {
-    errs.add({'path': '/governorateId', 'code': 'unknown_governorate'});
+    errs.add({'path': '$at/governorateId', 'code': 'unknown_governorate'});
   }
   if (accountType == 'service_provider') {
     final cats = (b['categoryIds'] as List?) ?? const [];
-    if (cats.isEmpty && blank(b['otherCategoryNote'])) errs.add({'path': '/categoryIds', 'code': 'required'});
+    if (cats.isEmpty && blank(b['otherCategoryNote'])) errs.add({'path': '$at/categoryIds', 'code': 'required'});
     for (final e in cats.indexed) {
-      if (!app.seed.rows('ServiceCategory').any((c) => c['id'] == e.$2)) errs.add({'path': '/categoryIds/${e.$1}', 'code': 'unknown_category'});
+      if (!app.seed.rows('ServiceCategory').any((c) => c['id'] == e.$2)) errs.add({'path': '$at/categoryIds/${e.$1}', 'code': 'unknown_category'});
     }
   }
   if (errs.isNotEmpty) throw ApiError('VALIDATION_FAILED', errors: errs);
@@ -66,14 +68,15 @@ void applyApplicationToProvider(MockApp app, String? providerId, Json a) {
 }
 
 /// Creates the account (`under_review`), the provider profile of a service provider and the `pending` application of [userId] from the form [form]
-/// (validated first: a bad form is 422 VALIDATION_FAILED). Nothing about the session is touched here.
+/// (validated first: a bad form is 422 VALIDATION_FAILED, its paths prefixed by [at]). Nothing about the session is touched here.
 ({Json application, String accountId, String? providerId}) submitApplication(
   MockApp app, {
   required String userId,
   required String accountType,
   required Json form,
+  String at = '',
 }) {
-  checkApplicationForm(app, form, accountType);
+  checkApplicationForm(app, form, accountType, at: at);
   final fields = applicationFields(form);
   final seq = app.db.next('account');
   final accountId = 'partner-m$seq';

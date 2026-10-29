@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart'
-    show plannersRepositoryProvider, servicesRepositoryProvider, venuesRepositoryProvider, vouchersRepositoryProvider, weddingRepositoryProvider;
+    show plannersRepositoryProvider, venuesRepositoryProvider, vouchersRepositoryProvider, weddingRepositoryProvider;
 import 'package:ghazal_domain/ghazal_domain.dart';
 
 import '../../../app/state/state.dart';
@@ -46,7 +46,7 @@ final class SavedBundle {
   int get total => venues.length + vendors.length + packages.length;
 }
 
-/// The saved items of the account (the guest's device hearts for a guest), priced on the Brief. Refetched when the Brief or any
+/// The saved items of the account, priced on the Brief. Refetched when the Brief or any
 /// server data changes; a heart removed or put back does not refetch (the screen filters by the hearts).
 final FutureProvider<SavedBundle> savedBundleProvider = FutureProvider.autoDispose<SavedBundle>((ref) async {
   ref.watch(clientDataRevisionProvider);
@@ -54,75 +54,48 @@ final FutureProvider<SavedBundle> savedBundleProvider = FutureProvider.autoDispo
   final userId = ref.watch(clientUserIdProvider);
   final wedding = ref.read(weddingRepositoryProvider);
   final venues = ref.read(venuesRepositoryProvider);
-  final fav = await ref.read(favouritesProvider.future);
-  if (userId != null) {
-    final fetched = await wedding.listWishlist(date: brief.date, guests: brief.guests, audience: brief.audience);
-    // The Saved tab lists items in the order they were saved (the API answers newest first).
-    final items = [...fetched.items]..sort((a, b) => a.item.savedAt.compareTo(b.item.savedAt));
-    final planners = await ref.read(plannersRepositoryProvider).listPlannerPackages();
-    final roster = <String, VenueSummary>{};
-    final packages = <SavedPackage>[];
-    final lastSeen = <String, MoneyAmount>{};
-    for (final e in items) {
-      final seen = e.item.lastSeenPrice;
-      if (e.venue != null && seen != null) lastSeen[e.venue!.venue.id] = seen;
-      if (e.venue != null) roster[e.venue!.venue.id] = e.venue!.venue;
-    }
-    for (final e in items) {
-      if (e.item.type != SavedType.package) continue;
-      final planner = planners.where((p) => p.id == e.item.id).firstOrNull;
-      if (planner != null) {
-        packages.add(SavedPlannerPackage(planner));
-        continue;
-      }
-      final p = e.package;
-      if (p == null) continue;
-      if (roster.isEmpty || !roster.containsKey(p.venueId)) {
-        for (final r in (await venues.searchVenues(limit: 50)).items) {
-          roster.putIfAbsent(r.venue.id, () => r.venue);
-        }
-      }
-      final v = roster[p.venueId];
-      if (v == null) continue;
-      packages.add(SavedHallPackage(p, v));
-    }
-    return SavedBundle(
-      venues: [
-        for (final e in items)
-          if (e.venue != null) e.venue!,
-      ],
-      vendors: [
-        for (final e in items)
-          if (e.provider != null) e.provider!,
-      ],
-      packages: packages,
-      lastSeen: lastSeen,
-    );
+  if (userId == null) return const SavedBundle();
+  final fetched = await wedding.listWishlist(date: brief.date, guests: brief.guests, audience: brief.audience);
+  // The Saved tab lists items in the order they were saved (the API answers newest first).
+  final items = [...fetched.items]..sort((a, b) => a.item.savedAt.compareTo(b.item.savedAt));
+  final planners = await ref.read(plannersRepositoryProvider).listPlannerPackages();
+  final roster = <String, VenueSummary>{};
+  final packages = <SavedPackage>[];
+  final lastSeen = <String, MoneyAmount>{};
+  for (final e in items) {
+    final seen = e.item.lastSeenPrice;
+    if (e.venue != null && seen != null) lastSeen[e.venue!.venue.id] = seen;
+    if (e.venue != null) roster[e.venue!.venue.id] = e.venue!.venue;
   }
-  // a guest: the hearts live on the device, so the data is looked up by id
-  final rows = <VenueResult>[];
-  if (fav.venue.isNotEmpty) {
-    final page = await venues.searchVenues(date: brief.date, guests: brief.guests, audience: brief.audience, limit: 50);
-    final byId = {for (final r in page.items) r.venue.id: r};
-    rows.addAll([
-      for (final id in fav.venue)
-        if (byId[id] != null) byId[id]!,
-    ]);
-  }
-  final services = ref.read(servicesRepositoryProvider);
-  final vendors = <ServiceProvider>[];
-  for (final id in fav.vendor) {
-    try {
-      vendors.add(await services.getServiceProvider(providerId: id));
-    } on Object {
+  for (final e in items) {
+    if (e.item.type != SavedType.package) continue;
+    final planner = planners.where((p) => p.id == e.item.id).firstOrNull;
+    if (planner != null) {
+      packages.add(SavedPlannerPackage(planner));
       continue;
     }
+    final p = e.package;
+    if (p == null) continue;
+    if (roster.isEmpty || !roster.containsKey(p.venueId)) {
+      for (final r in (await venues.searchVenues(limit: 50)).items) {
+        roster.putIfAbsent(r.venue.id, () => r.venue);
+      }
+    }
+    final v = roster[p.venueId];
+    if (v == null) continue;
+    packages.add(SavedHallPackage(p, v));
   }
-  final planners = fav.package.isEmpty ? const <PlannerPackage>[] : await ref.read(plannersRepositoryProvider).listPlannerPackages();
   return SavedBundle(
-    venues: rows,
-    vendors: vendors,
-    packages: [for (final id in fav.package) ...planners.where((p) => p.id == id).map(SavedPlannerPackage.new)],
+    venues: [
+      for (final e in items)
+        if (e.venue != null) e.venue!,
+    ],
+    vendors: [
+      for (final e in items)
+        if (e.provider != null) e.provider!,
+    ],
+    packages: packages,
+    lastSeen: lastSeen,
   );
 });
 
@@ -154,16 +127,15 @@ int availabilityRank(VenueResult r, SearchBrief brief) {
 final compareColumnsProvider = FutureProvider.autoDispose.family<CompareResponse, (List<String>, SearchBrief)>((ref, key) {
   ref.watch(clientDataRevisionProvider);
   final brief = key.$2;
-  final area = brief.areaIds.isEmpty ? 'salmiya' : brief.areaIds.first;
   return ref
       .read(venuesRepositoryProvider)
       .compareVenues(
-        body: CompareInput(venueIds: key.$1, date: brief.date, guests: brief.guests, audience: brief.audience, originId: 'ref-$area'),
+        body: CompareInput(venueIds: key.$1, date: brief.date, guests: brief.guests, audience: brief.audience, originId: kCompareOriginId),
       );
 });
 
-/// The first Brief area as the reference point id ("Drive from ...").
-String compareOriginId(SearchBrief brief) => 'ref-${brief.areaIds.isEmpty ? 'salmiya' : brief.areaIds.first}';
+/// The reference point of "Drive from ..." (the Brief names governorates, not areas, so it is the default one, ADR 0038).
+const String kCompareOriginId = 'ref-salmiya';
 
 /// Which Saved segment to open next (the services hub asks for Services before it switches to the tab).
 enum SavedSegment { venues, services, packages }

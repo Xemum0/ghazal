@@ -87,7 +87,7 @@ class _Shortlist extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // The rows are asked for at the first frame (not after the hearts arrive), so the shelf never starts a request late.
-    final all = ref.watch(discoverSearchProvider(DiscoverQuery(brief: brief, filters: const DiscoverFilters(areaIds: <String>[])))).value ?? const <VenueResult>[];
+    final all = ref.watch(discoverSearchProvider(DiscoverQuery(brief: brief, filters: const DiscoverFilters(governorateIds: <String>[])))).value ?? const <VenueResult>[];
     final saved = ref.watch(favouritesProvider.select((a) => a.value?.venue.toList() ?? const <String>[]));
     if (saved.isEmpty) return const SizedBox.shrink();
     final rows = <VenueResult>[for (final id in saved) ...[for (final r in all) if (r.venue.id == id) r]].take(3).toList();

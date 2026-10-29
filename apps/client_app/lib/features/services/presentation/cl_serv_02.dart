@@ -1,7 +1,7 @@
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView, sessionProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView;
 import 'package:ghazal_core/ghazal_core.dart' show DecimalOptions;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
@@ -35,7 +35,6 @@ class _ClServ02State extends ConsumerState<ClServ02Screen> {
     final category = categoryById(all, catId) ?? (all.isEmpty ? null : all.first);
     final filter = ref.watch(servicesFilterProvider(catId));
     final list = ref.watch(servicesFilteredProvider(ServQuery(catId, filter)));
-    final guest = !ref.watch(sessionProvider.select((s) => s.isSignedIn));
     final siblings = [
       for (final c in all)
         if (c.groupId == category?.groupId) c,
@@ -164,12 +163,12 @@ class _ClServ02State extends ConsumerState<ClServ02Screen> {
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
                                     Expanded(
-                                      child: ServVendorTile(vendor: items[i], guest: guest, catId: catId),
+                                      child: ServVendorTile(vendor: items[i], catId: catId),
                                     ),
                                     const SizedBox(width: GzSpace.s4),
                                     Expanded(
                                       child: i + 1 < items.length
-                                          ? ServVendorTile(vendor: items[i + 1], guest: guest, catId: catId)
+                                          ? ServVendorTile(vendor: items[i + 1], catId: catId)
                                           : const SizedBox.shrink(),
                                     ),
                                   ],
@@ -232,7 +231,7 @@ class _ListSkeleton extends StatelessWidget {
   );
 }
 
-/// The filter sheet: sort, areas, up-to prices and the minimum rating. A chosen chip is chosen again to clear it.
+/// The filter sheet: sort, governorates, up-to prices and the minimum rating. A chosen chip is chosen again to clear it.
 class _FilterSheet extends ConsumerWidget {
   const _FilterSheet({required this.catId});
 
@@ -246,7 +245,7 @@ class _FilterSheet extends ConsumerWidget {
     final list = ref.watch(servicesFilteredProvider(ServQuery(catId, const ServFilter())));
     final items = list.value ?? const <ServiceProvider>[];
     final areas = ref.watch(servicesAreasProvider).value;
-    final areaIds = {for (final v in items) v.areaId}.toList();
+    final regionIds = <String>{for (final v in items) v.governorateId};
     final ceilings = {for (final v in items) v.from.fils}.toList()..sort();
     final current = ref.watch(servicesFilterProvider(catId));
 
@@ -271,21 +270,18 @@ class _FilterSheet extends ConsumerWidget {
             GzSegmentedOption(value: ProviderSort.rating, label: l.clientServicesSortRating),
           ],
         ),
-        if (areaIds.isNotEmpty) ...[
+        if (regionIds.isNotEmpty) ...[
           const SizedBox(height: GzSpace.s4),
-          GzChipGroup<String>(
-            label: l.clientServicesArea,
-            options: [
-              for (final id in areaIds)
-                GzChipOption<String>(
-                  value: id,
-                  label: context.bi(areas?.areas.where((a) => a.id == id).firstOrNull?.name ?? LocalizedText(en: id, ar: id)),
-                ),
-            ],
-            value: draft.areaIds.isEmpty ? null : draft.areaIds.first,
-            onChanged: (v) => ref
-                .read(_sheetDraftProvider.notifier)
-                .update((d) => d.copyWith(areaIds: v == null || d.areaIds.contains(v) ? const <String>[] : <String>[v])),
+          _RegionRow(
+            title: l.clientServicesGovernorateTitle(draft.governorateIds.length),
+            count: draft.governorateIds.length,
+            child: GzGovernorateFilter(
+              governorates: areas?.governorates ?? const <Governorate>[],
+              only: regionIds,
+              label: l.clientServicesGovernorate,
+              values: draft.governorateIds,
+              onChanged: (ids) => ref.read(_sheetDraftProvider.notifier).update((d) => d.copyWith(governorateIds: ids)),
+            ),
           ),
         ],
         if (ceilings.isNotEmpty) ...[
@@ -370,3 +366,40 @@ class _SheetDraftNotifier extends Notifier<ServFilter> {
 }
 
 // Edges (inventory navigatesTo): 'CL-SERV-03' (a card opens the profile), 'CL-SERV-01' (back returns to the hub).
+
+/// A group of the filter sheet that leads with its glyph and the count of what is chosen (the web `Row` of the Filter sheet); the words
+/// are the accessible name.
+class _RegionRow extends StatelessWidget {
+  const _RegionRow({required this.title, required this.count, required this.child});
+
+  final String title;
+  final int count;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.gz.colors;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Semantics(
+          container: true,
+          label: title,
+          child: ExcludeSemantics(
+            child: Row(
+              children: [
+                GzIcon(GzIcons.pin, size: GzIconSize.md, color: c.iconSecondary),
+                if (count > 0) ...[
+                  const SizedBox(width: GzSpace.s2),
+                  GzNum(context.gzFormat.integer(count), role: GzTextRole.figCaption, color: c.textSecondary),
+                ],
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: GzSpace.s2),
+        child,
+      ],
+    );
+  }
+}

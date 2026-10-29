@@ -2,7 +2,6 @@ import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show sessionProvider;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -11,7 +10,6 @@ import '../application/venue_providers.dart';
 import 'venue_actions.dart';
 import 'venue_glyphs.dart';
 import 'widgets/venue_failure.dart';
-import 'widgets/venue_money.dart' show QuietMoney;
 import 'widgets/venue_package_rate.dart';
 import 'widgets/venue_sheets.dart' show VenueFootRule, VenueSheetHead;
 
@@ -40,7 +38,6 @@ class _ClVenu04State extends ConsumerState<ClVenu04Screen> {
     final pick = ref.watch(venuePickProvider(params.venueId));
     final vkey = venueKeyOf(VenueParams(venueId: params.venueId, hallId: params.hallId, packageId: params.packageId ?? pick.packageId), brief, pick);
     final view = ref.watch(venueViewProvider(vkey));
-    final guest = !ref.watch(sessionProvider.select((s) => s.isSignedIn));
     final actions = VenueActions(context, ref, params.venueId);
     final data = view.value;
     final row = data?.rows.where((r) => r.pkg.id == vkey.packageId).firstOrNull ?? data?.row;
@@ -80,7 +77,6 @@ class _ClVenu04State extends ConsumerState<ClVenu04Screen> {
           _PkgBody(
             view: data,
             row: row,
-            guest: guest,
             actions: actions,
             saved: saved,
             allIncluded: _allIncluded,
@@ -113,7 +109,6 @@ class _PkgBody extends StatelessWidget {
   const _PkgBody({
     required this.view,
     required this.row,
-    required this.guest,
     required this.actions,
     required this.saved,
     required this.allIncluded,
@@ -123,7 +118,6 @@ class _PkgBody extends StatelessWidget {
 
   final VenueView view;
   final PackageRow row;
-  final bool guest;
   final VenueActions actions;
   final bool saved;
   final bool allIncluded;
@@ -146,10 +140,6 @@ class _PkgBody extends StatelessWidget {
       guests: view.prices?.billedGuests,
       audience: row.audience,
     );
-    final extras = view.detail.extras
-        .where((e) => e.active && (e.audiences.isEmpty || e.audiences.contains(row.audience)) && !e.includedInPackageIds.contains(pkg.id))
-        .take(4)
-        .toList();
     final shown = allIncluded ? pkg.inclusions : pkg.inclusions.take(kShownInclusions).toList();
     final hidden = pkg.inclusions.length - kShownInclusions;
     final c = context.gz.colors;
@@ -178,7 +168,7 @@ class _PkgBody extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        PackageRateBlock(view: view, row: row, guest: guest),
+        PackageRateBlock(view: view, row: row),
         if (pkg.inclusions.isNotEmpty) ...[
           const SizedBox(height: GzSpace.s5),
           Semantics(
@@ -247,30 +237,6 @@ class _PkgBody extends StatelessWidget {
                 ],
               ),
             ),
-            if (extras.isNotEmpty)
-              GzAccordionItem(
-                id: 'extras',
-                title: l.clientVenuePkgExtras,
-                content: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    for (var i = 0; i < extras.length; i++) ...[
-                      if (i > 0) const SizedBox(height: GzSpace.s3),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const GzIcon(GzIcons.plus, size: GzIconSize.sm, tone: GzIconTone.secondary),
-                          const SizedBox(width: GzSpace.s3),
-                          Expanded(
-                            child: GzText(context.bi(extras[i].name), role: GzTextRole.bodyS, color: c.textPrimary),
-                          ),
-                          QuietMoney(fils: (extras[i].priceMin ?? extras[i].price).fils),
-                        ],
-                      ),
-                    ],
-                  ],
-                ),
-              ),
           ],
         ),
         if (view.visitOpen) ...[

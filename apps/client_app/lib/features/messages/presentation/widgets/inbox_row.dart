@@ -37,14 +37,11 @@ bool visitClosed(VisitStatus? s) => s == VisitStatus.completed || s == VisitStat
 /// name and the clock, one short line of the last message in its own language and direction, and the gold unread count. A visit group chat
 /// swaps the monogram for a group glyph and shows the visit date as a fact plus the three roles as three glyphs.
 class InboxRowTile extends StatelessWidget {
-  const InboxRowTile({required this.row, required this.onOpen, this.last = false, this.guestSupport = false, super.key});
+  const InboxRowTile({required this.row, required this.onOpen, this.last = false, super.key});
 
   final InboxRow row;
   final VoidCallback onOpen;
   final bool last;
-
-  /// The guest's one row: Support with its welcome line.
-  final bool guestSupport;
 
   @override
   Widget build(BuildContext context) {
@@ -52,17 +49,15 @@ class InboxRowTile extends StatelessWidget {
     final c = gz.colors;
     final l = context.l10n;
     final lang = gz.locale.languageCode;
-    final f = context.gzFormat;
     final conv = row.conversation;
     final group = isVisitChat(conv);
     final unread = row.unread;
-    final name = guestSupport ? context.gzL10n.commonRoleSupport : conversationName(context, conv);
+    final name = conversationName(context, conv);
     final m = row.last;
     final previewColor = unread > 0 ? c.textStrong : c.textPrimary;
     final mine = m != null && m.from.value == 'client';
 
     Widget preview() {
-      if (guestSupport) return _text(l.clientMessagesSupportIntro, lang, unread);
       if (m == null) return const SizedBox.shrink();
       switch (m.kind) {
         case MessageKind.voice:
@@ -103,10 +98,8 @@ class InboxRowTile extends StatelessWidget {
       }
     }
 
-    final status = guestSupport
-        ? null
-        : (group ? (row.visit == null ? null : statusOfVisit(row.visit!)) : (row.booking == null ? null : statusOfBooking(row.booking!)));
-    final time = guestSupport ? f.time(f.now()) : rowTime(context, row.at);
+    final status = group ? (row.visit == null ? null : statusOfVisit(row.visit!)) : (row.booking == null ? null : statusOfBooking(row.booking!));
+    final time = rowTime(context, row.at);
     final spoken = '$name, $time${unread > 0 ? ', ${l.clientMessagesUnreadCount(unread)}' : ''}';
 
     return Column(

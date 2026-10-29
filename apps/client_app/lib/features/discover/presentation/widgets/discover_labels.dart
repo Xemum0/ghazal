@@ -121,13 +121,9 @@ class DiscoverLabels {
 
   String governorate(String id) => areas?.governorates.where((g) => g.id == id).firstOrNull?.name.of(_lang) ?? '';
 
-  String area(String id) => areas?.areas.where((a) => a.id == id).firstOrNull?.name.of(_lang) ?? '';
-
   String _list(Iterable<String> items) => context.gzFormat.list(items.where((e) => e.isNotEmpty).toList());
 
   String governorates(List<String> ids) => _list(ids.map(governorate));
-
-  String areaList(List<String> ids) => _list(ids.map(area));
 
   String within(int minutes) => _l.clientDiscoverMinutes(context.gzFormat.integer(minutes));
 
@@ -172,10 +168,8 @@ class DiscoverLabels {
       case ChipKind.category:
         return category(c.arg! as HomeCategoryId);
       case ChipKind.governorates:
-        return governorates(c.arg! as List<String>);
-      case ChipKind.areas:
         final ids = c.arg! as List<String>;
-        return ids.isEmpty ? _l.clientDiscoverChipAreasAll : areaList(ids);
+        return ids.isEmpty ? _l.clientDiscoverChipGovernoratesAll : governorates(ids);
       case ChipKind.type:
         return venueType(c.arg! as VenueType);
       case ChipKind.available:
@@ -211,7 +205,7 @@ class DiscoverLabels {
 
   /// The glyph that says what kind of filter an applied chip is (the label is a value).
   IconData? chipIcon(ChipSpec c) => switch (c.kind) {
-    ChipKind.governorates || ChipKind.areas => GzIcons.pin,
+    ChipKind.governorates => GzIcons.pin,
     ChipKind.type => typeIcon(c.arg! as VenueType),
     ChipKind.available || ChipKind.dates => GzIcons.calendarCheck,
     ChipKind.arrangement => arrangementIcon(c.arg! as Audience),

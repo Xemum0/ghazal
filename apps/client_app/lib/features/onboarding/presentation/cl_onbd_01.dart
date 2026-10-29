@@ -37,7 +37,7 @@ class ClOnbd01Screen extends ConsumerWidget {
           label: l10n.clientOnboardingLanguageSignIn,
           variant: GzButtonVariant.tertiary,
           iconStart: GzIcons.signIn,
-          onPressed: offline ? null : () => nav.openSheet('CL-AUTH-01', options: const GzSheetOptions(params: <String, Object?>{'reason': 'none'})),
+          onPressed: offline ? null : () => nav.push('CL-AUTH-01'),
         ),
         if (offline) Semantics(label: l10n.clientOnboardingLanguageSignInOffline, child: const SizedBox.shrink()),
       ],

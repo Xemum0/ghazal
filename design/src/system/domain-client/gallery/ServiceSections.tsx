@@ -88,9 +88,9 @@ export function VendorSection() {
         <VendorCard vendor={fresh} variant="row" previewState="pressed" />
         <VendorCard vendor={rated} loading />
       </Spec>
-      <Spec state={l('Provider note (CA-SVC-20) · glyph, one line, quiet external link · footer of Services, a row of Profile', 'ملاحظة المزوّد (CA-SVC-20) · رمز وسطر واحد ورابط خارجي هادئ · تذييل الخدمات وصف في الملف الشخصي')}>
-        <ProviderNote variant="footer" />
-        <ProviderNote variant="row" />
+      <Spec state={l('Provider note (CA-SVC-20) · glyph, the whole sentence, an accent "Apply" and a chevron · banner: a rose card at the TOP of Services (under the Venues | Services switch, in the first screen) · row: one row at the top of Profile (under the identity header, on a full-width rose band) · 44 or more, wraps to two lines', 'ملاحظة المزوّد (CA-SVC-20) · رمز والجملة كاملة و«تقديم» بلون التمييز وسهم · banner: بطاقة وردية في أعلى الخدمات (تحت مفتاح القاعات | الخدمات وداخل الشاشة الأولى) · row: صف واحد في أعلى الملف الشخصي (تحت رأس الهوية وعلى شريط وردي بعرض الشاشة) · لا يقل عن 44 ويلتف على سطرين')}>
+        <ProviderNote variant="banner" onOpen={() => undefined} />
+        <ProviderNote variant="row" onOpen={() => undefined} />
       </Spec>
     </Section>
   )

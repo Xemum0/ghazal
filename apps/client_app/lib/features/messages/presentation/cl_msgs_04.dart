@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView, sessionProvider, venuesRepositoryProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView, venuesRepositoryProvider;
 import 'package:ghazal_core/ghazal_core.dart' show DateStyle;
 import 'package:ghazal_domain/ghazal_domain.dart' show AppNotification, NotificationKind;
 import 'package:ghazal_ui/ghazal_ui.dart';
@@ -112,7 +112,6 @@ class _ClMsgs04ScreenState extends ConsumerState<ClMsgs04Screen> {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    final guest = !ref.watch(sessionProvider).isSignedIn;
     final async = ref.watch(notificationsProvider);
     final denied = ref.watch(ntfPermissionProvider) == NtfPermission.denied;
     final top = GzTopBar(
@@ -125,16 +124,14 @@ class _ClMsgs04ScreenState extends ConsumerState<ClMsgs04Screen> {
       title: l.clientMessagesNtfEmptyTitle,
       action: GzStateAction(label: l.clientMessagesEmptyAction, variant: GzButtonVariant.primary, onPressed: () => _nav.switchTab('discover')),
     );
-    final Widget body = guest
-        ? emptyState
-        : GzAsyncView<NotificationsState>(
-            value: async,
-            loading: const _NtfSkeleton(),
-            isEmpty: (s) => s.items.isEmpty,
-            empty: emptyState,
-            onRetry: () => ref.invalidate(notificationsProvider),
-            data: (s) => _content(s, denied),
-          );
+    final Widget body = GzAsyncView<NotificationsState>(
+      value: async,
+      loading: const _NtfSkeleton(),
+      isEmpty: (s) => s.items.isEmpty,
+      empty: emptyState,
+      onRetry: () => ref.invalidate(notificationsProvider),
+      data: (s) => _content(s, denied),
+    );
     return GzPullToRefresh(
       onRefresh: _refresh,
       child: GzScreen(top: top, child: body),

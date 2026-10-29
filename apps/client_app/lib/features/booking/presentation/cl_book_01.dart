@@ -19,7 +19,7 @@ import 'widgets/booking_parts.dart';
 import 'widgets/state_note.dart';
 import 'widgets/step_scaffold.dart';
 
-/// CL-BOOK-01 Your event (step 1 of 5). Covers CA-BOOK-01, CA-BOOK-02, CA-BOOK-03, CA-BOOK-06, CA-BOOK-14, CA-VDET-22, CA-CMP-10, CA-VCH-09.
+/// CL-BOOK-01 Your event (step 1 of 4). Covers CA-BOOK-01, CA-BOOK-02, CA-BOOK-03, CA-BOOK-06, CA-BOOK-14, CA-VDET-22, CA-CMP-10, CA-VCH-09.
 ///
 /// Text diet (ADR 0034): a date, a hall, a guest count and a few glyphs. With a voucher bound to the quote the date, hall and guests
 /// arrive locked as facts; without one a "voucher first" panel opens the purchase and the same step composes a quote. One primary action:
@@ -112,7 +112,7 @@ class _ClBook01State extends ConsumerState<ClBook01Screen> {
       action = !bound && !taken
           ? GzActionBarAction(
               label: l10n.clientBookingNeedVoucherAction(fee),
-              onPressed: () => getBookingVoucher(ref, nav, flow, 'CL-BOOK-01'),
+              onPressed: () => getBookingVoucher(nav, flow, 'CL-BOOK-01'),
               disabled: reason != null,
               reason: reason,
             )
@@ -286,7 +286,7 @@ class _Body extends ConsumerWidget {
             tight: true,
             label: l10n.clientBookingDateChange,
             children: [
-              BookingVoucherNeed(feeFils: flow.voucherFeeFils, onGet: () => getBookingVoucher(ref, nav, flow, 'CL-BOOK-01')),
+              BookingVoucherNeed(feeFils: flow.voucherFeeFils, onGet: () => getBookingVoucher(nav, flow, 'CL-BOOK-01')),
               BookingDateRow(date: flow.date, onPressed: openCalendar),
               Align(
                 alignment: AlignmentDirectional.centerStart,

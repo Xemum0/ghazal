@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView, sessionProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView;
 import 'package:ghazal_domain/ghazal_domain.dart' show VisitRow;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -12,7 +12,7 @@ import 'widgets/visit_widgets.dart';
 ///
 /// The client's visits by state (Upcoming, Past) with status chips and a way
 /// into each chat. Reached from Profile and My Wedding.
-/// States: default, empty, guest, loading, error, offline.
+/// States: default, empty, loading, error, offline.
 class ClVist04Screen extends ConsumerStatefulWidget {
   const ClVist04Screen({super.key});
 
@@ -28,21 +28,6 @@ class _ClVist04ScreenState extends ConsumerState<ClVist04Screen> {
     final l = context.l10n;
     final nav = context.gzNav;
     // Reached from Profile ('CL-PROF-01') and My Wedding; a tap opens the visit chat ('CL-VIST-03').
-    final guest = !ref.watch(sessionProvider).isSignedIn;
-    if (guest) {
-      return GzScreen(
-        top: GzTopBar(title: l.clientVisitsListTitle),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, top: GzSpace.s8),
-          child: GzEmptyState(
-            key: const ValueKey<String>('visits.guest'),
-            illustration: GzIllustrationName.emptyVisits,
-            title: l.clientVisitsGuestTitle,
-            action: GzStateAction(label: l.clientVisitsGuestAction, variant: GzButtonVariant.primary, onPressed: () => nav.openSheet('CL-AUTH-01')),
-          ),
-        ),
-      );
-    }
     final visits = ref.watch(myVisitsProvider);
     return GzScreen(
       top: GzTopBar(title: l.clientVisitsListTitle),

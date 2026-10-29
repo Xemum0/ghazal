@@ -2,7 +2,7 @@ import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, GateResume, GzAsyncView, WidgetSessionGate, sessionProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -39,7 +39,6 @@ class _ClServ03State extends ConsumerState<ClServ03Screen> {
     final params = ServicesParams.of(context.gzNav.params);
     final vendorId = params.vendorId ?? kHeroVendorId;
     final vendorAsync = ref.watch(servicesVendorProvider(vendorId));
-    final guest = !ref.watch(sessionProvider.select((s) => s.isSignedIn));
     final brief = ref.watch(searchBriefProvider);
     final saved = ref.watch(isFavouriteProvider((SavedType.vendor, vendorId)));
 
@@ -68,7 +67,6 @@ class _ClServ03State extends ConsumerState<ClServ03Screen> {
               vendor: vendorAsync.value!,
               pkg: _pkgOf(vendorAsync.value!, params),
               offered: (_pkgOf(vendorAsync.value!, params))?.voucherPrice != null,
-              guest: guest,
               onGetVoucher: () => _getVoucher(vendorAsync.value!, _pkgOf(vendorAsync.value!, params), brief),
               onQuote: (when) => _openQuote(vendorAsync.value!, _pkgOf(vendorAsync.value!, params)?.id, when),
             )
@@ -88,7 +86,6 @@ class _ClServ03State extends ConsumerState<ClServ03Screen> {
           return ServProfileBody(
             vendor: v,
             pkg: pkg,
-            guest: guest,
             date: date,
             guests: guests,
             dateError: _dateError,
@@ -122,7 +119,6 @@ class _ClServ03State extends ConsumerState<ClServ03Screen> {
     final date = when ?? ref.read(searchBriefProvider).date;
     final quoteParams = <String, Object?>{'vendorId': v.id, if (date != null) 'date': date.toString()};
     if (packageId != null) quoteParams['packageId'] = packageId;
-    if (!ref.requireSignIn(GateReason.quote, resume: GateResume('CL-SERV-04', quoteParams))) return;
     nav.openSheet('CL-SERV-04', options: GzSheetOptions(params: quoteParams));
   }
 
@@ -131,18 +127,17 @@ class _ClServ03State extends ConsumerState<ClServ03Screen> {
     final nav = context.gzNav;
     final date = _pickedDate ? _date : brief.date;
     final guests = _pickedGuests ? _guests : brief.guests;
-    if (date == null && ref.read(sessionProvider).isSignedIn) {
+    if (date == null) {
       setState(() => _dateError = true);
       return;
     }
     final params = <String, Object?>{
       'providerId': v.id,
       'packageId': pkg.id,
-      if (date != null) 'date': date.toString(),
+      'date': date.toString(),
       if (guests != null) 'guests': _qtyOf(pkg, guests),
       'from': 'CL-SERV-03',
     };
-    if (!ref.requireSignIn(GateReason.voucher, resume: GateResume('CL-VCHR-01', params))) return;
     nav.openSheet('CL-VCHR-01', options: GzSheetOptions(params: params));
   }
 
@@ -154,12 +149,11 @@ class _ClServ03State extends ConsumerState<ClServ03Screen> {
 
 /// The sticky bar: Get voucher (or Request quote when no voucher price), Open chat beneath.
 class _ProfileBar extends ConsumerWidget {
-  const _ProfileBar({required this.vendor, required this.pkg, required this.offered, required this.guest, required this.onGetVoucher, required this.onQuote});
+  const _ProfileBar({required this.vendor, required this.pkg, required this.offered, required this.onGetVoucher, required this.onQuote});
 
   final ServiceProvider vendor;
   final ProviderPackage? pkg;
   final bool offered;
-  final bool guest;
   final VoidCallback onGetVoucher;
   final void Function(LocalDate?) onQuote;
 
@@ -168,26 +162,39 @@ class _ProfileBar extends ConsumerWidget {
     final l = context.l10n;
     final brief = ref.watch(searchBriefProvider);
     void openChat() {
-      if (!ref.requireSignIn(GateReason.chat, resume: GateResume('CL-SERV-03', <String, Object?>{'vendorId': vendor.id}))) return;
       context.gzNav.push('CL-MSGS-02', params: <String, Object?>{'vendorId': vendor.id});
     }
 
+    // The three paths (voucher-model section 3): the gold action, Request quote as a quiet text action and the chat glyph, one row apart
+    // (web `.gzs-prof__barnote`: space between, 12 gap). Without a voucher price the gold action is Request quote and only the chat is left.
     final note = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        GzButton(label: l.clientServicesProfileRequest, variant: GzButtonVariant.tertiary, iconStart: GzIcons.send, onPressed: () => onQuote(brief.date)),
+        if (offered) GzButton(label: l.clientServicesProfileRequest, variant: GzButtonVariant.tertiary, onPressed: () => onQuote(brief.date)) else const SizedBox.shrink(),
         GzIconButton(icon: GzIcons.chat, label: context.gzL10n.commonActionMessage, variant: GzIconButtonVariant.outline, onPressed: openChat),
       ],
     );
     if (offered) {
+      final c = context.gz.colors;
+      // The fee as a glyph and a figure (the word is the accessible name): web `.gzs-prof__fee`.
+      final fee = Semantics(
+        label: context.gzL10n.commonVoucher,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ExcludeSemantics(child: GzIcon(GzIcons.ticket, size: GzIconSize.md, color: c.iconPrimary)),
+            const SizedBox(width: GzSpace.s2),
+            const GzPrice(fils: 2000, size: GzPriceSize.strong),
+          ],
+        ),
+      );
       return GzActionBar(
-        action: GzActionBarAction(label: l.clientServicesProfileGetVoucher, iconEnd: GzIcons.ticket, onPressed: onGetVoucher),
-        summaryLabel: context.gzL10n.commonVoucher,
-        summaryValue: const GzPrice(fils: 2000, size: GzPriceSize.strong),
+        action: GzActionBarAction(label: l.clientServicesProfileGetVoucher, onPressed: onGetVoucher),
+        summaryValue: fee,
         noteWidget: note,
       );
     }
-    return GzActionBar(action: GzActionBarAction(label: l.clientServicesProfileRequest, iconEnd: GzIcons.send, onPressed: () => onQuote(brief.date)), noteWidget: note);
+    return GzActionBar(action: GzActionBarAction(label: l.clientServicesProfileRequest, onPressed: () => onQuote(brief.date)), noteWidget: note);
   }
 }
 

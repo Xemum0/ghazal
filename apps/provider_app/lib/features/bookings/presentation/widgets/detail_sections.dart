@@ -1,5 +1,5 @@
 // The body sections of Booking detail (web `DetailSections.tsx`, ADR 0034): special requests, the client, the counter-offer when one is out,
-// the event (hall photograph, time, section, guests, package, extras), the price at the voucher (one big figure, the standard struck, the
+// the event (hall photograph, time, section, guests, package), the price at the voucher (one big figure, the standard struck, the
 // saving) and the voucher panel once the request is confirmed or used. No payment, cash, invoice or payout section exists: the one sentence
 // about what the venue collects directly sits behind an info glyph.
 import 'package:flutter/widgets.dart';
@@ -154,7 +154,6 @@ class DetailEvent extends ConsumerWidget {
       );
     }
     final two = b.sections.length > 1;
-    final extras = b.lines.where((x) => x.kind == PriceLineKind.extra).toList();
     final lines = <BkLine>[
       for (final s in b.sections)
         BkLine(
@@ -175,13 +174,6 @@ class DetailEvent extends ConsumerWidget {
           icon: GzIcons.package,
           label: two ? audienceWord(l, s.audience) : l.hotelBookingsRowPackage,
           child: _bold(c, venue?.packages.where((p) => p.package.id == s.packageId).map((p) => p.package.name.of(lang)).firstOrNull ?? ''),
-        ),
-      for (final x in extras)
-        BkLine(
-          icon: GzIcons.plus,
-          label: l.hotelBookingsRowExtras,
-          trailing: x.qty > 1 ? GzText('×${f.integer(x.qty)}', role: GzTextRole.figBodyS, color: c.textStrong, figures: true) : null,
-          child: _bold(c, x.name.of(lang)),
         ),
     ];
     return BkPanel(child: BkLines(lines: lines, label: l.hotelBookingsEventTitle));
@@ -206,7 +198,9 @@ class DetailPrice extends StatelessWidget {
     final lang = context.gz.locale.languageCode;
     final t = b.totals;
     final saves = t.standardTotal.fils > t.voucherTotal.fils;
-    final itemised = b.lines.length > 1 || t.voucherServiceCharge.fils > 0;
+    // Venue extras are not shown (CA-SVC-19, ADR 0038): the breakdown lists the packages only.
+    final lines = b.lines.where((x) => x.kind != PriceLineKind.extra).toList();
+    final itemised = lines.length > 1 || t.voucherServiceCharge.fils > 0;
     return BkPanel(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -241,7 +235,7 @@ class DetailPrice extends StatelessWidget {
                     BkLines(
                       label: l.hotelBookingsPriceTitle,
                       lines: [
-                        for (final x in b.lines) BkLine(trailing: BkQuietMoney(fils: x.amount.fils), child: GzUserText(x.name.of(lang), role: GzTextRole.title, color: c.textStrong)),
+                        for (final x in lines) BkLine(trailing: BkQuietMoney(fils: x.amount.fils), child: GzUserText(x.name.of(lang), role: GzTextRole.title, color: c.textStrong)),
                         if (t.voucherServiceCharge.fils > 0) BkLine(trailing: BkQuietMoney(fils: t.voucherServiceCharge.fils), child: GzUserText(cl.commonMoneyServiceCharge, role: GzTextRole.title, color: c.textStrong)),
                       ],
                     ),

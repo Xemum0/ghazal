@@ -32,7 +32,7 @@ final GzRouterSpec kRouterSpec = GzRouterSpec(
   startPath: kInitialLocation,
   homePath: kScreenRegistry[kAppTabs.first.rootScreen]!.path,
     requireSession: true,
-    publicPrefixes: <String>['/access'],
+    publicPrefixes: <String>['/access', '/provider/account-type'],
 );
 
 /// The app router. [initialLocation] defaults to the first screen of a first start (HL-ACCS-01). [ref] connects the redirect and the

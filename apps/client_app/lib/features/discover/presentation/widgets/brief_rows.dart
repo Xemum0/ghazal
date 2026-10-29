@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:ghazal_core/ghazal_core.dart' show DateStyle, GzFormat, MoneyMode, MoneyOptions;
-import 'package:ghazal_domain/ghazal_domain.dart' show Area, DateMode, LocalizedText, MoneyRange;
+import 'package:ghazal_domain/ghazal_domain.dart' show DateMode, Governorate, MoneyRange;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../../../app/state/state.dart' show SearchBrief;
@@ -24,21 +24,19 @@ String? briefDateText(GzFormat f, SearchBrief b) {
 
 IconData briefDateIcon(SearchBrief b) => b.dateMode == DateMode.flexibleMonth && b.date != null ? GzIcons.calendarDots : GzIcons.calendar;
 
-/// The names of the Brief's areas in the current language, in the order the Brief holds them.
-List<String> briefAreaNames(Iterable<Area> areas, List<String> ids, String lang) => <String>[
-  for (final id in ids) ...<String>[for (final a in areas) if (a.id == id) a.name.of(lang)],
+/// The names of the Brief's governorates in the current language, in the order the Brief holds them (ADR 0038: governorates, never areas).
+List<String> briefGovernorateNames(Iterable<Governorate> governorates, List<String> ids, String lang) => <String>[
+  for (final id in ids) ...<String>[for (final g in governorates) if (g.id == id) g.name.of(lang)],
 ];
 
-/// The Area value of a half-width cell holds one line: both names when they are short, else the first and a count.
-String? briefAreaText(BuildContext context, GzFormat f, List<String> names) {
+/// The governorate value of a half-width cell holds one line: both names when they are short, else the first and a count.
+String? briefGovernorateText(BuildContext context, GzFormat f, List<String> names) {
   if (names.isEmpty) return null;
   final sep = f.isArabic ? '، ' : ', ';
   final joined = names.join(sep);
   final room = f.isArabic ? 18 : 16;
-  return names.length == 1 || joined.length <= room ? joined : context.l10n.clientDiscoverBriefAreaMore(names.first, f.integer(names.length - 1));
+  return names.length == 1 || joined.length <= room ? joined : context.l10n.clientDiscoverBriefGovernorateMore(names.first, f.integer(names.length - 1));
 }
-
-LocalizedText? areaName(Iterable<Area> areas, String id) => areas.where((a) => a.id == id).firstOrNull?.name;
 
 /// A Brief row: a glyph and its value (the row's name is the accessible name); a skipped answer is a muted one-word placeholder. 64 high,
 /// quiet fill while pressed. [chevron] draws the disclosure glyph at inline-end (the Brief sheet's rows).

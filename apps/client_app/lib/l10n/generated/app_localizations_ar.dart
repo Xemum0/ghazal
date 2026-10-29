@@ -834,9 +834,6 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get commonLabelGuestVoucher => 'سعر الكوبون بعد التسجيل';
-
-  @override
   String get commonRoleClient => 'العميل';
 
   @override
@@ -1019,12 +1016,6 @@ class AppL10nAr extends AppL10n {
   String get clientAuthSharedSendCode => 'إرسال الرمز';
 
   @override
-  String get clientAuthSharedDate => 'التاريخ';
-
-  @override
-  String get clientAuthSharedGuests => 'الضيوف';
-
-  @override
   String get clientAuthSharedLegalTerms => 'شروط الاستخدام';
 
   @override
@@ -1066,30 +1057,6 @@ class AppL10nAr extends AppL10n {
   @override
   String get clientAuthSharedSmallPrint =>
       'تسري <terms>شروط الاستخدام</terms> و<privacy>سياسة الخصوصية</privacy> عليكم، وتؤكدون موافقتكم عليهما عند إنشاء الحساب.';
-
-  @override
-  String get clientAuthReasonSendRequest => 'إرسال الطلب';
-
-  @override
-  String get clientAuthReasonVoucher => 'كوبون';
-
-  @override
-  String get clientAuthReasonVisit => 'زيارة';
-
-  @override
-  String get clientAuthReasonChat => 'رسالة';
-
-  @override
-  String get clientAuthReasonReview => 'تقييم';
-
-  @override
-  String get clientAuthReasonPlanner => 'استشارة';
-
-  @override
-  String get clientAuthReasonQuote => 'عرض سعر';
-
-  @override
-  String get clientAuthReasonSave => 'المفضلة';
 
   @override
   String clientAuthGateErrorDigits(int count) {
@@ -1208,7 +1175,7 @@ class AppL10nAr extends AppL10n {
   String get clientAuthOtpOpening => 'جارٍ فتح واتساب';
 
   @override
-  String get clientAuthNameTitle => 'إنشاء حساب';
+  String get clientAuthNameTitle => 'نبذة عنكم';
 
   @override
   String get clientAuthNameLabel => 'الاسم';
@@ -1220,13 +1187,19 @@ class AppL10nAr extends AppL10n {
   String get clientAuthNameEmailLabel => 'البريد الإلكتروني';
 
   @override
+  String get clientAuthNameSexLabel => 'الجنس';
+
+  @override
+  String get clientAuthNameSexFemale => 'أنثى';
+
+  @override
+  String get clientAuthNameSexMale => 'ذكر';
+
+  @override
   String get clientAuthNameAccept => 'أوافق';
 
   @override
   String get clientAuthNameLegalTitle => 'الشروط والخصوصية';
-
-  @override
-  String get clientAuthNameKept => 'محفوظ في حسابكم';
 
   @override
   String get clientAuthNameMonogram => 'حرف اسمكم';
@@ -1536,27 +1509,6 @@ class AppL10nAr extends AppL10n {
   String get clientBookingPackageBreakdownOpen => 'عرض تفاصيل السعر';
 
   @override
-  String get clientBookingExtrasTitle => 'الإضافات';
-
-  @override
-  String get clientBookingExtrasInfoTitle => 'الإضافات';
-
-  @override
-  String get clientBookingExtrasIncluded => 'مشمولة';
-
-  @override
-  String get clientBookingExtrasNone => 'بدون إضافات';
-
-  @override
-  String get clientBookingExtrasNoneOffered => 'لا تقدّم هذه القاعة إضافات لحجزكم. يمكنكم المتابعة.';
-
-  @override
-  String get clientBookingExtrasLead => 'اختيارية وتُحتسب بشكل منفصل، بسعر الكوبون حيثما توفّر لدى القاعة.';
-
-  @override
-  String get clientBookingExtrasSettledNote => 'الإضافات تُسدَّد للقاعة مباشرةً.';
-
-  @override
   String get clientBookingDetailsTitle => 'بياناتكم';
 
   @override
@@ -1660,9 +1612,6 @@ class AppL10nAr extends AppL10n {
   String get clientBookingReviewTitle => 'المراجعة';
 
   @override
-  String get clientBookingReviewExtras => 'الإضافات';
-
-  @override
   String get clientBookingReviewContact => 'جهة الاتصال';
 
   @override
@@ -1758,12 +1707,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientBookingVoucherValid => 'صالح حتى';
-
-  @override
-  String get clientBookingQuoteChanged => 'تغيّر إجمالي طلبكم منذ حصولكم على الكوبون بسبب الإضافات التي اخترتموها. الكوبون ما زال ساريًا.';
-
-  @override
-  String get clientBookingQuoteChangedShort => 'تغيّر الإجمالي';
 
   @override
   String get clientBookingSentTitle => 'تم إرسال الطلب';
@@ -2109,12 +2052,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientBookingsLimitReached => 'أغلقوا طلبًا لإرسال آخر';
-
-  @override
-  String get clientBookingsGuestTitle => 'تابعوا طلباتكم';
-
-  @override
-  String get clientBookingsGuestAction => 'تسجيل الدخول';
 
   @override
   String get clientBookingsEmptyTitle => 'لا طلبات بعد';
@@ -2807,18 +2744,10 @@ class AppL10nAr extends AppL10n {
   String get clientDiscoverBriefChooseDate => 'التاريخ';
 
   @override
-  String get clientDiscoverBriefChooseArea => 'المنطقة';
-
-  @override
   String get clientDiscoverBriefAddGuests => 'الضيوف';
 
   @override
   String get clientDiscoverBriefSetBudget => 'الميزانية';
-
-  @override
-  String clientDiscoverBriefAreaMore(String first, String more) {
-    return '$first +$more';
-  }
 
   @override
   String clientDiscoverCtaCount(int count) {
@@ -2848,7 +2777,7 @@ class AppL10nAr extends AppL10n {
   String get clientDiscoverResultsTitle => 'القاعات';
 
   @override
-  String get clientDiscoverResultsSearchPlaceholder => 'قاعة أو منطقة';
+  String get clientDiscoverResultsSearchPlaceholder => 'قاعة أو محافظة';
 
   @override
   String get clientDiscoverResultsFilters => 'التصفية';
@@ -2916,9 +2845,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientDiscoverSortDistance => 'الأقرب';
-
-  @override
-  String get clientDiscoverChipAreasAll => 'كل المناطق';
 
   @override
   String clientDiscoverChipRating(String rating) {
@@ -3053,9 +2979,6 @@ class AppL10nAr extends AppL10n {
   String get clientDiscoverBriefDateFlexible => 'أي شهر';
 
   @override
-  String get clientDiscoverBriefAreaTitle => 'المنطقة';
-
-  @override
   String get clientDiscoverBriefGuestsTitle => 'الضيوف';
 
   @override
@@ -3080,15 +3003,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientDiscoverBriefDone => 'تم';
-
-  @override
-  String get clientDiscoverMergeTitle => 'تفاصيل مختلفة';
-
-  @override
-  String get clientDiscoverMergePhone => 'هذا الهاتف';
-
-  @override
-  String get clientDiscoverMergeAccount => 'حسابكم';
 
   @override
   String get clientDiscoverMapTitle => 'الخريطة';
@@ -3124,8 +3038,8 @@ class AppL10nAr extends AppL10n {
   String get clientDiscoverMapSearchArea => 'بحث هنا';
 
   @override
-  String clientDiscoverMapDenied(String area) {
-    return 'قرب $area';
+  String clientDiscoverMapDenied(String place) {
+    return 'قرب $place';
   }
 
   @override
@@ -3156,7 +3070,7 @@ class AppL10nAr extends AppL10n {
   String get clientDiscoverCardView => 'عرض';
 
   @override
-  String get clientDiscoverChipRegion => 'المنطقة';
+  String get clientDiscoverChipRegion => 'المحافظة';
 
   @override
   String get clientDiscoverChipDate => 'التاريخ';
@@ -3171,7 +3085,22 @@ class AppL10nAr extends AppL10n {
   String get clientDiscoverMapVoucherPin => 'سعر الكوبون';
 
   @override
-  String get clientDiscoverFiltersGroupRegion => 'المنطقة';
+  String clientDiscoverFiltersGroupRegion(int count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'المحافظات · ⁦$countString⁩',
+      many: 'المحافظات · ⁦$countString⁩',
+      few: 'المحافظات · ⁦$countString⁩',
+      two: 'المحافظات · ⁦$countString⁩',
+      one: 'المحافظات · ⁦$countString⁩',
+      zero: 'المحافظات',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get clientDiscoverFiltersGroupStructure => 'التسعير';
@@ -3187,21 +3116,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientDiscoverFiltersVoucherTitle => 'كوبون فقط';
-
-  @override
-  String get clientDiscoverBriefAreaAll => 'الكل';
-
-  @override
-  String get clientDiscoverBriefAreaClearGroup => 'مسح';
-
-  @override
-  String get clientDiscoverRegionPlaceholder => 'منطقة أو قاعة';
-
-  @override
-  String get clientDiscoverRegionNear => 'قريب مني';
-
-  @override
-  String get clientDiscoverRegionListLabel => 'المحافظات والمناطق';
 
   @override
   String get clientDiscoverDatesTitle => 'التواريخ';
@@ -3285,9 +3199,6 @@ class AppL10nAr extends AppL10n {
   String get clientDiscoverA11yDrive => 'مدة القيادة';
 
   @override
-  String get clientDiscoverMergeKeep => 'اعتماد';
-
-  @override
   String get clientDiscoverA11yDaysLeft => 'الأيام المتبقية';
 
   @override
@@ -3313,6 +3224,38 @@ class AppL10nAr extends AppL10n {
   String clientDiscoverBriefBudgetOver(String amount) {
     return '$amount فأكثر';
   }
+
+  @override
+  String get clientDiscoverBriefChooseGovernorate => 'المحافظة';
+
+  @override
+  String clientDiscoverBriefGovernorateMore(String first, String more) {
+    return '$first +$more';
+  }
+
+  @override
+  String clientDiscoverBriefGovernorateTitle(int count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'المحافظات · ⁦$countString⁩',
+      many: 'المحافظات · ⁦$countString⁩',
+      few: 'المحافظات · ⁦$countString⁩',
+      two: 'المحافظات · ⁦$countString⁩',
+      one: 'المحافظات · ⁦$countString⁩',
+      zero: 'المحافظات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clientDiscoverBriefGovernorateLabel => 'المحافظات';
+
+  @override
+  String get clientDiscoverChipGovernoratesAll => 'كل المحافظات';
 
   @override
   String get clientMessagesInboxTitle => 'الرسائل';
@@ -3404,12 +3347,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientMessagesEmptySupport => 'الدعم';
-
-  @override
-  String get clientMessagesGuestLabel => 'تسجيل الدخول لمتابعة الرسائل';
-
-  @override
-  String get clientMessagesGuestAction => 'تسجيل الدخول';
 
   @override
   String get clientMessagesVisitMembers => 'أعضاء المحادثة';
@@ -3540,9 +3477,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientMessagesSuggestVoucherAny => 'السلام عليكم، ممكن تعطوننا سعر الكوبون للحفل النسائي؟';
-
-  @override
-  String get clientMessagesSupportIntro => 'أهلًا بكم، كيف نخدمكم؟';
 
   @override
   String get clientMessagesBlockedNote => 'محظورة';
@@ -4139,12 +4073,6 @@ class AppL10nAr extends AppL10n {
   String get clientMyWeddingToolServices => 'الخدمات';
 
   @override
-  String get clientMyWeddingGuestAction => 'تسجيل الدخول';
-
-  @override
-  String get clientMyWeddingSample => 'نموذج';
-
-  @override
   String get clientMyWeddingUpdated => 'آخر تحديث';
 
   @override
@@ -4498,7 +4426,7 @@ class AppL10nAr extends AppL10n {
   String get clientOnboardingInfoTitle => 'إجاباتكم';
 
   @override
-  String get clientOnboardingInfoBody => 'كلها اختيارية، وتبقى على هذا الجهاز إلى حين التسجيل. يمكن تعديلها في أي وقت من حسابكم.';
+  String get clientOnboardingInfoBody => 'كلها اختيارية، ويمكن تعديلها في أي وقت من حسابكم.';
 
   @override
   String get clientOnboardingAboutTitle => 'من يخطط؟';
@@ -4617,54 +4545,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientOnboardingSkipHalf => 'لاحقًا';
-
-  @override
-  String get clientOnboardingAreasTitle => 'المناطق';
-
-  @override
-  String get clientOnboardingAreasSearch => 'البحث عن منطقة';
-
-  @override
-  String clientOnboardingAreasSelected(int count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '⁦$countString⁩ منطقة محددة',
-      many: '⁦$countString⁩ منطقة محددة',
-      few: '⁦$countString⁩ مناطق محددة',
-      two: 'منطقتان محددتان',
-      one: 'منطقة واحدة محددة',
-      zero: 'لم تُحدد مناطق',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get clientOnboardingAreasDemoQuery => 'مشر';
-
-  @override
-  String clientOnboardingAreasMore(int count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '⁦$countString⁩ منطقة أخرى',
-      many: '⁦$countString⁩ منطقة أخرى',
-      few: '⁦$countString⁩ مناطق أخرى',
-      two: 'منطقتان أخريان',
-      one: 'منطقة أخرى',
-      zero: 'لا مناطق أخرى',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get clientOnboardingAreasNoHallsNote => 'لا قاعات هنا. تظهر كل القاعات.';
 
   @override
   String get clientOnboardingLanguageNativeAr => 'العربية';
@@ -5079,9 +4959,6 @@ class AppL10nAr extends AppL10n {
   String get clientPlannerOtherPlanners => 'منسّقون آخرون';
 
   @override
-  String get clientPlannerGuestSignIn => 'تسجيل الدخول';
-
-  @override
   String get clientPlannerRetryToast => 'تعذّر الاتصال';
 
   @override
@@ -5284,9 +5161,6 @@ class AppL10nAr extends AppL10n {
   String get clientProfileSharedPrivacy => 'الخصوصية';
 
   @override
-  String get clientProfileSharedSignIn => 'تسجيل الدخول';
-
-  @override
   String get clientProfileSharedSignOut => 'تسجيل الخروج';
 
   @override
@@ -5414,9 +5288,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientProfileWedBudget => 'القاعة والضيافة';
-
-  @override
-  String get clientProfileWedAreas => 'المناطق';
 
   @override
   String get clientProfileWedTotal => 'الميزانية الكاملة';
@@ -5792,6 +5663,18 @@ class AppL10nAr extends AppL10n {
   String get clientProfileDelScheduledCancelled => 'الحذف ملغى';
 
   @override
+  String get clientProfilePersSex => 'الجنس';
+
+  @override
+  String get clientProfilePersSexFemale => 'أنثى';
+
+  @override
+  String get clientProfilePersSexMale => 'ذكر';
+
+  @override
+  String get clientProfileWedGovernorates => 'المحافظات';
+
+  @override
   String clientReviewsRewardsStarCount(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
@@ -5866,12 +5749,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientReviewsRewardsListEvent => 'مناسبتكم';
-
-  @override
-  String get clientReviewsRewardsListSignIn => 'تسجيل الدخول';
-
-  @override
-  String get clientReviewsRewardsListSignInName => 'لتقييم مناسبتكم';
 
   @override
   String get clientReviewsRewardsListInfoTitle => 'تقييمات موثّقة';
@@ -6123,12 +6000,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientSavedCompareSavedRemoved => 'تمت الإزالة';
-
-  @override
-  String get clientSavedCompareSavedGuestBanner => 'على هذا الهاتف فقط';
-
-  @override
-  String get clientSavedCompareSavedGuestSignIn => 'تسجيل الدخول';
 
   @override
   String get clientSavedCompareLastUpdated => 'آخر تحديث';
@@ -6445,9 +6316,6 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get clientServicesArea => 'المنطقة';
-
-  @override
   String get clientServicesProviders => 'المقدّمون';
 
   @override
@@ -6509,9 +6377,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientServicesHubSavedTitle => 'المحفوظ';
-
-  @override
-  String get clientServicesHubGovernmentNote => 'أضيفوا الضيافة والديكور';
 
   @override
   String clientServicesHubVoucherLine(String fee) {
@@ -6693,9 +6558,6 @@ class AppL10nAr extends AppL10n {
   String get clientServicesQuoteDateError => 'التاريخ مطلوب';
 
   @override
-  String get clientServicesQuoteGuestNote => 'سجّلوا الدخول للإرسال';
-
-  @override
   String get clientServicesQuoteThreadExists => 'يضاف إلى المحادثة';
 
   @override
@@ -6759,6 +6621,39 @@ class AppL10nAr extends AppL10n {
   String get clientServicesListRefreshed => 'تم تحديث القائمة';
 
   @override
+  String get clientServicesProviderNote => 'هل أنت مزوّد خدمة؟ قدّم طلبك في تطبيق الشريك';
+
+  @override
+  String get clientServicesProviderNoteAction => 'تقديم';
+
+  @override
+  String get clientServicesProviderNoteOpens => 'يفتح متجر تطبيق الشريك';
+
+  @override
+  String get clientServicesGovernorate => 'المحافظة';
+
+  @override
+  String clientServicesGovernorateTitle(int count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'المحافظات · ⁦$countString⁩',
+      many: 'المحافظات · ⁦$countString⁩',
+      few: 'المحافظات · ⁦$countString⁩',
+      two: 'المحافظات · ⁦$countString⁩',
+      one: 'المحافظات · ⁦$countString⁩',
+      zero: 'المحافظات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clientServicesArea => 'المنطقة';
+
+  @override
   String get clientShellTabBarLabel => 'التنقل الرئيسي';
 
   @override
@@ -6800,9 +6695,6 @@ class AppL10nAr extends AppL10n {
   }
 
   @override
-  String get clientShellGreetingAnonymous => 'أهلًا وسهلًا';
-
-  @override
   String get clientShellBriefTitle => 'تفاصيل زفافكم';
 
   @override
@@ -6813,9 +6705,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientShellBriefGuests => 'عدد الضيوف';
-
-  @override
-  String get clientShellBriefArea => 'المنطقة';
 
   @override
   String get clientShellBriefBudget => 'ميزانية القاعة والضيافة';
@@ -7101,9 +6990,6 @@ class AppL10nAr extends AppL10n {
   String get clientVenuePkgMenu => 'القائمة';
 
   @override
-  String get clientVenuePkgExtras => 'إضافات';
-
-  @override
   String get clientVenuePkgSave => 'حفظ الباقة';
 
   @override
@@ -7152,7 +7038,7 @@ class AppL10nAr extends AppL10n {
   String get clientVenueFacIncluded => 'مشمول';
 
   @override
-  String get clientVenueFacExtra => 'إضافة';
+  String get clientVenueFacExtra => 'برسوم إضافية';
 
   @override
   String get clientVenueFacOff => 'غير متوفر';
@@ -7289,20 +7175,6 @@ class AppL10nAr extends AppL10n {
   String clientVenueTotalFor(String guests) {
     return 'الإجمالي لعدد $guests';
   }
-
-  @override
-  String get clientVenueContactTitle => 'تواصل';
-
-  @override
-  String clientVenueContactCalling(String venue) {
-    return 'اتصال: $venue';
-  }
-
-  @override
-  String get clientVenueContactWhatsapp => 'فتح واتساب';
-
-  @override
-  String get clientVenueContactChat => 'مراسلة';
 
   @override
   String get clientVenueCalTitle => 'التواريخ';
@@ -7540,9 +7412,6 @@ class AppL10nAr extends AppL10n {
   String get clientVenueGovCtaOfficial => 'الحجز الرسمي';
 
   @override
-  String get clientVenueGovCtaCatering => 'خدمات الحفل';
-
-  @override
   String get clientVenueGovLeaveTitle => 'مغادرة غزل';
 
   @override
@@ -7745,12 +7614,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientVisitsConfirmedToast => 'الموعد مؤكد';
-
-  @override
-  String get clientVisitsGuestTitle => 'زياراتكم';
-
-  @override
-  String get clientVisitsGuestAction => 'تسجيل الدخول';
 
   @override
   String get clientVisitsMsgSending => 'جاري الإرسال';
@@ -7993,9 +7856,6 @@ class AppL10nAr extends AppL10n {
   String get clientVouchersCreditIssuedBody => 'أصدر الدعم لكم كوبون رصيد، يصلح لدى أي قاعة أو فندق أو خدمة.';
 
   @override
-  String get clientVouchersCtaSignIn => 'تسجيل الدخول';
-
-  @override
   String get clientVouchersDetailTitle => 'الكوبون';
 
   @override
@@ -8028,9 +7888,6 @@ class AppL10nAr extends AppL10n {
 
   @override
   String get clientVouchersGetVoucher => 'شراء كوبون';
-
-  @override
-  String get clientVouchersGuestTitle => 'كوبوناتكم';
 
   @override
   String get clientVouchersHistPaid => 'الدفع';

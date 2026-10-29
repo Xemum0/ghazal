@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart';
 import 'package:ghazal_domain/ghazal_domain.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'state_world.dart';
 
@@ -17,33 +16,12 @@ void main() {
   setUp(() async => world.fresh());
   tearDown(StateWorld.disposeAll);
 
-  test('a guest hearts are kept on the device; the third raises the sign-up nudge once', () async {
-    final prefs = await SharedPreferences.getInstance();
-    final c = world.container(prefs: prefs);
+  test('signed out there is nothing to save to: a heart does nothing', () async {
+    final c = world.container();
     final n = c.read(favouritesProvider.notifier);
-    await c.read(favouritesProvider.future);
-
-    expect(await n.toggle(SavedType.venue, 'V01'), isTrue);
-    expect(await n.toggle(SavedType.venue, 'V02'), isTrue);
-    expect(c.read(favouritesProvider).value!.signupNudge, isFalse);
-    expect(await n.toggle(SavedType.package, 'P01'), isTrue);
-    final s = c.read(favouritesProvider).value!;
-    expect(s.total, 3);
-    expect(s.signupNudge, isTrue);
-    expect(c.read(isFavouriteProvider((SavedType.venue, 'V01'))), isTrue);
-
-    n.clearSignupNudge();
-    expect(c.read(favouritesProvider).value!.signupNudge, isFalse);
-    // un-heart and heart again: the nudge is once per device
-    await n.toggle(SavedType.venue, 'V02');
-    await n.toggle(SavedType.venue, 'V02');
-    expect(c.read(favouritesProvider).value!.signupNudge, isFalse);
-
-    // a second app start on the same device reads them back
-    final again = world.container(prefs: prefs);
-    final restored = await again.read(favouritesProvider.future);
-    expect(restored.venue, {'V01', 'V02'});
-    expect(restored.package, {'P01'});
+    expect((await c.read(favouritesProvider.future)).total, 0);
+    expect(await n.toggle(SavedType.venue, 'V01'), isFalse);
+    expect(c.read(favouritesProvider).value!.total, 0);
   });
 
   test('Reem favourites come from the server and a heart is optimistic and written through', () async {
@@ -77,21 +55,6 @@ void main() {
     expect(c.read(favouritesProvider).value, before);
     expect(n.lastProblem, isNotNull);
     expect(n.lastProblem!.status, greaterThanOrEqualTo(500));
-  });
-
-  test('signing in merges the device hearts into the account', () async {
-    final prefs = await SharedPreferences.getInstance();
-    final c = world.container(prefs: prefs);
-    final n = c.read(favouritesProvider.notifier);
-    await c.read(favouritesProvider.future);
-    await n.toggle(SavedType.venue, 'V03');
-    expect(prefs.getStringList('gz.state.fav.venue'), ['V03']);
-
-    await c.read(sessionProvider.notifier).loadPersona('new_client');
-    final merged = await c.read(favouritesProvider.future);
-    expect(merged.venue, contains('V03'));
-    expect(prefs.getStringList('gz.state.fav.venue'), isNull);
-    expect((await world.repos('new_client').wedding.listWishlist()).items.single.item.id, 'V03');
   });
 
   test('the five states: loading, data, empty and an error that retries', () async {

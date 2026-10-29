@@ -75,7 +75,7 @@ class GzCompareGrid extends StatefulWidget {
   /// Tap a photograph strip (venue id, index into the gallery).
   final void Function(String venueId, int index)? onPhoto;
 
-  /// Signed out: the voucher price carries the ticket and lock pair.
+  /// Deprecated, no effect (ADR 0038: there is no guest mode, every client is signed in). Remove it at the call site.
   final bool guest;
 
   @override
@@ -101,7 +101,6 @@ class _GzCompareGridState extends State<GzCompareGrid> {
         guests: widget.guests,
         origin: widget.origin,
         strips: widget.strips,
-        guest: widget.guest,
         onPhoto: widget.onPhoto,
       ),
     );

@@ -2,7 +2,7 @@
 // Contract test of the Dart mock: starts the standalone server (`dart run ghazal_mock_api:serve`) on a free port of the reserved block, then calls
 // EVERY operation of packages/contracts/openapi/ghazal.v1.json in a scripted story (guest, new client, Reem, hotel admin and manager, provider) with
 // request bodies that are validated against the request schemas first, and validates every response against the bundled spec with ajv: success
-// bodies against the response schema, error bodies against `Problem`. Fails on any status or shape mismatch and prints coverage (operations hit / 220).
+// bodies against the response schema, error bodies against `Problem`. Fails on any status or shape mismatch and prints coverage (operations hit / 221).
 //
 //   node tools/contract-test.mjs                  start the server, run, stop it
 //   node tools/contract-test.mjs --url http://127.0.0.1:4701   run against a server that is already up
@@ -667,6 +667,35 @@ async function main() {
   const accepted = await D('getPartnerAccount', { as: 'newpartner', provider: providerId, count: false })
   if (accepted.application?.status !== 'accepted' || accepted.status !== 'active') fail('getPartnerAccount', `accepted: ${JSON.stringify(accepted)}`)
   await D('getSupportConversation', { as: 'hind', venue: 'V01' })
+
+  // Round 2b (OQ-R2-11): the application is public. No session: account + form, the code in the outbox, the verified session has the application pending.
+  const publicForm = {
+    account: { email: 'Noor@Lantern-Decor.example', password: 'Lantern#2026', locale: 'ar' },
+    accountType: 'service_provider',
+    application: {
+      name: lt('Lantern Decor', 'لانترن للديكور'), categoryIds: ['decor'], otherCategoryNote: null, governorateId: 'hawalli', contactName: 'Noor Al-Sabah',
+      phone: '+96550009555', email: 'hello@lantern-decor.example', description: 'Wedding decor and lighting for halls and homes.', licenceRef: null,
+    },
+  }
+  const badPublic = await call('submitPartnerApplication', { body: { ...publicForm, account: { ...publicForm.account, password: 'short' } }, invalidBody: true, expect: 422, code: 'VALIDATION_FAILED', count: false })
+  if (!badPublic.data.errors?.some((e) => e.path === '/account/password')) fail('submitPartnerApplication', `short password: ${JSON.stringify(badPublic.data.errors)}`)
+  const publicChallenge = await D('submitPartnerApplication', { body: publicForm })
+  if (publicChallenge.channel !== 'email') fail('submitPartnerApplication', `challenge ${JSON.stringify(publicChallenge)}`)
+  const mail = (await control('outbox')).find((m) => m.kind === 'partner_application_verify' && m.challengeId === publicChallenge.challengeId)
+  if (!mail || !/^\d{6}$/.test(mail.code)) fail('submitPartnerApplication', `no verification email in the outbox: ${JSON.stringify(mail)}`)
+  await call('getPartnerApplication', { expect: 401, code: 'AUTH_REQUIRED', count: false })
+  const verifiedApplicant = await D('partnerVerifyCode', { body: { challengeId: publicChallenge.challengeId, code: mail?.code ?? '123456', deviceId: 'dev-noor' } })
+  tokens.applicant = verifiedApplicant.accessToken
+  const applicantMe = await D('getPartnerMe', { as: 'applicant' })
+  const noorMembership = applicantMe.memberships.find((m) => m.application)
+  if (applicantMe.memberships.length !== 1 || noorMembership?.application.status !== 'pending' || noorMembership.status !== 'under_review' || noorMembership.venueId !== null) {
+    fail('submitPartnerApplication', `applicant session: ${JSON.stringify(applicantMe.memberships)}`)
+  }
+  const noorApplication = await D('getPartnerApplication', { as: 'applicant', count: false })
+  if (noorApplication.status !== 'pending' || noorApplication.email !== 'hello@lantern-decor.example') fail('getPartnerApplication', `applicant: ${JSON.stringify(noorApplication)}`)
+  await call('submitPartnerApplication', { body: { ...publicForm, account: { ...publicForm.account, email: 'noor@lantern-decor.example' } }, expect: 409, code: 'EMAIL_ALREADY_REGISTERED', count: false })
+  await control(`applications/${noorApplication.id}/decide`, { action: 'accept' })
+  await call('createListing', { as: 'applicant', provider: noorMembership?.providerId, body: { title: lt('Lantern Decor', 'لانترن للديكور') }, count: false })
 
   // ============ coverage
   const missing = [...ops.keys()].filter((k) => !hits.has(k))

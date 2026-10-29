@@ -48,6 +48,12 @@ void main() {
     expect(barVisible, isFalse);
   });
 
+  test('a signed-out person may open the application form (HL-PROV-01) but no other provider screen', () {
+    final form = kScreenRegistry['HL-PROV-01']!.path;
+    expect(gzRedirect(kRouterSpec, signedIn: false, location: form), isNull);
+    expect(gzRedirect(kRouterSpec, signedIn: false, location: kScreenRegistry['HL-PROV-02']!.path), kRouterSpec.startPath);
+  });
+
   flowTest('the five partner tabs are in inventory order and mirror in Arabic', (tester) async {
     await open(tester, 'HL-TODY-01', locale: const Locale('ar'));
     final bar = tester.widget<GzTabBar>(find.byType(GzTabBar));
@@ -76,7 +82,7 @@ void main() {
     expect(kScreenRegistry['HL-TODY-05']!.tabBar, isFalse);
     expect(kScreenRegistry['HL-ACCS-01']!.tab, isNull);
     expect(kRouterSpec.requireSession, isTrue);
-    expect(kRouterSpec.publicPrefixes, <String>['/access']);
+    expect(kRouterSpec.publicPrefixes, <String>['/access', '/provider/account-type']); // the application form of a new provider is public (round 2b)
     expect(kRouterSpec.startPath, kScreenRegistry['HL-ACCS-01']!.path);
   });
 }

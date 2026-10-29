@@ -115,14 +115,13 @@ class SavingPill extends StatelessWidget {
 }
 
 /// PriceBlock (date strip, the dates sheet and the package sheet): the two prices of one quote as glyphs and figures (ADR 0034). The
-/// voucher price is the headline (a ticket for a member, a lock for a guest: both see the number), the standard price sits under it
+/// voucher price is the headline (a ticket: every client is signed in), the standard price sits under it
 /// struck, then the saving and the (i). Without a voucher price, or when the saving does not beat the fee, one price and nothing about
 /// vouchers (CA-VCH-10).
 class PriceBlock extends StatelessWidget {
-  const PriceBlock({required this.prices, this.guest = false, this.owned = false, this.size = GzPriceSize.hero, this.onHow, super.key});
+  const PriceBlock({required this.prices, this.owned = false, this.size = GzPriceSize.hero, this.onHow, super.key});
 
   final QuotePrices prices;
-  final bool guest;
   final bool owned;
   final GzPriceSize size;
   final VoidCallback? onHow;
@@ -153,9 +152,9 @@ class PriceBlock extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             GzIcon(
-              guest ? GzIcons.lock : GzIcons.ticket,
+              GzIcons.ticket,
               size: GzIconSize.md,
-              tone: guest ? GzIconTone.secondary : GzIconTone.success,
+              tone: GzIconTone.success,
               semanticLabel: '${lc.commonVoucherPrice}$sep$basis',
             ),
             const SizedBox(width: GzSpace.s3),

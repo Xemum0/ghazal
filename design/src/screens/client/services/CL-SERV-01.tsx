@@ -5,8 +5,11 @@
 // saved row. The voucher is one rose strip, a ticket glyph and the KD 2 figure, and the sentence that explains it sits behind its info
 // glyph. The Venues | Services switch at the top returns to Home; its selected tab is the title (the bar carries only the back glyph and a
 // visually hidden h1 names the page), so "Services" is never said twice. Services are independent of venues (ADR 0038, CA-SVC-19): no venue
-// page links here. The footer is the provider note (CA-SVC-20, ProviderNote): "Service provider? Apply in the Partner app". No signed-out
-// variant. States: default, loading, error, offline, category-without-vendors.
+// page links here. The provider note (CA-SVC-20, ProviderNote variant `banner`, round 2b, moved up in R3) is one full-width rose card with the whole
+// sentence, "Service provider? Apply in the Partner app", and an "Apply" call to action at its end: it is the FIRST block under the Venues | Services
+// switch, above the voucher strip and the five category tiles, so it is inside the first screen at 390x844 and 360 wide (it used to sit under the "More"
+// rows, about 1700 dp down, where nobody saw it). Tapping it opens the Partner app store page
+// (configuration, OQ-R2-04); the prototype shows a toast. No signed-out variant. States: default, loading, error, offline, category-without-vendors.
 import { useFormat, useT } from '../../../i18n'
 import { useFrame } from '../../../shell/frame'
 import { usePrototype } from '../../../shell/state'
@@ -86,7 +89,10 @@ export default function ServicesHub() {
           </div>
         ) : (
           <>
-            <div className="gzs-hub__pad">
+            <div className="gzs-hub__pad gzs-hub__top">
+              <div data-gz-id="provider-note-slot">
+                <ProviderNote variant="banner" onOpen={() => nav.toast({ message: t('clientServicesProviderNoteOpens') })} />
+              </div>
               <div className="gzs-hub__voucher" data-gz-id="voucher-line">
                 <Icon name="ticket" size="md" />
                 <span className="gzs-hub__voucher-word gz-t-title">{c('commonVoucher')}</span>
@@ -143,7 +149,6 @@ export default function ServicesHub() {
                 trailing={savedCount > 0 ? <Fig>{f.integer(savedCount)}</Fig> : undefined}
                 onClick={() => nav.switchTab('saved')}
               />
-              <ProviderNote variant="footer" />
             </div>
           </>
         )}

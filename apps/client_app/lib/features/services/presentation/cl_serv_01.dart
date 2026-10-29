@@ -12,14 +12,16 @@ import 'services_glyphs.dart';
 /// CL-SERV-01 Services hub. Covers CA-SVC-01..08, CA-SVC-13, CA-SVC-16, CA-PLAN-02, CA-PLAN-09.
 ///
 /// The five primary categories as photograph tiles, "More services" as hairline rows, the planner entry and the saved
-/// row, the KD 2 voucher strip. The Venues | Services switch at the top returns Home. Browse only: no gate anywhere.
+/// row, the KD 2 voucher strip. The Venues | Services switch at the top returns Home. Right under it, inside the first screen, is the
+/// provider note (CA-SVC-20, round 2b: a rose card with "Service provider? Apply in the Partner app" and an accent Apply, an external
+/// link to the store page), then the voucher strip. This hub is the only way to add a service (ADR 0038): nothing on a venue page links
+/// here.
 class ClServ01Screen extends ConsumerWidget {
   const ClServ01Screen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l10n;
-    final government = (context.gzNav.params['context'] as String?) == 'government';
     final cats = ref.watch(servicesCategoriesProvider);
     final counts = ref.watch(servicesCountsProvider);
     final savedCount = ref.watch(favouritesProvider.select((f) => f.value?.vendor.length ?? 0));
@@ -77,17 +79,17 @@ class ClServ01Screen extends ConsumerWidget {
                   ],
                 ),
               ),
-              if (government) ...[
-                gap,
-                Padding(
-                  padding: pad,
-                  child: GzBanner(message: l.clientServicesHubGovernmentNote, tone: GzBannerTone.info, shape: GzBannerShape.card),
-                ),
-              ],
               gap,
               Padding(
                 padding: pad,
-                child: _VoucherStrip(counts: counts.value),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    GzProviderNote(variant: GzProviderNoteVariant.banner, onOpen: ref.partnerNoteOpener()),
+                    const SizedBox(height: GzSpace.s3),
+                    _VoucherStrip(counts: counts.value),
+                  ],
+                ),
               ),
               if (lead != null) ...[
                 gap,

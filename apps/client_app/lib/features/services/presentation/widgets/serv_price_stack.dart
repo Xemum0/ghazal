@@ -16,15 +16,14 @@ String? _unitWord(AppL10n l, String categoryId) => switch (categoryId) {
   _ => l.clientServicesUnitEvent,
 };
 
-/// PriceStack (web CL-SERV-03 package / CL-SERV-02 tile): the voucher price leads behind a ticket (a lock for a guest), the
+/// PriceStack (web CL-SERV-03 package / CL-SERV-02 tile): the voucher price leads behind a ticket, the
 /// standard price sits beside it struck, and a package also carries the saving.
 class ServPriceStack extends StatelessWidget {
-  const ServPriceStack({required this.standard, required this.voucher, required this.categoryId, required this.guest, this.package = false, this.inline = false, super.key});
+  const ServPriceStack({required this.standard, required this.voucher, required this.categoryId, this.package = false, this.inline = false, super.key});
 
   final int standard;
   final int? voucher;
   final ServiceCategoryId categoryId;
-  final bool guest;
   final bool package;
   final bool inline;
 
@@ -45,7 +44,7 @@ class ServPriceStack extends StatelessWidget {
     final f = context.gzFormat;
     final saving = standard - v;
     final head = line([
-      GzIcon(guest ? GzIcons.lock : GzIcons.ticket, size: GzIconSize.xs, tone: guest ? GzIconTone.secondary : GzIconTone.success),
+      const GzIcon(GzIcons.ticket, size: GzIconSize.xs, tone: GzIconTone.success),
       GzPrice(fils: v, size: size),
       unit,
     ]);

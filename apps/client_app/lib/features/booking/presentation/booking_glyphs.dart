@@ -50,35 +50,6 @@ List<({IconData icon, String label})> inclusionGlyphs(List<LocalizedText> items,
   return out;
 }
 
-/// The glyph of an extra by its category.
-IconData extraGlyph(ExtraCategory c) => switch (c) {
-  ExtraCategory.kosha => GzIcons.armchair,
-  ExtraCategory.florals => GzIcons.flower,
-  ExtraCategory.photographer => GzIcons.camera,
-  ExtraCategory.zaffa => GzIcons.music,
-  ExtraCategory.cake => GzIcons.cake,
-  ExtraCategory.extraHour => GzIcons.hourglass,
-  ExtraCategory.coffeeStation => GzIcons.drinks,
-  ExtraCategory.kidsCorner => GzIcons.gift,
-  ExtraCategory.ledScreens => GzIcons.lighting,
-  ExtraCategory.bukhoor => GzIcons.incense,
-  ExtraCategory.valet => GzIcons.valet,
-  ExtraCategory.suiteNight => GzIcons.bed,
-  _ => GzIcons.sparkle,
-};
-
-/// The extras the screen lists, in the order a Kuwaiti couple asks about them (the rest stay in the venue's own list).
-const List<ExtraCategory> kExtraOrder = <ExtraCategory>[
-  ExtraCategory.kosha,
-  ExtraCategory.florals,
-  ExtraCategory.photographer,
-  ExtraCategory.zaffa,
-  ExtraCategory.extraHour,
-  ExtraCategory.coffeeStation,
-  ExtraCategory.kidsCorner,
-  ExtraCategory.cake,
-];
-
 /// The text of a bilingual value in the language of the screen (web `useBi`).
 extension BookingBi on BuildContext {
   String bi(LocalizedText t) => t.of(gz.locale.languageCode);

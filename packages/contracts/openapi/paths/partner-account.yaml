@@ -11,6 +11,16 @@
     x-idempotent: true
     body: ChooseAccountTypeInput
     responses: { 201: PartnerMe }
+/partner/applications:
+  post:
+    operationId: submitPartnerApplication
+    summary: Apply to join without a session; creates the applicant's account (HL-PROV-01 signed out, PA-ACC-07)
+    description: 'The public application: the form of `chooseAccountType` plus the applicant''s own account (email, password, locale), so a new service provider or private hall needs no partner session first. Creates the unverified partner user, the account `under_review` with an application `pending`, and an email verification challenge exactly like the new-device code of `partnerLogin`: the app shows the code screen and answers it with `partnerVerifyCode` (`challengeId` of the response); the session that returns has no venue (a private hall or provider profile only), `getPartnerApplication` returns the application and `PartnerMe.memberships[].application` its status. The email of the account is the sign-in name; the contact email of the application may be the same or another. 409 EMAIL_ALREADY_REGISTERED when a partner account already uses the email (also a rejected applicant: they sign in and use `resubmitPartnerApplication`; an applicant who never entered the code signs in and verifies the new device). 422 VALIDATION_FAILED lists the failing fields (`/account/email`, `/account/password`, `/application/name/ar`, ...).'
+    x-access: guest
+    x-idempotent: true
+    body: SubmitPartnerApplicationInput
+    x-errors: [EMAIL_ALREADY_REGISTERED, RATE_LIMITED]
+    responses: { 202: OtpChallenge }
 /partner/application:
   get:
     operationId: getPartnerApplication

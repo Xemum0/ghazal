@@ -11135,6 +11135,93 @@
         "x-idempotent": true
       }
     },
+    "/partner/applications": {
+      "post": {
+        "tags": [
+          "partner-account"
+        ],
+        "operationId": "submitPartnerApplication",
+        "summary": "Apply to join without a session; creates the applicant's account (HL-PROV-01 signed out, PA-ACC-07)",
+        "description": "The public application: the form of `chooseAccountType` plus the applicant's own account (email, password, locale), so a new service provider or private hall needs no partner session first. Creates the unverified partner user, the account `under_review` with an application `pending`, and an email verification challenge exactly like the new-device code of `partnerLogin`: the app shows the code screen and answers it with `partnerVerifyCode` (`challengeId` of the response); the session that returns has no venue (a private hall or provider profile only), `getPartnerApplication` returns the application and `PartnerMe.memberships[].application` its status. The email of the account is the sign-in name; the contact email of the application may be the same or another. 409 EMAIL_ALREADY_REGISTERED when a partner account already uses the email (also a rejected applicant: they sign in and use `resubmitPartnerApplication`; an applicant who never entered the code signs in and verifies the new device). 422 VALIDATION_FAILED lists the failing fields (`/account/email`, `/account/password`, `/application/name/ar`, ...).",
+        "security": [],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitPartnerApplicationInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OtpChallenge"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict. Codes: EMAIL_ALREADY_REGISTERED.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests. Codes: RATE_LIMITED.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Problem"
+          }
+        },
+        "x-access": "guest",
+        "x-roles": [
+          "partner"
+        ],
+        "x-idempotent": true,
+        "x-errors": [
+          "EMAIL_ALREADY_REGISTERED",
+          "RATE_LIMITED"
+        ]
+      }
+    },
     "/partner/application": {
       "get": {
         "tags": [
@@ -21717,6 +21804,7 @@
           "INVITATION_EXPIRED",
           "EMAIL_ALREADY_INVITED",
           "ACCOUNT_DELETION_BLOCKED",
+          "EMAIL_ALREADY_REGISTERED",
           "APPLICATION_NOT_ACCEPTED",
           "APPLICATION_NOT_EDITABLE",
           "APP_UPDATE_REQUIRED"
@@ -33610,6 +33698,50 @@
         },
         "x-tag": "partner-account"
       },
+      "PartnerApplicantAccount": {
+        "type": "object",
+        "description": "The account the applicant creates together with a public application (`submitPartnerApplication`, HL-PROV-01 signed out). The email is the sign-in name and receives the verification code; the password follows the rule of setting a partner password (`AcceptInvitationInput`, `PasswordResetInput`: at least 8 characters); `locale` is the language of the account and of the emails.",
+        "required": [
+          "email",
+          "password",
+          "locale"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8
+          },
+          "locale": {
+            "$ref": "#/components/schemas/Lang"
+          }
+        },
+        "x-tag": "partner-account"
+      },
+      "SubmitPartnerApplicationInput": {
+        "type": "object",
+        "description": "The public application (PA-ACC-07 with the applicant's own account): `account` is the sign-in, `accountType` is `service_provider` or `venue` (a private hall), `application` is the business information exactly as in the signed-in resubmission (a service provider needs at least one of `categoryIds` and `otherCategoryNote`; `contactName`, `phone`, `email` may repeat the account email). A missing or invalid field is 422 VALIDATION_FAILED with `errors: [{path: \"/application/governorateId\", code: \"required\"}, ...]`.",
+        "required": [
+          "account",
+          "accountType",
+          "application"
+        ],
+        "properties": {
+          "account": {
+            "$ref": "#/components/schemas/PartnerApplicantAccount"
+          },
+          "accountType": {
+            "$ref": "#/components/schemas/PartnerAccountType"
+          },
+          "application": {
+            "$ref": "#/components/schemas/PartnerApplicationInput"
+          }
+        },
+        "x-tag": "partner-account"
+      },
       "PartnerAccount": {
         "type": "object",
         "required": [
@@ -38556,6 +38688,10 @@
     "ACCOUNT_DELETION_BLOCKED": {
       "status": 409,
       "summary": "Future confirmed request exists"
+    },
+    "EMAIL_ALREADY_REGISTERED": {
+      "status": 409,
+      "summary": "A partner account already uses this email (sign in instead; a rejected applicant resubmits from the signed-in form)"
     },
     "APPLICATION_NOT_ACCEPTED": {
       "status": 403,

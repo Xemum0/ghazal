@@ -9,11 +9,12 @@ import 'gz_service_tile.dart' show gzImageSrc;
 
 enum GzVendorVariant { card, row }
 
+/// Deprecated, no effect (ADR 0038: there is no guest mode, every client is signed in). Kept so call sites compile; remove it there.
 enum GzVendorAudience { member, guest }
 
 /// VendorCard (CA-SVC): a supplier, a portfolio strip, a monogram, the name, a rating or "New", the area, the from price with its unit,
-/// plain facts and the verified mark. [GzVendorVariant.row] is the list form (no strip, no facts). A [GzVendorAudience.guest] sees
-/// the standard price and the locked-voucher line (ADR 0007 D8). The whole card is one button; the save heart sits above it.
+/// plain facts and the verified mark. [GzVendorVariant.row] is the list form (no strip, no facts). The whole card is one button; the
+/// save heart sits above it. [audience] is a deprecated no-op (ADR 0038).
 /// The area name comes from the caller ([area]): the widget never looks anything up.
 class GzVendorCard extends StatelessWidget {
   const GzVendorCard({
@@ -31,6 +32,8 @@ class GzVendorCard extends StatelessWidget {
 
   final ServiceProvider vendor;
   final Area? area;
+
+  /// Deprecated, no effect (ADR 0038).
   final GzVendorAudience audience;
   final bool favourite;
   final ValueChanged<bool>? onFavouriteChange;
@@ -67,8 +70,7 @@ class GzVendorCard extends StatelessWidget {
     }
     final name = vendor.name.of(lang);
     final row = variant == GzVendorVariant.row;
-    final voucher = audience == GzVendorAudience.member ? vendor.fromVoucher : null;
-    final locked = audience == GzVendorAudience.guest && vendor.fromVoucher != null;
+    final voucher = vendor.fromVoucher;
     final rating = vendor.rating;
     final average = rating?.average;
     final head = Row(
@@ -112,17 +114,6 @@ class GzVendorCard extends StatelessWidget {
       children: [
         GzPrice(fils: (voucher ?? vendor.from).fils, size: GzPriceSize.card, prefix: l.uiSharedFrom, was: voucher != null ? vendor.from.fils : null),
         GzText(vendor.fromUnit.of(lang), role: GzTextRole.caption, color: c.textSecondary),
-        if (locked)
-          SizedBox(
-            width: double.infinity,
-            child: Row(
-              children: [
-                GzIcon(GzIcons.lock, size: GzIconSize.xs, color: c.iconSecondary),
-                const SizedBox(width: GzSpace.s1),
-                Flexible(child: GzText(l.uiSharedLockedVoucher, role: GzTextRole.caption, color: c.textSecondary)),
-              ],
-            ),
-          ),
       ],
     );
     final content = Column(

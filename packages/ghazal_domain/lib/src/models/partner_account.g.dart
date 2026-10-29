@@ -2,6 +2,7 @@
 // ignore_for_file: type=lint
 
 import '../core/core.dart';
+import 'auth.g.dart';
 import 'common.g.dart';
 import 'profile.g.dart';
 import 'services.g.dart';
@@ -370,6 +371,116 @@ final class PartnerApplicationInput {
 
   @override
   String toString() => 'PartnerApplicationInput(${toJson()})';
+}
+
+/// The account the applicant creates together with a public application (`submitPartnerApplication`, HL-PROV-01 signed out). The email is the sign-in name and receives the verification code; the password follows the rule of setting a partner password (`AcceptInvitationInput`, `PasswordResetInput`: at least 8 characters); `locale` is the language of the account and of the emails.
+final class PartnerApplicantAccount {
+  const PartnerApplicantAccount({
+    required this.email,
+    required this.password,
+    required this.locale,
+  });
+
+  factory PartnerApplicantAccount.fromJson(Map<String, Object?> json) {
+    try {
+      return PartnerApplicantAccount(
+        email: reqField(json, 'email', (v) => asString(v)),
+        password: reqField(json, 'password', (v) => asString(v)),
+        locale: reqField(json, 'locale', (v) => WireLang.fromJson(v)),
+      );
+    } on FormatException catch (e) {
+      throw FormatException('PartnerApplicantAccount: ${e.message}');
+    }
+  }
+
+  final String email;
+  final String password;
+  final WireLang locale;
+
+  Map<String, Object?> toJson() => {
+      'email': email,
+      'password': password,
+      'locale': locale.toJson(),
+      };
+
+  PartnerApplicantAccount copyWith({
+    String? email,
+    String? password,
+    WireLang? locale,
+  }) => PartnerApplicantAccount(
+      email: email ?? this.email,
+      password: password ?? this.password,
+      locale: locale ?? this.locale,
+      );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PartnerApplicantAccount &&
+          other.email == email &&
+          other.password == password &&
+          other.locale == locale;
+
+  @override
+  int get hashCode => Object.hashAll([email, password, locale]);
+
+  @override
+  String toString() => 'PartnerApplicantAccount(${toJson()})';
+}
+
+/// The public application (PA-ACC-07 with the applicant's own account): `account` is the sign-in, `accountType` is `service_provider` or `venue` (a private hall), `application` is the business information exactly as in the signed-in resubmission (a service provider needs at least one of `categoryIds` and `otherCategoryNote`; `contactName`, `phone`, `email` may repeat the account email). A missing or invalid field is 422 VALIDATION_FAILED with `errors: [{path: "/application/governorateId", code: "required"}, ...]`.
+final class SubmitPartnerApplicationInput {
+  const SubmitPartnerApplicationInput({
+    required this.account,
+    required this.accountType,
+    required this.application,
+  });
+
+  factory SubmitPartnerApplicationInput.fromJson(Map<String, Object?> json) {
+    try {
+      return SubmitPartnerApplicationInput(
+        account: reqField(json, 'account', (v) => PartnerApplicantAccount.fromJson(asMap(v))),
+        accountType: reqField(json, 'accountType', (v) => PartnerAccountType.fromJson(v)),
+        application: reqField(json, 'application', (v) => PartnerApplicationInput.fromJson(asMap(v))),
+      );
+    } on FormatException catch (e) {
+      throw FormatException('SubmitPartnerApplicationInput: ${e.message}');
+    }
+  }
+
+  final PartnerApplicantAccount account;
+  final PartnerAccountType accountType;
+  final PartnerApplicationInput application;
+
+  Map<String, Object?> toJson() => {
+      'account': account.toJson(),
+      'accountType': accountType.toJson(),
+      'application': application.toJson(),
+      };
+
+  SubmitPartnerApplicationInput copyWith({
+    PartnerApplicantAccount? account,
+    PartnerAccountType? accountType,
+    PartnerApplicationInput? application,
+  }) => SubmitPartnerApplicationInput(
+      account: account ?? this.account,
+      accountType: accountType ?? this.accountType,
+      application: application ?? this.application,
+      );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SubmitPartnerApplicationInput &&
+          other.account == account &&
+          other.accountType == accountType &&
+          other.application == application;
+
+  @override
+  int get hashCode => Object.hashAll([account, accountType, application]);
+
+  @override
+  String toString() => 'SubmitPartnerApplicationInput(${toJson()})';
 }
 
 final class PartnerAccount {

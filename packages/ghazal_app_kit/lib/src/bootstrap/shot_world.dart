@@ -15,7 +15,7 @@ import '../session/session_notifier.dart';
 import '../session/session_types.dart';
 
 /// The persona a screen is shot as (the rule of `tools/parity/ref-shots.mjs` `storyFor`, so a Flutter shot and its web reference show the
-/// same person): Reem, signed in, for every client screen except onboarding and auth (a first-time guest); the hotel manager (venue V01) for
+/// same person): Reem, signed in, for every client screen except onboarding and auth (the signed-out first run; the router redirects a signed-out client from any other screen to Language, so shoot CL-ONBD-03 to 05 with `--persona reem`); the hotel manager (venue V01) for
 /// every partner screen except access (a guest), the service provider for the provider module (`HL-PROV-*`), and the hotel admin for the two
 /// settings screens the web frames draw as Admin (`HL-SETT-03`, `HL-SETT-05`). [override] (`SHOT_PERSONA`) wins when given.
 String gzShotPersona(String screenId, {String? override}) {

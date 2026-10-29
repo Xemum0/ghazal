@@ -8,7 +8,7 @@ import '../../application/booking_actions.dart';
 import '../../application/booking_flow_local.dart';
 import '../../application/booking_flow_providers.dart';
 
-/// The scaffold every step of the request flow draws itself in (web `StepScreen`), so the five steps feel like one place. Pinned top: the
+/// The scaffold every step of the request flow draws itself in (web `StepScreen`), so the four steps feel like one place. Pinned top: the
 /// venue name and the progress thread (a glyph per step, no words). The body opens with the step's serif title and an optional info
 /// glyph. Pinned bottom: the action bar with the one gold action. Back is always safe (the draft autosaves); step 1 asks before leaving.
 class BookingStepScaffold extends ConsumerStatefulWidget {
@@ -41,7 +41,7 @@ class BookingStepScaffold extends ConsumerStatefulWidget {
   /// False when the screen is one state that carries its own single action (the load error).
   final bool showBar;
 
-  static const List<IconData> _icons = <IconData>[GzIcons.calendar, GzIcons.package, GzIcons.sparkle, GzIcons.user, GzIcons.checklist];
+  static const List<IconData> _icons = <IconData>[GzIcons.calendar, GzIcons.package, GzIcons.user, GzIcons.checklist];
 
   @override
   ConsumerState<BookingStepScaffold> createState() => _BookingStepScaffoldState();
@@ -100,12 +100,11 @@ class _BookingStepScaffoldState extends ConsumerState<BookingStepScaffold> {
     final names = <String>[
       l10n.clientBookingEventTitle,
       l10n.clientBookingPackageTitle,
-      l10n.clientBookingExtrasTitle,
       l10n.clientBookingDetailsTitle,
       l10n.clientBookingReviewTitle,
     ];
     final steps = <GzIconProgressStep>[
-      for (var i = 0; i < 5; i++)
+      for (var i = 0; i < 4; i++)
         GzIconProgressStep(
           id: 'step${i + 1}',
           icon: BookingStepScaffold._icons[i],
@@ -132,7 +131,7 @@ class _BookingStepScaffoldState extends ConsumerState<BookingStepScaffold> {
               child: GzIconProgress(
                 steps: steps,
                 label: l10n.clientBookingStepsLabel,
-                describe: l10n.clientBookingStepOf(f.integer(w.step), f.integer(5)),
+                describe: l10n.clientBookingStepOf(f.integer(w.step), f.integer(4)),
                 labels: GzProgressLabels.none,
                 draw: GzDraw.mount,
               ),

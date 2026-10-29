@@ -61,11 +61,8 @@ class _ClAuth04State extends ConsumerState<ClAuth04Screen> {
         if (next != _Mode.reset && next != _Mode.create) _password = '';
       });
 
-  void _backToGate() {
-    final flow = ref.read(authFlowProvider);
-    final nav = context.gzNav..pop();
-    nav.openSheet('CL-AUTH-01', options: GzSheetOptions(params: <String, Object?>{'reason': flow.pending?.reason.wire ?? 'none'}));
-  }
+  /// The sign-in screen is the one below this one in the stack.
+  void _backToGate() => context.gzNav.pop();
 
   void _onBack() {
     if (_mode == _Mode.signin) return _backToGate();
@@ -80,8 +77,6 @@ class _ClAuth04State extends ConsumerState<ClAuth04Screen> {
   Future<void> _signIn() async {
     if (!_validPhone) return setState(() => _phoneError = true);
     setState(() => _view = _View.loading);
-    ref.rememberGate();
-    ref.read(gateProvider.notifier).dismiss();
     try {
       await ref.read(sessionProvider.notifier).passwordLogin(_phone, _password);
       if (!mounted) return;
@@ -100,7 +95,6 @@ class _ClAuth04State extends ConsumerState<ClAuth04Screen> {
 
   void _createAccount() {
     if (!_validPhone) return setState(() => _phoneError = true);
-    ref.rememberGate();
     ref.read(authFlowProvider.notifier).update((s) => s.copyWith(phone: PhoneKw.normalizeInput(_phone), password: _password, purpose: AuthPurpose.passwordCreate));
     context.gzNav.push('CL-AUTH-03');
   }

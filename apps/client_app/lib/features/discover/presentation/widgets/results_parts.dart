@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_domain/ghazal_domain.dart' show Area, RegionMatchKind;
+import 'package:ghazal_domain/ghazal_domain.dart' show Governorate, RegionMatchKind;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../../../app/state/state.dart' show SearchBrief;
@@ -12,10 +12,10 @@ import 'discover_labels.dart';
 /// The Brief as the facts it holds (Results header): date, guests with the section glyph, area, each a glyph and its value, a quiet pencil
 /// at inline-end. One 44+ target that opens the Brief sheet. A fact that is not known is omitted; with none set the muted word "Date".
 class BriefFacts extends StatelessWidget {
-  const BriefFacts({required this.brief, required this.areas, required this.onEdit, super.key});
+  const BriefFacts({required this.brief, required this.governorates, required this.onEdit, super.key});
 
   final SearchBrief brief;
-  final List<Area> areas;
+  final List<Governorate> governorates;
   final VoidCallback onEdit;
 
   @override
@@ -25,7 +25,7 @@ class BriefFacts extends StatelessWidget {
     final c = context.gz.colors;
     final lang = context.gz.locale.languageCode;
     final date = briefDateText(f, brief);
-    final names = briefAreaNames(areas, brief.areaIds, lang);
+    final names = briefGovernorateNames(governorates, brief.governorateIds, lang);
     final areaText = names.join(f.isArabic ? '، ' : ', ');
     final spoken = <String>[?date, if (brief.guests != null) f.integer(brief.guests!), if (areaText.isNotEmpty) areaText].join(', ');
     final facts = <Widget>[
@@ -44,7 +44,7 @@ class BriefFacts extends StatelessWidget {
             ],
           ),
         ),
-      if (areaText.isNotEmpty) _textFact(c, GzIcons.pin, l.clientShellBriefArea, areaText),
+      if (areaText.isNotEmpty) _textFact(c, GzIcons.pin, l.clientDiscoverBriefChooseGovernorate, areaText),
       if (date == null && brief.guests == null && areaText.isEmpty)
         _textFact(c, GzIcons.calendar, l.clientShellBriefDate, l.clientDiscoverBriefChooseDate, muted: true),
     ];
@@ -77,44 +77,15 @@ Widget _textFact(GzColors c, IconData icon, String label, String value, {bool mu
   valueWidget: GzText(value, role: GzTextRole.bodyS, color: muted ? c.textSecondary : c.textStrong, figures: true, softWrap: false),
 );
 
-/// A signed-out visitor: the voucher price is locked behind sign-in; one 44 row under the chips says so and opens the gate.
-class VoucherLockRow extends StatelessWidget {
-  const VoucherLockRow({required this.onPressed, super.key});
-
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final c = context.gz.colors;
-    return GzPressable(
-      onPressed: onPressed,
-      semanticLabel: context.gzL10n.commonVoucherPrice,
-      builder: (context, st) => Container(
-        key: const ValueKey<String>('discover.voucherlock'),
-        constraints: const BoxConstraints(minHeight: GzSize.touchMin),
-        margin: const EdgeInsetsDirectional.only(top: GzSpace.s2),
-        padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.gutter),
-        child: Row(
-          children: [
-            GzIcon(GzIcons.lock, size: GzIconSize.sm, color: c.iconSecondary),
-            const SizedBox(width: GzSpace.s2),
-            Expanded(child: GzText(context.gzL10n.commonVoucherPrice, role: GzTextRole.bodyS, color: c.textPrimary)),
-            GzIcon(GzIcons.chevronRight, size: GzIconSize.sm, color: c.iconSecondary),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// What the list becomes while the name search has focus. Empty field: recent searches (the Brief's areas). Typing: the regions and halls
-/// that match (the server folds alef, ya, ta marbuta and tashkeel, so «مشرف» finds Mishref). Choosing an area narrows Results; a hall opens.
+/// What the list becomes while the name search has focus. Empty field: recent searches (the Brief's governorates). Typing: the governorates and
+/// halls that match (the server folds alef, ya, ta marbuta and tashkeel, and finds a hall by its address, so «مشرف» finds the halls of
+/// Mishref). Choosing a governorate narrows Results (no exact area is chosen, ADR 0038); a hall opens.
 class Typeahead extends ConsumerWidget {
-  const Typeahead({required this.query, required this.brief, required this.onPickArea, required this.onPickVenue, required this.onPickRecent, required this.onClearRecent, super.key});
+  const Typeahead({required this.query, required this.brief, required this.onPickGovernorate, required this.onPickVenue, required this.onPickRecent, required this.onClearRecent, super.key});
 
   final String query;
   final SearchBrief brief;
-  final ValueChanged<String> onPickArea;
+  final ValueChanged<String> onPickGovernorate;
   final ValueChanged<String> onPickVenue;
   final ValueChanged<String> onPickRecent;
   final VoidCallback onClearRecent;
@@ -125,7 +96,7 @@ class Typeahead extends ConsumerWidget {
     final c = context.gz.colors;
     final f = context.gzFormat;
     final lang = context.gz.locale.languageCode;
-    final areas = ref.watch(areasProvider).value?.areas ?? const <Area>[];
+    final governorates = ref.watch(areasProvider).value?.governorates ?? const <Governorate>[];
     Widget row(IconData icon, String text, VoidCallback onTap, {Widget? trailing, Key? key}) => GzPressable(
       key: key,
       onPressed: onTap,
@@ -146,7 +117,7 @@ class Typeahead extends ConsumerWidget {
     );
 
     if (query.trim().isEmpty) {
-      final recents = briefAreaNames(areas, brief.areaIds, lang);
+      final recents = briefGovernorateNames(governorates, brief.governorateIds, lang);
       return Column(
         key: const ValueKey<String>('discover.typeahead'),
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -171,7 +142,7 @@ class Typeahead extends ConsumerWidget {
       loading: () => const SizedBox(height: GzSpace.s16),
       error: (e, _) => const SizedBox.shrink(),
       data: (items) {
-        final regions = items.where((m) => m.kind == RegionMatchKind.area).toList();
+        final regions = items.where((m) => m.kind == RegionMatchKind.governorate).toList();
         final halls = items.where((m) => m.kind == RegionMatchKind.venue).take(5).toList();
         if (regions.isEmpty && halls.isEmpty) {
           return Padding(
@@ -187,9 +158,9 @@ class Typeahead extends ConsumerWidget {
               row(
                 GzIcons.pin,
                 m.name.of(lang),
-                () => onPickArea(m.id),
+                () => onPickGovernorate(m.id),
                 trailing: GzFactChip(icon: GzIcons.hall, label: l.clientDiscoverResultsTitle, value: f.integer(m.venueCount)),
-                key: ValueKey<String>('discover.match.area.${m.id}'),
+                key: ValueKey<String>('discover.match.governorate.${m.id}'),
               ),
             for (final m in halls) row(GzIcons.hall, m.name.of(lang), () => onPickVenue(m.id), key: ValueKey<String>('discover.match.venue.${m.id}')),
           ],

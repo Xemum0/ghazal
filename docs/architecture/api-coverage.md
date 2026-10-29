@@ -4,7 +4,7 @@
 
 Legend: an operation id is the method name of the generated repository (`ghazal_domain`, one interface per tag). **Local** means the state never leaves the device (ADR 0022 C) or is a prototype/demo helper; the reason is given. Mock-only control endpoints are described in `backend-handoff.md`.
 
-Totals: 75 selectors, 45 store actions, 220 operations in 23 tags.
+Totals: 75 selectors, 45 store actions, 221 operations in 23 tags.
 
 ## 1. Selectors (the read operations)
 
@@ -157,7 +157,7 @@ Totals: 75 selectors, 45 store actions, 220 operations in 23 tags.
 | CL-PROF-* | Profile, wedding info, personal info, notification preferences, settings, delete | `getMe`, `updateMe`, `registerDevice`, `requestPhoneChange`, `confirmPhoneChange`, `getNotificationPreferences`, `updateNotificationPreferences`, `deleteAccount`, `getWeddingProfile`, `updateWeddingProfile`, `getLegalDocument` |  |
 | CL-VCHR-* | Vouchers: wallet, voucher, request sheet, reuse or ask support | `listVouchers`, `getVoucher`, `rebindVoucher`, `createRefundRequest`, `listRefundRequests`, `getRefundRequest`, `getSupportConversation`, `listFaq` |  |
 | CL-VIST-* | Visits | `listVisitDates`, `listVisitSlots`, `bookVisit`, `listVisits`, `getVisit`, `getVisitThread`, `cancelVisit`, `rescheduleVisit`, `answerVisitProposal` |  |
-| HL-ACCS-* | Partner access | `partnerLogin`, `partnerVerifyCode`, `partnerForgotPassword`, `partnerResetPassword`, `getStaffInvitationPreview`, `acceptStaffInvitation`, `getPartnerAccount`, `getPartnerMe`, `refreshSession`, `getPartnerApplication` | HL-ACCS-04 shows the application under review or rejected with its reason (`PartnerAccount.application`) |
+| HL-ACCS-* | Partner access | `partnerLogin`, `submitPartnerApplication`, `partnerVerifyCode`, `partnerForgotPassword`, `partnerResetPassword`, `getStaffInvitationPreview`, `acceptStaffInvitation`, `getPartnerAccount`, `getPartnerMe`, `refreshSession`, `getPartnerApplication` | HL-ACCS-01 "Apply to join" opens HL-PROV-01 signed out (`submitPartnerApplication`), HL-ACCS-02 answers the emailed code with `partnerVerifyCode`, HL-ACCS-04 shows the application under review or rejected with its reason (`PartnerAccount.application`) |
 | HL-TODY-* | Today, Needs you, messages, notifications | `getPartnerToday`, `listNeedsYou`, `listConversations`, `listMessages`, `sendMessage`, `saveReplyDraft`, `listNotifications`, `switchPartnerContext` |  |
 | HL-BOOK-* | Pending, upcoming and past, detail, contact, redeem | `listPartnerRequests`, `getPartnerRequest`, `listRedeemableVouchers`, `listRedeemedVouchers`, `checkVoucherCode`, `redeemVoucher` | HL-BOOK-05 (invoice) retired |
 | HL-DCSN-* | Accept, decline, propose, cancel | `acceptRequest`, `undoAcceptRequest`, `declineRequest`, `proposeDates`, `revokeApproval`, `cancelConfirmedRequest` | HL-DCSN-05 (record cash) retired |
@@ -166,7 +166,7 @@ Totals: 75 selectors, 45 store actions, 220 operations in 23 tags.
 | HL-GROW-* | Voucher prices, analytics, reviews | `listVoucherWindows`, `createVoucherWindow`, `updateVoucherWindow`, `endVoucherWindow`, `getPartnerAnalytics`, `listPartnerReviews`, `getPartnerReview`, `saveReviewReplyDraft`, `replyToReview`, `reportReview`, `requestReviewRemoval` | HL-GROW-05 (revenue) retired |
 | HL-SETT-* | More, notification preferences, staff, billing, hours | `getPartnerMe`, `getPartnerNotificationPreferences`, `updatePartnerNotificationPreferences`, `listStaff`, `inviteStaff`, `resendStaffInvitation`, `revokeStaffInvitation`, `changeStaffRole`, `deactivateStaff`, `reactivateStaff`, `getPartnerBilling`, `getBusinessHours`, `putBusinessHours`, `stepUp` |  |
 | HL-VIST-* | Visit requests, visit, chat, arrival, availability | `listPartnerVisits`, `getPartnerVisit`, `getPartnerVisitThread`, `confirmVisit`, `declineVisit`, `proposeVisitSlot`, `markVisitArrived`, `markVisitMissed`, `getVisitAvailability`, `putVisitAvailability` |  |
-| HL-PROV-* | Application form, provider account, listings, plan, pay, review status, performance | `chooseAccountType`, `resubmitPartnerApplication`, `getPartnerApplication`, `listListings`, `createListing`, `getListing`, `updateListing`, `chooseListingPlan`, `submitListing`, `createListingPaymentSession`, `getPaymentState`, `pauseListing`, `resumeListing`, `renewListing`, `requestListingFeeRefund`, `createListingUpload`, `attachListingMedia`, `getPartnerBilling`, `listProviderPackages`, `createProviderPackage`, `updateProviderPackage`, `deleteProviderPackage`, `getPartnerProvider`, `updatePartnerProvider`, `getListingPerformance` |  |
+| HL-PROV-* | Application form, provider account, listings, plan, pay, review status, performance | `submitPartnerApplication`, `chooseAccountType`, `resubmitPartnerApplication`, `getPartnerApplication`, `listListings`, `createListing`, `getListing`, `updateListing`, `chooseListingPlan`, `submitListing`, `createListingPaymentSession`, `getPaymentState`, `pauseListing`, `resumeListing`, `renewListing`, `requestListingFeeRefund`, `createListingUpload`, `attachListingMedia`, `getPartnerBilling`, `listProviderPackages`, `createProviderPackage`, `updateProviderPackage`, `deleteProviderPackage`, `getPartnerProvider`, `updatePartnerProvider`, `getListingPerformance` |  |
 | App level | Configuration, clock, analytics, support | `getAppConfig`, `ingestEvents`, `getSupportConversation`, `listFaq`, `getLegalDocument`, `getPartnerMe` |  |
 
 ## 4. Local-only state (never sent as a draft)
@@ -188,7 +188,7 @@ Totals: 75 selectors, 45 store actions, 220 operations in 23 tags.
 |---|---|---|
 | **Sex on the client account** (CA-AUTH-14, OQ-R2-02) | `Sex` (female or male); `User.sex` (optional, null until the account is completed); `RegisterInput.sex` (required); `UpdateMeInput.sex`; new `completeProfile` (`POST /me/complete`: name, sex and terms are required) | A first code creates the account with a placeholder name and no sex; `AuthSession.isNewUser` stays true on every sign-in until `completeProfile` succeeds. A missing sex is the usual 422 VALIDATION_FAILED (`errors: [{path: "/sex", code: "required"}]`). Not shown to venues, not used to filter. |
 | **Governorates, not areas** (CA-FLT-08, CA-ONB-10) | `governorateIds` on `getHome` (the Brief), `searchVenues`, `countVenues`, `listServiceProviders`; `WeddingProfile.governorateIds` and its input | Empty or missing = all governorates, several = any of them. `areaIds`, `briefAreaIds` and `allAreas` keep working and are deprecated (`allAreas` is the "All governorates" chip of older callers). A venue's `areaId` is an address line only. **The governorate list is configuration**: `GET /areas` returns the Super Admin's list; it starts with Kuwait's six official governorates (Capital, Hawalli, Farwaniya, Ahmadi, Jahra, Mubarak Al-Kabeer, each with an Arabic and an English name) and the Super Admin can extend it (the owner said "about 8", OQ-R2-01); the apps never hard-code the ids. |
-| **Partner application** (PA-ACC-07, PA-ACC-08, OQ-R2-03) | `chooseAccountType` takes the form; `PartnerApplication` (status pending, accepted or rejected, rejectionReason, submittedAt) on `PartnerMembership.application` and `PartnerAccount.application`; `getPartnerApplication`, `resubmitPartnerApplication` | The account starts under_review with a pending application; staff accept or reject in the Super Admin web (the mock: `POST /__mock/applications/{id}/decide`); only an accepted account creates listings (`createListing` answers 403 APPLICATION_NOT_ACCEPTED); a rejected application is edited and sent again (409 APPLICATION_NOT_EDITABLE otherwise). Accounts without an application (the existing partners) count as accepted. |
+| **Partner application** (PA-ACC-07, PA-ACC-08, OQ-R2-03, OQ-R2-11) | `submitPartnerApplication` (public, no session: the applicant's account plus the form; the emailed code is answered with `partnerVerifyCode`); `chooseAccountType` takes the form for a signed-in partner; `PartnerApplication` (status pending, accepted or rejected, rejectionReason, submittedAt) on `PartnerMembership.application` and `PartnerAccount.application`; `getPartnerApplication`, `resubmitPartnerApplication` | The account starts under_review with a pending application; staff accept or reject in the Super Admin web (the mock: `POST /__mock/applications/{id}/decide`); only an accepted account creates listings (`createListing` answers 403 APPLICATION_NOT_ACCEPTED); a rejected application is edited and sent again (409 APPLICATION_NOT_EDITABLE otherwise). Accounts without an application (the existing partners) count as accepted. The public submit answers 409 EMAIL_ALREADY_REGISTERED when a partner account already uses the email (a rejected applicant signs in and resubmits instead); the verified session has no venue and the application is pending. |
 | **Services independent of venues** (CA-SVC-19) | `VenueDetail.extras` and `PackageCatalog.extras` are deprecated; `createExtra` / `updateExtra` are deprecated | The responses carry an empty list; the endpoints stay valid and the engine still prices an extra when a caller asks. |
 | **Store note for service providers** (CA-SVC-20, OQ-R2-04) | `AppConfig.partnerAppUrl` | Configuration. |
 
@@ -411,7 +411,7 @@ Support conversation, refund (credit voucher) requests, FAQ.
 | `listFaq` | `GET /support/faq` | G |  |  |
 | `getLegalDocument` | `GET /legal/{kind}` | G |  |  |
 
-### partner-account (15)
+### partner-account (16)
 
 Partner session, account type, context switch, staff and invitations, settings.
 
@@ -419,6 +419,7 @@ Partner session, account type, context switch, staff and invitations, settings.
 | --- | --- | --- | --- | --- |
 | `getPartnerMe` | `GET /partner/me` | B |  |  |
 | `chooseAccountType` | `POST /partner/account-type` | B | I |  |
+| `submitPartnerApplication` | `POST /partner/applications` | G | I |  |
 | `getPartnerApplication` | `GET /partner/application` | B |  |  |
 | `resubmitPartnerApplication` | `PUT /partner/application` | B |  |  |
 | `switchPartnerContext` | `PUT /partner/context` | B |  |  |

@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, GateResume, WidgetSessionGate, sessionProvider;
 import 'package:ghazal_domain/ghazal_domain.dart' show BookingChannel, DateMode, LocalDate, VenueDayState, VenueResult, VenueType;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -24,10 +23,9 @@ import 'widgets/sort_sheet.dart';
 ///
 /// The venue list for the Brief. Top: back and the name search (typeahead). Under it the Brief as its facts (one button that opens the Brief
 /// sheet), one chip row (Filters with its count, Sort, Region, Date, every other applied filter removable, Clear), the count, then the cards
-/// with the two prices of the voucher model: the voucher price as the headline and the standard price beneath (a guest sees a locked voucher
-/// line); under a free hall the one action is "Get voucher" or "View". A booked hall offers its free dates; a governmental facility is
+/// with the two prices of the voucher model: the voucher price as the headline and the standard price beneath; under a free hall the one action is "Get voucher" or "View". A booked hall offers its free dates; a governmental facility is
 /// browse-only. Pull to refresh; the Compare tray and the Map pill float above the bar. States: default, loading, no-results, error,
-/// offline, searching, guest.
+/// offline, searching.
 class ClDisc03Screen extends ConsumerStatefulWidget {
   const ClDisc03Screen({super.key});
 
@@ -100,7 +98,7 @@ class _ClDisc03ScreenState extends ConsumerState<ClDisc03Screen> {
     // The couple's profile fills the Brief a moment after the screen opens: a list opened with no preset follows the Brief's date from then on.
     ref.listen<SearchBrief>(searchBriefProvider, (prev, next) {
       final hasPreset = (_params ?? const <String, Object?>{}).keys.any(
-        (k) => const <String>['shelf', 'category', 'available', 'areaIds'].contains(k),
+        (k) => const <String>['shelf', 'category', 'available', 'governorateIds'].contains(k),
       );
       if (hasPreset || prev == null || prev.date != null || next.date == null) return;
       final st = ref.read(discoverStateProvider);
@@ -112,8 +110,7 @@ class _ClDisc03ScreenState extends ConsumerState<ClDisc03Screen> {
     final q = DiscoverQuery(brief: brief, filters: filters, sort: ds.sort, query: query);
     final rows = ref.watch(discoverSearchProvider(q));
     final areasResponse = ref.watch(areasProvider).value;
-    final areas = areasResponse?.areas ?? const [];
-    final signedIn = ref.watch(sessionProvider.select((s) => s.isSignedIn));
+    final governorates = areasResponse?.governorates ?? const [];
     final labels = DiscoverLabels(context, areas: areasResponse, brief: brief);
     final loading = rows.isLoading && !rows.hasValue && !rows.hasError;
     final failed = rows.hasError && !rows.hasValue;
@@ -125,9 +122,9 @@ class _ClDisc03ScreenState extends ConsumerState<ClDisc03Screen> {
     final chips = chipSpecs(filters, brief);
     final extra = chips.where((x) => !(x.id == 'available' && defaults.available)).toList();
     final count = filters.activeCount(brief) - (defaults.available && filters.available ? 1 : 0);
-    const quick = <String>['governorates', 'areas', 'dates', 'available'];
+    const quick = <String>['governorates', 'dates', 'available'];
     final removable = chips.where((x) => !quick.contains(x.id)).toList();
-    final regionChip = chips.where((x) => x.id == 'governorates').firstOrNull ?? chips.where((x) => x.id == 'areas').firstOrNull;
+    final regionChip = chips.where((x) => x.id == 'governorates').firstOrNull;
     final dateChip = chips.where((x) => x.id == 'dates').firstOrNull ?? chips.where((x) => x.id == 'available').firstOrNull;
     final range = filters.dates;
     final dateText = range == null ? null : labels.dateRange(range);
@@ -148,8 +145,8 @@ class _ClDisc03ScreenState extends ConsumerState<ClDisc03Screen> {
           child: Typeahead(
             query: query,
             brief: brief,
-            onPickArea: (id) {
-              _setFilters(filters.copyWith(areaIds: <String>[id], governorateIds: const <String>[]));
+            onPickGovernorate: (id) {
+              _setFilters(filters.copyWith(governorateIds: <String>[id]));
               ref.read(discoverStateProvider.notifier).setQuery('');
               _unfocus();
             },
@@ -165,7 +162,7 @@ class _ClDisc03ScreenState extends ConsumerState<ClDisc03Screen> {
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsetsDirectional.only(top: GzSpace.s2, bottom: GzSpace.s3, start: GzSpace.gutter, end: GzSpace.gutter),
-            child: BriefFacts(brief: brief, areas: areas, onEdit: () => _nav.openSheet('CL-DISC-02')),
+            child: BriefFacts(brief: brief, governorates: governorates, onEdit: () => _nav.openSheet('CL-DISC-02')),
           ),
         ),
         SliverToBoxAdapter(
@@ -179,7 +176,7 @@ class _ClDisc03ScreenState extends ConsumerState<ClDisc03Screen> {
             onSort: () => _nav.openSheetBuilder((_) => const SortSheet()),
             regionLabel: regionChip == null ? null : labels.chipLabel(regionChip),
             regionActive: regionChip != null,
-            onRegion: () => _nav.push('CL-DISC-07', params: const <String, Object?>{'from': 'results'}),
+            onRegion: () => _nav.openSheet('CL-DISC-04', options: const GzSheetOptions(params: <String, Object?>{'focus': 'region'})),
             dateLabel: dateText,
             dateActive: dateChip != null,
             onDate: () => _nav.openSheet('CL-DISC-06'),
@@ -187,10 +184,6 @@ class _ClDisc03ScreenState extends ConsumerState<ClDisc03Screen> {
             onClearAll: extra.isNotEmpty || (chips.isNotEmpty && !defaults.available) ? () => _setFilters(clearedFilters(brief)) : null,
           ),
         ),
-        if (!signedIn && !loading && !failed && data.isNotEmpty)
-          SliverToBoxAdapter(
-            child: VoucherLockRow(onPressed: () => ref.requireSignIn(GateReason.voucher, resume: const GateResume('CL-DISC-03'))),
-          ),
         if (failed)
           SliverToBoxAdapter(
             child: stateBlock(

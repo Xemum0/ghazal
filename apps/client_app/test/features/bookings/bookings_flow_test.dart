@@ -94,15 +94,6 @@ void main() {
     expect(find.byType(GzErrorState), findsOneWidget, reason: 'the offline state is the network error state');
   });
 
-  flowTest('guest: a sign-in teaser stands in for the list', (tester) async {
-    await openScreen(tester, 'CL-BKNG-01', persona: 'guest');
-    await settle(tester, flush: true);
-    expect(shows(en.clientBookingsGuestTitle), isTrue);
-    await tapText(tester, en.clientBookingsGuestAction, flush: true);
-    final c = container(tester);
-    expect(currentId(c), 'CL-AUTH-01');
-  });
-
   flowTest('arabic: the bookings list renders right to left with no overflow', (tester) async {
     await openScreen(tester, 'CL-BKNG-01', locale: const Locale('ar'));
     await settle(tester, flush: true);

@@ -80,9 +80,6 @@ class OtpController extends ChangeNotifier {
       if (flow.purpose == AuthPurpose.passwordReset) {
         _ref.read(authFlowProvider.notifier).update((s) => s.copyWith(resetCode: v));
       } else {
-        // The gate request is kept by the flow; the session must not resume it before the name step and the seal are done.
-        _ref.rememberGate();
-        _ref.read(gateProvider.notifier).dismiss();
         await _ref.read(sessionProvider.notifier).verifyOtp(v);
       }
       if (_disposed) return;

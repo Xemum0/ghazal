@@ -1,5 +1,5 @@
 // The voucher and request flow of the client through the real providers and the in-process mock: checkout, payment, send request (R01),
-// withdraw (R07), confirm (R08), cancel (R10a, R13a), the forfeit by the clock (R09), the credit-voucher ask, the guest gate.
+// withdraw (R07), confirm (R08), cancel (R10a, R13a), the forfeit by the clock (R09), the credit-voucher ask.
 import 'package:client_app/app/state/state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -52,26 +52,6 @@ void main() {
     expect(keys.keyFor('send:v2'), isNot(a));
     keys.done('send:v1');
     expect(keys.keyFor('send:v1'), isNot(a));
-  });
-
-  group('the guest gate', () {
-    test('a guest who taps Get voucher or Send request gets the gate sheet with the reason and nothing is sent', () async {
-      final nav = FakeNavigator('CL-VENU-01');
-      final c = world.container(navigator: nav);
-      await startDraft(c);
-      final actions = c.read(voucherActionsProvider.notifier);
-
-      final r = await actions.checkout(resume: const GateResume('CL-BOOK-03', {'step': 'review'}));
-      expect(r, isA<ActionGated<VoucherCheckout>>());
-      expect(nav.currentId, kGateSheetId);
-      expect(c.read(gateProvider)!.reason, GateReason.voucher);
-      expect(c.read(gateProvider)!.resume!.routeName, 'CL-BOOK-03');
-      expect(c.read(bookingDraftProvider).voucherId, isNull);
-
-      c.read(gateProvider.notifier).dismiss();
-      expect(await actions.sendRequest(voucherId: 'v'), isA<ActionGated<Booking>>());
-      expect(c.read(gateProvider)!.reason, GateReason.sendRequest);
-    });
   });
 
   group('checkout, payment, send, withdraw', () {

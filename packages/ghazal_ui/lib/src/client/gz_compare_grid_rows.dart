@@ -17,7 +17,6 @@ class GzCompareGridContext {
     required this.guests,
     required this.origin,
     this.strips = const {},
-    this.guest = false,
     this.onPhoto,
   });
 
@@ -29,8 +28,6 @@ class GzCompareGridContext {
   /// Venue id to the photograph strips of the photos row (default: the venue's cover).
   final Map<String, List<ImageRef>> strips;
 
-  /// Signed out: the voucher price carries the ticket and lock pair.
-  final bool guest;
   final void Function(String venueId, int index)? onPhoto;
 }
 
@@ -170,11 +167,6 @@ List<GzCompareRowDef> gzCompareGridRows(BuildContext context, GzCompareGridConte
                 ],
               ),
             ),
-          if (x.guest)
-            _glyphs(context, l.commonLabelGuestVoucher, [
-              (GzIcons.ticket, GzIconSize.xs, c.iconSecondary),
-              (GzIcons.lock, GzIconSize.xs, c.iconSecondary),
-            ]),
         ]);
       }),
       keys((k) => '${k.availability}|${k.price?.fils}|${k.voucherPrice?.fils}'),

@@ -1,4 +1,4 @@
-// The request flow on the real router over the in-process mock: from the voucher-bound step 1 to the sent request, the guest gate, the five
+// The request flow on the real router over the in-process mock: from the voucher-bound step 1 to the sent request in four steps, the five
 // states, back and sheet dismissal, the confirm and the lapsed outcomes, one Arabic run. Bounded: every wait is a bounded settle.
 import 'package:client_app/app/state/state.dart';
 import 'package:flutter/widgets.dart';
@@ -21,11 +21,11 @@ void main() {
     await tapText(tester, 'Continue', flush: true);
     expect(find.text('Package'), findsWidgets, reason: 'step 2');
     await tapText(tester, 'Continue', flush: true);
-    expect(find.text('Extras'), findsWidgets, reason: 'step 3');
+    expect(find.text('Extras'), findsNothing, reason: 'no extras step since ADR 0038: services are asked for in the Services hub');
+    expect(find.text('Details'), findsWidgets, reason: 'step 3');
     await tapText(tester, 'Continue', flush: true);
-    expect(find.text('Details'), findsWidgets, reason: 'step 4');
-    await tapText(tester, 'Continue', flush: true);
-    expect(find.text('Review'), findsWidgets, reason: 'step 5');
+    expect(find.text('Review'), findsWidgets, reason: 'step 4, the last');
+    expect(nav(tester).currentId, 'CL-BOOK-05');
 
     // the consent comes first: a tap on Send without it only says why
     await tapText(tester, 'Send request', flush: true);
@@ -40,15 +40,6 @@ void main() {
     expect(after.length, before + 1, reason: 'the request is in the list');
     expect(after.any((r) => r.booking.status == BookingStatus.pending && r.booking.venueId == 'V05'), isTrue);
     expect(c.read(bookingDraftProvider).requestId, isNotNull);
-  });
-
-  flowTest('a guest at step 3 meets the account sheet with the right reason and resumes at step 4', (tester) async {
-    final c = await openScreen(tester, 'CL-BOOK-03', persona: 'guest');
-    await tapText(tester, 'Continue', flush: true);
-    final gate = c.read(gateProvider);
-    expect(gate, isNotNull, reason: 'the gate opened');
-    expect(gate!.reason, GateReason.voucher);
-    expect(gate.resume?.routeName, 'CL-BOOK-04');
   });
 
   flowTest('state loading: the skeleton shows, no error', (tester) async {

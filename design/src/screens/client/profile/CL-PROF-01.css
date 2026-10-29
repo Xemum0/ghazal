@@ -56,6 +56,20 @@
   background-color: var(--gz-color-sys-surface-tint);
 }
 
+/* The provider note: one row on a full-width rose band (the rows of this page run edge to edge), its glyph disk lifted to the raised surface so it
+   still reads on the tint. The row keeps its own gutter, so the sentence has the room for two lines at 360. */
+.gzpr-note {
+  background-color: var(--gz-color-sys-surface-tint);
+}
+
+.gzpr-note .gz-row {
+  border-radius: 0;
+}
+
+.gzpr-note .gz-irow__disk {
+  background-color: var(--gz-color-sys-surface-raised);
+}
+
 .gzpr-card .gz-row--interactive {
   border-radius: var(--gz-radius-md);
 }

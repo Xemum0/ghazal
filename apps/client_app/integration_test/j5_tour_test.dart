@@ -71,7 +71,7 @@ void main() {
 
       // ---------------------------------------------------------------------------------------------------------- venue and gallery
       j.step('venue detail and the full-screen gallery viewer, closed by its Close button');
-      await j.tapKey('discover.card.V01', wait: const Duration(seconds: 2));
+      await j.tapKey('discover.card.V02', wait: const Duration(seconds: 2)); // the first free hall of Reem's Brief (Hawalli and Capital)
       await j.seeScreen('CL-VENU-01');
       await j.loaded();
       await j.tester.tap(find.byType(GzPhoto).first, warnIfMissed: false);

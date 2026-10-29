@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, GateResume, GzAsyncView, WidgetSessionGate, sessionProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView, chatRepositoryProvider, gzProblemMessage;
+import 'package:ghazal_core/ghazal_core.dart' show ApiProblem;
 import 'package:ghazal_domain/ghazal_domain.dart'
-    show Message, MessageFrom, MessageKind, MessageStatus, WireLang;
+    show CreateConversationInput, CreateConversationInputKind, Message, MessageFrom, MessageKind, MessageStatus, WireLang;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../../l10n/l10n.dart';
@@ -26,10 +27,9 @@ export '../application/thread_ui.dart';
 /// pinned request bar (date, status, a chevron into the request), system lines
 /// for the request, and structured cards (meeting, quote request). Own messages
 /// sit at inline-end; every message aligns by its own first strong character.
-/// A guest reads freely and meets the sign-in sheet only on Send, with the
-/// draft kept. The tab bar is hidden.
+/// A first message to a venue (or to Support) opens the thread. The tab bar is hidden.
 /// States: default, loading, empty-enquiry, sending, failed, delivered, read,
-/// uploading, recording, offline-queued, error, guest-gate, blocked,
+/// uploading, recording, offline-queued, error, blocked,
 /// planner-variant, vendor-variant, support-variant.
 class ClMsgs02Screen extends ConsumerStatefulWidget {
   const ClMsgs02Screen({super.key});
@@ -54,21 +54,30 @@ class _ClMsgs02ScreenState extends ConsumerState<ClMsgs02Screen> {
     }
   }
 
-  void _gate(String text) {
-    // A guest meets the sign-in sheet ('CL-AUTH-01', opened by requireSignIn) and resumes here with the draft kept.
-    final p = _nav.params;
-    ref.requireSignIn(
-      GateReason.chat,
-      resume: GateResume('CL-MSGS-02', <String, Object?>{
-        for (final e in p.entries)
-          if (e.value != null) e.key: e.value!,
-        if (text.isNotEmpty) 'draft': text,
-      }),
-    );
+  /// The first message of a thread that does not exist yet (an enquiry to a venue, or Support): the server opens the conversation with
+  /// it, and the screen replaces itself with the thread.
+  Future<void> _startEnquiry(ResolvedThread r, String text) async {
+    final body = text.trim();
+    if (body.isEmpty) return;
+    final nav = _nav;
+    try {
+      final conv = await ref.read(chatRepositoryProvider).createConversation(
+        body: CreateConversationInput(
+          kind: r.venueId != null ? CreateConversationInputKind.venue : CreateConversationInputKind.enquiry,
+          venueId: r.venueId,
+          firstMessage: body,
+        ),
+      );
+      if (!mounted) return;
+      ref.invalidate(resolveThreadProvider);
+      _draft = '';
+      nav.replace('CL-MSGS-02', params: <String, Object?>{'conversationId': conv.id, if (r.venueId != null) 'venueId': r.venueId});
+    } on ApiProblem catch (e) {
+      if (mounted) nav.toast(GzToastSpec(message: gzProblemMessage(context.gzL10n, e), tone: GzToastTone.danger));
+    }
   }
 
-  void _send(ChatThread thread, String text, {required bool guest}) {
-    if (guest) return _gate(text);
+  void _send(ChatThread thread, String text) {
     unawaited(thread.sendText(text));
     setState(() => _draft = '');
   }
@@ -76,26 +85,24 @@ class _ClMsgs02ScreenState extends ConsumerState<ClMsgs02Screen> {
   @override
   Widget build(BuildContext context) {
     final params = ThreadParams.from(_nav.params);
-    final guest = !ref.watch(sessionProvider).isSignedIn;
     final resolved = ref.watch(resolveThreadProvider(params));
     return GzAsyncView<ResolvedThread>(
       value: resolved,
       loading: const _ThreadSkeleton(),
       onRetry: () => ref.invalidate(resolveThreadProvider(params)),
-      data: (r) => _ThreadBody(key: ValueKey<String>('thread.${r.conversationId ?? r.venueId ?? 'support'}'), resolved: r, guest: guest, draft: _draft, onDraft: (v) => _draft = v, onGate: _gate, onSend: _send),
+      data: (r) => _ThreadBody(key: ValueKey<String>('thread.${r.conversationId ?? r.venueId ?? 'support'}'), resolved: r, draft: _draft, onDraft: (v) => _draft = v, onEnquiry: (text) => _startEnquiry(r, text), onSend: _send),
     );
   }
 }
 
 class _ThreadBody extends ConsumerStatefulWidget {
-  const _ThreadBody({required this.resolved, required this.guest, required this.draft, required this.onDraft, required this.onGate, required this.onSend, super.key});
+  const _ThreadBody({required this.resolved, required this.draft, required this.onDraft, required this.onEnquiry, required this.onSend, super.key});
 
   final ResolvedThread resolved;
-  final bool guest;
   final String draft;
   final ValueChanged<String> onDraft;
-  final ValueChanged<String> onGate;
-  final void Function(ChatThread thread, String text, {required bool guest}) onSend;
+  final ValueChanged<String> onEnquiry;
+  final void Function(ChatThread thread, String text) onSend;
 
   @override
   ConsumerState<_ThreadBody> createState() => _ThreadBodyState();
@@ -119,7 +126,7 @@ class _ThreadBodyState extends ConsumerState<_ThreadBody> with FollowNewest<_Thr
       'CL-MSGS-03',
       options: GzSheetOptions(params: <String, Object?>{'conversationId': _r.conversationId!, if (_r.venueId != null) 'venueId': _r.venueId}),
     );
-    final top = _ThreadBar(conversationId: _r.conversationId!, guest: widget.guest, onInfo: openInfo);
+    final top = _ThreadBar(conversationId: _r.conversationId!, onInfo: openInfo);
     return GzAsyncView<ChatState>(
       value: thread,
       loading: _ThreadSkeleton(top: top),
@@ -132,14 +139,12 @@ class _ThreadBodyState extends ConsumerState<_ThreadBody> with FollowNewest<_Thr
             ? _BlockedBar(onUnblock: () => ref.read(blockedConversationsProvider.notifier).set(_r.conversationId!, false))
             : MsgComposer(
                 initial: widget.draft,
-                enabled: !widget.guest || true,
                 onSend: (text) {
                   final t = ref.read(chatThreadProvider(_r.conversationId!).notifier);
-                  widget.onSend(t, text, guest: widget.guest);
+                  widget.onSend(t, text);
                 },
-                onAttach: () => _openAttach(widget.guest),
+                onAttach: _openAttach,
                 onVoice: (seconds) {
-                  if (widget.guest) return widget.onGate('');
                   unawaited(ref.read(chatThreadProvider(_r.conversationId!).notifier).sendVoice(seconds));
                 },
                 onTooShort: () => _nav.toast(GzToastSpec(message: l.clientMessagesRecordTooShort)),
@@ -158,7 +163,7 @@ class _ThreadBodyState extends ConsumerState<_ThreadBody> with FollowNewest<_Thr
           slivers: [
             // no spacer for the keyboard here: GzScreen already shrinks the list above it, and a keyboard-high gap at the end kept the newest
             // message out of view when the list followed it
-            _ThreadSlivers(state: s, rows: rows, guest: widget.guest, bookingId: bookingId, onGate: widget.onGate),
+            _ThreadSlivers(state: s, rows: rows, bookingId: bookingId),
           ],
         );
       },
@@ -177,12 +182,12 @@ class _ThreadBodyState extends ConsumerState<_ThreadBody> with FollowNewest<_Thr
 
   Widget _enquiry(BuildContext context) {
     final l = context.l10n;
-    final support = _r.guestSupport || (_nav.params['support'] == true);
+    final support = _r.supportNew || (_nav.params['support'] == true);
     final venueAsync = !support && _r.venueId != null ? ref.watch(threadVenueProvider(_r.venueId!)) : null;
     final venue = venueAsync?.value;
     final lang = context.gz.locale.languageCode;
     final name = support ? context.gzL10n.commonRoleSupport : (venue?.name.of(lang) ?? '');
-    final subtitle = support ? l.clientMessagesSupportIntro : (venue == null ? null : l.clientMessagesRepliesWithin(2));
+    final subtitle = support || venue == null ? null : l.clientMessagesRepliesWithin(2);
     final hasInfo = _r.conversationId != null;
     final top = GzTopBar(
       titleWidget: Semantics(
@@ -203,9 +208,9 @@ class _ThreadBodyState extends ConsumerState<_ThreadBody> with FollowNewest<_Thr
       top: top,
       bottom: MsgComposer(
         initial: widget.draft,
-        onSend: (text) => widget.onGate(text),
-        onAttach: () => widget.onGate(widget.draft),
-        onVoice: (_) => widget.onGate(widget.draft),
+        onSend: widget.onEnquiry,
+        onAttach: null,
+        onVoice: null,
         onTooShort: () => _nav.toast(GzToastSpec(message: l.clientMessagesRecordTooShort)),
       ),
       child: Column(
@@ -224,10 +229,7 @@ class _ThreadBodyState extends ConsumerState<_ThreadBody> with FollowNewest<_Thr
                 GzText(name, role: GzTextRole.d2, color: context.gz.colors.textStrong, header: true),
                 if (subtitle != null) ...[
                   const SizedBox(height: GzSpace.s2),
-                  if (!support)
-                    GzFactChip(icon: GzIcons.clock, label: subtitle, value: shortDuration(context.gzFormat, 2 * 3600000), small: true, tone: GzFactTone.muted)
-                  else
-                    GzText(subtitle, role: GzTextRole.bodyS, color: context.gz.colors.textSecondary),
+                  GzFactChip(icon: GzIcons.clock, label: subtitle, value: shortDuration(context.gzFormat, 2 * 3600000), small: true, tone: GzFactTone.muted),
                 ],
                 if (!support) ...[
                   const SizedBox(height: GzSpace.s4),
@@ -235,13 +237,13 @@ class _ThreadBodyState extends ConsumerState<_ThreadBody> with FollowNewest<_Thr
                     spacing: GzSpace.s3,
                     runSpacing: GzSpace.s3,
                     children: [
-                      GzChip(label: l.clientMessagesSuggestAvailability, iconStart: GzIcons.calendar, onPressed: () => widget.onGate(l.clientMessagesSuggestAvailabilityAny)),
+                      GzChip(label: l.clientMessagesSuggestAvailability, iconStart: GzIcons.calendar, onPressed: () => widget.onEnquiry(l.clientMessagesSuggestAvailabilityAny)),
                       GzChip(
                         label: l.clientMessagesSuggestVisit,
                         iconStart: GzIcons.calendarCheck,
                         onPressed: () => _nav.openSheet('CL-VIST-01', options: GzSheetOptions(params: <String, Object?>{if (_r.venueId != null) 'venueId': _r.venueId})),
                       ),
-                      GzChip(label: l.clientMessagesSuggestVoucher, iconStart: GzIcons.ticket, onPressed: () => widget.onGate(l.clientMessagesSuggestVoucherAny)),
+                      GzChip(label: l.clientMessagesSuggestVoucher, iconStart: GzIcons.ticket, onPressed: () => widget.onEnquiry(l.clientMessagesSuggestVoucherAny)),
                     ],
                   ),
                 ],
@@ -253,9 +255,8 @@ class _ThreadBodyState extends ConsumerState<_ThreadBody> with FollowNewest<_Thr
     );
   }
 
-  void _openAttach(bool guest) {
+  void _openAttach() {
     final l = context.l10n;
-    if (guest) return widget.onGate(widget.draft);
     final nav = _nav;
     nav.openSheetBuilder(
       (_) => Column(
@@ -290,10 +291,9 @@ class _Row {
 
 /// The header: monogram, name, the reply-time fact; a glyph into CL-MSGS-03.
 class _ThreadBar extends ConsumerWidget implements PreferredSizeWidget {
-  const _ThreadBar({required this.conversationId, required this.guest, required this.onInfo});
+  const _ThreadBar({required this.conversationId, required this.onInfo});
 
   final String conversationId;
-  final bool guest;
   final VoidCallback onInfo;
 
   @override
@@ -368,13 +368,11 @@ class _BookingContextBar extends ConsumerWidget {
 }
 
 class _ThreadSlivers extends ConsumerWidget {
-  const _ThreadSlivers({required this.state, required this.rows, required this.guest, required this.bookingId, required this.onGate});
+  const _ThreadSlivers({required this.state, required this.rows, required this.bookingId});
 
   final ChatState state;
   final List<_Row> rows;
-  final bool guest;
   final String? bookingId;
-  final ValueChanged<String> onGate;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

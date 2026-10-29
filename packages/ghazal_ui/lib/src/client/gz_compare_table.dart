@@ -83,7 +83,7 @@ class GzCompareTable extends StatefulWidget {
   /// Grid: venue id to the strips of the photos row (default: the cover).
   final Map<String, List<ImageRef>> strips;
 
-  /// Grid: signed out, the voucher price carries the ticket and lock pair.
+  /// Deprecated, no effect (ADR 0038: there is no guest mode, every client is signed in). Remove it at the call site.
   final bool guest;
 
   @override
@@ -114,7 +114,6 @@ class _GzCompareTableState extends State<GzCompareTable> {
             onRemove: widget.onRemove,
             onOpen: widget.onOpen,
             onPhoto: widget.onPhoto,
-            guest: widget.guest,
           ),
           if (!widget.pinned) GzCompareBar(columns: widget.columns, hasDate: widget.date != null, pickedId: widget.pickedId, onAction: widget.onAction),
         ],

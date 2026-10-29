@@ -152,3 +152,19 @@
   flex-direction: column;
   gap: var(--gz-space-1);
 }
+
+/* Signed out (PA-ACC-07, round 2b): "Your account" first, then "Your business". Each is a titled column of fields on the 20 gutter. */
+.hp01__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-5);
+}
+
+.hp01__h {
+  margin: 0;
+  color: var(--gz-color-sys-text-strong);
+}
+
+.hp01__h--business {
+  margin-block-start: var(--gz-space-3);
+}

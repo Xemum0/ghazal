@@ -1,5 +1,7 @@
-// HL-ACCS-02 Verify with email (web `HL-ACCS-02.tsx`): one reusable code screen for a new device, a password reset and the step-up before a
-// high-risk action. Six boxes LTR in both languages, the sixth digit submits, resend after 60 s. Requirements: HA-AUTH-01, HA-SET-03, HA-SET-01.
+// HL-ACCS-02 Verify with email (web `HL-ACCS-02.tsx`): one reusable code screen for a new device, a password reset, the step-up before a
+// high-risk action and the email of a new application (mode `application`, PA-ACC-07: the right code opens the session of the new account and the
+// landing rule shows the application under review). Six boxes LTR in both languages, the sixth digit submits, resend after 60 s.
+// Requirements: HA-AUTH-01, HA-SET-03, HA-SET-01, PA-ACC-07.
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
@@ -9,6 +11,7 @@ import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, ApiProblemCode;
 import 'package:ghazal_domain/ghazal_domain.dart' show PartnerPasswordForgotInput;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
+import '../../../app/state/state.dart' show applicationChallengeProvider;
 import '../../../l10n/l10n.dart';
 import '../application/access_flow.dart';
 import 'widgets/access_parts.dart';
@@ -39,7 +42,7 @@ class _HlAccs02ScreenState extends ConsumerState<HlAccs02Screen> {
     if (_seeded) return;
     _seeded = true;
     _mode = parseCodeMode(GzNavigatorScope.of(context).params['mode']);
-    final challenge = ref.read(sessionProvider.notifier).challenge;
+    final challenge = _mode == CodeMode.application ? ref.read(applicationChallengeProvider)?.challenge : ref.read(sessionProvider.notifier).challenge;
     _seconds = challenge?.resendAfterSeconds ?? kResendSeconds;
     _startTick();
     if (_mode == CodeMode.reset) unawaited(_sendResetCode());
@@ -99,7 +102,11 @@ class _HlAccs02ScreenState extends ConsumerState<HlAccs02Screen> {
         return;
       }
       final container = ProviderScope.containerOf(context);
-      await ref.read(sessionProvider.notifier).partnerVerifyCode(code);
+      if (_mode == CodeMode.application) {
+        await ref.read(applicationChallengeProvider.notifier).verify(code);
+      } else {
+        await ref.read(sessionProvider.notifier).partnerVerifyCode(code);
+      }
       // The session opened: the app leaves the access screens by itself, so the landing is decided now (the success beat is the lands-on-Today).
       await landAfterSignIn(container, nav);
     } on ApiProblem catch (p) {
@@ -150,6 +157,12 @@ class _HlAccs02ScreenState extends ConsumerState<HlAccs02Screen> {
       return;
     }
     final nav = GzNavigatorScope.of(context);
+    if (_mode == CodeMode.application) {
+      // the account exists but its address is not verified: signing in with it sends a fresh code (the new device)
+      ref.read(accessFlowProvider.notifier).setEmail(ref.read(applicationChallengeProvider)?.email ?? '');
+      nav.reset('HL-ACCS-01');
+      return;
+    }
     if (nav.canGoBack) {
       nav.pop();
     } else {
@@ -160,7 +173,8 @@ class _HlAccs02ScreenState extends ConsumerState<HlAccs02Screen> {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    final email = ref.watch(accessFlowProvider).email;
+    final applying = _mode == CodeMode.application;
+    final email = applying ? (ref.watch(applicationChallengeProvider)?.email ?? ref.watch(accessFlowProvider).email) : ref.watch(accessFlowProvider).email;
     final demo = ref.read(accessDemoPrefillProvider);
     final shown = email.isNotEmpty ? email : (ref.read(sessionProvider.notifier).challenge?.destinationHint ?? (demo ? kDemoEmail : ''));
     final masked = maskEmail(shown);
@@ -172,10 +186,14 @@ class _HlAccs02ScreenState extends ConsumerState<HlAccs02Screen> {
       _ => switch (_mode) {
         CodeMode.reset => GzIllustrationName.key,
         CodeMode.stepUp => GzIllustrationName.shield,
-        CodeMode.signIn => GzIllustrationName.envelope,
+        CodeMode.signIn || CodeMode.application => GzIllustrationName.envelope,
       },
     };
-    final title = _mode == CodeMode.stepUp ? l.hotelAccessStepupTitle : l.hotelAccessVerifyTitle;
+    final title = switch (_mode) {
+      CodeMode.stepUp => l.hotelAccessStepupTitle,
+      CodeMode.application => l.hotelAccessVerifyApplicationTitle,
+      _ => l.hotelAccessVerifyTitle,
+    };
     final done = _view == CodeView.success;
     final GzActionBarAction action = switch (_view) {
       CodeView.loading => GzActionBarAction(label: l.hotelAccessVerifySubmit, loading: true),
@@ -212,6 +230,7 @@ class _HlAccs02ScreenState extends ConsumerState<HlAccs02Screen> {
               seconds: _seconds,
               failed: _failed,
               tooMany: _tooMany,
+              application: applying,
               onChanged: _change,
               onComplete: _verify,
               onResend: _resend,

@@ -21,6 +21,7 @@ class ClientAData {
   ClientAData({
     required this.results,
     required this.areas,
+    required this.governorates,
     required this.gallery,
     required this.windows,
     required this.stress,
@@ -32,6 +33,9 @@ class ClientAData {
   /// Every seeded venue as a result row for the story brief (price, availability, badge, tags, guest range).
   final Map<String, VenueResult> results;
   final Map<String, LocalizedText> areas;
+
+  /// Governorate id to name, in the configured list order (ADR 0038: the region of a brief).
+  final Map<String, LocalizedText> governorates;
   final Map<String, List<GalleryItem>> gallery;
 
   /// `live` (active, in seed order), `ended`, `scheduled` of the web gallery.
@@ -60,7 +64,8 @@ class ClientAData {
     // Venues the story brief filters out (a hall for men only) still appear as category covers: add them from an unfiltered search.
     final unfiltered = await reem.venues.searchVenues(limit: 20);
     final results = {for (final r in [...unfiltered.items, ...rows]) r.venue.id: r};
-    final areaList = (await reem.venues.listAreas()).areas;
+    final areasResponse = await reem.venues.listAreas();
+    final areaList = areasResponse.areas;
     final profile = await reem.wedding.getWeddingProfile();
     final v01 = await reem.venues.getVenue(venueId: 'V01', date: date, guests: 350, audience: Audience.women);
     final v09 = await reem.venues.getVenue(venueId: 'V09', date: date, guests: 350, audience: Audience.women);
@@ -74,17 +79,23 @@ class ClientAData {
     final stress = [for (final v in stressJson['venues']! as List<Object?>) VenueSummary.fromJson(_withMockImages(v)! as Map<String, Object?>)];
     final names = {for (final r in rows) r.venue.id: r.venue.name};
     final areas = {for (final a in areaList) a.id: a.name};
+    final governorates = {for (final g in areasResponse.governorates) g.id: g.name};
+    // The Brief speaks about governorates: the profile's own list, else the governorates of its (older) areas, in list order, like the
+    // web `briefGovernorates` (the story profile still lists Salmiya and Sharq, so it reads Capital and Hawalli).
+    final areaGovernorate = {for (final a in areaList) a.id: a.governorateId};
+    final picked = profile.governorateIds?.toSet() ?? {for (final id in profile.areaIds) if (areaGovernorate[id] != null) areaGovernorate[id]!};
     final brief = GzBrief(
       audience: Audience.women,
       guests: 350,
       date: profile.weddingDate,
-      areas: [for (final id in profile.areaIds) if (areas[id] != null) areas[id]!],
+      areas: [for (final g in areasResponse.governorates) if (picked.contains(g.id)) g.name],
       budgetMinFils: profile.venueBudget.min.fils,
       budgetMaxFils: profile.venueBudget.max.fils,
     );
     return ClientAData(
       results: results,
       areas: areas,
+      governorates: governorates,
       gallery: {'V01': v01.venue.gallery},
       windows: windows,
       stress: stress,

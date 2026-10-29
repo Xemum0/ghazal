@@ -150,7 +150,6 @@ class _InfoBody extends ConsumerWidget {
               child: GzText(name, role: GzTextRole.d1, color: context.gz.colors.textStrong, header: true),
             ),
             if (isVisit) GzInfoButton(title: l.clientMessagesInfoMembers, paragraphs: [l.clientMessagesInfoMembersNote]),
-            if (isSupport) GzInfoButton(title: l.clientMessagesInfoSupportNote, paragraphs: [l.clientMessagesSupportIntro]),
           ],
         ),
         if (conv.bookingId != null) ...[const SizedBox(height: GzSpace.s4), _InfoBookingRow(bookingId: conv.bookingId!)],

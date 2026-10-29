@@ -1,9 +1,8 @@
 // The discover flow on the real router and the in-process mock: Home, Results, the Brief sheet, Filters, the Map, the date sheet and the
-// region search, driven by real taps. Bounded: no wait is longer than a few seconds of fake time.
+// governorate chips, driven by real taps. Bounded: no wait is longer than a few seconds of fake time.
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart';
-import 'package:ghazal_domain/ghazal_domain.dart' show SavedType;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import 'package:client_app/app/state/state.dart';
@@ -16,9 +15,9 @@ void main() {
     flowTest('the Brief card says the couple\'s Brief, the CTA carries the live count and opens Results with the Brief as filters', (tester) async {
       final c = await openScreen(tester, 'CL-DISC-01');
       expect(labelOf(tester, 'discover.row.date'), contains('Thu 14 Jan 2027'));
-      expect(labelOf(tester, 'discover.row.area'), contains('Salmiya, Sharq'));
+      expect(labelOf(tester, 'discover.row.area'), contains('Hawalli'), reason: 'the Brief names governorates, never areas');
       expect(labelOf(tester, 'discover.row.guests'), contains('350'));
-      expect(shows('Show 3 halls'), isTrue);
+      expect(shows('Show 6 halls'), isTrue);
       expect(onScreen('discover.status'), isTrue);
       await tapKey(tester, 'discover.cta');
       expect(onScreen('discover.facts'), isTrue, reason: 'Results is open');
@@ -61,23 +60,11 @@ void main() {
       expect(c.read(discoverStateProvider).filters.shelf?.value, 'free');
       expect(onScreen('discover.applied.shelf'), isTrue);
     });
-
-    flowTest('a guest sees all of it; the third heart raises the sign-up nudge once', (tester) async {
-      final c = await openScreen(tester, 'CL-DISC-01', persona: 'guest', state: 'guest', size: const Size(390, 4000));
-      expect(onScreen('discover.briefcard'), isTrue);
-      final fav = c.read(favouritesProvider.notifier);
-      await tester.runAsync(() async {
-        await fav.toggle(SavedType.venue, 'V01');
-        await fav.toggle(SavedType.venue, 'V02');
-        await fav.toggle(SavedType.venue, 'V03');
-      });
-      expect(c.read(favouritesProvider).value?.signupNudge, isTrue);
-    });
   });
 
   group('Results', () {
     flowTest('hearts, compare and the voucher action behave as on the venue card', (tester) async {
-      final c = await openScreen(tester, 'CL-DISC-03', size: const Size(390, 2400));
+      final c = await openScreen(tester, 'CL-DISC-03', size: const Size(390, 3600));
       expect(shows('Get voucher'), isTrue);
       expect(find.byKey(const ValueKey<String>('discover.card.V07')), findsOneWidget, reason: 'a held hall is listed');
       expect(c.read(compareProvider).venueIds, isEmpty);
@@ -86,12 +73,6 @@ void main() {
       expect(c.read(compareProvider).venueIds, hasLength(1), reason: 'the compare toggle fills the tray');
       await tapKey(tester, 'discover.action.V01');
       expect(currentId(c), 'CL-VCHR-01');
-    });
-
-    flowTest('a guest asking for the voucher meets the sign-in sheet first', (tester) async {
-      final c = await openScreen(tester, 'CL-DISC-03', persona: 'guest', state: 'guest');
-      await tester.runAsync(() async => c.read(searchBriefProvider.notifier).set(c.read(searchBriefProvider).copyWith()));
-      expect(onScreen('discover.voucherlock'), isTrue, reason: 'the locked voucher line is under the chips');
     });
 
     flowTest('Sort opens a small sheet; choosing an order applies it and closes', (tester) async {
@@ -160,26 +141,34 @@ void main() {
       expect(c.read(searchBriefProvider).date, isNull, reason: 'applied');
     });
 
-    flowTest('the merge variant shows two Briefs and keeps the one chosen', (tester) async {
+    flowTest('the Governorates picker: chips, nothing lit means every governorate; the count is in the title and applying writes the Brief', (tester) async {
       final c = await openScreen(tester, 'CL-DISC-01');
-      await openSheetOf(tester, c, 'CL-DISC-02', const <String, Object?>{'variant': 'merge'});
-      expect(onScreen('discover.brief.merge'), isTrue);
-      await tapKey(tester, 'discover.merge.keep.account');
-      expect(c.read(discoverStateProvider).mergeShown, isTrue);
-    });
-
-    flowTest('the Area picker: a governorate selects all its areas', (tester) async {
-      final c = await openScreen(tester, 'CL-DISC-01');
+      expect(c.read(searchBriefProvider).governorateIds, <String>['hawalli', 'capital'], reason: "Reem's profile seeded the Brief");
       await openSheetOf(tester, c, 'CL-DISC-02', const <String, Object?>{'focus': 'area'});
       expect(onScreen('discover.brief.area'), isTrue);
+      expect(shows('Governorates · 2'), isTrue, reason: 'the count lives in the panel title');
+      await tapText(tester, 'Farwaniya', ms: 400);
+      expect(shows('Governorates · 3'), isTrue);
+      await tapKey(tester, 'discover.brief.done');
+      await tapKey(tester, 'discover.brief.cta');
+      expect(c.read(searchBriefProvider).governorateIds, containsAll(<String>['hawalli', 'capital', 'farwaniya']));
+    });
+
+    flowTest('the Governorates picker keeps no exact area: the chips are the six governorates and no area is offered', (tester) async {
+      final c = await openScreen(tester, 'CL-DISC-01');
+      await openSheetOf(tester, c, 'CL-DISC-02', const <String, Object?>{'focus': 'area'});
+      for (final name in <String>['Capital', 'Hawalli', 'Farwaniya', 'Ahmadi', 'Jahra', 'Mubarak Al-Kabeer']) {
+        expect(find.text(name), findsWidgets, reason: name);
+      }
+      expect(find.descendant(of: find.byKey(const ValueKey<String>('discover.brief.area')), matching: find.text('Salmiya')), findsNothing, reason: 'no exact area in the picker');
     });
   });
 
-  group('Filters, date sheet, region search and map', () {
+  group('Filters, date sheet, region chip and map', () {
     flowTest('Filters: a draft with a live count; applying returns to Results with removable chips', (tester) async {
       final c = await openScreen(tester, 'CL-DISC-03');
       await openSheetOf(tester, c, 'CL-DISC-04');
-      expect(shows('Show 3 halls'), isTrue);
+      expect(shows('Show 6 halls'), isTrue);
       await tapKey(tester, 'discover.group.type');
       expect(onScreen('discover.filters'), isTrue);
       await tapKey(tester, 'discover.filters.cta');
@@ -190,18 +179,15 @@ void main() {
       final c = await openScreen(tester, 'CL-DISC-03');
       await openSheetOf(tester, c, 'CL-DISC-06');
       expect(onScreen('discover.dates.sheet'), isTrue);
-      expect(shows('Show 3 halls'), isTrue);
+      expect(shows('Show 6 halls'), isTrue);
       await tapKey(tester, 'discover.dates.cta');
       expect(c.read(searchBriefProvider).date.toString(), '2027-01-14');
     });
 
-    flowTest('the region search lists governorates with counts and writes the areas to the Brief', (tester) async {
-      final c = await openScreen(tester, 'CL-DISC-07');
-      expect(onScreen('discover.regionlist'), isTrue);
-      await tapKey(tester, 'discover.region.area.jabriya');
-      await tester.tap(find.descendant(of: find.byType(GzActionBar), matching: find.byType(GzButton)).hitTestable(), warnIfMissed: false);
-      await settle(tester);
-      expect(c.read(searchBriefProvider).areaIds, contains('jabriya'));
+    flowTest('the Region chip of Results opens Filters on its Governorate group', (tester) async {
+      await openScreen(tester, 'CL-DISC-03');
+      await tapKey(tester, 'discover.chip.region');
+      expect(onScreen('discover.filters'), isTrue);
     });
 
     flowTest('the map: pins for the halls, a card carousel, List returns', (tester) async {
@@ -214,7 +200,7 @@ void main() {
 
   flowTest('Arabic: the Home CTA and the Results chips read right to left', (tester) async {
     await openScreen(tester, 'CL-DISC-01', locale: const Locale('ar'));
-    expect(shows('عرض 3 قاعات'), isTrue);
+    expect(shows('عرض 6 قاعات'), isTrue);
     final bar = tester.getRect(find.byKey(const ValueKey<String>('discover.briefcard')));
     final date = tester.getCenter(find.byKey(const ValueKey<String>('discover.row.date')));
     expect(date.dx, greaterThan(bar.center.dx - 1));

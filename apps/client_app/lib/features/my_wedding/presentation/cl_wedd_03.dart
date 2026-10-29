@@ -1,7 +1,7 @@
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, GateResume, WidgetSessionGate, gzProblemMessage, sessionProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show gzProblemMessage;
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblem;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
@@ -13,37 +13,32 @@ import '../application/wedding_data.dart';
 
 /// CL-WEDD-03 Budget. Covers CA-TOOL-05, CA-TOOL-06, CA-TOOL-07, CA-TOOL-08, CA-TOOL-09, CA-TOOL-11, CA-ONB-04, CA-AUTH-10.
 ///
-/// Committed versus paid versus remaining (pushed from My Wedding 'CL-WEDD-01'; a guest meets the account sheet ('CL-AUTH-01', opened by
-/// requireSignIn) at the first write). What is left is the hero; one segmented bar and its figures say how the rest divides;
+/// Committed versus paid versus remaining (pushed from My Wedding 'CL-WEDD-01'). What is left is the hero; one segmented bar and its figures say how the rest divides;
 /// categories are ranked by what has gone into them, each with its own meter; the voucher (KD 2, Paid) and the venue price (Committed)
 /// post themselves to the venue category (read only, they open the booking) and the couple's own expenses sit beside them. Alerts are
-/// calm: a gold-ink note at 80%, the functional danger state at 100%. A guest sees a sample and signs in at the first write.
+/// calm: a gold-ink note at 80%, the functional danger state at 100%.
 class ClWedd03Screen extends ConsumerWidget {
   const ClWedd03Screen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l10n;
-    final guest = !ref.watch(sessionProvider.select((s) => s.isSignedIn));
     final async = ref.watch(weddingBudgetProvider);
     final top = GzTopBar(title: l.clientMyWeddingBudgetTitle);
     return GzScreen(
       top: top,
-      bottom: guest
-          ? null
-          : GzActionBar(
-              action: GzActionBarAction(label: l.clientMyWeddingBudgetAddExpense, onPressed: () => _add(context, ref)),
-            ),
-      child: BkBudgetAsync(value: async, onRetry: () => ref.invalidate(weddingBudgetProvider), data: (view) => _body(context, ref, view, guest)),
+      bottom: GzActionBar(
+        action: GzActionBarAction(label: l.clientMyWeddingBudgetAddExpense, onPressed: () => _add(context, ref)),
+      ),
+      child: BkBudgetAsync(value: async, onRetry: () => ref.invalidate(weddingBudgetProvider), data: (view) => _body(context, ref, view)),
     );
   }
 
   void _add(BuildContext context, WidgetRef ref) {
-    if (!ref.requireSignIn(GateReason.planner, resume: GateResume('CL-WEDD-04'))) return;
     context.gzNav.openSheet('CL-WEDD-04');
   }
 
-  Widget _body(BuildContext context, WidgetRef ref, BudgetView view, bool guest) {
+  Widget _body(BuildContext context, WidgetRef ref, BudgetView view) {
     final l = context.l10n;
     if (view.budget.total.fils <= 0) {
       return WdPad(
@@ -52,10 +47,7 @@ class ClWedd03Screen extends ConsumerWidget {
           title: l.clientMyWeddingBudgetEmptyTitle,
           action: GzStateAction(
             label: l.clientMyWeddingBudgetEmptyAction,
-            onPressed: () {
-              if (guest && !ref.requireSignIn(GateReason.planner, resume: GateResume('CL-WEDD-05'))) return;
-              context.gzNav.openSheet('CL-WEDD-05');
-            },
+            onPressed: () => context.gzNav.openSheet('CL-WEDD-05'),
           ),
         ),
       );
@@ -74,7 +66,7 @@ class ClWedd03Screen extends ConsumerWidget {
               ],
             ),
           ),
-          _categories(context, ref, view, guest),
+          _categories(context, ref, view),
           _ledger(context, ref),
         ],
       ),
@@ -113,7 +105,7 @@ class ClWedd03Screen extends ConsumerWidget {
     );
   }
 
-  Widget _categories(BuildContext context, WidgetRef ref, BudgetView view, bool guest) {
+  Widget _categories(BuildContext context, WidgetRef ref, BudgetView view) {
     final l = context.l10n;
     final nav = context.gzNav;
     final cats = [...view.budget.categories]..sort((a, b) => (b.paid.fils + b.committed.fils).compareTo(a.paid.fils + a.committed.fils));
@@ -130,7 +122,7 @@ class ClWedd03Screen extends ConsumerWidget {
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [for (final cat in cats) WdCategoryRow(category: cat, total: view.budget.total.fils, guest: guest, last: cat == cats.last)],
+          children: [for (final cat in cats) WdCategoryRow(category: cat, total: view.budget.total.fils, last: cat == cats.last)],
         ),
       ],
     );

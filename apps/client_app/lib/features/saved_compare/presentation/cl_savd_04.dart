@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, GateResume, WidgetSessionGate, gzProblemKind, gzProblemMessage;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show gzProblemKind, gzProblemMessage;
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, ApiProblemCode;
 import 'package:ghazal_domain/ghazal_domain.dart' show BookingChannel, CompareColumn, LocalizedText;
 import 'package:ghazal_ui/ghazal_ui.dart';
@@ -17,7 +17,7 @@ import 'widgets/compare_parts.dart';
 /// Three equal columns at 360 to 430, no label column, no sideways scroll (the shared `GzCompareTable`): the Brief echo as three facts and
 /// a pencil, the header, a two-glyph switch (differences | all) on differences by default, best-in-row marks, and a footer of three
 /// one-word actions aligned to the thirds (Voucher, Dates, Official). The hall's price is requested with a voucher: there is no Request or
-/// Book here. States: default, loading, fewer-than-two, no-date, offline, error, shared-link-guest.
+/// Book here. States: default, loading, fewer-than-two, no-date, offline, error.
 class ClSavd04Screen extends ConsumerStatefulWidget {
   const ClSavd04Screen({super.key});
 
@@ -35,8 +35,7 @@ class _ClSavd04ScreenState extends ConsumerState<ClSavd04Screen> {
   @override
   void initState() {
     super.initState();
-    // A shared compare link (/compare?ids=a,b,c) opens the table for anyone,
-    // including a guest who never saved (the shared-link-guest state).
+    // A shared compare link (/compare?ids=a,b,c) opens the table for a signed-in client who never saved.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted || _seeded) return;
       _seeded = true;
@@ -57,12 +56,10 @@ class _ClSavd04ScreenState extends ConsumerState<ClSavd04Screen> {
       case GzCompareActionKind.notify:
         _nav.push('CL-VENU-01', params: <String, Object?>{'venueId': id});
       case GzCompareActionKind.voucher:
-        // Get voucher: CL-VCHR-01 carries the date and guests of the Brief and binds the voucher to this hall; a guest meets the sign-in
-        // sheet first and returns with the quote intact (ADR 0007 D8).
+        // Get voucher: CL-VCHR-01 carries the date and guests of the Brief and binds the voucher to this hall.
         setState(() => _picked = id);
         ref.read(bookingDraftProvider.notifier).start(venueId: id, eventDate: brief.date, guests: brief.guests, audience: brief.audience);
         final params = <String, Object?>{'venueId': id, 'eventDate': brief.date?.toString(), 'guests': brief.guests, 'from': 'compare'};
-        if (!ref.requireSignIn(GateReason.voucher, resume: GateResume('CL-VCHR-01', params))) return;
         _nav.openSheet('CL-VCHR-01', options: GzSheetOptions(params: params));
     }
   }
@@ -73,7 +70,6 @@ class _ClSavd04ScreenState extends ConsumerState<ClSavd04Screen> {
     final lg = context.gzL10n;
     final lang = context.gz.locale.languageCode;
     final brief = ref.watch(searchBriefProvider);
-    final guest = ref.watch(clientUserIdProvider) == null;
     final ids = ref.watch(compareProvider.select((s) => s.venueIds));
     final areas = ref.watch(savedAreaNamesProvider).value ?? const {};
     final async = ids.length < 2 ? null : ref.watch(compareColumnsProvider((ids, brief)));
@@ -120,7 +116,6 @@ class _ClSavd04ScreenState extends ConsumerState<ClSavd04Screen> {
               areaNames: {for (final e in areas.entries) e.key: e.value.of(lang)},
               grid: true,
               pinned: true,
-              guest: guest,
               pickedId: _picked,
               onPick: (id) => setState(() => _picked = _picked == id ? null : id),
               differencesOnly: _diff,
@@ -166,34 +161,6 @@ class _ClSavd04ScreenState extends ConsumerState<ClSavd04Screen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (offline) GzBanner(message: lg.commonStateOffline, tone: GzBannerTone.offline),
-          if (guest && !fewer && problem == null)
-            Padding(
-              padding: const EdgeInsetsDirectional.only(start: GzSpace.gutter, end: GzSpace.gutter, bottom: GzSpace.s2),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Semantics(
-                      label: lg.commonLabelGuestVoucher,
-                      child: ExcludeSemantics(
-                        child: Row(
-                          children: [
-                            GzIcon(GzIcons.ticket, size: GzIconSize.sm, color: context.gz.colors.iconSecondary),
-                            const SizedBox(width: GzSpace.s1),
-                            GzIcon(GzIcons.lock, size: GzIconSize.sm, color: context.gz.colors.iconSecondary),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  GzButton(
-                    key: const ValueKey<String>('compare.guest.signin'),
-                    label: l.clientSavedCompareSavedGuestSignIn,
-                    variant: GzButtonVariant.tertiary,
-                    onPressed: () => _nav.openSheet('CL-AUTH-01', options: const GzSheetOptions(params: <String, Object?>{'reason': 'save'})),
-                  ),
-                ],
-              ),
-            ),
           content,
           const SizedBox(height: GzSpace.s6),
         ],
@@ -202,7 +169,7 @@ class _ClSavd04ScreenState extends ConsumerState<ClSavd04Screen> {
   }
 
   String _originName(Map<String, LocalizedText> areas, SearchBrief brief, String lang) {
-    final id = brief.areaIds.isEmpty ? 'salmiya' : brief.areaIds.first;
-    return (areas[id] ?? areas['salmiya'])?.of(lang) ?? '';
+    // The Brief names governorates, not areas (ADR 0038): "Drive from" counts from the default reference point.
+    return areas['salmiya']?.of(lang) ?? '';
   }
 }

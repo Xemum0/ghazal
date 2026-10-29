@@ -1,6 +1,6 @@
 // The payment flow on the real router over the in-process mock: the KD 2
 // checkout from the pay screen through the gateway and the verifying screen to
-// the voucher-ready outcome and the failure layout, the guest gate, the five
+// the voucher-ready outcome and the failure layout, the five
 // states and one Arabic run. Bounded: every wait is a bounded settle.
 //
 // The hero quote already has Reem's voucher (bound to the same venue, package
@@ -9,7 +9,6 @@
 import 'package:client_app/app/state/state.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../support/flow_world.dart';
@@ -49,15 +48,6 @@ void main() {
     await settle(tester, wait: const Duration(seconds: 5), flush: true);
     expect(currentId(c), 'CL-PAYM-02', reason: 'the checkout prepared the voucher and opened the gateway');
     expect(c.read(paymentProvider).paymentId, isNotNull, reason: 'a hosted session is open');
-  });
-
-  flowTest('pay: a guest meets the account sheet with the voucher reason and resumes at the pay screen', (tester) async {
-    final c = await openScreen(tester, 'CL-PAYM-01', persona: 'guest', params: kFreshQuote);
-    await tapText(tester, 'Sign in', flush: true);
-    final gate = c.read(gateProvider);
-    expect(gate, isNotNull, reason: 'the gate opened');
-    expect(gate!.reason, GateReason.voucher);
-    expect(gate.resume?.routeName, 'CL-PAYM-01');
   });
 
   flowTest('pay states: loading shows the skeleton, error the retry', (tester) async {

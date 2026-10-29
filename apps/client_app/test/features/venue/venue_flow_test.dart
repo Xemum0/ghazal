@@ -5,7 +5,7 @@ import 'package:client_app/app/state/state.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart';
-import 'package:ghazal_domain/ghazal_domain.dart' show LocalDate, SavedType;
+import 'package:ghazal_domain/ghazal_domain.dart' show SavedType;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../support/flow_world.dart';
@@ -51,17 +51,6 @@ void main() {
       expect(c.read(isFavouriteProvider((SavedType.venue, 'V01'))), isFalse, reason: 'the saved heart untoggles');
       await tap(tester, find.descendant(of: find.byType(GzTopBar), matching: find.bySemanticsLabel('Save to favourites')));
       expect(c.read(isFavouriteProvider((SavedType.venue, 'V01'))), isTrue);
-    });
-
-    flowTest('a guest tapping Get voucher meets the account sheet and resumes at the voucher explainer', (tester) async {
-      final c = await openScreen(tester, 'CL-VENU-01', persona: 'guest');
-      c.read(searchBriefProvider.notifier).update((b) => b.copyWith(date: const LocalDate(2027, 1, 14), guests: 350));
-      await settle(tester);
-      await tapText(tester, 'Get voucher');
-      final gate = c.read(gateProvider);
-      expect(gate, isNotNull, reason: 'the gate opened');
-      expect(gate!.reason, GateReason.voucher);
-      expect(gate.resume?.routeName, 'CL-VCHR-01');
     });
 
     flowTest('state loading: skeletons show, no error', (tester) async {

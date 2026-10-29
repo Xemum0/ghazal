@@ -1,22 +1,20 @@
-// CL-AUTH-03 Create account: name and terms (CA-AUTH-11, CA-ONB-08). Port of CL-AUTH-03.tsx.
-// Last step for a brand-new account (a verified number, or an Apple or Google identity): confirm the name and agree to the Terms of Use and
-// Privacy Policy. A two-word title with the live monogram at its end edge, two fields, what the device carries over as a row of facts, and
-// a two-word consent with the info glyph beside it (Terms and Privacy open as two rows). Continue creates the account, attaches what the
-// guest chose on the device (Brief, hearts, Compare set, ADR 0007 D10) and returns to the interrupted intent.
+// CL-AUTH-03 About you: name, sex, terms (CA-AUTH-11, CA-AUTH-13, CA-AUTH-14, CA-ONB-08). Port of CL-AUTH-03.tsx.
+// Last step for a brand-new account (a verified number, or an Apple or Google identity) and the step that opens the app: the name is
+// required and so is the sex (female or male; stored on the account, not shown to venues, not used to filter: OQ-R2-02), then the Terms of
+// Use and Privacy Policy. A two-word title with the live monogram at its end edge, a name, the sex choice, an optional email and a two-word
+// consent with the info glyph beside it. Continue calls `completeProfile` and continues to the optional onboarding steps (CL-ONBD-03).
 import 'dart:async';
 
-import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart';
-import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, DateStyle, gzFormatProvider;
+import 'package:ghazal_core/ghazal_core.dart' show ApiProblem;
 import 'package:ghazal_domain/ghazal_domain.dart' show RegisterInput, Sex, WireLang;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../application/auth_actions.dart';
 import '../application/auth_flow.dart';
-import '../application/auth_resume.dart';
 import 'widgets/auth_bits.dart';
 import 'widgets/legal.dart';
 
@@ -34,8 +32,10 @@ class ClAuth03Screen extends ConsumerStatefulWidget {
 class _ClAuth03State extends ConsumerState<ClAuth03Screen> {
   String _name = '';
   String _email = '';
+  Sex? _sex;
   bool _accepted = false;
   bool _nameError = false;
+  bool _sexError = false;
   bool _termsError = false;
   _Phase _phase = _Phase.form;
   Timer? _hold;
@@ -52,14 +52,15 @@ class _ClAuth03State extends ConsumerState<ClAuth03Screen> {
     final provider = context.gzNav.params['provider'];
     final session = ref.read(sessionProvider);
     _live = flow.challenge != null || provider != null || session is ClientSession || flow.password.isNotEmpty;
-    final draftName = ref.read(weddingDraftProvider).brideName;
-    final fromSession = session is ClientSession && session.user.name.isNotEmpty && !session.user.name.startsWith('Guest') ? session.user.name : '';
     if (_live) {
-      // Live: what onboarding left, or what Apple or Google gave.
-      _name = draftName ?? fromSession;
+      // Live: empty, or what Apple or Google gave (the mock's placeholder name of a number-only account is not a name).
+      final given = session is ClientSession && provider != null ? session.user.name : '';
+      _name = given.startsWith('Guest') ? '' : given;
     } else {
-      // Opened on its own (a harness): the story's name so the monogram preview reads.
+      // Opened on its own (a harness): the story's name and sex so the monogram preview and the tiles read.
       _name = Localizations.localeOf(context).languageCode == 'ar' ? 'ريم الدوسري' : 'Reem Al-Dosari';
+      _sex = Sex.female;
+      _accepted = true;
     }
   }
 
@@ -71,11 +72,13 @@ class _ClAuth03State extends ConsumerState<ClAuth03Screen> {
 
   Future<void> _submit() async {
     final missingName = _name.trim().isEmpty;
+    final sex = _sex;
     setState(() {
       _nameError = missingName;
+      _sexError = sex == null;
       _termsError = !_accepted;
     });
-    if (missingName || !_accepted || _phase == _Phase.creating) return;
+    if (missingName || sex == null || !_accepted || _phase == _Phase.creating) return;
     setState(() => _phase = _Phase.creating);
     final nav = context.gzNav;
     final flow = ref.read(authFlowProvider);
@@ -88,8 +91,7 @@ class _ClAuth03State extends ConsumerState<ClAuth03Screen> {
                 phone: flow.phone,
                 name: _name.trim(),
                 password: flow.password,
-                // R1-CONTRACT placeholder so the app compiles: CL-AUTH-03 must ask for the sex (CA-AUTH-14, ADR 0038); R2-CLIENT replaces this.
-                sex: Sex.female,
+                sex: sex,
                 acceptedTerms: true,
                 locale: locale == 'ar' ? WireLang.ar : WireLang.en,
                 deviceId: ref.read(deviceIdProvider),
@@ -101,12 +103,11 @@ class _ClAuth03State extends ConsumerState<ClAuth03Screen> {
         nav.replace('CL-AUTH-02');
         return;
       }
-      await ref.confirmName(name: _name, email: _email);
+      await ref.completeProfile(name: _name, sex: sex, email: _email);
       if (!mounted) return;
-      unawaited(ref.read(weddingProfileProvider.future).then((_) {}, onError: (Object _) {}));
       setState(() => _phase = _Phase.done);
       _hold = Timer(_successHold, () {
-        if (mounted) ref.finishSignIn();
+        if (mounted) ref.finishSignIn(fresh: true);
       });
     } on ApiProblem catch (e) {
       if (!mounted) return;
@@ -119,17 +120,8 @@ class _ClAuth03State extends ConsumerState<ClAuth03Screen> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final c = context.gz.colors;
-    final f = ref.watch(gzFormatProvider);
-    final brief = ref.watch(searchBriefProvider);
-    final hearts = ref.watch(favouritesProvider).value?.venue.length ?? 0;
     final busy = _phase == _Phase.creating;
     final initial = authMonogramFor(_name);
-    // What the device carries over: the Brief's date and guests and the hearts (the Compare set travels too, silently). Opened on its own
-    // the screen shows the shared story.
-    final date = _live ? brief.date : AuthStory.date;
-    final guests = _live ? brief.guests : AuthStory.guests;
-    final carried = date != null || guests != null || (_live && hearts > 0);
-
     return GzScreen(
       top: GzTopBar(onBack: () => context.gzNav.pop()),
       bottom: _phase == _Phase.done ? null : GzActionBar(action: GzActionBarAction(label: l10n.commonActionContinue, onPressed: _submit, loading: busy)),
@@ -139,10 +131,10 @@ class _ClAuth03State extends ConsumerState<ClAuth03Screen> {
               child: GzSuccessState(illustration: GzIllustrationName.seal, title: l10n.clientAuthSharedAccountReady, size: GzIllustrationSize.hero),
             )
           : AuthBody(
+              spacing: GzSpace.s5, // web `.gza03 { gap: space-5 }`: the form is the page
               children: [
                 AuthHead(
                   title: l10n.clientAuthNameTitle,
-                  art: GzIllustrationName.invitation,
                   trailing: Semantics(
                     label: l10n.clientAuthNameMonogram,
                     image: true,
@@ -173,6 +165,19 @@ class _ClAuth03State extends ConsumerState<ClAuth03Screen> {
                       disabled: busy,
                     ),
                     const SizedBox(height: GzSpace.s5),
+                    GzSexChoice(
+                      value: _sex,
+                      label: l10n.clientAuthNameSexLabel,
+                      femaleLabel: l10n.clientAuthNameSexFemale,
+                      maleLabel: l10n.clientAuthNameSexMale,
+                      onChanged: (v) => setState(() {
+                        _sex = v;
+                        _sexError = false;
+                      }),
+                      error: _sexError ? l10n.commonLabelRequired : null,
+                      disabled: busy,
+                    ),
+                    const SizedBox(height: GzSpace.s5),
                     GzTextField(
                       label: l10n.clientAuthNameEmailLabel,
                       optional: true,
@@ -185,45 +190,24 @@ class _ClAuth03State extends ConsumerState<ClAuth03Screen> {
                       onValueChange: (v) => setState(() => _email = v),
                       disabled: busy,
                     ),
-                    if (carried) ...[
-                      const SizedBox(height: GzSpace.s5),
-                      Semantics(
-                        container: true,
-                        label: l10n.clientAuthNameKept,
-                        child: Row(
-                          children: [
-                            GzIcon(GzIcons.checkCircle, size: GzIconSize.sm, color: c.iconSuccess),
-                            const SizedBox(width: GzSpace.s3),
-                            Expanded(
-                              child: Wrap(
-                                spacing: GzSpace.s3,
-                                runSpacing: GzSpace.s2,
-                                children: [
-                                  if (date != null) GzFactChip(icon: GzIcons.calendar, value: f.date(date.toString(), DateStyle.dayMonth), label: l10n.clientAuthSharedDate),
-                                  if (guests != null) GzFactChip(icon: GzIcons.usersThree, value: f.integer(guests), label: l10n.clientAuthSharedGuests),
-                                  if (_live && hearts > 0) GzFactChip(icon: GzIcons.heart, value: f.integer(hearts), label: l10n.clientAuthReasonSave),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
                   ],
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // The checkbox hugs its label so the info glyph sits right beside it (web `.gza03-agree`).
                     Flexible(
-                      child: GzCheckbox(
-                        label: l10n.clientAuthNameAccept,
-                        checked: _accepted,
-                        onChanged: (v) => setState(() {
-                          _accepted = v;
-                          if (v) _termsError = false;
-                        }),
-                        error: _termsError ? l10n.commonLabelRequired : null,
-                        disabled: busy,
+                      child: IntrinsicWidth(
+                        child: GzCheckbox(
+                          label: l10n.clientAuthNameAccept,
+                          checked: _accepted,
+                          onChanged: (v) => setState(() {
+                            _accepted = v;
+                            if (v) _termsError = false;
+                          }),
+                          error: _termsError ? l10n.commonLabelRequired : null,
+                          disabled: busy,
+                        ),
                       ),
                     ),
                     const SizedBox(width: GzSpace.s1),

@@ -23,8 +23,9 @@ class MsgComposer extends StatefulWidget {
   });
 
   final ValueChanged<String> onSend;
-  final VoidCallback onAttach;
-  final ValueChanged<int> onVoice;
+  /// Null while the thread does not exist yet (a first message to a venue): the plus and the microphone then rest disabled.
+  final VoidCallback? onAttach;
+  final ValueChanged<int>? onVoice;
   final VoidCallback? onTooShort;
   final String initial;
   final bool enabled;
@@ -46,7 +47,7 @@ class _MsgComposerState extends State<MsgComposer> {
   }
 
   void _startRecording() {
-    if (!widget.enabled) return;
+    if (!widget.enabled || widget.onVoice == null) return;
     setState(() {
       _recording = true;
       _seconds = 0;
@@ -69,7 +70,7 @@ class _MsgComposerState extends State<MsgComposer> {
       widget.onTooShort?.call();
       return;
     }
-    widget.onVoice(seconds);
+    widget.onVoice?.call(seconds);
   }
 
   @override
@@ -129,7 +130,7 @@ class _MsgComposerState extends State<MsgComposer> {
         else
           GestureDetector(
             onLongPressStart: (_) => _startRecording(),
-            child: GzIconButton(icon: GzIcons.mic, label: l.clientMessagesRecordHold, onPressed: widget.enabled ? _startRecording : null),
+            child: GzIconButton(icon: GzIcons.mic, label: l.clientMessagesRecordHold, onPressed: widget.enabled && widget.onVoice != null ? _startRecording : null),
           ),
       ],
     );

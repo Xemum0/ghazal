@@ -106,14 +106,13 @@ void main() {
       expect(find.text('Verified'), findsNothing);
     });
 
-    testWidgets('member sees the voucher price headline with the standard price struck; guest sees the lock line', (tester) async {
+    testWidgets('the voucher price is the headline with the standard price struck; the deprecated guest audience changes nothing', (tester) async {
       await pump(tester, GzVendorCard(vendor: vendor()));
       expect(tester.widget<GzPrice>(find.byType(GzPrice)).fils, 5500);
       expect(tester.widget<GzPrice>(find.byType(GzPrice)).was, 7500);
       await pump(tester, GzVendorCard(vendor: vendor(), audience: GzVendorAudience.guest));
-      expect(tester.widget<GzPrice>(find.byType(GzPrice)).fils, 7500);
-      expect(find.text('Voucher price after you sign up'), findsOneWidget);
-      expect(find.byIcon(GzIcons.lock), findsOneWidget);
+      expect(tester.widget<GzPrice>(find.byType(GzPrice)).fils, 5500);
+      expect(find.byIcon(GzIcons.lock), findsNothing);
     });
 
     testWidgets('the row variant drops the portfolio strip and the facts; the card opens on tap', (tester) async {

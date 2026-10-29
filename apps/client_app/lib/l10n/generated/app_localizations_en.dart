@@ -711,9 +711,6 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get commonLabelGuestVoucher => 'Voucher price after you sign up';
-
-  @override
   String get commonRoleClient => 'Client';
 
   @override
@@ -878,12 +875,6 @@ class AppL10nEn extends AppL10n {
   String get clientAuthSharedSendCode => 'Send code';
 
   @override
-  String get clientAuthSharedDate => 'Date';
-
-  @override
-  String get clientAuthSharedGuests => 'Guests';
-
-  @override
   String get clientAuthSharedLegalTerms => 'Terms of Use';
 
   @override
@@ -925,30 +916,6 @@ class AppL10nEn extends AppL10n {
   @override
   String get clientAuthSharedSmallPrint =>
       'Our <terms>Terms of Use</terms> and <privacy>Privacy Policy</privacy> apply. You confirm them when you create an account.';
-
-  @override
-  String get clientAuthReasonSendRequest => 'Send request';
-
-  @override
-  String get clientAuthReasonVoucher => 'Voucher';
-
-  @override
-  String get clientAuthReasonVisit => 'Visit';
-
-  @override
-  String get clientAuthReasonChat => 'Message';
-
-  @override
-  String get clientAuthReasonReview => 'Review';
-
-  @override
-  String get clientAuthReasonPlanner => 'Consultation';
-
-  @override
-  String get clientAuthReasonQuote => 'Quote';
-
-  @override
-  String get clientAuthReasonSave => 'Shortlist';
 
   @override
   String clientAuthGateErrorDigits(int count) {
@@ -1046,7 +1013,7 @@ class AppL10nEn extends AppL10n {
   String get clientAuthOtpOpening => 'Opening WhatsApp';
 
   @override
-  String get clientAuthNameTitle => 'Create account';
+  String get clientAuthNameTitle => 'About you';
 
   @override
   String get clientAuthNameLabel => 'Name';
@@ -1058,13 +1025,19 @@ class AppL10nEn extends AppL10n {
   String get clientAuthNameEmailLabel => 'Email';
 
   @override
+  String get clientAuthNameSexLabel => 'Sex';
+
+  @override
+  String get clientAuthNameSexFemale => 'Female';
+
+  @override
+  String get clientAuthNameSexMale => 'Male';
+
+  @override
   String get clientAuthNameAccept => 'I agree';
 
   @override
   String get clientAuthNameLegalTitle => 'Terms and privacy';
-
-  @override
-  String get clientAuthNameKept => 'Saved to your account';
 
   @override
   String get clientAuthNameMonogram => 'Your monogram';
@@ -1365,27 +1338,6 @@ class AppL10nEn extends AppL10n {
   String get clientBookingPackageBreakdownOpen => 'See the price breakdown';
 
   @override
-  String get clientBookingExtrasTitle => 'Extras';
-
-  @override
-  String get clientBookingExtrasInfoTitle => 'Extras';
-
-  @override
-  String get clientBookingExtrasIncluded => 'Included';
-
-  @override
-  String get clientBookingExtrasNone => 'No extras';
-
-  @override
-  String get clientBookingExtrasNoneOffered => 'This venue does not sell extras for your booking. You can continue.';
-
-  @override
-  String get clientBookingExtrasLead => 'Optional and priced separately, at your voucher price where the venue has one.';
-
-  @override
-  String get clientBookingExtrasSettledNote => 'Extras are settled directly with the venue.';
-
-  @override
   String get clientBookingDetailsTitle => 'Details';
 
   @override
@@ -1478,9 +1430,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientBookingReviewTitle => 'Review';
-
-  @override
-  String get clientBookingReviewExtras => 'Extras';
 
   @override
   String get clientBookingReviewContact => 'Contact';
@@ -1580,12 +1529,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientBookingVoucherValid => 'Valid until';
-
-  @override
-  String get clientBookingQuoteChanged => 'Your total changed since you got the voucher, because of the extras you added. The voucher still applies.';
-
-  @override
-  String get clientBookingQuoteChangedShort => 'Total changed';
 
   @override
   String get clientBookingSentTitle => 'Request sent';
@@ -1923,12 +1866,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientBookingsLimitReached => 'Close one to send another';
-
-  @override
-  String get clientBookingsGuestTitle => 'Track your requests';
-
-  @override
-  String get clientBookingsGuestAction => 'Sign in';
 
   @override
   String get clientBookingsEmptyTitle => 'No requests yet';
@@ -2618,18 +2555,10 @@ class AppL10nEn extends AppL10n {
   String get clientDiscoverBriefChooseDate => 'Date';
 
   @override
-  String get clientDiscoverBriefChooseArea => 'Area';
-
-  @override
   String get clientDiscoverBriefAddGuests => 'Guests';
 
   @override
   String get clientDiscoverBriefSetBudget => 'Budget';
-
-  @override
-  String clientDiscoverBriefAreaMore(String first, String more) {
-    return '$first +$more';
-  }
 
   @override
   String clientDiscoverCtaCount(int count) {
@@ -2650,7 +2579,7 @@ class AppL10nEn extends AppL10n {
   String get clientDiscoverResultsTitle => 'Halls';
 
   @override
-  String get clientDiscoverResultsSearchPlaceholder => 'Hall or area';
+  String get clientDiscoverResultsSearchPlaceholder => 'Hall or governorate';
 
   @override
   String get clientDiscoverResultsFilters => 'Filters';
@@ -2718,9 +2647,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientDiscoverSortDistance => 'Nearest';
-
-  @override
-  String get clientDiscoverChipAreasAll => 'All areas';
 
   @override
   String clientDiscoverChipRating(String rating) {
@@ -2846,9 +2772,6 @@ class AppL10nEn extends AppL10n {
   String get clientDiscoverBriefDateFlexible => 'Any month';
 
   @override
-  String get clientDiscoverBriefAreaTitle => 'Area';
-
-  @override
   String get clientDiscoverBriefGuestsTitle => 'Guests';
 
   @override
@@ -2873,15 +2796,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientDiscoverBriefDone => 'Done';
-
-  @override
-  String get clientDiscoverMergeTitle => 'Two briefs';
-
-  @override
-  String get clientDiscoverMergePhone => 'This phone';
-
-  @override
-  String get clientDiscoverMergeAccount => 'My account';
 
   @override
   String get clientDiscoverMapTitle => 'Map';
@@ -2913,8 +2827,8 @@ class AppL10nEn extends AppL10n {
   String get clientDiscoverMapSearchArea => 'Search here';
 
   @override
-  String clientDiscoverMapDenied(String area) {
-    return 'Near $area';
+  String clientDiscoverMapDenied(String place) {
+    return 'Near $place';
   }
 
   @override
@@ -2945,7 +2859,7 @@ class AppL10nEn extends AppL10n {
   String get clientDiscoverCardView => 'View';
 
   @override
-  String get clientDiscoverChipRegion => 'Region';
+  String get clientDiscoverChipRegion => 'Governorate';
 
   @override
   String get clientDiscoverChipDate => 'Date';
@@ -2960,7 +2874,19 @@ class AppL10nEn extends AppL10n {
   String get clientDiscoverMapVoucherPin => 'Voucher price';
 
   @override
-  String get clientDiscoverFiltersGroupRegion => 'Region';
+  String clientDiscoverFiltersGroupRegion(int count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Governorates · $countString',
+      one: 'Governorates · $countString',
+      zero: 'Governorates',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get clientDiscoverFiltersGroupStructure => 'Pricing';
@@ -2976,21 +2902,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientDiscoverFiltersVoucherTitle => 'Voucher only';
-
-  @override
-  String get clientDiscoverBriefAreaAll => 'All';
-
-  @override
-  String get clientDiscoverBriefAreaClearGroup => 'Clear';
-
-  @override
-  String get clientDiscoverRegionPlaceholder => 'Area or hall';
-
-  @override
-  String get clientDiscoverRegionNear => 'Near me';
-
-  @override
-  String get clientDiscoverRegionListLabel => 'Governorates and areas';
 
   @override
   String get clientDiscoverDatesTitle => 'Dates';
@@ -3062,9 +2973,6 @@ class AppL10nEn extends AppL10n {
   String get clientDiscoverA11yDrive => 'Drive time';
 
   @override
-  String get clientDiscoverMergeKeep => 'Keep';
-
-  @override
   String get clientDiscoverA11yDaysLeft => 'Days remaining';
 
   @override
@@ -3090,6 +2998,35 @@ class AppL10nEn extends AppL10n {
   String clientDiscoverBriefBudgetOver(String amount) {
     return '$amount and above';
   }
+
+  @override
+  String get clientDiscoverBriefChooseGovernorate => 'Governorate';
+
+  @override
+  String clientDiscoverBriefGovernorateMore(String first, String more) {
+    return '$first +$more';
+  }
+
+  @override
+  String clientDiscoverBriefGovernorateTitle(int count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Governorates · $countString',
+      one: 'Governorates · $countString',
+      zero: 'Governorates',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clientDiscoverBriefGovernorateLabel => 'Governorates';
+
+  @override
+  String get clientDiscoverChipGovernoratesAll => 'All governorates';
 
   @override
   String get clientMessagesInboxTitle => 'Messages';
@@ -3175,12 +3112,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientMessagesEmptySupport => 'Support';
-
-  @override
-  String get clientMessagesGuestLabel => 'Sign in to see your messages';
-
-  @override
-  String get clientMessagesGuestAction => 'Sign in';
 
   @override
   String get clientMessagesVisitMembers => 'Chat members';
@@ -3307,9 +3238,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientMessagesSuggestVoucherAny => 'Peace be upon you. Could you tell us the voucher price for the ladies’ reception?';
-
-  @override
-  String get clientMessagesSupportIntro => 'Hello, how can we help?';
 
   @override
   String get clientMessagesBlockedNote => 'Blocked';
@@ -3888,12 +3816,6 @@ class AppL10nEn extends AppL10n {
   String get clientMyWeddingToolServices => 'Services';
 
   @override
-  String get clientMyWeddingGuestAction => 'Sign in';
-
-  @override
-  String get clientMyWeddingSample => 'Sample';
-
-  @override
   String get clientMyWeddingUpdated => 'Last updated';
 
   @override
@@ -4248,7 +4170,7 @@ class AppL10nEn extends AppL10n {
   String get clientOnboardingInfoTitle => 'Your answers';
 
   @override
-  String get clientOnboardingInfoBody => 'All optional. They stay on this device until you sign up, and you can change them anytime in Profile.';
+  String get clientOnboardingInfoBody => 'All optional. You can change them anytime in Profile.';
 
   @override
   String get clientOnboardingAboutTitle => 'Who’s planning?';
@@ -4367,48 +4289,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientOnboardingSkipHalf => 'Later';
-
-  @override
-  String get clientOnboardingAreasTitle => 'Areas';
-
-  @override
-  String get clientOnboardingAreasSearch => 'Search areas';
-
-  @override
-  String clientOnboardingAreasSelected(int count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString areas selected',
-      one: '$countString area selected',
-      zero: 'No areas selected',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get clientOnboardingAreasDemoQuery => 'Mish';
-
-  @override
-  String clientOnboardingAreasMore(int count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString more areas',
-      one: '$countString more area',
-      zero: 'No more areas',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get clientOnboardingAreasNoHallsNote => 'No halls yet. Home shows all.';
 
   @override
   String get clientOnboardingLanguageNativeAr => 'العربية';
@@ -4814,9 +4694,6 @@ class AppL10nEn extends AppL10n {
   String get clientPlannerOtherPlanners => 'Other planners';
 
   @override
-  String get clientPlannerGuestSignIn => 'Sign in';
-
-  @override
   String get clientPlannerRetryToast => 'Still can’t connect';
 
   @override
@@ -5010,9 +4887,6 @@ class AppL10nEn extends AppL10n {
   String get clientProfileSharedPrivacy => 'Privacy';
 
   @override
-  String get clientProfileSharedSignIn => 'Sign in';
-
-  @override
   String get clientProfileSharedSignOut => 'Sign out';
 
   @override
@@ -5140,9 +5014,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientProfileWedBudget => 'Venue and catering';
-
-  @override
-  String get clientProfileWedAreas => 'Areas';
 
   @override
   String get clientProfileWedTotal => 'Total budget';
@@ -5474,6 +5345,18 @@ class AppL10nEn extends AppL10n {
   String get clientProfileDelScheduledCancelled => 'Deletion cancelled';
 
   @override
+  String get clientProfilePersSex => 'Sex';
+
+  @override
+  String get clientProfilePersSexFemale => 'Female';
+
+  @override
+  String get clientProfilePersSexMale => 'Male';
+
+  @override
+  String get clientProfileWedGovernorates => 'Governorates';
+
+  @override
   String clientReviewsRewardsStarCount(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String countString = countNumberFormat.format(count);
@@ -5530,12 +5413,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientReviewsRewardsListEvent => 'Your event';
-
-  @override
-  String get clientReviewsRewardsListSignIn => 'Sign in';
-
-  @override
-  String get clientReviewsRewardsListSignInName => 'to review your event';
 
   @override
   String get clientReviewsRewardsListInfoTitle => 'Verified reviews';
@@ -5777,12 +5654,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientSavedCompareSavedRemoved => 'Removed';
-
-  @override
-  String get clientSavedCompareSavedGuestBanner => 'This phone only';
-
-  @override
-  String get clientSavedCompareSavedGuestSignIn => 'Sign in';
 
   @override
   String get clientSavedCompareLastUpdated => 'Last updated';
@@ -6082,9 +5953,6 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientServicesArea => 'Area';
-
-  @override
   String get clientServicesProviders => 'Providers';
 
   @override
@@ -6146,9 +6014,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientServicesHubSavedTitle => 'Saved';
-
-  @override
-  String get clientServicesHubGovernmentNote => 'Add catering and decor';
 
   @override
   String clientServicesHubVoucherLine(String fee) {
@@ -6330,9 +6195,6 @@ class AppL10nEn extends AppL10n {
   String get clientServicesQuoteDateError => 'Date needed';
 
   @override
-  String get clientServicesQuoteGuestNote => 'Sign in to send';
-
-  @override
   String get clientServicesQuoteThreadExists => 'Added to your chat';
 
   @override
@@ -6394,6 +6256,36 @@ class AppL10nEn extends AppL10n {
   String get clientServicesListRefreshed => 'List updated';
 
   @override
+  String get clientServicesProviderNote => 'Service provider? Apply in the Partner app';
+
+  @override
+  String get clientServicesProviderNoteAction => 'Apply';
+
+  @override
+  String get clientServicesProviderNoteOpens => 'Opens Partner app store';
+
+  @override
+  String get clientServicesGovernorate => 'Governorate';
+
+  @override
+  String clientServicesGovernorateTitle(int count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Governorates · $countString',
+      one: 'Governorates · $countString',
+      zero: 'Governorates',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clientServicesArea => 'Area';
+
+  @override
   String get clientShellTabBarLabel => 'Main navigation';
 
   @override
@@ -6426,9 +6318,6 @@ class AppL10nEn extends AppL10n {
   }
 
   @override
-  String get clientShellGreetingAnonymous => 'Hello';
-
-  @override
   String get clientShellBriefTitle => 'Your brief';
 
   @override
@@ -6439,9 +6328,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientShellBriefGuests => 'Guests';
-
-  @override
-  String get clientShellBriefArea => 'Area';
 
   @override
   String get clientShellBriefBudget => 'Venue and catering budget';
@@ -6718,9 +6604,6 @@ class AppL10nEn extends AppL10n {
   String get clientVenuePkgMenu => 'Menu';
 
   @override
-  String get clientVenuePkgExtras => 'Extras';
-
-  @override
   String get clientVenuePkgSave => 'Save package';
 
   @override
@@ -6769,7 +6652,7 @@ class AppL10nEn extends AppL10n {
   String get clientVenueFacIncluded => 'Included';
 
   @override
-  String get clientVenueFacExtra => 'Extra';
+  String get clientVenueFacExtra => 'Extra cost';
 
   @override
   String get clientVenueFacOff => 'Not offered';
@@ -6906,20 +6789,6 @@ class AppL10nEn extends AppL10n {
   String clientVenueTotalFor(String guests) {
     return 'Total for $guests';
   }
-
-  @override
-  String get clientVenueContactTitle => 'Contact';
-
-  @override
-  String clientVenueContactCalling(String venue) {
-    return 'Calling $venue';
-  }
-
-  @override
-  String get clientVenueContactWhatsapp => 'Opening WhatsApp';
-
-  @override
-  String get clientVenueContactChat => 'Message';
 
   @override
   String get clientVenueCalTitle => 'Dates';
@@ -7155,9 +7024,6 @@ class AppL10nEn extends AppL10n {
   String get clientVenueGovCtaOfficial => 'Official booking';
 
   @override
-  String get clientVenueGovCtaCatering => 'Find services';
-
-  @override
   String get clientVenueGovLeaveTitle => 'Leaving Ghazal';
 
   @override
@@ -7351,12 +7217,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientVisitsConfirmedToast => 'Time confirmed';
-
-  @override
-  String get clientVisitsGuestTitle => 'Your visits';
-
-  @override
-  String get clientVisitsGuestAction => 'Sign in';
 
   @override
   String get clientVisitsMsgSending => 'Sending';
@@ -7599,9 +7459,6 @@ class AppL10nEn extends AppL10n {
   String get clientVouchersCreditIssuedBody => 'Support issued you a credit voucher. It works at any hall, hotel or service.';
 
   @override
-  String get clientVouchersCtaSignIn => 'Sign in';
-
-  @override
   String get clientVouchersDetailTitle => 'Voucher';
 
   @override
@@ -7634,9 +7491,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get clientVouchersGetVoucher => 'Get voucher';
-
-  @override
-  String get clientVouchersGuestTitle => 'Your vouchers';
 
   @override
   String get clientVouchersHistPaid => 'Paid';

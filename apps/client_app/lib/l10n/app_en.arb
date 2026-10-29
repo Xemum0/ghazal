@@ -399,7 +399,6 @@
       }
     }
   },
-  "commonLabelGuestVoucher": "Voucher price after you sign up",
   "commonRoleClient": "Client",
   "commonRoleYou": "You",
   "commonRoleHotelRep": "Hotel representative",
@@ -473,8 +472,6 @@
   "clientAuthSharedAccountReady": "Account ready",
   "clientAuthSharedPhone": "Mobile",
   "clientAuthSharedSendCode": "Send code",
-  "clientAuthSharedDate": "Date",
-  "clientAuthSharedGuests": "Guests",
   "clientAuthSharedLegalTerms": "Terms of Use",
   "clientAuthSharedLegalPrivacy": "Privacy Policy",
   "clientAuthSharedLegalNote": "Full text before launch",
@@ -489,14 +486,6 @@
   "clientAuthSharedInfoTitle": "Your account",
   "clientAuthSharedPartnerNote": "Hotel or service provider? Use the Ghazal Partner app.",
   "clientAuthSharedSmallPrint": "Our <terms>Terms of Use</terms> and <privacy>Privacy Policy</privacy> apply. You confirm them when you create an account.",
-  "clientAuthReasonSendRequest": "Send request",
-  "clientAuthReasonVoucher": "Voucher",
-  "clientAuthReasonVisit": "Visit",
-  "clientAuthReasonChat": "Message",
-  "clientAuthReasonReview": "Review",
-  "clientAuthReasonPlanner": "Consultation",
-  "clientAuthReasonQuote": "Quote",
-  "clientAuthReasonSave": "Shortlist",
   "clientAuthGateErrorDigits": "Needs {count, plural, one{{count} digit} other{{count} digits}}",
   "@clientAuthGateErrorDigits": {
     "placeholders": {
@@ -551,13 +540,15 @@
   "clientAuthOtpSendAgain": "Send again",
   "clientAuthOtpSuccessTitle": "Verified",
   "clientAuthOtpOpening": "Opening WhatsApp",
-  "clientAuthNameTitle": "Create account",
+  "clientAuthNameTitle": "About you",
   "clientAuthNameLabel": "Name",
   "clientAuthNamePlaceholder": "Full name",
   "clientAuthNameEmailLabel": "Email",
+  "clientAuthNameSexLabel": "Sex",
+  "clientAuthNameSexFemale": "Female",
+  "clientAuthNameSexMale": "Male",
   "clientAuthNameAccept": "I agree",
   "clientAuthNameLegalTitle": "Terms and privacy",
-  "clientAuthNameKept": "Saved to your account",
   "clientAuthNameMonogram": "Your monogram",
   "clientAuthPwdForgotTitle": "Reset password",
   "clientAuthPwdResetTitle": "New password",
@@ -716,13 +707,6 @@
   "clientBookingPackageNoneAction": "Change guests",
   "clientBookingPackageMissingReason": "Choose a package",
   "clientBookingPackageBreakdownOpen": "See the price breakdown",
-  "clientBookingExtrasTitle": "Extras",
-  "clientBookingExtrasInfoTitle": "Extras",
-  "clientBookingExtrasIncluded": "Included",
-  "clientBookingExtrasNone": "No extras",
-  "clientBookingExtrasNoneOffered": "This venue does not sell extras for your booking. You can continue.",
-  "clientBookingExtrasLead": "Optional and priced separately, at your voucher price where the venue has one.",
-  "clientBookingExtrasSettledNote": "Extras are settled directly with the venue.",
   "clientBookingDetailsTitle": "Details",
   "clientBookingNameLabel": "Name",
   "clientBookingNameError": "Add a name",
@@ -773,7 +757,6 @@
     }
   },
   "clientBookingReviewTitle": "Review",
-  "clientBookingReviewExtras": "Extras",
   "clientBookingReviewContact": "Contact",
   "clientBookingReviewPackage": "Package",
   "clientBookingReviewPriceNote": "All-in, and frozen when you send. Nothing more to pay Ghazal: after you confirm, you pay the venue directly.",
@@ -822,8 +805,6 @@
   "clientBookingVoucherCardTitle": "Voucher",
   "clientBookingVoucherChange": "Change voucher",
   "clientBookingVoucherValid": "Valid until",
-  "clientBookingQuoteChanged": "Your total changed since you got the voucher, because of the extras you added. The voucher still applies.",
-  "clientBookingQuoteChangedShort": "Total changed",
   "clientBookingSentTitle": "Request sent",
   "clientBookingSentInfoTitle": "Your request",
   "clientBookingSentBody": "The date is not held yet. If {venue} approves, we hold it for you for {count, plural, one{{count} hour} other{{count} hours}} so you can confirm. Your voucher is attached to the request.",
@@ -1014,8 +995,6 @@
   "clientBookingsPastNone": "No requests with this status",
   "clientBookingsLimitLabel": "Open requests",
   "clientBookingsLimitReached": "Close one to send another",
-  "clientBookingsGuestTitle": "Track your requests",
-  "clientBookingsGuestAction": "Sign in",
   "clientBookingsEmptyTitle": "No requests yet",
   "clientBookingsEmptyAction": "Find halls",
   "clientBookingsEmptyActionDate": "Halls on {date}",
@@ -1371,20 +1350,8 @@
   "clientDiscoverBrowseAll": "All halls",
   "clientDiscoverBriefLabel": "Your brief",
   "clientDiscoverBriefChooseDate": "Date",
-  "clientDiscoverBriefChooseArea": "Area",
   "clientDiscoverBriefAddGuests": "Guests",
   "clientDiscoverBriefSetBudget": "Budget",
-  "clientDiscoverBriefAreaMore": "{first} +{more}",
-  "@clientDiscoverBriefAreaMore": {
-    "placeholders": {
-      "first": {
-        "type": "String"
-      },
-      "more": {
-        "type": "String"
-      }
-    }
-  },
   "clientDiscoverCtaCount": "{count, plural, one{Show {count} hall} other{Show {count} halls}}",
   "@clientDiscoverCtaCount": {
     "placeholders": {
@@ -1397,7 +1364,7 @@
   "clientDiscoverCtaShow": "Show halls",
   "clientDiscoverCtaNearest": "Nearest dates",
   "clientDiscoverResultsTitle": "Halls",
-  "clientDiscoverResultsSearchPlaceholder": "Hall or area",
+  "clientDiscoverResultsSearchPlaceholder": "Hall or governorate",
   "clientDiscoverResultsFilters": "Filters",
   "clientDiscoverResultsClearAll": "Clear",
   "clientDiscoverResultsRemoveChip": "Remove {name}",
@@ -1433,7 +1400,6 @@
   "clientDiscoverSortPrice": "Lowest price",
   "clientDiscoverSortPriceDesc": "Highest price",
   "clientDiscoverSortDistance": "Nearest",
-  "clientDiscoverChipAreasAll": "All areas",
   "clientDiscoverChipRating": "{rating}+",
   "@clientDiscoverChipRating": {
     "placeholders": {
@@ -1500,7 +1466,6 @@
   "clientDiscoverBriefBack": "Back to your brief",
   "clientDiscoverBriefDateTitle": "Date",
   "clientDiscoverBriefDateFlexible": "Any month",
-  "clientDiscoverBriefAreaTitle": "Area",
   "clientDiscoverBriefGuestsTitle": "Guests",
   "clientDiscoverBriefGuestsPresets": "Quick choices",
   "clientDiscoverBriefGuestsSection": "Searching for",
@@ -1516,9 +1481,6 @@
     }
   },
   "clientDiscoverBriefDone": "Done",
-  "clientDiscoverMergeTitle": "Two briefs",
-  "clientDiscoverMergePhone": "This phone",
-  "clientDiscoverMergeAccount": "My account",
   "clientDiscoverMapTitle": "Map",
   "clientDiscoverMapPins": "Halls on the map",
   "clientDiscoverMapCluster": "{count, plural, one{{count} hall here, tap to zoom in} other{{count} halls here, tap to zoom in}}",
@@ -1533,10 +1495,10 @@
   "clientDiscoverMapZoomOut": "Show all halls",
   "clientDiscoverMapLocate": "My location",
   "clientDiscoverMapSearchArea": "Search here",
-  "clientDiscoverMapDenied": "Near {area}",
+  "clientDiscoverMapDenied": "Near {place}",
   "@clientDiscoverMapDenied": {
     "placeholders": {
-      "area": {
+      "place": {
         "type": "String"
       }
     }
@@ -1550,22 +1512,25 @@
   "clientDiscoverWeekTitle": "This week",
   "clientDiscoverCardGetVoucher": "Get voucher",
   "clientDiscoverCardView": "View",
-  "clientDiscoverChipRegion": "Region",
+  "clientDiscoverChipRegion": "Governorate",
   "clientDiscoverChipDate": "Date",
   "clientDiscoverChipVoucher": "Voucher",
   "clientDiscoverSortVoucher": "Voucher price",
   "clientDiscoverMapVoucherPin": "Voucher price",
-  "clientDiscoverFiltersGroupRegion": "Region",
+  "clientDiscoverFiltersGroupRegion": "{count, plural, =0{Governorates} one{Governorates · {count}} other{Governorates · {count}}}",
+  "@clientDiscoverFiltersGroupRegion": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
   "clientDiscoverFiltersGroupStructure": "Pricing",
   "clientDiscoverFiltersGroupDate": "Date",
   "clientDiscoverFiltersGroupVoucher": "Voucher price",
   "clientDiscoverFiltersDateOpen": "Calendar",
   "clientDiscoverFiltersVoucherTitle": "Voucher only",
-  "clientDiscoverBriefAreaAll": "All",
-  "clientDiscoverBriefAreaClearGroup": "Clear",
-  "clientDiscoverRegionPlaceholder": "Area or hall",
-  "clientDiscoverRegionNear": "Near me",
-  "clientDiscoverRegionListLabel": "Governorates and areas",
   "clientDiscoverDatesTitle": "Dates",
   "clientDiscoverDatesFlexible": "Any month",
   "clientDiscoverDatesHint": "Up to {days, plural, one{{days} day} other{{days} days}}",
@@ -1599,7 +1564,6 @@
   "clientDiscoverA11yTimeLeft": "Time remaining",
   "clientDiscoverA11yUpdated": "Updated",
   "clientDiscoverA11yDrive": "Drive time",
-  "clientDiscoverMergeKeep": "Keep",
   "clientDiscoverA11yDaysLeft": "Days remaining",
   "clientDiscoverMinutes": "{minutes} min",
   "@clientDiscoverMinutes": {
@@ -1628,6 +1592,29 @@
       }
     }
   },
+  "clientDiscoverBriefChooseGovernorate": "Governorate",
+  "clientDiscoverBriefGovernorateMore": "{first} +{more}",
+  "@clientDiscoverBriefGovernorateMore": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "more": {
+        "type": "String"
+      }
+    }
+  },
+  "clientDiscoverBriefGovernorateTitle": "{count, plural, =0{Governorates} one{Governorates · {count}} other{Governorates · {count}}}",
+  "@clientDiscoverBriefGovernorateTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientDiscoverBriefGovernorateLabel": "Governorates",
+  "clientDiscoverChipGovernoratesAll": "All governorates",
   "clientMessagesInboxTitle": "Messages",
   "clientMessagesBellUnread": "{count, plural, =0{Notifications} one{Notifications, {count} unread} other{Notifications, {count} unread}}",
   "@clientMessagesBellUnread": {
@@ -1680,8 +1667,6 @@
   "clientMessagesEmptyTitle": "No messages yet",
   "clientMessagesEmptyAction": "Browse halls",
   "clientMessagesEmptySupport": "Support",
-  "clientMessagesGuestLabel": "Sign in to see your messages",
-  "clientMessagesGuestAction": "Sign in",
   "clientMessagesVisitMembers": "Chat members",
   "clientMessagesInfoTitle": "Details",
   "clientMessagesRepliesWithin": "{hours, plural, one{Usually replies within an hour} other{Usually replies within {hours} hours}}",
@@ -1741,7 +1726,6 @@
     }
   },
   "clientMessagesSuggestVoucherAny": "Peace be upon you. Could you tell us the voucher price for the ladies’ reception?",
-  "clientMessagesSupportIntro": "Hello, how can we help?",
   "clientMessagesBlockedNote": "Blocked",
   "clientMessagesUnblock": "Unblock",
   "clientMessagesUnblockedToast": "Unblocked",
@@ -2012,8 +1996,6 @@
   "clientMyWeddingToolBudgetOver": "Over",
   "clientMyWeddingToolSaved": "Saved",
   "clientMyWeddingToolServices": "Services",
-  "clientMyWeddingGuestAction": "Sign in",
-  "clientMyWeddingSample": "Sample",
   "clientMyWeddingUpdated": "Last updated",
   "clientMyWeddingDateDiffersLabel": "Booking date",
   "clientMyWeddingDateDiffersAction": "Use date",
@@ -2248,7 +2230,7 @@
   "clientOnboardingIntroSlide3Title": "Lower voucher prices",
   "clientOnboardingIntroStart": "Get started",
   "clientOnboardingInfoTitle": "Your answers",
-  "clientOnboardingInfoBody": "All optional. They stay on this device until you sign up, and you can change them anytime in Profile.",
+  "clientOnboardingInfoBody": "All optional. You can change them anytime in Profile.",
   "clientOnboardingAboutTitle": "Who’s planning?",
   "clientOnboardingAboutRoleLabel": "Your role",
   "clientOnboardingAboutRoleBride": "Bride",
@@ -2329,28 +2311,6 @@
   },
   "clientOnboardingBudgetRange": "Custom budget range",
   "clientOnboardingSkipHalf": "Later",
-  "clientOnboardingAreasTitle": "Areas",
-  "clientOnboardingAreasSearch": "Search areas",
-  "clientOnboardingAreasSelected": "{count, plural, =0{No areas selected} one{{count} area selected} other{{count} areas selected}}",
-  "@clientOnboardingAreasSelected": {
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "decimalPattern"
-      }
-    }
-  },
-  "clientOnboardingAreasDemoQuery": "Mish",
-  "clientOnboardingAreasMore": "{count, plural, =0{No more areas} one{{count} more area} other{{count} more areas}}",
-  "@clientOnboardingAreasMore": {
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "decimalPattern"
-      }
-    }
-  },
-  "clientOnboardingAreasNoHallsNote": "No halls yet. Home shows all.",
   "clientOnboardingLanguageNativeAr": "العربية",
   "clientOnboardingLanguageNativeEn": "English",
   "clientPaymentTopTitle": "Payment",
@@ -2526,7 +2486,6 @@
   "clientPlannerRequestConsultation": "Request consultation",
   "clientPlannerNotNowToast": "Always in My Wedding",
   "clientPlannerOtherPlanners": "Other planners",
-  "clientPlannerGuestSignIn": "Sign in",
   "clientPlannerRetryToast": "Still can’t connect",
   "clientPlannerRequestTitle": "Consultation",
   "clientPlannerRequestChange": "Change package",
@@ -2632,7 +2591,6 @@
   "clientProfileSharedSupport": "Support",
   "clientProfileSharedTerms": "Terms",
   "clientProfileSharedPrivacy": "Privacy",
-  "clientProfileSharedSignIn": "Sign in",
   "clientProfileSharedSignOut": "Sign out",
   "clientProfileSharedSignOutTitle": "Sign out?",
   "clientProfileSharedSignOutStay": "Stay",
@@ -2682,7 +2640,6 @@
   "clientProfileWedLadies": "Ladies",
   "clientProfileWedMen": "Men",
   "clientProfileWedBudget": "Venue and catering",
-  "clientProfileWedAreas": "Areas",
   "clientProfileWedTotal": "Total budget",
   "clientProfileWedDiffersAction": "Use date",
   "clientProfileWedDateUpdated": "Date updated",
@@ -2850,6 +2807,10 @@
   "clientProfileDelScheduledTitle": "Deletion scheduled",
   "clientProfileDelScheduledCancel": "Cancel deletion",
   "clientProfileDelScheduledCancelled": "Deletion cancelled",
+  "clientProfilePersSex": "Sex",
+  "clientProfilePersSexFemale": "Female",
+  "clientProfilePersSexMale": "Male",
+  "clientProfileWedGovernorates": "Governorates",
   "clientReviewsRewardsStarCount": "{count, plural, one{{count} star} other{{count} stars}}",
   "@clientReviewsRewardsStarCount": {
     "placeholders": {
@@ -2894,8 +2855,6 @@
   "clientReviewsRewardsListTitle": "Reviews",
   "clientReviewsRewardsListWrite": "Write review",
   "clientReviewsRewardsListEvent": "Your event",
-  "clientReviewsRewardsListSignIn": "Sign in",
-  "clientReviewsRewardsListSignInName": "to review your event",
   "clientReviewsRewardsListInfoTitle": "Verified reviews",
   "clientReviewsRewardsListInfoReal": "Only guests with a completed booking can review.",
   "clientReviewsRewardsListInfoVenue": "Venues reply once. They cannot edit or remove reviews.",
@@ -3046,8 +3005,6 @@
   },
   "clientSavedCompareSavedUnlisted": "Unlisted",
   "clientSavedCompareSavedRemoved": "Removed",
-  "clientSavedCompareSavedGuestBanner": "This phone only",
-  "clientSavedCompareSavedGuestSignIn": "Sign in",
   "clientSavedCompareLastUpdated": "Last updated",
   "clientSavedCompareSavedEmptyVenuesTitle": "No halls saved",
   "clientSavedCompareSavedEmptyVenuesAction": "Browse halls",
@@ -3231,7 +3188,6 @@
       }
     }
   },
-  "clientServicesArea": "Area",
   "clientServicesProviders": "Providers",
   "clientServicesSoon": "Soon",
   "clientServicesVoucherAvailable": "Voucher prices available",
@@ -3253,7 +3209,6 @@
   "clientServicesHubMoreHeading": "More",
   "clientServicesHubPlannerTitle": "Wedding planner",
   "clientServicesHubSavedTitle": "Saved",
-  "clientServicesHubGovernmentNote": "Add catering and decor",
   "clientServicesHubVoucherLine": "Get a {fee} Ghazal voucher on a provider’s page to unlock lower prices. You always pay the provider directly.",
   "@clientServicesHubVoucherLine": {
     "placeholders": {
@@ -3377,7 +3332,6 @@
   "clientServicesQuoteNotePlaceholder": "Note",
   "clientServicesQuoteSend": "Send request",
   "clientServicesQuoteDateError": "Date needed",
-  "clientServicesQuoteGuestNote": "Sign in to send",
   "clientServicesQuoteThreadExists": "Added to your chat",
   "clientServicesQuoteErrorTitle": "Couldn’t send",
   "clientServicesQuoteErrorBody": "Nothing you typed was lost.",
@@ -3424,6 +3378,20 @@
     }
   },
   "clientServicesListRefreshed": "List updated",
+  "clientServicesProviderNote": "Service provider? Apply in the Partner app",
+  "clientServicesProviderNoteAction": "Apply",
+  "clientServicesProviderNoteOpens": "Opens Partner app store",
+  "clientServicesGovernorate": "Governorate",
+  "clientServicesGovernorateTitle": "{count, plural, =0{Governorates} one{Governorates · {count}} other{Governorates · {count}}}",
+  "@clientServicesGovernorateTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clientServicesArea": "Area",
   "clientShellTabBarLabel": "Main navigation",
   "clientShellTabDiscover": "Discover",
   "clientShellTabSaved": "Saved",
@@ -3447,12 +3415,10 @@
       }
     }
   },
-  "clientShellGreetingAnonymous": "Hello",
   "clientShellBriefTitle": "Your brief",
   "clientShellBriefEditLabel": "Edit date, guests, area and budget",
   "clientShellBriefDate": "Date",
   "clientShellBriefGuests": "Guests",
-  "clientShellBriefArea": "Area",
   "clientShellBriefBudget": "Venue and catering budget",
   "clientShellBriefNotDecided": "Not decided",
   "clientShellBriefFlexibleMonth": "Flexible month",
@@ -3629,7 +3595,6 @@
   "clientVenuePkgIncludes": "Included",
   "clientVenuePkgIncludesAll": "Show all inclusions",
   "clientVenuePkgMenu": "Menu",
-  "clientVenuePkgExtras": "Extras",
   "clientVenuePkgSave": "Save package",
   "clientVenuePkgSaved": "Remove from saved packages",
   "clientVenuePkgTierWeekday": "Weekday",
@@ -3668,7 +3633,7 @@
   "clientVenueFacilitiesTitle": "Facilities",
   "clientVenueFacilitiesAll": "All facilities",
   "clientVenueFacIncluded": "Included",
-  "clientVenueFacExtra": "Extra",
+  "clientVenueFacExtra": "Extra cost",
   "clientVenueFacOff": "Not offered",
   "clientVenuePoliciesTitle": "Policies",
   "clientVenuePolicyTerms": "Terms",
@@ -3746,17 +3711,6 @@
       }
     }
   },
-  "clientVenueContactTitle": "Contact",
-  "clientVenueContactCalling": "Calling {venue}",
-  "@clientVenueContactCalling": {
-    "placeholders": {
-      "venue": {
-        "type": "String"
-      }
-    }
-  },
-  "clientVenueContactWhatsapp": "Opening WhatsApp",
-  "clientVenueContactChat": "Message",
   "clientVenueCalTitle": "Dates",
   "clientVenueCalMonthJump": "Jump to a month",
   "clientVenueCalMonthTitle": "Month",
@@ -3904,7 +3858,6 @@
   "clientVenueGovRuleKnet": "KNET",
   "clientVenueGovAvail": "Official app",
   "clientVenueGovCtaOfficial": "Official booking",
-  "clientVenueGovCtaCatering": "Find services",
   "clientVenueGovLeaveTitle": "Leaving Ghazal",
   "clientVenueGovLeaveBody": "Booking and payment happen on the official channel. Ghazal does not hold or guarantee it.",
   "clientVenueGovLeaveToast": "Opening official site",
@@ -3995,8 +3948,6 @@
   "clientVisitsPhotoViewer": "Photos",
   "clientVisitsGetVoucher": "Voucher",
   "clientVisitsConfirmedToast": "Time confirmed",
-  "clientVisitsGuestTitle": "Your visits",
-  "clientVisitsGuestAction": "Sign in",
   "clientVisitsMsgSending": "Sending",
   "clientVisitsMsgQueued": "Queued",
   "clientVisitsMsgDelete": "Delete",
@@ -4187,7 +4138,6 @@
   },
   "clientVouchersCreditDeclined": "No credit issued",
   "clientVouchersCreditIssuedBody": "Support issued you a credit voucher. It works at any hall, hotel or service.",
-  "clientVouchersCtaSignIn": "Sign in",
   "clientVouchersDetailTitle": "Voucher",
   "clientVouchersEmptyHistory": "No history",
   "clientVouchersEmptyReady": "No vouchers",
@@ -4212,7 +4162,6 @@
   },
   "clientVouchersGetAnother": "Get another",
   "clientVouchersGetVoucher": "Get voucher",
-  "clientVouchersGuestTitle": "Your vouchers",
   "clientVouchersHistPaid": "Paid",
   "clientVouchersHistRequested": "Requested",
   "clientVouchersHistReturned": "Returned",

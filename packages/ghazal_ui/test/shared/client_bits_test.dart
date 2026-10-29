@@ -50,14 +50,13 @@ void main() {
     expect(find.byIcon(GzIcons.lock), findsNothing);
   });
 
-  testWidgets('guest sees the standard price headline, no saving, and the lock line', (tester) async {
+  testWidgets('no guest mode (ADR 0038): the deprecated guest audience no longer locks the voucher price', (tester) async {
     final handle = tester.ensureSemantics();
     await pumpCore(tester, const GzCardPriceLine(price: _exact, audience: GzPriceAudience.guest));
-    expect(find.byKey(const ValueKey('gz-card-price-lock')), findsOneWidget);
-    expect(find.bySemanticsLabel(RegExp('Voucher price after you sign up')), findsOneWidget);
-    expect(find.bySemanticsLabel(RegExp('Save')), findsNothing);
-    expect(find.textContaining('18,200'), findsOneWidget);
-    expect(find.textContaining('15,400'), findsNothing);
+    expect(find.byKey(const ValueKey('gz-card-price-lock')), findsNothing);
+    expect(find.byIcon(GzIcons.lock), findsNothing);
+    expect(find.bySemanticsLabel(RegExp('Save')), findsOneWidget);
+    expect(find.textContaining('15,400'), findsOneWidget);
     handle.dispose();
   });
 

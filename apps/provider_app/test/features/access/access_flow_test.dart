@@ -30,6 +30,43 @@ void main() {
     expect(find.text('Allow notifications'), findsWidgets); // first run: the notifications sheet, then the lock
   });
 
+  /// Signs in with [email] on the sign-in screen (the new-device code is any six digits) and lets the landing run.
+  Future<void> signInAs(WidgetTester tester, String email) async {
+    await tester.enterText(find.byType(EditableText).at(0), email);
+    await settle(tester);
+    await tap(tester, find.text('Sign in'));
+    expect(find.byType(HlAccs02Screen), findsOneWidget);
+    await tester.enterText(find.byType(EditableText).first, '123456');
+    await settle(tester);
+    await tester.pump(const Duration(seconds: 2));
+    await settle(tester);
+  }
+
+  // Round 2 (PA-ACC-07, ADR 0038): the landing rule of a partner whose application is open or was rejected.
+  flowTest('Sign in: a provider whose application is pending lands on the account status, not on Today', (tester) async {
+    final c = await openScreen(tester, 'HL-ACCS-01');
+    await signInAs(tester, 'rawan@rawan-lens.example');
+    expect(currentId(c), 'HL-ACCS-04');
+    expect(find.text('Application in review'), findsOneWidget);
+    expect(find.text('Rawan Lens'), findsOneWidget);
+    expect(find.byType(HlTody01Screen), findsNothing);
+  });
+
+  flowTest('Sign in: a provider whose application was rejected lands on the status with the reason and Edit and resubmit', (tester) async {
+    final c = await openScreen(tester, 'HL-ACCS-01');
+    await signInAs(tester, 'bader@bader-decor.example');
+    expect(currentId(c), 'HL-ACCS-04');
+    expect(find.text('Application not approved'), findsOneWidget);
+    expect(find.text('Please add your commercial licence reference and send the application again.'), findsOneWidget);
+    expect(find.text('Edit and resubmit'), findsOneWidget);
+  });
+
+  flowTest('Sign in: a provider the staff already accepted (no application, an active account) continues to Today', (tester) async {
+    final c = await openScreen(tester, 'HL-ACCS-01');
+    await signInAs(tester, 'zahra@zahra-floral.example');
+    expect(currentId(c), 'HL-TODY-01');
+  });
+
   flowTest('Sign in: a wrong password says so in words and keeps the form', (tester) async {
     await openScreen(tester, 'HL-ACCS-01');
     final password = find.byType(EditableText).at(1);

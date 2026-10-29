@@ -115,7 +115,6 @@ class SavedVenueRow extends StatelessWidget {
   const SavedVenueRow({
     required this.row,
     required this.area,
-    required this.guest,
     required this.hasDate,
     this.dateText,
     this.savingChanged = false,
@@ -132,7 +131,6 @@ class SavedVenueRow extends StatelessWidget {
 
   final VenueResult row;
   final String? area;
-  final bool guest;
   final bool hasDate;
 
   /// The Brief date as the card says it ("14 Jan"), for the accessible sentence of the availability glyph.
@@ -197,7 +195,6 @@ class SavedVenueRow extends StatelessWidget {
       VenueDayState.held => l.clientSavedCompareSavedAvailHeld,
       _ => l.clientSavedCompareSavedAvailBooked(date ?? ''),
     };
-    final audience = guest ? GzPriceAudience.guest : GzPriceAudience.member;
     return SavedRow(
       key: ValueKey<String>('saved.row.${v.id}'),
       last: last,
@@ -243,7 +240,7 @@ class SavedVenueRow extends StatelessWidget {
                 GzFactChip(icon: GzIcons.trendDown, tone: GzFactTone.accent, small: true, label: l.clientSavedCompareSavedSavingChanged),
             ],
           ),
-          if (row.price != null) ...[const SizedBox(height: GzSpace.s1), GzCardPriceLine(price: row.price!, audience: audience)],
+          if (row.price != null) ...[const SizedBox(height: GzSpace.s1), GzCardPriceLine(price: row.price!)],
         ],
       ),
     );
@@ -252,11 +249,10 @@ class SavedVenueRow extends StatelessWidget {
 
 /// A service provider of the Saved tab.
 class SavedVendorRow extends StatelessWidget {
-  const SavedVendorRow({required this.vendor, required this.area, required this.guest, this.onOpen, this.onRemove, this.last = false, super.key});
+  const SavedVendorRow({required this.vendor, required this.area, this.onOpen, this.onRemove, this.last = false, super.key});
 
   final ServiceProvider vendor;
   final String? area;
-  final bool guest;
   final VoidCallback? onOpen;
   final VoidCallback? onRemove;
   final bool last;
@@ -273,7 +269,7 @@ class SavedVendorRow extends StatelessWidget {
     // Two prices on the same basis; a voucher is only sold when the saving beats the fee, so a small saving shows the standard price alone.
     final voucher = vendor.fromVoucher != null && vendor.fromVoucher!.fils < vendor.from.fils ? vendor.fromVoucher : null;
     final saving = voucher == null ? 0 : vendor.from.fils - voucher.fils;
-    final showVoucher = voucher != null && !guest;
+    final showVoucher = voucher != null;
     final rating = vendor.rating;
     return SavedRow(
       key: ValueKey<String>('saved.row.${vendor.id}'),
@@ -323,20 +319,6 @@ class SavedVendorRow extends StatelessWidget {
                   label: lg.commonSaveAmount(f.money(saving, const MoneyOptions(mode: MoneyMode.browse))),
                   text: f.money(saving, const MoneyOptions(mode: MoneyMode.browse)),
                 ),
-              if (voucher != null && guest)
-                Semantics(
-                  label: lg.commonLabelGuestVoucher,
-                  child: ExcludeSemantics(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        GzIcon(GzIcons.ticket, size: GzIconSize.xs, color: c.iconSecondary),
-                        const SizedBox(width: GzSpace.s1),
-                        GzIcon(GzIcons.lock, size: GzIconSize.xs, color: c.iconSecondary),
-                      ],
-                    ),
-                  ),
-                ),
             ],
           ),
         ],
@@ -378,11 +360,10 @@ class _SavingChip extends StatelessWidget {
 
 /// A saved hall package (the hall's cover, the package and hall names, both prices).
 class SavedHallPackageRow extends StatelessWidget {
-  const SavedHallPackageRow({required this.pkg, required this.venue, required this.guest, this.onOpen, this.onRemove, this.last = false, super.key});
+  const SavedHallPackageRow({required this.pkg, required this.venue, this.onOpen, this.onRemove, this.last = false, super.key});
 
   final Package pkg;
   final VenueSummary venue;
-  final bool guest;
   final VoidCallback? onOpen;
   final VoidCallback? onRemove;
   final bool last;
@@ -419,7 +400,6 @@ class SavedHallPackageRow extends StatelessWidget {
             voucher: pkg.voucherFils,
             structure: pkg.priceStructure,
             variant: GzPriceCompareVariant.inline,
-            audience: guest ? GzPriceCompareAudience.guest : GzPriceCompareAudience.member,
             showNet: false,
           ),
         ],

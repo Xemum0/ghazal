@@ -2,7 +2,7 @@ import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show sessionProvider, venuesRepositoryProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show venuesRepositoryProvider;
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, GzFormat;
 
 
@@ -109,7 +109,6 @@ class _ClVenu03State extends ConsumerState<ClVenu03Screen> {
               _MonthQuery(venueId: venue.id, hallId: hall.id, year: month.year, month: month.month, guests: brief.guests, audience: brief.audience),
             ),
           );
-    final guest = !ref.watch(sessionProvider.select((s) => s.isSignedIn));
 
     final info = <String, GzCalendarDayInfo>{};
     for (final d in days.value ?? const <AvailabilityDay>[]) {
@@ -207,13 +206,12 @@ class _ClVenu03State extends ConsumerState<ClVenu03Screen> {
             label: l.clientVenueCalTitle,
           ),
           ..._occasions(l, f, month, config?.occasions ?? const <Occasion>[]),
-          const SizedBox(height: GzSpace.s8 + GzSpace.s1),
+          const SizedBox(height: GzSpace.s5),
           _FocusCard(
             focus: focus,
             day: focusDay,
             focusView: focusView,
             similar: similarRows,
-            guest: guest,
             source: source,
             actions: actions,
             venueId: venue.id,
@@ -235,7 +233,6 @@ class _ClVenu03State extends ConsumerState<ClVenu03Screen> {
                       status: focusView.value?.status ?? (focusDay == null ? DayStatusKind.none : statusOfDay(focusDay, focus)),
                       prices: focusView.value?.prices,
                       owned: focusView.value?.owned,
-                      guest: guest,
                       source: source,
                       actions: actions,
                       venueId: venue.id,
@@ -338,7 +335,6 @@ class _FocusCard extends ConsumerWidget {
     required this.day,
     required this.focusView,
     required this.similar,
-    required this.guest,
     required this.source,
     required this.actions,
     required this.venueId,
@@ -350,7 +346,6 @@ class _FocusCard extends ConsumerWidget {
   final AvailabilityDay? day;
   final AsyncValue<VenueView> focusView;
   final List<VenueResult> similar;
-  final bool guest;
   final String? source;
   final VenueActions actions;
   final String venueId;
@@ -369,25 +364,43 @@ class _FocusCard extends ConsumerWidget {
     }
     final v = focusView.value;
     final status = v?.status ?? (day == null ? DayStatusKind.none : statusOfDay(day, focus));
-    return Column(
+    // A ruled block, not a panel: a hairline above and 16 of air (web `.gzv-cal__sum`).
+    return Container(
       key: const ValueKey<String>('venue.cal.focus'),
+      padding: const EdgeInsetsDirectional.only(top: GzSpace.s4),
+      decoration: BoxDecoration(border: Border(top: BorderSide(color: context.gz.colors.borderHairline, width: GzStroke.hair))),
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        // The web head: the date and its Hijri line in one column, the status pill at the end edge (`.gzv-cal__sum-head`), 12 below it.
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: GzText(shortDay(f, focus!), role: GzTextRole.title, color: context.gz.colors.textStrong),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Chrome rounds Almarai's title line to 28 and its caption line to 22 (English 24 and 20): the Arabic lines need the minimum.
+                  ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: context.gz.isAr ? 28 : 24),
+                    child: GzText(shortDay(f, focus!), role: GzTextRole.title, color: context.gz.colors.textStrong, figures: true),
+                  ),
+                  if (f.dateWithHijri(focus.toString()).secondary case final String h)
+                    ConstrainedBox(
+                      constraints: BoxConstraints(minHeight: context.gz.isAr ? 22 : 20),
+                      child: GzText(h, role: GzTextRole.caption, color: context.gz.colors.textSecondary, figures: true),
+                    ),
+                ],
+              ),
             ),
             if (status == DayStatusKind.available) const GzStatusPill(status: GzStatus.available),
             if (status == DayStatusKind.held) const GzStatusPill(status: GzStatus.held),
             if (status == DayStatusKind.unavailable) const GzStatusPill(status: GzStatus.unavailable),
           ],
         ),
-        if (f.dateWithHijri(focus.toString()).secondary case final String h)
-          GzText(h, role: GzTextRole.caption, color: context.gz.colors.textSecondary),
-        const SizedBox(height: GzSpace.s2),
+        const SizedBox(height: GzSpace.s3),
         if (v?.prices case final QuotePrices p when status == DayStatusKind.available || status == DayStatusKind.held) ...[
-          PriceBlock(prices: p, guest: guest, owned: v?.owned != null, size: GzPriceSize.total),
+          PriceBlock(prices: p, owned: v?.owned != null, size: GzPriceSize.total),
           const SizedBox(height: GzSpace.s3),
         ],
         if (status == DayStatusKind.unavailable && v != null && v.nearest.isNotEmpty) ...[
@@ -405,6 +418,7 @@ class _FocusCard extends ConsumerWidget {
           VenueRail(rows: similar, title: l.clientVenueSimilarTitle, date: focus, actions: actions),
         ],
       ],
+      ),
     );
   }
 }
@@ -414,7 +428,6 @@ class _FocusAction extends ConsumerWidget {
     required this.status,
     required this.prices,
     required this.owned,
-    required this.guest,
     required this.source,
     required this.actions,
     required this.venueId,
@@ -431,7 +444,6 @@ class _FocusAction extends ConsumerWidget {
   final DayStatusKind status;
   final QuotePrices? prices;
   final Voucher? owned;
-  final bool guest;
   final String? source;
   final VenueActions actions;
   final String venueId;

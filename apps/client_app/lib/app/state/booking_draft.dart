@@ -49,7 +49,6 @@ final class BookingDraft {
     this.hallId,
     this.sessionId,
     this.packageId,
-    this.extras = const <String>[],
     this.eventDate,
     this.audience,
     this.guests,
@@ -70,7 +69,6 @@ final class BookingDraft {
   final String? hallId;
   final String? sessionId;
   final String? packageId;
-  final List<String> extras;
   final LocalDate? eventDate;
   final Audience? audience;
 
@@ -137,7 +135,6 @@ final class BookingDraft {
           ? null
           : [RequestSectionInput(hallId: hallId!, sessionId: sessionId!, audience: audience!, guests: guests!, packageId: packageId!)],
       service: isProvider ? RequestServiceInput(listingId: listingId!, packageId: packageId!, quantity: guests!) : null,
-      extras: extras.isEmpty ? null : [for (final id in extras) QuoteExtraInput(extraId: id, qty: 1)],
       voucherId: voucher,
       quoteId: quoteId,
       contact: ContactInput(name: personal.name, phone: personal.phone, bookingFor: personal.bookingFor, shared: personal.shareContact),
@@ -159,7 +156,6 @@ final class BookingDraft {
     String? hallId,
     String? sessionId,
     String? packageId,
-    List<String>? extras,
     LocalDate? eventDate,
     Audience? audience,
     int? guests,
@@ -181,7 +177,6 @@ final class BookingDraft {
         hallId: hallId ?? this.hallId,
         sessionId: clearSession ? null : (sessionId ?? this.sessionId),
         packageId: clearPackage ? null : (packageId ?? this.packageId),
-        extras: extras ?? this.extras,
         eventDate: eventDate ?? this.eventDate,
         audience: audience ?? this.audience,
         guests: guests ?? this.guests,
@@ -203,7 +198,6 @@ final class BookingDraft {
       other.hallId == hallId &&
       other.sessionId == sessionId &&
       other.packageId == packageId &&
-      listEquals(other.extras, extras) &&
       other.eventDate == eventDate &&
       other.audience == audience &&
       other.guests == guests &&
@@ -215,12 +209,11 @@ final class BookingDraft {
       other.step == step;
 
   @override
-  int get hashCode => Object.hash(targetType, venueId, providerId, listingId, hallId, sessionId, packageId, Object.hashAll(extras), eventDate, audience, guests,
+  int get hashCode => Object.hash(targetType, venueId, providerId, listingId, hallId, sessionId, packageId, eventDate, audience, guests,
       Object.hash(personal, requests, voucherId, quoteId, requestId, step));
 }
 
-/// The booking draft: UI memory of the request flow, not persisted. It is cleared when the client signs out (not when a guest signs in:
-/// a guest who hit the gate keeps the draft and resumes it).
+/// The booking draft: UI memory of the request flow, not persisted. It is cleared when the client signs out.
 final NotifierProvider<BookingDraftNotifier, BookingDraft> bookingDraftProvider = NotifierProvider<BookingDraftNotifier, BookingDraft>(BookingDraftNotifier.new);
 
 class BookingDraftNotifier extends Notifier<BookingDraft> {
@@ -244,7 +237,6 @@ class BookingDraftNotifier extends Notifier<BookingDraft> {
     LocalDate? eventDate,
     Audience? audience,
     int? guests,
-    List<String> extras = const <String>[],
   }) {
     final brief = ref.read(searchBriefProvider);
     final session = ref.read(sessionProvider);
@@ -257,7 +249,6 @@ class BookingDraftNotifier extends Notifier<BookingDraft> {
       hallId: hallId,
       sessionId: sessionId,
       packageId: packageId,
-      extras: List<String>.unmodifiable(extras),
       eventDate: eventDate ?? brief.date,
       audience: audience ?? brief.audience,
       guests: guests ?? brief.guests,
@@ -267,10 +258,6 @@ class BookingDraftNotifier extends Notifier<BookingDraft> {
 
   /// Replaces the draft wholesale (a flow that built it elsewhere) or edits it: `patch((d) => d.copyWith(hallId: 'V01-danah'))`.
   void patch(BookingDraft Function(BookingDraft current) change) => state = change(state);
-
-  void toggleExtra(String extraId) => state = state.copyWith(
-        extras: state.extras.contains(extraId) ? [for (final e in state.extras) if (e != extraId) e] : [...state.extras, extraId],
-      );
 
   void setStep(BookingStep step) => state = state.copyWith(step: step);
 

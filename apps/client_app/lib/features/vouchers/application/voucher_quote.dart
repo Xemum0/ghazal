@@ -56,7 +56,7 @@ final class VoucherQuote {
   VoucherCheckoutInput toCheckoutInput() =>
       VoucherCheckoutInput(targetType: targetType, targetId: targetId, hallId: hallId, packageId: packageId, eventDate: eventDate, guests: guests);
 
-  /// The params another screen of the flow takes to open this quote again (the guest gate returns with them).
+  /// The params another screen of the flow takes to open this quote again.
   Map<String, Object?> toParams() => <String, Object?>{
     if (isProvider) 'providerId': targetId else 'venueId': targetId,
     if (hallId != null) 'hallId': hallId,

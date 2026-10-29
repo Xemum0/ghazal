@@ -85,6 +85,7 @@ void main() {
       expect(BookingStatus.fromJson('a_status_from_the_future'), BookingStatus.unknown);
       expect(NotificationKind.fromJson('new_request'), NotificationKind.newRequest);
       expect(ErrorCode.fromJson('SLOT_UNAVAILABLE'), ErrorCode.slotUnavailable);
+      expect(ErrorCode.fromJson('EMAIL_ALREADY_REGISTERED'), ErrorCode.emailAlreadyRegistered, reason: 'round 2b, the public partner application');
       expect(ErrorCode.fromJson('SOMETHING_NEW'), ErrorCode.unknown);
       expect(BookingStatus.pending.toJson(), 'pending');
     });

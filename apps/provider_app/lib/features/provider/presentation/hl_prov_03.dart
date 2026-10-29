@@ -1,10 +1,13 @@
 // HL-PROV-03 Listing (web `HL-PROV-03.tsx`): create or edit a listing. Category, title and description in Arabic and English (both required
 // before review), photos, packages each with a standard price and a voucher price on the same basis, and the contact options. Save draft keeps
 // it; Continue goes to the plan (or straight to review for a fee-exempt partner or a resubmission). A live listing keeps its approved version
-// until the new one is approved. Requirements: PA-LST-01..03, PA-LST-07, HA-VMGT-09.
+// until the new one is approved. Only an accepted account creates listings (PA-ACC-07, ADR 0038): while the partner application is under review
+// or was rejected the editor is held back and the screen says so with one way to the account status; the server enforces it too (403
+// APPLICATION_NOT_ACCEPTED on a save turns the screen into the same hold). Requirements: PA-LST-01..03, PA-LST-07, HA-VMGT-09, PA-ACC-07.
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView, gzProblemMessage;
+import 'package:ghazal_core/ghazal_core.dart' show ApiProblemCode;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -29,8 +32,10 @@ class HlProv03Screen extends ConsumerWidget {
     final id = isNew ? null : (nav.params['listingId'] as String? ?? kHeroReviewListingId);
     final listing = isNew ? const AsyncValue<Listing?>.data(null) : ref.watch(pickedListingProvider(ListingPick(id, const [])));
     final packages = ref.watch(providerPackagesProvider);
-    final err = listing.hasError ? listing : packages;
-    if (!listing.isLoading && !packages.isLoading && !listing.hasError && !packages.hasError) {
+    final application = ref.watch(partnerApplicationProvider);
+    if (application.hasValue && blocksListings(application.value)) return const _AwaitingApproval();
+    final err = listing.hasError ? listing : (packages.hasError ? packages : application);
+    if (!listing.isLoading && !packages.isLoading && !application.isLoading && !listing.hasError && !packages.hasError && !application.hasError) {
       final k = listing.value;
       return _Editor(key: ValueKey(k?.id ?? 'new'), listing: k, initial: k == null ? const ListingDraft() : ListingDraft.of(k, packages.value ?? const []));
     }
@@ -42,8 +47,29 @@ class HlProv03Screen extends ConsumerWidget {
         onRetry: () {
           ref.invalidate(pickedListingProvider);
           ref.invalidate(providerPackagesProvider);
+          ref.invalidate(partnerApplicationProvider);
         },
         data: (_) => const SizedBox.shrink(),
+      ),
+    );
+  }
+}
+
+/// The editor held back until Ghazal accepts the application (web state `awaiting-approval`): one drawing, one line, one way to the status.
+class _AwaitingApproval extends StatelessWidget {
+  const _AwaitingApproval();
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l10n;
+    final nav = GzNavigatorScope.of(context);
+    return GzScreen(
+      top: GzTopBar(title: l.hotelProviderEditorTitleNew),
+      child: GzEmptyState(
+        illustration: GzIllustrationName.hourglass,
+        title: l.hotelProviderApprovalGuardTitle,
+        size: GzIllustrationSize.hero,
+        action: GzStateAction(label: l.hotelProviderSubmittedStatus, onPressed: () => nav.replace('HL-ACCS-04', params: {'variant': 'application-review', 'account': 'provider'})),
       ),
     );
   }
@@ -86,6 +112,12 @@ class _EditorState extends ConsumerState<_Editor> {
         setState(() => _base = _draft);
         return value.id;
       case ActionFailure(:final problem):
+        if (problem.code == ApiProblemCode.applicationNotAccepted) {
+          // the account was not accepted (yet): the application is read again and the screen turns into the hold
+          nav.toast(GzToastSpec(message: context.l10n.hotelProviderApprovalGuardTitle, tone: GzToastTone.danger));
+          ref.read(partnerDataRevisionProvider.notifier).bump();
+          return null;
+        }
         nav.toast(GzToastSpec(message: gzProblemMessage(context.gzL10n, problem), tone: GzToastTone.danger));
       case ActionGated():
         break;

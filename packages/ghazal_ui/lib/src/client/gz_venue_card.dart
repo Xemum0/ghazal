@@ -3,7 +3,7 @@
 /// Variants: [GzVenueCardVariant.card] 4:5 (results, home rails, similar venues), `feature` (larger serif name and display price),
 /// `list` 16:10, `compact` / `saved` / `compare` (72 x 88 thumbnail rows). States: default, pressed ([previewState]), focus (the
 /// pressable ring), favourite, compared, loading, no photo, no reviews, governmental (ministry line, browse only), held or taken on
-/// the date, guest (voucher price locked). The card never fetches and never navigates: it takes data and callbacks.
+/// the date. Every client is signed in (ADR 0038), so there is no locked-price form. The card never fetches and never navigates: it takes data and callbacks.
 library;
 
 import 'package:flutter/widgets.dart';
@@ -71,7 +71,7 @@ class GzVenueCard extends StatelessWidget {
   final LocalDate? date;
   final VenueBadge? badge;
 
-  /// [GzPriceAudience.guest]: signed out, the voucher price is locked behind registration (ADR 0007 D8).
+  /// Deprecated, no effect (ADR 0038: there is no guest mode). Remove it at the call site.
   final GzPriceAudience audience;
   final List<Audience> tags;
   final GuestRange? guestRange;

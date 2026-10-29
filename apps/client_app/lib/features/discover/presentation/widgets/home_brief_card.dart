@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:ghazal_domain/ghazal_domain.dart' show Area;
+import 'package:ghazal_domain/ghazal_domain.dart' show Governorate;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../../../app/state/state.dart' show SearchBrief;
@@ -7,16 +7,16 @@ import '../../../../l10n/l10n.dart';
 import 'brief_rows.dart';
 
 /// The Brief card of Home (the system `GzBriefCard` anatomy: a paper panel, a hairline, four rows, one gold CTA), flow-local for two
-/// reasons the system card cannot serve yet (`requests.md`): the Area value lists the names with a comma and clamps to one line, and the CTA
+/// reasons the system card cannot serve yet (`requests.md`): the governorate value lists the names with a comma and clamps to one line, and the CTA
 /// says the truth when no hall is free that day ("Nearest dates") instead of "Show 0 halls".
 ///
-/// Every row is a glyph and its value; the row's name is the accessible name. [count] is the halls free on the date in the Brief's areas;
+/// Every row is a glyph and its value; the row's name is the accessible name. [count] is the halls free on the date in the Brief's governorates;
 /// null before the first answer, offline or with no date: "Show halls".
 class HomeBriefCard extends StatelessWidget {
-  const HomeBriefCard({required this.brief, required this.areas, required this.count, this.loading = false, this.onEdit, this.onShow, super.key});
+  const HomeBriefCard({required this.brief, required this.governorates, required this.count, this.loading = false, this.onEdit, this.onShow, super.key});
 
   final SearchBrief brief;
-  final List<Area> areas;
+  final List<Governorate> governorates;
   final int? count;
   final bool loading;
   final ValueChanged<GzBriefField>? onEdit;
@@ -29,7 +29,7 @@ class HomeBriefCard extends StatelessWidget {
     final f = context.gzFormat;
     final l = context.l10n;
     final lang = gz.locale.languageCode;
-    final area = briefAreaText(context, f, briefAreaNames(areas, brief.areaIds, lang));
+    final area = briefGovernorateText(context, f, briefGovernorateNames(governorates, brief.governorateIds, lang));
     final date = briefDateText(f, brief);
     final guests = brief.guests == null || brief.guests == 0 ? null : f.integer(brief.guests!);
     final budget = brief.budget == null ? null : briefBudgetText(f, brief.budget!);
@@ -78,9 +78,9 @@ class HomeBriefCard extends StatelessWidget {
                         child: BriefRowTile(
                           key: const ValueKey<String>('discover.row.area'),
                           icon: GzIcons.pin,
-                          name: l.clientShellBriefArea,
+                          name: l.clientDiscoverBriefChooseGovernorate,
                           value: area,
-                          placeholder: l.clientDiscoverBriefChooseArea,
+                          placeholder: l.clientDiscoverBriefChooseGovernorate,
                           border: true,
                           onPressed: () => onEdit?.call(GzBriefField.area),
                         ),

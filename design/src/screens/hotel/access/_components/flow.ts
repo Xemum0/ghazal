@@ -9,6 +9,11 @@
 //   new partner  the service-provider persona (Zahra Floral Studio, zahra@zahra-floral.example) signs in with any password and, once the device is
 //                verified, lands on the application form (HL-PROV-01) the first time. While the application is open or rejected every sign-in
 //                lands on the account status (HL-ACCS-04); an accepted account goes to Today (ADR 0033 D7, ADR 0038 D3).
+//   apply        a new service provider or private hall opens HL-PROV-01 signed out from the sign-in screen (PA-ACC-07, round 2b): account (email,
+//                password, repeat) plus the business information. An email that already signs in (staff, the demo provider, an earlier
+//                applicant) is "already registered". Submit holds the form as pending and opens the email code (HL-ACCS-02, mode `application`); the
+//                right code makes the account (device trusted) and the application under review, and lands on HL-ACCS-04. Signing in later with that
+//                email (any password) shows the decision: the reason and "Edit and resubmit" when it was rejected.
 //   code         any six digits work, 111111 is a wrong code (five lock the code), 222222 is an expired code.
 import { create } from 'zustand'
 import { useContext } from 'react'
@@ -61,7 +66,14 @@ export function activeStaffByEmail(email: string): HotelStaff | undefined {
 const providerPersona = () => personaFor('service_provider')
 export const providerUser = () => users.find(u => u.id === providerPersona()?.userId)
 export const PROVIDER_EMAIL = 'zahra@zahra-floral.example'
-export const isProviderEmail = (email: string): boolean => normalizeEmail(email) === PROVIDER_EMAIL
+/** The email of the application sent in this session: its owner signs in with it (any password) and sees the decision. */
+const applicantEmail = (): string => normalizeEmail(useApplication.getState().form?.email ?? '')
+export const isProviderEmail = (email: string): boolean => {
+  const e = normalizeEmail(email)
+  return e === PROVIDER_EMAIL || (e !== '' && e === applicantEmail())
+}
+/** Registration rule of the prototype (PA-ACC-07): an email that already has an account (any staff or invited member, the demo provider, an earlier applicant) cannot register again. */
+export const isEmailTaken = (email: string): boolean => hotelStaff.some(s => emailOf(s) === normalizeEmail(email)) || isProviderEmail(email)
 
 export const staffById = (id: string | null | undefined): HotelStaff | undefined => hotelStaff.find(s => s.id === id)
 
@@ -162,17 +174,26 @@ export function useAccessMoves() {
     const user = providerUser()
     if (flow.provider && user) {
       const store = usePrototype.getState()
-      store.signIn({ id: user.id, name: (lang === 'ar' ? user.name : user.nameLatin) ?? user.name, phone: user.phone ?? '', monogram: user.monogram ?? '' })
+      const sent = useApplication.getState().form
+      // An applicant of this session is signed in under the contact person's own name; the seeded provider persona keeps hers.
+      const contact = sent?.contact.trim() ?? ''
+      store.signIn({
+        id: user.id,
+        name: contact || ((lang === 'ar' ? user.name : user.nameLatin) ?? user.name),
+        phone: sent ? `+965${sent.phone}` : (user.phone ?? ''),
+        monogram: contact ? (Array.from(contact)[0] ?? '') : (user.monogram ?? ''),
+      })
       flow.setFailed(0)
       flow.setLockedAt(null)
       const decision = useApplication.getState().status
+      const account = sent?.kind === 'private_hall' ? 'hotel' : 'provider'
       if (decision === 'under_review' || decision === 'rejected') {
-        nav.reset('HL-ACCS-04', { variant: decision === 'rejected' ? 'application-rejected' : 'application-review', account: 'provider' })
+        nav.reset('HL-ACCS-04', { variant: decision === 'rejected' ? 'application-rejected' : 'application-review', account })
       } else if (!flow.typeAsked && decision === 'none') {
         flow.setTypeAsked(true)
         nav.reset('HL-PROV-01', { account: 'provider' })
       } else {
-        nav.reset('HL-TODY-01', { account: 'provider' })
+        nav.reset('HL-TODY-01', { account })
       }
       return
     }

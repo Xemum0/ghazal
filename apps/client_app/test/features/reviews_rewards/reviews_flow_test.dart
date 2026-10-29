@@ -1,6 +1,6 @@
 // The reviews flow on the real router over the in-process mock: the list
 // with summary and filters, the report sheet, the composer with stars, the
-// guest gate, the five states, one Arabic run. Bounded.
+// five states, one Arabic run. Bounded.
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';

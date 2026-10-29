@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart' show venuesRepositoryProvider;
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblem;
-import 'package:ghazal_domain/ghazal_domain.dart' show Audience, AreasResponse, DateMode, GuestSplit, LocalDate, MoneyAmount, MoneyRange, WeddingProfile, WeddingProfileInput, WeddingRole;
+import 'package:ghazal_domain/ghazal_domain.dart' show Audience, AreasResponse, DateMode, Governorate, GuestSplit, LocalDate, MoneyAmount, MoneyRange, WeddingProfile, WeddingProfileInput, WeddingRole;
 
 import '../../../app/state/state.dart';
 
@@ -26,7 +26,7 @@ Future<ApiProblem?> saveWedding(WidgetRef ref, WeddingProfileInput input) async 
   if (input.weddingDate != null || input.dateMode == DateMode.undecided) {
     brief.update((b) => input.weddingDate == null ? b.copyWith(clearDate: true, dateMode: DateMode.undecided) : b.copyWith(date: input.weddingDate, dateMode: input.dateMode ?? DateMode.exact));
   }
-  if (input.areaIds != null) brief.update((b) => b.copyWith(areaIds: input.areaIds));
+  if (input.governorateIds != null) brief.update((b) => b.copyWith(governorateIds: input.governorateIds));
   if (input.venueBudget != null) brief.update((b) => b.copyWith(budget: input.venueBudget));
   if (input.guests != null) {
     brief.update((b) => b.copyWith(guests: (b.audience == Audience.men ? input.guests!.men : input.guests!.women), audience: b.audience ?? Audience.women));
@@ -34,7 +34,7 @@ Future<ApiProblem?> saveWedding(WidgetRef ref, WeddingProfileInput input) async 
   return null;
 }
 
-/// Governorates and areas (`GET /areas`), read once.
+/// Governorates (and the areas under them, for older profiles; `GET /areas`), read once.
 final FutureProvider<AreasResponse> profileAreasProvider = FutureProvider<AreasResponse>((ref) => ref.watch(venuesRepositoryProvider).listAreas());
 
 /// An account with no wedding profile yet edits an empty one; the first save creates it.
@@ -50,5 +50,16 @@ WeddingProfile blankWedding(String userId, LocalDate today) => WeddingProfile(
   venueBudget: const MoneyRange(min: MoneyAmount(0), max: MoneyAmount(0)),
   totalBudget: MoneyAmount.zero,
   areaIds: const <String>[],
+  governorateIds: const <String>[],
   searching: const <Audience>[],
 );
+
+/// The governorates a wedding profile names (ADR 0038): its own list when it has one, else the governorates of the areas an older profile
+/// kept (the web `briefGovernorates`), in the order the list gives them.
+List<String> profileGovernorateIds(WeddingProfile p, AreasResponse? areas) {
+  final own = p.governorateIds;
+  if (own != null) return <String>[for (final g in areas?.governorates ?? const <Governorate>[]) if (own.contains(g.id)) g.id];
+  if (areas == null) return const <String>[];
+  final ids = <String>{for (final a in areas.areas) if (p.areaIds.contains(a.id)) a.governorateId};
+  return <String>[for (final g in areas.governorates) if (ids.contains(g.id)) g.id];
+}

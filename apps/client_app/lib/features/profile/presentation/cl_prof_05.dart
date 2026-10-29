@@ -6,7 +6,6 @@
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show ClientSession, sessionProvider;
 import 'package:ghazal_core/ghazal_core.dart' show digitStyleProvider, localeProvider;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -24,7 +23,6 @@ class ClProf05Screen extends ConsumerWidget {
     final nav = context.gzNav;
     final code = ref.watch(localeProvider).languageCode;
     final arabic = code == 'ar';
-    final guest = ref.watch(sessionProvider) is! ClientSession;
     final digits = ref.watch(digitStyleProvider);
     final settings = ref.watch(deviceSettingsProvider);
     final denied = settings.osNotificationsDenied;
@@ -53,16 +51,15 @@ class ClProf05Screen extends ConsumerWidget {
                 chevron: true,
                 onPressed: () => nav.openDigitsSheet(context),
               ),
-            if (!guest)
-              ProfSwitchRow(
-                icon: kBiometricMethod == 'face' ? GzIcons.faceId : GzIcons.fingerprint,
-                title: bio,
-                checked: settings.biometricOn,
-                onChanged: (on) {
-                  ref.read(deviceSettingsProvider.notifier).setBiometric(on);
-                  if (!on) nav.toast(GzToastSpec(message: l.clientProfileSetBiometricOff));
-                },
-              ),
+            ProfSwitchRow(
+              icon: kBiometricMethod == 'face' ? GzIcons.faceId : GzIcons.fingerprint,
+              title: bio,
+              checked: settings.biometricOn,
+              onChanged: (on) {
+                ref.read(deviceSettingsProvider.notifier).setBiometric(on);
+                if (!on) nav.toast(GzToastSpec(message: l.clientProfileSetBiometricOff));
+              },
+            ),
             GzIconListRow(
               icon: GzIcons.bell,
               title: l.clientProfileNotifTitle,
@@ -82,11 +79,9 @@ class ClProf05Screen extends ConsumerWidget {
             ),
             GzIconListRow(icon: GzIcons.document, title: l.clientProfileSharedTerms, chevron: true, onPressed: () => nav.openLegalSheet(context, LegalKind.terms)),
             GzIconListRow(icon: GzIcons.shieldCheck, title: l.clientProfileSharedPrivacy, chevron: true, last: true, onPressed: () => nav.openLegalSheet(context, LegalKind.privacy)),
-            if (!guest) ...[
-              const SizedBox(height: GzSpace.s6),
-              GzIconListRow(icon: GzIcons.signOut, title: l.clientProfileSharedSignOut, onPressed: () => confirmProfileSignOut(context, ref), chevron: false),
-              GzIconListRow(icon: GzIcons.trash, tone: GzListRowTone.danger, title: l.clientProfileDelTitle, chevron: true, last: true, onPressed: () => nav.push('CL-PROF-06')),
-            ],
+            const SizedBox(height: GzSpace.s6),
+            GzIconListRow(icon: GzIcons.signOut, title: l.clientProfileSharedSignOut, onPressed: () => confirmProfileSignOut(context, ref), chevron: false),
+            GzIconListRow(icon: GzIcons.trash, tone: GzListRowTone.danger, title: l.clientProfileDelTitle, chevron: true, last: true, onPressed: () => nav.push('CL-PROF-06')),
             const SizedBox(height: GzSpace.s6),
             GzText(l.clientProfileSharedVersion(kProfileAppVersion), role: GzTextRole.figCaption, color: c.textSecondary, textAlign: TextAlign.center, figures: true),
           ],

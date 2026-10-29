@@ -210,7 +210,7 @@ class _ClAuth05State extends ConsumerState<ClAuth05Screen> {
                           const SizedBox(height: GzSpace.s6),
                           AuthInlineNote(tone: AuthNoteTone.info, icon: glyph, message: l10n.clientAuthBioFailedTitle, detail: l10n.clientAuthBioFailedDetail, detailTitle: l10n.clientAuthBioFailedTitle),
                           const SizedBox(height: GzSpace.s3),
-                          GzButton(label: l10n.clientAuthSharedUseCode, variant: GzButtonVariant.secondary, iconStart: GzIcons.whatsapp, fullWidth: true, onPressed: () => nav.openSheet('CL-AUTH-01', options: const GzSheetOptions(params: <String, Object?>{'reason': 'none'}))),
+                          GzButton(label: l10n.clientAuthSharedUseCode, variant: GzButtonVariant.secondary, iconStart: GzIcons.whatsapp, fullWidth: true, onPressed: () => nav.push('CL-AUTH-01')),
                           const SizedBox(height: GzSpace.s3),
                           GzButton(label: l10n.clientAuthSharedUsePassword, variant: GzButtonVariant.tertiary, onPressed: () => nav.push('CL-AUTH-04', params: const <String, Object?>{'mode': 'signin'})),
                         ],

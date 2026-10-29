@@ -35,8 +35,7 @@ class InboxRow {
   DateTime get at => last?.at ?? conversation.lastMessageAt;
 }
 
-/// Every conversation of the signed-in client, pinned first then the most recent, each with its last message. A guest has none (the
-/// screen shows the Support teaser). Reloads after any request action and when a thread is read.
+/// Every conversation of the signed-in client, pinned first then the most recent, each with its last message. Reloads after any request action and when a thread is read.
 final AsyncNotifierProvider<InboxNotifier, List<InboxRow>> inboxProvider = AsyncNotifierProvider<InboxNotifier, List<InboxRow>>(InboxNotifier.new);
 
 /// Bumped when a thread is opened or a message is sent, so the inbox refetches.

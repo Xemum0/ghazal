@@ -61,6 +61,9 @@ class _CategorySheetState extends State<CategorySheet> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
+        // the web sheet frame spaces its head and its body by space-4 (`.hp-sheet { gap }`); the kit sheet's title row has no gap below it and is
+        // about 3 dp taller than the web head, so the measured gap that lands the counter on the web's line is space-3
+        const SizedBox(height: GzSpace.s3),
         GzText(l.hotelProviderCatsLimit(_pick.length, widget.max), role: GzTextRole.bodyS, color: c.textSecondary, figures: true),
         _group(context, true, l.hotelProviderCatsPrimary),
         _group(context, false, l.hotelProviderCatsMore),

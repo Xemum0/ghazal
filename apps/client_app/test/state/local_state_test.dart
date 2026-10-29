@@ -60,7 +60,7 @@ void main() {
               date: LocalDate.parse('2027-01-14'),
               guests: 350,
               audience: Audience.women,
-              areaIds: const ['salmiya'],
+              governorateIds: const ['hawalli'],
               budget: const MoneyRange(min: MoneyAmount(20000000), max: MoneyAmount(35000000)),
               dateMode: DateMode.exact,
             ),
@@ -71,9 +71,9 @@ void main() {
       final restarted = world.container(prefs: prefs);
       expect(restarted.read(searchBriefProvider), b);
 
-      restarted.read(searchBriefProvider.notifier).fillBlanks(SearchBrief.empty.copyWith(guests: 10, areaIds: const ['sharq']));
+      restarted.read(searchBriefProvider.notifier).fillBlanks(SearchBrief.empty.copyWith(guests: 10, governorateIds: const ['capital']));
       expect(restarted.read(searchBriefProvider).guests, 350); // never overwritten
-      expect(restarted.read(searchBriefProvider).areaIds, ['salmiya']);
+      expect(restarted.read(searchBriefProvider).governorateIds, ['hawalli']);
       restarted.read(searchBriefProvider.notifier).update((b) => b.copyWith(clearDate: true));
       expect(restarted.read(searchBriefProvider).date, isNull);
       restarted.read(searchBriefProvider.notifier).clear();
@@ -97,7 +97,7 @@ void main() {
       expect((await world.repos('reem').wedding.getWeddingProfile()).guests.women, 300);
     });
 
-    test('sign-in as Reem seeds an empty Brief from her profile on the first GET (14 Jan 2027, Salmiya, 350, KD 20,000 to 35,000)', () async {
+    test('sign-in as Reem seeds an empty Brief from her profile on the first GET (14 Jan 2027, Hawalli and Capital, 350, KD 20,000 to 35,000)', () async {
       final c = world.container();
       expect(c.read(searchBriefProvider).isEmpty, isTrue);
       await c.read(sessionProvider.notifier).loadPersona('reem');
@@ -105,7 +105,7 @@ void main() {
       final b = c.read(searchBriefProvider);
       expect(b.date, LocalDate.parse('2027-01-14'));
       expect(b.guests, 350);
-      expect(b.areaIds, contains('salmiya'));
+      expect(b.governorateIds, ['hawalli', 'capital']);
       expect(b.budget, const MoneyRange(min: MoneyAmount(20000000), max: MoneyAmount(35000000)));
     });
 
@@ -123,33 +123,29 @@ void main() {
       expect(c.read(searchBriefProvider).isEmpty, isTrue, reason: 'one seed per account per run');
     });
 
-    test('a new client has none (null: the empty state); a guest draft is sent at the first sign-in and seeds the Brief', () async {
-      final prefs = await SharedPreferences.getInstance();
-      final c = world.container(prefs: prefs);
-      // as a guest: onboarding answers stay on the device
+    test('a new client has none (null: the empty state); the first optional step creates it and fills the blanks of the Brief', () async {
+      final c = world.container();
+      await c.read(sessionProvider.notifier).loadPersona('new_client');
       expect(await c.read(weddingProfileProvider.future), isNull);
-      await c.read(weddingProfileProvider.notifier).save(const WeddingProfileInput(role: WeddingRole.bride, brideName: 'Nora', weddingDate: null));
-      await c
+      expect(c.read(searchBriefProvider).isEmpty, isTrue);
+      final saved = await c
           .read(weddingProfileProvider.notifier)
           .save(
             WeddingProfileInput(
+              role: WeddingRole.bride,
+              brideName: 'Nora',
               weddingDate: LocalDate.parse('2027-03-04'),
               dateMode: DateMode.exact,
               guests: const GuestSplit(women: 200, men: 100),
               venueBudget: const MoneyRange(min: MoneyAmount(10000000), max: MoneyAmount(20000000)),
               totalBudget: const MoneyAmount(40000000),
-              areaIds: const <String>[],
+              governorateIds: const <String>['hawalli'],
               searching: const [Audience.women],
             ),
           );
-      expect(c.read(weddingDraftProvider).brideName, 'Nora');
+      expect(saved!.brideName, 'Nora');
       expect(c.read(searchBriefProvider).guests, 200);
-
-      await c.read(sessionProvider.notifier).loadPersona('new_client');
-      final synced = await c.read(weddingProfileProvider.future);
-      expect(synced, isNotNull);
-      expect(synced!.brideName, 'Nora');
-      expect(c.read(weddingDraftProvider.notifier).isEmpty, isTrue);
+      expect(c.read(searchBriefProvider).governorateIds, ['hawalli']);
       expect((await world.repos('new_client').wedding.getWeddingProfile()).guests.women, 200);
     });
   });
@@ -168,17 +164,13 @@ void main() {
       expect(() => d.toCreateRequestInput(voucherId: 'v'), throwsStateError);
 
       c.read(bookingDraftProvider.notifier)
-        ..patch((x) => x.copyWith(hallId: 'V01-danah', sessionId: 'V01-danah-evening'))
-        ..toggleExtra('x1')
-        ..toggleExtra('x2')
-        ..toggleExtra('x1');
+        .patch((x) => x.copyWith(hallId: 'V01-danah', sessionId: 'V01-danah-evening'));
       final ready = c.read(bookingDraftProvider);
       expect(ready.isComplete, isTrue);
-      expect(ready.extras, ['x2']);
       final body = ready.toCreateRequestInput(voucherId: 'voucher-1');
       expect(body.sections!.single.hallId, 'V01-danah');
       expect(body.sections!.single.guests, 350);
-      expect(body.extras!.single.extraId, 'x2');
+      expect(body.extras, anyOf(isNull, isEmpty), reason: 'extras are retired (ADR 0038 D2)');
       expect(body.voucherId, 'voucher-1');
       expect(body.contact.shared, isTrue);
       expect(ready.toCheckoutInput().targetId, 'V01');
@@ -201,7 +193,7 @@ void main() {
       expect(d.toCheckoutInput().targetType, VoucherTargetType.provider);
     });
 
-    test('signing out clears the draft; a guest signing in keeps it', () async {
+    test('signing out clears the draft', () async {
       final c = world.container();
       c.read(bookingDraftProvider.notifier).start(venueId: 'V01', packageId: 'p');
       await c.read(sessionProvider.notifier).loadPersona('reem');

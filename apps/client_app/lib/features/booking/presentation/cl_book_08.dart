@@ -108,7 +108,6 @@ class _ClBook08State extends ConsumerState<ClBook08Screen> {
           nav.toast(GzToastSpec(message: gzProblemMessage(context.gzL10n, p), tone: GzToastTone.danger));
         }
       },
-      gated: () {},
     );
   }
 

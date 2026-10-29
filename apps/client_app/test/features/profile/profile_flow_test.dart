@@ -1,12 +1,14 @@
-// The profile flow through the real router over the in-process mock: the hub (signed in and guest), wedding info, personal info
+// The profile flow through the real router over the in-process mock: the hub (and the provider note), sign out, wedding info, personal info
 // (Latin name in English, live monogram, save), notifications, settings (language sheet, digits only in Arabic), and account deletion
 // (consequences, blocked variants, scheduled, the WhatsApp re-auth, confirm, delete, success). Bounded: every wait is a bounded settle.
+import 'package:client_app/app/state/state.dart' show openExternalUrlProvider;
 import 'package:client_app/features/profile/application/profile_activity.dart';
 import 'package:client_app/features/profile/application/profile_identity.dart';
 import 'package:client_app/features/profile/application/profile_state.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart';
+import 'package:ghazal_domain/ghazal_domain.dart' show Sex;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../support/flow_world.dart';
@@ -31,12 +33,39 @@ void main() {
     expect(top(t), 'CL-PROF-01');
   });
 
-  flowTest('hub guest: the sign-in doorway, language, terms and privacy, and Sign in opens the auth sheet', (t) async {
-    await openScreen(t, 'CL-PROF-01', persona: 'guest');
-    expect(find.text('Sign in'), findsOneWidget);
-    expect(find.text('Language'), findsOneWidget);
-    await tapText(t, 'Sign in');
-    expect(top(t), 'CL-AUTH-01', reason: 'the guest sheet');
+  flowTest('hub: the provider note closes the help list and opens the Partner app store page', (t) async {
+    final opened = <Uri>[];
+    await openScreen(
+      t,
+      'CL-PROF-01',
+      overrides: [
+        openExternalUrlProvider.overrideWithValue((uri) async {
+          opened.add(uri);
+          return true;
+        }),
+      ],
+    );
+    const note = 'Service provider? Apply in the Partner app';
+    await scrollTo(t, find.text(note));
+    expect(find.text(note), findsOneWidget);
+    await tapText(t, note, ms: 400);
+    expect(opened, isNotEmpty, reason: 'the platform call was made once, through the overridable opener');
+    expect(opened.first.scheme, 'https');
+    expect(top(t), 'CL-PROF-01', reason: 'the note leaves the app, not the screen');
+  });
+
+  flowTest('sign out asks first, then returns to the sign-in screen and a signed-out client reaches nothing else', (t) async {
+    await openScreen(t, 'CL-PROF-01');
+    ignoreRenderErrors = true; // the sign-in screen belongs to the auth flow; the tab shell leaves while the toast host stays (requests.md, R2-PARTNER)
+    await scrollTo(t, find.text('Sign out'));
+    await tapText(t, 'Sign out', ms: 600);
+    expect(find.text('Stay'), findsWidgets, reason: 'the confirmation dialog');
+    await tapText(t, 'Sign out', last: true, ms: 1500);
+    expect(container(t).read(sessionProvider).isSignedIn, isFalse);
+    expect(top(t), 'CL-AUTH-01', reason: 'sign out goes to the sign-in screen');
+    nav(t).push('CL-PROF-01');
+    await settle(t, wait: const Duration(milliseconds: 1000));
+    expect(top(t), 'CL-ONBD-01', reason: 'the profile is closed to a signed-out client');
   });
 
   flowTest('wedding info: the file, the pickers and the total-budget link', (t) async {
@@ -50,6 +79,18 @@ void main() {
     await settle(t);
   });
 
+  flowTest('wedding info: the Governorates row lists the profile governorates and its sheet picks governorates, never areas', (t) async {
+    final c = await openScreen(t, 'CL-PROF-02', size: const Size(390, 1600));
+    expect(find.textContaining('Hawalli'), findsWidgets, reason: "Reem's governorates are the answer of the row");
+    await tapLabel(t, 'Governorates');
+    expect(find.text('Farwaniya'), findsWidgets, reason: 'the chips of the six governorates');
+    expect(find.text('Salmiya'), findsNothing, reason: 'no exact area');
+    await tapText(t, 'Farwaniya', ms: 300);
+    await tapText(t, 'Done', ms: 1200);
+    final p = await t.runAsync(() => c.read(weddingRepositoryProvider).getWeddingProfile());
+    expect(p!.governorateIds, contains('farwaniya'));
+  });
+
   flowTest('personal info: the Latin name in English with a live monogram, edit shows Save, save keeps it', (t) async {
     final c = await openScreen(t, 'CL-PROF-03');
     expect(find.text('Reem Al-Dosari'), findsOneWidget, reason: 'the field shows the Latin spelling in English');
@@ -60,6 +101,18 @@ void main() {
     await tapText(t, 'Save', flush: true);
     expect(c.read(sessionProvider), isA<ClientSession>());
     expect((c.read(sessionProvider) as ClientSession).user.name, 'Reem Al-Dosari Updated');
+  });
+
+  flowTest('personal info: the sex switch shows the stored sex; changing it shows Save and stores it on the account', (t) async {
+    final c = await openScreen(t, 'CL-PROF-03');
+    expect(find.text('Female'), findsWidgets);
+    expect(find.text('Male'), findsWidgets);
+    expect(find.text('Save'), findsNothing, reason: 'nothing edited yet');
+    await tapText(t, 'Male', ms: 400);
+    expect(find.text('Save'), findsOneWidget, reason: 'the sex is an edit like the name');
+    await tapText(t, 'Save', flush: true);
+    final me = await t.runAsync(() => c.read(profileRepositoryProvider).getMe());
+    expect(me!.user.sex, Sex.male);
   });
 
   flowTest('personal info: an empty name is refused with a blameless error', (t) async {
@@ -144,8 +197,10 @@ void main() {
     await tapText(t, 'Delete account');
     await settle(t, wait: const Duration(seconds: 3));
     expect(find.text('Account deleted'), findsWidgets, reason: 'the plain confirmation');
-    expect(container(t).read(sessionProvider), isA<GuestSession>());
+    expect(container(t).read(sessionProvider).isSignedIn, isTrue, reason: 'the session ends at Done, so the success page is not cut short');
     await tapText(t, 'Done');
+    await settle(t, wait: const Duration(seconds: 1));
+    expect(container(t).read(sessionProvider).isSignedIn, isFalse);
     expect(top(t), 'CL-ONBD-01');
   });
 

@@ -70,6 +70,13 @@ enum ApiProblemCode {
   venueContextRequired('VENUE_CONTEXT_REQUIRED'),
   preconditionFailed('PRECONDITION_FAILED'),
 
+  // Round 2 (ADR 0038, PA-ACC-07): the partner application. 403 when a pending or rejected account tries to create a listing
+  // (`params.applicationStatus`), 409 when an application that is not rejected is edited.
+  applicationNotAccepted('APPLICATION_NOT_ACCEPTED'),
+  applicationNotEditable('APPLICATION_NOT_EDITABLE'),
+  // Round 2b (OQ-R2-11): 409 from `submitPartnerApplication` when a partner account already uses the email.
+  emailAlreadyRegistered('EMAIL_ALREADY_REGISTERED'),
+
   /// Client-side conditions that are not API codes.
   offline('OFFLINE'),
   timeout('TIMEOUT'),

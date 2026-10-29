@@ -9,15 +9,12 @@ import 'voucher_parts.dart';
 
 /// The choice a voucher is bound to, as one plate (web `QuotePlate`, CA-VCH-03): the venue or provider (photograph or monogram, name),
 /// the hall and the package as facts, the date, then the two prices and the saving through `GzPriceCompare`. No caption: the plate IS
-/// the binding. [noPrices] (the saving does not beat the voucher price) shows the choice without prices; a guest sees the voucher price
-/// behind registration.
+/// the binding. [noPrices] (the saving does not beat the voucher price) shows the choice without prices.
 class QuotePlate extends StatelessWidget {
-  const QuotePlate({required this.quote, this.signedIn = true, this.noPrices = false, this.onRegister, super.key});
+  const QuotePlate({required this.quote, this.noPrices = false, super.key});
 
   final VoucherQuote quote;
-  final bool signedIn;
   final bool noPrices;
-  final VoidCallback? onRegister;
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +72,7 @@ class QuotePlate extends StatelessWidget {
                   structure: PriceStructure.package,
                   guests: quote.isProvider ? null : quote.guests,
                   fee: quote.feeFils,
-                  variant: signedIn ? GzPriceCompareVariant.inline : GzPriceCompareVariant.stack,
-                  audience: signedIn ? GzPriceCompareAudience.member : GzPriceCompareAudience.guest,
-                  onRegister: onRegister,
+                  variant: GzPriceCompareVariant.inline,
                 ),
               ),
             ],

@@ -86,7 +86,7 @@ const HOTEL_FLOW_TAB: Record<string, string | null> = {
  * and the two offer-stepper screens.
  */
 const HIDDEN_FLOWS = new Set(['CL-ONBD', 'CL-AUTH', 'CL-BOOK', 'CL-PAYM', 'HL-ACCS'])
-const HIDDEN_SCREENS = new Set(['CL-DISC-05', 'CL-VENU-01', 'CL-VENU-02', 'CL-VENU-06', 'CL-SERV-03', 'CL-SAVD-04', 'CL-MSGS-02', 'CL-PLAN-02', 'CL-RVRW-02', 'CL-PROF-06', 'HL-TODY-05', 'HL-GROW-02', 'HL-GROW-03', 'HL-BOOK-06'])
+const HIDDEN_SCREENS = new Set(['CL-DISC-05', 'CL-VENU-01', 'CL-VENU-02', 'CL-VENU-06', 'CL-SERV-03', 'CL-SAVD-04', 'CL-MSGS-02', 'CL-PLAN-02', 'CL-RVRW-02', 'CL-PROF-06', 'HL-PROV-01', 'HL-TODY-05', 'HL-GROW-02', 'HL-GROW-03', 'HL-BOOK-06'])
 
 export type ScreenChrome = {
   app: AppKind

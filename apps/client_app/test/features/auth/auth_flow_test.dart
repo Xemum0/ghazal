@@ -1,37 +1,22 @@
-// The sign-in flow through the real router, the session, the guest gate and the in-process mock: a gated action opens the sheet, the phone
-// and the WhatsApp code sign the person in and the app resumes at the gated action; a new number goes through name and terms; password
-// sign-in, recovery and a new password; the code states; the biometric offer; the five states; one Arabic run.
-// The mock accepts any six digits (000000 locked, 111111 expired, docs/architecture/mock-api.md): there is no outbox for a client code.
-import 'package:client_app/app/state/state.dart';
+// The sign-in flow through the real router, the session and the in-process mock (ADR 0038, no guest mode): the phone and the WhatsApp code
+// sign a returning client in and land on Home; a new number goes through "About you" (name, sex and terms all required, completeProfile)
+// and the optional steps; a wrong code; password sign-in, recovery and a new password; the code states; the biometric offer; a signed-out
+// client reaches nothing but the first-run screens; the five states; one Arabic run.
+// The mock accepts any six digits (000000 locked, 111111 expired, 222222 wrong, docs/architecture/mock-api.md): there is no outbox for a client code.
 import 'package:client_app/features/auth/application/auth_flow.dart';
 import 'package:client_app/features/auth/application/biometric.dart';
 import 'package:client_app/features/auth/presentation/cl_auth_05.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart';
-import 'package:ghazal_domain/ghazal_domain.dart' show Audience, DateMode, LocalDate;
+import 'package:ghazal_domain/ghazal_domain.dart' show Sex;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../support/flow_world.dart';
 
-/// What a guest-gated action does: `if (!ref.requireSignIn(...)) return;` (the kit's gate over the shared navigator).
-final Provider<bool Function()> _gatedAction = Provider<bool Function()>(
-  (ref) =>
-      () => ref.requireSignIn(GateReason.sendRequest, resume: const GateResume('CL-BOOK-01', <String, Object?>{'venueId': 'V01'})),
-);
-
 void main() {
   String top(WidgetTester t) => nav(t).currentId;
   AppSession session(WidgetTester t) => container(t).read(sessionProvider);
-
-  /// A guest taps a gated action: the sheet opens. (The base page is the intro, not the first-start screen: a signed-in person is redirected
-  /// away from that one by the router, which would hide what the gate does.)
-  Future<void> gate(WidgetTester t) async {
-    expect(container(t).read(_gatedAction)(), isFalse, reason: 'a guest is stopped by the gate');
-    await settle(t, wait: const Duration(milliseconds: 1000));
-    expect(top(t), 'CL-AUTH-01');
-  }
 
   Future<void> sendCode(WidgetTester t, String national) async {
     await t.enterText(find.byType(EditableText).first, national);
@@ -44,11 +29,9 @@ void main() {
     await settle(t, wait: Duration(milliseconds: ms));
   }
 
-  flowTest('the gate: the sheet shows why, the phone and the code sign in and the app resumes at the gated action', (t) async {
-    await openScreen(t, 'CL-ONBD-02');
-    await gate(t);
+  flowTest('a returning number: the phone and the code sign in and the app lands on Home', (t) async {
+    await openScreen(t, 'CL-AUTH-01');
     final c = container(t);
-    expect(c.read(gateProvider)?.reason, GateReason.sendRequest);
     expect(find.text(en.clientAuthSharedSendCode), findsWidgets);
     // an invalid number says so and goes nowhere
     await t.enterText(find.byType(EditableText).first, '5000');
@@ -56,122 +39,92 @@ void main() {
     expect(top(t), 'CL-AUTH-01');
     expect(find.text(en.clientAuthGateErrorDigits(8)), findsOneWidget);
     await sendCode(t, '50000012');
-    expect(top(t), 'CL-AUTH-02', reason: 'the sheet gives way to the code step');
+    expect(top(t), 'CL-AUTH-02');
     expect(c.read(authFlowProvider).challenge, isNotNull);
-    expect(c.read(authFlowProvider).pending?.reason, GateReason.sendRequest, reason: 'the gate request survives the sheet');
-    // the code: Verify waits for six digits, six digits verify at once, the seal shows, then the app resumes
-    ignoreRenderErrors = true; // the resume route belongs to the booking flow
+    // the code: six digits verify at once, the seal shows, then Home
+    ignoreRenderErrors = true; // Home belongs to the discover flow
     await enterCode(t, '123456', ms: 500);
     expect(find.text(en.clientAuthOtpSuccessTitle), findsWidgets);
     await settle(t, wait: const Duration(milliseconds: 2000));
-    expect(session(t), isA<ClientSession>());
-    expect((session(t) as ClientSession).user.phone, '+96550000012', reason: 'the number resolved to the hero client, Reem');
-    expect(top(t), 'CL-BOOK-01');
-    expect(c.read(gateProvider), isNull);
-  });
-
-  flowTest('a different Brief on the phone than in the account opens the merge sheet once, when Home is the visible screen (not over the resumed flow)', (t) async {
-    await openScreen(t, 'CL-ONBD-02');
-    final c = container(t);
-    c
-        .read(searchBriefProvider.notifier)
-        .set(SearchBrief(date: const LocalDate(2027, 3, 3), guests: 120, audience: Audience.women, dateMode: DateMode.exact));
-    await gate(t);
-    await sendCode(t, '50000012');
-    ignoreRenderErrors = true; // the resume route belongs to the booking flow
-    await enterCode(t, '123456', ms: 500);
-    await settle(t, wait: const Duration(milliseconds: 3500));
-    expect(session(t), isA<ClientSession>());
-    expect(top(t), 'CL-BOOK-01', reason: 'the sign-in resumed the gated action');
-    expect(onScreen('discover.brief.merge'), isFalse, reason: 'the sheet does not stack over the booking flow');
-    expect(c.read(sheetQueueProvider).waiting, <String>['brief-merge'], reason: 'it waits for Home');
-    // Home is the visible screen: 400 ms later the sheet opens
-    nav(t).reset('CL-DISC-01');
-    await settle(t, wait: const Duration(milliseconds: 2000));
-    expect(top(t), 'CL-DISC-02');
-    expect(onScreen('discover.brief.merge'), isTrue);
-    expect(c.read(sheetQueueProvider).showing, 'brief-merge');
-    // once: the person answers, Home is visible again, nothing opens
-    await tapKey(t, 'discover.merge.keep.phone', ms: 1500);
+    final s = session(t) as ClientSession;
+    expect(s.user.phone, '+96550000012', reason: 'the number resolved to the hero client, Reem');
+    expect(s.isNewUser, isFalse);
     expect(top(t), 'CL-DISC-01');
-    expect(c.read(sheetQueueProvider).waiting, isEmpty);
-    expect(c.read(sheetQueueProvider).showing, isNull);
-    await settle(t, wait: const Duration(milliseconds: 1500));
-    expect(top(t), 'CL-DISC-01', reason: 'the merge sheet opens once');
   });
 
-  flowTest('signing in from onboarding lands on Home and the merge sheet opens there', (t) async {
-    await openScreen(t, 'CL-ONBD-02');
-    final c = container(t);
-    c
-        .read(searchBriefProvider.notifier)
-        .set(SearchBrief(date: const LocalDate(2027, 3, 3), guests: 120, audience: Audience.women, dateMode: DateMode.exact));
-    nav(t).openSheet('CL-AUTH-01');
-    await settle(t, wait: const Duration(milliseconds: 1000));
-    expect(top(t), 'CL-AUTH-01');
+  flowTest('a wrong code says so and keeps the person on the code step', (t) async {
+    await openScreen(t, 'CL-AUTH-01');
     await sendCode(t, '50000012');
-    await enterCode(t, '123456', ms: 500);
-    await settle(t, wait: const Duration(milliseconds: 3500));
-    expect(top(t), 'CL-DISC-02', reason: 'a plain sign-in lands on Home, where the Briefs are asked');
-    expect(onScreen('discover.brief.merge'), isTrue);
+    await enterCode(t, '222222', ms: 800);
+    expect(find.text(en.clientAuthOtpWrong), findsWidgets);
+    expect(top(t), 'CL-AUTH-02');
+    expect(session(t).isSignedIn, isFalse);
   });
 
-  flowTest('the same Brief on the phone and in the account opens no merge sheet', (t) async {
-    await openScreen(t, 'CL-ONBD-02');
+  flowTest('a new number goes through About you: name, sex and terms are all required, then the optional steps', (t) async {
+    await openScreen(t, 'CL-AUTH-01');
     final c = container(t);
-    c
-        .read(searchBriefProvider.notifier)
-        .set(SearchBrief(date: const LocalDate(2027, 1, 14), guests: 350, audience: Audience.women, dateMode: DateMode.exact));
-    await gate(t);
-    await sendCode(t, '50000012');
-    ignoreRenderErrors = true;
-    await enterCode(t, '123456', ms: 500);
-    await settle(t, wait: const Duration(milliseconds: 3500));
-    expect(top(t), 'CL-BOOK-01');
-  });
-
-  flowTest('dismissing the sheet without signing in drops the gate and the guest stays a guest', (t) async {
-    await openScreen(t, 'CL-ONBD-02');
-    await gate(t);
-    nav(t).closeSheet();
-    await settle(t, wait: const Duration(milliseconds: 800));
-    expect(top(t), 'CL-ONBD-02');
-    expect(container(t).read(gateProvider), isNull);
-    expect(session(t), isA<GuestSession>());
-  });
-
-  flowTest('a new number goes through name and terms, then resumes; the terms are required', (t) async {
-    await openScreen(t, 'CL-ONBD-02');
-    await gate(t);
     await sendCode(t, '50001234');
     expect(top(t), 'CL-AUTH-02');
     await enterCode(t, '123456', ms: 800);
     await settle(t, wait: const Duration(milliseconds: 1800));
     expect(top(t), 'CL-AUTH-03');
     expect((session(t) as ClientSession).isNewUser, isTrue);
-    // no name, no terms: nothing happens but the two errors
-    await t.enterText(find.byType(EditableText).first, '');
+    // nothing given: the name, the sex and the terms each say Required, and the account stays incomplete
     await tapText(t, en.commonActionContinue, ms: 500);
-    expect(find.text(en.commonLabelRequired), findsNWidgets(2));
+    expect(find.text(en.commonLabelRequired), findsNWidgets(3));
     expect(top(t), 'CL-AUTH-03');
+    expect((session(t) as ClientSession).isNewUser, isTrue);
+    // a name alone is not enough
     await t.enterText(find.byType(EditableText).first, 'Nora Al-Salem');
+    await tapText(t, en.commonActionContinue, ms: 500);
+    expect(find.text(en.commonLabelRequired), findsNWidgets(2), reason: 'the sex and the terms are still missing');
+    expect(top(t), 'CL-AUTH-03');
+    // the sex as one of two tiles, then the terms
+    await tapText(t, en.clientAuthNameSexFemale, ms: 300);
+    await tapText(t, en.commonActionContinue, ms: 500);
+    expect(find.text(en.commonLabelRequired), findsNWidgets(1), reason: 'only the terms are missing');
     await tapText(t, en.clientAuthNameAccept, ms: 300);
-    ignoreRenderErrors = true;
+    ignoreRenderErrors = true; // the optional steps belong to the onboarding flow
     await tapText(t, en.commonActionContinue, ms: 600);
     expect(find.text(en.clientAuthSharedAccountReady), findsWidgets);
     await settle(t, wait: const Duration(milliseconds: 2000));
-    expect((session(t) as ClientSession).user.name, 'Nora Al-Salem');
-    expect((session(t) as ClientSession).user.monogram, 'N');
-    expect(top(t), 'CL-BOOK-01');
+    final s = session(t) as ClientSession;
+    expect(s.user.name, 'Nora Al-Salem');
+    expect(s.user.monogram, 'N');
+    expect(s.isNewUser, isFalse, reason: 'completeProfile finished the account');
+    expect(top(t), 'CL-ONBD-03', reason: 'the optional wedding steps follow');
+    final me = await t.runAsync(() => c.read(profileRepositoryProvider).getMe());
+    expect(me!.user.sex, Sex.female, reason: 'the sex is stored on the account');
+    expect(me.user.name, 'Nora Al-Salem');
+  });
+
+  flowTest('a complete account that signs in while the introduction is on top (Demo tools, a journey) leaves it for Home', (t) async {
+    await openScreen(t, 'CL-ONBD-02');
+    ignoreRenderErrors = true; // Home belongs to the discover flow
+    await t.runAsync(() => container(t).read(sessionProvider.notifier).loadPersona('reem'));
+    await settle(t, wait: const Duration(milliseconds: 1500));
+    expect(top(t), 'CL-DISC-01');
+  });
+
+  flowTest('a signed-out client reaches only the first-run screens: anything else lands on the start of the first run', (t) async {
+    await openScreen(t, 'CL-ONBD-02');
+    expect(top(t), 'CL-ONBD-02');
+    nav(t).push('CL-VENU-01', params: const <String, Object?>{'venueId': 'V01'});
+    await settle(t, wait: const Duration(milliseconds: 1000));
+    expect(top(t), 'CL-ONBD-01', reason: 'a venue is closed until the person signs in: the first run starts again');
+    nav(t).push('CL-DISC-01');
+    await settle(t, wait: const Duration(milliseconds: 1000));
+    expect(top(t), 'CL-ONBD-01', reason: 'Home too');
+    expect(find.byType(GzTabBar), findsNothing);
   });
 
   flowTest('the code states: expired offers Resend, a resend restarts the wait, too many attempts is a lock', (t) async {
-    await openScreen(t, 'CL-ONBD-02');
-    await gate(t);
+    await openScreen(t, 'CL-AUTH-01');
     await sendCode(t, '50000012');
     await enterCode(t, '111111', ms: 800);
     expect(find.text(en.clientAuthOtpExpired), findsWidgets);
-    expect(session(t), isA<GuestSession>());
+    expect(session(t).isSignedIn, isFalse);
     await tapText(t, en.clientAuthOtpResend, ms: 1200);
     expect(find.text(en.clientAuthOtpResent), findsWidgets);
     expect(find.textContaining('s', findRichText: true), findsWidgets);
@@ -183,8 +136,7 @@ void main() {
   });
 
   flowTest('the resend countdown ticks down and Resend appears at zero', (t) async {
-    await openScreen(t, 'CL-ONBD-02');
-    await gate(t);
+    await openScreen(t, 'CL-AUTH-01');
     await sendCode(t, '50000012');
     final wait = container(t).read(authFlowProvider).challenge!.resendAfterSeconds;
     expect(find.text(en.clientAuthOtpResend), findsNothing);
@@ -192,17 +144,15 @@ void main() {
     expect(find.text(en.clientAuthOtpResend), findsWidgets);
   });
 
-  flowTest('change number goes back to the sheet with the gate reason', (t) async {
-    await openScreen(t, 'CL-ONBD-02');
-    await gate(t);
+  flowTest('change number goes back to the sign-in screen', (t) async {
+    await openScreen(t, 'CL-AUTH-01');
     await sendCode(t, '50000012');
     await tapText(t, en.clientAuthOtpChange, ms: 1200);
     expect(top(t), 'CL-AUTH-01');
   });
 
   flowTest('password sign-in: the right password signs in, a wrong one is blameless, three misses pause it', (t) async {
-    await openScreen(t, 'CL-ONBD-02');
-    await gate(t);
+    await openScreen(t, 'CL-AUTH-01');
     await tapText(t, en.clientAuthSharedUsePassword, ms: 1200);
     expect(top(t), 'CL-AUTH-04');
     await t.enterText(find.byType(EditableText).at(0), '50000012');
@@ -212,19 +162,18 @@ void main() {
       if (i < 2) expect(find.text(en.clientAuthPwdInvalid), findsWidgets);
     }
     expect(find.text(en.clientAuthPwdLocked), findsWidgets);
-    expect(session(t), isA<GuestSession>());
+    expect(session(t).isSignedIn, isFalse);
   });
 
-  flowTest('password sign-in with the right password resumes the gated action', (t) async {
-    await openScreen(t, 'CL-ONBD-02');
-    await gate(t);
+  flowTest('password sign-in with the right password lands on Home', (t) async {
+    await openScreen(t, 'CL-AUTH-01');
     await tapText(t, en.clientAuthSharedUsePassword, ms: 1200);
     await t.enterText(find.byType(EditableText).at(0), '50000012');
     await t.enterText(find.byType(EditableText).at(1), 'Ghazal#2026');
     ignoreRenderErrors = true;
     await tapText(t, en.clientAuthSharedSignIn, ms: 1500, last: true);
     expect(session(t), isA<ClientSession>());
-    expect(top(t), 'CL-BOOK-01');
+    expect(top(t), 'CL-DISC-01');
   });
 
   flowTest('forgot password: code, then a new password that must be strong, then Password updated', (t) async {
@@ -251,9 +200,8 @@ void main() {
     expect(find.text(en.clientAuthPwdUpdatedTitle), findsWidgets);
   });
 
-  flowTest('offline: the sheet says so and keeps the number; the code is not sent', (t) async {
-    await openScreen(t, 'CL-ONBD-02');
-    await gate(t);
+  flowTest('offline: the screen says so and keeps the number; the code is not sent', (t) async {
+    await openScreen(t, 'CL-AUTH-01');
     flowControl.setScenario('offline');
     await sendCode(t, '50000012');
     await settle(t, wait: const Duration(milliseconds: 6000));
@@ -289,10 +237,8 @@ void main() {
     expect(find.text(en.clientAuthSharedUsePassword), findsWidgets);
   });
 
-  flowTest('Arabic run: the code step and the sheet read in Arabic, mirrored', (t) async {
-    await openScreen(t, 'CL-ONBD-02', locale: const Locale('ar'));
-    expect(container(t).read(_gatedAction)(), isFalse);
-    await settle(t, wait: const Duration(milliseconds: 1000));
+  flowTest('Arabic run: the sign-in screen and the code step read in Arabic, mirrored', (t) async {
+    await openScreen(t, 'CL-AUTH-01', locale: const Locale('ar'));
     expect(find.text(ar.clientAuthSharedSignIn), findsWidgets);
     expect(find.text(ar.clientAuthSharedSendCode), findsWidgets);
     await t.enterText(find.byType(EditableText).first, '50000012');

@@ -22,11 +22,14 @@ class GzListRow extends StatelessWidget {
     this.chevron = false,
     this.size = GzListRowSize.md,
     this.onPressed,
+    this.link = false,
     this.selected = false,
     this.tone = GzListRowTone.normal,
     this.autoDir = false,
     this.flush = false,
     this.last = false,
+    this.titleRole = GzTextRole.title,
+    this.gap = GzSpace.s4,
     this.previewState,
     super.key,
   });
@@ -49,6 +52,9 @@ class GzListRow extends StatelessWidget {
 
   /// Makes the row a button.
   final VoidCallback? onPressed;
+
+  /// The row opens an address outside the app: announced as a link, not as a button.
+  final bool link;
   final bool selected;
   final GzListRowTone tone;
 
@@ -61,6 +67,12 @@ class GzListRow extends StatelessWidget {
   /// Hide the bottom rule (last row of a group).
   final bool last;
 
+  /// Type role of the title: the `title` role by default; a row whose title is a plain sentence (the provider note) passes `body`.
+  final GzTextRole titleRole;
+
+  /// Space between the leading slot, the text, the trailing slot and the chevron (the gutter step 16 by default).
+  final double gap;
+
   /// Gallery only.
   final GzPreviewState? previewState;
 
@@ -69,7 +81,7 @@ class GzListRow extends StatelessWidget {
     final gz = context.gz;
     final c = gz.colors;
     final interactive = onPressed != null;
-    Widget titleText = GzText(title, role: GzTextRole.title, color: tone == GzListRowTone.danger ? c.textDanger : c.textStrong);
+    Widget titleText = GzText(title, role: titleRole, color: tone == GzListRowTone.danger ? c.textDanger : c.textStrong);
     if (autoDir) {
       titleText = Directionality(
         textDirection: Bidi.detectRtlDirectionality(title) ? TextDirection.rtl : TextDirection.ltr,
@@ -88,7 +100,7 @@ class GzListRow extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (leading != null) ...[leading!, const SizedBox(width: GzSpace.s4)],
+            if (leading != null) ...[leading!, SizedBox(width: gap)],
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,14 +115,14 @@ class GzListRow extends StatelessWidget {
               ),
             ),
             if (trailing != null) ...[
-              const SizedBox(width: GzSpace.s4),
+              SizedBox(width: gap),
               DefaultTextStyle(
                 style: gz.text(GzTextRole.bodyS).copyWith(color: c.textSecondary, decoration: TextDecoration.none),
                 child: trailing!,
               ),
             ],
             if (chevron) ...[
-              const SizedBox(width: GzSpace.s4),
+              SizedBox(width: gap),
               GzIcon(GzIcons.chevronRight, size: GzIconSize.sm, color: c.iconSecondary),
             ],
           ],
@@ -125,6 +137,7 @@ class GzListRow extends StatelessWidget {
     return GzPressable(
       onPressed: onPressed,
       semanticLabel: subtitle == null ? title : '$title, $subtitle',
+      link: link,
       selected: selected ? true : null,
       borderRadius: flush ? null : GzRadius.smAll,
       scale: 1,
@@ -146,11 +159,15 @@ class GzIconListRow extends StatelessWidget {
     this.facts,
     this.chevron,
     this.onPressed,
+    this.link = false,
     this.selected = false,
     this.tone = GzListRowTone.normal,
     this.autoDir = false,
     this.flush = false,
     this.last = false,
+    this.titleRole = GzTextRole.title,
+    this.gap = GzSpace.s4,
+    this.iconDiskColor,
     super.key,
   });
 
@@ -165,11 +182,21 @@ class GzIconListRow extends StatelessWidget {
   final Widget? facts;
   final bool? chevron;
   final VoidCallback? onPressed;
+
+  /// The row opens an address outside the app (a store page): announced as a link, not as a button.
+  final bool link;
   final bool selected;
   final GzListRowTone tone;
   final bool autoDir;
   final bool flush;
   final bool last;
+
+  /// See [GzListRow.titleRole] and [GzListRow.gap].
+  final GzTextRole titleRole;
+  final double gap;
+
+  /// Fill of the glyph disk (the quiet rose tint by default); a row that sits on a rose band lifts it to the raised surface.
+  final Color? iconDiskColor;
 
   @override
   Widget build(BuildContext context) {
@@ -182,7 +209,7 @@ class GzIconListRow extends StatelessWidget {
                   width: GzSize.avatarSm,
                   height: GzSize.avatarSm,
                   alignment: Alignment.center,
-                  decoration: BoxDecoration(shape: BoxShape.circle, color: c.surfaceTint),
+                  decoration: BoxDecoration(shape: BoxShape.circle, color: iconDiskColor ?? c.surfaceTint),
                   child: GzIcon(icon!, size: GzIconSize.md, color: tone == GzListRowTone.danger ? c.iconDanger : c.iconPrimary),
                 ),
               )
@@ -194,11 +221,14 @@ class GzIconListRow extends StatelessWidget {
       trailing: trailing,
       chevron: chevron ?? onPressed != null,
       onPressed: onPressed,
+      link: link,
       selected: selected,
       tone: tone,
       autoDir: autoDir,
       flush: flush,
       last: last,
+      titleRole: titleRole,
+      gap: gap,
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:ghazal_domain/ghazal_domain.dart' show Area, Audience, AreasResponse, HallSetting, LuxuryLevel, PriceStructureFilter, VenueResult, VenueType;
+import 'package:ghazal_domain/ghazal_domain.dart' show Audience, Governorate, HallSetting, LuxuryLevel, PriceStructureFilter, VenueResult, VenueType;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../../../app/state/state.dart' show SearchBrief;
@@ -18,16 +18,15 @@ const List<String> kBrands = <String>['Aurelia', 'Madar', 'Lumi', 'Rawnaq'];
 
 /// What a filter group body needs to draw and to change the draft.
 class FilterCtx {
-  const FilterCtx({required this.draft, required this.patch, required this.brief, required this.labels, required this.areas, required this.roster, required this.askLocation, required this.openRegion, required this.openDates});
+  const FilterCtx({required this.draft, required this.patch, required this.brief, required this.labels, required this.governorates, required this.roster, required this.askLocation, required this.openDates});
 
   final DiscoverFilters draft;
   final void Function(DiscoverFilters Function(DiscoverFilters d) change) patch;
   final SearchBrief brief;
   final DiscoverLabels labels;
-  final AreasResponse? areas;
+  final List<Governorate> governorates;
   final List<VenueResult> roster;
   final Future<void> Function(int? minutes) askLocation;
-  final VoidCallback openRegion;
   final VoidCallback openDates;
 }
 
@@ -52,8 +51,9 @@ IconData filterGroupIcon(String id) => switch (id) {
   _ => GzIcons.hotel,
 };
 
-String filterGroupTitle(AppL10n l, String id) => switch (id) {
-  'region' => l.clientDiscoverFiltersGroupRegion,
+/// The title of a group; the region one carries the number of governorates lit ("Governorates · 2").
+String filterGroupTitle(AppL10n l, String id, {int regions = 0}) => switch (id) {
+  'region' => l.clientDiscoverFiltersGroupRegion(regions),
   'type' => l.clientDiscoverFiltersGroupType,
   'arrangement' => l.clientDiscoverFiltersGroupArrangement,
   'capacity' => l.clientDiscoverFiltersGroupCapacity,
@@ -70,7 +70,7 @@ String filterGroupTitle(AppL10n l, String id) => switch (id) {
 
 /// Whether the group holds a choice (its glyph is drawn in ink and a gold bead marks it).
 bool filterGroupActive(String id, DiscoverFilters d, SearchBrief brief) => switch (id) {
-  'region' => d.areaIds != null || d.governorateIds.isNotEmpty || d.withinMinutes != null,
+  'region' => d.governorateIds != null || d.withinMinutes != null,
   'type' => d.types.isNotEmpty,
   'arrangement' => d.arrangement != null,
   'capacity' => d.capacity != null,
@@ -94,8 +94,7 @@ String filterGroupSummary(BuildContext context, String id, DiscoverFilters d, Se
   return switch (id) {
     'region' => <String>[
       if (d.withinMinutes != null) L.within(d.withinMinutes!),
-      if (d.governorateIds.isNotEmpty) L.governorates(d.governorateIds),
-      if (d.areaIds != null) d.areaIds!.isEmpty ? l.clientDiscoverChipAreasAll : L.areaList(d.areaIds!),
+      if (d.governorateIds != null) d.governorateIds!.isEmpty ? l.clientDiscoverChipGovernoratesAll : L.governorates(d.governorateIds!),
     ].join(sep),
     'type' => list(d.types.map(L.venueType)),
     'arrangement' => d.arrangement == null ? '' : L.arrangement(d.arrangement!),
@@ -117,65 +116,21 @@ Widget filterGroupBody(BuildContext context, String id, FilterCtx x) {
   final l = context.l10n;
   final c = context.gz.colors;
   final f = context.gzFormat;
-  final lang = context.gz.locale.languageCode;
   final d = x.draft;
   final L = x.labels;
   final gap = const SizedBox(height: GzSpace.s3);
   switch (id) {
     case 'region':
-      final govs = x.areas?.governorates ?? const [];
-      final all = x.areas?.areas ?? const <Area>[];
-      final per = <String, int>{};
-      for (final r in x.roster) {
-        per.update(r.venue.areaId, (n) => n + 1, ifAbsent: () => 1);
-      }
-      final selectedAreas = d.areaIds ?? (d.governorateIds.isNotEmpty ? const <String>[] : x.brief.areaIds);
-      final shown = <Area>[
-        for (final a in all)
-          if (per.containsKey(a.id) && (d.governorateIds.isNotEmpty ? d.governorateIds.contains(a.governorateId) : selectedAreas.contains(a.id))) a,
-      ];
+      // The shared governorate chips (ADR 0038: never an exact area): the filter's own choice, else the Brief's, so they can be switched off.
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          GzPressable(
-            key: const ValueKey<String>('discover.filters.regionsearch'),
-            onPressed: x.openRegion,
-            semanticLabel: l.clientDiscoverRegionPlaceholder,
-            borderRadius: GzRadius.mdAll,
-            builder: (context, st) => Container(
-              constraints: const BoxConstraints(minHeight: GzSize.controlMd),
-              padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s3),
-              decoration: BoxDecoration(color: c.controlBg, borderRadius: GzRadius.mdAll, border: Border.all(color: c.borderControl, width: GzStroke.hair)),
-              child: Row(
-                children: [
-                  GzIcon(GzIcons.search, size: GzIconSize.sm, color: c.iconSecondary),
-                  const SizedBox(width: GzSpace.s2),
-                  GzText(l.clientDiscoverRegionPlaceholder, role: GzTextRole.body, color: c.textSecondary),
-                ],
-              ),
-            ),
+          GzGovernorateFilter(
+            governorates: x.governorates,
+            label: l.clientDiscoverChipRegion,
+            values: d.governorateIds ?? x.brief.governorateIds,
+            onChanged: (ids) => x.patch((v) => v.copyWith(governorateIds: ids)),
           ),
-          gap,
-          GzChipGroup<String>.multiple(
-            label: l.clientDiscoverFiltersGroupRegion,
-            values: d.governorateIds,
-            onChanged: (ids) => x.patch(
-              (v) => v.copyWith(
-                governorateIds: ids,
-                areaIds: v.areaIds == null ? null : <String>[for (final a in v.areaIds!) if (ids.isEmpty || ids.contains(all.where((e) => e.id == a).firstOrNull?.governorateId)) a],
-              ),
-            ),
-            options: [for (final g in govs) GzChipOption<String>(value: g.id, label: g.name.of(lang))],
-          ),
-          if (shown.isNotEmpty) ...[
-            gap,
-            GzChipGroup<String>.multiple(
-              label: l.clientDiscoverBriefAreaTitle,
-              values: <String>[for (final id in selectedAreas) if (shown.any((a) => a.id == id)) id],
-              onChanged: (ids) => x.patch((v) => v.copyWith(areaIds: <String>[for (final id in selectedAreas) if (!shown.any((a) => a.id == id)) id, ...ids])),
-              options: [for (final a in shown) GzChipOption<String>(value: a.id, label: a.name.of(lang), count: f.integer(per[a.id] ?? 0))],
-            ),
-          ],
           gap,
           ChoiceChips<int>(
             label: l.clientDiscoverA11yDrive,

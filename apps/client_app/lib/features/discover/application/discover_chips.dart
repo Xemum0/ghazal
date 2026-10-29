@@ -10,7 +10,6 @@ enum ChipKind {
   shelf,
   category,
   governorates,
-  areas,
   type,
   available,
   dates,
@@ -42,8 +41,7 @@ final class ChipSpec {
 List<ChipSpec> chipSpecs(DiscoverFilters f, SearchBrief brief) => <ChipSpec>[
   if (f.shelf != null) ChipSpec('shelf', ChipKind.shelf, (x) => x.copyWith(clearShelf: true), f.shelf),
   if (f.category != null) ChipSpec('category', ChipKind.category, (x) => x.copyWith(clearCategory: true), f.category),
-  if (f.governorateIds.isNotEmpty) ChipSpec('governorates', ChipKind.governorates, (x) => x.copyWith(governorateIds: const <String>[]), f.governorateIds),
-  if (f.areaIds != null) ChipSpec('areas', ChipKind.areas, (x) => x.copyWith(clearAreaIds: true), f.areaIds),
+  if (f.governorateIds != null) ChipSpec('governorates', ChipKind.governorates, (x) => x.copyWith(clearGovernorateIds: true), f.governorateIds),
   for (final v in f.types) ChipSpec('type-${v.value}', ChipKind.type, (x) => x.copyWith(types: <VenueType>[for (final y in x.types) if (y != v) y]), v),
   if (f.available && brief.date != null && f.dates == null) ChipSpec('available', ChipKind.available, (x) => x.copyWith(available: false), brief.date),
   if (f.dates != null) ChipSpec('dates', ChipKind.dates, (x) => x.copyWith(clearDates: true), f.dates),

@@ -22,8 +22,8 @@ final plannerPackagesProvider = FutureProvider.autoDispose<List<PlannerPackage>>
   return ref.read(plannersRepositoryProvider).listPlannerPackages();
 });
 
-/// The couple's open consultation request, or null when there is none (a guest
-/// or a signed-in client who never asked). A transport failure is rethrown so
+/// The couple's open consultation request, or null when there is none (a client who never
+/// asked). A transport failure is rethrown so
 /// the screens can show error and offline; "no such request" reads as null.
 final currentPlannerRequestProvider = FutureProvider.autoDispose<PlannerRequest?>((ref) async {
   ref.watch(clientDataRevisionProvider);

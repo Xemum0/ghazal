@@ -1,4 +1,4 @@
-/// shelf mock of the Ghazal REST contract: the engine port, seeds and handlers for all 220 operations, served in-process (dio adapter) or standalone.
+/// shelf mock of the Ghazal REST contract: the engine port, seeds and handlers for all 221 operations, served in-process (dio adapter) or standalone.
 ///
 /// ```dart
 /// final mock = await MockBackend.create(seed: SeedSource.fromLoader(...));   // apps; tests and the server use the package assets

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, GateResume, WidgetSessionGate, sessionProvider, visitsRepositoryProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show visitsRepositoryProvider;
 import 'package:ghazal_domain/ghazal_domain.dart' show VisitBookingInput;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
@@ -14,8 +14,8 @@ import 'widgets/visit_widgets.dart';
 /// CL-VIST-01 Book a visit (sheet). Covers CA-VIS-01, CA-VIS-02, CA-AUTH-10.
 ///
 /// Choose a visit slot: date, arrival window, visitors and an optional note.
-/// No voucher is needed. Guests are gated at Send with the choice kept.
-/// States: default, no-slots-this-week, slot-taken, sending, guest-gate,
+/// No voucher is needed.
+/// States: default, no-slots-this-week, slot-taken, sending,
 /// error, offline.
 class ClVist01Screen extends ConsumerStatefulWidget {
   const ClVist01Screen({super.key});
@@ -39,15 +39,8 @@ class _ClVist01ScreenState extends ConsumerState<ClVist01Screen> {
 
   Future<void> _send() async {
     if (_slot == null || _date == null || _busy) return;
-    // Opened from the venue ('CL-VENU-01'): closing the sheet returns. A guest reads and chooses freely and meets the sign-in sheet ('CL-AUTH-01', via requireSignIn) only at Send, the choice kept.
+    // Opened from the venue ('CL-VENU-01'): closing the sheet returns.
     final repo = ref.read(visitsRepositoryProvider);
-    if (!ref.read(sessionProvider).isSignedIn) {
-      ref.requireSignIn(
-        GateReason.visit,
-        resume: GateResume('CL-VIST-01', <String, Object?>{'venueId': _venueId, 'date': _date!, 'slot': _slot!.toIso8601String(), 'visitors': _visitors, if (_note.isNotEmpty) 'note': _note}),
-      );
-      return;
-    }
     setState(() {
       _failed = false;
       _busy = true;

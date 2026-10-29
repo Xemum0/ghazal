@@ -2,7 +2,7 @@ import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView, sessionProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView;
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, ApiProblemCode, DecimalOptions;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
@@ -22,8 +22,9 @@ import 'widgets/venue_strip.dart';
 /// The decision screen of the voucher model: a full-bleed hero with the hairline progress, the serif name with rating, area and
 /// two quiet badges, the ruled Your date strip, the Booking Thread before anything has happened, hall and package choice (two
 /// prices each), facilities as glyph tiles, policy tiles, reviews, the map and similar halls, and a sticky bar that replaces the
-/// tab bar with the three paths: Get voucher (or Send request when a ready voucher exists), Book visit, Contact. Works fully
-/// for a guest; the account is asked at Get voucher. Text diet (ADR 0034): facts are glyph and figure.
+/// tab bar with the three paths: Get voucher (or Send request when a ready voucher exists), Book visit, Contact. Every client is signed in
+/// (ADR 0038): no gate before Get voucher; the page offers no extras, add-on services or service links (CA-SVC-19). Text diet (ADR 0034):
+/// facts are glyph and figure.
 class ClVenu01Screen extends ConsumerStatefulWidget {
   const ClVenu01Screen({super.key});
 
@@ -41,7 +42,6 @@ class _ClVenu01State extends ConsumerState<ClVenu01Screen> {
     final pick = ref.watch(venuePickProvider(params.venueId));
     final vkey = venueKeyOf(params, brief, pick);
     final view = ref.watch(venueViewProvider(vkey));
-    final guest = !ref.watch(sessionProvider.select((s) => s.isSignedIn));
     final actions = VenueActions(context, ref, params.venueId);
     final favourite = ref.watch(isFavouriteProvider((SavedType.venue, params.venueId)));
     final compared = ref.watch(compareProvider.select((c) => c.contains(params.venueId)));
@@ -70,7 +70,7 @@ class _ClVenu01State extends ConsumerState<ClVenu01Screen> {
     return GzScreen(
       top: topBar,
       topOverlay: true,
-      bottom: view.hasValue ? _Bar(view: view.value!, guest: guest, offline: false, actions: actions) : null,
+      bottom: view.hasValue ? _Bar(view: view.value!, offline: false, actions: actions) : null,
       child: _isDelisted(view)
           ? _DelistedBody(params: params)
           : GzAsyncView<VenueView>(
@@ -80,7 +80,6 @@ class _ClVenu01State extends ConsumerState<ClVenu01Screen> {
               data: (v) => _Body(
                 view: v,
                 vkey: vkey,
-                guest: guest,
                 actions: actions,
                 heroIndex: _heroIndex,
                 onHeroIndex: (i) => setState(() => _heroIndex = i),
@@ -142,7 +141,6 @@ class _Body extends ConsumerWidget {
   const _Body({
     required this.view,
     required this.vkey,
-    required this.guest,
     required this.actions,
     required this.heroIndex,
     required this.onHeroIndex,
@@ -153,7 +151,6 @@ class _Body extends ConsumerWidget {
 
   final VenueView view;
   final VenueKey vkey;
-  final bool guest;
   final VenueActions actions;
   final int heroIndex;
   final ValueChanged<int> onHeroIndex;
@@ -198,7 +195,6 @@ class _Body extends ConsumerWidget {
             status: view.status,
             prices: view.prices,
             row: view.row,
-            guest: guest,
             owned: view.owned != null,
             windowTitle: view.windowTitle == null ? null : context.bi(view.windowTitle!),
             nearest: view.nearest,
@@ -235,7 +231,6 @@ class _Body extends ConsumerWidget {
           view: view,
           date: view.day?.date ?? brief.date,
           guests: brief.guests,
-          guest: guest,
           onPick: onPickPackage,
           actions: actions,
         ),
@@ -381,10 +376,9 @@ class _Similar extends ConsumerWidget {
 
 /// The sticky bar that replaces the tab bar: Get voucher (or Send request with a ready voucher), Book visit, Contact.
 class _Bar extends StatelessWidget {
-  const _Bar({required this.view, required this.guest, required this.offline, required this.actions});
+  const _Bar({required this.view, required this.offline, required this.actions});
 
   final VenueView view;
-  final bool guest;
   final bool offline;
   final VenueActions actions;
 
@@ -505,6 +499,6 @@ class _DelistedBody extends ConsumerWidget {
 // Edges (inventory navigatesTo): 'CL-VENU-02' (the hero opens the viewer), 'CL-VENU-03' (the date strip opens the calendar sheet),
 // 'CL-VENU-04' (a package opens its sheet), 'CL-VENU-05' (the policy tiles open the policies sheet), 'CL-RVRW-01' (reviews),
 // 'CL-BOOK-01' (Send request with a ready voucher), 'CL-MSGS-02' (Contact the venue opens the chat), 'CL-SAVD-02' (the compare
-// badge opens the tray, 'CL-SAVD-03' when it is full), 'CL-AUTH-01' (the guest gate, opened internally by requireSignIn),
+// badge opens the tray, 'CL-SAVD-03' when it is full), 
 // 'CL-DISC-02' (the Brief editor), 'CL-VCHR-01' (Get voucher and How the voucher works), 'CL-VCHR-03' (a ready voucher),
 // 'CL-VIST-01' (Book a visit).

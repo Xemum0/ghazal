@@ -141,7 +141,7 @@ extension ProfileSheets on GzNavigator {
   void openLegalSheet(BuildContext context, LegalKind kind) => openSheetBuilder((_) => ProfileLegalSheet(kind: kind), options: GzSheetOptions(title: context.l10n.clientProfileLegalTitle));
 }
 
-/// Sign out asks first, then clears the session and returns to the language-aware Home as a guest (CA-PROF-10).
+/// Sign out asks first, then clears the session and returns to the sign-in screen (CA-PROF-10; there is no guest Home, ADR 0038).
 Future<void> confirmProfileSignOut(BuildContext context, WidgetRef ref) async {
   final l = context.l10n;
   final nav = context.gzNav;
@@ -156,6 +156,6 @@ Future<void> confirmProfileSignOut(BuildContext context, WidgetRef ref) async {
   );
   if (answer != GzDialogResult.confirm) return;
   await ref.read(sessionProvider.notifier).signOut();
-  nav.reset('CL-DISC-01');
+  nav.reset('CL-AUTH-01');
   nav.toast(GzToastSpec(message: l.clientProfileSharedSignedOut));
 }

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show requestsRepositoryProvider, sessionProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show requestsRepositoryProvider;
 import 'package:ghazal_core/ghazal_core.dart' show DateStyle, clockProvider;
 import 'package:ghazal_domain/ghazal_domain.dart' show DateMode, HomeCategoryId, HomeFeed, HomeStatusKind, LocalDate;
 import 'package:ghazal_ui/ghazal_ui.dart';
@@ -24,8 +24,7 @@ import 'widgets/status_card.dart';
 ///
 /// The Maison hero with the arch crown, the structured Brief card (each row a button that opens the Brief sheet on that row; one gold CTA
 /// with the live count), one urgency-ranked status card, the Venues | Services switch, six photo category tiles, then the Brief-aware
-/// shelves. A guest sees all of it; the third heart raises the once-only sign-up nudge. States: default, loading, empty, error, offline,
-/// guest, tray.
+/// shelves. No signed-out variant (ADR 0038). States: default, loading, empty, error, offline, tray.
 class ClDisc01Screen extends ConsumerStatefulWidget {
   const ClDisc01Screen({super.key});
 
@@ -89,14 +88,6 @@ class _ClDisc01ScreenState extends ConsumerState<ClDisc01Screen> {
     }
   }
 
-  /// Once after sign-in: the phone and the account hold different Briefs, so the merge variant of the Brief sheet asks which to keep. Home
-  /// only asks the queue (a signed-in person is on Home); the queue opens the sheet 400 ms after Home is the visible screen and nothing
-  /// else is open, and drops the request when the two Briefs do not differ (prototype `CL-DISC-01.tsx`).
-  void _maybeMerge() {
-    if (!ref.read(sessionProvider).isSignedIn) return;
-    ref.read(sheetQueueProvider.notifier).enqueue(ref.read(briefMergeSheetProvider));
-  }
-
   Future<void> _pickDate(LocalDate d) async {
     ref.read(searchBriefProvider.notifier).update((b) => b.copyWith(date: d, dateMode: DateMode.exact));
     _nav.toast(GzToastSpec(message: context.l10n.clientDiscoverEmptyDateSet, tone: GzToastTone.success));
@@ -109,11 +100,9 @@ class _ClDisc01ScreenState extends ConsumerState<ClDisc01Screen> {
     final brief = ref.watch(searchBriefProvider);
     final feed = ref.watch(homeFeedProvider(brief));
     final count = ref.watch(briefCountProvider(brief));
-    final areas = ref.watch(areasProvider).value?.areas ?? const [];
+    final governorates = ref.watch(areasProvider).value?.governorates ?? const [];
     final unread = ref.watch(unreadNotificationsProvider);
     final hasTray = ref.watch(compareProvider.select((c) => !c.isEmpty));
-    ref.listen<AsyncValue<Object?>>(weddingProfileProvider, (_, _) => _maybeMerge());
-    ref.listen<SearchBrief>(searchBriefProvider, (_, _) => _maybeMerge());
     final loading = feed.isLoading && !feed.hasValue && !feed.hasError;
     final failed = feed.hasError && !feed.hasValue;
     final offline = failed && isOfflineError(feed.error);
@@ -126,7 +115,7 @@ class _ClDisc01ScreenState extends ConsumerState<ClDisc01Screen> {
         HomeHero(unread: unread, onBell: () => _nav.push('CL-MSGS-04')),
         Padding(
           padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.gutter),
-          child: HomeBriefCard(brief: brief, areas: areas, count: shownCount, onEdit: _editBrief, onShow: () => _showHalls(brief)),
+          child: HomeBriefCard(brief: brief, governorates: governorates, count: shownCount, onEdit: _editBrief, onShow: () => _showHalls(brief)),
         ),
         Padding(
           padding: const EdgeInsetsDirectional.only(top: GzSpace.s4, start: GzSpace.gutter, end: GzSpace.gutter),
@@ -295,7 +284,7 @@ class _ClDisc01ScreenState extends ConsumerState<ClDisc01Screen> {
               key: ValueKey<String>('discover.category.${id.value}'),
               label: label(id),
               image: kCategoryPhotos[id],
-              onOpen: () => _openResults(<String, Object?>{'category': id.value, 'areaIds': const <String>[]}),
+              onOpen: () => _openResults(<String, Object?>{'category': id.value, 'governorateIds': const <String>[]}),
             ),
         ],
       ),

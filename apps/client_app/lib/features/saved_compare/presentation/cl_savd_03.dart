@@ -62,7 +62,6 @@ class _ClSavd03ScreenState extends ConsumerState<ClSavd03Screen> {
     final ids = ref.watch(compareProvider.select((s) => s.venueIds));
     final roster = ref.watch(briefRosterProvider);
     final areas = ref.watch(savedAreaNamesProvider).value ?? const {};
-    final audience = ref.watch(clientUserIdProvider) == null ? GzPriceAudience.guest : GzPriceAudience.member;
     final incomingId = _incomingId;
     final byId = roster.value ?? const <String, VenueResult>{};
     final incoming = byId[incomingId];
@@ -154,7 +153,6 @@ class _ClSavd03ScreenState extends ConsumerState<ClSavd03Screen> {
                     venue: rows[i].venue,
                     area: areas[rows[i].venue.areaId],
                     price: rows[i].price,
-                    audience: audience,
                     selected: _chosen == rows[i].venue.id,
                     onSelect: () => _choose(rows[i].venue.id, incomingId, name),
                   ),

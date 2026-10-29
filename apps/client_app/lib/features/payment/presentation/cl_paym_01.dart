@@ -61,13 +61,9 @@ class _ClPaym01State extends ConsumerState<ClPaym01Screen> {
     if (q.guests != null) 'guests': q.guests,
   };
 
-  Future<void> _pay(PayQuote q, {required bool signedIn}) async {
+  Future<void> _pay(PayQuote q) async {
     final nav = context.gzNav;
     if (_busy) return;
-    if (!signedIn) {
-      ref.requireSignIn(GateReason.voucher, resume: GateResume('CL-PAYM-01', _quoteParams(q)));
-      return;
-    }
     setState(() {
       _busy = true;
       _sessionError = false;
@@ -102,7 +98,7 @@ class _ClPaym01State extends ConsumerState<ClPaym01Screen> {
     final begun = await ref.read(paymentProvider.notifier).begin(method);
     if (!mounted) return;
     setState(() => _busy = false);
-    final problem = begun.when(success: (_) => null, failure: (p) => p, gated: () => null);
+    final problem = begun.when(success: (_) => null, failure: (p) => p);
     if (problem != null) {
       setState(() => _sessionError = true);
       return;
@@ -117,7 +113,6 @@ class _ClPaym01State extends ConsumerState<ClPaym01Screen> {
     final args = PayArgs.fromParams(nav.params);
     final async = ref.watch(payQuoteProvider(args));
     final quote = async.value;
-    final signedIn = ref.watch(sessionProvider.select((s) => s.isSignedIn));
     if (quote == null) {
       return GzScreen(
         top: GzTopBar(back: GzTopBarBack.show, title: l.clientPaymentTopTitle),
@@ -171,10 +166,10 @@ class _ClPaym01State extends ConsumerState<ClPaym01Screen> {
                       onPressed: () => nav.push('CL-VCHR-03', params: <String, Object?>{'voucherId': args.voucherId ?? kPayHeroVoucherId}),
                     )
                   : GzActionBarAction(
-                      label: signedIn ? l.clientPaymentCtaPay : l.clientVouchersCtaSignIn,
+                      label: l.clientPaymentCtaPay,
                       loading: _busy,
                       disabled: offline || ended,
-                      onPressed: () => _pay(quote, signedIn: signedIn),
+                      onPressed: () => _pay(quote),
                     ),
             ),
       child: _sessionError
@@ -234,7 +229,6 @@ class _ClPaym01State extends ConsumerState<ClPaym01Screen> {
 
 final _existingVoucherProvider = FutureProvider.autoDispose.family<bool, ({String targetId, String packageId, String date})>((ref, key) async {
   ref.watch(clientDataRevisionProvider);
-  if (!ref.watch(sessionProvider.select((s) => s.isSignedIn))) return false;
   final page = await ref.watch(vouchersRepositoryProvider).listVouchers(limit: 50);
   return page.items.any((i) {
     final v = i.voucher;

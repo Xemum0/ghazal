@@ -1,5 +1,6 @@
 // CL-PROF-03 Personal info. Port of CL-PROF-03.tsx. Requirements: CA-PROF-01, CA-AUTH-05.
-// Name (one field, no first and last split) with a live monogram, an optional email (an LTR island), the verified phone with "Change" (a
+// Name (one field, no first and last split) with a live monogram, the sex (female or male, a two-option glyph switch: required at
+// sign-up in CL-AUTH-03, editable here, ADR 0038 D4; not shown to venues, not used to filter), an optional email (an LTR island), the verified phone with "Change" (a
 // new number is verified by a WhatsApp code before it replaces the old one) and the sign-in methods linked to the account. Accounts are
 // never merged by email (ADR 0028). No photo upload anywhere. The Save bar appears with the first edit and carries the one gold action.
 import 'package:client_app/l10n/l10n.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GzAsyncView, gzProblemMessage;
 import 'package:ghazal_core/ghazal_core.dart' show gzFormatProvider, localeProvider;
-import 'package:ghazal_domain/ghazal_domain.dart' show Me;
+import 'package:ghazal_domain/ghazal_domain.dart' show Me, Sex;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../application/profile_identity.dart';
@@ -67,12 +68,17 @@ class _Form extends ConsumerStatefulWidget {
 class _FormState extends ConsumerState<_Form> {
   late String _name = widget.initialName;
   late String _email = widget.me?.user.email ?? '';
+  late Sex _sex = _knownSex(widget.me?.user.sex);
   late final String _name0 = _name;
   late final String _email0 = _email;
+  late final Sex _sex0 = _sex;
   bool _shown = false;
   bool _saving = false;
 
-  bool get _dirty => _name != _name0 || _email != _email0;
+  /// The stored sex; an account that somehow has none shows the first option, like the web.
+  static Sex _knownSex(Sex? s) => s == Sex.male ? Sex.male : Sex.female;
+
+  bool get _dirty => _name != _name0 || _sex != _sex0 || _email != _email0;
 
   Future<void> _save() async {
     setState(() => _shown = true);
@@ -82,7 +88,7 @@ class _FormState extends ConsumerState<_Form> {
     final saved = context.gzL10n.commonStateSaved;
     final gz = context.gzL10n;
     setState(() => _saving = true);
-    final problem = await saveProfileDetails(ref, name: _name.trim(), email: _email.trim());
+    final problem = await saveProfileDetails(ref, name: _name.trim(), sex: _sex, email: _email.trim());
     if (!mounted) return;
     setState(() {
       _saving = false;
@@ -131,6 +137,15 @@ class _FormState extends ConsumerState<_Form> {
                         ),
                       ),
                     ],
+                  ),
+                  const SizedBox(height: GzSpace.s4),
+                  GzSexChoice.switcher(
+                    value: _sex,
+                    label: l.clientProfilePersSex,
+                    femaleLabel: l.clientProfilePersSexFemale,
+                    maleLabel: l.clientProfilePersSexMale,
+                    onChanged: (v) => setState(() => _sex = v),
+                    disabled: _saving,
                   ),
                   const SizedBox(height: GzSpace.s4),
                   GzTextField(

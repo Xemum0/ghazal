@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_core/ghazal_core.dart' show DateStyle, clockProvider;
-import 'package:ghazal_domain/ghazal_domain.dart' show DateMode, LocalDate;
+import 'package:ghazal_domain/ghazal_domain.dart' show DateMode, Governorate, LocalDate;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../../../../l10n/l10n.dart';
@@ -166,79 +166,26 @@ class _BriefDatePanelState extends ConsumerState<BriefDatePanel> {
   }
 }
 
-/// The two-level region picker: first the governorate (six), then the areas under it as chips with a hall count; a governorate can be
-/// selected whole ("All") or area by area. The search field is the door to CL-DISC-07. Nothing selected means any area.
-class BriefAreaPanel extends ConsumerWidget {
-  const BriefAreaPanel({required this.draft, required this.set, required this.onOpenRegion, super.key});
+/// The region question of the Brief (ADR 0038: governorates only, never an exact area): one wrapping group of chips, a pin glyph and the
+/// name, multi-select (the shared [GzGovernorateFilter]); nothing lit means every governorate and no sentence says so. The count lives in
+/// the panel title ("Governorates · 2"), not here.
+class BriefGovernoratePanel extends ConsumerWidget {
+  const BriefGovernoratePanel({required this.draft, required this.set, super.key});
 
   final BriefDraft draft;
   final DraftSetter set;
-  final VoidCallback onOpenRegion;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l = context.l10n;
-    final c = context.gz.colors;
-    final f = context.gzFormat;
-    final lang = context.gz.locale.languageCode;
-    final groups = ref.watch(regionGroupsProvider).value ?? const <RegionGroup>[];
-    final selected = draft.brief.areaIds;
-    void setAreas(List<String> ids) => set((d) => d.copyWith(brief: d.brief.copyWith(areaIds: ids)));
-    return Column(
+    final governorates = ref.watch(areasProvider).value?.governorates ?? const <Governorate>[];
+    return KeyedSubtree(
       key: const ValueKey<String>('discover.brief.area'),
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        GzPressable(
-          key: const ValueKey<String>('discover.brief.regionsearch'),
-          onPressed: onOpenRegion,
-          semanticLabel: l.clientDiscoverRegionPlaceholder,
-          borderRadius: GzRadius.mdAll,
-          builder: (context, st) => Container(
-            constraints: const BoxConstraints(minHeight: GzSize.controlSm),
-            padding: const EdgeInsetsDirectional.symmetric(horizontal: GzSpace.s3),
-            decoration: BoxDecoration(color: c.controlBg, borderRadius: GzRadius.mdAll, border: Border.all(color: c.borderControl, width: GzStroke.hair)),
-            child: Row(
-              children: [
-                GzIcon(GzIcons.search, size: GzIconSize.sm, color: c.iconSecondary),
-                const SizedBox(width: GzSpace.s2),
-                GzText(l.clientDiscoverRegionPlaceholder, role: GzTextRole.body, color: c.textSecondary),
-              ],
-            ),
-          ),
-        ),
-        for (final g in groups) ...[
-          const SizedBox(height: GzSpace.s4),
-          Builder(
-            builder: (context) {
-              final ids = <String>[for (final a in g.areas) a.area.id];
-              final all = ids.every(selected.contains);
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(child: GzText(g.governorate.name.of(lang), role: GzTextRole.label, color: c.textSecondary)),
-                      GzButton(
-                        key: ValueKey<String>('discover.brief.all.${g.governorate.id}'),
-                        label: all ? l.clientDiscoverBriefAreaClearGroup : l.clientDiscoverBriefAreaAll,
-                        variant: GzButtonVariant.tertiary,
-                        onPressed: () => setAreas(all ? <String>[for (final id in selected) if (!ids.contains(id)) id] : <String>{...selected, ...ids}.toList()),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: GzSpace.s2),
-                  GzChipGroup<String>.multiple(
-                    label: g.governorate.name.of(lang),
-                    values: <String>[for (final id in selected) if (ids.contains(id)) id],
-                    onChanged: (next) => setAreas(<String>[for (final id in selected) if (!ids.contains(id)) id, ...next]),
-                    options: [for (final a in g.areas) GzChipOption<String>(value: a.area.id, label: a.area.name.of(lang), count: f.integer(a.count))],
-                  ),
-                ],
-              );
-            },
-          ),
-        ],
-      ],
+      child: GzGovernorateFilter(
+        governorates: governorates,
+        label: context.l10n.clientDiscoverBriefGovernorateLabel,
+        values: draft.brief.governorateIds,
+        onChanged: (ids) => set((d) => d.copyWith(brief: d.brief.copyWith(governorateIds: ids))),
+      ),
     );
   }
 }

@@ -47,6 +47,7 @@ class GzPressable extends StatefulWidget {
     this.autofocus = false,
     this.selected,
     this.expanded,
+    this.link = false,
     this.expand = false,
     super.key,
   }) : assert(child != null || builder != null, 'GzPressable needs a child or a builder');
@@ -85,6 +86,9 @@ class GzPressable extends StatefulWidget {
 
   /// Semantics `expanded` for a control that opens and closes something (a menu chip, an accordion head); null = not applicable.
   final bool? expanded;
+
+  /// The control opens an address outside the app (a store page, a web page): announced as a link, not as a button.
+  final bool link;
 
   /// Fill the width the parent gives instead of shrink-wrapping the child (equal-width tiles, a chip that fills its cell). In an
   /// unbounded width it still wraps.
@@ -218,7 +222,8 @@ class _GzPressableState extends State<GzPressable> {
 
     return Semantics(
       container: true,
-      button: true,
+      button: !widget.link,
+      link: widget.link ? true : null,
       enabled: enabled,
       selected: widget.selected,
       expanded: widget.expanded,

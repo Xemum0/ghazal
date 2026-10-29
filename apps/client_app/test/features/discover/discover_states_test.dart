@@ -1,10 +1,8 @@
-// The five states of every discover screen (loading, data, empty, error with retry, offline), the guest gate and sheet dismissal, on the
+// The five states of every discover screen (loading, data, empty, error with retry, offline) and sheet dismissal, on the
 // real router and the in-process mock. Error and offline need a few seconds of fake time: the HTTP client retries a failed GET three times.
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
-
-import 'package:client_app/app/state/state.dart';
 
 import '../../support/flow_world.dart';
 
@@ -35,18 +33,6 @@ void main() {
       expect(find.byType(GzBanner), findsOneWidget);
       await shoot(tester, 'home-offline');
     });
-
-    flowTest('a guest can set the Brief and see the halls; the third heart raises the sign-up nudge', (tester) async {
-      final c = await openScreen(tester, 'CL-DISC-03', persona: 'guest', state: 'guest', size: const Size(390, 3000));
-      for (final id in <String>['V03', 'V02', 'V01']) {
-        await tester.tap(
-          find.descendant(of: find.byKey(ValueKey<String>('discover.card.$id')), matching: find.byIcon(GzIcons.heart)).first.hitTestable(),
-          warnIfMissed: false,
-        );
-        await settle(tester);
-      }
-      expect(currentId(c), 'CL-AUTH-01', reason: 'the third heart opens the sign-up sheet once');
-    });
   });
 
   group('Results', () {
@@ -62,16 +48,10 @@ void main() {
       expect(onScreen('discover.chip.filters'), isTrue);
       await shoot(tester, 'results-error');
     });
-
-    flowTest('a guest asking for the voucher meets the sign-in sheet first, and the voucher line is locked', (tester) async {
-      final c = await openScreen(tester, 'CL-DISC-03', persona: 'guest', state: 'guest');
-      await tester.runAsync(() async => c.read(searchBriefProvider.notifier).set(SearchBrief.empty.copyWith(date: c.read(searchBriefProvider).date)));
-      expect(onScreen('discover.voucherlock'), isTrue);
-    });
   });
 
   group('Sheets and screens', () {
-    for (final id in <String>['CL-DISC-02', 'CL-DISC-04', 'CL-DISC-06', 'CL-DISC-05', 'CL-DISC-07']) {
+    for (final id in <String>['CL-DISC-02', 'CL-DISC-04', 'CL-DISC-06', 'CL-DISC-05']) {
       flowTest('$id: loading is a skeleton or a pending button, never blank', (tester) async {
         await openScreen(tester, id, state: 'loading');
         expect(find.byType(GzStubScreen), findsNothing);

@@ -14,7 +14,7 @@
 //   void main() {
 //     journeySetUp();
 //     journey('J1 ...', (j) async {
-//       await j.start();                        // the app, as a first-time guest, in the in-process mock (a fresh story)
+//       await j.start();                        // the app, signed out at the first-run screens, in the in-process mock (a fresh story)
 //       await j.tap(find.text(en.commonActionContinue));
 //       await j.see(find.text(j.t((l) => l.commonActionContinue)));
 //     });
@@ -111,7 +111,7 @@ class Journey {
 
   // ------------------------------------------------------------------------------------------------------------- start and stop
 
-  /// Starts the app through its real entry (`bootstrap()`), as a first-time guest, or, with [persona] (`reem`), signed in as that demo
+  /// Starts the app through its real entry (`bootstrap()`), signed out at the first-run screens (there is no guest mode, ADR 0038), or, with [persona] (`reem`), signed in as that demo
   /// person (the session is the mock's own, the way the Demo tools switch persona) and in the language of `JOURNEY_LANG`.
   ///
   /// Against the standalone server (`kRemote`, the cross-app journeys): [resetServer] seeds the server's world first (the journey that opens a

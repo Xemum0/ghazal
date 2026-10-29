@@ -35,12 +35,13 @@ class GzInlineSize extends StatelessWidget {
 
 enum GzPriceLineSize { card, strong, display }
 
+/// Deprecated, no effect (ADR 0038: there is no guest mode, every client is signed in). Kept so call sites compile; remove it there.
 enum GzPriceAudience { member, guest }
 
 /// The venue price line, one grammar (ADR 0004 D6, ADR 0018 D4, ADR 0033 D4): the VOUCHER price is the headline when the card has one,
 /// the standard price sits struck beside it and a saving chip follows. The basis is a glyph and a figure (users 350, a moon for a
-/// night, a key for a rental fee); the words are accessible names. "From" stays. A [GzPriceAudience.guest] sees the standard price as
-/// headline and one locked line. [lean] keeps only headline and basis. Takes the generated `CardPrice` model.
+/// night, a key for a rental fee); the words are accessible names. "From" stays. [lean] keeps only headline and basis. Takes the
+/// generated `CardPrice` model. [audience] is a deprecated no-op (ADR 0038).
 class GzCardPriceLine extends StatelessWidget {
   const GzCardPriceLine({
     required this.price,
@@ -56,6 +57,8 @@ class GzCardPriceLine extends StatelessWidget {
 
   /// `align: 'end'` of the web: runs sit on the end side and the line takes the full width.
   final bool alignEnd;
+
+  /// Deprecated, no effect (ADR 0038).
   final GzPriceAudience audience;
   final bool lean;
 
@@ -65,8 +68,7 @@ class GzCardPriceLine extends StatelessWidget {
     final l = context.gzL10n;
     final c = context.gz.colors;
     final rental = price is CardPriceRentalFee;
-    final voucher = !rental && audience == GzPriceAudience.member ? price.voucher : null;
-    final locked = !rental && price.voucher != null && audience == GzPriceAudience.guest;
+    final voucher = rental ? null : price.voucher;
     final headline = voucher?.fils ?? price.amount.fils;
     final priceSize = switch (size) {
       GzPriceLineSize.card => GzPriceSize.card,
@@ -117,28 +119,7 @@ class GzCardPriceLine extends StatelessWidget {
           ),
       ],
     );
-    if (!locked) return KeyedSubtree(key: const ValueKey('gz-card-price-line'), child: line);
-    return Column(
-      key: const ValueKey('gz-card-price-line'),
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        line,
-        Semantics(
-          label: l.uiSharedLockedVoucher,
-          excludeSemantics: true,
-          child: Row(
-            key: const ValueKey('gz-card-price-lock'),
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GzIcon(GzIcons.ticket, size: GzIconSize.xs, color: c.iconSecondary),
-              const SizedBox(width: GzSpace.s1),
-              GzIcon(GzIcons.lock, size: GzIconSize.xs, color: c.iconSecondary),
-            ],
-          ),
-        ),
-      ],
-    );
+    return KeyedSubtree(key: const ValueKey('gz-card-price-line'), child: line);
   }
 }
 

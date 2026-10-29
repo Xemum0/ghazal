@@ -17,10 +17,10 @@ import 'widgets/discover_failure.dart';
 /// CL-DISC-02 Your Brief (sheet). Covers CA-HOME-02 to 06, CA-ONB-08, CA-ONB-09, CA-FLT-01.
 ///
 /// The single editor of the global Brief, opened from the Home card, the Results echo, Compare and Saved. Four 64 rows, each a glyph and its
-/// value (Date, Area, Guests with the section glyph, Budget); each opens its focused picker inside the sheet. Under the rows a strip of the
-/// halls that fit (photographs only). The footer is pinned: the one gold CTA with the live count, and "Clear"; it applies the draft.
-/// Dismissing discards it. When a signed-in account already holds a different Brief, the merge variant asks which one to keep (nothing
-/// preselected). States: default, date-not-decided, flexible-month, merge-conflict, loading, offline.
+/// value (Date, Governorate, Guests with the section glyph, Budget); each opens its focused picker inside the sheet (the region one is the
+/// shared governorate chips, ADR 0038). Under the rows a strip of the halls that fit (photographs only). The footer is pinned: the one gold
+/// CTA with the live count, and "Clear"; it applies the draft. Dismissing discards it. There is no merge variant (nobody builds a Brief
+/// before signing in). States: default, date-not-decided, flexible-month, loading, offline.
 class ClDisc02Screen extends ConsumerStatefulWidget {
   const ClDisc02Screen({super.key});
 
@@ -31,7 +31,6 @@ class ClDisc02Screen extends ConsumerStatefulWidget {
 class _ClDisc02ScreenState extends ConsumerState<ClDisc02Screen> {
   late BriefDraft _draft;
   BriefPanel? _panel;
-  bool _merge = false;
   bool _init = false;
   bool _touched = false;
 
@@ -53,7 +52,6 @@ class _ClDisc02ScreenState extends ConsumerState<ClDisc02Screen> {
     );
     final focus = params['focus'];
     _panel = BriefPanel.values.where((p) => p.name == focus).firstOrNull;
-    _merge = params['variant'] == 'merge';
   }
 
   void _set(BriefDraft Function(BriefDraft d) change) => setState(() {
@@ -71,39 +69,11 @@ class _ClDisc02ScreenState extends ConsumerState<ClDisc02Screen> {
     if (fromHome) _nav.push('CL-DISC-03', params: <String, Object?>{'from': 'discover', 'available': _draft.brief.date != null});
   }
 
-  /// The region search is its own screen: keep what is chosen, close the sheet, open it (CL-DISC-07 writes the areas back).
-  void _openRegion() {
-    ref.read(searchBriefProvider.notifier).set(_draft.brief);
-    _nav.closeSheet();
-    _nav.push('CL-DISC-07', params: const <String, Object?>{'from': 'brief'});
-  }
-
   void _closePanel() {
     if (_panel == BriefPanel.guests && _draft.brief.guests == null) {
       _set((d) => d.copyWith(brief: d.brief.copyWith(guests: d.brief.audience == Audience.men && d.split ? d.men : d.women)));
     }
     setState(() => _panel = null);
-  }
-
-  void _keep(bool phone) {
-    final profile = ref.read(weddingProfileProvider).value;
-    if (!phone && profile != null) {
-      ref
-          .read(searchBriefProvider.notifier)
-          .set(
-            SearchBrief.fromWedding(
-              weddingDate: profile.weddingDate,
-              dateMode: profile.dateMode,
-              womenGuests: profile.guests.women,
-              searching: profile.searching,
-              areaIds: profile.areaIds,
-              venueBudget: profile.venueBudget,
-            ),
-          );
-    }
-    ref.read(discoverStateProvider.notifier).markMergeShown();
-    _nav.closeSheet();
-    _nav.toast(GzToastSpec(message: context.l10n.clientDiscoverRefreshed, tone: GzToastTone.success));
   }
 
   @override
@@ -116,9 +86,7 @@ class _ClDisc02ScreenState extends ConsumerState<ClDisc02Screen> {
     ref.listen<SearchBrief>(searchBriefProvider, (_, next) {
       if (!_touched && mounted) setState(() => _draft = _draft.copyWith(brief: next));
     });
-    final areasResponse = ref.watch(areasProvider).value;
-    final areas = areasResponse?.areas ?? const [];
-    final profile = ref.watch(weddingProfileProvider).value;
+    final governorates = ref.watch(areasProvider).value?.governorates ?? const [];
     final b = _draft.brief;
     final fromHome = _nav.params['from'] == 'home';
     final count = ref.watch(briefCountProvider(b));
@@ -127,31 +95,8 @@ class _ClDisc02ScreenState extends ConsumerState<ClDisc02Screen> {
     final loading = count.isLoading && !count.hasValue && !count.hasError;
     final fit = <VenueResult>[for (final r in rowsAsync.value ?? const <VenueResult>[]) r];
 
-    if (_merge) {
-      final account = profile == null
-          ? SearchBrief.empty
-          : SearchBrief.fromWedding(
-              weddingDate: profile.weddingDate,
-              dateMode: profile.dateMode,
-              womenGuests: profile.guests.women,
-              searching: profile.searching,
-              areaIds: profile.areaIds,
-              venueBudget: profile.venueBudget,
-            );
-      return Column(
-        key: const ValueKey<String>('discover.brief.sheet'),
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          GzSheetHeader(title: l.clientDiscoverMergeTitle, onClose: () => _keep(true)),
-          const SizedBox(height: GzSpace.s3),
-          BriefMergePanel(phone: ref.read(searchBriefProvider), account: account, areas: areas, onKeep: _keep),
-        ],
-      );
-    }
-
     final date = briefDateText(f, b);
-    final names = briefAreaNames(areas, b.areaIds, lang);
+    final names = briefGovernorateNames(governorates, b.governorateIds, lang);
     final sectionGlyph = switch (b.audience) {
       Audience.men => GzIcons.sectionMen,
       Audience.mixed => GzIcons.sectionMixed,
@@ -170,9 +115,9 @@ class _ClDisc02ScreenState extends ConsumerState<ClDisc02Screen> {
       (
         BriefPanel.area,
         GzIcons.pin,
-        l.clientShellBriefArea,
+        l.clientDiscoverBriefChooseGovernorate,
         names.isEmpty ? null : names.join(f.isArabic ? '، ' : ', '),
-        l.clientDiscoverBriefChooseArea,
+        l.clientDiscoverBriefChooseGovernorate,
         null,
       ),
       (
@@ -199,7 +144,7 @@ class _ClDisc02ScreenState extends ConsumerState<ClDisc02Screen> {
         : f.digits(l.clientDiscoverCtaCount(count.value ?? 0));
     final titles = <BriefPanel, String>{
       BriefPanel.date: l.clientDiscoverBriefDateTitle,
-      BriefPanel.area: l.clientDiscoverBriefAreaTitle,
+      BriefPanel.area: f.digits(l.clientDiscoverBriefGovernorateTitle(b.governorateIds.length)),
       BriefPanel.guests: l.clientDiscoverBriefGuestsTitle,
       BriefPanel.budget: l.clientDiscoverBriefBudgetTitle,
     };
@@ -207,7 +152,7 @@ class _ClDisc02ScreenState extends ConsumerState<ClDisc02Screen> {
 
     Widget panelBody() => switch (panel!) {
       BriefPanel.date => BriefDatePanel(draft: _draft, set: _set),
-      BriefPanel.area => BriefAreaPanel(draft: _draft, set: _set, onOpenRegion: _openRegion),
+      BriefPanel.area => BriefGovernoratePanel(draft: _draft, set: _set),
       BriefPanel.guests => BriefGuestsPanel(draft: _draft, set: _set),
       BriefPanel.budget => BriefBudgetPanel(draft: _draft, set: _set),
     };

@@ -1,7 +1,11 @@
 // Flow test of Bookings (HL-BOOK-01..07): the real router and the in-process mock (`autoRun: false`), real taps. Bounded: no real IO in fake async.
 import 'package:flutter/widgets.dart' show EditableText, Locale;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show partnerRequestsRepositoryProvider;
+import 'package:ghazal_domain/ghazal_domain.dart' show LocalizedText, MoneyAmount, PriceLine, PriceLineKind;
 import 'package:ghazal_ui/ghazal_ui.dart';
+
+import 'package:provider_app/features/bookings/application/bookings_data.dart';
 
 import '../../support/flow_world.dart';
 
@@ -141,5 +145,33 @@ void main() {
     expect(find.text('قبول'), findsWidgets);
     final back = tester.getTopRight(find.bySemanticsLabel('رجوع').first).dx;
     expect(back, greaterThan(195));
+  });
+
+  // Round 2 (CA-SVC-19, ADR 0038): the venue offers no extras. An old booking that still carries an extra line (the API keeps the field) shows
+  // neither an Extras row in the event nor the extra in the price breakdown.
+  flowTest('Booking detail: an extra line of an old booking is not shown (no Extras row, not itemised)', (tester) async {
+    await openScreen(
+      tester,
+      'HL-BOOK-03',
+      overrides: [
+        bookingDetailProvider.overrideWith((ref, id) async {
+          final d = await ref.read(partnerRequestsRepositoryProvider).getPartnerRequest(requestId: id);
+          final extra = PriceLine(
+            kind: PriceLineKind.extra,
+            section: 1,
+            name: const LocalizedText(en: 'Floral entrance arch', ar: 'مدخل زهور'),
+            qty: 1,
+            unit: const MoneyAmount(1800000),
+            amount: const MoneyAmount(1800000),
+            standardUnit: const MoneyAmount(1800000),
+            standardAmount: const MoneyAmount(1800000),
+          );
+          return d.copyWith(booking: d.booking.copyWith(lines: [...d.booking.lines, extra]));
+        }),
+      ],
+    );
+    expect(find.text('Accept'), findsOneWidget);
+    expect(find.textContaining('Extras'), findsNothing);
+    expect(find.textContaining('Floral entrance arch', skipOffstage: false), findsNothing);
   });
 }

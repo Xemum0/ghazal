@@ -65,9 +65,9 @@ class GzPackagePrice {
 }
 
 /// PackageCard (venue details, booking step 2; ADR 0004 D1, ADR 0033 D4): one priced package as a choice. Serif name, audience, the
-/// structure and guest bounds, the VOUCHER price in the basis it is sold in with the standard price struck through and the saving; a
-/// signed-out visitor ([audience] guest) sees the standard price and a locked voucher line. Choosing is ink and a gold bead, never a
-/// gold fill: selected = ink border, the bead filled. [unavailable] is muted, with the reason, not a target.
+/// structure and guest bounds, the VOUCHER price in the basis it is sold in with the standard price struck through and the saving.
+/// Choosing is ink and a gold bead, never a gold fill: selected = ink border, the bead filled. [unavailable] is muted, with the
+/// reason, not a target. Every client is signed in (ADR 0038): [audience] is a deprecated no-op kept for call sites that still pass it.
 class GzPackageCard extends StatefulWidget {
   const GzPackageCard({
     required this.pkg,
@@ -87,6 +87,8 @@ class GzPackageCard extends StatefulWidget {
 
   /// Null while loading or when the package has no rule for the date.
   final GzPackagePrice? price;
+
+  /// Deprecated, no effect (ADR 0038: there is no guest mode). Remove it at the call site.
   final GzPriceAudience audience;
 
   /// The guest count the total is for; with it per-guest packages show the all-in total.
@@ -187,9 +189,7 @@ class _GzPackageCardState extends State<GzPackageCard> {
     final structure = pkg.priceStructure == PriceStructure.package ? l.commonPricingPackage : l.commonPricingPerPerson;
     final sub = [audienceText, structure, bounds].where((s) => s.isNotEmpty).join(' · ');
 
-    final member = widget.audience == GzPriceAudience.member;
-    final voucherOn = price != null && price.voucherEligible && price.voucher != null && member;
-    final lockedOn = price != null && price.voucherEligible && widget.audience == GzPriceAudience.guest;
+    final voucherOn = price != null && price.voucherEligible && price.voucher != null;
     final basis = pkg.pricingBasis;
     final unitPrice = voucherOn ? (price.voucherPerGuest ?? price.perGuest) : price?.perGuest;
     final flatPrice = voucherOn ? (price.voucherFlat ?? price.flat) : price?.flat;
@@ -279,31 +279,17 @@ class _GzPackageCardState extends State<GzPackageCard> {
             ),
           )
         : null;
-    final lockLine = lockedOn
-        ? Padding(
-            padding: const EdgeInsetsDirectional.only(start: GzSpace.s6),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GzIcon(GzIcons.lock, size: GzIconSize.xs, color: c.iconSecondary),
-                const SizedBox(width: GzSpace.s1),
-                Flexible(child: GzText(l.uiSharedLockedVoucher, role: GzTextRole.caption, color: c.textSecondary)),
-              ],
-            ),
-          )
-        : null;
     final chooseColumn = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
         head,
         if (totalLine != null) ...[const SizedBox(height: GzSpace.s2), totalLine],
-        if (lockLine != null) ...[const SizedBox(height: GzSpace.s2), lockLine],
       ],
     );
     final interactive = widget.onSelect != null && !unavailable;
     final spoken = [pkg.name.of(lang), sub, if (total != null) f.money(total.fils, const MoneyOptions(mode: MoneyMode.browse)), if (widget.selected) l.uiClientPackageSelected].join(', ');
-    // The choosing region is the radio (head, total, lock); the inclusions and the "show all" button stay separate for assistive technology.
+    // The choosing region is the radio (head, total); the inclusions and the "show all" button stay separate for assistive technology.
     final Widget choose = !interactive && !widget.selected
         ? Semantics(container: true, label: spoken, child: chooseColumn)
         : Semantics(

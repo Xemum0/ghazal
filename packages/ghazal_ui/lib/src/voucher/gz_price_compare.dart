@@ -42,6 +42,7 @@ enum GzPriceCompareSize { strong, total, display }
 
 enum GzPriceCompareVariant { stack, inline }
 
+/// Deprecated, no effect (ADR 0038: there is no guest mode, every client is signed in). Kept so call sites compile; remove it there.
 enum GzPriceCompareAudience { member, guest }
 
 /// PriceCompare (ADR 0033 D4, voucher-model section 6): the two prices of one quote on the same basis. The voucher price is the
@@ -49,9 +50,9 @@ enum GzPriceCompareAudience { member, guest }
 /// and numbers, no label words (ADR 0034): ticket = voucher price, tag = standard, trend-down = saving, then per guest or package
 /// and the guest count; every glyph carries its word as the accessible name.
 ///
-/// [variant] `stack` (package sheet, request summary) or `inline` (one line for a card or row). [audience] `guest` (signed out) teases
-/// the voucher price behind registration (lock, the saving, a sign-up action); the standard price and the fact that a voucher price
-/// exists stay visible. A [voucher] of null (or not lower than [standard]) renders the standard price alone: no strike, no voucher.
+/// [variant] `stack` (package sheet, request summary) or `inline` (one line for a card or row). A [voucher] of null (or not lower than
+/// [standard]) renders the standard price alone: no strike, no voucher. Every client is signed in (ADR 0038), so there is no locked
+/// "after you sign up" form; [audience] and [onRegister] are deprecated no-ops kept for the call sites that still pass them.
 class GzPriceCompare extends StatelessWidget {
   const GzPriceCompare({
     required this.standard,
@@ -81,9 +82,11 @@ class GzPriceCompare extends StatelessWidget {
   final int fee;
   final bool showNet;
   final GzPriceCompareVariant variant;
+
+  /// Deprecated, no effect (ADR 0038).
   final GzPriceCompareAudience audience;
 
-  /// Guest only: the sign-up action.
+  /// Deprecated, no effect (ADR 0038).
   final VoidCallback? onRegister;
   final GzPriceCompareSize size;
 
@@ -94,7 +97,6 @@ class GzPriceCompare extends StatelessWidget {
     final c = context.gz.colors;
     final has = voucher != null && voucher! < standard;
     final savings = has ? standard - voucher! : 0;
-    final guest = audience == GzPriceCompareAudience.guest;
     final perPerson = structure == PriceStructure.perPerson;
     final basisLabel = perPerson ? l.commonUnitPerGuest : l.uiVoucherPricePackage;
     Widget basis({bool baseline = false}) {
@@ -154,20 +156,13 @@ class GzPriceCompare extends StatelessWidget {
         spacing: GzSpace.s2,
         runSpacing: GzSpace.s1,
         children: [
-          if (guest)
-            Semantics(
-              label: l.uiSharedLockedVoucher,
-              excludeSemantics: true,
-              child: GzIconBaseline(iconSize: GzIconSize.xs.dp, child: GzIcon(GzIcons.lock, size: GzIconSize.xs, color: c.iconSecondary)),
-            )
-          else
-            GzPrice(fils: voucher!, size: GzPriceSize.strong),
+          GzPrice(fils: voucher!, size: GzPriceSize.strong),
           Semantics(
             label: l.commonStandardPrice,
             // The web wraps the figure in a block span (`.gz-pcmp__strike`): its line box holds the page strut around the inline figure.
             child: GzInlineStrut(role: GzTextRole.body, child: GzStruckMoney(fils: standard, role: GzTextRole.figCaption)),
           ),
-          if (!guest) savingChip,
+          savingChip,
           basis(baseline: true),
         ],
       );
@@ -177,20 +172,17 @@ class GzPriceCompare extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (guest)
-          _Locked(chip: savingChip, onRegister: onRegister)
-        else
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Semantics(
-                label: l.commonVoucherPrice,
-                excludeSemantics: true,
-                child: GzIcon(GzIcons.ticket, size: GzIconSize.sm, color: c.iconSuccess),
-              ),
-              GzPrice(fils: voucher!, size: priceSize),
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Semantics(
+              label: l.commonVoucherPrice,
+              excludeSemantics: true,
+              child: GzIcon(GzIcons.ticket, size: GzIconSize.sm, color: c.iconSuccess),
+            ),
+            GzPrice(fils: voucher!, size: priceSize),
+          ],
+        ),
         const SizedBox(height: GzSpace.s2),
         Row(
           crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -205,39 +197,37 @@ class GzPriceCompare extends StatelessWidget {
             GzInlineStrut(role: GzTextRole.body, child: GzStruckMoney(fils: standard)),
           ],
         ),
-        if (!guest) ...[
-          const SizedBox(height: GzSpace.s2),
-          Row(
-            children: [
-              Semantics(
-                label: l.commonYouSave(saving),
-                excludeSemantics: true,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    GzIcon(GzIcons.trendDown, size: GzIconSize.xs, color: c.iconSuccess, mirror: false),
-                    const SizedBox(width: GzSpace.s2),
-                    GzMoney(
-                      fils: savings,
-                      inline: true,
-                      amountRole: GzTextRole.figBodyS,
-                      amountColor: c.textSuccess,
-                    ),
-                  ],
-                ),
+        const SizedBox(height: GzSpace.s2),
+        Row(
+          children: [
+            Semantics(
+              label: l.commonYouSave(saving),
+              excludeSemantics: true,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GzIcon(GzIcons.trendDown, size: GzIconSize.xs, color: c.iconSuccess, mirror: false),
+                  const SizedBox(width: GzSpace.s2),
+                  GzMoney(
+                    fils: savings,
+                    inline: true,
+                    amountRole: GzTextRole.figBodyS,
+                    amountColor: c.textSuccess,
+                  ),
+                ],
               ),
-              if (showNet && savings > fee) ...[
-                const SizedBox(width: GzSpace.s2),
-                GzIconButton(
-                  icon: GzIcons.info,
-                  iconSize: GzIconSize.sm,
-                  label: l.uiVoucherPriceNetTitle,
-                  onPressed: () => _showNet(context, savings),
-                ),
-              ],
+            ),
+            if (showNet && savings > fee) ...[
+              const SizedBox(width: GzSpace.s2),
+              GzIconButton(
+                icon: GzIcons.info,
+                iconSize: GzIconSize.sm,
+                label: l.uiVoucherPriceNetTitle,
+                onPressed: () => _showNet(context, savings),
+              ),
             ],
-          ),
-        ],
+          ],
+        ),
         const SizedBox(height: GzSpace.s2),
         Align(alignment: AlignmentDirectional.centerStart, child: basis()),
       ],
@@ -255,53 +245,6 @@ class GzPriceCompare extends StatelessWidget {
         builder: (sheet) => GzButton(label: l.commonActionDone, variant: GzButtonVariant.secondary, fullWidth: true, onPressed: () => Navigator.of(sheet).pop()),
       ),
       builder: (sheet) => GzText(l.uiVoucherPriceNet(f.money(savings - fee, browse), f.money(fee, browse))),
-    );
-  }
-}
-
-/// The guest teaser that replaces the voucher row: ticket and lock glyphs, the saving chip and a sign-up action.
-class _Locked extends StatelessWidget {
-  const _Locked({required this.chip, required this.onRegister});
-
-  final Widget chip;
-  final VoidCallback? onRegister;
-
-  @override
-  Widget build(BuildContext context) {
-    final c = context.gz.colors;
-    final l = context.gzL10n;
-    return Container(
-      decoration: BoxDecoration(
-        color: c.surfaceTintSoft,
-        borderRadius: GzRadius.mdAll,
-        border: Border.all(color: c.borderStrong, width: GzStroke.hair),
-      ),
-      padding: const EdgeInsets.all(GzSpace.s4),
-      child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Semantics(
-              label: l.uiSharedLockedVoucher,
-              image: true,
-              excludeSemantics: true,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  GzIcon(GzIcons.ticket, size: GzIconSize.md, color: c.iconSecondary),
-                  const SizedBox(width: GzSpace.s1),
-                  GzIcon(GzIcons.lock, size: GzIconSize.sm, color: c.iconSecondary),
-                ],
-              ),
-            ),
-            const SizedBox(height: GzSpace.s2),
-            chip,
-            if (onRegister != null) ...[
-              const SizedBox(height: GzSpace.s2),
-              GzButton(label: l.uiVoucherPriceSignUp, variant: GzButtonVariant.secondary, size: GzButtonSize.sm, onPressed: onRegister),
-            ],
-          ],
-      ),
     );
   }
 }

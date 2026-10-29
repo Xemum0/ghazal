@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_core/ghazal_core.dart';
 
 /// What a write action of the app state answers: it worked, the server refused it (an [ApiProblem]: the screen shows its message, the
-/// `BOOKING_STATE_CONFLICT` sheet, the offline state), or a guest hit the gate and the sign-in sheet opened (nothing was sent).
+/// `BOOKING_STATE_CONFLICT` sheet, the offline state).
 /// Actions never throw an `ApiProblem`; a programming error (an incomplete draft) is a `StateError`.
 @immutable
 sealed class ActionResult<T> {
@@ -21,10 +21,9 @@ sealed class ActionResult<T> {
         _ => null,
       };
 
-  R when<R>({required R Function(T value) success, required R Function(ApiProblem problem) failure, required R Function() gated}) => switch (this) {
+  R when<R>({required R Function(T value) success, required R Function(ApiProblem problem) failure}) => switch (this) {
         ActionSuccess<T>(:final value) => success(value),
         ActionFailure<T>(:final problem) => failure(problem),
-        ActionGated<T>() => gated(),
       };
 }
 
@@ -37,11 +36,6 @@ final class ActionFailure<T> extends ActionResult<T> {
   const ActionFailure(this.problem);
   @override
   final ApiProblem problem;
-}
-
-/// A guest: the gate sheet opened with the reason; after the sign-in the app continues at the `GateResume` the caller passed.
-final class ActionGated<T> extends ActionResult<T> {
-  const ActionGated();
 }
 
 /// What the busy and error state of a write-action notifier looks like: the keys of the actions in flight (`confirm:bk-1`) and the last

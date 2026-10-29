@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart'
-    show GateReason, GateResume, SessionGate, requestsRepositoryProvider, supportRepositoryProvider, vouchersRepositoryProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show requestsRepositoryProvider, supportRepositoryProvider, vouchersRepositoryProvider;
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblem;
 import 'package:ghazal_domain/ghazal_domain.dart';
 
@@ -11,7 +10,7 @@ import 'payment.dart';
 /// The writes of the voucher and the request (R01, R05, R07, R08, R10a, R13a) and the credit-voucher ask. Every action returns an
 /// [ActionResult] (never throws an `ApiProblem`), shows up in `state.busy` while it runs (`voucher-checkout`, `send-request`,
 /// `confirm:<id>`, `cancel:<id>`, `credit:<id>` ...), keeps one idempotency key per intent so a retry replays, refetches the lists on
-/// success (`clientDataRevisionProvider`) and on a 409 conflict. A guest is stopped by the gate (`ActionGated`).
+/// success (`clientDataRevisionProvider`) and on a 409 conflict.
 ///
 /// R09 (the 24 h confirm window lapsed: the voucher is forfeited) is a server job: the app only [refresh]es.
 final NotifierProvider<VoucherActions, ActionsState> voucherActionsProvider = NotifierProvider<VoucherActions, ActionsState>(VoucherActions.new);
@@ -47,9 +46,8 @@ class VoucherActions extends Notifier<ActionsState> {
   }
 
   /// Creates the unpaid voucher bound to the draft's target and quote (CA-VCH-04) and prepares the payment (`paymentProvider`). The draft
-  /// keeps the voucher id and the quote id. A guest gets the gate (`GateReason.voucher`) and `ActionGated`. [input] defaults to the draft's.
-  Future<ActionResult<VoucherCheckout>> checkout({GateResume? resume, VoucherCheckoutInput? input}) {
-    if (!ref.requireSignIn(GateReason.voucher, resume: resume)) return Future.value(const ActionGated());
+  /// keeps the voucher id and the quote id. [input] defaults to the draft's.
+  Future<ActionResult<VoucherCheckout>> checkout({VoucherCheckoutInput? input}) {
     final body = input ?? ref.read(bookingDraftProvider).toCheckoutInput();
     return _run<VoucherCheckout>(
       'voucher-checkout',
@@ -63,10 +61,9 @@ class VoucherActions extends Notifier<ActionsState> {
   }
 
   /// R01: sends the draft as a request with [voucherId] (default: the draft's voucher) and moves the draft to `sent` with the request id.
-  /// A guest gets the gate (`GateReason.sendRequest`). Refusals carry the stable codes (`OPEN_REQUEST_LIMIT`, `SLOT_UNAVAILABLE`,
+  /// Refusals carry the stable codes (`OPEN_REQUEST_LIMIT`, `SLOT_UNAVAILABLE`,
   /// `QUOTE_CHANGED` ...). Throws `StateError` when the draft is incomplete.
-  Future<ActionResult<Booking>> sendRequest({String? voucherId, GateResume? resume}) {
-    if (!ref.requireSignIn(GateReason.sendRequest, resume: resume)) return Future.value(const ActionGated());
+  Future<ActionResult<Booking>> sendRequest({String? voucherId}) {
     final draft = ref.read(bookingDraftProvider);
     final body = draft.toCreateRequestInput(voucherId: voucherId);
     return _run<Booking>(

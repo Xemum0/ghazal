@@ -3,7 +3,6 @@
 // A picked day shows as a fact strip: the date, the Hijri line in the Arabic UI only, and the time left as a glyph and a figure. The
 // occasions around the visible month sit under the grid. Two honest alternatives: Undecided and Flexible (a 12-month sheet); when one is
 // chosen it replaces the grid with a drawing, its name and the way back.
-import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -40,7 +39,7 @@ class _ClOnbd04State extends ConsumerState<ClOnbd04Screen> {
   @override
   void initState() {
     super.initState();
-    final saved = ref.read(weddingDraftProvider);
+    final saved = ref.read(obdDraftProvider);
     final today = ref.read(gzFormatProvider).isoDay(ref.read(gzFormatProvider).now());
     final d = saved.weddingDate?.toString();
     _mode = switch (saved.dateMode) {
@@ -99,7 +98,7 @@ class _ClOnbd04State extends ConsumerState<ClOnbd04Screen> {
     final f = ref.watch(gzFormatProvider);
     final config = ref.watch(onboardingConfigProvider).value;
     return GzScreen(
-      top: ObdStepBar(step: 2, total: 4, onSkip: _next),
+      top: ObdStepBar(step: 2, total: 3, onSkip: _next),
       bottom: GzActionBar(
         action: GzActionBarAction(label: l10n.commonActionContinue, onPressed: () => _confirm(f)),
       ),

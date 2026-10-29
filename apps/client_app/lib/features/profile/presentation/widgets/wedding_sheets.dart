@@ -1,4 +1,4 @@
-// The pickers of Wedding info (CL-PROF-02): role, guests (ladies and men apart), date, budget and areas. Each sheet keeps a draft and
+// The pickers of Wedding info (CL-PROF-02): role, guests (ladies and men apart), date, budget and governorates. Each sheet keeps a draft and
 // writes the wedding file (and the Brief it feeds) on Done, or on the tap for a single choice; dismissing discards. Port of the web
 // `WeddingSheets.tsx`.
 import 'package:client_app/l10n/l10n.dart';
@@ -266,23 +266,23 @@ class _BudgetSheetState extends ConsumerState<BudgetSheet> {
   }
 }
 
-class AreasSheet extends ConsumerStatefulWidget {
-  const AreasSheet({required this.profile, required this.onSaved, super.key});
+/// The governorates question of Wedding info (ADR 0038): the same chips as the Brief sheet (the shared [GzGovernorateFilter]); nothing lit
+/// means every governorate. Done writes the wedding file and the Brief it feeds.
+class GovernoratesSheet extends ConsumerStatefulWidget {
+  const GovernoratesSheet({required this.profile, required this.onSaved, super.key});
 
   final WeddingProfile profile;
   final SavedCallback onSaved;
 
   @override
-  ConsumerState<AreasSheet> createState() => _AreasSheetState();
+  ConsumerState<GovernoratesSheet> createState() => _GovernoratesSheetState();
 }
 
-class _AreasSheetState extends ConsumerState<AreasSheet> {
-  late List<String> _ids = <String>[...widget.profile.areaIds];
+class _GovernoratesSheetState extends ConsumerState<GovernoratesSheet> {
+  List<String>? _ids;
 
   @override
   Widget build(BuildContext context) {
-    final lang = context.gz.locale.languageCode;
-    final c = context.gz.colors;
     final areas = ref.watch(profileAreasProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -290,26 +290,14 @@ class _AreasSheetState extends ConsumerState<AreasSheet> {
         areas.when(
           loading: () => const GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 120),
           error: (e, _) => GzErrorState(kind: GzErrorKind.load, onRetry: () => ref.invalidate(profileAreasProvider), fill: false),
-          data: (r) => Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              for (final g in r.governorates)
-                if (r.areas.any((a) => a.governorateId == g.id)) ...[
-                  Padding(padding: const EdgeInsetsDirectional.only(top: GzSpace.s4, bottom: GzSpace.s2), child: GzText(g.name.of(lang), role: GzTextRole.label, color: c.textSecondary)),
-                  GzChipGroup<String>.multiple(
-                    label: g.name.of(lang),
-                    values: <String>[for (final a in r.areas) if (a.governorateId == g.id && _ids.contains(a.id)) a.id],
-                    onChanged: (next) => setState(() {
-                      final inGov = <String>{for (final a in r.areas) if (a.governorateId == g.id) a.id};
-                      _ids = <String>[..._ids.where((x) => !inGov.contains(x)), ...next];
-                    }),
-                    options: [for (final a in r.areas) if (a.governorateId == g.id) GzChipOption<String>(value: a.id, label: a.name.of(lang))],
-                  ),
-                ],
-            ],
+          data: (r) => GzGovernorateFilter(
+            governorates: r.governorates,
+            label: context.l10n.clientProfileWedGovernorates,
+            values: _ids ??= profileGovernorateIds(widget.profile, r),
+            onChanged: (next) => setState(() => _ids = next),
           ),
         ),
-        _done(context, () => _commit(context, ref, WeddingProfileInput(areaIds: _ids), widget.onSaved)),
+        _done(context, () => _commit(context, ref, WeddingProfileInput(governorateIds: _ids ?? const <String>[]), widget.onSaved)),
       ],
     );
   }

@@ -15,7 +15,6 @@ class ServPackageRow extends StatelessWidget {
     required this.chosen,
     required this.onChoose,
     required this.voucher,
-    required this.guest,
     required this.favourite,
     required this.onFavourite,
     super.key,
@@ -26,7 +25,6 @@ class ServPackageRow extends StatelessWidget {
   final bool chosen;
   final VoidCallback onChoose;
   final int? voucher;
-  final bool guest;
   final bool favourite;
   final VoidCallback onFavourite;
 
@@ -68,7 +66,7 @@ class ServPackageRow extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: GzSpace.s3),
-                ServPriceStack(standard: pkg.price.fils, voucher: voucher, categoryId: categoryId, guest: guest, package: true),
+                ServPriceStack(standard: pkg.price.fils, voucher: voucher, categoryId: categoryId, package: true),
                 const SizedBox(height: GzSpace.s3),
                 if (chosen)
                   Container(

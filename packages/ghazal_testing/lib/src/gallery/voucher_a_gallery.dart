@@ -106,35 +106,30 @@ Widget _qr(BuildContext context, VoucherAData d) {
 Widget _priceCompare(BuildContext context, VoucherAData d) {
   String t(String en, String ar) => tr(context, en, ar);
   final q = (d.v(_hero).voucher as Voucher).quoteFils;
-  Widget inline({bool guest = false, bool perPerson = true}) => GzPriceCompare(
+  Widget inline({bool perPerson = true}) => GzPriceCompare(
     standard: perPerson ? 52000 : q.standard,
     voucher: perPerson ? 44000 : q.voucher,
     structure: perPerson ? PriceStructure.perPerson : PriceStructure.package,
     guests: perPerson ? 350 : null,
     variant: GzPriceCompareVariant.inline,
-    audience: guest ? GzPriceCompareAudience.guest : GzPriceCompareAudience.member,
   );
   return gcSection(
     context,
     title: t('Price compare', 'مقارنة السعر'),
     note: t(
-      'The two prices of one quote on the same basis. The voucher price is the headline in the figures voice; the standard price sits under it, quiet and struck through; then the saving, the net saving after the KD 2 voucher and the basis. A signed-out visitor sees the standard price and a locked voucher teaser with a sign-up action.',
-      'السعران لعرض واحد بالأساس نفسه. سعر الكوبون هو العنوان بصوت الأرقام، والسعر العادي تحته هادئًا ومشطوبًا؛ ثم التوفير والتوفير الصافي بعد كوبون 2 د.ك والأساس. يرى الزائر غير المسجّل السعر العادي ولمحة مقفلة عن سعر الكوبون مع إجراء التسجيل.',
+      'The two prices of one quote on the same basis. The voucher price is the headline in the figures voice; the standard price sits under it, quiet and struck through; then the saving, the net saving after the KD 2 voucher and the basis.',
+      'السعران لعرض واحد بالأساس نفسه. سعر الكوبون هو العنوان بصوت الأرقام، والسعر العادي تحته هادئًا ومشطوبًا؛ ثم التوفير والتوفير الصافي بعد كوبون 2 د.ك والأساس.',
     ),
     specs: [
-      gcSpec(context, t('Package · 350 guests · registered', 'باقة · 350 ضيفًا · مسجّل'), [
+      gcSpec(context, t('Package · 350 guests', 'باقة · 350 ضيفًا'), [
         GzPriceCompare(standard: q.standard, voucher: q.voucher, structure: PriceStructure.package, guests: 350),
       ]),
       gcSpec(context, t('Per person · hero size', 'للضيف · حجم العنوان'), [
         const GzPriceCompare(standard: 52000, voucher: 44000, structure: PriceStructure.perPerson, guests: 350, size: GzPriceCompareSize.display),
       ]),
-      gcSpec(context, t('Guest (signed out): the voucher price is behind registration', 'زائر (غير مسجّل): سعر الكوبون خلف التسجيل'), [
-        GzPriceCompare(standard: q.standard, voucher: q.voucher, structure: PriceStructure.package, guests: 350, audience: GzPriceCompareAudience.guest, onRegister: _no),
-      ]),
-      gcSpec(context, t('Inline for cards and rows · registered · guest', 'سطر واحد للبطاقات والصفوف · مسجّل · زائر'), [
+      gcSpec(context, t('Inline for cards and rows', 'سطر واحد للبطاقات والصفوف'), [
         inline(),
         inline(perPerson: false),
-        inline(guest: true),
       ]),
       gcSpec(context, t('No voucher price: the standard price alone, no strike, no voucher mention', 'لا سعر كوبون: السعر العادي وحده بلا شطب ولا إشارة للكوبون'), [
         GzPriceCompare(standard: q.standard, voucher: null, structure: PriceStructure.package, guests: 350),

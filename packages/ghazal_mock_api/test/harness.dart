@@ -21,7 +21,17 @@ class World {
   /// A client of [persona] (`reem`, `new_client`, `hotel_manager`, `hotel_admin`, `provider`, ...), or anonymous for `guest`.
   Actor actor(String persona, {String? venueId, String? providerId, String language = 'en'}) {
     final s = persona == 'guest' ? null : control.sessionFor(persona);
-    final store = MemoryTokenStore(s == null ? null : AuthTokens(accessToken: s['accessToken'] as String, refreshToken: s['refreshToken'] as String));
+    return actorWithTokens(
+      s == null ? null : AuthTokens(accessToken: s['accessToken'] as String, refreshToken: s['refreshToken'] as String),
+      venueId: venueId,
+      providerId: providerId,
+      language: language,
+    );
+  }
+
+  /// A client holding [tokens] it got from a real sign-in in the test (the session of `partnerVerifyCode`, for example), or anonymous when null.
+  Actor actorWithTokens(AuthTokens? tokens, {String? venueId, String? providerId, String language = 'en'}) {
+    final store = MemoryTokenStore(tokens);
     final env = StaticClientEnvironment(
       languageCode: language,
       partnerContext: venueId != null || providerId != null ? PartnerRequestContext(venueId: venueId, providerId: providerId) : null,

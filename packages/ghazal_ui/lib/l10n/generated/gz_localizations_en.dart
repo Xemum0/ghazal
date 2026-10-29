@@ -711,9 +711,6 @@ class GzL10nEn extends GzL10n {
   }
 
   @override
-  String get commonLabelGuestVoucher => 'Voucher price after you sign up';
-
-  @override
   String get commonRoleClient => 'Client';
 
   @override
@@ -845,7 +842,7 @@ class GzL10nEn extends GzL10n {
   String get uiClientBriefCardDate => 'Date';
 
   @override
-  String get uiClientBriefCardArea => 'Area';
+  String get uiClientBriefCardArea => 'Governorate';
 
   @override
   String get uiClientBriefCardGuests => 'Guests';
@@ -857,7 +854,7 @@ class GzL10nEn extends GzL10n {
   String get uiClientBriefCardNameDate => 'Date';
 
   @override
-  String get uiClientBriefCardNameArea => 'Area';
+  String get uiClientBriefCardNameArea => 'Governorate';
 
   @override
   String get uiClientBriefCardNameGuests => 'Guests';
@@ -917,7 +914,7 @@ class GzL10nEn extends GzL10n {
   String get uiClientBriefSentenceChooseDate => 'choose a date';
 
   @override
-  String get uiClientBriefSentenceChooseArea => 'choose an area';
+  String get uiClientBriefSentenceChooseArea => 'choose a governorate';
 
   @override
   String get uiClientBriefSentenceChooseBudget => 'set a budget';
@@ -934,7 +931,7 @@ class GzL10nEn extends GzL10n {
   String get uiClientBriefSentenceWhatGuests => 'the guests';
 
   @override
-  String get uiClientBriefSentenceWhatArea => 'the area';
+  String get uiClientBriefSentenceWhatArea => 'the governorate';
 
   @override
   String get uiClientBriefSentenceWhatBudget => 'the budget';
@@ -1877,7 +1874,10 @@ class GzL10nEn extends GzL10n {
   String get uiClientNotificationMarketing => 'Offer';
 
   @override
-  String get uiFiltersGovernorateAll => 'All Kuwait';
+  String get uiClientProviderNoteText => 'Service provider? Apply in the Partner app';
+
+  @override
+  String get uiClientProviderNoteCta => 'Apply';
 
   @override
   String get uiFiltersCapacityFrom => 'From';
@@ -3088,9 +3088,6 @@ class GzL10nEn extends GzL10n {
   String get uiSharedRentalFee => 'Rental fee';
 
   @override
-  String get uiSharedLockedVoucher => 'Voucher price after you sign up';
-
-  @override
   String get uiSharedVoucher => 'Voucher';
 
   @override
@@ -3173,9 +3170,6 @@ class GzL10nEn extends GzL10n {
 
   @override
   String get uiVoucherCardUsedOn => 'Redeemed on';
-
-  @override
-  String get uiVoucherPriceSignUp => 'Sign up';
 
   @override
   String get uiVoucherPriceNetTitle => 'Your saving';

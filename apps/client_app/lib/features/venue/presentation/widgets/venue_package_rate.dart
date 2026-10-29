@@ -46,11 +46,10 @@ String _tierName(AppL10n l, PriceTier tier) => switch (tier) {
 /// The ruled rate block of the package sheet (web `.gzv-pk__rate`): the facts, the two prices of the quote, the per-guest pair and the
 /// day type of the date with the sibling rate beside it. Glyphs and figures only (ADR 0034).
 class PackageRateBlock extends StatelessWidget {
-  const PackageRateBlock({required this.view, required this.row, required this.guest, super.key});
+  const PackageRateBlock({required this.view, required this.row, super.key});
 
   final VenueView view;
   final PackageRow row;
-  final bool guest;
 
   @override
   Widget build(BuildContext context) {
@@ -132,8 +131,8 @@ class PackageRateBlock extends StatelessWidget {
         ),
       );
     } else if (price != null) {
-      if (date != null && !over && prices != null && !row.lowestRate) body.add(PriceBlock(prices: prices, guest: guest, owned: view.owned != null));
-      if (perGuest && price.perGuest != null) body.add(_RatePair(price: price, eligible: eligible, guest: guest));
+      if (date != null && !over && prices != null && !row.lowestRate) body.add(PriceBlock(prices: prices, owned: view.owned != null));
+      if (perGuest && price.perGuest != null) body.add(_RatePair(price: price, eligible: eligible));
       if (date != null) body.add(_TierLine(row: row, price: price, date: date, eligible: eligible, sibling: siblingPackage(view, row)));
     }
     if (over && !unavailable) {
@@ -174,11 +173,10 @@ class PackageRateBlock extends StatelessWidget {
 
 /// The two per-guest rates side by side: the voucher column, then the standard one (struck when a voucher price exists).
 class _RatePair extends StatelessWidget {
-  const _RatePair({required this.price, required this.eligible, required this.guest});
+  const _RatePair({required this.price, required this.eligible});
 
   final PackageBriefPrice price;
   final bool eligible;
-  final bool guest;
 
   @override
   Widget build(BuildContext context) {
@@ -196,9 +194,9 @@ class _RatePair extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               GzIcon(
-                guest ? GzIcons.lock : GzIcons.ticket,
+                GzIcons.ticket,
                 size: GzIconSize.sm,
-                tone: guest ? GzIconTone.secondary : GzIconTone.success,
+                tone: GzIconTone.success,
                 semanticLabel: lc.commonVoucherPrice,
               ),
               const SizedBox(width: GzSpace.s2),

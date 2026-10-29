@@ -2,7 +2,7 @@ import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show GateReason, GateResume, WidgetSessionGate, gzProblemKind, gzProblemMessage, homeRepositoryProvider, servicesRepositoryProvider, sessionProvider;
+import 'package:ghazal_app_kit/ghazal_app_kit.dart' show gzProblemKind, gzProblemMessage, homeRepositoryProvider, servicesRepositoryProvider;
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, ApiProblemCode;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
@@ -76,7 +76,6 @@ class _QuoteFormState extends ConsumerState<_QuoteForm> {
     final venueId = _venueId == null ? (linkVenue ?? draftVenue) : (_venueId!.isEmpty ? null : _venueId);
     final date = _dateOverride ?? widget.presetDate ?? brief.date;
     final ready = ref.watch(servicesReadyVoucherProvider(widget.vendorId)).value;
-    final guest = !ref.watch(sessionProvider.select((s) => s.isSignedIn));
     final venues = ref.watch(servicesVenuesProvider).value ?? const <VenueSummary>[];
     final pkg = vendor?.packages.where((p) => p.id == _packageId).firstOrNull ?? vendor?.packages.firstOrNull;
     final Voucher? voucher = ready;
@@ -91,10 +90,6 @@ class _QuoteFormState extends ConsumerState<_QuoteForm> {
         return;
       }
       if (_sending) return;
-      if (guest) {
-        ref.read(quoteDraftProvider.notifier).note(_note);
-        if (!ref.requireSignIn(GateReason.quote, resume: GateResume('CL-SERV-04', <String, Object?>{'vendorId': vendor.id, 'packageId': pkg.id, 'date': eventDate.toString()}))) return;
-      }
       setState(() {
         _sending = true;
         _failed = false;
@@ -303,17 +298,6 @@ class _QuoteFormState extends ConsumerState<_QuoteForm> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 GzButton(label: l.clientServicesQuoteSend, iconStart: attached ? GzIcons.ticket : null, fullWidth: true, loading: _sending, onPressed: _sending ? null : send),
-                if (guest) ...[
-                  const SizedBox(height: GzSpace.s2),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const GzIcon(GzIcons.lock, size: GzIconSize.xs, tone: GzIconTone.secondary),
-                      const SizedBox(width: GzSpace.s1),
-                      GzText(l.clientServicesQuoteGuestNote, role: GzTextRole.caption, color: c.textSecondary),
-                    ],
-                  ),
-                ],
               ],
             ),
           ),
@@ -373,5 +357,4 @@ class _QuoteSuccess extends ConsumerWidget {
 
 final _quoteConfirmHoursProvider = FutureProvider.autoDispose<int>((ref) async => (await ref.watch(homeRepositoryProvider).getAppConfig()).config.confirmWindowHours);
 
-// Edges (inventory navigatesTo): 'CL-MSGS-02' (the sent request opens in the vendor chat), 'CL-AUTH-01' (the guest gate,
-// opened internally by requireSignIn). 'CL-VCHR-04' is not wired: attaching a voucher needs the voucher flow's contract.
+// Edges (inventory navigatesTo): 'CL-MSGS-02' (the sent request opens in the vendor chat). 'CL-VCHR-04' is not wired: attaching a voucher needs the voucher flow's contract.

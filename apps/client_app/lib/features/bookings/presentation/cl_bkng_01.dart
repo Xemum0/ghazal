@@ -2,7 +2,6 @@ import 'package:client_app/app/state/state.dart';
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ghazal_app_kit/ghazal_app_kit.dart' show sessionProvider;
 import 'package:ghazal_core/ghazal_core.dart' show clockProvider;
 import 'package:ghazal_domain/ghazal_domain.dart';
 import 'package:ghazal_ui/ghazal_ui.dart';
@@ -19,7 +18,7 @@ import 'widgets/bookings_list_parts.dart';
 /// All of the couple's requests by what needs attention: Needs you (approved, confirm by a time; a venue-proposed date), Pending,
 /// Confirmed (including Voucher redeemed), then Past with a glyph filter. Each row carries venue, date, the voucher price, the status
 /// chip and the Booking Thread's one line with its absolute time. The open-requests limit is a figure and three beads, the shortcuts
-/// are two one-word rows, the search is a glyph in the bar, the empty and guest states are a drawing, a title and one action.
+/// are two one-word rows, the search is a glyph in the bar, the empty state is a drawing, a title and one action.
 class ClBkng01Screen extends ConsumerStatefulWidget {
   const ClBkng01Screen({super.key});
 
@@ -34,26 +33,14 @@ class _ClBkng01State extends ConsumerState<ClBkng01Screen> {
   Widget build(BuildContext context) {
     final l = context.l10n;
     final nav = context.gzNav;
-    final guest = !ref.watch(sessionProvider.select((s) => s.isSignedIn));
     final async = ref.watch(bookingsListProvider);
     final limit = ref.watch(bookingsLimitProvider).value ?? 3;
     final now = ref.watch(clockProvider)();
 
     final top = GzTopBar(
       title: l.clientBookingsTitle,
-      actions: guest ? const [] : [GzTopBarAction(icon: GzIcons.search, label: l.clientBookingsFindHall, onPressed: () => nav.push('CL-DISC-03'))],
+      actions: [GzTopBarAction(icon: GzIcons.search, label: l.clientBookingsFindHall, onPressed: () => nav.push('CL-DISC-03'))],
     );
-
-    if (guest) {
-      return GzScreen(
-        top: top,
-        child: GzEmptyState(
-          illustration: GzIllustrationName.key,
-          title: l.clientBookingsGuestTitle,
-          action: GzStateAction(label: l.clientBookingsGuestAction, onPressed: () => nav.openSheet('CL-AUTH-01')),
-        ),
-      );
-    }
 
     return GzScreen(
       top: top,

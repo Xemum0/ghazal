@@ -334,3 +334,14 @@ Future<void> pumpSeconds(WidgetTester tester, int seconds) async {
     await tester.pump(const Duration(seconds: 1));
   }
 }
+
+/// Leaving the tab shell (a `reset` or `replace` to a screen outside it) makes the kit's `GzTabShell.dispose` set `bottomChrome` while the tree is
+/// locked: a debug-only "setState() or markNeedsBuild() called when widget tree was locked" assertion (requests.md, R2-PARTNER 2026-10-29). Call
+/// this right after such a tap; it takes the pending framework exception and fails on any OTHER one. Delete the calls when the kit defers it.
+void dropShellTeardownError(WidgetTester tester) {
+  Object? e;
+  while ((e = tester.takeException()) != null) {
+    expect(e.toString(), contains('widget tree was locked'), reason: 'only the known tab-shell teardown assertion may be dropped');
+  }
+}
+

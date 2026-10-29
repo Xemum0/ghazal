@@ -1,8 +1,10 @@
 // CL-PROF-01 Profile (tab root). Port of CL-PROF-01.tsx. Requirements: CA-PROF-01 .. 05, 07, 10, 11, 12, CA-VCH-06.
 // The hub of the Profile tab, text-diet edition (ADR 0034): the monogram and the verified number, one wedding card (rings, the date and the
 // days to go as facts), then three quiet lists of one-word rows with a glyph, no group titles and no captions. Counts are figures at the end
-// of the row, the request is a status glyph, Receipts shows the KD 2 paid to Ghazal (ADR 0033). Every row goes somewhere. Sign out asks
-// first and returns to Home as a guest. A guest sees one doorway card with Sign in, Language, Terms and Privacy.
+// of the row, the request is a status glyph, Receipts shows the KD 2 paid to Ghazal (ADR 0033). Every row goes somewhere. The provider
+// note (CA-SVC-20, round 2b: "Service provider? Apply in the Partner app" with an accent Apply, an external link) is ONE row on a
+// full-width rose band right under the identity header, inside the first screen. Sign out asks first and returns to the sign-in
+// screen: there is no signed-out Profile (ADR 0038, no guest mode).
 import 'package:client_app/l10n/l10n.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,16 +26,13 @@ class ClProf01Screen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l10n;
-    final session = ref.watch(sessionProvider);
     final top = GzTopBar(variant: GzTopBarVariant.largeTitle, title: l.clientProfileHubTitle, back: GzTopBarBack.hide);
-    final Widget body = session is ClientSession
-        ? GzAsyncView<(ProfileActivity, WeddingProfile?)>(
-            value: ref.watch(profileHubProvider),
-            loading: const _HubSkeleton(),
-            onRetry: () => ref.invalidate(profileHubProvider),
-            data: (d) => _SignedIn(activity: d.$1, wedding: d.$2),
-          )
-        : const _Guest();
+    final Widget body = GzAsyncView<(ProfileActivity, WeddingProfile?)>(
+      value: ref.watch(profileHubProvider),
+      loading: const _HubSkeleton(),
+      onRetry: () => ref.invalidate(profileHubProvider),
+      data: (d) => _SignedIn(activity: d.$1, wedding: d.$2),
+    );
     return GzScreen(top: top, child: body);
   }
 }
@@ -98,6 +97,8 @@ class _HubSkeleton extends StatelessWidget {
               ],
             ),
             const SizedBox(height: GzSpace.s6),
+            const GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 80),
+            const SizedBox(height: GzSpace.s6),
             const GzSkeleton(variant: GzSkeletonVariant.block, blockSize: 112),
             for (final rows in const <int>[5, 4, 3]) ...[
               const SizedBox(height: GzSpace.s6),
@@ -113,7 +114,7 @@ class _HubSkeleton extends StatelessWidget {
   }
 }
 
-/// The rows every visitor sees: Language, Terms, Privacy.
+/// Language, Terms, Privacy.
 class _CommonRows {
   static Widget language(BuildContext context, WidgetRef ref) {
     final code = ref.watch(localeProvider).languageCode;
@@ -143,43 +144,6 @@ class _CommonRows {
     last: true,
     onPressed: () => context.gzNav.openLegalSheet(context, LegalKind.privacy),
   );
-}
-
-class _Guest extends ConsumerWidget {
-  const _Guest();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final c = context.gz.colors;
-    return _HubColumn(
-      children: [
-        Padding(
-          padding: kProfPad,
-          child: Container(
-            padding: const EdgeInsetsDirectional.symmetric(vertical: GzSpace.s6, horizontal: GzSpace.panelPad),
-            decoration: BoxDecoration(
-              color: c.surfaceRaised,
-              borderRadius: GzRadius.mdAll,
-              border: Border.all(color: c.borderStrong, width: GzStroke.hair),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Center(child: GzIllustration(GzIllustrationName.doorway, size: GzIllustrationSize.lg)),
-                const SizedBox(height: GzSpace.s5),
-                GzButton(
-                  label: context.l10n.clientProfileSharedSignIn,
-                  fullWidth: true,
-                  onPressed: () => context.gzNav.openSheet('CL-AUTH-01', options: const GzSheetOptions(params: <String, Object?>{'reason': 'none'})),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Column(children: [_CommonRows.language(context, ref), _CommonRows.terms(context), _CommonRows.privacy(context)]),
-      ],
-    );
-  }
 }
 
 class _SignedIn extends ConsumerWidget {
@@ -272,6 +236,7 @@ class _SignedIn extends ConsumerWidget {
               ),
             ),
           ),
+        GzProviderNote(band: true, onOpen: ref.partnerNoteOpener()),
         Padding(
           padding: kProfPad,
           child: Container(

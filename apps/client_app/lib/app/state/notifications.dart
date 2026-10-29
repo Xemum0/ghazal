@@ -34,7 +34,7 @@ final class NotificationsState {
 
 const int _pageSize = 20;
 
-/// The client's notifications. A guest has none (nothing is requested). Reloads when a request or payment action finishes
+/// The client's notifications. Without a session nothing is requested. Reloads when a request or payment action finishes
 /// (`clientDataRevisionProvider`), because those create notifications. `markRead` and `markAllRead` are optimistic.
 final AsyncNotifierProvider<NotificationsNotifier, NotificationsState> notificationsProvider =
     AsyncNotifierProvider<NotificationsNotifier, NotificationsState>(NotificationsNotifier.new);
@@ -62,7 +62,7 @@ class NotificationsNotifier extends AsyncNotifier<NotificationsState> {
   /// Marks one notification read (the unread count drops at once; a refusal restores it).
   Future<ActionResult<void>> markRead(String id) async {
     final cur = state.value;
-    if (cur == null) return const ActionGated();
+    if (cur == null) return const ActionSuccess<void>(null);
     final target = cur.items.where((n) => n.id == id && !n.read);
     if (target.isEmpty) return const ActionSuccess<void>(null);
     state = AsyncData(cur.copyWith(items: [for (final n in cur.items) n.id == id ? n.copyWith(read: true) : n], unread: (cur.unread - 1).clamp(0, 1 << 30)));
@@ -78,7 +78,7 @@ class NotificationsNotifier extends AsyncNotifier<NotificationsState> {
   /// Marks everything read.
   Future<ActionResult<void>> markAllRead() async {
     final cur = state.value;
-    if (cur == null) return const ActionGated();
+    if (cur == null) return const ActionSuccess<void>(null);
     state = AsyncData(cur.copyWith(items: [for (final n in cur.items) n.copyWith(read: true)], unread: 0));
     try {
       await ref.read(notificationsRepositoryProvider).markAllNotificationsRead();
@@ -93,5 +93,5 @@ class NotificationsNotifier extends AsyncNotifier<NotificationsState> {
   void refresh() => ref.read(clientDataRevisionProvider.notifier).bump();
 }
 
-/// The unread notification count (0 while loading, for a guest or after an error).
+/// The unread notification count (0 while loading or after an error).
 final Provider<int> unreadNotificationsProvider = Provider<int>((ref) => ref.watch(notificationsProvider.select((a) => a.value?.unread ?? 0)));

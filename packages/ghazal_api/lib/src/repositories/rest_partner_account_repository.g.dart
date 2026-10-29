@@ -27,6 +27,15 @@ final class RestPartnerAccountRepository implements PartnerAccountRepository {
   }
 
   @override
+  Future<OtpChallenge> submitPartnerApplication({
+    required SubmitPartnerApplicationInput body,
+    String? idempotencyKey,
+  }) async {
+    final json = await _client.send('POST', '/partner/applications', body: body.toJson(), idempotent: true, idempotencyKey: idempotencyKey);
+    return OtpChallenge.fromJson(asMap(json));
+  }
+
+  @override
   Future<PartnerApplication> getPartnerApplication() async {
     final json = await _client.send('GET', '/partner/application');
     return PartnerApplication.fromJson(asMap(json));

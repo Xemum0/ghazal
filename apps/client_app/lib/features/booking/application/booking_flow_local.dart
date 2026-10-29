@@ -5,13 +5,12 @@ import 'package:ghazal_domain/ghazal_domain.dart' show BookingFor;
 /// The optional occasion of step 1 (web `OccasionKey`, flagged OQ-B-11).
 enum BookingOccasion { wedding, milka, henna, engagement, other }
 
-/// What the request flow keeps besides the shared [BookingDraft] (web `useFlowStore`): occasion, extra quantities, who the booking is for,
+/// What the request flow keeps besides the shared [BookingDraft] (web `useFlowStore`): occasion, who the booking is for,
 /// the phone verified in this run, the two consents, the steps on screen and the planner card state. Not persisted; cleared when the flow ends.
 @immutable
 final class BookingFlowLocal {
   const BookingFlowLocal({
     this.occasion,
-    this.extraQty = const <String, int>{},
     this.forOther = false,
     this.otherName = '',
     this.relation = BookingFor.bride,
@@ -24,7 +23,6 @@ final class BookingFlowLocal {
   });
 
   final BookingOccasion? occasion;
-  final Map<String, int> extraQty;
   final bool forOther;
   final String otherName;
   final BookingFor relation;
@@ -36,7 +34,7 @@ final class BookingFlowLocal {
   final bool consent;
   final bool confirmConsent;
 
-  /// Steps (1 to 5) whose screen is on the stack: an Edit link pops back to them, otherwise it replaces.
+  /// Steps (1 to 4) whose screen is on the stack: an Edit link pops back to them, otherwise it replaces.
   final Set<int> entered;
   final bool plannerDismissed;
   final bool notifPrompted;
@@ -44,7 +42,6 @@ final class BookingFlowLocal {
   BookingFlowLocal copyWith({
     BookingOccasion? occasion,
     bool clearOccasion = false,
-    Map<String, int>? extraQty,
     bool? forOther,
     String? otherName,
     BookingFor? relation,
@@ -56,7 +53,6 @@ final class BookingFlowLocal {
     bool? notifPrompted,
   }) => BookingFlowLocal(
     occasion: clearOccasion ? null : (occasion ?? this.occasion),
-    extraQty: extraQty ?? this.extraQty,
     forOther: forOther ?? this.forOther,
     otherName: otherName ?? this.otherName,
     relation: relation ?? this.relation,

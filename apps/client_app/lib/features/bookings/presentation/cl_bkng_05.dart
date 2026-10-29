@@ -40,32 +40,18 @@ class _ClBkng05State extends ConsumerState<ClBkng05Screen> {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    final nav = context.gzNav;
-    final guest = !ref.watch(sessionProvider.select((s) => s.isSignedIn));
     final async = ref.watch(bookingsReceiptsProvider);
     final credits = ref.watch(bookingsCreditProvider);
     final top = GzTopBar(
       title: l.clientBookingsReceiptsTitle,
-      actions: guest
-          ? const []
-          : [
-              GzTopBarAction(
-                icon: GzIcons.info,
-                label: l.clientBookingsReceiptsInfoTitle,
-                onPressed: () => showGzInfoSheet(context, title: l.clientBookingsReceiptsInfoTitle, paragraphs: [l.clientBookingsReceiptsNote]),
-              ),
-            ],
-    );
-    if (guest) {
-      return GzScreen(
-        top: top,
-        child: GzEmptyState(
-          illustration: GzIllustrationName.key,
-          title: l.clientBookingsGuestTitle,
-          action: GzStateAction(label: l.clientBookingsGuestAction, onPressed: () => nav.openSheet('CL-AUTH-01')),
+      actions: [
+        GzTopBarAction(
+          icon: GzIcons.info,
+          label: l.clientBookingsReceiptsInfoTitle,
+          onPressed: () => showGzInfoSheet(context, title: l.clientBookingsReceiptsInfoTitle, paragraphs: [l.clientBookingsReceiptsNote]),
         ),
-      );
-    }
+      ],
+    );
     return GzScreen(
       top: top,
       child: BkAsync<List<Receipt>>(

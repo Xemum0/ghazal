@@ -14,7 +14,7 @@ import 'widgets/wallet_ticket.dart';
 
 /// CL-VCHR-02 My vouchers: the wallet. Every voucher the client holds in three groups (Ready, In request, History) behind a glyph switch
 /// that names only the chosen one. Each voucher is a ticket (venue, event date, saving, state; under the perforation the ONE date that
-/// matters and the action that fits). Covers CA-VCH-06, CA-VCH-13, CA-PROF-12, CA-VCH-11. Guests see a drawing and Sign in.
+/// matters and the action that fits). Covers CA-VCH-06, CA-VCH-13, CA-PROF-12, CA-VCH-11.
 class ClVchr02Screen extends ConsumerStatefulWidget {
   const ClVchr02Screen({super.key});
 
@@ -29,25 +29,7 @@ class _ClVchr02State extends ConsumerState<ClVchr02Screen> {
   Widget build(BuildContext context) {
     final l = context.l10n;
     final nav = context.gzNav;
-    final signedIn = ref.watch(sessionProvider.select((s) => s.isSignedIn));
     final top = GzTopBar(title: l.clientVouchersWalletTitle);
-    if (!signedIn) {
-      // A guest meets the account sheet ('CL-AUTH-01', opened by the gate).
-      // The wallet is entered from the Profile hub ('CL-PROF-01'); system back returns there.
-      return GzScreen(
-        top: top,
-        child: GzEmptyState(
-          illustration: GzIllustrationName.emptyVouchers,
-          title: l.clientVouchersGuestTitle,
-          action: GzStateAction(
-            label: l.clientVouchersCtaSignIn,
-            variant: GzButtonVariant.primary,
-            iconStart: GzIcons.lock,
-            onPressed: () => ref.requireSignIn(GateReason.voucher, resume: const GateResume('CL-VCHR-02', <String, Object?>{})),
-          ),
-        ),
-      );
-    }
     final async = ref.watch(walletProvider);
     return GzScreen(
       top: top,

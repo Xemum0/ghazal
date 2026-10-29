@@ -4,15 +4,25 @@
 // a short description, an optional commercial licence reference), and "Application received": the account stays under review, Ghazal staff
 // accept or reject it (HL-ACCS-04 shows the wait and the decision), and only an accepted account creates listings. A rejected application comes
 // back here through "Edit and resubmit", prefilled, with the reason on top. Fee exemption is never chosen here: Ghazal sets it.
+// Signed out (round 2b: HL-ACCS-01 "Apply to join" opens it with `signedOut`): the form also makes the account. A first section "Your account"
+// (email, password with its strength thread, repeat password) comes before "Your business"; the email is also the contact email, so the business
+// section does not ask for it twice. Account errors: email already registered, password too weak, passwords differ. Submit holds the form as
+// pending and opens the email code (HL-ACCS-02, mode `application`); the right code creates the application and lands on HL-ACCS-04 (in review).
+// A signed-in partner (a rejected applicant resubmitting, an account adding a type) never sees the account section. Back from the first step
+// returns to HL-ACCS-01.
 // Requirements: PA-ACC-01, PA-ACC-02, PA-ACC-03, PA-ACC-07, PA-ACC-08, PA-REV-01
-// States: empty, hall, filled, categories, validation, submitting, submitted, resubmit, error, offline (the default frame is the account type)
+// States: empty, hall, filled, categories, validation, submitting, submitted, resubmit, error, offline, signed-out, account-errors (the default frame is the account type)
 import { useState } from 'react'
 import type { IconName } from '@gz/tokens'
 import { governorates } from '../../../mock'
 import type { ServiceCategoryId } from '../../../mock'
 import { useFrame } from '../../../shell/frame'
 import { useLang } from '../../../shell/lang'
+import { useT } from '../../../i18n'
 import { ActionBar, Avatar, Button, ChipGroup, Icon, IconListRow, Illustration, PhoneField, Screen, TextArea, TextField, ThreadBead, TopBar, useNav } from '../../../system'
+import { PasswordField } from '../access/_components/PasswordField'
+import { PasswordRules, checkPassword } from '../access/_components/PasswordRules'
+import { isEmailTaken, useAccessFlow } from '../access/_components/flow'
 import { BilingualField, FieldError } from './_components/fields'
 import { Note, OfflineStrip, StaticSheet, useAfter, useBi, useLive, useP } from './_components/bits'
 import { CategorySheet } from './_components/CategorySheet'
@@ -21,7 +31,13 @@ import { categoryIcon, categoryOptions } from './_components/model'
 import { useProv } from './_components/store'
 import './HL-PROV-01.css'
 
-export const states = ['empty', 'hall', 'filled', 'categories', 'validation', 'submitting', 'submitted', 'resubmit', 'error', 'offline']
+export const states = ['empty', 'hall', 'filled', 'categories', 'validation', 'submitting', 'submitted', 'resubmit', 'error', 'offline', 'signed-out', 'account-errors']
+
+/** Frames that draw the signed-out form (the account section on top). */
+const SIGNED_OUT_FRAMES: readonly string[] = ['signed-out', 'account-errors']
+/** The weak, mistyped password of the account-errors frame. */
+const DEMO_WEAK = '123456'
+const DEMO_OTHER = '123457'
 
 type Step = 'choose' | 'form' | 'submitted'
 
@@ -36,20 +52,26 @@ export default function ApplyToJoin() {
   const nav = useNav()
   const bi = useBi()
   const { t } = useP()
+  const ta = useT('hotel-access')
   const live = useLive()
   const setViewer = useProv(s => s.setViewer)
   const app = useApplication()
+  // Signed out: the sign-in screen opened the form for a new applicant. A frame names it with `?state=signed-out`.
+  const signedOut = state === undefined ? nav.params.signedOut === true : SIGNED_OUT_FRAMES.includes(state)
 
   // A rejected application comes back here prefilled (HL-ACCS-04 "Edit and resubmit").
   const resubmit = state === 'resubmit' || (state === undefined && nav.params.resubmit === true && app.form !== null)
   const frameForm: ApplicationForm | null =
-    state === 'hall' ? demoHallForm(lang) : state === 'validation' || state === 'empty' ? BLANK_FORM : state === 'resubmit' || state === 'filled' || state === 'categories' || state === 'submitting' || state === 'submitted' || state === 'error' || state === 'offline' ? demoProviderForm(lang) : null
+    state === 'hall' ? demoHallForm(lang) : state === 'validation' || state === 'empty' || state === 'signed-out' ? BLANK_FORM : state === 'account-errors' || state === 'resubmit' || state === 'filled' || state === 'categories' || state === 'submitting' || state === 'submitted' || state === 'error' || state === 'offline' ? demoProviderForm(lang) : null
   const initialForm: ApplicationForm | null = frameForm ?? (resubmit ? app.form : null)
 
   const [step, setStep] = useState<Step>(state === 'submitted' ? 'submitted' : initialForm ? 'form' : 'choose')
   const [kind, setKind] = useState<ApplicantKind | null>(initialForm?.kind ?? null)
   const [p, setP] = useState<ApplicationForm>(initialForm ?? BLANK_FORM)
-  const [tried, setTried] = useState(state === 'validation')
+  const [tried, setTried] = useState(state === 'validation' || state === 'account-errors')
+  // The account (signed out only): the email is the form's own `email`; the two passwords are never stored with the application.
+  const [password, setPassword] = useState(state === 'account-errors' ? DEMO_WEAK : '')
+  const [repeat, setRepeat] = useState(state === 'account-errors' ? DEMO_OTHER : '')
   const [busy, setBusy] = useState(state === 'submitting')
   const [failed, setFailed] = useState(state === 'error')
   const patch = (x: Partial<ApplicationForm>) => setP(s => ({ ...s, ...x }))
@@ -57,22 +79,40 @@ export default function ApplyToJoin() {
 
   const isHall = p.kind === 'private_hall'
   const missing = missingOf(p)
-  const incomplete = Object.values(missing).some(Boolean)
+  const check = checkPassword(password, '')
+  const account = {
+    emailTaken: signedOut && !missing.email && isEmailTaken(p.email),
+    weak: signedOut && !(check.length && check.mix),
+    differ: signedOut && repeat !== password,
+  }
+  const accountBad = account.emailTaken || account.weak || account.differ
+  const incomplete = Object.values(missing).some(Boolean) || accountBad
   const required = t('hotelProviderRequired')
 
   const send = () => {
     setTried(true)
     setFailed(false)
-    if (!isComplete(p)) return
+    if (!isComplete(p) || accountBad) return
     setBusy(true)
   }
   // The round trip is simulated in the live player only: a static frame holds still.
   useAfter(
     700,
     () => {
-      useApplication.getState().submit(p)
       setViewer(isHall ? 'hotel' : 'provider')
       setBusy(false)
+      if (signedOut) {
+        // The account exists, its email is not verified yet: the code screen follows, and only the right code makes the application (HL-ACCS-02).
+        const flow = useAccessFlow.getState()
+        useApplication.getState().setPending(p)
+        flow.setEmail(p.email.trim())
+        flow.setStaffId(null)
+        flow.setProvider(true)
+        flow.setFailed(0)
+        nav.push('HL-ACCS-02', { mode: 'application' })
+        return
+      }
+      useApplication.getState().submit(p)
       setStep('submitted')
     },
     busy,
@@ -192,6 +232,45 @@ export default function ApplyToJoin() {
         ) : null}
         {resubmit ? <Note tone="danger">{t('hotelProviderFormResubmitNote', { note: app.note || t('hotelProviderAppDemoNote') })}</Note> : null}
         {tried && incomplete ? <Note tone="danger">{t('hotelProviderFormFix')}</Note> : null}
+        {signedOut ? (
+          <section className="hp01__section" data-gz-id="account" aria-labelledby="hp01-account">
+            <h2 id="hp01-account" className="gz-t-title hp01__h">
+              {t('hotelProviderFormAccountTitle')}
+            </h2>
+            <TextField
+              label={t('hotelProviderFormEmail')}
+              dir="ltr"
+              inputMode="email"
+              autoComplete="username"
+              autoCapitalize="none"
+              autoCorrect="off"
+              startAdornment={<Icon name="mail" size="sm" tone="secondary" />}
+              value={p.email}
+              onValueChange={email => patch({ email })}
+              error={tried && missing.email ? t('hotelProviderFormEmailError') : tried && account.emailTaken ? t('hotelProviderAccountEmailUsed') : undefined}
+            />
+            <PasswordField
+              label={ta('hotelAccessSetupPasswordLabel')}
+              showLabel
+              autoComplete="new-password"
+              value={password}
+              onValueChange={setPassword}
+              error={tried && account.weak ? t('hotelProviderAccountPasswordWeak') : undefined}
+            />
+            <PasswordRules check={password.length > 0 ? check : { length: false, mix: false, score: 0 }} />
+            <PasswordField
+              label={t('hotelProviderAccountRepeat')}
+              showLabel
+              autoComplete="new-password"
+              value={repeat}
+              onValueChange={setRepeat}
+              error={account.differ && (repeat.length > 0 || tried) ? ta('hotelAccessSetupMismatch') : undefined}
+            />
+          </section>
+        ) : null}
+        {signedOut ? (
+          <h2 className="gz-t-title hp01__h hp01__h--business">{t('hotelProviderFormBusinessTitle')}</h2>
+        ) : null}
         <BilingualField
           label={t('hotelProviderProfileName')}
           ar={p.nameAr}
@@ -237,15 +316,17 @@ export default function ApplyToJoin() {
         </div>
         <TextField label={t('hotelProviderFormContact')} maxLength={60} value={p.contact} onValueChange={contact => patch({ contact })} error={tried && missing.contact ? required : undefined} />
         <PhoneField label={t('hotelProviderProfilePhone')} value={p.phone} onChange={n => patch({ phone: n })} error={tried && missing.phone ? t('hotelProviderPhoneError') : undefined} />
-        <TextField
-          label={t('hotelProviderFormEmail')}
-          dir="ltr"
-          inputMode="email"
-          autoComplete="email"
-          value={p.email}
-          onValueChange={email => patch({ email })}
-          error={tried && missing.email ? t('hotelProviderFormEmailError') : undefined}
-        />
+        {signedOut ? null : (
+          <TextField
+            label={t('hotelProviderFormEmail')}
+            dir="ltr"
+            inputMode="email"
+            autoComplete="email"
+            value={p.email}
+            onValueChange={email => patch({ email })}
+            error={tried && missing.email ? t('hotelProviderFormEmailError') : undefined}
+          />
+        )}
         <TextArea label={t('hotelProviderFormAbout')} rows={3} maxLength={ABOUT_MAX} value={p.about} onValueChange={about => patch({ about })} error={tried && missing.about ? required : undefined} />
         <TextField label={t('hotelProviderFormLicence')} optional dir="ltr" maxLength={40} value={p.licence} onValueChange={licence => patch({ licence })} />
       </div>

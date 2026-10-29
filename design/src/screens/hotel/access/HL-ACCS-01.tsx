@@ -8,6 +8,9 @@
 // A returning staff member on a trusted device goes straight to Today; a new device goes through the email code (HL-ACCS-02).
 // Voucher model (ADR 0033 D7): the Partner app serves hotels, halls and service providers (the wordmark carries no tagline), and a new partner
 // invited without an account type ends on the chooser (HL-PROV-01) after sign-in.
+// Findable application (PA-ACC-07, round 2b): under the gold Sign in, pinned in the same bar, sit one short line ("New service provider or
+// private hall?") and a full-width outlined "Apply to join" (44). It opens HL-PROV-01 signed out (account, then business information); it is a
+// real button, never a link inside a sentence, and it stays on screen while the form scrolls.
 // States: loading, error, locked, offline, invite-sheet. Live demo: the staff of Aurelia and the provider persona (Zahra) sign in with any password, other emails fail, five lock.
 import { useEffect, useRef, useState } from 'react'
 import { plainText } from '@gz/i18n'
@@ -95,6 +98,8 @@ export default function HlAccs01() {
   const edit = () => {
     if (status === 'error') setStatus('idle')
   }
+  // The application form of a new service provider or private hall, signed out (HL-PROV-01 asks for the account first).
+  const apply = () => nav.push('HL-PROV-01', { signedOut: true })
   const forgot = () => {
     const flow = useAccessFlow.getState()
     flow.setEmail(isValidEmail(email) ? email : DEMO_EMAIL)
@@ -115,7 +120,21 @@ export default function HlAccs01() {
 
   return (
     <div className="hxa01-root">
-      <Screen bottom={<ActionBar action={{ label: t('hotelAccessSigninSubmit'), onPress: submit, loading: busy, disabled: offline || locked || !ready }} />}>
+      <Screen
+        bottom={
+          <ActionBar
+            action={{ label: t('hotelAccessSigninSubmit'), onPress: submit, loading: busy, disabled: offline || locked || !ready }}
+            note={
+              <span className="hxa01__apply" data-gz-id="signin.apply">
+                <span className="hxa01__applyline gz-t-body-s">{t('hotelAccessSigninApplyLine')}</span>
+                <Button variant="secondary" size="sm" fullWidth iconStart="user-plus" disabled={busy} onClick={apply}>
+                  {t('hotelAccessSigninApply')}
+                </Button>
+              </span>
+            }
+          />
+        }
+      >
         <div className="hxa01" data-gz="SignIn" data-status={status}>
           <header className="hxa01__brand">
             <Wordmark size="lg" script={lang === 'ar' ? 'arabic' : 'latin'} />

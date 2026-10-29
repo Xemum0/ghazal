@@ -49,25 +49,25 @@ final servicesCountsProvider = FutureProvider.autoDispose<Map<String, int>>((ref
   return out;
 });
 
-/// The filters of one vendor list (UI memory, dies with the list): sort, areas, a price ceiling, a minimum rating.
+/// The filters of one vendor list (UI memory, dies with the list): sort, governorates (ADR 0038: never an exact area), a price ceiling, a minimum rating.
 @immutable
 final class ServFilter {
-  const ServFilter({this.sort = ProviderSort.recommended, this.areaIds = const <String>[], this.maxFils, this.minRating, this.femaleTeamOnly = false});
+  const ServFilter({this.sort = ProviderSort.recommended, this.governorateIds = const <String>[], this.maxFils, this.minRating, this.femaleTeamOnly = false});
 
   final ProviderSort sort;
-  final List<String> areaIds;
+  final List<String> governorateIds;
   final int? maxFils;
   final double? minRating;
   final bool femaleTeamOnly;
 
-  bool get isDefault => sort == ProviderSort.recommended && areaIds.isEmpty && maxFils == null && minRating == null && !femaleTeamOnly;
+  bool get isDefault => sort == ProviderSort.recommended && governorateIds.isEmpty && maxFils == null && minRating == null && !femaleTeamOnly;
 
   int get appliedCount =>
-      (sort == ProviderSort.recommended ? 0 : 1) + areaIds.length + (maxFils == null ? 0 : 1) + (minRating == null ? 0 : 1) + (femaleTeamOnly ? 1 : 0);
+      (sort == ProviderSort.recommended ? 0 : 1) + (governorateIds.isEmpty ? 0 : 1) + (maxFils == null ? 0 : 1) + (minRating == null ? 0 : 1) + (femaleTeamOnly ? 1 : 0);
 
-  ServFilter copyWith({ProviderSort? sort, List<String>? areaIds, Object? maxFils = _keep, Object? minRating = _keep, bool? femaleTeamOnly}) => ServFilter(
+  ServFilter copyWith({ProviderSort? sort, List<String>? governorateIds, Object? maxFils = _keep, Object? minRating = _keep, bool? femaleTeamOnly}) => ServFilter(
     sort: sort ?? this.sort,
-    areaIds: areaIds ?? this.areaIds,
+    governorateIds: governorateIds ?? this.governorateIds,
     maxFils: maxFils == _keep ? this.maxFils : maxFils as int?,
     minRating: minRating == _keep ? this.minRating : minRating as double?,
     femaleTeamOnly: femaleTeamOnly ?? this.femaleTeamOnly,
@@ -90,14 +90,14 @@ class _ServFilterNotifier extends Notifier<ServFilter> {
   void clear() => state = const ServFilter();
 }
 
-/// The vendors of one category with the list filters applied (area and sort go to the server; the price ceiling
+/// The vendors of one category with the list filters applied (governorate and sort go to the server; the price ceiling
 /// and the minimum rating filter the page client-side).
 final servicesFilteredProvider = FutureProvider.autoDispose.family<List<ServiceProvider>, ServQuery>((ref, q) async {
   ref.watch(clientDataRevisionProvider);
   try {
     final page = await ref.watch(servicesRepositoryProvider).listServiceProviders(
       categoryId: ServiceCategoryId.fromJson(q.categoryId),
-      areaIds: q.filter.areaIds.isEmpty ? null : q.filter.areaIds,
+      governorateIds: q.filter.governorateIds.isEmpty ? null : q.filter.governorateIds,
       femaleTeamOnly: q.filter.femaleTeamOnly ? true : null,
       sort: q.filter.sort,
       limit: 50,

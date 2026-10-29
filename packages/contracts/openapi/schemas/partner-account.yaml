@@ -39,6 +39,22 @@ PartnerApplicationInput:
     email: { type: string, format: email }
     description: { type: string, minLength: 1, maxLength: 600 }
     licenceRef: { type: string, nullable: true, maxLength: 80 }
+PartnerApplicantAccount:
+  type: object
+  description: 'The account the applicant creates together with a public application (`submitPartnerApplication`, HL-PROV-01 signed out). The email is the sign-in name and receives the verification code; the password follows the rule of setting a partner password (`AcceptInvitationInput`, `PasswordResetInput`: at least 8 characters); `locale` is the language of the account and of the emails.'
+  required: [email, password, locale]
+  properties:
+    email: { type: string, format: email }
+    password: { type: string, minLength: 8 }
+    locale: { $ref: Lang }
+SubmitPartnerApplicationInput:
+  type: object
+  description: 'The public application (PA-ACC-07 with the applicant''s own account): `account` is the sign-in, `accountType` is `service_provider` or `venue` (a private hall), `application` is the business information exactly as in the signed-in resubmission (a service provider needs at least one of `categoryIds` and `otherCategoryNote`; `contactName`, `phone`, `email` may repeat the account email). A missing or invalid field is 422 VALIDATION_FAILED with `errors: [{path: "/application/governorateId", code: "required"}, ...]`.'
+  required: [account, accountType, application]
+  properties:
+    account: { $ref: PartnerApplicantAccount }
+    accountType: { $ref: PartnerAccountType }
+    application: { $ref: PartnerApplicationInput }
 PartnerAccount:
   type: object
   required: [id, type, name, venueIds, providerId, ownerUserId, feeExempt, status, createdAt]

@@ -4,7 +4,6 @@ import 'package:ghazal_app_kit/ghazal_app_kit.dart';
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, clockProvider;
 import 'package:ghazal_domain/ghazal_domain.dart';
 
-import 'booking_flow_local.dart';
 import 'booking_flow_model.dart';
 import 'booking_hero.dart';
 
@@ -22,7 +21,7 @@ final FutureProvider<PlatformConfig> bookingConfigProvider = FutureProvider<Plat
   (ref) async => (await ref.watch(homeRepositoryProvider).getAppConfig()).config,
 );
 
-/// The signed-in client's bound-kind vouchers (a guest has none).
+/// The signed-in client's bound-kind vouchers.
 final FutureProvider<List<Voucher>> bookingWalletProvider = FutureProvider.autoDispose<List<Voucher>>((ref) async {
   ref.watch(clientDataRevisionProvider);
   if (!ref.watch(sessionProvider.select((s) => s.isSignedIn))) return const <Voucher>[];
@@ -64,12 +63,11 @@ LocalDate _monthStart(LocalDate d) => LocalDate(d.year, d.month, 1);
 LocalDate _monthEnd(LocalDate d) => LocalDate(d.year, d.month + 1, 1).addDays(-1);
 
 /// The request flow model: venue detail, availability of the date, one server quote per candidate package and the quote of the
-/// package in effect (with the chosen extras). Reloads when the draft, the quantities or the session change.
+/// package in effect. Reloads when the draft or the session change.
 final FutureProvider<FlowModel> bookingFlowProvider = FutureProvider.autoDispose<FlowModel>((ref) async {
   ref.watch(clientDataRevisionProvider);
   final draft = ref.watch(effectiveBookingDraftProvider);
   final demo = ref.watch(bookingDemoProvider);
-  final extraQty = ref.watch(bookingFlowLocalProvider.select((l) => l.extraQty));
   final brief = ref.watch(searchBriefProvider);
   final now = ref.watch(clockProvider)();
   final cfg = await ref.watch(bookingConfigProvider.future);
@@ -131,14 +129,13 @@ final FutureProvider<FlowModel> bookingFlowProvider = FutureProvider.autoDispose
   final sessionId = sessions.where((s) => s.id == draft.sessionId).firstOrNull?.id ?? sessions.firstOrNull?.id ?? hall.sessions.firstOrNull?.id;
 
   // One server quote per candidate package: both columns, the rate, the guests billed.
-  Future<Quote?> quoteOf(String packageId, List<QuoteExtraInput>? extras) async {
+  Future<Quote?> quoteOf(String packageId) async {
     try {
       return await venues.quoteVenue(
         venueId: venueId,
         body: VenueQuoteInput(
           eventDate: date,
           sections: [QuoteSectionInput(hallId: hall.id, audience: audience, guests: guests, packageId: packageId)],
-          extras: extras,
         ),
       );
     } on ApiProblem {
@@ -159,7 +156,7 @@ final FutureProvider<FlowModel> bookingFlowProvider = FutureProvider.autoDispose
       .toList();
   final priced = <PricedPackage>[];
   for (final pkg in offered) {
-    final q = await quoteOf(pkg.id, null);
+    final q = await quoteOf(pkg.id);
     if (q != null) priced.add(PricedPackage(pkg: pkg, quote: q));
   }
   final options = priced.where((p) => (p.pkg.maxGuests == 0 || guests <= p.pkg.maxGuests) && guests <= maxGuests).toList()
@@ -170,24 +167,8 @@ final FutureProvider<FlowModel> bookingFlowProvider = FutureProvider.autoDispose
   }
   final effective = chosen ?? options.firstOrNull;
 
-  // Extras of this audience the venue sells, in the order of the screen; included ones are free with the package.
-  final extras = <ExtraChoice>[
-    for (final e in detail.extras)
-      if (e.active && e.audiences.contains(audience))
-        ExtraChoice(
-          extra: e,
-          included: effective != null && e.includedInPackageIds.contains(effective.pkg.id),
-          selected: draft.extras.contains(e.id),
-          qty: extraQty[e.id] ?? 1,
-        ),
-  ];
-
-  // The quote of the package in effect, with the extras chosen and not included.
-  Quote? quote = effective?.quote;
-  final paid = extras.where((e) => e.selected && !e.included).toList();
-  if (effective != null && paid.isNotEmpty) {
-    quote = await quoteOf(effective.pkg.id, [for (final e in paid) QuoteExtraInput(extraId: e.extra.id, qty: e.qty)]) ?? quote;
-  }
+  // The quote of the package in effect (no extras since ADR 0038: services are chosen in the Services hub only).
+  final Quote? quote = effective?.quote;
 
   final audiencesSold = <Audience>{
     for (final h in venue.halls)
@@ -225,7 +206,6 @@ final FutureProvider<FlowModel> bookingFlowProvider = FutureProvider.autoDispose
         if (audiencesSold.contains(a)) a,
     ],
     halls: candidates,
-    extras: extras,
     quote: quote,
     dateOk: dateOk,
     openRequests: openRequests,

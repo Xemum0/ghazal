@@ -66,6 +66,7 @@ export function storyWeddingProfile(): WeddingProfileState | null {
     venueBudget: { min: { ...p.venueBudget.min }, max: { ...p.venueBudget.max } },
     totalBudget: { ...p.totalBudget },
     areaIds: [...p.areaIds],
+    governorateIds: [...(p.governorateIds ?? [])],
     searching: [...p.searching],
   }
 }
@@ -78,7 +79,9 @@ export function storyBrief(): SearchBrief {
     date: p.weddingDate,
     guests: p.guests.women,
     audience: p.searching[0] ?? 'women',
-    areaIds: p.areaIds,
+    // ADR 0038: the client narrows by governorate only; the story Brief carries the persona's governorates, no areas
+    areaIds: [],
+    governorateIds: p.governorateIds ?? [],
     budget: p.venueBudget ? { min: p.venueBudget.min, max: p.venueBudget.max } : null,
   }
   return { ...brief, dateMode: p.dateMode } as SearchBrief
