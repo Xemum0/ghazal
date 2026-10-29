@@ -1,26 +1,27 @@
-// CL-PROF-01 Profile (tab root). Requirements: CA-PROF-01, CA-PROF-02, CA-PROF-03, CA-PROF-04, CA-PROF-05, CA-PROF-07, CA-PROF-10, CA-PROF-11, CA-PROF-12, CA-VCH-06.
+// CL-PROF-01 Profile (tab root). Requirements: CA-PROF-01, CA-PROF-02, CA-PROF-03, CA-PROF-04, CA-PROF-05, CA-PROF-07, CA-PROF-10, CA-PROF-11, CA-PROF-12, CA-SVC-20, CA-AUTH-14, CA-VCH-06.
 //
 // The hub of the Profile tab, text-diet edition (ADR 0034): the monogram and the verified number, one wedding card (rings, the date and the
 // days to go as facts), then three quiet lists of one-word rows with a glyph, no group titles and no captions. Counts are figures at the end
 // of the row (vouchers ready, visits ahead, saved halls), the request is a status glyph, Receipts shows the KD 2 paid to Ghazal (ADR 0033).
 // Every row goes somewhere: Wedding (CL-PROF-02), Bookings, Vouchers, Visits, Receipts, Saved, Personal info (CL-PROF-03), Notifications
 // (CL-PROF-04), the language sheet (Profile tab, Language row, choose: three taps, ADR 0007 D7), Settings (CL-PROF-05), the pinned Support
-// thread and the in-app reader for Terms and Privacy. Sign out asks first and returns to Home as a guest. A guest sees one doorway card with
-// Sign in, Language, Terms and Privacy (saved hearts and the Brief stay on the device).
+// thread and the in-app reader for Terms and Privacy, then the provider note (ProviderNote, CA-SVC-20: "Service provider? Apply in the Partner app",
+// a quiet external-link row that opens nothing in the prototype). Sign out asks first and returns to the sign-in screen: there is no signed-out
+// Profile (ADR 0038, no guest mode).
 // In the live prototype the status glyph follows the story (pending, approved with the hours to confirm, confirmed as the hotel app and the
 // client move it); a static frame shows it pending unless `?state=` names another.
 import { LANGUAGE_NATIVE_NAME } from '@gz/i18n'
 import { useFormat, useT, Phone } from '../../../i18n'
 import { useLang } from '../../../shell/lang'
 import { usePrototype } from '../../../shell/state'
-import { Avatar, Banner, Button, Dialog, ErrorState, FactChip, FactRow, Figures, Icon, IconListRow, Illustration, Screen, Skeleton, StatusIcon, TopBar, useNav } from '../../../system'
+import { Avatar, Banner, Button, Dialog, ErrorState, FactChip, FactRow, Figures, Icon, IconListRow, ProviderNote, Screen, Skeleton, StatusIcon, TopBar, useNav } from '../../../system'
 import { clientState, weddingProfile } from '../../../mock'
 import { LanguageSheet, FrameSheet, useLegalReader, useSignOut } from './_components/sheets'
 import { Mixed } from './_components/parts'
-import { APP_VERSION, paidVoucherFils, useGuest, useIdentity, useLive, useProfileFlow, useReadyVouchers, useSceneState, useStoryBooking, useUpcomingVisits } from './_components/useProfile'
+import { APP_VERSION, paidVoucherFils, useIdentity, useLive, useProfileFlow, useReadyVouchers, useSceneState, useStoryBooking, useUpcomingVisits } from './_components/useProfile'
 import './CL-PROF-01.css'
 
-export const states = ['guest', 'loading', 'offline', 'sign-out-confirm', 'language-sheet', 'confirmed', 'deletion-scheduled']
+export const states = ['loading', 'offline', 'sign-out-confirm', 'language-sheet', 'confirmed', 'deletion-scheduled']
 
 export default function ProfileHub() {
   const t = useT('client-profile')
@@ -30,7 +31,6 @@ export default function ProfileHub() {
   const { lang } = useLang()
   const state = useSceneState()
   const live = useLive()
-  const guest = useGuest()
   const who = useIdentity()
   const { status, booking } = useStoryBooking()
   const ready = useReadyVouchers().length
@@ -84,7 +84,6 @@ export default function ProfileHub() {
   }
 
   const openLanguage = () => nav.openSheet(<LanguageSheet />)
-  const openSignIn = () => nav.openSheet('CL-AUTH-01', { params: { reason: null } })
   const native = LANGUAGE_NATIVE_NAME[lang]
 
   // A figure at the end of a row; its word is the accessible name.
@@ -99,25 +98,9 @@ export default function ProfileHub() {
   // ------------------------------------------------------------ rows
   const languageRow = <IconListRow icon="translate" title={c('commonLabelLanguage')} trailing={<span className="gzpr-native" lang={lang}>{native}</span>} chevron onClick={openLanguage} />
   const termsRow = <IconListRow icon="document" title={t('clientProfileSharedTerms')} chevron onClick={() => legal('terms')} />
-  const privacyRow = <IconListRow icon="shield-check" title={t('clientProfileSharedPrivacy')} chevron onClick={() => legal('privacy')} last />
+  const privacyRow = <IconListRow icon="shield-check" title={t('clientProfileSharedPrivacy')} chevron onClick={() => legal('privacy')} />
 
-  const body = guest ? (
-    <>
-      <div className="gzpr-pad">
-        <section className="gzpr-guest" data-gz="GuestCard">
-          <Illustration name="doorway" size="lg" />
-          <Button variant="primary" onClick={openSignIn}>
-            {t('clientProfileSharedSignIn')}
-          </Button>
-        </section>
-      </div>
-      <div className="gzpr-list">
-        {languageRow}
-        {termsRow}
-        {privacyRow}
-      </div>
-    </>
-  ) : (
+  const body = (
     <>
       <div className="gzpr-pad">
         <section className="gzpr-id" aria-label={t('clientProfileHubAccount')} data-gz="IdentityHeader">
@@ -214,6 +197,7 @@ export default function ProfileHub() {
         <IconListRow icon="chat-text" title={t('clientProfileSharedSupport')} chevron onClick={() => nav.push('CL-MSGS-02', { conversationId: 'conv-support-reem' })} />
         {termsRow}
         {privacyRow}
+        <ProviderNote />
       </div>
 
       <div className="gzpr-pad">
@@ -227,7 +211,7 @@ export default function ProfileHub() {
   const screen = (
     <Screen top={top}>
       {state === 'offline' ? <Banner tone="offline">{c('commonStateOffline')}</Banner> : null}
-      <div className="gzpr-hub" data-gz-id="profile.hub" data-mode={guest ? 'guest' : 'signed-in'}>
+      <div className="gzpr-hub" data-gz-id="profile.hub">
         {body}
         <p className="gzpr-version gz-t-fig-caption">
           <Figures text={t('clientProfileSharedVersion', { version: APP_VERSION })} />

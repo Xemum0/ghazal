@@ -1,9 +1,9 @@
-// CL-BOOK-02 Package (step 2 of 5). Covers CA-BOOK-04, CA-BOOK-06, CA-BOOK-14, CA-VDET-07, CA-VCH-02.
+// CL-BOOK-02 Package (step 2 of 4). Covers CA-BOOK-04, CA-BOOK-06, CA-BOOK-14, CA-VDET-07, CA-VCH-02.
 // Text diet (ADR 0034): a package is a card of glyphs and figures: the serif name, the voucher price (ticket glyph), the standard price struck
 // (offer glyph), the saving (trend-down glyph), the rate per guest and the guests as facts, and what it includes as a row of glyphs. No lead line.
 // Exactly one package, priced for the date and guests in both columns. A voucher is bound to one package: the others are shown, and choosing one
 // opens the voucher quote sheet; a package with no voucher price says it is not covered. The bar keeps the voucher total with its breakdown.
-// Navigates to CL-BOOK-03, CL-VENU-04 (package sheet), CL-BOOK-01, CL-VCHR-04.
+// Navigates to CL-BOOK-04, CL-VENU-04 (package sheet), CL-BOOK-01, CL-VCHR-04.
 import { useEffect } from 'react'
 import { Banner, EmptyState, ErrorState, useBi, useNav } from '../../../system'
 import { useFormat, useT } from '../../../i18n'
@@ -32,10 +32,8 @@ export default function PackageStep() {
   const flow = useFlow(useScenario(state, SCENARIO))
   const patchDraft = usePrototype(s => s.patchDraft)
   const live = useLive()
-  const auth = usePrototype(s => s.auth)
   const { changeVoucher } = useVoucherActions(flow, 'CL-BOOK-02')
   const bound = Boolean(flow.voucher)
-  const guest = auth === 'guest' && live
 
   // A reception that sells exactly one package needs no decision: it is chosen for you (the person still sees it, and can go back).
   const sec = flow.sections[0]!
@@ -85,7 +83,7 @@ export default function PackageStep() {
           ? null
           : {
               summaryValue: <RunningTotal quote={flow.quote} loading={loading} onOpen={openBreakdown} missing={missing && !noneFit} estimate={!bound} />,
-              action: { label: tc('commonActionContinue'), onPress: () => nav.push('CL-BOOK-03'), disabled: blocked, reason, loading },
+              action: { label: tc('commonActionContinue'), onPress: () => nav.push('CL-BOOK-04'), disabled: blocked, reason, loading },
             }
       }
     >
@@ -117,7 +115,6 @@ export default function PackageStep() {
               option={o}
               guests={sec.guests}
               selected={sec.chosen?.pkg.id === o.pkg.id}
-              guest={guest}
               elsewhere={bound && sec.chosen?.pkg.id !== o.pkg.id}
               onSelect={() => choose(o)}
               onDetails={() => openDetails(o.pkg.id)}

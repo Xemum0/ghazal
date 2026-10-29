@@ -6,49 +6,9 @@
   padding-block-end: var(--gz-space-4);
 }
 
-.gzd-br__sub {
-  margin: 0;
-  color: var(--gz-color-sys-text-secondary);
-}
-
 .gzd-br__hint {
   margin: 0;
   color: var(--gz-color-sys-text-secondary);
-}
-
-.gzd-br__n {
-  color: var(--gz-color-sys-text-secondary);
-}
-
-.gzd-br__group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gz-space-2);
-}
-
-.gzd-br__grouphead {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--gz-space-2);
-}
-
-/* The region search entry: a field-shaped 44 row that opens CL-DISC-07 (a button, not an input). */
-.gzd-br__search {
-  display: flex;
-  align-items: center;
-  gap: var(--gz-space-2);
-  box-sizing: border-box;
-  min-block-size: var(--gz-size-control-sm);
-  padding-inline: var(--gz-space-3);
-  border-width: var(--gz-stroke-hair);
-  border-style: solid;
-  border-color: var(--gz-color-sys-border-control);
-  border-radius: var(--gz-radius-md);
-  background-color: var(--gz-color-sys-control-bg);
-  color: var(--gz-color-sys-text-secondary);
-  text-align: start;
-  cursor: pointer;
 }
 
 .gzd-br__section {
@@ -120,62 +80,4 @@
 
 .gzd-br__budget .gz-range__values {
   order: 3;
-}
-
-/* ---------- merge ---------- */
-.gzd-merge {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gz-space-5);
-}
-
-.gzd-merge__cols {
-  display: flex;
-  align-items: stretch;
-  border-width: var(--gz-stroke-hair);
-  border-style: solid;
-  border-color: var(--gz-color-sys-border-strong);
-  border-radius: var(--gz-radius-md);
-  background-color: var(--gz-color-sys-surface-raised);
-}
-
-.gzd-merge__col {
-  display: flex;
-  flex: 1 1 0;
-  flex-direction: column;
-  gap: var(--gz-space-4);
-  min-inline-size: 0;
-  padding: var(--gz-space-4);
-}
-
-.gzd-merge__rule {
-  flex: none;
-  inline-size: var(--gz-stroke-hair);
-  background-color: var(--gz-color-sys-border-hairline);
-}
-
-.gzd-merge__title {
-  margin: 0;
-  color: var(--gz-color-sys-text-secondary);
-}
-
-.gzd-merge__facts {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: var(--gz-space-3);
-  min-inline-size: 0;
-}
-
-.gzd-merge__fact {
-  display: flex;
-  align-items: center;
-  gap: var(--gz-space-2);
-  margin: 0;
-  min-inline-size: 0;
-  color: var(--gz-color-sys-text-strong);
-}
-
-.gzd-merge__value {
-  min-inline-size: 0;
 }

@@ -16,7 +16,6 @@ import './services.css'
 
 const useW = defineWords({
   from: p('From', 'من'),
-  lockedVoucher: p('Voucher price after you sign up', 'سعر الكوبون بعد التسجيل'),
   suits: p('Suits', 'مناسبة لـ'),
   consult: p('Request consultation', 'طلب استشارة'),
   selected: p('Selected', 'تم الاختيار'),
@@ -151,8 +150,6 @@ export function ServiceTile({ category, onOpen, loading, previewState, className
 // ---------------------------------------------------------------- VendorCard
 export type VendorCardProps = {
   vendor: Vendor
-  /** `guest`: signed out, the voucher price is locked behind registration (ADR 0007 D8). Default `member`. */
-  audience?: 'member' | 'guest'
   favourite?: boolean
   onFavouriteChange?: (next: boolean) => void
   onOpen?: () => void
@@ -162,7 +159,7 @@ export type VendorCardProps = {
   className?: string
 }
 
-export function VendorCard({ vendor, audience = 'member', favourite, onFavouriteChange, onOpen, variant = 'card', loading, previewState, className }: VendorCardProps) {
+export function VendorCard({ vendor, favourite, onFavouriteChange, onOpen, variant = 'card', loading, previewState, className }: VendorCardProps) {
   const t = useT('common')
   const w = useW()
   const bi = useBi()
@@ -179,8 +176,7 @@ export function VendorCard({ vendor, audience = 'member', favourite, onFavourite
   const name = bi(vendor.name)
   const area = getArea(vendor.areaId)
   const row = variant === 'row'
-  const voucher = audience === 'member' ? vendor.fromVoucher : null
-  const locked = audience === 'guest' && vendor.fromVoucher !== null
+  const voucher = vendor.fromVoucher
   return (
     <article
       data-gz="VendorCard"
@@ -217,12 +213,6 @@ export function VendorCard({ vendor, audience = 'member', favourite, onFavourite
       <p className="gz-vendor__price" data-gz-id="price" data-voucher={voucher ? '' : undefined}>
         <Price fils={(voucher ?? vendor.from).fils} size="card" prefix={w('from')} was={voucher ? vendor.from.fils : undefined} />
         <span className="gz-vendor__unit gz-t-caption">{bi(vendor.fromUnit)}</span>
-        {locked ? (
-          <span className="gz-vendor__lock gz-t-caption">
-            <Icon name="lock" size="xs" tone="secondary" />
-            {w('lockedVoucher')}
-          </span>
-        ) : null}
       </p>
       {row ? null : (
         <>

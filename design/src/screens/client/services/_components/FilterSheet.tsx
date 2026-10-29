@@ -1,24 +1,25 @@
 // FilterSheet (CL-SERV-02): the one sheet behind the filter glyph in the top bar. Four rows, each led by its glyph with no heading (ADR 0034):
-// sort (a three-way glyph switch, every word shown because one of them is money), the areas the category's vendors work in (multiple
-// choice), the "up to" prices built from the real starting prices of the list, and the minimum rating. A chosen chip is chosen again to
+// sort (a three-way glyph switch, every word shown because one of them is money), the governorates the category's providers work in (the
+// shared GovernorateFilter chips, multiple choice, the count beside the glyph; ADR 0038, CA-FLT-08), the "up to" prices built from the real starting prices of the list, and the minimum rating. A chosen chip is chosen again to
 // clear it. The footer shows how many providers the choice will show; nothing is applied until Show, and closing discards.
 import { useState, type ReactNode } from 'react'
 import { useFormat, useT } from '../../../../i18n'
-import { Button, ChipGroup, Figures, Icon, IconSegmented, useBi, useNav } from '../../../../system'
+import { Button, ChipGroup, Figures, GovernorateFilter, Icon, IconSegmented, useNav } from '../../../../system'
 import type { IconName } from '@gz/tokens'
 import {
-  MIN_RATINGS, NO_FILTERS, areaOptions, listFor, priceSteps, useFilters, useServicesFlow,
+  MIN_RATINGS, NO_FILTERS, governorateOptions, listFor, priceSteps, useFilters, useServicesFlow,
   type Filters, type Sort,
 } from './model'
 import type { ServiceCategoryId } from '../../../../mock'
 import './filter-sheet.css'
 
-function Row({ icon, label, children }: { icon: IconName; label: string; children: ReactNode }) {
+function Row({ icon, label, count, children }: { icon: IconName; label: string; count?: string; children: ReactNode }) {
   return (
     <div className="gzs-fsheet__row">
       <span className="gzs-fsheet__glyph">
         <Icon name={icon} size="md" tone="secondary" />
         <span className="gz-sr-only">{label}</span>
+        {count ? <span className="gzs-fsheet__count gz-t-fig-caption" aria-hidden="true"><Figures text={count} /></span> : null}
       </span>
       <div className="gzs-fsheet__body">{children}</div>
     </div>
@@ -28,17 +29,16 @@ function Row({ icon, label, children }: { icon: IconName; label: string; childre
 export function FilterSheet({ categoryId }: { categoryId: ServiceCategoryId }) {
   const t = useT('client-services')
   const f = useFormat()
-  const bi = useBi()
   const nav = useNav()
   const applied = useFilters(categoryId)
   const [draft, setDraft] = useState<Filters>(applied)
   const count = listFor(categoryId, draft).length
-  const areas = areaOptions(categoryId)
+  const regions = governorateOptions(categoryId)
   const prices = priceSteps(categoryId)
 
   const reset = () => setDraft({ ...NO_FILTERS })
   const apply = () => {
-    useServicesFlow.getState().setFilters(categoryId, { areaIds: draft.areaIds, maxFils: draft.maxFils, minRating: draft.minRating, sort: draft.sort })
+    useServicesFlow.getState().setFilters(categoryId, { governorateIds: draft.governorateIds, maxFils: draft.maxFils, minRating: draft.minRating, sort: draft.sort })
     nav.closeSheet()
   }
 
@@ -56,15 +56,9 @@ export function FilterSheet({ categoryId }: { categoryId: ServiceCategoryId }) {
         ]}
       />
 
-      {areas.length > 0 ? (
-        <Row icon="pin" label={t('clientServicesArea')}>
-          <ChipGroup<string>
-            selection="multiple"
-            label={t('clientServicesArea')}
-            options={areas.map(a => ({ value: a.id, label: bi(a.area.name) }))}
-            value={draft.areaIds}
-            onChange={areaIds => setDraft(d => ({ ...d, areaIds }))}
-          />
+      {regions.length > 0 ? (
+        <Row icon="pin" label={t('clientServicesGovernorateTitle', { count: draft.governorateIds.length })} count={draft.governorateIds.length > 0 ? f.integer(draft.governorateIds.length) : undefined}>
+          <GovernorateFilter label={t('clientServicesGovernorate')} only={regions} value={draft.governorateIds} onChange={governorateIds => setDraft(d => ({ ...d, governorateIds }))} />
         </Row>
       ) : null}
 

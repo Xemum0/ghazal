@@ -15,32 +15,30 @@
         "ar": "احجزوا زيارة"
       },
       "kind": "sheet",
-      "purpose": "Choose a visit slot at a hotel or hall: date, arrival window, number of visitors and an optional note. Opened from the venue detail, the booking-confirmed screen and Booking detail. No voucher is needed. Guests are gated at Send.",
+      "purpose": "Choose a visit slot at a hotel or hall: date, arrival window, number of visitors and an optional note. Opened from the venue detail, the booking-confirmed screen and Booking detail. No voucher is needed.",
       "requirementIds": [
         "CA-VIS-01",
         "CA-VIS-02",
-        "CA-AUTH-10"
+        "CA-AUTH-13"
       ],
       "states": [
         "default",
         "no-slots-this-week",
         "slot-taken",
         "sending",
-        "guest-gate",
         "error",
         "offline"
       ],
       "interactions": [
         "Date strip of the next 14 days showing only days with visit slots (from the venue's visit hours), then 30-minute arrival windows as chips; a day with no slots shows the next day that has them",
         "Visitors stepper (1 to 6) and an optional one-line note (dir=auto) such as \"Mother and sister, ladies hall\"; the venue name and hall sit at the top",
-        "Primary \"Request visit\" sends the request, creates the group chat and opens CL-VIST-02; guests see the sign-in sheet with the context line \"to book a visit\" and return with the slot intact",
+        "Primary \"Request visit\" sends the request, creates the group chat and opens CL-VIST-02",
         "A slot taken meanwhile turns its chip into an inline \"Taken\" state with the next slots offered; sending is never queued offline"
       ],
       "contentNotes": "Heading «احجزوا زيارة» / \"Book a visit\". Example: Aurelia Gulf Hotel, Sat 14 Nov 2026, window 5:00 PM - 5:30 PM, 2 visitors (illustrative). Helper: «ستفتح لكم محادثة مع الفندق ودعم غزل لتأكيد الموعد.» / \"A chat opens with the hotel and Ghazal support to confirm your visit.\" Venue hours are shown in Kuwait time, 12-hour clock.",
       "priority": "core",
       "navigatesTo": [
         "CL-VIST-02",
-        "CL-AUTH-01",
         "CL-VENU-01"
       ]
     },
@@ -142,14 +140,13 @@
       "states": [
         "default",
         "empty",
-        "guest",
         "loading",
         "error",
         "offline"
       ],
       "interactions": [
         "Segmented control Upcoming | Past; rows show venue thumbnail or monogram, venue name, \"Sat 14 Nov 2026 · 5:00 PM\" and a status chip (Requested, Confirmed, Arrived, Completed, Declined, Cancelled, Missed); tapping opens the chat (CL-VIST-03)",
-        "Empty: \"No visits yet. Book a visit from a venue page.\" with \"See halls\" (CL-DISC-03); guests see a sign-in teaser",
+        "Empty: \"No visits yet. Book a visit from a venue page.\" with \"See halls\" (CL-DISC-03)",
         "A \"Book another visit\" action is not offered here (visits start from a venue)"
       ],
       "contentNotes": "Demo rows (illustrative): Aurelia Gulf Hotel, Sat 14 Nov 2026, 5:00 PM, Confirmed; Lumi Marina Hotel, Wed 4 Nov 2026, Completed.",
@@ -157,7 +154,6 @@
       "navigatesTo": [
         "CL-VIST-03",
         "CL-DISC-03",
-        "CL-AUTH-01",
         "CL-PROF-01"
       ]
     },

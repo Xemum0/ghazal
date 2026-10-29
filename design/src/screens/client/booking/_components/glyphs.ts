@@ -1,6 +1,6 @@
 // The glyphs the request flow speaks in (ADR 0034, docs/design/02-text-diet.md section 2): a fact is an icon and a value. Mapping from fixture
-// data to a glyph lives here once, so no screen invents its own: the reception section, the session of the day, what a package includes,
-// what an extra is. The word of every glyph stays as the accessible name (the caller passes it as `label`).
+// data to a glyph lives here once, so no screen invents its own: the reception section, the session of the day, what a package includes.
+// The word of every glyph stays as the accessible name (the caller passes it as `label`).
 import type { IconName } from '@gz/tokens'
 import type { Audience } from '../../../../mock'
 
@@ -44,21 +44,3 @@ export function inclusionGlyphs(items: readonly { en: string; ar: string }[], pi
   }
   return out
 }
-
-/** The glyph of an extra by its category (kosha, florals, photographer ...). */
-const EXTRA_GLYPHS: Record<string, IconName> = {
-  kosha: 'armchair',
-  florals: 'flower',
-  photographer: 'camera',
-  zaffa: 'music',
-  cake: 'cake',
-  extra_hour: 'hourglass',
-  coffee_station: 'drinks',
-  kids_corner: 'gift',
-  led_screens: 'lighting',
-  bukhoor: 'incense',
-  valet: 'valet',
-  suite_night: 'bed',
-}
-
-export const extraGlyph = (category: string): IconName => EXTRA_GLYPHS[category] ?? 'sparkle'

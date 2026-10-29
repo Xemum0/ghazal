@@ -1,4 +1,4 @@
-// PackageEditorRow: one package in "Packages and extras" with its edit controls in place (HL-VENU-02 / 03, HA-VMGT-03, HA-VMGT-04). Closed it
+// PackageEditorRow: one package in "Packages" with its edit controls in place (HL-VENU-02 / 03, HA-VMGT-03, HA-VMGT-04). Closed it
 // is a 64+ row: the name, "voucher KD 44 per guest . 200 to 650 guests", the active switch and the disclosure. Open it carries the things
 // the phone edits: the TWO prices of the package on the same basis (standard and voucher, ADR 0033 D4: numeric fields in KD, up to three
 // decimals, Eastern digits normalised, stored as integer fils; the voucher price must be lower and the client's saving must beat the

@@ -1,11 +1,11 @@
 // Services flow model (CL-SERV-01..04, voucher model ADR 0033): the five primary categories and the secondary groups, filtering and
 // sorting of a provider list (approved, active listings only), the voucher quote of a package, the budget category a service lands in,
-// and the small in-memory store the four screens share (list filters, enquiries sent in this session, a draft waiting for sign-in).
+// and the small in-memory store the four screens share (list filters, enquiries sent in this session).
 // Everything shown comes from the fixtures (design/src/mock); nothing here is a display string.
 import { create } from 'zustand'
 import type { IconName } from '@gz/tokens'
 import {
-  activeListingOf, conversations, getArea, meta, primaryCategories, quoteForProvider, secondaryCategories, serviceCategories, serviceGroups,
+  activeListingOf, conversations, governorates, meta, primaryCategories, quoteForProvider, secondaryCategories, serviceCategories, serviceGroups,
   vendorQuoteRequest, vendors, vendorsFor,
   type ProviderPackage, type Quote, type ServiceCategory, type ServiceCategoryId, type ServiceGroup, type Vendor, type Voucher,
 } from '../../../../mock'
@@ -127,16 +127,17 @@ export const budgetCategoryOf = (id: ServiceCategoryId): string => BUDGET_OF[id]
 
 // ---------------------------------------------------------------- filters and sort
 export type Sort = 'recommended' | 'price' | 'rating'
-export type Filters = { areaIds: string[]; maxFils: number | null; minRating: number | null; sort: Sort }
-export const NO_FILTERS: Filters = { areaIds: [], maxFils: null, minRating: null, sort: 'recommended' }
+/** Region is the governorate only (ADR 0038, CA-FLT-08); an empty list = every governorate. */
+export type Filters = { governorateIds: string[]; maxFils: number | null; minRating: number | null; sort: Sort }
+export const NO_FILTERS: Filters = { governorateIds: [], maxFils: null, minRating: null, sort: 'recommended' }
 
 export const MIN_RATINGS = [4.5, 4] as const
 
-export const appliedCount = (f: Filters): number => (f.areaIds.length > 0 ? 1 : 0) + (f.maxFils !== null ? 1 : 0) + (f.minRating !== null ? 1 : 0)
+export const appliedCount = (f: Filters): number => (f.governorateIds.length > 0 ? 1 : 0) + (f.maxFils !== null ? 1 : 0) + (f.minRating !== null ? 1 : 0)
 
 export function filterVendors(list: readonly Vendor[], f: Filters): Vendor[] {
   return list.filter(v => {
-    if (f.areaIds.length > 0 && !f.areaIds.includes(v.areaId)) return false
+    if (f.governorateIds.length > 0 && !f.governorateIds.includes(v.governorateId)) return false
     if (f.maxFils !== null && v.from.fils > f.maxFils) return false
     if (f.minRating !== null && (v.rating === null || v.rating.average < f.minRating)) return false
     return true
@@ -154,17 +155,10 @@ export function sortVendors(list: readonly Vendor[], sort: Sort): Vendor[] {
 
 export const listFor = (categoryId: ServiceCategoryId, f: Filters): Vendor[] => sortVendors(filterVendors(vendorsFor(categoryId), f), f.sort)
 
-/** The areas the category's vendors work in (id order of first appearance), as fixtures name them. */
-export function areaOptions(categoryId: ServiceCategoryId): { id: string; area: NonNullable<ReturnType<typeof getArea>> }[] {
-  const seen = new Set<string>()
-  const out: { id: string; area: NonNullable<ReturnType<typeof getArea>> }[] = []
-  for (const v of vendorsFor(categoryId)) {
-    if (seen.has(v.areaId)) continue
-    seen.add(v.areaId)
-    const area = getArea(v.areaId)
-    if (area) out.push({ id: v.areaId, area })
-  }
-  return out
+/** The governorates the category's vendors work in (fixture order), the options of the shared GovernorateFilter. */
+export function governorateOptions(categoryId: ServiceCategoryId): string[] {
+  const seen = new Set(vendorsFor(categoryId).map(v => v.governorateId))
+  return governorates.filter(g => seen.has(g.id)).map(g => g.id)
 }
 
 /** "Up to" price steps from the real starting prices of the category: every distinct price but the highest, at most three. */
@@ -219,37 +213,20 @@ export type SentQuote = {
   bookingId: string | null
 }
 
-/** What the quote sheet holds while a guest signs in: the sheet closes (so the sign-in screens are visible) and reopens with this. */
-export type QuoteDraft = {
-  /** What the guest was doing when the gate opened: sending an enquiry, or getting a voucher (the profile reopens CL-VCHR-01). */
-  intent: 'quote' | 'voucher'
-  vendorId: string
-  packageId: string
-  eventDate: string | null
-  venueId: string | null
-  guests: number | null
-  note: string
-}
-
 type ServicesFlow = {
   filters: Record<string, Filters>
   quotes: Record<string, SentQuote>
-  /** A request waiting for the account: set at Send by a guest, consumed by the vendor profile once signed in. */
-  draft: QuoteDraft | null
   setFilters: (categoryId: string, patch: Partial<Filters>) => void
   clearFilters: (categoryId: string) => void
   addQuote: (q: SentQuote) => void
-  setDraft: (d: QuoteDraft | null) => void
 }
 
 export const useServicesFlow = create<ServicesFlow>()(set => ({
   filters: {},
   quotes: {},
-  draft: null,
   setFilters: (categoryId, patch) => set(s => ({ filters: { ...s.filters, [categoryId]: { ...NO_FILTERS, ...s.filters[categoryId], ...patch } } })),
   clearFilters: categoryId => set(s => ({ filters: { ...s.filters, [categoryId]: { ...NO_FILTERS, sort: s.filters[categoryId]?.sort ?? 'recommended' } } })),
   addQuote: q => set(s => ({ quotes: { ...s.quotes, [q.vendorId]: q } })),
-  setDraft: draft => set({ draft }),
 }))
 
 export const useFilters = (categoryId: string): Filters => useServicesFlow(s => s.filters[categoryId]) ?? NO_FILTERS
@@ -265,7 +242,7 @@ export function quotePrefill(live: boolean): { eventDate: string | null; venueId
   return { eventDate: s.searchBrief.date ?? s.weddingProfile?.weddingDate ?? null, venueId: s.bookingDraft.venueId, guests: s.searchBrief.guests ?? null }
 }
 
-// A session ends when the prototype goes back to guest (sign-out, or Restart in the launcher): requests and filters go with it.
+// A session ends when the prototype signs out (or Restart in the launcher): requests and filters go with it.
 usePrototype.subscribe((state, prev) => {
-  if (state.auth === 'guest' && prev.auth === 'signedIn') useServicesFlow.setState({ filters: {}, quotes: {}, draft: null })
+  if (state.auth !== 'signedIn' && prev.auth === 'signedIn') useServicesFlow.setState({ filters: {}, quotes: {} })
 })

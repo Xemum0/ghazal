@@ -1,25 +1,27 @@
-// CL-AUTH-03 Create account (name and terms). Requirements: CA-AUTH-11, CA-ONB-08 (ADR 0012 D6, ADR 0028 item 2).
-// Last step for a brand-new account (a verified number, or an Apple or Google identity): confirm the name and agree to the Terms of Use
-// and Privacy Policy. Text diet (ADR 0034): a two-word title with the live monogram at its end edge, two fields, what the device carries
-// over as a row of facts (calendar, guests, hearts: icon + value, no sentence), and a two-word consent ("I agree") with the
-// info glyph beside it, which opens the Terms and the Privacy Policy as two rows (legal consent is one of the three allowed paragraphs
-// and lives behind the glyph). Continue creates the account, attaches what the guest chose on the device (Brief, hearts, Compare set,
-// ADR 0007 D10) and returns to the interrupted intent.
+// CL-AUTH-03 About you (name, sex, terms). Requirements: CA-AUTH-11, CA-AUTH-13, CA-AUTH-14, CA-ONB-08 (ADR 0012 D6, ADR 0028 item 2, ADR 0038 D4).
+// Last step for a brand-new account (a verified number, or an Apple or Google identity), and the step that opens the app: the name is
+// required and so is the sex (female or male, two large tiles with the registry's abstract gender symbols; OQ-R2-02: stored on the
+// account, not shown to venues, not used to filter), then the Terms of Use and Privacy Policy. Both stay editable in Profile (CL-PROF-03).
+// Text diet (ADR 0034): a two-word title with the live monogram at its end edge, a name, the sex tiles, an optional email, and a two-word
+// consent ("I agree") with the info glyph beside it, which opens the Terms and the Privacy Policy as two rows (legal consent is one of
+// the three allowed paragraphs and lives behind the glyph). Continue creates the account and continues to the optional onboarding steps.
+// States: default, error-sex-required, error-name-required, error-terms-unchecked, loading, success.
 import { useEffect, useRef, useState } from 'react'
-import { ActionBar, Checkbox, FactChip, FactRow, Icon, Screen, SuccessState, TextField, TopBar, useNav } from '../../../system'
+import { ActionBar, Checkbox, Icon, Screen, SuccessState, TextField, TopBar, useNav } from '../../../system'
 import { monogramOf } from '../../../system'
-import { useFormat, useT } from '../../../i18n'
+import { useT } from '../../../i18n'
 import { useLang } from '../../../shell/lang'
 import { useFrame } from '../../../shell/frame'
-import { usePrototype } from '../../../shell/state'
+import type { Sex } from '../../../shell/state'
 import * as mock from '../../../mock'
 import { AuthHead } from './_components/AuthHead'
 import { LegalInfo } from './_components/legal'
+import { SexChoice } from './_components/SexChoice'
 import { useAuthFlow, useAuthMoves, useLive } from './_components/flow'
 import './_components/auth.css'
 import './CL-AUTH-03.css'
 
-export const states = ['error-terms-unchecked', 'error-name-required', 'loading', 'success']
+export const states = ['error-sex-required', 'error-name-required', 'error-terms-unchecked', 'loading', 'success']
 
 const CREATE_MS = 900
 const SUCCESS_MS = 1200
@@ -27,42 +29,35 @@ const SUCCESS_MS = 1200
 export default function ClAuth03() {
   const t = useT('client-auth')
   const tc = useT('common')
-  const f = useFormat()
   const { lang } = useLang()
   const { state } = useFrame()
   const live = useLive()
-  const { params } = useNav<{ provider?: 'apple' | 'google'; reason?: string }>()
+  const { params } = useNav<{ provider?: 'apple' | 'google' }>()
   const { back, finish } = useAuthMoves()
-  const profileName = usePrototype(s => s.weddingProfile?.name)
-  const brief = usePrototype(s => s.searchBrief)
-  const hearts = usePrototype(s => s.favourites.venue.length)
   const user = mock.users.find(u => u.id === 'user-reem')
-  const story = mock.heroBookingAs('pending')
 
-  // Static frames show the story's name so the monogram preview reads; live it is what onboarding left, or what Apple or Google gave.
+  // Static frames show the story's name so the monogram preview reads; live it is empty, or what Apple or Google gave.
   const storyName = lang === 'ar' ? (user?.name ?? '') : (user?.nameLatin ?? '')
-  const seedName = live ? (profileName ?? (params.provider ? storyName : '')) : state === 'error-name-required' ? '' : storyName
+  const seedName = live ? (params.provider ? storyName : '') : state === 'error-name-required' ? '' : storyName
   const [name, setName] = useState(seedName)
+  const [sex, setSex] = useState<Sex | null>(live || state === 'error-sex-required' ? null : 'female')
   const [email, setEmail] = useState('')
-  const [accepted, setAccepted] = useState(live ? false : state === 'error-name-required' || state === 'loading' || state === 'success')
+  const [accepted, setAccepted] = useState(live ? false : state !== 'error-terms-unchecked')
   const [phase, setPhase] = useState<'form' | 'creating' | 'done'>(state === 'loading' ? 'creating' : state === 'success' ? 'done' : 'form')
   const [nameError, setNameError] = useState(state === 'error-name-required')
+  const [sexError, setSexError] = useState(state === 'error-sex-required')
   const [termsError, setTermsError] = useState(state === 'error-terms-unchecked')
   const timers = useRef<number[]>([])
   useEffect(() => () => timers.current.forEach(id => window.clearTimeout(id)), [])
 
-  // What the device carries over: the Brief's date and guests and the hearts (the Compare set travels too, silently). A static frame shows the shared story.
-  const carriedDate = live ? brief.date : story.eventDate
-  const carriedGuests = live ? brief.guests : story.sections.reduce((n, s) => n + s.guests, 0)
-  const carriedHearts = live ? hearts : 0
-  const hasCarried = Boolean(carriedDate) || Boolean(carriedGuests) || carriedHearts > 0
   const initial = monogramOf(name)
 
   const submit = () => {
     const missingName = name.trim().length === 0
     setNameError(missingName)
+    setSexError(sex === null)
     setTermsError(!accepted)
-    if (missingName || !accepted) return
+    if (missingName || sex === null || !accepted) return
     setPhase('creating')
     timers.current.push(
       window.setTimeout(() => {
@@ -71,7 +66,8 @@ export default function ClAuth03() {
           window.setTimeout(() => {
             const flow = useAuthFlow.getState()
             const phone = params.provider ? '' : flow.phone
-            finish({ id: 'user-new', name: name.trim(), phone: phone ? `+965${phone}` : '', monogram: initial }, t('clientAuthSharedAccountReady'))
+            // The success screen has just said "Account ready": no second toast. A new account continues to the optional onboarding steps.
+            finish({ id: 'user-new', name: name.trim(), phone: phone ? `+965${phone}` : '', monogram: initial, sex }, null, { fresh: true })
           }, SUCCESS_MS),
         )
       }, CREATE_MS),
@@ -83,14 +79,13 @@ export default function ClAuth03() {
 
   return (
     <Screen top={<TopBar back="auto" onBack={back} />} bottom={phase === 'done' ? undefined : <ActionBar action={action} />}>
-      <div className="gza-body">
+      <div className="gza-body gza03">
         {phase === 'done' ? (
           <SuccessState illustration="seal" title={t('clientAuthSharedAccountReady')} size="hero" />
         ) : (
           <>
             <AuthHead
               title={t('clientAuthNameTitle')}
-              art="invitation"
               trailing={
                 <span className="gza03-disk" role="img" aria-label={t('clientAuthNameMonogram')}>
                   {initial ? <span className="gza03-disk__letter gz-t-d2">{initial}</span> : <Icon name="user" size="md" />}
@@ -111,6 +106,17 @@ export default function ClAuth03() {
                 error={nameError ? tc('commonLabelRequired') : undefined}
                 disabled={busy}
               />
+              <SexChoice
+                value={sex}
+                onChange={v => {
+                  setSex(v)
+                  setSexError(false)
+                }}
+                label={t('clientAuthNameSexLabel')}
+                labels={{ female: t('clientAuthNameSexFemale'), male: t('clientAuthNameSexMale') }}
+                error={sexError ? tc('commonLabelRequired') : undefined}
+                disabled={busy}
+              />
               <TextField
                 label={t('clientAuthNameEmailLabel')}
                 optional
@@ -124,16 +130,6 @@ export default function ClAuth03() {
                 onValueChange={setEmail}
                 disabled={busy}
               />
-              {hasCarried ? (
-                <div className="gza03-kept" data-gz="CarriedOver">
-                  <Icon name="check-circle" size="sm" tone="success" />
-                  <FactRow label={t('clientAuthNameKept')}>
-                    {carriedDate ? <FactChip icon="calendar" value={f.date(carriedDate, 'dayMonth')} label={t('clientAuthSharedDate')} /> : null}
-                    {carriedGuests ? <FactChip icon="users-three" value={f.integer(carriedGuests)} label={t('clientAuthSharedGuests')} /> : null}
-                    {carriedHearts > 0 ? <FactChip icon="heart" value={f.integer(carriedHearts)} label={t('clientAuthReasonSave')} /> : null}
-                  </FactRow>
-                </div>
-              ) : null}
             </div>
 
             <div className="gza03-agree">

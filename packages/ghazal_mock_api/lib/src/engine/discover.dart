@@ -104,24 +104,30 @@ int? perGuestFrom(EngineData e, Json v, String audience, {required bool voucher}
 /// The Filters of the Results screen as the API sends them. [f] keys (all optional): areaIds (bound areas), governorateIds, types, capacity
 /// {min,max}, priceStructure, voucherOnly, availableBetween {from,to}, arrangement, withinMinutes, perGuest [min,max] (fils), voucherPerGuest
 /// [min,max] (fils), settings, facilities, available (free or on hold on the Brief date), minRating, levels, brands, category, shelf, query.
-/// [brief]: date, guests, audience, areaIds (the Brief's areas; they rank the list, and narrow it when [f] has no `areaIds` and no governorate or shelf).
+/// [brief]: date, guests, audience and the Brief's region. Round 2 (CA-FLT-08): the region is `governorateIds` (empty or missing = all governorates);
+/// a Brief that carries governorates narrows the list by them and its `areaIds` (the older exact areas, deprecated) neither narrow nor set the origin.
+/// A Brief with only `areaIds` behaves as before: they rank the list and narrow it when [f] has no `areaIds` and no governorate or shelf. In both
+/// cases an explicit `areaIds` in [f] (the older "All areas" chip is `[]`), an explicit `governorateIds` or a `shelf` lifts the Brief's narrowing.
 List<Json> searchResults(EngineData e, Json brief, Json f, {String? sort, String? origin}) {
   List<String> list(String k) => ((f[k] as List?) ?? const []).cast<String>();
-  final briefAreas = ((brief['areaIds'] as List?) ?? const []).cast<String>();
+  final briefGovernorates = ((brief['governorateIds'] as List?) ?? const []).cast<String>();
+  final briefAreas = briefGovernorates.isNotEmpty ? const <String>[] : ((brief['areaIds'] as List?) ?? const []).cast<String>();
   final bound = f['areaIds'] != null ? list('areaIds') : (list('governorateIds').isNotEmpty || f['shelf'] != null ? const <String>[] : briefAreas);
+  final governorates = list('governorateIds').isNotEmpty ? list('governorateIds') : (f['areaIds'] != null || f['shelf'] != null ? const <String>[] : briefGovernorates);
   final org = origin ?? (bound.isNotEmpty ? 'ref-${bound.first}' : 'ref-salmiya');
   final engineFilter = <String, dynamic>{
     'sort': sort ?? 'recommended',
     'origin': org,
     if (bound.isNotEmpty) 'areaIds': bound,
-    if (list('governorateIds').isNotEmpty) 'governorateIds': list('governorateIds'),
+    if (governorates.isNotEmpty) 'governorateIds': governorates,
     if (list('types').isNotEmpty) 'types': list('types'),
     if (f['capacity'] != null) 'capacity': f['capacity'],
     if (f['priceStructure'] != null) 'priceStructure': f['priceStructure'],
     if (f['voucherOnly'] == true) 'voucherOnly': true,
     if (f['availableBetween'] != null) 'availableBetween': f['availableBetween'],
   };
-  var rows = e.listVenues(engineFilter, brief);
+  // In governorate mode the Brief's areas neither rank nor set the origin (the older Brief areas are ignored).
+  var rows = e.listVenues(engineFilter, briefGovernorates.isNotEmpty ? {...brief, 'areaIds': const <String>[]} : brief);
   final q = f['query'] as String?;
   if (q != null && q.trim().isNotEmpty) {
     final needle = foldSearch(q);
@@ -223,9 +229,11 @@ bool _notGovernment(Json r) => r.obj('venue')['channel'] != 'external_link';
 /// The Home shelves for a Brief: `free`, `featured` (one row or null), `voucher`, `week` ([{row, date}]), `recommended`, `trending`, `nearby`.
 ({List<Json> free, Json? featured, List<Json> voucher, List<({Json row, String date})> week, List<Json> recommended, List<Json> trending, List<Json> nearby})
 shelves(EngineData e, Json brief) {
-  final areas = ((brief['areaIds'] as List?) ?? const []).cast<String>();
-  final all = e.listVenues({'origin': areas.isNotEmpty ? 'ref-${areas.first}' : 'ref-salmiya'}, brief);
-  bool inAreas(Json r) => areas.isEmpty || areas.contains(r.obj('venue')['areaId']);
+  // Round 2 (CA-FLT-08): a Brief with governorates is region-narrowed by them alone; the older `areaIds` apply only to a Brief without governorates.
+  final governorates = ((brief['governorateIds'] as List?) ?? const []).cast<String>();
+  final areas = governorates.isNotEmpty ? const <String>[] : ((brief['areaIds'] as List?) ?? const []).cast<String>();
+  final all = e.listVenues({'origin': areas.isNotEmpty ? 'ref-${areas.first}' : 'ref-salmiya'}, governorates.isNotEmpty ? {...brief, 'areaIds': const <String>[]} : brief);
+  bool inAreas(Json r) => governorates.isNotEmpty ? governorates.contains(r.obj('venue')['governorateId']) : (areas.isEmpty || areas.contains(r.obj('venue')['areaId']));
   final date = brief['date'] as String?;
   final free = date != null && date.isNotEmpty ? all.where((r) => _notGovernment(r) && inAreas(r) && r['availability'] == 'available').toList() : <Json>[];
   final used = {for (final r in free) r.obj('venue').str('id')};

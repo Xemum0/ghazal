@@ -1,4 +1,4 @@
-// The venue flow's memory: what the manager has saved in this session across the six screens (photos, packages, extras, halls, policy, rules).
+// The venue flow's memory: what the manager has saved in this session across the six screens (photos, packages, halls, policy, rules).
 // It is flow-local on purpose (the shared prototype store has no venue slice; requested in docs/engineering/requests.md) and holds only
 // SAVED values: every editor keeps its own draft and writes here on Save, so leaving without saving never changes anything.
 // Money is integer fils, durations are hours or days, ids are fixture ids. Nothing persists past a reload.
@@ -11,7 +11,6 @@ import {
   libraryPhotos,
   rulesOf,
   venue,
-  venueExtras,
   venuePackages,
 } from './venue'
 
@@ -22,7 +21,7 @@ export type PhotoItem = { id: string; image: GalleryItem; status: PhotoStatus; r
 export type VideoItem = { id: string; title: Bilingual; seconds: number; poster: GalleryItem; status: 'live' | 'review' }
 export type UploadItem = { id: string; kind: 'photo' | 'video'; label: Bilingual; progress: number; status: 'uploading' | 'failed' | 'queued'; reason?: 'large'; poster: GalleryItem | null }
 
-// ---------------------------------------------------------------- packages and extras
+// ---------------------------------------------------------------- packages (extras and add-on services are not edited here: CA-SVC-19, ADR 0038)
 
 /** One set of days: the standard column and the voucher column on the same basis (both empty = no voucher price). Integer fils. */
 export type TierModel = {
@@ -55,23 +54,6 @@ export type PackageModel = {
   archived: boolean
   /** A bundle (the full night) is priced as the sum of its parts: its prices are read-only here. */
   bundle: boolean
-}
-
-export type ExtraUnit = 'event' | 'hour' | 'guest' | 'unit'
-export type ExtraModel = {
-  id: string
-  isNew: boolean
-  nameAr: string
-  nameEn: string
-  descAr: string
-  descEn: string
-  priceFils: number
-  /** Real price range of the seed ("from KD 1,800, up to KD 6,500"); display only. */
-  fromFils: number | null
-  upToFils: number | null
-  unit: ExtraUnit
-  unitLabel: Bilingual | null
-  active: boolean
 }
 
 // ---------------------------------------------------------------- halls
@@ -179,32 +161,6 @@ export function blankPackage(): PackageModel {
   }
 }
 
-const unitOf = (e: { pricingUnit: string; unitLabel: Bilingual | null }): ExtraUnit =>
-  e.pricingUnit === 'per_guest' ? 'guest' : e.pricingUnit === 'flat' ? 'event' : e.unitLabel?.en.includes('hour') ? 'hour' : 'unit'
-
-export function seedExtra(id: string): ExtraModel | null {
-  const e = venueExtras().find(x => x.id === id)
-  if (!e) return null
-  return {
-    id,
-    isNew: false,
-    nameAr: e.name.ar,
-    nameEn: e.name.en,
-    descAr: e.description.ar,
-    descEn: e.description.en,
-    priceFils: e.price.fils,
-    fromFils: e.priceMin?.fils ?? null,
-    upToFils: e.priceMax?.fils ?? null,
-    unit: unitOf(e),
-    unitLabel: e.unitLabel,
-    active: e.active,
-  }
-}
-
-export function blankExtra(): ExtraModel {
-  return { id: 'new-extra', isNew: true, nameAr: '', nameEn: '', descAr: '', descEn: '', priceFils: 0, fromFils: null, upToFils: null, unit: 'event', unitLabel: null, active: true }
-}
-
 export function seedHall(id: string): HallModel | null {
   const h = halls().find(x => x.id === id)
   if (!h) return null
@@ -285,14 +241,12 @@ export type VenueStore = {
   uploads: UploadItem[]
   cameraWarned: boolean
   packages: Record<string, PackageModel>
-  extras: Record<string, ExtraModel>
   halls: Record<string, HallModel>
   policy: PolicyModel
   rules: Record<string, RulesModel>
   profile: ProfileModel
-  /** Package and extra ids in display order, new ones last. */
+  /** Package ids in display order, new ones last. */
   packageOrder: string[]
-  extraOrder: string[]
 
   // media
   movePhoto: (id: string, by: -1 | 1) => void
@@ -308,13 +262,11 @@ export type VenueStore = {
   dropUpload: (id: string) => void
   setCameraWarned: () => void
 
-  // packages and extras
+  // packages
   savePackage: (model: PackageModel) => string
   setPackageActive: (id: string, active: boolean) => void
   archivePackage: (id: string) => void
   restorePackage: (id: string) => void
-  saveExtra: (model: ExtraModel) => string
-  setExtraActive: (id: string, active: boolean) => void
 
   // halls, policy, rules
   saveHall: (model: HallModel) => void
@@ -331,11 +283,6 @@ const initial = () => {
     const m = seedPackage(p.id)
     if (m) packages[p.id] = m
   }
-  const extras: Record<string, ExtraModel> = {}
-  for (const e of venueExtras()) {
-    const m = seedExtra(e.id)
-    if (m) extras[e.id] = m
-  }
   const hallModels: Record<string, HallModel> = {}
   const rules: Record<string, RulesModel> = {}
   for (const h of halls()) {
@@ -349,13 +296,11 @@ const initial = () => {
     uploads: [] as UploadItem[],
     cameraWarned: false,
     packages,
-    extras,
     halls: hallModels,
     policy: seedPolicy(),
     rules,
     profile: seedProfile(),
     packageOrder: venuePackages().map(p => p.id),
-    extraOrder: venueExtras().map(e => e.id),
   }
 }
 
@@ -412,14 +357,6 @@ export const useVenueStore = create<VenueStore>()(set => ({
   setPackageActive: (id, active) => set(s => (s.packages[id] ? { packages: { ...s.packages, [id]: { ...s.packages[id], active } } } : s)),
   archivePackage: id => set(s => (s.packages[id] ? { packages: { ...s.packages, [id]: { ...s.packages[id], archived: true, active: false } } } : s)),
   restorePackage: id => set(s => (s.packages[id] ? { packages: { ...s.packages, [id]: { ...s.packages[id], archived: false } } } : s)),
-
-  saveExtra: model => {
-    const id = model.isNew ? nextId('x-new') : model.id
-    const saved: ExtraModel = { ...model, id, isNew: false }
-    set(s => ({ extras: { ...s.extras, [id]: saved }, extraOrder: s.extraOrder.includes(id) ? s.extraOrder : [...s.extraOrder, id] }))
-    return id
-  },
-  setExtraActive: (id, active) => set(s => (s.extras[id] ? { extras: { ...s.extras, [id]: { ...s.extras[id], active } } } : s)),
 
   saveHall: model => set(s => ({ halls: { ...s.halls, [model.id]: model } })),
   savePolicy: model => set({ policy: model }),

@@ -125,6 +125,14 @@ const examples = {
     unreadNotifications: 2,
     daysToWedding: 63,
   },
+  // Round 2 (ADR 0038): the partner application as the applicant sees it after a rejection, and the profile completion of a new client.
+  PartnerApplication: {
+    id: 'app-m001', accountId: 'partner-m1', accountType: 'service_provider', name: { en: 'Henna Studio', ar: 'استوديو حناء' }, categoryIds: ['henna'],
+    otherCategoryNote: null, governorateId: 'hawalli', contactName: 'Aisha Al-Rashidi', phone: '+96550009123', email: 'hello@henna-studio.example',
+    description: 'Bridal and guest henna, home visits across Hawalli.', licenceRef: null, status: 'rejected',
+    rejectionReason: { en: 'Please add your commercial licence number.', ar: 'يرجى إضافة رقم الترخيص التجاري.' }, submittedAt: plus(NOW, -2880), decidedAt: plus(NOW, -60),
+  },
+  CompleteProfileInput: { name: 'ريم الدوسري', sex: 'female', acceptedTerms: true, email: null },
   PartnerLoginResult: { status: 'code_required', session: null, challenge: { challengeId: 'ch_01JEXAMPLEMAIL', channel: 'email', destinationHint: 'h***@aurelia-gulf.example', expiresInSeconds: 600, resendAfterSeconds: 60, codeLength: 6 } },
 }
 

@@ -114,7 +114,7 @@ export function chromeFor(id: string): ScreenChrome {
  * frame draws them inside the Sheet container on the modal scrim. derived from the inventory (non-deprecated `kind: sheet`; 30 ids at the voucher pivot), checked in the nav gallery page.
  */
 export const SHEET_SCREENS: ReadonlySet<string> = new Set([
-  'CL-AUTH-01', 'CL-DISC-02', 'CL-DISC-04', 'CL-DISC-06', 'CL-VENU-03', 'CL-VENU-04', 'CL-VENU-05', 'CL-SAVD-02',
+  'CL-DISC-02', 'CL-DISC-04', 'CL-DISC-06', 'CL-VENU-03', 'CL-VENU-04', 'CL-VENU-05', 'CL-SAVD-02',
   'CL-SAVD-03', 'CL-BOOK-07', 'CL-BKNG-03', 'CL-BKNG-04', 'CL-WEDD-04', 'CL-WEDD-05', 'CL-PLAN-04', 'CL-SERV-04',
   'CL-MSGS-03', 'CL-VCHR-01', 'CL-VCHR-04', 'CL-VCHR-05', 'CL-VIST-01', 'CL-VIST-05', 'HL-BOOK-04', 'HL-BOOK-07',
   'HL-DCSN-01', 'HL-DCSN-02', 'HL-DCSN-03', 'HL-DCSN-04', 'HL-CALN-04', 'HL-CALN-05', 'HL-VIST-04',

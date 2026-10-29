@@ -18,17 +18,6 @@
   background-color: var(--gz-color-sys-surface-raised);
 }
 
-.gzmw-lead--quiet {
-  background-color: var(--gz-color-sys-surface-tint);
-}
-
-/* A guest's sample: the word at the start, the one action at the end, on one line. */
-.gzmw-lead.is-inline {
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .gzmw-lead__body {
   display: flex;
   flex: 1 1 0;

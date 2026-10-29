@@ -7,7 +7,8 @@
 //                any other email is a wrong sign-in, five of them lock the screen. The first sign-in per session is a NEW device (email code, then the
 //                authenticator code for the venue admin); after that the device is trusted and sign-in goes straight to Today.
 //   new partner  the service-provider persona (Zahra Floral Studio, zahra@zahra-floral.example) signs in with any password and, once the device is
-//                verified, lands on the account type chooser (HL-PROV-01) the first time; later sign-ins go to Today (ADR 0033 D7).
+//                verified, lands on the application form (HL-PROV-01) the first time. While the application is open or rejected every sign-in
+//                lands on the account status (HL-ACCS-04); an accepted account goes to Today (ADR 0033 D7, ADR 0038 D3).
 //   code         any six digits work, 111111 is a wrong code (five lock the code), 222222 is an expired code.
 import { create } from 'zustand'
 import { useContext } from 'react'
@@ -17,6 +18,7 @@ import { useDevice } from '../../../../shell/device/context'
 import { useLang } from '../../../../shell/lang'
 import { usePrototype } from '../../../../shell/state'
 import { useNav } from '../../../../system'
+import { useApplication } from '../../provider/_components/application'
 
 /** Config values the screens read (ADR 0028, ADR 0012 D4): never typed into a message. */
 export const OTP_LENGTH = 6
@@ -151,9 +153,9 @@ export function useAccessMoves() {
     nav.reset('HL-TODY-01', first ? { firstRun: true } : undefined)
   }
   /**
-   * The end of a successful sign-in for either partner type. The service-provider partner has no staff record and no account type yet:
-   * the first time she goes to the chooser (HL-PROV-01, which carries `account: 'provider'` as its hint); afterwards, and for every
-   * hotel or hall staff member, to Today.
+   * The end of a successful sign-in for either partner type. The service-provider partner has no staff record and has not applied yet: the
+   * first time she goes to the application (HL-PROV-01, which carries `account: 'provider'` as its hint); while her application is under
+   * review or was rejected she lands on the account status (HL-ACCS-04); afterwards, and for every hotel or hall staff member, on Today.
    */
   const complete = (staff: HotelStaff | undefined) => {
     const flow = useAccessFlow.getState()
@@ -163,7 +165,10 @@ export function useAccessMoves() {
       store.signIn({ id: user.id, name: (lang === 'ar' ? user.name : user.nameLatin) ?? user.name, phone: user.phone ?? '', monogram: user.monogram ?? '' })
       flow.setFailed(0)
       flow.setLockedAt(null)
-      if (!flow.typeAsked) {
+      const decision = useApplication.getState().status
+      if (decision === 'under_review' || decision === 'rejected') {
+        nav.reset('HL-ACCS-04', { variant: decision === 'rejected' ? 'application-rejected' : 'application-review', account: 'provider' })
+      } else if (!flow.typeAsked && decision === 'none') {
         flow.setTypeAsked(true)
         nav.reset('HL-PROV-01', { account: 'provider' })
       } else {

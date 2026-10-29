@@ -10,7 +10,8 @@
 // The Arabic is written natively (clause order and prepositions differ), never translated word for word.
 import { useMemo, type ReactNode } from 'react'
 import type { Audience, Brief } from '@gz/contracts'
-import { getArea } from '../../mock'
+import { getGovernorate } from '../../mock'
+import { briefGovernorates, type RegionSource } from '../domain-filters/governorates'
 import { useFormat, useT } from '../../i18n'
 import { useLang } from '../../shell/lang'
 import { Icon } from '../core'
@@ -31,13 +32,13 @@ const useW = defineWords({
   budgetOf: p('budget', 'بميزانية'),
   chooseGuests: p('add guests', 'إضافة الضيوف'),
   chooseDate: p('choose a date', 'اختيار التاريخ'),
-  chooseArea: p('choose an area', 'اختيار المنطقة'),
+  chooseArea: p('choose a governorate', 'اختيار المحافظة'),
   chooseBudget: p('set a budget', 'تحديد الميزانية'),
   edit: p('Edit your brief', 'تعديل تفاصيل زفافكم'),
   field: p('Change {what}', 'تغيير {what}'),
   whatDate: p('the date', 'التاريخ'),
   whatGuests: p('the guests', 'عدد الضيوف'),
-  whatArea: p('the area', 'المنطقة'),
+  whatArea: p('the governorate', 'المحافظة'),
   whatBudget: p('the budget', 'الميزانية'),
 })
 
@@ -45,7 +46,8 @@ export type BriefField = 'guests' | 'date' | 'area' | 'budget'
 export type BriefSentenceVariant = 'results' | 'compare' | 'booking' | 'edit'
 
 export type BriefSentenceProps = {
-  brief: Brief
+  /** The region is the governorates of the Brief (ADR 0038); an older Brief that only has areas is mapped up. */
+  brief: Brief & RegionSource
   variant?: BriefSentenceVariant
   /** Echo variants: opens the Brief sheet. */
   onEdit?: () => void
@@ -84,7 +86,7 @@ export function BriefSentence({ brief, variant = 'results', onEdit, onEditField,
     return <span className={cx('gz-brief__tok', `gz-brief__tok--${field}`, empty && 'is-empty')}>{body}</span>
   }
 
-  const areaNames = (brief.areaIds ?? []).map(id => getArea(id)).filter((a): a is NonNullable<ReturnType<typeof getArea>> => Boolean(a)).map(a => bi(a.name))
+  const areaNames = briefGovernorates(brief).map(id => getGovernorate(id)).filter((g): g is NonNullable<ReturnType<typeof getGovernorate>> => Boolean(g)).map(g => bi(g.name))
 
   const text = useMemo(() => {
     const audience = brief.audience ? w(brief.audience satisfies Audience) : w('reception')

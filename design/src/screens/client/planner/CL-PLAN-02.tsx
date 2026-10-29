@@ -1,8 +1,7 @@
 // CL-PLAN-02 Request consultation. Covers CA-PLAN-05, CA-PLAN-04, CA-AUTH-10.
 // Form (45-word budget; the two-week calendar alone is 14 figures): the package as one tappable row (Change is its chevron), the wedding as
 // two facts, up to three time windows picked on a two-week calendar (sun, sunset and moon marks under each day show what is chosen), how
-// to be reached as three glyphs, optional notes. Send is a hard gate (ADR 0007 D8): a guest meets the sign-in sheet, and the request
-// resumes with everything typed. An open request is never duplicated: the screen shows where it stands instead.
+// to be reached as three glyphs, optional notes. Send needs no gate (ADR 0038: the client is always signed in). An open request is never duplicated: the screen shows where it stands instead.
 import { useEffect, useRef, useState } from 'react'
 import type { IconName } from '@gz/tokens'
 import type { PlannerTier } from '@gz/contracts'
@@ -10,7 +9,6 @@ import { getVenue, plannerPackages, plannerRequest } from '../../../mock'
 import { useFormat, useT } from '../../../i18n'
 import { useLang } from '../../../shell/lang'
 import { useFrame } from '../../../shell/frame'
-import { usePrototype } from '../../../shell/state'
 import {
   ActionBar, Banner, EmptyState, Fig, FactChip, Icon, IconSegmented, Price, Screen, SuccessState, TextArea, TopBar, useBi, useNav,
 } from '../../../system'
@@ -24,7 +22,7 @@ import {
 import { useViewer } from './_components/useViewer'
 import './CL-PLAN-02.css'
 
-export const states = ['validation-error', 'sending', 'success', 'error', 'offline', 'guest-gate', 'open-request-exists']
+export const states = ['validation-error', 'sending', 'success', 'error', 'offline', 'open-request-exists']
 
 type Phase = 'idle' | 'sending' | 'success' | 'error'
 /** `edit`: the status screen sends the viewer back to change the open request (the form opens with what was sent). */
@@ -47,8 +45,7 @@ export default function RequestConsultation() {
   const { lang } = useLang()
   const frame = useFrame()
   const nav = useNav<Params>()
-  const { guest, live } = useViewer(frame.state)
-  const auth = usePrototype(s => s.auth)
+  const { live } = useViewer(frame.state)
   const draft = usePlannerFlow(s => s.draft)
   const sent = usePlannerFlow(s => s.request)
   const { toggleWindow, setReach, setNote } = usePlannerFlow.getState()
@@ -57,7 +54,6 @@ export default function RequestConsultation() {
   // A frame state forces what the live phases would produce.
   const [phase, setPhase] = useState<Phase>('idle')
   const [attempted, setAttempted] = useState(false)
-  const pending = useRef(false)
   const timers = useRef<number[]>([])
   useEffect(() => () => timers.current.forEach(id => window.clearTimeout(id)), [])
 
@@ -112,23 +108,8 @@ export default function RequestConsultation() {
   const send = () => {
     setAttempted(true)
     if (draft.windows.length === 0) return
-    if (auth === 'guest') {
-      // Hard gate (ADR 0007 D8): remember the intent, open the sign-in sheet; sign-in resumes this exact request.
-      pending.current = true
-      usePrototype.getState().openGate('planner', { screenId: 'CL-PLAN-02', params: { tier: draft.tier } })
-      nav.openSheet('CL-AUTH-01', { params: { reason: 'planner' } })
-      return
-    }
     doSend()
   }
-  useEffect(() => {
-    if (auth === 'signedIn' && pending.current) {
-      pending.current = false
-      doSend()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth])
-
   const openPicker = () => {
     nav.openSheet(<PackagePicker />, { dismissible: true })
   }
@@ -165,7 +146,7 @@ export default function RequestConsultation() {
   const bar = (
     <ActionBar
       action={{
-        label: guest ? t('clientPlannerGuestSignIn') : t('clientPlannerRequestSend'),
+        label: t('clientPlannerRequestSend'),
         onPress: send,
         loading: sending,
         disabled: offline,

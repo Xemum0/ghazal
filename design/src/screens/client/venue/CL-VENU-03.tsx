@@ -59,7 +59,7 @@ export default function DatesAndPrices() {
   const live = useDevice().mode === 'live'
   const flags = usePageFlags()
   const actions = useVenueActions(venue, live)
-  const owned = useOwnedVoucher(venue?.id, live, flags.guest)
+  const owned = useOwnedVoucher(venue?.id, live)
 
   const halls = useMemo(() => (venue ? fittingHalls(venue, brief.audience, brief.guests) : []), [venue, brief.audience, brief.guests])
   const hall: Hall | undefined = halls.find(h => h.id === (nav.params.hallId ?? section?.hallId)) ?? halls[0]
@@ -218,7 +218,7 @@ export default function DatesAndPrices() {
       ) : null}
       {(focusState === 'available' || focusState === 'held') && prices && pkgRow ? (
         <div className="gzv-cal__money" data-gz-id="calendar.money">
-          <PriceBlock prices={prices} guest={flags.guest} owned={Boolean(owned)} size="total" />
+          <PriceBlock prices={prices} owned={Boolean(owned)} size="total" />
         </div>
       ) : null}
       {focusState && focusState !== 'available' && focusState !== 'held' && nearest.length > 0 ? (

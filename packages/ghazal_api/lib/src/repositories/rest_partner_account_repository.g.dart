@@ -27,6 +27,20 @@ final class RestPartnerAccountRepository implements PartnerAccountRepository {
   }
 
   @override
+  Future<PartnerApplication> getPartnerApplication() async {
+    final json = await _client.send('GET', '/partner/application');
+    return PartnerApplication.fromJson(asMap(json));
+  }
+
+  @override
+  Future<PartnerApplication> resubmitPartnerApplication({
+    required PartnerApplicationInput body,
+  }) async {
+    final json = await _client.send('PUT', '/partner/application', body: body.toJson());
+    return PartnerApplication.fromJson(asMap(json));
+  }
+
+  @override
   Future<PartnerMe> switchPartnerContext({
     required SwitchContextInput body,
   }) async {

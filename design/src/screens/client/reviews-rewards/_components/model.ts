@@ -45,10 +45,9 @@ export function upcomingStayAt(venueId: string): Booking | null {
   return bookingsFor({ clientId: meta.clientUserId, venueId, status: ['pending', 'approved', 'confirmed', 'redeemed'] })[0] ?? null
 }
 
-export type Eligibility = 'eligible' | 'upcoming' | 'guest' | 'general'
+export type Eligibility = 'eligible' | 'upcoming' | 'general'
 
-export function eligibilityAt(venueId: string, signedIn: boolean): { kind: Eligibility; booking: Booking | null } {
-  if (!signedIn) return { kind: 'guest', booking: null }
+export function eligibilityAt(venueId: string): { kind: Eligibility; booking: Booking | null } {
   const done = completedStayAt(venueId)
   if (done) return { kind: 'eligible', booking: done }
   const next = upcomingStayAt(venueId)

@@ -1,21 +1,19 @@
-// CL-MSGS-02 Conversation (pushed from the Messages tab, a venue, a booking or a notification). Requirements: CA-CHAT-02..09, CA-AUTH-10.
+// CL-MSGS-02 Conversation (pushed from the Messages tab, a venue, a booking or a notification). Requirements: CA-CHAT-02..09.
 // One thread with a venue, a planner, a service provider or Ghazal Support: text, photos, documents and voice notes with a waveform, sent, delivered
 // and read ticks, a pinned request bar (date, reception symbol and guests as facts, the status, a chevron to the request), system lines for the request
 // (a knot with one or two words: sent, approved with the hours left, confirmed, voucher redeemed, not accepted, no reply, time ran out), and structured
 // cards (meeting, quote request). A visit group chat is CL-VIST-03: a thread that is one opens there. Own messages sit at inline-end (left in Arabic) and
-// every message aligns by its own first strong character. A guest reads freely and meets the sign-in sheet only on Send, with the draft kept (ADR 0007).
+// every message aligns by its own first strong character.
 // The tab bar is hidden. Text diet (ADR 0034): the header shows the reply time as a fact, a new enquiry is the venue photograph, its name and that fact,
 // and the three starters are one-word chips with a glyph; the paragraphs of the old system lines sit behind an info glyph.
 // States: loading, empty-enquiry, sending, failed, delivered, read, uploading, recording, recording-locked, voice-playing, offline-queued,
-// error, guest-gate, blocked, planner-variant, vendor-variant, support-variant, attaching.
+// error, blocked, planner-variant, vendor-variant, support-variant, attaching.
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import type { Message } from '@gz/contracts'
 import { getVenue, messagesFor, PROTOTYPE_NOW } from '../../../mock'
 import {
   Avatar, Banner, Button, ChatBubble, ChatDateDivider, ErrorState, FactChip, FullscreenGallery, Icon, Illustration, Photo, Screen, Sheet, Skeleton, TopBar, imageSrc, useBi, useNav,
 } from '../../../system'
-import { ScreenOutlet } from '../../../system/nav/ScreenOutlet'
-import { EntryContext } from '../../../system/nav/useNav'
 import { useFrame } from '../../../shell/frame'
 import { usePrototype } from '../../../shell/state'
 import { AttachSheet, type AttachPick } from './_components/AttachSheet'
@@ -35,7 +33,7 @@ import { useMsg } from './_components/useMsg'
 import './CL-MSGS-02.css'
 
 export const states = [
-  'loading', 'empty-enquiry', 'sending', 'failed', 'delivered', 'read', 'uploading', 'recording', 'recording-locked', 'voice-playing', 'offline-queued', 'error', 'guest-gate',
+  'loading', 'empty-enquiry', 'sending', 'failed', 'delivered', 'read', 'uploading', 'recording', 'recording-locked', 'voice-playing', 'offline-queued', 'error',
   'blocked', 'planner-variant', 'vendor-variant', 'support-variant', 'attaching',
 ]
 
@@ -48,7 +46,6 @@ const FRAME_PARAMS: Record<string, ThreadParams> = {
   'support-variant': { support: true },
   'empty-enquiry': { venueId: 'V09' },
   'voice-playing': { conversationId: VOICE_CONVERSATION },
-  'guest-gate': { venueId: 'V01' },
 }
 
 type Row = { message: Message; local: LocalMessage | null; sys?: SystemEvent['kind']; reason?: SystemEvent['reason'] }
@@ -57,10 +54,9 @@ export default function Thread() {
   const { state } = useFrame()
   const nav = useNav<ThreadParams>()
   const bi = useBi()
-  const { t, f, lang, live, auth, nameOf, duration } = useMsg()
+  const { t, f, lang, live, nameOf, duration } = useMsg()
   const params: ThreadParams = { ...nav.params, ...(state ? FRAME_PARAMS[state] : undefined) }
-  const guest = state === 'guest-gate' || (state === undefined && live && auth === 'guest')
-  const conversation = useMemo(() => resolveConversation(params, !guest), [params.conversationId, params.bookingId, params.venueId, params.support, guest]) // eslint-disable-line react-hooks/exhaustive-deps
+  const conversation = useMemo(() => resolveConversation(params), [params.conversationId, params.bookingId, params.venueId, params.support]) // eslint-disable-line react-hooks/exhaustive-deps
   const isSupport = conversation.kind === 'support'
   const store = useMsgStore.getState
   const sentAll = useMsgStore(s => s.sent)
@@ -76,7 +72,7 @@ export default function Thread() {
   const blocked = state === 'blocked' || blockedIds.includes(conversation.id)
   const emptyEnquiry = state === 'empty-enquiry'
 
-  const [value, setValue] = useState(() => (state === 'guest-gate' ? t('clientMessagesSuggestAvailabilityText', { date: f.date('2027-01-14', 'short') }) : (params.draft ?? drafts[conversation.id] ?? '')))
+  const [value, setValue] = useState(() => params.draft ?? drafts[conversation.id] ?? '')
   const [viewer, setViewer] = useState<number | null>(null)
   const [playing, setPlaying] = useState<{ id: string; progress: number } | null>(null)
   const endRef = useRef<HTMLDivElement>(null)
@@ -88,10 +84,10 @@ export default function Thread() {
 
   // Opening the thread reads it: the unread count clears, and the hotel's replies are counted as seen.
   useEffect(() => {
-    if (loading || error || guest) return
+    if (loading || error) return
     store().open(conversation.id)
     if (conversation.id === HERO_CONVERSATION) store().seeHotel(hotel.length)
-  }, [conversation.id, loading, error, guest, hotel.length]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [conversation.id, loading, error, hotel.length]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ---------------------------------------------------------------- the messages
   const localHere = useMemo(() => sentAll.filter(m => m.conversationId === conversation.id), [sentAll, conversation.id])
@@ -108,17 +104,12 @@ export default function Thread() {
 
   const rows = useMemo<Row[]>(() => {
     if (loading || error) return []
-    const fixture = conversation.id.startsWith('enq-') || emptyEnquiry ? [] : guest ? [] : messagesFor(conversation.id, 'client')
-    const intro: Message[] =
-      guest && isSupport
-        ? [{ id: 'support-intro', conversationId: conversation.id, from: 'support', senderName: null, at: PROTOTYPE_NOW, kind: 'text', text: { en: t('clientMessagesSupportIntro'), ar: t('clientMessagesSupportIntro') }, origin: lang, status: 'read', draft: false }]
-        : []
+    const fixture = conversation.id.startsWith('enq-') || emptyEnquiry ? [] : messagesFor(conversation.id, 'client')
     // The request's own events: the knot says it in a word; the line carries the kind, the clock and the venue for its info sheet.
     const system: Message[] = (liveBooking?.events ?? []).map(e => ({ id: e.id, conversationId: conversation.id, from: 'system', senderName: e.kind, at: e.at, kind: 'system', text: null, origin: lang, status: 'read', draft: false }))
     const reasons = new Map((liveBooking?.events ?? []).map(e => [e.id, e.reason]))
     let all: Row[] = [
       ...fixture.map(message => ({ message, local: null })),
-      ...intro.map(message => ({ message, local: null })),
       ...(conversation.id === HERO_CONVERSATION ? hotel.map(message => ({ message, local: null })) : []),
       ...system.map(message => ({ message, local: null, sys: message.senderName as SystemEvent['kind'], reason: reasons.get(message.id) })),
       ...[...localHere, ...sample].map(m => ({ message: localToMessage(m), local: m })),
@@ -130,7 +121,7 @@ export default function Thread() {
       if (lastOwn) all = all.map(r => (r === lastOwn ? { ...r, message: { ...r.message, status: 'read' as const } } : r))
     }
     return all
-  }, [loading, error, conversation, emptyEnquiry, guest, isSupport, liveBooking, localHere, sample, hotel, state, t, lang])
+  }, [loading, error, conversation, emptyEnquiry, liveBooking, localHere, sample, hotel, state, t, lang])
 
   const photos = useMemo(() => rows.filter(r => r.message.kind === 'image' && r.message.image).map(r => ({ id: r.message.id, src: imageSrc(r.message.image?.file ?? ''), alt: bi(r.message.image?.alt) })), [rows, bi])
 
@@ -154,19 +145,12 @@ export default function Thread() {
     return () => window.clearInterval(handle)
   }, [playing?.id, live, rows]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ---------------------------------------------------------------- sending (a guest meets the gate, ADR 0007 D8)
-  const gate = (text?: string) => {
-    if (text !== undefined) store().setDraft(conversation.id, text)
-    usePrototype.getState().openGate('chat', { screenId: 'CL-MSGS-02', params: { ...params, draft: text ?? value } })
-    nav.openSheet('CL-AUTH-01', { params: { reason: 'chat' } })
-  }
+  // ---------------------------------------------------------------- sending
   const submit = (message: Omit<LocalMessage, 'id' | 'at' | 'state' | 'progress' | 'conversationId'>, opts?: { upload?: boolean }) => {
-    if (guest) return gate()
     if (conversation.id.startsWith('enq-') && conversation.venueId) store().startEnquiry(conversation.venueId)
     store().send({ ...message, conversationId: conversation.id }, { offline, upload: opts?.upload })
   }
   const send = (text: string) => {
-    if (guest) return gate(text)
     submit({ kind: 'text', text })
     setValue('')
     store().setDraft(conversation.id, '')
@@ -177,7 +161,6 @@ export default function Thread() {
     submit({ kind: 'image', image: { file: photo.file, alt: photo.alt } }, { upload: true })
   }
   const openAttach = () => {
-    if (guest) return gate()
     const key = nav.openSheet(
       <AttachSheet
         onPick={pick => {
@@ -222,7 +205,7 @@ export default function Thread() {
     <>
       <TopBar title={title} subtitle={replyFact} actions={[{ icon: 'more-vertical', label: t('clientMessagesInfoTitle'), onPress: openInfo }]} />
       {offline ? <Banner tone="offline">{t('clientMessagesOfflineQueue')}</Banner> : null}
-      {liveBooking && !isSupport && !loading && !error && !guest && conversation.kind !== 'planner' ? (
+      {liveBooking && !isSupport && !loading && !error && conversation.kind !== 'planner' ? (
         <ContextBar booking={liveBooking.booking} onOpen={() => nav.push('CL-BKNG-02', { bookingId: liveBooking.booking.id })} />
       ) : null}
     </>
@@ -255,7 +238,7 @@ export default function Thread() {
           previewRecording={state === 'recording' ? 'holding' : state === 'recording-locked' ? 'locked' : undefined}
           onSend={send}
           onAttach={openAttach}
-          onVoice={seconds => (guest ? gate() : submit({ kind: 'voice', seconds }))}
+          onVoice={seconds => submit({ kind: 'voice', seconds })}
           onTooShort={() => nav.toast(t('clientMessagesRecordTooShort'))}
         />
       </>
@@ -380,13 +363,6 @@ export default function Thread() {
       {state === 'attaching' ? (
         <Sheet title={t('clientMessagesAttachTitle')}>
           <AttachSheet />
-        </Sheet>
-      ) : null}
-      {state === 'guest-gate' ? (
-        <Sheet dismissible={false}>
-          <EntryContext.Provider value={{ id: 'CL-AUTH-01', params: { reason: 'chat' }, canGoBack: false, activeTab: null }}>
-            <ScreenOutlet id="CL-AUTH-01" />
-          </EntryContext.Provider>
         </Sheet>
       ) : null}
     </div>

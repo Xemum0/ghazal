@@ -20,8 +20,6 @@ export type PageFlags = {
   offline: boolean
   delisted: boolean
   noReviews: boolean
-  /** Guest (no account): the prototype store in the player, the `guest` state frame on the canvas. */
-  guest: boolean
 }
 
 export type VenuePage = {
@@ -58,23 +56,20 @@ export type VenuePage = {
 /** Frame states that put the page in a different condition than the data decides. */
 export const usePageFlags = (): PageFlags => {
   const { state } = useFrame()
-  const live = useDevice().mode === 'live'
-  const auth = usePrototype(s => s.auth)
   return {
     loading: state === 'loading',
     error: state === 'error',
     offline: state === 'offline',
     delisted: state === 'delisted',
     noReviews: state === 'no-reviews',
-    guest: live ? auth === 'guest' : state === 'guest',
   }
 }
 
 /** The client's ready voucher for a venue: the store in the player, the story client's wallet in a static frame. */
-export function useOwnedVoucher(venueId: string | undefined, live: boolean, guest: boolean): Voucher | undefined {
+export function useOwnedVoucher(venueId: string | undefined, live: boolean): Voucher | undefined {
   const user = usePrototype(s => s.user)
   const vouchers = usePrototype(s => s.vouchers)
-  if (!venueId || guest) return undefined
+  if (!venueId) return undefined
   const me = live ? user?.id : mock.meta.clientUserId
   return vouchers.find(v => v.clientId === me && v.status === 'active' && v.venueOrProviderId === venueId)
 }
@@ -102,7 +97,7 @@ export function useVenuePage(): VenuePage {
   const noVoucher = state === 'no-voucher-price' || state === 'browse-only-contact'
   const prices = quotePrices(quote, row, brief.guests, noVoucher)
   const windowTitle = prices?.eligible && row?.price?.windowId ? (mock.windowsFor(venue?.id ?? '').find(w => w.id === row.price?.windowId)?.title ?? null) : null
-  const owned = useOwnedVoucher(venue?.id, live, flags.guest)
+  const owned = useOwnedVoucher(venue?.id, live)
   const visitOpen = venue ? state !== 'visit-unavailable' && hasVisitTimes(venue) : false
   const nearest = useMemo(() => (venue && hall && brief.date && status === 'unavailable' ? nearestFreeDates(venue, hall, brief.date, brief) : []), [venue, hall, brief, status])
   const rating = venue ? ratingOf(venue, state) : { average: null, count: 0, categories: null }

@@ -65,21 +65,3 @@
 .gzd-res__foot {
   block-size: var(--gz-space-24);
 }
-
-/* A signed-out visitor: the voucher price is locked behind sign-in; one 44 row under the chips says so and opens the gate (ADR 0007, 0033). */
-.gzd-res__lock {
-  display: flex;
-  align-items: center;
-  gap: var(--gz-space-2);
-  box-sizing: border-box;
-  min-block-size: var(--gz-size-touch-min);
-  margin-block-start: var(--gz-space-2);
-  padding-inline: var(--gz-space-gutter);
-  color: var(--gz-color-sys-text-primary);
-  text-align: start;
-}
-
-.gzd-res__lock > span {
-  flex: 1;
-  min-inline-size: 0;
-}

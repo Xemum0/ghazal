@@ -28,7 +28,7 @@ const MISSING_VENUE = 'V09'
 export default function Notifications() {
   const { state } = useFrame()
   const nav = useNav()
-  const { t, tc, f, live, auth } = useMsg()
+  const { t, tc, f, live } = useMsg()
   const land = useNotificationLanding()
   const feed = useNotificationFeed()
   const permission = useMsgStore(s => s.permission)
@@ -37,22 +37,21 @@ export default function Notifications() {
   const [unreadOnly, setUnreadOnly] = useState(state === 'unread-only')
   const [missing, setMissing] = useState<string | null>(null)
 
-  const guest = live && auth === 'guest'
   const loading = state === 'loading'
   const error = state === 'error'
   const offline = state === 'offline'
-  const empty = state === 'empty' || guest
+  const empty = state === 'empty'
   const denied = state === 'os-denied-banner' || permission === 'denied'
 
   // The pre-prompt: once, after the first booking request, a moment after the centre has settled.
   useEffect(() => {
-    if (!live || guest || promptShown || permission !== 'unknown') return
+    if (!live || promptShown || permission !== 'unknown') return
     const handle = window.setTimeout(() => {
       useMsgStore.getState().markPromptShown()
       nav.openSheet(<PromptSheet />)
     }, 700)
     return () => window.clearTimeout(handle)
-  }, [live, guest, promptShown, permission]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [live, promptShown, permission]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const items = empty ? [] : feed.items
   const unreadCount = items.filter(n => !n.read).length

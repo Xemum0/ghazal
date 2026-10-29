@@ -17,8 +17,6 @@ export type DateStripProps = {
   status: DayStatusKind
   prices: QuotePrices | null
   row: PackageRow | undefined
-  /** Signed out: the voucher price shows with a lock. */
-  guest?: boolean
   /** The client holds a ready voucher for this venue. */
   owned?: boolean
   /** The venue's voucher window that lowers this price, already picked for the language. */
@@ -33,7 +31,7 @@ export type DateStripProps = {
   loading?: boolean
 }
 
-export function DateStrip({ brief, status, prices, row, guest = false, owned = false, windowTitle, nearest = [], onOpenCalendar, onEditGuests, onHow, onPickDate, loading }: DateStripProps) {
+export function DateStrip({ brief, status, prices, row, owned = false, windowTitle, nearest = [], onOpenCalendar, onEditGuests, onHow, onPickDate, loading }: DateStripProps) {
   const f = useFormat()
   const t = useT('client-venue')
   const { lang } = useLang()
@@ -112,7 +110,7 @@ export function DateStrip({ brief, status, prices, row, guest = false, owned = f
 
       {prices && row && (status === 'available' || status === 'held') ? (
         <div className="gzv-date__money" data-gz-id="venue.money">
-          <PriceBlock prices={prices} guest={guest} owned={owned} onHow={prices.eligible ? onHow : undefined} />
+          <PriceBlock prices={prices} owned={owned} onHow={prices.eligible ? onHow : undefined} />
           {row.belowMinimum || (prices.eligible && windowTitle) ? (
             <FactRow className="gzv-date__facts">
               {row.belowMinimum ? <FactChip icon="users-three" value={`${f.integer(row.minGuests)}+`} label={t('clientVenueEstimateMinimum', { guests: guestsText(row.minGuests) })} tone="accent" /> : null}

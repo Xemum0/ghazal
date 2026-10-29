@@ -69,7 +69,7 @@ Json checkOtp(MockApp app, String challengeId, String code) {
 
 void consumeChallenge(MockApp app, Json c) => app.db.put('OtpChallenge', {...c, 'used': true});
 
-Json _newUser(MockApp app, {required String name, String? phone, String? email, String locale = 'ar', bool phoneVerified = false}) {
+Json _newUser(MockApp app, {required String name, String? phone, String? email, String locale = 'ar', bool phoneVerified = false, String? sex}) {
   final id = 'user-n${app.db.next('user').toString().padLeft(3, '0')}';
   final u = <String, dynamic>{
     'id': id,
@@ -81,6 +81,7 @@ Json _newUser(MockApp app, {required String name, String? phone, String? email, 
     'email': email,
     'locale': locale,
     'digitStyle': 'western',
+    'sex': ?sex,
     'createdAt': app.now,
     '_phoneVerified': phoneVerified,
   };
@@ -114,11 +115,13 @@ Map<String, Handler> authHandlers(MockApp app) => {
     var user = c.strOrNull('userId') != null ? app.db.get('User', c.str('userId')) : _byPhone(app, phone);
     var isNew = false;
     if (user == null) {
+      // A first code creates the account with a placeholder name; it stays "new" (and has no sex) until `completeProfile` (CA-AUTH-14).
       user = _newUser(app, name: '', phone: phone, phoneVerified: true);
       user['name'] = 'Guest ${phone.length > 4 ? phone.substring(phone.length - 4) : phone}';
       user['monogram'] = 'G';
+      user['_profileIncomplete'] = true;
       isNew = true;
-    } else if (user['_pendingRegistration'] == true) {
+    } else if (user['_pendingRegistration'] == true || user['_profileIncomplete'] == true) {
       isNew = true;
     }
     user['_phoneVerified'] = true;
@@ -130,8 +133,10 @@ Map<String, Handler> authHandlers(MockApp app) => {
     final phone = r.b.str('phone').replaceAll(' ', '');
     var user = _byPhone(app, phone);
     if (user == null) {
-      user = _newUser(app, name: r.b.str('name'), phone: phone, locale: r.b.str('locale'));
+      // Name and sex are required here (RegisterInput): the account is complete once the phone is verified.
+      user = _newUser(app, name: r.b.str('name'), phone: phone, locale: r.b.str('locale'), sex: r.b.str('sex'));
       user['_pendingRegistration'] = true;
+      user['_termsAcceptedAt'] = app.now;
       if (r.b['password'] != null) user['_password'] = r.b['password'];
       app.db.put('User', user);
     }
@@ -321,7 +326,7 @@ Json _social(MockApp app, Req r, String provider) {
   final sub = (claims['sub'] as String?) ?? 'tok${hash32([token])}';
   final id = 'user-$provider-$sub';
   var user = app.db.get('User', id);
-  var isNew = false;
+  var isNew = user != null && user['_profileIncomplete'] == true;
   if (user == null) {
     final name = r.b.strOrNull('name') ?? (claims['name'] as String?) ?? 'Guest';
     user = {
@@ -336,6 +341,7 @@ Json _social(MockApp app, Req r, String provider) {
       'digitStyle': 'western',
       'createdAt': app.now,
       '_phoneVerified': false,
+      '_profileIncomplete': true,
     };
     app.db.put('User', user);
     isNew = true;

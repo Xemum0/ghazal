@@ -57,7 +57,6 @@ export function PackagesSection({ page, actions }: { page: VenuePage; actions: V
                 onDetails={() => actions.openPackage(r.pkg.id, hall?.id)}
                 unavailable={status === 'unavailable'}
                 standardOnly={standardOnly}
-                guest={page.flags.guest}
               />
             </li>
           ))}

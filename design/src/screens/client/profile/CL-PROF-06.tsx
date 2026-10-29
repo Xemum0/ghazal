@@ -89,10 +89,8 @@ export default function DeleteAccount() {
   const erase = () => {
     // Everything of the person goes; the partner side of a pending request is withdrawn by the client.
     const story = meta.story.bookingId
+    usePrototype.getState().signOut()
     usePrototype.setState(s => ({
-      auth: 'guest',
-      user: null,
-      gate: null,
       weddingProfile: null,
       favourites: { venue: [], vendor: [], package: [] },
       compareList: [],

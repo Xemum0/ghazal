@@ -65,44 +65,12 @@
   gap: var(--gz-space-2);
 }
 
-/* guest: the locked teaser replaces the voucher row */
-.gz-pcmp__locked {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--gz-space-2);
-  padding: var(--gz-space-4);
-  border-width: var(--gz-stroke-hair);
-  border-style: solid;
-  border-color: var(--gz-color-sys-border-strong);
-  border-radius: var(--gz-radius-md);
-  background-color: var(--gz-color-sys-surface-tint-soft);
-}
-
-.gz-pcmp__lockhead {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--gz-space-1);
-  color: var(--gz-color-sys-text-strong);
-}
-
-.gz-pcmp__lockfig {
-  display: inline-flex;
-}
-
 /* inline: one line, wraps to a second only when a card is narrow */
 .gz-pcmp--inline {
   flex-wrap: wrap;
   align-items: baseline;
   column-gap: var(--gz-space-2);
   row-gap: var(--gz-space-1);
-}
-
-.gz-pcmp__lockline {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--gz-space-1);
-  color: var(--gz-color-sys-text-strong);
 }
 
 .gz-pcmp__chip {

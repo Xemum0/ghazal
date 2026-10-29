@@ -6,7 +6,8 @@
 //
 // states  default, filled, partly empty (muted placeholders), pressed row, focus-visible, loading (the CTA draws its thread), offline (no count)
 import type { Brief } from '@gz/contracts'
-import { getArea } from '../../mock'
+import { getGovernorate } from '../../mock'
+import { briefGovernorates, type RegionSource } from '../domain-filters/governorates'
 import { useFormat, useT } from '../../i18n'
 import { Button, Icon } from '../core'
 import { cx } from '../core/cx'
@@ -17,7 +18,7 @@ import './brief.css'
 
 const useW = defineWords({
   chooseDate: p('Date', 'التاريخ'),
-  chooseArea: p('Area', 'المنطقة'),
+  chooseArea: p('Governorate', 'المحافظة'),
   chooseGuests: p('Guests', 'الضيوف'),
   chooseBudget: p('Budget', 'الميزانية'),
   showHalls: p('Show halls', 'عرض القاعات'),
@@ -28,7 +29,8 @@ const useW = defineWords({
 })
 
 export type BriefCardProps = {
-  brief: Brief
+  /** The region is the governorates of the Brief (ADR 0038); an older Brief that only has areas is mapped up. */
+  brief: Brief & RegionSource
   /** Halls matching the brief (and free on its date): the live count in the CTA. Omit offline or before the first answer. */
   count?: number | null
   /** One row tapped: the screen opens the matching sheet. */
@@ -47,7 +49,7 @@ export function BriefCard({ brief, count, onEdit, onShow, loading, className }: 
   const bi = useBi()
   const openBudget = useOpenBudget()
 
-  const names = (brief.areaIds ?? []).map(id => getArea(id)).filter((a): a is NonNullable<ReturnType<typeof getArea>> => Boolean(a)).map(a => bi(a.name))
+  const names = briefGovernorates(brief).map(id => getGovernorate(id)).filter((g): g is NonNullable<ReturnType<typeof getGovernorate>> => Boolean(g)).map(g => bi(g.name))
   const area = names.length === 0 ? null : names.length <= 2 ? f.list(names, 'and') : `${names[0]} ${w('more', { n: f.integer(names.length - 1) })}`
   const date = brief.date ? f.date(brief.date, 'short') : null
   const guests = brief.guests ? f.integer(brief.guests) : null
@@ -72,7 +74,7 @@ export function BriefCard({ brief, count, onEdit, onShow, loading, className }: 
     <section data-gz="BriefCard" className={cx('gz-briefcard', className)} aria-label={w('openBrief')}>
       {row('date', t('clientShellBriefDate'), date, w('chooseDate'), 'calendar')}
       <div className="gz-briefrow__split">
-        {row('area', t('clientShellBriefArea'), area, w('chooseArea'), 'pin', 'gz-briefrow--half')}
+        {row('area', w('chooseArea'), area, w('chooseArea'), 'pin', 'gz-briefrow--half')}
         <span className="gz-briefrow__rule" aria-hidden="true" />
         {row('guests', t('clientShellBriefGuests'), guests, w('chooseGuests'), 'guests', 'gz-briefrow--half')}
       </div>

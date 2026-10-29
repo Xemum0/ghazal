@@ -64,7 +64,7 @@
         "CA-REV-04",
         "CA-STAT-07",
         "CA-TOOL-19",
-        "CA-AUTH-10"
+        "CA-AUTH-13"
       ],
       "states": [
         "default",
@@ -88,8 +88,7 @@
       "priority": "core",
       "navigatesTo": [
         "CL-BKNG-02",
-        "CL-RVRW-01",
-        "CL-AUTH-01"
+        "CL-RVRW-01"
       ]
     },
     {

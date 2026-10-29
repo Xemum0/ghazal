@@ -1,4 +1,4 @@
-// CL-BOOK-01 Your event (step 1 of 5). Covers CA-BOOK-01, CA-BOOK-02, CA-BOOK-03, CA-BOOK-06, CA-BOOK-14, CA-VDET-22, CA-CMP-10, CA-VCH-09.
+// CL-BOOK-01 Your event (step 1 of 4). Covers CA-BOOK-01, CA-BOOK-02, CA-BOOK-03, CA-BOOK-06, CA-BOOK-14, CA-VDET-22, CA-CMP-10, CA-VCH-09.
 // Text diet (ADR 0034): the screen is a date, a hall, a guest count and a few glyphs. With a voucher bound to the quote the date, reception,
 // hall and guests arrive locked as facts (lock glyph and the voucher chip; change = CL-VCHR-04; the hall is the same photograph plate the
 // Review closes with, so the flow has bookends); without one a "voucher first" panel (a drawing,
@@ -83,7 +83,7 @@ export default function YourEvent() {
     // A ready voucher for this venue binds the quote: date, hall, package and guests come from it (A-01).
     const after = usePrototype.getState()
     const venueId = after.bookingDraft.venueId ?? flow.venue.id
-    const v = after.auth === 'signedIn' ? findVoucher(after.vouchers, after.user?.id ?? mock.meta.clientUserId, venueId, carriedVoucher, params.date ?? after.bookingDraft.eventDate) : null
+    const v = findVoucher(after.vouchers, after.user?.id ?? mock.meta.clientUserId, venueId, carriedVoucher, params.date ?? after.bookingDraft.eventDate)
     if (v) {
       after.patchDraft({ voucherId: v.id, eventDate: v.eventDate, hallId: v.hallId, packageId: v.packageId, guests: v.guests ?? after.bookingDraft.guests })
     }

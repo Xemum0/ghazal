@@ -5,7 +5,7 @@
     "en": "Vouchers",
     "ar": "الكوبونات"
   },
-  "intent": "The KD 2 voucher (ADR 0033): what it is, binding it to one venue or provider and quote, holding it in a wallet with its single-use code and QR, attaching it to a request, and what happens to it when a request is declined, lapses or is cancelled (reuse for 60 days or refund). The payment itself is the repurposed payment flow (CL-PAYM-*). Calm and plain: the voucher is a key, not a purchase of the hall; the event is paid to the venue directly. Guests see that a voucher exists and are gated at Get voucher.",
+  "intent": "The KD 2 voucher (ADR 0033): what it is, binding it to one venue or provider and quote, holding it in a wallet with its single-use code and QR, attaching it to a request, and what happens to it when a request is declined, lapses or is cancelled (reuse for 60 days or refund). The payment itself is the repurposed payment flow (CL-PAYM-*). Calm and plain: the voucher is a key, not a purchase of the hall; the event is paid to the venue directly. Every client is signed in (ADR 0038), so Get voucher never meets a gate.",
   "screens": [
     {
       "id": "CL-VCHR-01",
@@ -28,7 +28,6 @@
       ],
       "states": [
         "default",
-        "guest-gated",
         "already-owned",
         "saving-too-small",
         "quote-changed",
@@ -39,14 +38,13 @@
       "interactions": [
         "Top: the bound quote card (venue, date, hall, package, guests) with \"Voucher price KD 15,400.000\", \"Standard KD 18,200.000\" struck through and \"You save KD 2,800.000 at the venue\"",
         "Three plain rows with icons: \"Pay KD 2 to Ghazal now\" (online), \"Request this hall at the voucher price\" (the venue answers within 24 hours; you confirm within 24 hours of approval), \"Pay the venue directly\" (off-app, show your code); a fourth row summarises the 24 hour confirm rule (a lapse forfeits the voucher) and the credit voucher from support in two lines with \"Read the voucher terms\"",
-        "Primary \"Continue to payment\" opens CL-PAYM-01; guests see the sign-in sheet with the context line \"to get your voucher\" first (CL-AUTH-01) and return here with the quote intact; \"Maybe later\" dismisses; \"Contact the venue instead\" is the browse-only path",
+        "Primary \"Continue to payment\" opens CL-PAYM-01; \"Maybe later\" dismisses; \"Contact the venue instead\" is the browse-only path",
         "Already owned: if a ready voucher exists for this venue and quote the sheet shows it and offers \"Send request\" instead of a second purchase; saving-too-small is never shown (the Get voucher action is not offered in that case)"
       ],
       "contentNotes": "Heading «كيف يعمل الكوبون» / \"How the voucher works\". Rows AR: «ادفعوا 2 د.ك لغزل الآن» / \"Pay KD 2 to Ghazal now\"; «اطلبوا القاعة بسعر الكوبون» / \"Request the hall at the voucher price\"; «ادفعوا للقاعة مباشرةً» / \"Pay the venue directly\". Terms line: «يعود الكوبون لكم إذا اعتذرت القاعة أو لم ترد، ويمكنكم استخدامه مجددًا أو استرداده.» / \"If the venue declines or does not reply, your voucher comes back: use it again here, or ask support for a credit voucher.\" The word «كوبون» is used in Arabic UI copy; «قسيمة» is avoided because in Kuwait it also means a land plot (glossary note). Illustrative seed prices.",
       "priority": "core",
       "navigatesTo": [
         "CL-PAYM-01",
-        "CL-AUTH-01",
         "CL-VCHR-03",
         "CL-BOOK-01",
         "CL-VENU-01",
@@ -67,7 +65,7 @@
         "ar": "كوبوناتي"
       },
       "kind": "screen",
-      "purpose": "The vouchers wallet: every voucher by state with its target, saving and validity. Three segments (Ready to use, In a request, History). Reached from Profile, Booking detail and the voucher-ready screen. Guests see a sign-in teaser.",
+      "purpose": "The vouchers wallet: every voucher by state with its target, saving and validity. Three segments (Ready to use, In a request, History). Reached from Profile, Booking detail and the voucher-ready screen.",
       "requirementIds": [
         "CA-VCH-06",
         "CA-VCH-13",
@@ -82,7 +80,6 @@
         "empty-ready",
         "empty-history",
         "expiring-soon",
-        "guest",
         "loading",
         "error",
         "offline"
@@ -90,8 +87,7 @@
       "interactions": [
         "Segmented control Ready to use | In a request | History; each voucher is a ticket-shaped card: venue thumbnail or monogram, venue name, date and package, \"Saves KD 2,800.000\", validity as an absolute date, state chip (icon plus label); a ready voucher offers \"Send request\"; an expiring voucher (within 7 days) shows a gold-ink \"Expires Fri 8 Jan\" line",
         "Tapping a card opens the voucher detail (CL-VCHR-03); a released voucher with a reuse window shows \"Reusable until {date}\" and an \"Ask support\" text action when eligible (opens CL-VCHR-05)",
-        "Empty Ready: \"No vouchers yet. Find a hall and get one from its page.\" with \"See halls\"; History lists used, expired and refunded vouchers; no swipe actions",
-        "Guest: sign-in teaser with \"Sign in to see your vouchers\" (CL-AUTH-01)"
+        "Empty Ready: \"No vouchers yet. Find a hall and get one from its page.\" with \"See halls\"; History lists used, expired and refunded vouchers; no swipe actions"
       ],
       "contentNotes": "Demo wallet (illustrative): 1) Aurelia Gulf Hotel, Thu 14 Jan 2027, Ready or In a request (switches with the story request), code GV-2611-K7QM; 2) Lumi Marina Hotel, History, Expired (venue did not reply; voucher released, refundable), «انتهت المهلة»; chips AR: «جاهز للاستخدام» Ready to use, «ضمن طلب» In a request, «مستخدم» Used, «منتهي» Expired, «تم الاسترداد» Refunded. Counts via the formatter.",
       "priority": "core",
@@ -100,7 +96,6 @@
         "CL-VCHR-05",
         "CL-BOOK-01",
         "CL-DISC-03",
-        "CL-AUTH-01",
         "CL-PROF-01"
       ],
       "ownerRound1": {

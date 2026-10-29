@@ -367,12 +367,9 @@ export default function DietGallery() {
             <VoucherChip code={hero.code} />
           </div>
         </Spec>
-        <Spec cap={L('PriceCompare · member', 'مقارنة السعر · عضو')} kind="panel">
-          <PriceCompare standard={4_200_000} voucher={3_400_000} structure="package" guests={350} />
-        </Spec>
-        <Spec cap={L('PriceCompare · guest · inline', 'مقارنة السعر · زائر · سطر')} kind="panel">
+        <Spec cap={L('PriceCompare · stack · inline', 'مقارنة السعر · عمودي · سطر')} kind="panel">
           <div className="dg-row dg-row--col">
-            <PriceCompare standard={4_200_000} voucher={3_400_000} structure="package" guests={350} audience="guest" onRegister={() => undefined} />
+            <PriceCompare standard={4_200_000} voucher={3_400_000} structure="package" guests={350} />
             <PriceCompare standard={12_000} voucher={9_000} structure="per_person" guests={350} variant="inline" />
           </div>
         </Spec>

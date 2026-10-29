@@ -1,9 +1,9 @@
 // CL-WEDD-01 My Wedding (tab root). Requirements: CA-TOOL-17, CA-TOOL-18, CA-TOOL-19, CA-TOOL-16, CA-STAT-01, CA-PLAN-02, CA-PLAN-09,
-// CA-PROF-02, CA-ONB-09, CA-NOTI-08, CA-AUTH-10, CA-STAT-11, CA-VCH-06.
+// CA-PROF-02, CA-ONB-09, CA-NOTI-08, CA-STAT-11, CA-VCH-06.
 //
 // The wedding file, phase by phase (ADR 0007 D4): the countdown on its ink panel, one lead action when a phase has one, Next up (three at
 // most), the Bookings card, the planner module, the tools. Calm: no streaks, no points, nothing ticks. In the live prototype the phase
-// follows the story (guest, request pending, approved and waiting for the couple's confirmation, confirmed as the hotel app and the couple move the request); a static frame
+// follows the story (no date, request pending, approved and waiting for the couple's confirmation, confirmed as the hotel app and the couple move the request); a static frame
 // shows the confirmed variant unless `?state=` names another.
 //
 // Text diet (ADR 0034, docs/design/02-text-diet.md): the screen is figures, glyphs and one drawing per state. The countdown is a numeral and a
@@ -35,7 +35,6 @@ import { clientState, clock, engine, getProvider, getVenue, notificationsFor, pl
 import { CountdownHero } from './_components/CountdownHero'
 import { DateText } from './_components/DateText'
 import { BookingGlance, BookingsEmpty, LeadCard, PlannerCard, PlannerOffer, ToolTile } from './_components/parts'
-import { openGuestGate } from './_components/gate'
 import { buildNextUp, type NextFact, type NextRow } from './_components/nextUp'
 import { hallsFree, realDays } from './_components/model'
 import { useStateParam, useWedding, useBudgetModel, useChecklistModel } from './_components/useWedding'
@@ -54,7 +53,6 @@ export const states = [
   'tomorrow',
   'day-of',
   'post-event',
-  'guest-teaser',
   'date-differs',
   'loading',
   'error',
@@ -76,14 +74,13 @@ export default function MyWedding() {
   const favourites = usePrototype(s => s.favourites.venue.length)
   const hidePlanner = useTools(s => s.hidePlanner)
 
-  const { phase, booking, days, eventDate, guest } = w
+  const { phase, booking, days, eventDate } = w
   const venueName = booking ? (getVenue(booking.venueId ?? '')?.name[lang] ?? '') : null
   const planner = useMemo(() => planners.find(p => p.id === plannerRequest.plannerId) ?? null, [])
-  const unread = guest ? 0 : notificationsFor('client').filter(n => !n.read && !readIds.includes(n.id)).length
-  const savedCount = w.inert || !w.guest ? (w.inert ? clientState.saved.filter(s => s.type === 'venue').length : favourites) : favourites
+  const unread = notificationsFor('client').filter(n => !n.read && !readIds.includes(n.id)).length
+  const savedCount = w.inert ? clientState.saved.filter(s => s.type === 'venue').length : favourites
 
   const openBooking = (extra?: Record<string, unknown>) => booking && nav.push('CL-BKNG-02', { bookingId: booking.id, ...extra })
-  const gate = () => openGuestGate(nav, 'CL-WEDD-01')
   const openWeddingInfo = () => nav.push('CL-PROF-02')
   // A simulated phase moves "today" (the thread counts days against the fixed prototype clock): put the booking's date where the phase
   // says it is, so the card's "N days left" reads the same number as the hero ("today" on the day itself).
@@ -152,14 +149,8 @@ export default function MyWedding() {
 
   let lead: React.ReactNode = null
   // The halls lead already sends the couple to Discover: the empty Bookings row beside it then says "none" and does not repeat the way.
-  const hallsLead = !guest && phase === 'pre-venue' && !w.voucher && Boolean(eventDate)
-  if (guest) {
-    lead = (
-      <LeadCard tone="quiet" inline actionLabel={t('clientMyWeddingGuestAction')} onAction={gate}>
-        <span className="gz-t-title">{t('clientMyWeddingSample')}</span>
-      </LeadCard>
-    )
-  } else if (phase === 'pre-venue' && w.voucher) {
+  const hallsLead = phase === 'pre-venue' && !w.voucher && Boolean(eventDate)
+  if (phase === 'pre-venue' && w.voucher) {
     // A paid voucher waits for its request (CA-VCH-06): the drawing of the ticket, the hall it is bound to, the day it lapses, one verb. The
     // verb opens My vouchers, where the request is sent from.
     const v = w.voucher
@@ -199,8 +190,8 @@ export default function MyWedding() {
 
   // ------------------------------------------------------------ planner module
   const meetingAt = plannerRequest.meeting?.at ?? null
-  const plannerAssigned = !guest && planner && phase !== 'no-date' && phase !== 'pre-venue'
-  const plannerOffer = !guest && !plannerAssigned && (phase === 'no-date' || phase === 'pre-venue') && !w.tools.plannerHidden
+  const plannerAssigned = planner && phase !== 'no-date' && phase !== 'pre-venue'
+  const plannerOffer = !plannerAssigned && (phase === 'no-date' || phase === 'pre-venue') && !w.tools.plannerHidden
   const showPlanner = phase !== 'day-of' && phase !== 'post-event' && (plannerAssigned || plannerOffer)
 
   // ------------------------------------------------------------ tools
@@ -217,7 +208,7 @@ export default function MyWedding() {
       ) : null}
 
       <div className="gzmw-hub" data-gz-id="hub" data-phase={phase}>
-        {w.dateDiffers && booking && !guest ? (
+        {w.dateDiffers && booking ? (
           <Banner
             tone="info"
             icon="hall"
@@ -234,8 +225,6 @@ export default function MyWedding() {
         ) : null}
 
         <div className="gzmw-hub__pad gzmw-top">
-          {guest ? lead : null}
-
           {phase === 'no-date' ? (
             <CountdownHero mode="nodate">
               <Button variant="primary" fullWidth onClick={() => nav.openSheet('CL-DISC-02')}>
@@ -243,9 +232,9 @@ export default function MyWedding() {
               </Button>
             </CountdownHero>
           ) : phase === 'post-event' ? (
-            <CountdownHero mode="done" eventDate={shownDate} onDate={guest ? gate : openWeddingInfo} />
+            <CountdownHero mode="done" eventDate={shownDate} onDate={openWeddingInfo} />
           ) : showCount ? (
-            <CountdownHero mode="count" days={days ?? 0} eventDate={shownDate} onDate={guest ? gate : openWeddingInfo}>
+            <CountdownHero mode="count" days={days ?? 0} eventDate={shownDate} onDate={openWeddingInfo}>
               {dayOf ? (
                 <>
                   <Button variant="primary" iconStart="navigate" onClick={() => nav.toast({ message: t('clientMyWeddingDayDirectionsToast'), icon: 'navigate' })}>
@@ -272,10 +261,10 @@ export default function MyWedding() {
             </CountdownHero>
           ) : null}
 
-          {!guest ? lead : null}
+          {lead}
         </div>
 
-        {!guest && next.length > 0 ? (
+        {next.length > 0 ? (
           <section className="gzmw-section" aria-label={t('clientMyWeddingNextTitle')} data-gz-id="next-up">
             <div className="gzmw-hub__pad">
               <SectionHeader title={t('clientMyWeddingNextTitle')} />
@@ -288,20 +277,18 @@ export default function MyWedding() {
           </section>
         ) : null}
 
-        {!guest ? (
-          <section className="gzmw-section" aria-label={t('clientMyWeddingBookingsTitle')} data-gz-id="bookings">
-            <div className="gzmw-hub__pad">
-              <SectionHeader title={t('clientMyWeddingBookingsTitle')} onSeeAll={() => nav.push('CL-BKNG-01')} seeAllLabel={c('commonFilterAll')} />
-            </div>
-            <div className="gzmw-hub__pad">
-              {booking ? (
-                <BookingGlance booking={cardBooking(booking)} onOpen={() => openBooking()} />
-              ) : (
-                <BookingsEmpty onBrowse={hallsLead ? undefined : () => nav.switchTab('discover')} />
-              )}
-            </div>
-          </section>
-        ) : null}
+        <section className="gzmw-section" aria-label={t('clientMyWeddingBookingsTitle')} data-gz-id="bookings">
+          <div className="gzmw-hub__pad">
+            <SectionHeader title={t('clientMyWeddingBookingsTitle')} onSeeAll={() => nav.push('CL-BKNG-01')} seeAllLabel={c('commonFilterAll')} />
+          </div>
+          <div className="gzmw-hub__pad">
+            {booking ? (
+              <BookingGlance booking={cardBooking(booking)} onOpen={() => openBooking()} />
+            ) : (
+              <BookingsEmpty onBrowse={hallsLead ? undefined : () => nav.switchTab('discover')} />
+            )}
+          </div>
+        </section>
 
         {showPlanner ? (
           <section className="gzmw-section" aria-label={t('clientMyWeddingPlannerTitle')} data-gz-id="planner">

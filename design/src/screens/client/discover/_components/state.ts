@@ -11,9 +11,6 @@ type DiscoverState = {
   query: string
   /** Which params the current filters were seeded from (a navigation key), so a remount does not reseed. */
   seededFrom: string | null
-  /** The merge sheet has been answered (it shows once per session). */
-  mergeShown: boolean
-  setMergeShown: () => void
   setFilters: (patch: Partial<Filters>) => void
   replaceFilters: (next: Filters) => void
   setSort: (sort: SortKey) => void
@@ -26,8 +23,6 @@ export const useDiscover = create<DiscoverState>()(set => ({
   sort: 'recommended',
   query: '',
   seededFrom: null,
-  mergeShown: false,
-  setMergeShown: () => set({ mergeShown: true }),
   setFilters: patch => set(s => ({ filters: { ...s.filters, ...patch } })),
   replaceFilters: filters => set({ filters }),
   setSort: sort => set({ sort }),

@@ -1,9 +1,9 @@
-// CL-BOOK-04 Your details (step 4 of 5). Covers CA-BOOK-07, CA-BOOK-08, CA-AUTH-05, CA-AUTH-06, CA-AUTH-10.
+// CL-BOOK-04 Your details (step 3 of 4). Covers CA-BOOK-07, CA-BOOK-08, CA-AUTH-05, CA-AUTH-06, CA-AUTH-10.
 // Text diet (ADR 0034): fields with one-word labels and no helpers. Who the booking is for is a two-glyph switch, the relation a row of
 // glyph chips (bride, groom, family, planner), the common special requests glyph chips whose words are accessible names, and who sees the phone
 // (CA-BOOK-07) is one sentence behind a "Privacy" row. Who the venue calls, who the booking is for, anything it should know, and a verified phone
 // (a request cannot be sent without one). A person signed in by WhatsApp arrives verified; a changed number is verified here by a code sheet.
-// One primary action: Continue (errors appear on tap, blameless and specific). Navigates to CL-BOOK-05, CL-AUTH-02, CL-BOOK-03.
+// One primary action: Continue (errors appear on tap, blameless and specific). Navigates to CL-BOOK-05, CL-AUTH-02.
 import { useState } from 'react'
 import { Banner, ChipGroup, ErrorState, Icon, IconSegmented, PhoneField, Skeleton, TextArea, TextField, useBi, useNav } from '../../../system'
 import type { IconName } from '@gz/tokens'
@@ -121,7 +121,7 @@ export default function YourDetails() {
 
   return (
     <StepScreen
-      step={4}
+      step={3}
       venueName={bi(flow.venue.name)}
       title={t('clientBookingDetailsTitle')}
       notice={offline ? <Banner tone="offline" shape="card">{t('clientBookingOfflineBanner')}</Banner> : null}

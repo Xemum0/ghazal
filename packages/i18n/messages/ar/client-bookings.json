@@ -9,8 +9,6 @@
   "clientBookingsPastNone": "لا طلبات بهذه الحالة",
   "clientBookingsLimitLabel": "الطلبات المفتوحة",
   "clientBookingsLimitReached": "أغلقوا طلبًا لإرسال آخر",
-  "clientBookingsGuestTitle": "تابعوا طلباتكم",
-  "clientBookingsGuestAction": "تسجيل الدخول",
   "clientBookingsEmptyTitle": "لا طلبات بعد",
   "clientBookingsEmptyAction": "تصفح القاعات",
   "clientBookingsEmptyActionDate": "قاعات {date}",

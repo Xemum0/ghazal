@@ -1,10 +1,9 @@
 // PackageChoice: one package as the single decision of step 2. A radio card: ink border and a check on the choice (never gold alone), the serif
 // package name, then the two prices of the same quote (ADR 0033 D4) as glyphs and figures (ADR 0034): the voucher total as the number that
-// matters (a ticket glyph for a member, a lock for a guest: voucher-model 4.5), the standard total quiet and struck beneath it (offer glyph),
+// matters (a ticket glyph: voucher-model 4.5), the standard total quiet and struck beneath it (offer glyph),
 // the saving after the voucher fee (trend-down glyph), and the basis as facts (the rate per guest, the guests). What the package includes is a
 // row of glyphs (the venue's own lines are the accessible names and live in the package sheet); an info glyph opens that sheet.
-// A package with no voucher price shows its standard total alone and two words. Local to this flow: PriceCompare hides the guest's voucher
-// number, which voucher-model 4.5 keeps visible (see requests.md).
+// A package with no voucher price shows its standard total alone and two words. Local to this flow (see requests.md).
 import { FactChip, FactRow, Figures, Icon, IconButton, Price, Skeleton, useBi } from '../../../../system'
 import { useFormat, useT } from '../../../../i18n'
 import { inclusionGlyphs } from './glyphs'
@@ -16,14 +15,13 @@ export type PackageChoiceProps = {
   guests: number
   selected: boolean
   /** Signed out: the voucher price is shown with a lock glyph (voucher-model 4.5); signed in it carries the ticket. */
-  guest?: boolean
   /** A voucher is bound to another package: choosing this one opens the voucher quote sheet instead of selecting it. */
   elsewhere?: boolean
   onSelect: () => void
   onDetails: () => void
 }
 
-export function PackageChoice({ option, guests, selected, guest, elsewhere, onSelect, onDetails }: PackageChoiceProps) {
+export function PackageChoice({ option, guests, selected, elsewhere, onSelect, onDetails }: PackageChoiceProps) {
   const t = useT('client-booking')
   const tc = useT('common')
   const f = useFormat()
@@ -44,7 +42,7 @@ export function PackageChoice({ option, guests, selected, guest, elsewhere, onSe
           {hasVoucher ? (
             <>
               <span className="bk-pkg__main">
-                <Icon name={guest ? 'lock' : 'ticket'} size="md" tone={guest ? 'secondary' : 'success'} />
+                <Icon name="ticket" size="md" tone="success" />
                 <span className="gz-sr-only">{tc('commonVoucherPrice')}</span>
                 <Price fils={pair.voucher!} size="total" />
               </span>

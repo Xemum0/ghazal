@@ -14,10 +14,12 @@ abstract interface class PartnerListingsRepository {
   /// Access: signed in; roles: partner.
   Future<ListingList> listListings();
 
-  /// Create a draft listing
+  /// Create a draft listing (accepted accounts only)
   ///
+  /// A new service provider or private hall can create listings only after Ghazal staff accepted its application (PA-ACC-07); until then the answer is 403 APPLICATION_NOT_ACCEPTED. Accounts without an application (the existing partners) are accepted.
   /// `POST /partner/listings`
   /// Access: signed in; roles: partner.
+  /// Errors (problem+json `code`): APPLICATION_NOT_ACCEPTED.
   /// Pass the same [idempotencyKey] when the user retries the same intent; a fresh one is generated when null.
   Future<Listing> createListing({
     required ListingInput body,

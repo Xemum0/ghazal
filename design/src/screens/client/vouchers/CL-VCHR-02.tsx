@@ -3,8 +3,8 @@
 // Each voucher is a ticket (ADR 0034: no sentences): the venue (photograph or monogram), the event date as a fact, the saving as a figure
 // (CA-VCH-06), the state as icon + one word, and under the perforation the ONE date that matters for it with the action that fits (Send request,
 // or Use again and Ask support for a released voucher, CA-VCH-11). A voucher inside its last week shows that date in the gold ink (CA-VCH-13).
-// Nothing swipes. Guests see a drawing and Sign in; the wallet works offline (codes and QR are cached on the phone).
-// States: default, empty-ready, empty-history, expiring-soon, guest, loading, error, offline.
+// Nothing swipes. The wallet works offline (codes and QR are cached on the phone).
+// States: default, empty-ready, empty-history, expiring-soon, loading, error, offline.
 import { useState } from 'react'
 import { Banner, Button, EmptyState, ErrorState, IconSegmented, Screen, Skeleton, TopBar, useNav } from '../../../system'
 import { clock, engine, getRefundRequest } from '../../../mock'
@@ -23,20 +23,18 @@ import {
   useBookingLookup,
   useLive,
   useSceneState,
-  useSignedIn,
   useWallet,
   type Segment,
 } from './_components/model'
 import './CL-VCHR-02.css'
 
-export const states = ['empty-ready', 'empty-history', 'expiring-soon', 'guest', 'loading', 'error', 'offline']
+export const states = ['empty-ready', 'empty-history', 'expiring-soon', 'loading', 'error', 'offline']
 
 export default function MyVouchers() {
   const { t, tc, dayMon, stamp } = useVc()
   const nav = useNav()
   const state = useSceneState()
   const live = useLive()
-  const signedIn = useSignedIn()
   const lookup = useBookingLookup()
   const stored = useWallet()
   const [segment, setSegment] = useState<Segment>(state === 'empty-history' ? 'history' : 'ready')
@@ -48,18 +46,6 @@ export default function MyVouchers() {
   if (state === 'expiring-soon') wallet = wallet.map(v => (v.kind === 'bound' && v.code === STORY_RELEASED_CODE ? { ...v, reuseUntil: engine.addDays(clock.today(), 4) } : v))
 
   const top = <TopBar title={t('clientVouchersWalletTitle')} />
-
-  if (!signedIn) {
-    return (
-      <Screen top={top}>
-        <EmptyState
-          illustration="empty-vouchers"
-          title={t('clientVouchersGuestTitle')}
-          action={{ label: t('clientVouchersCtaSignIn'), variant: 'primary', iconStart: 'lock', onPress: () => nav.openSheet('CL-AUTH-01', { params: { reason: 'voucher' } }) }}
-        />
-      </Screen>
-    )
-  }
 
   if (state === 'error') {
     return (

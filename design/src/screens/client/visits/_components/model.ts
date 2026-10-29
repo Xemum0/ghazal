@@ -97,7 +97,7 @@ export const useVisitLocal = create<Local>()(set => ({
   reset: () => set({ extra: {}, delivery: {}, onTheWay: {}, answered: {} }),
 }))
 
-// A session ends when the prototype goes back to guest (sign-out, Restart): the flow forgets everything with it.
+// A session ends when the prototype signs out (sign-out, Restart): the flow forgets everything with it.
 usePrototype.subscribe((state, prev) => {
   if (state.auth === 'guest' && prev.auth === 'signedIn') useVisitLocal.getState().reset()
 })
@@ -110,7 +110,6 @@ export function useV() {
   const bi = useBi()
   const { lang, isRtl } = useLang()
   const live = useDevice().mode === 'live'
-  const auth = usePrototype(s => s.auth)
 
   /** `Sat 14 Nov` (the year appears only when it is not the current one): the short date every card and sheet uses. */
   const dayLine = (iso: string): string => f.plain(f.date(iso, 'short'))
@@ -136,7 +135,7 @@ export function useV() {
   /** `Sat 14 Nov · 5:00 PM` for the accessible name of a row. */
   const when = (iso: string): string => `${dayLine(iso)} ${clock(iso)}`
   const firstName = (name: string): string => name.trim().split(/\s+/)[0] ?? name
-  return { t, tc, f, bi, lang, isRtl, live, auth, dayLine, dayNum, clock, clockParts, windowParts, when, firstName }
+  return { t, tc, f, bi, lang, isRtl, live, dayLine, dayNum, clock, clockParts, windowParts, when, firstName }
 }
 
 // ---------------------------------------------------------------- who is looking

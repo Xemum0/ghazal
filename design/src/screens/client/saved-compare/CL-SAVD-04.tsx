@@ -16,7 +16,7 @@ import { clock, compareSet, getArea, getVenue } from '../../../mock'
 import { useFormat, useT } from '../../../i18n'
 import { useFrame } from '../../../shell/frame'
 import { usePrototype } from '../../../shell/state'
-import { Banner, Button, EmptyState, ErrorState, FactChip, Icon, InfoSheet, Monogram, Photo, Screen, Skeleton, TopBar, imageSrc, useBi, useNav } from '../../../system'
+import { Banner, EmptyState, ErrorState, FactChip, InfoSheet, Monogram, Photo, Screen, Skeleton, TopBar, imageSrc, useBi, useNav } from '../../../system'
 import { useLang } from '../../../shell/lang'
 import { BriefFacts } from './_components/BriefFacts'
 import { CompareKey } from './_components/CompareKey'
@@ -26,7 +26,7 @@ import { briefFor, originOf, useSavedModel } from './_components/useSavedData'
 import type { ActionKind } from './_components/compare-model'
 import './CL-SAVD-04.css'
 
-export const states = ['loading', 'fewer-than-two', 'no-date', 'venue-unavailable', 'venue-unlisted', 'government-column', 'offline', 'error', 'shared-link-guest']
+export const states = ['loading', 'fewer-than-two', 'no-date', 'venue-unavailable', 'venue-unlisted', 'government-column', 'offline', 'error']
 
 /** The column set a state draws: the story set by default; real fixtures for each edge (V06 is booked on the story date, V19 is the ministry hall). */
 function idsFor(state: string | undefined, current: string[]): string[] {
@@ -69,8 +69,6 @@ export default function Compare() {
   const loading = state === 'loading'
   const errored = state === 'error'
   const offline = state === 'offline'
-  const shared = state === 'shared-link-guest'
-  const guest = shared || m.guest
   const fewer = state === 'fewer-than-two' || (!loading && !errored && columns.length < 2)
 
   // ---- actions
@@ -84,14 +82,12 @@ export default function Compare() {
     if (kind === 'official') return nav.push('CL-VENU-06', { venueId: id })
     if (kind === 'view') return openVenue(id)
     if (kind === 'dates') return nav.openSheet('CL-VENU-03', { params: { venueId: id } })
-    // Get voucher: CL-VCHR-01 carries the date and the guests of the Brief and binds the voucher to this hall. A guest meets the sign-in
-    // sheet there first ("to get your voucher") and returns with the quote intact (ADR 0007 D8).
+    // Get voucher: CL-VCHR-01 carries the date and the guests of the Brief and binds the voucher to this hall. The client is always signed in.
     if (m.live) usePrototype.getState().startDraft(id, { eventDate: brief.date ?? null, guests: brief.guests ?? null, audience: brief.audience ?? null })
     nav.openSheet('CL-VCHR-01', { params: { venueId: id, eventDate: brief.date ?? null, guests: brief.guests ?? null } })
   }
   const pick = (id: string) => setPicked(p => (p === id ? null : id))
   const share = () => nav.toast({ message: t('clientSavedCompareCompareLinkCopied'), tone: 'success' })
-  const signIn = () => nav.openSheet('CL-AUTH-01', { params: { reason: 'save' } })
 
   const pickedVenue = picked ? getVenue(picked) : undefined
   const showBar = !loading && !errored && !fewer
@@ -110,18 +106,6 @@ export default function Compare() {
       bottom={showBar ? <CompareBar columns={columns} brief={brief} unlistedId={unlistedId} pickedId={picked} onAction={onAction} /> : undefined}
     >
       {offline ? <Banner tone="offline">{c('commonStateOffline')}</Banner> : null}
-      {shared ? (
-        <aside className="svd-shared" data-gz-id="shared.note">
-          <span className="svd-shared__pair">
-            <Icon name="ticket" size="sm" tone="secondary" />
-            <Icon name="lock" size="sm" tone="secondary" />
-            <span className="gz-sr-only">{c('commonLabelGuestVoucher')}</span>
-          </span>
-          <Button variant="tertiary" onClick={signIn}>
-            {t('clientSavedCompareSavedGuestSignIn')}
-          </Button>
-        </aside>
-      ) : null}
 
       {errored ? (
         <ErrorState kind="load" />
@@ -175,7 +159,6 @@ export default function Compare() {
               onOpen={openVenue}
               onGallery={(id, index) => nav.push('CL-VENU-02', { venueId: id, index })}
               onSetDate={() => nav.openSheet('CL-DISC-02')}
-              audience={guest ? 'guest' : 'member'}
               diff={diff}
               onDiffChange={setDiff}
             />

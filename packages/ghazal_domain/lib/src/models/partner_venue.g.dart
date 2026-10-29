@@ -769,6 +769,7 @@ final class PackageCatalog {
   }
 
   final List<PackageEditor> packages;
+  /// DEPRECATED since round 2 (CA-SVC-19): always an empty list; the Partner app has no Extras tab.
   final List<Extra> extras;
 
   Map<String, Object?> toJson() => {

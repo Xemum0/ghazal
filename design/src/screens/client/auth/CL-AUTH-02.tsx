@@ -4,8 +4,8 @@
 // word to change it, six boxes in LTR order in both languages, a timer figure (Resend at zero), Open WhatsApp, and the interrupted intent
 // as a quiet strip. No sentence anywhere: wrong, expired, locked and delivery-failed are a glyph and two or three words, the recovery text
 // is behind an info glyph. Five attempts then a lock; no SMS fallback: delivery-failed offers resend, Apple, Google and Support.
-// Success draws the seal and continues: a new account goes to name and terms, an existing one straight back to the interrupted intent,
-// a password flow back to the password screen.
+// Success draws the seal and continues: a new account goes to "About you" (name, sex, terms), an existing one straight to Home (there is
+// no interrupted intent since ADR 0038), a password flow back to the password screen.
 import { ActionBar, Banner, BarButton, Button, Screen, TopBar, useNav } from '../../../system'
 import { useT } from '../../../i18n'
 import { useFrame } from '../../../shell/frame'
@@ -13,8 +13,7 @@ import { usePrototype } from '../../../shell/state'
 import { AuthHead } from './_components/AuthHead'
 import { NumberRow } from './_components/NumberRow'
 import { OtpBody, useOtp, verifyingPhone, type OtpView } from './_components/OtpPanel'
-import { ResumeStrip, hasResume } from './_components/ResumeStrip'
-import { KNOWN_NATIONAL, useAuthFlow, useAuthMoves, userForPhone, useGateReason } from './_components/flow'
+import { KNOWN_NATIONAL, useAuthFlow, useAuthMoves, userForPhone } from './_components/flow'
 import './_components/auth.css'
 import './CL-AUTH-02.css'
 
@@ -28,8 +27,7 @@ export default function ClAuth02() {
   const { state } = useFrame()
   const { params } = useNav<{ presentation?: 'sheet' }>()
   const sheet = params.presentation === 'sheet'
-  const reason = useGateReason()
-  const { nav, go, back, finish } = useAuthMoves()
+  const { nav, back, finish } = useAuthMoves()
   const phone = useAuthFlow(s => s.phone)
   const purpose = useAuthFlow(s => s.purpose)
   const draftPhone = usePrototype(s => s.bookingDraft.personal.phone)
@@ -46,7 +44,7 @@ export default function ClAuth02() {
     } else if (flow.phone === '' || flow.phone === KNOWN_NATIONAL) {
       finish(userForPhone(KNOWN_NATIONAL), t('clientAuthSharedSignedIn'))
     } else {
-      nav.replace('CL-AUTH-03', { reason })
+      nav.replace('CL-AUTH-03')
     }
   }
 
@@ -55,9 +53,8 @@ export default function ClAuth02() {
   const changeNumber = () => {
     if (sheet) return nav.closeSheet()
     back()
-    if (purpose === 'login') nav.openSheet('CL-AUTH-01', { params: { reason } })
   }
-  const provider = (p: 'apple' | 'google') => (sheet ? nav.closeSheet() : nav.replace('CL-AUTH-03', { reason, provider: p }))
+  const provider = (p: 'apple' | 'google') => (sheet ? nav.closeSheet() : nav.replace('CL-AUTH-03', { provider: p }))
   const openWhatsapp = () => nav.toast({ message: t('clientAuthOtpOpening'), icon: 'whatsapp' })
 
   const body = (
@@ -99,7 +96,6 @@ export default function ClAuth02() {
           )}
           {body}
         </div>
-        {hasResume(reason) && purpose === 'login' && !settled && !stateful ? <ResumeStrip reason={reason} compact /> : null}
       </div>
     </Screen>
   )

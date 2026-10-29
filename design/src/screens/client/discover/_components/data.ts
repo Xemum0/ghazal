@@ -4,6 +4,7 @@
 import * as mock from '../../../../mock'
 import type { Audience, Brief, HallSetting, LuxuryLevel, Venue, VenueResult, VenueSort, VenueType } from '../../../../mock'
 import type { SearchBrief } from '../../../../shell/state'
+import { briefGovernorates } from '../../../../system/domain-filters/governorates'
 
 export type { SearchBrief }
 
@@ -63,10 +64,8 @@ export type Filters = {
   /** A Home shelf's "See all": the list is that shelf's halls, shown as one removable chip. */
   shelf: ShelfId | null
   category: CategoryId | null
-  /** Region (CA-FLT-01): governorates chosen on the Filters sheet or in CL-DISC-07. Choosing one replaces the Brief's areas. */
-  governorateIds: string[]
-  /** null = follow the Brief's areas; [] = every area ("All areas" chip); a list = this selection instead of the Brief's. */
-  areaIds: string[] | null
+  /** Region (CA-FLT-01, CA-FLT-08, ADR 0038): governorates only. null = follow the Brief's governorates; [] = every governorate ("All governorates" chip); a list = this selection instead of the Brief's. */
+  governorateIds: string[] | null
   /** Private Hall, Governmental Facility, Hotel (CA-FLT-02), multi-select. */
   types: VenueType[]
   arrangement: Audience | null
@@ -95,8 +94,7 @@ export type Filters = {
 export const NO_FILTERS: Filters = {
   shelf: null,
   category: null,
-  governorateIds: [],
-  areaIds: null,
+  governorateIds: null,
   types: [],
   arrangement: null,
   withinMinutes: null,
@@ -213,8 +211,7 @@ export function activeFilterCount(f: Filters, brief: Brief): number {
   let n = 0
   if (f.shelf) n += 1
   if (f.category) n += 1
-  if (f.governorateIds.length) n += 1
-  if (f.areaIds !== null) n += 1
+  if (f.governorateIds !== null) n += 1
   if (f.types.length) n += 1
   if (f.arrangement) n += 1
   if (f.withinMinutes !== null) n += 1
@@ -258,21 +255,23 @@ export function matchesQuery(v: Venue, q: string): boolean {
   return hay.some(h => h.includes(needle))
 }
 
-/** The areas a list is bound to: the filter's own choice, else the Brief's (unless a governorate was chosen, which replaces them). */
-const boundAreas = (brief: SearchBrief, f: Filters): string[] => f.areaIds ?? (f.governorateIds.length || f.shelf ? [] : (brief.areaIds ?? []))
+/** The governorates a list is bound to: the filter's own choice, else the Brief's (a shelf's "See all" ignores the Brief's region). */
+const boundGovernorates = (brief: SearchBrief, f: Filters): string[] => f.governorateIds ?? (f.shelf ? [] : briefGovernorates(brief))
 
-/** The Results list for a Brief, the filters on top of it and the sort. The Brief's areas narrow the list (they are removable in the Brief sheet). */
+/** Distances are measured from this reference point until the device location is allowed (the fixtures carry one per area). */
+const DEFAULT_ORIGIN = 'ref-salmiya'
+
+/** The Results list for a Brief, the filters on top of it and the sort. The Brief's governorates narrow the list (they are removable in the Brief sheet). */
 export function results(brief: SearchBrief, f: Filters, o: ListQuery = {}): VenueResult[] {
-  const areaIds = boundAreas(brief, f)
-  const origin = o.origin ?? (areaIds[0] ? `ref-${areaIds[0]}` : 'ref-salmiya')
+  const governorateIds = boundGovernorates(brief, f)
+  const origin = o.origin ?? DEFAULT_ORIGIN
   const desc = o.sort === 'price-desc'
   const sort: VenueSort = desc ? 'price' : (o.sort as VenueSort | undefined) ?? 'recommended'
   const rows = mock.listVenues(
     {
       sort,
       origin,
-      ...(areaIds.length ? { areaIds } : {}),
-      ...(f.governorateIds.length ? { governorateIds: f.governorateIds } : {}),
+      ...(governorateIds.length ? { governorateIds } : {}),
       ...(f.types.length ? { types: f.types } : {}),
       ...(f.capacity ? { capacity: { min: f.capacity[0], max: f.capacity[1] } } : {}),
       ...(f.structure ? { priceStructure: f.structure } : {}),
@@ -283,13 +282,13 @@ export function results(brief: SearchBrief, f: Filters, o: ListQuery = {}): Venu
     brief,
   )
   if (desc) rows.reverse()
-  // A shelf's "See all" ignores the Brief's areas (the shelf already decided who is in) but keeps every other filter.
+  // A shelf's "See all" ignores the Brief's governorates (the shelf already decided who is in) but keeps every other filter.
   const ids = f.shelf ? shelfIds(f.shelf, brief) : null
   return rows.filter(r => (ids ? ids.has(r.venue.id) : true) && matches(r, f, brief))
 }
 
 /**
- * Halls a request can go to on the Brief date, in the Brief's areas: the number the Home CTA, the status card and the Brief sheet state, and
+ * Halls a request can go to on the Brief date, in the Brief's governorates: the number the Home CTA, the status card and the Brief sheet state, and
  * the number Results opens with. A held hall still takes a request (ADR 0001), so it counts, and its card says "On hold". A governmental
  * facility is browse-only and never counts as a hall you can ask.
  */
@@ -305,7 +304,7 @@ export function freeOn(brief: SearchBrief, date: string): { free: number; of: nu
   return { free, of: ids.length }
 }
 
-/** Nearest dates around the Brief date on which at least one venue of the Brief's areas is free (the empty state of Home and Results). */
+/** Nearest dates around the Brief date on which at least one venue of the Brief's governorates is free (the empty state of Home and Results). */
 export function nearestFreeDates(brief: SearchBrief, count = 3, around: string | null = brief.date ?? null): string[] {
   if (!around) return []
   const ids = results(brief, NO_FILTERS).filter(r => r.venue.channel !== 'external_link').map(r => r.venue.id)
@@ -360,7 +359,7 @@ function weekShelf(brief: SearchBrief): WeekRow[] {
     if (v.channel === 'external_link') continue
     const date = days.find(d => mock.venueAvailabilityOn(v.id, d, { audience, guests, date: d }).state === 'available')
     if (!date) continue
-    const row = mock.listVenues({}, { date, guests, audience, areaIds: brief.areaIds }).find(r => r.venue.id === v.id)
+    const row = mock.listVenues({}, { date, guests, audience }).find(r => r.venue.id === v.id)
     if (row) out.push({ row, date })
   }
   return out.sort((a, b) => a.date.localeCompare(b.date) || a.row.venue.id.localeCompare(b.row.venue.id)).slice(0, 4)
@@ -388,9 +387,10 @@ export function shelfIds(id: ShelfId, brief: SearchBrief): Set<string> {
 }
 
 export function shelves(brief: SearchBrief): Shelves {
-  const all = mock.listVenues({ origin: brief.areaIds?.[0] ? `ref-${brief.areaIds[0]}` : 'ref-salmiya' }, brief)
-  const inAreas = (r: VenueResult) => !(brief.areaIds ?? []).length || (brief.areaIds ?? []).includes(r.venue.areaId)
-  const free = brief.date ? all.filter(r => notGovernment(r) && inAreas(r) && r.availability === 'available') : []
+  const all = mock.listVenues({ origin: DEFAULT_ORIGIN }, brief)
+  const govs = briefGovernorates(brief)
+  const inRegion = (r: VenueResult) => !govs.length || govs.includes(r.venue.governorateId)
+  const free = brief.date ? all.filter(r => notGovernment(r) && inRegion(r) && r.availability === 'available') : []
   const used = new Set(free.map(r => r.venue.id))
 
   // Featured: the first paid placement that is not already booked on the date (a booked hall is never the hero of the shelf).
@@ -419,6 +419,6 @@ export type HeroBooking = ReturnType<typeof mock.heroBookingAs>
 
 /** The Brief key for memoisation. */
 export const briefKey = (b: Brief): string =>
-  [b.date ?? '', b.guests ?? '', b.audience ?? '', (b.areaIds ?? []).join('+'), b.budget ? `${b.budget.min.fils}-${b.budget.max?.fils ?? ''}` : ''].join('|')
+  [b.date ?? '', b.guests ?? '', b.audience ?? '', briefGovernorates(b).join('+'), b.budget ? `${b.budget.min.fils}-${b.budget.max?.fils ?? ''}` : ''].join('|')
 
 export const firstWord = (s: string): string => s.trim().split(/\s+/)[0] ?? s

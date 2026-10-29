@@ -1,28 +1,25 @@
 // CL-DISC-02 Your Brief (sheet). Covers CA-HOME-02 to CA-HOME-06, CA-ONB-08, CA-ONB-09, CA-FLT-01.
 // The single editor of the global Brief, opened from the Home card, the Results echo, Compare ("Set your date") and Saved. Four 64 rows, each
-// a glyph and its value (Date, Area, Guests with the section glyph, Budget); each opens its focused picker inside the sheet (a calendar with
-// the two honest alternatives, a governorate multi-select with search, a three-way section control with preset chips and a stepper, budget
+// a glyph and its value (Date, Governorate, Guests with the section glyph, Budget); each opens its focused picker inside the sheet (a calendar
+// with the two honest alternatives, wrapping governorate chips, a three-way section control with preset chips and a stepper, budget
 // bands over a histogram). Under the rows a strip of the halls that fit (photographs only). The footer is pinned: the one gold CTA with the
-// live count and "Clear"; it applies the draft. Dismissing discards it. When a signed-in account already holds a different Brief, the merge
-// variant asks which one to keep (nothing preselected, one "Keep" under each side).
-// Voucher model: the Area row is governorate, then area (a governorate selects all its areas), with a region search that opens CL-DISC-07; the Brief keeps
-// the guest count because it prices the card (the capacity range is a filter, CL-DISC-04).
+// live count and "Clear"; it applies the draft. Dismissing discards it. There is no merge variant (ADR 0038: nobody builds a Brief before signing in).
+// ADR 0038 (CA-FLT-08): the region row is governorates only (the shared GovernorateFilter chips, the count in the panel title), never an
+// exact area. The Brief keeps the guest count because it prices the card (the capacity range is a filter, CL-DISC-04).
 // Text diet (ADR 0034): no row labels, no helper sentences, no preview captions; the budget picker keeps one four-word caption because it
 // prevents a real mistake (this is the hall budget, not the whole wedding).
-// States: default, date-not-decided, flexible-month, merge-conflict, loading, offline.
+// States: default, date-not-decided, flexible-month, loading, offline.
 import { useMemo, useState, type ReactNode } from 'react'
 import type { IconName } from '@gz/tokens'
 import * as mock from '../../../mock'
 import { useFormat, useT } from '../../../i18n'
 import { useFrame } from '../../../shell/frame'
 import { useLang } from '../../../shell/lang'
-import { storyBrief } from '../../../shell/state/defaults'
-import { BarButton, Banner, Button, Figures, Icon, Photo, SheetHeader, imageSrc, useBi, useNav } from '../../../system'
-import { AreaPanel } from './_components/brief/AreaPanel'
+import { BarButton, Banner, Button, Figures, Icon, Photo, SheetHeader, briefGovernorates, imageSrc, useBi, useNav } from '../../../system'
 import { BudgetPanel } from './_components/brief/BudgetPanel'
 import { DatePanel, type DateView } from './_components/brief/DatePanel'
+import { GovernoratePanel } from './_components/brief/GovernoratePanel'
 import { GuestsPanel } from './_components/brief/GuestsPanel'
-import { MergePanel } from './_components/brief/MergePanel'
 import type { BriefDraft, PanelId } from './_components/brief/types'
 import { NO_FILTERS, freeCount, results, type SearchBrief } from './_components/data'
 import { useScenario } from './_components/scenario'
@@ -32,10 +29,8 @@ import { useSheetFill } from './_components/useSheetFill'
 import './_components/brief/brief.css'
 import './CL-DISC-02.css'
 
-export const states = ['date-not-decided', 'flexible-month', 'merge-conflict', 'loading', 'offline']
+export const states = ['date-not-decided', 'flexible-month', 'loading', 'offline']
 
-/** The account side of the merge example in the inventory (Thu 28 Jan 2027, 300 guests, Mishref). Fixture request filed: a stored account Brief. */
-const ACCOUNT_EXAMPLE: SearchBrief = { date: '2027-01-28', guests: 300, audience: 'women', areaIds: ['mishref'], budget: null, dateMode: 'exact' }
 const FLEXIBLE_EXAMPLE_DATE = '2027-03-01'
 
 const isPanel = (v: unknown): v is PanelId => v === 'date' || v === 'area' || v === 'guests' || v === 'budget'
@@ -64,7 +59,6 @@ export default function BriefSheet() {
   })
   const focus = isPanel(nav.params.focus) ? nav.params.focus : null
   const [panel, setPanel] = useState<PanelId | null>(!live && state === 'date-not-decided' ? 'date' : !live && state === 'flexible-month' ? 'date' : focus)
-  const [merge, setMerge] = useState(!live && state === 'merge-conflict' ? true : live && nav.params.variant === 'merge')
 
   const loading = state === 'loading'
   const offline = state === 'offline' || !s.online
@@ -75,7 +69,8 @@ export default function BriefSheet() {
 
   // ---- what each row says: a glyph, then the value (the row's name is the accessible name)
   const none = c('commonLabelNotDecided')
-  const names = (brief.areaIds ?? []).map(id => mock.getArea(id)).filter((a): a is NonNullable<ReturnType<typeof mock.getArea>> => Boolean(a)).map(a => bi(a.name))
+  const governorates = briefGovernorates(brief)
+  const names = governorates.map(id => mock.getGovernorate(id)).filter((g): g is NonNullable<ReturnType<typeof mock.getGovernorate>> => Boolean(g)).map(g => bi(g.name))
   const flexible = brief.dateMode === 'flexible_month' && Boolean(brief.date)
   const sectionGlyph = brief.audience === 'men' ? 'section-men' : brief.audience === 'mixed' ? 'section-mixed' : brief.audience === 'women' ? 'section-women' : null
   const rows: { id: PanelId; label: string; icon: IconName; value: string | null; placeholder: string; extra?: ReactNode }[] = [
@@ -86,7 +81,7 @@ export default function BriefSheet() {
       value: flexible && brief.date ? f.date(brief.date, 'monthYear') : brief.date && brief.dateMode === 'exact' ? f.date(brief.date, 'short') : null,
       placeholder: draft.later ? none : t('clientDiscoverBriefChooseDate'),
     },
-    { id: 'area', label: shell('clientShellBriefArea'), icon: 'pin', value: names.length ? names.join(lang === 'ar' ? '، ' : ', ') : null, placeholder: t('clientDiscoverBriefChooseArea') },
+    { id: 'area', label: t('clientDiscoverBriefChooseGovernorate'), icon: 'pin', value: names.length ? names.join(lang === 'ar' ? '، ' : ', ') : null, placeholder: t('clientDiscoverBriefChooseGovernorate') },
     {
       id: 'guests',
       label: shell('clientShellBriefGuests'),
@@ -116,13 +111,6 @@ export default function BriefSheet() {
     nav.closeSheet()
     if (nav.params.from === 'home') nav.push('CL-DISC-03', { from: 'discover', filters: { ...NO_FILTERS, available: Boolean(brief.date) } })
   }
-  /** The region search is its own screen: keep what is chosen, close the sheet, open it (CL-DISC-07 writes the areas back). */
-  const openRegion = () => {
-    if (!live) return
-    s.setBrief(brief)
-    nav.closeSheet()
-    nav.push('CL-DISC-07', { from: 'brief' })
-  }
   // The guests panel shows the story count (350) as selected while the Brief still holds none; Done on that default has to commit it,
   // otherwise "Add guests" stays on the Brief and the venue has no quote to price (walk finding).
   const closePanel = () => {
@@ -131,31 +119,15 @@ export default function BriefSheet() {
     }
     setPanel(null)
   }
-  const clear = () => setDraft(d => ({ ...d, brief: { date: null, guests: null, audience: null, areaIds: [], budget: null, dateMode: 'undecided' } }))
-  const keep = (which: 'phone' | 'account') => {
-    if (live && which === 'account') s.setBrief(storyBrief())
-    if (live) useDiscover.getState().setMergeShown()
-    nav.closeSheet()
-    if (live) nav.toast({ message: t('clientDiscoverRefreshed'), tone: 'success' })
-  }
+  const clear = () => setDraft(d => ({ ...d, brief: { date: null, guests: null, audience: null, areaIds: [], governorateIds: [], budget: null, dateMode: 'undecided' } }))
 
   const panelTitle: Record<PanelId, string> = {
     date: t('clientDiscoverBriefDateTitle'),
-    area: t('clientDiscoverBriefAreaTitle'),
+    area: t('clientDiscoverBriefGovernorateTitle', { count: governorates.length }),
     guests: t('clientDiscoverBriefGuestsTitle'),
     budget: t('clientDiscoverBriefBudgetTitle'),
   }
   const initialDateView: DateView | undefined = !live && state === 'date-not-decided' ? 'undecided' : !live && state === 'flexible-month' ? 'months' : undefined
-
-  // ---- merge variant
-  if (merge) {
-    return (
-      <div className="gzd-brs" data-gz-id="brief.sheet" data-variant="merge">
-        <SheetHeader title={t('clientDiscoverMergeTitle')} onClose={() => (live ? keep('phone') : nav.closeSheet())} />
-        <MergePanel phone={live ? s.brief : storyBrief()} account={live ? storyBrief() : ACCOUNT_EXAMPLE} onKeep={keep} />
-      </div>
-    )
-  }
 
   return (
     <div className="gzd-brs" data-gz-id="brief.sheet" style={{ blockSize: fill }}>
@@ -220,7 +192,7 @@ export default function BriefSheet() {
         ) : panel === 'date' ? (
           <DatePanel draft={draft} set={setDraft} initialView={initialDateView} />
         ) : panel === 'area' ? (
-          <AreaPanel draft={draft} set={setDraft} onOpenRegion={openRegion} />
+          <GovernoratePanel draft={draft} set={setDraft} />
         ) : panel === 'guests' ? (
           <GuestsPanel draft={draft} set={setDraft} />
         ) : (

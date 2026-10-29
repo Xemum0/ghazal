@@ -217,14 +217,6 @@
   color: var(--gz-color-sys-text-secondary);
 }
 
-.gz-vendor__lock {
-  display: inline-flex;
-  flex-basis: 100%;
-  align-items: center;
-  gap: var(--gz-space-1);
-  color: var(--gz-color-sys-text-secondary);
-}
-
 .gz-vendor__price {
   display: flex;
   flex-wrap: wrap;

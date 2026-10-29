@@ -1,7 +1,7 @@
 // The booking flow's memory and its derived model (ADR 0033: a request for the voucher price).
-// The shared prototype store keeps the draft fields it already knows (venue, hall, session, package, extras, date, audience, guests,
-// contact, special requests, the bound voucher id, step); everything else a five-step flow needs (occasion,
-// quantities, contact options, consent, the request just sent) lives in this flow-local store.
+// The shared prototype store keeps the draft fields it already knows (venue, hall, session, package, date, audience, guests,
+// contact, special requests, the bound voucher id, step); everything else a four-step flow needs (occasion,
+// contact options, consent, the request just sent) lives in this flow-local store. There is no Extras step (ADR 0038, CA-SVC-19).
 // `useFlow()` joins both with defaults from the shared story, so a screen drawn alone on the canvas shows the same demo
 // (Aurelia Gulf Hotel, Danah Ballroom, Ladies' reception, Thu 14 Jan 2027, 350 guests, voucher GV-2611-K7QM) as one reached by clicking through.
 // A voucher bound to the quote LOCKS date, hall, reception, package and guests (they come "from your voucher"); without one the same
@@ -9,13 +9,13 @@
 import { useMemo } from 'react'
 import { create } from 'zustand'
 import * as mock from '../../../../mock'
-import type { Audience, Extra, Hall, Package, Quote, Venue, Voucher } from '../../../../mock'
+import type { Audience, Hall, Package, Quote, Venue, Voucher } from '../../../../mock'
 import { useFormat } from '../../../../i18n'
 import { useDevice } from '../../../../shell/device/context'
 import { usePrototype } from '../../../../shell/state'
 import { CLIENT_TABS, type Nav } from '../../../../system'
 
-export const STEP_IDS = ['CL-BOOK-01', 'CL-BOOK-02', 'CL-BOOK-03', 'CL-BOOK-04', 'CL-BOOK-05'] as const
+export const STEP_IDS = ['CL-BOOK-01', 'CL-BOOK-02', 'CL-BOOK-04', 'CL-BOOK-05'] as const
 export const STEP_COUNT = STEP_IDS.length
 
 export type OccasionKey = 'wedding' | 'milka' | 'henna' | 'engagement' | 'other'
@@ -23,7 +23,6 @@ export type Relation = 'bride' | 'groom' | 'family' | 'planner'
 
 type FlowStore = {
   occasion: OccasionKey | null
-  extraQty: Record<string, number>
   forWho: 'self' | 'other'
   otherName: string
   relation: Relation
@@ -45,7 +44,6 @@ type FlowStore = {
 
 const INITIAL = {
   occasion: null,
-  extraQty: {},
   forWho: 'self' as const,
   otherName: '',
   relation: 'bride' as Relation,
@@ -73,7 +71,6 @@ type Override = {
   guests?: number
   date?: string
   packageId?: string
-  extras?: { id: string; qty: number }[]
   /** `none`: the client holds no voucher for this quote (a static frame draws the story voucher otherwise). */
   voucher?: 'none'
   /** Open requests the client already has (the limit of three, voucher-model 5.3). */
@@ -90,7 +87,6 @@ const SCENARIOS: Record<string, Override> = {
   // One package sells in this hall on this date: it is chosen for you (the player does the same in step 2).
   single: { voucher: 'none', hallId: 'V01-majlis', packageId: 'V01-ladies-weekend' },
   chosen: { packageId: 'V01-ladies-weekend' },
-  'chosen-extras': { packageId: 'V01-ladies-weekend', extras: [{ id: 'V01-x-kosha', qty: 1 }, { id: 'V01-x-photographer', qty: 1 }] },
   'over-cap': { voucher: 'none', guests: 700 },
   'below-min': { voucher: 'none', guests: 280 },
   'none-fit': { voucher: 'none', guests: 700 },
@@ -144,14 +140,6 @@ export function quotePair(quote: Quote | null) {
   }
 }
 
-/** One extra on the event date, in both columns (an extra without a voucher price is billed at its standard price in both). */
-export function extraPair(extra: Extra, date: string): { standard: number; voucher: number } {
-  const rule = mock.engine.resolveRule(mock.rulesFor(extra.id), extra.id, date)
-  const standard = rule?.flat ?? rule?.perGuest ?? extra.price
-  const voucher = rule?.voucherFlat ?? rule?.voucherPerGuest ?? standard
-  return { standard: standard.fils, voucher: voucher.fils }
-}
-
 export type SectionModel = {
   position: 1 | 2
   audience: Audience
@@ -183,7 +171,6 @@ export type FlowModel = {
   hostingOptions: ('women' | 'men' | 'mixed')[]
   hosting: 'women' | 'men' | 'mixed'
   halls: Hall[]
-  extras: { extra: Extra; included: boolean; selected: boolean; qty: number }[]
   quote: Quote | null
   /** True once every section has a chosen package: the number is a quote, not an estimate. */
   final: boolean
@@ -256,11 +243,9 @@ export function useFlow(scenario?: string) {
   const { mode } = useDevice()
   const draft = usePrototype(s => s.bookingDraft)
   const brief = usePrototype(s => s.searchBrief)
-  const auth = usePrototype(s => s.auth)
   const user = usePrototype(s => s.user)
   const vouchers = usePrototype(s => s.vouchers)
   const clientBookings = usePrototype(s => s.clientBookings)
-  const local = useFlowStore()
   const ov = scenario ? (SCENARIOS[scenario] ?? NO_OVERRIDE) : NO_OVERRIDE
 
   return useMemo<FlowModel>(() => {
@@ -271,9 +256,7 @@ export function useFlow(scenario?: string) {
     const voucher: Voucher | null =
       mode === 'static'
         ? ov.voucher === 'none' || venueId !== STORY.venueId ? null : storyVoucher()
-        : auth === 'signedIn'
-          ? findVoucher(vouchers, clientId, venueId, draft.voucherId, draft.eventDate ?? brief.date)
-          : null
+        : findVoucher(vouchers, clientId, venueId, draft.voucherId, draft.eventDate ?? brief.date)
 
     const date = voucher?.eventDate ?? ov.date ?? draft.eventDate ?? brief.date ?? STORY.date
     const wantedAudience: Audience = ov.audience ?? draft.audience ?? brief.audience ?? STORY.audience
@@ -291,8 +274,6 @@ export function useFlow(scenario?: string) {
 
     const lead = f.daysUntil(date)
 
-    const extraSel = ov.extras ? ov.extras.map(e => e.id) : draft.extras
-    const qtyOf = (id: string) => ov.extras?.find(e => e.id === id)?.qty ?? local.extraQty[id] ?? 1
     let quote: Quote | null = null
     if (sections.every(s => s.effective)) {
       try {
@@ -300,21 +281,11 @@ export function useFlow(scenario?: string) {
           venueId: venue.id,
           eventDate: date,
           sections: sections.map(s => ({ hallId: s.hall.id, audience: s.audience, guests: s.guests, packageId: s.effective!.pkg.id })),
-          extras: extraSel
-            .filter(id => !sections[0]!.effective?.pkg || !mock.extras.find(e => e.id === id)?.includedInPackageIds.includes(sections[0]!.effective.pkg.id))
-            .map(id => ({ extraId: id, qty: qtyOf(id) })),
         })
       } catch {
         quote = null
       }
     }
-
-    const extras = mock.extrasFor(venue.id).filter(e => e.active && e.audiences.includes(audience)).map(extra => ({
-      extra,
-      included: Boolean(first.effective && extra.includedInPackageIds.includes(first.effective.pkg.id)),
-      selected: extraSel.includes(extra.id),
-      qty: qtyOf(extra.id),
-    }))
 
     const audiencesSold = new Set(venue.halls.flatMap(h => h.sections.map(s => s.audience)))
     const hostingOptions: FlowModel['hostingOptions'] = []
@@ -345,13 +316,12 @@ export function useFlow(scenario?: string) {
       hostingOptions,
       hosting,
       halls: candidates,
-      extras,
       quote,
       final: sections.every(s => s.chosen),
       dateOk,
       openRequests: ov.openRequests ?? baseOpen,
     }
-  }, [f, mode, draft, brief, auth, user, vouchers, clientBookings, local.extraQty, ov, scenario])
+  }, [f, mode, draft, brief, user, vouchers, clientBookings, ov, scenario])
 }
 
 /** The contact person as the form shows it: the draft, else the signed-in user, else the story persona. */

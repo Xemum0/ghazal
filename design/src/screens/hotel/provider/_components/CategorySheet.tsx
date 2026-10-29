@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import type { ServiceCategoryId } from '../../../../mock'
 import { Button, ChipGroup, Icon } from '../../../../system'
-import { SheetFrame, useBi, useP } from './bits'
+import { Figures, SheetFrame, useBi, useP } from './bits'
 import { categoryIcon, categoryOptions } from './model'
 import './category-sheet.css'
 
@@ -56,7 +56,7 @@ export function CategorySheet({ value, max, title, onApply, onClose }: CategoryS
         </Button>
       }
     >
-      {max > 1 ? <p className="gz-t-body-s hp-cats__limit">{t('hotelProviderCatsLimit', { max, count: pick.length })}</p> : null}
+      {max > 1 ? <p className="gz-t-body-s hp-cats__limit"><Figures text={t('hotelProviderCatsLimit', { max, count: pick.length })} /></p> : null}
       {group(true, t('hotelProviderCatsPrimary'))}
       {group(false, t('hotelProviderCatsMore'))}
     </SheetFrame>

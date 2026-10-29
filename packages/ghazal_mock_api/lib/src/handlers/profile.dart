@@ -12,7 +12,7 @@ Map<String, Handler> profileHandlers(MockApp app) => {
   'getMe': (r) => meOf(app, r.userId),
   'updateMe': (r) {
     final u = app.requireUser(r.userId);
-    for (final k in ['name', 'email', 'locale', 'digitStyle']) {
+    for (final k in ['name', 'sex', 'email', 'locale', 'digitStyle']) {
       if (r.b.containsKey(k)) u[k] = r.b[k];
     }
     if (r.b['name'] != null) u['monogram'] = String.fromCharCode((r.b['name'] as String).runes.first);
@@ -30,6 +30,21 @@ Map<String, Handler> profileHandlers(MockApp app) => {
       p['marketing'] = r.b['marketingOptIn'];
       app.db.put('NotificationPreferences', p, id: r.userId);
     }
+    return meOf(app, r.userId);
+  },
+  'completeProfile': (r) {
+    // CL-AUTH-03 "About you" (CA-AUTH-14): name and sex are required (the contract schema), then the terms; the account stops being new.
+    final u = app.requireUser(r.userId);
+    final name = r.b.str('name').trim();
+    if (name.isEmpty) throw ApiError.validation('/name', 'required');
+    u['name'] = name;
+    u['monogram'] = String.fromCharCode(name.runes.first);
+    u['sex'] = r.b['sex'];
+    if (r.b.containsKey('email')) u['email'] = r.b['email'];
+    u['_termsAcceptedAt'] = app.now;
+    u.remove('_profileIncomplete');
+    app.db.put('User', u);
+    app.logEvent('profile_completed', {'userId': r.userId});
     return meOf(app, r.userId);
   },
   'deleteAccount': (r) {

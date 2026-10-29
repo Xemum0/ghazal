@@ -40,23 +40,19 @@ export type LeadCardProps = {
   actionLabel: string
   actionIcon?: IconName
   onAction: () => void
-  /** `quiet` = the rose-100 tint (a sample); default is the paper panel. */
-  tone?: 'panel' | 'quiet'
-  /** One line: the facts and the action share it (a guest's sample), instead of stacking. */
-  inline?: boolean
 }
 
 /** The one gold action of a phase, with the figures that explain it. Gold is the button only. */
-export function LeadCard({ children, art, artSize = 'lg', actionLabel, actionIcon, onAction, tone = 'panel', inline }: LeadCardProps) {
+export function LeadCard({ children, art, artSize = 'lg', actionLabel, actionIcon, onAction }: LeadCardProps) {
   return (
-    <section className={`gzmw-lead gzmw-lead--${tone}${inline ? ' is-inline' : ''}`} data-gz="LeadCard">
+    <section className="gzmw-lead gzmw-lead--panel" data-gz="LeadCard">
       {children || art ? (
         <div className="gzmw-lead__body">
           {children ? <div className="gzmw-lead__facts">{children}</div> : null}
           {art ? <Illustration name={art} size={artSize} className="gzmw-lead__art" /> : null}
         </div>
       ) : null}
-      <Button variant="primary" iconStart={actionIcon} fullWidth={!inline} onClick={onAction}>
+      <Button variant="primary" iconStart={actionIcon} fullWidth onClick={onAction}>
         {actionLabel}
       </Button>
     </section>

@@ -32,6 +32,14 @@ final class RestProfileRepository implements ProfileRepository {
   }
 
   @override
+  Future<Me> completeProfile({
+    required CompleteProfileInput body,
+  }) async {
+    final json = await _client.send('POST', '/me/complete', body: body.toJson());
+    return Me.fromJson(asMap(json));
+  }
+
+  @override
   Future<void> registerDevice({
     required String deviceId,
     required DeviceRegistration body,

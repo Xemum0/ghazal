@@ -1,6 +1,6 @@
 // The sections of Booking detail (HL-BOOK-03, ADR 0034), in the order of the inventory: header (status, voucher chip, date, the deadline that
 // matters as a glyph and a figure), the Booking Thread as five glyph knots, notices, the outcome of a closed request, special requests, the
-// client, the counter-offer when one is out, the event (hall photograph, time, section, guests, package, extras), the price at the voucher
+// client, the counter-offer when one is out, the event (hall photograph, time, section, guests, package), the price at the voucher
 // (one big figure, the standard struck, the saving), the voucher panel (once it is confirmed or used), the actions and the history. One
 // screen, one set of sections; the status only changes which of them show. There is no payment, cash, invoice or payout section: the event is
 // paid to the venue off-app (ADR 0033), so the screen never shows a payment status; the one sentence about it is behind an info glyph.
@@ -30,7 +30,7 @@ import {
   type IconProgressStep,
   type StatusKey,
 } from '../../../../system'
-import { Fx, Fig, Figures, SECTION_ICON, UserText, canChange, canContact, canDecide, canRedeem, minutesBetween, sessionIcon, sessionRange, useBi, useDayCount, useDays, useDur, useDurLead, useHours, useStaffName } from './bits'
+import { Fx, Figures, SECTION_ICON, UserText, canChange, canContact, canDecide, canRedeem, minutesBetween, sessionIcon, sessionRange, useBi, useDayCount, useDays, useDur, useDurLead, useHours, useStaffName } from './bits'
 import { useBookingActions, refOf } from './actions'
 import { Block, Copyable, Line, Lines, Note, Panel } from './DetailParts'
 import { AUDIENCE_KEY, DECLINE_ICON, DECLINE_KEY, silenceHours, wasConfirmed } from './facts'
@@ -353,7 +353,6 @@ export function EventBlock({ b }: { b: Booking }) {
   const t = useT('hotel-bookings')
   const bi = useBi()
   const two = b.sections.length > 1
-  const extras = b.lines.filter(l => l.kind === 'extra')
   if (b.sections.length === 0) {
     return (
       <Panel tone="paper">
@@ -395,11 +394,6 @@ export function EventBlock({ b }: { b: Booking }) {
             </Line>
           )
         })}
-        {extras.map((l, i) => (
-          <Line key={`x${i}`} icon="plus" label={t('hotelBookingsRowExtras')} trailing={l.qty > 1 ? <Fig>{`×${f.integer(l.qty)}`}</Fig> : undefined}>
-            {bi(l.name)}
-          </Line>
-        ))}
       </Lines>
     </Panel>
   )
@@ -416,7 +410,9 @@ export function PriceBlock({ m }: { m: DetailModel }) {
   const bi = useBi()
   const { voucherTotal, standardTotal, voucherServiceCharge, savings } = b.totals
   const saves = standardTotal.fils > voucherTotal.fils
-  const itemised = b.lines.length > 1 || voucherServiceCharge.fils > 0
+  // Venue extras are not shown (CA-SVC-19, ADR 0038): the breakdown lists the packages only.
+  const lines = b.lines.filter(l => l.kind !== 'extra')
+  const itemised = lines.length > 1 || voucherServiceCharge.fils > 0
   return (
     <Panel tone="paper" className="hbk-price">
       <div className="hbk-price__head">
@@ -430,7 +426,7 @@ export function PriceBlock({ m }: { m: DetailModel }) {
         <InfoButton title={t('hotelBookingsInfoPriceTitle')} className="hbk-price__info">
           {itemised ? (
             <Lines label={t('hotelBookingsPriceTitle')}>
-              {b.lines.map((l, i) => (
+              {lines.map((l, i) => (
                 <Line key={i} trailing={<QuietMoney fils={l.amount.fils} mode="exact" />}>
                   {bi(l.name)}
                 </Line>

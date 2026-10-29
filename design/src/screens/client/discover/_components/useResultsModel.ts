@@ -49,16 +49,16 @@ export function useResultsModel(state?: string, owner = false): ResultsModel {
     const base = defaultFilters(brief)
     switch (state) {
       case 'voucher-price-filter-on':
-        return { filters: { ...base, areaIds: [], voucherOnly: true } as Filters, query: '', sort: 'voucher_price' as SortKey }
+        return { filters: { ...base, governorateIds: [], voucherOnly: true } as Filters, query: '', sort: 'voucher_price' as SortKey }
       case 'no-results':
         // Nothing hosts 1,300 to 1,500 guests; removing the capacity chip brings the halls back, and the empty state names it.
         return { filters: { ...base, capacity: [1300, 1500] } as Filters, query: '', sort: 'recommended' as SortKey }
       case 'venue-type-governmental-card':
-        return { filters: { ...NO_FILTERS, types: ['governmental'], areaIds: [] } as Filters, query: '', sort: 'recommended' as SortKey }
+        return { filters: { ...NO_FILTERS, types: ['governmental'], governorateIds: [] } as Filters, query: '', sort: 'recommended' as SortKey }
       case 'region-filter-on':
-        return { filters: { ...base, governorateIds: ['hawalli'], areaIds: null } as Filters, query: '', sort: 'recommended' as SortKey }
+        return { filters: { ...base, governorateIds: ['hawalli'] } as Filters, query: '', sort: 'recommended' as SortKey }
       case 'searching':
-        return { filters: base, query: lang === 'ar' ? 'مشرف' : 'Mish', sort: 'recommended' as SortKey }
+        return { filters: base, query: lang === 'ar' ? 'حو' : 'Haw', sort: 'recommended' as SortKey }
       default:
         return { filters: base, query: '', sort: 'recommended' as SortKey }
     }

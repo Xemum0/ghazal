@@ -17,10 +17,16 @@
 .gzs-fsheet__glyph {
   display: flex;
   flex: none;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   inline-size: var(--gz-size-touch-min);
-  block-size: var(--gz-size-touch-min);
+  min-block-size: var(--gz-size-touch-min);
+}
+
+/* The number of governorates chosen, under the pin: the count of the group's title, kept beside the glyph (no heading in this sheet). */
+.gzs-fsheet__count {
+  color: var(--gz-color-sys-text-secondary);
 }
 
 .gzs-fsheet__body {

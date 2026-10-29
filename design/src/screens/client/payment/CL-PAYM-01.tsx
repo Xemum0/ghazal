@@ -1,6 +1,6 @@
 // CL-PAYM-01 · Pay. The one payment a client makes inside Ghazal: KD 2.000 for a voucher bound to one venue or provider and its quote
 // (ADR 0033). Requirements: CA-PAY-01, CA-PAY-02, CA-PAY-03, CA-PAY-04, CA-PAY-05, CA-VCH-05, CA-VCH-14. ADR 0027 (hosted gateway, no
-// card form ever exists in Ghazal), ADR 0007 D8 (guests are gated at the pay tap, the quote is restored after sign-in).
+// card form ever exists in Ghazal), ADR 0038 (no guest mode: the client is signed in before the pay tap).
 //
 // Text diet (ADR 0034): the screen speaks in a drawing, a figure and glyphs. Order: what the voucher is bound to (photo, name, hall or
 // package, date, guests as icon + value), the amount under a voucher drawing with the saving and the checkout clock as facts (an absolute
@@ -49,7 +49,6 @@ export default function PaymentPay() {
   const platform = usePlatform()
   const store = usePrototype
 
-  const auth = usePrototype(s => s.auth)
   const me = usePrototype(s => s.user?.id ?? null)
   const vouchers = usePrototype(s => s.vouchers)
   const lastPayment = usePrototype(s => s.payment)
@@ -99,11 +98,6 @@ export default function PaymentPay() {
 
   const pay = () => {
     if (offline || expired || busy || existing) return
-    if (auth === 'guest') {
-      store.getState().openGate('voucher', { screenId: 'CL-PAYM-01', params: paramsOf(target) })
-      nav.openSheet('CL-AUTH-01', { params: { reason: 'voucher' } })
-      return
-    }
     setBusy(true)
     // The store opens the checkout (an unpaid voucher with its quote) once; a retry reuses it, so nobody pays twice for one quote.
     const voucherId = purchase.voucher?.id ?? store.getState().startVoucherCheckout(purchaseOf(target))

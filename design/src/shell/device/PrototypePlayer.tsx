@@ -1,5 +1,6 @@
 // PrototypePlayer: the live prototype. A Device in live mode (thin bezel by default) around a NavRoot, with the prototype store bridged
-// to the URL language. `story` seeds the store: `start` (guest, nothing chosen) or a persona loaded from the shared fixtures.
+// to the URL language. `story` seeds the store: `start` (signed out, nothing chosen: the Client app then shows only its first-run screens,
+// ADR 0038) or a persona loaded from the shared fixtures.
 import { useLayoutEffect } from 'react'
 import { NavRoot, type NavRootProps } from '../../system/nav/NavRoot'
 import { usePrototype, useLanguageBridge } from '../state'
@@ -27,8 +28,13 @@ export type PrototypePlayerProps = {
 /** What the story starts on, by app (the first screen of the first flow in the inventory). */
 export const STORY_START: Record<AppKind, string> = { client: 'CL-ONBD-01', hotel: 'HL-ACCS-01' }
 
-export function PrototypePlayer({ app, initial, initialTab, story = 'start', seed = true, width, height, bezel = 'thin', chrome, screens }: PrototypePlayerProps) {
+/** The only Client screens a signed-out person can reach: language, introduction, sign-in and account creation. */
+const isClientFirstRun = (id: string | undefined): boolean => !id || /^CL-(ONBD|AUTH)-/i.test(id)
+
+export function PrototypePlayer({ app, initial, initialTab, story: requested = 'start', seed = true, width, height, bezel = 'thin', chrome, screens }: PrototypePlayerProps) {
   useLanguageBridge()
+  // A Client screen behind the sign-in opens signed in (as the demo persona): there is no guest mode, so a signed-out client never sees it.
+  const story: Story = app === 'client' && requested === 'start' && !isClientFirstRun(initial) ? 'client' : requested
   // Seed the store before the first paint; a remount (key change) re-seeds it, which is how "Restart" works.
   useLayoutEffect(() => {
     if (!seed) return

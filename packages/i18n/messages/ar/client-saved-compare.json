@@ -15,8 +15,6 @@
   "clientSavedCompareSavedVoucherReadyOpen": "فتح كوبونكم لدى {name}",
   "clientSavedCompareSavedUnlisted": "غير مدرجة",
   "clientSavedCompareSavedRemoved": "تمت الإزالة",
-  "clientSavedCompareSavedGuestBanner": "على هذا الهاتف فقط",
-  "clientSavedCompareSavedGuestSignIn": "تسجيل الدخول",
   "clientSavedCompareLastUpdated": "آخر تحديث",
   "clientSavedCompareSavedEmptyVenuesTitle": "لا قاعات محفوظة",
   "clientSavedCompareSavedEmptyVenuesAction": "استكشاف القاعات",

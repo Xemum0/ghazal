@@ -1,6 +1,6 @@
 // Every Studio URL in one place. The hash is the whole state of a view (route, language, width, focus), so a copied link reproduces it.
 //   #/canvas/<app>?lang=&w=&focus=<screenId>&flow=<flowId>
-//   #/play/<app>/<screenId>?lang=&w=&story=guest|signed-in
+//   #/play/<app>/<screenId>?lang=&w=&story=signed-out|signed-in
 //   #/system/<galleryPage>?lang=     #/docs/<name>?lang=
 // The older chromeless routes (#/gallery/<name>, #/frame/<id>) stay exactly as the harness defines them.
 import type { AppId } from './data/inventory'

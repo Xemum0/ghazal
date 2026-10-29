@@ -1,0 +1,26 @@
+{
+  "id": "app-m001",
+  "accountId": "partner-m1",
+  "accountType": "service_provider",
+  "name": {
+    "en": "Henna Studio",
+    "ar": "استوديو حناء"
+  },
+  "categoryIds": [
+    "henna"
+  ],
+  "otherCategoryNote": null,
+  "governorateId": "hawalli",
+  "contactName": "Aisha Al-Rashidi",
+  "phone": "+96550009123",
+  "email": "hello@henna-studio.example",
+  "description": "Bridal and guest henna, home visits across Hawalli.",
+  "licenceRef": null,
+  "status": "rejected",
+  "rejectionReason": {
+    "en": "Please add your commercial licence number.",
+    "ar": "يرجى إضافة رقم الترخيص التجاري."
+  },
+  "submittedAt": "2026-11-10T16:00:00+03:00",
+  "decidedAt": "2026-11-12T15:00:00+03:00"
+}

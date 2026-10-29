@@ -8,7 +8,7 @@ const phone = (nn) => `+965500000${String(nn).padStart(2, '0')}`
 export const REEM = 'user-reem'
 export const HIND = 'user-hind'
 
-const user = (id, role, name, nameLatin, nn, locale = 'ar', createdAt = '2026-09-01T10:00:00+03:00', email = null) => ({
+const user = (id, role, name, nameLatin, nn, locale = 'ar', createdAt = '2026-09-01T10:00:00+03:00', email = null, sex = null) => ({
   id,
   role,
   name,
@@ -18,10 +18,13 @@ const user = (id, role, name, nameLatin, nn, locale = 'ar', createdAt = '2026-09
   email,
   locale,
   digitStyle: 'western',
+  // Round 2 (ADR 0038 D4, CA-AUTH-14): every client account carries a sex (`female` | `male`); staff and support accounts have none.
+  ...(sex ? { sex } : {}),
   createdAt,
 })
 
-// [id suffix, Arabic, Latin, phone NN]
+// [id suffix, Arabic, Latin, phone NN]; the sex of each couple member who holds the account follows the given name (CA-AUTH-14)
+const maleSlugs = new Set(['abdullah-hajri', 'faisal-rasheedi', 'salman-harbi', 'badr-otaibi', 'thamer-mutawa', 'jassim-kandari', 'ahmad-hamad', 'talal-failakawi', 'rashed-ajmi'])
 const clientRows = [
   ['dana-shammari', 'دانة الشمري', 'Dana Al-Shammari', 21],
   ['abdullah-hajri', 'عبدالله الهاجري', 'Abdullah Al-Hajri', 22],
@@ -56,10 +59,12 @@ const clientRows = [
   ['amna-kharafi', 'آمنة الخرافي', 'Amna Al-Kharafi', 94],
 ]
 
-export const clientUsers = clientRows.map(([slug, ar, en, nn]) => user(`user-${slug}`, 'client', ar, en, nn))
+export const clientUsers = clientRows.map(([slug, ar, en, nn]) =>
+  user(`user-${slug}`, 'client', ar, en, nn, 'ar', '2026-09-01T10:00:00+03:00', null, maleSlugs.has(slug) ? 'male' : 'female'),
+)
 
 export const users = [
-  user(REEM, 'client', 'ريم الدوسري', 'Reem Al-Dosari', 12, 'ar', '2026-10-25T20:10:00+03:00'),
+  user(REEM, 'client', 'ريم الدوسري', 'Reem Al-Dosari', 12, 'ar', '2026-10-25T20:10:00+03:00', null, 'female'),
   user('user-support', 'support', 'دعم غزل', 'Ghazal Support', 1, 'ar', '2026-01-01T00:00:00+03:00'),
   user(HIND, 'hotel_staff', 'هند العنزي', 'Hind Al-Enezi', 40, 'ar', '2026-06-02T09:00:00+03:00'),
   user('user-khalid', 'hotel_staff', 'خالد العتيبي', 'Khalid Al-Otaibi', 41, 'ar', '2026-06-01T09:00:00+03:00'),

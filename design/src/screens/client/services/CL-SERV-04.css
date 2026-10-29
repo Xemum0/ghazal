@@ -64,15 +64,6 @@
   box-shadow: 0 var(--gz-space-16) 0 var(--gz-color-sys-surface-raised);
 }
 
-.gzs-quote__note {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--gz-space-1);
-  margin: 0;
-  color: var(--gz-color-sys-text-secondary);
-}
-
 /* ---------- use your voucher ---------- */
 .gzs-quote__voucher {
   display: flex;

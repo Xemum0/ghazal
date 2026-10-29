@@ -699,6 +699,8 @@ enum ErrorCode {
   invitationExpired('INVITATION_EXPIRED'),
   emailAlreadyInvited('EMAIL_ALREADY_INVITED'),
   accountDeletionBlocked('ACCOUNT_DELETION_BLOCKED'),
+  applicationNotAccepted('APPLICATION_NOT_ACCEPTED'),
+  applicationNotEditable('APPLICATION_NOT_EDITABLE'),
   appUpdateRequired('APP_UPDATE_REQUIRED'),
   unknown('unknown');
 

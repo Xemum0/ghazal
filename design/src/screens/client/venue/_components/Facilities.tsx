@@ -1,8 +1,8 @@
 // Facilities (CL-VENU-01, CA-VDET-05, CA-VDET-11..15, CA-VDET-26): the facilities of a venue as a field of glyph tiles (ADR 0034: a facility is
-// its glyph, present = shown, no "Yes" or "Included" words on the page). Included facilities show plain, extra ones carry a small plus; the
+// its glyph, present = shown, no "Yes" or "Included" words on the page). Included facilities show plain, extra-cost ones carry a small plus; the
 // ones that are not offered are not shown. The last tile is the count that opens the full list, where each facility has its name and
-// its state (included, extra with its price anchor, not offered): the three-state model of ADR 0015 D6 lives in that sheet. Every tile is
-// a 44 target that opens the list, so no tap is dead.
+// its state (included, extra cost with its price anchor, not offered): the three-state model of ADR 0015 D6 lives in that sheet. Every tile is
+// a 44 target that opens the list, so no tap is dead. A facility is a fact of the venue, never a service Ghazal sells (ADR 0038, OQ-R2-09).
 import type { VenueAmenity } from '../../../../mock'
 import { amenityDefs } from '../../../../mock'
 import { useFormat, useT } from '../../../../i18n'

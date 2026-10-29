@@ -1,7 +1,7 @@
 // CL-DISC-05 Map. Covers CA-SRCH-01, CA-SRCH-02, CA-HOME-14.
 // The full-screen alternative to the list, and the only live map in browse. Price-label pins for the Brief date (the selected pin fills ink),
 // clusters with a count that zoom in on tap, a bottom carousel of cards (72% wide, the next one peeking) that follows the selected pin, and
-// "My location" asked in context (a refusal falls back to the Brief's area). The Brief pill (date, guests, area as glyph and value), the Filters
+// "My location" asked in context (a refusal falls back to the Brief's governorate). The Brief pill (date, guests, governorates as glyph and value), the Filters
 // count (a glyph) and the List | Map switch stay on top. Dragging offers "Search here". Tab bar hidden. States: default, loading, location-denied,
 // no-results-in-view, offline, error.
 // Text diet (ADR 0034): the pill holds facts, not a sentence; the drive time under a card is a car glyph and a figure; empty, offline and error
@@ -12,7 +12,7 @@ import { useFormat, useT } from '../../../i18n'
 import { useFrame } from '../../../shell/frame'
 import { useLang } from '../../../shell/lang'
 import { useDevice } from '../../../shell/device/context'
-import { BarButton, Button, EmptyState, ErrorState, FactChip, FactRow, Icon, IconButton, IconSegmented, Skeleton, VenueCard, useNav, Screen, Chip } from '../../../system'
+import { BarButton, Button, EmptyState, ErrorState, FactChip, FactRow, Icon, IconButton, IconSegmented, Skeleton, VenueCard, briefGovernorates, useNav, Screen, Chip } from '../../../system'
 import { MapCanvas } from './_components/MapCanvas'
 import { DriveFacts } from './_components/DriveFacts'
 import { TextFact } from './_components/TextFact'
@@ -72,10 +72,11 @@ export default function ResultsMap() {
 
   // ---- top controls
   const date = m.brief.date ? `${f.integer(f.civil(m.brief.date).day)} ${f.monthName(f.civil(m.brief.date).month, 'short')}` : ''
-  const areas = (m.brief.areaIds ?? []).map(id => mock.getArea(id)?.name[lang] ?? '').filter(Boolean).join(lang === 'ar' ? '، ' : ', ')
-  const areaList = (m.brief.areaIds ?? []).map(id => mock.getArea(id)?.name[lang] ?? '').filter(Boolean)
-  // The pill is one line: the first area and how many more (the Brief sheet has the full list).
-  const areaPill = areaList.length > 1 ? t('clientDiscoverBriefAreaMore', { first: areaList[0] ?? '', more: f.integer(areaList.length - 1) }) : areaList[0] ?? ''
+  const regionIds = briefGovernorates(m.brief)
+  const areaList = regionIds.map(id => mock.getGovernorate(id)?.name[lang] ?? '').filter(Boolean)
+  const areas = areaList.join(lang === 'ar' ? '، ' : ', ')
+  // The pill is one line: the first governorate and how many more (the Brief sheet has the full list).
+  const areaPill = areaList.length > 1 ? t('clientDiscoverBriefGovernorateMore', { first: areaList[0] ?? '', more: f.integer(areaList.length - 1) }) : areaList[0] ?? ''
   const pillSpoken = [date, m.brief.guests ? f.integer(m.brief.guests) : '', areas].filter(Boolean).join(', ')
   const defaults = clearedFilters(m.brief)
   const count = activeFilterCount(m.filters, m.brief) - (defaults.available && m.filters.available ? 1 : 0)
@@ -109,7 +110,7 @@ export default function ResultsMap() {
           <FactRow overflow="scroll" className="gzd-ms__facts">
             <TextFact icon="calendar" label={t('clientDiscoverA11yDate')} value={date || t('clientDiscoverBriefChooseDate')} tone={date ? 'default' : 'muted'} />
             {m.brief.guests ? <FactChip icon="users-three" label={t('clientDiscoverBriefAddGuests')} value={f.integer(m.brief.guests)} /> : null}
-            {areas ? <TextFact icon="pin" label={t('clientDiscoverBriefChooseArea')} value={areaPill} /> : null}
+            {areas ? <TextFact icon="pin" label={t('clientDiscoverBriefChooseGovernorate')} value={areaPill} /> : null}
           </FactRow>
         </button>
       </div>
@@ -138,7 +139,7 @@ export default function ResultsMap() {
       ) : denied ? (
         <p className="gzd-ms__note gz-t-caption" role="status">
           <Icon name="pin" size="xs" tone="secondary" />
-          {t('clientDiscoverMapDenied', { area: mock.getArea(m.brief.areaIds?.[0] ?? 'salmiya')?.name[lang] ?? '' })}
+          {t('clientDiscoverMapDenied', { place: mock.getGovernorate(regionIds[0] ?? 'hawalli')?.name[lang] ?? '' })}
         </p>
       ) : null}
     </div>

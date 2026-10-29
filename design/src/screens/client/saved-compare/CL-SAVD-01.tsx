@@ -3,10 +3,10 @@
 // The family's shortlist, said in glyphs and figures (ADR 0034): three segments as glyph tabs (halls, services, packages), halls sorted
 // free-first, the Brief date stated once above the list as `[calendar] 14 Jan` and `[check] 4/5` free, and per row a quiet area, an
 // availability glyph and the voucher price with the standard price struck beside it. Hearts remove with Undo, Select enters multi-select
-// into Compare, the quiet Compare tray floats above the tab bar, and a guest sees "This phone only" with Sign in. Empty segments are one
+// into Compare, the quiet Compare tray floats above the tab bar. Empty segments are one
 // drawing, three words and one action. One primary action per screen: Browse (empty), or Compare (select mode).
-// Text kept on purpose: segment words (the glyphs alone would be ambiguous for a service or a package), "This phone only" (a guest must
-// know the list is local, CA-AUTH-09) and "Select at least two" under a disabled Compare (it prevents an error).
+// Text kept on purpose: segment words (the glyphs alone would be ambiguous for a service or a package) and "Select at least two" under a
+// disabled Compare (it prevents an error). The list lives on the account (ADR 0038: there is no guest, so no "this phone only" note).
 // Another screen can open a segment with `openSavedSegment('services')` (_components/savedSegment.ts) before `nav.switchTab('saved')`.
 import { useEffect, useMemo, useState } from 'react'
 import { isolateLtr, plainText } from '@gz/i18n'
@@ -16,7 +16,7 @@ import {
 } from '../../../mock'
 import { useFormat, useT } from '../../../i18n'
 import { useFrame } from '../../../shell/frame'
-import { ActionBar, Banner, Button, ErrorState, FactChip, FactRow, Fig, Icon, IconTabs, TopBar, useNav, Screen } from '../../../system'
+import { ActionBar, Banner, Button, ErrorState, FactChip, FactRow, Fig, IconTabs, TopBar, useNav, Screen } from '../../../system'
 import { usePrototype } from '../../../shell/state'
 import { COMPARE_MAX, availabilityRank, briefFor, useSavedModel } from './_components/useSavedData'
 import { SavedPackageRow, SavedRowSkeleton, SavedVenueRow, SavedVendorRow } from './_components/SavedRows'
@@ -26,7 +26,7 @@ import { Fx } from './_components/Fx'
 import { clearSavedSegment, usePendingSavedSegment } from './_components/savedSegment'
 import './CL-SAVD-01.css'
 
-export const states = ['loading', 'empty-venues', 'empty-services', 'empty-packages', 'guest-local', 'select-mode', 'venue-unlisted', 'offline', 'error', 'tray-one', 'tray-collapsed']
+export const states = ['loading', 'empty-venues', 'empty-services', 'empty-packages', 'select-mode', 'venue-unlisted', 'offline', 'error', 'tray-one', 'tray-collapsed']
 
 type Seg = 'venues' | 'services' | 'packages'
 
@@ -55,7 +55,6 @@ export default function Saved() {
   const loading = state === 'loading'
   const errored = state === 'error'
   const offline = state === 'offline'
-  const guest = m.guest || state === 'guest-local'
   const compare = state === 'tray-one' ? m.compare.slice(0, 1) : state?.startsWith('empty') ? [] : m.compare
 
   // ---- halls, free first (stable on save order), with the Brief's price and availability
@@ -74,7 +73,6 @@ export default function Saved() {
     return rows.sort((a, b) => a.rank - b.rank || a.order - b.order)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [venueIds.join('|'), brief.date, brief.guests, brief.audience])
-  const audience = guest ? 'guest' : 'member'
   const unlistedId = state === 'venue-unlisted' ? venueRows[1]?.venue.id : undefined
 
   const vendorRows = (state === 'empty-services' ? [] : m.saved.vendor).flatMap(id => serviceProviders.filter(v => v.id === id))
@@ -103,7 +101,6 @@ export default function Saved() {
   }
   const clearCompare = () => m.live && usePrototype.getState().clearCompare()
   const removeCompare = (id: string) => m.live && usePrototype.getState().removeFromCompare(id)
-  const signIn = () => nav.openSheet('CL-AUTH-01', { params: { reason: 'save' } })
 
   // ---- the Brief date, once: what is free on it (the sentence is the group's accessible name)
   const free = venueRows.filter(r => r.availability === 'available').length
@@ -150,17 +147,6 @@ export default function Saved() {
     >
       {offline ? <Banner tone="offline">{c('commonStateOffline')}</Banner> : null}
       <div className={`svd-saved__page${showTray ? ' has-tray' : ''}`}>
-        {guest && !loading && !errored && counts.venues + counts.services + counts.packages > 0 ? (
-          <aside className="svd-guest" data-gz-id="guest.note">
-            <p className="svd-guest__text gz-t-body-s">
-              <Icon name="phone" size="sm" tone="secondary" />
-              <span>{t('clientSavedCompareSavedGuestBanner')}</span>
-            </p>
-            <Button variant="tertiary" onClick={signIn}>
-              {t('clientSavedCompareSavedGuestSignIn')}
-            </Button>
-          </aside>
-        ) : null}
         {offline ? (
           <div className="svd-saved__stale">
             <FactChip icon="clock" size="sm" tone="muted" label={t('clientSavedCompareLastUpdated')} value={<Fx text={f.time(clock.now())} />} />
@@ -215,8 +201,7 @@ export default function Saved() {
                     date={brief.date}
                     availability={offline ? null : r.availability}
                     savingChanged={r.changed && !offline}
-                    audience={audience}
-                    voucher={guest || offline ? null : m.readyVoucher(r.venue.id)}
+                    voucher={offline ? null : m.readyVoucher(r.venue.id)}
                     onOpenVoucher={() => {
                       const v = m.readyVoucher(r.venue.id)
                       if (v) nav.push('CL-VCHR-03', { voucherId: v.id })
@@ -232,7 +217,7 @@ export default function Saved() {
             ) : seg === 'services' ? (
               <ul className="svd-saved__list">
                 {vendorRows.map(v => (
-                  <SavedVendorRow key={v.id} vendor={v} audience={audience} onOpen={() => nav.push('CL-SERV-03', { vendorId: v.id })} onRemove={() => unsave('vendor', v.id)} />
+                  <SavedVendorRow key={v.id} vendor={v} onOpen={() => nav.push('CL-SERV-03', { vendorId: v.id })} onRemove={() => unsave('vendor', v.id)} />
                 ))}
               </ul>
             ) : (
@@ -246,7 +231,6 @@ export default function Saved() {
                       kind="hall"
                       pkg={r.pkg}
                       venue={r.venue}
-                      audience={audience}
                       onOpen={() => openVenue(r.venue)}
                       onRemove={() => unsave('package', r.id)}
                     />

@@ -6,10 +6,12 @@
     responses: { 200: ListingList }
   post:
     operationId: createListing
-    summary: Create a draft listing
+    summary: Create a draft listing (accepted accounts only)
+    description: 'A new service provider or private hall can create listings only after Ghazal staff accepted its application (PA-ACC-07); until then the answer is 403 APPLICATION_NOT_ACCEPTED. Accounts without an application (the existing partners) are accepted.'
     x-partner: true
     x-idempotent: true
     body: ListingInput
+    x-errors: [APPLICATION_NOT_ACCEPTED]
     responses: { 201: Listing }
 /partner/listings/{listingId}:
   get:

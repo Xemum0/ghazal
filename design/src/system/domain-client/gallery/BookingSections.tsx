@@ -98,9 +98,6 @@ export function PackageCardSection() {
         <PackageCard pkg={hallOnly} price={priceOf(hallOnly, 'V07-ladies', 250, 350)} guests={350} onSelect={() => undefined} />
         <PackageCard pkg={villa} price={priceOf(villa, 'V04-garden', 20, 120)} guests={120} onSelect={() => undefined} />
       </Spec>
-      <Spec state={l('Guest (signed out): the standard price and a locked voucher line', 'زائر (غير مسجّل): السعر العادي وسطر كوبون مقفل')}>
-        <PackageCard pkg={weekend} price={priceOf(weekend, 'V01-danah', 300, 350)} guests={350} audience="guest" onSelect={() => undefined} />
-      </Spec>
       <Spec state={l('Unavailable on the date · long name · loading', 'غير متاحة في التاريخ · اسم طويل · تحميل')}>
         <PackageCard pkg={signature} price={priceOf(signature, 'V01-danah', 300, 350)} guests={350} unavailable />
         <PackageCard pkg={longName} price={priceOf(weekend, 'V01-danah', 300, 350)} guests={350} onSelect={() => undefined} />
@@ -120,7 +117,7 @@ export function PriceBreakdownSection() {
     venueId: 'V01',
     eventDate: '2027-01-21',
     sections: [{ hallId: 'V01-danah', audience: 'women', guests: 400, packageId: 'V01-ladies-weekend' }],
-    extras: [{ extraId: requireExtra('V01'), qty: 1 }],
+    venueDiscount: { fils: 500_000, currency: 'KWD' },
   })
   const extreme = stress.bookings[0]
   const venue = requireVenue('V01').name
@@ -147,7 +144,7 @@ export function PriceBreakdownSection() {
         <PriceBreakdown quote={heroBookingAs('redeemed')} stage="redeemed" venueName={name} showLines={false} />
         <PriceBreakdown quote={heroBookingAs('redeemed')} stage="redeemed" showLines={false} showSettlement={false} />
       </Spec>
-      <Spec state={l('Many lines: package, extra and service charge', 'أسطر كثيرة: باقة وإضافة ورسوم خدمة')}>
+      <Spec state={l('Many lines: package and a venue discount', 'أسطر كثيرة: باقة وخصم من القاعة')}>
         <PriceBreakdown quote={rich} stage="review" venueName={name} />
       </Spec>
       {extreme ? (
@@ -160,11 +157,4 @@ export function PriceBreakdownSection() {
       </Spec>
     </Section>
   )
-}
-
-import { extrasFor } from '../../../mock'
-function requireExtra(venueId: string): string {
-  const e = extrasFor(venueId).find(x => x.category === 'kosha') ?? extrasFor(venueId)[0]
-  if (!e) throw new Error('no extras')
-  return e.id
 }

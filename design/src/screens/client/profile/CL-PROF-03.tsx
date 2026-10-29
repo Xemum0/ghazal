@@ -1,6 +1,7 @@
-// CL-PROF-03 Personal info. Requirements: CA-PROF-01, CA-AUTH-05.
+// CL-PROF-03 Personal info. Requirements: CA-PROF-01, CA-AUTH-05, CA-AUTH-14.
 //
-// Name (one field, no first and last split, dir=auto) with a live monogram, an optional email (an LTR island), the verified phone with
+// Name (one field, no first and last split, dir=auto) with a live monogram, the sex (female or male, a two-option glyph switch: required at
+// sign-up in CL-AUTH-03, editable here, ADR 0038 D4; it is not shown to venues and not used to filter, OQ-R2-02), an optional email (an LTR island), the verified phone with
 // "Change" (a new number is verified by a WhatsApp code before it replaces the old one: the code panel in a sheet) and the sign-in methods
 // linked to the account. Accounts are never merged by email; identities link only through the verified number (ADR 0028). No photo upload
 // anywhere. The Save bar appears with the first edit and carries the one gold action. Errors are blameless, two or three words, on the field.
@@ -9,8 +10,8 @@
 // States: default, editing, validation-error, saving, phone-change-otp, success, error, offline.
 import { useEffect, useRef, useState } from 'react'
 import { Phone, useT } from '../../../i18n'
-import { usePrototype } from '../../../shell/state'
-import { ActionBar, Avatar, Banner, Button, FactChip, Icon, IconListRow, InfoButton, Screen, TextField, TopBar, useNav } from '../../../system'
+import { usePrototype, type Sex } from '../../../shell/state'
+import { ActionBar, Avatar, Banner, Button, FactChip, Icon, IconListRow, IconSegmented, InfoButton, Screen, TextField, TopBar, useNav } from '../../../system'
 import { Head } from './_components/parts'
 import { PhoneChangeSheet } from './_components/PhoneChange'
 import { FrameSheet } from './_components/sheets'
@@ -30,11 +31,13 @@ export default function PersonalInfo() {
   const state = useSceneState()
   const who = useIdentity()
   const storedEmail = useProfileFlow(s => s.email)
+  const storedSex = usePrototype(s => s.user?.sex)
 
   // What a static frame seeds; the player starts clean.
   const seed = !live ? state : undefined
   const [name, setName] = useState(seed === 'validation-error' ? '' : who.name)
   const [email, setEmail] = useState(seed === 'validation-error' ? 'reem@' : seed === 'editing' || seed === 'saving' || seed === 'error' ? 'reem@example.com' : storedEmail)
+  const [sex, setSex] = useState<Sex>(live ? (storedSex ?? 'female') : 'female')
   const [shown, setShown] = useState(seed === 'validation-error')
   const [saving, setSaving] = useState(seed === 'saving')
   const timer = useRef<number | undefined>(undefined)
@@ -43,7 +46,7 @@ export default function PersonalInfo() {
   const offline = state === 'offline'
   const nameError = shown && name.trim() === '' ? t('clientProfilePersNameError') : undefined
   const emailError = shown && email.trim() !== '' && !EMAIL_SHAPE.test(email.trim()) ? t('clientProfilePersEmailError') : undefined
-  const dirty = name !== who.name || email !== storedEmail || seed === 'editing' || seed === 'saving' || seed === 'error' || seed === 'validation-error'
+  const dirty = name !== who.name || sex !== (storedSex ?? 'female') || email !== storedEmail || seed === 'editing' || seed === 'saving' || seed === 'error' || seed === 'validation-error'
 
   const save = () => {
     setShown(true)
@@ -51,7 +54,7 @@ export default function PersonalInfo() {
     setSaving(true)
     const done = () => {
       setSaving(false)
-      usePrototype.setState(s => (s.user ? { user: { ...s.user, name: name.trim(), monogram: monogramFor(name) } } : s))
+      usePrototype.getState().patchUser({ name: name.trim(), monogram: monogramFor(name), sex })
       useProfileFlow.getState().setEmail(email.trim())
       setShown(false)
       nav.toast({ message: c('commonStateSaved'), tone: 'success' })
@@ -91,6 +94,17 @@ export default function PersonalInfo() {
               forceFocus={seed === 'editing'}
             />
           </div>
+          <IconSegmented<Sex>
+            label={t('clientProfilePersSex')}
+            labels="all"
+            value={sex}
+            onChange={setSex}
+            disabled={offline || saving}
+            options={[
+              { value: 'female', icon: 'section-women', label: t('clientProfilePersSexFemale') },
+              { value: 'male', icon: 'section-men', label: t('clientProfilePersSexMale') },
+            ]}
+          />
           <TextField
             label={t('clientProfilePersEmail')}
             optional

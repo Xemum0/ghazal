@@ -24,6 +24,8 @@ export const weddingProfile = {
   venueBudget: { min: kd(20000), max: kd(35000) },
   totalBudget: kd(60000),
   areaIds: ['salmiya', 'sharq'],
+  // Salmiya is in Hawalli and Sharq in Capital (round 2: the Brief narrows by governorate, CA-FLT-08).
+  governorateIds: ['hawalli', 'capital'],
   searching: ['women'],
 }
 

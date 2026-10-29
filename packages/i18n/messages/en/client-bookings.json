@@ -9,8 +9,6 @@
   "clientBookingsPastNone": "No requests with this status",
   "clientBookingsLimitLabel": "Open requests",
   "clientBookingsLimitReached": "Close one to send another",
-  "clientBookingsGuestTitle": "Track your requests",
-  "clientBookingsGuestAction": "Sign in",
   "clientBookingsEmptyTitle": "No requests yet",
   "clientBookingsEmptyAction": "Find halls",
   "clientBookingsEmptyActionDate": "Halls on {date}",

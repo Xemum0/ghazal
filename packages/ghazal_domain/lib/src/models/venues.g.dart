@@ -2574,7 +2574,7 @@ final class PackageBriefPrice {
   final MoneyAmount? voucherPerGuest;
   /// The voucher flat amount; null when the rule has none.
   final MoneyAmount? voucherFlat;
-  /// Guests billed after the package and hall minimum (the Brief's guests
+  /// Guests billed after the package and hall minimum (the Brief's guests, or the minimum when fewer).
   final int? billedGuests;
   /// Billed guests minus the complimentary share; the quantity the per-guest rate multiplies.
   final int? billableGuests;
@@ -2713,7 +2713,7 @@ enum PricingUnit {
   String toJson() => value;
 }
 
-/// Extras are priced by the venue at one price (the same in both columns) and settled with the venue.
+/// DEPRECATED since round 2 (ADR 0038 D2, CA-SVC-19): hotels and halls offer no extras or add-on services through Ghazal. The schema stays valid and the engine still prices an extra when asked, but no response lists extras any more. Extras were priced by the venue at one price (the same in both columns) and settled with the venue.
 final class Extra {
   const Extra({
     required this.id,
@@ -4152,6 +4152,7 @@ final class VenueDetail {
 
   final Venue venue;
   final List<PackageOffer> packages;
+  /// DEPRECATED since round 2 (CA-SVC-19): always an empty list; the apps show no extras. Other services come from the Services hub.
   final List<Extra> extras;
   /// Active voucher price windows of this venue.
   final List<VoucherWindow> windows;

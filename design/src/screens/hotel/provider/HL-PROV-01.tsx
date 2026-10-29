@@ -1,89 +1,97 @@
-// HL-PROV-01 Choose your account type: first-run onboarding of a new partner. Hotel or wedding hall, or Service provider; then the profile
-// (business name in Arabic and English, categories for a provider, venue type and area for a venue, contact phone) and a submit that puts the
-// account under review. The first listing is reviewed again before it goes live. Fee exemption is never chosen here: Ghazal sets it.
-// Requirements: PA-ACC-01, PA-ACC-02, PA-ACC-03, PA-REV-01
-// States: venue-profile, provider-profile, categories, submitted-under-review, validation, loading, error, offline (the default frame is the chooser)
+// HL-PROV-01 Apply to join: the application form of a service provider or a private hall (PA-ACC-07, PA-ACC-08, ADR 0038). Two steps and a result:
+// the account type (Service provider or Private hall; a hotel or a hall chain is onboarded by Ghazal as before), the form (business name in
+// Arabic and English, up to three registered categories plus an open "Other" note for a provider, governorate, contact person, phone, email,
+// a short description, an optional commercial licence reference), and "Application received": the account stays under review, Ghazal staff
+// accept or reject it (HL-ACCS-04 shows the wait and the decision), and only an accepted account creates listings. A rejected application comes
+// back here through "Edit and resubmit", prefilled, with the reason on top. Fee exemption is never chosen here: Ghazal sets it.
+// Requirements: PA-ACC-01, PA-ACC-02, PA-ACC-03, PA-ACC-07, PA-ACC-08, PA-REV-01
+// States: empty, hall, filled, categories, validation, submitting, submitted, resubmit, error, offline (the default frame is the account type)
 import { useState } from 'react'
 import type { IconName } from '@gz/tokens'
-import { areasByGovernorate, governorates, personaFor } from '../../../mock'
+import { governorates } from '../../../mock'
 import type { ServiceCategoryId } from '../../../mock'
 import { useFrame } from '../../../shell/frame'
-import { ActionBar, Avatar, Button, ChipGroup, ErrorState, Icon, Illustration, PhoneField, Screen, SelectRow, Skeleton, ThreadBead, TopBar, useNav } from '../../../system'
+import { useLang } from '../../../shell/lang'
+import { ActionBar, Avatar, Button, ChipGroup, Icon, IconListRow, Illustration, PhoneField, Screen, TextArea, TextField, ThreadBead, TopBar, useNav } from '../../../system'
 import { BilingualField, FieldError } from './_components/fields'
-import { Note, OfflineStrip, StaticSheet, useBi, useLive, useP } from './_components/bits'
+import { Note, OfflineStrip, StaticSheet, useAfter, useBi, useLive, useP } from './_components/bits'
 import { CategorySheet } from './_components/CategorySheet'
+import { ABOUT_MAX, BLANK_FORM, MAX_CATEGORIES, demoHallForm, demoProviderForm, isComplete, missingOf, nameOfForm, useApplication, type ApplicantKind, type ApplicationForm } from './_components/application'
 import { categoryIcon, categoryOptions } from './_components/model'
 import { useProv } from './_components/store'
 import './HL-PROV-01.css'
 
-export const states = ['venue-profile', 'provider-profile', 'categories', 'submitted-under-review', 'validation', 'loading', 'error', 'offline']
+export const states = ['empty', 'hall', 'filled', 'categories', 'validation', 'submitting', 'submitted', 'resubmit', 'error', 'offline']
 
-type Kind = 'venue' | 'service_provider'
-type Step = 'choose' | 'profile' | 'submitted'
-type Profile = { nameAr: string; nameEn: string; cats: ServiceCategoryId[]; venueType: 'private-hall' | 'hotel' | null; gov: string | null; area: string | null; phone: string }
+type Step = 'choose' | 'form' | 'submitted'
 
-const PERSONA = personaFor('service_provider')
-const PHONE = (PERSONA?.phone ?? '+96550000047').replace('+965', '')
-const DEMO_PROVIDER: Profile = { nameAr: 'استوديو زهرة للزهور', nameEn: 'Zahra Floral Studio', cats: ['flowers'], venueType: null, gov: null, area: null, phone: PHONE }
-const DEMO_VENUE: Profile = { nameAr: 'فندق لومي مارينا', nameEn: 'Lumi Marina Hotel', cats: [], venueType: 'hotel', gov: governorates[0]?.id ?? null, area: areasByGovernorate()[0]?.areas[0]?.id ?? null, phone: PHONE }
-const BLANK: Profile = { nameAr: '', nameEn: '', cats: [], venueType: null, gov: null, area: null, phone: '' }
-
-const CHOICES: { kind: Kind; icon: IconName; title: 'hotelProviderTypeHotelTitle' | 'hotelProviderTypeProviderTitle'; facts: IconName[] }[] = [
-  { kind: 'venue', icon: 'hotel', title: 'hotelProviderTypeHotelTitle', facts: ['calendar', 'chat', 'ticket'] },
+const CHOICES: { kind: ApplicantKind; icon: IconName; title: 'hotelProviderTypeProviderTitle' | 'hotelProviderTypeHallTitle'; facts: IconName[] }[] = [
   { kind: 'service_provider', icon: 'megaphone', title: 'hotelProviderTypeProviderTitle', facts: ['catering', 'flower', 'camera'] },
+  { kind: 'private_hall', icon: 'hall', title: 'hotelProviderTypeHallTitle', facts: ['calendar', 'chat', 'ticket'] },
 ]
 
-export default function AccountType() {
+export default function ApplyToJoin() {
   const { state } = useFrame()
+  const { lang } = useLang()
   const nav = useNav()
   const bi = useBi()
   const { t } = useP()
   const live = useLive()
   const setViewer = useProv(s => s.setViewer)
+  const app = useApplication()
 
-  const frameKind: Kind | null = state === 'venue-profile' ? 'venue' : state === 'provider-profile' || state === 'categories' || state === 'validation' || state === 'submitted-under-review' || state === 'loading' || state === 'error' || state === 'offline' ? 'service_provider' : null
-  const frameStep: Step = state === 'submitted-under-review' ? 'submitted' : frameKind ? 'profile' : 'choose'
-  const [kind, setKind] = useState<Kind | null>(frameKind)
-  const [step, setStep] = useState<Step>(frameStep)
-  const [p, setP] = useState<Profile>(state === 'validation' ? BLANK : state === 'venue-profile' ? DEMO_VENUE : state ? DEMO_PROVIDER : BLANK)
+  // A rejected application comes back here prefilled (HL-ACCS-04 "Edit and resubmit").
+  const resubmit = state === 'resubmit' || (state === undefined && nav.params.resubmit === true && app.form !== null)
+  const frameForm: ApplicationForm | null =
+    state === 'hall' ? demoHallForm(lang) : state === 'validation' || state === 'empty' ? BLANK_FORM : state === 'resubmit' || state === 'filled' || state === 'categories' || state === 'submitting' || state === 'submitted' || state === 'error' || state === 'offline' ? demoProviderForm(lang) : null
+  const initialForm: ApplicationForm | null = frameForm ?? (resubmit ? app.form : null)
+
+  const [step, setStep] = useState<Step>(state === 'submitted' ? 'submitted' : initialForm ? 'form' : 'choose')
+  const [kind, setKind] = useState<ApplicantKind | null>(initialForm?.kind ?? null)
+  const [p, setP] = useState<ApplicationForm>(initialForm ?? BLANK_FORM)
   const [tried, setTried] = useState(state === 'validation')
+  const [busy, setBusy] = useState(state === 'submitting')
   const [failed, setFailed] = useState(state === 'error')
-  const patch = (x: Partial<Profile>) => setP(s => ({ ...s, ...x }))
+  const patch = (x: Partial<ApplicationForm>) => setP(s => ({ ...s, ...x }))
   const offline = state === 'offline'
-  const loading = state === 'loading'
 
-  const isVenue = kind === 'venue'
-  const missing = {
-    nameAr: p.nameAr.trim() === '',
-    nameEn: p.nameEn.trim() === '',
-    cats: !isVenue && p.cats.length === 0,
-    type: isVenue && p.venueType === null,
-    area: isVenue && (!p.gov || !p.area),
-    phone: p.phone.length !== 8,
-  }
+  const isHall = p.kind === 'private_hall'
+  const missing = missingOf(p)
   const incomplete = Object.values(missing).some(Boolean)
   const required = t('hotelProviderRequired')
 
-  const submit = () => {
+  const send = () => {
     setTried(true)
-    if (incomplete) return
-    if (live) setViewer(isVenue ? 'hotel' : 'provider')
-    setStep('submitted')
+    setFailed(false)
+    if (!isComplete(p)) return
+    setBusy(true)
   }
+  // The round trip is simulated in the live player only: a static frame holds still.
+  useAfter(
+    700,
+    () => {
+      useApplication.getState().submit(p)
+      setViewer(isHall ? 'hotel' : 'provider')
+      setBusy(false)
+      setStep('submitted')
+    },
+    busy,
+  )
 
   const chooseCategories = () => {
     const key = nav.openSheet(
-      <CategorySheet title={t('hotelProviderProfileCategories')} max={3} value={p.cats} onClose={() => nav.closeSheet(key)} onApply={v => { patch({ cats: v }); nav.closeSheet(key) }} />,
+      <CategorySheet title={t('hotelProviderProfileCategories')} max={MAX_CATEGORIES} value={p.cats} onClose={() => nav.closeSheet(key)} onApply={v => { patch({ cats: v }); nav.closeSheet(key) }} />,
       {},
     )
   }
 
+  const barTitle = step === 'submitted' ? t('hotelProviderSubmittedBar') : resubmit ? t('hotelProviderFormBarEdit') : t(isHall ? 'hotelProviderTypeHallTitle' : 'hotelProviderTypeProviderTitle')
   const top = (
     <>
       <TopBar
-        title={step === 'choose' ? undefined : t(step === 'submitted' ? 'hotelProviderSubmittedBar' : isVenue ? 'hotelProviderTypeHotelTitle' : 'hotelProviderTypeProviderTitle')}
+        title={step === 'choose' ? undefined : barTitle}
         back={step === 'submitted' ? false : 'auto'}
-        onBack={step === 'profile' ? () => setStep('choose') : undefined}
+        onBack={step === 'form' && !resubmit ? () => setStep('choose') : undefined}
       />
       {offline ? <OfflineStrip /> : null}
     </>
@@ -92,7 +100,20 @@ export default function AccountType() {
   let bottom
   let body
   if (step === 'choose') {
-    bottom = <ActionBar action={{ label: t('hotelProviderContinue'), iconEnd: 'chevron-right', disabled: kind === null, reason: kind === null ? t('hotelProviderChooseReason') : undefined, onPress: () => setStep('profile') }} />
+    bottom = (
+      <ActionBar
+        action={{
+          label: t('hotelProviderContinue'),
+          iconEnd: 'chevron-right',
+          disabled: kind === null,
+          reason: kind === null ? t('hotelProviderChooseReason') : undefined,
+          onPress: () => {
+            if (kind) patch({ kind })
+            setStep('form')
+          },
+        }}
+      />
+    )
     body = (
       <div className="hp01">
         <header className="hp01__head">
@@ -118,64 +139,59 @@ export default function AccountType() {
             </button>
           ))}
         </div>
+        <Note tone="quiet" icon="hotel">
+          {t('hotelProviderChooseChains')}
+        </Note>
       </div>
     )
   } else if (step === 'submitted') {
     bottom = (
       <ActionBar
-        action={
-          isVenue
-            ? { label: t('hotelProviderSubmittedToday'), iconEnd: 'chevron-right', onPress: () => nav.reset('HL-TODY-01') }
-            : { label: t('hotelProviderSubmittedFirst'), iconEnd: 'chevron-right', onPress: () => nav.push('HL-PROV-03', { account: 'provider' }) }
-        }
-        note={
-          <span className="hp01__quiet">
-            <Button variant="tertiary" onClick={() => nav.push('HL-ACCS-04', { variant: 'under-review' })}>
-              {t('hotelProviderSubmittedStatus')}
-            </Button>
-            {!isVenue ? (
-              <Button variant="tertiary" onClick={() => nav.reset('HL-TODY-01')}>
-                {t('hotelProviderSubmittedToday')}
-              </Button>
-            ) : null}
-          </span>
-        }
+        action={{
+          label: t('hotelProviderSubmittedStatus'),
+          iconEnd: 'chevron-right',
+          onPress: () => nav.reset('HL-ACCS-04', { variant: 'application-review', account: isHall ? 'hotel' : 'provider' }),
+        }}
       />
     )
     body = (
       <div className="hp01">
         <header className="hp01__head">
-          <Illustration name="partner-review" size="hero" />
+          <Illustration name="partner-review" size="lg" />
           <h1 className="gz-t-ui-xl hp01__title">{t('hotelProviderSubmittedTitle')}</h1>
+          <p className="gz-t-body hp01__line">{t('hotelProviderSubmittedLine')}</p>
         </header>
         <div className="hp01__who">
-          <Avatar name={p.nameEn || p.nameAr} initial={Array.from((p.nameEn || p.nameAr).trim())[0]} voice="sans" size="md" />
+          <Avatar name={bi(nameOfForm(p))} initial={Array.from(bi(nameOfForm(p)).trim())[0]} voice="sans" size="md" />
           <span className="hp01__whotext">
-            <span className="gz-t-title hp01__whoname" dir="auto">{bi({ en: p.nameEn, ar: p.nameAr })}</span>
-            <Icon name={isVenue ? 'hotel' : 'megaphone'} size="sm" tone="secondary" />
+            <span className="gz-t-title hp01__whoname" dir="auto">{bi(nameOfForm(p))}</span>
           </span>
+          <Icon name={isHall ? 'hall' : 'megaphone'} size="md" tone="secondary" />
         </div>
-      </div>
-    )
-  } else if (loading) {
-    body = (
-      <div className="hp01" aria-busy="true">
-        <Skeleton variant="line" blockSize={28} inlineSize={180} />
-        <Skeleton variant="block" blockSize={56} />
-        <Skeleton variant="block" blockSize={56} />
-        <Skeleton variant="block" blockSize={56} />
+        <section className="hp01__next" aria-label={t('hotelProviderSubmittedNext')}>
+          <h2 className="gz-t-label hp01__label">{t('hotelProviderSubmittedNext')}</h2>
+          <IconListRow flush icon="clipboard" title={t('hotelProviderNextReview')} />
+          <IconListRow flush icon="mail" title={t('hotelProviderNextEmail')} />
+          <IconListRow flush last icon="megaphone" title={t('hotelProviderNextListings')} />
+        </section>
       </div>
     )
   } else {
     bottom = (
       <ActionBar
-        action={{ label: t('hotelProviderSubmit'), iconEnd: 'check', loading: false, disabled: offline, reason: offline ? t('hotelProviderNeedsConnection') : undefined, onPress: submit }}
+        action={{ label: t('hotelProviderSubmit'), iconEnd: 'check', loading: busy, disabled: offline, reason: offline ? t('hotelProviderNeedsConnection') : undefined, onPress: send }}
       />
     )
     const cats = categoryOptions()
     body = (
-      <div className="hp01">
-        {failed ? <Note tone="danger" action={{ label: t('hotelProviderRetryShort'), onPress: () => setFailed(false) }}>{t('hotelProviderSubmitErrorTitle')}</Note> : null}
+      <div className="hp01" aria-busy={busy || undefined}>
+        {failed ? (
+          <Note tone="danger" action={{ label: t('hotelProviderRetryShort'), onPress: send }}>
+            {t('hotelProviderSubmitError')}
+          </Note>
+        ) : null}
+        {resubmit ? <Note tone="danger">{t('hotelProviderFormResubmitNote', { note: app.note || t('hotelProviderAppDemoNote') })}</Note> : null}
+        {tried && incomplete ? <Note tone="danger">{t('hotelProviderFormFix')}</Note> : null}
         <BilingualField
           label={t('hotelProviderProfileName')}
           ar={p.nameAr}
@@ -186,77 +202,54 @@ export default function AccountType() {
           errorEn={tried && missing.nameEn ? required : undefined}
           maxLength={60}
         />
-        {isVenue ? (
-          <>
-            <div className="hp01__group">
-              <ChipGroup<'private-hall' | 'hotel'>
-                label={t('hotelProviderProfileVenueType')}
-                value={p.venueType}
-                onChange={v => patch({ venueType: v })}
-                options={[
-                  { value: 'private-hall', label: t('hotelProviderVenueTypeHall') },
-                  { value: 'hotel', label: t('hotelProviderVenueTypeHotel') },
-                ]}
-              />
-              {tried && missing.type ? <FieldError>{required}</FieldError> : null}
-            </div>
-            <SelectRow<string>
-              label={t('hotelProviderProfileGovernorate')}
-              sheetTitle={t('hotelProviderProfileGovernorate')}
-              placeholder={t('hotelProviderProfileChoose')}
-              options={governorates.map(g => ({ value: g.id, label: bi(g.name) }))}
-              value={p.gov}
-              onChange={v => patch({ gov: v, area: null })}
-              error={tried && !p.gov ? required : undefined}
-            />
-            <SelectRow<string>
-              label={t('hotelProviderProfileArea')}
-              sheetTitle={t('hotelProviderProfileArea')}
-              placeholder={t('hotelProviderProfileChoose')}
-              searchable
-              options={(areasByGovernorate().find(g => g.governorate.id === p.gov)?.areas ?? []).map(a => ({ value: a.id, label: bi(a.name) }))}
-              value={p.area}
-              onChange={v => patch({ area: v })}
-              disabled={!p.gov}
-              error={tried && p.gov && !p.area ? required : undefined}
-            />
-          </>
-        ) : (
+        {!isHall ? (
           <div className="hp01__group">
             <span className="gz-t-label hp01__label">{t('hotelProviderProfileCategories')}</span>
-            <div className="hp01__cats">
-              {p.cats.map(id => (
-                <span key={id} className="gz-t-body-s hp01__cat">
-                  <Icon name={categoryIcon(cats.find(c => c.id === id)?.icon ?? 'flower')} size="xs" />
-                  {bi(cats.find(c => c.id === id)?.name ?? { en: '', ar: '' })}
-                </span>
-              ))}
-            </div>
-            <Button variant="secondary" iconStart={p.cats.length ? 'edit' : 'plus'} onClick={chooseCategories}>
-              {t(p.cats.length ? 'hotelProviderCatsEdit' : 'hotelProviderCatsChoose')}
-            </Button>
+            {p.cats.length > 0 ? (
+              <div className="hp01__cats">
+                {p.cats.map(id => (
+                  <span key={id} className="gz-t-body-s hp01__cat">
+                    <Icon name={categoryIcon(cats.find(c => c.id === id)?.icon ?? 'flower')} size="xs" />
+                    {bi(cats.find(c => c.id === id)?.name ?? { en: '', ar: '' })}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+            <span className="hp01__start">
+              <Button variant="secondary" iconStart={p.cats.length ? 'edit' : 'plus'} onClick={chooseCategories}>
+                {t(p.cats.length ? 'hotelProviderCatsEdit' : 'hotelProviderCatsChoose')}
+              </Button>
+            </span>
+            <TextField label={t('hotelProviderFormOther')} helper={t('hotelProviderFormOtherHelper')} maxLength={60} value={p.otherNote} onValueChange={otherNote => patch({ otherNote })} />
             {tried && missing.cats ? <FieldError>{required}</FieldError> : null}
           </div>
-        )}
-        <PhoneField label={t('hotelProviderProfilePhone')} value={p.phone} onChange={n => patch({ phone: n })} error={tried && missing.phone ? t('hotelProviderPhoneError') : undefined} />
-        {!isVenue ? (
-          <div className="hp01__logo">
-            <Avatar name={p.nameEn || p.nameAr || '·'} initial={Array.from((p.nameEn || p.nameAr || '·').trim())[0]} voice="sans" size="md" />
-            <span className="hp01__logotext">
-              <span className="gz-t-title">{t('hotelProviderLogoTitle')}</span>
-            </span>
-            <Button variant="tertiary" onClick={() => nav.toast({ message: t('hotelProviderLogoToast'), icon: 'info' })}>
-              {t('hotelProviderLogoUpload')}
-            </Button>
-          </div>
         ) : null}
+        <div className="hp01__group">
+          <span className="gz-t-label hp01__label">{t('hotelProviderProfileGovernorate')}</span>
+          <ChipGroup<string>
+            label={t('hotelProviderProfileGovernorate')}
+            layout="wrap"
+            value={p.gov}
+            onChange={gov => patch({ gov })}
+            options={governorates.map(g => ({ value: g.id, label: bi(g.name) }))}
+          />
+          {tried && missing.gov ? <FieldError>{required}</FieldError> : null}
+        </div>
+        <TextField label={t('hotelProviderFormContact')} maxLength={60} value={p.contact} onValueChange={contact => patch({ contact })} error={tried && missing.contact ? required : undefined} />
+        <PhoneField label={t('hotelProviderProfilePhone')} value={p.phone} onChange={n => patch({ phone: n })} error={tried && missing.phone ? t('hotelProviderPhoneError') : undefined} />
+        <TextField
+          label={t('hotelProviderFormEmail')}
+          dir="ltr"
+          inputMode="email"
+          autoComplete="email"
+          value={p.email}
+          onValueChange={email => patch({ email })}
+          error={tried && missing.email ? t('hotelProviderFormEmailError') : undefined}
+        />
+        <TextArea label={t('hotelProviderFormAbout')} rows={3} maxLength={ABOUT_MAX} value={p.about} onValueChange={about => patch({ about })} error={tried && missing.about ? required : undefined} />
+        <TextField label={t('hotelProviderFormLicence')} optional dir="ltr" maxLength={40} value={p.licence} onValueChange={licence => patch({ licence })} />
       </div>
     )
-  }
-
-  if (state === 'error') {
-    body = <ErrorState kind="generic" title={t('hotelProviderSubmitErrorTitle')} body={t('hotelProviderSubmitError')} onRetry={() => nav.replace('HL-PROV-01', nav.params)} />
-    bottom = undefined
   }
 
   return (
@@ -266,7 +259,7 @@ export default function AccountType() {
       </Screen>
       {state === 'categories' ? (
         <StaticSheet label={t('hotelProviderProfileCategories')}>
-          <CategorySheet title={t('hotelProviderProfileCategories')} max={3} value={p.cats} onApply={() => undefined} />
+          <CategorySheet title={t('hotelProviderProfileCategories')} max={MAX_CATEGORIES} value={p.cats as ServiceCategoryId[]} onApply={() => undefined} />
         </StaticSheet>
       ) : null}
     </>

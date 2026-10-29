@@ -1,5 +1,5 @@
 // AppliedChips (CL-DISC-03): the one scrolling row under the Brief sentence. Filters (with its count) and Sort open their sheets; Region and
-// Date are the two quick entries of the owner's filters (CL-DISC-07 and CL-DISC-06): they show their value once set and open their editor
+// Date are the two quick entries of the owner's filters (the Region group of CL-DISC-04 and CL-DISC-06): they show their value once set and open their editor
 // (clearing happens there, and in Clear all); then every other applied filter is a removable chip (the chosen-chip anatomy: ink border, a gold bead, weight 500, plus a close glyph); "Clear" ends the row.
 // 44 high everywhere, 8 between. The row starts on the gutter and scrolls under the edge (no clipping of the first chip).
 // ADR 0034: an applied chip is the filter's glyph and one short value; Filters (with its count), Sort, Region and Date are the glyph alone until they

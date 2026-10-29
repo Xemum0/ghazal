@@ -1,10 +1,10 @@
 // CL-WEDD-03 Budget (pushed from My Wedding; tab bar visible). Requirements: CA-TOOL-05, CA-TOOL-06, CA-TOOL-07, CA-TOOL-08, CA-TOOL-09,
-// CA-TOOL-11, CA-ONB-04, CA-AUTH-10.
+// CA-TOOL-11, CA-ONB-04.
 //
 // Committed versus paid versus remaining. What is left is the hero; one segmented bar and its two figures say how the rest divides; categories
 // are ranked by what has gone into them, each with its own meter; the voucher and the venue price post themselves to the venue category (read only,
 // they open the booking) and the couple's own expenses sit beside them. Alerts are calm: a gold-ink note at 80%, the functional danger
-// state at 100%, always a glyph and a figure. Rules, no AI. A guest sees a sample and signs in at the first write.
+// state at 100%, always a glyph and a figure. Rules, no AI.
 //
 // Text diet (ADR 0034): glyphs, figures and one-word names. No caption, no hint, no sentence; the states are a drawing, three words and one verb.
 // The one rule that needs a sentence (the voucher is paid in the app, the venue price to the venue) sits behind the info glyph of Payments.
@@ -15,13 +15,12 @@ import { BudgetHero } from './_components/BudgetHero'
 import { DateText } from './_components/DateText'
 import { CategoryRow } from './_components/CategoryRow'
 import { LedgerRow } from './_components/LedgerRow'
-import { openGuestGate } from './_components/gate'
 import { alertOf, usedOf } from './_components/model'
 import { useCategoryName } from './_components/names'
 import { useBudgetModel, useStateParam, useWedding } from './_components/useWedding'
 import './CL-WEDD-03.css'
 
-export const states = ['loading', 'empty-no-budget', 'alert-80', 'over-budget', 'guest-sample', 'offline-read-only', 'error']
+export const states = ['loading', 'empty-no-budget', 'alert-80', 'over-budget', 'offline-read-only', 'error']
 
 export default function Budget() {
   const t = useT('client-my-wedding')
@@ -34,14 +33,12 @@ export default function Budget() {
   const variant = state === 'alert-80' ? 'alert-80' : state === 'over-budget' ? 'over-budget' : null
   const model = useBudgetModel(w, variant, state === 'empty-no-budget')
 
-  const guest = w.guest
   const offline = state === 'offline-read-only'
   const empty = model.total === null
   const alert = alertOf(model)
 
-  const gate = () => openGuestGate(nav, 'CL-WEDD-03')
   const addExpense = () => nav.openSheet('CL-WEDD-04')
-  const editBudget = () => (guest ? gate() : nav.openSheet('CL-WEDD-05'))
+  const editBudget = () => nav.openSheet('CL-WEDD-05')
 
   const top = <TopBar title={t('clientMyWeddingBudgetTitle')} />
 
@@ -99,7 +96,7 @@ export default function Budget() {
 
   const openRow = (r: (typeof model.ledger)[number]) => {
     if (r.kind === 'auto' && r.bookingId) return () => nav.push('CL-BKNG-02', { bookingId: r.bookingId })
-    if (r.kind === 'manual' && !r.id.startsWith('demo-') && !offline) return () => (guest ? gate() : nav.openSheet('CL-WEDD-04', { params: { expenseId: r.id } }))
+    if (r.kind === 'manual' && !r.id.startsWith('demo-') && !offline) return () => nav.openSheet('CL-WEDD-04', { params: { expenseId: r.id } })
     return undefined
   }
   const currency = f.moneyParts(0).currency
@@ -126,11 +123,6 @@ export default function Budget() {
 
       <div className="gzmw-bd" data-gz-id="budget">
         <div className="gzmw-bd__top">
-          {guest ? (
-            <Banner tone="info" action={{ label: t('clientMyWeddingGuestAction'), onPress: gate }}>
-              {t('clientMyWeddingSample')}
-            </Banner>
-          ) : null}
           <div className="gzmw-bd__pad">
             <BudgetHero model={model} onEdit={offline ? undefined : editBudget} />
           </div>

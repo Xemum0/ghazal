@@ -37,10 +37,8 @@ const initial = () => ({
   language: 'en' as const,
   auth: 'guest' as const,
   user: null,
-  gate: null,
   weddingProfile: null,
   favourites: { venue: [] as string[], vendor: [] as string[], package: [] as string[] },
-  signupNudge: false,
   compareList: [] as string[],
   searchBrief: { ...EMPTY_BRIEF },
   bookingDraft: { ...EMPTY_DRAFT, personal: { ...EMPTY_DRAFT.personal }, extras: [] as string[] },
@@ -76,10 +74,9 @@ export const usePrototype = create<PrototypeState>()((set, get) => ({
   },
 
   // ---------------------------------------------------------------- auth
-  signIn: user => set({ auth: 'signedIn', user: user ?? storyUser(), gate: null }),
-  signOut: () => set({ auth: 'guest', user: null, gate: null }),
-  openGate: (reason, resume = null) => set({ gate: { reason, resume } }),
-  clearGate: () => set({ gate: null }),
+  signIn: user => set({ auth: 'signedIn', user: user ?? storyUser() }),
+  signOut: () => set({ auth: 'guest', user: null }),
+  patchUser: patch => set(s => (s.user ? { user: { ...s.user, ...patch } } : s)),
 
   // ---------------------------------------------------------------- wedding profile
   setWeddingProfile: weddingProfile => set({ weddingProfile }),
@@ -90,15 +87,9 @@ export const usePrototype = create<PrototypeState>()((set, get) => ({
     const s = get()
     const has = s.favourites[kind].includes(id)
     const list = has ? s.favourites[kind].filter(x => x !== id) : [...s.favourites[kind], id]
-    const total = s.favourites.venue.length + s.favourites.vendor.length + s.favourites.package.length + (has ? -1 : 1)
-    set({
-      favourites: { ...s.favourites, [kind]: list },
-      // The sign-up nudge shows once, after the third heart, for a guest (ADR 0007 D10).
-      signupNudge: s.signupNudge || (!has && s.auth === 'guest' && total === 3),
-    })
+    set({ favourites: { ...s.favourites, [kind]: list } })
     return !has
   },
-  clearSignupNudge: () => set({ signupNudge: false }),
 
   // ---------------------------------------------------------------- compare
   addToCompare: venueId => {

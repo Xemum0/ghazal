@@ -1,6 +1,7 @@
 // Gallery: planner tiers, the 16 service tiles and vendor cards, from the planners and services fixtures.
 import { useState } from 'react'
 import { plannerPackages, serviceCategories, vendors } from '../../../mock'
+import { ProviderNote } from '../ProviderNote'
 import { PlannerTierCard, ServiceTile, VendorCard } from '../ServiceCards'
 import { Row, Section, Spec, useL } from './kit'
 
@@ -86,6 +87,10 @@ export function VendorSection() {
         <VendorCard vendor={rated} variant="row" onOpen={() => undefined} />
         <VendorCard vendor={fresh} variant="row" previewState="pressed" />
         <VendorCard vendor={rated} loading />
+      </Spec>
+      <Spec state={l('Provider note (CA-SVC-20) · glyph, one line, quiet external link · footer of Services, a row of Profile', 'ملاحظة المزوّد (CA-SVC-20) · رمز وسطر واحد ورابط خارجي هادئ · تذييل الخدمات وصف في الملف الشخصي')}>
+        <ProviderNote variant="footer" />
+        <ProviderNote variant="row" />
       </Spec>
     </Section>
   )

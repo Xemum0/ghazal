@@ -2,17 +2,16 @@
 // The most important screen of the product. Maison hero with the arch crown (the one place besides onboarding), one three-word headline,
 // the structured Brief card (each row a glyph and its value, a button that opens the Brief sheet on that row; one gold CTA with the live
 // count), one urgency-ranked status card (a drawing, a pill, the venue's name, one fact), the Venues | Services switch, six one-word photo
-// category tiles, then the Brief-aware shelves. Compare tray after the first add (anti-nag, TrayDock). A guest sees all of it: the third
-// heart raises the once-only sign-up nudge. States: default, loading, empty, error, offline, guest, status-card-variants, tray.
+// category tiles, then the Brief-aware shelves. Compare tray after the first add (anti-nag, TrayDock). No signed-out variant (ADR 0038).
+// The Brief card's second row is governorates (CA-FLT-08). States: default, loading, empty, error, offline, status-card-variants, tray.
 // Text diet (ADR 0034, docs/design/02-text-diet.md): no greeting banner, no captions, no notes under shelf titles, no sentence anywhere;
 // words left: the headline, one-word placeholders, the CTA, shelf titles and "All". Everything else is a glyph, a drawing or a figure.
-import { useContext, useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import * as mock from '../../../mock'
 import { useFormat, useT } from '../../../i18n'
 import { useLang } from '../../../shell/lang'
 import { useFrame } from '../../../shell/frame'
-import { LayerActiveContext, useDevice } from '../../../shell/device/context'
-import { usePrototype } from '../../../shell/state'
+import { useDevice } from '../../../shell/device/context'
 import {
   Banner, Button, CategoryTile, Chip, EmptyState, ErrorState, Figures, IconButton, IconTabs, PullToRefresh, Screen, Skeleton, TopBar, Wordmark, useNav,
   type BriefField,
@@ -30,11 +29,9 @@ import { TrayDock } from './_components/TrayDock'
 import { CATEGORIES, freeCount, nearestFreeDates, photo, NO_FILTERS, type CategoryId, type Filters, type ShelfId } from './_components/data'
 import { useDayLabel } from './_components/labels'
 import { statusKind, useScenario } from './_components/scenario'
-import { useDiscover } from './_components/state'
-import { storyBrief } from '../../../shell/state/defaults'
 import './CL-DISC-01.css'
 
-export const states = ['loading', 'empty', 'error', 'offline', 'guest', 'status-card-variants', 'tray']
+export const states = ['loading', 'empty', 'error', 'offline', 'status-card-variants', 'tray']
 
 const CATEGORY_KEY: Record<CategoryId, 'clientDiscoverCategoryLuxuryHotels' | 'clientDiscoverCategoryWeddingHalls' | 'clientDiscoverCategoryGovernment' | 'clientDiscoverCategoryBeach' | 'clientDiscoverCategoryOutdoor' | 'clientDiscoverCategoryVip'> = {
   'luxury-hotels': 'clientDiscoverCategoryLuxuryHotels',
@@ -86,7 +83,7 @@ export default function Home() {
   const openResults = (filters: Filters = NO_FILTERS) => nav.push('CL-DISC-03', { from: 'discover', filters })
   const showHalls = () => openResults({ ...NO_FILTERS, available: Boolean(brief.date) })
   const seeAll = (shelf: ShelfId) => openResults({ ...NO_FILTERS, shelf })
-  const openCategory = (category: CategoryId) => openResults({ ...NO_FILTERS, category, areaIds: [] })
+  const openCategory = (category: CategoryId) => openResults({ ...NO_FILTERS, category, governorateIds: [] })
   const openStatus = () => {
     if (!live) return
     switch (kind) {
@@ -103,21 +100,6 @@ export default function Home() {
         return nav.push('CL-BKNG-02', { bookingId: s.booking?.id })
     }
   }
-
-  // Once after sign-in: the phone and the account hold different Briefs (the account's is Reem's story Brief) -> the merge variant of the sheet.
-  // Only when Home is the visible screen (a sign-in raised from the booking flow must not stack this sheet over it), and only for an
-  // account that already holds a Brief (a brand-new account has none, so its phone Brief simply moves over).
-  const layerActive = useContext(LayerActiveContext)
-  const accountId = usePrototype(st => st.user?.id)
-  useEffect(() => {
-    if (!live || !s.signedIn || !layerActive || accountId === 'user-new' || useDiscover.getState().mergeShown) return
-    const acc = storyBrief()
-    const differs = Boolean(brief.date) && (brief.date !== acc.date || brief.guests !== acc.guests || (brief.areaIds ?? []).join() !== (acc.areaIds ?? []).join())
-    if (!differs) return
-    const id = window.setTimeout(() => nav.openSheet('CL-DISC-02', { params: { variant: 'merge' }, onClose: () => useDiscover.getState().setMergeShown() }), 400)
-    return () => window.clearTimeout(id)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [live, s.signedIn, layerActive, accountId])
 
   const refresh = () =>
     new Promise<void>(done =>

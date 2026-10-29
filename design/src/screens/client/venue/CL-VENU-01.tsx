@@ -3,11 +3,12 @@
 // badges, the ruled date strip (is it free on our date, the voucher price and the standard price beside it, the saving), the Booking Thread
 // before anything has happened, hall and package choice (two prices each), facilities as glyph tiles, policy tiles, reviews, the map and
 // similar halls, and a sticky bar that replaces the tab bar with the three paths: Get voucher (or Send request when a ready voucher exists),
-// Book visit, Contact. It works fully for a guest (both prices are visible); the account is asked at Get voucher.
+// Book visit, Contact. Every client is signed in (ADR 0038): there is no signed-out variant and no gate before Get voucher. The page offers
+// no extras, add-on services or service links: services are chosen only in the Services hub (CA-SVC-19).
 // Text diet (ADR 0034, docs/design/02-text-diet.md): facts are glyph and figure, the three paragraphs that survive (voucher terms, venue terms,
 // error recovery) sit behind (i) or in their sheet; the message-the-venue card is gone (Contact in the bar is the same chat, CA-CHAT-02).
-// Navigates to CL-VENU-02/03/04/05, CL-RVRW-01, CL-BOOK-01, CL-MSGS-02, CL-SAVD-02/03/04, CL-AUTH-01, CL-DISC-02, CL-VCHR-01, CL-VIST-01.
-import { useEffect, useRef, useState } from 'react'
+// Navigates to CL-VENU-02/03/04/05, CL-RVRW-01, CL-BOOK-01, CL-MSGS-02, CL-SAVD-02/03/04, CL-DISC-02, CL-VCHR-01, CL-VIST-01.
+import { useRef, useState } from 'react'
 import * as mock from '../../../mock'
 import type { VenueResult } from '../../../mock'
 import { useFormat, useT } from '../../../i18n'
@@ -26,14 +27,14 @@ import { VenueHeader } from './_components/VenueHeader'
 import { VenueHero } from './_components/VenueHero'
 import { useHeroIndex } from './_components/heroIndex'
 import { staleStamp, VOUCHER_FEE_FILS } from './_components/model'
-import { useVenueActions, usePendingVoucher } from './_components/useActions'
+import { useVenueActions } from './_components/useActions'
 import { useVenuePage } from './_components/usePage'
 import { useScrolledPast } from './_components/useScrolledPast'
 import { useGallery } from './_components/zones'
 
 export const states = [
   'loading', 'error', 'offline', 'date-held', 'date-unavailable', 'no-date', 'offer-active', 'no-reviews', 'delisted',
-  'guest', 'voucher-already-owned', 'no-voucher-price', 'visit-unavailable', 'browse-only-contact',
+  'voucher-already-owned', 'no-voucher-price', 'visit-unavailable', 'browse-only-contact',
 ]
 
 export default function VenueDetail() {
@@ -55,22 +56,10 @@ export default function VenueDetail() {
   const favourite = usePrototype(s => (venue ? s.favourites.venue.includes(venue.id) : false))
   const compared = usePrototype(s => (venue ? s.compareList.includes(venue.id) : false))
   const compareCount = usePrototype(s => s.compareList.length)
-  const signedIn = usePrototype(s => s.auth === 'signedIn')
-  const pending = usePendingVoucher(s => s.pending)
-
-  // A guest who tapped Get voucher and signed in comes back to this page: the voucher sheet opens with the exact quote (ADR 0007 D8).
-  useEffect(() => {
-    if (!page.live || !signedIn || !pending || pending.venueId !== page.venueId) return
-    const id = window.setTimeout(() => {
-      usePendingVoucher.getState().set(null)
-      actions.openVoucher(pending.carry)
-    }, 450)
-    return () => window.clearTimeout(id)
-  }, [page.live, page.venueId, signedIn, pending, actions])
 
   // ---- a link to a venue that is no longer listed
   if (flags.delisted || !venue || !hall) {
-    const near = mock.listVenues({}, { date: brief.date, guests: brief.guests, audience: brief.audience, areaIds: [] }).filter(r => r.venue.channel !== 'external_link').slice(0, 3) as VenueResult[]
+    const near = mock.listVenues({}, { date: brief.date, guests: brief.guests, audience: brief.audience }).filter(r => r.venue.channel !== 'external_link').slice(0, 3) as VenueResult[]
     return (
       <Screen top={<TopBar back />}>
         <div className="gzv-page">
@@ -158,7 +147,6 @@ export default function VenueDetail() {
           status={page.status}
           prices={page.prices}
           row={page.row}
-          guest={flags.guest}
           owned={Boolean(page.owned)}
           windowTitle={page.windowTitle ? bi(page.windowTitle) : null}
           nearest={page.nearest}

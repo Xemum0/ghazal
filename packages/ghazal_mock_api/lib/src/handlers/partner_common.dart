@@ -14,6 +14,15 @@ Json requireVenue(MockApp app, Req r) {
   return app.db.get('Venue', id) ?? (throw ApiError.notFound('venue'));
 }
 
+/// The application of a partner account (round 2, PA-ACC-07), or null for an account Ghazal assigned (those are accepted).
+Json? applicationOfAccount(MockApp app, String accountId) => app.db.firstWhere('PartnerApplication', (a) => a['accountId'] == accountId);
+
+/// Only an accepted account can create listings: an account with a pending or rejected application is refused (403 `APPLICATION_NOT_ACCEPTED`).
+void requireAcceptedAccount(MockApp app, String accountId) {
+  final a = applicationOfAccount(app, accountId);
+  if (a != null && a['status'] != 'accepted') throw ApiError('APPLICATION_NOT_ACCEPTED', params: {'applicationStatus': a['status']});
+}
+
 /// The provider id of the context (provider contexts only).
 String requireProviderId(Req r) => r.ctx.providerId ?? (throw ApiError.forbidden('this call needs a provider context'));
 

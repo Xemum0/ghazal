@@ -2,8 +2,8 @@
 // as two cells and no repeated figure: the KD 2 voucher to Ghazal (paid, once) and the voucher price to the venue directly (off-app: the one
 // word the voucher model needs), the larger cell. Under them the deal is one quiet line of facts, `[offer] struck standard  [trend] saving
 // [per guest] KD 44`. The info glyph (`PriceInfo`) holds the sentences ("all-in at the venue's terms", "nothing more to pay Ghazal": voucher
-// terms, one of the three allowed paragraphs) and sits in the header of the Price section, where the policy puts it. Extra lines (add-ons)
-// list only when there is more than one line.
+// terms, one of the three allowed paragraphs) and sits in the header of the Price section, where the policy puts it. Further lines (a venue discount,
+// a service charge) list only when there is more than one line; there are no add-on lines (ADR 0038).
 import type { Booking } from '@gz/contracts'
 import { FactChip, FactRow, Icon, InfoButton, Price, useBi } from '../../../../system'
 import { StruckAmount } from './Amount'
@@ -23,12 +23,12 @@ export function PriceBlock({ booking: b, stage }: PriceBlockProps) {
   const hasVoucher = totals.voucherTotal.fils < totals.standardTotal.fils
   const first = b.lines[0]
   const perGuest = first?.unit && first.qty > 1 ? first.unit.fils : null
-  const extra = b.lines.length > 1
+  const itemised = b.lines.length > 1
   const settled = stage === 'redeemed'
 
   return (
     <div className="gzb-price" data-gz="PriceBlock" data-stage={stage}>
-      {extra ? (
+      {itemised ? (
         <ul className="gzb-price__lines" data-gz-id="lines">
           {b.lines.map((line, i) => {
             const differs = hasVoucher && line.standardAmount.fils !== line.amount.fils

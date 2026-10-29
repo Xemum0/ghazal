@@ -2,7 +2,7 @@
 // Contract test of the Dart mock: starts the standalone server (`dart run ghazal_mock_api:serve`) on a free port of the reserved block, then calls
 // EVERY operation of packages/contracts/openapi/ghazal.v1.json in a scripted story (guest, new client, Reem, hotel admin and manager, provider) with
 // request bodies that are validated against the request schemas first, and validates every response against the bundled spec with ajv: success
-// bodies against the response schema, error bodies against `Problem`. Fails on any status or shape mismatch and prints coverage (operations hit / 217).
+// bodies against the response schema, error bodies against `Problem`. Fails on any status or shape mismatch and prints coverage (operations hit / 220).
 //
 //   node tools/contract-test.mjs                  start the server, run, stop it
 //   node tools/contract-test.mjs --url http://127.0.0.1:4701   run against a server that is already up
@@ -202,7 +202,11 @@ async function main() {
   await D('getAppConfig')
   await D('ingestEvents', { body: { events: [{ eventId: uuid(), name: 'venue_viewed', at: '2026-11-12T16:00:00+03:00', props: { venueId: 'V01' } }, { eventId: uuid(), name: 'Bad Name', at: '2026-11-12T16:00:00+03:00' }] } })
   await D('getFilterTaxonomy')
-  await D('listAreas')
+  const areasRes = await D('listAreas')
+  // Round 2 (CA-FLT-08): the six official governorates of Kuwait are the configured list
+  const govIds = areasRes.governorates.map((g) => g.id).join(',')
+  if (govIds !== 'capital,hawalli,farwaniya,ahmadi,jahra,mubarak-al-kabeer') fail('listAreas', `governorates are ${govIds}`)
+  if (areasRes.governorates.some((g) => !g.name.en || !g.name.ar)) fail('listAreas', 'a governorate has no Arabic or English name')
   await D('searchRegions', { query: { q: 'salmiya' } })
   await D('listFaq')
   await D('getLegalDocument', { path: { kind: 'terms' } })
@@ -216,7 +220,13 @@ async function main() {
   const search = await D('searchVenues', { query: { limit: 4, sort: 'rating', types: ['hotel'], date: '2027-01-14', guests: 350, audience: 'women' } })
   await D('searchVenues', { query: { limit: 4, cursor: search.nextCursor, sort: 'rating', types: ['hotel'] } })
   await D('countVenues', { query: { voucherOnly: true } })
+  // governorates narrow the search: several = any of them, none = all (round 2)
+  const allVenues = await D('countVenues', { query: {} })
+  const oneGov = await D('countVenues', { query: { governorateIds: ['hawalli'] } })
+  const twoGov = await D('countVenues', { query: { governorateIds: ['hawalli', 'capital'] } })
+  if (!(oneGov.count > 0 && oneGov.count < twoGov.count && twoGov.count <= allVenues.count)) fail('countVenues', `governorate counts ${oneGov.count} / ${twoGov.count} / ${allVenues.count}`)
   const detail = await D('getVenue', { path: { venueId: 'V01' }, query: { date: '2027-01-14', guests: 350, audience: 'women' } })
+  if (detail.extras.length) fail('getVenue', 'extras must be empty since round 2 (CA-SVC-19)')
   const danah = detail.venue.halls.find((h) => h.id === 'V01-danah')
   const session = danah.sessions[0].id
   const avail = await D('getVenueAvailability', { path: { venueId: 'V01' }, query: { from: '2027-01-15', to: '2027-03-31', hallId: 'V01-danah', guests: 300, audience: 'women' } })
@@ -229,14 +239,19 @@ async function main() {
   await D('listNearbyVenues', { path: { venueId: 'V01' }, query: { limit: 3 } })
   await D('compareVenues', { body: { venueIds: ['V01', 'V05', 'V07'], date: '2027-01-14', guests: 350, audience: 'women', originId: 'ref-salmiya' } })
   await D('getHome', { query: { date: '2027-01-14', guests: 350, audience: 'women' } })
+  await D('getHome', { query: { date: '2027-01-14', guests: 350, audience: 'women', governorateIds: ['hawalli'] } })
   await D('getHome', { as: 'reem' })
   await D('listVenueReviews', { path: { venueId: 'V01' }, query: { sort: 'highest', limit: 5 } })
   const vdates = await D('listVisitDates', { path: { venueId: 'V01' }, query: { days: 14 } })
   const vslots = await D('listVisitSlots', { path: { venueId: 'V01' }, query: { date: vdates.dates[0] } })
 
   // ============ auth
-  const reg = await D('registerAccount', { body: { phone: '+96550003001', name: 'Sara Test', password: 'Passw0rd!x', acceptedTerms: true, locale: 'en', deviceId: 'dev-reg' } })
+  const reg = await D('registerAccount', { body: { phone: '+96550003001', name: 'Sara Test', password: 'Passw0rd!x', sex: 'female', acceptedTerms: true, locale: 'en', deviceId: 'dev-reg' } })
+  // CA-AUTH-14: a missing sex is the existing VALIDATION_FAILED shape
+  const noSex = await call('registerAccount', { body: { phone: '+96550003009', name: 'No Sex', password: 'Passw0rd!x', acceptedTerms: true, locale: 'en' }, invalidBody: true, expect: 422, code: 'VALIDATION_FAILED', count: false })
+  if (!noSex.data.errors?.some((e) => e.path === '/sex' && e.code === 'required')) fail('registerAccount', `no sex error: ${JSON.stringify(noSex.data.errors)}`)
   const regSession = await D('verifyOtp', { body: { challengeId: reg.challengeId, code: '654321' } })
+  if (regSession.user.user.sex !== 'female' || !regSession.isNewUser) fail('registerAccount', `sex ${regSession.user.user.sex}, isNewUser ${regSession.isNewUser}`)
   tokens.sara = regSession.accessToken
   await D('passwordLogin', { body: { phone: '+96550003001', password: 'Passw0rd!x' } })
   await call('passwordLogin', { body: { phone: '+96550003001', password: 'nope' }, expect: 401, code: 'CREDENTIALS_INVALID' })
@@ -267,11 +282,23 @@ async function main() {
   // ============ a new client: profile, wedding tools, chat
   const nora = await signUp('nora')
   await D('getMe', { as: 'nora' })
-  await D('updateMe', { as: 'nora', body: { name: 'نورة المطيري', locale: 'ar', marketingOptIn: true } })
+  if (nora.session.user.user.sex) fail('verifyOtp', 'a first code must not invent a sex') 
+  if (!nora.session.isNewUser) fail('verifyOtp', 'a first code is a new user')
+  // About you (CL-AUTH-03): name and sex are required, then the terms
+  const noSexProfile = await call('completeProfile', { as: 'nora', body: { name: 'نورة المطيري', acceptedTerms: true }, invalidBody: true, expect: 422, code: 'VALIDATION_FAILED', count: false })
+  if (!noSexProfile.data.errors?.some((e) => e.path === '/sex' && e.code === 'required')) fail('completeProfile', `no sex error: ${JSON.stringify(noSexProfile.data.errors)}`)
+  const completed = await D('completeProfile', { as: 'nora', body: { name: 'نورة المطيري', sex: 'female', acceptedTerms: true } })
+  if (completed.user.sex !== 'female' || completed.user.name !== 'نورة المطيري') fail('completeProfile', JSON.stringify(completed.user))
+  const sexEdit = await D('updateMe', { as: 'nora', body: { sex: 'male' }, count: false })
+  if (sexEdit.user.sex !== 'male') fail('updateMe', 'sex is editable in Profile')
+  await D('updateMe', { as: 'nora', body: { name: 'نورة المطيري', sex: 'female', locale: 'ar', marketingOptIn: true } })
+  const again = await D('verifyOtp', { body: { challengeId: (await D('requestOtp', { body: { phone: nora.phone, purpose: 'login' } })).challengeId, code: '123456' }, count: false })
+  if (again.isNewUser) fail('verifyOtp', 'a completed account is not new on the next sign-in')
   await D('registerDevice', { as: 'nora', path: { deviceId: 'dev-nora' }, body: { platform: 'ios', pushToken: 'tok', locale: 'ar', appVersion: '1.0.0' } })
   await call('getWeddingProfile', { as: 'nora', expect: 404, code: 'NOT_FOUND', count: false })
-  await D('putWeddingProfile', { as: 'nora', body: { role: 'bride', brideName: 'نورة', partnerName: 'عبدالله', weddingDate: '2027-03-18', dateMode: 'exact', guests: { women: 300, men: 250 }, venueBudget: { min: money(15000000), max: money(25000000) }, totalBudget: money(50000000), areaIds: ['salmiya'], searching: ['women'] } })
-  await D('getWeddingProfile', { as: 'nora' })
+  await D('putWeddingProfile', { as: 'nora', body: { role: 'bride', brideName: 'نورة', partnerName: 'عبدالله', weddingDate: '2027-03-18', dateMode: 'exact', guests: { women: 300, men: 250 }, venueBudget: { min: money(15000000), max: money(25000000) }, totalBudget: money(50000000), areaIds: [], governorateIds: ['hawalli', 'capital'], searching: ['women'] } })
+  const noraProfile = await D('getWeddingProfile', { as: 'nora' })
+  if ((noraProfile.governorateIds ?? []).join() !== 'hawalli,capital') fail('getWeddingProfile', 'governorateIds are kept')
   await D('updateWeddingProfile', { as: 'nora', body: { guests: { women: 320, men: 250 } } })
   await D('getWeddingOverview', { as: 'nora' })
   await D('getChecklist', { as: 'nora' })
@@ -612,7 +639,33 @@ async function main() {
   void fresh
   await D('deleteAccount', { as: 'partnerless' })
   tokens.newpartner = await sessionOf('hotel_non_major')
-  await D('chooseAccountType', { as: 'newpartner', body: { accountType: 'service_provider', name: lt('Henna Studio', 'استوديو حناء') } })
+  // Round 2 (PA-ACC-07, PA-ACC-08): the application form, the review states and the listing gate
+  const application = {
+    accountType: 'service_provider', name: lt('Henna Studio', 'استوديو حناء'), categoryIds: ['henna'], otherCategoryNote: 'Henna for the bridal party',
+    governorateId: 'hawalli', contactName: 'Aisha Al-Rashidi', phone: '+96550009123', email: 'hello@henna-studio.example', description: 'Bridal and guest henna, home visits across Hawalli.', licenceRef: 'KW-77120',
+  }
+  const incomplete = await call('chooseAccountType', { as: 'newpartner', body: { accountType: 'service_provider', name: lt('Henna Studio', 'استوديو حناء') }, expect: 422, code: 'VALIDATION_FAILED', count: false })
+  if (!incomplete.data.errors?.some((e) => e.path === '/governorateId' && e.code === 'required')) fail('chooseAccountType', `incomplete application: ${JSON.stringify(incomplete.data.errors)}`)
+  const applied = await D('chooseAccountType', { as: 'newpartner', body: application })
+  const mine = applied.memberships.find((m) => m.application)
+  if (!mine || mine.application.status !== 'pending' || mine.status !== 'under_review') fail('chooseAccountType', `membership ${JSON.stringify(mine)}`)
+  const providerId = mine.providerId
+  const appRow = await D('getPartnerApplication', { as: 'newpartner' })
+  if (appRow.status !== 'pending' || appRow.submittedAt == null || appRow.categoryIds.join() !== 'henna') fail('getPartnerApplication', JSON.stringify(appRow))
+  await call('getPartnerApplication', { as: 'hind', expect: 404, code: 'NOT_FOUND', count: false })
+  await call('createListing', { as: 'newpartner', provider: providerId, body: { title: lt('Henna Studio', 'استوديو حناء') }, expect: 403, code: 'APPLICATION_NOT_ACCEPTED', count: false })
+  const { accountType: _type, ...resubmitBody } = application
+  await call('resubmitPartnerApplication', { as: 'newpartner', body: resubmitBody, expect: 409, code: 'APPLICATION_NOT_EDITABLE', count: false })
+  await control(`applications/${appRow.id}/decide`, { action: 'reject', reason: 'Please add your licence number.' })
+  const rejected = await D('getPartnerAccount', { as: 'newpartner', provider: providerId })
+  if (rejected.application?.status !== 'rejected' || !rejected.application.rejectionReason?.en || rejected.status !== 'under_review') fail('getPartnerAccount', `rejected: ${JSON.stringify(rejected.application)}`)
+  await call('createListing', { as: 'newpartner', provider: providerId, body: { title: lt('Henna Studio', 'استوديو حناء') }, expect: 403, code: 'APPLICATION_NOT_ACCEPTED', count: false })
+  const again2 = await D('resubmitPartnerApplication', { as: 'newpartner', body: { ...resubmitBody, licenceRef: 'KW-77121' } })
+  if (again2.status !== 'pending' || again2.rejectionReason !== null || again2.licenceRef !== 'KW-77121') fail('resubmitPartnerApplication', JSON.stringify(again2))
+  await control(`applications/${appRow.id}/decide`, { action: 'accept' })
+  await call('createListing', { as: 'newpartner', provider: providerId, body: { title: lt('Henna Studio', 'استوديو حناء') }, count: false })
+  const accepted = await D('getPartnerAccount', { as: 'newpartner', provider: providerId, count: false })
+  if (accepted.application?.status !== 'accepted' || accepted.status !== 'active') fail('getPartnerAccount', `accepted: ${JSON.stringify(accepted)}`)
   await D('getSupportConversation', { as: 'hind', venue: 'V01' })
 
   // ============ coverage

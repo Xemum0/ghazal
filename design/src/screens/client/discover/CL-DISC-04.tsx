@@ -1,6 +1,6 @@
 // CL-DISC-04 Filters (sheet). Covers CA-SRCH-02 to CA-SRCH-14, CA-SRCH-16, CA-SRCH-18 to CA-SRCH-20, CA-FLT-01 to CA-FLT-06.
-// One 90% sheet with every filter of the owner's list, grouped by what couples decide first (inventory order): 1 Region (governorates, the
-// areas of a chosen governorate, drive time, and a region search that opens CL-DISC-07), 2 Venue type (Private Hall, Governmental Facility,
+// One 90% sheet with every filter of the owner's list, grouped by what couples decide first (inventory order): 1 Region (the shared
+// governorate chips with the count in the title, and drive time; ADR 0038: never an exact area), 2 Venue type (Private Hall, Governmental Facility,
 // Hotel), 3 Reception (ladies, men, mixed), 4 Capacity (a two-handle range, steps of 50, pre-set from the Brief), 5 Pricing (per person,
 // packages), 6 Date (the Brief date, and the calendar CL-DISC-06), 7 Voucher price (only voucher venues, and a range on the voucher
 // price), 8 Standard price, 9 Setting, 10 Facilities, 11 Rating, level, hotel brand. The Instant booking row is gone (ADR 0033). Groups
@@ -16,7 +16,7 @@ import * as mock from '../../../mock'
 import { useFormat, useT } from '../../../i18n'
 import { useFrame } from '../../../shell/frame'
 import { useLang } from '../../../shell/lang'
-import { Banner, Button, Chip, ChipGroup, ErrorState, FactChip, Figures, Icon, InfoButton, RangeSlider, SheetHeader, VenueTypeChips, useNav } from '../../../system'
+import { Banner, Button, Chip, ChipGroup, ErrorState, FactChip, Figures, GovernorateFilter, Icon, InfoButton, RangeSlider, SheetHeader, VenueTypeChips, briefGovernorates, useNav } from '../../../system'
 import { DateFilterSheet } from './_components/DateFilterSheet'
 import { FilterGroup } from './_components/FilterGroup'
 import { Histogram } from './_components/Histogram'
@@ -108,19 +108,8 @@ export default function Filters() {
   const changed = activeFilterCount(draft, brief) - (draft.available && brief.date ? 1 : 0) > 0 || draft.available !== defaultFilters(brief).available
 
   // ---- option data from the fixtures
-  const perArea = useMemo(() => {
-    const per = new Map<string, number>()
-    for (const v of mock.venues) per.set(v.areaId, (per.get(v.areaId) ?? 0) + 1)
-    return per
-  }, [])
-  const selectedAreas = draft.areaIds ?? (draft.governorateIds.length ? [] : (brief.areaIds ?? []))
-  /** The areas drawn as chips: those of a chosen governorate, else the ones already chosen (the Brief's), so they can be switched off. */
-  const areaChips = useMemo(() => {
-    const all = mock.areasByGovernorate().flatMap(g => g.areas.map(a => ({ area: a, gov: g.governorate.id })))
-    const shown = draft.governorateIds.length ? all.filter(x => draft.governorateIds.includes(x.gov)) : all.filter(x => selectedAreas.includes(x.area.id))
-    return shown.filter(x => perArea.has(x.area.id)).map(x => ({ id: x.area.id, name: x.area.name[lang], n: perArea.get(x.area.id) ?? 0 }))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [perArea, draft.governorateIds, draft.areaIds, brief.areaIds, lang])
+  /** The governorates lit: the filter's own choice, else the Brief's (so they can be switched off here). */
+  const selectedGovernorates = draft.governorateIds ?? briefGovernorates(brief)
   const audience = brief.audience ?? 'women'
   const standardRates = useMemo(() => mock.venues.map(v => perGuestFrom(v, audience)).filter((n): n is number => n !== null), [audience])
   const voucherRates = useMemo(() => mock.venues.map(v => perGuestFrom(v, audience, 'voucher')).filter((n): n is number => n !== null), [audience])
@@ -140,14 +129,6 @@ export default function Filters() {
     nav.closeSheet()
   }
   const clear = () => setDraft(clearedFilters(brief))
-  /** The region search is its own screen: apply what is chosen so far, close the sheet, open it on top of Results. */
-  const openRegionSearch = () => {
-    if (live) {
-      useDiscover.getState().replaceFilters(draft)
-      nav.closeSheet()
-      nav.push('CL-DISC-07', { from: 'filters' })
-    }
-  }
   /** The date calendar is a sheet over this sheet; it hands the chosen day or range back to the draft. */
   const openDates = () => live && nav.openSheet(<DateFilterSheet onApply={patch} />)
 
@@ -163,8 +144,7 @@ export default function Filters() {
       : ''
   const regionSummary = [
     draft.withinMinutes !== null ? L.within(draft.withinMinutes) : '',
-    draft.governorateIds.length ? L.governorates(draft.governorateIds) : '',
-    draft.areaIds !== null ? (draft.areaIds.length ? L.areas(draft.areaIds) : t('clientDiscoverChipAreasAll')) : '',
+    draft.governorateIds !== null ? (draft.governorateIds.length ? L.governorates(draft.governorateIds) : t('clientDiscoverChipGovernoratesAll')) : '',
   ]
     .filter(Boolean)
     .join(sep)
@@ -184,7 +164,7 @@ export default function Filters() {
     brand: draft.brands.length ? f.list(draft.brands.map(L.brand), 'and') : '',
   }
   const activeOf: Record<GroupId, boolean> = {
-    region: draft.areaIds !== null || draft.governorateIds.length > 0 || draft.withinMinutes !== null,
+    region: draft.governorateIds !== null || draft.withinMinutes !== null,
     type: draft.types.length > 0,
     arrangement: draft.arrangement !== null,
     capacity: draft.capacity !== null,
@@ -199,7 +179,7 @@ export default function Filters() {
     brand: draft.brands.length > 0,
   }
   const titleOf: Record<GroupId, string> = {
-    region: t('clientDiscoverFiltersGroupRegion'),
+    region: t('clientDiscoverFiltersGroupRegion', { count: selectedGovernorates.length }),
     type: t('clientDiscoverFiltersGroupType'),
     arrangement: t('clientDiscoverFiltersGroupArrangement'),
     capacity: t('clientDiscoverFiltersGroupCapacity'),
@@ -232,7 +212,6 @@ export default function Filters() {
   const voucherPrice = draft.voucherPrice ?? VOUCHER_PRICE_BOUNDS
   const zero = count === 0 && !loading && !errored
   const cta = loading ? t('clientDiscoverCtaShow') : zero ? t('clientDiscoverFiltersCtaNone') : t('clientDiscoverFiltersCta', { count })
-  const governorateOptions = mock.governorates.map(g => ({ value: g.id, label: g.name[lang] }))
   const moneySlider = (lo: number, hi: number) => ({
     formatValue: (n: number) => <Figures text={money(n)} />,
     valueText: (n: number) => f.money(Math.round(n * 1000), { mode: 'browse' }),
@@ -257,36 +236,7 @@ export default function Filters() {
             {group(
               'region',
               <>
-                <button type="button" className="gz-reset gzd-fil__search gz-press" onClick={openRegionSearch} data-gz-id="filters.region-search">
-                  <Icon name="search" size="sm" tone="secondary" />
-                  <span className="gz-t-body">{t('clientDiscoverRegionPlaceholder')}</span>
-                </button>
-                <ChipGroup<string>
-                  selection="multiple"
-                  label={t('clientDiscoverFiltersGroupRegion')}
-                  value={draft.governorateIds}
-                  onChange={ids => patch({ governorateIds: ids, areaIds: draft.areaIds === null ? null : draft.areaIds.filter(id => ids.length === 0 || ids.includes(mock.getArea(id)?.governorateId ?? '')) })}
-                  options={governorateOptions}
-                />
-                {areaChips.length > 0 ? (
-                  <ChipGroup<string>
-                    selection="multiple"
-                    label={t('clientDiscoverBriefAreaTitle')}
-                    value={selectedAreas.filter(id => areaChips.some(a => a.id === id))}
-                    onChange={ids => {
-                      const shown = new Set(areaChips.map(a => a.id))
-                      patch({ areaIds: [...selectedAreas.filter(id => !shown.has(id)), ...ids] })
-                    }}
-                    options={areaChips.map(a => ({
-                      value: a.id,
-                      label: (
-                        <>
-                          {a.name} <span className="gzd-fil__n"><Figures text={f.integer(a.n)} /></span>
-                        </>
-                      ),
-                    }))}
-                  />
-                ) : null}
+                <GovernorateFilter label={t('clientDiscoverChipRegion')} value={selectedGovernorates} onChange={ids => patch({ governorateIds: ids })} />
                 <ChipGroup<number>
                   selection="single"
                   deselectable

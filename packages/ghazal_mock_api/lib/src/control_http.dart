@@ -98,6 +98,9 @@ Future<shelf.Response?> handleControl(MockApp app, MockControl control, shelf.Re
         return _ok(control.state);
       case ('POST', ['listings', final id, 'billing']):
         return _ok(control.markListingPaid(id, amountFils: (body['amountFils'] as num?)?.toInt() ?? 0));
+      case ('POST', ['applications', final id, 'decide']):
+        if (body['action'] != 'accept' && body['action'] != 'reject') return _bad('action must be accept or reject');
+        return _ok(control.decidePartnerApplication(id, accept: body['action'] == 'accept', reason: body['reason'] as String?));
       case ('POST', ['support', 'refund-requests', final id, 'decide']):
         return _ok(control.decideRefund(id, grant: body['action'] == 'grant', reason: body['reason'] as String?));
       case ('POST', ['visits', final id, 'support-reply']):

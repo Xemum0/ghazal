@@ -11,41 +11,50 @@
       "id": "HL-PROV-01",
       "slug": "account-type",
       "title": {
-        "en": "Choose your account type",
-        "ar": "اختاروا نوع الحساب"
+        "en": "Apply to join",
+        "ar": "التقديم للانضمام"
       },
       "kind": "screen",
-      "purpose": "First-run onboarding for a new partner: choose Hotel or wedding hall, or Service provider, then complete the profile (business name in both languages, categories for providers, contact) and submit for review. Existing venue accounts skip it; a person with both types switches in More.",
+      "purpose": "First-run application of a service provider or a private hall (PA-ACC-07, ADR 0038): choose the account type (Service provider or Private hall; a hotel or hall chain is onboarded by Ghazal as before), then send the form with the business information. Submit shows 'Application received' and the account stays under review (HL-ACCS-04); Ghazal staff accept or reject it in the Super Admin web, and only an accepted account can create listings. A rejected application comes back here through 'Edit and resubmit', prefilled, with the reason on top.",
       "requirementIds": [
         "PA-ACC-01",
         "PA-ACC-02",
         "PA-ACC-03",
+        "PA-ACC-07",
+        "PA-ACC-08",
         "PA-REV-01"
       ],
       "states": [
         "chooser",
-        "venue-profile",
-        "provider-profile",
+        "empty",
+        "hall",
+        "filled",
         "categories",
-        "submitted-under-review",
         "validation",
-        "loading",
+        "submitting",
+        "submitted",
+        "resubmit",
         "error",
         "offline"
       ],
       "interactions": [
-        "Two large choice cards, each with an icon, a title and one line: \"Hotel or wedding hall\" (halls, packages with two prices, calendar, requests, visits) and \"Service provider\" (listings in the five categories and more, requests); one choice then \"Continue\"",
-        "Provider profile: business name (Arabic and English, both required), up to three categories (the five primary first, then the rest), contact phone with the +965 chip, optional logo (a monogram is generated otherwise)",
-        "Venue profile: venue type (Private Hall or Hotel), governorate and area; Governmental Facility is not selectable",
-        "Submit shows \"Under review\" (HL-ACCS-04) and tells the partner that the first listing is reviewed before it goes live; the choice can be changed until review starts"
+        "Two large choice cards, each with an icon and a title: 'Service provider' and 'Private hall'; one choice, then 'Continue'. A quiet line says that hotels and hall chains join through Ghazal (no form for them)",
+        "The form (OQ-R2-03): business name in Arabic and English (both required, completeness markers), categories for a provider (up to three from the registered list in a sheet, the five primary first) plus the open 'Other category' note for a service that is not in the list (a provider needs a category or the note; staff add the category or reject, PA-ACC-08), governorate as wrapping single-choice chips from the governorates reference data, contact person, phone with the +965 chip, email, short description (240 characters), optional commercial licence reference. A private hall has no categories",
+        "'Send application' validates (inline errors plus one line 'Complete the marked fields'), shows a short submitting state, then 'Application received': 'Your account stays under review', the business as a quiet row and three glyph rows for what happens next (Ghazal reviews, we email you, then add listings); the one action opens the account status (HL-ACCS-04)",
+        "Error: the form stays with its values and a note 'Nothing was sent. Try again.' with Retry; offline disables the action with the reason",
+        "Edit and resubmit (from HL-ACCS-04, rejected): the same form prefilled, top bar 'Edit application', the staff reason in a note on top; submitting again returns to 'Application received'"
       ],
-      "contentNotes": "Cards AR / EN: «فندق أو قاعة أفراح» / \"Hotel or wedding hall\"; «مقدّم خدمة» / \"Service provider\". Category labels from CL-SERV-01. Demo: a new provider \"Zahra Floral Studio\" (fictional) choosing Floral arrangements. Fee exemption is never chosen here (Ghazal sets it).",
+      "contentNotes": "Cards AR / EN: «مقدّم خدمة» / 'Service provider'; «قاعة خاصة» / 'Private hall'. Category labels from CL-SERV-01. Demo provider: Zahra Floral Studio (fixture, Hawalli, Floral arrangements, contact Zahra Al-Mutairi, zahra@zahra-floral.example); demo hall: Taima Grand Palace (fixture, Jahra). Governorate names come from the reference data, never typed. Fee exemption is never chosen here (Ghazal sets it). The form has no logo upload (the logo is edited in the account profile, PA-ACC-03). Not a Client app form: the Client app only shows the one-line note of CA-SVC-20.",
       "priority": "core",
       "navigatesTo": [
-        "HL-PROV-03",
-        "HL-ACCS-04",
-        "HL-TODY-01"
-      ]
+        "HL-ACCS-04"
+      ],
+      "ownerRound2": {
+        "adr": "0038",
+        "date": "2026-10-29",
+        "change": "HL-PROV-01 becomes the partner application form (PA-ACC-07, PA-ACC-08)",
+        "note": "Working assumption OQ-R2-03 for the fields; the Ghazal staff decision is a prototype switch (HL-ACCS-04 tray in the live player)."
+      }
     },
     {
       "id": "HL-PROV-02",
@@ -102,7 +111,9 @@
         "PA-LST-02",
         "PA-LST-03",
         "PA-LST-07",
-        "HA-VMGT-09"
+        "HA-VMGT-09",
+        "PA-ACC-07",
+        "PA-ACC-08"
       ],
       "states": [
         "new",
@@ -113,6 +124,7 @@
         "saved",
         "saving-below-fee",
         "unsaved-guard",
+        "awaiting-approval",
         "error",
         "offline"
       ],
@@ -120,14 +132,16 @@
         "Category picker (five primary first, then more); title and description in Arabic and English with completeness markers (both required before submitting); photos from the shared uploader (empty rooms, plates, arrangements, no faces)",
         "Packages: name, inclusions, pricing structure (Per person or Package), Standard price and Voucher price (voucher at or below standard; a saving below the KD 2 fee shows the line \"Clients will not be offered a voucher for this package\"); live preview \"What couples see\"",
         "Contact options for the browse-only path (chat on, phone shown or hidden); \"Save draft\" and the primary \"Continue\" (opens the plan chooser, or submits straight to review for a fee-exempt partner)",
-        "Leaving with edits opens the guard \"Discard changes?\"; editing a live listing shows \"Your approved version stays live until the new one is approved\""
+        "Leaving with edits opens the guard \"Discard changes?\"; editing a live listing shows \"Your approved version stays live until the new one is approved\"",
+        "Only an accepted account creates listings (PA-ACC-07): while the partner application is under review or was rejected, the editor is replaced by a short state 'Listings open after approval' with one action to the account status (HL-ACCS-04)"
       ],
       "contentNotes": "Demo: Floral arrangements, «تنسيق ورد الأفراح», package «كوشة وورد الطاولات» per package, Standard KD 1,200, Voucher KD 1,000 (illustrative, fixtures request pending). Categories AR: «الضيافة والتموين» «خدمات البوفيه» «تنسيق الورد» «التنسيق والديكور» «تخطيط المناسبات والتنسيق». Names may not reuse the planner tier names (Silver, Gold, Royal).",
       "priority": "core",
       "navigatesTo": [
         "HL-PROV-04",
         "HL-PROV-02",
-        "HL-PROV-06"
+        "HL-PROV-06",
+        "HL-ACCS-04"
       ]
     },
     {

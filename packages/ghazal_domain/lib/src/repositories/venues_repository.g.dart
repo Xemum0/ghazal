@@ -10,7 +10,7 @@ import '../models/models.g.dart';
 abstract interface class VenuesRepository {
   /// Brief-aware venue search (CA-SRCH, CA-CARD)
   ///
-  /// Filters mirror the PRD and the Filters sheet of the prototype. Every row carries the price and availability for the Brief already computed in fils. `briefAreaIds` is the Brief's area list: it ranks the list and, when nothing else is said, narrows it (default: `areaIds`); `areaIds` is an explicit area selection that replaces it; `allAreas` lifts the narrowing (the All areas chip); a governorate or a `shelf` lifts it too; `availableOnDate` keeps free and held halls; `perGuestMin/Max` and `voucherPerGuestMin/Max` are fils compared to the lowest per-guest rate rounded to KD 0.500; `q` folds Arabic (tashkeel, alef and ya forms, the article). `limit` above 50 is clamped. Public, cacheable per Brief (private, ETag).
+  /// Filters mirror the PRD and the Filters sheet of the prototype. Every row carries the price and availability for the Brief already computed in fils. Region since round 2 (CA-FLT-08): `briefGovernorateIds` is the Brief's governorates (they rank nothing and narrow the list by default; empty or missing = all governorates); `governorateIds` is an explicit selection of the Filters sheet that replaces them (several = any of them); `allAreas=true` is the "All governorates" chip (no narrowing at all); a `shelf` ignores the Brief's region. `briefAreaIds`, `areaIds` and `allAreas` are the older area selection and are deprecated (they keep working, and the older areas apply only to a Brief without governorates): `briefAreaIds` is the Brief's area list, it ranks the list and, when nothing else is said, narrows it (default: `areaIds`); `areaIds` is an explicit area selection that replaces it; `allAreas` lifts the narrowing (the All governorates chip); a governorate or a `shelf` lifts it too; `availableOnDate` keeps free and held halls; `perGuestMin/Max` and `voucherPerGuestMin/Max` are fils compared to the lowest per-guest rate rounded to KD 0.500; `q` folds Arabic (tashkeel, alef and ya forms, the article). `limit` above 50 is clamped. Public, cacheable per Brief (private, ETag).
   /// `GET /venues`
   /// Access: optional; roles: client.
   Future<Page<VenueResult>> searchVenues({
@@ -36,6 +36,7 @@ abstract interface class VenuesRepository {
     String? originId,
     VenueSort? sort,
     List<String>? briefAreaIds,
+    List<String>? briefGovernorateIds,
     bool? allAreas,
     Audience? arrangement,
     int? withinMinutes,
@@ -79,6 +80,7 @@ abstract interface class VenuesRepository {
     String? originId,
     VenueSort? sort,
     List<String>? briefAreaIds,
+    List<String>? briefGovernorateIds,
     bool? allAreas,
     Audience? arrangement,
     int? withinMinutes,
@@ -99,7 +101,7 @@ abstract interface class VenuesRepository {
   /// Access: guest; roles: client.
   Future<FilterTaxonomy> getFilterTaxonomy();
 
-  /// Venue detail with packages, extras, active windows and the Brief price (CA-VDET)
+  /// Venue detail with packages, active windows and the Brief price (CA-VDET); `extras` is always empty since round 2
   ///
   /// `GET /venues/{venueId}`
   /// Access: optional; roles: client.

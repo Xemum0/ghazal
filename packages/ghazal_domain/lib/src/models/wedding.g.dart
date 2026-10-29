@@ -160,6 +160,7 @@ final class WeddingProfile {
     required this.venueBudget,
     required this.totalBudget,
     required this.areaIds,
+    this.governorateIds,
     required this.searching,
   });
 
@@ -177,6 +178,7 @@ final class WeddingProfile {
         venueBudget: reqField(json, 'venueBudget', (v) => MoneyRange.fromJson(asMap(v))),
         totalBudget: reqField(json, 'totalBudget', (v) => MoneyAmount.fromJson(asMap(v))),
         areaIds: reqField(json, 'areaIds', (v) => asList(v, (v1) => asString(v1))),
+        governorateIds: optField(json, 'governorateIds', (v) => asList(v, (v1) => asString(v1))),
         searching: reqField(json, 'searching', (v) => asList(v, (v1) => Audience.fromJson(v1))),
       );
     } on FormatException catch (e) {
@@ -194,7 +196,10 @@ final class WeddingProfile {
   final GuestSplit guests;
   final MoneyRange venueBudget;
   final MoneyAmount totalBudget;
+  /// Deprecated since round 2 (ADR 0038 D1): the Client app no longer asks for exact areas. Kept so older Briefs keep working; new accounts send an empty list.
   final List<String> areaIds;
+  /// Governorates the couple searches in (the Brief, CA-FLT-08, CA-ONB-10). Empty = all governorates. Ids come from `GET /areas`.
+  final List<String>? governorateIds;
   final List<Audience> searching;
 
   Map<String, Object?> toJson() => {
@@ -209,6 +214,7 @@ final class WeddingProfile {
       'venueBudget': venueBudget.toJson(),
       'totalBudget': totalBudget.toJson(),
       'areaIds': areaIds,
+      if (governorateIds != null) 'governorateIds': governorateIds!,
       'searching': searching.map((v1) => v1.toJson()).toList(),
       };
 
@@ -224,6 +230,7 @@ final class WeddingProfile {
     MoneyRange? venueBudget,
     MoneyAmount? totalBudget,
     List<String>? areaIds,
+    Object? governorateIds = unsetValue,
     List<Audience>? searching,
   }) => WeddingProfile(
       id: id ?? this.id,
@@ -237,6 +244,7 @@ final class WeddingProfile {
       venueBudget: venueBudget ?? this.venueBudget,
       totalBudget: totalBudget ?? this.totalBudget,
       areaIds: areaIds ?? this.areaIds,
+      governorateIds: identical(governorateIds, unsetValue) ? this.governorateIds : governorateIds as List<String>?,
       searching: searching ?? this.searching,
       );
 
@@ -255,10 +263,11 @@ final class WeddingProfile {
           other.venueBudget == venueBudget &&
           other.totalBudget == totalBudget &&
           deepEquals(other.areaIds, areaIds) &&
+          deepEquals(other.governorateIds, governorateIds) &&
           deepEquals(other.searching, searching);
 
   @override
-  int get hashCode => Object.hashAll([id, userId, role, brideName, partnerName, weddingDate, dateMode, guests, venueBudget, totalBudget, deepHash(areaIds), deepHash(searching)]);
+  int get hashCode => Object.hashAll([id, userId, role, brideName, partnerName, weddingDate, dateMode, guests, venueBudget, totalBudget, deepHash(areaIds), deepHash(governorateIds), deepHash(searching)]);
 
   @override
   String toString() => 'WeddingProfile(${toJson()})';
@@ -276,6 +285,7 @@ final class WeddingProfileInput {
     this.venueBudget,
     this.totalBudget,
     this.areaIds,
+    this.governorateIds,
     this.searching,
   });
 
@@ -291,6 +301,7 @@ final class WeddingProfileInput {
         venueBudget: optField(json, 'venueBudget', (v) => MoneyRange.fromJson(asMap(v))),
         totalBudget: optField(json, 'totalBudget', (v) => MoneyAmount.fromJson(asMap(v))),
         areaIds: optField(json, 'areaIds', (v) => asList(v, (v1) => asString(v1))),
+        governorateIds: optField(json, 'governorateIds', (v) => asList(v, (v1) => asString(v1))),
         searching: optField(json, 'searching', (v) => asList(v, (v1) => Audience.fromJson(v1))),
       );
     } on FormatException catch (e) {
@@ -306,7 +317,10 @@ final class WeddingProfileInput {
   final GuestSplit? guests;
   final MoneyRange? venueBudget;
   final MoneyAmount? totalBudget;
+  /// Deprecated since round 2; send governorateIds instead.
   final List<String>? areaIds;
+  /// Governorates of the Brief; empty = all governorates.
+  final List<String>? governorateIds;
   final List<Audience>? searching;
 
   Map<String, Object?> toJson() => {
@@ -319,6 +333,7 @@ final class WeddingProfileInput {
       if (venueBudget != null) 'venueBudget': venueBudget!.toJson(),
       if (totalBudget != null) 'totalBudget': totalBudget!.toJson(),
       if (areaIds != null) 'areaIds': areaIds!,
+      if (governorateIds != null) 'governorateIds': governorateIds!,
       if (searching != null) 'searching': searching!.map((v1) => v1.toJson()).toList(),
       };
 
@@ -332,6 +347,7 @@ final class WeddingProfileInput {
     Object? venueBudget = unsetValue,
     Object? totalBudget = unsetValue,
     Object? areaIds = unsetValue,
+    Object? governorateIds = unsetValue,
     Object? searching = unsetValue,
   }) => WeddingProfileInput(
       role: identical(role, unsetValue) ? this.role : role as WeddingRole?,
@@ -343,6 +359,7 @@ final class WeddingProfileInput {
       venueBudget: identical(venueBudget, unsetValue) ? this.venueBudget : venueBudget as MoneyRange?,
       totalBudget: identical(totalBudget, unsetValue) ? this.totalBudget : totalBudget as MoneyAmount?,
       areaIds: identical(areaIds, unsetValue) ? this.areaIds : areaIds as List<String>?,
+      governorateIds: identical(governorateIds, unsetValue) ? this.governorateIds : governorateIds as List<String>?,
       searching: identical(searching, unsetValue) ? this.searching : searching as List<Audience>?,
       );
 
@@ -359,10 +376,11 @@ final class WeddingProfileInput {
           other.venueBudget == venueBudget &&
           other.totalBudget == totalBudget &&
           deepEquals(other.areaIds, areaIds) &&
+          deepEquals(other.governorateIds, governorateIds) &&
           deepEquals(other.searching, searching);
 
   @override
-  int get hashCode => Object.hashAll([role, brideName, partnerName, weddingDate, dateMode, guests, venueBudget, totalBudget, deepHash(areaIds), deepHash(searching)]);
+  int get hashCode => Object.hashAll([role, brideName, partnerName, weddingDate, dateMode, guests, venueBudget, totalBudget, deepHash(areaIds), deepHash(governorateIds), deepHash(searching)]);
 
   @override
   String toString() => 'WeddingProfileInput(${toJson()})';

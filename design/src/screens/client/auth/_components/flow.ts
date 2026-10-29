@@ -1,13 +1,11 @@
 // Flow-local state and helpers of the auth flow (CL-AUTH-01..05). Everything the five screens share that the prototype store does
-// not carry: the number being verified, how deep the auth screens are stacked (so a finished sign-in can pop back to the screen that
-// opened the gate), the result of an OTP that the password screen is waiting for, and the demo rules of the prototype.
+// not carry: the number being verified, the result of an OTP that the password screen is waiting for, and the demo rules of the
+// prototype. There is no guest mode (ADR 0038 D4): the sign-in is the first thing after the introduction, a finished sign-in resets
+// the stack (a returning account lands on Home, a new one continues to the optional onboarding steps) and nothing is "resumed".
 // Nothing here is persisted; a reload is the story start.
 import { create } from 'zustand'
-import { useContext } from 'react'
-import { useNavInternals } from '../../../../system/nav/NavProvider'
-import { FrameContext } from '../../../../shell/frame'
 import { useDevice } from '../../../../shell/device/context'
-import { usePrototype, type AuthUser, type GateReason } from '../../../../shell/state'
+import { usePrototype, type AuthUser, type Sex } from '../../../../shell/state'
 import { useNav } from '../../../../system'
 
 /** Config values the screens read (ADR 0028 item 2, ADR 0012 D4): never typed into a message. */
@@ -30,8 +28,6 @@ type AuthFlow = {
   /** National digits of the number the person typed. */
   phone: string
   purpose: OtpPurpose
-  /** Auth screens pushed on top of the screen that opened the gate. */
-  depth: number
   /** The password screen is waiting for this. */
   otpResult: OtpResult
   /** Failed code attempts in this verification. */
@@ -44,7 +40,6 @@ type AuthFlow = {
   setBioEnabled: (v: boolean) => void
   setPhone: (phone: string) => void
   setPurpose: (purpose: OtpPurpose) => void
-  setDepth: (depth: number) => void
   setOtpResult: (r: OtpResult) => void
   setAttempts: (n: number) => void
   reset: () => void
@@ -53,7 +48,7 @@ type AuthFlow = {
 /** Opens the pre-prompt this long after the sign-in lands, so the person sees where they came back to first. */
 export const BIO_PROMPT_DELAY_MS = 900
 
-const initial = { phone: '', purpose: 'login' as OtpPurpose, depth: 0, otpResult: null as OtpResult, attempts: 0 }
+const initial = { phone: '', purpose: 'login' as OtpPurpose, otpResult: null as OtpResult, attempts: 0 }
 
 export const useAuthFlow = create<AuthFlow>()(set => ({
   ...initial,
@@ -63,7 +58,6 @@ export const useAuthFlow = create<AuthFlow>()(set => ({
   setBioEnabled: bioEnabled => set({ bioEnabled }),
   setPhone: phone => set({ phone }),
   setPurpose: purpose => set({ purpose }),
-  setDepth: depth => set({ depth: Math.max(0, depth) }),
   setOtpResult: otpResult => set({ otpResult }),
   setAttempts: attempts => set({ attempts }),
   reset: () => set({ ...initial }),
@@ -74,95 +68,44 @@ usePrototype.subscribe((state, prev) => {
   if (state.auth === 'guest' && prev.auth === 'signedIn') useAuthFlow.setState({ ...initial, bioOffered: false, bioEnabled: false })
 })
 
-/** What the prototype shows when no params say otherwise: the shared story (a request to Aurelia on Thu 14 Jan 2027). */
-export const DEFAULT_REASON: GateReason = 'send-request'
-
 /** True in the player, false in a static frame (canvas, #/frame): timers and demo rules only run live. */
 export const useLive = (): boolean => useDevice().mode === 'live'
 
-/**
- * The reason the gate was opened for: a frame state (`ctx-<reason>`, `nudge`), then the sheet's own params. `null` is the plain
- * sign-in (onboarding "I have an account", an empty Bookings tab): no context line, nothing waiting. A static frame with no state
- * shows the shared story (a request to Aurelia) so the canvas has something to draw.
- */
-export function useGateReason(): GateReason | null {
-  const { params } = useNav<{ reason?: GateReason | null }>()
-  const live = useLive()
-  const { state } = useOptionalFrame()
-  const fromState = state?.startsWith('ctx-') ? (state.slice(4) as GateReason) : state === 'nudge' ? 'save' : undefined
-  return fromState ?? params.reason ?? (live ? null : DEFAULT_REASON)
-}
-
-/** useFrame() throws outside a frame route (the player); screens must also run there. */
-export function useOptionalFrame(): { state: string | undefined } {
-  const frame = useContext(FrameContext)
-  return { state: frame?.state }
-}
-
 /** The signed-in user a verified number resolves to. */
-export function userForPhone(national: string, name?: string): AuthUser {
-  if (national === KNOWN_NATIONAL) return usePrototype.getState().user ?? { id: 'user-reem', name: 'ريم الدوسري', phone: '+96550000012', monogram: 'ر' }
+export function userForPhone(national: string, name?: string, sex?: Sex): AuthUser {
+  if (national === KNOWN_NATIONAL) return usePrototype.getState().user ?? { id: 'user-reem', name: 'ريم الدوسري', phone: '+96550000012', monogram: 'ر', sex: 'female' }
   const display = name?.trim() || ''
-  return { id: 'user-new', name: display, phone: national ? `+965${national}` : '', monogram: Array.from(display)[0]?.toUpperCase() ?? '' }
+  return { id: 'user-new', name: display, phone: national ? `+965${national}` : '', monogram: Array.from(display)[0]?.toUpperCase() ?? '', ...(sex ? { sex } : {}) }
+}
+
+type Nav = ReturnType<typeof useNav>
+
+/** Offers biometric unlock once per session (CA-AUTH-08), a moment after the person has landed somewhere calm. */
+export function offerBiometrics(nav: Nav): void {
+  const flow = useAuthFlow.getState()
+  if (flow.bioOffered) return
+  flow.setBioOffered(true)
+  window.setTimeout(() => {
+    nav.dismissToast()
+    nav.openSheet('CL-AUTH-05', { params: { presentation: 'sheet', mode: 'pre-prompt' } })
+  }, BIO_PROMPT_DELAY_MS)
 }
 
 /**
- * Movement of the auth stack. `go` pushes an auth screen and counts it; `back` pops one; `finish` signs in, clears the gate and pops
- * every auth screen so the person lands on the screen that asked for the account (with their draft in the store, never lost).
- * Opened directly (no screen below) it lands on Discover instead.
+ * Movement of the auth screens. `go` pushes one, `back` pops one, `finish` signs in and resets the stack: a returning account lands on
+ * Home and is offered biometric unlock; a new account (`fresh`) continues to the optional onboarding steps (CL-ONBD-03 to 05), and the
+ * offer waits for the end of them.
  */
-/** The navigator's own state, when there is one (the player); a static frame has none. */
-function useStackReader(): () => Array<{ id: string }> {
-  let read: () => Array<{ id: string }> = () => []
-  try {
-    const { state } = useNavInternals()
-    read = () => state.stacks[state.active] ?? []
-  } catch {
-    // static frame: no navigator
-  }
-  return read
-}
-
 export function useAuthMoves() {
   const nav = useNav()
-  const stack = useStackReader()
-  const go = (id: string, params?: Record<string, unknown>) => {
-    const s = useAuthFlow.getState()
-    s.setDepth(s.depth + 1)
-    nav.push(id, params)
+  const go = (id: string, params?: Record<string, unknown>) => nav.push(id, params)
+  const back = () => nav.pop()
+  const finish = (user: AuthUser, message: string | null, opts: { fresh?: boolean } = {}) => {
+    usePrototype.getState().signIn(user)
+    useAuthFlow.getState().reset()
+    nav.reset(opts.fresh ? 'CL-ONBD-03' : 'CL-DISC-01')
+    if (message) nav.toast({ message, tone: 'success' })
+    if (!opts.fresh) offerBiometrics(nav)
   }
-  const back = () => {
-    const s = useAuthFlow.getState()
-    s.setDepth(s.depth - 1)
-    nav.pop()
-  }
-  const land = () => {
-    const s = useAuthFlow.getState()
-    const n = s.depth
-    s.reset()
-    const entries = stack()
-    const base = entries[entries.length - 1 - n]
-    // Signing in from onboarding ("I already have an account") leaves onboarding for Discover; anywhere else the person returns to
-    // the screen that asked, now signed in.
-    if (base?.id.startsWith('CL-ONBD') || n === 0 || !nav.canGoBack) nav.reset('CL-DISC-01')
-    else nav.pop(n)
-  }
-  /** Signs in, lands back on the screen that asked, and (once per session) offers biometric unlock over it. */
-  const finish = (user: AuthUser, message: string) => {
-    const store = usePrototype.getState()
-    store.signIn(user)
-    store.clearGate()
-    store.clearSignupNudge()
-    land()
-    nav.toast({ message, tone: 'success' })
-    const flow = useAuthFlow.getState()
-    if (!flow.bioOffered) {
-      flow.setBioOffered(true)
-      window.setTimeout(() => {
-        nav.dismissToast()
-        nav.openSheet('CL-AUTH-05', { params: { presentation: 'sheet', mode: 'pre-prompt' } })
-      }, BIO_PROMPT_DELAY_MS)
-    }
-  }
-  return { nav, go, back, land, finish }
+  return { nav, go, back, finish }
 }

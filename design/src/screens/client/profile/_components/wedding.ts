@@ -50,7 +50,10 @@ export function commitWedding(patch: Partial<WeddingProfileState>): WeddingProfi
     brief.audience = audience
     brief.guests = (audience === 'men' ? next.guests.men : next.guests.women) || null
   }
-  if ('areaIds' in patch) brief.areaIds = next.areaIds
+  if ('governorateIds' in patch) {
+    brief.governorateIds = next.governorateIds ?? []
+    brief.areaIds = []
+  }
   if ('venueBudget' in patch) brief.budget = next.venueBudget ? { min: next.venueBudget.min, max: next.venueBudget.max.fils >= BUDGET_CEILING_FILS ? null : next.venueBudget.max } : null
   if (Object.keys(brief).length > 0) store.setBrief(brief)
   return next

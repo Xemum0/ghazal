@@ -3,8 +3,8 @@
 // (photograph, venue name, status pill, day and time as icon + value). The footnote ("Visits are free") is gone: it lives behind the info
 // glyph of the booking sheet. Each state is a drawing, a title of at most four words and one action. A tap opens the chat (CL-VIST-03).
 // Reached from Profile and My Wedding. Visits start from a venue, so there is no "Book another visit" here: the empty state sends the
-// person to the halls. A guest sees a sign-in teaser.
-// States: default, empty, guest, loading, error, offline.
+// person to the halls.
+// States: default, empty, loading, error, offline.
 import { useMemo, useState } from 'react'
 import { Banner, EmptyState, ErrorState, IconSegmented, Screen, Skeleton, TopBar, useNav } from '../../../system'
 import { useFrame } from '../../../shell/frame'
@@ -12,17 +12,16 @@ import { VisitRow } from './_components/VisitRow'
 import { isUpcoming, useMyVisits, useV } from './_components/model'
 import './CL-VIST-04.css'
 
-export const states = ['empty', 'guest', 'loading', 'error', 'offline']
+export const states = ['empty', 'loading', 'error', 'offline']
 
 type Tab = 'upcoming' | 'past'
 
 export default function MyVisits() {
   const { state } = useFrame()
   const nav = useNav()
-  const { t, tc, live, auth } = useV()
+  const { t, tc } = useV()
   const mine = useMyVisits()
   const [tab, setTab] = useState<Tab>('upcoming')
-  const guest = state === 'guest' || (state === undefined && live && auth === 'guest')
 
   const visits = state === 'empty' ? [] : mine
   const upcoming = useMemo(() => visits.filter(isUpcoming).sort((a, b) => (a.slotStart < b.slotStart ? -1 : 1)), [visits])
@@ -33,17 +32,6 @@ export default function MyVisits() {
   const open = (id: string) => nav.push('CL-VIST-03', { visitId: id })
   const seeHalls = () => nav.push('CL-DISC-03')
 
-  if (guest) {
-    return (
-      <Screen top={top}>
-        <EmptyState
-          illustration="empty-visits"
-          title={t('clientVisitsGuestTitle')}
-          action={{ label: t('clientVisitsGuestAction'), variant: 'primary', onPress: () => nav.openSheet('CL-AUTH-01', { params: { reason: 'visit' } }) }}
-        />
-      </Screen>
-    )
-  }
   if (state === 'error') {
     return (
       <Screen top={top}>

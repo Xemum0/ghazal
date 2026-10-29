@@ -79,7 +79,7 @@ export function DateFilterSheet({ onApply, state }: { onApply?: (patch: Partial<
     }
     return out
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [month.year, month.month, loading, offline, errored, brief.areaIds, brief.guests, brief.audience])
+  }, [month.year, month.month, loading, offline, errored, brief.governorateIds, brief.guests, brief.audience])
 
   // ---- what the footer says: the count for the day or the range, by the same function Results runs
   const from = range.start
@@ -90,7 +90,7 @@ export function DateFilterSheet({ onApply, state }: { onApply?: (patch: Partial<
     if (!from) return null
     return single ? results({ ...brief, date: from }, { ...NO_FILTERS, available: true }).length : results(brief, filterOf()).length
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [from, to, brief.areaIds, brief.guests, brief.audience])
+  }, [from, to, brief.governorateIds, brief.guests, brief.audience])
   const near = useMemo(() => (single && count === 0 && from ? nearestFreeDates(brief, 3, from) : []), [single, count, from, brief])
 
   const cta = loading || offline || errored || from === null ? t('clientDiscoverDatesApply') : count === 0 ? t('clientDiscoverDatesNone') : t('clientDiscoverCtaCount', { count: count ?? 0 })

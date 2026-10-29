@@ -2,17 +2,15 @@
 //
 // Something bought outside Ghazal, or planned: an amount, a category, an optional label, a date and Paid or Planned. The amount accepts
 // Eastern-Arabic digits and normalises them (up to three decimals). Validation is blameless and shows once, on Save. Save closes the
-// sheet and the row lands in the budget with an Undo bar. A guest may fill it in and is asked to sign in at Save; the sheet stays
-// underneath, so what was typed is still there on return. The voucher and the venue price are posted by Ghazal and never open here.
+// sheet and the row lands in the budget with an Undo bar. The voucher and the venue price are posted by Ghazal and never open here.
 //
 // Text diet (ADR 0034): one labelled amount, the category chosen by glyph, a note that is its own placeholder, a glyph and a day, Paid or
 // Planned as two glyph options that both keep their word (a payment status is money: never glyph-only, policy section 7), and one verb. No
-// instruction, no note about signing in: a guest's button says "Sign in". The delete question is two words and two verbs; the success is a
+// instruction. The delete question is two words and two verbs; the success is a
 // centred drawing and one word.
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFormat, useT } from '../../../i18n'
 import { useLang } from '../../../shell/lang'
-import { usePrototype } from '../../../shell/state'
 import { Button, FactChip, FactRow, Icon, IconSegmented, Illustration, TextField, useNav } from '../../../system'
 import { flat } from '@gz/tokens'
 import { clock } from '../../../mock'
@@ -20,7 +18,6 @@ import { SheetFoot, SheetHead, SheetRoot, useCurrencySlot } from './_components/
 import { CategoryRail } from './_components/CategoryRail'
 import { DatePick } from './_components/DatePick'
 import { categoryGlyph, useCategoryName } from './_components/names'
-import { openGuestGate } from './_components/gate'
 import { buildBudget, type ManualExpense } from './_components/model'
 import { useTools } from './_components/tools'
 import { useStateParam, useWedding } from './_components/useWedding'
@@ -29,7 +26,7 @@ import './CL-WEDD-04.css'
 /** The success token (640 ms, ADR 0017). */
 const SUCCESS_MS = flat['motion.duration.success']
 
-export const states = ['validation-error', 'saving', 'edit', 'delete-confirm', 'success', 'guest-gate', 'offline-disabled']
+export const states = ['validation-error', 'saving', 'edit', 'delete-confirm', 'success', 'offline-disabled']
 
 /** The example entry of the inventory, as the static `edit`, `delete-confirm` and `success` frames show it. */
 const SAMPLE: Omit<ManualExpense, 'id' | 'label'> = { categoryId: 'makeup_henna', amount: 80_000, status: 'paid', date: '2026-11-08' }
@@ -62,7 +59,6 @@ export default function AddExpense() {
   const w = useWedding()
   const inert = w.inert
   const expenses = useTools(s => s.expenses)
-  const auth = usePrototype(s => s.auth)
 
   // Which expense is being edited: a param (live), or the sample (the static edit frames).
   const expenseId = typeof nav.params.expenseId === 'string' ? nav.params.expenseId : null
@@ -89,7 +85,6 @@ export default function AddExpense() {
   useEffect(() => () => void (timer.current !== null && window.clearTimeout(timer.current)), [])
 
   const offline = state === 'offline-disabled'
-  const guest = w.guest || state === 'guest-gate' || (!inert && auth === 'guest')
   const fils = toFils(amount)
   const error = showError && fils === null ? t('clientMyWeddingExpenseAmountError') : undefined
   const chosenCat = categories.find(c => c.id === categoryId)
@@ -100,10 +95,6 @@ export default function AddExpense() {
   const save = () => {
     if (fils === null) {
       setShowError(true)
-      return
-    }
-    if (guest) {
-      if (!inert) openGuestGate(nav, 'CL-WEDD-04', { ...nav.params })
       return
     }
     const s = useTools.getState()
@@ -225,8 +216,8 @@ export default function AddExpense() {
       </div>
 
       <SheetFoot>
-        <Button variant="primary" fullWidth loading={saving} disabled={offline} reason={reasonOffline} iconStart={guest ? 'lock' : undefined} onClick={save}>
-          {guest ? t('clientMyWeddingGuestAction') : c('commonActionSave')}
+        <Button variant="primary" fullWidth loading={saving} disabled={offline} reason={reasonOffline} onClick={save}>
+          {c('commonActionSave')}
         </Button>
         {editing ? (
           <Button variant="destructive" iconStart="trash" fullWidth disabled={offline} onClick={() => setPhase('confirm')}>

@@ -5,3 +5,4 @@ export { VenueTypeChips, VENUE_TYPES, type VenueTypeChipsProps, type VenueTypeVa
 export { PricingStructureToggle, type PricingStructureToggleProps, type PricingStructureValue } from './PricingStructureToggle'
 export { CapacityRange, type CapacityRangeProps } from './CapacityRange'
 export { GovernorateFilter, type GovernorateFilterProps } from './GovernorateFilter'
+export { briefGovernorates, type RegionSource } from './governorates'

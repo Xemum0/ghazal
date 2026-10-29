@@ -1,10 +1,9 @@
 // CL-WEDD-02 Checklist (pushed from My Wedding; tab bar visible). Requirements: CA-TOOL-12, CA-TOOL-13, CA-TOOL-14, CA-TOOL-15,
-// CA-TOOL-16, CA-AUTH-10.
+// CA-TOOL-16.
 //
 // The PRD defaults with due dates counted back from the wedding date, the couple's own tasks, a completion percentage and a way into
 // Services for each task. Rules, no AI. Ticking draws the check (160 ms class), the row stays a moment and then moves to Completed with
-// an Undo bar; no confetti; finishing everything earns one quiet line. A guest sees the sample list and is asked to sign in at the first
-// change. Offline the list is read only with a stamp.
+// an Undo bar; no confetti; finishing everything earns one quiet line. Offline the list is read only with a stamp.
 //
 // Text diet (ADR 0034): a task is a check, one word and a calendar fact; the deep link is the search glyph; the progress is a percent, its
 // fraction and a gold line; a band is a glyph and two words at most. The empty state is a drawing, three words and one verb; finishing the
@@ -18,13 +17,12 @@ import { ChecklistRow } from './_components/ChecklistRow'
 import { DateText } from './_components/DateText'
 import { ProgressHead } from './_components/ProgressHead'
 import { TaskSheet } from './_components/TaskSheet'
-import { openGuestGate } from './_components/gate'
 import { groupChecklist, type Band, type TaskRow } from './_components/model'
 import { useTools } from './_components/tools'
 import { useChecklistModel, useStateParam, useWedding } from './_components/useWedding'
 import './CL-WEDD-02.css'
 
-export const states = ['loading', 'empty-no-date', 'all-complete', 'guest-sample', 'offline-read-only', 'error']
+export const states = ['loading', 'empty-no-date', 'all-complete', 'offline-read-only', 'error']
 
 /** The glyph of each countdown band, at the start of its heading. */
 const BAND_ICON: Record<Band, IconName> = {
@@ -60,7 +58,6 @@ export default function Checklist() {
   const timers = useRef<number[]>([])
   useEffect(() => () => timers.current.forEach(id => window.clearTimeout(id)), [])
 
-  const guest = w.guest
   const offline = state === 'offline-read-only'
   const allComplete = state === 'all-complete'
   const noDate = w.phase === 'no-date' || w.eventDate === null
@@ -73,17 +70,13 @@ export default function Checklist() {
   const done = rows.filter(r => r.done).length
   const total = rows.length
 
-  const gate = () => openGuestGate(nav, 'CL-WEDD-02')
   const addTask = () => {
-    if (guest) return gate()
     nav.openSheet(<TaskSheet weddingDate={w.eventDate} today={w.today} />)
   }
   const editTask = (row: TaskRow) => {
-    if (guest) return gate()
     nav.openSheet(<TaskSheet editing={row} weddingDate={w.eventDate} today={w.today} />)
   }
   const toggle = (row: TaskRow, next: boolean) => {
-    if (guest) return gate()
     useTools.getState().toggleTask(row.id, next, clock.now())
     if (!next) return
     setFresh(s => new Set(s).add(row.id))
@@ -169,11 +162,6 @@ export default function Checklist() {
       {offline ? (
         <Banner tone="offline">
           {c('commonStateOffline')} <FactChip icon="clock" value={<DateText text={f.time(clock.now())} />} label={t('clientMyWeddingUpdated')} size="sm" />
-        </Banner>
-      ) : null}
-      {guest ? (
-        <Banner tone="info" action={{ label: t('clientMyWeddingGuestAction'), onPress: gate }}>
-          {t('clientMyWeddingSample')}
         </Banner>
       ) : null}
 

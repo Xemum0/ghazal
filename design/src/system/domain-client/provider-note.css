@@ -1,0 +1,16 @@
+/* ProviderNote, footer form: one quiet line under the Services hub list: glyph, the words, the external-link glyph. 48 high, on the screen's gutter. */
+.gz-pnote {
+  display: flex;
+  align-items: center;
+  gap: var(--gz-space-3);
+  box-sizing: border-box;
+  min-block-size: var(--gz-size-control-md);
+  padding-block-start: var(--gz-space-2);
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.gz-pnote__text {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+}

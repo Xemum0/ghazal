@@ -19,7 +19,9 @@ Json publicVenue(Json v) => {
 };
 
 /// The search query of `searchVenues` and `countVenues` as the Discover logic takes it (see `engine/discover.dart`): the Brief (date, guests,
-/// audience, areaIds) and the Filters sheet. `areaIds` is the Brief's area list: it narrows the list and ranks it; with a `shelf` it only ranks.
+/// audience, `briefGovernorateIds`, the older `briefAreaIds`) and the Filters sheet. Round 2 (CA-FLT-08): `briefGovernorateIds` is the Brief's region; it
+/// narrows the list unless `governorateIds` (the explicit selection), `allAreas` (the "All governorates" chip) or a `shelf` lifts it. The older
+/// `areaIds` / `briefAreaIds` still work: they apply to a Brief without governorates.
 ({Json filter, Json brief}) searchParams(Req r) {
   List<String>? list(String k) => r.qList(k).isEmpty ? null : r.qList(k);
   final areas = list('areaIds');
@@ -51,8 +53,13 @@ Json publicVenue(Json v) => {
     'origin': r.q('originId'),
   }..removeWhere((k, v) => v == null);
   if (filter['capacity'] is Map) (filter['capacity'] as Map).removeWhere((k, v) => v == null);
-  final brief = <String, dynamic>{'date': r.q('date'), 'guests': r.qInt('guests'), 'audience': r.q('audience'), 'areaIds': briefAreas}
-    ..removeWhere((k, v) => v == null);
+  final brief = <String, dynamic>{
+    'date': r.q('date'),
+    'guests': r.qInt('guests'),
+    'audience': r.q('audience'),
+    'areaIds': briefAreas,
+    'governorateIds': list('briefGovernorateIds'),
+  }..removeWhere((k, v) => v == null);
   return (filter: filter, brief: brief);
 }
 
@@ -167,7 +174,9 @@ Map<String, Handler> venuesHandlers(MockApp app) => {
     return {
       'venue': publicVenue(v),
       'packages': offers,
-      'extras': engine.extrasFor(id).where((e) => e.flag('active')).toList(),
+      // Round 2 (ADR 0038 D2, CA-SVC-19): venues offer no extras through Ghazal. The field stays in the contract (deprecated) and is always empty;
+      // the engine and `quoteVenue` still price an extra when one is asked for, so older callers keep working.
+      'extras': <Json>[],
       'windows': engine.activeWindows().where((w) => w['venueId'] == id).toList(),
       'price': engine.cardPrice(id, brief),
       'guestRange': engine.guestRange(id),

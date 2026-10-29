@@ -13,15 +13,12 @@ import './quote-plate.css'
 export type QuotePlateProps = {
   quote: Quote
   facts: Facts
-  /** A guest sees the voucher price teased behind sign-in (ADR 0007 D8); the standard price and the existence of a voucher stay visible. */
-  signedIn: boolean
   loading?: boolean
   /** The saving does not beat the voucher price: no prices on the plate. */
   noPrices?: boolean
-  onRegister?: () => void
 }
 
-export function QuotePlate({ quote, facts, signedIn, loading, noPrices, onRegister }: QuotePlateProps) {
+export function QuotePlate({ quote, facts, loading, noPrices }: QuotePlateProps) {
   const { t, dayLong } = useVc()
   const provider = quote.targetType === 'provider'
   return (
@@ -64,10 +61,8 @@ export function QuotePlate({ quote, facts, signedIn, loading, noPrices, onRegist
                 voucher={quote.voucherFils}
                 structure="package"
                 guests={provider ? null : quote.guests}
-                variant={signedIn ? 'inline' : 'stack'}
-                audience={signedIn ? 'member' : 'guest'}
+                variant="inline"
                 fee={meta.config.voucherFeeFils}
-                onRegister={onRegister}
               />
             </div>
           )}

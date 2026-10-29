@@ -2,25 +2,14 @@
 // frame nothing is wired (a frame is a picture, the player is the prototype); in the player each action moves the prototype store and
 // the navigator, so no tap on this page is a dead end.
 import { useCallback } from 'react'
-import { create } from 'zustand'
 import type { IsoDate, Venue, Voucher } from '../../../../mock'
 import { useT } from '../../../../i18n'
 import { usePrototype } from '../../../../shell/state'
 import { useNav } from '../../../../system'
 import type { VenueBrief } from './model'
-import { ContactSheet } from './ContactSheet'
 
 /** What a quote carries into the voucher explainer and the request (CL-VCHR-01, CL-BOOK-01): the page's own choices on top of the Brief. */
 export type QuoteCarry = { brief: VenueBrief; hallId?: string; sessionId?: string | null; packageId?: string | null; date?: IsoDate | null }
-
-/**
- * A guest who tapped Get voucher: the quote waits here while the sign-in sheet runs, and the page reopens the voucher sheet with it
- * once the person is signed in (ADR 0007 D8: the exact quote is restored after sign-in).
- */
-export const usePendingVoucher = create<{ pending: { venueId: string; carry: QuoteCarry } | null; set: (p: { venueId: string; carry: QuoteCarry } | null) => void }>()(set => ({
-  pending: null,
-  set: pending => set({ pending }),
-}))
 
 const paramsOf = (venueId: string | undefined, carry: QuoteCarry) => ({
   venueId,
@@ -40,16 +29,11 @@ export function useVenueActions(venue: Venue | undefined, live: boolean) {
   const tc = useT('common')
   const venueId = venue?.id
 
-  /** Heart: saved locally for a guest too; the third heart as a guest raises the once-only sign-up nudge (ADR 0007 D10). */
+  /** Heart: saved to the account's list. */
   const toggleFavourite = useCallback(() => {
     if (!live || !venueId) return
     const store = usePrototype.getState()
     const on = store.toggleFavourite('venue', venueId)
-    if (on && usePrototype.getState().signupNudge) {
-      store.clearSignupNudge()
-      nav.openSheet('CL-AUTH-01', { params: { reason: 'save' } })
-      return
-    }
     nav.toast({
       message: on ? tc('commonStateSaved') : t('clientVenueSavedRemoved'),
       icon: on ? 'heart-fill' : undefined,
@@ -114,7 +98,7 @@ export function useVenueActions(venue: Venue | undefined, live: boolean) {
     [nav, venueId],
   )
 
-  /** Get voucher: the explainer bound to this quote (CL-VCHR-01). A guest meets the sign-in sheet first and comes back to it (ADR 0007 D8). */
+  /** Get voucher: the explainer bound to this quote (CL-VCHR-01). Every client is signed in (ADR 0038), so there is no gate before it. */
   const openVoucher = useCallback(
     (carry: QuoteCarry) => {
       if (!live || !venueId) return
@@ -122,29 +106,7 @@ export function useVenueActions(venue: Venue | undefined, live: boolean) {
     },
     [live, venueId, nav],
   )
-  const getVoucher = useCallback(
-    (carry: QuoteCarry) => {
-      if (!live || !venueId) return
-      const store = usePrototype.getState()
-      if (store.auth === 'guest') {
-        usePendingVoucher.getState().set({ venueId, carry })
-        // The sign-in sheet names what waits behind it (its strip reads the booking draft): this venue, this date, these guests.
-        store.startDraft(venueId, {
-          hallId: carry.hallId ?? null,
-          sessionId: carry.sessionId ?? null,
-          packageId: carry.packageId ?? null,
-          eventDate: carry.date ?? carry.brief.date,
-          guests: carry.brief.guests,
-          audience: carry.brief.audience,
-        })
-        store.openGate('voucher', { screenId: 'CL-VCHR-01', params: paramsOf(venueId, carry) })
-        nav.openSheet('CL-AUTH-01', { params: { reason: 'voucher' } })
-        return
-      }
-      openVoucher(carry)
-    },
-    [live, venueId, nav, openVoucher],
-  )
+  const getVoucher = openVoucher
 
   /** Send request with a ready voucher: the booking flow opens with the quote and the voucher carried over (CL-BOOK-01). */
   const sendRequest = useCallback(
@@ -165,21 +127,17 @@ export function useVenueActions(venue: Venue | undefined, live: boolean) {
     [live, venueId, nav],
   )
 
-  /** Book a visit (CL-VIST-01): no voucher needed, the account is asked at Send. */
+  /** Book a visit (CL-VIST-01): no voucher needed. */
   const bookVisit = useCallback(() => {
     if (!live || !venueId) return
     nav.openSheet('CL-VIST-01', { params: { venueId } })
   }, [live, venueId, nav])
 
-  /** Contact the venue, the browse-only path: a registered client opens the chat, a guest gets the venue's own phone and WhatsApp. */
+  /** Contact the venue, the browse-only path: the in-app chat (CL-MSGS-02). */
   const contactVenue = useCallback(() => {
     if (!live || !venue) return
-    if (usePrototype.getState().auth === 'guest') {
-      nav.openSheet(<ContactSheet venueId={venue.id} />, { title: t('clientVenueContactTitle') })
-      return
-    }
     nav.push('CL-MSGS-02', { venueId: venue.id })
-  }, [live, venue, nav, t])
+  }, [live, venue, nav])
 
   const openHow = useCallback(
     (carry: QuoteCarry) => {

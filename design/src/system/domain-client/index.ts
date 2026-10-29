@@ -19,6 +19,7 @@ export {
 export { CompareTable, type CompareTableProps } from './CompareTable'
 export { ReviewCard, RatingSummary, type RatingSummaryProps, type ReviewCardProps } from './ReviewCard'
 export { AmenityGrid, FaqAccordion, MapPreview, PolicyList, type AmenityGridProps, type MapPreviewProps, type PolicyListProps } from './VenueInfo'
+export { ProviderNote, type ProviderNoteProps } from './ProviderNote'
 export { PlannerTierCard, ServiceTile, VendorCard, type PlannerTierCardProps, type ServiceTileProps, type VendorCardProps } from './ServiceCards'
 export { ChatBubble, ChatDateDivider, ConversationRow, type ChatBubbleProps, type ChatSide, type ConversationRowProps } from './Chat'
 export { ChecklistItem, ChecklistProgress, BudgetSummary, type BudgetSummaryProps, type ChecklistItemProps } from './Planning'

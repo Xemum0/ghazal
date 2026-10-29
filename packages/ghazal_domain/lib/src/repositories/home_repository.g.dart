@@ -10,13 +10,14 @@ import '../models/models.g.dart';
 abstract interface class HomeRepository {
   /// Composed home feed (CA-HOME)
   ///
-  /// Brief-aware shelves, the status card, live free count and unread count in one response.
+  /// Brief-aware shelves, the status card, live free count and unread count in one response. `governorateIds` is the Brief's governorate list (CA-FLT-08): it narrows the `free` shelf, the free count and the nearest free dates; empty or missing = all governorates. `areaIds` (the older Brief areas) keeps working and is deprecated; when both are sent a venue must match both. With no Brief field in the query the signed-in couple's wedding profile is the Brief.
   /// `GET /home`
   /// Access: optional; roles: client.
   Future<HomeFeed> getHome({
     LocalDate? date,
     int? guests,
     Audience? audience,
+    List<String>? governorateIds,
     List<String>? areaIds,
     int? budgetMin,
     int? budgetMax,

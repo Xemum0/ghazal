@@ -50,7 +50,7 @@
 /partner/venue/packages:
   get:
     operationId: listPartnerPackages
-    summary: Packages with their price rules, and extras (HL-VENU-02)
+    summary: Packages with their price rules (HL-VENU-02); `extras` is always empty since round 2
     x-partner: true
     x-permissions: ['booking:read']
     responses: { 200: PackageCatalog }
@@ -75,7 +75,8 @@
 /partner/venue/extras:
   post:
     operationId: createExtra
-    summary: Add an extra priced by the venue
+    summary: Add an extra priced by the venue (deprecated since round 2, CA-SVC-19)
+    x-deprecated: 'ADR 0038 D2: venues offer no extras through Ghazal; the call stays valid but the apps do not use it and no read lists the extra.'
     x-partner: true
     x-permissions: ['package:write']
     x-idempotent: true
@@ -84,7 +85,8 @@
 /partner/venue/extras/{extraId}:
   put:
     operationId: updateExtra
-    summary: Replace an extra
+    summary: Replace an extra (deprecated since round 2, CA-SVC-19)
+    x-deprecated: 'ADR 0038 D2: see createExtra.'
     x-partner: true
     x-permissions: ['package:write']
     path: { extraId: Id }

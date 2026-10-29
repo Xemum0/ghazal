@@ -279,6 +279,12 @@ const NOWS = [NOW, '2027-01-02T10:00:00+03:00', '2026-12-20T12:00:00+03:00']
     { voucherOnly: true }, { audience: 'men' }, { audience: 'mixed' }, { minRating: 4.5 }, { minRating: 4.8 }, { governorateIds: ['hawalli'] }, { areaIds: ['salmiya'] },
     { query: 'سالمية' }, { query: 'Aurelia' }, { query: 'قاعة' }, { query: 'hawalli' }, { query: 'الكويت' }, { query: '  ' }, { origin: 'ref-salmiya', sort: 'distance' },
     { availableOnDate: true }, { availableBetween: { from: '2027-01-10', to: '2027-01-20' } }, { voucherOnly: true, sort: 'voucher_price', types: ['hotel'] },
+    // Round 2 (ADR 0038 D1, CA-FLT-08): governorates are the only region the client chooses. Empty = all governorates, several = any of them,
+    // an unknown id matches nothing; combined with the older exact areas both must match. (Appended: the pairing with the Briefs below is by index.)
+    { governorateIds: [] }, { governorateIds: ['hawalli', 'capital'] }, { governorateIds: ['farwaniya', 'ahmadi', 'jahra', 'mubarak-al-kabeer'] },
+    { governorateIds: ['no-such-governorate'] }, { governorateIds: ['capital'], sort: 'price' }, { governorateIds: ['hawalli'], types: ['hotel'], sort: 'voucher_price' },
+    { governorateIds: ['hawalli'], areaIds: ['sharq'] }, { governorateIds: ['capital'], areaIds: ['sharq'] }, { governorateIds: ['capital'], query: 'sharq' },
+    { governorateIds: ['jahra', 'ahmadi'], availableOnDate: true }, { governorateIds: ['hawalli', 'capital', 'farwaniya', 'ahmadi', 'jahra', 'mubarak-al-kabeer'] },
   ]
   const briefs = [{}, { date: '2027-01-14', guests: 350, audience: 'women' }, { date: '2026-12-18', guests: 100, audience: 'men' }, { guests: 600 }, { areaIds: ['salmiya'] }, { date: '2027-03-12', audience: 'women', areaIds: ['hawalli'], guests: 250 }]
   filters.forEach((f, i) => {

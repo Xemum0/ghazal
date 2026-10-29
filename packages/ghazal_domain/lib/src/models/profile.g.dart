@@ -2,6 +2,7 @@
 // ignore_for_file: type=lint
 
 import '../core/core.dart';
+import 'auth.g.dart';
 import 'common.g.dart';
 
 enum UserRole {
@@ -49,6 +50,28 @@ enum WireDigitStyle {
   String toJson() => value;
 }
 
+/// Sex of a client account (ADR 0038 D4, CA-AUTH-14, OQ-R2-02). Required when a client account is completed (`registerAccount`, `completeProfile`), editable with `updateMe`. Stored on the account; not shown to venues and not used to filter yet.
+enum Sex {
+  female('female'),
+  male('male'),
+  unknown('unknown');
+
+  const Sex(this.value);
+
+  /// The wire value.
+  final String value;
+
+  /// Unknown values never crash a client: they read as [unknown] (api-conventions section 2).
+  static Sex fromJson(Object? v) {
+    for (final e in values) {
+      if (e.value == v) return e;
+    }
+    return Sex.unknown;
+  }
+
+  String toJson() => value;
+}
+
 final class User {
   const User({
     required this.id,
@@ -60,6 +83,7 @@ final class User {
     required this.email,
     required this.locale,
     required this.digitStyle,
+    this.sex,
     required this.createdAt,
   });
 
@@ -75,6 +99,7 @@ final class User {
         email: optField(json, 'email', (v) => asString(v)),
         locale: reqField(json, 'locale', (v) => WireLang.fromJson(v)),
         digitStyle: reqField(json, 'digitStyle', (v) => WireDigitStyle.fromJson(v)),
+        sex: optField(json, 'sex', (v) => Sex.fromJson(v)),
         createdAt: reqField(json, 'createdAt', (v) => asInstant(v)),
       );
     } on FormatException catch (e) {
@@ -93,6 +118,8 @@ final class User {
   final String? email;
   final WireLang locale;
   final WireDigitStyle digitStyle;
+  /// Clients: `female` or `male`, set when the account is completed (null only on an account that has not finished "About you" yet, and on staff and support accounts).
+  final Sex? sex;
   final DateTime createdAt;
 
   Map<String, Object?> toJson() => {
@@ -105,6 +132,7 @@ final class User {
       'email': email == null ? null : email!,
       'locale': locale.toJson(),
       'digitStyle': digitStyle.toJson(),
+      if (sex != null) 'sex': sex!.toJson(),
       'createdAt': instantToJson(createdAt),
       };
 
@@ -118,6 +146,7 @@ final class User {
     Object? email = unsetValue,
     WireLang? locale,
     WireDigitStyle? digitStyle,
+    Object? sex = unsetValue,
     DateTime? createdAt,
   }) => User(
       id: id ?? this.id,
@@ -129,6 +158,7 @@ final class User {
       email: identical(email, unsetValue) ? this.email : email as String?,
       locale: locale ?? this.locale,
       digitStyle: digitStyle ?? this.digitStyle,
+      sex: identical(sex, unsetValue) ? this.sex : sex as Sex?,
       createdAt: createdAt ?? this.createdAt,
       );
 
@@ -145,10 +175,11 @@ final class User {
           other.email == email &&
           other.locale == locale &&
           other.digitStyle == digitStyle &&
+          other.sex == sex &&
           other.createdAt == createdAt;
 
   @override
-  int get hashCode => Object.hashAll([id, role, name, nameLatin, monogram, phone, email, locale, digitStyle, createdAt]);
+  int get hashCode => Object.hashAll([id, role, name, nameLatin, monogram, phone, email, locale, digitStyle, sex, createdAt]);
 
   @override
   String toString() => 'User(${toJson()})';
@@ -237,6 +268,7 @@ final class UpdateMeInput {
     this.email,
     this.locale,
     this.digitStyle,
+    this.sex,
     this.marketingOptIn,
   });
 
@@ -247,6 +279,7 @@ final class UpdateMeInput {
         email: optField(json, 'email', (v) => asString(v)),
         locale: optField(json, 'locale', (v) => WireLang.fromJson(v)),
         digitStyle: optField(json, 'digitStyle', (v) => WireDigitStyle.fromJson(v)),
+        sex: optField(json, 'sex', (v) => Sex.fromJson(v)),
         marketingOptIn: optField(json, 'marketingOptIn', (v) => asBool(v)),
       );
     } on FormatException catch (e) {
@@ -258,6 +291,7 @@ final class UpdateMeInput {
   final String? email;
   final WireLang? locale;
   final WireDigitStyle? digitStyle;
+  final Sex? sex;
   final bool? marketingOptIn;
 
   Map<String, Object?> toJson() => {
@@ -265,6 +299,7 @@ final class UpdateMeInput {
       if (email != null) 'email': email!,
       if (locale != null) 'locale': locale!.toJson(),
       if (digitStyle != null) 'digitStyle': digitStyle!.toJson(),
+      if (sex != null) 'sex': sex!.toJson(),
       if (marketingOptIn != null) 'marketingOptIn': marketingOptIn!,
       };
 
@@ -273,12 +308,14 @@ final class UpdateMeInput {
     Object? email = unsetValue,
     Object? locale = unsetValue,
     Object? digitStyle = unsetValue,
+    Object? sex = unsetValue,
     Object? marketingOptIn = unsetValue,
   }) => UpdateMeInput(
       name: identical(name, unsetValue) ? this.name : name as String?,
       email: identical(email, unsetValue) ? this.email : email as String?,
       locale: identical(locale, unsetValue) ? this.locale : locale as WireLang?,
       digitStyle: identical(digitStyle, unsetValue) ? this.digitStyle : digitStyle as WireDigitStyle?,
+      sex: identical(sex, unsetValue) ? this.sex : sex as Sex?,
       marketingOptIn: identical(marketingOptIn, unsetValue) ? this.marketingOptIn : marketingOptIn as bool?,
       );
 
@@ -290,13 +327,77 @@ final class UpdateMeInput {
           other.email == email &&
           other.locale == locale &&
           other.digitStyle == digitStyle &&
+          other.sex == sex &&
           other.marketingOptIn == marketingOptIn;
 
   @override
-  int get hashCode => Object.hashAll([name, email, locale, digitStyle, marketingOptIn]);
+  int get hashCode => Object.hashAll([name, email, locale, digitStyle, sex, marketingOptIn]);
 
   @override
   String toString() => 'UpdateMeInput(${toJson()})';
+}
+
+/// Finishes a brand-new client account after the first code (CL-AUTH-03 "About you", CA-AUTH-14): name and sex are required, then the Terms and Privacy acceptance. Until it succeeds `AuthSession.isNewUser` stays true on every sign-in of that number.
+final class CompleteProfileInput {
+  const CompleteProfileInput({
+    required this.name,
+    required this.sex,
+    required this.acceptedTerms,
+    this.email,
+  });
+
+  factory CompleteProfileInput.fromJson(Map<String, Object?> json) {
+    try {
+      return CompleteProfileInput(
+        name: reqField(json, 'name', (v) => asString(v)),
+        sex: reqField(json, 'sex', (v) => Sex.fromJson(v)),
+        acceptedTerms: reqField(json, 'acceptedTerms', (v) => asBool(v)),
+        email: optField(json, 'email', (v) => asString(v)),
+      );
+    } on FormatException catch (e) {
+      throw FormatException('CompleteProfileInput: ${e.message}');
+    }
+  }
+
+  /// Name as typed (stored as typed).
+  final String name;
+  final Sex sex;
+  final bool acceptedTerms;
+  final String? email;
+
+  Map<String, Object?> toJson() => {
+      'name': name,
+      'sex': sex.toJson(),
+      'acceptedTerms': acceptedTerms,
+      if (email != null) 'email': email!,
+      };
+
+  CompleteProfileInput copyWith({
+    String? name,
+    Sex? sex,
+    bool? acceptedTerms,
+    Object? email = unsetValue,
+  }) => CompleteProfileInput(
+      name: name ?? this.name,
+      sex: sex ?? this.sex,
+      acceptedTerms: acceptedTerms ?? this.acceptedTerms,
+      email: identical(email, unsetValue) ? this.email : email as String?,
+      );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CompleteProfileInput &&
+          other.name == name &&
+          other.sex == sex &&
+          other.acceptedTerms == acceptedTerms &&
+          other.email == email;
+
+  @override
+  int get hashCode => Object.hashAll([name, sex, acceptedTerms, email]);
+
+  @override
+  String toString() => 'CompleteProfileInput(${toJson()})';
 }
 
 enum DevicePlatform {

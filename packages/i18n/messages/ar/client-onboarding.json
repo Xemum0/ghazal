@@ -11,7 +11,7 @@
   "clientOnboardingIntroSlide3Title": "كوبون بسعر أقل",
   "clientOnboardingIntroStart": "البدء",
   "clientOnboardingInfoTitle": "إجاباتكم",
-  "clientOnboardingInfoBody": "كلها اختيارية، وتبقى على هذا الجهاز إلى حين التسجيل. يمكن تعديلها في أي وقت من حسابكم.",
+  "clientOnboardingInfoBody": "كلها اختيارية، ويمكن تعديلها في أي وقت من حسابكم.",
   "clientOnboardingAboutTitle": "من يخطط؟",
   "clientOnboardingAboutRoleLabel": "الصفة",
   "clientOnboardingAboutRoleBride": "العروس",
@@ -48,12 +48,6 @@
   "clientOnboardingBudgetAbove": "{amount} فأكثر",
   "clientOnboardingBudgetRange": "نطاق ميزانية مخصص",
   "clientOnboardingSkipHalf": "لاحقًا",
-  "clientOnboardingAreasTitle": "المناطق",
-  "clientOnboardingAreasSearch": "البحث عن منطقة",
-  "clientOnboardingAreasSelected": "{count, plural, =0{لم تُحدد مناطق} =1{منطقة واحدة محددة} =2{منطقتان محددتان} few{# مناطق محددة} many{# منطقة محددة} other{# منطقة محددة}}",
-  "clientOnboardingAreasDemoQuery": "مشر",
-  "clientOnboardingAreasMore": "{count, plural, =0{لا مناطق أخرى} =1{منطقة أخرى} =2{منطقتان أخريان} few{# مناطق أخرى} many{# منطقة أخرى} other{# منطقة أخرى}}",
-  "clientOnboardingAreasNoHallsNote": "لا قاعات هنا. تظهر كل القاعات.",
   "clientOnboardingLanguageNativeAr": "العربية",
   "clientOnboardingLanguageNativeEn": "English"
 }

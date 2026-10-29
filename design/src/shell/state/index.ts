@@ -4,14 +4,12 @@ export { usePrototype, prototypeStore } from './store'
 export { selectPendingHotelRequests, selectAwaitingClient, selectMyVouchers, selectRedeemable, selectCompareCount, useLanguageBridge } from './hooks'
 export { COMPARE_MAX } from './types'
 export type {
-  AuthGate,
   AuthLevel,
   AuthUser,
   BookingDraft,
   BookingStep,
   CompareResult,
   FavouriteKind,
-  GateReason,
   HotelAction,
   PaymentMethodKey,
   PaymentOutcome,
@@ -20,5 +18,6 @@ export type {
   VoucherPurchase,
   PrototypeState,
   SearchBrief,
+  Sex,
   WeddingProfileState,
 } from './types'

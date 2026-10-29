@@ -222,7 +222,7 @@ void main() {
             ],
           })));
       try {
-        await rig.repos.auth.registerAccount(body: const RegisterInput(phone: '+96550000012', name: '', acceptedTerms: true, locale: WireLang.ar));
+        await rig.repos.auth.registerAccount(body: const RegisterInput(phone: '+96550000012', name: '', sex: Sex.female, acceptedTerms: true, locale: WireLang.ar));
         fail('should throw');
       } on ApiProblem catch (p) {
         expect(p.code, ApiProblemCode.validationFailed);

@@ -88,6 +88,7 @@ AppConfig:
     occasions: { type: array, items: { $ref: Occasion }, description: Approximate occasion markers for calendars. }
     availabilityWindow: { $ref: DateRange }
     minAppVersion: { type: string }
+    partnerAppUrl: { type: string, nullable: true, description: 'Store page of the Partner app, shown by the note for service providers in the Client app (CA-SVC-20, OQ-R2-04). Configuration, not a literal.' }
 AnalyticsEvent:
   x-dart-name: WireAnalyticsEvent
   type: object

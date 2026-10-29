@@ -5,7 +5,7 @@
 // the copy never implies that Ghazal guarantees the booking. "Mark booked" notes the hall for the budget, checklist and countdown only.
 // Text diet (ADR 0034): fees are a glyph and a price, the hall-only scope is a badge with its explanation (and the fee caveat) behind (i), the
 // payment rule's consequence is behind (i), the capacity is a fact under the name (CA-VDET-08) and the hall's own description is behind the
-// (i) "About" of the header (CA-VDET-04). Navigates to CL-SERV-01, CL-VENU-02, CL-DISC-03, CL-WEDD-01.
+// (i) "About" of the header (CA-VDET-04). Navigates to CL-VENU-02, CL-DISC-03, CL-WEDD-01. No link to the Services hub (ADR 0038, CA-SVC-19).
 import { useRef, useState } from 'react'
 import * as mock from '../../../mock'
 import { useFormat, useT } from '../../../i18n'
@@ -175,9 +175,6 @@ export default function GovernmentHall() {
             <p>{bi(fees.note)}</p>
           </InfoButton>
         </div>
-        <Button variant="secondary" iconStart="search" onClick={() => nav.push('CL-SERV-01')} fullWidth>
-          {t('clientVenueGovCtaCatering')}
-        </Button>
       </Section>
 
       <Section title={t('clientVenueGovRulesTitle')} id="gov.rules">

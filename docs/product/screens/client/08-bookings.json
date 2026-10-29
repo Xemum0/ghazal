@@ -24,7 +24,7 @@
         "CA-STAT-05",
         "CA-STAT-06",
         "CA-STAT-07",
-        "CA-AUTH-10",
+        "CA-AUTH-13",
         "CA-STAT-14"
       ],
       "states": [
@@ -33,23 +33,21 @@
         "empty",
         "error",
         "offline",
-        "guest",
         "open-requests-limit",
         "approved-confirm-by",
         "voucher-redeemed"
       ],
       "interactions": [
-        "Empty state offers 'See halls free on your date'; guests see a sign-in teaser instead of a list",
+        "Empty state offers 'See halls free on your date'",
         "Sections in order of urgency: \"Needs you\" (approved requests with a confirm-by time, a venue-proposed date), Pending, Confirmed (including Voucher redeemed), then Past with a chip row (All, Completed, Cancelled, Not accepted, Expired)",
         "Row: venue thumbnail or monogram, name, \"Thu 14 Jan 2027 · Ladies' reception\", the voucher price in exact three decimals with a small voucher glyph, status chip and an absolute time line (\"Expected reply by Fri 13 Nov, 12:40 PM\" or \"Confirm by Fri 13 Nov, 4:00 PM\"); tap opens Booking detail (CL-BKNG-02)",
         "Quiet counter \"Open requests 1 of 3\" (pending plus approved, across the wedding file) explains the limit before it blocks a new request; a \"My vouchers\" link row opens CL-VCHR-02"
       ],
-      "contentNotes": "Seed rows: 1) فندق أوريليا الخليج / Aurelia Gulf Hotel, Ladies' reception, Thu 14 Jan 2027, 350 guests, KD 18,200.000, chip «بانتظار الرد» / Pending (the prototype switches this row through Pending, Approved, Confirmed to show the states); 2) فندق لومي مارينا / Lumi Marina Hotel, Ladies' reception, Thu 14 Jan 2027, 300 guests, KD 11,400.000, chip «انتهت المهلة» / Expired (the venue did not reply; nothing was charged). Status chips: Pending (gold tint, clock), Approved - deposit due (gold outline, hourglass), Confirmed (success, check), Completed (ink tint, double check), Not accepted (danger, x), Expired (neutral, clock-off), Cancelled (neutral, x), Refunded (rose tint, return arrow). Chips never rely on colour alone. Guests see «تسجيل الدخول لمتابعة طلباتكم» / 'Sign in to follow your requests'. Tab bar visible. Voucher model (ADR 0033): the seed row amounts are voucher totals (illustrative: KD 15,400.000 for the story request); chip words follow booking-state-machine section 3 (Pending, Approved - confirm within 24 h, Confirmed, Voucher redeemed, Not accepted, Expired, Cancelled, Completed); \"Refunded\" is no longer a booking chip.",
+      "contentNotes": "Seed rows: 1) فندق أوريليا الخليج / Aurelia Gulf Hotel, Ladies' reception, Thu 14 Jan 2027, 350 guests, KD 18,200.000, chip «بانتظار الرد» / Pending (the prototype switches this row through Pending, Approved, Confirmed to show the states); 2) فندق لومي مارينا / Lumi Marina Hotel, Ladies' reception, Thu 14 Jan 2027, 300 guests, KD 11,400.000, chip «انتهت المهلة» / Expired (the venue did not reply; nothing was charged). Status chips: Pending (gold tint, clock), Approved - deposit due (gold outline, hourglass), Confirmed (success, check), Completed (ink tint, double check), Not accepted (danger, x), Expired (neutral, clock-off), Cancelled (neutral, x), Refunded (rose tint, return arrow). Chips never rely on colour alone. Tab bar visible. Voucher model (ADR 0033): the seed row amounts are voucher totals (illustrative: KD 15,400.000 for the story request); chip words follow booking-state-machine section 3 (Pending, Approved - confirm within 24 h, Confirmed, Voucher redeemed, Not accepted, Expired, Cancelled, Completed); \"Refunded\" is no longer a booking chip.",
       "priority": "core",
       "navigatesTo": [
         "CL-BKNG-02",
         "CL-DISC-03",
-        "CL-AUTH-01",
         "CL-WEDD-01",
         "CL-VCHR-02"
       ]
@@ -62,7 +60,7 @@
         "ar": "تفاصيل الحجز"
       },
       "kind": "screen",
-      "purpose": "The canonical request/booking screen, one layout with status variants. The Booking Thread (Request, Approval, Confirmation, Redemption, Day) leads; below it the status block, the voucher card, event and sections, package and extras, price in two columns, venue terms and venue contact. The primary changes with the status: Confirm booking (approved), Show voucher (confirmed). There is no payment, balance, refund or invoice section: the event is paid to the venue directly (ADR 0033).",
+      "purpose": "The canonical request/booking screen, one layout with status variants. The Booking Thread (Request, Approval, Confirmation, Redemption, Day) leads; below it the status block, the voucher card, event and sections, the package, price in two columns, venue terms and venue contact. The primary changes with the status: Confirm booking (approved), Show voucher (confirmed). There is no payment, balance, refund or invoice section: the event is paid to the venue directly (ADR 0033).",
       "requirementIds": [
         "CA-STAT-02",
         "CA-STAT-03",

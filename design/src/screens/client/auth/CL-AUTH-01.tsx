@@ -1,28 +1,27 @@
-// CL-AUTH-01 Sign in (sheet). Requirements: CA-AUTH-03, CA-AUTH-04, CA-AUTH-05, CA-AUTH-09, CA-AUTH-10, CA-VCH-04, CA-AUTH-12.
-// The single identity entry (ADR 0007 D9, ADR 0028): no separate Sign up and Login, the identity decides. Also the reusable guest-gate
-// sheet: the strip under the title is the whole context line (the venue, the date and the guests of the interrupted request, voucher or
-// visit, or one glyph and one noun for a message, review, consultation, quote or shortlist), so the draft is never lost and nothing
-// needs a sentence. Phone first (compound field, fixed +965 chip, ADR 0012), one gold action ("Send code" with the WhatsApp mark), Apple
-// and Google as equals in one row, the password path as a tertiary link. There is no SMS fallback: not-on-WhatsApp offers Apple, Google
-// and Support. Text diet (ADR 0034): no paragraphs; the legal consent and the "partners use the Partner app" line (CA-AUTH-12) live
-// behind the info glyph at the foot of the sheet.
+// CL-AUTH-01 Sign in. Requirements: CA-AUTH-03, CA-AUTH-04, CA-AUTH-05, CA-AUTH-09, CA-AUTH-10, CA-AUTH-12, CA-AUTH-13, CA-AUTH-14.
+// A full screen since ADR 0038: there is no guest mode, so this is what the Client app shows right after the introduction and the
+// only door in (no "continue as guest", no gate sheet, no context line, nothing to resume). Phone first (compound field, fixed +965
+// chip, ADR 0012), one gold action ("Send code" with the WhatsApp mark), Apple and Google as equals in one row, the password path as
+// a tertiary link (ADR 0028). There is no SMS fallback: not-on-WhatsApp offers Apple, Google and Support. A known number lands on
+// Home from the code screen; a new one continues to "About you" (CL-AUTH-03). Text diet (ADR 0034): a drawing and a two-word title;
+// the legal consent and the "partners use the Partner app" line (CA-AUTH-12) live behind the info glyph at the foot.
+// States: default, loading, error-invalid-number, error-not-on-whatsapp, offline.
 import { useEffect, useRef, useState } from 'react'
-import { BarButton, Button, PhoneField, SuccessState } from '../../../system'
+import { Button, PhoneField, Screen, TopBar } from '../../../system'
 import { T, useFormat, useT } from '../../../i18n'
 import { useFrame } from '../../../shell/frame'
-import { usePrototype } from '../../../shell/state'
+import { AuthHead } from './_components/AuthHead'
 import { InlineNote } from './_components/InlineNote'
 import { ProviderButtons } from './_components/ProviderButtons'
-import { ResumeStrip } from './_components/ResumeStrip'
 import { LegalInfo, useLegal } from './_components/legal'
 import { useSupport } from './_components/support'
-import { useAuthFlow, useAuthMoves, useGateReason, useLive } from './_components/flow'
+import { useAuthFlow, useAuthMoves, useLive } from './_components/flow'
 import './_components/auth.css'
 import './CL-AUTH-01.css'
 
-export const states = ['loading', 'error-invalid-number', 'error-not-on-whatsapp', 'offline', 'resume', 'nudge']
+export const states = ['loading', 'error-invalid-number', 'error-not-on-whatsapp', 'offline']
 
-type Status = 'idle' | 'loading' | 'invalid' | 'not-whatsapp' | 'offline' | 'resume'
+type Status = 'idle' | 'loading' | 'invalid' | 'not-whatsapp' | 'offline'
 
 function seed(state: string | undefined): { phone: string; status: Status } {
   switch (state) {
@@ -34,8 +33,6 @@ function seed(state: string | undefined): { phone: string; status: Status } {
       return { phone: '50000099', status: 'not-whatsapp' }
     case 'offline':
       return { phone: '50000012', status: 'offline' }
-    case 'resume':
-      return { phone: '50000012', status: 'resume' }
     default:
       return { phone: '', status: 'idle' }
   }
@@ -46,10 +43,8 @@ export default function ClAuth01() {
   const tc = useT('common')
   const f = useFormat()
   const { state } = useFrame()
-  const reason = useGateReason()
   const live = useLive()
-  const nudge = reason === 'save'
-  const { nav, go } = useAuthMoves()
+  const { go, back } = useAuthMoves()
   const support = useSupport()
   const legal = useLegal()
   const initial = seed(state)
@@ -61,7 +56,6 @@ export default function ClAuth01() {
   const busy = status === 'loading'
   const offline = status === 'offline'
 
-  const close = () => nav.closeSheet()
   const submit = () => {
     if (busy || offline) return
     if (!f.isValidPhone(phone)) {
@@ -69,61 +63,33 @@ export default function ClAuth01() {
       return
     }
     setStatus('loading')
-    const store = usePrototype.getState()
-    if (reason && !store.gate) store.openGate(reason, null)
     const flow = useAuthFlow.getState()
     flow.setPhone(phone)
     flow.setPurpose('login')
     flow.setAttempts(0)
     timer.current = window.setTimeout(() => {
-      nav.closeSheet()
-      go('CL-AUTH-02', { reason })
+      setStatus('idle')
+      go('CL-AUTH-02')
     }, live ? 800 : 0)
   }
-  const provider = (p: 'apple' | 'google') => {
-    nav.closeSheet()
-    go('CL-AUTH-03', { reason, provider: p })
-  }
-  const toPassword = () => {
-    nav.closeSheet()
-    go('CL-AUTH-04', { reason, mode: 'signin' })
-  }
-  const notNow = () => {
-    usePrototype.getState().clearSignupNudge()
-    nav.closeSheet()
-  }
+  const provider = (p: 'apple' | 'google') => go('CL-AUTH-03', { provider: p })
+  const toPassword = () => go('CL-AUTH-04', { mode: 'signin' })
 
   const phoneError = status === 'invalid' ? t('clientAuthGateErrorDigits', { count: 8 }) : undefined
 
   return (
-    <div className="gza-sheet gza01" data-gz="AuthSheet" data-reason={reason ?? 'none'}>
-      <div className="gza-sheet__head">
-        <h2 className="gza-sheet__title gz-t-d1">{t('clientAuthSharedSignIn')}</h2>
-        <span className="gza-sheet__close">
-          <BarButton icon="close" label={tc('commonActionClose')} onPress={close} />
-        </span>
-      </div>
+    <Screen top={<TopBar back="auto" onBack={back} />}>
+      <div className="gza-body gza01" data-gz="SignIn">
+        <AuthHead title={t('clientAuthSharedSignIn')} art="key" />
 
-      {status === 'resume' ? (
-        <>
-          <SuccessState illustration="seal" title={t('clientAuthSharedSignedIn')} fill={false} size="lg" />
-          <ResumeStrip reason={reason} compact />
-        </>
-      ) : (
-        <>
-          <ResumeStrip reason={reason} compact />
+        {offline ? <InlineNote tone="offline">{tc('commonStateOffline')}</InlineNote> : null}
+        {status === 'not-whatsapp' ? (
+          <InlineNote tone="danger" detail={t('clientAuthGateNotOnWhatsappDetail')} action={{ label: t('clientAuthSharedSupport'), onPress: support }}>
+            {t('clientAuthGateErrorNotOnWhatsapp')}
+          </InlineNote>
+        ) : null}
 
-          {offline ? <InlineNote tone="offline">{tc('commonStateOffline')}</InlineNote> : null}
-          {status === 'not-whatsapp' ? (
-            <InlineNote
-              tone="danger"
-              detail={t('clientAuthGateNotOnWhatsappDetail')}
-              action={{ label: t('clientAuthSharedSupport'), onPress: support }}
-            >
-              {t('clientAuthGateErrorNotOnWhatsapp')}
-            </InlineNote>
-          ) : null}
-
+        <div className="gza-form">
           <div className="gza-phone">
             <PhoneField
               label={t('clientAuthSharedPhone')}
@@ -141,66 +107,61 @@ export default function ClAuth01() {
           <Button variant="primary" fullWidth iconStart="whatsapp" loading={busy} disabled={offline} onClick={submit}>
             {t('clientAuthSharedSendCode')}
           </Button>
+        </div>
 
-          <div className="gza-or" role="separator">
-            <span className="gza-or__rule" />
-            <span className="gz-t-caption">{tc('commonLabelOr')}</span>
-            <span className="gza-or__rule" />
-          </div>
+        <div className="gza-or" role="separator">
+          <span className="gza-or__rule" />
+          <span className="gz-t-caption">{tc('commonLabelOr')}</span>
+          <span className="gza-or__rule" />
+        </div>
 
-          <ProviderButtons onApple={() => provider('apple')} onGoogle={() => provider('google')} disabled={busy || offline} />
+        <ProviderButtons onApple={() => provider('apple')} onGoogle={() => provider('google')} disabled={busy || offline} />
 
-          <div className="gza01__foot">
-            <Button variant="tertiary" className="gza-flush" onClick={toPassword} disabled={busy}>
-              {t('clientAuthSharedUsePassword')}
-            </Button>
-            {nudge ? (
-              <Button variant="tertiary" onClick={notNow}>
-                {t('clientAuthSharedNotNow')}
-              </Button>
-            ) : null}
-            <LegalInfo title={t('clientAuthSharedInfoTitle')} rows={false} className="gza01__info">
-              {closeInfo => (
-                <>
-                  <p>{t('clientAuthSharedPartnerNote')}</p>
-                  <p>
-                    <T
-                      ns="client-auth"
-                      k="clientAuthSharedSmallPrint"
-                      components={{
-                        terms: c => (
-                          <button
-                            type="button"
-                            className="gza01__link gz-reset"
-                            onClick={() => {
-                              closeInfo()
-                              legal('terms')
-                            }}
-                          >
-                            {c}
-                          </button>
-                        ),
-                        privacy: c => (
-                          <button
-                            type="button"
-                            className="gza01__link gz-reset"
-                            onClick={() => {
-                              closeInfo()
-                              legal('privacy')
-                            }}
-                          >
-                            {c}
-                          </button>
-                        ),
-                      }}
-                    />
-                  </p>
-                </>
-              )}
-            </LegalInfo>
-          </div>
-        </>
-      )}
-    </div>
+        <div className="gza01__foot">
+          <Button variant="tertiary" className="gza-flush" onClick={toPassword} disabled={busy}>
+            {t('clientAuthSharedUsePassword')}
+          </Button>
+          <LegalInfo title={t('clientAuthSharedInfoTitle')} rows={false} className="gza01__info">
+            {closeInfo => (
+              <>
+                <p>{t('clientAuthSharedPartnerNote')}</p>
+                <p>
+                  <T
+                    ns="client-auth"
+                    k="clientAuthSharedSmallPrint"
+                    components={{
+                      terms: c => (
+                        <button
+                          type="button"
+                          className="gza01__link gz-reset"
+                          onClick={() => {
+                            closeInfo()
+                            legal('terms')
+                          }}
+                        >
+                          {c}
+                        </button>
+                      ),
+                      privacy: c => (
+                        <button
+                          type="button"
+                          className="gza01__link gz-reset"
+                          onClick={() => {
+                            closeInfo()
+                            legal('privacy')
+                          }}
+                        >
+                          {c}
+                        </button>
+                      ),
+                    }}
+                  />
+                </p>
+              </>
+            )}
+          </LegalInfo>
+        </div>
+      </div>
+    </Screen>
   )
 }

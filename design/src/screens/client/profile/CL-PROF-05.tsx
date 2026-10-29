@@ -15,7 +15,7 @@ import { Banner, Dialog, Figures, IconListRow, InfoButton, Screen, TopBar, useNa
 import { useAuthFlow } from '../auth/_components/flow'
 import { DigitsSheet, DIGIT_SAMPLES, FrameSheet, LanguageSheet, LegalSheet, useLegalReader, useSignOut } from './_components/sheets'
 import { SwitchRow } from './_components/parts'
-import { APP_VERSION, BIOMETRIC_METHOD, useGuest, useLive, useProfileFlow, useSceneState } from './_components/useProfile'
+import { APP_VERSION, BIOMETRIC_METHOD, useLive, useProfileFlow, useSceneState } from './_components/useProfile'
 import './CL-PROF-05.css'
 
 export const states = ['language-sheet', 'digits-sheet-arabic-only', 'biometric-unavailable', 'legal-reader', 'sign-out-confirm', 'offline']
@@ -27,7 +27,6 @@ export default function Settings() {
   const { lang } = useLang()
   const live = useLive()
   const state = useSceneState()
-  const guest = useGuest()
   const digits = useDigitStyle()
   const bioOn = useAuthFlow(s => s.bioEnabled)
   const shareStored = useProfileFlow(s => s.shareUsage)
@@ -70,21 +69,19 @@ export default function Settings() {
               onClick={() => nav.openSheet(<DigitsSheet />)}
             />
           ) : null}
-          {!guest ? (
-            <SwitchRow
-              icon={BIOMETRIC_METHOD === 'face' ? 'face-id' : 'fingerprint'}
-              title={t('clientProfileSetBiometric', method)}
-              label={t('clientProfileSetBiometric', method)}
-              checked={live ? bioOn : false}
-              onChange={setBiometric}
-              disabled={unavailable || offline}
-              info={
-                unavailable ? (
-                  <InfoButton title={t('clientProfileSetBiometric', method)}>{t('clientProfileSetBiometricHint')}</InfoButton>
-                ) : undefined
-              }
-            />
-          ) : null}
+          <SwitchRow
+            icon={BIOMETRIC_METHOD === 'face' ? 'face-id' : 'fingerprint'}
+            title={t('clientProfileSetBiometric', method)}
+            label={t('clientProfileSetBiometric', method)}
+            checked={live ? bioOn : false}
+            onChange={setBiometric}
+            disabled={unavailable || offline}
+            info={
+              unavailable ? (
+                <InfoButton title={t('clientProfileSetBiometric', method)}>{t('clientProfileSetBiometricHint')}</InfoButton>
+              ) : undefined
+            }
+          />
           <IconListRow
             icon="bell"
             title={t('clientProfileNotifTitle')}
@@ -110,12 +107,10 @@ export default function Settings() {
           <IconListRow icon="shield-check" title={t('clientProfileSharedPrivacy')} chevron onClick={() => legal('privacy')} last />
         </div>
 
-        {!guest ? (
-          <div className="gzpr-list" data-gz-id="group.account">
-            <IconListRow icon="sign-out" title={t('clientProfileSharedSignOut')} onClick={signOut} />
-            <IconListRow icon="trash" tone="danger" title={t('clientProfileDelTitle')} chevron={!offline} onClick={offline ? undefined : () => nav.push('CL-PROF-06')} last />
-          </div>
-        ) : null}
+        <div className="gzpr-list" data-gz-id="group.account">
+          <IconListRow icon="sign-out" title={t('clientProfileSharedSignOut')} onClick={signOut} />
+          <IconListRow icon="trash" tone="danger" title={t('clientProfileDelTitle')} chevron={!offline} onClick={offline ? undefined : () => nav.push('CL-PROF-06')} last />
+        </div>
 
         <p className="gzpr-set__version gz-t-fig-caption">
           <Figures text={t('clientProfileSharedVersion', { version: APP_VERSION })} />

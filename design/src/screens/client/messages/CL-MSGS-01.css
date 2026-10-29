@@ -38,15 +38,3 @@
   gap: var(--gz-space-1);
 }
 
-/* The guest teaser: a quiet rose panel (offers and quiet notes only): one drawing at the start, one primary action at the end. */
-.gzm-ib__teaser {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--gz-space-4);
-  margin-inline: var(--gz-space-gutter);
-  margin-block-end: var(--gz-space-4);
-  padding: var(--gz-space-panel-pad);
-  border-radius: var(--gz-radius-md);
-  background: var(--gz-color-sys-surface-tint);
-}

@@ -297,14 +297,14 @@ PackageBriefPrice:
     flat: { $ref: Money, nullable: true, description: The standard flat amount of the winning price rule (null for a per-guest package). }
     voucherPerGuest: { $ref: Money, nullable: true, description: The voucher per-guest rate (a window rate when lower); null when the rule has none. }
     voucherFlat: { $ref: Money, nullable: true, description: The voucher flat amount; null when the rule has none. }
-    billedGuests: { type: integer, description: Guests billed after the package and hall minimum (the Brief's guests, or the minimum when fewer). }
+    billedGuests: { type: integer, description: "Guests billed after the package and hall minimum (the Brief's guests, or the minimum when fewer)." }
     billableGuests: { type: integer, description: Billed guests minus the complimentary share; the quantity the per-guest rate multiplies. }
     tier: { $ref: PriceTier, description: The price tier that won on the date. }
 ExtraCategory: { type: string, enum: [kosha, florals, photographer, lighting, led_screens, zaffa, valet, cake, bridal_suite, suite_night, extra_hour, bukhoor, coffee_station, kids_corner, favours, companion_hall] }
 PricingUnit: { type: string, enum: [flat, per_guest, per_unit] }
 Extra:
   type: object
-  description: Extras are priced by the venue at one price (the same in both columns) and settled with the venue.
+  description: 'DEPRECATED since round 2 (ADR 0038 D2, CA-SVC-19): hotels and halls offer no extras or add-on services through Ghazal. The schema stays valid and the engine still prices an extra when asked, but no response lists extras any more. Extras were priced by the venue at one price (the same in both columns) and settled with the venue.'
   required: [id, venueId, category, name, description, pricingUnit, price, priceMin, priceMax, maxQty, includedInPackageIds, audiences, unitLabel, active]
   properties:
     id: { $ref: Id }
@@ -486,7 +486,7 @@ VenueDetail:
   properties:
     venue: { $ref: Venue }
     packages: { type: array, items: { $ref: PackageOffer } }
-    extras: { type: array, items: { $ref: Extra } }
+    extras: { type: array, items: { $ref: Extra }, deprecated: true, description: 'DEPRECATED since round 2 (CA-SVC-19): always an empty list; the apps show no extras. Other services come from the Services hub.' }
     windows: { type: array, items: { $ref: VoucherWindow }, description: Active voucher price windows of this venue. }
     price: { $ref: CardPrice, nullable: true }
     guestRange: { $ref: GuestRange, nullable: true }

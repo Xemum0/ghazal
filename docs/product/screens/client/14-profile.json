@@ -15,7 +15,7 @@
         "ar": "حسابكم"
       },
       "kind": "tab-root",
-      "purpose": "Hub of the Profile tab: monogram identity header and a short list of rows grouped by purpose. Also the guest view with only sign-in, language and legal pages.",
+      "purpose": "Hub of the Profile tab: monogram identity header and a short list of rows grouped by purpose. A small provider note closes the list (CA-SVC-20). There is no signed-out view: the app opens only after sign-in (ADR 0038).",
       "requirementIds": [
         "CA-PROF-01",
         "CA-PROF-02",
@@ -26,19 +26,20 @@
         "CA-PROF-10",
         "CA-PROF-11",
         "CA-PROF-12",
-        "CA-VCH-06"
+        "CA-VCH-06",
+        "CA-SVC-20",
+        "CA-AUTH-13"
       ],
       "states": [
         "default",
-        "guest",
         "loading",
         "offline",
         "sign-out-confirm"
       ],
       "interactions": [
         "Header: 56px monogram (first letter in its own script), name, verified phone; no avatar upload, no photo",
-        "Sign out asks for confirmation, then clears caches and returns to the language-aware Home as a guest",
-        "Guest view: a Sign in card (CL-AUTH-01), Language, Terms and Privacy; saved hearts and the Brief stay on the device",
+        "Sign out asks for confirmation, then clears caches and returns to the sign-in screen (CL-AUTH-01)",
+        "Provider note row, last in the Support list: glyph and one line «هل أنت مزوّد خدمة؟ قدّم طلبك في تطبيق الشريك» / 'Service provider? Apply in the Partner app' with a quiet external-link glyph; it opens nothing in the prototype (the target is the Partner app's store page, a URL kept in configuration, OQ-R2-04); the same note closes CL-SERV-01 (CA-SVC-20)",
         "Rows: Wedding info (CL-PROF-02), Personal info (CL-PROF-03), Bookings (CL-BKNG-01), My vouchers (CL-VCHR-02, value hint \"1 ready\"), Visits (CL-VIST-04), Receipts (CL-BKNG-05), Saved (CL-SAVD-01), Notifications (CL-PROF-04), Settings (CL-PROF-05), Support (CL-MSGS-02); the Rewards row is removed with CL-RVRW-03"
       ],
       "contentNotes": "Demo: monogram «ر», «ريم الدوسري» / Reem Al-Dosari, '+965 5000 0012' in an LTR isolate (display only, not tappable in the prototype), 'Wedding Thu 14 Jan 2027' subtitle on the Wedding info row. Rows carry value hints: Bookings '1 pending', Payments 'KD 5,460.000 paid' (once confirmed), Rewards '1,250 points', Language 'العربية'. The Language row opens a two-option sheet (language reached in three taps: Profile tab, Language row, choose); the Digits option appears only while the interface is Arabic. App version in a muted footer. Sign-out dialog copy: 'Sign out? Your saved halls and Brief stay on your account.' Tab bar visible. Voucher model (ADR 0033): row hints become Bookings \"1 pending\", My vouchers \"1 ready\", Receipts \"KD 2.000 paid\"; \"Rewards 1,250 points\" and \"KD 5,460.000 paid\" above are superseded.",
@@ -52,9 +53,9 @@
         "CL-BKNG-05",
         "CL-SAVD-01",
         "CL-MSGS-02",
-        "CL-AUTH-01",
         "CL-VCHR-02",
-        "CL-VIST-04"
+        "CL-VIST-04",
+        "CL-AUTH-01"
       ]
     },
     {
@@ -65,7 +66,7 @@
         "ar": "بيانات الزفاف"
       },
       "kind": "screen",
-      "purpose": "View and edit the wedding file: role, names, date, guests, budget and areas. The same pickers as the Brief; every field is optional and editable at any time. Edits flow into the countdown, budget and recommendations.",
+      "purpose": "View and edit the wedding file: role, names, date, guests, budget and governorates. The same pickers as the Brief; every field is optional and editable at any time. Edits flow into the countdown, budget and recommendations.",
       "requirementIds": [
         "CA-PROF-02",
         "CA-ONB-07",
@@ -74,7 +75,8 @@
         "CA-ONB-04",
         "CA-ONB-05",
         "CA-ONB-06",
-        "CA-TOOL-17"
+        "CA-TOOL-17",
+        "CA-FLT-08"
       ],
       "states": [
         "default",
@@ -85,12 +87,12 @@
         "offline"
       ],
       "interactions": [
-        "Fields: I am (Bride, Groom, Family member, Wedding planner), my name, partner's name, wedding date (single-date calendar with Not decided and Flexible month), guests (ladies and men separately), venue-and-catering budget, preferred areas; each opens the shared picker sheet used by the Brief (CL-DISC-02)",
+        "Fields: I am (Bride, Groom, Family member, Wedding planner), my name, partner's name, wedding date (single-date calendar with Not decided and Flexible month), guests (ladies and men separately), venue-and-catering budget, preferred governorates (the same wrapping chips as the Brief, no exact area, CA-FLT-08); each opens the shared picker sheet used by the Brief (CL-DISC-02)",
         "Autosave per field with a quiet saved toast; no big Save button",
         "If a booking exists on a different date, a banner says so and offers 'Use the booking date'",
         "Link row 'Total wedding budget' opens the Budget (CL-WEDD-03), because the Brief budget and the total wedding budget are different numbers"
       ],
-      "contentNotes": "Demo values: Bride, «ريم الدوسري», partner «فهد الشمري» / Fahad Al-Shammari, Thu 14 Jan 2027 («6 شعبان 1448 هـ» in the Arabic summary), guests Ladies 350 and Men 400, budget «من 20,000 إلى 35,000 د.ك» under the label «ميزانية القاعة والضيافة», areas Salmiya and Sharq. Date mismatch banner: 'Your booking at Aurelia Gulf Hotel is on Thu 14 Jan 2027. Use this date?' Planners and family members are first-class answers. Hint: 'Changes here update your countdown, budget and recommendations.' Tab bar visible.",
+      "contentNotes": "Demo values: Bride, «ريم الدوسري», partner «فهد الشمري» / Fahad Al-Shammari, Thu 14 Jan 2027 («6 شعبان 1448 هـ» in the Arabic summary), guests Ladies 350 and Men 400, budget «من 20,000 إلى 35,000 د.ك» under the label «ميزانية القاعة والضيافة», governorates Capital and Hawalli. Date mismatch banner: 'Your booking at Aurelia Gulf Hotel is on Thu 14 Jan 2027. Use this date?' Planners and family members are first-class answers. Hint: 'Changes here update your countdown, budget and recommendations.' Tab bar visible.",
       "priority": "core",
       "navigatesTo": [
         "CL-DISC-02",
@@ -106,10 +108,11 @@
         "ar": "البيانات الشخصية"
       },
       "kind": "screen",
-      "purpose": "Name, verified phone and optional email, plus the sign-in methods linked to the account. Changing the number re-verifies by WhatsApp.",
+      "purpose": "Name and sex (female or male, both required at sign-up in CL-AUTH-03 and editable here, ADR 0038 D4), verified phone and optional email, plus the sign-in methods linked to the account. Changing the number re-verifies by WhatsApp.",
       "requirementIds": [
         "CA-PROF-01",
-        "CA-AUTH-05"
+        "CA-AUTH-05",
+        "CA-AUTH-14"
       ],
       "states": [
         "default",
@@ -122,7 +125,7 @@
         "offline"
       ],
       "interactions": [
-        "Full name (dir=auto, no first and last split) with a live monogram preview; email field (LTR) with an optional note",
+        "Full name (dir=auto, no first and last split) with a live monogram preview; Sex as a two-option glyph switch (female, male; section-women and section-men glyphs, the word on both options; stored on the account, not shown to venues and not used to filter, OQ-R2-02); email field (LTR) with an optional note",
         "Phone row shows the verified number with 'Change number': a new number is verified with a WhatsApp code (CL-AUTH-02) before it replaces the old one",
         "Linked sign-in methods listed (WhatsApp number, Apple, Google); a hidden Apple relay email is shown as 'Hidden email'",
         "A short note on who can see the number: venues see it only for bookings with them"
@@ -165,7 +168,7 @@
         "Marketing group (offers, price drops, new venues) off until the user opts in; choose channels per group (push, WhatsApp, email)",
         "Quiet-hours row and an honest frequency note; OS permission row opens system settings when notifications are denied"
       ],
-      "contentNotes": "Marketing quiet hours default 10:00 PM – 9:00 AM, at most two a week, none in the final seven days before the wedding; booking and payment alerts still arrive and are silent between 11:00 PM and 8:00 AM (the two quiet-hour windows in ADR 0007 and ADR 0015 are reconciled here for owner confirmation). Opt-in line: «العروض وانخفاض الأسعار والقاعات الجديدة تصلكم فقط إذا فعّلتموها.» Price drops fire for wishlisted or compared venues on the user's date; new-venue alerts follow preferred areas. Denied state: 'Notifications are off in your phone settings. Updates still appear in the app.' Tab bar visible. Voucher model (ADR 0033): Always-on group: booking updates, voucher updates, visit messages. Reminders group (default on): confirm within 24 hours, voucher expiring, visit reminders, countdown milestones; \"balance due\" is removed.",
+      "contentNotes": "Marketing quiet hours default 10:00 PM – 9:00 AM, at most two a week, none in the final seven days before the wedding; booking and payment alerts still arrive and are silent between 11:00 PM and 8:00 AM (the two quiet-hour windows in ADR 0007 and ADR 0015 are reconciled here for owner confirmation). Opt-in line: «العروض وانخفاض الأسعار والقاعات الجديدة تصلكم فقط إذا فعّلتموها.» Price drops fire for wishlisted or compared venues on the user's date; new-venue alerts follow preferred governorates. Denied state: 'Notifications are off in your phone settings. Updates still appear in the app.' Tab bar visible. Voucher model (ADR 0033): Always-on group: booking updates, voucher updates, visit messages. Reminders group (default on): confirm within 24 hours, voucher expiring, visit reminders, countdown milestones; \"balance due\" is removed.",
       "priority": "supporting",
       "navigatesTo": [
         "CL-PROF-01",

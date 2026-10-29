@@ -2,10 +2,10 @@
   "id": "onboarding",
   "order": 1,
   "title": {
-    "en": "Welcome and wedding Brief",
-    "ar": "الترحيب وتفاصيل الزفاف"
+    "en": "Welcome, sign-in and wedding details",
+    "ar": "الترحيب والدخول وتفاصيل الزفاف"
   },
-  "intent": "First launch to a prefilled Brief in six quiet screens, all skippable. The couple picks a language (layout flips at once), sees three promises, then answers who is planning, the date, guests and budget, and areas. Answers are stored on the device for guests and become the global Brief (ADR 0007 D3) that drives price and availability on every card. No account is requested here.",
+  "intent": "First launch, with no guest mode (ADR 0038): the couple picks a language (the layout flips at once), sees three promises, and signs in with their phone (CL-AUTH-01 to CL-AUTH-03; a new account gives its name and sex there). Only then do three quiet, skippable steps follow: who is planning (the name comes from the account), the date, and guests and budget. Answers are stored on the account and become the global Brief (ADR 0007 D3) that drives price and availability on every card. The areas step is retired (CL-ONBD-06, CA-ONB-10): places are chosen by governorate in the Brief sheet (CA-FLT-08). A signed-out person sees only the language screen, the introduction and the sign-in screens.",
   "screens": [
     {
       "id": "CL-ONBD-01",
@@ -17,7 +17,8 @@
       "kind": "screen",
       "purpose": "First-ever screen. The couple chooses Arabic or English; direction flips immediately and the choice persists. Returning users can jump straight to sign-in.",
       "requirementIds": [
-        "CA-ONB-02"
+        "CA-ONB-02",
+        "CA-AUTH-13"
       ],
       "states": [
         "default",
@@ -26,7 +27,7 @@
       "interactions": [
         "Tap a language card: the whole screen mirrors in place (200 ms, no restart) and the choice is persisted",
         "Continue goes to the intro slides",
-        "Quiet text link 'I already have an account' / «لدي حساب بالفعل» opens the sign-in sheet",
+        "Quiet text link 'I already have an account' / «لدي حساب بالفعل» goes to the sign-in screen (CL-AUTH-01)",
         "Device language is preselected; if the device is neither Arabic nor English, Arabic is preselected"
       ],
       "contentNotes": "Full-bleed photograph of an empty ballroom with kosha florals (no people), wordmark غزل in the Arabic UI and Ghazal in the English UI. Two large cards, each written in its own script: «العربية» and 'English'; selected state is an ink border plus a check, never gold alone. One quiet line in both languages: «يمكنكم تغيير اللغة لاحقًا من حسابكم» / 'You can change the language later in Profile'. No flags. The digit style is not asked here (ADR 0010): Western digits are the default in Arabic. The screen is bundled and works fully offline. Tab bar hidden.",
@@ -44,9 +45,10 @@
         "ar": "تعريف سريع"
       },
       "kind": "screen",
-      "purpose": "Three swipeable, skippable slides with one promise each. Skipping goes straight to Home with an empty Brief.",
+      "purpose": "Three swipeable, skippable slides with one promise each. Skipping, like the last slide's Get started, goes to the sign-in screen: there is no guest mode, so Home is never reached without an account.",
       "requirementIds": [
-        "CA-ONB-01"
+        "CA-ONB-01",
+        "CA-AUTH-13"
       ],
       "states": [
         "default"
@@ -54,14 +56,13 @@
       "interactions": [
         "Swipe or tap Next between three slides; the first slide sits at the right in Arabic and swipes advance leftwards",
         "A 2px thread page indicator draws on as slides advance (320 ms, fills in reading direction)",
-        "Skip (top, inline-end) goes to the Discover Home with no Brief",
-        "Last slide CTA 'Get started' / «البدء» goes to the planning questions"
+        "Skip (top, inline-end) goes to the sign-in screen (CL-AUTH-01), never to Home",
+        "Last slide CTA 'Get started' / «البدء» goes to the sign-in screen (CL-AUTH-01)"
       ],
       "contentNotes": "Slide 1: 'Compare up to three halls side by side' / «مقارنة بين ثلاث قاعات جنبًا إلى جنب». Slide 2: 'See which dates are free before you ask' / «التواريخ المتاحة تظهر لكم مباشرة». Slide 3: 'Everything for the wedding in one place' / «كل تفاصيل الزفاف في مكان واحد». Imagery is empty-room details only (long table setting, floral arch, chandelier, a seating-layout plan); no people, no alcohol, no ornamental gold calligraphy. Headlines are noun phrases, not plural imperatives (ADR 0013). No autoplay video. Tab bar hidden.",
       "priority": "supporting",
       "navigatesTo": [
-        "CL-ONBD-03",
-        "CL-DISC-01"
+        "CL-AUTH-01"
       ]
     },
     {
@@ -72,20 +73,21 @@
         "ar": "من يخطط للزفاف؟"
       },
       "kind": "screen",
-      "purpose": "Capture the planner's role and names so the monogram, countdown and Wedding info start filled. Optional and editable later.",
+      "purpose": "First of the three optional steps after the account exists: the planner's role and names, so the monogram, countdown and Wedding info start filled. The name comes from the account and the role is suggested from the sex given at sign-up. Optional and editable later.",
       "requirementIds": [
         "CA-ONB-07",
-        "CA-ONB-09"
+        "CA-ONB-09",
+        "CA-ONB-10"
       ],
       "states": [
         "default",
         "success"
       ],
       "interactions": [
-        "Single-choice chips: Bride / Groom / A family member / Wedding planner («العروس» «العريس» «أحد أفراد العائلة» «منسّق الأعراس»); none is preselected",
-        "Full name field (dir=auto, Arabic or Latin) and optional partner name field; no first/last split (ADR 0012)",
+        "Single-choice chips: Bride / Groom / A family member / Wedding planner («العروس» «العريس» «أحد أفراد العائلة» «منسّق الأعراس»); the account's sex suggests one (female: Bride, male: Groom) and it can be changed (working assumption OQ-R2-06)",
+        "Full name field (dir=auto, Arabic or Latin) prefilled from the account, and an optional partner name field; no first/last split (ADR 0012)",
         "Live monogram preview: first letter of the name in its own script («ر» for ريم الدوسري) on a Rose-tint disk",
-        "Skip text link; Continue goes to the date"
+        "Skip text link; Continue goes to the date; no Back (the account already exists)"
       ],
       "contentNotes": "Prefill example for the demo persona: role 'Bride', name «ريم الدوسري» / Reem Al-Dosari, partner «فهد الشمري» / Fahad Al-Shammari. Family members and planners are first-class answers so a mother or a planner can use the app without feeling like a guest of someone else's wedding. No photo upload, no avatar picker (monograms only, ADR 0015). Arabic helper text avoids gendered second-person verbs. All fields skippable; every answer is editable in Profile > Wedding info (CL-PROF-02). Tab bar hidden.",
       "priority": "supporting",
@@ -133,12 +135,13 @@
         "ar": "الضيوف والميزانية"
       },
       "kind": "screen",
-      "purpose": "Set the guest count and the venue-and-catering budget together, because per-guest pricing makes them one decision in Kuwait.",
+      "purpose": "Set the guest count and the venue-and-catering budget together, because per-guest pricing makes them one decision in Kuwait. The last optional step: it publishes the Brief and opens Home.",
       "requirementIds": [
         "CA-ONB-04",
         "CA-ONB-05",
         "CA-ONB-09",
-        "CA-ONB-08"
+        "CA-ONB-08",
+        "CA-ONB-10"
       ],
       "states": [
         "default",
@@ -149,12 +152,12 @@
         "Guest stepper plus preset chips (100, 150, 200, 300, 400, 500, 650, 800, 1,000+); hard cap 1,500",
         "Optional toggle 'Separate ladies' and men's receptions' reveals two steppers (Ladies 350, Men 400); the Brief guest count follows the section the venue is searched for",
         "Budget bands as chips (under 5,000 | 5,000 - 10,000 | 10,000 - 20,000 | 20,000 - 35,000 | 35,000+) plus a custom range slider with a mirrored histogram",
-        "Skip either half independently; Continue goes to areas"
+        "Skip either half independently; Continue (Done) and Skip both publish the Brief from the answers and open Home"
       ],
       "contentNotes": "Budget label is «ميزانية القاعة والضيافة» / 'Venue and catering budget' so it is never confused with total wedding spend (ADR 0012, 0018). Demo answers: guests 350 («350 ضيفًا»), split Ladies 350 and Men 400, band 20,000 - 35,000 shown «من 20,000 إلى 35,000 د.ك» / 'KD 20,000 – 35,000'. Helper line beneath the band: 'Roughly KD 57 – 100 per guest at 350 guests' / «تقريبًا من 57 إلى 100 د.ك للضيف عند 350 ضيفًا». ICU plurals for guests (ضيفان, 3 ضيوف, 11 ضيفًا). Inputs accept Eastern-Arabic digits and normalise to Western on entry (ADR 0010). Open question flagged: ADR 0007 D3 calls the onboarding budget the total wedding budget while ADR 0012 and 0018 label the Brief budget venue and catering; this inventory follows the labelled venue-and-catering meaning and seeds the total in CL-WEDD-03 separately. Tab bar hidden.",
       "priority": "core",
       "navigatesTo": [
-        "CL-ONBD-06"
+        "CL-DISC-01"
       ]
     },
     {
@@ -185,10 +188,9 @@
       ],
       "contentNotes": "Demo selection: Salmiya (السالمية, Hawalli) and Sharq (شرق, Capital). With the 21-venue roster this yields 3 venues: Aurelia Gulf Hotel, Lumi Marina Hotel, Jawharat Al-Salmiya Palace. Governorate contents: Capital (Sharq, Bneid Al-Qar, Shuwaikh, Dasma); Hawalli (Salmiya, Jabriya, Mishref, Salwa, Bayan, Hateen); Farwaniya (Khaitan, Jleeb Al-Shuyoukh, Al-Rai); Ahmadi (Fintas, Mahboula, Khiran); Mubarak Al-Kabeer (Messila, Qurain, Sabah Al-Salem); Jahra (Taima, Oyoun). Area names show in the UI language only. No location permission is requested here (asked later, in context, for Nearby). Tab bar hidden.",
       "priority": "core",
-      "navigatesTo": [
-        "CL-DISC-01",
-        "CL-DISC-03"
-      ]
+      "navigatesTo": [],
+      "deprecated": true,
+      "deprecatedReason": "Retired by ADR 0038 (CA-ONB-10, CA-FLT-08): the Client app has no exact-area selection anywhere. Onboarding no longer asks for areas; places are filtered by governorate in the Brief sheet (CL-DISC-02), Filters (CL-DISC-04), Results (CL-DISC-03) and the Vendors filters (CL-SERV-02). CA-ONB-06 is superseded."
     }
   ]
 }

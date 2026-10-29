@@ -3,9 +3,9 @@
 // Text diet (ADR 0034): no paragraph on the sheet. The plate is the binding (venue, hall, package, date, the two prices and the saving, CA-VCH-02
 // and CA-VCH-03); three knots say the model (pay KD 2 now, request at the voucher price, pay the venue directly, CA-VCH-01); one line with a
 // returns glyph and its (i) carries the refund and reuse terms and the off-app payment (CA-VCH-01, the voucher-terms exception). ONE primary:
-// Pay KD 2. A guest sees the same sheet with the voucher price behind a lock and Sign in as the primary (CA-VCH-04), returning to this quote.
+// Pay KD 2 (the client is always signed in, ADR 0038: there is no gate and no locked price).
 // A voucher is never offered when the saving does not beat its price: a drawing, three words and Contact (CA-VCH-10, CA-VCH-12).
-// States: default, guest-gated, already-owned, saving-too-small, quote-changed, loading, error, offline.
+// States: default, already-owned, saving-too-small, quote-changed, loading, error, offline.
 import { Banner, Button, EmptyState, ErrorState, Icon, InfoButton, SheetFooter, SuccessState, VoucherCard, useNav } from '../../../system'
 import { meta } from '../../../mock'
 import { usePrototype } from '../../../shell/state'
@@ -24,24 +24,18 @@ import {
   useLive,
   useQuote,
   useSceneState,
-  useSignedIn,
   useBoundWallet,
-  type Quote,
 } from './_components/model'
 import './_components/explainer.css'
 import './CL-VCHR-01.css'
 
-export const states = ['guest-gated', 'already-owned', 'saving-too-small', 'quote-changed', 'loading', 'error', 'offline']
-
-/** The params a screen below would need to open this sheet again with the same quote (the sign-in gate returns here). */
-const paramsOf = (q: Quote) => ({ venueId: q.targetType === 'venue' ? q.targetId : undefined, providerId: q.targetType === 'provider' ? q.targetId : undefined, hallId: q.hallId ?? undefined, packageId: q.packageId, date: q.eventDate, guests: q.guests ?? undefined, audience: q.audience ?? undefined })
+export const states = ['already-owned', 'saving-too-small', 'quote-changed', 'loading', 'error', 'offline']
 
 export default function VoucherExplainer() {
   const { t, tc, money } = useVc()
   const nav = useNav()
   const state = useSceneState()
   const live = useLive()
-  const signedIn = useSignedIn()
   const wallet = useBoundWallet()
   const quote = useQuote()
   const facts = useFactsOf(targetOfQuote(quote))
@@ -50,7 +44,7 @@ export default function VoucherExplainer() {
   const loading = state === 'loading'
   const offline = state === 'offline'
   const failed = state === 'error'
-  const owned = state === 'already-owned' ? readyVariantOf(storyVoucher()) : live && signedIn ? matchingReady(wallet, quote) : undefined
+  const owned = state === 'already-owned' ? readyVariantOf(storyVoucher()) : live ? matchingReady(wallet, quote) : undefined
   const tooSmall = state === 'saving-too-small' || !quote.offered
   const fee = money(meta.config.voucherFeeFils)
   const replyHours = replyHoursOf(quote.targetType, quote.targetId)
@@ -62,15 +56,6 @@ export default function VoucherExplainer() {
   }
   const toPayment = () => {
     if (loading || offline || failed) return
-    if (!signedIn) {
-      // The quote travels with the gate: the draft keeps it, the gate remembers where to come back to (ADR 0007 D8).
-      const store = usePrototype.getState()
-      if (!provider) store.patchDraft({ venueId: quote.targetId, hallId: quote.hallId, packageId: quote.packageId, eventDate: quote.eventDate, guests: quote.guests, audience: quote.audience })
-      store.openGate('voucher', { screenId: 'CL-VCHR-01', params: paramsOf(quote) })
-      nav.closeSheet()
-      nav.openSheet('CL-AUTH-01', { params: { reason: 'voucher' } })
-      return
-    }
     const id = live
       ? usePrototype.getState().startVoucherCheckout({
           targetType: quote.targetType,
@@ -102,7 +87,7 @@ export default function VoucherExplainer() {
     return (
       <div className="gzv-sheet" data-gz-id="explainer.sheet" data-state="saving-too-small">
         <SheetTop title={t('clientVouchersExplainerTitle')} />
-        <QuotePlate quote={quote} facts={facts} signedIn={signedIn} noPrices />
+        <QuotePlate quote={quote} facts={facts} noPrices />
         <EmptyState
           illustration="hall"
           title={t('clientVouchersTooSmallTitle')}
@@ -120,7 +105,7 @@ export default function VoucherExplainer() {
     )
   }
 
-  const primary = owned ? t('clientVouchersSendRequest') : signedIn ? t('clientVouchersPayFee', { fee }) : t('clientVouchersCtaSignIn')
+  const primary = owned ? t('clientVouchersSendRequest') : t('clientVouchersPayFee', { fee })
 
   return (
     <div className="gzv-sheet" data-gz-id="explainer.sheet" data-state={state ?? 'default'} aria-busy={loading || undefined}>
@@ -139,7 +124,7 @@ export default function VoucherExplainer() {
               <VoucherCard voucher={owned} variant="compact" onOpen={seeVoucher} />
             </section>
           ) : (
-            <QuotePlate quote={quote} facts={facts} signedIn={signedIn} loading={loading} />
+            <QuotePlate quote={quote} facts={facts} loading={loading} />
           )}
 
           {owned ? null : (
@@ -163,7 +148,7 @@ export default function VoucherExplainer() {
 
       <SheetFooter>
         {failed ? null : (
-          <Button variant="primary" fullWidth iconStart={signedIn ? undefined : 'lock'} onClick={owned ? sendRequest : toPayment} disabled={loading || offline}>
+          <Button variant="primary" fullWidth onClick={owned ? sendRequest : toPayment} disabled={loading || offline}>
             {primary}
           </Button>
         )}

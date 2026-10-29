@@ -5,7 +5,7 @@
     "en": "My venue",
     "ar": "قاعتي"
   },
-  "intent": "Everything the venue edits about its listing from a phone, reached from More > My venue (ADR 0008 D11): photos and videos, packages and extras, halls with capacity and amenities, policies and booking rules. The app edits what is safe on a phone: base package prices, per-guest rate, minimum and maximum guests, extras and the active toggle. Season, holiday and special-date price grids, menus and custom cancellation tiers are read-only here with 'Edit on dashboard', because a money grid on a phone invites costly errors (ADR 0004 D8). Every text field is bilingual and shows per-language completeness; a venue cannot publish a field in only one language (HA-VMGT-09, PL-CORE-08). Roles: Admin and Manager edit everything; Marketing edits media only; Reception and Accountant do not see these screens.",
+  "intent": "Everything the venue edits about its listing from a phone, reached from More > My venue (ADR 0008 D11): photos and videos, packages, halls with capacity and amenities, policies and booking rules. The app edits what is safe on a phone: base package prices, per-guest rate, minimum and maximum guests and the active toggle. Season, holiday and special-date price grids, menus and custom cancellation tiers are read-only here with 'Edit on dashboard', because a money grid on a phone invites costly errors (ADR 0004 D8). Every text field is bilingual and shows per-language completeness; a venue cannot publish a field in only one language (HA-VMGT-09, PL-CORE-08). Roles: Admin and Manager edit everything; Marketing edits media only; Reception and Accountant do not see these screens. A venue offers no extras or add-on services (CA-SVC-19, ADR 0038): clients add services only by choosing a service provider in the Client app.",
   "screens": [
     {
       "id": "HL-VENU-01",
@@ -60,11 +60,11 @@
       "id": "HL-VENU-02",
       "slug": "packages",
       "title": {
-        "en": "Packages and extras",
-        "ar": "الباقات والإضافات"
+        "en": "Packages",
+        "ar": "الباقات"
       },
       "kind": "screen",
-      "purpose": "The list of what the venue sells: packages with their prices per guest and limits, and the extras couples can add. Active toggles and archiving are one tap; editing opens the package editor.",
+      "purpose": "The list of what the venue sells: packages with their prices per guest and limits (standard and voucher price). Active toggles and archiving are one tap; editing opens the package editor. There is no Extras tab or catalogue: extras and add-on services are not part of a venue (CA-SVC-19).",
       "requirementIds": [
         "HA-VMGT-03",
         "HA-VMGT-04",
@@ -72,7 +72,8 @@
         "HA-VMGT-09",
         "HA-AUTH-02",
         "HA-VMGT-11",
-        "HA-VMGT-12"
+        "HA-VMGT-12",
+        "CA-SVC-19"
       ],
       "states": [
         "default",
@@ -80,25 +81,29 @@
         "empty",
         "error",
         "offline",
-        "archived-section",
-        "extra-editor"
+        "archived-section"
       ],
       "interactions": [
-        "Segmented control Packages / Extras; each package row shows name (Arabic primary in the Arabic UI), audience tag, weekday and weekend per-guest prices, minimum and maximum guests, an active switch and a language chip (complete or what is missing)",
+        "Each package row shows name (Arabic primary in the Arabic UI), audience tag, weekday and weekend per-guest prices, minimum and maximum guests, an active switch and a language chip (complete or what is missing)",
         "Tapping a package opens the editor; 'New package' is the single primary at the bottom; an archived section is collapsed at the end with a Restore action",
         "Active switch hides the package from couples immediately and states 'Existing bookings are not affected' (prices and policy are frozen in each booking's snapshot)",
-        "Extras segment: rows with name, price, unit (per event, per hour, per guest, per unit) and an active switch; tapping a row or 'Add extra' opens an extra editor sheet with Arabic and English names, price, unit, short description and active",
         "A footer note 'Seasonal and holiday prices - Edit on dashboard' opens a read-only explanation; the app never edits tier grids",
         "Names may not reuse the planner tier names الفضية / الذهبية / الملكية (Silver, Gold, Royal); the editors block them with an inline reason",
         "Each package row shows two prices on the same basis (\"Standard KD 52 · Voucher KD 44 per guest\"), the pricing structure chip (Per person or Package) and a \"No voucher price\" tag when the voucher column is empty; the footer note reads \"Seasonal and holiday prices - Edit on dashboard\" and \"Time-boxed voucher prices - Voucher prices\" (opens HL-GROW-01)"
       ],
-      "contentNotes": "Packages at Aurelia Gulf Hotel (browse format, units always shown): 1) الحفل النسائي · أيام الأسبوع / Ladies' Reception, Weekday - KD 46 per guest, min 200, max 650, active. 2) الحفل النسائي · نهاية الأسبوع / Ladies' Reception, Weekend - KD 52 per guest, min 200, max 650, active. 3) الحفل النسائي المتكامل / Ladies' Signature Evening - KD 50 weekday, KD 55 weekend per guest, min 300, max 650, includes kosha design, zaffa entrance, bridal suite and a suite night, EN description missing (language chip). 4) الحفل الرجالي / Men's Reception - KD 32 per guest, min 300, max 650. 5) غداء الرجال / Men's Lunch - KD 30 per guest, min 300, inactive. 6) ليلة الزفاف المتكاملة / Full-Night Package - ladies KD 52 plus men KD 32 per guest across two halls. Extras: الكوشة المخصصة / Bespoke kosha from KD 1,800 (up to 6,500); الزهور الطبيعية / Fresh florals from KD 900 (up to 4,000); مصوّرة / Female photographer KD 550 per event; شاشات LED / LED screens KD 600; فرقة الزفّة / Zaffa troupe KD 650; كيكة العرض / Show cake KD 320; ساعة إضافية / Extra hour KD 400 per hour. Empty state: «لا توجد باقات بعد» / 'No packages yet' with 'New package'. Role-limited: hidden for Reception and Accountant. Voucher model (ADR 0033): illustrative seed: Ladies' Reception, Weekday - standard KD 46, voucher KD 40 per guest; Weekend - standard KD 52, voucher KD 44 per guest. Packages without a voucher price are not offered a voucher to clients.",
+      "contentNotes": "Packages at Aurelia Gulf Hotel (browse format, units always shown): 1) الحفل النسائي · أيام الأسبوع / Ladies' Reception, Weekday - KD 46 per guest, min 200, max 650, active. 2) الحفل النسائي · نهاية الأسبوع / Ladies' Reception, Weekend - KD 52 per guest, min 200, max 650, active. 3) الحفل النسائي المتكامل / Ladies' Signature Evening - KD 50 weekday, KD 55 weekend per guest, min 300, max 650, includes kosha design, zaffa entrance, bridal suite and a suite night, EN description missing (language chip). 4) الحفل الرجالي / Men's Reception - KD 32 per guest, min 300, max 650. 5) غداء الرجال / Men's Lunch - KD 30 per guest, min 300, inactive. 6) ليلة الزفاف المتكاملة / Full-Night Package - ladies KD 52 plus men KD 32 per guest across two halls. Empty state: «لا توجد باقات بعد» / 'No packages yet' with 'New package'. Role-limited: hidden for Reception and Accountant. Voucher model (ADR 0033): illustrative seed: Ladies' Reception, Weekday - standard KD 46, voucher KD 40 per guest; Weekend - standard KD 52, voucher KD 44 per guest. Packages without a voucher price are not offered a voucher to clients.",
       "priority": "supporting",
       "navigatesTo": [
         "HL-VENU-03",
         "HL-SETT-01",
         "HL-GROW-01"
-      ]
+      ],
+      "ownerRound2": {
+        "adr": "0038",
+        "date": "2026-10-29",
+        "change": "Extras tab, catalogue and extra editor sheet removed (CA-SVC-19)",
+        "note": "The extras fields stay in the API (additive-only contract); the app no longer shows or edits them. Packages keep inclusions and the standard and voucher prices."
+      }
     },
     {
       "id": "HL-VENU-03",

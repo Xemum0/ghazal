@@ -1,12 +1,12 @@
 // CL-SERV-02 Providers in one category (voucher model, ADR 0033; text diet, ADR 0034). Covers CA-SVC-09, CA-SVC-02 to CA-SVC-08 (every category
-// group opens here, siblings one glyph away), CA-SVC-13, CA-SVC-16, CA-SVC-17, CA-VCH-02, CA-TOOL-02.
+// group opens here, siblings one glyph away), CA-SVC-13, CA-SVC-16, CA-SVC-17, CA-VCH-02, CA-FLT-08, CA-SVC-19, CA-TOOL-02.
 // The category as the large title, its sibling categories as a glyph switch (the five primaries together, or the group of a secondary one;
-// the title names the chosen one), the filter glyph in the top bar with the count of filters on (sort, area, price and rating share one
+// the title names the chosen one), the filter glyph in the top bar with the count of filters on (sort, governorate, price and rating share one
 // sheet), then the providers as an unframed two-up grid in the venue card's language: 4:5 photograph of the work, name, facts as glyph and
-// figure, the voucher price with the standard price struck beside it (lock for a guest, ticket for a client), a heart that saves to
+// figure, the voucher price with the standard price struck beside it (a ticket), a heart that saves to
 // Saved > Services. Only approved, active listings appear; a paid placement says "Sponsored" and nothing else is labelled.
 // A filter that matches nothing offers Clear filters; a category with no providers points to a sibling. Pull to refresh.
-// States: default, loading, empty, no-results, error, offline, guest.
+// No signed-out variant (ADR 0038). States: default, loading, empty, no-results, error, offline.
 import { useState } from 'react'
 import { vendorsFor, type ServiceCategoryId } from '../../../mock'
 import { useT } from '../../../i18n'
@@ -16,11 +16,11 @@ import { Banner, EmptyState, ErrorState, IconSegmented, PullToRefresh, Screen, T
 import { VendorTile } from './_components/VendorTile'
 import { FilterSheet } from './_components/FilterSheet'
 import {
-  DEFAULT_CATEGORY, ICON_OF, NO_FILTERS, appliedCount, areaOptions, categoryOf, listFor, siblingsOf, useFilters, useLive, useServicesFlow, type Filters,
+  DEFAULT_CATEGORY, ICON_OF, NO_FILTERS, appliedCount, categoryOf, governorateOptions, listFor, siblingsOf, useFilters, useLive, useServicesFlow, type Filters,
 } from './_components/model'
 import './CL-SERV-02.css'
 
-export const states = ['loading', 'empty', 'no-results', 'error', 'offline', 'guest']
+export const states = ['loading', 'empty', 'no-results', 'error', 'offline']
 
 type Params = { categoryId?: ServiceCategoryId }
 
@@ -38,10 +38,8 @@ export default function CategoryList() {
   const stored = useFilters(catId)
   // The no-results frame shows a filter that cannot match; live, the filters are the viewer's own.
   const filters: Filters =
-    state === 'no-results' ? { ...NO_FILTERS, areaIds: [areaOptions(catId)[0]?.id ?? ''], maxFils: 1 } : stored
+    state === 'no-results' ? { ...NO_FILTERS, governorateIds: [governorateOptions(catId)[0] ?? ''], maxFils: 1 } : stored
   const favourites = usePrototype(s => s.favourites.vendor)
-  const auth = usePrototype(s => s.auth)
-  const audience = state === 'guest' || (live && auth === 'guest') ? 'guest' : 'member'
 
   const loading = state === 'loading'
   const errored = state === 'error'
@@ -117,7 +115,6 @@ export default function CategoryList() {
                       <VendorTile
                         key={v.id}
                         vendor={v}
-                        audience={audience}
                         favourite={favourites.includes(v.id)}
                         onFavouriteChange={() => toggleFavourite(v.id)}
                         onOpen={() => nav.push('CL-SERV-03', { vendorId: v.id, categoryId: catId })}

@@ -14,14 +14,32 @@ abstract interface class PartnerAccountRepository {
   /// Access: signed in; roles: partner.
   Future<PartnerMe> getPartnerMe();
 
-  /// Choose Hotel or hall versus Service provider (HL-PROV-01)
+  /// Choose the account type and send the application (HL-PROV-01, PA-ACC-07)
   ///
+  /// The application form of a service provider or private hall. Creates the account under review with a pending application (see `PartnerMe.memberships[].application`); Ghazal staff accept or reject it. Only an accepted account can create listings (403 APPLICATION_NOT_ACCEPTED).
   /// `POST /partner/account-type`
   /// Access: signed in; roles: partner.
   /// Pass the same [idempotencyKey] when the user retries the same intent; a fresh one is generated when null.
   Future<PartnerMe> chooseAccountType({
     required ChooseAccountTypeInput body,
     String? idempotencyKey,
+  });
+
+  /// The applicant's own application and its decision (HL-PROV-01, HL-ACCS-04)
+  ///
+  /// Needs no venue or provider header. 404 NOT_FOUND when the account has no application (an account Ghazal assigned).
+  /// `GET /partner/application`
+  /// Access: signed in; roles: partner.
+  Future<PartnerApplication> getPartnerApplication();
+
+  /// Edit a rejected application and send it again (HL-PROV-01, PA-ACC-07)
+  ///
+  /// Replaces the business information and sets the application to `pending` again, clearing the rejection reason. Only a rejected application can be edited (409 APPLICATION_NOT_EDITABLE).
+  /// `PUT /partner/application`
+  /// Access: signed in; roles: partner.
+  /// Errors (problem+json `code`): APPLICATION_NOT_EDITABLE.
+  Future<PartnerApplication> resubmitPartnerApplication({
+    required PartnerApplicationInput body,
   });
 
   /// Switch the active venue or provider (HA-AUTH-03)
@@ -33,7 +51,7 @@ abstract interface class PartnerAccountRepository {
     required SwitchContextInput body,
   });
 
-  /// The account and its review or suspension status (HL-ACCS-04)
+  /// The account, its application and its review or suspension status (HL-ACCS-04)
   ///
   /// `GET /partner/account`
   /// Access: signed in; roles: partner.

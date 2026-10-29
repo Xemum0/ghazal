@@ -1,7 +1,7 @@
-// CL-BOOK-05 Review (step 5 of 5): the voucher-bound request summary, the last screen before the request goes to the venue.
+// CL-BOOK-05 Review (step 4 of 4): the voucher-bound request summary, the last screen before the request goes to the venue.
 // Covers CA-BOOK-09, CA-BOOK-10, CA-BOOK-14, CA-BOOK-17, CA-VDET-16, CA-VCH-08, CA-VCH-09.
 // Text diet (ADR 0034, hero screen): no lead, no section words, no sentences. The request plate (photograph, hall, section / guests / session as
-// glyph facts), four rows with a glyph, one line and a chevron (date, package, extras, contact: each opens its step to edit), the itemised
+// glyph facts), three rows with a glyph, one line and a chevron (date, package, contact: each opens its step to edit), the itemised
 // price in both columns (the voucher total large with the standard total struck and the saving as a chip, the same composition as a package
 // card; the sentence about the fee and the venue payment behind its info glyph), the attached voucher as a ticket card (with no voucher, the
 // "Voucher first" panel is the first thing on the screen, not a panel below the fold), what happens next as four glyph knots with the reply
@@ -9,7 +9,7 @@
 // and a QR are ambiguous alone and the alternative is a paragraph), and the consent as "I agree" with the legal sentence behind an info glyph
 // (Read the terms is a button inside it). One gold action: "Send request" with the voucher total beside it.
 // Nothing more to pay Ghazal; after the venue approves and the client confirms, the client pays the venue directly (ADR 0033).
-// Navigates to CL-BOOK-06, CL-VCHR-01, CL-VCHR-04, CL-BOOK-07, CL-VENU-05, CL-AUTH-02, CL-AUTH-01, CL-BKNG-01, CL-BOOK-01..04 (Edit).
+// Navigates to CL-BOOK-06, CL-VCHR-01, CL-VCHR-04, CL-BOOK-07, CL-VENU-05, CL-AUTH-02, CL-BKNG-01, CL-BOOK-01, CL-BOOK-02, CL-BOOK-04 (Edit).
 import { useEffect, useRef, useState } from 'react'
 import { Banner, Checkbox, ErrorState, FactChip, Figures, IconListRow, InfoButton, Skeleton, useBi, useNav } from '../../../system'
 import { Phone, useFormat, useT } from '../../../i18n'
@@ -30,11 +30,10 @@ import './_components/step.css'
 import './_components/review.css'
 import './CL-BOOK-05.css'
 
-export const states = ['voucher-missing', 'voucher-quote-changed', 'consent-unchecked', 'phone-unverified', 'open-requests-limit', 'loading', 'error', 'offline']
+export const states = ['voucher-missing', 'consent-unchecked', 'phone-unverified', 'open-requests-limit', 'loading', 'error', 'offline']
 
 const SCENARIO: Record<string, string> = {
   'voucher-missing': 'novoucher',
-  'voucher-quote-changed': 'chosen-extras',
   'open-requests-limit': 'limit',
 }
 
@@ -51,7 +50,6 @@ export default function Review() {
   const flow = useFlow(useScenario(state, SCENARIO))
   const contact = useContact()
   const local = useFlowStore()
-  const auth = usePrototype(s => s.auth)
   const draft = usePrototype(s => s.bookingDraft)
   const { getVoucher, changeVoucher } = useVoucherActions(flow, 'CL-BOOK-05')
   const [sending, setSending] = useState(false)
@@ -70,10 +68,9 @@ export default function Review() {
   const venueName = bi(flow.venue.name)
   const first = flow.sections[0]!
   const uneconomic = Boolean(voucher && quote && !quote.voucherEligible)
-  const changed = Boolean(voucher && quote && quote.voucherEligible && quote.totals.voucherTotal.fils !== voucher.quoteFils.voucher)
 
   // ---- movement
-  const edit = (step: 1 | 2 | 3 | 4) => (voucher && step <= 2 ? changeVoucher() : goStep(nav, 5, step))
+  const edit = (step: 1 | 2 | 3) => (voucher && step <= 2 ? changeVoucher() : goStep(nav, 4, step))
   const openTerms = () => nav.openSheet('CL-VENU-05', { params: { venueId: flow.venue.id, segment: 'terms' } })
   const openVerify = () =>
     nav.openSheet('CL-AUTH-02', {
@@ -110,11 +107,6 @@ export default function Review() {
   const send = () => {
     if (consentOnly) return toConsent()
     if (blockedReason || sending) return
-    if (auth === 'guest' && live) {
-      usePrototype.getState().openGate('send-request', { screenId: 'CL-BOOK-05' })
-      nav.openSheet('CL-AUTH-01', { params: { reason: 'send-request', resume: 'CL-BOOK-05' } })
-      return
-    }
     if (!flow.dateOk) return openTaken()
     setSending(true)
     timer.current = window.setTimeout(() => {
@@ -139,7 +131,6 @@ export default function Review() {
   // ---- facts for the rows
   const session = first.sessions.find(x => x.id === first.sessionId)
   const dateParts = f.dateWithHijri(flow.date)
-  const chosenExtras = flow.extras.filter(e => e.selected && !e.included)
   const requests = (live ? draft.requests : (mock.heroBookingAs('pending').specialRequests ?? '')).trim()
   const replyBy = f.dateTime(addHoursIso(mock.clock.now(), flow.slaHours), 'short')
 
@@ -174,17 +165,11 @@ export default function Review() {
         {t('clientBookingVoucherUneconomic')}
       </StateNote>
     </div>
-  ) : changed ? (
-    <div className="bk-notice">
-      <StateNote icon="receipt" info={{ title: t('clientBookingPriceTitle'), body: <p>{t('clientBookingQuoteChanged')}</p> }}>
-        {t('clientBookingQuoteChangedShort')}
-      </StateNote>
-    </div>
   ) : null
 
   return (
     <StepScreen
-      step={5}
+      step={4}
       venueName={venueName}
       title={t('clientBookingReviewTitle')}
       notice={notice}
@@ -254,13 +239,6 @@ export default function Review() {
             />
             <IconListRow
               flush
-              icon="sparkle"
-              title={chosenExtras.length ? f.list(chosenExtras.map(e => bi(e.extra.name))) : t('clientBookingReviewExtras')}
-              chevron
-              onClick={() => edit(3)}
-            />
-            <IconListRow
-              flush
               icon="user"
               title={<bdi dir="auto">{contact.name}</bdi>}
               facts={
@@ -270,11 +248,11 @@ export default function Review() {
                 </>
               }
               chevron
-              onClick={() => edit(4)}
+              onClick={() => edit(3)}
               last={!requests}
             />
             {requests ? (
-              <IconListRow flush last icon="notes" title={<bdi dir="auto" className="gz-clamp-3 bk-rv-note">{requests}</bdi>} chevron onClick={() => edit(4)} />
+              <IconListRow flush last icon="notes" title={<bdi dir="auto" className="gz-clamp-3 bk-rv-note">{requests}</bdi>} chevron onClick={() => edit(3)} />
             ) : null}
           </section>
 

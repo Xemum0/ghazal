@@ -4,6 +4,7 @@
 import '../core/core.dart';
 import 'common.g.dart';
 import 'profile.g.dart';
+import 'services.g.dart';
 
 enum StaffRole {
   admin('admin'),
@@ -73,6 +74,7 @@ enum PartnerAccountType {
   String toJson() => value;
 }
 
+/// `under_review` covers an application that is pending or rejected (`application.status` tells which); `active` once it is accepted or for an account Ghazal assigned.
 enum PartnerAccountStatus {
   invited('invited'),
   active('active'),
@@ -96,6 +98,280 @@ enum PartnerAccountStatus {
   String toJson() => value;
 }
 
+/// Staff decision on a partner application (PA-ACC-07). A resubmission sets it to `pending` again.
+enum ApplicationStatus {
+  pending('pending'),
+  accepted('accepted'),
+  rejected('rejected'),
+  unknown('unknown');
+
+  const ApplicationStatus(this.value);
+
+  /// The wire value.
+  final String value;
+
+  /// Unknown values never crash a client: they read as [unknown] (api-conventions section 2).
+  static ApplicationStatus fromJson(Object? v) {
+    for (final e in values) {
+      if (e.value == v) return e;
+    }
+    return ApplicationStatus.unknown;
+  }
+
+  String toJson() => value;
+}
+
+/// The application a service provider or private hall sends from the Partner app (HL-PROV-01, PA-ACC-07, PA-ACC-08, OQ-R2-03). Ghazal staff accept or reject it in the Super Admin web (not in this API; the mock has a control endpoint); only an accepted account can create listings. Visible to the applicant through `PartnerMe.memberships[].application` and `PartnerAccount.application`.
+final class PartnerApplication {
+  const PartnerApplication({
+    required this.id,
+    required this.accountId,
+    required this.accountType,
+    required this.name,
+    required this.categoryIds,
+    required this.otherCategoryNote,
+    required this.governorateId,
+    required this.contactName,
+    required this.phone,
+    required this.email,
+    required this.description,
+    required this.licenceRef,
+    required this.status,
+    required this.rejectionReason,
+    required this.submittedAt,
+    required this.decidedAt,
+  });
+
+  factory PartnerApplication.fromJson(Map<String, Object?> json) {
+    try {
+      return PartnerApplication(
+        id: reqField(json, 'id', (v) => asString(v)),
+        accountId: reqField(json, 'accountId', (v) => asString(v)),
+        accountType: reqField(json, 'accountType', (v) => PartnerAccountType.fromJson(v)),
+        name: reqField(json, 'name', (v) => LocalizedText.fromJson(asMap(v))),
+        categoryIds: reqField(json, 'categoryIds', (v) => asList(v, (v1) => ServiceCategoryId.fromJson(v1))),
+        otherCategoryNote: optField(json, 'otherCategoryNote', (v) => asString(v)),
+        governorateId: reqField(json, 'governorateId', (v) => asString(v)),
+        contactName: reqField(json, 'contactName', (v) => asString(v)),
+        phone: reqField(json, 'phone', (v) => asString(v)),
+        email: reqField(json, 'email', (v) => asString(v)),
+        description: reqField(json, 'description', (v) => asString(v)),
+        licenceRef: optField(json, 'licenceRef', (v) => asString(v)),
+        status: reqField(json, 'status', (v) => ApplicationStatus.fromJson(v)),
+        rejectionReason: optField(json, 'rejectionReason', (v) => LocalizedText.fromJson(asMap(v))),
+        submittedAt: reqField(json, 'submittedAt', (v) => asInstant(v)),
+        decidedAt: optField(json, 'decidedAt', (v) => asInstant(v)),
+      );
+    } on FormatException catch (e) {
+      throw FormatException('PartnerApplication: ${e.message}');
+    }
+  }
+
+  final String id;
+  final String accountId;
+  final PartnerAccountType accountType;
+  /// Business name in Arabic and English.
+  final LocalizedText name;
+  /// Up to three registered service categories (a service provider; empty for a private hall).
+  final List<ServiceCategoryId> categoryIds;
+  /// Open note for a service that is not among the registered categories ("Other"); staff can add the category or reject (PA-ACC-08).
+  final String? otherCategoryNote;
+  /// From `GET /areas`.
+  final String governorateId;
+  final String contactName;
+  final String phone;
+  final String email;
+  /// Short description, as typed.
+  final String description;
+  /// Optional commercial licence reference.
+  final String? licenceRef;
+  final ApplicationStatus status;
+  /// Set with a rejection; shown to the applicant with "Edit and resubmit".
+  final LocalizedText? rejectionReason;
+  /// The first submission, or the last resubmission.
+  final DateTime submittedAt;
+  final DateTime? decidedAt;
+
+  Map<String, Object?> toJson() => {
+      'id': id,
+      'accountId': accountId,
+      'accountType': accountType.toJson(),
+      'name': name.toJson(),
+      'categoryIds': categoryIds.map((v1) => v1.toJson()).toList(),
+      'otherCategoryNote': otherCategoryNote == null ? null : otherCategoryNote!,
+      'governorateId': governorateId,
+      'contactName': contactName,
+      'phone': phone,
+      'email': email,
+      'description': description,
+      'licenceRef': licenceRef == null ? null : licenceRef!,
+      'status': status.toJson(),
+      'rejectionReason': rejectionReason == null ? null : rejectionReason!.toJson(),
+      'submittedAt': instantToJson(submittedAt),
+      'decidedAt': decidedAt == null ? null : instantToJson(decidedAt!),
+      };
+
+  PartnerApplication copyWith({
+    String? id,
+    String? accountId,
+    PartnerAccountType? accountType,
+    LocalizedText? name,
+    List<ServiceCategoryId>? categoryIds,
+    Object? otherCategoryNote = unsetValue,
+    String? governorateId,
+    String? contactName,
+    String? phone,
+    String? email,
+    String? description,
+    Object? licenceRef = unsetValue,
+    ApplicationStatus? status,
+    Object? rejectionReason = unsetValue,
+    DateTime? submittedAt,
+    Object? decidedAt = unsetValue,
+  }) => PartnerApplication(
+      id: id ?? this.id,
+      accountId: accountId ?? this.accountId,
+      accountType: accountType ?? this.accountType,
+      name: name ?? this.name,
+      categoryIds: categoryIds ?? this.categoryIds,
+      otherCategoryNote: identical(otherCategoryNote, unsetValue) ? this.otherCategoryNote : otherCategoryNote as String?,
+      governorateId: governorateId ?? this.governorateId,
+      contactName: contactName ?? this.contactName,
+      phone: phone ?? this.phone,
+      email: email ?? this.email,
+      description: description ?? this.description,
+      licenceRef: identical(licenceRef, unsetValue) ? this.licenceRef : licenceRef as String?,
+      status: status ?? this.status,
+      rejectionReason: identical(rejectionReason, unsetValue) ? this.rejectionReason : rejectionReason as LocalizedText?,
+      submittedAt: submittedAt ?? this.submittedAt,
+      decidedAt: identical(decidedAt, unsetValue) ? this.decidedAt : decidedAt as DateTime?,
+      );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PartnerApplication &&
+          other.id == id &&
+          other.accountId == accountId &&
+          other.accountType == accountType &&
+          other.name == name &&
+          deepEquals(other.categoryIds, categoryIds) &&
+          other.otherCategoryNote == otherCategoryNote &&
+          other.governorateId == governorateId &&
+          other.contactName == contactName &&
+          other.phone == phone &&
+          other.email == email &&
+          other.description == description &&
+          other.licenceRef == licenceRef &&
+          other.status == status &&
+          other.rejectionReason == rejectionReason &&
+          other.submittedAt == submittedAt &&
+          other.decidedAt == decidedAt;
+
+  @override
+  int get hashCode => Object.hashAll([id, accountId, accountType, name, deepHash(categoryIds), otherCategoryNote, governorateId, contactName, phone, email, description, licenceRef, status, rejectionReason, submittedAt, decidedAt]);
+
+  @override
+  String toString() => 'PartnerApplication(${toJson()})';
+}
+
+/// The business information of the application form. Categories are up to three registered ids plus the open note; a service provider needs at least one of the two.
+final class PartnerApplicationInput {
+  const PartnerApplicationInput({
+    required this.name,
+    this.categoryIds,
+    this.otherCategoryNote,
+    required this.governorateId,
+    required this.contactName,
+    required this.phone,
+    required this.email,
+    required this.description,
+    this.licenceRef,
+  });
+
+  factory PartnerApplicationInput.fromJson(Map<String, Object?> json) {
+    try {
+      return PartnerApplicationInput(
+        name: reqField(json, 'name', (v) => LocalizedText.fromJson(asMap(v))),
+        categoryIds: optField(json, 'categoryIds', (v) => asList(v, (v1) => ServiceCategoryId.fromJson(v1))),
+        otherCategoryNote: optField(json, 'otherCategoryNote', (v) => asString(v)),
+        governorateId: reqField(json, 'governorateId', (v) => asString(v)),
+        contactName: reqField(json, 'contactName', (v) => asString(v)),
+        phone: reqField(json, 'phone', (v) => asString(v)),
+        email: reqField(json, 'email', (v) => asString(v)),
+        description: reqField(json, 'description', (v) => asString(v)),
+        licenceRef: optField(json, 'licenceRef', (v) => asString(v)),
+      );
+    } on FormatException catch (e) {
+      throw FormatException('PartnerApplicationInput: ${e.message}');
+    }
+  }
+
+  final LocalizedText name;
+  final List<ServiceCategoryId>? categoryIds;
+  final String? otherCategoryNote;
+  final String governorateId;
+  final String contactName;
+  final String phone;
+  final String email;
+  final String description;
+  final String? licenceRef;
+
+  Map<String, Object?> toJson() => {
+      'name': name.toJson(),
+      if (categoryIds != null) 'categoryIds': categoryIds!.map((v1) => v1.toJson()).toList(),
+      if (otherCategoryNote != null) 'otherCategoryNote': otherCategoryNote!,
+      'governorateId': governorateId,
+      'contactName': contactName,
+      'phone': phone,
+      'email': email,
+      'description': description,
+      if (licenceRef != null) 'licenceRef': licenceRef!,
+      };
+
+  PartnerApplicationInput copyWith({
+    LocalizedText? name,
+    Object? categoryIds = unsetValue,
+    Object? otherCategoryNote = unsetValue,
+    String? governorateId,
+    String? contactName,
+    String? phone,
+    String? email,
+    String? description,
+    Object? licenceRef = unsetValue,
+  }) => PartnerApplicationInput(
+      name: name ?? this.name,
+      categoryIds: identical(categoryIds, unsetValue) ? this.categoryIds : categoryIds as List<ServiceCategoryId>?,
+      otherCategoryNote: identical(otherCategoryNote, unsetValue) ? this.otherCategoryNote : otherCategoryNote as String?,
+      governorateId: governorateId ?? this.governorateId,
+      contactName: contactName ?? this.contactName,
+      phone: phone ?? this.phone,
+      email: email ?? this.email,
+      description: description ?? this.description,
+      licenceRef: identical(licenceRef, unsetValue) ? this.licenceRef : licenceRef as String?,
+      );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PartnerApplicationInput &&
+          other.name == name &&
+          deepEquals(other.categoryIds, categoryIds) &&
+          other.otherCategoryNote == otherCategoryNote &&
+          other.governorateId == governorateId &&
+          other.contactName == contactName &&
+          other.phone == phone &&
+          other.email == email &&
+          other.description == description &&
+          other.licenceRef == licenceRef;
+
+  @override
+  int get hashCode => Object.hashAll([name, deepHash(categoryIds), otherCategoryNote, governorateId, contactName, phone, email, description, licenceRef]);
+
+  @override
+  String toString() => 'PartnerApplicationInput(${toJson()})';
+}
+
 final class PartnerAccount {
   const PartnerAccount({
     required this.id,
@@ -106,6 +382,7 @@ final class PartnerAccount {
     required this.ownerUserId,
     required this.feeExempt,
     required this.status,
+    this.application,
     required this.createdAt,
   });
 
@@ -120,6 +397,7 @@ final class PartnerAccount {
         ownerUserId: optField(json, 'ownerUserId', (v) => asString(v)),
         feeExempt: reqField(json, 'feeExempt', (v) => asBool(v)),
         status: reqField(json, 'status', (v) => PartnerAccountStatus.fromJson(v)),
+        application: optField(json, 'application', (v) => PartnerApplication.fromJson(asMap(v))),
         createdAt: reqField(json, 'createdAt', (v) => asInstant(v)),
       );
     } on FormatException catch (e) {
@@ -136,6 +414,8 @@ final class PartnerAccount {
   /// Major hotel; set only by the Super Admin and never visible to clients.
   final bool feeExempt;
   final PartnerAccountStatus status;
+  /// The application of an account that joined with the form; null for an account Ghazal assigned (those are accepted).
+  final PartnerApplication? application;
   final DateTime createdAt;
 
   Map<String, Object?> toJson() => {
@@ -147,6 +427,7 @@ final class PartnerAccount {
       'ownerUserId': ownerUserId == null ? null : ownerUserId!,
       'feeExempt': feeExempt,
       'status': status.toJson(),
+      if (application != null) 'application': application!.toJson(),
       'createdAt': instantToJson(createdAt),
       };
 
@@ -159,6 +440,7 @@ final class PartnerAccount {
     Object? ownerUserId = unsetValue,
     bool? feeExempt,
     PartnerAccountStatus? status,
+    Object? application = unsetValue,
     DateTime? createdAt,
   }) => PartnerAccount(
       id: id ?? this.id,
@@ -169,6 +451,7 @@ final class PartnerAccount {
       ownerUserId: identical(ownerUserId, unsetValue) ? this.ownerUserId : ownerUserId as String?,
       feeExempt: feeExempt ?? this.feeExempt,
       status: status ?? this.status,
+      application: identical(application, unsetValue) ? this.application : application as PartnerApplication?,
       createdAt: createdAt ?? this.createdAt,
       );
 
@@ -184,10 +467,11 @@ final class PartnerAccount {
           other.ownerUserId == ownerUserId &&
           other.feeExempt == feeExempt &&
           other.status == status &&
+          other.application == application &&
           other.createdAt == createdAt;
 
   @override
-  int get hashCode => Object.hashAll([id, type, name, deepHash(venueIds), providerId, ownerUserId, feeExempt, status, createdAt]);
+  int get hashCode => Object.hashAll([id, type, name, deepHash(venueIds), providerId, ownerUserId, feeExempt, status, application, createdAt]);
 
   @override
   String toString() => 'PartnerAccount(${toJson()})';
@@ -260,6 +544,7 @@ final class PartnerMembership {
     required this.pendingRequests,
     required this.feeExempt,
     required this.status,
+    this.application,
   });
 
   factory PartnerMembership.fromJson(Map<String, Object?> json) {
@@ -275,6 +560,7 @@ final class PartnerMembership {
         pendingRequests: reqField(json, 'pendingRequests', (v) => asInt(v)),
         feeExempt: reqField(json, 'feeExempt', (v) => asBool(v)),
         status: reqField(json, 'status', (v) => PartnerAccountStatus.fromJson(v)),
+        application: optField(json, 'application', (v) => PartnerApplication.fromJson(asMap(v))),
       );
     } on FormatException catch (e) {
       throw FormatException('PartnerMembership: ${e.message}');
@@ -292,6 +578,8 @@ final class PartnerMembership {
   final int pendingRequests;
   final bool feeExempt;
   final PartnerAccountStatus status;
+  /// Present for an account that joined with the application form (pending, accepted or rejected, with the rejection reason).
+  final PartnerApplication? application;
 
   Map<String, Object?> toJson() => {
       'accountId': accountId,
@@ -304,6 +592,7 @@ final class PartnerMembership {
       'pendingRequests': pendingRequests,
       'feeExempt': feeExempt,
       'status': status.toJson(),
+      if (application != null) 'application': application!.toJson(),
       };
 
   PartnerMembership copyWith({
@@ -317,6 +606,7 @@ final class PartnerMembership {
     int? pendingRequests,
     bool? feeExempt,
     PartnerAccountStatus? status,
+    Object? application = unsetValue,
   }) => PartnerMembership(
       accountId: accountId ?? this.accountId,
       accountType: accountType ?? this.accountType,
@@ -328,6 +618,7 @@ final class PartnerMembership {
       pendingRequests: pendingRequests ?? this.pendingRequests,
       feeExempt: feeExempt ?? this.feeExempt,
       status: status ?? this.status,
+      application: identical(application, unsetValue) ? this.application : application as PartnerApplication?,
       );
 
   @override
@@ -343,10 +634,11 @@ final class PartnerMembership {
           deepEquals(other.permissions, permissions) &&
           other.pendingRequests == pendingRequests &&
           other.feeExempt == feeExempt &&
-          other.status == status;
+          other.status == status &&
+          other.application == application;
 
   @override
-  int get hashCode => Object.hashAll([accountId, accountType, accountName, venueId, providerId, role, deepHash(permissions), pendingRequests, feeExempt, status]);
+  int get hashCode => Object.hashAll([accountId, accountType, accountName, venueId, providerId, role, deepHash(permissions), pendingRequests, feeExempt, status, application]);
 
   @override
   String toString() => 'PartnerMembership(${toJson()})';
@@ -406,11 +698,19 @@ final class PartnerMe {
   String toString() => 'PartnerMe(${toJson()})';
 }
 
-/// First sign-in of a partner without a pre-assigned account (HL-PROV-01). The account starts `under_review`.
+/// First sign-in of a partner without a pre-assigned account: the application form (HL-PROV-01, PA-ACC-07). Creates the account `under_review` with an application `pending`. `accountType` is `service_provider` or `venue` (a private hall). Besides `accountType` and `name` (the business name in both languages) the form carries governorateId, contactName, phone, email and description, plus for a service provider at least one of categoryIds (up to three) and otherCategoryNote; the fields are optional in the schema so older callers still compile, and a missing one is 422 VALIDATION_FAILED with `errors: [{path: "/governorateId", code: "required"}, ...]`.
 final class ChooseAccountTypeInput {
   const ChooseAccountTypeInput({
     required this.accountType,
     required this.name,
+    this.categoryIds,
+    this.otherCategoryNote,
+    this.governorateId,
+    this.contactName,
+    this.phone,
+    this.email,
+    this.description,
+    this.licenceRef,
   });
 
   factory ChooseAccountTypeInput.fromJson(Map<String, Object?> json) {
@@ -418,6 +718,14 @@ final class ChooseAccountTypeInput {
       return ChooseAccountTypeInput(
         accountType: reqField(json, 'accountType', (v) => PartnerAccountType.fromJson(v)),
         name: reqField(json, 'name', (v) => LocalizedText.fromJson(asMap(v))),
+        categoryIds: optField(json, 'categoryIds', (v) => asList(v, (v1) => ServiceCategoryId.fromJson(v1))),
+        otherCategoryNote: optField(json, 'otherCategoryNote', (v) => asString(v)),
+        governorateId: optField(json, 'governorateId', (v) => asString(v)),
+        contactName: optField(json, 'contactName', (v) => asString(v)),
+        phone: optField(json, 'phone', (v) => asString(v)),
+        email: optField(json, 'email', (v) => asString(v)),
+        description: optField(json, 'description', (v) => asString(v)),
+        licenceRef: optField(json, 'licenceRef', (v) => asString(v)),
       );
     } on FormatException catch (e) {
       throw FormatException('ChooseAccountTypeInput: ${e.message}');
@@ -426,18 +734,50 @@ final class ChooseAccountTypeInput {
 
   final PartnerAccountType accountType;
   final LocalizedText name;
+  final List<ServiceCategoryId>? categoryIds;
+  final String? otherCategoryNote;
+  final String? governorateId;
+  final String? contactName;
+  final String? phone;
+  final String? email;
+  final String? description;
+  final String? licenceRef;
 
   Map<String, Object?> toJson() => {
       'accountType': accountType.toJson(),
       'name': name.toJson(),
+      if (categoryIds != null) 'categoryIds': categoryIds!.map((v1) => v1.toJson()).toList(),
+      if (otherCategoryNote != null) 'otherCategoryNote': otherCategoryNote!,
+      if (governorateId != null) 'governorateId': governorateId!,
+      if (contactName != null) 'contactName': contactName!,
+      if (phone != null) 'phone': phone!,
+      if (email != null) 'email': email!,
+      if (description != null) 'description': description!,
+      if (licenceRef != null) 'licenceRef': licenceRef!,
       };
 
   ChooseAccountTypeInput copyWith({
     PartnerAccountType? accountType,
     LocalizedText? name,
+    Object? categoryIds = unsetValue,
+    Object? otherCategoryNote = unsetValue,
+    Object? governorateId = unsetValue,
+    Object? contactName = unsetValue,
+    Object? phone = unsetValue,
+    Object? email = unsetValue,
+    Object? description = unsetValue,
+    Object? licenceRef = unsetValue,
   }) => ChooseAccountTypeInput(
       accountType: accountType ?? this.accountType,
       name: name ?? this.name,
+      categoryIds: identical(categoryIds, unsetValue) ? this.categoryIds : categoryIds as List<ServiceCategoryId>?,
+      otherCategoryNote: identical(otherCategoryNote, unsetValue) ? this.otherCategoryNote : otherCategoryNote as String?,
+      governorateId: identical(governorateId, unsetValue) ? this.governorateId : governorateId as String?,
+      contactName: identical(contactName, unsetValue) ? this.contactName : contactName as String?,
+      phone: identical(phone, unsetValue) ? this.phone : phone as String?,
+      email: identical(email, unsetValue) ? this.email : email as String?,
+      description: identical(description, unsetValue) ? this.description : description as String?,
+      licenceRef: identical(licenceRef, unsetValue) ? this.licenceRef : licenceRef as String?,
       );
 
   @override
@@ -445,10 +785,18 @@ final class ChooseAccountTypeInput {
       identical(this, other) ||
       other is ChooseAccountTypeInput &&
           other.accountType == accountType &&
-          other.name == name;
+          other.name == name &&
+          deepEquals(other.categoryIds, categoryIds) &&
+          other.otherCategoryNote == otherCategoryNote &&
+          other.governorateId == governorateId &&
+          other.contactName == contactName &&
+          other.phone == phone &&
+          other.email == email &&
+          other.description == description &&
+          other.licenceRef == licenceRef;
 
   @override
-  int get hashCode => Object.hashAll([accountType, name]);
+  int get hashCode => Object.hashAll([accountType, name, deepHash(categoryIds), otherCategoryNote, governorateId, contactName, phone, email, description, licenceRef]);
 
   @override
   String toString() => 'ChooseAccountTypeInput(${toJson()})';

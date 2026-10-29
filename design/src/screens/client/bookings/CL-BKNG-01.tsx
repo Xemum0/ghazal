@@ -2,12 +2,11 @@
 // All of the couple's requests by what needs attention: Needs you (approved, confirm by a time; a venue-proposed date), Pending, Confirmed
 // (including Voucher redeemed), then Past with a glyph filter. Each row carries venue, date, the voucher price, the status chip and the
 // Booking Thread's one line with its absolute time (ADR 0033). Text diet (ADR 0034): the open-requests limit is a figure and three beads,
-// the shortcuts are two one-word rows, the search is a glyph in the bar, the empty and guest states are a drawing, a title and one action.
+// the shortcuts are two one-word rows, the search is a glyph in the bar, the empty state is a drawing, a title and one action.
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { IconName } from '@gz/tokens'
 import { Banner, BookingCard, EmptyState, ErrorState, FactChip, Icon, IconListRow, IconTabs, Screen, SectionHeader, ThreadBead, TopBar, useNav } from '../../../system'
 import { useFrame } from '../../../shell/frame'
-import { useDevice } from '../../../shell/device/context'
 import { usePrototype } from '../../../shell/state'
 import { clock, heroBookingAs, meta } from '../../../mock'
 import { BookingRow } from './_components/BookingRow'
@@ -16,7 +15,7 @@ import { useClientRequests } from './_components/flowStore'
 import { useBk } from './_components/useBk'
 import './CL-BKNG-01.css'
 
-export const states = ['loading', 'empty', 'error', 'offline', 'guest', 'open-requests-limit', 'approved-confirm-by', 'voucher-redeemed']
+export const states = ['loading', 'empty', 'error', 'offline', 'open-requests-limit', 'approved-confirm-by', 'voucher-redeemed']
 
 type PastFilter = 'all' | PastKind
 
@@ -29,13 +28,10 @@ export default function BookingsList() {
   const { state } = useFrame()
   const nav = useNav()
   const { t, tc, f, dayMon } = useBk()
-  const auth = usePrototype(s => s.auth)
   const briefDate = usePrototype(s => s.searchBrief.date)
   const stored = useClientRequests()
   const [past, setPast] = useState<PastFilter>('all')
 
-  const { mode } = useDevice()
-  const guest = state === 'guest' || (state === undefined && mode === 'live' && auth === 'guest')
 
   const rows: View[] = useMemo(() => {
     if (state === 'empty') return []
@@ -52,21 +48,13 @@ export default function BookingsList() {
   const pastRows = grouped('past').filter(r => past === 'all' || pastKindOf(r.booking) === past)
 
   // The search glyph is the one way out to the halls (a universal glyph, named for assistive technology).
-  const top = <TopBar title={t('clientBookingsTitle')} actions={guest ? [] : [{ icon: 'search', label: t('clientBookingsFindHall'), onPress: () => nav.push('CL-DISC-03') }]} />
+  const top = <TopBar title={t('clientBookingsTitle')} actions={[{ icon: 'search', label: t('clientBookingsFindHall'), onPress: () => nav.push('CL-DISC-03') }]} />
 
   // Landing on the list (from sign-in or a tab) always starts at the top, where the title and what needs you are.
   const rootRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     rootRef.current?.closest<HTMLElement>('.gz-screen__body')?.scrollTo({ top: 0 })
   }, [])
-
-  if (guest) {
-    return (
-      <Screen top={top}>
-        <EmptyState illustration="key" title={t('clientBookingsGuestTitle')} action={{ label: t('clientBookingsGuestAction'), variant: 'primary', onPress: () => nav.openSheet('CL-AUTH-01') }} />
-      </Screen>
-    )
-  }
 
   if (state === 'error') {
     return (

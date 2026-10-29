@@ -1,7 +1,6 @@
 // PackageCard (venue details, booking step 2; ADR 0004 D1, ADR 0002, ADR 0033 D4): one priced package as a choice. Serif name, audience, the
 // structure (per person or package) and guest bounds, the VOUCHER price in the basis it is sold in (per guest with the total for the guests,
-// a flat night, flat plus per guest, hall only) with the standard price struck through and the saving, a signed-out visitor sees the standard
-// price and a locked voucher line,
+// a flat night, flat plus per guest, hall only) with the standard price struck through and the saving,
 // the minimum guests as a plain fact, inclusions with checks, and what the package does not cover. Choosing is ink and a gold bead,
 // never a gold fill (direction 2.3): selected = ink-900 border, the bead filled, "Selected" in text for assistive technology.
 //
@@ -32,7 +31,6 @@ const useW = defineWords({
   men: p('Men', 'رجالي'),
   mixed: p('Mixed', 'مختلط'),
   complimentary: p('{pct} complimentary guests', 'ضيوف مجانيون {pct}'),
-  lockedVoucher: p('Voucher price after you sign up', 'سعر الكوبون بعد التسجيل'),
   noVoucher: p('Standard price only', 'السعر العادي فقط'),
 })
 
@@ -43,8 +41,6 @@ export type PackageCardProps = {
   pkg: Package
   /** From `engine.packagePrice` (or `cardPrice`): null while loading or when the package has no rule for the date. */
   price?: engine.PackagePrice | null
-  /** `guest`: signed out, the voucher price is locked behind registration (ADR 0007 D8). Default `member`. */
-  audience?: 'member' | 'guest'
   /** The guest count the total is for; with it the per-guest packages show the all-in total (the larger of guests and the minimum). */
   guests?: number
   selected?: boolean
@@ -58,7 +54,7 @@ export type PackageCardProps = {
   className?: string
 }
 
-export function PackageCard({ pkg, price, audience = 'member', guests, selected = false, onSelect, unavailable = false, collapsedCount = 5, loading, previewState, className }: PackageCardProps) {
+export function PackageCard({ pkg, price, guests, selected = false, onSelect, unavailable = false, collapsedCount = 5, loading, previewState, className }: PackageCardProps) {
   const f = useFormat()
   const t = useT('common')
   const w = useW()
@@ -83,8 +79,7 @@ export function PackageCard({ pkg, price, audience = 'member', guests, selected 
 
   // The price block: the voucher price in the basis the package is sold in (when the voucher is worth its fee and the visitor is signed in),
   // the standard price struck through beside it, then the all-in total for the guests.
-  const voucherOn = Boolean(price?.voucherEligible && price.voucher && audience === 'member')
-  const lockedOn = Boolean(price?.voucherEligible && audience === 'guest')
+  const voucherOn = Boolean(price?.voucherEligible && price.voucher)
   const basis = pkg.pricingBasis
   const unitPrice = voucherOn ? (price?.voucherPerGuest ?? price?.perGuest ?? null) : (price?.perGuest ?? null)
   const flatPrice = voucherOn ? (price?.voucherFlat ?? price?.flat ?? null) : (price?.flat ?? null)
@@ -136,12 +131,6 @@ export function PackageCard({ pkg, price, audience = 'member', guests, selected 
           <Price fils={total.fils} size="strong" was={voucherOn ? price.standard.fils : undefined} />
           <span>{w('forGuests', { guests: f.guests(guests ?? 0, { afterPreposition: lang === 'ar' }) })}</span>
           {voucherOn && price.savings ? <span className="gz-pkg__save gz-t-pill">{t('commonSaveAmount', { amount: f.money(price.savings.fils, { mode: 'browse' }) })}</span> : null}
-        </span>
-      ) : null}
-      {lockedOn ? (
-        <span className="gz-pkg__lock gz-t-caption" data-gz-id="locked">
-          <Icon name="lock" size="xs" tone="secondary" />
-          {w('lockedVoucher')}
         </span>
       ) : null}
     </>

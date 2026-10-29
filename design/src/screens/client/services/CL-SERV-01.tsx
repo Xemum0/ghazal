@@ -1,23 +1,22 @@
-// CL-SERV-01 Services hub (voucher model, ADR 0033; text diet, ADR 0034). Covers CA-SVC-01 to CA-SVC-08, CA-SVC-13, CA-SVC-16, CA-PLAN-02, CA-PLAN-09.
+// CL-SERV-01 Services hub (voucher model, ADR 0033; text diet, ADR 0034). Covers CA-SVC-01 to CA-SVC-08, CA-SVC-13, CA-SVC-16, CA-SVC-19, CA-SVC-20, CA-PLAN-02, CA-PLAN-09.
 // The five primary categories for post-venue needs (Hospitality and catering, Buffet services, Floral arrangements, Event styling and decor,
 // Event planning and coordination) as photograph tiles that carry a category glyph, the providers count and the ticket glyph; then "More"
 // (the secondary groups, CA-SVC-16) as illustrated rows (camera, oud, make-up, dress, car, suitcase, cake), the wedding-planner door and the
 // saved row. The voucher is one rose strip, a ticket glyph and the KD 2 figure, and the sentence that explains it sits behind its info
 // glyph. The Venues | Services switch at the top returns to Home; its selected tab is the title (the bar carries only the back glyph and a
-// visually hidden h1 names the page), so "Services" is never said twice. Also where the government-hall link lands: it arrives with one
-// short line. Browse only: no gate anywhere on this screen. States: default, loading, error, offline, category-without-vendors, government-link.
+// visually hidden h1 names the page), so "Services" is never said twice. Services are independent of venues (ADR 0038, CA-SVC-19): no venue
+// page links here. The footer is the provider note (CA-SVC-20, ProviderNote): "Service provider? Apply in the Partner app". No signed-out
+// variant. States: default, loading, error, offline, category-without-vendors.
 import { useFormat, useT } from '../../../i18n'
 import { useFrame } from '../../../shell/frame'
 import { usePrototype } from '../../../shell/state'
-import { Banner, ErrorState, Fig, Figures, Icon, IconListRow, InfoButton, Price, Screen, SectionHeader, Tabs, TopBar, useBi, useNav } from '../../../system'
+import { Banner, ErrorState, Fig, Figures, Icon, IconListRow, InfoButton, Price, ProviderNote, Screen, SectionHeader, Tabs, TopBar, useBi, useNav } from '../../../system'
 import { PlannerEntry } from './_components/PlannerEntry'
 import { PrimaryTile } from './_components/PrimaryTile'
 import { GROUP_ART, PRIMARY, SECONDARY_ROWS, VOUCHER_FEE_FILS, providerCount, useLive } from './_components/model'
 import './CL-SERV-01.css'
 
-export const states = ['loading', 'error', 'offline', 'category-without-vendors', 'government-link']
-
-type Params = { context?: 'government' }
+export const states = ['loading', 'error', 'offline', 'category-without-vendors']
 
 /** The category the frame with no providers shows (the fixtures have providers everywhere). */
 const EMPTY_FRAME_CATEGORY = 'buffet'
@@ -28,7 +27,7 @@ export default function ServicesHub() {
   const c = useT('common')
   const f = useFormat()
   const bi = useBi()
-  const nav = useNav<Params>()
+  const nav = useNav()
   const { state } = useFrame()
   const live = useLive()
   const savedCount = usePrototype(s => s.favourites.vendor.length)
@@ -36,7 +35,6 @@ export default function ServicesHub() {
   const loading = state === 'loading'
   const errored = state === 'error'
   const offline = state === 'offline'
-  const government = state === 'government-link' || nav.params.context === 'government'
 
   const countOf = (id: string) => (state === 'category-without-vendors' && id === EMPTY_FRAME_CATEGORY ? 0 : providerCount(id))
 
@@ -81,12 +79,6 @@ export default function ServicesHub() {
             ]}
           />
         </div>
-
-        {government ? (
-          <Banner tone="info" shape="card" icon="hall">
-            {t('clientServicesHubGovernmentNote')}
-          </Banner>
-        ) : null}
 
         {errored ? (
           <div className="gzs-hub__pad">
@@ -146,12 +138,12 @@ export default function ServicesHub() {
             <div className="gzs-hub__pad">
               <IconListRow
                 flush
-                last
                 icon="heart"
                 title={t('clientServicesHubSavedTitle')}
                 trailing={savedCount > 0 ? <Fig>{f.integer(savedCount)}</Fig> : undefined}
                 onClick={() => nav.switchTab('saved')}
               />
+              <ProviderNote variant="footer" />
             </div>
           </>
         )}

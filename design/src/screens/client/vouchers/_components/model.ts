@@ -3,7 +3,6 @@
 //
 //   useSceneState   the `?state=` of a static frame, or `state` in the navigator params in the player
 //   useLive         true only in the live prototype (timers and store writes); a static frame never moves
-//   useSignedIn     a static frame is a signed-in client unless the state says guest; the player follows the auth gate
 //   useWallet       the signed-in client's vouchers (live vouchers first, then used, expired, not valid, credit issued)
 //   phaseOf         one word for where a voucher is: ready, pending, approved, confirmed, redeemed, consumed, released, expired, forfeited, credit-issued, unpaid
 //   useQuote        the quote a voucher would be bound to (params, else the booking draft, else the story hall)
@@ -35,14 +34,6 @@ export function useSceneState(): string | undefined {
 }
 
 export const useLive = (): boolean => useDevice().mode === 'live'
-
-export function useSignedIn(): boolean {
-  const live = useLive()
-  const auth = usePrototype(s => s.auth)
-  const state = useSceneState()
-  if (state === 'guest' || state === 'guest-gated') return false
-  return live ? auth === 'signedIn' : true
-}
 
 // ---------------------------------------------------------------- the story voucher and its siblings (fixtures)
 

@@ -156,11 +156,3 @@
   background-color: var(--gz-color-sys-status-success-bg);
   color: var(--gz-color-sys-status-success-text);
 }
-
-.gz-pkg__lock {
-  padding-inline-start: var(--gz-space-6);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--gz-space-1);
-  color: var(--gz-color-sys-text-secondary);
-}

@@ -1,14 +1,14 @@
 // CL-VENU-04 Package (sheet). Covers CA-VDET-07, CA-VDET-08, CA-VDET-12, CA-VDET-13, CA-VDET-14, CA-BOOK-04, CA-BOOK-14.
 // Everything one package includes and what it costs for the Brief, in both columns (ADR 0033): the voucher price and the standard price
 // (PriceBlock) with the per-guest rate, the day type of the date and its sibling rate (the weekday against the weekend), the guest limits of
-// the hall as facts, what is included, the menu and the extras that are chosen later. Guests below the minimum are priced at the minimum
+// the hall as facts, what is included and the menu (no extras or add-ons, CA-SVC-19). Guests below the minimum are priced at the minimum
 // (a `300+` fact); guests over the hall's capacity meet a warning row and the way out. The primary action is Get voucher (Send request when a
 // ready voucher exists); Book visit sits in the body; the heart saves the package to Saved > Packages.
 // Text diet (ADR 0034): the sheet's facts are glyph and figure, the inclusions are the venue's own words (four shown, the rest behind a count),
 // the sentences of the tier line and the limits are gone. Navigates to CL-BOOK-01, CL-VENU-01, CL-SAVD-01, CL-VCHR-01, CL-VIST-01.
 import { useState } from 'react'
 import * as mock from '../../../mock'
-import type { Audience, Extra, Hall, Package } from '../../../mock'
+import type { Audience, Hall, Package } from '../../../mock'
 import { useFormat, useT } from '../../../i18n'
 import { useDevice } from '../../../shell/device/context'
 import { useFrame } from '../../../shell/frame'
@@ -59,7 +59,7 @@ export default function PackageSheet() {
   const saved = usePrototype(s => (nav.params.packageId ? s.favourites.package.includes(String(nav.params.packageId)) : false))
   const flags = usePageFlags()
   const actions = useVenueActions(venue, live)
-  const owned = useOwnedVoucher(venue?.id, live, flags.guest)
+  const owned = useOwnedVoucher(venue?.id, live)
   const [allIncluded, setAllIncluded] = useState(false)
 
   if (state === 'error') {
@@ -122,12 +122,6 @@ export default function PackageSheet() {
       : null
   const siblingVoucher = sibling?.rates?.voucher != null && price?.voucherEligible && !noVoucher
 
-  // Extras chosen later: the ones this package does not already include, for this audience.
-  const extras: Extra[] = mock
-    .extrasFor(venue.id)
-    .filter(e => e.active && e.audiences.includes(audience) && !e.includedInPackageIds.includes(pkg.id))
-    .slice(0, 4)
-
   const billed = price?.billed ?? minGuests
   const eligible = Boolean(price?.voucherEligible) && !noVoucher
   const prices: QuotePrices | null = price
@@ -184,25 +178,6 @@ export default function PackageSheet() {
         </div>
       ),
     },
-    ...(extras.length > 0
-      ? [
-          {
-            id: 'extras',
-            title: t('clientVenuePkgExtras'),
-            content: (
-              <ul className="gzv-pk__list">
-                {extras.map(e => (
-                  <li key={e.id} className="gzv-pk__item gz-t-body-s">
-                    <Icon name="plus" size="sm" tone="secondary" />
-                    <span className="gzv-pk__item-text">{bi(e.name)}</span>
-                    <span className="gz-t-fig-body-s">{money((e.priceMin ?? e.price).fils)}</span>
-                  </li>
-                ))}
-              </ul>
-            ),
-          },
-        ]
-      : []),
   ]
 
   return (
@@ -264,7 +239,7 @@ export default function PackageSheet() {
           </div>
         ) : price ? (
           <>
-            {brief.date && !overCapacity && prices && !row?.lowestRate ? <PriceBlock prices={prices} guest={flags.guest} owned={Boolean(owned)} size="hero" onHow={undefined} /> : null}
+            {brief.date && !overCapacity && prices && !row?.lowestRate ? <PriceBlock prices={prices} owned={Boolean(owned)} size="hero" onHow={undefined} /> : null}
             {perGuest && price.perGuest ? (
               <div className="gzv-pk__rates" data-gz-id="package.rates">
                 <span className="gzv-pk__basis">
@@ -273,7 +248,7 @@ export default function PackageSheet() {
                 </span>
                 {eligible && price.voucherPerGuest ? (
                   <span className="gzv-pk__unit">
-                    <Icon name={flags.guest ? 'lock' : 'ticket'} size="sm" tone={flags.guest ? 'secondary' : 'success'} />
+                    <Icon name="ticket" size="sm" tone="success" />
                     <span className="gz-sr-only">{tc('commonVoucherPrice')}</span>
                     <Price fils={price.voucherPerGuest.fils} size="card" />
                   </span>

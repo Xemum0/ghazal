@@ -44,16 +44,19 @@ const idsOf = (rows) => rows.map((r) => r.venue.id)
 const pick = (o, keys) => Object.fromEntries(keys.filter((k) => o[k] !== undefined).map((k) => [k, o[k]]))
 
 // ------------------------------------------------------------------ the Briefs
-const STORY = { date: '2027-01-14', guests: 350, audience: 'women', areaIds: ['salmiya', 'sharq'] } // storyBrief() of the web store
-const NONE = { date: null, guests: null, audience: null, areaIds: [] }
-const HELD = { date: '2026-12-10', guests: 340, audience: 'women', areaIds: [] } // V01 holds Haya's approved request that night
-const EMPTYDAY = { date: '2026-12-31', guests: 350, audience: 'women', areaIds: ['salmiya', 'sharq'] } // the web "empty" scenario
-const MEN = { date: '2027-01-09', guests: 400, audience: 'men', areaIds: [] }
-const GUESTS = { date: null, guests: 350, audience: 'women', areaIds: [] }
-const AREA = { date: '2027-02-11', guests: 300, audience: 'women', areaIds: ['mishref'] }
-const BRIEFS = { none: NONE, story: STORY, held: HELD, empty: EMPTYDAY, men: MEN, guests: GUESTS, area: AREA }
+// Round 2 (ADR 0038 D1, CA-FLT-08): a Brief's region is a list of governorates (empty or missing = all); the exact areas are gone from the Briefs.
+// Reem's profile carries the governorates of her two areas (Salmiya is in Hawalli, Sharq in Capital).
+const STORY = { date: '2027-01-14', guests: 350, audience: 'women', governorateIds: ['hawalli', 'capital'] } // storyBrief() of the web store
+const NONE = { date: null, guests: null, audience: null, governorateIds: [] }
+const HELD = { date: '2026-12-10', guests: 340, audience: 'women', governorateIds: [] } // V01 holds Haya's approved request that night
+const EMPTYDAY = { date: '2026-12-31', guests: 350, audience: 'women', governorateIds: ['hawalli', 'capital'] } // the web "empty" scenario
+const MEN = { date: '2027-01-09', guests: 400, audience: 'men', governorateIds: [] }
+const GUESTS = { date: null, guests: 350, audience: 'women', governorateIds: [] }
+const AREA = { date: '2027-02-11', guests: 300, audience: 'women', governorateIds: ['hawalli'] } // was the Brief area Mishref (a Hawalli area)
+const FAR = { date: '2027-02-11', guests: 300, audience: 'women', governorateIds: ['farwaniya', 'jahra'] } // a Brief outside Hawalli and Capital
+const BRIEFS = { none: NONE, story: STORY, held: HELD, empty: EMPTYDAY, men: MEN, guests: GUESTS, area: AREA, far: FAR }
 
-const briefParams = (b) => ({ ...(b.date ? { date: b.date } : {}), ...(b.guests ? { guests: b.guests } : {}), ...(b.audience ? { audience: b.audience } : {}), ...(b.areaIds?.length ? { areaIds: b.areaIds } : {}) })
+const briefParams = (b) => ({ ...(b.date ? { date: b.date } : {}), ...(b.guests ? { guests: b.guests } : {}), ...(b.audience ? { audience: b.audience } : {}), ...(b.governorateIds?.length ? { governorateIds: b.governorateIds } : {}) })
 
 // ------------------------------------------------------------------ home (GET /home)
 {
@@ -98,12 +101,13 @@ const NO = W.NO_FILTERS
 /** The web Filters, written as the API query: the same fields, the same meaning (see mock-api.md "search"). */
 function apiQuery(brief, f, o = {}) {
   const q = { ...briefParams(brief) }
-  delete q.areaIds
-  // `briefAreaIds` is the Brief's areas (they rank the list and, with nothing else said, narrow it); `areaIds` is an explicit area selection that
-  // replaces them; `allAreas` is the "All areas" chip (no narrowing at all). A governorate or a shelf also lifts the narrowing (data.ts boundAreas).
-  if (brief.areaIds?.length) q.briefAreaIds = brief.areaIds
-  if (f.areaIds !== null) { if (f.areaIds.length) q.areaIds = f.areaIds; else q.allAreas = true }
-  if (f.governorateIds.length) q.governorateIds = f.governorateIds
+  delete q.governorateIds
+  // Governorates are the only region (data.ts boundGovernorates): the Filters choice wins (`[]` = the "All governorates" chip, nothing sent), else the
+  // Brief's governorates, and a shelf's "See all" ignores the Brief's region. The API takes the result as `governorateIds`.
+  // Sent as the API takes them: `briefGovernorateIds` (the Brief region, which a shelf also needs), `governorateIds` (an explicit selection) and
+  // `allAreas` (the "All governorates" chip).
+  if (brief.governorateIds?.length) q.briefGovernorateIds = brief.governorateIds
+  if (f.governorateIds !== null) { if (f.governorateIds.length) q.governorateIds = f.governorateIds; else q.allAreas = true }
   if (f.types.length) q.types = f.types
   if (f.capacity) { q.capacityMin = f.capacity[0]; q.capacityMax = f.capacity[1] }
   if (f.structure) q.priceStructure = f.structure
@@ -153,13 +157,19 @@ const rowOut = (r) => ({
   add('none.structure-per_person', 'guest', NONE, { structure: 'per_person' })
   add('none.structure-package', 'guest', NONE, { structure: 'package' })
   add('none.voucher-only', 'guest', NONE, { voucherOnly: true }, { sort: 'voucher_price' })
-  add('story.voucher-only', 'reem', STORY, { voucherOnly: true, areaIds: [] }, { sort: 'voucher_price' })
+  add('story.voucher-only', 'reem', STORY, { voucherOnly: true, governorateIds: [] }, { sort: 'voucher_price' })
   add('none.rating-4.5', 'guest', NONE, { minRating: 4.5 })
   add('none.levels-prestige', 'guest', NONE, { levels: ['prestige'] })
   add('none.arrangement-men', 'guest', NONE, { arrangement: 'men' })
   add('none.governorate-hawalli', 'guest', NONE, { governorateIds: ['hawalli'] })
-  add('story.governorate-hawalli', 'reem', STORY, { governorateIds: ['hawalli'] }, {}, 'the Brief areas still rank the list, the governorate lifts the narrowing')
-  add('story.areas-chosen', 'reem', STORY, { areaIds: ['mishref', 'jabriya'] }, {}, 'an explicit area selection replaces the Brief areas')
+  add('story.governorate-hawalli', 'reem', STORY, { governorateIds: ['hawalli'] }, {}, 'the Filters choice replaces the Brief governorates')
+  add('story.governorates-chosen', 'reem', STORY, { governorateIds: ['farwaniya', 'ahmadi'] }, {}, 'a selection outside the Brief governorates replaces them')
+  add('story.governorates-all', 'reem', STORY, { governorateIds: [] }, {}, 'the "All governorates" chip lifts the Brief region')
+  add('none.governorates-two', 'guest', NONE, { governorateIds: ['hawalli', 'capital'] })
+  add('none.governorates-all-six', 'guest', NONE, { governorateIds: ['capital', 'hawalli', 'farwaniya', 'ahmadi', 'jahra', 'mubarak-al-kabeer'] })
+  add('none.governorate-unknown', 'guest', NONE, { governorateIds: ['no-such-governorate'] }, {}, 'an unknown governorate matches nothing')
+  add('far.governorate-follow-brief', 'reem', FAR, {}, { sort: 'rating' }, 'following the Brief: Farwaniya and Jahra only')
+  add('far.shelf-voucher', 'reem', FAR, { shelf: 'voucher' }, {}, 'a shelf ignores the Brief region')
   add('none.settings-outdoor', 'guest', NONE, { settings: ['outdoor'] })
   add('none.settings-mixed', 'guest', NONE, { settings: ['mixed'] })
   add('none.settings-two', 'guest', NONE, { settings: ['outdoor', 'mixed'] })
@@ -173,12 +183,12 @@ const rowOut = (r) => ({
   add('none.price-12-25', 'guest', NONE, { price: [12, 25] })
   add('none.voucher-price-15-35', 'guest', NONE, { voucherPrice: [15, 35] })
   add('none.within-20', 'guest', NONE, { withinMinutes: 20 }, { origin: 'ref-salmiya', sort: 'distance' })
-  add('story.within-30', 'reem', STORY, { withinMinutes: 30, areaIds: [] }, { sort: 'distance' })
-  add('story.available', 'reem', STORY, { available: true, areaIds: [] })
+  add('story.within-30', 'reem', STORY, { withinMinutes: 30, governorateIds: [] }, { sort: 'distance' })
+  add('story.available', 'reem', STORY, { available: true, governorateIds: [] })
   add('held.available', 'reem', HELD, { available: true })
   add('held.not-available-filter', 'reem', HELD, { available: false }, {}, 'a held hall keeps its state beside the available ones')
   add('empty.available', 'reem', EMPTYDAY, { available: true })
-  add('story.dates-range', 'reem', STORY, { dates: { from: '2027-01-10', to: '2027-01-20' }, areaIds: [] })
+  add('story.dates-range', 'reem', STORY, { dates: { from: '2027-01-10', to: '2027-01-20' }, governorateIds: [] })
   for (const shelf of ['free', 'featured', 'voucher', 'week', 'recommended', 'trending', 'nearby']) add(`story.shelf-${shelf}`, 'reem', STORY, { shelf })
   for (const category of ['luxury-hotels', 'wedding-halls', 'government', 'beach', 'outdoor', 'vip']) add(`none.category-${category}`, 'guest', NONE, { category })
   // text search: English, Arabic with tashkeel and alef or ya forms, the article, a governorate word, nothing

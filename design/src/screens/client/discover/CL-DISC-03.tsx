@@ -1,15 +1,15 @@
 // CL-DISC-03 Results. Covers CA-SRCH-01, CA-SRCH-14, CA-SRCH-16, CA-SRCH-17, CA-SRCH-20, CA-SRCH-21, CA-HOME-06, CA-HOME-08, CA-HOME-16,
 // CA-CARD-01 to CA-CARD-13, CA-TOOL-01, CA-CMP-01, CA-FLT-01 to CA-FLT-07, CA-VCH-02, CA-VCH-10.
 // The venue list for the Brief. Top: back and the name search (typeahead). Under it the Brief as its facts (BriefFacts: glyph and value each,
-// one button that opens the Brief sheet), then one chip row: Filters (count), then Sort, Region and Date (CL-DISC-07, CL-DISC-06) as glyph-only
-// chips that say a value only once it differs from what the Brief above already says (a chosen order, region or date range), every other
+// one button that opens the Brief sheet), then one chip row: Filters (count), then Sort, Region (governorates: opens the Filters sheet on its Region group) and Date (CL-DISC-06) as glyph-only
+// chips that say a value only once it differs from what the Brief above already says (a chosen order, governorates, "All governorates" or a date range), every other
 // applied filter as a glyph chip with a close mark, Clear. Then the count (hall glyph and a figure). The cards are the canonical
 // VenueCard (ADR 0018) with the two prices of the voucher model (ADR 0033): the voucher price as the headline and the standard price
-// beneath (a guest sees a locked voucher line); under a free hall the one action is "Get voucher" or "View". A booked hall offers its free
+// beneath; under a free hall the one action is "Get voucher" or "View". A booked hall offers its free
 // dates; a governmental facility is its own browse-only card, its rule one info glyph away. Pull to refresh; the Compare tray and the Map
 // pill float above the bar.
 // Text diet (ADR 0034): no sentence on the screen. Empty: a drawing, "No matches", one action. Error and offline: the shared states.
-// States: default, loading, no-results, error, offline, searching, guest, voucher-price-filter-on, guest-voucher-locked,
+// No signed-out variant (ADR 0038). States: default, loading, no-results, error, offline, searching, voucher-price-filter-on,
 // venue-type-governmental-card, region-filter-on.
 import { useMemo, useState } from 'react'
 import * as mock from '../../../mock'
@@ -31,7 +31,7 @@ import { clearedFilters, useAppliedChips, useDayLabel, useLabels, type Chip as A
 import { useResultsModel } from './_components/useResultsModel'
 import './CL-DISC-03.css'
 
-export const states = ['loading', 'no-results', 'error', 'offline', 'searching', 'guest', 'voucher-price-filter-on', 'guest-voucher-locked', 'venue-type-governmental-card', 'region-filter-on']
+export const states = ['loading', 'no-results', 'error', 'offline', 'searching', 'voucher-price-filter-on', 'venue-type-governmental-card', 'region-filter-on']
 
 export default function Results() {
   const { state } = useFrame()
@@ -56,9 +56,9 @@ export default function Results() {
   const extra = chips.filter(x => !(x.id === 'available' && defaults.available))
   const count = activeFilterCount(m.filters, m.brief) - (defaults.available && m.filters.available ? 1 : 0)
   // Region and Date live in their own quick chips (they open their editors); every other applied filter is a removable chip.
-  const QUICK = ['governorates', 'areas', 'dates', 'available']
+  const QUICK = ['governorates', 'dates', 'available']
   const removable = chips.filter(x => !QUICK.includes(x.id))
-  const regionChip = chips.find(x => x.id === 'governorates') ?? chips.find(x => x.id === 'areas')
+  const regionChip = chips.find(x => x.id === 'governorates')
   const dateChip = chips.find(x => x.id === 'dates') ?? chips.find(x => x.id === 'available')
   // Region and Date show a value only when the filter says something the Brief above does not (a range, a chosen region).
   const range = m.filters.dates
@@ -69,7 +69,7 @@ export default function Results() {
   const openFilters = () => m.live && nav.openSheet('CL-DISC-04')
   const openSort = () => m.live && nav.openSheet(<SortSheet value={m.sort} />)
   const openMap = () => m.live && nav.push('CL-DISC-05', { from: 'results' })
-  const openRegion = () => m.live && nav.push('CL-DISC-07', { from: 'results' })
+  const openRegion = () => m.live && nav.openSheet('CL-DISC-04', { params: { focus: 'region' } })
   const openDate = () => m.live && nav.openSheet(<DateFilterSheet />)
   const remove = (chip: AppliedChip) => m.setFilters(chip.remove(m.filters))
   const clearAll = () => m.setFilters(clearedFilters(m.brief))
@@ -82,8 +82,8 @@ export default function Results() {
     )
 
   const blurField = () => (document.activeElement instanceof HTMLElement ? document.activeElement.blur() : undefined)
-  const pickArea = (id: string) => {
-    m.setFilters({ ...m.filters, areaIds: [id], governorateIds: [] })
+  const pickGovernorate = (id: string) => {
+    m.setFilters({ ...m.filters, governorateIds: [id] })
     m.setQuery('')
     blurField()
     setFocused(false)
@@ -186,7 +186,7 @@ export default function Results() {
         <Typeahead
           query={m.query}
           brief={m.brief}
-          onPickArea={pickArea}
+          onPickGovernorate={pickGovernorate}
           onPickVenue={pickVenue}
           onPickRecent={pickRecent}
           onClearRecent={() => m.live && m.setQuery('')}
@@ -208,13 +208,6 @@ export default function Results() {
             onRemove={remove}
             onClearAll={extra.length > 0 || (chips.length > 0 && !defaults.available) ? clearAll : undefined}
           />
-          {!s.signedIn && !loading && !errored && m.rows.length > 0 ? (
-            <button type="button" className="gz-reset gz-press gzd-res__lock" onClick={() => m.live && nav.openSheet('CL-AUTH-01', { params: { reason: 'voucher' } })} data-gz-id="results.voucher-lock">
-              <Icon name="lock" size="sm" tone="secondary" />
-              <span className="gz-t-body-s">{c('commonVoucherPrice')}</span>
-              <Icon name="chevron-right" size="sm" tone="secondary" />
-            </button>
-          ) : null}
           {errored ? (
             <div className="gzd-res__state">
               <ErrorState kind="load" fill={false} onRetry={() => undefined} />

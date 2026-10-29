@@ -249,7 +249,9 @@ Map<String, Handler> partnerVenueHandlers(MockApp app) => {
     );
     return {
       'packages': [for (final p in pk) _editor(app, p)],
-      'extras': app.db.raw('Extra').where((e) => e['venueId'] == v['id']).map(wire).toList(),
+      // Round 2 (ADR 0038 D2, CA-SVC-19): no Extras tab in the Partner app; the field stays (deprecated) and is always empty. createExtra and
+      // updateExtra remain valid calls but nothing lists their result.
+      'extras': <Json>[],
     };
   },
   'createPackage': (r) {

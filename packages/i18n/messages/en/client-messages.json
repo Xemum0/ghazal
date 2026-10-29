@@ -18,10 +18,7 @@
   "clientMessagesEmptyTitle": "No messages yet",
   "clientMessagesEmptyAction": "Browse halls",
   "clientMessagesEmptySupport": "Support",
-  "clientMessagesGuestLabel": "Sign in to see your messages",
-  "clientMessagesGuestAction": "Sign in",
   "clientMessagesVisitMembers": "Chat members",
-
   "clientMessagesInfoTitle": "Details",
   "clientMessagesRepliesWithin": "{hours, plural, one{Usually replies within an hour} other{Usually replies within # hours}}",
   "clientMessagesContextView": "View request",
@@ -58,7 +55,6 @@
   "clientMessagesSuggestAvailabilityAny": "Peace be upon you. Which dates do you have available for a ladies’ reception?",
   "clientMessagesSuggestVoucherText": "Peace be upon you. What is the voucher price for the ladies’ reception on {date}?",
   "clientMessagesSuggestVoucherAny": "Peace be upon you. Could you tell us the voucher price for the ladies’ reception?",
-  "clientMessagesSupportIntro": "Hello, how can we help?",
   "clientMessagesBlockedNote": "Blocked",
   "clientMessagesUnblock": "Unblock",
   "clientMessagesUnblockedToast": "Unblocked",
@@ -81,7 +77,6 @@
   "clientMessagesCardCalendarToast": "Added",
   "clientMessagesCardChange": "Change",
   "clientMessagesCardVendor": "Profile",
-
   "clientMessagesAttachTitle": "Attach",
   "clientMessagesAttachCamera": "Camera",
   "clientMessagesAttachPhoto": "Photos",
@@ -105,7 +100,6 @@
   "clientMessagesDocDownload": "Download",
   "clientMessagesDocSaved": "Saved",
   "clientMessagesDocOpen": "Open {name}",
-
   "clientMessagesInfoBooking": "Linked request",
   "clientMessagesInfoShared": "Photos and documents",
   "clientMessagesInfoMute": "Mute",
@@ -142,7 +136,6 @@
   "clientMessagesBlockKeep": "Cancel",
   "clientMessagesBlockedDoneTitle": "Blocked",
   "clientMessagesBlockedDoneDetail": "You will not receive messages from this side. You can unblock it at any time.",
-
   "clientMessagesNtfTitle": "Notifications",
   "clientMessagesNtfPrefs": "Notification settings",
   "clientMessagesNtfFilterGroup": "Filter notifications",
@@ -183,7 +176,6 @@
   "clientMessagesNtfKindReview": "Review",
   "clientMessagesNtfKindCountdown": "Wedding",
   "clientMessagesNtfKindChecklist": "Checklist",
-
   "clientMessagesPromptTitle": "Booking updates",
   "clientMessagesPromptBody": "We will tell you as soon as a hall replies to your request, and when your voucher is ready.",
   "clientMessagesPromptNote": "We only send what you need, and never late at night.",

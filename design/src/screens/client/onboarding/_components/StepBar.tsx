@@ -1,4 +1,4 @@
-// StepBar (flow-local): the bar of the profile steps CL-ONBD-03 to 06. Back at inline-start, the 2 px thread in the middle showing
+// StepBar (flow-local): the bar of the optional profile steps CL-ONBD-03 to 05. Back at inline-start, the 2 px thread in the middle showing
 // the step, the info glyph (what happens to the answers: optional, kept on the device, editable in Profile; CA-ONB-08, CA-ONB-09, the
 // one paragraph this flow keeps, behind the glyph per docs/design/02-text-diet.md section 6) and a text `Skip` at inline-end. The
 // system TopBar has no text action slot (requests.md), so this repeats its geometry: safe-top inset, a 56 row, the glyph edge of

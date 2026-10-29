@@ -30,8 +30,7 @@
         "compare-table",
         "loading",
         "error",
-        "offline",
-        "guest"
+        "offline"
       ],
       "interactions": [
         "Sticky segmented control Silver | Gold | Royal («الفضية» «الذهبية» «الملكية»); one full-width card below with from-price, who it suits, up to six inclusions and a 1, 2 or 3 thread mark",
@@ -46,7 +45,6 @@
         "CL-PLAN-02",
         "CL-WEDD-01",
         "CL-SERV-01",
-        "CL-AUTH-01",
         "CL-SERV-02"
       ]
     },
@@ -58,11 +56,11 @@
         "ar": "طلب استشارة"
       },
       "kind": "screen",
-      "purpose": "A short form to request a consultation: chosen package, preferred time windows and notes. Hard-gated: the sign-in sheet opens at Send and resumes here with everything typed.",
+      "purpose": "A short form to request a consultation: chosen package, preferred time windows and notes. The client is already signed in, so Send goes straight out.",
       "requirementIds": [
         "CA-PLAN-05",
         "CA-PLAN-04",
-        "CA-AUTH-10"
+        "CA-AUTH-13"
       ],
       "states": [
         "default",
@@ -71,20 +69,18 @@
         "success",
         "error",
         "offline",
-        "guest-gate",
         "open-request-exists"
       ],
       "interactions": [
         "Package chip with a change action (Silver, Gold, Royal); venue and date are prefilled from the wedding file",
         "Preferred time windows: pick up to three combinations of day and window (morning, afternoon, evening) from the next 14 days; time zone label 'Kuwait time'",
         "Preferred way to be reached: in-app chat, WhatsApp or phone call; notes field (dir=auto)",
-        "Send request: a hard gate; on success the user lands on the status screen (CL-PLAN-03); an existing open request opens its status instead of creating a second one"
+        "Send request: on success the user lands on the status screen (CL-PLAN-03); an existing open request opens its status instead of creating a second one"
       ],
       "contentNotes": "Demo: Gold «الذهبية», Aurelia Gulf Hotel, «الخميس 14 يناير 2027», windows 'Sun 15 Nov · evening' and 'Mon 16 Nov · afternoon', note «نحتاج مساعدة في تصميم الكوشة والتنسيق مع الفندق». Whether the consultation itself is free is an open product question (SA-PLNR), so the form makes no price claim beyond the package from-price. Success copy: «تم استلام طلبكم. سنخبركم هنا وبإشعار عند تعيين المنسّقة.» / 'Request received. We will tell you here and by notification when a planner is assigned.' Validation blameless: 'Choose at least one time window'. Tab bar hidden.",
       "priority": "core",
       "navigatesTo": [
         "CL-PLAN-03",
-        "CL-AUTH-01",
         "CL-PLAN-01"
       ]
     },

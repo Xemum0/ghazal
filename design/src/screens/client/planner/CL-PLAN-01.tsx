@@ -3,8 +3,7 @@
 // info glyph, the inclusions as glyph + two-word rows), or all three side by side in the compare table (the same row and range parts as Compare
 // venues). The one gold action is the pinned "Request consultation"; "Not now" is the close glyph of the offer after a booking and leaves
 // no trace; its title is the offer question (CA-PLAN-01). Compare is the scale glyph in the bar. "Other planners" under the plate opens the
-// event planning providers (CL-SERV-02, CA-SVC-13: planners who list their own voucher prices). Browsing is open to guests (the `guest` frame
-// is the same screen: nothing here asks for an account); the account is requested when the request is sent (CL-PLAN-02).
+// event planning providers (CL-SERV-02, CA-SVC-13: planners who list their own voucher prices). The client is always signed in (ADR 0038).
 import { useState } from 'react'
 import type { PlannerTier } from '@gz/contracts'
 import { plannerPackages, plannerRequest, type PlannerPackage } from '../../../mock'
@@ -21,7 +20,7 @@ import { tierPhoto } from './_components/tierMedia'
 import { usePlannerFlow } from './_components/plannerFlow'
 import './CL-PLAN-01.css'
 
-export const states = ['from-booking', 'from-my-wedding', 'compare-table', 'loading', 'error', 'offline', 'guest']
+export const states = ['from-booking', 'from-my-wedding', 'compare-table', 'loading', 'error', 'offline']
 
 type Entry = 'booking' | 'my-wedding' | 'services'
 type Params = { from?: Entry; venueId?: string; date?: string; tier?: PlannerTier }

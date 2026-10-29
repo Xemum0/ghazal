@@ -42,10 +42,9 @@ export default function ConversationInfo() {
   const { state } = useFrame()
   const nav = useNav<ThreadParams>()
   const bi = useBi()
-  const { t, tc, f, lang, live: inPlayer, auth, nameOf, rowTime } = useMsg()
-  const signedIn = !(inPlayer && auth === 'guest')
+  const { t, tc, f, lang, nameOf, rowTime } = useMsg()
   const params: ThreadParams = { ...nav.params, ...(state ? FRAME_PARAMS[state] : undefined) }
-  const conversation = useMemo(() => resolveConversation({ ...params, conversationId: params.conversationId ?? (params.venueId || params.bookingId || params.support ? undefined : HERO_CONVERSATION) }, signedIn), [params.conversationId, params.venueId, params.bookingId, params.support, signedIn]) // eslint-disable-line react-hooks/exhaustive-deps
+  const conversation = useMemo(() => resolveConversation({ ...params, conversationId: params.conversationId ?? (params.venueId || params.bookingId || params.support ? undefined : HERO_CONVERSATION) }), [params.conversationId, params.venueId, params.bookingId, params.support]) // eslint-disable-line react-hooks/exhaustive-deps
   const isSupport = conversation.kind === 'support'
   const isVisit = conversation.kind === 'visit_group'
   const liveVisit = usePrototype(s => s.visits.find(v => v.id === conversation.visitId))
@@ -69,7 +68,7 @@ export default function ConversationInfo() {
 
   // What the other side wrote (any kind but a system line) and what has been shared by either side.
   const thread = useMemo<Message[]>(() => {
-    const fixture = conversation.id.startsWith('enq-') || conversation.id === 'support-guest' ? [] : conversation.visitId && visitChat ? visitChat.messages : messagesFor(conversation.id, 'client')
+    const fixture = conversation.id.startsWith('enq-') || conversation.id === 'support-fallback' ? [] : conversation.visitId && visitChat ? visitChat.messages : messagesFor(conversation.id, 'client')
     return [...fixture, ...(conversation.id === HERO_CONVERSATION ? hotel : [])].sort(byTime)
   }, [conversation.id, hotel, visitChat]) // eslint-disable-line react-hooks/exhaustive-deps
   const theirs = thread.filter(m => m.from !== 'client' && m.kind !== 'system')

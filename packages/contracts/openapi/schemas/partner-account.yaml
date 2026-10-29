@@ -2,7 +2,43 @@
 StaffRole: { type: string, enum: [admin, manager, reception, accountant, marketing] }
 StaffStatus: { type: string, enum: [active, invited, deactivated] }
 PartnerAccountType: { type: string, enum: [venue, service_provider], description: 'Hotel or wedding hall, or service provider.' }
-PartnerAccountStatus: { type: string, enum: [invited, active, under_review, suspended] }
+PartnerAccountStatus: { type: string, enum: [invited, active, under_review, suspended], description: '`under_review` covers an application that is pending or rejected (`application.status` tells which); `active` once it is accepted or for an account Ghazal assigned.' }
+ApplicationStatus: { type: string, enum: [pending, accepted, rejected], description: 'Staff decision on a partner application (PA-ACC-07). A resubmission sets it to `pending` again.' }
+PartnerApplication:
+  type: object
+  description: 'The application a service provider or private hall sends from the Partner app (HL-PROV-01, PA-ACC-07, PA-ACC-08, OQ-R2-03). Ghazal staff accept or reject it in the Super Admin web (not in this API; the mock has a control endpoint); only an accepted account can create listings. Visible to the applicant through `PartnerMe.memberships[].application` and `PartnerAccount.application`.'
+  required: [id, accountId, accountType, name, categoryIds, otherCategoryNote, governorateId, contactName, phone, email, description, licenceRef, status, rejectionReason, submittedAt, decidedAt]
+  properties:
+    id: { $ref: Id }
+    accountId: { $ref: Id }
+    accountType: { $ref: PartnerAccountType }
+    name: { $ref: LocalizedText, description: 'Business name in Arabic and English.' }
+    categoryIds: { type: array, items: { $ref: ServiceCategoryId }, maxItems: 3, description: 'Up to three registered service categories (a service provider; empty for a private hall).' }
+    otherCategoryNote: { type: string, nullable: true, description: 'Open note for a service that is not among the registered categories ("Other"); staff can add the category or reject (PA-ACC-08).' }
+    governorateId: { $ref: Id, description: 'From `GET /areas`.' }
+    contactName: { type: string }
+    phone: { $ref: Phone }
+    email: { type: string }
+    description: { type: string, description: 'Short description, as typed.' }
+    licenceRef: { type: string, nullable: true, description: 'Optional commercial licence reference.' }
+    status: { $ref: ApplicationStatus }
+    rejectionReason: { $ref: LocalizedText, nullable: true, description: 'Set with a rejection; shown to the applicant with "Edit and resubmit".' }
+    submittedAt: { $ref: IsoDateTime, description: 'The first submission, or the last resubmission.' }
+    decidedAt: { $ref: IsoDateTime, nullable: true }
+PartnerApplicationInput:
+  type: object
+  description: 'The business information of the application form. Categories are up to three registered ids plus the open note; a service provider needs at least one of the two.'
+  required: [name, governorateId, contactName, phone, email, description]
+  properties:
+    name: { $ref: LocalizedText }
+    categoryIds: { type: array, items: { $ref: ServiceCategoryId }, maxItems: 3 }
+    otherCategoryNote: { type: string, nullable: true, maxLength: 300 }
+    governorateId: { $ref: Id }
+    contactName: { type: string, minLength: 1 }
+    phone: { $ref: Phone }
+    email: { type: string, format: email }
+    description: { type: string, minLength: 1, maxLength: 600 }
+    licenceRef: { type: string, nullable: true, maxLength: 80 }
 PartnerAccount:
   type: object
   required: [id, type, name, venueIds, providerId, ownerUserId, feeExempt, status, createdAt]
@@ -15,6 +51,7 @@ PartnerAccount:
     ownerUserId: { $ref: Id, nullable: true }
     feeExempt: { type: boolean, description: Major hotel; set only by the Super Admin and never visible to clients. }
     status: { $ref: PartnerAccountStatus }
+    application: { $ref: PartnerApplication, nullable: true, description: 'The application of an account that joined with the form; null for an account Ghazal assigned (those are accepted).' }
     createdAt: { $ref: IsoDateTime }
 PartnerContext:
   type: object
@@ -38,6 +75,7 @@ PartnerMembership:
     pendingRequests: { type: integer }
     feeExempt: { type: boolean }
     status: { $ref: PartnerAccountStatus }
+    application: { $ref: PartnerApplication, nullable: true, description: 'Present for an account that joined with the application form (pending, accepted or rejected, with the rejection reason).' }
 PartnerMe:
   type: object
   required: [user, memberships, active]
@@ -47,11 +85,19 @@ PartnerMe:
     active: { $ref: PartnerContext, nullable: true }
 ChooseAccountTypeInput:
   type: object
-  description: First sign-in of a partner without a pre-assigned account (HL-PROV-01). The account starts `under_review`.
+  description: 'First sign-in of a partner without a pre-assigned account: the application form (HL-PROV-01, PA-ACC-07). Creates the account `under_review` with an application `pending`. `accountType` is `service_provider` or `venue` (a private hall). Besides `accountType` and `name` (the business name in both languages) the form carries governorateId, contactName, phone, email and description, plus for a service provider at least one of categoryIds (up to three) and otherCategoryNote; the fields are optional in the schema so older callers still compile, and a missing one is 422 VALIDATION_FAILED with `errors: [{path: "/governorateId", code: "required"}, ...]`.'
   required: [accountType, name]
   properties:
     accountType: { $ref: PartnerAccountType }
     name: { $ref: LocalizedText }
+    categoryIds: { type: array, items: { $ref: ServiceCategoryId }, maxItems: 3 }
+    otherCategoryNote: { type: string, nullable: true, maxLength: 300 }
+    governorateId: { $ref: Id }
+    contactName: { type: string }
+    phone: { $ref: Phone }
+    email: { type: string, format: email }
+    description: { type: string, maxLength: 600 }
+    licenceRef: { type: string, nullable: true, maxLength: 80 }
 SwitchContextInput:
   type: object
   required: [accountId]

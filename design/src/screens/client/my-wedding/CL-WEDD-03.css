@@ -12,7 +12,7 @@
   padding-inline: var(--gz-space-gutter);
 }
 
-/* Hero, its alert and (for a guest) the sample note: one group, 20 apart. */
+/* Hero and its alert: one group, 20 apart. */
 .gzmw-bd__top {
   display: flex;
   flex-direction: column;

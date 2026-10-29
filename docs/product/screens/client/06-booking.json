@@ -5,7 +5,7 @@
     "en": "Booking request",
     "ar": "طلب الحجز"
   },
-  "intent": "Five merged steps (PRD order kept) from a prefilled Brief to 'Request sent' or, for instant halls, to payment. One set of screens serves both modes: only the Review CTA and the outcome differ (ADR 0001). A thread line shows 'Step 2 of 5'; Back is always safe and the draft autosaves; progressive disclosure hides hall, session and audience choices when there is nothing to choose (ADR 0002). Guests browse steps 1 to 3 freely and are asked for an account right before personal data; they return to the exact step.",
+  "intent": "Four steps (PRD order kept; the Extras step is retired, ADR 0038 / CA-SVC-19) from a prefilled Brief to 'Request sent' or, for instant halls, to payment. One set of screens serves both modes: only the Review CTA and the outcome differ (ADR 0001). A thread line shows 'Step 2 of 4'; Back is always safe and the draft autosaves; progressive disclosure hides hall, session and audience choices when there is nothing to choose (ADR 0002). The client is always signed in (ADR 0038): there is no account gate inside the flow.",
   "screens": [
     {
       "id": "CL-BOOK-01",
@@ -15,7 +15,7 @@
         "ar": "مناسبتكم"
       },
       "kind": "screen",
-      "purpose": "Step 1 of 5. Confirm date, what is being hosted, guests and (only if there is a real choice) hall and session. Guests move here because price and capacity validity depend on them. Starts from a card, Venue detail, a calendar date or the Compare table.",
+      "purpose": "Step 1 of 4. Confirm date, what is being hosted, guests and (only if there is a real choice) hall and session. Guests move here because price and capacity validity depend on them. Starts from a card, Venue detail, a calendar date or the Compare table.",
       "requirementIds": [
         "CA-BOOK-01",
         "CA-BOOK-02",
@@ -45,7 +45,7 @@
         "'What are you hosting?' chips (Ladies' reception, Men's reception, Both) appear only if the venue sells more than one audience; the default follows the active filter, otherwise Ladies' reception; Mixed is always last and never preselected; 'Both' adds a second section with its own hall, guests and package",
         "Hall switcher only when more than one hall fits; guests stepper 'Guests in this hall' stepping by the package guest step, with preset chips and live validation against package and hall limits",
         "Optional Occasion chip (wedding, milka, henna night, engagement, other), flagged OQ-B-11; sticky footer shows 'Est. KD 18,200' and the primary 'Continue'",
-        "Thread line 'Step 1 of 5'; the close button asks 'Leave? Your draft is saved' with Keep editing and Leave; an unavailable date at any point opens CL-BOOK-07",
+        "Thread line 'Step 1 of 4'; the close button asks 'Leave? Your draft is saved' with Keep editing and Leave; an unavailable date at any point opens CL-BOOK-07",
         "When the flow starts from a voucher the date, hall, session, audience and package are prefilled and shown with a small lock and \"From your voucher\"; changing them opens CL-VCHR-04 (the voucher stays bound only if the saving test still passes); guests count may change within the voucher quote range. Reaching this screen without a voucher shows an inline \"Get your voucher first\" that opens CL-VCHR-01 (there is no request without a voucher)",
         "Footer shows \"Voucher price KD 15,400 (est.)\" and the primary \"Continue\"; the instant-booking variant is removed"
       ],
@@ -68,7 +68,7 @@
         "ar": "الباقة"
       },
       "kind": "screen",
-      "purpose": "Step 2 of 5. Choose exactly one package priced for the date and guests; in a two-section booking a Ladies | Men tab pair appears so each section gets its own package.",
+      "purpose": "Step 2 of 4. Choose exactly one package priced for the date and guests; in a two-section booking a Ladies | Men tab pair appears so each section gets its own package.",
       "requirementIds": [
         "CA-BOOK-04",
         "CA-BOOK-06",
@@ -94,7 +94,7 @@
       "contentNotes": "Ladies: «الحفل النسائي · نهاية الأسبوع» 'KD 52 per guest' = KD 18,200 for 350 guests (selected for the demo); «الحفل النسائي المتكامل» 'KD 55 per guest' = KD 19,250 (kosha design, zaffa entrance, bridal suite, one suite night). Men (Majlis Hall, two-section variant): «الحفل الرجالي» 'KD 32 per guest' x 400 guests = KD 12,800, with the summed total KD 31,000 shown in the footer. A bare 'From KD X' never appears; each price states its unit. None-fits state: 'No package fits 700 guests in this hall. Change guests or choose another hall.' Package names never use Silver, Gold or Royal. Tab bar hidden.",
       "priority": "core",
       "navigatesTo": [
-        "CL-BOOK-03",
+        "CL-BOOK-04",
         "CL-VENU-04",
         "CL-BOOK-01"
       ]
@@ -107,12 +107,12 @@
         "ar": "الإضافات"
       },
       "kind": "screen",
-      "purpose": "Step 3 of 5. Optional add-ons priced separately, with a running total. Also the second entry point for adding a men's reception. For a guest, Continue triggers the account sheet before any personal data is asked.",
+      "purpose": "Step 3 of 5. Optional add-ons priced separately, with a running total. Also the second entry point for adding a men's reception.",
       "requirementIds": [
         "CA-BOOK-05",
         "CA-BOOK-14",
         "CA-VDET-13",
-        "CA-AUTH-10"
+        "CA-AUTH-13"
       ],
       "states": [
         "default",
@@ -120,22 +120,18 @@
         "loading",
         "error",
         "offline",
-        "extras-selected",
-        "guest-gate"
+        "extras-selected"
       ],
       "interactions": [
         "Extras as rows with a stepper or option picker (flat, per guest or per unit pricing stated on each row); no price changes after this step",
         "'Add a men's reception' card (only if the venue has a suitable second hall) returns to step 2 with the Men tab active; it is the same state as the step-1 'Both' chip",
-        "'No extras' skips explicitly; Continue is never disabled",
-        "Guest: Continue opens the sign-in sheet with the context line 'to send your request' (CL-AUTH-01); after authentication the user lands on step 4 with every selection intact"
+        "'No extras' skips explicitly; Continue is never disabled"
       ],
-      "contentNotes": "Extras with real Kuwait ranges: bespoke kosha «الكوشة» KD 1,800 – 6,500 (three designs); florals KD 900 – 4,000; female photographer «مصوّرة» KD 450 – 700; zaffa troupe «الزفّة» KD 350 – 900; extra hour KD 250 – 600; Arabic coffee station KD 150 – 350; kids' corner KD 200 – 450. Demo state selected: kosha classic design KD 1,800.000 and female photographer KD 450.000, running total KD 20,450.000; the shared storyline skips extras so the booking stays KD 18,200.000. Items included in the package are shown as Included, not priced. Men's reception card: 'Add a men's reception on the same day in Majlis Hall' / «إضافة الحفل الرجالي في اليوم نفسه (قاعة المجلس)». Tab bar hidden. Voucher model (ADR 0033): extras without a voucher price are billed at their standard price in both columns; the running total is the voucher total. Footer note: «الإضافات تُسدَّد للقاعة مباشرةً» / \"Extras are settled directly with the venue.\" Guest gate context line is now \"to send your request\" only after a voucher exists; otherwise \"to get your voucher\".",
+      "contentNotes": "Extras with real Kuwait ranges: bespoke kosha «الكوشة» KD 1,800 – 6,500 (three designs); florals KD 900 – 4,000; female photographer «مصوّرة» KD 450 – 700; zaffa troupe «الزفّة» KD 350 – 900; extra hour KD 250 – 600; Arabic coffee station KD 150 – 350; kids' corner KD 200 – 450. Demo state selected: kosha classic design KD 1,800.000 and female photographer KD 450.000, running total KD 20,450.000; the shared storyline skips extras so the booking stays KD 18,200.000. Items included in the package are shown as Included, not priced. Men's reception card: 'Add a men's reception on the same day in Majlis Hall' / «إضافة الحفل الرجالي في اليوم نفسه (قاعة المجلس)». Tab bar hidden. Voucher model (ADR 0033): extras without a voucher price are billed at their standard price in both columns; the running total is the voucher total. Footer note: «الإضافات تُسدَّد للقاعة مباشرةً» / \"Extras are settled directly with the venue.",
       "priority": "core",
-      "navigatesTo": [
-        "CL-AUTH-01",
-        "CL-BOOK-04",
-        "CL-BOOK-02"
-      ]
+      "navigatesTo": [],
+      "deprecated": true,
+      "deprecatedReason": "Retired by ADR 0038 (owner round 2, CA-SVC-19): hotels and halls do not provide extras or add-on services through Ghazal, so the request flow has no Extras step. The steps are now Your event (CL-BOOK-01), Package (CL-BOOK-02), Your details (CL-BOOK-04) and Review (CL-BOOK-05), 'Step N of 4'; the price has no extras lines. A client adds services only by choosing a provider in the Services hub (CL-SERV-01..04). CA-BOOK-05 and CA-VDET-13 are superseded by CA-SVC-19; the API fields stay (additive contract) but the apps stop showing and editing them."
     },
     {
       "id": "CL-BOOK-04",
@@ -145,13 +141,13 @@
         "ar": "بياناتكم"
       },
       "kind": "screen",
-      "purpose": "Step 4 of 5. Contact person, who the booking is for, special requests, and inline phone verification. A verified phone is required to send a request; users who signed in with Apple, Google or email verify here by WhatsApp without leaving the step.",
+      "purpose": "Step 3 of 4. Contact person, who the booking is for, special requests, and inline phone verification. A verified phone is required to send a request; users who signed in with Apple, Google or email verify here by WhatsApp without leaving the step.",
       "requirementIds": [
         "CA-BOOK-07",
         "CA-BOOK-08",
         "CA-AUTH-05",
         "CA-AUTH-06",
-        "CA-AUTH-10"
+        "CA-AUTH-13"
       ],
       "states": [
         "default",
@@ -168,12 +164,11 @@
         "Special requests: free text (dir=auto) with suggestion chips such as 'Female photographer only', 'Kosha team access from 12:00 PM', 'Wheelchair access'",
         "Clear note on who sees what, then Continue to Review"
       ],
-      "contentNotes": "Demo: «ريم الدوسري» / Reem Al-Dosari, +965 5000 0012 (display only, never a tappable link in the prototype), email optional. Privacy line: «يظهر اسمكم ورقم هاتفكم لفندق أوريليا الخليج لهذا الطلب فقط» / 'Aurelia Gulf Hotel sees your name and phone for this request only.' (CA-BOOK-07 requires saying who sees the number). Civil ID is not collected in the MVP. 'Send a payment link to the payer' is not designed (outside the PRD). Errors blameless and specific: 'Check the number: it needs 8 digits'. Tab bar hidden; thread line 'Step 4 of 5'. Voucher model (ADR 0033): the privacy line adds «ويظهر رمز كوبونكم للقاعة عند الاستخدام فقط» / \"The venue sees your voucher code only when you redeem it.\" There is no payer or payment field in this flow (the event is paid to the venue directly).",
+      "contentNotes": "Demo: «ريم الدوسري» / Reem Al-Dosari, +965 5000 0012 (display only, never a tappable link in the prototype), email optional. Privacy line: «يظهر اسمكم ورقم هاتفكم لفندق أوريليا الخليج لهذا الطلب فقط» / 'Aurelia Gulf Hotel sees your name and phone for this request only.' (CA-BOOK-07 requires saying who sees the number). Civil ID is not collected in the MVP. 'Send a payment link to the payer' is not designed (outside the PRD). Errors blameless and specific: 'Check the number: it needs 8 digits'. Tab bar hidden; thread line 'Step 3 of 4'. Voucher model (ADR 0033): the privacy line adds «ويظهر رمز كوبونكم للقاعة عند الاستخدام فقط» / \"The venue sees your voucher code only when you redeem it.\" There is no payer or payment field in this flow (the event is paid to the venue directly).",
       "priority": "core",
       "navigatesTo": [
         "CL-BOOK-05",
-        "CL-AUTH-02",
-        "CL-BOOK-03"
+        "CL-AUTH-02"
       ]
     },
     {
@@ -184,7 +179,7 @@
         "ar": "المراجعة"
       },
       "kind": "screen",
-      "purpose": "Step 5 of 5. The last screen before commitment: the itemised price in both columns, the saving, the attached voucher (code last four, state) and consent. The primary reads \"Send request at the voucher price\". There is no deposit, no payment schedule, no coupon or points field and no instant mode. The summary states the model plainly: \"Nothing more to pay Ghazal. After you confirm, you pay the venue directly.\"",
+      "purpose": "Step 4 of 4. The last screen before commitment: the itemised price in both columns, the saving, the attached voucher (code last four, state) and consent. The primary reads \"Send request at the voucher price\". There is no deposit, no payment schedule, no coupon or points field and no instant mode. The summary states the model plainly: \"Nothing more to pay Ghazal. After you confirm, you pay the venue directly.\"",
       "requirementIds": [
         "CA-BOOK-09",
         "CA-BOOK-10",
@@ -199,7 +194,6 @@
         "two-sections",
         "voucher-attached",
         "voucher-missing",
-        "voucher-quote-changed",
         "consent-unchecked",
         "phone-unverified",
         "open-requests-limit",
@@ -209,7 +203,7 @@
       ],
       "interactions": [
         "Summary blocks with Edit links back to each step (a two-section booking shows two blocks and summed totals); the price snapshot (both columns) is frozen when the request is sent",
-        "Itemised price in exact three decimals in two columns: package, extras, service charge only if the venue declares one, Standard total (struck through), Voucher total, \"You save\"; no tax lines, no platform credit, no coupon field",
+        "Itemised price in exact three decimals in two columns: package, service charge only if the venue declares one, Standard total (struck through), Voucher total, \"You save\"; no tax lines, no platform credit, no coupon field",
         "Voucher card: \"Voucher GV-2611-K7QM\" (LTR isolate), bound to this venue and quote, with \"Change voucher\" opening CL-VCHR-04; if no ready voucher matches the quote, the card shows \"Get your voucher\" that opens CL-VCHR-01 and the primary is disabled with that reason",
         "Reply line: \"Expected reply by Fri 13 Nov, 4:00 PM\" and \"If approved, you will have 24 hours to confirm\" (absolute times, no timer)",
         "Consent checkbox for the venue terms, the voucher terms and the platform terms (links to CL-VENU-05); the CTA stays disabled until checked",
@@ -224,7 +218,8 @@
         "CL-BOOK-07",
         "CL-VENU-05",
         "CL-AUTH-02",
-        "CL-BOOK-01"
+        "CL-BOOK-01",
+        "CL-BOOK-04"
       ]
     },
     {

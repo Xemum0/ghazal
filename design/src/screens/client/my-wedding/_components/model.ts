@@ -22,8 +22,6 @@ export type Scenario = {
   days: number | null
   /** Status of the story booking in this phase; null while nothing is booked. */
   status: BookingStatus | null
-  /** A guest looking at the sample structure (ADR 0007 D8). */
-  guest?: boolean
   /** The wedding date in the profile differs from the booking date. */
   dateDiffers?: boolean
   /** A paid voucher is waiting and is bound to no request yet (the `voucher-ready` state; the card opens My vouchers). */
@@ -64,9 +62,6 @@ export function scenarioOf(state: string | undefined): Scenario | null {
       return { phase: 'post-event', days: -1, status: 'completed' }
     case 'date-differs':
       return { phase: 'confirmed', days: real, status: 'confirmed', dateDiffers: true }
-    case 'guest-teaser':
-    case 'guest-sample':
-      return { phase: 'confirmed', days: real, status: 'confirmed', guest: true }
     default:
       return null
   }

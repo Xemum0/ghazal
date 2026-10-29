@@ -1,8 +1,9 @@
 // CL-ONBD-01 Language: first-ever screen. Covers CA-ONB-02.
 // Text diet (ADR 0034): no title, no hint. The photograph and two language tiles say it: each tile is the script's own mark (ع, Aa) and
 // the language written in itself. Tapping a tile mirrors the whole screen in place (the URL language is the source of truth), Continue
-// goes to the intro, and a quiet `Sign in` link opens the sign-in sheet for returning users. The sentence about changing the language
-// later is deleted (it was not one of the three allowed paragraphs); Profile owns that setting.
+// goes to the intro, and a quiet `Sign in` link goes straight to the sign-in screen for returning users (there is no guest mode, ADR 0038:
+// language, introduction and sign-in are the whole first run). The sentence about changing the language later is deleted (it was not
+// one of the three allowed paragraphs); Profile owns that setting.
 // States: default, offline (the screen is bundled and works fully offline; sign-in needs a connection, said by the disabled link's
 // accessible description and by the offline banner).
 import { LANGUAGE_NATIVE_NAME, type Lang } from '@gz/i18n'
@@ -39,7 +40,7 @@ export default function ClOnbd01() {
 
   const account = (
     <span className="obd-lang__account">
-      <Button variant="tertiary" iconStart="sign-in" disabled={offline} aria-describedby={offline ? 'obd-lang-why' : undefined} onClick={() => nav.openSheet('CL-AUTH-01')}>
+      <Button variant="tertiary" iconStart="sign-in" disabled={offline} aria-describedby={offline ? 'obd-lang-why' : undefined} onClick={() => nav.push('CL-AUTH-01')}>
         {t('clientOnboardingLanguageSignIn')}
       </Button>
       {offline ? (

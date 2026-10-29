@@ -1,13 +1,13 @@
-// The pickers of Wedding info (CL-PROF-02). Date, areas and budget are the SAME panels the Brief sheet uses (CL-DISC-02), so a couple answers
+// The pickers of Wedding info (CL-PROF-02). Date, governorates (ADR 0038) and budget are the SAME panels the Brief sheet uses (CL-DISC-02), so a couple answers
 // the same question the same way wherever they meet it; role and guests are asked here (the Brief has one guest count, the wedding file
 // has ladies and men separately). Each sheet keeps a draft and writes the profile (and the Brief fields it feeds) on Done, or on the tap
 // for a single choice; dismissing discards. Autosave per field: no Save button anywhere on the screen.
 import { useState } from 'react'
 import type { WeddingProfileState } from '../../../../shell/state'
 import { useFormat, useT } from '../../../../i18n'
-import { Icon, Stepper, useNav } from '../../../../system'
+import { Icon, Stepper, briefGovernorates, useNav } from '../../../../system'
 import type { BriefDraft, PanelProps } from '../../discover/_components/brief/types'
-import { AreaPanel } from '../../discover/_components/brief/AreaPanel'
+import { GovernoratePanel } from '../../discover/_components/brief/GovernoratePanel'
 import { BudgetPanel } from '../../discover/_components/brief/BudgetPanel'
 import { DatePanel } from '../../discover/_components/brief/DatePanel'
 import '../../discover/_components/brief/brief.css'
@@ -15,7 +15,7 @@ import { ChoiceList, DoneButton, SheetBox } from './parts'
 import { BUDGET_CEILING_FILS, commitWedding } from './wedding'
 import './wedding-sheets.css'
 
-export type WeddingField = 'role' | 'date' | 'guests' | 'budget' | 'areas'
+export type WeddingField = 'role' | 'date' | 'guests' | 'budget' | 'governorates'
 
 /** What a saved edit tells the screen (the quiet toast "Saved"). */
 export type OnSaved = () => void
@@ -25,7 +25,8 @@ const draftOf = (p: WeddingProfileState): BriefDraft => ({
     date: p.weddingDate,
     guests: p.guests.women || null,
     audience: p.searching[0] ?? 'women',
-    areaIds: p.areaIds,
+    areaIds: [],
+    governorateIds: briefGovernorates(p),
     budget: p.venueBudget ? { min: p.venueBudget.min, max: p.venueBudget.max.fils >= BUDGET_CEILING_FILS ? null : p.venueBudget.max } : null,
     dateMode: p.weddingDate ? p.dateMode : 'undecided',
   },
@@ -64,7 +65,7 @@ export function RoleSheet({ profile, onSaved }: { profile: WeddingProfileState; 
 
 // ---------------------------------------------------------------- date, areas, budget (the Brief's panels)
 
-type PanelField = 'date' | 'budget' | 'areas'
+type PanelField = 'date' | 'budget' | 'governorates'
 
 export function BriefPanelSheet({ field, profile, onSaved }: { field: PanelField; profile: WeddingProfileState; onSaved: OnSaved }) {
   const t = useT('client-profile')
@@ -75,16 +76,16 @@ export function BriefPanelSheet({ field, profile, onSaved }: { field: PanelField
 
   const done = () => {
     if (field === 'date') commitWedding({ weddingDate: b.date ?? null, dateMode: b.date ? (b.dateMode === 'flexible_month' ? 'flexible_month' : 'exact') : 'undecided' })
-    else if (field === 'areas') commitWedding({ areaIds: b.areaIds ?? [] })
+    else if (field === 'governorates') commitWedding({ governorateIds: b.governorateIds ?? [] })
     else commitWedding({ venueBudget: b.budget ? { min: b.budget.min, max: b.budget.max ?? { fils: BUDGET_CEILING_FILS, currency: 'KWD' } } : null })
     nav.closeSheet()
     onSaved()
   }
-  const title = field === 'date' ? t('clientProfileWedDate') : field === 'areas' ? t('clientProfileWedAreas') : t('clientProfileWedBudget')
+  const title = field === 'date' ? t('clientProfileWedDate') : field === 'governorates' ? t('clientProfileWedGovernorates') : t('clientProfileWedBudget')
 
   return (
     <SheetBox title={title} fill footer={<DoneButton onClick={done} />}>
-      {field === 'date' ? <DatePanel {...props} /> : field === 'areas' ? <AreaPanel {...props} /> : <BudgetPanel {...props} />}
+      {field === 'date' ? <DatePanel {...props} /> : field === 'governorates' ? <GovernoratePanel {...props} /> : <BudgetPanel {...props} />}
     </SheetBox>
   )
 }

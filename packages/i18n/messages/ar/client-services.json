@@ -1,7 +1,6 @@
 {
   "clientServicesFrom": "من",
   "clientServicesOpenName": "فتح {name}",
-  "clientServicesArea": "المنطقة",
   "clientServicesProviders": "المقدّمون",
   "clientServicesSoon": "قريبًا",
   "clientServicesVoucherAvailable": "أسعار الكوبون متاحة",
@@ -23,7 +22,6 @@
   "clientServicesHubMoreHeading": "المزيد",
   "clientServicesHubPlannerTitle": "تنسيق الأعراس",
   "clientServicesHubSavedTitle": "المحفوظ",
-  "clientServicesHubGovernmentNote": "أضيفوا الضيافة والديكور",
   "clientServicesHubVoucherLine": "احصلوا على كوبون غزل بقيمة {fee} من صفحة مقدّم الخدمة لتفتحوا أسعارًا أقل. الدفع لمقدّم الخدمة مباشرةً دائمًا.",
   "clientServicesListTitle": "المقدّمون",
   "clientServicesListSiblings": "خدمات ذات صلة",
@@ -77,7 +75,6 @@
   "clientServicesQuoteNotePlaceholder": "ملاحظة",
   "clientServicesQuoteSend": "إرسال الطلب",
   "clientServicesQuoteDateError": "التاريخ مطلوب",
-  "clientServicesQuoteGuestNote": "سجّلوا الدخول للإرسال",
   "clientServicesQuoteThreadExists": "يضاف إلى المحادثة",
   "clientServicesQuoteErrorTitle": "تعذّر الإرسال",
   "clientServicesQuoteErrorBody": "لم يضع شيء مما كتبتموه.",
@@ -91,5 +88,9 @@
   "clientServicesProvidersCount": "{count, plural, =0{لا مقدّمي خدمات} =1{مقدّم خدمة واحد} =2{مقدّما خدمة} few{# مقدّمي خدمات} many{# مقدّم خدمة} other{# مقدّم خدمة}}",
   "clientServicesOpenCategory": "افتحوا {name}",
   "clientServicesHubFromPlanner": "ابتداءً من {price}",
-  "clientServicesListRefreshed": "تم تحديث القائمة"
+  "clientServicesListRefreshed": "تم تحديث القائمة",
+  "clientServicesProviderNote": "هل أنت مزوّد خدمة؟ قدّم طلبك في تطبيق الشريك",
+  "clientServicesGovernorate": "المحافظة",
+  "clientServicesGovernorateTitle": "{count, plural, =0{المحافظات} =1{المحافظات · #} =2{المحافظات · #} few{المحافظات · #} many{المحافظات · #} other{المحافظات · #}}",
+  "clientServicesArea": "المنطقة"
 }

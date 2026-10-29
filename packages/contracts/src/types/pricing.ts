@@ -192,7 +192,14 @@ export interface Brief {
   date?: IsoDate | null
   guests?: number | null
   audience?: Audience | null
+  /** Deprecated since round 2 (ADR 0038 D1): the older exact areas of a Brief. They rank the engine's list (+25) and set the distance origin. */
   areaIds?: Id[]
+  /**
+   * The Brief's region since round 2 (CA-FLT-08): governorates, empty or missing = all. The engine's `listVenues` does not read it (the view layer
+   * narrows by it: the web's data.ts and the mock's discover.dart); it is typed here so a Brief can carry it. An explicit
+   * `VenueFilter.governorateIds` is the engine's governorate filter.
+   */
+  governorateIds?: Id[]
   budget?: { min: Money; max: Money | null } | null
 }
 

@@ -70,30 +70,6 @@
   color: var(--gz-color-sys-text-secondary);
 }
 
-/* ---------- guest card: the one gold action of a guest's Profile; the doorway drawing over a full-width Sign in ---------- */
-.gzpr-guest {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--gz-space-5);
-  box-sizing: border-box;
-  padding-block: var(--gz-space-6);
-  padding-inline: var(--gz-space-panel-pad);
-  border-width: var(--gz-stroke-hair);
-  border-style: solid;
-  border-color: var(--gz-color-sys-border-strong);
-  border-radius: var(--gz-radius-md);
-  background-color: var(--gz-color-sys-surface-raised);
-}
-
-.gzpr-guest > .gz-illus {
-  flex: none;
-}
-
-.gzpr-guest > .gz-btn {
-  align-self: stretch;
-}
-
 /* ---------- footer ---------- */
 .gzpr-version {
   margin: 0;

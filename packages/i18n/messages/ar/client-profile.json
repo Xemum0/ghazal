@@ -6,7 +6,6 @@
   "clientProfileSharedSupport": "الدعم",
   "clientProfileSharedTerms": "الشروط",
   "clientProfileSharedPrivacy": "الخصوصية",
-  "clientProfileSharedSignIn": "تسجيل الدخول",
   "clientProfileSharedSignOut": "تسجيل الخروج",
   "clientProfileSharedSignOutTitle": "تسجيل الخروج؟",
   "clientProfileSharedSignOutStay": "البقاء",
@@ -48,7 +47,6 @@
   "clientProfileWedLadies": "نسائي",
   "clientProfileWedMen": "رجالي",
   "clientProfileWedBudget": "القاعة والضيافة",
-  "clientProfileWedAreas": "المناطق",
   "clientProfileWedTotal": "الميزانية الكاملة",
   "clientProfileWedDiffersAction": "اعتماد التاريخ",
   "clientProfileWedDateUpdated": "تم التحديث",
@@ -140,5 +138,9 @@
   "clientProfileDelBlockedCancelRequest": "إلغاء الطلب",
   "clientProfileDelScheduledTitle": "الحذف مجدول",
   "clientProfileDelScheduledCancel": "إلغاء الحذف",
-  "clientProfileDelScheduledCancelled": "الحذف ملغى"
+  "clientProfileDelScheduledCancelled": "الحذف ملغى",
+  "clientProfilePersSex": "الجنس",
+  "clientProfilePersSexFemale": "أنثى",
+  "clientProfilePersSexMale": "ذكر",
+  "clientProfileWedGovernorates": "المحافظات"
 }

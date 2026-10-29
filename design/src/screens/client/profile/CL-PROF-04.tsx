@@ -4,7 +4,7 @@
 // them. Always on: requests, vouchers, visits (no switch, a check: they are about the KD 2 voucher and appointments). Reminders (on by default):
 // confirm the request (the hours to confirm as a timer fact), voucher expiry, visit, countdown; there is no "balance due" because the app takes
 // no balance (ADR 0033). Offers and news: one master switch, opt-in and off until turned on; then offers, price drops (halls saved or compared on
-// the date) and new halls (preferred areas). The frequency (at most two a week, none in the final seven days) is behind the info glyph on the
+// the date) and new halls (preferred governorates). The frequency (at most two a week, none in the final seven days) is behind the info glyph on the
 // master row. Channels are chosen per group as three glyph chips after the send mark (email only once an email exists). The quiet hours open a
 // sheet; the phone's own permission is shown and links out. Every change saves at once with a quiet toast.
 // States: default, os-denied, saving, error, offline-disabled.

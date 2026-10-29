@@ -6,7 +6,6 @@
   "clientProfileSharedSupport": "Support",
   "clientProfileSharedTerms": "Terms",
   "clientProfileSharedPrivacy": "Privacy",
-  "clientProfileSharedSignIn": "Sign in",
   "clientProfileSharedSignOut": "Sign out",
   "clientProfileSharedSignOutTitle": "Sign out?",
   "clientProfileSharedSignOutStay": "Stay",
@@ -48,7 +47,6 @@
   "clientProfileWedLadies": "Ladies",
   "clientProfileWedMen": "Men",
   "clientProfileWedBudget": "Venue and catering",
-  "clientProfileWedAreas": "Areas",
   "clientProfileWedTotal": "Total budget",
   "clientProfileWedDiffersAction": "Use date",
   "clientProfileWedDateUpdated": "Date updated",
@@ -140,5 +138,9 @@
   "clientProfileDelBlockedCancelRequest": "Cancel request",
   "clientProfileDelScheduledTitle": "Deletion scheduled",
   "clientProfileDelScheduledCancel": "Cancel deletion",
-  "clientProfileDelScheduledCancelled": "Deletion cancelled"
+  "clientProfileDelScheduledCancelled": "Deletion cancelled",
+  "clientProfilePersSex": "Sex",
+  "clientProfilePersSexFemale": "Female",
+  "clientProfilePersSexMale": "Male",
+  "clientProfileWedGovernorates": "Governorates"
 }

@@ -26,7 +26,7 @@ abstract interface class AuthRepository {
     required OtpVerifyInput body,
   });
 
-  /// Create a password account and start phone verification (CA-AUTH-01, CA-AUTH-11)
+  /// Create a password account (name, sex, terms) and start phone verification (CA-AUTH-01, CA-AUTH-11, CA-AUTH-14)
   ///
   /// `POST /auth/register`
   /// Access: guest.

@@ -5,7 +5,7 @@
     "en": "Messages and notifications",
     "ar": "الرسائل والإشعارات"
   },
-  "intent": "WhatsApp is the operating system of Kuwaiti weddings, so chat must feel native: text, photos, documents and above all voice notes, with the booking always one tap away. The Messages tab holds one thread per counterpart (venue, planner, vendor, Ghazal support). The notification centre is the in-app record of every push and lands each on the exact object. Reading is open to guests; sending a message is a hard gate that resumes the typed text (ADR 0007).",
+  "intent": "WhatsApp is the operating system of Kuwaiti weddings, so chat must feel native: text, photos, documents and above all voice notes, with the booking always one tap away. The Messages tab holds one thread per counterpart (venue, planner, vendor, Ghazal support). The notification centre is the in-app record of every push and lands each on the exact object. Every client is signed in (ADR 0038), so reading and sending never meet a gate.",
   "screens": [
     {
       "id": "CL-MSGS-01",
@@ -30,13 +30,12 @@
         "empty",
         "error",
         "offline",
-        "guest",
         "support-refund-request"
       ],
       "interactions": [
         "Row: monogram (first letter of the name in its own script), name, a context line ('Request · Thu 14 Jan'), last message with dir=auto alignment, time, unread badge",
-        "Support row is pinned at the top and always available, including for guests who need help signing in",
-        "Empty state explains how to start ('Message a hall from its page') and offers Support; a guest sees a sign-in teaser (reading threads requires an account)",
+        "Support row is pinned at the top and always available",
+        "Empty state explains how to start ('Message a hall from its page') and offers Support",
         "Offline shows cached conversations with a stamp; the bell on Home and My Wedding opens the notification centre",
         "Filter chips: All, Venues, Visits, Planner, Vendors, Support; visit group rows show a group glyph, the venue name, \"Visit · Sat 14 Nov, 5:00 PM\" and the three role chips; tap opens the thread (CL-VIST-03 for visit groups, CL-MSGS-02 otherwise)"
       ],
@@ -45,7 +44,6 @@
       "navigatesTo": [
         "CL-MSGS-02",
         "CL-MSGS-04",
-        "CL-AUTH-01",
         "CL-DISC-01",
         "CL-VIST-03"
       ],
@@ -74,7 +72,7 @@
         "CA-CHAT-07",
         "CA-CHAT-08",
         "CA-CHAT-09",
-        "CA-AUTH-10"
+        "CA-AUTH-13"
       ],
       "states": [
         "default",
@@ -90,7 +88,6 @@
         "voice-playing",
         "offline-queued",
         "error",
-        "guest-gate",
         "blocked",
         "planner-variant",
         "vendor-variant",
@@ -101,7 +98,7 @@
         "Pinned context bar (booking date, status chip, 'View booking') opens Booking detail (CL-BKNG-02); system messages mark request sent, approved, confirmed",
         "Composer: text, attach (photo, video, document) and microphone; hold to record with a live waveform, slide toward inline-start to cancel, slide up to lock, haptics at start, cancel and lock; played voice notes keep the play triangle unmirrored while layout mirrors",
         "Tapping media opens the shared viewer (CL-VENU-02 pattern) and documents open a PDF viewer; header menu opens conversation info (CL-MSGS-03)",
-        "Empty enquiry shows suggestion chips: 'Ask about availability', 'Request a visit', 'Ask about packages'; a guest who taps Send sees the sign-in sheet 'to send your message' with the draft kept",
+        "Empty enquiry shows suggestion chips: 'Ask about availability', 'Request a visit', 'Ask about packages'",
         "Messages may queue offline and send later (unlike booking decisions); the tab bar is hidden while the composer is open",
         "Context bar statuses follow the request machine (Pending, Approved - confirm within 24 h, Confirmed, Voucher redeemed); the empty-enquiry chips become \"Ask about availability\", \"Book a visit\", \"Ask about the voucher price\"; the group-chat variant for visits is CL-VIST-03 (same component, three roles)"
       ],
@@ -111,7 +108,6 @@
         "CL-MSGS-03",
         "CL-BKNG-02",
         "CL-VENU-02",
-        "CL-AUTH-01",
         "CL-PLAN-04",
         "CL-SERV-03",
         "CL-VIST-01"
@@ -189,7 +185,7 @@
         "If the OS permission is denied a quiet banner explains that updates still appear here and links to system settings; a target that no longer exists shows 'This venue is no longer listed' with similar venues",
         "Landings follow the new events: request approved > Booking detail with the Confirm booking action; confirm reminder (-12 h, -3 h, -1 h) > Booking detail; voucher ready > CL-VCHR-03; voucher expiring in 7 days > CL-VCHR-03; voucher redeemed > Booking detail; venue proposed another date > response sheet; visit confirmed or reminder > CL-VIST-03; visit chat message > CL-VIST-03; the deposit, balance and reschedule landings are removed"
       ],
-      "contentNotes": "Rows (AR / EN): «وافق فندق أوريليا الخليج على طلبكم. ثبّتوا الموعد بدفع العربون قبل الجمعة 13 نوفمبر، 4:00 م.» / 'Aurelia Gulf Hotel approved your request. Secure the date by paying the deposit before Fri 13 Nov, 4:00 PM.'; «تم استلام العربون (5,460.000 د.ك). حجزكم مؤكد.» / 'Deposit received (KD 5,460.000). Your booking is confirmed.'; «المبلغ المتبقي 12,740.000 د.ك يُسدَّد قبل الحفل بـ 14 يومًا.»; «انخفض سعر الحفل النسائي في قصر النخيل للأفراح ليوم الخميس 3 ديسمبر إلى 28 د.ك للضيف.» / 'Ladies' reception at Qasr Al-Nakheel on Thu 3 Dec dropped to KD 28 per guest.'; «باقي 30 يومًا على زفافكم. راجعوا قائمة المهام.»; new venue near the preferred areas. Transactional notifications always arrive; marketing is opt-in with quiet hours, at most two a week and none in the final seven days before the wedding. Offline shows cached items with a stamp. Tab bar visible. Voucher model (ADR 0033): examples «تمت الموافقة على طلبكم. أكدوا الحجز خلال 24 ساعة.» / \"Your request was approved. Confirm within 24 hours.\" and «كوبونكم جاهز لفندق أوريليا الخليج.» / \"Your voucher for Aurelia Gulf Hotel is ready.\" Superseded: \"Deposit received\", \"Pay balance\", \"Secure the date by paying the deposit\".",
+      "contentNotes": "Rows (AR / EN): «وافق فندق أوريليا الخليج على طلبكم. ثبّتوا الموعد بدفع العربون قبل الجمعة 13 نوفمبر، 4:00 م.» / 'Aurelia Gulf Hotel approved your request. Secure the date by paying the deposit before Fri 13 Nov, 4:00 PM.'; «تم استلام العربون (5,460.000 د.ك). حجزكم مؤكد.» / 'Deposit received (KD 5,460.000). Your booking is confirmed.'; «المبلغ المتبقي 12,740.000 د.ك يُسدَّد قبل الحفل بـ 14 يومًا.»; «انخفض سعر الحفل النسائي في قصر النخيل للأفراح ليوم الخميس 3 ديسمبر إلى 28 د.ك للضيف.» / 'Ladies' reception at Qasr Al-Nakheel on Thu 3 Dec dropped to KD 28 per guest.'; «باقي 30 يومًا على زفافكم. راجعوا قائمة المهام.»; new venue in the preferred governorates. Transactional notifications always arrive; marketing is opt-in with quiet hours, at most two a week and none in the final seven days before the wedding. Offline shows cached items with a stamp. Tab bar visible. Voucher model (ADR 0033): examples «تمت الموافقة على طلبكم. أكدوا الحجز خلال 24 ساعة.» / \"Your request was approved. Confirm within 24 hours.\" and «كوبونكم جاهز لفندق أوريليا الخليج.» / \"Your voucher for Aurelia Gulf Hotel is ready.\" Superseded: \"Deposit received\", \"Pay balance\", \"Secure the date by paying the deposit\".",
       "priority": "supporting",
       "navigatesTo": [
         "CL-BKNG-02",

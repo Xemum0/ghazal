@@ -1,6 +1,6 @@
 // PackageTile (CL-VENU-01 packages; ADR 0004, ADR 0033 D4, ADR 0034): one priced package as a choice, figure-led. The serif name and the
 // section glyph (ladies, men, mixed), three facts as glyph and figure (per guest or package, the guest minimum, how many inclusions), and
-// the price: the total for the party under the voucher column (ticket for a member, lock for a guest) with the standard total struck and
+// the price: the total for the party under the voucher column (a ticket) with the standard total struck and
 // the saving, and the per-guest rate as a fact. No sentence, no inclusion list (the sheet has them: CL-VENU-04), no "Show all".
 // Choosing is ink and a gold bead, never a gold fill (direction 2.3). Flow-local until the system PackageCard has a figure-led variant
 // (docs/engineering/requests.md).
@@ -23,13 +23,11 @@ export type PackageTileProps = {
   unavailable?: boolean
   /** The venue has no voucher price in this frame: the standard price alone. */
   standardOnly?: boolean
-  /** Signed out: the voucher column carries a lock (voucher-model 4.5). */
-  guest?: boolean
 }
 
 const AUDIENCE_KEY = { women: 'clientVenueAudWomen', men: 'clientVenueAudMen', mixed: 'clientVenueAudMixed' } as const
 
-export function PackageTile({ row, guests, selected, onSelect, onDetails, unavailable = false, standardOnly = false, guest = false }: PackageTileProps) {
+export function PackageTile({ row, guests, selected, onSelect, onDetails, unavailable = false, standardOnly = false }: PackageTileProps) {
   const f = useFormat()
   const t = useT('client-venue')
   const tc = useT('common')
@@ -49,7 +47,7 @@ export function PackageTile({ row, guests, selected, onSelect, onDetails, unavai
 
   const mark = (
     <span className="gzv-pt__mark">
-      <Icon name={voucherOn ? (guest ? 'lock' : 'ticket') : 'coins'} size="sm" tone={voucherOn && !guest ? 'success' : 'secondary'} />
+      <Icon name={voucherOn ? 'ticket' : 'coins'} size="sm" tone={voucherOn ? 'success' : 'secondary'} />
       <span className="gz-sr-only">{voucherOn ? tc('commonVoucherPrice') : tc('commonStandardPrice')}</span>
     </span>
   )

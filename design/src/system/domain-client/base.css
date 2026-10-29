@@ -33,14 +33,6 @@
   color: var(--gz-color-sys-status-success-text);
 }
 
-.gz-price-line__lock {
-  display: inline-flex;
-  flex-basis: 100%;
-  align-items: center;
-  gap: var(--gz-space-1);
-  color: var(--gz-color-sys-text-secondary);
-}
-
 /* A bare panel in the system's sense: paper, 1 px ink-300 hairline, radius 12, 16 padding (direction 3, "Panel"). */
 .gz-cpanel {
   display: flex;

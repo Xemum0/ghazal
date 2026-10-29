@@ -2,7 +2,7 @@
 // The canonical request screen of the partner (ADR 0033): who, when, what, the voucher price and what happens next. One set of sections, a
 // variant per status (never one screen per status): header (status, voucher chip, the date, the deadline that matters as a glyph and a
 // figure), the Booking Thread as five glyph knots, special requests, the client (monogram, Call and Chat glyphs), the counter-offer when one
-// is out, the event (hall photograph, time, section, guests, package, extras), the price at the voucher (one figure, the standard struck, the
+// is out, the event (hall photograph, time, section, guests, package), the price at the voucher (one figure, the standard struck, the
 // saving), the voucher panel once it is confirmed or used, the history behind one row. No payment, cash, invoice or payout exists: the venue
 // collects the voucher price from the client directly (one sentence, behind an info glyph). The pinned bar carries only the action of the
 // status and role (see DecisionBar); the decisions run in the Decisions flow (HL-DCSN-01 to 04) and the redemption in HL-BOOK-06.

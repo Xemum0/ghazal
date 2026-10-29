@@ -2,7 +2,7 @@
 // in 44 targets (compare at inline-start, heart at inline-end), then the wall label: serif name with the rating pinned to the end as
 // separate items, area and guest range, section tags, a hairline, the availability line (gold-700 bead) and the price line.
 // No border, no shadow, no urgency, no Book or Request action on the card (ADR 0033): the price line carries the voucher price, the
-// standard price struck through and the saving; a signed-out visitor sees the standard price and a locked voucher line.
+// standard price struck through and the saving.
 // ADR 0034 (text diet): the wall label is the name, the area and glyphs: `[users] 200 – 650`, the section symbols, the availability as a
 // bead (or hourglass, or crossed calendar) and the date, the price and its saving as figures. No "guests", "Available", "Ladies" or "Save"
 // words on the card: they are accessible names. A government hall keeps its photo badge; its ministry sentence is read, not shown.
@@ -14,7 +14,7 @@
 //            saved    compact + heart control + a real "Price dropped" note
 //            compare  compact + a choice mark (the "Replace which one?" sheet, ADR 0009 D1)
 // states     default, pressed (whole card, scale), focus-visible, favourite on, compared, loading (skeleton), no photo, no reviews,
-//            governmental facility (ministry line, browse-only: no voucher, no visit), held / booked on your date, guest (voucher price locked).
+//            governmental facility (ministry line, browse-only: no voucher, no visit), held / booked on your date.
 import { useState, type ReactNode } from 'react'
 import type { Audience, CardPrice, Venue, VenueResult } from '@gz/contracts'
 import { getArea } from '../../mock'
@@ -58,8 +58,6 @@ export type VenueCardProps = {
   /** The Brief date, for `Available Thu 14 Jan`. */
   date?: string
   badge?: VenueResult['badge']
-  /** `guest`: signed out, so the voucher price is locked behind registration (ADR 0007 D8). Default `member`. */
-  audience?: 'member' | 'guest'
   tags?: Audience[]
   guestRange?: { min: number; max: number } | null
   sponsored?: boolean
@@ -268,7 +266,7 @@ function CardSkeleton({ variant }: { variant: VenueCardVariant }) {
 }
 
 export function VenueCard(props: VenueCardProps) {
-  const { venue, price, availability, date, badge, audience = 'member', tags = [], guestRange, sponsored, variant = 'card', onOpen, className, previewState } = props
+  const { venue, price, availability, date, badge, tags = [], guestRange, sponsored, variant = 'card', onOpen, className, previewState } = props
   const bi = useBi()
   const w = useW()
   const t = useT('common')
@@ -305,7 +303,7 @@ export function VenueCard(props: VenueCardProps) {
             {name}
           </h3>
           <MetaLine venue={venue} guestRange={null} sponsored={false} />
-          {price ? <CardPriceLine price={price} audience={audience} lean /> : null}
+          {price ? <CardPriceLine price={price} lean /> : null}
           {variant === 'saved' && props.priceDropped ? (
             <span className="gz-vcard__drop gz-t-caption">
               <Icon name="trend-down" size="xs" tone="accent" />
@@ -371,7 +369,7 @@ export function VenueCard(props: VenueCardProps) {
         <Divider />
         <div className="gz-vcard__foot">
           <Availability venue={venue} availability={availability} date={date} />
-          {price ? <CardPriceLine price={price} size={feature ? 'display' : 'card'} audience={audience} /> : null}
+          {price ? <CardPriceLine price={price} size={feature ? 'display' : 'card'} /> : null}
         </div>
       </div>
       {opener}

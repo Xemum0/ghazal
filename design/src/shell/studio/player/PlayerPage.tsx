@@ -16,7 +16,7 @@ import { pickLoc, useCopy } from '../copy'
 import { FLOWS, SCREEN_BY_ID, entryScreenOf, getScreen, type ScreenDef } from '../data/inventory'
 import { useRequirements } from '../data/requirements'
 import { playHash } from '../links'
-import { parseStudioRoute, useStudioRoute } from '../route'
+import { isClientFirstRun, parseStudioRoute, useStudioRoute } from '../route'
 import { lastHash, useStudio } from '../store'
 import { backButton, hasDialog, openSheetClose, readCurrentScreen, useTrackedScreens } from './track'
 import './player.css'
@@ -100,7 +100,9 @@ export function PlayerPage() {
 
   useEffect(() => {
     select(current)
-    const hash = playHash(app, current, { lang, w: r.w }, { story: r.story === 'signed-in' ? 'signed-in' : null })
+    // Signing in inside the player turns the session into the signed-in one in the link, so a reload does not drop back to the first run.
+    const story = app === 'client' && usePrototype.getState().auth === 'signedIn' && !isClientFirstRun(current) ? 'signed-in' : r.story
+    const hash = playHash(app, current, { lang, w: r.w }, { story })
     window.history.replaceState(null, '', hash)
     written.current = window.location.hash
     lastHash.set(hash)
@@ -149,9 +151,12 @@ export function PlayerPage() {
     setEpoch(e => e + 1)
   }, [])
   const resetData = () => usePrototype.getState().resetToStoryStart()
-  const setSession = (v: 'guest' | 'signed-in') => {
-    go(playHash(app, current, { lang, w: r.w }, { story: v === 'signed-in' ? 'signed-in' : null }))
-    setStart(current)
+  const setSession = (v: 'signed-out' | 'signed-in') => {
+    // A signed-out client has only the first-run screens (ADR 0038): restart from the entry screen instead of a screen behind the sign-in.
+    const at = v === 'signed-out' && app === 'client' && !isClientFirstRun(current) ? entryScreenOf(app) : current
+    go(playHash(app, at, { lang, w: r.w }, { story: v }))
+    setStart(at)
+    setCurrent(at)
     setEpoch(e => e + 1)
   }
 
@@ -182,12 +187,12 @@ export function PlayerPage() {
             <Glyph name="tap" />
           </ToolButton>
           <span className="gzs-play__rule" aria-hidden="true" />
-          <SegmentedControl<'guest' | 'signed-in'>
+          <SegmentedControl<'signed-out' | 'signed-in'>
             label={t('story')}
-            value={signedIn ? 'signed-in' : 'guest'}
+            value={signedIn ? 'signed-in' : 'signed-out'}
             onChange={setSession}
             options={[
-              { value: 'guest', label: app === 'client' ? t('guest') : t('signedOut') },
+              { value: 'signed-out', label: t('signedOut') },
               { value: 'signed-in', label: t('signedIn') },
             ]}
           />

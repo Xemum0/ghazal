@@ -157,12 +157,6 @@
   gap: var(--gz-space-1);
 }
 
-.svd-lockpair {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--gz-space-1);
-}
-
 .svd-expand {
   display: flex;
   justify-content: center;

@@ -78,11 +78,11 @@ export function enquiryFor(venueId: string): Conversation | null {
   }
 }
 
-/** Ghazal Support for a guest: the one conversation that needs no account to open. */
-export function guestSupport(): Conversation {
+/** Ghazal Support as a plain thread: the fallback when the account has no conversation at all (a fresh account's list is empty). */
+export function fallbackSupport(): Conversation {
   const base = conversationsFor('client').find(c => c.id === SUPPORT_CONVERSATION)
   return {
-    id: 'support-guest',
+    id: 'support-fallback',
     kind: 'support',
     title: base?.title ?? { en: 'Ghazal Support', ar: 'دعم غزل' },
     subtitle: base?.subtitle ?? { en: '', ar: '' },
@@ -115,18 +115,18 @@ export type ThreadParams = { conversationId?: string; bookingId?: string; venueI
 
 /**
  * Which conversation a screen is about. Order: an explicit id, support, a booking, a venue (an existing thread, or a fresh enquiry),
- * then the story's thread with Aurelia. A guest only ever reaches support and a fresh enquiry.
+ * then the story's thread with Aurelia.
  */
-export function resolveConversation(params: ThreadParams, signedIn: boolean): Conversation {
-  const list = signedIn ? [...conversationsFor('client'), ...sessionVisitThreads()] : []
+export function resolveConversation(params: ThreadParams): Conversation {
+  const list = [...conversationsFor('client'), ...sessionVisitThreads()]
   const byId = (id?: string) => (id ? list.find(c => c.id === id) : undefined)
   const found =
     byId(params.conversationId) ??
-    (params.support ? (signedIn ? byId(SUPPORT_CONVERSATION) : guestSupport()) : undefined) ??
+    (params.support ? byId(SUPPORT_CONVERSATION) : undefined) ??
     (params.bookingId ? list.find(c => c.bookingId === params.bookingId) : undefined) ??
     (params.venueId ? (list.find(c => c.venueId === params.venueId && c.kind !== 'support') ?? enquiryFor(params.venueId) ?? undefined) : undefined)
   if (found) return found
-  return signedIn ? (byId(HERO_CONVERSATION) ?? list[0] ?? guestSupport()) : guestSupport()
+  return byId(HERO_CONVERSATION) ?? list[0] ?? fallbackSupport()
 }
 
 // ---------------------------------------------------------------- local and system messages

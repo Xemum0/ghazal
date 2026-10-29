@@ -1,12 +1,11 @@
 // What the venue flow reads from the shared fixtures: the hotel's own venue (Aurelia Gulf Hotel), its halls, packages with their weekday and
-// weekend rules, extras, amenities, policy, and the hero booking that every sample timeline is computed for. Nothing here is typed data:
+// weekend rules, amenities, policy, and the hero booking that every sample timeline is computed for. Nothing here is typed data:
 // every number, name and date comes from the seed; the few presentation constants (zone order, unit names, presets) are the shape of a
 // form, not content.
 import {
   amenityDefs,
   areas,
   engine,
-  extrasFor,
   getBooking,
   getGovernorate,
   getVenue,
@@ -18,7 +17,6 @@ import {
   type AmenityState,
   type Audience,
   type Bilingual,
-  type Extra,
   type GalleryItem,
   type Hall,
   type MediaZone,
@@ -91,7 +89,6 @@ export const rulesOf = (packageId: string): TierRule => {
 }
 
 export const venuePackages = (): Package[] => packagesFor(VENUE_ID).slice().sort((a, b) => a.sortOrder - b.sortOrder)
-export const venueExtras = (): Extra[] => extrasFor(VENUE_ID)
 
 /** Names a venue package may never take: the planner tiers (glossary section 6). Compared without diacritics and case. */
 const RESERVED = ['silver', 'gold', 'royal', 'الفضية', 'الذهبية', 'الملكية']

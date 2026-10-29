@@ -77,7 +77,6 @@ export function useLabels() {
   const c = useT('common')
   const f = useFormat()
   const { lang } = useLang()
-  const areaName = (id: string) => mock.getArea(id)?.name[lang] ?? ''
   return {
     arrangement: (a: Audience) => t(ARRANGEMENT_KEY[a]),
     setting: (s: HallSetting) => t(SETTING_KEY[s]),
@@ -90,8 +89,6 @@ export function useLabels() {
     governorates: (ids: readonly string[]) => f.list(ids.map(id => mock.getGovernorate(id)?.name[lang] ?? '').filter(Boolean), 'and'),
     structure: (v: 'per_person' | 'package') => c(v === 'per_person' ? 'commonPricingPerPerson' : 'commonPricingPackages'),
     capacity: (lo: number, hi: number) => f.numberRange(lo, hi),
-    area: areaName,
-    areas: (ids: readonly string[]) => f.list(ids.map(areaName).filter(Boolean), 'and'),
     brand: (b: string) => {
       const v = mock.venues.find(x => brandOf(x)?.en === b)
       const br = v ? brandOf(v) : null
@@ -135,13 +132,12 @@ export function useAppliedChips(filters: Filters, brief: SearchBrief): Chip[] {
     out.push({ id: 'shelf', label: key === 'clientDiscoverFreeTitle' ? t(key, { date }) : t(key), remove: x => ({ ...x, shelf: null }) })
   }
   if (filters.category) out.push({ id: 'category', label: L.category(filters.category), remove: x => ({ ...x, category: null }) })
-  if (filters.governorateIds.length) out.push({ id: 'governorates', icon: 'pin', label: L.governorates(filters.governorateIds), remove: x => ({ ...x, governorateIds: [] }) })
-  if (filters.areaIds !== null) {
+  if (filters.governorateIds !== null) {
     out.push({
-      id: 'areas',
+      id: 'governorates',
       icon: 'pin',
-      label: filters.areaIds.length ? L.areas(filters.areaIds) : t('clientDiscoverChipAreasAll'),
-      remove: x => ({ ...x, areaIds: null }),
+      label: filters.governorateIds.length ? L.governorates(filters.governorateIds) : t('clientDiscoverChipGovernoratesAll'),
+      remove: x => ({ ...x, governorateIds: null }),
     })
   }
   for (const v of filters.types) out.push({ id: `type-${v}`, icon: TYPE_ICON[v], label: L.venueType(v), remove: x => ({ ...x, types: x.types.filter(y => y !== v) }) })

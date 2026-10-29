@@ -1,43 +1,49 @@
-// GovernorateFilter (CL-DISC results header and filters, CA-FLT region): one row of the six governorates of Kuwait, read from the fixtures,
-// with "All" first. A single scrolling rail of 44 high chips (the screen owns the gutter bleed), single or multiple choice. Names are
-// bilingual data, never typed here. Choosing a governorate narrows the area list under it (the screen's job).
+// GovernorateFilter (CA-FLT-08, ADR 0038): the one region control of the Client app. Wrapping, multi-select chips, one per governorate of
+// the configured list (Kuwait's six official ones to start, read from the fixtures), each a pin glyph and the name. Nothing selected means
+// every governorate: no "All" chip, no sentence. The title with the count ("Governorates · 2") belongs to the surface that hosts the group
+// (the Brief panel, the Filters group, the Vendors filters), each with its own ICU key. Replaces the two-level area picker of the Brief, Filters and Vendors filters. Names are bilingual data, never typed here.
 import { governorates } from '../../mock'
 import { useT } from '../../i18n'
 import { useLang } from '../../shell/lang'
+import { Icon } from '../core'
 import { ChipGroup } from '../inputs'
-import { defineWords, p } from '../domain-client/copy'
-
-const useW = defineWords({ all: p('All Kuwait', 'كل الكويت') })
+import './governorate-filter.css'
 
 export type GovernorateFilterProps = {
-  /** Selected governorate ids; an empty list = all. */
+  /** Selected governorate ids; an empty list = every governorate. */
   value?: string[]
   defaultValue?: string[]
   onChange?: (value: string[]) => void
+  /** `wrap` (a sheet or a panel, default) or `rail` (a single scrolling line; the screen owns the gutter bleed). */
+  layout?: 'wrap' | 'rail'
+  /** Offer only these governorates (the Vendors filter lists those where the category has providers); default: every configured one. */
+  only?: readonly string[]
+  /** Accessible name of the group; defaults to "Governorate". */
+  label?: string
   className?: string
 }
 
-export function GovernorateFilter({ value, defaultValue, onChange, className }: GovernorateFilterProps) {
+export function GovernorateFilter({ value, defaultValue, onChange, layout = 'wrap', only, label, className }: GovernorateFilterProps) {
   const t = useT('common')
-  const w = useW()
   const { lang } = useLang()
-  const ALL = '__all'
-  const toChips = (ids: string[] | undefined) => (ids === undefined ? undefined : ids.length ? ids : [ALL])
   return (
     <ChipGroup<string>
       selection="multiple"
-      label={t('commonFilterGovernorate')}
-      layout="rail"
-      value={toChips(value)}
-      defaultValue={toChips(defaultValue) ?? [ALL]}
-      onChange={next => {
-        // "All" is exclusive: picking it clears the others, picking a governorate drops "All".
-        const last = next[next.length - 1]
-        const ids = last === ALL || next.length === 0 ? [] : next.filter(x => x !== ALL)
-        onChange?.(ids)
-      }}
+      label={label ?? t('commonFilterGovernorate')}
+      layout={layout}
+      value={value}
+      defaultValue={defaultValue}
+      onChange={onChange}
       className={className}
-      options={[{ value: ALL, label: w('all') }, ...governorates.map(g => ({ value: g.id, label: g.name[lang] }))]}
+      options={governorates.filter(g => !only || only.includes(g.id)).map(g => ({
+        value: g.id,
+        label: (
+          <span className="gz-gov__label">
+            <Icon name="pin" size="xs" />
+            {g.name[lang]}
+          </span>
+        ),
+      }))}
     />
   )
 }

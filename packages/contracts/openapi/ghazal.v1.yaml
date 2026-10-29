@@ -189,7 +189,7 @@ paths:
       tags:
         - auth
       operationId: registerAccount
-      summary: Create a password account and start phone verification (CA-AUTH-01, CA-AUTH-11)
+      summary: Create a password account (name, sex, terms) and start phone verification (CA-AUTH-01, CA-AUTH-11, CA-AUTH-14)
       security: []
       requestBody:
         required: true
@@ -912,7 +912,11 @@ paths:
         - home
       operationId: getHome
       summary: Composed home feed (CA-HOME)
-      description: Brief-aware shelves, the status card, live free count and unread count in one response.
+      description: >-
+        Brief-aware shelves, the status card, live free count and unread count in one response. `governorateIds` is the Brief's governorate
+        list (CA-FLT-08): it narrows the `free` shelf, the free count and the nearest free dates; empty or missing = all governorates.
+        `areaIds` (the older Brief areas) keeps working and is deprecated; when both are sent a venue must match both. With no Brief field
+        in the query the signed-in couple's wedding profile is the Brief.
       security:
         - {}
         - bearerAuth: []
@@ -932,6 +936,15 @@ paths:
           required: false
           schema:
             $ref: "#/components/schemas/Audience"
+        - name: governorateIds
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Id"
+          style: form
+          explode: true
         - name: areaIds
           in: query
           required: false
@@ -1078,11 +1091,15 @@ paths:
       summary: Brief-aware venue search (CA-SRCH, CA-CARD)
       description: >-
         Filters mirror the PRD and the Filters sheet of the prototype. Every row carries the price and availability for the Brief already
-        computed in fils. `briefAreaIds` is the Brief's area list: it ranks the list and, when nothing else is said, narrows it (default:
-        `areaIds`); `areaIds` is an explicit area selection that replaces it; `allAreas` lifts the narrowing (the All areas chip); a
-        governorate or a `shelf` lifts it too; `availableOnDate` keeps free and held halls; `perGuestMin/Max` and `voucherPerGuestMin/Max`
-        are fils compared to the lowest per-guest rate rounded to KD 0.500; `q` folds Arabic (tashkeel, alef and ya forms, the article).
-        `limit` above 50 is clamped. Public, cacheable per Brief (private, ETag).
+        computed in fils. Region since round 2 (CA-FLT-08): `briefGovernorateIds` is the Brief's governorates (they rank nothing and narrow
+        the list by default; empty or missing = all governorates); `governorateIds` is an explicit selection of the Filters sheet that
+        replaces them (several = any of them); `allAreas=true` is the "All governorates" chip (no narrowing at all); a `shelf` ignores the
+        Brief's region. `briefAreaIds`, `areaIds` and `allAreas` are the older area selection and are deprecated (they keep working, and the
+        older areas apply only to a Brief without governorates): `briefAreaIds` is the Brief's area list, it ranks the list and, when
+        nothing else is said, narrows it (default: `areaIds`); `areaIds` is an explicit area selection that replaces it; `allAreas` lifts
+        the narrowing (the All governorates chip); a governorate or a `shelf` lifts it too; `availableOnDate` keeps free and held halls;
+        `perGuestMin/Max` and `voucherPerGuestMin/Max` are fils compared to the lowest per-guest rate rounded to KD 0.500; `q` folds Arabic
+        (tashkeel, alef and ya forms, the article). `limit` above 50 is clamped. Public, cacheable per Brief (private, ETag).
       security:
         - {}
         - bearerAuth: []
@@ -1213,6 +1230,15 @@ paths:
           schema:
             $ref: "#/components/schemas/VenueSort"
         - name: briefAreaIds
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Id"
+          style: form
+          explode: true
+        - name: briefGovernorateIds
           in: query
           required: false
           schema:
@@ -1474,6 +1500,15 @@ paths:
               $ref: "#/components/schemas/Id"
           style: form
           explode: true
+        - name: briefGovernorateIds
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Id"
+          style: form
+          explode: true
         - name: allAreas
           in: query
           required: false
@@ -1614,7 +1649,7 @@ paths:
       tags:
         - venues
       operationId: getVenue
-      summary: Venue detail with packages, extras, active windows and the Brief price (CA-VDET)
+      summary: Venue detail with packages, active windows and the Brief price (CA-VDET); `extras` is always empty since round 2
       security:
         - {}
         - bearerAuth: []
@@ -6188,7 +6223,7 @@ paths:
       tags:
         - profile
       operationId: updateMe
-      summary: Update name, email, language, digit style, marketing opt-in (CA-PROF-01, CA-PROF-07)
+      summary: Update name, sex, email, language, digit style, marketing opt-in (CA-PROF-01, CA-PROF-07, CA-AUTH-14)
       requestBody:
         required: true
         content:
@@ -6279,6 +6314,55 @@ paths:
       x-errors:
         - ACCOUNT_DELETION_BLOCKED
         - STEP_UP_REQUIRED
+  /me/complete:
+    post:
+      tags:
+        - profile
+      operationId: completeProfile
+      summary: Complete a new client account with name, sex and terms (CL-AUTH-03, CA-AUTH-14)
+      description: >-
+        Name and sex are required (a missing sex is 422 VALIDATION_FAILED with `errors: [{path: "/sex", code: "required"}]`). Sets
+        `User.sex`, stores the terms acceptance and clears `isNewUser` for the next sign-in. Name and sex stay editable with `updateMe`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CompleteProfileInput"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Me"
+        "401":
+          description: Unauthorized.
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "422":
+          description: Unprocessable.
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "429":
+          description: Too many requests.
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+        default:
+          $ref: "#/components/responses/Problem"
+      x-roles:
+        - client
+      x-access: bearer
   /me/devices/{deviceId}:
     put:
       tags:
@@ -6748,7 +6832,11 @@ paths:
       tags:
         - partner-account
       operationId: chooseAccountType
-      summary: Choose Hotel or hall versus Service provider (HL-PROV-01)
+      summary: Choose the account type and send the application (HL-PROV-01, PA-ACC-07)
+      description: >-
+        The application form of a service provider or private hall. Creates the account under review with a pending application (see
+        `PartnerMe.memberships[].application`); Ghazal staff accept or reject it. Only an accepted account can create listings (403
+        APPLICATION_NOT_ACCEPTED).
       parameters:
         - $ref: "#/components/parameters/IdempotencyKey"
       requestBody:
@@ -6792,6 +6880,97 @@ paths:
       x-roles:
         - partner
       x-idempotent: true
+  /partner/application:
+    get:
+      tags:
+        - partner-account
+      operationId: getPartnerApplication
+      summary: The applicant's own application and its decision (HL-PROV-01, HL-ACCS-04)
+      description: Needs no venue or provider header. 404 NOT_FOUND when the account has no application (an account Ghazal assigned).
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PartnerApplication"
+        "401":
+          description: Unauthorized.
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "429":
+          description: Too many requests.
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+        default:
+          $ref: "#/components/responses/Problem"
+      x-access: bearer
+      x-roles:
+        - partner
+    put:
+      tags:
+        - partner-account
+      operationId: resubmitPartnerApplication
+      summary: Edit a rejected application and send it again (HL-PROV-01, PA-ACC-07)
+      description: >-
+        Replaces the business information and sets the application to `pending` again, clearing the rejection reason. Only a rejected
+        application can be edited (409 APPLICATION_NOT_EDITABLE).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PartnerApplicationInput"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PartnerApplication"
+        "401":
+          description: Unauthorized.
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "409":
+          description: "Conflict. Codes: APPLICATION_NOT_EDITABLE."
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "422":
+          description: Unprocessable.
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "429":
+          description: Too many requests.
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+        default:
+          $ref: "#/components/responses/Problem"
+      x-access: bearer
+      x-roles:
+        - partner
+      x-errors:
+        - APPLICATION_NOT_EDITABLE
   /partner/context:
     put:
       tags:
@@ -6844,7 +7023,7 @@ paths:
       tags:
         - partner-account
       operationId: getPartnerAccount
-      summary: The account and its review or suspension status (HL-ACCS-04)
+      summary: The account, its application and its review or suspension status (HL-ACCS-04)
       parameters:
         - $ref: "#/components/parameters/XVenueId"
         - $ref: "#/components/parameters/XProviderId"
@@ -9155,7 +9334,7 @@ paths:
       tags:
         - partner-venue
       operationId: listPartnerPackages
-      summary: Packages with their price rules, and extras (HL-VENU-02)
+      summary: Packages with their price rules (HL-VENU-02); `extras` is always empty since round 2
       parameters:
         - $ref: "#/components/parameters/XVenueId"
         - $ref: "#/components/parameters/XProviderId"
@@ -9334,7 +9513,7 @@ paths:
       tags:
         - partner-venue
       operationId: createExtra
-      summary: Add an extra priced by the venue
+      summary: Add an extra priced by the venue (deprecated since round 2, CA-SVC-19)
       parameters:
         - $ref: "#/components/parameters/XVenueId"
         - $ref: "#/components/parameters/XProviderId"
@@ -9382,6 +9561,7 @@ paths:
                 type: integer
         default:
           $ref: "#/components/responses/Problem"
+      x-deprecated: "ADR 0038 D2: venues offer no extras through Ghazal; the call stays valid but the apps do not use it and no read lists the extra."
       x-permissions:
         - package:write
       x-access: bearer
@@ -9393,7 +9573,7 @@ paths:
       tags:
         - partner-venue
       operationId: updateExtra
-      summary: Replace an extra
+      summary: Replace an extra (deprecated since round 2, CA-SVC-19)
       parameters:
         - name: extraId
           in: path
@@ -9451,6 +9631,7 @@ paths:
                 type: integer
         default:
           $ref: "#/components/responses/Problem"
+      x-deprecated: "ADR 0038 D2: see createExtra."
       x-permissions:
         - package:write
       x-access: bearer
@@ -11184,7 +11365,10 @@ paths:
       tags:
         - partner-listings
       operationId: createListing
-      summary: Create a draft listing
+      summary: Create a draft listing (accepted accounts only)
+      description: >-
+        A new service provider or private hall can create listings only after Ghazal staff accepted its application (PA-ACC-07); until then
+        the answer is 403 APPLICATION_NOT_ACCEPTED. Accounts without an application (the existing partners) are accepted.
       parameters:
         - $ref: "#/components/parameters/XVenueId"
         - $ref: "#/components/parameters/XProviderId"
@@ -11209,7 +11393,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: Forbidden.
+          description: "Forbidden. Codes: APPLICATION_NOT_ACCEPTED."
           content:
             application/problem+json:
               schema:
@@ -11236,6 +11420,8 @@ paths:
       x-roles:
         - partner
       x-idempotent: true
+      x-errors:
+        - APPLICATION_NOT_ACCEPTED
   /partner/listings/{listingId}:
     get:
       tags:
@@ -13054,6 +13240,8 @@ components:
         - INVITATION_EXPIRED
         - EMAIL_ALREADY_INVITED
         - ACCOUNT_DELETION_BLOCKED
+        - APPLICATION_NOT_ACCEPTED
+        - APPLICATION_NOT_EDITABLE
         - APP_UPDATE_REQUIRED
       x-tag: common
     Problem:
@@ -13276,10 +13464,13 @@ components:
       x-tag: auth
     RegisterInput:
       type: object
-      description: Creates (or resumes) a password account; the phone is verified through the returned challenge.
+      description: >-
+        Creates (or resumes) a password account; the phone is verified through the returned challenge. Name and sex are required since round
+        2 (CA-AUTH-14); a missing sex is 422 VALIDATION_FAILED (`errors: [{path: "/sex", code: "required"}]`).
       required:
         - phone
         - name
+        - sex
         - acceptedTerms
         - locale
       properties:
@@ -13287,6 +13478,8 @@ components:
           $ref: "#/components/schemas/Phone"
         name:
           type: string
+        sex:
+          $ref: "#/components/schemas/Sex"
         password:
           type:
             - string
@@ -13343,7 +13536,9 @@ components:
       x-tag: auth
     SocialSignInInput:
       type: object
-      description: The app obtains the identity token; the API verifies it with the provider keys. Terms are accepted on first account creation.
+      description: >-
+        The app obtains the identity token; the API verifies it with the provider keys. A first social sign-in returns `isNewUser: true`;
+        the account is completed with `completeProfile` (name, sex, terms).
       required:
         - identityToken
       properties:
@@ -13447,7 +13642,10 @@ components:
           type: integer
         isNewUser:
           type: boolean
-          description: True after the first OTP verification of a number; the app then asks for name and terms (CL-AUTH-03).
+          description: >-
+            True from the first verification of a number until the account is completed with `completeProfile` (name, sex, terms:
+            CL-AUTH-03); the app then shows "About you" and the optional onboarding. An account created with `registerAccount` already
+            carries name and sex, so only its first session is new.
         user:
           $ref: "#/components/schemas/Me"
       x-tag: auth
@@ -13950,6 +14148,13 @@ components:
           $ref: "#/components/schemas/DateRange"
         minAppVersion:
           type: string
+        partnerAppUrl:
+          type:
+            - string
+            - "null"
+          description: >-
+            Store page of the Partner app, shown by the note for service providers in the Client app (CA-SVC-20, OQ-R2-04). Configuration,
+            not a literal.
       x-tag: home
       example:
         serverNow: "2026-11-12T16:00:00+03:00"
@@ -15108,8 +15313,7 @@ components:
           description: The voucher flat amount; null when the rule has none.
         billedGuests:
           type: integer
-          description: Guests billed after the package and hall minimum (the Brief's guests
-          or the minimum when fewer).: null
+          description: Guests billed after the package and hall minimum (the Brief's guests, or the minimum when fewer).
         billableGuests:
           type: integer
           description: Billed guests minus the complimentary share; the quantity the per-guest rate multiplies.
@@ -15146,7 +15350,10 @@ components:
       x-tag: venues
     Extra:
       type: object
-      description: Extras are priced by the venue at one price (the same in both columns) and settled with the venue.
+      description: >-
+        DEPRECATED since round 2 (ADR 0038 D2, CA-SVC-19): hotels and halls offer no extras or add-on services through Ghazal. The schema
+        stays valid and the engine still prices an extra when asked, but no response lists extras any more. Extras were priced by the venue
+        at one price (the same in both columns) and settled with the venue.
       required:
         - id
         - venueId
@@ -15776,6 +15983,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Extra"
+          deprecated: true
+          description: "DEPRECATED since round 2 (CA-SVC-19): always an empty list; the apps show no extras. Other services come from the Services hub."
         windows:
           type: array
           items:
@@ -19532,6 +19741,15 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Id"
+          deprecated: true
+          description: >-
+            Deprecated since round 2 (ADR 0038 D1): the Client app no longer asks for exact areas. Kept so older Briefs keep working; new
+            accounts send an empty list.
+        governorateIds:
+          type: array
+          items:
+            $ref: "#/components/schemas/Id"
+          description: Governorates the couple searches in (the Brief, CA-FLT-08, CA-ONB-10). Empty = all governorates. Ids come from `GET /areas`.
         searching:
           type: array
           items:
@@ -19571,6 +19789,13 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Id"
+          deprecated: true
+          description: Deprecated since round 2; send governorateIds instead.
+        governorateIds:
+          type: array
+          items:
+            $ref: "#/components/schemas/Id"
+          description: Governorates of the Brief; empty = all governorates.
         searching:
           type: array
           items:
@@ -20647,6 +20872,15 @@ components:
         - easternArabic
       x-dart-name: WireDigitStyle
       x-tag: profile
+    Sex:
+      type: string
+      enum:
+        - female
+        - male
+      description: >-
+        Sex of a client account (ADR 0038 D4, CA-AUTH-14, OQ-R2-02). Required when a client account is completed (`registerAccount`,
+        `completeProfile`), editable with `updateMe`. Stored on the account; not shown to venues and not used to filter yet.
+      x-tag: profile
     User:
       type: object
       required:
@@ -20684,6 +20918,13 @@ components:
           $ref: "#/components/schemas/Lang"
         digitStyle:
           $ref: "#/components/schemas/DigitStyle"
+        sex:
+          oneOf:
+            - $ref: "#/components/schemas/Sex"
+            - type: "null"
+          description: >-
+            Clients: `female` or `male`, set when the account is completed (null only on an account that has not finished "About you" yet,
+            and on staff and support accounts).
         createdAt:
           $ref: "#/components/schemas/IsoDateTime"
       x-tag: profile
@@ -20726,6 +20967,7 @@ components:
           email: null
           locale: ar
           digitStyle: western
+          sex: female
           createdAt: "2026-10-25T20:10:00+03:00"
         permissions: []
         phoneVerified: true
@@ -20747,9 +20989,42 @@ components:
           $ref: "#/components/schemas/Lang"
         digitStyle:
           $ref: "#/components/schemas/DigitStyle"
+        sex:
+          $ref: "#/components/schemas/Sex"
         marketingOptIn:
           type: boolean
       x-tag: profile
+    CompleteProfileInput:
+      type: object
+      description: >-
+        Finishes a brand-new client account after the first code (CL-AUTH-03 "About you", CA-AUTH-14): name and sex are required, then the
+        Terms and Privacy acceptance. Until it succeeds `AuthSession.isNewUser` stays true on every sign-in of that number.
+      required:
+        - name
+        - sex
+        - acceptedTerms
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: Name as typed (stored as typed).
+        sex:
+          $ref: "#/components/schemas/Sex"
+        acceptedTerms:
+          type: boolean
+          enum:
+            - true
+        email:
+          type:
+            - string
+            - "null"
+          format: email
+      x-tag: profile
+      example:
+        name: ريم الدوسري
+        sex: female
+        acceptedTerms: true
+        email: null
     DevicePlatform:
       type: string
       enum:
@@ -20956,6 +21231,160 @@ components:
         - active
         - under_review
         - suspended
+      description: >-
+        `under_review` covers an application that is pending or rejected (`application.status` tells which); `active` once it is accepted or
+        for an account Ghazal assigned.
+      x-tag: partner-account
+    ApplicationStatus:
+      type: string
+      enum:
+        - pending
+        - accepted
+        - rejected
+      description: Staff decision on a partner application (PA-ACC-07). A resubmission sets it to `pending` again.
+      x-tag: partner-account
+    PartnerApplication:
+      type: object
+      description: >-
+        The application a service provider or private hall sends from the Partner app (HL-PROV-01, PA-ACC-07, PA-ACC-08, OQ-R2-03). Ghazal
+        staff accept or reject it in the Super Admin web (not in this API; the mock has a control endpoint); only an accepted account can
+        create listings. Visible to the applicant through `PartnerMe.memberships[].application` and `PartnerAccount.application`.
+      required:
+        - id
+        - accountId
+        - accountType
+        - name
+        - categoryIds
+        - otherCategoryNote
+        - governorateId
+        - contactName
+        - phone
+        - email
+        - description
+        - licenceRef
+        - status
+        - rejectionReason
+        - submittedAt
+        - decidedAt
+      properties:
+        id:
+          $ref: "#/components/schemas/Id"
+        accountId:
+          $ref: "#/components/schemas/Id"
+        accountType:
+          $ref: "#/components/schemas/PartnerAccountType"
+        name:
+          $ref: "#/components/schemas/LocalizedText"
+          description: Business name in Arabic and English.
+        categoryIds:
+          type: array
+          items:
+            $ref: "#/components/schemas/ServiceCategoryId"
+          maxItems: 3
+          description: Up to three registered service categories (a service provider; empty for a private hall).
+        otherCategoryNote:
+          type:
+            - string
+            - "null"
+          description: Open note for a service that is not among the registered categories ("Other"); staff can add the category or reject (PA-ACC-08).
+        governorateId:
+          $ref: "#/components/schemas/Id"
+          description: From `GET /areas`.
+        contactName:
+          type: string
+        phone:
+          $ref: "#/components/schemas/Phone"
+        email:
+          type: string
+        description:
+          type: string
+          description: Short description, as typed.
+        licenceRef:
+          type:
+            - string
+            - "null"
+          description: Optional commercial licence reference.
+        status:
+          $ref: "#/components/schemas/ApplicationStatus"
+        rejectionReason:
+          oneOf:
+            - $ref: "#/components/schemas/LocalizedText"
+            - type: "null"
+          description: Set with a rejection; shown to the applicant with "Edit and resubmit".
+        submittedAt:
+          $ref: "#/components/schemas/IsoDateTime"
+          description: The first submission, or the last resubmission.
+        decidedAt:
+          oneOf:
+            - $ref: "#/components/schemas/IsoDateTime"
+            - type: "null"
+      x-tag: partner-account
+      example:
+        id: app-m001
+        accountId: partner-m1
+        accountType: service_provider
+        name:
+          en: Henna Studio
+          ar: استوديو حناء
+        categoryIds:
+          - henna
+        otherCategoryNote: null
+        governorateId: hawalli
+        contactName: Aisha Al-Rashidi
+        phone: "+96550009123"
+        email: hello@henna-studio.example
+        description: Bridal and guest henna, home visits across Hawalli.
+        licenceRef: null
+        status: rejected
+        rejectionReason:
+          en: Please add your commercial licence number.
+          ar: يرجى إضافة رقم الترخيص التجاري.
+        submittedAt: "2026-11-10T16:00:00+03:00"
+        decidedAt: "2026-11-12T15:00:00+03:00"
+    PartnerApplicationInput:
+      type: object
+      description: >-
+        The business information of the application form. Categories are up to three registered ids plus the open note; a service provider
+        needs at least one of the two.
+      required:
+        - name
+        - governorateId
+        - contactName
+        - phone
+        - email
+        - description
+      properties:
+        name:
+          $ref: "#/components/schemas/LocalizedText"
+        categoryIds:
+          type: array
+          items:
+            $ref: "#/components/schemas/ServiceCategoryId"
+          maxItems: 3
+        otherCategoryNote:
+          type:
+            - string
+            - "null"
+          maxLength: 300
+        governorateId:
+          $ref: "#/components/schemas/Id"
+        contactName:
+          type: string
+          minLength: 1
+        phone:
+          $ref: "#/components/schemas/Phone"
+        email:
+          type: string
+          format: email
+        description:
+          type: string
+          minLength: 1
+          maxLength: 600
+        licenceRef:
+          type:
+            - string
+            - "null"
+          maxLength: 80
       x-tag: partner-account
     PartnerAccount:
       type: object
@@ -20993,6 +21422,11 @@ components:
           description: Major hotel; set only by the Super Admin and never visible to clients.
         status:
           $ref: "#/components/schemas/PartnerAccountStatus"
+        application:
+          oneOf:
+            - $ref: "#/components/schemas/PartnerApplication"
+            - type: "null"
+          description: The application of an account that joined with the form; null for an account Ghazal assigned (those are accepted).
         createdAt:
           $ref: "#/components/schemas/IsoDateTime"
       x-tag: partner-account
@@ -21056,6 +21490,11 @@ components:
           type: boolean
         status:
           $ref: "#/components/schemas/PartnerAccountStatus"
+        application:
+          oneOf:
+            - $ref: "#/components/schemas/PartnerApplication"
+            - type: "null"
+          description: Present for an account that joined with the application form (pending, accepted or rejected, with the rejection reason).
       x-tag: partner-account
     PartnerMe:
       type: object
@@ -21077,7 +21516,12 @@ components:
       x-tag: partner-account
     ChooseAccountTypeInput:
       type: object
-      description: First sign-in of a partner without a pre-assigned account (HL-PROV-01). The account starts `under_review`.
+      description: >-
+        First sign-in of a partner without a pre-assigned account: the application form (HL-PROV-01, PA-ACC-07). Creates the account
+        `under_review` with an application `pending`. `accountType` is `service_provider` or `venue` (a private hall). Besides `accountType`
+        and `name` (the business name in both languages) the form carries governorateId, contactName, phone, email and description, plus for
+        a service provider at least one of categoryIds (up to three) and otherCategoryNote; the fields are optional in the schema so older
+        callers still compile, and a missing one is 422 VALIDATION_FAILED with `errors: [{path: "/governorateId", code: "required"}, ...]`.
       required:
         - accountType
         - name
@@ -21086,6 +21530,33 @@ components:
           $ref: "#/components/schemas/PartnerAccountType"
         name:
           $ref: "#/components/schemas/LocalizedText"
+        categoryIds:
+          type: array
+          items:
+            $ref: "#/components/schemas/ServiceCategoryId"
+          maxItems: 3
+        otherCategoryNote:
+          type:
+            - string
+            - "null"
+          maxLength: 300
+        governorateId:
+          $ref: "#/components/schemas/Id"
+        contactName:
+          type: string
+        phone:
+          $ref: "#/components/schemas/Phone"
+        email:
+          type: string
+          format: email
+        description:
+          type: string
+          maxLength: 600
+        licenceRef:
+          type:
+            - string
+            - "null"
+          maxLength: 80
       x-tag: partner-account
     SwitchContextInput:
       type: object
@@ -23000,6 +23471,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Extra"
+          deprecated: true
+          description: "DEPRECATED since round 2 (CA-SVC-19): always an empty list; the Partner app has no Extras tab."
       x-tag: partner-venue
     PackageInput:
       type: object
@@ -24271,6 +24744,12 @@ x-error-codes:
   ACCOUNT_DELETION_BLOCKED:
     status: 409
     summary: Future confirmed request exists
+  APPLICATION_NOT_ACCEPTED:
+    status: 403
+    summary: The partner application is pending or rejected; only an accepted account can create listings
+  APPLICATION_NOT_EDITABLE:
+    status: 409
+    summary: Only a rejected application can be edited and sent again
   APP_UPDATE_REQUIRED:
     status: 426
     summary: X-App-Version below the minimum

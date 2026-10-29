@@ -9,6 +9,7 @@
   "email": null,
   "locale": "ar",
   "digitStyle": "western",
+  "sex": "female",
   "createdAt": "2026-10-25T20:10:00+03:00"
  },
  {
@@ -36,15 +37,16 @@
   "createdAt": "2026-06-02T09:00:00+03:00"
  },
  {
-  "id": "user-lumi-manager",
-  "role": "hotel_staff",
-  "name": "بدرية الكندري",
-  "nameLatin": "Badriya Al-Kandari",
+  "id": "user-bashayer-dhafiri",
+  "role": "client",
+  "name": "بشاير الظفيري",
+  "nameLatin": "Bashayer Al-Dhafiri",
   "monogram": "ب",
-  "phone": "+96550000046",
+  "phone": "+96550000083",
   "email": null,
   "locale": "ar",
   "digitStyle": "western",
-  "createdAt": "2026-07-01T09:00:00+03:00"
+  "sex": "female",
+  "createdAt": "2026-09-01T10:00:00+03:00"
  }
 ]

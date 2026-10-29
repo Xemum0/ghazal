@@ -1,7 +1,6 @@
 // useVenueCards: the venue card as Discover draws it, with its behaviour wired once (CL-DISC-01 rails, CL-DISC-03 list, CL-DISC-05 carousel).
-//   whole card -> Venue detail (a governmental facility -> its own detail), heart -> saved locally (the third heart as a guest raises the
-//   once-only sign-up nudge, ADR 0007 D10), compare toggle -> the tray (a fourth add opens "Replace which one?", ADR 0009 D1).
-// The card carries the two prices (ADR 0033 D4): a signed-out visitor sees the standard price and a locked voucher line (`audience`).
+//   whole card -> Venue detail (a governmental facility -> its own detail), heart -> saved, compare toggle -> the tray (a fourth add opens
+//   "Replace which one?", ADR 0009 D1). Every client is signed in (ADR 0038), so the card always carries the two prices (ADR 0033 D4).
 // There is no Book or Request action on the card any more: the voucher action sits under it (`CardAction`).
 // In a static frame nothing is wired: a frame is a picture, the player is the prototype.
 import type { VenueResult } from '../../../../mock'
@@ -33,11 +32,7 @@ export function useVenueCards(s: Scenario) {
   const toggleFavourite = (id: string) => {
     if (!live) return
     const store = usePrototype.getState()
-    const on = store.toggleFavourite('venue', id)
-    if (on && usePrototype.getState().signupNudge) {
-      store.clearSignupNudge()
-      nav.openSheet('CL-AUTH-01', { params: { reason: 'save' } })
-    }
+    store.toggleFavourite('venue', id)
   }
 
   const toggleCompare = (id: string) => {
@@ -56,7 +51,6 @@ export function useVenueCards(s: Scenario) {
       availability: date ? row.availability : undefined,
       date: date ?? undefined,
       badge: row.badge,
-      audience: s.signedIn ? 'member' : 'guest',
       tags: row.tags,
       guestRange: row.guestRange,
       sponsored: row.sponsored,
@@ -72,7 +66,7 @@ export function useVenueCards(s: Scenario) {
 
 /**
  * The trailing 44 action under a card whose hall is free (or on hold) on the Brief date (CL-DISC-03): "Get voucher" (ticket glyph) for a
- * voucher-eligible venue (opens the CL-VCHR-01 sheet with the quote; a guest meets the sign-in sheet first with the quote intact), otherwise "View"
+ * voucher-eligible venue (opens the CL-VCHR-01 sheet with the quote), otherwise "View"
  * (the detail). One or two words, verb first (ADR 0034).
  * Nothing under a governmental facility (its card already says where to book) and nothing before a date is chosen.
  */
@@ -94,8 +88,7 @@ export function CardAction({ row, scenario: s }: { row: VenueResult; scenario: S
       guests: s.brief.guests ?? null,
       audience: s.brief.audience ?? null,
     })
-    // CL-VCHR-01 is a sheet (the explainer and the KD 2 purchase): a signed-in person gets it over Results, a guest meets the sign-in sheet
-    // first and comes back to the same quote (ADR 0007 D8), exactly as the venue and booking flows do.
+    // CL-VCHR-01 is a sheet (the explainer and the KD 2 purchase) opened over Results with the quote.
     const params = {
       venueId: row.venue.id,
       hallId: row.availabilityHallId,
@@ -103,11 +96,6 @@ export function CardAction({ row, scenario: s }: { row: VenueResult; scenario: S
       eventDate: date,
       guests: s.brief.guests ?? null,
       from: 'discover',
-    }
-    if (usePrototype.getState().auth === 'guest') {
-      usePrototype.getState().openGate('voucher', { screenId: 'CL-VCHR-01', params })
-      nav.openSheet('CL-AUTH-01', { params: { reason: 'voucher', resume: 'CL-VCHR-01' } })
-      return
     }
     nav.openSheet('CL-VCHR-01', { params })
   }

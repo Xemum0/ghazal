@@ -96,7 +96,7 @@ export default function ClOnbd04() {
   })
 
   return (
-    <Screen top={<StepBar step={2} total={4} onSkip={next} />} bottom={<ActionBar action={{ label: c('commonActionContinue'), onPress: confirm }} />}>
+    <Screen top={<StepBar step={2} total={3} onSkip={next} />} bottom={<ActionBar action={{ label: c('commonActionContinue'), onPress: confirm }} />}>
       <div className="obd-form">
         <StepHead title={t('clientOnboardingDateTitle')} />
 

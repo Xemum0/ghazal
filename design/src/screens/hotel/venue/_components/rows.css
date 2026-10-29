@@ -1,4 +1,4 @@
-/* Rows of "Packages and extras" (hv-pkg, hv-extra) and the price text pieces. Hairline rows, no cards. Tokens only. */
+/* Rows of "Packages" (hv-pkg) and the price text pieces. Hairline rows, no cards. Tokens only. */
 
 .hv-pkg {
   display: flex;
@@ -47,7 +47,6 @@
 .hv-rate { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: var(--gz-space-1); }
 .hv-rate__unit { color: var(--gz-color-sys-text-secondary); }
 
-.hv-extra__range { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--gz-space-1) var(--gz-space-4); }
 
 /* archived section */
 .hv-arch { display: flex; flex-direction: column; }

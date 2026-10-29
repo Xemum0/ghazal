@@ -6,10 +6,24 @@
 /partner/account-type:
   post:
     operationId: chooseAccountType
-    summary: Choose Hotel or hall versus Service provider (HL-PROV-01)
+    summary: Choose the account type and send the application (HL-PROV-01, PA-ACC-07)
+    description: 'The application form of a service provider or private hall. Creates the account under review with a pending application (see `PartnerMe.memberships[].application`); Ghazal staff accept or reject it. Only an accepted account can create listings (403 APPLICATION_NOT_ACCEPTED).'
     x-idempotent: true
     body: ChooseAccountTypeInput
     responses: { 201: PartnerMe }
+/partner/application:
+  get:
+    operationId: getPartnerApplication
+    summary: The applicant's own application and its decision (HL-PROV-01, HL-ACCS-04)
+    description: 'Needs no venue or provider header. 404 NOT_FOUND when the account has no application (an account Ghazal assigned).'
+    responses: { 200: PartnerApplication }
+  put:
+    operationId: resubmitPartnerApplication
+    summary: Edit a rejected application and send it again (HL-PROV-01, PA-ACC-07)
+    description: 'Replaces the business information and sets the application to `pending` again, clearing the rejection reason. Only a rejected application can be edited (409 APPLICATION_NOT_EDITABLE).'
+    body: PartnerApplicationInput
+    x-errors: [APPLICATION_NOT_EDITABLE]
+    responses: { 200: PartnerApplication }
 /partner/context:
   put:
     operationId: switchPartnerContext
@@ -20,7 +34,7 @@
 /partner/account:
   get:
     operationId: getPartnerAccount
-    summary: The account and its review or suspension status (HL-ACCS-04)
+    summary: The account, its application and its review or suspension status (HL-ACCS-04)
     x-partner: true
     responses: { 200: PartnerAccount }
 /partner/staff:

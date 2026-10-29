@@ -1,5 +1,5 @@
 // CL-SERV-03 Provider profile (voucher model, ADR 0033; text diet, ADR 0034). Covers CA-SVC-10, CA-SVC-14, CA-SVC-15, CA-SVC-18, CA-VCH-01 to CA-VCH-04,
-// CA-VCH-10, CA-TOOL-02, CA-TOOL-03, CA-TOOL-10.
+// CA-VCH-10, CA-SVC-19, CA-TOOL-02, CA-TOOL-03, CA-TOOL-10.
 // A full-bleed portfolio of the work (equipment, decor, details; never a face) that opens the shared viewer, the serif name with its facts
 // as glyph and figure (rating, area, verified, women's team, reply time), the voucher price with the standard price struck beside it, the
 // provider's own words clamped to two lines, "Event" (the date, compact as `14 Jan 2027`, and, for per-person packages, the guests a voucher is tied to; one chat
@@ -7,8 +7,9 @@
 // unit (the chosen package opens its inclusions), a three-glyph strip for how the voucher works (the words sit behind its info glyph), and
 // ratings with the first review (the rest open in a sheet). The sticky bar carries the three paths: Get voucher (the one gold action, with
 // the KD 2 figure beside it, opens CL-VCHR-01 bound to this package), Request quote (no voucher needed, CL-SERV-04) and a chat glyph
-// (Contact). A guest browses and sees every price; the account is asked for at Get voucher. A package whose saving does not beat the
-// voucher fee says nothing about vouchers. States: default, loading, error, offline, no-reviews, guest, no-voucher.
+// (Contact). Every client is signed in (ADR 0038): no gate before Get voucher, Request quote or Contact. A package whose saving does not beat the
+// voucher fee says nothing about vouchers. Services are independent of venues (CA-SVC-19): this is where a provider is chosen and asked for a
+// quote. States: default, loading, error, offline, no-reviews, no-voucher.
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { getArea, meta } from '../../../mock'
@@ -16,7 +17,6 @@ import { useFormat, useT } from '../../../i18n'
 import { useLang } from '../../../shell/lang'
 import { useFrame } from '../../../shell/frame'
 import { usePrototype } from '../../../shell/state'
-import { useNavInternals } from '../../../system/nav/NavProvider'
 import {
   ActionBar, Banner, Button, Chip, ErrorState, FactChip, FactRow, Figures, FullscreenGallery, Icon, IconButton, IconListRow, ImageCarousel,
   Illustration, InfoButton, Price, Rating, Screen, SectionHeader, SelectRow, Skeleton, SkeletonText, ThreadRule, TopBar, imageSrc, useBi, useDuration, useNav,
@@ -26,7 +26,6 @@ import { VENDOR_REVIEWS } from './_components/reviews'
 import { ReviewList } from './_components/ReviewList'
 import { HowStrip } from './_components/HowStrip'
 import { PriceStack } from './_components/PriceStack'
-import { BIO_PROMPT_DELAY_MS, useAuthFlow } from '../auth/_components/flow'
 import { PackageRow } from './_components/PackageRow'
 import { DatePick } from './_components/DatePick'
 import { Fx } from './_components/Fx'
@@ -36,7 +35,7 @@ import {
 } from './_components/model'
 import './CL-SERV-03.css'
 
-export const states = ['loading', 'error', 'offline', 'no-reviews', 'guest', 'no-voucher']
+export const states = ['loading', 'error', 'offline', 'no-reviews', 'no-voucher']
 
 type Params = { vendorId?: string; categoryId?: string }
 
@@ -48,15 +47,6 @@ const ABOUT_CLAMP_CHARS = 60
 
 const GUEST_STEPS = [50, 100, 150, 200, 250, 300, 350, 400, 500, 600, 800] as const
 
-/** Count of sheets on screen; 0 in a static frame (no navigator host). The context read is the same hook on every render. */
-function useOpenSheets(): number {
-  try {
-    return useNavInternals().state.sheets.filter(sh => !sh.closing).length
-  } catch {
-    return 0
-  }
-}
-
 export default function VendorProfile() {
   const t = useT('client-services')
   const c = useT('common')
@@ -67,7 +57,6 @@ export default function VendorProfile() {
   const nav = useNav<Params>()
   const { state } = useFrame()
   const live = useLive()
-  const auth = usePrototype(s => s.auth)
   const favourites = usePrototype(s => s.favourites)
 
   const vendorId = nav.params.vendorId ?? (state === 'no-reviews' ? NEW_VENDOR_ID : DEFAULT_VENDOR_ID)
@@ -87,45 +76,9 @@ export default function VendorProfile() {
   const [root, setRoot] = useState<HTMLElement | null>(null)
   useEffect(() => setRoot(anchor.current?.closest<HTMLElement>('.gz-navroot') ?? null))
 
-  // A guest who sent a request has just signed in (the sheet stepped aside for the sign-in screens): reopen it with the draft.
-  const draft = useServicesFlow(s => s.draft)
-  // The sign-in may queue the biometric offer (flow.ts, a sheet ~900 ms after landing back here). Sheets queue, never stack: the
-  // request sheet waits until that offer has come and gone, then reopens and sends, so the success is the next thing seen.
-  const sheetsOpen = useOpenSheets()
-  const bioOffered = useAuthFlow(s => s.bioOffered)
-  const [bioSettled, setBioSettled] = useState(false)
-  const resumeAt = useRef<number | null>(null)
-  useEffect(() => {
-    if (!(live && auth === 'signedIn' && draft && draft.vendorId === vendor.id)) return
-    if (resumeAt.current === null) resumeAt.current = Date.now()
-    if (!bioOffered || bioSettled) return
-    const wait = BIO_PROMPT_DELAY_MS + 400 - (Date.now() - resumeAt.current)
-    const id = window.setTimeout(() => setBioSettled(true), Math.max(0, wait))
-    return () => window.clearTimeout(id)
-  }, [auth, draft?.vendorId, bioOffered, bioSettled, live, vendor.id])
-  useEffect(() => {
-    if (!(live && auth === 'signedIn' && draft && draft.vendorId === vendor.id)) return
-    if (bioOffered && (!bioSettled || sheetsOpen > 0)) return
-    if (draft.intent === 'voucher') {
-      // The guest was getting a voucher: the explainer opens now, bound to the package they had chosen.
-      useServicesFlow.getState().setDraft(null)
-      if (!draft.eventDate) {
-        // Registered now, but the voucher still needs the date it is tied to: show the field, not the explainer.
-        setDateError(true)
-        eventRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
-        return
-      }
-      nav.openSheet('CL-VCHR-01', { params: voucherParams(draft.packageId, draft.eventDate, draft.guests) })
-      return
-    }
-    nav.openSheet('CL-SERV-04', { params: { vendorId: vendor.id, resume: true } })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth, draft?.vendorId, bioOffered, bioSettled, sheetsOpen])
-
   const loading = state === 'loading'
   const errored = state === 'error'
   const offline = state === 'offline'
-  const guest = state === 'guest' || (live && auth === 'guest')
   const name = bi(vendor.name)
   const category = categoryOf(nav.params.categoryId) ?? categoryOf(vendor.categoryId)
   const area = getArea(vendor.areaId)
@@ -144,7 +97,6 @@ export default function VendorProfile() {
   const offered = pkg ? voucherOf(pkg) !== null : false
   const quote = pkg ? quoteOf(vendor, pkg, guestCount) : null
   const budgetFils = quote ? (offered ? quote.totals.voucherTotal.fils : quote.totals.standardTotal.fils) : (pkg?.price.fils ?? 0)
-  const audience = guest ? 'guest' : 'member'
 
   const photos: CarouselImage[] = vendor.portfolio.map(p => ({ src: imageSrc(p.file), alt: bi(p.alt) }))
 
@@ -157,12 +109,6 @@ export default function VendorProfile() {
   const openQuote = (when?: string | null) =>
     nav.openSheet('CL-SERV-04', { params: { vendorId: vendor.id, packageId: pkg?.id, date: when ?? undefined } })
   const openChat = () => {
-    if (guest) {
-      // Chat needs an account (CA-AUTH-10): the gate opens and the person comes back here, signed in.
-      usePrototype.getState().openGate('chat', { screenId: 'CL-SERV-03', params: { vendorId: vendor.id, categoryId: nav.params.categoryId } })
-      nav.openSheet('CL-AUTH-01', { params: { reason: 'chat' } })
-      return
-    }
     nav.push('CL-MSGS-02', { conversationId: conversationOf(vendor.id), vendorId: vendor.id })
   }
   const addToBudget = () => nav.openSheet('CL-WEDD-04', { params: { categoryId: budgetCategoryOf(vendor.categoryId), amount: budgetFils } })
@@ -174,13 +120,6 @@ export default function VendorProfile() {
   }
   const getVoucher = () => {
     if (!pkg || offline) return
-    if (guest) {
-      // Guests see every price and are gated here (CA-VCH-04); the profile reopens the explainer after sign-in.
-      useServicesFlow.getState().setDraft({ intent: 'voucher', vendorId: vendor.id, packageId: pkg.id, eventDate: date, venueId: null, guests: guestCount, note: '' })
-      usePrototype.getState().openGate('voucher', { screenId: 'CL-SERV-03', params: { vendorId: vendor.id, categoryId: nav.params.categoryId } })
-      nav.openSheet('CL-AUTH-01', { params: { reason: 'voucher' } })
-      return
-    }
     if (!date) {
       setDateError(true)
       eventRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
@@ -340,7 +279,7 @@ export default function VendorProfile() {
           </FactRow>
           {bestOffer ? (
             <div className="gzs-prof__summary" data-gz-id="vendor.summary">
-              <PriceStack standard={bestOffer.standard} voucher={bestOffer.voucher} categoryId={vendor.categoryId} audience={audience} variant="tile" inline />
+              <PriceStack standard={bestOffer.standard} voucher={bestOffer.voucher} categoryId={vendor.categoryId} variant="tile" inline />
             </div>
           ) : null}
         </header>
@@ -414,7 +353,6 @@ export default function VendorProfile() {
                 chosen={p.id === pkg?.id}
                 onChoose={() => setChosenId(p.id)}
                 voucher={voucherOf(p)}
-                audience={audience}
                 favourite={favourites.package.includes(p.id)}
                 onFavouriteChange={() => togglePackage(p.id)}
               />

@@ -12,27 +12,6 @@
   padding-block-end: var(--gz-space-1);
 }
 
-/* A guest who opened a shared link: a quiet rose-100 row, the locked-voucher glyph pair at inline-start, Sign in at the end. */
-.svd-shared {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--gz-space-3);
-  margin-block-start: var(--gz-space-1);
-  margin-inline: var(--gz-space-gutter);
-  padding-block: var(--gz-space-1);
-  padding-inline: var(--gz-space-4);
-  border-radius: var(--gz-radius-md);
-  background-color: var(--gz-color-sys-surface-tint);
-  color: var(--gz-color-sys-text-primary);
-}
-
-.svd-shared__pair {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--gz-space-1);
-}
-
 /* loading: the header and five rows in the same thirds */
 .svd-skel {
   display: flex;

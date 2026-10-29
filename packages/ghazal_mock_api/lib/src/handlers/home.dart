@@ -11,9 +11,10 @@ import '../engine/discover.dart' as web;
 /// `storyBrief()`: the wedding date, the women's guest count, the first audience searched, the areas).
 Json _homeBrief(Req r, Json? profile) {
   final areas = r.qList('areaIds');
-  final given = r.q('date') != null || r.qInt('guests') != null || r.q('audience') != null || areas.isNotEmpty;
+  final governorates = r.qList('governorateIds');
+  final given = r.q('date') != null || r.qInt('guests') != null || r.q('audience') != null || areas.isNotEmpty || governorates.isNotEmpty;
   if (given || profile == null) {
-    return {'date': r.q('date'), 'guests': r.qInt('guests'), 'audience': r.q('audience'), 'areaIds': areas}..removeWhere((k, v) => v == null);
+    return {'date': r.q('date'), 'guests': r.qInt('guests'), 'audience': r.q('audience'), 'areaIds': areas, 'governorateIds': governorates}..removeWhere((k, v) => v == null);
   }
   final searching = profile.strings('searching');
   return {
@@ -21,6 +22,7 @@ Json _homeBrief(Req r, Json? profile) {
     'guests': (profile.objOrNull('guests')?['women'] as num?)?.toInt(),
     'audience': searching.isEmpty ? null : searching.first,
     'areaIds': profile.strings('areaIds'),
+    'governorateIds': profile.strings('governorateIds'),
   }..removeWhere((k, v) => v == null);
 }
 
@@ -143,6 +145,7 @@ Map<String, Handler> homeHandlers(MockApp app) => {
       'occasions': meta['occasions'],
       'availabilityWindow': meta['availabilityWindow'],
       'minAppVersion': app.seed.extra.str('minAppVersion'),
+      'partnerAppUrl': app.seed.extra.strOrNull('partnerAppUrl'),
     };
   },
   'ingestEvents': (r) {

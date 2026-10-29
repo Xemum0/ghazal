@@ -1,0 +1,7 @@
+/* GovernorateFilter: the chip itself is the shared Chip (system/core/chip.css); this is only the glyph beside the name. */
+
+.gz-gov__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gz-space-2);
+}

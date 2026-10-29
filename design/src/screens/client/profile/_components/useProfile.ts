@@ -98,9 +98,9 @@ export const useProfileFlow = create<ProfileFlow>()(set => ({
   reset: () => set({ ...initial() }),
 }))
 
-// A session ends when the prototype goes back to guest (sign-out, Restart in the launcher): the flow forgets everything with it.
+// A session ends when the prototype signs out (sign-out, Restart in the launcher): the flow forgets everything with it.
 usePrototype.subscribe((state, prev) => {
-  if (state.auth === 'guest' && prev.auth === 'signedIn') useProfileFlow.getState().reset()
+  if (state.auth !== 'signedIn' && prev.auth === 'signedIn') useProfileFlow.getState().reset()
 })
 
 // ---------------------------------------------------------------- who is looking
@@ -121,15 +121,6 @@ export function monogramFor(name: string): string {
   const base = first.length > 2 && first.startsWith('ال') ? first.slice(2) : first
   const ch = Array.from(base)[0]
   return ch ? ch.toUpperCase() : ''
-}
-
-/** Guest or signed in. A static frame is Reem unless the state says guest. */
-export function useGuest(): boolean {
-  const live = useLive()
-  const auth = usePrototype(s => s.auth)
-  const state = useSceneState()
-  if (state === 'guest') return true
-  return live ? auth === 'guest' : false
 }
 
 export function useIdentity(): Identity {
@@ -160,12 +151,11 @@ export function useStoryBooking(): { status: StoryStatus; booking: Booking | nul
   const live = useLive()
   const state = useSceneState()
   const hotelBookings = usePrototype(s => s.hotelBookings)
-  const signedIn = usePrototype(s => s.auth === 'signedIn')
 
   let status: StoryStatus
   if (live) {
     const b = hotelBookings.find(x => x.id === meta.story.bookingId)
-    status = !signedIn || !b ? null : b.status === 'pending' || b.status === 'approved' ? b.status : b.status === 'confirmed' || b.status === 'redeemed' ? 'confirmed' : null
+    status = !b ? null : b.status === 'pending' || b.status === 'approved' ? b.status : b.status === 'confirmed' || b.status === 'redeemed' ? 'confirmed' : null
   } else {
     status = FRAME_STATUS[state ?? ''] ?? 'pending'
   }

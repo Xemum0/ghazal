@@ -1,6 +1,10 @@
 # The signed-in person: profile, settings, devices, phone change, account deletion.
 UserRole: { type: string, enum: [client, hotel_staff, provider_staff, planner, support] }
 DigitStyle: { type: string, enum: [western, easternArabic], x-dart-name: WireDigitStyle }
+Sex:
+  type: string
+  enum: [female, male]
+  description: 'Sex of a client account (ADR 0038 D4, CA-AUTH-14, OQ-R2-02). Required when a client account is completed (`registerAccount`, `completeProfile`), editable with `updateMe`. Stored on the account; not shown to venues and not used to filter yet.'
 User:
   type: object
   required: [id, role, name, monogram, phone, email, locale, digitStyle, createdAt]
@@ -14,6 +18,7 @@ User:
     email: { type: string, nullable: true }
     locale: { $ref: Lang }
     digitStyle: { $ref: DigitStyle }
+    sex: { $ref: Sex, nullable: true, description: 'Clients: `female` or `male`, set when the account is completed (null only on an account that has not finished "About you" yet, and on staff and support accounts).' }
     createdAt: { $ref: IsoDateTime }
 Me:
   type: object
@@ -34,7 +39,17 @@ UpdateMeInput:
     email: { type: string, format: email, nullable: true }
     locale: { $ref: Lang }
     digitStyle: { $ref: DigitStyle }
+    sex: { $ref: Sex }
     marketingOptIn: { type: boolean }
+CompleteProfileInput:
+  type: object
+  description: 'Finishes a brand-new client account after the first code (CL-AUTH-03 "About you", CA-AUTH-14): name and sex are required, then the Terms and Privacy acceptance. Until it succeeds `AuthSession.isNewUser` stays true on every sign-in of that number.'
+  required: [name, sex, acceptedTerms]
+  properties:
+    name: { type: string, minLength: 1, description: 'Name as typed (stored as typed).' }
+    sex: { $ref: Sex }
+    acceptedTerms: { type: boolean, enum: [true] }
+    email: { type: string, format: email, nullable: true }
 DevicePlatform: { type: string, enum: [ios, android, web] }
 DeviceRegistration:
   type: object

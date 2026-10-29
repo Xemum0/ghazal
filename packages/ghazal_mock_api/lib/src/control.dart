@@ -1,11 +1,12 @@
 /// The mock's control surface (not part of the product API, documented in docs/architecture/mock-api.md): reset, move the story clock, switch
-/// persona, force a scenario, settle a payment, moderate a listing, decide a refund request, jump to a story point, read the outbox and the
+/// persona, force a scenario, settle a payment, moderate a listing, decide a refund request, decide a partner application, jump to a story point, read the outbox and the
 /// event log. The same operations exist over HTTP under `/__mock/*` (see `control_http.dart`).
 library;
 
 import 'core/app.dart';
 import 'core/problem.dart';
 import 'db/mock_db.dart';
+import 'domain/applications.dart' show decideApplication;
 import 'domain/chat.dart';
 import 'domain/jobs.dart';
 import 'domain/notify.dart';
@@ -43,7 +44,7 @@ class MockControl {
   }
 
   /// Requests without a token act as this persona: `guest` (anonymous), `new_client`, `reem`, `hotel_admin`, `hotel_manager`, `hotel_non_major`,
-  /// `provider`. Returns the tokens of the persona's session (to seed a `TokenStore`), or null for the guest.
+  /// `provider`, `provider_applicant` and `provider_rejected` (round 2: an application pending or rejected). Returns the tokens of the persona's session (to seed a `TokenStore`), or null for the guest.
   Json? setPersona(String persona) {
     if (persona != 'guest' && _app.personaOf(persona) == null) throw ArgumentError('unknown persona $persona');
     _app.config.persona = persona;
@@ -143,6 +144,10 @@ class MockControl {
     rates[cycle] = fils;
     _app.flags['planRates'] = rates;
   }
+
+  /// Staff decision on a partner application (PA-ACC-07; the Super Admin web in the real service): `accept` makes the account active so it can create
+  /// listings, `reject` records [reason] for the applicant, who can edit and resubmit. Only a pending application can be decided (409).
+  Json decidePartnerApplication(String applicationId, {required bool accept, String? reason}) => decideApplication(_app, applicationId, accept: accept, reason: reason);
 
   /// Decides a credit voucher (refund) request: grant creates the credit voucher, decline carries a reason.
   Json decideRefund(String requestId, {required bool grant, String? reason}) => wire(decideRefundRequest(_app, requestId, grant: grant, reason: reason));

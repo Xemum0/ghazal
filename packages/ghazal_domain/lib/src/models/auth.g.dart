@@ -235,11 +235,12 @@ final class OtpVerifyInput {
   String toString() => 'OtpVerifyInput(${toJson()})';
 }
 
-/// Creates (or resumes) a password account; the phone is verified through the returned challenge.
+/// Creates (or resumes) a password account; the phone is verified through the returned challenge. Name and sex are required since round 2 (CA-AUTH-14); a missing sex is 422 VALIDATION_FAILED (`errors: [{path: "/sex", code: "required"}]`).
 final class RegisterInput {
   const RegisterInput({
     required this.phone,
     required this.name,
+    required this.sex,
     this.password,
     required this.acceptedTerms,
     required this.locale,
@@ -251,6 +252,7 @@ final class RegisterInput {
       return RegisterInput(
         phone: reqField(json, 'phone', (v) => asString(v)),
         name: reqField(json, 'name', (v) => asString(v)),
+        sex: reqField(json, 'sex', (v) => Sex.fromJson(v)),
         password: optField(json, 'password', (v) => asString(v)),
         acceptedTerms: reqField(json, 'acceptedTerms', (v) => asBool(v)),
         locale: reqField(json, 'locale', (v) => WireLang.fromJson(v)),
@@ -263,6 +265,7 @@ final class RegisterInput {
 
   final String phone;
   final String name;
+  final Sex sex;
   final String? password;
   final bool acceptedTerms;
   final WireLang locale;
@@ -271,6 +274,7 @@ final class RegisterInput {
   Map<String, Object?> toJson() => {
       'phone': phone,
       'name': name,
+      'sex': sex.toJson(),
       if (password != null) 'password': password!,
       'acceptedTerms': acceptedTerms,
       'locale': locale.toJson(),
@@ -280,6 +284,7 @@ final class RegisterInput {
   RegisterInput copyWith({
     String? phone,
     String? name,
+    Sex? sex,
     Object? password = unsetValue,
     bool? acceptedTerms,
     WireLang? locale,
@@ -287,6 +292,7 @@ final class RegisterInput {
   }) => RegisterInput(
       phone: phone ?? this.phone,
       name: name ?? this.name,
+      sex: sex ?? this.sex,
       password: identical(password, unsetValue) ? this.password : password as String?,
       acceptedTerms: acceptedTerms ?? this.acceptedTerms,
       locale: locale ?? this.locale,
@@ -299,13 +305,14 @@ final class RegisterInput {
       other is RegisterInput &&
           other.phone == phone &&
           other.name == name &&
+          other.sex == sex &&
           other.password == password &&
           other.acceptedTerms == acceptedTerms &&
           other.locale == locale &&
           other.deviceId == deviceId;
 
   @override
-  int get hashCode => Object.hashAll([phone, name, password, acceptedTerms, locale, deviceId]);
+  int get hashCode => Object.hashAll([phone, name, sex, password, acceptedTerms, locale, deviceId]);
 
   @override
   String toString() => 'RegisterInput(${toJson()})';
@@ -459,7 +466,7 @@ final class PasswordResetInput {
   String toString() => 'PasswordResetInput(${toJson()})';
 }
 
-/// The app obtains the identity token; the API verifies it with the provider keys. Terms are accepted on first account creation.
+/// The app obtains the identity token; the API verifies it with the provider keys. A first social sign-in returns `isNewUser: true`; the account is completed with `completeProfile` (name, sex, terms).
 final class SocialSignInInput {
   const SocialSignInInput({
     required this.identityToken,
@@ -775,7 +782,7 @@ final class AuthSession {
   final String refreshToken;
   final String tokenType;
   final int expiresInSeconds;
-  /// True after the first OTP verification of a number; the app then asks for name and terms (CL-AUTH-03).
+  /// True from the first verification of a number until the account is completed with `completeProfile` (name, sex, terms: CL-AUTH-03); the app then shows "About you" and the optional onboarding. An account created with `registerAccount` already carries name and sex, so only its first session is new.
   final bool isNewUser;
   final Me user;
 

@@ -1,5 +1,5 @@
 // HomeBriefCard (CL-DISC-01): the system BriefCard's anatomy and classes (paper panel, hairline, four rows, one gold CTA), flow-local for two
-// reasons the system card cannot serve yet (see docs/engineering/requests.md): the Area value lists the names with a comma and clamps to
+// reasons the system card cannot serve yet (see docs/engineering/requests.md): the governorate value lists the names with a comma and clamps to
 // one line (a two-name list wrapped into a 88 high row at 390), and the CTA states the truth when no hall is free that day ("Nearest dates")
 // instead of "Show 0 halls".
 //
@@ -7,16 +7,16 @@
 // answer shows a one-word placeholder (muted). The CTA never repeats the date (the row above says it).
 //
 //   no count yet or offline  Show halls     with a count  Show 3 halls     no hall free that day  Nearest dates (calendar glyph)
-import { getArea } from '../../../../mock'
+import { getGovernorate } from '../../../../mock'
 import { useFormat, useT } from '../../../../i18n'
 import { useLang } from '../../../../shell/lang'
-import { Button, Figures, Icon, useBi, type BriefField } from '../../../../system'
+import { Button, Figures, Icon, briefGovernorates, useBi, type BriefField } from '../../../../system'
 import type { IconName } from '@gz/tokens'
 import type { SearchBrief } from './data'
 
 export type HomeBriefCardProps = {
   brief: SearchBrief
-  /** Halls free on the date in the Brief's areas; null before the first answer, offline, or while loading. */
+  /** Halls free on the date in the Brief's governorates; null before the first answer, offline, or while loading. */
   count: number | null
   onEdit?: (field: BriefField) => void
   onShow?: () => void
@@ -31,12 +31,12 @@ export function HomeBriefCard({ brief, count, onEdit, onShow }: HomeBriefCardPro
   const { lang } = useLang()
   const bi = useBi()
 
-  const names = (brief.areaIds ?? []).map(id => getArea(id)).filter((a): a is NonNullable<ReturnType<typeof getArea>> => Boolean(a)).map(a => bi(a.name))
+  const names = briefGovernorates(brief).map(id => getGovernorate(id)).filter((g): g is NonNullable<ReturnType<typeof getGovernorate>> => Boolean(g)).map(g => bi(g.name))
   const sep = lang === 'ar' ? '، ' : ', '
-  // The half-width Area cell holds one line: both names when they are short, else the first and a count (the sheet has the full list).
+  // The half-width governorate cell holds one line: both names when they are short, else the first and a count (the sheet has the full list).
   const joined = names.join(sep)
   const room = lang === 'ar' ? 18 : 16
-  const area = names.length === 0 ? null : names.length === 1 || joined.length <= room ? joined : t('clientDiscoverBriefAreaMore', { first: names[0] ?? '', more: f.integer(names.length - 1) })
+  const area = names.length === 0 ? null : names.length === 1 || joined.length <= room ? joined : t('clientDiscoverBriefGovernorateMore', { first: names[0] ?? '', more: f.integer(names.length - 1) })
   const flexible = brief.dateMode === 'flexible_month' && Boolean(brief.date)
   const date = brief.date && brief.dateMode !== 'undecided' ? f.date(brief.date, flexible ? 'monthYear' : 'short') : null
   const guests = brief.guests ? f.integer(brief.guests) : null
@@ -67,7 +67,7 @@ export function HomeBriefCard({ brief, count, onEdit, onShow }: HomeBriefCardPro
     <section data-gz="BriefCard" className="gz-briefcard" aria-label={t('clientDiscoverBriefLabel')}>
       {row('date', shell('clientShellBriefDate'), date, t('clientDiscoverBriefChooseDate'), flexible ? 'calendar-dots' : 'calendar')}
       <div className="gz-briefrow__split">
-        {row('area', shell('clientShellBriefArea'), area, t('clientDiscoverBriefChooseArea'), 'pin', true)}
+        {row('area', t('clientDiscoverBriefChooseGovernorate'), area, t('clientDiscoverBriefChooseGovernorate'), 'pin', true)}
         <span className="gz-briefrow__rule" aria-hidden="true" />
         {row('guests', shell('clientShellBriefGuests'), guests, t('clientDiscoverBriefAddGuests'), 'users-three', true)}
       </div>

@@ -11,7 +11,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ghazal_app_kit/ghazal_app_kit.dart';
 import 'package:ghazal_core/ghazal_core.dart' show ApiProblem, DateStyle, gzFormatProvider;
-import 'package:ghazal_domain/ghazal_domain.dart' show RegisterInput, WireLang;
+import 'package:ghazal_domain/ghazal_domain.dart' show RegisterInput, Sex, WireLang;
 import 'package:ghazal_ui/ghazal_ui.dart';
 
 import '../application/auth_actions.dart';
@@ -88,6 +88,8 @@ class _ClAuth03State extends ConsumerState<ClAuth03Screen> {
                 phone: flow.phone,
                 name: _name.trim(),
                 password: flow.password,
+                // R1-CONTRACT placeholder so the app compiles: CL-AUTH-03 must ask for the sex (CA-AUTH-14, ADR 0038); R2-CLIENT replaces this.
+                sex: Sex.female,
                 acceptedTerms: true,
                 locale: locale == 'ar' ? WireLang.ar : WireLang.en,
                 deviceId: ref.read(deviceIdProvider),

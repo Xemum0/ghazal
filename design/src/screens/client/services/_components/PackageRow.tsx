@@ -17,13 +17,12 @@ export type PackageRowProps = {
   onChoose?: () => void
   /** Voucher price per unit when a voucher is offered for this package at the chosen quantity, else null (standard price alone). */
   voucher?: number | null
-  audience?: 'member' | 'guest'
   favourite?: boolean
   onFavouriteChange?: (next: boolean) => void
   loading?: boolean
 }
 
-export function PackageRow({ pkg, categoryId, chosen = false, onChoose, voucher = null, audience = 'member', favourite, onFavouriteChange, loading }: PackageRowProps) {
+export function PackageRow({ pkg, categoryId, chosen = false, onChoose, voucher = null, favourite, onFavouriteChange, loading }: PackageRowProps) {
   const t = useT('client-services')
   const c = useT('common')
   const f = useFormat()
@@ -56,7 +55,7 @@ export function PackageRow({ pkg, categoryId, chosen = false, onChoose, voucher 
           </span>
         </span>
         <span className="gzs-pkg__price" data-gz-id="price">
-          <PriceStack standard={pkg.price.fils} voucher={voucher} categoryId={categoryId} audience={audience} variant="package" />
+          <PriceStack standard={pkg.price.fils} voucher={voucher} categoryId={categoryId} variant="package" />
         </span>
         {chosen ? (
           <span className="gzs-pkg__list" data-gz-id="includes">

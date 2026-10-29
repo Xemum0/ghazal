@@ -18,10 +18,7 @@
   "clientMessagesEmptyTitle": "لا رسائل بعد",
   "clientMessagesEmptyAction": "تصفح القاعات",
   "clientMessagesEmptySupport": "الدعم",
-  "clientMessagesGuestLabel": "تسجيل الدخول لمتابعة الرسائل",
-  "clientMessagesGuestAction": "تسجيل الدخول",
   "clientMessagesVisitMembers": "أعضاء المحادثة",
-
   "clientMessagesInfoTitle": "التفاصيل",
   "clientMessagesRepliesWithin": "{hours, plural, =0{يرد عادةً في وقت قصير} =1{يرد عادةً خلال ساعة} =2{يرد عادةً خلال ساعتين} few{يرد عادةً خلال # ساعات} many{يرد عادةً خلال # ساعة} other{يرد عادةً خلال # ساعة}}",
   "clientMessagesContextView": "عرض الطلب",
@@ -58,7 +55,6 @@
   "clientMessagesSuggestAvailabilityAny": "السلام عليكم، ما التواريخ المتاحة لديكم للحفل النسائي؟",
   "clientMessagesSuggestVoucherText": "السلام عليكم، كم سعر الكوبون للحفل النسائي ليوم {date}؟",
   "clientMessagesSuggestVoucherAny": "السلام عليكم، ممكن تعطوننا سعر الكوبون للحفل النسائي؟",
-  "clientMessagesSupportIntro": "أهلًا بكم، كيف نخدمكم؟",
   "clientMessagesBlockedNote": "محظورة",
   "clientMessagesUnblock": "إلغاء الحظر",
   "clientMessagesUnblockedToast": "تم إلغاء الحظر",
@@ -81,7 +77,6 @@
   "clientMessagesCardCalendarToast": "تمت الإضافة",
   "clientMessagesCardChange": "تغيير",
   "clientMessagesCardVendor": "الصفحة",
-
   "clientMessagesAttachTitle": "إرفاق",
   "clientMessagesAttachCamera": "الكاميرا",
   "clientMessagesAttachPhoto": "الصور",
@@ -105,7 +100,6 @@
   "clientMessagesDocDownload": "تنزيل",
   "clientMessagesDocSaved": "تم الحفظ",
   "clientMessagesDocOpen": "فتح {name}",
-
   "clientMessagesInfoBooking": "الطلب المرتبط",
   "clientMessagesInfoShared": "الصور والمستندات",
   "clientMessagesInfoMute": "كتم",
@@ -142,7 +136,6 @@
   "clientMessagesBlockKeep": "إلغاء",
   "clientMessagesBlockedDoneTitle": "تم الحظر",
   "clientMessagesBlockedDoneDetail": "لن تصلكم رسائل من هذا الطرف. يمكنكم إلغاء الحظر في أي وقت.",
-
   "clientMessagesNtfTitle": "الإشعارات",
   "clientMessagesNtfPrefs": "إعدادات الإشعارات",
   "clientMessagesNtfFilterGroup": "تصفية الإشعارات",
@@ -183,7 +176,6 @@
   "clientMessagesNtfKindReview": "التقييم",
   "clientMessagesNtfKindCountdown": "الزفاف",
   "clientMessagesNtfKindChecklist": "المهام",
-
   "clientMessagesPromptTitle": "تنبيهات الحجز",
   "clientMessagesPromptBody": "سنخبركم فور رد القاعة على طلبكم، وحين يصبح الكوبون جاهزًا.",
   "clientMessagesPromptNote": "لا نرسل إلا ما يلزمكم، ولا نزعجكم ليلًا.",

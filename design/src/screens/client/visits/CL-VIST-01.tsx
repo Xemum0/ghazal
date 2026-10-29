@@ -3,15 +3,12 @@
 // visitors stepper and a one-line note, then the one gold action. No labels, captions or helper lines: the two sentences this sheet used to
 // carry (a visit is free and needs no voucher; a chat opens with the venue and Ghazal support; each window lasts 30 minutes) sit behind the
 // info glyph in the header (the voucher-terms exception). The first free window of the first day is chosen from the start, so one tap sends.
-// A guest reads and chooses freely and meets the sign-in sheet only at Send (ADR 0007 D8); the exact choice is still here when the account
-// exists. A window taken meanwhile turns into a struck chip with the next free ones offered; nothing is queued offline.
+// A window taken meanwhile turns into a struck chip with the next free ones offered; nothing is queued offline.
 // Opened from the venue detail (CL-VENU-01), the confirmed booking and Booking detail.
-// States: default, no-slots-this-week, slot-taken, sending, guest-gate, error, offline.
-import { useEffect, useMemo, useRef, useState } from 'react'
+// States: default, no-slots-this-week, slot-taken, sending, error, offline.
+import { useMemo, useState } from 'react'
 import { getHall, getVenue, visitSlotsFor } from '../../../mock'
-import { Banner, Button, Chip, Icon, InfoButton, Sheet, Stepper, TextField, useNav } from '../../../system'
-import { ScreenOutlet } from '../../../system/nav/ScreenOutlet'
-import { EntryContext } from '../../../system/nav/useNav'
+import { Banner, Button, Chip, Icon, InfoButton, Stepper, TextField, useNav } from '../../../system'
 import { useFrame } from '../../../shell/frame'
 import { usePrototype } from '../../../shell/state'
 import { SheetFrame } from './_components/SheetFrame'
@@ -20,7 +17,7 @@ import { VenueLine } from './_components/VenueLine'
 import { NOTE_MAX, VISITORS_MAX, VISITORS_MIN, offersVisits, useV, type VisitParams } from './_components/model'
 import './CL-VIST-01.css'
 
-export const states = ['no-slots-this-week', 'slot-taken', 'sending', 'guest-gate', 'error', 'offline']
+export const states = ['no-slots-this-week', 'slot-taken', 'sending', 'error', 'offline']
 
 const DEFAULT_VENUE = 'V01'
 const SENDING_MS = 700
@@ -30,7 +27,7 @@ const WINDOW_MINUTES = 30
 export default function BookVisit() {
   const { state } = useFrame()
   const nav = useNav<VisitParams>()
-  const { t, tc, f, bi, live, auth, dayLine, clockParts } = useV()
+  const { t, tc, f, bi, live, dayLine, clockParts } = useV()
   const p = nav.params
   const venue = getVenue(p.venueId ?? DEFAULT_VENUE) ?? getVenue(DEFAULT_VENUE)!
   const hall = (p.hallId ? getHall(p.hallId)?.hall : undefined) ?? null
@@ -49,9 +46,7 @@ export default function BookVisit() {
   const [busy, setBusy] = useState(state === 'sending')
   const [failed, setFailed] = useState(state === 'error')
   const [taken, setTaken] = useState<string | null>(state === 'slot-taken' ? first.slot : null)
-  const gated = useRef(false)
 
-  const guest = state === 'guest-gate' || (live && auth === 'guest')
   const offline = state === 'offline'
   const day = date && dates.includes(date) ? date : null
 
@@ -66,12 +61,6 @@ export default function BookVisit() {
 
   const send = () => {
     if (!slot || !day || busy) return
-    if (guest) {
-      gated.current = true
-      usePrototype.getState().openGate('visit', { screenId: 'CL-VIST-01', params: { venueId: venue.id, hallId: hall?.id, date: day, slot, visitors, note } })
-      nav.openSheet('CL-AUTH-01', { params: { reason: 'visit' } })
-      return
-    }
     setFailed(false)
     setBusy(true)
     if (!live) return
@@ -83,14 +72,6 @@ export default function BookVisit() {
       nav.push('CL-VIST-02', { visitId: id, venueId: venue.id })
     }, SENDING_MS)
   }
-
-  // Back from the sign-in sheet with an account: the request goes out on its own, the choice untouched.
-  useEffect(() => {
-    if (gated.current && auth === 'signedIn') {
-      gated.current = false
-      send()
-    }
-  }, [auth]) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!offersVisits(venue.id)) return null
 
@@ -199,13 +180,6 @@ export default function BookVisit() {
           disabled={busy}
         />
       </SheetFrame>
-      {state === 'guest-gate' ? (
-        <Sheet dismissible={false}>
-          <EntryContext.Provider value={{ id: 'CL-AUTH-01', params: { reason: 'visit' }, canGoBack: false, activeTab: null }}>
-            <ScreenOutlet id="CL-AUTH-01" />
-          </EntryContext.Provider>
-        </Sheet>
-      ) : null}
     </>
   )
 }

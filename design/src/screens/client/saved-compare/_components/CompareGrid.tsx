@@ -6,7 +6,7 @@
 // the tick at your guests). The header hands over to the compact pinned strip once it has scrolled away (two layers, so nothing shifts
 // under the thumb while the header collapses). Built from the system's CompareParts; the header and the row are local because the system
 // ones carry a visible label, no tap-to-open and no pick control (request filed). The bottom bar is `CompareBar` below.
-// Voucher model (ADR 0033): the Price cell is the voucher price (bead on the lowest, a lock pair for a signed-out visitor), the standard
+// Voucher model (ADR 0033): the Price cell is the voucher price (bead on the lowest), the standard
 // price struck beside it and the saving as a trend glyph and the amount; no deposit row; the footer reads Voucher, Dates, Official, View or Remove.
 import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react'
 import type { IconName } from '@gz/tokens'
@@ -36,8 +36,6 @@ export type CompareGridProps = {
   onOpen: (venueId: string) => void
   onGallery: (venueId: string, index: number) => void
   onSetDate: () => void
-  /** Signed out: the voucher price shows with a lock glyph (the saving is the pitch, registration unlocks the voucher). */
-  audience?: 'member' | 'guest'
   diff: boolean
   onDiffChange: (next: boolean) => void
 }
@@ -75,7 +73,7 @@ function Row({ label, cells, owners, className }: { label: string; cells: readon
   )
 }
 
-export function CompareGrid({ columns, brief, origin, unlistedId, pickedId, onPick, onRemove, onOpen, onGallery, onSetDate, audience = 'member', diff, onDiffChange }: CompareGridProps) {
+export function CompareGrid({ columns, brief, origin, unlistedId, pickedId, onPick, onRemove, onOpen, onGallery, onSetDate, diff, onDiffChange }: CompareGridProps) {
   const t = useT('client-saved-compare')
   const c = useT('common')
   const f = useFormat()
@@ -126,7 +124,6 @@ export function CompareGrid({ columns, brief, origin, unlistedId, pickedId, onPi
   })
 
   // ---- price: the voucher price (headline), the standard price struck beside it, the saving; or the per-guest rates without a date
-  const lock = audience === 'guest'
   if (hasDate) {
     add({
       id: 'price', label: t('clientSavedCompareCompareRowPrice'),
@@ -146,13 +143,6 @@ export function CompareGrid({ columns, brief, origin, unlistedId, pickedId, onPi
                 <span aria-hidden="true">
                   <Price fils={i.col.savings.fils} size="card" />
                 </span>
-              </span>
-            ) : null}
-            {lock ? (
-              <span className="svd-lockpair">
-                <Icon name="ticket" size="xs" tone="secondary" />
-                <Icon name="lock" size="xs" tone="secondary" />
-                <span className="gz-sr-only">{c('commonLabelGuestVoucher')}</span>
               </span>
             ) : null}
           </>

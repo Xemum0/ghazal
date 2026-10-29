@@ -1,17 +1,16 @@
 // CL-RVRW-01 Reviews. Requirements: CA-VDET-20, CA-REV-05, CA-REV-06, CA-CARD-03, CA-CARD-04.
 // All reviews of one venue, built to the text diet (ADR 0034): the score as a figure with the four categories as glyph + bar + figure, one
-// strip that says what the viewer can do (write, wait for the event date, sign in), a rail of glyph chips, and the reviews five at a time
+// strip that says what the viewer can do (write, wait for the event date), a rail of glyph chips, and the reviews five at a time
 // with the venue's reply under them and a report control on every one. The rules of reviews (real events only, venues reply once and
-// cannot remove) live behind the (i) beside the count. Reading is open to everyone (ADR 0007); "Write review" appears only for someone
+// cannot remove) live behind the (i) beside the count. "Write review" appears only for someone
 // with a completed booking here. A venue with no reviews reads "New", never 0.0.
-// Navigates to CL-RVRW-02 (write), CL-AUTH-01 (sign in, the review gate) and back to CL-VENU-01.
+// Navigates to CL-RVRW-02 (write) and back to CL-VENU-01.
 import { useState } from 'react'
 import {
   Banner, Button, Chip, EmptyState, ErrorState, FactChip, Figures, Icon, IconListRow, PickerSheet, RadioGroup, Radio, Screen, Skeleton, SkeletonText, TopBar, useNav,
 } from '../../../system'
 import type { IconName } from '@gz/tokens'
 import { reviewsFor } from '../../../mock'
-import { usePrototype } from '../../../shell/state'
 import { NEW_VENUE_ID, SORTS, bookingById, eligibilityAt, filterReviews, ownReview, upcomingStayAt, venueById, venueReviews, type ReviewFilter, type ReviewSort } from './_components/model'
 import { Fx } from './_components/Fx'
 import { ReviewItem } from './_components/ReviewItem'
@@ -37,8 +36,7 @@ export default function ReviewsList() {
   const { t, tc, bi, f, dayMonth } = useRr()
   const nav = useNav<{ venueId?: string }>()
   const state = useStateParam()
-  const { live, guest } = useViewer(state)
-  const auth = usePrototype(s => s.auth)
+  useViewer(state)
   const sent = useRewardsFlow(s => s.sent)
   const reportedIds = useRewardsFlow(s => s.reported)
 
@@ -54,8 +52,7 @@ export default function ReviewsList() {
   const [reportFor, setReportFor] = useState<string | null>(state === 'report-sheet' ? (list[0]?.id ?? null) : null)
   const [reason, setReason] = useState<Reason | null>(null)
 
-  const signedIn = guest ? false : live ? auth === 'signedIn' : state !== 'guest'
-  const elig = state === 'not-eligible' ? { kind: 'upcoming' as const, booking: upcomingStayAt(venue.id) } : eligibilityAt(venue.id, signedIn)
+  const elig = state === 'not-eligible' ? { kind: 'upcoming' as const, booking: upcomingStayAt(venue.id) } : eligibilityAt(venue.id)
   const ownSent = Object.values(sent).filter(s => s.venueId === venue.id)
   const reported = (id: string) => reportedIds.includes(id) || (state === 'reported' && id === list[0]?.id)
   const isNew = venue.rating.average === null || venue.rating.count === 0
@@ -102,10 +99,6 @@ export default function ReviewsList() {
     )
   }
 
-  const openGate = () => {
-    usePrototype.getState().openGate('review', { screenId: 'CL-RVRW-01', params: { venueId: venue.id } })
-    nav.openSheet('CL-AUTH-01', { params: { reason: 'review' } })
-  }
   // `from` tells the composer its way back is this very list (it pops to it instead of stacking a second one).
   const write = () => nav.push('CL-RVRW-02', { bookingId: elig.booking?.id, venueId: venue.id, from: 'list' })
   const pick = (next: ReviewFilter | null) => {
@@ -154,25 +147,6 @@ export default function ReviewsList() {
           </section>
         )
       }
-      case 'guest':
-        return (
-          <section className="rvl-pad">
-            <div className="rvl-rule" data-gz-id="reviews.rule">
-              <IconListRow
-                icon="edit"
-                title={
-                  <>
-                    {t('clientReviewsRewardsListSignIn')}
-                    <span className="gz-sr-only"> {t('clientReviewsRewardsListSignInName')}</span>
-                  </>
-                }
-                onClick={openGate}
-                flush
-                last
-              />
-            </div>
-          </section>
-        )
       default:
         return null
     }

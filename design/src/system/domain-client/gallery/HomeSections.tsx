@@ -12,9 +12,9 @@ import { Row, Section, Spec, STORY_BRIEF, useL } from './kit'
 export function BriefSection() {
   const l = useL()
   const [field, setField] = useState<string | null>(null)
-  const partial: Brief = { audience: 'women', areaIds: [], guests: null, date: null, budget: null }
+  const partial: Brief = { audience: 'women', guests: null, date: null, budget: null }
   const noBudgetCap: Brief = { ...STORY_BRIEF, budget: { min: { fils: 35000000, currency: 'KWD' }, max: null } }
-  const manyAreas: Brief = { ...STORY_BRIEF, areaIds: ['salmiya', 'sharq', 'jabriya', 'mishref'] }
+  const manyAreas = { ...STORY_BRIEF, governorateIds: ['capital', 'hawalli', 'farwaniya', 'ahmadi'] }
   return (
     <Section
       id="brief"
@@ -28,7 +28,7 @@ export function BriefSection() {
         <BriefCard brief={STORY_BRIEF} count={38} onEdit={f => setField(f)} onShow={() => undefined} />
         <p className="gc-cap gz-t-caption">{field ? `→ ${field}` : ' '}</p>
       </Spec>
-      <Spec state={l('Partly empty: muted placeholders, no count (offline) · open budget · four areas', 'ناقصة: نصوص بديلة هادئة بلا عدد (دون اتصال) · ميزانية مفتوحة · أربع مناطق')}>
+      <Spec state={l('Partly empty: muted placeholders, no count (offline) · open budget · four governorates', 'ناقصة: نصوص بديلة هادئة بلا عدد (دون اتصال) · ميزانية مفتوحة · أربع محافظات')}>
         <BriefCard brief={partial} count={null} />
         <BriefCard brief={noBudgetCap} count={null} />
         <BriefCard brief={manyAreas} count={12} />

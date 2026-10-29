@@ -7,7 +7,6 @@ import { getVenue } from '../../../../mock'
 import { useFormat, useT } from '../../../../i18n'
 import { useLang } from '../../../../shell/lang'
 import { useDevice } from '../../../../shell/device/context'
-import { usePrototype } from '../../../../shell/state'
 import { useBi, useDuration } from '../../../../system'
 import { CHAT_LIMITS } from './model'
 
@@ -19,7 +18,6 @@ export function useMsg() {
   const duration = useDuration()
   const { lang, isRtl } = useLang()
   const live = useDevice().mode === 'live'
-  const auth = usePrototype(s => s.auth)
 
   /**
    * `11 Nov` / `11 نوفمبر`: the day and the short month name, no weekday, no year (a list column is narrow; the full `11 November` pushes a venue name
@@ -63,5 +61,5 @@ export function useMsg() {
 
   const clock = (seconds: number): string => `${f.integer(Math.floor(seconds / 60))}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`
 
-  return { t, tc, f, bi, lang, isRtl, live, auth, duration, dayMonthShort, rowTime, sectionIcon, audienceLabel, guestCount, hoursLeft, nameOf, limits, clock }
+  return { t, tc, f, bi, lang, isRtl, live, duration, dayMonthShort, rowTime, sectionIcon, audienceLabel, guestCount, hoursLeft, nameOf, limits, clock }
 }

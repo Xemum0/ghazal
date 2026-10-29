@@ -99,7 +99,7 @@ PackageCatalog:
   required: [packages, extras]
   properties:
     packages: { type: array, items: { $ref: PackageEditor } }
-    extras: { type: array, items: { $ref: Extra } }
+    extras: { type: array, items: { $ref: Extra }, deprecated: true, description: 'DEPRECATED since round 2 (CA-SVC-19): always an empty list; the Partner app has no Extras tab.' }
 PackageInput:
   type: object
   description: The editor of HL-VENU-03. Headline prices of the package are derived by the server from the rules.

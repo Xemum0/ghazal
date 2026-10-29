@@ -5,6 +5,7 @@ import '../core/app.dart';
 import '../core/problem.dart';
 import '../core/request.dart';
 import '../db/mock_db.dart';
+import '../domain/applications.dart';
 import '../domain/notify.dart';
 import '../engine/engine.dart';
 import 'common.dart';
@@ -37,7 +38,14 @@ Json _membership(MockApp app, Membership m) => {
   'pendingRequests': _pending(app, m),
   'feeExempt': m.feeExempt,
   'status': m.status,
+  'application': _applicationView(app, m.accountId),
 };
+
+/// The application of an account in its wire shape (null when the account was assigned by Ghazal).
+Json? _applicationView(MockApp app, String accountId) {
+  final a = applicationOfAccount(app, accountId);
+  return a == null ? null : wire(a);
+}
 
 Json _partnerMe(MockApp app, Req r) {
   final ms = app.membershipsOf(r.userId);
@@ -66,52 +74,21 @@ Json _staff(MockApp app, Req r) {
   return s;
 }
 
+/// The application the caller is working on: the one of the context account, else their own latest one.
+Json _ownApplication(MockApp app, Req r) {
+  final ctxAccount = app.db.peek('Session', r.identity!.sessionId)?.objOrNull('context')?['accountId'];
+  final mine = app.db.raw('PartnerApplication').where((a) => a['_userId'] == r.userId).toList();
+  final pick =
+      mine.cast<Json?>().firstWhere((a) => a!['accountId'] == ctxAccount, orElse: () => null) ?? (mine.isEmpty ? null : mine.last);
+  if (pick == null) throw ApiError.notFound('application');
+  return deepCopy(pick);
+}
+
 Map<String, Handler> partnerAccountHandlers(MockApp app) => {
   'getPartnerMe': (r) => _partnerMe(app, r),
   'chooseAccountType': (r) {
-    final type = r.b.str('accountType');
-    final seq = app.db.next('account');
-    final accountId = 'partner-m$seq';
-    String? providerId;
-    if (type == 'service_provider') {
-      providerId = 'vendor-m$seq';
-      final cat = app.seed.rows('ServiceCategory').first;
-      final area = app.seed.rows('Area').first;
-      app.db.put('ServiceProvider', {
-        'id': providerId,
-        'categoryId': cat['id'],
-        'alsoCategoryIds': <String>[],
-        'name': r.b['name'],
-        'monogram': (r.b.obj('name').strOrNull('ar') ?? r.b.obj('name').strOrNull('en') ?? '?').isEmpty
-            ? '?'
-            : String.fromCharCode((r.b.obj('name').strOrNull('ar') ?? r.b.obj('name').strOrNull('en') ?? '?').runes.first),
-        'areaId': area['id'],
-        'governorateId': area['governorateId'],
-        'about': {'en': '', 'ar': ''},
-        'rating': null,
-        'from': fils(0),
-        'fromVoucher': null,
-        'fromUnit': {'en': 'per service', 'ar': 'للخدمة'},
-        'packages': <Json>[],
-        'portfolio': <Json>[],
-        'tags': <Json>[],
-        'femaleTeamForLadies': false,
-        'usuallyRepliesHours': 24,
-        'verified': false,
-        'phone': app.requireUser(r.userId)['phone'] ?? '',
-      });
-    }
-    app.db.put('PartnerAccount', {
-      'id': accountId,
-      'type': type,
-      'name': r.b['name'],
-      'venueIds': <String>[],
-      'providerId': providerId,
-      'ownerUserId': r.userId,
-      'feeExempt': false,
-      'status': 'under_review',
-      'createdAt': app.now,
-    });
+    final created = submitApplication(app, userId: r.userId, accountType: r.b.str('accountType'), form: r.b);
+    final accountId = created.accountId, providerId = created.providerId, type = r.b.str('accountType');
     final session = app.db.get('Session', r.identity!.sessionId);
     if (session != null) {
       session['context'] = {'accountId': accountId, 'venueId': null, 'providerId': providerId};
@@ -134,7 +111,33 @@ Map<String, Handler> partnerAccountHandlers(MockApp app) => {
     app.db.put('Session', session);
     return _partnerMe(app, r);
   },
-  'getPartnerAccount': (r) => wire(partnerAccountOf(app, r)),
+  'getPartnerAccount': (r) {
+    final account = partnerAccountOf(app, r);
+    return {...wire(account), 'application': _applicationView(app, account.str('id'))};
+  },
+  'getPartnerApplication': (r) => wire(_ownApplication(app, r)),
+  'resubmitPartnerApplication': (r) {
+    final a = _ownApplication(app, r);
+    if (a['status'] != 'rejected') throw ApiError('APPLICATION_NOT_EDITABLE', currentStatus: a.str('status'));
+    checkApplicationForm(app, r.b, a.str('accountType'));
+    final next = {
+      ...a,
+      ...applicationFields(r.b),
+      'status': 'pending',
+      'rejectionReason': null,
+      'submittedAt': app.now,
+      'decidedAt': null,
+    };
+    app.db.put('PartnerApplication', next);
+    final account = app.db.get('PartnerAccount', a.str('accountId'));
+    if (account != null) {
+      account['name'] = next['name'];
+      app.db.put('PartnerAccount', account);
+      applyApplicationToProvider(app, account.strOrNull('providerId'), next);
+    }
+    app.logEvent('partner_application_resubmitted', {'applicationId': a['id'], 'accountId': a['accountId']});
+    return wire(next);
+  },
   'listStaff': (r) {
     final venueId = r.ctx.venueId;
     if (venueId == null) return {'staff': <Json>[], 'invitations': <Json>[]};

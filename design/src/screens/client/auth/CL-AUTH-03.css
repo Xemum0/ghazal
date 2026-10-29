@@ -1,4 +1,4 @@
-/* CL-AUTH-03: the monogram preview sits at the title row's end edge; what the device carries over is one row of facts; consent is a two-word box with its info glyph. */
+/* CL-AUTH-03: the monogram preview sits at the title row's end edge; the sex tiles come from _components/SexChoice; consent is a two-word box with its info glyph. */
 .gza03-disk {
   display: flex;
   align-items: center;
@@ -16,16 +16,6 @@
   word-spacing: 0;
 }
 
-.gza03-kept {
-  display: flex;
-  align-items: center;
-  gap: var(--gz-space-3);
-}
-
-.gza03-kept .gz-icon {
-  flex: none;
-}
-
 /* The checkbox hugs its label so the info glyph sits right beside it; the glyph's 44 target is part of the row. */
 .gza03-agree {
   display: flex;
@@ -36,4 +26,9 @@
 .gza03-agree .gz-check-wrap,
 .gza03-agree .gz-check {
   flex: none;
+}
+
+/* The form is the page: name, sex tiles and email, then the consent line. */
+.gza03 {
+  gap: var(--gz-space-5);
 }

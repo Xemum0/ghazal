@@ -104,23 +104,19 @@ export function PriceCompareSection() {
       id="price-compare"
       title={l('Price compare', 'مقارنة السعر')}
       note={l(
-        'The two prices of one quote on the same basis. The voucher price is the headline in the figures voice; the standard price sits under it, quiet and struck through; then the saving, the net saving after the KD 2 voucher and the basis. A signed-out visitor sees the standard price and a locked voucher teaser with a sign-up action.',
-        'السعران لعرض واحد بالأساس نفسه. سعر الكوبون هو العنوان بصوت الأرقام، والسعر العادي تحته هادئًا ومشطوبًا؛ ثم التوفير والتوفير الصافي بعد كوبون 2 د.ك والأساس. يرى الزائر غير المسجّل السعر العادي ولمحة مقفلة عن سعر الكوبون مع إجراء التسجيل.',
+        'The two prices of one quote on the same basis. The voucher price is the headline in the figures voice; the standard price sits under it, quiet and struck through; then the saving, the net saving after the KD 2 voucher and the basis.',
+        'السعران لعرض واحد بالأساس نفسه. سعر الكوبون هو العنوان بصوت الأرقام، والسعر العادي تحته هادئًا ومشطوبًا؛ ثم التوفير والتوفير الصافي بعد كوبون 2 د.ك والأساس.',
       )}
     >
-      <Spec state={l('Package · 350 guests · registered', 'باقة · 350 ضيفًا · مسجّل')}>
+      <Spec state={l('Package · 350 guests', 'باقة · 350 ضيفًا')}>
         <PriceCompare standard={std} voucher={vch} structure="package" guests={350} />
       </Spec>
       <Spec state={l('Per person · hero size', 'للضيف · حجم العنوان')}>
         <PriceCompare standard={52000} voucher={44000} structure="per_person" guests={350} size="display" />
       </Spec>
-      <Spec state={l('Guest (signed out): the voucher price is behind registration', 'زائر (غير مسجّل): سعر الكوبون خلف التسجيل')}>
-        <PriceCompare standard={std} voucher={vch} structure="package" guests={350} audience="guest" onRegister={() => undefined} />
-      </Spec>
-      <Spec state={l('Inline for cards and rows · registered · guest', 'سطر واحد للبطاقات والصفوف · مسجّل · زائر')}>
+      <Spec state={l('Inline for cards and rows', 'سطر واحد للبطاقات والصفوف')}>
         <PriceCompare standard={52000} voucher={44000} structure="per_person" guests={350} variant="inline" />
         <PriceCompare standard={std} voucher={vch} structure="package" variant="inline" />
-        <PriceCompare standard={52000} voucher={44000} structure="per_person" guests={350} variant="inline" audience="guest" />
       </Spec>
       <Spec state={l('No voucher price: the standard price alone, no strike, no voucher mention', 'لا سعر كوبون: السعر العادي وحده بلا شطب ولا إشارة للكوبون')}>
         <PriceCompare standard={std} voucher={null} structure="package" guests={350} />

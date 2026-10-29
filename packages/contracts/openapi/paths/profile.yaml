@@ -6,7 +6,7 @@
     responses: { 200: Me }
   patch:
     operationId: updateMe
-    summary: Update name, email, language, digit style, marketing opt-in (CA-PROF-01, CA-PROF-07)
+    summary: Update name, sex, email, language, digit style, marketing opt-in (CA-PROF-01, CA-PROF-07, CA-AUTH-14)
     x-roles: [client, partner]
     body: UpdateMeInput
     responses: { 200: Me }
@@ -17,6 +17,14 @@
     x-roles: [client]
     x-errors: [ACCOUNT_DELETION_BLOCKED, STEP_UP_REQUIRED]
     responses: { 202: AccountDeletionStatus }
+/me/complete:
+  post:
+    operationId: completeProfile
+    summary: Complete a new client account with name, sex and terms (CL-AUTH-03, CA-AUTH-14)
+    description: 'Name and sex are required (a missing sex is 422 VALIDATION_FAILED with `errors: [{path: "/sex", code: "required"}]`). Sets `User.sex`, stores the terms acceptance and clears `isNewUser` for the next sign-in. Name and sex stay editable with `updateMe`.'
+    x-roles: [client]
+    body: CompleteProfileInput
+    responses: { 200: Me }
 /me/devices/{deviceId}:
   put:
     operationId: registerDevice

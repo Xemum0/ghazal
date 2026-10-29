@@ -685,6 +685,7 @@ final class AppConfig {
     required this.occasions,
     required this.availabilityWindow,
     required this.minAppVersion,
+    this.partnerAppUrl,
   });
 
   factory AppConfig.fromJson(Map<String, Object?> json) {
@@ -696,6 +697,7 @@ final class AppConfig {
         occasions: reqField(json, 'occasions', (v) => asList(v, (v1) => Occasion.fromJson(asMap(v1)))),
         availabilityWindow: reqField(json, 'availabilityWindow', (v) => DateRange.fromJson(asMap(v))),
         minAppVersion: reqField(json, 'minAppVersion', (v) => asString(v)),
+        partnerAppUrl: optField(json, 'partnerAppUrl', (v) => asString(v)),
       );
     } on FormatException catch (e) {
       throw FormatException('AppConfig: ${e.message}');
@@ -710,6 +712,8 @@ final class AppConfig {
   final List<Occasion> occasions;
   final DateRange availabilityWindow;
   final String minAppVersion;
+  /// Store page of the Partner app, shown by the note for service providers in the Client app (CA-SVC-20, OQ-R2-04). Configuration, not a literal.
+  final String? partnerAppUrl;
 
   Map<String, Object?> toJson() => {
       'serverNow': instantToJson(serverNow),
@@ -718,6 +722,7 @@ final class AppConfig {
       'occasions': occasions.map((v1) => v1.toJson()).toList(),
       'availabilityWindow': availabilityWindow.toJson(),
       'minAppVersion': minAppVersion,
+      if (partnerAppUrl != null) 'partnerAppUrl': partnerAppUrl!,
       };
 
   AppConfig copyWith({
@@ -727,6 +732,7 @@ final class AppConfig {
     List<Occasion>? occasions,
     DateRange? availabilityWindow,
     String? minAppVersion,
+    Object? partnerAppUrl = unsetValue,
   }) => AppConfig(
       serverNow: serverNow ?? this.serverNow,
       timezone: timezone ?? this.timezone,
@@ -734,6 +740,7 @@ final class AppConfig {
       occasions: occasions ?? this.occasions,
       availabilityWindow: availabilityWindow ?? this.availabilityWindow,
       minAppVersion: minAppVersion ?? this.minAppVersion,
+      partnerAppUrl: identical(partnerAppUrl, unsetValue) ? this.partnerAppUrl : partnerAppUrl as String?,
       );
 
   @override
@@ -745,10 +752,11 @@ final class AppConfig {
           other.config == config &&
           deepEquals(other.occasions, occasions) &&
           other.availabilityWindow == availabilityWindow &&
-          other.minAppVersion == minAppVersion;
+          other.minAppVersion == minAppVersion &&
+          other.partnerAppUrl == partnerAppUrl;
 
   @override
-  int get hashCode => Object.hashAll([serverNow, timezone, config, deepHash(occasions), availabilityWindow, minAppVersion]);
+  int get hashCode => Object.hashAll([serverNow, timezone, config, deepHash(occasions), availabilityWindow, minAppVersion, partnerAppUrl]);
 
   @override
   String toString() => 'AppConfig(${toJson()})';

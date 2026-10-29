@@ -47,7 +47,7 @@ const _jsonHeaders = {'content-type': 'application/json; charset=utf-8'};
 const _problemHeaders = {'content-type': 'application/problem+json; charset=utf-8'};
 
 /// Operations of `/partner/*` that run without a venue or provider context (they establish or list it).
-const _noContextOps = {'getPartnerMe', 'chooseAccountType', 'switchPartnerContext'};
+const _noContextOps = {'getPartnerMe', 'chooseAccountType', 'switchPartnerContext', 'getPartnerApplication', 'resubmitPartnerApplication'};
 
 /// Cross-app operations that serve a partner when a context header is present (chat, notifications, support).
 const _optionalContextOps = {

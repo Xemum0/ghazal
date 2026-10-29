@@ -17,7 +17,7 @@
 /auth/register:
   post:
     operationId: registerAccount
-    summary: Create a password account and start phone verification (CA-AUTH-01, CA-AUTH-11)
+    summary: Create a password account (name, sex, terms) and start phone verification (CA-AUTH-01, CA-AUTH-11, CA-AUTH-14)
     x-access: guest
     body: RegisterInput
     x-errors: [RATE_LIMITED]

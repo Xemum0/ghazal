@@ -156,9 +156,4 @@
   white-space: nowrap;
 }
 
-/* A guest sees the voucher price locked: the ticket and the lock, no sentence (the sentence is the accessible name). */
-.svd-row__lock {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--gz-space-1);
-}
+

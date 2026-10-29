@@ -60,7 +60,7 @@ abstract interface class PartnerVenueRepository {
     required VenueAmenities body,
   });
 
-  /// Packages with their price rules, and extras (HL-VENU-02)
+  /// Packages with their price rules (HL-VENU-02); `extras` is always empty since round 2
   ///
   /// `GET /partner/venue/packages`
   /// Access: signed in; roles: partner; permissions: booking:read.
@@ -87,7 +87,7 @@ abstract interface class PartnerVenueRepository {
     required String ifMatch,
   });
 
-  /// Add an extra priced by the venue
+  /// Add an extra priced by the venue (deprecated since round 2, CA-SVC-19)
   ///
   /// `POST /partner/venue/extras`
   /// Access: signed in; roles: partner; permissions: package:write.
@@ -97,7 +97,7 @@ abstract interface class PartnerVenueRepository {
     String? idempotencyKey,
   });
 
-  /// Replace an extra
+  /// Replace an extra (deprecated since round 2, CA-SVC-19)
   ///
   /// `PUT /partner/venue/extras/{extraId}`
   /// Access: signed in; roles: partner; permissions: package:write.

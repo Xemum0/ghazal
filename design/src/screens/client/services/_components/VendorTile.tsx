@@ -19,12 +19,10 @@ export type VendorTileProps = {
   favourite?: boolean
   onFavouriteChange?: (next: boolean) => void
   onOpen?: () => void
-  /** `guest`: signed out; the voucher price shows with a lock (CA-VCH-04). */
-  audience?: 'member' | 'guest'
   loading?: boolean
 }
 
-export function VendorTile({ vendor, favourite, onFavouriteChange, onOpen, audience = 'member', loading }: VendorTileProps) {
+export function VendorTile({ vendor, favourite, onFavouriteChange, onOpen, loading }: VendorTileProps) {
   const t = useT('client-services')
   const c = useT('common')
   const { lang } = useLang()
@@ -78,7 +76,7 @@ export function VendorTile({ vendor, favourite, onFavouriteChange, onOpen, audie
           {area ? <FactChip icon="pin" label={t('clientServicesArea')} value={<Fx text={bi(area.name)} />} tone="muted" /> : null}
         </FactRow>
         <div className="gzs-vtile__price" data-gz-id="price">
-          <PriceStack standard={vendor.from.fils} voucher={fromVoucherOf(vendor)} categoryId={vendor.categoryId} audience={audience} variant="tile" />
+          <PriceStack standard={vendor.from.fils} voucher={fromVoucherOf(vendor)} categoryId={vendor.categoryId} variant="tile" />
         </div>
       </div>
       <button type="button" className="gz-reset gzs-vtile__open" onClick={onOpen} aria-label={name} />

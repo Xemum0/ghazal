@@ -1,5 +1,5 @@
 // useWedding(): the one place the My Wedding screens learn where the wedding file stands. In the live player it follows the prototype
-// store (guest or signed in, the story booking as the hotel app moves it, the 24 h confirmation); in a static frame it is explicit: the
+// store (the story booking as the hotel app moves it, the 24 h confirmation); in a static frame it is explicit: the
 // `?state=` of the frame, else the confirmed variant (the inventory's demo). Static frames never read the flow-local tools store.
 import { useMemo } from 'react'
 import { INERT_NAV, useNav } from '../../../../system'
@@ -32,8 +32,6 @@ const STATIC_DEFAULT: Scenario = { phase: 'confirmed', days: engine.diffDays(clo
 
 export type WeddingView = Scenario & {
   inert: boolean
-  /** Signed in or a guest (a guest sees the sample structure, ADR 0007 D8). */
-  guest: boolean
   /** The wedding date, civil; null while there is none. */
   eventDate: string | null
   /** The civil date "today" is in this view (moved in the wedding-week, day-of and post-event frames). */
@@ -49,7 +47,6 @@ const EMPTY_TOOLS = { done: {}, custom: [], removed: [], expenses: [], total: un
 export function useWedding(): WeddingView {
   const inert = useInert()
   const state = useStateParam()
-  const auth = usePrototype(s => s.auth)
   const profile = usePrototype(s => s.weddingProfile)
   const hotelBookings = usePrototype(s => s.hotelBookings)
   const vouchers = usePrototype(s => s.vouchers)
@@ -68,7 +65,6 @@ export function useWedding(): WeddingView {
     let eventDate: string | null = weddingProfile.weddingDate
     if (explicit) scenario = explicit
     else if (inert) scenario = STATIC_DEFAULT
-    else if (auth === 'guest') scenario = scenarioOf('guest-teaser')!
     else if (!profile?.weddingDate) {
       scenario = scenarioOf('no-date')!
       eventDate = null
@@ -99,8 +95,8 @@ export function useWedding(): WeddingView {
     else if (!explicit && !inert && scenario.phase === 'pre-venue' && userId === meta.clientUserId) voucher = vouchers.find(v => v.clientId === userId && v.status === 'active') ?? null
     // Static frames never read what was played in the player.
     const tools = inert ? EMPTY_TOOLS : { done, custom, removed, expenses, total, alloc, plannerHidden }
-    return { ...scenario, dateDiffers, inert, guest: Boolean(scenario.guest), eventDate, today: todayOf(scenario.days), booking, voucher, tools }
-  }, [state, inert, auth, profile, hotelBookings, vouchers, userId, done, custom, removed, expenses, total, alloc, plannerHidden])
+    return { ...scenario, dateDiffers, inert, eventDate, today: todayOf(scenario.days), booking, voucher, tools }
+  }, [state, inert, profile, hotelBookings, vouchers, userId, done, custom, removed, expenses, total, alloc, plannerHidden])
 }
 
 /** The checklist of the current view. */
@@ -113,7 +109,7 @@ export function useChecklistModel(w: WeddingView) {
 export function useBudgetModel(w: WeddingView, variant?: 'alert-80' | 'over-budget' | null, empty?: boolean): BudgetModel {
   const profileTotal = usePrototype(s => s.weddingProfile?.totalBudget ?? null)
   const hasProfile = usePrototype(s => s.weddingProfile !== null)
-  const unset = empty || (!w.inert && !w.guest && hasProfile && profileTotal === null && w.tools.total === undefined)
+  const unset = empty || (!w.inert && hasProfile && profileTotal === null && w.tools.total === undefined)
   return useMemo(
     () => buildBudget({ status: w.status, total: unset ? null : w.tools.total, alloc: w.tools.alloc, expenses: w.tools.expenses, variant, voucherPaid: w.voucher !== null }),
     [w.status, w.tools, w.voucher, variant, unset],

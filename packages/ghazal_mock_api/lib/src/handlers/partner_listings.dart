@@ -75,6 +75,7 @@ Map<String, Handler> partnerListingsHandlers(MockApp app) => {
     app.requirePermission(r, 'listing:manage');
     final provider = _provider(app, r);
     final account = partnerAccount(app, r);
+    requireAcceptedAccount(app, account.str('id')); // PA-ACC-07: staff accept the application first
     final id = 'lst-m${app.db.next('listing').toString().padLeft(3, '0')}';
     final l = <String, dynamic>{
       'id': id,

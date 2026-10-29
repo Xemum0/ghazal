@@ -29,21 +29,20 @@ export type LanguageSlice = {
   setLanguage: (lang: Lang) => void
 }
 
-// ---------------------------------------------------------------- auth (ADR 0007 D8, D9)
+// ---------------------------------------------------------------- auth (ADR 0038: no guest mode)
+/** `guest` is only the signed-out state: the Client app shows nothing but the first-run screens (language, introduction, sign-in) until `signIn`. The Partner app has its own signed-out screens (HL-ACCS-*). */
 export type AuthLevel = 'guest' | 'signedIn'
-export type AuthUser = { id: string; name: string; phone: string; monogram: string }
-/** The commit moments that open the guest-gate sheet (ADR 0007 D8, hard gate; ADR 0033: the commit moments are getting a voucher, sending a request, booking a visit and writing a message). */
-export type GateReason = 'send-request' | 'voucher' | 'visit' | 'chat' | 'review' | 'planner' | 'quote' | 'save'
-export type AuthGate = { reason: GateReason; resume: { screenId: string; params?: Record<string, unknown> } | null }
+/** Required at sign-up, editable in Profile (ADR 0038 D4, OQ-R2-02): not shown to venues and not used to filter. */
+export type Sex = 'female' | 'male'
+export type AuthUser = { id: string; name: string; phone: string; monogram: string; sex?: Sex }
 
 export type AuthSlice = {
   auth: AuthLevel
   user: AuthUser | null
-  gate: AuthGate | null
   signIn: (user?: AuthUser) => void
   signOut: () => void
-  openGate: (reason: GateReason, resume?: AuthGate['resume']) => void
-  clearGate: () => void
+  /** Name and sex are editable in Profile (CL-PROF-03); the monogram follows the name. */
+  patchUser: (patch: Partial<Pick<AuthUser, 'name' | 'sex' | 'monogram'>>) => void
 }
 
 // ---------------------------------------------------------------- wedding profile (onboarding result)
@@ -57,7 +56,10 @@ export type WeddingProfileState = {
   guests: { women: number; men: number }
   venueBudget: { min: Money; max: Money } | null
   totalBudget: Money | null
+  /** Retired by ADR 0038 (no exact-area choice anywhere in the Client app): kept so an older profile still reads; new answers go to `governorateIds`. */
   areaIds: string[]
+  /** ADR 0038 (CA-FLT-08): the governorates the couple prefers. Undefined = derive from `areaIds`. */
+  governorateIds?: string[]
   searching: Audience[]
 }
 
@@ -67,15 +69,12 @@ export type WeddingSlice = {
   patchWeddingProfile: (patch: Partial<WeddingProfileState>) => void
 }
 
-// ---------------------------------------------------------------- favourites and compare (ADR 0007 D10, ADR 0009)
+// ---------------------------------------------------------------- favourites and compare (ADR 0009)
 export type FavouriteKind = 'venue' | 'vendor' | 'package'
 export type FavouritesSlice = {
   favourites: Record<FavouriteKind, string[]>
-  /** True once the third heart is placed by a guest: the sign-up nudge shows once (ADR 0007 D10). */
-  signupNudge: boolean
   /** Returns the new state of the heart. */
   toggleFavourite: (kind: FavouriteKind, id: string) => boolean
-  clearSignupNudge: () => void
 }
 
 export const COMPARE_MAX = 3
@@ -93,6 +92,8 @@ export type CompareSlice = {
 // ---------------------------------------------------------------- the Brief (ADR 0007 D3)
 export type SearchBrief = Brief & {
   dateMode: 'exact' | 'flexible_month' | 'undecided'
+  /** ADR 0038: the only region the client chooses. Undefined = derive from `areaIds` of an older Brief (briefGovernorates); [] = every governorate. */
+  governorateIds?: string[]
 }
 export type BriefSlice = {
   searchBrief: SearchBrief

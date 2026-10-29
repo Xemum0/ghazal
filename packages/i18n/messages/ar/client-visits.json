@@ -46,8 +46,6 @@
   "clientVisitsPhotoViewer": "الصور",
   "clientVisitsGetVoucher": "الكوبون",
   "clientVisitsConfirmedToast": "الموعد مؤكد",
-  "clientVisitsGuestTitle": "زياراتكم",
-  "clientVisitsGuestAction": "تسجيل الدخول",
   "clientVisitsMsgSending": "جاري الإرسال",
   "clientVisitsMsgQueued": "بانتظار الاتصال",
   "clientVisitsMsgDelete": "حذف",

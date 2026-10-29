@@ -1114,6 +1114,29 @@ checkBilingual(allFixtures, '$')
   ok(!('voucherRefundDaysAfterExpiry' in CFG) && CFG.creditVoucherValidityDays === 60, 'config', 'no refund window; credit vouchers last 60 days')
 }
 
+// ---------------------------------------------------------------- round 2 (ADR 0038): sex on client accounts, governorates as the client's region
+{
+  // CA-AUTH-14 / OQ-R2-02: every client account carries a sex (female or male); staff and support accounts none; Reem is the hero (female)
+  const clients = people.users.filter((u) => u.role === 'client')
+  ok(clients.length >= 30, 'people', 'the client accounts are there')
+  for (const u of clients) ok(u.sex === 'female' || u.sex === 'male', u.id, 'a client account has a sex (female or male)')
+  for (const u of people.users.filter((x) => x.role !== 'client')) ok(!('sex' in u), u.id, 'staff and support accounts carry no sex')
+  ok(people.users.find((u) => u.id === meta.clientUserId)?.sex === 'female', meta.clientUserId, 'the hero client is female')
+  ok(clients.some((u) => u.sex === 'male') && clients.some((u) => u.sex === 'female'), 'people', 'both sex values are seeded')
+  // CA-FLT-08 / OQ-R2-01: Kuwait's six official governorates are the configured list, each in Arabic and English, ids unique
+  ok(governorates.map((g) => g.id).join() === 'capital,hawalli,farwaniya,ahmadi,jahra,mubarak-al-kabeer', 'governorates', 'the six official governorates in the configured order')
+  for (const g of governorates) ok(!!g.name.en && !!g.name.ar && /[\u0600-\u06FF]/.test(g.name.ar), g.id, 'a governorate has an English and an Arabic name')
+  ok(new Set(governorates.map((g) => g.id)).size === governorates.length, 'governorates', 'governorate ids are unique')
+  for (const g of governorates) ok(areas.some((a) => a.governorateId === g.id), g.id, 'every governorate has at least one area')
+  // the couple's Brief is a list of governorates (empty = all); the older exact areas stay and agree with them
+  const WP = client.weddingProfile
+  ok(Array.isArray(WP.governorateIds) && WP.governorateIds.every((id) => governorates.some((g) => g.id === id)), 'wedding', 'the profile governorates exist')
+  ok(WP.areaIds.every((id) => WP.governorateIds.includes(areas.find((a) => a.id === id)?.governorateId)), 'wedding', 'the older Brief areas lie inside the profile governorates')
+  // the governorates partition the venues (the search filter itself is pinned by the shared engine cases, see tools/export-engine-cases.mjs)
+  const perGov = governorates.map((g) => venues.filter((v) => v.governorateId === g.id).length)
+  ok(perGov.reduce((x, y) => x + y, 0) === venues.length, 'venues', 'every venue lies in exactly one configured governorate')
+}
+
 // ---------------------------------------------------------------- report
 const withErr = errors.length
 console.log(`checks: ${checks}, errors: ${withErr}, warnings: ${warnings.length}`)

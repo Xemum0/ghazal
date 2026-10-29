@@ -79,7 +79,7 @@ export default function ClAuth05() {
     nav.closeSheet()
     nav.push('CL-PROF-05')
   }
-  const withCode = () => nav.openSheet('CL-AUTH-01', { params: { reason: null } })
+  const withCode = () => nav.push('CL-AUTH-01')
   const withPassword = () => nav.push('CL-AUTH-04', { mode: 'signin' })
 
   // ---------------------------------------------------------------- the sheet surfaces (pre-prompt, enabled)

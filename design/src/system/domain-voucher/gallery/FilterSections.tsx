@@ -23,11 +23,11 @@ export function FilterSection() {
       id="filters"
       title={l('Search filters', 'مرشحات البحث')}
       note={l(
-        'The owner’s filter list as four small components over the shared inputs: governorate (one scrolling rail of the six governorates), venue type (private hall, governmental facility, hotel), capacity range (a dual slider whose start value sits at the inline-start, mirrored in Arabic) and pricing structure (per person or packages).',
-        'قائمة المرشحات التي حدّدها المالك في أربعة مكوّنات صغيرة فوق المدخلات المشتركة: المحافظة (شريط واحد للمحافظات الست) ونوع المكان (قاعة خاصة ومنشأة حكومية وفندق) ونطاق السعة (منزلق مزدوج تقع قيمة البداية عند بداية السطر وينعكس في العربية) وطريقة التسعير (للضيف أو باقات).',
+        'The owner’s filter list as four small components over the shared inputs: governorate (wrapping multi-select chips with a pin glyph, one per governorate of the configured list, no exact area: ADR 0038), venue type (private hall, governmental facility, hotel), capacity range (a dual slider whose start value sits at the inline-start, mirrored in Arabic) and pricing structure (per person or packages).',
+        'قائمة المرشحات التي حدّدها المالك في أربعة مكوّنات صغيرة فوق المدخلات المشتركة: المحافظة (شرائح متعددة الاختيار تلتف على أكثر من سطر برمز دبوس لكل محافظة من القائمة المضبوطة، دون منطقة محددة: ADR 0038) ونوع المكان (قاعة خاصة ومنشأة حكومية وفندق) ونطاق السعة (منزلق مزدوج تقع قيمة البداية عند بداية السطر وينعكس في العربية) وطريقة التسعير (للضيف أو باقات).',
       )}
     >
-      <Spec bleed state={l('Governorate · a rail (All Kuwait first) · the screen owns the gutter', 'المحافظة · شريط (كل الكويت أولًا) · الشاشة تتولى الهامش')}>
+      <Spec state={l('Governorate · wrapping chips, multi-select · none lit = every governorate · the host writes the count in its title', 'المحافظة · شرائح تلتف، اختيار متعدد · لا شيء مضاء = كل المحافظات · المضيف يكتب العدد في عنوانه')}>
         <GovernorateFilter value={gov} onChange={setGov} />
       </Spec>
       <Spec state={l('Venue type · multi-select with a glyph each', 'نوع المكان · اختيار متعدد برمز لكل نوع')}>

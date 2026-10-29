@@ -2,47 +2,39 @@
 // One thread per counterpart (venue, planner, service provider, Ghazal Support) plus one group chat per site visit, each a monogram, a name,
 // a clock, one short line of the last message and the unread count. The filter is a row of glyphs (hall, visit, planner, services, support)
 // with the one word of the selected one underneath; the Visits glyph holds the group chats, which open CL-VIST-03. Support is pinned on top
-// and always available, a guest included. The bell opens the notification centre. A guest sees one drawing and Sign in above Support; an
+// and always available. The bell opens the notification centre. An
 // empty inbox is a drawing, three words and one action. Offline keeps the cached conversations under a one-line stamp.
 // Text diet (ADR 0034): no sentences on the screen; the status of a request is a glyph after the name, the context line is gone.
-// States: loading, empty, error, offline, guest.
+// States: loading, empty, error, offline.
 import { useMemo, useState } from 'react'
-import { Banner, Button, EmptyState, ErrorState, IconTabs, Illustration, PullToRefresh, Screen, Skeleton, TopBar, useNav } from '../../../system'
+import { Banner, EmptyState, ErrorState, IconTabs, PullToRefresh, Screen, Skeleton, TopBar, useNav } from '../../../system'
 import { useFrame } from '../../../shell/frame'
 import { MsgInboxRow as InboxRow } from './_components/MsgInboxRow'
-import { filterOf, guestSupport, useInbox, type InboxFilter, type RowModel } from './_components/model'
+import { filterOf, useInbox, type InboxFilter, type RowModel } from './_components/model'
 import { useNotificationFeed } from './_components/ntf'
 import { useMsg } from './_components/useMsg'
 import './CL-MSGS-01.css'
 
-export const states = ['loading', 'empty', 'error', 'offline', 'guest']
+export const states = ['loading', 'empty', 'error', 'offline']
 
 export default function Inbox() {
   const { state } = useFrame()
   const nav = useNav()
-  const { t, tc, f, lang, live, auth } = useMsg()
+  const { t, tc, f, lang } = useMsg()
   const [filter, setFilter] = useState<InboxFilter>('all')
   const feed = useNotificationFeed()
   const inbox = useInbox(lang)
 
-  const guest = state === 'guest' || (state === undefined && live && auth === 'guest')
   const loading = state === 'loading'
   const error = state === 'error'
   const offline = state === 'offline'
   const empty = state === 'empty'
 
-  // A guest has Support and nothing else; the cached rows of an offline frame are the same rows as the default.
-  const rows = useMemo<RowModel[]>(() => {
-    if (guest) {
-      const c = guestSupport()
-      return [{ conversation: c, preview: { kind: 'text', text: t('clientMessagesSupportIntro'), lang }, mine: false, status: 'read', at: f.now().toISOString(), unread: 0 }]
-    }
-    if (empty) return []
-    return inbox
-  }, [guest, empty, inbox, t, lang, f])
+  // The cached rows of an offline frame are the same rows as the default.
+  const rows = useMemo<RowModel[]>(() => (empty ? [] : inbox), [empty, inbox])
 
   const shown = filter === 'all' ? rows : rows.filter(r => filterOf(r.conversation) === filter)
-  const bell = { icon: 'bell' as const, label: t('clientMessagesBellUnread', { count: guest ? 0 : feed.unread }), count: guest ? undefined : feed.unread || undefined, onPress: () => nav.push('CL-MSGS-04') }
+  const bell = { icon: 'bell' as const, label: t('clientMessagesBellUnread', { count: feed.unread }), count: feed.unread || undefined, onPress: () => nav.push('CL-MSGS-04') }
 
   const open = (r: RowModel) => {
     if (r.conversation.kind === 'support') nav.push('CL-MSGS-02', { support: true })
@@ -74,7 +66,7 @@ export default function Inbox() {
     )
   } else if (error) {
     body = <ErrorState kind="load" onRetry={() => nav.replace('CL-MSGS-01')} />
-  } else if (!guest && rows.length === 0) {
+  } else if (rows.length === 0) {
     body = (
       <EmptyState
         illustration="empty-messages"
@@ -86,30 +78,21 @@ export default function Inbox() {
   } else {
     body = (
       <>
-        {guest ? (
-          <section className="gzm-ib__teaser" aria-label={t('clientMessagesGuestLabel')}>
-            <Illustration name="chat" size="md" />
-            <Button variant="primary" iconStart="sign-in" onClick={() => nav.openSheet('CL-AUTH-01')}>
-              {t('clientMessagesGuestAction')}
-            </Button>
-          </section>
-        ) : (
-          <div className="gzm-ib__tabs">
-            <IconTabs<InboxFilter>
-              label={t('clientMessagesFilterGroup')}
-              value={filter}
-              onChange={setFilter}
-              items={[
-                { value: 'all', icon: 'list', label: tc('commonFilterAll') },
-                { value: 'venues', icon: 'hall', label: t('clientMessagesFilterVenues') },
-                { value: 'visits', icon: 'calendar-check', label: t('clientMessagesFilterVisits') },
-                { value: 'planner', icon: 'user', label: t('clientMessagesFilterPlanner') },
-                { value: 'providers', icon: 'sparkle', label: t('clientMessagesFilterProviders') },
-                { value: 'support', icon: 'headset', label: t('clientMessagesFilterSupport') },
-              ]}
-            />
-          </div>
-        )}
+        <div className="gzm-ib__tabs">
+          <IconTabs<InboxFilter>
+            label={t('clientMessagesFilterGroup')}
+            value={filter}
+            onChange={setFilter}
+            items={[
+              { value: 'all', icon: 'list', label: tc('commonFilterAll') },
+              { value: 'venues', icon: 'hall', label: t('clientMessagesFilterVenues') },
+              { value: 'visits', icon: 'calendar-check', label: t('clientMessagesFilterVisits') },
+              { value: 'planner', icon: 'user', label: t('clientMessagesFilterPlanner') },
+              { value: 'providers', icon: 'sparkle', label: t('clientMessagesFilterProviders') },
+              { value: 'support', icon: 'headset', label: t('clientMessagesFilterSupport') },
+            ]}
+          />
+        </div>
         {shown.length === 0 ? (
           <EmptyState fill={false} illustration="empty-messages" title={tc('commonStateTitleEmpty')} action={{ label: tc('commonFilterAll'), onPress: () => setFilter('all') }} />
         ) : (

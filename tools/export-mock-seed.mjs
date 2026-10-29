@@ -69,12 +69,31 @@ const extra = {
   story: meta.story,
   personas: [
     { key: 'guest', kind: 'guest', userId: null },
-    { key: 'new_client', kind: 'client', userId: 'user-new-client', phone: '+96550000099', name: 'Nora Al-Mutairi', nameAr: 'نورة المطيري', isNew: true },
+    { key: 'new_client', kind: 'client', userId: 'user-new-client', phone: '+96550000099', name: 'Nora Al-Mutairi', nameAr: 'نورة المطيري', sex: 'female', isNew: true },
     { key: 'reem', kind: 'client', userId: meta.clientUserId, phone: people.users.find((u) => u.id === meta.clientUserId).phone },
     {
       key: 'hotel_admin', kind: 'hotel', userId: 'user-khalid', partnerAccountId: 'partner-V01',
       roleLabel: { en: 'Admin (owner) · Aurelia Gulf Hotel', ar: 'المالك · فندق أوريليا الخليج' },
       phone: people.users.find((u) => u.id === 'user-khalid').phone, email: 'khalid@aurelia-gulf.example', password: PASSWORD,
+    },
+    // Round 2 (PA-ACC-07): two partner users who applied through the form, so the Partner app's "under review" and "rejected, edit and resubmit"
+    // states can be shown without driving the form. The mock creates their user, account and application at reset (domain/applications.dart).
+    {
+      key: 'provider_applicant', kind: 'applicant', applicant: 'pending', userId: 'user-applicant-rawan', phone: '+96550000098', email: 'rawan@rawan-lens.example', password: PASSWORD,
+      name: 'Rawan Al-Kandari', nameAr: 'روان الكندري', roleLabel: { en: 'Applicant · Rawan Lens (under review)', ar: 'مقدّمة طلب · روان لينز (قيد المراجعة)' },
+      application: {
+        name: { en: 'Rawan Lens', ar: 'روان لينز' }, categoryIds: ['photography'], otherCategoryNote: null, governorateId: 'hawalli', contactName: 'Rawan Al-Kandari',
+        phone: '+96550000098', email: 'rawan@rawan-lens.example', description: 'Wedding photography for ladies-only halls, with a women-only team.', licenceRef: 'KW-55021',
+      },
+    },
+    {
+      key: 'provider_rejected', kind: 'applicant', applicant: 'rejected', userId: 'user-applicant-bader', phone: '+96550000097', email: 'bader@bader-decor.example', password: PASSWORD,
+      name: 'Bader Al-Enezi', nameAr: 'بدر العنزي', roleLabel: { en: 'Applicant · Bader Decor (rejected)', ar: 'مقدّم طلب · بدر للديكور (مرفوض)' },
+      application: {
+        name: { en: 'Bader Decor', ar: 'بدر للديكور' }, categoryIds: ['decor'], otherCategoryNote: 'Lighting arches and entrance walkways', governorateId: 'farwaniya', contactName: 'Bader Al-Enezi',
+        phone: '+96550000097', email: 'bader@bader-decor.example', description: 'Wedding decor, lighting arches and entrance walkways.', licenceRef: null,
+      },
+      rejection: { en: 'Please add your commercial licence reference and send the application again.', ar: 'يرجى إضافة رقم الترخيص التجاري وإعادة إرسال الطلب.' },
     },
     ...partners.personas.map((p) => ({
       key: p.kind === 'hotel' ? 'hotel_manager' : p.kind === 'hotel_non_major' ? 'hotel_non_major' : 'provider',
@@ -98,6 +117,8 @@ const extra = {
     privacy: { kind: 'privacy', version: '2026-10', updatedAt: meta.now.replace('16:00:00', '09:00:00'), title: { en: 'Privacy policy', ar: 'سياسة الخصوصية' }, body: { en: 'We keep the details you give us to run your requests and visits, and nothing else. You can ask us to delete your account at any time.', ar: 'نحتفظ بالمعلومات التي تعطينا إياها لتشغيل طلباتك وزياراتك فقط. يمكنك طلب حذف حسابك في أي وقت.' } },
   },
   minAppVersion: '1.0.0',
+  // Round 2 (CA-SVC-20, OQ-R2-04): the store page the Client app's note for service providers points to; configuration, a placeholder host.
+  partnerAppUrl: 'https://partners.ghazal.example/app',
 }
 
 // ------------------------------------------------------------------ the slim route table (operations + the schemas request validation needs)

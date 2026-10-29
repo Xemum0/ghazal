@@ -23,7 +23,8 @@ WeddingProfile:
     guests: { $ref: GuestSplit }
     venueBudget: { $ref: MoneyRange }
     totalBudget: { $ref: Money }
-    areaIds: { type: array, items: { $ref: Id } }
+    areaIds: { type: array, items: { $ref: Id }, deprecated: true, description: 'Deprecated since round 2 (ADR 0038 D1): the Client app no longer asks for exact areas. Kept so older Briefs keep working; new accounts send an empty list.' }
+    governorateIds: { type: array, items: { $ref: Id }, description: 'Governorates the couple searches in (the Brief, CA-FLT-08, CA-ONB-10). Empty = all governorates. Ids come from `GET /areas`.' }
     searching: { type: array, items: { $ref: Audience } }
 WeddingProfileInput:
   type: object
@@ -37,7 +38,8 @@ WeddingProfileInput:
     guests: { $ref: GuestSplit }
     venueBudget: { $ref: MoneyRange, nullable: true }
     totalBudget: { $ref: Money, nullable: true }
-    areaIds: { type: array, items: { $ref: Id } }
+    areaIds: { type: array, items: { $ref: Id }, deprecated: true, description: 'Deprecated since round 2; send governorateIds instead.' }
+    governorateIds: { type: array, items: { $ref: Id }, description: 'Governorates of the Brief; empty = all governorates.' }
     searching: { type: array, items: { $ref: Audience } }
 BudgetBand:
   type: object

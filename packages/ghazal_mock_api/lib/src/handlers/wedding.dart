@@ -23,6 +23,7 @@ Json _profileDefaults(MockApp app, String uid) {
     'venueBudget': {'min': fils(0), 'max': fils(0)},
     'totalBudget': fils(0),
     'areaIds': <String>[],
+    'governorateIds': <String>[],
     'searching': <String>[],
   };
 }

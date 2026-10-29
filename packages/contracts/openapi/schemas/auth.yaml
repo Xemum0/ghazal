@@ -32,11 +32,12 @@ OtpVerifyInput:
     deviceId: { type: string, nullable: true }
 RegisterInput:
   type: object
-  description: Creates (or resumes) a password account; the phone is verified through the returned challenge.
-  required: [phone, name, acceptedTerms, locale]
+  description: 'Creates (or resumes) a password account; the phone is verified through the returned challenge. Name and sex are required since round 2 (CA-AUTH-14); a missing sex is 422 VALIDATION_FAILED (`errors: [{path: "/sex", code: "required"}]`).'
+  required: [phone, name, sex, acceptedTerms, locale]
   properties:
     phone: { $ref: Phone }
     name: { type: string }
+    sex: { $ref: Sex }
     password: { type: string, nullable: true, minLength: 8 }
     acceptedTerms: { type: boolean, enum: [true] }
     locale: { $ref: Lang }
@@ -61,7 +62,7 @@ PasswordResetInput:
     newPassword: { type: string, minLength: 8 }
 SocialSignInInput:
   type: object
-  description: The app obtains the identity token; the API verifies it with the provider keys. Terms are accepted on first account creation.
+  description: 'The app obtains the identity token; the API verifies it with the provider keys. A first social sign-in returns `isNewUser: true`; the account is completed with `completeProfile` (name, sex, terms).'
   required: [identityToken]
   properties:
     identityToken: { type: string }
@@ -101,7 +102,7 @@ AuthSession:
     refreshToken: { type: string }
     tokenType: { type: string, enum: [Bearer] }
     expiresInSeconds: { type: integer }
-    isNewUser: { type: boolean, description: True after the first OTP verification of a number; the app then asks for name and terms (CL-AUTH-03). }
+    isNewUser: { type: boolean, description: 'True from the first verification of a number until the account is completed with `completeProfile` (name, sex, terms: CL-AUTH-03); the app then shows "About you" and the optional onboarding. An account created with `registerAccount` already carries name and sex, so only its first session is new.' }
     user: { $ref: Me }
 PartnerLoginInput:
   type: object

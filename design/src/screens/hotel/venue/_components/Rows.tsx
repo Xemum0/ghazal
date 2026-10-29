@@ -1,13 +1,13 @@
-// The rows of "Packages and extras" (HL-VENU-02): a package row (name, audience, the two day-tier prices, guest range, language completeness,
-// the active switch) and an extra row (name, price and unit, the active switch). The row body opens the editor; the switch is its own target.
+// The rows of "Packages" (HL-VENU-02): a package row (name, audience, the two day-tier prices, guest range, language completeness,
+// the active switch). The row body opens the editor; the switch is its own target.
 import type { ReactNode } from 'react'
 import type { IconName } from '@gz/tokens'
 import { Icon, Price, Switch } from '../../../../system'
 import type { PricingBasis } from '../../../../mock'
 import { Figures, LangChip, useV } from './bits'
-import { useAudienceLabel, useUnitLabel } from './labels'
+import { useAudienceLabel } from './labels'
 import { hasVoucher } from './pricing'
-import { packageCompleteness, structureOf, useVenueStore, type ExtraModel, type PackageModel, type TierModel } from './store'
+import { packageCompleteness, structureOf, useVenueStore, type PackageModel, type TierModel } from './store'
 import { venuePackages } from './venue'
 import './rows.css'
 
@@ -176,51 +176,6 @@ export function PackageRow({ m, name, disabled, onOpen, onActive, last }: Packag
           )}
         </span>
         {gaps.ar + gaps.en > 0 ? <LangChip gaps={gaps} /> : null}
-      </button>
-      <span className="hv-pkg__switch">
-        <Switch checked={m.active} disabled={disabled} onChange={onActive} label={t('hotelVenuePkgActiveLabel', { name })} />
-      </span>
-    </div>
-  )
-}
-
-export type ExtraRowProps = {
-  m: ExtraModel
-  name: string
-  disabled?: boolean
-  onOpen: () => void
-  onActive: (active: boolean) => void
-  last?: boolean
-}
-
-export function ExtraRow({ m, name, disabled, onOpen, onActive, last }: ExtraRowProps) {
-  const { t } = useV()
-  const unit = useUnitLabel()
-  const range: ReactNode =
-    m.fromFils !== null && m.upToFils !== null ? (
-      <span className="hv-extra__range">
-        <span className="hv-rate">
-          <Price fils={m.fromFils} mode="browse" size="card" />
-        </span>
-        <span className="hv-rate">
-          <span className="gz-t-caption hv-rate__unit">–</span>
-          <Price fils={m.upToFils} mode="browse" size="card" />
-        </span>
-        <span className="gz-t-caption hv-rate__unit">{unit(m.unit)}</span>
-      </span>
-    ) : (
-      <span className="hv-rate">
-        <Price fils={m.priceFils} mode="browse" size="card" />
-        <span className="gz-t-caption hv-rate__unit">{unit(m.unit)}</span>
-      </span>
-    )
-  return (
-    <div className="hv-pkg hv-extra" data-gz="ExtraRow" data-last={last || undefined} data-inactive={!m.active || undefined}>
-      <button type="button" className="gz-reset hv-pkg__main gz-press" onClick={onOpen} aria-label={t('hotelVenueEditPackage', { name })}>
-        <span className="gz-t-title hv-pkg__name">
-          <bdi dir="auto">{name}</bdi>
-        </span>
-        {range}
       </button>
       <span className="hv-pkg__switch">
         <Switch checked={m.active} disabled={disabled} onChange={onActive} label={t('hotelVenuePkgActiveLabel', { name })} />

@@ -2,16 +2,14 @@
 // Rate a completed booking, built to the text diet (ADR 0034): five large stars with one live word, four optional category scores as glyph
 // + word + stars, a comment, photos with a one-glyph rule ("No people") and how the name is shown. The sentences that survive (people rule,
 // what is allowed, the moderation check) sit behind the (i) on the Photos header. The draft autosaves in the prototype store, so leaving
-// and coming back loses nothing ("Saved"). Only a Completed booking opens it (the others see the day reviews open); a guest is asked to
-// sign in at Send with the draft kept (ADR 0007 D8, the review gate). Text publishes after an automated check; photographs wait in
+// and coming back loses nothing ("Saved"). Only a Completed booking opens it (the others see the day reviews open). Text publishes after an automated check; photographs wait in
 // moderation and only the author sees them until they pass (ADR 0015 D7).
-// Navigates to CL-BKNG-02 (back), CL-RVRW-01 (see reviews), CL-AUTH-01 (the gate).
+// Navigates to CL-BKNG-02 (back), CL-RVRW-01 (see reviews).
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   ActionBar, Banner, EmptyState, FactChip, FactRow, Figures, Icon, InfoButton, Photo, Screen, SuccessState, TextArea, ToggleRow, TopBar, imageSrc, useNav,
 } from '../../../system'
 import { clock, reviewsFor, heroBookingAs } from '../../../mock'
-import { usePrototype } from '../../../shell/state'
 import { useLang } from '../../../shell/lang'
 import { Fx } from './_components/Fx'
 import { PhotoTile } from './_components/PhotoTile'
@@ -41,7 +39,7 @@ export default function WriteReview() {
   const { lang } = useLang()
   const nav = useNav<{ bookingId?: string; venueId?: string; from?: 'list' }>()
   const state = useStateParam()
-  const { live, guest } = useViewer(state)
+  const { live } = useViewer(state)
   const sentMap = useRewardsFlow(s => s.sent)
 
   const booking = state === 'ineligible' ? heroBookingAs('pending') : bookingById(nav.params.bookingId)
@@ -116,11 +114,6 @@ export default function WriteReview() {
   // ---------------------------------------------------------------- submit
   const submit = () => {
     if (busy || offline) return
-    if (live && guest) {
-      usePrototype.getState().openGate('review', { screenId: 'CL-RVRW-02', params: nav.params })
-      nav.openSheet('CL-AUTH-01', { params: { reason: 'review' } })
-      return
-    }
     setPhase('submitting')
     timers.current.push(
       window.setTimeout(() => {

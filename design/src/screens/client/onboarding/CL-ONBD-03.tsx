@@ -1,9 +1,11 @@
-// CL-ONBD-03 Who is planning? Covers CA-ONB-07 and CA-ONB-09.
+// CL-ONBD-03 Who is planning? Covers CA-ONB-07, CA-ONB-09 and CA-ONB-10.
+// First of the three optional steps after the account is created (ADR 0038): the name comes from the account, and the role is suggested
+// from the sex given there (female: bride, male: groom; a chip the person can change). The partner's name is the only empty field.
 // Text diet (ADR 0034): a two-word question with its drawing (the invitation), four role chips that are a glyph and one word each
 // (dress, groom, family, planner; none preselected), a name and an optional partner name (no first/last split, ADR 0012), and a live
 // monogram: the first letter of the name in its own script on a rose-tint disk (ADR 0015). No lead, no label over the chips, no
 // "optional" tag: every answer is optional, said once by the info glyph in the bar (CA-ONB-09) and by Skip. Skip and Continue both go
-// to the date, only Continue writes the answers.
+// to the date, only Continue writes the answers. There is no Back: the sign-in is behind the person once the account exists.
 // States: default (empty), success (the demo persona filled in, the monogram live).
 import { useState } from 'react'
 import type { IconName } from '@gz/tokens'
@@ -14,8 +16,8 @@ import { usePrototype } from '../../../shell/state'
 import { users, weddingProfile as storyProfile, meta } from '../../../mock'
 import { StepBar } from './_components/StepBar'
 import { StepHead } from './_components/StepHead'
-import { commitAbout, monogramFor, type WeddingRole } from './_components/profile'
-import { useScreenState } from './_components/useScreenState'
+import { commitAbout, monogramFor, roleForSex, type WeddingRole } from './_components/profile'
+import { useInStaticFrame, useScreenState } from './_components/useScreenState'
 import './_components/form.css'
 import './CL-ONBD-03.css'
 
@@ -32,11 +34,17 @@ export default function ClOnbd03() {
   const { lang } = useLang()
   const filled = useScreenState() === 'success'
   const saved = usePrototype(s => s.weddingProfile)
+  const framed = useInStaticFrame()
+  const user = usePrototype(s => s.user)
 
   // The demo persona (Reem): her name is stored once as typed, and the Latin spelling is the fixture's `nameLatin`.
   const reem = users.find(u => u.id === meta.clientUserId)
-  const [role, setRole] = useState<WeddingRole | null>(filled ? storyProfile.role : saved?.name ? saved.role : null)
-  const [name, setName] = useState(filled ? (lang === 'ar' ? (reem?.name ?? '') : (reem?.nameLatin ?? reem?.name ?? '')) : (saved?.name ?? ''))
+  const reemName = lang === 'ar' ? (reem?.name ?? '') : (reem?.nameLatin ?? reem?.name ?? '')
+  // What the account knows: the name and the sex given at sign-up. A frame has no account, so it shows the demo persona's.
+  const accountName = user?.name || (framed ? reemName : '')
+  const accountSex = user?.sex ?? (framed ? 'female' : undefined)
+  const [role, setRole] = useState<WeddingRole | null>(filled ? storyProfile.role : saved?.name ? saved.role : roleForSex(accountSex))
+  const [name, setName] = useState(filled ? reemName : (saved?.name ?? accountName))
   const [partner, setPartner] = useState(filled ? storyProfile.partnerName : (saved?.partnerName ?? ''))
 
   const roleLabels: Record<WeddingRole, string> = {
@@ -55,7 +63,7 @@ export default function ClOnbd03() {
   }
 
   return (
-    <Screen top={<StepBar step={1} total={4} onSkip={next} />} bottom={<ActionBar action={{ label: c('commonActionContinue'), onPress: confirm }} />}>
+    <Screen top={<StepBar step={1} total={3} back={false} onSkip={next} />} bottom={<ActionBar action={{ label: c('commonActionContinue'), onPress: confirm }} />}>
       <div className="obd-form">
         <StepHead title={t('clientOnboardingAboutTitle')} art="invitation" />
 

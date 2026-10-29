@@ -4,7 +4,6 @@ import { useCallback } from 'react'
 import type { Audience, HallSetting } from '../../../../mock'
 import type { MessageKey } from '../../../../i18n'
 import { useV } from './bits'
-import type { ExtraUnit } from './store'
 
 const AUDIENCE_KEYS = { women: 'hotelVenueAudWomen', men: 'hotelVenueAudMen', mixed: 'hotelVenueAudMixed' } as const satisfies Record<Audience, MessageKey<'hotel-venue'>>
 const SETTING_KEYS = { indoor: 'hotelVenueSettingIndoor', outdoor: 'hotelVenueSettingOutdoor', mixed: 'hotelVenueSettingMixed' } as const satisfies Record<HallSetting, MessageKey<'hotel-venue'>>
@@ -17,15 +16,6 @@ export function useAudienceLabel() {
 export function useSettingLabel() {
   const { t } = useV()
   return useCallback((s: HallSetting) => t(SETTING_KEYS[s]), [t])
-}
-
-/** `per event`, `per hour`, `per guest`, `per unit`. */
-export function useUnitLabel() {
-  const { t, c } = useV()
-  return useCallback(
-    (u: ExtraUnit): string => (u === 'event' ? t('hotelVenueUnitEvent') : u === 'hour' ? c('commonUnitPerHour') : u === 'guest' ? c('commonUnitPerGuest') : t('hotelVenueUnitUnit')),
-    [t, c],
-  )
 }
 
 /** `Sun to Wed` / `Thu to Sat`: the platform's two price tiers (ADR 0004 D3), names from the formatter. */

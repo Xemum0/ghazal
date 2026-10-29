@@ -4,8 +4,7 @@
 // Text diet (ADR 0034): no availability sentence (a glyph in a tone disk; the Brief date is stated once, above the list), no "Voucher
 // ready" sentence (a ticket glyph under the heart), no tagline, no "No longer listed" sentence (a glyph and one word). Flow-local because the
 // system compact card has no availability glyph, no selection mode and no unlisted state (request filed).
-// Voucher model (ADR 0033): the price line is the voucher price with the standard price struck beside it (CardPriceLine); a guest sees
-// the same two prices with the voucher one locked.
+// Voucher model (ADR 0033): the price line is the voucher price with the standard price struck beside it (CardPriceLine).
 import type { ReactNode } from 'react'
 import type { CardPrice, Package, PlannerPackage, ServiceProvider, Venue, Voucher } from '../../../../mock'
 import { getArea } from '../../../../mock'
@@ -64,7 +63,6 @@ export type SavedVenueRowProps = {
   voucher?: Voucher | null
   onOpenVoucher?: () => void
   /** Signed out: the voucher price stays visible but locked (ADR 0007 D8). */
-  audience?: 'member' | 'guest'
   unlisted?: boolean
   selecting?: boolean
   selected?: boolean
@@ -72,7 +70,7 @@ export type SavedVenueRowProps = {
   onRemove?: () => void
 }
 
-export function SavedVenueRow({ venue, price, date, availability, savingChanged, voucher, onOpenVoucher, audience = 'member', unlisted, selecting, selected, onOpen, onRemove }: SavedVenueRowProps) {
+export function SavedVenueRow({ venue, price, date, availability, savingChanged, voucher, onOpenVoucher, unlisted, selecting, selected, onOpen, onRemove }: SavedVenueRowProps) {
   const t = useT('client-saved-compare')
   const c = useT('common')
   const f = useFormat()
@@ -142,7 +140,7 @@ export function SavedVenueRow({ venue, price, date, availability, savingChanged,
         {showAvail ? <StatusIcon status={availStatus} label={availName} size="sm" /> : null}
         {savingChanged ? <FactChip icon="trend-down" tone="accent" size="sm" label={t('clientSavedCompareSavedSavingChanged')} /> : null}
       </div>
-      {price ? <CardPriceLine price={price} audience={audience} /> : null}
+      {price ? <CardPriceLine price={price} /> : null}
     </Row>
   )
 }
@@ -150,12 +148,11 @@ export function SavedVenueRow({ venue, price, date, availability, savingChanged,
 // ---------------------------------------------------------------- service
 export type SavedVendorRowProps = {
   vendor: ServiceProvider
-  audience?: 'member' | 'guest'
   onOpen?: () => void
   onRemove?: () => void
 }
 
-export function SavedVendorRow({ vendor, audience = 'member', onOpen, onRemove }: SavedVendorRowProps) {
+export function SavedVendorRow({ vendor, onOpen, onRemove }: SavedVendorRowProps) {
   const t = useT('client-saved-compare')
   const c = useT('common')
   const f = useFormat()
@@ -167,7 +164,7 @@ export function SavedVendorRow({ vendor, audience = 'member', onOpen, onRemove }
   // Two prices on the same basis; a voucher is only sold when the saving beats the fee, so a small saving shows the standard price alone.
   const voucher = vendor.fromVoucher && vendor.fromVoucher.fils < vendor.from.fils ? vendor.fromVoucher : null
   const saving = voucher ? vendor.from.fils - voucher.fils : 0
-  const showVoucher = voucher !== null && audience === 'member'
+  const showVoucher = voucher !== null
   return (
     <Row
       openLabel={name}
@@ -199,13 +196,6 @@ export function SavedVendorRow({ vendor, audience = 'member', onOpen, onRemove }
             </span>
           </span>
         ) : null}
-        {voucher && audience === 'guest' ? (
-          <span className="svd-row__lock">
-            <Icon name="ticket" size="xs" tone="secondary" />
-            <Icon name="lock" size="xs" tone="secondary" />
-            <span className="gz-sr-only">{c('commonLabelGuestVoucher')}</span>
-          </span>
-        ) : null}
       </span>
     </Row>
   )
@@ -213,7 +203,7 @@ export function SavedVendorRow({ vendor, audience = 'member', onOpen, onRemove }
 
 // ---------------------------------------------------------------- package (a hall package, or a planner tier)
 export type SavedPackageRowProps =
-  | { kind: 'hall'; pkg: Package; venue: Venue; audience?: 'member' | 'guest'; onOpen?: () => void; onRemove?: () => void }
+  | { kind: 'hall'; pkg: Package; venue: Venue; onOpen?: () => void; onRemove?: () => void }
   | { kind: 'planner'; pkg: PlannerPackage; onOpen?: () => void; onRemove?: () => void }
 
 export function SavedPackageRow(props: SavedPackageRowProps) {
@@ -247,7 +237,7 @@ export function SavedPackageRow(props: SavedPackageRowProps) {
       </Row>
     )
   }
-  const { pkg, venue, audience = 'member' } = props
+  const { pkg, venue } = props
   return (
     <Row
       openLabel={bi(pkg.name)}
@@ -261,7 +251,7 @@ export function SavedPackageRow(props: SavedPackageRowProps) {
       <div className="svd-row__meta gz-t-caption">
         <span>{bi(venue.name)}</span>
       </div>
-      <PriceCompare variant="inline" standard={pkg.standardFils} voucher={pkg.voucherFils} structure={pkg.priceStructure} audience={audience} showNet={false} />
+      <PriceCompare variant="inline" standard={pkg.standardFils} voucher={pkg.voucherFils} structure={pkg.priceStructure} showNet={false} />
     </Row>
   )
 }

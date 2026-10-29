@@ -5,7 +5,8 @@
 // question is "Venue and catering" (never confused with total wedding spend, ADR 0012, 0018) with the currency as a quiet unit, five bands
 // as bare figures, a histogram of what the halls cost at that guest count, a range slider whose two values are money, and the per-guest
 // figure as a fact. Each half can be put off on its own (`Later`) and then shows a drawing row with the way back (`Add`). Continue writes
-// both answers; Skip writes nothing.
+// both answers; Skip writes nothing. This is the last optional step (ADR 0038 retired the areas step CL-ONBD-06): Continue and Skip both
+// publish the Brief from what was answered and open Home.
 // States: default (the demo persona's answers), split-guests (ladies 350, men 400), skipped (both halves left open).
 import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import { ActionBar, Button, Chip, FactChip, Fig, Figures, Icon, IconListRow, RangeSlider, Screen, Stepper, Switch, layoutScale, useNav } from '../../../system'
@@ -15,7 +16,8 @@ import { budgetBands, fils, weddingProfile as storyProfile } from '../../../mock
 import { FormSection } from './_components/FormSection'
 import { PriceHistogram } from './_components/PriceHistogram'
 import { StepBar } from './_components/StepBar'
-import { commitGuestsBudget } from './_components/profile'
+import { commitGuestsBudget, finishOnboarding } from './_components/profile'
+import { offerBiometrics } from '../auth/_components/flow'
 import { useScreenState } from './_components/useScreenState'
 import './_components/form.css'
 import './CL-ONBD-05.css'
@@ -101,7 +103,12 @@ export default function ClOnbd05() {
     settled.current = true
   }, [activeBand, skipBudget])
 
-  const next = () => nav.push('CL-ONBD-06')
+  // The last optional step: publish the Brief from the answers and open Home (the tab host takes over from the flow).
+  const next = () => {
+    finishOnboarding()
+    nav.reset('CL-DISC-01')
+    offerBiometrics(nav)
+  }
   const confirm = () => {
     commitGuestsBudget({
       women: skipGuests ? 0 : guests,
@@ -145,7 +152,7 @@ export default function ClOnbd05() {
   const spokenGuests = (n: number) => f.guests(n)
 
   return (
-    <Screen top={<StepBar step={3} total={4} onSkip={next} />} bottom={<ActionBar action={{ label: c('commonActionContinue'), onPress: confirm }} />}>
+    <Screen top={<StepBar step={3} total={3} onSkip={next} />} bottom={<ActionBar action={{ label: c('commonActionDone'), onPress: confirm }} />}>
       <div className="obd-form obd-guests">
         <h1 className="gz-sr-only">{t('clientOnboardingGuestsTitle')}</h1>
 

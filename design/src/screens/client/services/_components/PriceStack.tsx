@@ -1,6 +1,5 @@
 // PriceStack (CL-SERV-02 tile, CL-SERV-03 package, CL-SERV-04 voucher summary): the two prices of one provider offer on the same unit,
-// glyphs and figures only (ADR 0034). The voucher price leads behind a ticket glyph (a lock for a guest: the price exists and is shown,
-// the account is asked for at Get voucher, CA-VCH-04), the standard price sits next to it quiet and struck through, and the saving is a
+// glyphs and figures only (ADR 0034). The voucher price leads behind a ticket glyph (every client is signed in, ADR 0038), the standard price sits next to it quiet and struck through, and the saving is a
 // trend glyph with a figure (package variant). Every glyph carries its word as the accessible name. The unit is the per-guest glyph or one
 // quiet word ("/event"). An offer with no voucher price shows the standard price alone, with no mention of vouchers. Money is integer fils
 // through the shared formatter.
@@ -29,14 +28,13 @@ export type PriceStackProps = {
   voucher: number | null
   /** The category the price belongs to: it decides the unit glyph or word. */
   categoryId: ServiceCategoryId
-  audience: 'member' | 'guest'
   /** `tile` is the list card (the lowest price); `package` is a profile package (an exact price, with the saving). */
   variant: 'tile' | 'package'
   /** One row instead of two (the headline price under a name). */
   inline?: boolean
 }
 
-export function PriceStack({ standard, voucher, categoryId, audience, variant, inline = false }: PriceStackProps) {
+export function PriceStack({ standard, voucher, categoryId, variant, inline = false }: PriceStackProps) {
   const t = useT('client-services')
   const c = useT('common')
   const f = useFormat()
@@ -66,12 +64,11 @@ export function PriceStack({ standard, voucher, categoryId, audience, variant, i
 
   const saving = standard - voucher
   const was = f.moneyParts(standard, { mode: 'browse' })
-  const guest = audience === 'guest'
   return (
-    <span className={`gzs-pstack${inline ? ' gzs-pstack--inline' : ''}`} data-gz="PriceStack" data-voucher={audience} data-variant={variant}>
+    <span className={`gzs-pstack${inline ? ' gzs-pstack--inline' : ''}`} data-gz="PriceStack" data-voucher="member" data-variant={variant}>
       <span className="gzs-pstack__line" data-gz-id="voucher-price">
         <span className="gzs-pstack__glyph">
-          <Icon name={guest ? 'lock' : 'ticket'} size="xs" tone={guest ? 'secondary' : 'success'} />
+          <Icon name="ticket" size="xs" tone="success" />
           <span className="gz-sr-only">{c('commonVoucherPrice')}</span>
         </span>
         <Price fils={voucher} size={size} />

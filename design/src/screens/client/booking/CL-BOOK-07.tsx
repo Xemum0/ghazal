@@ -72,13 +72,13 @@ export default function DateTaken() {
       }
       nav.closeSheet()
       nav.toast({ message: t('clientBookingTakenRebound', { date: f.date(picked, 'short') }), tone: 'success' })
-      if (from === 'CL-BOOK-05') goStep(nav, 5, 1)
+      if (from === 'CL-BOOK-05') goStep(nav, 4, 1)
       else if (from !== 'CL-BOOK-01') nav.push('CL-BOOK-01', { venueId: venue.id, voucherId: voucher.id, date: picked, fresh: true })
       return
     }
     if (live) patchDraft({ venueId: venue.id, eventDate: picked })
     nav.closeSheet()
-    if (from === 'CL-BOOK-05') goStep(nav, 5, 1)
+    if (from === 'CL-BOOK-05') goStep(nav, 4, 1)
     else if (from !== 'CL-BOOK-01') nav.push('CL-BOOK-01', { venueId: venue.id, date: picked })
   }
   const openCalendar = () => {

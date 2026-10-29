@@ -3,6 +3,7 @@
 library;
 
 import '../db/mock_db.dart';
+import '../domain/applications.dart' show seedApplicantPersonas;
 import '../db/seeding.dart';
 import '../engine/catalog.dart';
 import '../engine/dates.dart';
@@ -153,6 +154,7 @@ class MockApp {
     eventLog.clear();
     flags.clear();
     if (clock) this.clock.set(config.clock ?? DateTime.parse(seed.now));
+    seedApplicantPersonas(this);
   }
 
   void logEvent(String type, Json data) {
@@ -337,6 +339,7 @@ class MockApp {
         'email': null,
         'locale': 'ar',
         'digitStyle': 'western',
+        'sex': p['sex'] ?? 'female',
         'createdAt': now,
       });
     }

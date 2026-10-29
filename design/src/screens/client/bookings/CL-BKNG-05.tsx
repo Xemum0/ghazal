@@ -27,14 +27,12 @@ export default function Receipts() {
   const { state } = useFrame()
   const nav = useNav<{ voucherId?: string; receipt?: string }>()
   const live = useDevice().mode === 'live'
-  const auth = usePrototype(s => s.auth)
   const userId = usePrototype(s => s.user?.id) ?? meta.clientUserId
   const vouchers = usePrototype(s => s.vouchers)
   const saved = useBookingsFlow(s => s.saved)
   const { t, tc, f, bi, dayNum } = useBk()
   const [noteOpen, setNoteOpen] = useState(false)
   const offline = state === 'offline'
-  const guest = live && !state && auth === 'guest'
 
   // ---- the documents ----------------------------------------------------------------------------------------------------------
   const rows: Row[] = useMemo(() => {
@@ -82,15 +80,8 @@ export default function Receipts() {
   // ---- frames that show the viewer over the list --------------------------------------------------------------------------------
   const viewerRow: Row | undefined = state === 'receipt-viewer' || state === 'downloaded' ? rows.find(r => r.kind === 'receipt') : undefined
 
-  const top = <TopBar title={t('clientBookingsReceiptsTitle')} actions={guest ? [] : [{ icon: 'info', label: t('clientBookingsReceiptsInfoTitle'), onPress: () => setNoteOpen(true) }]} />
+  const top = <TopBar title={t('clientBookingsReceiptsTitle')} actions={[{ icon: 'info', label: t('clientBookingsReceiptsInfoTitle'), onPress: () => setNoteOpen(true) }]} />
 
-  if (guest) {
-    return (
-      <Screen top={top}>
-        <EmptyState illustration="key" title={t('clientBookingsGuestTitle')} action={{ label: t('clientBookingsGuestAction'), variant: 'primary', onPress: () => nav.openSheet('CL-AUTH-01') }} />
-      </Screen>
-    )
-  }
   if (state === 'error') {
     return (
       <Screen top={top}>

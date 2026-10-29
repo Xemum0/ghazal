@@ -4,6 +4,9 @@ import type { Audience, Bilingual, Id, IsoDate, IsoDateTime, Lang, Money } from 
 
 export type UserRole = 'client' | 'hotel_staff' | 'provider_staff' | 'planner' | 'support'
 
+/** Sex of a client account (ADR 0038 D4, CA-AUTH-14): required when a client account is completed, editable in Profile; not shown to venues. */
+export type Sex = 'female' | 'male'
+
 export interface User {
   id: Id
   role: UserRole
@@ -18,6 +21,8 @@ export interface User {
   email: string | null
   locale: Lang
   digitStyle: 'western' | 'easternArabic'
+  /** Clients only: `female` or `male` (required at sign-up since round 2). Staff and support accounts have none. */
+  sex?: Sex
   createdAt: IsoDateTime
 }
 
@@ -43,7 +48,10 @@ export interface WeddingProfile {
   venueBudget: { min: Money; max: Money }
   /** Total wedding budget, asked in the Budget Manager. */
   totalBudget: Money
+  /** Deprecated since round 2 (ADR 0038 D1): the Client app no longer asks for exact areas. Kept for the older Brief logic. */
   areaIds: Id[]
+  /** Governorates the couple searches in (round 2, CA-FLT-08); empty = all governorates. */
+  governorateIds?: Id[]
   /** Sections the couple is searching for, in priority order. */
   searching: Audience[]
 }

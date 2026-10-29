@@ -17,7 +17,7 @@ import { InlineNote } from './_components/InlineNote'
 import { NumberRow } from './_components/NumberRow'
 import { PasswordField } from './_components/PasswordField'
 import { PasswordRules, checkPassword, containsPhone } from './_components/PasswordRules'
-import { KNOWN_NATIONAL, LOCK_MINUTES, useAuthFlow, useAuthMoves, useGateReason, useLive, userForPhone } from './_components/flow'
+import { KNOWN_NATIONAL, LOCK_MINUTES, useAuthFlow, useAuthMoves, useLive, userForPhone } from './_components/flow'
 import './_components/auth.css'
 import './CL-AUTH-04.css'
 
@@ -63,7 +63,6 @@ export default function ClAuth04() {
   const duration = useDuration()
   const { state } = useFrame()
   const live = useLive()
-  const reason = useGateReason()
   const { nav, go, back, finish } = useAuthMoves()
   const flowPhone = useAuthFlow(s => s.phone)
   const otpResult = useAuthFlow(s => s.otpResult)
@@ -111,10 +110,8 @@ export default function ClAuth04() {
     setPhoneError(false)
     if (next !== 'reset' && next !== 'create') setPassword('')
   }
-  const backToGate = () => {
-    back()
-    nav.openSheet('CL-AUTH-01', { params: { reason } })
-  }
+  // The sign-in screen is the one below this one in the stack.
+  const backToGate = () => back()
   const onBack = () => {
     if (mode === 'signin') return backToGate()
     if (mode === 'sent') return toMode('forgot')
@@ -125,7 +122,7 @@ export default function ClAuth04() {
     const flow = useAuthFlow.getState()
     flow.setPhone(phone)
     flow.setPurpose(purpose)
-    go('CL-AUTH-02', { reason })
+    go('CL-AUTH-02')
   }
 
   const signIn = () => {
@@ -151,7 +148,7 @@ export default function ClAuth04() {
     later(() => {
       setView('idle')
       useAuthFlow.getState().setPhone(useAuthFlow.getState().phone || phone)
-      go('CL-AUTH-03', { reason })
+      go('CL-AUTH-03')
     }, BUSY_MS)
   }
   const requestCode = () => {

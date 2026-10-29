@@ -1,6 +1,6 @@
 // Saved and compare data for the four screens of this flow. One rule: in a static frame (canvas, screenshots) the screen shows the
 // shared story (Reem's saved items, her compare set, the Brief of Thu 14 Jan and 350 guests) so a frame is deterministic; in the
-// live player it reads the prototype store, so a guest who starts the story sees an honest empty list and a signed-in persona sees the story.
+// live player it reads the prototype store, so the signed-in persona sees what they saved.
 import { useCallback, useMemo } from 'react'
 import { clientState, getArea, referencePoints, venueAvailabilityOn, vouchersFor, weddingProfile, type Brief, type SavedItem, type Voucher } from '../../../../mock'
 import { useDevice } from '../../../../shell/device'
@@ -23,7 +23,6 @@ const STORY_USER_ID = clientState.userId
 
 export type SavedModel = {
   live: boolean
-  guest: boolean
   brief: Brief
   /** Saved ids per segment, in the order they were saved. */
   saved: Record<FavouriteKind, string[]>
@@ -31,7 +30,7 @@ export type SavedModel = {
   toggleSaved: (kind: FavouriteKind, id: string) => void
   /** The earlier price seen for an item, when the account has one (drives "Price dropped"). */
   lastSeen: (kind: FavouriteKind, id: string) => SavedItem['lastSeenPrice']
-  /** A paid, unattached voucher the signed-in client holds for this venue or provider (drives "Voucher ready"); null for a guest. */
+  /** A paid, unattached voucher the signed-in client holds for this venue or provider (drives "Voucher ready"). */
   readyVoucher: (targetId: string) => Voucher | null
 }
 
@@ -41,7 +40,6 @@ export function useSavedModel(): SavedModel {
   const favourites = usePrototype(s => s.favourites)
   const compareList = usePrototype(s => s.compareList)
   const searchBrief = usePrototype(s => s.searchBrief)
-  const auth = usePrototype(s => s.auth)
   const vouchers = usePrototype(s => s.vouchers)
   const userId = usePrototype(s => s.user?.id ?? null)
 
@@ -70,7 +68,6 @@ export function useSavedModel(): SavedModel {
 
   return {
     live,
-    guest: live ? auth === 'guest' : false,
     brief: live ? searchBrief : STORY_BRIEF,
     saved,
     compare: live ? compareList : [...STORY_COMPARE],

@@ -15,7 +15,7 @@ import type { IconName } from '@gz/tokens'
 import type { Message, ThreadMember } from '@gz/contracts'
 import { PROTOTYPE_NOW, getVenue } from '../../../mock'
 import {
-  Banner, Button, ChatBubble, ChatDateDivider, EmptyState, ErrorState, FullscreenGallery, Icon, Screen, Skeleton, TopBar, imageSrc, useBi, useNav,
+  Banner, Button, ChatBubble, ChatDateDivider, ErrorState, FullscreenGallery, Icon, Screen, Skeleton, TopBar, imageSrc, useBi, useNav,
 } from '../../../system'
 import { useFrame } from '../../../shell/frame'
 import { AttachSheet, type AttachPick } from '../messages/_components/AttachSheet'
@@ -67,14 +67,13 @@ export default function VisitChat() {
   const { state } = useFrame()
   const nav = useNav<VisitParams>()
   const bi = useBi()
-  const { t, tc, f, lang, live, auth, firstName } = useV()
+  const { t, tc, f, lang, live, firstName } = useV()
   const visitId = nav.params.visitId ?? HERO_VISIT
   const viewState = state && CHAT_STATES.includes(state) ? state : state === 'offline-queued' ? 'day-of' : undefined
   const view = useVisitView(visitId, viewState)
   const loading = state === 'loading'
   const error = state === 'error'
   const offline = state === 'offline-queued'
-  const guest = live && auth === 'guest'
   const actions = useVisitActions(view, offline)
   const delivery = useVisitLocal(s => s.delivery)
   const onTheWay = useVisitLocal(s => Boolean(s.onTheWay[visitId]))
@@ -177,14 +176,7 @@ export default function VisitChat() {
     setDraft('')
   }
 
-  // ---------------------------------------------------------------- guest and states without a thread
-  if (guest) {
-    return (
-      <Screen top={<TopBar title={t('clientVisitsListTitle')} />}>
-        <EmptyState illustration="empty-visits" title={t('clientVisitsGuestTitle')} action={{ label: t('clientVisitsGuestAction'), variant: 'primary', onPress: () => nav.openSheet('CL-AUTH-01', { params: { reason: 'visit' } }) }} />
-      </Screen>
-    )
-  }
+  // ---------------------------------------------------------------- states without a thread
   if (!view || !venue) return null
 
   const title = (

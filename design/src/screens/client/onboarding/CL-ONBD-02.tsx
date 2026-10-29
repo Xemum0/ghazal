@@ -2,12 +2,12 @@
 // Text diet (ADR 0034): each slide is the system OnboardingSlide, a drawing and at most five words, nothing else (no photograph, no body).
 // Compare, free dates, the voucher: the three promises of the model (ADR 0033). Swipe or Next between slides (the first slide sits at
 // inline-start, so it is at the right in Arabic and swipes advance toward the left); the 2 px thread fills in reading direction.
-// Skip (top, inline-end) goes straight to Home with an empty Brief; the last slide's Get started goes to the planning questions.
+// Skip (top, inline-end) and the last slide's Get started both go to the sign-in (CL-AUTH-01), never to Home: there is no guest mode
+// (ADR 0038 D4), so the first run is language, introduction, sign-in.
 // States: default (slide 1), slide-2, slide-3 (frames of the same screen).
 import { useState } from 'react'
 import { ActionBar, Button, OnboardingSlide, Pager, Screen, Wordmark, useNav, type IllustrationName } from '../../../system'
 import { useT } from '../../../i18n'
-import { usePrototype } from '../../../shell/state'
 import { ThreadProgress } from './_components/ThreadProgress'
 import { useScreenState } from './_components/useScreenState'
 import './CL-ONBD-02.css'
@@ -30,19 +30,16 @@ export default function ClOnbd02() {
   ]
   const last = index === COUNT - 1
 
-  // Skip: Home with no Brief (CA-ONB-09). The tab host takes over from the flow.
-  const skip = () => {
-    usePrototype.getState().clearBrief()
-    nav.reset('CL-DISC-01')
-  }
-  const next = () => (last ? nav.push('CL-ONBD-03') : setIndex(i => Math.min(i + 1, COUNT - 1)))
+  // Skip and Get started: the sign-in screen. Nothing behind it is shown to a signed-out person.
+  const signIn = () => nav.push('CL-AUTH-01')
+  const next = () => (last ? signIn() : setIndex(i => Math.min(i + 1, COUNT - 1)))
 
   return (
     <Screen fixed bottom={<ActionBar action={{ label: last ? t('clientOnboardingIntroStart') : c('commonActionNext'), onPress: next }} />}>
       <div className="obd-intro">
         <div className="obd-intro__top">
           <Wordmark size="sm" />
-          <Button variant="tertiary" onClick={skip}>
+          <Button variant="tertiary" onClick={signIn}>
             {c('commonActionSkip')}
           </Button>
         </div>

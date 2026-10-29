@@ -1,8 +1,8 @@
 // CL-PROF-02 Wedding info. Requirements: CA-PROF-02, CA-ONB-07, CA-ONB-09, CA-ONB-03, CA-ONB-04, CA-ONB-05, CA-ONB-06, CA-TOOL-17.
 //
 // The wedding file, viewable and editable at any time, text-diet edition (ADR 0034): rings and the days to go as a figure on top, then one
-// glyph row per answer (role, date, guests with the women and men symbols, venue budget, areas) and the two name fields. Every field is
-// optional. Dates, areas and budget open the SAME pickers as the Brief (CL-DISC-02), so a couple answers each question the same way
+// glyph row per answer (role, date, guests with the women and men symbols, venue budget, governorates) and the two name fields. Every field is
+// optional. Dates, governorates and budget open the SAME pickers as the Brief (CL-DISC-02), so a couple answers each question the same way
 // wherever they meet it. Autosave per field with a quiet "Saved" toast, no Save button. An edit writes the profile and the part of the
 // Brief it feeds: the countdown, the budget and the recommendations follow. If a booking sits on another date, a strip names the hotel and
 // the date and offers "Use date". The Brief budget and the total wedding budget are different numbers: the second lives in My Wedding.
@@ -11,8 +11,8 @@ import { useState } from 'react'
 import type { IconName } from '@gz/tokens'
 import { useFormat, useT } from '../../../i18n'
 import { useLang } from '../../../shell/lang'
-import { Banner, Button, FactChip, FactRow, Figures, Icon, IconListRow, IconStat, Illustration, Screen, TextField, TopBar, useBi, useNav } from '../../../system'
-import { getArea, getVenue } from '../../../mock'
+import { Banner, Button, FactChip, FactRow, Figures, Icon, IconListRow, IconStat, Illustration, Screen, TextField, TopBar, briefGovernorates, useBi, useNav } from '../../../system'
+import { getGovernorate, getVenue } from '../../../mock'
 import { Mixed, PickRow } from './_components/parts'
 import { useLive, useSceneState, useStoryBooking } from './_components/useProfile'
 import { WeddingSheet, type WeddingField } from './_components/WeddingSheets'
@@ -68,8 +68,8 @@ export default function WeddingInfo() {
       ? d('clientDiscoverBriefBudgetOver', { amount: f.money(budget.min.fils, { mode: 'browse' }) })
       : f.moneyRange(budget.min.fils, budget.max.fils, { mode: 'browse' })
     : none
-  const areaNames = profile.areaIds.map(id => getArea(id)).filter((a): a is NonNullable<ReturnType<typeof getArea>> => Boolean(a)).map(a => bi(a.name))
-  const areasValue = areaNames.length > 0 ? areaNames.join(lang === 'ar' ? '، ' : ', ') : none
+  const regionNames = briefGovernorates(profile).map(id => getGovernorate(id)).filter((g): g is NonNullable<ReturnType<typeof getGovernorate>> => Boolean(g)).map(g => bi(g.name))
+  const regionValue = regionNames.length > 0 ? regionNames.join(lang === 'ar' ? '، ' : ', ') : none
   const partnerLabel =
     profile.role === 'bride' ? t('clientProfileWedPartnerGroom') : profile.role === 'groom' ? t('clientProfileWedPartnerBride') : profile.role === 'family' || profile.role === 'planner' ? t('clientProfileWedPartnerCouple') : t('clientProfileWedPartnerDefault')
   const roleValue: Record<typeof profile.role, string> = {
@@ -168,8 +168,8 @@ export default function WeddingInfo() {
           <PickRow icon="coins" label={t('clientProfileWedBudget')} empty={!budget} onClick={() => open('budget')} disabled={offline}>
             {budgetValue}
           </PickRow>
-          <PickRow icon="pin" label={t('clientProfileWedAreas')} empty={areaNames.length === 0} onClick={() => open('areas')} disabled={offline}>
-            {areasValue}
+          <PickRow icon="pin" label={t('clientProfileWedGovernorates')} empty={regionNames.length === 0} onClick={() => open('governorates')} disabled={offline}>
+            {regionValue}
           </PickRow>
           <IconListRow
             icon="wallet"

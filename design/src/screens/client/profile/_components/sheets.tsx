@@ -136,8 +136,8 @@ export function useLegalReader(): (kind: LegalKind) => void {
 // ---------------------------------------------------------------- sign out
 
 /**
- * Sign out asks first, then clears the session and returns to the language-aware Home as a guest (CA-PROF-10). Saved halls and the Brief
- * stay on the account, so signing back in brings them back; the prototype store keeps nothing of the person but what is on the device.
+ * Sign out asks first, then clears the session and returns to the sign-in screen (CA-PROF-10; there is no guest Home, ADR 0038). Saved halls
+ * and the Brief stay on the account, so signing back in brings them back; the prototype store keeps nothing of the person but what is on the device.
  */
 export function useSignOut(): () => void {
   const t = useT('client-profile')
@@ -154,7 +154,7 @@ export function useSignOut(): () => void {
       .then(answer => {
         if (answer !== 'confirm') return
         usePrototype.getState().signOut()
-        nav.reset('CL-DISC-01')
+        nav.reset('CL-AUTH-01')
         nav.toast({ message: t('clientProfileSharedSignedOut') })
       })
   }

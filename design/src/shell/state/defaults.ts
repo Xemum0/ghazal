@@ -95,7 +95,8 @@ export const storyCompare = (): string[] => safe(() => [...mock.clientState.comp
 
 export const storyUser = () => {
   const u = safe(() => mock.users.find(x => x.id === clientUserId()), undefined)
-  return u ? { id: u.id, name: u.name, phone: u.phone, monogram: u.monogram } : { id: clientUserId(), name: '', phone: '', monogram: '' }
+  // The demo persona (Reem) is a woman; the fixtures carry no `sex` yet, so the prototype account holds it.
+  return u ? { id: u.id, name: u.name, phone: u.phone, monogram: u.monogram, sex: 'female' as const } : { id: clientUserId(), name: '', phone: '', monogram: '', sex: 'female' as const }
 }
 
 /** ISO instant plus hours, written with the Kuwait offset (the fixtures never use Z). */

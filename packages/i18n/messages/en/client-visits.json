@@ -46,8 +46,6 @@
   "clientVisitsPhotoViewer": "Photos",
   "clientVisitsGetVoucher": "Voucher",
   "clientVisitsConfirmedToast": "Time confirmed",
-  "clientVisitsGuestTitle": "Your visits",
-  "clientVisitsGuestAction": "Sign in",
   "clientVisitsMsgSending": "Sending",
   "clientVisitsMsgQueued": "Queued",
   "clientVisitsMsgDelete": "Delete",

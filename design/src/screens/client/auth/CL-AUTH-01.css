@@ -1,6 +1,6 @@
-/* CL-AUTH-01: the gate sheet. The Sheet supplies the handle, the 20 gutter and the safe-bottom; this is the rhythm inside. */
+/* CL-AUTH-01: the sign-in screen. The body (auth.css) supplies the 20 gutter and the section rhythm; this is the rhythm inside the form. */
 .gza01 {
-  gap: var(--gz-space-4);
+  gap: var(--gz-space-5);
 }
 
 /* Password link at the start edge, the info glyph at the end edge (its 44 target hands the glyph back to the gutter). */

@@ -14,7 +14,7 @@ abstract interface class ProfileRepository {
   /// Access: signed in; roles: client, partner.
   Future<Me> getMe();
 
-  /// Update name, email, language, digit style, marketing opt-in (CA-PROF-01, CA-PROF-07)
+  /// Update name, sex, email, language, digit style, marketing opt-in (CA-PROF-01, CA-PROF-07, CA-AUTH-14)
   ///
   /// `PATCH /me`
   /// Access: signed in; roles: client, partner.
@@ -29,6 +29,15 @@ abstract interface class ProfileRepository {
   /// Access: signed in; roles: client.
   /// Errors (problem+json `code`): ACCOUNT_DELETION_BLOCKED, STEP_UP_REQUIRED.
   Future<AccountDeletionStatus> deleteAccount();
+
+  /// Complete a new client account with name, sex and terms (CL-AUTH-03, CA-AUTH-14)
+  ///
+  /// Name and sex are required (a missing sex is 422 VALIDATION_FAILED with `errors: [{path: "/sex", code: "required"}]`). Sets `User.sex`, stores the terms acceptance and clears `isNewUser` for the next sign-in. Name and sex stay editable with `updateMe`.
+  /// `POST /me/complete`
+  /// Access: signed in; roles: client.
+  Future<Me> completeProfile({
+    required CompleteProfileInput body,
+  });
 
   /// Register the install and its push token
   ///

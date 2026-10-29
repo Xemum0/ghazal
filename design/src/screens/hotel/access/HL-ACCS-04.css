@@ -41,3 +41,43 @@
   justify-content: center;
   column-gap: var(--gz-space-6);
 }
+
+/* The reasons of a rejected application: tags, then the staff note. */
+.hxa04__reasons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gz-space-3);
+  text-align: center;
+}
+
+.hxa04__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gz-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Prototype only (live player): plays the Ghazal staff decision, like the moderator tray of HL-PROV-06. */
+.hxa04__proto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gz-space-2);
+  padding: var(--gz-space-3) var(--gz-space-4);
+  background-color: var(--gz-color-sys-surface-quiet);
+  border-radius: var(--gz-radius-md);
+}
+
+.hxa04__protolabel {
+  margin: 0;
+  color: var(--gz-color-sys-text-secondary);
+}
+
+.hxa04__protobtns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gz-space-2);
+}

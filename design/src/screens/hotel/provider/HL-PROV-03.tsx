@@ -2,13 +2,16 @@
 // packages each with a standard price and a voucher price on the same basis, and the contact options for clients who browse without a voucher.
 // Save draft keeps it; Continue goes to the plan (or straight to review for a fee-exempt partner or a resubmission). Editing a LIVE listing sends
 // the new version to review while the approved one stays live (PA-LST-03, A-09).
-// Requirements: PA-LST-01, PA-LST-02, PA-LST-03, PA-LST-07, HA-VMGT-09
-// States: new, editing-live, validation, saving, saved, saving-below-fee, unsaved-guard, error, offline (the default frame is a saved draft)
+// Requirements: PA-LST-01, PA-LST-02, PA-LST-03, PA-LST-07, HA-VMGT-09, PA-ACC-07
+// Only an accepted account creates listings (PA-ACC-07, ADR 0038): while the partner application is under review or was rejected the editor is
+// not offered, and the screen says so with one way to the account status (state awaiting-approval).
+// States: new, editing-live, validation, saving, saved, saving-below-fee, unsaved-guard, awaiting-approval, error, offline (the default frame is a saved draft)
 import { useMemo, useRef, useState } from 'react'
 import type { Listing, ServiceCategoryId } from '../../../mock'
 import { useFrame } from '../../../shell/frame'
 import { usePrototype } from '../../../shell/state'
-import { ActionBar, Banner, Dialog, Screen, SectionHeader, SelectRow, Skeleton, ToggleRow, TopBar, useNav } from '../../../system'
+import { ActionBar, Banner, Dialog, EmptyState, Screen, SectionHeader, SelectRow, Skeleton, ToggleRow, TopBar, useNav } from '../../../system'
+import { blocksListings, useApplication } from './_components/application'
 import { BilingualField } from './_components/fields'
 import { Note, OfflineStrip, StaticSheet, useBi, useLive, useP } from './_components/bits'
 import { CategorySheet } from './_components/CategorySheet'
@@ -19,7 +22,7 @@ import { PROVIDER_ID, accountOf, categoryOptions, isAccountKind } from './_compo
 import { EMPTY_DRAFT, chooseAndSubmit, createListing, hasProblems, problemsOf, saveListing, seedDraft, sendLiveRevision, useProv, type ListingDraft, type PackageDraft } from './_components/store'
 import './HL-PROV-03.css'
 
-export const states = ['new', 'editing-live', 'validation', 'saving', 'saved', 'saving-below-fee', 'unsaved-guard', 'error', 'offline']
+export const states = ['new', 'editing-live', 'validation', 'saving', 'saved', 'saving-below-fee', 'unsaved-guard', 'awaiting-approval', 'error', 'offline']
 
 const LIVE_ID = 'lst-flowers-zahra'
 const DRAFT_ID = 'lst-flowers-zahra-table'
@@ -27,7 +30,30 @@ const DRAFT_ID = 'lst-flowers-zahra-table'
 /** A package whose saving (KD 1) is below the KD 2 voucher fee: the frame of `saving-below-fee`. */
 const BELOW_FEE: PackageDraft = { id: 'pk-demo-below', nameAr: 'مدخل وطاولات', nameEn: 'Entrance and tables', structure: 'package', standardFils: 950000, voucherFils: 949000, includes: ['Entrance arrangement', 'Table centrepieces'] }
 
+/** Holds the editor back until Ghazal accepts the application (PA-ACC-07). */
 export default function ListingEditor() {
+  const { state } = useFrame()
+  const status = useApplication(s => s.status)
+  if (state === 'awaiting-approval' || (state === undefined && blocksListings(status))) return <AwaitingApproval />
+  return <ListingEditorBody />
+}
+
+function AwaitingApproval() {
+  const nav = useNav()
+  const { t } = useP()
+  return (
+    <Screen top={<TopBar title={t('hotelProviderEditorTitleNew')} />}>
+      <EmptyState
+        illustration="hourglass"
+        title={t('hotelProviderApprovalGuardTitle')}
+        size="hero"
+        action={{ label: t('hotelProviderSubmittedStatus'), onPress: () => nav.replace('HL-ACCS-04', { variant: 'application-review', account: 'provider' }) }}
+      />
+    </Screen>
+  )
+}
+
+function ListingEditorBody() {
   const { state } = useFrame()
   const nav = useNav()
   const bi = useBi()
