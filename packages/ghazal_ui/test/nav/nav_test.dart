@@ -242,6 +242,22 @@ void main() {
       expect(focus.hasFocus, isTrue);
     });
 
+    testWidgets('an in-between keyboard inset below zero (the iOS keyboard animation can overshoot as the keyboard leaves) lays out like no keyboard', (tester) async {
+      // Regression (device pass, 2026-10-29, partner J10 on a real soft keyboard): a negative bottom padding is an assertion in RenderPadding; it
+      // took the route down and left the next screen blank.
+      await pumpNav(
+        tester,
+        GzScreen(bottom: GzActionBar(action: GzActionBarAction(label: 'Go', onPressed: () {})), child: const SizedBox(height: 100)),
+      );
+      final closed = tester.getBottomLeft(find.byType(GzActionBar)).dy;
+      for (final inset in <double>[-12, double.nan]) {
+        tester.view.viewInsets = FakeViewPadding(bottom: inset);
+        await tester.pump();
+        expect(tester.takeException(), isNull, reason: 'inset $inset');
+        expect(tester.getBottomLeft(find.byType(GzActionBar)).dy, closeTo(closed, 0.5), reason: 'the bar stays where it is with inset $inset');
+      }
+    });
+
     testWidgets('a re-selected tab scrolls the root screen to top', (tester) async {
       Widget screen(int signal) => GzScrollToTopSignal(signal: signal, child: GzScreen(child: Column(children: [for (var i = 0; i < 30; i++) const SizedBox(height: 60, child: Text('row'))])));
       await pumpNav(tester, screen(0));

@@ -120,7 +120,9 @@ class _GzScreenState extends State<GzScreen> {
   Widget build(BuildContext context) {
     final c = context.gz.colors;
     final mq = MediaQuery.of(context);
-    final keyboard = mq.viewInsets.bottom;
+    // Never negative or NaN: the iOS keyboard animation reports in-between values (a spring can overshoot below 0 as the keyboard leaves),
+    // and a negative bottom padding is a debug assertion in RenderPadding that took the whole route down (device pass, 2026-10-29).
+    final keyboard = mq.viewInsets.bottom > 0 ? mq.viewInsets.bottom : 0.0;
     Widget body;
     if (widget.fixed && widget.child != null) {
       body = widget.child!;
@@ -160,7 +162,7 @@ class _GzScreenState extends State<GzScreen> {
     // is up changes the type of the parent of the whole screen, so the body, the pinned bars and every field under them were rebuilt from
     // scratch the moment the keyboard rose, the focused field lost its focus and the keyboard dropped again (seen on a device, 2026-10-26).
     final padding = keyboard > 0 ? mq.padding.copyWith(bottom: (mq.padding.bottom - keyboard).clamp(0.0, double.infinity)) : mq.padding;
-    final insets = keyboard > 0 ? mq.viewInsets.copyWith(bottom: 0) : mq.viewInsets;
+    final insets = mq.viewInsets.copyWith(bottom: 0); // equal to the incoming insets while the keyboard is down
     column = MediaQuery(
       data: mq.copyWith(padding: padding, viewInsets: insets),
       child: Padding(padding: EdgeInsets.only(bottom: keyboard), child: column),

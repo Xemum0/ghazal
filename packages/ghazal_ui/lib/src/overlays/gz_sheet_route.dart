@@ -101,7 +101,9 @@ class _SheetLayerState<T> extends State<_SheetLayer<T>> {
     final route = widget.route;
     final reduced = GzReducedMotion.of(context);
     final mq = MediaQuery.of(context);
-    final keyboard = mq.viewInsets.bottom;
+    // Never negative or NaN: the iOS keyboard animation reports in-between values (a spring can overshoot below 0 as the keyboard leaves),
+    // and a negative bottom padding is a debug assertion in RenderPadding that took the whole route down (device pass, 2026-10-29).
+    final keyboard = mq.viewInsets.bottom > 0 ? mq.viewInsets.bottom : 0.0;
 
     Widget sheet = GzSheet(
       title: route.title,
@@ -137,7 +139,7 @@ class _SheetLayerState<T> extends State<_SheetLayer<T>> {
     // Always wrapped (unchanged while the keyboard is down): a wrapper that only exists while the keyboard is up would rebuild the whole
     // sheet, and the focused field with it, the moment the keyboard rises.
     final padding = keyboard > 0 ? mq.padding.copyWith(bottom: (mq.padding.bottom - keyboard).clamp(0.0, double.infinity)) : mq.padding;
-    final insets = keyboard > 0 ? mq.viewInsets.copyWith(bottom: 0) : mq.viewInsets;
+    final insets = mq.viewInsets.copyWith(bottom: 0); // equal to the incoming insets while the keyboard is down
     return MediaQuery(data: mq.copyWith(padding: padding, viewInsets: insets), child: handled);
   }
 }

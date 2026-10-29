@@ -21,13 +21,15 @@ Both apps are built from the prototype and verified headless (ADR 0036, results 
 
 | Field | Value |
 |---|---|
-| Apps | `apps/client_app` (`com.ghazal.client`, 83 screens) and `apps/provider_app` (`com.ghazal.provider`, 51 screens), Flutter 3.47.5 / Dart 3.13.4, mock API in-process or standalone (`docs/engineering/running-the-apps.md`) |
-| Tests | 7,805 across packages and apps (client 2,038, provider 1,835, ui 1,439, testing 231, kit 89, mock 78, core 1,986, domain 86, api 23), each suite green when run on its own |
-| Contract | 16,612 checks, 0 errors; mock contract test 217 of 217 operations; engine cases 2,170; selector cases 148 |
+| Apps | `apps/client_app` (`com.ghazal.client`, 80 live screens) and `apps/provider_app` (`com.ghazal.provider`, 52 live screens), Flutter 3.47.5 / Dart 3.13.4, mock API in-process or standalone (`docs/engineering/running-the-apps.md`) |
+| Tests | 7,903 across packages and apps (client 2,023, provider 1,858, ui 1,486, testing 233, kit 90, mock 114, core 1,988, domain 88, api 23), each suite green when run on its own |
+| Contract | 16,677 checks, 0 errors; mock contract test 221 of 221 operations; engine cases 2,192; selector cases 156 |
 | Gates | `flutter analyze` clean on both apps, `bash tools/check-dart-rules.sh` ok, `pnpm l10n:check`, `node tools/gen-routes.mjs --check`, `pnpm flutter:edges` (51 of 52 partner screens reachable from the entry screens; the check lists HL-BOOK-02 as unreachable, to be looked at in the simulator pass) |
 | Proportions | client 67 of 83 screens under the 0.075 parity bar in both languages, 15 in review with geometry checks, 1 documented above; partner exceptions classified in `docs/engineering/requests.md` |
 | Simulator | done 2026-10-26: iPhone 17e (client) and iPhone 17 (partner); journeys J1 to J5 in English, Arabic and with semantics, cross-app J6 to J8 against one standalone mock, all pass; Android debug APKs build for both apps (no emulator run) |
 | Ledger | `docs/engineering/flutter-status.md` |
+
+Round 2 (owner decisions of 2026-10-29, ADR 0038, brief `docs/engineering/round2-change-brief.md`): governorates instead of areas, services independent of venues (no venue extras, booking in 4 steps), partner application form (public 'Apply to join' on the Partner sign-in, `submitPartnerApplication`, staff accept or reject), a visible provider note in the Client app, no guest mode (sign-in first, name and sex required). Applied to the prototype, the contract, the mock and both apps; journeys J1 to J10 pass headless and on the simulators (iPhone 17e client, iPhone 17 partner; keyboard journeys on the 17e) in English, Arabic and with semantics. A rose theme of the prototype (`#/?theme=rose`, token overlay, comparison toggle) exists for the owner's comparison; the Flutter apps stay gold (OQ-R2-12).
 
 ## Gates (run 2026-10-14)
 

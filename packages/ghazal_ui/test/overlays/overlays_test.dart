@@ -178,6 +178,20 @@ void main() {
       expect(tester.getSize(find.byType(GzSheet)).height, closeTo(h - 34, 1));
     });
 
+    testWidgets('keyboard: an in-between inset below zero or NaN (the iOS keyboard animation) does not break the sheet', (tester) async {
+      // Regression (device pass, 2026-10-29): a negative bottom padding is an assertion in RenderPadding.
+      await pumpNav(tester, _sheetOpener(title: null));
+      await _open(tester);
+      final bottom = tester.getRect(find.byType(GzSheet)).bottom;
+      for (final inset in <double>[-12, double.nan]) {
+        tester.view.viewInsets = FakeViewPadding(bottom: inset);
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 50));
+        expect(tester.takeException(), isNull, reason: 'inset $inset');
+        expect(tester.getRect(find.byType(GzSheet)).bottom, closeTo(bottom, 0.6), reason: 'the sheet stays down with inset $inset');
+      }
+    });
+
     testWidgets('keyboard: the sheet content stays mounted while the keyboard rises and leaves (a focused field keeps its focus)', (tester) async {
       // Regression (device pass, 2026-10-26): the keyboard wrapper of the sheet existed only while the keyboard was up, so the field in the
       // sheet was rebuilt as the keyboard rose, lost focus and the keyboard dropped again.
