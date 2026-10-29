@@ -6648,5 +6648,85 @@
     "phase": "MVP-P2",
     "designScope": true,
     "notes": "Replaces 60 s, 100 MB, 720p (OQ-T-15)."
+  },
+  {
+    "id": "CA-AUTH-13",
+    "app": "client",
+    "group": "AUTH",
+    "text": "There is no guest mode in the Client app: after the language screen and the introduction the person signs in with their phone before anything else is shown; there is no guest-gate sheet and no signed-out browsing.",
+    "source": "Owner round 2 2026-10-29 · ADR 0038",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": "Replaces the guest assumptions of ADR 0033 (owner-decisions item 8 is moot). The Partner app keeps its signed-out state for staff sign-in."
+  },
+  {
+    "id": "CA-AUTH-14",
+    "app": "client",
+    "group": "AUTH",
+    "text": "A new client account must give a name and sex (female or male) before the app opens; both are editable in Profile.",
+    "source": "Owner round 2 2026-10-29 · ADR 0038",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": "Working assumption OQ-R2-02: stored on the account, not shown to venues, not used to filter yet."
+  },
+  {
+    "id": "CA-ONB-10",
+    "app": "client",
+    "group": "ONB",
+    "text": "Onboarding does not ask for areas (the Preferred areas step is retired); the Brief is set from the date, guests and governorates.",
+    "source": "Owner round 2 2026-10-29 · ADR 0038",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": "Retires CL-ONBD-06."
+  },
+  {
+    "id": "CA-FLT-08",
+    "app": "client",
+    "group": "FLT",
+    "text": "Places are filtered by governorate only, in the Brief, Filters, Results and Vendors filters; the Client app has no exact-area selection. The governorate list is configuration (Kuwait's six governorates at start; the owner said about eight).",
+    "source": "Owner round 2 2026-10-29 · ADR 0038",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": "OQ-R2-01. Venues keep their area as an address line."
+  },
+  {
+    "id": "CA-SVC-19",
+    "app": "client",
+    "group": "SVC",
+    "text": "Additional services and facilities are not linked to a hotel or hall: no extras or add-on services in venue packages, no service suggestions or links on venue pages; the client picks service providers in the Services hub and requests a quote from them. The first release lists only services that Ghazal's venues do not provide.",
+    "source": "Owner round 2 2026-10-29 · ADR 0038",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": "Removes the governmental-facility 'Find catering and decor' link."
+  },
+  {
+    "id": "CA-SVC-20",
+    "app": "client",
+    "group": "SVC",
+    "text": "The Client app shows a small note for service providers pointing them to the Partner app to apply; the Client app has no application form.",
+    "source": "Owner round 2 2026-10-29 · ADR 0038",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": "OQ-R2-04: the note names the Partner app and links to its store page (configuration)."
+  },
+  {
+    "id": "PA-ACC-07",
+    "app": "provider",
+    "group": "ACC",
+    "text": "Service providers and private halls apply with a form in the Partner app carrying their business information; Ghazal staff accept or reject each application (the reason is shown on rejection) before the account can create listings.",
+    "source": "Owner round 2 2026-10-29 · ADR 0038",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": "OQ-R2-03 lists the working field set."
+  },
+  {
+    "id": "PA-ACC-08",
+    "app": "provider",
+    "group": "ACC",
+    "text": "The application form has an open note for a service that is not among the pre-registered categories; staff can add the category or reject the application.",
+    "source": "Owner round 2 2026-10-29 · ADR 0038",
+    "phase": "MVP-P1",
+    "designScope": true,
+    "notes": ""
   }
 ]

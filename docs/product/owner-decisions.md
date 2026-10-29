@@ -80,6 +80,10 @@ Written 2026-10-14. **Answered 2026-10-20 (round 1, ADR 0035): every item below 
 | 45 | WhatsApp sign-in codes: Meta directly or through a provider; who completes Meta business verification? No SMS is planned. | Sign-in cannot work without it. | Meta directly, started in week 0. | OQ-T-08, ADR 0028 | Decided 2026-10-20 (ADR 0035): keep WhatsApp OTP implemented without credentials; the Meta business account is being opened. |
 | 46 | Venue video limits (length, size, who pays delivery cost)? | Upload and cost design. | 60 seconds, 100 MB, 720p. | OQ-T-15 | Decided 2026-10-20 (ADR 0035): high quality allowed, 500 MB limit per video. |
 
+## Round 2 (2026-10-29, ADR 0038)
+
+Decided: governorates only (no exact areas) in the Client app; other services and facilities are independent of hotels (providers are chosen in the Services hub); service providers and private halls apply with a form in the Partner app that staff accept or reject, with an open note for unlisted services; a small note in the Client app points providers to the Partner app; no guest mode, name and sex required at sign-up. Item 8 of section 1 (do signed-out visitors see the voucher price) is moot: there are no signed-out visitors. Working assumptions to confirm: OQ-R2-01 (the governorate list, "about 8"), OQ-R2-02 (sex values and use), OQ-R2-03 (form fields), OQ-R2-04 (where the note points).
+
 ## Still open for the owner
 
 1. Delete the pirated archive `BookingSaaS v2.3 Nulled.rar` (section 0, item 1).
