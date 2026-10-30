@@ -20,6 +20,7 @@ Routes live in the URL hash (`#/play/...`, `#/frame/...`, `#/?theme=rose`), so n
    - **the repository root** (leave it empty or `./`): uses `vercel.json` at the root;
    - **`design`**: uses `design/vercel.json` (it runs the build from `../tools`). Then Settings, General, must have **Include source files outside of the Root Directory in the Build Step** switched on, because the build reads `packages/`, `docs/` and `tools/`.
    Error `Cannot find module '/vercel/path0/design/tools/vercel-build.mjs'` means the Root Directory is `design` while the Build Command is still the root one (`node tools/vercel-build.mjs`): clear the Build, Output and Install command overrides in the project settings (so the file is used), or set the Root Directory to the repository root.
+   `design/tools/vercel-build.mjs` is a shim: with Root Directory = `design` the old command `node tools/vercel-build.mjs` still works. Set the project's Output Directory to `dist` (Root Directory = `design`) or `design/dist` (Root Directory = repo root) if `vercel.json` is not picked up. Node.js: `design/package.json` pins `>=22 <25`; if a build log says Node 26 the pin is not on the deployed commit.
    If the install step cannot find pnpm, add the environment variable `ENABLE_EXPERIMENTAL_COREPACK=1` (the repo pins `pnpm@10.10.0` in `package.json`).
 4. Deploy. Every push then builds a preview; the production branch builds production.
 
