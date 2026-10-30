@@ -1,0 +1,24 @@
+# What a `vercel deploy` from this folder does NOT upload (the Git integration only sees committed files anyway).
+# The prototype build needs: design/, packages/{design-tokens,i18n,contracts}, docs/, tools/, the root package files and the lockfile.
+
+# Third-party archives dropped in the repo root: never upload (AGENTS.md hard rule)
+*.rar
+*.zip
+*.7z
+
+# The Flutter side and its Dart packages: not part of the web prototype
+apps/
+packages/ghazal_*/
+pubspec.yaml
+pubspec.lock
+
+# Local scratch, tool state, build output
+.claude/
+.dart_tool/
+**/build/
+design/.shots/
+**/.shots/
+design/dist/
+node_modules/
+.env
+.env.*

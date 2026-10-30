@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "pnpm -F design dev",
     "build": "pnpm -F design build",
+    "build:vercel": "node tools/vercel-build.mjs",
     "typecheck": "pnpm -r --if-present typecheck",
     "lint": "pnpm -F design lint",
     "lint:css": "pnpm -F design lint:css",
